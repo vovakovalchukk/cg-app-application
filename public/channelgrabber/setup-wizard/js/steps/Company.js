@@ -5,7 +5,7 @@ define([
     setupWizard,
     ajaxRequester
 ) {
-    function Company(notifications, saveUri)
+    function Company(notifications)
     {
         this.getSetupWizard = function()
         {
@@ -22,29 +22,16 @@ define([
             return notifications;
         };
 
-        this.getSaveUri = function()
-        {
-            return saveUri;
-        };
-
         var init = function()
         {
             this.registerSkipConfirmation()
                 .registerNextValidation()
-                .listenForManualEntryToggle()
-                .listenForSearchSelection()
-                .listenForVatToggle();
+                .removeSubmitButton();
         };
         init.call(this);
     }
 
-    Company.SELECTOR_FORM = '#setup-wizard-company-form';
-    Company.SELECTOR_TOGGLE = '.setup-wizard-company-address-toggle a';
-    Company.SELECTOR_SEARCH = '#setup-wizard-company-address-search';
-    Company.SELECTOR_ADDRESS = '#setup-wizard-company-address-fields';
-    Company.SELECTOR_VAT_TOGGLE = '#setup-wizard-company-vat-toggle';
-    Company.SELECTOR_VAT_NUMBER = '#setup-wizard-company-vat-number';
-    Company.SELECTOR_VAT_NOTICE = '#setup-wizard-company-vat-notice';
+    Company.SELECTOR_FORM = '#legalCompanyDetailsForm form';
 
     Company.prototype.registerSkipConfirmation = function()
     {
@@ -60,16 +47,16 @@ define([
         var self = this;
         this.getSetupWizard().registerNextCallback(function()
         {
-            if (!self.isFormValid()) {
-                return false;
-            }
             // Need to save the form which involves an asynchronous request so return a Promise
             return new Promise(function(resolve, reject)
             {
-                self.saveForm(function()
+                self.saveForm(function(success)
                 {
-                    self.getNotifications().success('Your details have been saved');
-                    resolve();
+                    if (success) {
+                        resolve();
+                    } else {
+                        reject(new Error('Form could not be saved'));
+                    }
                 });
             });
         });
@@ -77,96 +64,34 @@ define([
         return this;
     };
 
-    Company.prototype.isFormValid = function()
-    {
-        var errors = [];
-        $(Company.SELECTOR_FORM + ' .required').each(function()
-        {
-            var input = this;
-            if ($(input).val() != '') {
-                return true; // continue
-            }
-            var field = $(input).closest('label').find('.inputbox-label').text().replace(':', '');
-            errors.push(field + ' is required');
-        });
-        if (errors.length == 0) {
-            return true;
-        }
-
-        var errorMessage = errors.join('<br />');
-        this.getNotifications().error(errorMessage);
-        return false;
-    };
-
     Company.prototype.saveForm = function(callback)
     {
+        var self = this;
         this.getNotifications().notice('Saving details');
-        var data = {};
-        var formArray = $(Company.SELECTOR_FORM).serializeArray();
-        for (var index in formArray) {
-            var fieldData = formArray[index];
-            data[fieldData.name] = fieldData.value;
-        }
-        this.getAjaxRequester().sendRequest(this.getSaveUri(), data, callback);
-    };
 
-    Company.prototype.listenForManualEntryToggle = function()
-    {
-        var self = this;
-        $(Company.SELECTOR_TOGGLE).click(function()
-        {
-            self.toggleAddressFields();
-        });
-
-        if ($(Company.SELECTOR_FORM + ' input[name="address[address1]"').val() &&
-            $(Company.SELECTOR_FORM + ' input[name="address[addressPostcode]"').val()
-        ) {
-            self.toggleAddressFields();
-        }
-
-        return this;
-    };
-
-    Company.prototype.toggleAddressFields = function()
-    {
-        if ($(Company.SELECTOR_SEARCH).is(':visible')) {
-            $(Company.SELECTOR_SEARCH).hide();
-            $(Company.SELECTOR_ADDRESS).show();
-        } else {
-            $(Company.SELECTOR_SEARCH).show();
-            $(Company.SELECTOR_ADDRESS).hide();
-        }
-    };
-
-    Company.prototype.listenForSearchSelection = function()
-    {
-        var self = this;
-        $(Company.SELECTOR_SEARCH).on('select', function()
-        {
-            self.toggleAddressFields();
-        });
-
-        return this;
-    };
-
-    Company.prototype.listenForVatToggle = function()
-    {
-        $(Company.SELECTOR_VAT_TOGGLE).on('change', function()
-        {
-            var toggle = this;
-            if ($(toggle).is(':checked')) {
-                $(Company.SELECTOR_VAT_NOTICE + ' .notifications > div').removeClass('error').addClass('success');
-                $(Company.SELECTOR_VAT_NOTICE + ' .content').text('Your invoices will show VAT');
-                $(Company.SELECTOR_VAT_NUMBER).show();
-            } else {
-                $(Company.SELECTOR_VAT_NOTICE + ' .notifications > div').removeClass('success').addClass('error');
-                $(Company.SELECTOR_VAT_NOTICE + ' .content').text('Your invoices will not show VAT');
-                $(Company.SELECTOR_VAT_NUMBER).val('').hide();
+        $(Company.SELECTOR_FORM).ajaxSubmit({
+            "dataType": "json",
+            "success": function(data) {
+                self.getNotifications().success('Your details have been saved');
+                callback(true);
+            },
+            "error": function(request) {
+                var message = 'There was a problem saving the form, please try again';
+                if (request && request.responseText) {
+                    var json = $.parseJSON(request.responseText);
+                    if (json.display_exceptions && json.message) {
+                        message = json.message;
+                    }
+                }
+                self.getNotifications().error(message);
+                callback(false);
             }
         });
+    };
 
-        $(Company.SELECTOR_VAT_TOGGLE).trigger('change');
-
+    Company.prototype.removeSubmitButton = function()
+    {
+        $('#company-details-save').closest('.order-inputbox-holder').remove();
         return this;
     };
 

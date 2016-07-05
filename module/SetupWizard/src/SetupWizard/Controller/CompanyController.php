@@ -1,11 +1,9 @@
 <?php
 namespace SetupWizard\Controller;
 
-use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_Register\Company\Service as RegisterCompanyService;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use SetupWizard\Company\Service as CompanyService;
 use SetupWizard\Controller\Service as SetupService;
-use SetupWizard\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CompanyController extends AbstractActionController
@@ -17,41 +15,28 @@ class CompanyController extends AbstractActionController
     protected $setupService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var CompanyService */
-    protected $companyService;
-    /** @var JsonModelFactory */
-    protected $jsonModelFactory;
+    /** @var RegisterCompanyService */
+    protected $registerCompanyService;
 
     public function __construct(
         SetupService $setupService,
         ViewModelFactory $viewModelFactory,
-        CompanyService $companyService,
-        JsonModelFactory $jsonModelFactory
+        RegisterCompanyService $registerCompanyService
     ) {
         $this->setSetupService($setupService)
             ->setViewModelFactory($viewModelFactory)
-            ->setCompanyService($companyService)
-            ->setJsonModelFactory($jsonModelFactory);
+            ->setRegisterCompanyService($registerCompanyService);
     }
 
     public function indexAction()
     {
-        $rootOuId = $this->setupService->getActiveRootOuId();
+        $detailsForm = $this->registerCompanyService->getLegalCompanyDetailsView();
+
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/company/index')
-            ->setVariable('ou', $this->companyService->fetchOrganisationUnit($rootOuId))
-            ->setVariable('saveUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_COMPANY . '/' . static::ROUTE_COMPANY_SAVE));
+            ->addChild($detailsForm, 'detailsForm'); 
 
         return $this->setupService->getSetupView('Company Details', $view);
-    }
-
-    public function saveAction()
-    {
-        $rootOuId = $this->setupService->getActiveRootOuId();
-        $details = $this->params()->fromPost();
-        $this->companyService->saveCompanyDetails($rootOuId, $details);
-
-        return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 
     protected function setSetupService(SetupService $setupService)
@@ -66,15 +51,9 @@ class CompanyController extends AbstractActionController
         return $this;
     }
 
-    protected function setCompanyService(CompanyService $companyService)
+    protected function setRegisterCompanyService(RegisterCompanyService $registerCompanyService)
     {
-        $this->companyService = $companyService;
-        return $this;
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
+        $this->registerCompanyService = $registerCompanyService;
         return $this;
     }
 }

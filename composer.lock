@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ceb97d3b77ce92ffe315d4250ed74372",
-    "content-hash": "5052ed59978b228009d5cd65d372c591",
+    "hash": "9025e55ff6b1c38a420ff1947283e9e3",
+    "content-hash": "6c433be4447e9be5270cf2dde606c4b0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2387,16 +2387,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.0",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "72b17e20039ceafae3517d35c9991584b11fcda2"
+                "reference": "26789fab4c424834b215505024351ba79fce6cdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.0-62b42d.zip",
-                "reference": "72b17e20039ceafae3517d35c9991584b11fcda2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.1-1e34f3.zip",
+                "reference": "26789fab4c424834b215505024351ba79fce6cdd",
                 "shasum": null
             },
             "require": {
@@ -2434,7 +2434,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-06-28 08:06:27"
+            "time": "2016-07-05 13:04:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3174,27 +3174,29 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.44.1",
+            "version": "1.4.45",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "c6b6c7c7b676a2c34fa0ad02083177beddc6fc05"
+                "reference": "898efd72641939d3f79727fa1f965b87872281fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.44.1-893218.zip",
-                "reference": "c6b6c7c7b676a2c34fa0ad02083177beddc6fc05",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.45-112941.zip",
+                "reference": "898efd72641939d3f79727fa1f965b87872281fc",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
+                "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.21.2",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
+                "channelgrabber/zf2-v4-ui": "^1.16.57",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
@@ -3220,7 +3222,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-06-06 08:53:53"
+            "time": "2016-07-05 13:10:44"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3435,12 +3437,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c6d1e6ecdd9407e994f38c22d2341c8c1f597f88"
+                "reference": "25cb3b89479c7e72ce6157f14ce20220a749b0da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-fc7d90.zip",
-                "reference": "c6d1e6ecdd9407e994f38c22d2341c8c1f597f88",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-760a2a.zip",
+                "reference": "25cb3b89479c7e72ce6157f14ce20220a749b0da",
                 "shasum": null
             },
             "require": {
@@ -3487,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-30 11:10:32"
+            "time": "2016-07-05 13:25:13"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7673,8 +7675,8 @@
             "package": "channelgrabber/zf2-netdespatch"
         },
         {
-            "alias": "1.16.57",
-            "alias_normalized": "1.16.57.0",
+            "alias": "1.16.58",
+            "alias_normalized": "1.16.58.0",
             "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
             "package": "channelgrabber/zf2-v4-ui"
         }
