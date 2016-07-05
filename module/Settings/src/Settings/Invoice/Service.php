@@ -125,7 +125,7 @@ class Service
             'name' => 'Blank',
             'key' => 'blank',
             'invoiceId' => '',
-            'imageUrl' => '',
+            'imageUrl' => Module::PUBLIC_FOLDER . static::TEMPLATE_THUMBNAIL_PATH . 'blank.png',
             'links' => [
                 [
                     'name' => 'Create',
