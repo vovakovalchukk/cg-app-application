@@ -13,7 +13,7 @@ return [
                         'label' => 'Add Royal Mail',
                         'title' => 'Royal Mail',
                         'route' => Module::ROUTE . '/' . RoyalMailController::ROUTE_ROYAL_MAIL,
-                        'order' => 999,
+                        'order' => 30,
                         'sprite' => 'sprite-delivery-van-circle-25-white',
                         'link' => false,
                     ],
