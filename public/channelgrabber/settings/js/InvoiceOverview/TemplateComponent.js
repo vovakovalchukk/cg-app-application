@@ -29,7 +29,8 @@ define([
                 return imageElement;
             }
             this.props.links.forEach(function(element) {
-                if (element.name.toLowerCase() == 'create') {
+                var linkName = element.name.toLowerCase();
+                if (linkName == 'create' || linkName == 'edit') {
                     imageElement = React.createElement("a", element.properties, imageElement);
                     return false; // break
                 }
