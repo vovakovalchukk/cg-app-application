@@ -3,7 +3,6 @@ namespace SetupWizard\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
-use SetupWizard\Company\Service as CompanyService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Account\Client\Service as AccountService;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
@@ -18,8 +17,6 @@ class RoyalMailController extends AbstractActionController
     protected $setupService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var CompanyService */
-    protected $companyService;
     /** @var AccountService */
     protected $accountService;
     /** @var AccountCreationService */
@@ -28,13 +25,11 @@ class RoyalMailController extends AbstractActionController
     public function __construct(
         SetupService $setupService,
         ViewModelFactory $viewModelFactory,
-        CompanyService $companyService,
         AccountService $accountService,
         AccountCreationService $accountCreationService
     ) {
         $this->setSetupService($setupService)
             ->setViewModelFactory($viewModelFactory)
-            ->setCompanyService($companyService)
             ->setAccountService($accountService)
             ->setAccountCreationService($accountCreationService);
     }
@@ -79,15 +74,6 @@ class RoyalMailController extends AbstractActionController
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setCompanyService(CompanyService $companyService)
-    {
-        $this->companyService = $companyService;
         return $this;
     }
 
