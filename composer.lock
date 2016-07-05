@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1a103d4386297933c1886144b550ed86",
-    "content-hash": "afe0b7bdb83988b4ae426d487762cd9b",
+    "hash": "17febc4ca776b153f774cf46ecc23b7a",
+    "content-hash": "cbb4ee45b81754ba4d5f0067563eb564",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.17.13",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "14128fa2781c360b4df5a798f54564cdbbf10790"
+                "reference": "8d47c82d3148bc4bfcb8e031f2ac216a25cd93f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.13-2f4b6c.zip",
-                "reference": "14128fa2781c360b4df5a798f54564cdbbf10790",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7109-courier-booking-options-per-service-32578f.zip",
+                "reference": "8d47c82d3148bc4bfcb8e031f2ac216a25cd93f8",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.22.2",
+                "channelgrabber/channel": "dev-CGIV-7109-courier-booking-options-per-service as 1.25.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-05-03 08:11:31"
+            "time": "2016-07-05 14:30:59"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.5",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d0d47d2e69a8f0e67e46ba1fe187c77552eb44df"
+                "reference": "192158f195e8e16d98b081e8b7a6e5c1c62be62d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.5-31a3ff.zip",
-                "reference": "d0d47d2e69a8f0e67e46ba1fe187c77552eb44df",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7109-courier-booking-options-per-service-393dad.zip",
+                "reference": "192158f195e8e16d98b081e8b7a6e5c1c62be62d",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-28 12:35:53"
+            "time": "2016-07-05 14:27:41"
         },
         {
             "name": "channelgrabber/cilex",
@@ -489,20 +489,20 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "1.2.7",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "2c94691e8228eb86d8f8d3c61200c8533e611fdd"
+                "reference": "b06e6744df082fadae7e7ea5500f8547d7047584"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.7-cf395d.zip",
-                "reference": "2c94691e8228eb86d8f8d3c61200c8533e611fdd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7109-courier-booking-options-per-service-8b409c.zip",
+                "reference": "b06e6744df082fadae7e7ea5500f8547d7047584",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.22.2",
+                "channelgrabber/channel": "dev-CGIV-7109-courier-booking-options-per-service as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-05-12 07:43:52"
+            "time": "2016-07-05 14:36:43"
         },
         {
             "name": "channelgrabber/db",
@@ -1168,20 +1168,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.10",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "58a359b7984905b270f6959fb24e82018e84309b"
+                "reference": "c98769e2bbcf6f8762e0e322fd4eb281c42202dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.10-c06aa1.zip",
-                "reference": "58a359b7984905b270f6959fb24e82018e84309b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7109-courier-booking-options-per-service-36f124.zip",
+                "reference": "c98769e2bbcf6f8762e0e322fd4eb281c42202dd",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.24.2",
+                "channelgrabber/channel": "dev-CGIV-7109-courier-booking-options-per-service as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
@@ -1219,7 +1219,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-06-14 15:12:04"
+            "time": "2016-07-05 14:31:14"
         },
         {
             "name": "channelgrabber/notification",
@@ -7667,10 +7667,39 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.15",
+            "alias_normalized": "1.17.15.0",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.25.0",
+            "alias_normalized": "1.25.0.0",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.2.8",
+            "alias_normalized": "1.2.8.0",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "package": "channelgrabber/dataplug"
+        },
+        {
+            "alias": "1.0.11",
+            "alias_normalized": "1.0.11.0",
+            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "package": "channelgrabber/netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/dataplug": 20,
+        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
