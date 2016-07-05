@@ -84,6 +84,9 @@
 }
 
 .setup-wizard-footer {
+    /* Allow space for the Intercom widget */
+    margin-bottom: 40px;
+
     .button {
         float: right;
         margin-left: 10px;
