@@ -350,9 +350,9 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function getCarrierOptions(Account $account)
+    protected function getCarrierOptions(Account $account, $serviceCode = null)
     {
-        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account);
+        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
     /**
@@ -381,7 +381,7 @@ class Service implements LoggerAwareInterface
         $products = $this->getProductsForOrders($orders, $rootOu);
         $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         $labels = $this->getOrderLabelsForOrders($orders);
-        $options = $this->getCarrierOptions($courierAccount);
+        $carrierOptions = $this->getCarrierOptions($courierAccount);
         foreach ($orders as $order) {
             $orderData = $this->getCommonOrderListData($order, $rootOu);
             unset($orderData['courier']);
@@ -391,12 +391,13 @@ class Service implements LoggerAwareInterface
                 $orderLabels->rewind();
                 $orderLabel = $orderLabels->current();
             }
-            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
+            $options = $this->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
+            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
-            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options);
+            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions);
             $parcelsData = $this->getParcelOrderListData($order, $options, $orderData, $parcelsInputData);
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
@@ -487,7 +488,8 @@ class Service implements LoggerAwareInterface
         array $orderData,
         ProductCollection $products,
         ProductDetailCollection $productDetails,
-        array $options
+        array $options,
+        array $carrierOptions
     ) {
         $itemsData = [];
         $itemCount = 0;
@@ -501,6 +503,7 @@ class Service implements LoggerAwareInterface
             $specificsItemData['itemRow'] = true;
             $specificsItemData['showWeight'] = true;
             $specificsItemData['labelStatus'] = $orderData['labelStatus'];
+            $specificsItemData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
         }
@@ -556,6 +559,19 @@ class Service implements LoggerAwareInterface
             return '';
         }
         return $value;
+    }
+
+    protected function getFieldsRequirementStatus(array $serviceOptions, array $carrierOptions)
+    {
+        $fieldsRequiredStatus = [];
+        $notRequiredFields = array_diff($carrierOptions, $serviceOptions);
+        $notRequiredFieldsKeyed = array_flip($notRequiredFields);
+
+        foreach ($carrierOptions as $option) {
+            $fieldsRequiredStatus[$option] = (!isset($notRequiredFieldsKeyed[$option]));
+        }
+
+        return $fieldsRequiredStatus;
     }
 
     protected function getParcelOrderListData(Order $order, array $options, array $orderData, array $parcelsInputData)

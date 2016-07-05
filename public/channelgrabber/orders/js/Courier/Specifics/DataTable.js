@@ -45,7 +45,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
             self.addOrderIdsToAjaxRequest()
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
-                .disableInputsForCreatedLabels();
+                .disableInputsForCreatedLabels()
+                .disableInputsForNonRequiredOptions();
         });
         dataTable.on('fnPreDrawCallback', function()
         {
@@ -295,6 +296,25 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
     });
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = function()
+{
+    this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
+    {
+        var orderId = aData.orderId;
+        var parcelNumber = (typeof aData.parcelNumber != 'undefined' ? aData.parcelNumber : 0);
+        for (var name in aData.requiredFields) {
+            var selector = 'input[name="orderData['+orderId+']['+name+']"], input[name^="parcelData['+orderId+']['+parcelNumber+']['+name+']"]';
+            if (aData.requiredFields[name]) {
+                $(nRow).find(selector).attr('disabled', '').removeClass('disabled').addClass('required');
+            } else {
+                $(nRow).find(selector).attr('disabled', 'disabled').removeClass('required').addClass('disabled');
+            }
+        }
+    });
+    return this;
 };
 
 CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
