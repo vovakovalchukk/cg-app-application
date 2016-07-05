@@ -19,11 +19,27 @@ define([
             }
             return linkElements;
         },
+        generateImageElement: function()
+        {
+            if (!this.props.imageUrl) {
+                return null;
+            }
+            var imageElement = React.createElement("img", {src: this.props.imageUrl});
+            if (!this.props.links) {
+                return imageElement;
+            }
+            this.props.links.forEach(function(element) {
+                if (element.name.toLowerCase() == 'create') {
+                    imageElement = React.createElement("a", element.properties, imageElement);
+                    return false; // break
+                }
+            });
+            return imageElement;
+        },
         render: function() {
             var linkElements = this.generateLinkElements();
-            if (this.props.imageUrl) {
-                var imageElement = React.createElement("img", {src: this.props.imageUrl});
-            }
+            var imageElement = this.generateImageElement();
+
             var output = React.createElement(
                 "div",
                 {className: 'invoice-template-element'},
