@@ -8,15 +8,17 @@ use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
 use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
 use CG\Account\Shared\Manifest\Status as AccountManifestStatus;
-use CG\Dataplug\Carriers;
-use CG\Dataplug\Carrier\Service as CarrierService;
-use CG\Dataplug\Manifest\Service as DataplugManifestService;
+use CG\Channel\CarrierBookingOptionsInterface;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use Orders\Courier\GetShippingAccountsTrait;
+use DateTime;
 use Orders\Courier\GetShippingAccountOptionsTrait;
+use Orders\Courier\GetShippingAccountsTrait;
 
 class Service
 {
@@ -29,29 +31,29 @@ class Service
     protected $accountService;
     /** @var UserOUService */
     protected $userOuService;
-    /** @var CarrierService */
-    protected $carrierService;
-    /** @var DataplugManifestService */
-    protected $dataplugManifestService;
+    /** @var CarrierBookingOptionsInterface */
+    protected $carrierBookingOptions;
     /** @var AccountManifestMapper */
     protected $accountManifestMapper;
     /** @var AccountManifestService */
     protected $accountManifestService;
+    /** @var OrderLabelService */
+    protected $orderLabelService;
 
     public function __construct(
         AccountService $accountService,
         UserOUService $userOuService,
-        CarrierService $carrierService,
-        DataplugManifestService $dataplugManifestService,
+        CarrierBookingOptionsInterface $carrierBookingOptions,
         AccountManifestMapper $accountManifestMapper,
-        AccountManifestService $accountManifestService
+        AccountManifestService $accountManifestService,
+        OrderLabelService $orderLabelService
     ) {
         $this->setAccountService($accountService)
             ->setUserOuService($userOuService)
-            ->setCarrierService($carrierService)
-            ->setDataplugManifestService($dataplugManifestService)
+            ->setCarrierBookingOptions($carrierBookingOptions)
             ->setAccountManifestMapper($accountManifestMapper)
-            ->setAccountManifestService($accountManifestService);
+            ->setAccountManifestService($accountManifestService)
+            ->setOrderLabelService($orderLabelService);
     }
 
     public function getShippingAccounts()
@@ -60,11 +62,9 @@ class Service
         $manifestableAccounts = new AccountCollection(Account::class, __FUNCTION__);
         foreach ($accounts as $account)
         {
-            if (!$this->carrierService->isProvidedChannel($account->getChannel())) {
-                continue;
-            }
-            $carrier = $this->carrierService->getCarrierForAccount($account);
-            if (!$carrier->getAllowsManifesting()) {
+            if (!$this->carrierBookingOptions->isProvidedAccount($account)
+                || !$this->carrierBookingOptions->isManifestingAllowedForAccount($account)
+            ) {
                 continue;
             }
             $manifestableAccounts->attach($account);
@@ -76,18 +76,10 @@ class Service
     {
         $shippingAccounts = $this->getShippingAccounts();
         $selectedAccountId = null;
-        // If there's only one account select it, otherwise select OBA if present
+        // If there's only one account select it
         if (count($shippingAccounts) == 1) {
             $shippingAccounts->rewind();
             $selectedAccountId = $shippingAccounts->current()->getId();
-        } else {
-            foreach ($shippingAccounts as $shippingAccount) {
-                $carrier = $this->carrierService->getCarrierForAccount($shippingAccount);
-                if ($carrier->getChannelName() == Carriers::ROYAL_MAIL_OBA) {
-                    $selectedAccountId = $shippingAccount->getId();
-                    break;
-                }
-            }
         }
         return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
@@ -98,17 +90,52 @@ class Service
     public function getDetailsForShippingAccount($accountId)
     {
         $account = $this->accountService->fetch($accountId);
-        $carrier = $this->carrierService->getCarrierForAccount($account);
-
-        $dataplugManifests = $this->dataplugManifestService->retrieveDataplugManifestsForAccount($account);
-        $openOrders = $this->dataplugManifestService->getOpenOrderCountFromRetrieveResponse($dataplugManifests, $account);
-        $latestManifestDate = $this->dataplugManifestService->getLatestManifestDateFromRetrieveResponse($dataplugManifests);
+        $latestManifestDate = $this->getLatestManifestDateForShippingAccount($account);
+        $openOrders = $this->getOpenOrderCountForAccount($account, $latestManifestDate);
 
         return [
             'openOrders' => $openOrders,
-            'oncePerDay' => $carrier->getManifestOncePerDay(),
-            'manifestedToday' => ($latestManifestDate != null && date('Y-m-d', strtotime($latestManifestDate)) == date('Y-m-d')),
+            'oncePerDay' => $this->carrierBookingOptions->isManifestingOnlyAllowedOncePerDayForAccount($account),
+            'manifestedToday' => ($latestManifestDate != null && $latestManifestDate->format('Y-m-d') == date('Y-m-d')),
         ];
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    protected function getLatestManifestDateForShippingAccount(Account $account)
+    {
+        try {
+            $filter = (new AccountManifestFilter())
+                ->setLimit(1)
+                ->setPage(1)
+                ->setAccountId($account->getId())
+                ->setOrderBy('created')
+                ->setOrderDirection('DESC');
+            $manifests = $this->accountManifestService->fetchCollectionByFilter($filter);
+            $manifests->rewind();
+            return new DateTime($manifests->current()->getCreated());
+
+        } catch (NotFound $e) {
+            return null;
+        }
+    }
+
+    protected function getOpenOrderCountForAccount(Account $account, DateTime $latestManifestDate)
+    {
+        try {
+            $filter = (new OrderLabelFilter())
+                ->setLimit(1)
+                ->setPage(1)
+                ->setShippingAccountId($account->getId())
+                ->setStatus(OrderLabelStatus::getPrintableStatuses())
+                ->setCreatedFrom($latestManifestDate->format(StdlibDateTime::FORMAT));
+            $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
+            return $orderLabels->getTotal();
+
+        } catch (NotFound $e) {
+            return 0;
+        }
     }
 
     protected function getHistoricManifestPeriods(
@@ -248,15 +275,9 @@ class Service
         return $this;
     }
 
-    protected function setCarrierService(CarrierService $carrierService)
+    protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
     {
-        $this->carrierService = $carrierService;
-        return $this;
-    }
-
-    protected function setDataplugManifestService(DataplugManifestService $dataplugManifestService)
-    {
-        $this->dataplugManifestService = $dataplugManifestService;
+        $this->carrierBookingOptions = $carrierBookingOptions;
         return $this;
     }
 
@@ -269,6 +290,12 @@ class Service
     protected function setAccountManifestService(AccountManifestService $accountManifestService)
     {
         $this->accountManifestService = $accountManifestService;
+        return $this;
+    }
+
+    protected function setOrderLabelService(OrderLabelService $orderLabelService)
+    {
+        $this->orderLabelService = $orderLabelService;
         return $this;
     }
 

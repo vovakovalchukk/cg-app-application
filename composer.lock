@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0cc3a03b65bc6e03dc468a6c3f250165",
-    "content-hash": "0373e2750e3cc27e41e51f85b4b5dbc3",
+    "hash": "9ff780199d1c285dd4a6788525ac5725",
+    "content-hash": "68be0c654ab779b9ea681e3855137a82",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
+            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "291a33476579251486b6ce8a24417440f3020fe1"
+                "reference": "a369eb5bbefc3e5ca1b0f510bd1fdd877f7075d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7108-integrate-courier-adapters-bd694b.zip",
-                "reference": "291a33476579251486b6ce8a24417440f3020fe1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7110-courier-manifesting-for-all-providers-3cea27.zip",
+                "reference": "a369eb5bbefc3e5ca1b0f510bd1fdd877f7075d8",
                 "shasum": null
             },
             "require": {
@@ -366,7 +366,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-CGIV-7110-courier-manifesting-for-all-providers": "1.25.0-dev"
                 }
             },
             "autoload": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-06 13:30:45"
+            "time": "2016-07-06 15:21:11"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1271,16 +1271,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.8",
+            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "73f7f5499fc59efe0cbb594c8e338c149532adb9"
+                "reference": "a15b9d84cd0704fd82175f56cdd3de9ffd7642e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.8-2f817f.zip",
-                "reference": "73f7f5499fc59efe0cbb594c8e338c149532adb9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7110-courier-manifesting-for-all-providers-863a70.zip",
+                "reference": "a15b9d84cd0704fd82175f56cdd3de9ffd7642e6",
                 "shasum": null
             },
             "require": {
@@ -1344,7 +1344,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-28 08:14:59"
+            "time": "2016-07-07 07:55:05"
         },
         {
             "name": "channelgrabber/permission",
@@ -7675,9 +7675,9 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.25.0",
-            "alias_normalized": "1.25.0.0",
-            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
+            "alias": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
+            "alias_normalized": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
+            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
             "package": "channelgrabber/channel"
         },
         {
@@ -7691,6 +7691,12 @@
             "alias_normalized": "1.0.11.0",
             "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/netdespatch"
+        },
+        {
+            "alias": "1.23.9",
+            "alias_normalized": "1.23.9.0",
+            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
@@ -7700,6 +7706,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/dataplug": 20,
         "channelgrabber/netdespatch": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
