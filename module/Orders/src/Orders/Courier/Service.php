@@ -666,16 +666,6 @@ class Service implements LoggerAwareInterface
 
     protected function sortSpecificsListData(array $data, Account $courierAccount)
     {
-        $carrierOptions = $this->getCarrierOptions($courierAccount);
-        $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $carrierOptions);
-        // service field is always required and can ocassionally get unset if the chosen service is not available
-        $orderRequiredFields[] = 'service';
-        $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $carrierOptions);
-        return $this->sortOrderListData($data, $orderRequiredFields, $parcelRequiredFields);
-    }
-
-    protected function sortOrderListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
-    {
         // Separate out the fully pre-filled rows from those still requiring input
         $preFilledRows = [];
         $inputRequiredRows = [];
@@ -683,7 +673,11 @@ class Service implements LoggerAwareInterface
         foreach ($orderRows as $orderId => $rows) {
             $complete = true;
             foreach ($rows as $row) {
+                $options = $this->getCarrierOptions($courierAccount, (isset($row['service']) ? $row['service'] : null));
                 if (isset($row['orderRow']) && $row['orderRow']) {
+                    $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $options);
+                    // service field is always required and can ocassionally get unset if the chosen service is not available
+                    $orderRequiredFields[] = 'service';
                     foreach ($orderRequiredFields as $field) {
                         if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
@@ -692,6 +686,7 @@ class Service implements LoggerAwareInterface
                     }
                 }
                 if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $options);
                     foreach ($parcelRequiredFields as $field) {
                         if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
