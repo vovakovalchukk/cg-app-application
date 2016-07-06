@@ -246,10 +246,10 @@ define([
         if ($(input).hasClass('required') && !value) {
             return false;
         }
-        if (($(input).hasClass('number') || $(input).attr('type') == 'number') && parseFloat(value) === NaN) {
+        if (($(input).hasClass('number') || $(input).attr('type') == 'number') && value && parseFloat(value) === NaN) {
             return false;
         }
-        if ($(input).hasClass('courier-order-collectionDate') && !value.match(/\d{2}\/\d{2}\/\d{4}/)) {
+        if ($(input).hasClass('datepicker') && value && !value.match(/\d{2}\/\d{2}\/\d{4}/)) {
             return false;
         }
         return true;
