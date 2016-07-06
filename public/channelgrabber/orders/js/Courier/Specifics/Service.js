@@ -111,6 +111,7 @@ define([
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
     Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
+    Service.URI_SERVICE_REQ_OPTIONS = '/orders/courier/specifics/{accountId}/options';
     Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
 
     Service.prototype.listenForTableLoad = function()
@@ -157,13 +158,29 @@ define([
 
     Service.prototype.serviceChanged = function(orderId, service)
     {
-        var selector = Service.SELECTOR_SERVICE_PREFIX + orderId;
-        var rowElement = $(selector).parent().parent();
-        this.applyServiceSpecificOptionsToRow(rowElement, service);
-    };
-
-    Service.prototype.applyServiceSpecificOptionsToRow = function(rowElement, service)
-    {
+        var uri = Service.URI_SERVICE_REQ_OPTIONS.replace('{accountId}', this.getCourierAccountId());
+        var data = {"order": orderId, "service": service};
+        this.getAjaxRequester().sendRequest(uri, data, function(response)
+        {
+            var table = $(Service.SELECTOR_SERVICE_PREFIX + orderId).closest('table');
+            for (var name in response.requiredFields) {
+                var selector = 'input[name="orderData['+orderId+']['+name+']"]'
+                    + ', input[name^="parcelData['+orderId+']"][name$="['+name+']"]'
+                    + ', input[name^="itemData['+orderId+']"][name$="['+name+']"]';
+                var elements = table.find(selector);
+                if (response.requiredFields[name]) {
+                    elements.removeAttr('disabled').removeClass('disabled').addClass('required');
+                    if (elements.parent().hasClass('custom-select')) {
+                        elements.parent().removeClass('disabled');
+                    }
+                } else {
+                    elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');
+                    if (elements.parent().hasClass('custom-select')) {
+                        elements.parent().addClass('disabled');
+                    }
+                }
+            }
+        });
     };
 
     Service.prototype.parcelsChangedForOrder = function(orderId)

@@ -769,6 +769,14 @@ class Service implements LoggerAwareInterface
         return $orderMetaData;
     }
 
+    public function getCarrierOptionsForService($orderId, $accountId, $service)
+    {
+        $account = $this->accountService->fetch($accountId);
+        $carrierOptions = $this->getCarrierOptions($account);
+        $serviceOptions = $this->getCarrierOptions($account, $service);
+        return $this->getFieldsRequirementStatus($serviceOptions, $carrierOptions);
+    }
+
     public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
     {
         $order = $this->orderService->fetch($orderId);
