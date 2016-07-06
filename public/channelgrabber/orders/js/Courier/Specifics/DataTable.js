@@ -305,10 +305,13 @@ CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = functio
     {
         var orderId = aData.orderId;
         var parcelNumber = (typeof aData.parcelNumber != 'undefined' ? aData.parcelNumber : 0);
+        var itemId = (typeof aData.itemId != 'undefined' ? aData.itemId : 0);
         for (var name in aData.requiredFields) {
-            var selector = 'input[name="orderData['+orderId+']['+name+']"], input[name^="parcelData['+orderId+']['+parcelNumber+']['+name+']"]';
+            var selector = 'input[name="orderData['+orderId+']['+name+']"]'
+                + ', input[name="parcelData['+orderId+']['+parcelNumber+']['+name+']"]'
+                + ', input[name="itemData['+orderId+']['+itemId+']['+name+']"]';
             if (aData.requiredFields[name]) {
-                $(nRow).find(selector).attr('disabled', '').removeClass('disabled').addClass('required');
+                $(nRow).find(selector).removeAttr('disabled').removeClass('disabled').addClass('required');
             } else {
                 $(nRow).find(selector).attr('disabled', 'disabled').removeClass('required').addClass('disabled');
             }
