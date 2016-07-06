@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "17febc4ca776b153f774cf46ecc23b7a",
-    "content-hash": "cbb4ee45b81754ba4d5f0067563eb564",
+    "hash": "89a12fb0b52a1b4cff21bf99db92585e",
+    "content-hash": "80d538b1e36ce8f0f631d1b685de73f0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8d47c82d3148bc4bfcb8e031f2ac216a25cd93f8"
+                "reference": "331c0b358d0b2de5c23e102e8ec1ae8cfbd4b07f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7109-courier-booking-options-per-service-32578f.zip",
-                "reference": "8d47c82d3148bc4bfcb8e031f2ac216a25cd93f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7109-courier-booking-options-per-service-f524bd.zip",
+                "reference": "331c0b358d0b2de5c23e102e8ec1ae8cfbd4b07f",
                 "shasum": null
             },
             "require": {
@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "192158f195e8e16d98b081e8b7a6e5c1c62be62d"
+                "reference": "291a33476579251486b6ce8a24417440f3020fe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7109-courier-booking-options-per-service-393dad.zip",
-                "reference": "192158f195e8e16d98b081e8b7a6e5c1c62be62d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7109-courier-booking-options-per-service-bd694b.zip",
+                "reference": "291a33476579251486b6ce8a24417440f3020fe1",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-05 14:27:41"
+            "time": "2016-07-06 13:30:45"
         },
         {
             "name": "channelgrabber/cilex",
@@ -493,12 +493,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "b06e6744df082fadae7e7ea5500f8547d7047584"
+                "reference": "0afe9651fb3b2a9cf3e635fc1a5c8ad7bc15e8ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7109-courier-booking-options-per-service-8b409c.zip",
-                "reference": "b06e6744df082fadae7e7ea5500f8547d7047584",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7109-courier-booking-options-per-service-6c6ee8.zip",
+                "reference": "0afe9651fb3b2a9cf3e635fc1a5c8ad7bc15e8ca",
                 "shasum": null
             },
             "require": {
@@ -1172,12 +1172,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "c98769e2bbcf6f8762e0e322fd4eb281c42202dd"
+                "reference": "5fe42377eb08b9022b330db6fca01a1aea5b29d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7109-courier-booking-options-per-service-36f124.zip",
-                "reference": "c98769e2bbcf6f8762e0e322fd4eb281c42202dd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7109-courier-booking-options-per-service-974463.zip",
+                "reference": "5fe42377eb08b9022b330db6fca01a1aea5b29d6",
                 "shasum": null
             },
             "require": {

@@ -427,7 +427,7 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
-        $cancellable = $this->carrierBookingOptions->isCancellationAllowedForAccount($courierAccount);
+        $cancellable = $this->carrierBookingOptions->isCancellationAllowedForOrder($courierAccount, $order);
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
