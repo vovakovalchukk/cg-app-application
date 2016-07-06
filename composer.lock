@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f5d72f6a2b5116c2fb03e37df9552e2",
-    "content-hash": "fb6fa88a9da9faf0eec41372c6b35646",
+    "hash": "4458effc22c23f19fd52c22d98a8ba66",
+    "content-hash": "d5b527baf11671321307d1e858897894",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2230,16 +2230,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9bb5a4af9f2cdc0956a121cd5a80b75ce7824acb"
+                "reference": "55965e393d101db8a0d4054cd856a588e3270f3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6919-Invoice-creator-page-modifications-4889b8.zip",
-                "reference": "9bb5a4af9f2cdc0956a121cd5a80b75ce7824acb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.8-d040f4.zip",
+                "reference": "55965e393d101db8a0d4054cd856a588e3270f3b",
                 "shasum": null
             },
             "require": {
@@ -2282,7 +2282,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-07-05 10:39:49"
+            "time": "2016-07-06 09:32:57"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3433,16 +3433,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
+            "version": "1.16.59",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "82d3a37d77a3202b97455c3ecaa586f2608076e7"
+                "reference": "cb1e921992bdbe16dd7a8775e7feaf170689ce9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6919-Invoice-creator-page-modifications-8283cf.zip",
-                "reference": "82d3a37d77a3202b97455c3ecaa586f2608076e7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.59-7fcee2.zip",
+                "reference": "cb1e921992bdbe16dd7a8775e7feaf170689ce9a",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-06 07:54:15"
+            "time": "2016-07-06 09:33:14"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7667,25 +7667,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.8",
-            "alias_normalized": "1.4.8.0",
-            "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
-            "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.16.59",
-            "alias_normalized": "1.16.59.0",
-            "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
