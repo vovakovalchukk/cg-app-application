@@ -108,7 +108,7 @@ return [
                     ], [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
-                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE
                     ],
                 ]
             ],
@@ -415,6 +415,26 @@ return [
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'design',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    InvoiceController::ROUTE_DESIGNER_ID => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/id/:templateId',
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ],
+                            ],
+                            InvoiceController::ROUTE_TEMPLATES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/templates',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'existingInvoiceTemplates'
                                     ]
                                 ],
                             ],

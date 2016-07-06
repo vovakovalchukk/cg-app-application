@@ -1,0 +1,21 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'InvoiceOverview': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceOverview';?>"
+        }
+    });
+    require(['InvoiceOverview/InvoiceOverview'], function(InvoiceOverview)
+    {
+        var mountingNode = document.getElementById('invoice-overview-mount');
+        var invoiceData = '<?= $invoiceData ?>';
+        new InvoiceOverview(mountingNode, invoiceData);
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="invoiceOverview">
+    <form>
+        <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
+        <div id="invoice-overview-mount"></div>
+    </form>
+</div>

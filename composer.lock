@@ -2230,16 +2230,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.7",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ce108ac9eb60fa8e3eccfd948b577c4da18eb535"
+                "reference": "55965e393d101db8a0d4054cd856a588e3270f3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.7-28a1e2.zip",
-                "reference": "ce108ac9eb60fa8e3eccfd948b577c4da18eb535",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.8-d040f4.zip",
+                "reference": "55965e393d101db8a0d4054cd856a588e3270f3b",
                 "shasum": null
             },
             "require": {
@@ -2282,7 +2282,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-06-28 08:24:57"
+            "time": "2016-07-06 09:32:57"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3433,16 +3433,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.58",
+            "version": "1.16.59",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fa89e181c56895c3af5675b243ecb4653a225af4"
+                "reference": "cb1e921992bdbe16dd7a8775e7feaf170689ce9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.58-391d9a.zip",
-                "reference": "fa89e181c56895c3af5675b243ecb4653a225af4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.59-7fcee2.zip",
+                "reference": "cb1e921992bdbe16dd7a8775e7feaf170689ce9a",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-06 07:40:42"
+            "time": "2016-07-06 09:33:14"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

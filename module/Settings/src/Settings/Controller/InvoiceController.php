@@ -32,6 +32,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE = 'Invoice';
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
+    const ROUTE_DESIGNER_ID = 'Invoice Designer View';
+    const ROUTE_TEMPLATES = 'Invoice Templates';
+    const ROUTE_TEMPLATES_NEW = 'Invoice Templates New';
+    const ROUTE_TEMPLATES_EXISTING = 'Invoice Templates Existing';
     const ROUTE_AJAX = 'Ajax';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
@@ -84,7 +88,16 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function indexAction()
     {
-        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING);
+        $invoiceSettings = $this->getInvoiceService()->getSettings();
+        $existingInvoices = $this->getInvoiceService()->getExistingInvoicesForView();
+
+        $view = $this->getViewModelFactory()->newInstance()
+            ->setVariable('invoiceSettings', $invoiceSettings)
+            ->setVariable('invoiceData', json_encode($existingInvoices))
+            ->setVariable('eTag', $invoiceSettings->getStoredETag());
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
+        return $view;
     }
 
     public function saveMappingAction()
@@ -206,9 +219,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $showToPdfButton = $this->getConfig()->get('CG')->get('Settings')->get('show_to_pdf_button');
 
         $view = $this->getViewModelFactory()->newInstance();
-        $view->addChild($this->getTemplateSelectView(), 'templates');
-        $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
-        $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
+
+        $template = $this->params()->fromRoute('templateId');
+        $view->setVariable("templateId", $template);
+
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
         $view->addChild($this->getTemplateNameInputView(), 'templateName');

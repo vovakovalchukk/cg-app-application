@@ -30,12 +30,15 @@ define([
         };
     };
 
-    Application.prototype.init = function(organisationUnitId)
+    Application.prototype.init = function(organisationUnitId, templateId)
     {
+        if (typeof templateId === 'undefined') {
+            templateId = null;
+        }
         this.setOrganisationUnitId(organisationUnitId);
         var modules = this.getModules();
         for (var key in modules) {
-            modules[key].init(this);
+            modules[key].init(this, templateId);
         }
     };
 
