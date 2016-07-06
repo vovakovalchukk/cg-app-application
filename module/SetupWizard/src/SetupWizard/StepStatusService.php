@@ -27,7 +27,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_NAME_PREFIX = 'Setup ';
     const LOG_CODE = 'SetupStepStatus';
     const LOG_STATUS = 'User %d (OU %d) %s setup step \'%s\'';
-    const LOG_COMPLETE = 'User %d (OU %d) has completed the setup wizard %s';
     const LOG_LAST_STEP = 'User %d (OU %d) was on setup step \'%s\', will redirect';
     const LOG_NO_STEPS = 'User %d (OU %d) has not been through setup yet, will redirect';
     const LOG_WHITELIST = 'User %d (OU %d) hasn\'t completed the setup wizard but the current route is whitelisted, allowing';
@@ -166,7 +165,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     {
         $session = $this->sessionManager->getStorage();
         if (isset($session['setup'], $session['setup']['complete']) && $session['setup']['complete'] == true) {
-            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, '(cached)'], [static::LOG_CODE, 'Complete', 'Cached']);
+            // Don't log anything here as it gets very spammy
             return true;
         }
 
@@ -176,7 +175,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
                 $session['setup'] = [];
             }
             $session['setup']['complete'] = true;
-            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, ''], [static::LOG_CODE, 'Complete']);
             return true;
         }
 
