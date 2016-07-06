@@ -2192,6 +2192,7 @@ return [
                     'class' => 'insurance-col',
                     'sortable' => false,
                     'order' => 120,
+                    'defaultContent' => '',
                 ],
             ],
             'CourierSpecificsInsuranceMonetaryColumnView' => [
@@ -2222,6 +2223,7 @@ return [
                     'class' => 'signature-col',
                     'sortable' => false,
                     'order' => 140,
+                    'defaultContent' => '',
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
