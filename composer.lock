@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9025e55ff6b1c38a420ff1947283e9e3",
-    "content-hash": "6c433be4447e9be5270cf2dde606c4b0",
+    "hash": "855dc312ef2d27d2377335d7932f418e",
+    "content-hash": "2e5468be9215a07963b5c2e6412d4fe6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.17.13",
+            "version": "1.17.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "14128fa2781c360b4df5a798f54564cdbbf10790"
+                "reference": "76574d8f9910619a2b13b9102ee9a875fa2ae63d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.13-2f4b6c.zip",
-                "reference": "14128fa2781c360b4df5a798f54564cdbbf10790",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.14-f97759.zip",
+                "reference": "76574d8f9910619a2b13b9102ee9a875fa2ae63d",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-05-03 08:11:31"
+            "time": "2016-05-03 13:24:23"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -3080,16 +3080,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "018ef369f58f675ba7ff9379872034bbccb8f36c"
+                "reference": "c1ae5a8c0e9815a19f6e9f3f182b7874f19f7d42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-03421f.zip",
-                "reference": "018ef369f58f675ba7ff9379872034bbccb8f36c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.5-c311c3.zip",
+                "reference": "c1ae5a8c0e9815a19f6e9f3f182b7874f19f7d42",
                 "shasum": null
             },
             "require": {
@@ -3121,7 +3121,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-07-05 08:16:31"
+            "time": "2016-07-06 07:40:29"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3433,16 +3433,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
+            "version": "1.16.58",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "25cb3b89479c7e72ce6157f14ce20220a749b0da"
+                "reference": "fa89e181c56895c3af5675b243ecb4653a225af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-760a2a.zip",
-                "reference": "25cb3b89479c7e72ce6157f14ce20220a749b0da",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.58-391d9a.zip",
+                "reference": "fa89e181c56895c3af5675b243ecb4653a225af4",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-05 13:25:13"
+            "time": "2016-07-06 07:40:42"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7667,25 +7667,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.5",
-            "alias_normalized": "1.0.5.0",
-            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
-            "package": "channelgrabber/zf2-netdespatch"
-        },
-        {
-            "alias": "1.16.58",
-            "alias_normalized": "1.16.58.0",
-            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-netdespatch": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
