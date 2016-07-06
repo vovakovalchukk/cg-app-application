@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89a12fb0b52a1b4cff21bf99db92585e",
-    "content-hash": "80d538b1e36ce8f0f631d1b685de73f0",
+    "hash": "0cc3a03b65bc6e03dc468a6c3f250165",
+    "content-hash": "0373e2750e3cc27e41e51f85b4b5dbc3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "331c0b358d0b2de5c23e102e8ec1ae8cfbd4b07f"
+                "reference": "054438dd4c52f7e6907dcd445ee2508d4fc6e532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7109-courier-booking-options-per-service-f524bd.zip",
-                "reference": "331c0b358d0b2de5c23e102e8ec1ae8cfbd4b07f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-7108-integrate-courier-adapters-fb2d6e.zip",
+                "reference": "054438dd4c52f7e6907dcd445ee2508d4fc6e532",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "dev-CGIV-7109-courier-booking-options-per-service as 1.25.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-05 14:30:59"
+            "time": "2016-07-06 14:27:49"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -305,7 +305,7 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
@@ -313,7 +313,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7109-courier-booking-options-per-service-bd694b.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7108-integrate-courier-adapters-bd694b.zip",
                 "reference": "291a33476579251486b6ce8a24417440f3020fe1",
                 "shasum": null
             },
@@ -489,20 +489,20 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "0afe9651fb3b2a9cf3e635fc1a5c8ad7bc15e8ca"
+                "reference": "1e959abb82eb18238025f35f57c9d896c3ad0da0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7109-courier-booking-options-per-service-6c6ee8.zip",
-                "reference": "0afe9651fb3b2a9cf3e635fc1a5c8ad7bc15e8ca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-7108-integrate-courier-adapters-e7854e.zip",
+                "reference": "1e959abb82eb18238025f35f57c9d896c3ad0da0",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-7109-courier-booking-options-per-service as 1.25.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-07-05 14:36:43"
+            "time": "2016-07-06 14:28:49"
         },
         {
             "name": "channelgrabber/db",
@@ -1168,20 +1168,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "5fe42377eb08b9022b330db6fca01a1aea5b29d6"
+                "reference": "a850b713c1335ad4e3da1f0a8207bc29c3b4b5e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7109-courier-booking-options-per-service-974463.zip",
-                "reference": "5fe42377eb08b9022b330db6fca01a1aea5b29d6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-EPIC-CGIV-7108-integrate-courier-adapters-c3a15d.zip",
+                "reference": "a850b713c1335ad4e3da1f0a8207bc29c3b4b5e9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-7109-courier-booking-options-per-service as 1.25.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
@@ -1219,7 +1219,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-07-05 14:31:14"
+            "time": "2016-07-06 14:28:10"
         },
         {
             "name": "channelgrabber/notification",
@@ -7671,25 +7671,25 @@
         {
             "alias": "1.17.15",
             "alias_normalized": "1.17.15.0",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/amazon"
         },
         {
             "alias": "1.25.0",
             "alias_normalized": "1.25.0.0",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.2.8",
             "alias_normalized": "1.2.8.0",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/dataplug"
         },
         {
             "alias": "1.0.11",
             "alias_normalized": "1.0.11.0",
-            "version": "dev-CGIV-7109-courier-booking-options-per-service",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/netdespatch"
         }
     ],
