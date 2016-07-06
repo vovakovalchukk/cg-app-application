@@ -666,6 +666,18 @@ class Service implements LoggerAwareInterface
 
     protected function sortSpecificsListData(array $data, Account $courierAccount)
     {
+        return $this->sortOrderListData(
+            $data, $this->specificsListRequiredOrderFields, $this->specificsListRequiredParcelFields, true, $courierAccount
+       );
+    }
+
+    protected function sortOrderListData(
+        array $data,
+        array $orderRequiredFields,
+        array $parcelRequiredFields = [],
+        $intersectServiceOptions = false,
+        Account $courierAccount = null
+    ) {
         // Separate out the fully pre-filled rows from those still requiring input
         $preFilledRows = [];
         $inputRequiredRows = [];
@@ -673,12 +685,17 @@ class Service implements LoggerAwareInterface
         foreach ($orderRows as $orderId => $rows) {
             $complete = true;
             foreach ($rows as $row) {
-                $options = $this->getCarrierOptions($courierAccount, (isset($row['service']) ? $row['service'] : null));
-                if (isset($row['orderRow']) && $row['orderRow']) {
-                    $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $options);
+                $rowOrderRequiredFields = $orderRequiredFields;
+                $rowParcelRequiredFields = $parcelRequiredFields;
+                if ($intersectServiceOptions) {
+                    $options = $this->getCarrierOptions($courierAccount, (isset($row['service']) ? $row['service'] : null));
+                    $rowOrderRequiredFields = array_intersect($orderRequiredFields, $options);
                     // service field is always required and can ocassionally get unset if the chosen service is not available
-                    $orderRequiredFields[] = 'service';
-                    foreach ($orderRequiredFields as $field) {
+                    $rowOrderRequiredFields[] = 'service';
+                    $rowParcelRequiredFields = array_intersect($parcelRequiredFields, $options);
+                }
+                if (isset($row['orderRow']) && $row['orderRow']) {
+                    foreach ($rowOrderRequiredFields as $field) {
                         if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
                             break 2;
@@ -686,8 +703,7 @@ class Service implements LoggerAwareInterface
                     }
                 }
                 if (isset($row['parcelRow']) && $row['parcelRow']) {
-                    $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $options);
-                    foreach ($parcelRequiredFields as $field) {
+                    foreach ($rowParcelRequiredFields as $field) {
                         if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
                             break 2;
