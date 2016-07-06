@@ -41,9 +41,20 @@ define([
 
     TemplateSelector.prototype = Object.create(ModuleAbstract.prototype);
 
-    TemplateSelector.prototype.init = function(application)
+    TemplateSelector.prototype.init = function(application, templateId)
     {
         ModuleAbstract.prototype.init.call(this, application);
+
+        if (templateId === '') {
+            this.getService().createForOu(this.getApplication().getOrganisationUnitId());
+            return;
+        }
+
+        if (window.location.href.indexOf("duplicate") > -1) {
+            this.setTemplate(this.getService().fetchAndDuplicate(templateId));
+        } else {
+            this.setTemplate(this.getService().fetchAndLoadModules(templateId));
+        }
     };
 
     TemplateSelector.prototype.selectionMade = function(id)

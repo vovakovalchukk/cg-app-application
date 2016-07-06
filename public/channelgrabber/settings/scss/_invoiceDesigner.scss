@@ -275,6 +275,16 @@
     }
 }
 
+.invoice-action-buttons {
+    display: block;
+    padding: 20px;
+    .button {
+        width: 100%;
+        float:left;
+        padding: 4px 8px 4px 8px!important;
+    }
+}
+
 .positioning-square {
     width:110px;
     float:left;

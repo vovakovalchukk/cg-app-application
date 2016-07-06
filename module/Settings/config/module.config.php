@@ -30,6 +30,8 @@ use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
 use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
+use CG_NetDespatch\Account\CreationService as AccountCreationService;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
@@ -106,7 +108,7 @@ return [
                     ], [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
-                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE
                     ],
                 ]
             ],
@@ -413,6 +415,26 @@ return [
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'design',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    InvoiceController::ROUTE_DESIGNER_ID => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/id/:templateId',
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ],
+                            ],
+                            InvoiceController::ROUTE_TEMPLATES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/templates',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'existingInvoiceTemplates'
                                     ]
                                 ],
                             ],
@@ -1195,6 +1217,13 @@ return [
             ExportController::class => [
                 'parameters' => [
                     'usageService' => 'order_count_usage_service'
+                ]
+            ],
+            AccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'netdespatch_cryptor',
+                    'mailer' => 'orderhub-mailer',
+                    'viewModelFactory' => ViewModelFactory::class
                 ]
             ],
         ]

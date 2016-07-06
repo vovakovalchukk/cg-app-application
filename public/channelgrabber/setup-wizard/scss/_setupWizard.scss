@@ -75,16 +75,22 @@
         width: 300px;
     }
 
-    .inputbox-label {
+    .inputbox-label,
+    .inputbox,
+    .custom-select .selected,
+    .number-range .selected {
         font-size: 18px;
     }
 
-    .inputbox {
-        font-size: 18px;
+    .account-form-holder {
+        position: static;
     }
 }
 
 .setup-wizard-footer {
+    /* Allow space for the Intercom widget */
+    margin-bottom: 40px;
+
     .button {
         float: right;
         margin-left: 10px;

@@ -22,7 +22,9 @@ define([
     TemplateSelector.prototype.init = function(module)
     {
         var element = ElementCollection.get('template');
-        element.enable();
+        if (element) {
+            element.enable();
+        }
 
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
