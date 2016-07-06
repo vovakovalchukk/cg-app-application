@@ -303,6 +303,10 @@ CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = functio
 {
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
     {
+        if (aData.labelStatus != '' && aData.labelStatus != 'cancelled') {
+            return;
+        }
+
         var orderId = aData.orderId;
         var parcelNumber = (typeof aData.parcelNumber != 'undefined' ? aData.parcelNumber : 0);
         var itemId = (typeof aData.itemId != 'undefined' ? aData.itemId : 0);
