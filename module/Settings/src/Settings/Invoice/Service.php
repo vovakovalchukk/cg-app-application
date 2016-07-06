@@ -27,7 +27,7 @@ class Service
         'FPS-15'  => 'Form-FPS15.png',
         'FPS-16'  => 'Form-FPS16.png',
         'FPD-1'  => 'Form-FPD1.png',
-        Template::DEFAULT_TEMPLATE_ID => 'Default.png',
+        Template::DEFAULT_TEMPLATE_ID => 'blank.png',
     ];
     protected $templatePurchaseLinksMap = [
         'FPS-3'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
