@@ -398,7 +398,7 @@ class Service implements LoggerAwareInterface
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
             $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions);
-            $parcelsData = $this->getParcelOrderListData($order, $options, $orderData, $parcelsInputData);
+            $parcelsData = $this->getParcelOrderListData($order, $orderData, $parcelsInputData, $options, $carrierOptions);
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
@@ -574,8 +574,13 @@ class Service implements LoggerAwareInterface
         return $fieldsRequiredStatus;
     }
 
-    protected function getParcelOrderListData(Order $order, array $options, array $orderData, array $parcelsInputData)
-    {
+    protected function getParcelOrderListData(
+        Order $order,
+        array $orderData,
+        array $parcelsInputData,
+        array $options,
+        array $carrierOptions
+    ) {
         $parcels = $orderData['parcels'];
         if (count($order->getItems()) <= 1 && $parcels <= 1) {
             return [];
@@ -590,6 +595,7 @@ class Service implements LoggerAwareInterface
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['cancellable'] = $orderData['cancellable'];
+            $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }
