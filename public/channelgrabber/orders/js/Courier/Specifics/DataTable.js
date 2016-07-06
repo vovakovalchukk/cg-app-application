@@ -310,10 +310,17 @@ CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = functio
             var selector = 'input[name="orderData['+orderId+']['+name+']"]'
                 + ', input[name="parcelData['+orderId+']['+parcelNumber+']['+name+']"]'
                 + ', input[name="itemData['+orderId+']['+itemId+']['+name+']"]';
+            var elements = $(nRow).find(selector);
             if (aData.requiredFields[name]) {
-                $(nRow).find(selector).removeAttr('disabled').removeClass('disabled').addClass('required');
+                elements.removeAttr('disabled').removeClass('disabled').addClass('required');
+                if (elements.parent().hasClass('custom-select')) {
+                    elements.parent().removeClass('disabled');
+                }
             } else {
-                $(nRow).find(selector).attr('disabled', 'disabled').removeClass('required').addClass('disabled');
+                elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');
+                if (elements.parent().hasClass('custom-select')) {
+                    elements.parent().addClass('disabled');
+                }
             }
         }
     });
