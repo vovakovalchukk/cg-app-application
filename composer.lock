@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "de31ede3472e90eea8456e27f06cb482",
+    "hash": "449f71b2483ee2f3683db7377617e47a",
     "content-hash": "11bd9a6c6eeb701b30c973ff42b6017f",
     "packages": [
         {
@@ -1925,12 +1925,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "5626e9e2cac63218b37784102bc55293918808a3"
+                "reference": "54d93692bf53ffae5db0a30901063dcadd2d6a08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-0dc7a5.zip",
-                "reference": "5626e9e2cac63218b37784102bc55293918808a3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-5cc5a4.zip",
+                "reference": "54d93692bf53ffae5db0a30901063dcadd2d6a08",
                 "shasum": null
             },
             "require": {
@@ -1960,7 +1960,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-06 13:58:10"
+            "time": "2016-07-07 13:31:25"
         },
         {
             "name": "channelgrabber/slim",
