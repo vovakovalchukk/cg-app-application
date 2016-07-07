@@ -24,10 +24,14 @@ class Service implements LoggerAwareInterface, SetupViewInterface
 {
     use LogTrait;
 
+    const LOG_CODE_DUPLICATE_OAUTH_RESPONSE = 'Duplicate OAuth Response';
+    const LOG_MSG_DUPLICATE_OAUTH_RESPONSE = 'We have already processed this OAuth response';
     const LOG_CODE_INVALID_OAUTH_RESPONSE = 'Invalid Shopify OAuth Response';
     const LOG_MSG_INVALID_OAUTH_RESPONSE = 'Expected Fields';
     const LOG_CODE_INVALID_NONCE = 'Invalid Shopify OAuth Nonce';
     const LOG_MSG_INVALID_NONCE = 'Nonce Mismatch';
+    const LOG_CODE_PROCESSED_OAUTH_RESPONSE = 'Processed OAuth Response';
+    const LOG_MSG_PROCESSED_OAUTH_RESPONSE = 'OAuth reponse has been processed and linked to an account';
 
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
@@ -137,19 +141,32 @@ class Service implements LoggerAwareInterface, SetupViewInterface
      */
     public function activateAccount(array $parameters)
     {
-        if (!isset($parameters['shop'], $parameters['state'], $parameters['code'])) {
-            $this->logPrettyError(static::LOG_MSG_INVALID_OAUTH_RESPONSE, ['shop' => isset($parameters['shop']) ? $parameters['shop'] : '-', 'state' => isset($parameters['state']) ? $parameters['state'] : '-', 'code' => isset($parameters['code']) ? $parameters['code'] : '-'], [], static::LOG_CODE_INVALID_OAUTH_RESPONSE);
-            throw new InvalidArgumentException('Invalid OAuth response from Shopify');
+        if (!isset($parameters['shop'])) {
+            throw new InvalidArgumentException('OAuth response does not include shop');
         }
 
         $shop = $parameters['shop'];
+        if (!isset($this->session['oauth'][$shop]) || !is_array($this->session['oauth'][$shop])) {
+            throw new InvalidArgumentException(sprintf('OAuth response for unknown shop \"%s\"', $shop));
+        }
+
+        $oAuthSession = array_merge(
+            ['accountId' => null, 'nonce' => null, 'processed' => false],
+            $this->session['oauth'][$shop]
+        );
+
+        if ($oAuthSession['accountId'] && $oAuthSession['processed']) {
+            $this->logPrettyInfo(static::LOG_MSG_DUPLICATE_OAUTH_RESPONSE, ['shop' => $shop, 'accountId' => $oAuthSession['accountId']], [], static::LOG_CODE_DUPLICATE_OAUTH_RESPONSE);
+            return $this->accountService->fetch($oAuthSession['accountId']);
+        }
+
+        if (!isset($parameters['state'], $parameters['code'])) {
+            $this->logPrettyError(static::LOG_MSG_INVALID_OAUTH_RESPONSE, ['shop' => $shop, 'state' => isset($parameters['state']) ? $parameters['state'] : '-', 'code' => isset($parameters['code']) ? $parameters['code'] : '-'], [], static::LOG_CODE_INVALID_OAUTH_RESPONSE);
+            throw new InvalidArgumentException('Invalid OAuth response from Shopify');
+        }
+
         $nonce = $parameters['state'];
         $code = $parameters['code'];
-
-        $oAuthSession = [
-            'accountId' => (isset($this->session['oauth'][$shop]['accountId']) ? $this->session['oauth'][$shop]['accountId'] : null),
-            'nonce' => (isset($this->session['oauth'][$shop]['nonce']) ? $this->session['oauth'][$shop]['nonce'] : null),
-        ];
 
         if ($oAuthSession['nonce'] != $nonce) {
             $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => $oAuthSession['nonce'] ?: '-', 'OAuth' => $nonce ?: '-'], [], static::LOG_CODE_INVALID_NONCE);
@@ -162,7 +179,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         $client->hmacSignatureValidation($parameters);
         $token = $client->getToken($code, Client::getRequiredScopes());
 
-        return $this->shopifyAccountCreator->connectAccount(
+        $account = $this->shopifyAccountCreator->connectAccount(
             $this->activeUser->getCompanyId(),
             $oAuthSession['accountId'],
             [
@@ -170,6 +187,12 @@ class Service implements LoggerAwareInterface, SetupViewInterface
                 'token' => $token,
             ]
         );
+
+        $this->logPrettyDebug(static::LOG_MSG_PROCESSED_OAUTH_RESPONSE, ['shop' => $shop, 'accountId' => $account->getId()], [], static::LOG_CODE_PROCESSED_OAUTH_RESPONSE);
+        $oAuthSession['accountId'] = $account->getId();
+        $oAuthSession['processed'] = true;
+        $this->session['oauth'][$shop] = $oAuthSession;
+        return $account;
     }
 
     /**
