@@ -168,10 +168,15 @@ define([
                     + ', input[name^="parcelData['+orderId+']"][name$="['+name+']"]'
                     + ', input[name^="itemData['+orderId+']"][name$="['+name+']"]';
                 var elements = table.find(selector);
-                if (response.requiredFields[name]) {
+                if (response.requiredFields[name].show) {
                     elements.removeAttr('disabled').removeClass('disabled').addClass('required');
                     if (elements.parent().hasClass('custom-select')) {
                         elements.parent().removeClass('disabled');
+                    }
+                    if (response.requiredFields[name].required) {
+                        elements.addClass('required');
+                    } else {
+                        elements.removeClass('required');
                     }
                 } else {
                     elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');

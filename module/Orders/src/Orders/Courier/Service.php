@@ -566,9 +566,14 @@ class Service implements LoggerAwareInterface
         $fieldsRequiredStatus = [];
         $notRequiredFields = array_diff($carrierOptions, $serviceOptions);
         $notRequiredFieldsKeyed = array_flip($notRequiredFields);
+        $requiredFields = array_merge($this->specificsListRequiredOrderFields, $this->specificsListRequiredParcelFields);
+        $requiredFieldsKeyed = array_flip($requiredFields);
 
         foreach ($carrierOptions as $option) {
-            $fieldsRequiredStatus[$option] = (!isset($notRequiredFieldsKeyed[$option]));
+            $fieldsRequiredStatus[$option] = [
+                'show' => (!isset($notRequiredFieldsKeyed[$option])),
+                'required' => (isset($requiredFieldsKeyed[$option])),
+            ];
         }
 
         return $fieldsRequiredStatus;

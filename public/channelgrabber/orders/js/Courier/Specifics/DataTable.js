@@ -315,10 +315,15 @@ CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = functio
                 + ', input[name="parcelData['+orderId+']['+parcelNumber+']['+name+']"]'
                 + ', input[name="itemData['+orderId+']['+itemId+']['+name+']"]';
             var elements = $(nRow).find(selector);
-            if (aData.requiredFields[name]) {
-                elements.removeAttr('disabled').removeClass('disabled').addClass('required');
+            if (aData.requiredFields[name].show) {
+                elements.removeAttr('disabled').removeClass('disabled');
                 if (elements.parent().hasClass('custom-select')) {
                     elements.parent().removeClass('disabled');
+                }
+                if (aData.requiredFields[name].required) {
+                    elements.addClass('required');
+                } else {
+                    elements.removeClass('required');
                 }
             } else {
                 elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');
