@@ -176,7 +176,7 @@ use CG\Amazon\ShippingService\Service as AmazonShippingServiceService;
 use CG\Amazon\ShippingService\StorageInterface as AmazonShippingServiceStorage;
 use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
 
-return array(
+$config = array(
     'di' => array(
         'definition' => [
             'class' => [
@@ -1405,3 +1405,10 @@ return array(
         ]
     ]
 );
+
+$configFiles = glob(__DIR__ . '/global/*.php');
+foreach ($configFiles as $configFile) {
+    $configFileContents = require_once $configFile;
+    $config = array_merge($config, $configFileContents);
+}
+return $config;
