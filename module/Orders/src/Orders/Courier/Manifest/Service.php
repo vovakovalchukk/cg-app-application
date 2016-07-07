@@ -9,10 +9,13 @@ use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
 use CG\Account\Shared\Manifest\Status as AccountManifestStatus;
 use CG\Channel\CarrierBookingOptionsInterface;
+use CG\Channel\CarrierProviderServiceInterface;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\OrganisationUnit\Service as UserOUService;
@@ -22,6 +25,8 @@ use Orders\Courier\GetShippingAccountsTrait;
 
 class Service
 {
+    const MANIFEST_SAVE_MAX_ATTEMPTS = 2;
+
     use GetShippingAccountsTrait {
         getShippingAccounts as traitGetShippingAccounts;
     }
@@ -33,6 +38,8 @@ class Service
     protected $userOuService;
     /** @var CarrierBookingOptionsInterface */
     protected $carrierBookingOptions;
+    /** @var CarrierProviderServiceInterface */
+    protected $carrierProviderService;
     /** @var AccountManifestMapper */
     protected $accountManifestMapper;
     /** @var AccountManifestService */
@@ -44,6 +51,7 @@ class Service
         AccountService $accountService,
         UserOUService $userOuService,
         CarrierBookingOptionsInterface $carrierBookingOptions,
+        CarrierProviderServiceInterface $carrierProviderService,
         AccountManifestMapper $accountManifestMapper,
         AccountManifestService $accountManifestService,
         OrderLabelService $orderLabelService
@@ -51,6 +59,7 @@ class Service
         $this->setAccountService($accountService)
             ->setUserOuService($userOuService)
             ->setCarrierBookingOptions($carrierBookingOptions)
+            ->setCarrierProviderService($carrierProviderService)
             ->setAccountManifestMapper($accountManifestMapper)
             ->setAccountManifestService($accountManifestService)
             ->setOrderLabelService($orderLabelService);
@@ -109,7 +118,7 @@ class Service
             $filter = (new AccountManifestFilter())
                 ->setLimit(1)
                 ->setPage(1)
-                ->setAccountId($account->getId())
+                ->setAccountId([$account->getId()])
                 ->setOrderBy('created')
                 ->setOrderDirection('DESC');
             $manifests = $this->accountManifestService->fetchCollectionByFilter($filter);
@@ -127,8 +136,8 @@ class Service
             $filter = (new OrderLabelFilter())
                 ->setLimit(1)
                 ->setPage(1)
-                ->setShippingAccountId($account->getId())
-                ->setStatus(OrderLabelStatus::getPrintableStatuses())
+                ->setShippingAccountId([$account->getId()])
+                ->setStatus(array_values(OrderLabelStatus::getPrintableStatuses()))
                 ->setCreatedFrom($latestManifestDate->format(StdlibDateTime::FORMAT));
             $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
             return $orderLabels->getTotal();
@@ -199,14 +208,19 @@ class Service
     }
 
     /**
-     * @return string \CG\Account\Shared\Manifest\Entity
+     * @return \CG\Account\Shared\Manifest\Entity
      */
     public function generateManifestForShippingAccount($accountId)
     {
         $account = $this->accountService->fetch($accountId);
         $accountManifest = $this->createAccountManifest($account);
         try {
-            $this->dataplugManifestService->createManifestForAccount($account, $accountManifest);
+            $this->carrierProviderService->createManifestForAccount($account, $accountManifest);
+
+            $accountManifest->setStatus(AccountManifestStatus::NOT_PRINTED)
+                ->setCreated((new StdlibDateTime())->stdFormat());
+
+            $this->saveAccountManifest($accountManifest);
             return $accountManifest;
 
         } catch (StorageException $e) {
@@ -226,6 +240,22 @@ class Service
         ]);
         $hal = $this->accountManifestService->save($accountManifest);
         return $this->accountManifestMapper->fromHal($hal);
+    }
+
+    protected function saveAccountManifest(AccountManifest $accountManifest, $attempt = 1)
+    {
+        try {
+            $this->accountManifestService->save($accountManifest);
+        } catch (NotModified $e) {
+            // No-op
+        } catch (Conflict $e) {
+            if ($attempt >= static::MANIFEST_SAVE_MAX_ATTEMPTS) {
+                throw $e;
+            }
+            $fetchedAccountManifest = $this->accountManifestService->fetch($accountManifest->getId());
+            $accountManifest->setStoredETag($fetchedAccountManifest->getStoredETag());
+            $this->saveAccountManifest($accountManifest, ++$attempt);
+        }
     }
 
     public function getHistoricManifestYearsForShippingAccount($accountId)
@@ -278,6 +308,12 @@ class Service
     protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
     {
         $this->carrierBookingOptions = $carrierBookingOptions;
+        return $this;
+    }
+
+    protected function setCarrierProviderService(CarrierProviderServiceInterface $carrierProviderService)
+    {
+        $this->carrierProviderService = $carrierProviderService;
         return $this;
     }
 
