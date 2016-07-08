@@ -14,34 +14,38 @@ define([
 
     EmailInvoice.prototype.invoke = function()
     {
-        var orders = this.getOrders();
-        if (!orders.length) {
-            return;
+        if (this.getOrders().length) {
+            this.validate();
         }
-
-        var ajaxConfig = this.buildAjaxConfig();
-        this.getNotificationHandler().notice("Marking Orders for Email");
-        return $.ajax(ajaxConfig);
     };
 
-    EmailInvoice.prototype.buildAjaxConfig = function()
+    EmailInvoice.prototype.validate = function()
     {
-        var datatable = this.getDataTableElement();
-        var data = this.getDataToSubmit();
-        return {
-            context: this,
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            url: this.getElement().data("url"),
-            complete: function() {
-                if (!datatable.length) {
-                    return;
+        this.getNotificationHandler().notice("Preparing Orders for Email");
+        this.sendAjaxRequest(
+            this.getElement().data("url"),
+            $.extend({"validate": true}, this.getDataToSubmit()),
+            function(data) {
+                if (data.emailed > 0) {
+
+                } else {
+                    this.process();
                 }
-                datatable.cgDataTable("redraw");
-                saveCheckboxes.refreshCheckboxes(datatable);
             },
-            success : function(data) {
+            function(request, textStatus, errorThrown) {
+                return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
+            },
+            this
+        );
+    };
+
+    EmailInvoice.prototype.process = function(includePreviouslySent)
+    {
+        this.getNotificationHandler().notice("Marking Orders for Email");
+        this.sendAjaxRequest(
+            this.getElement().data("url"),
+            $.extend({"includePreviouslySent": (includePreviouslySent !== undefined ? includePreviouslySent : false)}, this.getDataToSubmit()),
+            function(data) {
                 if (data.emailing) {
                     saveCheckboxes.setSavedCheckboxes(this.getOrders())
                         .setSavedCheckAll(this.isAllSelected());
@@ -51,10 +55,20 @@ define([
                 }
                 this.getNotificationHandler().error(data.error);
             },
-            error: function(request, textStatus, errorThrown) {
+            function(request, textStatus, errorThrown) {
                 return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
+            },
+            this,
+            {
+                complete: function() {
+                    if (!this.getDataTableElement().length) {
+                        return;
+                    }
+                    this.getDataTableElement().cgDataTable("redraw");
+                    saveCheckboxes.refreshCheckboxes(datatable);
+                }
             }
-        };
+        );
     };
 
     return EmailInvoice;
