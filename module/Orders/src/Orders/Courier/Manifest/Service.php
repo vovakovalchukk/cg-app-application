@@ -8,8 +8,8 @@ use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
 use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
 use CG\Account\Shared\Manifest\Status as AccountManifestStatus;
-use CG\Channel\CarrierBookingOptionsInterface;
-use CG\Channel\CarrierProviderServiceInterface;
+use CG\Channel\CarrierProviderServiceRepository;
+use CG\Channel\CarrierProviderServiceManifestInterface;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
@@ -36,10 +36,8 @@ class Service
     protected $accountService;
     /** @var UserOUService */
     protected $userOuService;
-    /** @var CarrierBookingOptionsInterface */
-    protected $carrierBookingOptions;
-    /** @var CarrierProviderServiceInterface */
-    protected $carrierProviderService;
+    /** @var CarrierProviderServiceRepository */
+    protected $carrierProviderServiceRepo;
     /** @var AccountManifestMapper */
     protected $accountManifestMapper;
     /** @var AccountManifestService */
@@ -50,16 +48,14 @@ class Service
     public function __construct(
         AccountService $accountService,
         UserOUService $userOuService,
-        CarrierBookingOptionsInterface $carrierBookingOptions,
-        CarrierProviderServiceInterface $carrierProviderService,
+        CarrierProviderServiceRepository $carrierProviderServiceRepo,
         AccountManifestMapper $accountManifestMapper,
         AccountManifestService $accountManifestService,
         OrderLabelService $orderLabelService
     ) {
         $this->setAccountService($accountService)
             ->setUserOuService($userOuService)
-            ->setCarrierBookingOptions($carrierBookingOptions)
-            ->setCarrierProviderService($carrierProviderService)
+            ->setCarrierProviderServiceRepo($carrierProviderServiceRepo)
             ->setAccountManifestMapper($accountManifestMapper)
             ->setAccountManifestService($accountManifestService)
             ->setOrderLabelService($orderLabelService);
@@ -71,8 +67,12 @@ class Service
         $manifestableAccounts = new AccountCollection(Account::class, __FUNCTION__);
         foreach ($accounts as $account)
         {
-            if (!$this->carrierBookingOptions->isProvidedAccount($account)
-                || !$this->carrierBookingOptions->isManifestingAllowedForAccount($account)
+            if (!$this->carrierProviderServiceRepo->isProvidedAccount($account)) {
+                continue;
+            }
+            $provider = $this->getCarrierProviderService($account);
+            if (!$provider instanceof CarrierProviderServiceManifestInterface
+                || !$provider->isManifestingAllowedForAccount($account)
             ) {
                 continue;
             }
@@ -104,7 +104,7 @@ class Service
 
         return [
             'openOrders' => $openOrders,
-            'oncePerDay' => $this->carrierBookingOptions->isManifestingOnlyAllowedOncePerDayForAccount($account),
+            'oncePerDay' => $this->getCarrierProviderService($account)->isManifestingOnlyAllowedOncePerDayForAccount($account),
             'manifestedToday' => ($latestManifestDate != null && $latestManifestDate->format('Y-m-d') == date('Y-m-d')),
         ];
     }
@@ -215,7 +215,7 @@ class Service
         $account = $this->accountService->fetch($accountId);
         $accountManifest = $this->createAccountManifest($account);
         try {
-            $this->carrierProviderService->createManifestForAccount($account, $accountManifest);
+            $this->getCarrierProviderService($account)->createManifestForAccount($account, $accountManifest);
 
             $accountManifest->setStatus(AccountManifestStatus::NOT_PRINTED)
                 ->setCreated((new StdlibDateTime())->stdFormat());
@@ -293,6 +293,11 @@ class Service
         return base64_decode($accountManifest->getManifest());
     }
 
+    protected function getCarrierProviderService(Account $account)
+    {
+        return $this->carrierProviderServiceRepo->getProviderForAccount($account);
+    }
+
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
@@ -305,15 +310,9 @@ class Service
         return $this;
     }
 
-    protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
+    protected function setCarrierProviderServiceRepo(CarrierProviderServiceRepository $carrierProviderServiceRepo)
     {
-        $this->carrierBookingOptions = $carrierBookingOptions;
-        return $this;
-    }
-
-    protected function setCarrierProviderService(CarrierProviderServiceInterface $carrierProviderService)
-    {
-        $this->carrierProviderService = $carrierProviderService;
+        $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
         return $this;
     }
 

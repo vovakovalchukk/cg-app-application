@@ -13,18 +13,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7649798e2a369859138ed461b8ba8b7b42935b89"
+                "reference": "a7de91380814910200064924cc21d6fc8e93e215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7110-courier-manifesting-for-all-providers-925906.zip",
-                "reference": "7649798e2a369859138ed461b8ba8b7b42935b89",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7110-courier-manifesting-for-all-providers-caec54.zip",
+                "reference": "a7de91380814910200064924cc21d6fc8e93e215",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
+                "channelgrabber/channel": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.25.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-07 08:43:13"
+            "time": "2016-07-08 08:37:30"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "59c7c9fc827f62b22afea459a33e69dec4aa204e"
+                "reference": "e94a483a466f0b991a440cbad22a7c4d9e2fc30e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7110-courier-manifesting-for-all-providers-fc768f.zip",
-                "reference": "59c7c9fc827f62b22afea459a33e69dec4aa204e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7110-courier-manifesting-for-all-providers-be730a.zip",
+                "reference": "e94a483a466f0b991a440cbad22a7c4d9e2fc30e",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-07 08:39:25"
+            "time": "2016-07-08 10:08:11"
         },
         {
             "name": "channelgrabber/cilex",
@@ -493,16 +493,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "77b197a95d11fc9e113b89f24e3635fdf44c4cc8"
+                "reference": "305a05bd4ba9515b01f48bb77be0ff61c44f2d6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7110-courier-manifesting-for-all-providers-593732.zip",
-                "reference": "77b197a95d11fc9e113b89f24e3635fdf44c4cc8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7110-courier-manifesting-for-all-providers-3c98ed.zip",
+                "reference": "305a05bd4ba9515b01f48bb77be0ff61c44f2d6a",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
+                "channelgrabber/channel": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-07-07 08:57:38"
+            "time": "2016-07-08 08:56:03"
         },
         {
             "name": "channelgrabber/db",
@@ -1172,16 +1172,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "6d0528bbbe37dbd54f0ddae3979b26b997189a79"
+                "reference": "842b1047dfbfea044dc29fa4eafddfce00ad0f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7110-courier-manifesting-for-all-providers-1d257a.zip",
-                "reference": "6d0528bbbe37dbd54f0ddae3979b26b997189a79",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7110-courier-manifesting-for-all-providers-8fcb25.zip",
+                "reference": "842b1047dfbfea044dc29fa4eafddfce00ad0f7c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
+                "channelgrabber/channel": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
@@ -1219,7 +1219,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-07-07 09:55:54"
+            "time": "2016-07-08 08:44:06"
         },
         {
             "name": "channelgrabber/notification",

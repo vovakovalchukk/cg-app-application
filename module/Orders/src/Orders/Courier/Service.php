@@ -5,8 +5,8 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\CarrierBookingOptionsInterface;
-use CG\Channel\ShippingChannelsProviderInterface;
+use CG\Channel\CarrierBookingOptionsRepository;
+use CG\Channel\ShippingChannelsProviderRepository;
 use CG\Channel\ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
@@ -73,10 +73,10 @@ class Service implements LoggerAwareInterface
     protected $productDetailService;
     /** @var Di */
     protected $di;
-    /** @var ShippingChannelsProviderInterface */
-    protected $shippingChannelsProvider;
-    /** @var CarrierBookingOptionsInterface */
-    protected $carrierBookingOptions;
+    /** @var ShippingChannelsProviderRepository */
+    protected $shippingChannelsProviderRepo;
+    /** @var CarrierBookingOptionsRepository */
+    protected $carrierBookingOptionsRepo;
 
     protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
@@ -92,8 +92,8 @@ class Service implements LoggerAwareInterface
         OrderLabelStorage $orderLabelStorage,
         ProductDetailService $productDetailService,
         Di $di,
-        ShippingChannelsProviderInterface $shippingChannelsProvider,
-        CarrierBookingOptionsInterface $carrierBookingOptions
+        ShippingChannelsProviderRepository $shippingChannelsProviderRepo,
+        CarrierBookingOptionsRepository $carrierBookingOptionsRepo
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -104,8 +104,8 @@ class Service implements LoggerAwareInterface
             ->setOrderLabelStorage($orderLabelStorage)
             ->setProductDetailService($productDetailService)
             ->setDi($di)
-            ->setShippingChannelsProvider($shippingChannelsProvider)
-            ->setCarrierBookingOptions($carrierBookingOptions);
+            ->setShippingChannelsProviderRepo($shippingChannelsProviderRepo)
+            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo);
     }
     
     /**
@@ -126,12 +126,13 @@ class Service implements LoggerAwareInterface
         foreach ($accounts as $account)
         {
             // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
-            if (!$this->shippingChannelsProvider->isProvidedChannel($account->getChannel())) {
+            if (!$this->shippingChannelsProviderRepo->isProvidedAccount($account)) {
                 continue;
             }
 
             // Only show accounts that support the requested order
-            if ($order && !$this->shippingChannelsProvider->isOrderSupported($account->getChannel(), $order)) {
+            $provider = $this->getShippingChannelsProvider($account);
+            if ($order && !$provider->isOrderSupported($account->getChannel(), $order)) {
                 continue;
             }
 
@@ -350,9 +351,19 @@ class Service implements LoggerAwareInterface
         }
     }
 
+    protected function getShippingChannelsProvider(Account $account)
+    {
+        return $this->shippingChannelsProviderRepo->getProviderForAccount($account);
+    }
+
+    protected function getCarrierOptionsProvider(Account $account)
+    {
+        return $this->carrierBookingOptionsRepo->getProviderForAccount($account);
+    }
+
     protected function getCarrierOptions(Account $account, $serviceCode = null)
     {
-        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account, $serviceCode);
+        return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
     /**
@@ -410,7 +421,7 @@ class Service implements LoggerAwareInterface
             $row['timezone'] = $now->getTimezone()->getName();
         }
         $data = $this->performSumsOnSpecificsListData($data, $options);
-        $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
+        $data = $this->getCarrierOptionsProvider($courierAccount)->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
 
@@ -427,7 +438,7 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
-        $cancellable = $this->carrierBookingOptions->isCancellationAllowedForOrder($courierAccount, $order);
+        $cancellable = $this->getCarrierOptionsProvider($courierAccount)->isCancellationAllowedForOrder($courierAccount, $order);
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
@@ -787,7 +798,7 @@ class Service implements LoggerAwareInterface
         $order = $this->orderService->fetch($orderId);
         $account = $this->accountService->fetch($accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
-        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
+        return $this->getCarrierOptionsProvider($account)->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
     }
 
     protected function setOrderService(OrderService $orderService)
@@ -844,15 +855,15 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setShippingChannelsProvider(ShippingChannelsProviderInterface $shippingChannelsProvider)
+    protected function setShippingChannelsProviderRepo(ShippingChannelsProviderRepository $shippingChannelsProviderRepo)
     {
-        $this->shippingChannelsProvider = $shippingChannelsProvider;
+        $this->shippingChannelsProviderRepo = $shippingChannelsProviderRepo;
         return $this;
     }
 
-    protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
+    protected function setCarrierBookingOptionsRepo(CarrierBookingOptionsRepository $carrierBookingOptionsRepo)
     {
-        $this->carrierBookingOptions = $carrierBookingOptions;
+        $this->carrierBookingOptionsRepo = $carrierBookingOptionsRepo;
         return $this;
     }
 
