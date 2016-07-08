@@ -1,9 +1,11 @@
 define([
     'Orders/OrdersBulkActionAbstract',
-    'Orders/SaveCheckboxes'
+    'Orders/SaveCheckboxes',
+    'popup/confirm'
 ], function(
     OrdersBulkActionAbstract,
-    saveCheckboxes
+    saveCheckboxes,
+    ConfirmPopup
 ) {
     function EmailInvoice()
     {
@@ -27,7 +29,7 @@ define([
             $.extend({"validate": true}, this.getDataToSubmit()),
             function(data) {
                 if (data.emailed > 0) {
-
+                    this.confirm(data);
                 } else {
                     this.process();
                 }
@@ -36,6 +38,24 @@ define([
                 return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
             },
             this
+        );
+    };
+
+    EmailInvoice.prototype.confirm = function(stats)
+    {
+        this.getNotificationHandler().clearNotifications();
+        var self = this;
+        new ConfirmPopup(
+            CGMustache.get().renderTemplate(
+                "{{emailed}} of the {{total}} invoices you're trying to send have already been emailed."
+                + " Do you want to re-send them or send only invoices that have not been previously sent?",
+                stats
+            ),
+            function(includePreviouslySent) {
+                if (includePreviouslySent !== undefined) {
+                    self.process(includePreviouslySent);
+                }
+            }
         );
     };
 

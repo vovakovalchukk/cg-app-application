@@ -368,7 +368,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         if ($this->params()->fromPost('validate', false)) {
             return $invoiceService->getInvoiceStats($orders);
         }
-        $invoiceService->emailInvoicesForCollection($orders, $this->params()->fromPost('includePreviouslySent', false));
+        $invoiceService->emailInvoicesForCollection(
+            $orders,
+            filter_var($this->params()->fromPost('includePreviouslySent', false), FILTER_VALIDATE_BOOLEAN)
+        );
     }
 
     public function checkInvoiceGenerationProgressAction()
