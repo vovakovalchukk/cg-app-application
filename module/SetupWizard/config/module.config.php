@@ -2,6 +2,7 @@
 namespace SetupWizard;
 
 use SetupWizard\Channels\Service;
+use SetupWizard\Messages\Service as MessagesService;
 use SetupWizard\Controller\IndexController;
 use SetupWizard\Module;
 use SetupWizard\Navigation\SidebarNavFactory;
@@ -67,6 +68,11 @@ return [
             ],
             Service::class => [
                 'parameters' => [
+                    'amazonCryptor' => 'amazon_cryptor',
+                ]
+            ],
+            MessagesService::class => [
+                'parameter' => [
                     'amazonCryptor' => 'amazon_cryptor',
                 ]
             ],
