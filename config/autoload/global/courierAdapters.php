@@ -1,6 +1,6 @@
 <?php
 
-use CG\CourierAdapter\Provider\Service;
+use CG\CourierAdapter\Provider\Adapter\Service;
 
 return [
     'di' => [

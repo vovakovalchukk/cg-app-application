@@ -1405,6 +1405,6 @@ $config = array(
 $configFiles = glob(__DIR__ . '/global/*.php');
 foreach ($configFiles as $configFile) {
     $configFileContents = require_once $configFile;
-    $config = array_merge($config, $configFileContents);
+    $config = \Zend\Stdlib\ArrayUtils::merge($config, $configFileContents);
 }
 return $config;
