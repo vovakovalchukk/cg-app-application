@@ -616,9 +616,12 @@ class ChannelController extends AbstractActionController
         return $this;
     }
 
-    // Required by GetNamespacePartForAccountTrait
-    protected function getShippingOptionsProvider(AccountEntity $account)
+    /**
+     * To satisfy GetNamespacePartForAccountTrait
+     * @return ShippingOptionsProviderRepository
+     */
+    protected function getShippingOptionsProviderRepo()
     {
-        return $this->shippingOptionsProviderRepo->getProviderForAccount($account);
+        return $this->shippingOptionsProviderRepo;
     }
 }
