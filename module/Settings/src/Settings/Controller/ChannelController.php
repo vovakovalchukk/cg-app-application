@@ -5,7 +5,7 @@ use CG\Account\Client\Entity as AccountEntity;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\GetNamespacePartForAccountTrait;
 use CG\Channel\Service as ChannelService;
-use CG\Channel\ShippingOptionsProviderInterface;
+use CG\Channel\ShippingOptionsProviderRepository;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -64,8 +64,8 @@ class ChannelController extends AbstractActionController
     protected $translator;
     protected $organisationUnitService;
     protected $intercomEventService;
-    /** @var ShippingOptionsProviderInterface */
-    protected $shippingOptionsProvider;
+    /** @var ShippingOptionsProviderRepository */
+    protected $shippingOptionsProviderRepo;
 
     public function __construct(
         Di $di,
@@ -81,7 +81,7 @@ class ChannelController extends AbstractActionController
         Translator $translator,
         OrganisationUnitService $organisationUnitService,
         IntercomEventService $intercomEventService,
-        ShippingOptionsProviderInterface $shippingOptionsProvider
+        ShippingOptionsProviderRepository $shippingOptionsProviderRepo
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -96,7 +96,7 @@ class ChannelController extends AbstractActionController
             ->setTranslator($translator)
             ->setOrganisationUnitService($organisationUnitService)
             ->setIntercomEventService($intercomEventService)
-            ->setShippingOptionsProvider($shippingOptionsProvider);
+            ->setShippingOptionsProviderRepo($shippingOptionsProviderRepo);
     }
 
     public function setService(Service $service)
@@ -610,15 +610,18 @@ class ChannelController extends AbstractActionController
         return $this;
     }
 
-    protected function setShippingOptionsProvider(ShippingOptionsProviderInterface $shippingOptionsProvider)
+    protected function setShippingOptionsProviderRepo(ShippingOptionsProviderRepository $shippingOptionsProviderRepo)
     {
-        $this->shippingOptionsProvider = $shippingOptionsProvider;
+        $this->shippingOptionsProviderRepo = $shippingOptionsProviderRepo;
         return $this;
     }
 
-    // Required by GetNamespacePartForAccountTrait
-    protected function getShippingOptionsProvider()
+    /**
+     * To satisfy GetNamespacePartForAccountTrait
+     * @return ShippingOptionsProviderRepository
+     */
+    protected function getShippingOptionsProviderRepo()
     {
-        return $this->shippingOptionsProvider;
+        return $this->shippingOptionsProviderRepo;
     }
 }

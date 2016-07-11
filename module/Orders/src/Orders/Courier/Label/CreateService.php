@@ -68,7 +68,7 @@ class CreateService extends ServiceAbstract
 
         try {
             $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-            $labelReadyStatuses = $this->carrierProviderService->createLabelsForOrders(
+            $labelReadyStatuses = $this->getCarrierProviderService($shippingAccount)->createLabelsForOrders(
                 $orders,
                 $orderLabels,
                 $ordersData,
