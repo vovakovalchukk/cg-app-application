@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5ae68b04c0d05f398e550eed3d3a440f0a788b10"
+                "reference": "5e8ca15267ace19a45bd001fc11d29f82598832e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-342672.zip",
-                "reference": "5ae68b04c0d05f398e550eed3d3a440f0a788b10",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-3a022a.zip",
+                "reference": "5e8ca15267ace19a45bd001fc11d29f82598832e",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-06 14:17:18"
+            "time": "2016-07-11 07:36:08"
         },
         {
             "name": "channelgrabber/cilex",
