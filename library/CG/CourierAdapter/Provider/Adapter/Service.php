@@ -48,12 +48,18 @@ class Service
         return $adaptersByChannelName->current();
     }
 
+    /**
+     * @return \CG\CourierAdapter\CourierInterface
+     */
     public function getAdapterCourierInterfaceForAccount(Account $account)
     {
         $adapter = $this->getAdapterForAccount($account);
         return $this->getAdapterCourierInterface($adapter);
     }
 
+    /**
+     * @return \CG\CourierAdapter\CourierInterface
+     */
     public function getAdapterCourierInterface(Entity $adapter)
     {
         if (isset($this->adapterCourierInterfaces[$adapter->getChannelName()])) {
@@ -62,6 +68,19 @@ class Service
         $courerInterface = call_user_func($adapter->getCourierInterfaceClosure());
         $this->adapterCourierInterfaces[$adapter->getChannelName()] = $courerInterface;
         return $courerInterface;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProvidedChannel($channelName)
+    {
+        try {
+            $this->getAdapterByChannelName($channelName);
+            return true;
+        } catch (\InvalidArgumentException $ex) {
+            return false;
+        }
     }
 
     protected function setMapper(Mapper $mapper)

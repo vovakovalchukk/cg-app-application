@@ -35,6 +35,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
+        "channelgrabber/courieradapter": "dev-master",
         "channelgrabber/dataplug": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.2.8",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.9.48",
