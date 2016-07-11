@@ -12,6 +12,9 @@ define([
         OrdersBulkActionAbstract.call(this);
     }
 
+    EmailInvoice.TITLE_YES = 'Send all';
+    EmailInvoice.TITLE_NO = 'Send unsent';
+
     EmailInvoice.prototype = Object.create(OrdersBulkActionAbstract.prototype);
 
     EmailInvoice.prototype.invoke = function()
@@ -55,7 +58,12 @@ define([
                 if (includePreviouslySent !== undefined) {
                     self.process(includePreviouslySent);
                 }
-            }
+            },
+            [
+                {title: EmailInvoice.TITLE_YES, value: ConfirmPopup.VALUE_YES},
+                {title: EmailInvoice.TITLE_NO, value: ConfirmPopup.VALUE_NO}
+            ],
+            false
         );
     };
 

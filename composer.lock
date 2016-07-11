@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "28f86e0b0a68eb8643b6953ae26296f0",
+    "hash": "1467010388de84534005d8ed326fb7d1",
     "content-hash": "1be0ebadc93a2826913d377b8a3508f9",
     "packages": [
         {
@@ -3437,12 +3437,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0864e62c7667be7ec40416e737376bc13ce9c900"
+                "reference": "551791b31c05f99efb9222cc3e484889d7589df4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7184-ResendEmailInvoiceConfirmation-c5b035.zip",
-                "reference": "0864e62c7667be7ec40416e737376bc13ce9c900",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7184-ResendEmailInvoiceConfirmation-b6dea4.zip",
+                "reference": "551791b31c05f99efb9222cc3e484889d7589df4",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-08 10:42:22"
+            "time": "2016-07-11 08:52:31"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
