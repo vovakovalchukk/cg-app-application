@@ -1,0 +1,19 @@
+<form>
+    <div id="email-invoice-dispatch-section">
+        <label>Email Invoices on Dispatch</label>
+        <?= $this->mustache('elements/toggle.mustache', [
+            'id' => 'email-invoice-dispatch-toggle',
+            'name' => 'emailInvoiceDispatch',
+            'selected' => $this->emailInvoiceDispatchToggleValue
+        ]); ?>
+    </div>
+    <div id="email-invoice-account-badges-section">
+        <?= $accountBadges; ?>
+    </div>
+</form>
+<script type="text/javascript">
+//    require(['<?//=SetupWizard\Module::PUBLIC_FOLDER;?>//js/steps/Messages.js'], function(Messages)
+//    {
+//        new Messages(n);
+//    });
+</script>
