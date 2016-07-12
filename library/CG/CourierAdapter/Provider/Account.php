@@ -6,6 +6,7 @@ use CG\Channel\AccountInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 
 class Account implements AccountInterface
 {
@@ -17,10 +18,13 @@ class Account implements AccountInterface
 
     /** @var AdapterService */
     protected $adapterService;
+    /** @var UrlHelper */
+    protected $urlHelper;
 
-    public function __construct(AdapterService $adapterService)
+    public function __construct(AdapterService $adapterService, UrlHelper $urlHelper)
     {
-        $this->setAdapterService($adapterService);
+        $this->setAdapterService($adapterService)
+            ->setUrlHelper($urlHelper);
     }
 
 
@@ -46,6 +50,12 @@ class Account implements AccountInterface
     protected function setAdapterService(AdapterService $adapterService)
     {
         $this->adapterService = $adapterService;
+        return $this;
+    }
+
+    protected function setUrlHelper(UrlHelper $urlHelper)
+    {
+        $this->urlHelper = $urlHelper;
         return $this;
     }
 }

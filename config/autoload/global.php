@@ -181,6 +181,9 @@ use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
 use CG\Account\Client\StorageInterface as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 
+// CourierAdapters
+use CG\CourierAdapter\Provider\Adapter\Service as CourierAdapterProviderAdapterService;
+
 $config = array(
     'di' => array(
         'definition' => [
@@ -644,6 +647,7 @@ $config = array(
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
+                        ['provider' => CourierAdapterProviderAdapterService::class],
                     ]
                 ]
             ],
@@ -652,6 +656,7 @@ $config = array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => CourierAdapterProviderAdapterService::class],
                     ]
                 ]
             ],

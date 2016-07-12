@@ -2,11 +2,13 @@
 namespace CG\CourierAdapter\Provider\Adapter;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\ShippingOptionsProviderInterface;
 use CG\CourierAdapter\Provider\Adapter\Collection;
 use CG\CourierAdapter\Provider\Adapter\Entity;
 use CG\CourierAdapter\Provider\Adapter\Mapper;
+use CG\Order\Shared\Entity as Order;
 
-class Service
+class Service implements ShippingOptionsProviderInterface
 {
     /** @var Mapper */
     protected $mapper;
@@ -81,6 +83,65 @@ class Service
         } catch (\InvalidArgumentException $ex) {
             return false;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProvidedAccount(Account $account)
+    {
+        return $this->isProvidedChannel($account->getChannel());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOrderSupported($channelName, Order $order)
+    {
+        return $this->isProvidedChannel($channelName);
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderChannelNameForChannel($channelName)
+    {
+        return 'courieradapter';
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespaceNameForChannel($channelName)
+    {
+        return 'CourierAdapter\Provider';
+    }
+
+    /**
+     * @return array
+     */
+    public function getProvidedChannels()
+    {
+        $channels = [];
+        foreach ($this->adapters as $adapter) {
+            $channels[$adapter->getChannelName()] = $adapter->getChannelName();
+        }
+        return $channels;
+    }
+
+    /**
+     * @return array
+     */
+    public function getShippingChannelOptions()
+    {
+        $options = [];
+        foreach ($this->adapters as $adapter) {
+            $options[$adapter->getDisplayName()] = [
+                'channel' => $adapter->getChannelName(),
+                'region' => ''
+            ];
+        }
+        return $options;
     }
 
     protected function setMapper(Mapper $mapper)
