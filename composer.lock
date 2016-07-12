@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4458effc22c23f19fd52c22d98a8ba66",
-    "content-hash": "d5b527baf11671321307d1e858897894",
+    "hash": "2edf142ebcbd60428462c24aafa637fd",
+    "content-hash": "959329c4de9924be5728553ace17c91c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3433,16 +3433,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.59",
+            "version": "dev-CGIV-7115-Orders-page-layout-issues",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cb1e921992bdbe16dd7a8775e7feaf170689ce9a"
+                "reference": "f7ee564ee610d474d5e3937e73794d21ab2f08b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.59-7fcee2.zip",
-                "reference": "cb1e921992bdbe16dd7a8775e7feaf170689ce9a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7115-Orders-page-layout-issues-1f1e05.zip",
+                "reference": "f7ee564ee610d474d5e3937e73794d21ab2f08b8",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-06 09:33:14"
+            "time": "2016-07-12 14:40:53"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4037,7 +4037,6 @@
                 "rest",
                 "web service"
             ],
-            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
@@ -5333,12 +5332,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
@@ -7667,10 +7666,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.60",
+            "alias_normalized": "1.16.60.0",
+            "version": "dev-CGIV-7115-Orders-page-layout-issues",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
