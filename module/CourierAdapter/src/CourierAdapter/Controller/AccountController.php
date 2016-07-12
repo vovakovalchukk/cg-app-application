@@ -17,6 +17,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
+    const ROUTE = 'Account';
+    const ROUTE_SAVE = 'Save';
     const ROUTE_REQUEST_SEND = 'Send';
 
     /** @var AdapterService */

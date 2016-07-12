@@ -1,5 +1,6 @@
 <?php
 
+use CG\Channel\Service as ChannelService;
 use CG\CourierAdapter\Provider\Account as CAAccountService;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CourierAdapter\Controller\AccountController;
@@ -13,7 +14,7 @@ return [
             dirname(__DIR__) . '/view/',
         ],
         'template_map' => [
-
+            ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . 'CourierAdapter\Provider' => dirname(__DIR__) . '/view/courier-adapter/settings_account.phtml',
         ]
     ],
     'router' => [
@@ -26,6 +27,28 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    AccountController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/account',
+                            'defaults' => [
+                                'controller' => AccountController::class,
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            AccountController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ca-save',
+                                    'defaults' => [
+                                        'action' => 'save',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ],
+                    ],
                     CAAccountService::ROUTE_SETUP => [
                         'type' => Segment::class,
                         'options' => [
