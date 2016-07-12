@@ -5,4 +5,7 @@ return [
             dirname(__DIR__) . '/view/',
         ],
     ],
+    'router' => [
+        'routes' => [],
+    ],
 ];
