@@ -149,6 +149,7 @@ use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider
 use CG\NetDespatch\Order\Service as NetDespatchOrderService;
 use CG\NetDespatch\ShippingService as NetDespatchShippingService;
 use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
+use CG\NetDespatch\Account\CreationService as NetDespatchAccountCreationService;
 
 // Transactions
 use CG\Transaction\ClientInterface as TransactionClient;
@@ -175,6 +176,10 @@ use CG\Amazon\Carrier\CarrierProviderService as AmazonCarrierProvider;
 use CG\Amazon\ShippingService\Service as AmazonShippingServiceService;
 use CG\Amazon\ShippingService\StorageInterface as AmazonShippingServiceStorage;
 use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
+
+// Accounts
+use CG\Account\Client\StorageInterface as AccountStorage;
+use CG\Account\Client\Storage\Api as AccountApiStorage;
 
 return array(
     'di' => array(
@@ -253,6 +258,7 @@ return array(
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
                 AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
+                AccountStorage::class => AccountApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -623,6 +629,11 @@ return array(
                 ]
             ],
             AccountManifestApiStorage::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
+                ]
+            ],
+            AccountApiStorage::class => [
                 'parameters' => [
                     'client' => 'account_guzzle'
                 ]
@@ -1339,6 +1350,11 @@ return array(
                 'parameters' => [
                     // Don't use our FailoverClient, use Guzzle directly, as this is for talking to a third-party
                     'guzzleClient' => \Guzzle\Http\Client::class,
+                ]
+            ],
+            NetDespatchAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'netdespatch_cryptor',
                 ]
             ],
             CustomerCountRepository::class => [
