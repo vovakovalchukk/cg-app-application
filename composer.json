@@ -85,7 +85,7 @@
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.5",
         "channelgrabber/zf2-permission": "~1.1.13",
-        "channelgrabber/zf2-register": "~1.4.45",
+        "channelgrabber/zf2-register": "dev-CGIV-7231-payment-details-address-finder-broken as 1.4.46",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.5",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",

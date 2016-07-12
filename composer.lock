@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4458effc22c23f19fd52c22d98a8ba66",
-    "content-hash": "d5b527baf11671321307d1e858897894",
+    "hash": "825e536fe00ecc4671a0cc74d8a38bd6",
+    "content-hash": "8f3163e196dd4c26d593ff6cfec3ead2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3174,16 +3174,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.45",
+            "version": "dev-CGIV-7231-payment-details-address-finder-broken",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "898efd72641939d3f79727fa1f965b87872281fc"
+                "reference": "88ded1dadc5d54fe6ea092333c2a2d06fcaf2d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.45-112941.zip",
-                "reference": "898efd72641939d3f79727fa1f965b87872281fc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7231-payment-details-address-finder-broken-e7b2a4.zip",
+                "reference": "88ded1dadc5d54fe6ea092333c2a2d06fcaf2d19",
                 "shasum": null
             },
             "require": {
@@ -3222,7 +3222,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-07-05 13:10:44"
+            "time": "2016-07-12 09:54:57"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -7667,10 +7667,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.46",
+            "alias_normalized": "1.4.46.0",
+            "version": "dev-CGIV-7231-payment-details-address-finder-broken",
+            "package": "channelgrabber/zf2-register"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
