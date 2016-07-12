@@ -1,6 +1,7 @@
 <?php
 
 use CG\CourierAdapter\Provider\Account as CAAccountService;
+use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CourierAdapter\Controller\AccountController;
 use CourierAdapter\Module;
 use Zend\Mvc\Router\Http\Literal;
@@ -94,7 +95,11 @@ return [
     ],
     'di' => [
         'instance' => [
-
+            AccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'courieradapter_cryptor'
+                ]
+            ]
         ],
     ],
 ];
