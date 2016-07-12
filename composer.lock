@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "952e9728507abd8bb7a2b9dc226679d6",
-    "content-hash": "cccfadeadbc62a62e29e92b6dc8b7ac5",
+    "hash": "33ede2fd8f75edbcc8dace74b0540c9c",
+    "content-hash": "ba258879437a28c13c268bb3734b5ea6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "c77fd0cbc805bb1773c604313310e05fb1224143"
+                "reference": "38474a094e88b968f56dfbf4cba120594ad4b7b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-e18848.zip",
-                "reference": "c77fd0cbc805bb1773c604313310e05fb1224143",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-46850f.zip",
+                "reference": "38474a094e88b968f56dfbf4cba120594ad4b7b5",
                 "shasum": null
             },
             "require": {
@@ -513,7 +513,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-06-27 13:20:20"
+            "time": "2016-07-12 10:13:07"
         },
         {
             "name": "channelgrabber/dataplug",

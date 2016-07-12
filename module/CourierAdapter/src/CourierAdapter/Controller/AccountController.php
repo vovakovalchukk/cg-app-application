@@ -3,7 +3,7 @@ namespace CourierAdapter\Controller;
 
 use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Provider\Account as CAAccountService;
-use CG\CourierAdapater\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Module as SettingsModule;
@@ -34,7 +34,6 @@ class AccountController extends AbstractActionController
     public function requestCredentialsAction()
     {
         $channelName = $this->params('channel');
-        $accountId = $this->params()->fromQuery('accountId');
         if (!$this->adapterService->isProvidedChannel($channelName)) {
             throw new \InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
         }
@@ -49,9 +48,6 @@ class AccountController extends AbstractActionController
         $this->prepareRequestCredentialsFields($fields);
 
         $goBackUrl = $this->plugin('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
-        if ($accountId) {
-            $goBackUrl .= '/' . $accountId;
-        }
         $saveRoute = implode('/', [CAAccountService::ROUTE, CAAccountService::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
         $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
 

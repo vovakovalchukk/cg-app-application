@@ -3,8 +3,8 @@ namespace CG\CourierAdapter\Provider;
 
 use CG\Account\Client\Entity as AccountEntity;
 use CG\Channel\AccountInterface;
-use CG\CourierAdapater\Account\CredentialRequestInterface;
-use CG\CourierAdapater\Account\ThirdPartyAuthInterface;
+use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
 
 class Account implements AccountInterface
