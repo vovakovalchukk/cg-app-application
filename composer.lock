@@ -9,22 +9,22 @@
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "a7de91380814910200064924cc21d6fc8e93e215"
+                "reference": "84108c8d81025cc648123ede81774589ccbb3bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7110-courier-manifesting-for-all-providers-caec54.zip",
-                "reference": "a7de91380814910200064924cc21d6fc8e93e215",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-7108-integrate-courier-adapters-03aa02.zip",
+                "reference": "84108c8d81025cc648123ede81774589ccbb3bed",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.25.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-08 08:37:30"
+            "time": "2016-07-12 12:41:57"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "20c58441784ad2fab45c5d8775c0a99ba90d4ba2"
+                "reference": "b11e3a70c4bec05f4ff8c742a9ab783e04d412f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7110-courier-manifesting-for-all-providers-6bdb19.zip",
-                "reference": "20c58441784ad2fab45c5d8775c0a99ba90d4ba2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7108-integrate-courier-adapters-86f06f.zip",
+                "reference": "b11e3a70c4bec05f4ff8c742a9ab783e04d412f1",
                 "shasum": null
             },
             "require": {
@@ -351,9 +351,9 @@
                 "zendframework/zend-di": ">=2.2.5,<3.0"
             },
             "conflict": {
-                "channelgrabber/amazon": "<1.17.9",
-                "channelgrabber/dataplug": "<1.2.5",
-                "channelgrabber/netdespatch": "<1.0.5"
+                "channelgrabber/amazon": "<1.17.15",
+                "channelgrabber/dataplug": "<1.2.8",
+                "channelgrabber/netdespatch": "<1.0.11"
             },
             "replace": {
                 "channelgrabber/account": "*"
@@ -364,11 +364,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-7110-courier-manifesting-for-all-providers": "1.25.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -382,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-11 09:17:09"
+            "time": "2016-07-12 12:39:07"
         },
         {
             "name": "channelgrabber/cilex",
@@ -522,20 +517,20 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "305a05bd4ba9515b01f48bb77be0ff61c44f2d6a"
+                "reference": "15d3fa5e336438e8c9bd77e670888e4cd3cd3a9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-7110-courier-manifesting-for-all-providers-3c98ed.zip",
-                "reference": "305a05bd4ba9515b01f48bb77be0ff61c44f2d6a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-7108-integrate-courier-adapters-2c4468.zip",
+                "reference": "15d3fa5e336438e8c9bd77e670888e4cd3cd3a9b",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.25.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
@@ -564,7 +559,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-07-08 08:56:03"
+            "time": "2016-07-12 12:42:53"
         },
         {
             "name": "channelgrabber/db",
@@ -1201,20 +1196,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "842b1047dfbfea044dc29fa4eafddfce00ad0f7c"
+                "reference": "58ffb011365ce6f8e378e7fd5a3c602fb6257843"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7110-courier-manifesting-for-all-providers-8fcb25.zip",
-                "reference": "842b1047dfbfea044dc29fa4eafddfce00ad0f7c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-EPIC-CGIV-7108-integrate-courier-adapters-832c2a.zip",
+                "reference": "58ffb011365ce6f8e378e7fd5a3c602fb6257843",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-7110-courier-manifesting-for-all-providers as 1.25.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
@@ -1252,7 +1247,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-07-08 08:44:06"
+            "time": "2016-07-12 12:44:32"
         },
         {
             "name": "channelgrabber/notification",
@@ -1304,7 +1299,7 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
@@ -1312,7 +1307,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7110-courier-manifesting-for-all-providers-863a70.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-863a70.zip",
                 "reference": "a15b9d84cd0704fd82175f56cdd3de9ffd7642e6",
                 "shasum": null
             },
@@ -7704,31 +7699,31 @@
         {
             "alias": "1.17.15",
             "alias_normalized": "1.17.15.0",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
-            "alias_normalized": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "alias": "1.25.0",
+            "alias_normalized": "1.25.0.0",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.2.8",
             "alias_normalized": "1.2.8.0",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/dataplug"
         },
         {
             "alias": "1.0.11",
             "alias_normalized": "1.0.11.0",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/netdespatch"
         },
         {
             "alias": "1.23.9",
             "alias_normalized": "1.23.9.0",
-            "version": "dev-CGIV-7110-courier-manifesting-for-all-providers",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/order"
         }
     ],
