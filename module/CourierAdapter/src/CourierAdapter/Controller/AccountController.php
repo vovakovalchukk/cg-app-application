@@ -6,11 +6,12 @@ use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
-use CourierAdapter\Account\Service as CAModuleAccountService;
-use CourierAdapter\Module;
+use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\User\ActiveUserInterface;
+use CourierAdapter\Account\Service as CAModuleAccountService;
+use CourierAdapter\Module;
 use InvalidArgumentException;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -214,9 +215,7 @@ class AccountController extends AbstractActionController
 
         $valid = $this->caModuleAccountService->validateSetupFields($fields, $params, $courierInterface);
         if (!$valid) {
-            $view->setVariable('success', false)
-                ->setVariable('message', 'The entered credentials are invalid or incomplete. Please check them and try again.');
-            return $view;
+            throw new ValidationException('The entered credentials are invalid or incomplete. Please check them and try again.');
         }
 
         $url = $this->connectAccountAndGetRedirectUrl($params);

@@ -58,7 +58,6 @@ class Service
         if ($courierInterface instanceof CredentialVerificationInterface) {
             $caAccount = $this->caAccountMapper->fromArray([
                 'credentials' => $values,
-                'config' => [],
             ]);
             return $courierInterface->validateCredentials($caAccount);
         }

@@ -18,8 +18,9 @@ class Mapper
     public function fromOHAccount(OHAccount $ohAccount)
     {
         return $this->fromArray([
-            $this->cryptor->decrypt($ohAccount->getCredentials())->toArray(),
-            (isset($ohAccount->getExternalData()['config']) ? json_decode($ohAccount->getExternalData()['config']) : []),
+            'credentials' => $this->cryptor->decrypt($ohAccount->getCredentials())->toArray(),
+            'config' => (isset($ohAccount->getExternalData()['config']) ? json_decode($ohAccount->getExternalData()['config']) : []),
+            'id' => $ohAccount->getExternalId(),
         ]);
     }
 
@@ -27,7 +28,8 @@ class Mapper
     {
         return new CAAccount(
             $data['credentials'],
-            $data['config']
+            (isset($data['config']) ? $data['config'] : []),
+            (isset($data['id']) ? $data['id'] : null)
         );
     }
 
