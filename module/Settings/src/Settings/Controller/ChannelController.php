@@ -174,8 +174,8 @@ class ChannelController extends AbstractActionController
         $addChannelSelect = $this->newViewModel();
         $addChannelSelect->setTemplate('settings/channel/create/select');
         // CGIV-6572: dark deploy of Dataplug - only show Dataplug couriers to admins for now
-        $includeProvided = $this->activeUserContainer->isAdmin();
-        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type'), $includeProvided));
+        $includeDarkDeploy = $this->activeUserContainer->isAdmin();
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type'), $includeDarkDeploy));
         return $addChannelSelect;
     }
 
