@@ -1,8 +1,10 @@
 <?php
 
+use CG_Channel\Module as ChannelModule;
+
 if ($this->accountPendingInstructions) {
     echo $this->accountPendingInstructions;
     return;
 }
 
-// TODO: when account is not pending
+echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));

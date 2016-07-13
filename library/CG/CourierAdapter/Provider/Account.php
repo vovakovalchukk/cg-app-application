@@ -33,18 +33,24 @@ class Account implements AccountInterface
         $routeVariables['channel'] = $account->getChannel();
 
         $courierInterface = $this->adapterService->getAdapterCourierInterfaceForAccount($account);
+        if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
+            return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_REQUEST, $routeVariables);
+        }
         if ($courierInterface instanceof ThirdPartyAuthInterface) {
             $successUrl = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_SUCCESS, $routeVariables);
             $failureUrl = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_FAILURE, $routeVariables);
+            if ($account->getId()) {
+                $successUrl .= '?accountId=' . $account->getId();
+                $failureUrl .= '?accountId=' . $account->getId();
+            }
             return $courierInterface->getAuthUrl($successUrl, $failureUrl);
-
-        } elseif ($courierInterface instanceof CredentialRequestInterface) {
-            $routeVariables['channel'] = $account->getChannel();
-            return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_REQUEST, $routeVariables);
         }
 
-        $routeVariables['channel'] = $account->getChannel();
-        return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_SETUP, $routeVariables);
+        $url = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_SETUP, $routeVariables);
+        if ($account->getId()) {
+            $url .= '?accountId=' . $account->getId();
+        }
+        return $url;
     }
 
     protected function setAdapterService(AdapterService $adapterService)
