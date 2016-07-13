@@ -1,12 +1,15 @@
 <?php
 namespace BigCommerce\App;
 
+use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
+use Zend\View\Helper\ServerUrl;
 
 class Service
 {
+    /** @var ServerUrl $serverUrl */
+    protected $serverUrl;
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
     /** @var ViewModelFactory $viewModelFactory */
@@ -15,11 +18,13 @@ class Service
     protected $accountCreationService;
 
     public function __construct(
+        ServerUrl $serverUrl,
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService
     ) {
         $this
+            ->setServerUrl($serverUrl)
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService);
@@ -49,10 +54,11 @@ class Service
         $shopHash = $this->getShopHash($parameters['scope']);
         $accountId = null; // TODO: Get accountId from session for selected shop hash
 
+        $serverUrl = $this->serverUrl;
         $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $accountId,
-            array_merge(['shopHash' => $shopHash], $parameters)
+            array_merge(['shopHash' => $shopHash, 'redirectUri' => $serverUrl(true)], $parameters)
         );
     }
 
@@ -91,6 +97,15 @@ class Service
             return $store['hash'];
         }
         throw new \InvalidArgumentException('OAuth request does not have a valid store context');
+    }
+
+    /**
+     * @return self
+     */
+    protected function setServerUrl(ServerUrl $serverUrl)
+    {
+        $this->serverUrl = $serverUrl;
+        return $this;
     }
 
     /**
