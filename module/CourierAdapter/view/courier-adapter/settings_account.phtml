@@ -1,3 +1,8 @@
 <?php
 
-echo 'TEST';
+if ($this->accountPendingInstructions) {
+    echo $this->accountPendingInstructions;
+    return;
+}
+
+// TODO: when account is not pending
