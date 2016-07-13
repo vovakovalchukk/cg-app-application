@@ -7,6 +7,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Channel\Service as SettingsChannelService;
+use SetupWizard\Channels\ConnectViewFactory;
 use SetupWizard\Channels\Service as ChannelsService;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Module;
@@ -22,8 +23,6 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_DELETE = 'Delete';
     const ROUTE_CHANNEL_CONNECT = 'Connect';
 
-    const CHANNEL_CONNECT_TEMPLATE_PATH = 'settings/channel/';
-
     /** @var SetupService */
     protected $setupService;
     /** @var ViewModelFactory */
@@ -34,19 +33,24 @@ class ChannelsController extends AbstractActionController
     protected $channelsService;
     /** @var SettingsChannelService */
     protected $settingsChannelService;
+    /** @var ConnectViewFactory $connectViewFactory */
+    protected $connectViewFactory;
 
     public function __construct(
         SetupService $setupService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         ChannelsService $channelsService,
-        SettingsChannelService $settingsChannelService
+        SettingsChannelService $settingsChannelService,
+        ConnectViewFactory $connectViewFactory
     ) {
-        $this->setSetupService($setupService)
+        $this
+            ->setSetupService($setupService)
             ->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setChannelsService($channelsService)
-            ->setSettingsChannelService($settingsChannelService);
+            ->setSettingsChannelService($settingsChannelService)
+            ->setConnectViewFactory($connectViewFactory);
     }
 
     public function indexAction()
@@ -232,43 +236,66 @@ class ChannelsController extends AbstractActionController
         $channel = $this->params()->fromRoute('channel');
         $region = $this->params()->fromRoute('region');
         $displayName = $this->channelsService->getSalesChannelDisplayName($channel);
-        $template = static::CHANNEL_CONNECT_TEMPLATE_PATH . str_replace(['-', '_'], '', strtolower($channel));
 
-        $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate($template)
-            ->setVariable('region', $region)
-            ->setVariable('accountId', null);
-
-        return $this->setupService->getSetupView('Add ' . $displayName, $view, false);
+        $connectViewFactory = $this->connectViewFactory;
+        return $this->setupService->getSetupView(
+            'Add ' . $displayName,
+            $connectViewFactory($channel, $region),
+            false
+        );
     }
 
+    /**
+     * @return self
+     */
     protected function setSetupService(SetupService $setupService)
     {
         $this->setupService = $setupService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setChannelsService(ChannelsService $channelsService)
     {
         $this->channelsService = $channelsService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setSettingsChannelService(SettingsChannelService $settingsChannelService)
     {
         $this->settingsChannelService = $settingsChannelService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setConnectViewFactory(ConnectViewFactory $connectViewFactory)
+    {
+        $this->connectViewFactory = $connectViewFactory;
         return $this;
     }
 }
