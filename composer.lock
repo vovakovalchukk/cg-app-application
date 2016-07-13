@@ -1957,16 +1957,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.0.0",
+            "version": "1.0.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "97bb35e22ca6b99b35dfe60fafa44937dfed55f5"
+                "reference": "dbd179f14b125b92161f93f97efc95913623e2cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.0-f453ce.zip",
-                "reference": "97bb35e22ca6b99b35dfe60fafa44937dfed55f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.0.1-e0b17b.zip",
+                "reference": "dbd179f14b125b92161f93f97efc95913623e2cd",
                 "shasum": null
             },
             "require": {
@@ -1996,7 +1996,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-12 13:11:02"
+            "time": "2016-07-13 09:44:54"
         },
         {
             "name": "channelgrabber/slim",
