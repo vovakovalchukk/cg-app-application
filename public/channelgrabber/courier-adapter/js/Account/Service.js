@@ -3,7 +3,7 @@ define([
 ], function (
     EventHandler
 ) {
-    var Service = function()
+    var Service = function(savingNotification, savedNotification)
     {
         var eventHandler;
         var form;
@@ -19,6 +19,16 @@ define([
             return this;
         };
 
+        this.getSavingNotification = function()
+        {
+            return savingNotification;
+        };
+
+        this.getSavedNotification = function()
+        {
+            return savedNotification;
+        };
+
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
@@ -28,15 +38,16 @@ define([
 
     Service.prototype.save = function()
     {
+        var self = this;
         var valid = this.validate();
         if (!valid) {
             return;
         }
-        n.notice('Connecting Account');
+        n.notice(this.getSavingNotification());
         $(EventHandler.SELECTOR_FORM).ajaxSubmit({
             "dataType": "json",
             "success": function(response) {
-                n.success('Account connected');
+                n.success(self.getSavedNotification());
                 window.location = response.redirectUrl;
             },
             "error": function(response) {

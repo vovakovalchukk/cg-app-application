@@ -3,9 +3,11 @@ namespace CourierAdapter\Controller;
 
 use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
-use CG\CourierAdapter\Provider\Account as CAAccountService;
-use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG\CourierAdapter\Account\LocalAuthInterface;
+use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
+use CourierAdapter\Account\Service as CAModuleAccountService;
+use CourierAdapter\Module;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\User\ActiveUserInterface;
@@ -21,8 +23,6 @@ class AccountController extends AbstractActionController
     const ROUTE_SAVE = 'Save';
     const ROUTE_REQUEST_SEND = 'Send';
 
-    /** @var AdapterService */
-    protected $adapterService;
     /** @var AccountCreationService */
     protected $accountCreationService;
     /** @var ViewModelFactory */
@@ -31,68 +31,76 @@ class AccountController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var CAModuleAccountService */
+    protected $caModuleAccountService;
 
     public function __construct(
-        AdapterService $adapterService,
         AccountCreationService $accountCreationService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        CAModuleAccountService $caModuleAccountService
     ) {
-        $this->setAdapterService($adapterService)
-            ->setAccountCreationService($accountCreationService)
+        $this->setAccountCreationService($accountCreationService)
             ->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setCaModuleAccountService($caModuleAccountService);
     }
 
     public function setupAction()
     {
-        // TODO
+        $channelName = $this->params('channel');
+        $accountId = $this->params()->fromQuery('accountId');
+        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, LocalAuthInterface::class);
+
+        $fields = $courierInterface->getCredentialsFields();
+        $fieldValues = [];
+        if ($accountId) {
+            $fieldValues = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
+        }
+
+        $this->prepareAdapterFields($fields, $fieldValues);
+
+        $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
+
+        return $this->getAdapterFieldsView(
+            $fields,
+            $channelName,
+            $saveRoute,
+            'Saving credentials',
+            'Credentials saved',
+            $accountId
+        );
     }
 
     public function requestCredentialsAction()
     {
         $channelName = $this->params('channel');
-        $courierInterface = $this->getCredentialsRequestInterfaceForChannel($channelName);
+        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, CredentialRequestInterface::class);
 
         $instructions = $courierInterface->getCredentialsRequestInstructions();
         $fields = $courierInterface->getCredentialsRequestFields();
-        $this->prepareRequestCredentialsFields($fields);
+        $this->prepareAdapterFields($fields);
 
-        $goBackUrl = $this->plugin('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
-        $saveRoute = implode('/', [CAAccountService::ROUTE, CAAccountService::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
-        $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
+        $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
 
-        $view = $this->viewModelFactory->newInstance([
-            'isHeaderBarVisible' => false,
-            'channelName' => $channelName,
-            'saveUrl' => $saveUrl,
-            'goBackUrl' => $goBackUrl,
-            'instructions' => $instructions,
-            'fields' => $fields,
-        ]);
-        $view
-            ->addChild($this->getButtonView('linkAccount', 'Link Account'), 'linkAccount')
-            ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
+        $view = $this->getAdapterFieldsView(
+            $fields,
+            $channelName,
+            $saveRoute,
+            'Submitting request',
+            'Request Submitted'
+        );
+        $view->setVariable('instructions', $instructions);
+
+        $linkButton = $view->getChildrenByCaptureTo('linkAccount')[0];
+        $linkButton->setVariable('value', 'Submit Request');
 
         return $view;
     }
 
-    protected function getCredentialsRequestInterfaceForChannel($channelName)
-    {
-        if (!$this->adapterService->isProvidedChannel($channelName)) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
-        }
-        $adapter = $this->adapterService->getAdapterByChannelName($channelName);
-        $courierInterface = $this->adapterService->getAdapterCourierInterface($adapter);
-        if (!$courierInterface instanceof CredentialRequestInterface) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but its adapter does not implement ' . CredentialRequestInterface::class);
-        }
-        return $courierInterface;
-    }
-
-    protected function prepareRequestCredentialsFields(array $fields, array $values = [])
+    protected function prepareAdapterFields(array $fields, array $values = [])
     {
         foreach ($fields as $field) {
             if (!$field instanceof ZendFormElement) {
@@ -106,6 +114,38 @@ class AccountController extends AbstractActionController
                 $field->setValue($values[$field->getName()]);
             }
         }
+    }
+
+    protected function getAdapterFieldsView(
+        array $fields,
+        $channelName,
+        $saveRoute,
+        $savingNotification = null,
+        $savedNotification = null,
+        $accountId = null
+    ) {
+        $goBackUrl = $this->plugin('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
+        $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
+        if ($accountId) {
+            $goBackUrl .= '/' . $accountId;
+            $saveUrl .= '?accountId=' . $accountId;
+        }
+
+        $view = $this->viewModelFactory->newInstance([
+            'isHeaderBarVisible' => false,
+            'accountId' => $accountId,
+            'channelName' => $channelName,
+            'saveUrl' => $saveUrl,
+            'goBackUrl' => $goBackUrl,
+            'fields' => $fields,
+            'savingNotification' => $savingNotification,
+            'savedNotification' => $savedNotification,
+        ]);
+        $view
+            ->addChild($this->getButtonView('linkAccount', 'Link Account'), 'linkAccount')
+            ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
+
+        return $view;
     }
 
     protected function getAccountRoute()
@@ -127,15 +167,32 @@ class AccountController extends AbstractActionController
     public function sendCredentialsRequestAction()
     {
         $channelName = $this->params('channel');
-        $params = $this->params()->fromPost();
-        $courierInterface = $this->getCredentialsRequestInterfaceForChannel($channelName);
+        $params = $this->getSanitisedPostParams();
+        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, CredentialRequestInterface::class);
 
         $fields = $courierInterface->getCredentialsRequestFields();
-        $this->prepareRequestCredentialsFields($fields, $params);
+        $this->prepareAdapterFields($fields, $params);
 
         $courierInterface->submitCredentialsRequestFields($fields);
 
         $view = $this->jsonModelFactory->newInstance();
+        $url = $this->connectAccountAndGetRedirectUrl($params);
+        $view->setVariable('redirectUrl', $url);
+        return $view;
+    }
+
+    protected function getSanitisedPostParams()
+    {
+       // ZF2 replaces spaces in param names with underscores, need to undo that
+        $params = [];
+        foreach ($this->params()->fromPost() as $key => $value) {
+            $params[str_replace('_', ' ', $key)] = $value;
+        }
+        return $params;
+    }
+
+    protected function connectAccountAndGetRedirectUrl(array $params)
+    {
         $accountEntity = $this->accountCreationService->connectAccount(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             $params['account'],
@@ -143,6 +200,26 @@ class AccountController extends AbstractActionController
         );
         $url = $this->plugin('url')->fromRoute($this->getAccountRoute(), ["account" => $accountEntity->getId(), "type" => ChannelType::SHIPPING]);
         $url .= '/' . $accountEntity->getId();
+        return $url;
+    }
+
+    public function saveAction()
+    {
+        $params = $this->getSanitisedPostParams();
+        $channelName = $params['channel'];
+        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, LocalAuthInterface::class);
+        $view = $this->jsonModelFactory->newInstance();
+
+        $fields = $courierInterface->getCredentialsFields();
+
+        $valid = $this->caModuleAccountService->validateSetupFields($fields, $params, $courierInterface);
+        if (!$valid) {
+            $view->setVariable('success', false)
+                ->setVariable('message', 'The entered credentials are invalid or incomplete. Please check them and try again.');
+            return $view;
+        }
+
+        $url = $this->connectAccountAndGetRedirectUrl($params);
         $view->setVariable('redirectUrl', $url);
         return $view;
     }
@@ -155,12 +232,6 @@ class AccountController extends AbstractActionController
     public function authFailureAction()
     {
         // TODO
-    }
-
-    protected function setAdapterService(AdapterService $adapterService)
-    {
-        $this->adapterService = $adapterService;
-        return $this;
     }
 
     protected function setAccountCreationService(AccountCreationService $accountCreationService)
@@ -184,6 +255,12 @@ class AccountController extends AbstractActionController
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function setCaModuleAccountService(CAModuleAccountService $caModuleAccountService)
+    {
+        $this->caModuleAccountService = $caModuleAccountService;
         return $this;
     }
 }

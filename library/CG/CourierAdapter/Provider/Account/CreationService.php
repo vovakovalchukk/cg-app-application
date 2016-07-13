@@ -7,6 +7,7 @@ use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
+use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
 use CG\CourierAdapter\Provider\Adapter\ServiceAwareInterface as AdapterServiceAwareInterface;
 use CG\CourierAdapter\Provider\Credentials;
@@ -26,19 +27,36 @@ class CreationService extends CreationServiceAbstract implements AdapterServiceA
             ->setType([ChannelType::SHIPPING])
             ->setDisplayName($adapter->getDisplayName());
 
+        if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
+            $this->configureAccountFromCredentialsRequest($account, $params);
+            return $account;
+        }
+        if ($courierInterface instanceof LocalAuthInterface) {
+            $this->configureAccountFromLocalAuth($account, $params, $courierInterface);
+            return $account;
+        }
         if ($courierInterface instanceof ThirdPartyAuthInterface) {
             // TODO
         }
-        if ($courierInterface instanceof LocalAuthInterface) {
-            // TODO
-        }
-        if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
-            $account->setPending(true);
-            $credentials = new Credentials();
-            $account->setCredentials($this->cryptor->encrypt($credentials));
-        }
         
         return $account;
+    }
+
+    protected function configureAccountFromCredentialsRequest(AccountEntity $account, array $params)
+    {
+        $account->setPending(true);
+        $credentials = new Credentials();
+        $account->setCredentials($this->cryptor->encrypt($credentials));
+    }
+
+    protected function configureAccountFromLocalAuth(AccountEntity $account, array $params, CourierInterface $courierInterface)
+    {
+        $account->setPending(false);
+        $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
+        foreach ($courierInterface->getCredentialsFields() as $field) {
+            $credentials->set($field->getName(), ($params[$field->getName()] ?: null));
+        }
+        $account->setCredentials($this->cryptor->encrypt($credentials));
     }
 
     // Required by CreationServiceAbstract but will be changed by configureAccount()

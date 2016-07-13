@@ -32,6 +32,8 @@ class ProviderController extends AbstractActionController
 
         $setupUrl = $this->caAccountService->getInitialisationUrl($account, '');
         $view->setVariable('url', $setupUrl);
+
+        // TODO: check for ConfigInterface and show config fields
     }
 
     protected function setAdapterService(AdapterService $adapterService)

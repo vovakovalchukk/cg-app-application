@@ -3,6 +3,8 @@
 use CG\Channel\Service as ChannelService;
 use CG\CourierAdapter\Provider\Account as CAAccountService;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
+use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CourierAdapter\Account\Service as CAModuleAccountService;
 use CourierAdapter\Controller\AccountController;
 use CourierAdapter\Module;
 use Zend\Mvc\Router\Http\Literal;
@@ -119,6 +121,16 @@ return [
     'di' => [
         'instance' => [
             AccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'courieradapter_cryptor'
+                ]
+            ],
+            CAAccountMapper::class => [
+                'parameters' => [
+                    'cryptor' => 'courieradapter_cryptor'
+                ]
+            ],
+            CAModuleAccountService::class => [
                 'parameters' => [
                     'cryptor' => 'courieradapter_cryptor'
                 ]
