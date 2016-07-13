@@ -5,7 +5,9 @@ use CG\Account\Client\Entity as AccountEntity;
 use CG\Channel\AccountInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
+use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG_UI\View\Helper\RemoteUrl as RemoteUrlHelper;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 
 class Account implements AccountInterface
@@ -20,11 +22,14 @@ class Account implements AccountInterface
     protected $adapterService;
     /** @var UrlHelper */
     protected $urlHelper;
+    /** @var RemoteUrlHelper */
+    protected $remoteUrlHelper;
 
-    public function __construct(AdapterService $adapterService, UrlHelper $urlHelper)
+    public function __construct(AdapterService $adapterService, UrlHelper $urlHelper, RemoteUrlHelper $remoteUrlHelper)
     {
         $this->setAdapterService($adapterService)
-            ->setUrlHelper($urlHelper);
+            ->setUrlHelper($urlHelper)
+            ->setRemoteUrlHelper($remoteUrlHelper);
     }
 
 
@@ -37,13 +42,7 @@ class Account implements AccountInterface
             return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_REQUEST, $routeVariables);
         }
         if ($courierInterface instanceof ThirdPartyAuthInterface) {
-            $successUrl = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_SUCCESS, $routeVariables);
-            $failureUrl = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_FAILURE, $routeVariables);
-            if ($account->getId()) {
-                $successUrl .= '?accountId=' . $account->getId();
-                $failureUrl .= '?accountId=' . $account->getId();
-            }
-            return $courierInterface->getAuthUrl($successUrl, $failureUrl);
+            return $this->getInitialisationUrlForThirdPartyAuth($account, $routeVariables, $courierInterface);
         }
 
         $url = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_SETUP, $routeVariables);
@@ -51,6 +50,28 @@ class Account implements AccountInterface
             $url .= '?accountId=' . $account->getId();
         }
         return $url;
+    }
+
+    protected function getInitialisationUrlForThirdPartyAuth(
+        AccountEntity $account,
+        array $routeVariables,
+        CourierInterface $courierInterface
+    ) {
+        $successUri = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_SUCCESS, $routeVariables);
+        $failureUri = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_FAILURE, $routeVariables);
+        if ($account->getId()) {
+            $successUri .= '?accountId=' . $account->getId();
+            $failureUri .= '?accountId=' . $account->getId();
+        }
+
+        $successUrl = $this->remoteUrlHelper->__invoke($successUri, 'app');
+        $failureUrl = $this->remoteUrlHelper->__invoke($failureUri, 'app');
+        $authUrl = $courierInterface->getAuthUrl($successUrl, $failureUrl);
+
+        if (!preg_match('/^http(s)?:\/\//i', $authUrl)) {
+            $authUrl = 'http://' . $authUrl;
+        }
+        return $authUrl;
     }
 
     protected function setAdapterService(AdapterService $adapterService)
@@ -62,6 +83,12 @@ class Account implements AccountInterface
     protected function setUrlHelper(UrlHelper $urlHelper)
     {
         $this->urlHelper = $urlHelper;
+        return $this;
+    }
+
+    protected function setRemoteUrlHelper(RemoteUrlHelper $remoteUrlHelper)
+    {
+        $this->remoteUrlHelper = $remoteUrlHelper;
         return $this;
     }
 }

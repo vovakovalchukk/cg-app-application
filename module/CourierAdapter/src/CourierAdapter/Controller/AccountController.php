@@ -2,8 +2,11 @@
 namespace CourierAdapter\Controller;
 
 use CG\Channel\Type as ChannelType;
+use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
+use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
+use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
@@ -196,7 +199,7 @@ class AccountController extends AbstractActionController
     {
         $accountEntity = $this->accountCreationService->connectAccount(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            $params['account'],
+            (isset($params['account']) ? $params['account'] : null),
             $params
         );
         $url = $this->plugin('url')->fromRoute($this->getAccountRoute(), ["account" => $accountEntity->getId(), "type" => ChannelType::SHIPPING]);
@@ -225,12 +228,27 @@ class AccountController extends AbstractActionController
 
     public function authSuccessAction()
     {
-        // TODO
+        $channelName = $this->params('channel');
+        $accountId = $this->params()->fromQuery('accountId');
+        $params = $this->params()->fromPost();
+
+        $params['channel'] = $channelName;
+        if ($accountId) {
+            $params['account'] = $accountId;
+        }
+
+        try {
+            $url = $this->connectAccountAndGetRedirectUrl($params);
+            $this->redirect()->toUrl($url);
+        } catch (InvalidCredentialsException $e) {
+            $this->redirect()->toRoute(CAAccountSetup::ROUTE . '/' . CAAccountSetup::ROUTE_AUTH_FAILURE, ['channel' => $channelName]);
+            return;
+        }
     }
 
     public function authFailureAction()
     {
-        // TODO
+        $this->redirect()->toRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
     }
 
     protected function setAccountCreationService(AccountCreationService $accountCreationService)
