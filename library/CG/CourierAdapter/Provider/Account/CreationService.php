@@ -10,24 +10,24 @@ use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\CourierInterface;
-use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
-use CG\CourierAdapter\Provider\Adapter\ServiceAwareInterface as AdapterServiceAwareInterface;
+use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\Provider\Implementation\ServiceAwareInterface as AdapterImplementationServiceAwareInterface;
 use CG\CourierAdapter\Provider\Credentials;
 
-class CreationService extends CreationServiceAbstract implements AdapterServiceAwareInterface
+class CreationService extends CreationServiceAbstract implements AdapterImplementationServiceAwareInterface
 {
-    /** @var AdapterService */
-    protected $adapterService;
+    /** @var AdapterImplementationService */
+    protected $adapterImplementationService;
 
     public function configureAccount(AccountEntity $account, array $params)
     {
         $channelName = $params['channel'];
-        $adapter = $this->adapterService->getAdapterByChannelName($channelName);
-        $courierInterface = $this->adapterService->getAdapterCourierInterface($adapter);
+        $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
+        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterface($adapterImplementation);
         
         $account->setChannel($channelName)
             ->setType([ChannelType::SHIPPING])
-            ->setDisplayName($adapter->getDisplayName());
+            ->setDisplayName($adapterImplementation->getDisplayName());
 
         if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
             $this->configureAccountFromCredentialsRequest($account, $params);
@@ -101,10 +101,10 @@ class CreationService extends CreationServiceAbstract implements AdapterServiceA
         return '';
     }
 
-    // For AdapterServiceAwareInterface
-    public function setAdapterService(AdapterService $adapterService)
+    // For AdapterImplementationServiceAwareInterface
+    public function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
     {
-        $this->adapterService = $adapterService;
+        $this->adapterImplementationService = $adapterImplementationService;
         return $this;
     }
 }

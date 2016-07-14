@@ -1,13 +1,13 @@
 <?php
 
-use CG\CourierAdapter\Provider\Adapter\Service;
+use CG\CourierAdapter\Provider\Implementation\Service;
 
 return [
     'di' => [
         'instance' => [
             Service::class => [
                 'parameters' => [
-                    'adaptersConfig' => [
+                    'adapterImplementationsConfig' => [
                         /* Example:
                         [
                             'channelName' => 'example',

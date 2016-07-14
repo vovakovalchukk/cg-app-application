@@ -8,7 +8,7 @@ use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
-use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -16,26 +16,26 @@ use Zend\View\Model\ViewModel;
 
 class ProviderController extends AbstractActionController
 {
-    /** @var AdapterService */
-    protected $adapterService;
+    /** @var AdapterImplementationService */
+    protected $adapterImplementationService;
     /** @var CAAccountSetup */
     protected $caAccountSetup;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
 
     public function __construct(
-        AdapterService $adapterService,
+        AdapterImplementationService $adapterImplementationService,
         CAAccountSetup $caAccountSetup,
         CAAccountMapper $caAccountMapper
     ) {
-        $this->setAdapterService($adapterService)
+        $this->setAdapterImplementationService($adapterImplementationService)
             ->setCAAccountSetup($caAccountSetup)
             ->setCaAccountMapper($caAccountMapper);
     }
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
     {
-        $courierInterface = $this->adapterService->getAdapterCourierInterfaceForAccount($account);
+        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterfaceForAccount($account);
         if ($account->getPending() && $courierInterface instanceof CredentialRequestInterface) {
             $pendingInstructions = $courierInterface->getAccountPendingInstructions();
             $view->setVariable('accountPendingInstructions', $pendingInstructions);
@@ -95,9 +95,9 @@ class ProviderController extends AbstractActionController
         $view->setVariable('testPackFiles', $files);
     }
 
-    protected function setAdapterService(AdapterService $adapterService)
+    protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
     {
-        $this->adapterService = $adapterService;
+        $this->adapterImplementationService = $adapterImplementationService;
         return $this;
     }
 

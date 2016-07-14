@@ -1,5 +1,5 @@
 <?php
-namespace CG\CourierAdapter\Provider\Adapter;
+namespace CG\CourierAdapter\Provider\Implementation;
 
 class Entity
 {

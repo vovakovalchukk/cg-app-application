@@ -6,7 +6,7 @@ use CG\Channel\AccountInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\CourierInterface;
-use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG_UI\View\Helper\RemoteUrl as RemoteUrlHelper;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 
@@ -18,16 +18,16 @@ class Account implements AccountInterface
     const ROUTE_REQUEST = 'Request Credentials';
     const ROUTE_SETUP = 'Set Up Credentials';
 
-    /** @var AdapterService */
-    protected $adapterService;
+    /** @var AdapterImplementationService */
+    protected $adapterImplementationService;
     /** @var UrlHelper */
     protected $urlHelper;
     /** @var RemoteUrlHelper */
     protected $remoteUrlHelper;
 
-    public function __construct(AdapterService $adapterService, UrlHelper $urlHelper, RemoteUrlHelper $remoteUrlHelper)
+    public function __construct(AdapterImplementationService $adapterImplementationService, UrlHelper $urlHelper, RemoteUrlHelper $remoteUrlHelper)
     {
-        $this->setAdapterService($adapterService)
+        $this->setAdapterImplementationService($adapterImplementationService)
             ->setUrlHelper($urlHelper)
             ->setRemoteUrlHelper($remoteUrlHelper);
     }
@@ -37,7 +37,7 @@ class Account implements AccountInterface
     {
         $routeVariables['channel'] = $account->getChannel();
 
-        $courierInterface = $this->adapterService->getAdapterCourierInterfaceForAccount($account);
+        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterfaceForAccount($account);
         if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
             return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_REQUEST, $routeVariables);
         }
@@ -74,9 +74,9 @@ class Account implements AccountInterface
         return $authUrl;
     }
 
-    protected function setAdapterService(AdapterService $adapterService)
+    protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
     {
-        $this->adapterService = $adapterService;
+        $this->adapterImplementationService = $adapterImplementationService;
         return $this;
     }
 

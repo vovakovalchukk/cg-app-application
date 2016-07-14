@@ -8,7 +8,7 @@ use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
-use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
@@ -19,20 +19,20 @@ class Service
     protected $ohAccountService;
     /** @var Cryptor */
     protected $cryptor;
-    /** @var AdapterService */
-    protected $adapterService;
+    /** @var AdapterImplementationService */
+    protected $adapterImplementationService;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
 
     public function __construct(
         OHAccountService $ohAccountService,
         Cryptor $cryptor,
-        AdapterService $adapterService,
+        AdapterImplementationService $adapterImplementationService,
         CAAccountMapper $caAccountMapper
     ) {
         $this->setOHAccountService($ohAccountService)
             ->setCryptor($cryptor)
-            ->setAdapterService($adapterService)
+            ->setAdapterImplementationService($adapterImplementationService)
             ->setCAAccountMapper($caAccountMapper);
     }
 
@@ -41,11 +41,11 @@ class Service
      */
     public function getCourierInterfaceForChannel($channelName, $specificInterface = null)
     {
-        if (!$this->adapterService->isProvidedChannel($channelName)) {
+        if (!$this->adapterImplementationService->isProvidedChannel($channelName)) {
             throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
         }
-        $adapter = $this->adapterService->getAdapterByChannelName($channelName);
-        $courierInterface = $this->adapterService->getAdapterCourierInterface($adapter);
+        $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
+        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterface($adapterImplementation);
         if ($specificInterface && !$courierInterface instanceof $specificInterface) {
             throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but its adapter does not implement ' . $specificInterface);
         }
@@ -142,9 +142,9 @@ class Service
         return $this;
     }
 
-    protected function setAdapterService(AdapterService $adapterService)
+    protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
     {
-        $this->adapterService = $adapterService;
+        $this->adapterImplementationService = $adapterImplementationService;
         return $this;
     }
 
