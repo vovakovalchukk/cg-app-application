@@ -2,13 +2,13 @@
 
 use CG_Channel\Module as ChannelModule;
 
-if ($this->accountPendingInstructions) {
-    echo $this->accountPendingInstructions;
+if (isset($accountPendingInstructions)) {
+    echo $accountPendingInstructions;
     return;
 }
 
 if (isset($configFields)) {
-    echo $this->partial('courier-adapter/settings_account_config.phtml', compact('account', 'configFields', 'configSaveUrl'));
+    echo $this->partial('courier-adapter/settings_account/config.phtml', compact('account', 'configFields'));
 }
 
 echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
