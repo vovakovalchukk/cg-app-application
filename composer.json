@@ -31,7 +31,7 @@
         "channelgrabber/billing": "~1.11.0",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.10.0",
-        "channelgrabber/channel": "dev-CGIV-7244-courier-adapter-provider-account-management as dev-EPIC-CGIV-7108-integrate-courier-adapters",
+        "channelgrabber/channel": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.25.0",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
