@@ -15,7 +15,7 @@ class Service implements ShippingOptionsProviderInterface
     /** @var Collection */
     protected $adapterImplementations;
 
-    protected $adapterImplementationCourierInterfaces = [];
+    protected $adapterImplementationCourierInstances = [];
 
     /**
      * @param array $adapterImplementationsConfig [['channelName' => 'example', 'displayName' => 'Example', 'courierFactory' => function() { return new \ExampleImplementation\Courier(); }]]
@@ -53,22 +53,22 @@ class Service implements ShippingOptionsProviderInterface
     /**
      * @return \CG\CourierAdapter\CourierInterface
      */
-    public function getAdapterImplementationCourierInterfaceForAccount(Account $account)
+    public function getAdapterImplementationCourierInstanceForAccount(Account $account)
     {
         $adapterImplementation = $this->getAdapterImplementationForAccount($account);
-        return $this->getAdapterImplementationCourierInterface($adapterImplementation);
+        return $this->getAdapterImplementationCourierInstance($adapterImplementation);
     }
 
     /**
      * @return \CG\CourierAdapter\CourierInterface
      */
-    public function getAdapterImplementationCourierInterface(Entity $adapterImplementation)
+    public function getAdapterImplementationCourierInstance(Entity $adapterImplementation)
     {
-        if (isset($this->adapterImplementationCourierInterfaces[$adapterImplementation->getChannelName()])) {
-            return $this->adapterImplementationCourierInterfaces[$adapterImplementation->getChannelName()];
+        if (isset($this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()])) {
+            return $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()];
         }
         $courerInterface = call_user_func($adapterImplementation->getCourierFactory());
-        $this->adapterImplementationCourierInterfaces[$adapterImplementation->getChannelName()] = $courerInterface;
+        $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()] = $courerInterface;
         return $courerInterface;
     }
 

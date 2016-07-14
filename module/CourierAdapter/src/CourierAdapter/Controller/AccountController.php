@@ -57,9 +57,9 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
-        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, LocalAuthInterface::class);
+        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
 
-        $fields = $courierInterface->getCredentialsFields();
+        $fields = $courierInstance->getCredentialsFields();
         $fieldValues = [];
         if ($accountId) {
             $fieldValues = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
@@ -82,10 +82,10 @@ class AccountController extends AbstractActionController
     public function requestCredentialsAction()
     {
         $channelName = $this->params('channel');
-        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, CredentialRequestInterface::class);
+        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
 
-        $instructions = $courierInterface->getCredentialsRequestInstructions();
-        $fields = $courierInterface->getCredentialsRequestFields();
+        $instructions = $courierInstance->getCredentialsRequestInstructions();
+        $fields = $courierInstance->getCredentialsRequestFields();
         $this->prepareAdapterFields($fields);
 
         $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
@@ -173,12 +173,12 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $params = $this->getSanitisedPostParams();
-        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, CredentialRequestInterface::class);
+        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
 
-        $fields = $courierInterface->getCredentialsRequestFields();
+        $fields = $courierInstance->getCredentialsRequestFields();
         $this->prepareAdapterFields($fields, $params);
 
-        $courierInterface->submitCredentialsRequestFields($fields);
+        $courierInstance->submitCredentialsRequestFields($fields);
 
         $view = $this->jsonModelFactory->newInstance();
         $url = $this->connectAccountAndGetRedirectUrl($params);
@@ -212,12 +212,12 @@ class AccountController extends AbstractActionController
     {
         $params = $this->getSanitisedPostParams();
         $channelName = $params['channel'];
-        $courierInterface = $this->caModuleAccountService->getCourierInterfaceForChannel($channelName, LocalAuthInterface::class);
+        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
         $view = $this->jsonModelFactory->newInstance();
 
-        $fields = $courierInterface->getCredentialsFields();
+        $fields = $courierInstance->getCredentialsFields();
 
-        $valid = $this->caModuleAccountService->validateSetupFields($fields, $params, $courierInterface);
+        $valid = $this->caModuleAccountService->validateSetupFields($fields, $params, $courierInstance);
         if (!$valid) {
             throw new ValidationException('The entered credentials are invalid or incomplete. Please check them and try again.');
         }

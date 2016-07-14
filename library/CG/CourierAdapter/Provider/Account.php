@@ -37,12 +37,12 @@ class Account implements AccountInterface
     {
         $routeVariables['channel'] = $account->getChannel();
 
-        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterfaceForAccount($account);
-        if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        if ($courierInstance instanceof CredentialRequestInterface && !$account->getId()) {
             return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_REQUEST, $routeVariables);
         }
-        if ($courierInterface instanceof ThirdPartyAuthInterface) {
-            return $this->getInitialisationUrlForThirdPartyAuth($account, $routeVariables, $courierInterface);
+        if ($courierInstance instanceof ThirdPartyAuthInterface) {
+            return $this->getInitialisationUrlForThirdPartyAuth($account, $routeVariables, $courierInstance);
         }
 
         $url = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_SETUP, $routeVariables);
@@ -55,7 +55,7 @@ class Account implements AccountInterface
     protected function getInitialisationUrlForThirdPartyAuth(
         AccountEntity $account,
         array $routeVariables,
-        CourierInterface $courierInterface
+        CourierInterface $courierInstance
     ) {
         $successUri = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_SUCCESS, $routeVariables);
         $failureUri = $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_AUTH_FAILURE, $routeVariables);
@@ -66,7 +66,7 @@ class Account implements AccountInterface
 
         $successUrl = $this->remoteUrlHelper->__invoke($successUri, 'app');
         $failureUrl = $this->remoteUrlHelper->__invoke($failureUri, 'app');
-        $authUrl = $courierInterface->getAuthUrl($successUrl, $failureUrl);
+        $authUrl = $courierInstance->getAuthUrl($successUrl, $failureUrl);
 
         if (!preg_match('/^http(s)?:\/\//i', $authUrl)) {
             $authUrl = 'http://' . $authUrl;

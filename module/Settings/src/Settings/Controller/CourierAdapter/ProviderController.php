@@ -35,17 +35,17 @@ class ProviderController extends AbstractActionController
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
     {
-        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterfaceForAccount($account);
-        if ($account->getPending() && $courierInterface instanceof CredentialRequestInterface) {
-            $pendingInstructions = $courierInterface->getAccountPendingInstructions();
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        if ($account->getPending() && $courierInstance instanceof CredentialRequestInterface) {
+            $pendingInstructions = $courierInstance->getAccountPendingInstructions();
             $view->setVariable('accountPendingInstructions', $pendingInstructions);
             return;
         }
-        if ($account->getActive() && $courierInterface instanceof ConfigInterface) {
-            $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInterface);
+        if ($account->getActive() && $courierInstance instanceof ConfigInterface) {
+            $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
-        if ($account->getActive() && $courierInterface instanceof TestPackInterface) {
-            $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInterface);
+        if ($account->getActive() && $courierInstance instanceof TestPackInterface) {
+            $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
 
         $setupUrl = $this->caAccountSetup->getInitialisationUrl($account, '');
@@ -55,9 +55,9 @@ class ProviderController extends AbstractActionController
     protected function addConfigVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInterface
+        CourierInterface $courierInstance
     ) {
-        $fields = $courierInterface->getConfigFields();
+        $fields = $courierInstance->getConfigFields();
         $values = [];
         if (isset($account->getExternalData()['config'])) {
             $values = json_decode($account->getExternalData()['config'], true);
@@ -85,13 +85,13 @@ class ProviderController extends AbstractActionController
     protected function addTestPackVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInterface
+        CourierInterface $courierInstance
     ) {
         $caAccount = $this->caAccountMapper->fromOHAccount($account);
-        if (!$courierInterface->isAccountInTestMode($caAccount)) {
+        if (!$courierInstance->isAccountInTestMode($caAccount)) {
             return;
         }
-        $files = $courierInterface->getTestPackFileList();
+        $files = $courierInstance->getTestPackFileList();
         $view->setVariable('testPackFiles', $files);
     }
 

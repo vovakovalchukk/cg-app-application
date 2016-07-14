@@ -39,17 +39,17 @@ class Service
     /**
      * @return CourierInterface
      */
-    public function getCourierInterfaceForChannel($channelName, $specificInterface = null)
+    public function getCourierInstanceForChannel($channelName, $specificInterface = null)
     {
         if (!$this->adapterImplementationService->isProvidedChannel($channelName)) {
             throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
         }
         $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
-        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterface($adapterImplementation);
-        if ($specificInterface && !$courierInterface instanceof $specificInterface) {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstance($adapterImplementation);
+        if ($specificInterface && !$courierInstance instanceof $specificInterface) {
             throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but its adapter does not implement ' . $specificInterface);
         }
-        return $courierInterface;
+        return $courierInstance;
     }
 
     /**
@@ -65,13 +65,13 @@ class Service
     /**
      * @return bool
      */
-    public function validateSetupFields(array $fields, array $values, CourierInterface $courierInterface)
+    public function validateSetupFields(array $fields, array $values, CourierInterface $courierInstance)
     {
-        if ($courierInterface instanceof CredentialVerificationInterface) {
+        if ($courierInstance instanceof CredentialVerificationInterface) {
             $caAccount = $this->caAccountMapper->fromArray([
                 'credentials' => $values,
             ]);
-            return $courierInterface->validateCredentials($caAccount);
+            return $courierInstance->validateCredentials($caAccount);
         }
 
         foreach ($fields as $field) {
@@ -88,11 +88,11 @@ class Service
     public function saveConfigForAccount($accountId, array $config)
     {
         $account = $this->ohAccountService->fetch($accountId);
-        $courierInterface = $this->getCourierInterfaceForChannel($account->getChannel(), ConfigInterface::class);
+        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), ConfigInterface::class);
 
         $externalData = $account->getExternalData();
         $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
-        foreach ($courierInterface->getConfigFields() as $field) {
+        foreach ($courierInstance->getConfigFields() as $field) {
             if (isset($config[$field->getName()])) {
                 $externalDataConfig[$field->getName()] = $config[$field->getName()];
             }
@@ -113,10 +113,10 @@ class Service
     public function generateTestPackFileDataForAccount($accountId, $fileReference)
     {
         $account = $this->ohAccountService->fetch($accountId);
-        $courierInterface = $this->getCourierInterfaceForChannel($account->getChannel(), TestPackInterface::class);
+        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), TestPackInterface::class);
 
         $testPackFileToGenerate = null;
-        foreach ($courierInterface->getTestPackFileList() as $testPackFile) {
+        foreach ($courierInstance->getTestPackFileList() as $testPackFile) {
             if ($testPackFile->getReference() == $fileReference) {
                 $testPackFileToGenerate = $testPackFile;
                 break;
@@ -127,7 +127,7 @@ class Service
         }
 
         $caAccount = $this->caAccountMapper->fromOHAccount($account);
-        return $courierInterface->generateTestPackFile($testPackFileToGenerate, $caAccount);
+        return $courierInstance->generateTestPackFile($testPackFileToGenerate, $caAccount);
     }
 
     protected function setOHAccountService(OHAccountService $ohAccountService)

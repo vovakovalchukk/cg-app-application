@@ -23,22 +23,22 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
     {
         $channelName = $params['channel'];
         $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
-        $courierInterface = $this->adapterImplementationService->getAdapterImplementationCourierInterface($adapterImplementation);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstance($adapterImplementation);
         
         $account->setChannel($channelName)
             ->setType([ChannelType::SHIPPING])
             ->setDisplayName($adapterImplementation->getDisplayName());
 
-        if ($courierInterface instanceof CredentialRequestInterface && !$account->getId()) {
+        if ($courierInstance instanceof CredentialRequestInterface && !$account->getId()) {
             $this->configureAccountFromCredentialsRequest($account, $params);
             return $account;
         }
-        if ($courierInterface instanceof LocalAuthInterface) {
-            $this->configureAccountFromLocalAuth($account, $params, $courierInterface);
+        if ($courierInstance instanceof LocalAuthInterface) {
+            $this->configureAccountFromLocalAuth($account, $params, $courierInstance);
             return $account;
         }
-        if ($courierInterface instanceof ThirdPartyAuthInterface) {
-            $this->configureAccountFromThirdPartyAuth($account, $params, $courierInterface);
+        if ($courierInstance instanceof ThirdPartyAuthInterface) {
+            $this->configureAccountFromThirdPartyAuth($account, $params, $courierInstance);
             return $account;
         }
         
@@ -55,11 +55,11 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
     protected function configureAccountFromLocalAuth(
         AccountEntity $account,
         array $params,
-        CourierInterface $courierInterface
+        CourierInterface $courierInstance
     ) {
         $account->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
-        foreach ($courierInterface->getCredentialsFields() as $field) {
+        foreach ($courierInstance->getCredentialsFields() as $field) {
             $credentials->set($field->getName(), ($params[$field->getName()] ?: null));
         }
         $account->setCredentials($this->cryptor->encrypt($credentials));
@@ -68,9 +68,9 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
     protected function configureAccountFromThirdPartyAuth(
         AccountEntity $account,
         array $params,
-        CourierInterface $courierInterface
+        CourierInterface $courierInstance
     ) {
-        $caAccount = $courierInterface->validateCredentials($params);
+        $caAccount = $courierInstance->validateCredentials($params);
         if (!$caAccount instanceof CAAccount) {
             throw new InvalidCredentialsException('Return value of validateCredentials() was not an Account object');
         }
