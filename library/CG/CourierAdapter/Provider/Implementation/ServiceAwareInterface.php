@@ -5,5 +5,5 @@ use CG\CourierAdapter\Provider\Implementation\Service;
 
 interface ServiceAwareInterface
 {
-    public function setAdapterService(Service $adapterService);
+    public function setAdapterImplementationService(Service $adapterService);
 }

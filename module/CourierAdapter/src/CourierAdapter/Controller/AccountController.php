@@ -163,7 +163,7 @@ class AccountController extends AbstractActionController
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
 
         $fields = $courierInstance->getCredentialsRequestFields();
-        $this->prepareAdapterFields($fields, $params);
+        $this->prepareAdapterImplementationFields($fields, $params);
 
         $courierInstance->submitCredentialsRequestFields($fields);
 
