@@ -2,7 +2,13 @@
 namespace BigCommerce\App;
 
 use BigCommerce\Account\Session as BigCommerceAccountSession;
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as Accounts;
+use CG\Account\Shared\Entity as Account;
+use CG\Account\Shared\Filter as AccountFilter;
 use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
+use CG\OrganisationUnit\Service as OUService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -27,18 +33,26 @@ class Service implements LoggerAwareInterface
     protected $accountCreationService;
     /** @var BigCommerceAccountSession $accountSession */
     protected $accountSession;
+    /** @var AccountService $accountService */
+    protected $accountService;
+    /** @var OUService $ouService */
+    protected $ouService;
 
     public function __construct(
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService,
-        BigCommerceAccountSession $accountSession
+        BigCommerceAccountSession $accountSession,
+        AccountService $accountService,
+        OUService $ouService
     ) {
         $this
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService)
-            ->setAccountSession($accountSession);
+            ->setAccountSession($accountSession)
+            ->setAccountService($accountService)
+            ->setOuService($ouService);
     }
 
     public function getAppView()
@@ -64,11 +78,9 @@ class Service implements LoggerAwareInterface
         );
 
         $shopHash = $this->getShopHash($parameters['context']);
-        $accountId = $this->accountSession->getAccountId($shopHash);
-
         $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
-            $accountId,
+            $this->getAccountId($shopHash),
             array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
         );
     }
@@ -110,6 +122,33 @@ class Service implements LoggerAwareInterface
         throw new \InvalidArgumentException(static::LOG_CODE_INVALID_SHOP_CONTEXT);
     }
 
+    protected function getAccountId($shopHash)
+    {
+        $accountId = $this->accountSession->getAccountId($shopHash);
+        if ($accountId) {
+            return $accountId;
+        }
+
+        try {
+            $filter = (new AccountFilter(1, 1))
+                ->setChannel([BigCommerceAccountCreationService::CHANNEL])
+                ->setExternalId([$shopHash])
+                ->setOrganisationUnitId($this->ouService->fetchRelatedOrganisationUnitIds($this->activeUser->getCompanyId()))
+                ->setDeleted(false);
+
+            /** @var Accounts $accounts */
+            $accounts = $this->accountService->fetchByFilter($filter);
+            $accounts->rewind();
+
+            /** @var Account $account */
+            $account = $accounts->current();
+            return $account->getId();
+        } catch (NotFound $exception) {
+            // No accounts match lookup - we're creating a new account
+            return null;
+        }
+    }
+
     /**
      * @return self
      */
@@ -143,6 +182,24 @@ class Service implements LoggerAwareInterface
     protected function setAccountSession(BigCommerceAccountSession $accountSession)
     {
         $this->accountSession = $accountSession;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOuService(OUService $ouService)
+    {
+        $this->ouService = $ouService;
         return $this;
     }
 }
