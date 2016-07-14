@@ -59,6 +59,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            AccountController::ROUTE_TEST_PACK_FILE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ca-test-pack-file',
+                                    'defaults' => [
+                                        'action' => 'downloadTestPackFile',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ],
                     ],
                     CAAccountService::ROUTE_SETUP => [

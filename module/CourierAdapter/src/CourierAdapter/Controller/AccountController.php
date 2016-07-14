@@ -18,6 +18,7 @@ use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Form\Element as ZendFormElement;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Zend\Stdlib\Http\FileResponse;
 
 class AccountController extends AbstractActionController
 {
@@ -25,6 +26,7 @@ class AccountController extends AbstractActionController
     const ROUTE_SAVE = 'Save';
     const ROUTE_REQUEST_SEND = 'Send';
     const ROUTE_SAVE_CONFIG = 'Save Config';
+    const ROUTE_TEST_PACK_FILE = 'Test Pack File';
 
     /** @var AccountCreationService */
     protected $accountCreationService;
@@ -260,6 +262,24 @@ class AccountController extends AbstractActionController
     public function authFailureAction()
     {
         $this->redirect()->toRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
+    }
+
+    public function downloadTestPackFileAction()
+    {
+        $accountId = $this->params()->fromQuery('accountId');
+        $fileReference = $this->params()->fromQuery('file');
+
+        $dataUri = $this->caModuleAccountService->generateTestPackFileDataForAccount($accountId, $fileReference);
+
+        list($type, $data) = explode(';', $dataUri);
+        list($encoding, $data) = explode(',', $data);
+        if ($encoding == 'base64') {
+            $data = base64_decode($data);
+        }
+        $mimeType = preg_replace('/^data:/', '', $type);
+        list(, $fileExt) = explode('/', $mimeType);
+
+        return new FileResponse($mimeType, $fileReference . '.' . $fileExt, $data);
     }
 
     protected function setAccountCreationService(AccountCreationService $accountCreationService)

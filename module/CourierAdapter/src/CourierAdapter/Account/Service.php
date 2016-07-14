@@ -3,6 +3,7 @@ namespace CourierAdapter\Account;
 
 use CG\Account\Client\Service as OHAccountService;
 use CG\Account\Credentials\Cryptor;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\CourierInterface;
@@ -35,6 +36,9 @@ class Service
             ->setCAAccountMapper($caAccountMapper);
     }
 
+    /**
+     * @return CourierInterface
+     */
     public function getCourierInterfaceForChannel($channelName, $specificInterface = null)
     {
         if (!$this->adapterService->isProvidedChannel($channelName)) {
@@ -48,6 +52,9 @@ class Service
         return $courierInterface;
     }
 
+    /**
+     * @return array
+     */
     public function getCredentialsArrayForAccount($accountId)
     {
         $account = $this->ohAccountService->fetch($accountId);
@@ -55,6 +62,9 @@ class Service
         return $credentials->toArray();
     }
 
+    /**
+     * @return bool
+     */
     public function validateSetupFields(array $fields, array $values, CourierInterface $courierInterface)
     {
         if ($courierInterface instanceof CredentialVerificationInterface) {
@@ -95,6 +105,29 @@ class Service
         } catch (NotModified $e) {
             // No-op
         }
+    }
+
+    /**
+     * @return string dataUri
+     */
+    public function generateTestPackFileDataForAccount($accountId, $fileReference)
+    {
+        $account = $this->ohAccountService->fetch($accountId);
+        $courierInterface = $this->getCourierInterfaceForChannel($account->getChannel(), TestPackInterface::class);
+
+        $testPackFileToGenerate = null;
+        foreach ($courierInterface->getTestPackFileList() as $testPackFile) {
+            if ($testPackFile->getReference() == $fileReference) {
+                $testPackFileToGenerate = $testPackFile;
+                break;
+            }
+        }
+        if (!$testPackFileToGenerate) {
+            throw new InvalidArgumentException('No test pack file with reference "' . $fileReference . '" found');
+        }
+
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+        return $courierInterface->generateTestPackFile($testPackFileToGenerate, $caAccount);
     }
 
     protected function setOHAccountService(OHAccountService $ohAccountService)

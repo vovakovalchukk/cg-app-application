@@ -2,10 +2,12 @@
 namespace Settings\Controller\CourierAdapter;
 
 use CG\Account\Shared\Entity as Account;
-use CG\CourierAdapter\Provider\Account as CAAccountService;
-use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
+use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Provider\Account as CAAccountSetup;
+use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
@@ -16,13 +18,19 @@ class ProviderController extends AbstractActionController
 {
     /** @var AdapterService */
     protected $adapterService;
-    /** @var CAAccountService */
-    protected $caAccountService;
+    /** @var CAAccountSetup */
+    protected $caAccountSetup;
+    /** @var CAAccountMapper */
+    protected $caAccountMapper;
 
-    public function __construct(AdapterService $adapterService, CAAccountService $caAccountService)
-    {
+    public function __construct(
+        AdapterService $adapterService,
+        CAAccountSetup $caAccountSetup,
+        CAAccountMapper $caAccountMapper
+    ) {
         $this->setAdapterService($adapterService)
-            ->setCaAccountService($caAccountService);
+            ->setCAAccountSetup($caAccountSetup)
+            ->setCaAccountMapper($caAccountMapper);
     }
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
@@ -36,8 +44,11 @@ class ProviderController extends AbstractActionController
         if ($account->getActive() && $courierInterface instanceof ConfigInterface) {
             $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInterface);
         }
+        if ($account->getActive() && $courierInterface instanceof TestPackInterface) {
+            $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInterface);
+        }
 
-        $setupUrl = $this->caAccountService->getInitialisationUrl($account, '');
+        $setupUrl = $this->caAccountSetup->getInitialisationUrl($account, '');
         $view->setVariable('url', $setupUrl);
 
         // TODO: check for TestPackInterface
@@ -73,15 +84,34 @@ class ProviderController extends AbstractActionController
         }
     }
 
+    protected function addTestPackVariablesToChannelSpecificView(
+        Account $account,
+        ViewModel $view,
+        CourierInterface $courierInterface
+    ) {
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+        if (!$courierInterface->isAccountInTestMode($caAccount)) {
+            return;
+        }
+        $files = $courierInterface->getTestPackFileList();
+        $view->setVariable('testPackFiles', $files);
+    }
+
     protected function setAdapterService(AdapterService $adapterService)
     {
         $this->adapterService = $adapterService;
         return $this;
     }
 
-    protected function setCaAccountService(CAAccountService $caAccountService)
+    protected function setCAAccountSetup(CAAccountSetup $caAccountSetup)
     {
-        $this->caAccountService = $caAccountService;
+        $this->caAccountSetup = $caAccountSetup;
+        return $this;
+    }
+
+    protected function setCaAccountMapper(CAAccountMapper $caAccountMapper)
+    {
+        $this->caAccountMapper = $caAccountMapper;
         return $this;
     }
 }
