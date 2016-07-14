@@ -105,6 +105,7 @@
         "php-jsonpatch/php-jsonpatch": "@dev",
         "php-jsonpointer/php-jsonpointer": "@dev",
         "phpish/link_header": "@dev",
+        "realityking/hash_equals": "@dev",
         "zendframework/zendframework": "2.3.*"
     },
     "require-dev": {

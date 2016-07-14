@@ -21,14 +21,6 @@ return [
                 'type' => Literal::class,
                 'options' => [
                     'route' => '/bigcommerce',
-                    'defaults' => [
-                        'controller' => AppController::class,
-                        'action' => 'load',
-                        'header' => false,
-                        'subHeader' => false,
-                        'sidebar' => false,
-                        'breadcrumbs' => false
-                    ],
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
@@ -47,7 +39,18 @@ return [
                         'options' => [
                             'route' => '/oauth',
                             'defaults' => [
+                                'controller' => AppController::class,
                                 'action' => 'oauth',
+                            ],
+                        ],
+                    ],
+                    AppController::ROUTE_LOAD => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/load',
+                            'defaults' => [
+                                'controller' => AppController::class,
+                                'action' => 'load',
                             ],
                         ],
                     ],

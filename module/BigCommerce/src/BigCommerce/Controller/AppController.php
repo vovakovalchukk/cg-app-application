@@ -2,11 +2,15 @@
 namespace BigCommerce\Controller;
 
 use BigCommerce\App\Service as BigCommerceAppService;
+use CG\Account\Shared\Entity as Account;
+use Settings\Controller\ChannelController;
+use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AppController extends AbstractActionController
 {
     const ROUTE_OAUTH = 'OAuth';
+    const ROUTE_LOAD= 'Load';
 
     /** @var BigCommerceAppService $appService */
     protected $appService;
@@ -16,18 +20,31 @@ class AppController extends AbstractActionController
         $this->setAppService($appService);
     }
 
-    public function loadAction()
-    {
-        return $this->appService->getAppView();
-    }
-
     public function oauthAction()
     {
-        $this->appService->processOauth(
+        $account = $this->appService->processOauth(
             $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]),
             $this->params()->fromQuery()
         );
-        return $this->appService->getAppView();
+        return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+    }
+
+    public function loadAction()
+    {
+        $account =  $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
+        return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+    }
+
+    protected function getAccountUrl(Account $account)
+    {
+        $route = [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT];
+        return $this->plugin('url')->fromRoute(
+            implode('/', $route),
+            [
+                'type' => $account->getType(),
+                'account' => $account->getId(),
+            ]
+        );
     }
 
     /**

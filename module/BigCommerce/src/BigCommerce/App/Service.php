@@ -7,6 +7,7 @@ use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
+use CG\BigCommerce\Client\Signer as BigCommerceClientSigner;
 use CG\OrganisationUnit\Service as OUService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -24,6 +25,8 @@ class Service implements LoggerAwareInterface
     const LOG_MSG_MISSING_SCOPES = 'OAuth request does not include all required scopes - Missing scopes: ';
     const LOG_CODE_INVALID_SHOP_CONTEXT = 'OAuth request does not have a valid store context';
     const LOG_MSG_INVALID_SHOP_CONTEXT = 'OAuth request does not have a valid store context - %s';
+    const LOG_CODE_MISSING_SHOP_HASH = 'Signed load request does not include a store hash';
+    const LOG_MSG_MISSING_SHOP_HASH = 'Signed load request does not include a store hash';
 
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
@@ -37,6 +40,8 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     /** @var OUService $ouService */
     protected $ouService;
+    /** @var BigCommerceClientSigner $clientSigner */
+    protected $clientSigner;
 
     public function __construct(
         ActiveUserInterface $activeUser,
@@ -44,7 +49,8 @@ class Service implements LoggerAwareInterface
         BigCommerceAccountCreationService $accountCreationService,
         BigCommerceAccountSession $accountSession,
         AccountService $accountService,
-        OUService $ouService
+        OUService $ouService,
+        BigCommerceClientSigner $clientSigner
     ) {
         $this
             ->setActiveUser($activeUser)
@@ -52,24 +58,22 @@ class Service implements LoggerAwareInterface
             ->setAccountCreationService($accountCreationService)
             ->setAccountSession($accountSession)
             ->setAccountService($accountService)
-            ->setOuService($ouService);
+            ->setOuService($ouService)
+            ->setClientSigner($clientSigner);
     }
 
-    public function getAppView()
-    {
-        return $this->viewModelFactory->newInstance(
-            [
-                'isNavBarVisible' => false,
-                'isHeaderBarVisible' => false,
-                'isSidebarPresent' => false,
-            ]
-        )->setTemplate('bigcommerce/app.phtml');
-    }
-
+    /**
+     * @return Account
+     */
     public function processOauth($redirectUri, array $parameters)
     {
         if (!isset($parameters['code'], $parameters['scope'], $parameters['context'])) {
-            $this->logPrettyDebug(static::LOG_MSG_MISSING_OAUTH_PARAMS, array_merge(['code' => '-', 'scope' => '-', 'context' => '-'], $parameters), [], static::LOG_CODE_MISSING_OAUTH_PARAMS);
+            $this->logPrettyDebug(
+                static::LOG_MSG_MISSING_OAUTH_PARAMS,
+                array_merge(['code' => '-', 'scope' => '-', 'context' => '-'], $parameters),
+                [],
+                static::LOG_CODE_MISSING_OAUTH_PARAMS
+            );
             throw new \InvalidArgumentException(static::LOG_CODE_MISSING_OAUTH_PARAMS);
         }
 
@@ -78,11 +82,24 @@ class Service implements LoggerAwareInterface
         );
 
         $shopHash = $this->getShopHash($parameters['context']);
-        $this->accountCreationService->connectAccount(
+        return $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $this->getAccountId($shopHash),
             array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
         );
+    }
+
+    /**
+     * @return Account
+     */
+    public function processLoadRequest($signedPayload)
+    {
+        $data = $this->clientSigner->getDataFromSignedPayload($signedPayload);
+        if (!isset($data['store_hash'])) {
+            $this->logPrettyDebug(static::LOG_MSG_MISSING_SHOP_HASH, $data, [], static::LOG_CODE_MISSING_SHOP_HASH);
+            throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
+        }
+        return $this->getAccount($data['store_hash']);
     }
 
     protected function validateScope(array $scopes)
@@ -118,7 +135,11 @@ class Service implements LoggerAwareInterface
         if (preg_match('|^stores/(?<hash>.+)$|', $context, $store)) {
             return $store['hash'];
         }
-        $this->logDebug(static::LOG_MSG_INVALID_SHOP_CONTEXT, ['context' => $context], static::LOG_CODE_INVALID_SHOP_CONTEXT);
+        $this->logDebug(
+            static::LOG_MSG_INVALID_SHOP_CONTEXT,
+            ['context' => $context],
+            static::LOG_CODE_INVALID_SHOP_CONTEXT
+        );
         throw new \InvalidArgumentException(static::LOG_CODE_INVALID_SHOP_CONTEXT);
     }
 
@@ -130,23 +151,30 @@ class Service implements LoggerAwareInterface
         }
 
         try {
-            $filter = (new AccountFilter(1, 1))
-                ->setChannel([BigCommerceAccountCreationService::CHANNEL])
-                ->setExternalId([$shopHash])
-                ->setOrganisationUnitId($this->ouService->fetchRelatedOrganisationUnitIds($this->activeUser->getCompanyId()))
-                ->setDeleted(false);
-
-            /** @var Accounts $accounts */
-            $accounts = $this->accountService->fetchByFilter($filter);
-            $accounts->rewind();
-
-            /** @var Account $account */
-            $account = $accounts->current();
-            return $account->getId();
+            return $this->getAccount($shopHash)->getId();
         } catch (NotFound $exception) {
             // No accounts match lookup - we're creating a new account
             return null;
         }
+    }
+
+    /**
+     * @return Account
+     */
+    protected function getAccount($shopHash)
+    {
+        $filter = (new AccountFilter(1, 1))
+            ->setChannel([BigCommerceAccountCreationService::CHANNEL])
+            ->setExternalId([$shopHash])
+            ->setOrganisationUnitId(
+                $this->ouService->fetchRelatedOrganisationUnitIds($this->activeUser->getCompanyId())
+            )
+            ->setDeleted(false);
+
+        /** @var Accounts $accounts */
+        $accounts = $this->accountService->fetchByFilter($filter);
+        $accounts->rewind();
+        return $accounts->current();
     }
 
     /**
@@ -200,6 +228,15 @@ class Service implements LoggerAwareInterface
     protected function setOuService(OUService $ouService)
     {
         $this->ouService = $ouService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setClientSigner(BigCommerceClientSigner $clientSigner)
+    {
+        $this->clientSigner = $clientSigner;
         return $this;
     }
 }
