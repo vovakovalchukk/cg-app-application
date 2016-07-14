@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "25b6bbf43f4e0ec0bf6163134bec971c",
-    "content-hash": "a04319161895cfd856a4ea4f8f362b8f",
+    "hash": "4a9658d98c7ea4481585ad40768ca826",
+    "content-hash": "8c988c43bab806d48d34a0032a5561cb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3513,16 +3513,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.60",
+            "version": "dev-CGIV-7194-BigCommerceSetup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6956926e98344a30f325074b621fec91f85d8933"
+                "reference": "bf49ef2c149122d5a022edfd034280c7c172ad63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.60-e7ffca.zip",
-                "reference": "6956926e98344a30f325074b621fec91f85d8933",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7194-BigCommerceSetup-3c035f.zip",
+                "reference": "bf49ef2c149122d5a022edfd034280c7c172ad63",
                 "shasum": null
             },
             "require": {
@@ -3569,7 +3569,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-12 12:57:45"
+            "time": "2016-07-14 14:39:51"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7799,6 +7799,12 @@
             "alias_normalized": "1.24.7.0",
             "version": "dev-CGIV-7194-BigCommerceSetup",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.16.61",
+            "alias_normalized": "1.16.61.0",
+            "version": "dev-CGIV-7194-BigCommerceSetup",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -7806,6 +7812,7 @@
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
