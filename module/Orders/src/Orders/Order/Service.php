@@ -590,7 +590,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function getOrderItemTable(OrderEntity $order)
     {
         $columns = [
-            ['name' => RowMapper::COLUMN_SKU,       'class' => ''],
+            ['name' => RowMapper::COLUMN_SKU,       'class' => 'sku-col'],
             ['name' => RowMapper::COLUMN_PRODUCT,   'class' => ''],
             ['name' => RowMapper::COLUMN_QUANTITY,  'class' => 'quantity'],
             ['name' => RowMapper::COLUMN_PRICE,     'class' => 'price right'],
