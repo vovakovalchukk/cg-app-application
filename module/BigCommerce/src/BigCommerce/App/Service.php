@@ -2,14 +2,22 @@
 namespace BigCommerce\App;
 
 use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Zend\View\Helper\ServerUrl;
 
-class Service
+class Service implements LoggerAwareInterface
 {
-    /** @var ServerUrl $serverUrl */
-    protected $serverUrl;
+    use LogTrait;
+
+    const LOG_CODE_MISSING_OAUTH_PARAMS = 'OAuth request did not include all expected parameters';
+    const LOG_MSG_MISSING_OAUTH_PARAMS = 'OAuth request did not include all expected parameters';
+    const LOG_CODE_MISSING_SCOPES = 'OAuth request does not include all required scopes';
+    const LOG_MSG_MISSING_SCOPES = 'OAuth request does not include all required scopes - Missing scopes: ';
+    const LOG_CODE_INVALID_SHOP_CONTEXT = 'OAuth request does not have a valid store context';
+    const LOG_MSG_INVALID_SHOP_CONTEXT = 'OAuth request does not have a valid store context - %s';
+
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
     /** @var ViewModelFactory $viewModelFactory */
@@ -18,13 +26,11 @@ class Service
     protected $accountCreationService;
 
     public function __construct(
-        ServerUrl $serverUrl,
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService
     ) {
         $this
-            ->setServerUrl($serverUrl)
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService);
@@ -41,24 +47,24 @@ class Service
         )->setTemplate('bigcommerce/app.phtml');
     }
 
-    public function processOauth(array $parameters)
+    public function processOauth($redirectUri, array $parameters)
     {
         if (!isset($parameters['code'], $parameters['scope'], $parameters['context'])) {
-            throw new \InvalidArgumentException('OAuth request did not include all expected parameters');
+            $this->logPrettyDebug(static::LOG_MSG_MISSING_OAUTH_PARAMS, array_merge(['code' => '-', 'scope' => '-', 'context' => '-'], $parameters), [], static::LOG_CODE_MISSING_OAUTH_PARAMS);
+            throw new \InvalidArgumentException(static::LOG_CODE_MISSING_OAUTH_PARAMS);
         }
 
         $this->validateScope(
             is_array($parameters['scope']) ? $parameters['scope'] : explode(' ', $parameters['scope'])
         );
 
-        $shopHash = $this->getShopHash($parameters['scope']);
+        $shopHash = $this->getShopHash($parameters['context']);
         $accountId = null; // TODO: Get accountId from session for selected shop hash
 
-        $serverUrl = $this->serverUrl;
         $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $accountId,
-            array_merge(['shopHash' => $shopHash, 'redirectUri' => $serverUrl(true)], $parameters)
+            array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
         );
     }
 
@@ -81,13 +87,12 @@ class Service
             if (!$writeAccessRequired && isset($scopes[$scope . '_read_only'])) {
                 continue;
             }
-            $missingScopes[] = $scope . ($writeAccessRequired ? '' : '_read_only');
+            $missingScopes[$scope] = $writeAccessRequired ? 'write' : 'read_only';
         }
 
         if (!empty($missingScopes)) {
-            throw new \RuntimeException(
-                'OAuth request does not require all required scopes. Missing scopes: ' . implode(', ', $missingScopes)
-            );
+            $this->logPrettyDebug(static::LOG_MSG_MISSING_SCOPES, $missingScopes, [], static::LOG_CODE_MISSING_SCOPES);
+            throw new \RuntimeException(static::LOG_CODE_MISSING_SCOPES);
         }
     }
 
@@ -96,16 +101,8 @@ class Service
         if (preg_match('|^stores/(?<hash>.+)$|', $context, $store)) {
             return $store['hash'];
         }
-        throw new \InvalidArgumentException('OAuth request does not have a valid store context');
-    }
-
-    /**
-     * @return self
-     */
-    protected function setServerUrl(ServerUrl $serverUrl)
-    {
-        $this->serverUrl = $serverUrl;
-        return $this;
+        $this->logDebug(static::LOG_MSG_INVALID_SHOP_CONTEXT, ['context' => $context], static::LOG_CODE_INVALID_SHOP_CONTEXT);
+        throw new \InvalidArgumentException(static::LOG_CODE_INVALID_SHOP_CONTEXT);
     }
 
     /**

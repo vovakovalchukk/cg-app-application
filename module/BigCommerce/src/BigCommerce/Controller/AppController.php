@@ -21,7 +21,10 @@ class AppController extends AbstractActionController
 
     public function oauthAction()
     {
-        $this->appService->processOauth($this->params()->fromQuery());
+        $this->appService->processOauth(
+            $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]),
+            $this->params()->fromQuery()
+        );
         return $this->appService->getAppView();
     }
 

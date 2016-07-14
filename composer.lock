@@ -117,18 +117,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "72647e55b6fe3aa06be723b04384e4c5f2114901"
+                "reference": "4ea4d394a336b463a9e3d0864d52d0fdf5e01972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7194-BigCommerceSetup-aadcee.zip",
-                "reference": "72647e55b6fe3aa06be723b04384e4c5f2114901",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7194-BigCommerceSetup-313ecc.zip",
+                "reference": "4ea4d394a336b463a9e3d0864d52d0fdf5e01972",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "dev-CGIV-7194-BigCommerceSetup as 1.24.6",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/stdlib": "^2.12.24"
+                "channelgrabber/stdlib": "^2.12.24",
+                "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "zendframework/zend-di": "~2.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.0",
@@ -145,7 +147,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-12 11:38:29"
+            "time": "2016-07-14 09:30:33"
         },
         {
             "name": "channelgrabber/billing",
