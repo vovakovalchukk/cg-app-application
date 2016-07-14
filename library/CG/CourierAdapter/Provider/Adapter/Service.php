@@ -18,7 +18,7 @@ class Service implements ShippingOptionsProviderInterface
     protected $adapterCourierInterfaces = [];
 
     /**
-     * @param array $adaptersConfig [['channelName' => 'example', 'displayName' => 'Example', 'courierInterfaceClosure' => function() { return new \ExampleAdapter\Courier(); }]]
+     * @param array $adaptersConfig [['channelName' => 'example', 'displayName' => 'Example', 'courierFactory' => function() { return new \ExampleAdapter\Courier(); }]]
      */
     public function __construct(Mapper $mapper, array $adaptersConfig = [])
     {
@@ -67,7 +67,7 @@ class Service implements ShippingOptionsProviderInterface
         if (isset($this->adapterCourierInterfaces[$adapter->getChannelName()])) {
             return $this->adapterCourierInterfaces[$adapter->getChannelName()];
         }
-        $courerInterface = call_user_func($adapter->getCourierInterfaceClosure());
+        $courerInterface = call_user_func($adapter->getCourierFactory());
         $this->adapterCourierInterfaces[$adapter->getChannelName()] = $courerInterface;
         return $courerInterface;
     }

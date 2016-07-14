@@ -12,7 +12,7 @@ return [
                         [
                             'channelName' => 'example',
                             'displayName' => 'Example',
-                            'courierInterfaceClosure' => function()
+                            'courierFactory' => function()
                             {
                                 return new \ExampleAdapter\Courier();
                             }

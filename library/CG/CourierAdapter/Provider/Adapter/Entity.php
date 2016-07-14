@@ -8,16 +8,16 @@ class Entity
     /** @var string */
     protected $displayName;
     /** @var callable */
-    protected $courierInterfaceClosure;
+    protected $courierFactory;
 
     public function __construct(
         $channelName,
         $displayName,
-        $courierInterfaceClosure
+        $courierFactory
     ) {
         $this->setChannelName($channelName)
             ->setDisplayName($displayName)
-            ->setCourierInterfaceClosure($courierInterfaceClosure);
+            ->setCourierFactory($courierFactory);
     }
 
     /**
@@ -39,9 +39,9 @@ class Entity
     /**
      * @return callable
      */
-    public function getCourierInterfaceClosure()
+    public function getCourierFactory()
     {
-        return $this->courierInterfaceClosure;
+        return $this->courierFactory;
     }
 
     // Required by Collection
@@ -71,9 +71,9 @@ class Entity
     /**
      * @return self
      */
-    public function setCourierInterfaceClosure(callable $courierInterfaceClosure)
+    public function setCourierFactory(callable $courierFactory)
     {
-        $this->courierInterfaceClosure = $courierInterfaceClosure;
+        $this->courierFactory = $courierFactory;
         return $this;
     }
 }
