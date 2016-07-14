@@ -347,12 +347,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "16feefdae4922f46d5d7ad551e3ffe3e7fa8b0f8"
+                "reference": "2cabb84287028718256a2321acb11804f8f24739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7194-BigCommerceSetup-9f585a.zip",
-                "reference": "16feefdae4922f46d5d7ad551e3ffe3e7fa8b0f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7194-BigCommerceSetup-2c8ec1.zip",
+                "reference": "2cabb84287028718256a2321acb11804f8f24739",
                 "shasum": null
             },
             "require": {
@@ -420,7 +420,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-12 14:57:08"
+            "time": "2016-07-14 12:43:24"
         },
         {
             "name": "channelgrabber/cilex",

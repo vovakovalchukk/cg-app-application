@@ -1,6 +1,7 @@
 <?php
 namespace BigCommerce\App;
 
+use BigCommerce\Account\Session as BigCommerceAccountSession;
 use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -24,16 +25,20 @@ class Service implements LoggerAwareInterface
     protected $viewModelFactory;
     /** @var BigCommerceAccountCreationService $accountCreationService */
     protected $accountCreationService;
+    /** @var BigCommerceAccountSession $accountSession */
+    protected $accountSession;
 
     public function __construct(
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
-        BigCommerceAccountCreationService $accountCreationService
+        BigCommerceAccountCreationService $accountCreationService,
+        BigCommerceAccountSession $accountSession
     ) {
         $this
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
-            ->setAccountCreationService($accountCreationService);
+            ->setAccountCreationService($accountCreationService)
+            ->setAccountSession($accountSession);
     }
 
     public function getAppView()
@@ -59,7 +64,7 @@ class Service implements LoggerAwareInterface
         );
 
         $shopHash = $this->getShopHash($parameters['context']);
-        $accountId = null; // TODO: Get accountId from session for selected shop hash
+        $accountId = $this->accountSession->getAccountId($shopHash);
 
         $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
@@ -129,6 +134,15 @@ class Service implements LoggerAwareInterface
     protected function setAccountCreationService(BigCommerceAccountCreationService $accountCreationService)
     {
         $this->accountCreationService = $accountCreationService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setAccountSession(BigCommerceAccountSession $accountSession)
+    {
+        $this->accountSession = $accountSession;
         return $this;
     }
 }
