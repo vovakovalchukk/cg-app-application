@@ -12,23 +12,7 @@
     </div>
     <?php endif;?>
 
-    <?php foreach ($this->fields as $field): ?>
-    <?php if ($field->getAttribute('type') != 'hidden'): ?>
-    <div class="account-field-holder">
-        <div class="label">
-            <?= $this->translate($field->getOption('label')); ?>:
-            <?php if ($field->getOption('required')):?>
-            <abbr class="required">*</abbr>
-            <?php endif;?>
-        </div>
-        <div class="text-field">
-            <?= $this->formInput($field); ?>
-        </div>
-    </div>
-    <?php else: ?>
-    <?= $this->formInput($field); ?>
-    <?php endif; ?>
-    <?php endforeach; ?>
+    <?=$this->partial('courier-adapter/adapter-fields.phtml', compact('fields'));?>
 
     <div class="account-form-buttons-holder">
         <?= $this->linkAccount ?>

@@ -7,4 +7,8 @@ if ($this->accountPendingInstructions) {
     return;
 }
 
+if (isset($configFields)) {
+    echo $this->partial('courier-adapter/settings_account_config.phtml', compact('account', 'configFields', 'configSaveUrl'));
+}
+
 echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));

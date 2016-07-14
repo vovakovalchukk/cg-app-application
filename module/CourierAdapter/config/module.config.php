@@ -49,6 +49,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            AccountController::ROUTE_SAVE_CONFIG => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ca-save-config',
+                                    'defaults' => [
+                                        'action' => 'saveConfig',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ],
                     ],
                     CAAccountService::ROUTE_SETUP => [

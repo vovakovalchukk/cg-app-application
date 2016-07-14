@@ -2,10 +2,8 @@
 namespace CourierAdapter\Controller;
 
 use CG\Channel\Type as ChannelType;
-use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
-use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
@@ -26,6 +24,7 @@ class AccountController extends AbstractActionController
     const ROUTE = 'Account';
     const ROUTE_SAVE = 'Save';
     const ROUTE_REQUEST_SEND = 'Send';
+    const ROUTE_SAVE_CONFIG = 'Save Config';
 
     /** @var AccountCreationService */
     protected $accountCreationService;
@@ -224,6 +223,18 @@ class AccountController extends AbstractActionController
         $url = $this->connectAccountAndGetRedirectUrl($params);
         $view->setVariable('redirectUrl', $url);
         return $view;
+    }
+
+    public function saveConfigAction()
+    {
+        $params = $this->getSanitisedPostParams();
+        $accountId = $params['accountId'];
+        $this->caModuleAccountService->saveConfigForAccount($accountId, $params);
+
+        return $this->jsonModelFactory->newInstance([
+            'valid' => true,
+            'status' => $this->translate('Changes Saved')
+        ]);
     }
 
     public function authSuccessAction()

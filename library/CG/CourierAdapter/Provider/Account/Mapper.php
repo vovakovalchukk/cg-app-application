@@ -19,7 +19,7 @@ class Mapper
     {
         return $this->fromArray([
             'credentials' => $this->cryptor->decrypt($ohAccount->getCredentials())->toArray(),
-            'config' => (isset($ohAccount->getExternalData()['config']) ? json_decode($ohAccount->getExternalData()['config']) : []),
+            'config' => (isset($ohAccount->getExternalData()['config']) ? json_decode($ohAccount->getExternalData()['config'], true) : []),
             'id' => $ohAccount->getExternalId(),
         ]);
     }

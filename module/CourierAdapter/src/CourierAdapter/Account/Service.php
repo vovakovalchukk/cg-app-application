@@ -4,9 +4,11 @@ namespace CourierAdapter\Account;
 use CG\Account\Client\Service as OHAccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\CourierAdapter\Account\CredentialVerificationInterface;
+use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Adapter\Service as AdapterService;
+use CG\Http\Exception\Exception3xx\NotModified;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
 
@@ -71,6 +73,28 @@ class Service
             }
         }
         return true;
+    }
+
+    public function saveConfigForAccount($accountId, array $config)
+    {
+        $account = $this->ohAccountService->fetch($accountId);
+        $courierInterface = $this->getCourierInterfaceForChannel($account->getChannel(), ConfigInterface::class);
+
+        $externalData = $account->getExternalData();
+        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
+        foreach ($courierInterface->getConfigFields() as $field) {
+            if (isset($config[$field->getName()])) {
+                $externalDataConfig[$field->getName()] = $config[$field->getName()];
+            }
+        }
+        $externalData['config'] = json_encode($externalDataConfig);
+
+        try {
+            $account->setExternalData($externalData);
+            $this->ohAccountService->save($account);
+        } catch (NotModified $e) {
+            // No-op
+        }
     }
 
     protected function setOHAccountService(OHAccountService $ohAccountService)
