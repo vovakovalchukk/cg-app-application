@@ -8,6 +8,7 @@ use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
@@ -16,6 +17,8 @@ use Zend\View\Model\ViewModel;
 
 class ProviderController extends AbstractActionController
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var CAAccountSetup */
@@ -62,24 +65,8 @@ class ProviderController extends AbstractActionController
         if (isset($account->getExternalData()['config'])) {
             $values = json_decode($account->getExternalData()['config'], true);
         }
-        $this->prepareAdapterFields($fields, $values);
+        $this->prepareAdapterImplementationFields($fields, $values);
         $view->setVariable('configFields', $fields);
-    }
-
-    protected function prepareAdapterFields(array $fields, array $values = [])
-    {
-        foreach ($fields as $field) {
-            if (!$field instanceof ZendFormElement) {
-                throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
-            }
-            if ($field->getOption('required')) {
-                $class = $field->getAttribute('class') ?: '';
-                $field->setAttribute('class', $class . ' required');
-            }
-            if (isset($values[$field->getName()])) {
-                $field->setValue($values[$field->getName()]);
-            }
-        }
     }
 
     protected function addTestPackVariablesToChannelSpecificView(

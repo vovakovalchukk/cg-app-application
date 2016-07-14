@@ -7,6 +7,7 @@ use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -22,6 +23,8 @@ use CG\Zend\Stdlib\Http\FileResponse;
 
 class AccountController extends AbstractActionController
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
     const ROUTE = 'Account';
     const ROUTE_SAVE = 'Save';
     const ROUTE_REQUEST_SEND = 'Send';
@@ -65,7 +68,7 @@ class AccountController extends AbstractActionController
             $fieldValues = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
         }
 
-        $this->prepareAdapterFields($fields, $fieldValues);
+        $this->prepareAdapterImplementationFields($fields, $fieldValues);
 
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
 
@@ -86,7 +89,7 @@ class AccountController extends AbstractActionController
 
         $instructions = $courierInstance->getCredentialsRequestInstructions();
         $fields = $courierInstance->getCredentialsRequestFields();
-        $this->prepareAdapterFields($fields);
+        $this->prepareAdapterImplementationFields($fields);
 
         $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
 
@@ -103,22 +106,6 @@ class AccountController extends AbstractActionController
         $linkButton->setVariable('value', 'Submit Request');
 
         return $view;
-    }
-
-    protected function prepareAdapterFields(array $fields, array $values = [])
-    {
-        foreach ($fields as $field) {
-            if (!$field instanceof ZendFormElement) {
-                throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
-            }
-            if ($field->getOption('required')) {
-                $class = $field->getAttribute('class') ?: '';
-                $field->setAttribute('class', $class . ' required');
-            }
-            if (isset($values[$field->getName()])) {
-                $field->setValue($values[$field->getName()]);
-            }
-        }
     }
 
     protected function getAdapterFieldsView(
