@@ -31,7 +31,7 @@ class AppController extends AbstractActionController
 
     public function loadAction()
     {
-        $account =  $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
+        $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
         return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
     }
 
