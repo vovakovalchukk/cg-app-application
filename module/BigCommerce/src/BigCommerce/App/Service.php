@@ -132,15 +132,11 @@ class Service implements LoggerAwareInterface
 
     protected function getShopHash($context)
     {
-        if (preg_match('|^stores/(?<hash>.+)$|', $context, $store)) {
-            return $store['hash'];
+        if (!preg_match('|^stores/(?<hash>.+)$|', $context, $store)) {
+            $this->logDebug(static::LOG_MSG_INVALID_SHOP_CONTEXT, ['context' => $context], static::LOG_CODE_INVALID_SHOP_CONTEXT);
+            throw new \InvalidArgumentException(static::LOG_CODE_INVALID_SHOP_CONTEXT);
         }
-        $this->logDebug(
-            static::LOG_MSG_INVALID_SHOP_CONTEXT,
-            ['context' => $context],
-            static::LOG_CODE_INVALID_SHOP_CONTEXT
-        );
-        throw new \InvalidArgumentException(static::LOG_CODE_INVALID_SHOP_CONTEXT);
+        return $store['hash'];
     }
 
     protected function getAccountId($shopHash)
