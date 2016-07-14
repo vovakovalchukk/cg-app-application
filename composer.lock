@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2edf142ebcbd60428462c24aafa637fd",
+    "hash": "d83ca260d4cf07479094d4b0e89f0e94",
     "content-hash": "959329c4de9924be5728553ace17c91c",
     "packages": [
         {
@@ -3437,12 +3437,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f7ee564ee610d474d5e3937e73794d21ab2f08b8"
+                "reference": "d250dd05a0366e1382247dc89b519844bd615e01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7115-Orders-page-layout-issues-1f1e05.zip",
-                "reference": "f7ee564ee610d474d5e3937e73794d21ab2f08b8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7115-Orders-page-layout-issues-276a85.zip",
+                "reference": "d250dd05a0366e1382247dc89b519844bd615e01",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-12 14:40:53"
+            "time": "2016-07-14 08:48:15"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4037,6 +4037,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
