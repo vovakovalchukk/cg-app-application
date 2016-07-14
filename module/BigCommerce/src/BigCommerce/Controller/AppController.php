@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class AppController extends AbstractActionController
 {
+    const ROUTE_OAUTH = 'OAuth';
+
     /** @var BigCommerceAppService $appService */
     protected $appService;
 

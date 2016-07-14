@@ -9,7 +9,6 @@ class Module
     const PUBLIC_FOLDER = '/cg-built/bigcommerce';
 
     const ROUTE = 'BigCommerce';
-    const ROUTE_OAUTH = 'OAuth';
 
     public function getConfig()
     {
