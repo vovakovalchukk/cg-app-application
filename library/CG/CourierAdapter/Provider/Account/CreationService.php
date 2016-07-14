@@ -81,12 +81,20 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
             $credentials->set($field, $value);
         }
         $account->setCredentials($this->cryptor->encrypt($credentials));
+        $account->setExternalId($caAccount->getId());
 
-        if ($caAccount->getConfig()) {
-            $externalData = $account->getExternalData();
-            $externalData['config'] = json_encode($caAccount->getConfig());
-            $account->setExternalData($externalData);
+        if (!$caAccount->getConfig()) {
+            return;
         }
+        $externalData = $account->getExternalData();
+        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
+        foreach ($caAccount->getConfig() as $field => $value) {
+            if (!isset($externalDataConfig[$field])) {
+                $externalDataConfig[$field] = $value;
+            }
+        }
+        $externalData['config'] = json_encode($externalDataConfig);
+        $account->setExternalData($externalData);
     }
 
     // Required by CreationServiceAbstract but will be changed by configureAccount()
