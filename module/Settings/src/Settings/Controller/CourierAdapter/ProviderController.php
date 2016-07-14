@@ -50,8 +50,6 @@ class ProviderController extends AbstractActionController
 
         $setupUrl = $this->caAccountSetup->getInitialisationUrl($account, '');
         $view->setVariable('url', $setupUrl);
-
-        // TODO: check for TestPackInterface
     }
 
     protected function addConfigVariablesToChannelSpecificView(

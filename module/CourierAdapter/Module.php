@@ -7,8 +7,7 @@ use Zend\Loader\StandardAutoloader;
 class Module
 {
     const ROUTE = 'Courier Adapter Module';
-//    const PUBLIC_FOLDER = '/cg-built/courier-adapter';
-    const PUBLIC_FOLDER = '/channelgrabber/courier-adapter';
+    const PUBLIC_FOLDER = '/cg-built/courier-adapter';
 
     public function getConfig()
     {
