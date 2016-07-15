@@ -23,12 +23,13 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     protected $carrierBookingOptionsForAccount = [];
     protected $carrierBookingOptionsForService = [];
+    protected $orderServiceMap = [];
+    protected $carrierBookingOptionData = [];
 
     protected $optionInterfacesToOptionNameMap = [
         'package' => [
             PackageField\ContentsInterface::class => 'itemParcelAssignment',
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
-            PackageField\TypeInterface::class => 'packageType',
             PackageField\WeightInterface::class => 'weight',
         ],
         'shipment' => [
@@ -39,6 +40,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\InsuranceOptionsInterface::class => 'insuranceOptions',
             ShipmentField\InsuranceRequiredInterface::class => 'insurance',
             ShipmentField\PackagesInterface::class => 'parcels',
+            ShipmentField\PackageTypesInterface::class => 'packageType',
             ShipmentField\SaturdayDeliveryInterface::class => 'saturdayDelivery',
             ShipmentField\SignatureRequiredInterface::class => 'signature',
         ]
@@ -137,7 +139,35 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
      */
     public function addCarrierSpecificDataToListArray(array $data, AccountEntity $account)
     {
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        foreach ($data as &$row) {
+            $service = $this->mapServiceFromListArrayRow($row);
+            $serviceOptions = $this->getCarrierBookingOptionsForService($account, $service, $courierInstance);
+
+            foreach ($serviceOptions as $optionType) {
+                if ($optionType == 'packageType') {
+                    $optionType = 'packageTypes';
+                }
+                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $courierInstance);
+                if (!$options) {
+                    continue;
+                }
+                $row[$optionType] = $options;
+            }
+        }
         return $data;
+    }
+
+    protected function mapServiceFromListArrayRow(array $row)
+    {
+        if ($row['orderRow']) {
+            $this->orderServiceMap[$row['orderId']] = $row['service'];
+            return $row['service'];
+        }
+        if (isset($this->orderServiceMap[$row['orderId']])) {
+            return $this->orderServiceMap[$row['orderId']];
+        }
+        return null;
     }
 
     /**
@@ -150,7 +180,55 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $service,
         OrganisationUnit $rootOu
     ) {
-        return null;
+        return $this->getDataForDeliveryServiceOption($account, $service, $option);
+    }
+
+    protected function getDataForDeliveryServiceOption(
+        AccountEntity $account,
+        $serviceCode,
+        $option,
+        CourierInterface $courierInstance = null
+    ) {
+        if (isset($this->carrierBookingOptionData[$account->getId()][$option])) {
+            return $this->carrierBookingOptionData[$account->getId()][$option];
+        }
+        if ($option != 'packageTypes' && $option != 'insuranceOptions') {
+            return null;
+        }
+
+        if (!$courierInstance) {
+            $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
+        }
+        $deliveryService = $courierInstance->fetchDeliveryServiceByReference($serviceCode);
+        $shipmentClass = $deliveryService->getShipmentClass();
+        if ($option == 'packageTypes') {
+            $data = $this->getDataForPackageTypesOption($shipmentClass);
+        } elseif ($option == 'insuranceOptions') {
+            $data = $this->getDataForInsuranceOptionsOption($shipmentClass);
+        }
+
+        $this->carrierBookingOptionData[$account->getId()][$option] = $data;
+        return $data;
+    }
+
+    protected function getDataForPackageTypesOption($shipmentClass)
+    {
+        $packageTypes = call_user_func([$shipmentClass, 'getPackageTypes']);
+        $data = [];
+        foreach ($packageTypes as $packageType) {
+            $data[$packageType->getReference()] = $packageType->getDisplayName();
+        }
+        return $data;
+    }
+
+    protected function getDataForInsuranceOptionsOption($shipmentClass)
+    {
+        $insuranceOptions = call_user_func([$shipmentClass, 'getAvailableInsuranceOptions']);
+        $data = [];
+        foreach ($insuranceOptions as $insuranceOption) {
+            $data[$insuranceOption->getReference()] = $insuranceOption->getDisplayName();
+        }
+        return $data;
     }
 
     /**
