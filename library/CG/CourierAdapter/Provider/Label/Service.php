@@ -1,9 +1,10 @@
 <?php
-namespace CG\CourierAdapter\Provider\Order;
+namespace CG\CourierAdapter\Provider\Label;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\CarrierProviderServiceInterface;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\Provider\Label\Create as LabelCreateService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -13,10 +14,15 @@ class Service implements CarrierProviderServiceInterface
 {
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
+    /** @var LabelCreateService */
+    protected $labelCreateService;
 
-    public function __construct(AdapterImplementationService $adapterImplementationService)
-    {
-        $this->setAdapterImplementationService($adapterImplementationService);
+    public function __construct(
+        AdapterImplementationService $adapterImplementationService,
+        LabelCreateService $labelCreateService
+    ) {
+        $this->setAdapterImplementationService($adapterImplementationService)
+            ->setLabelCreateService($labelCreateService);
     }
 
     /**
@@ -32,7 +38,9 @@ class Service implements CarrierProviderServiceInterface
         Account $shippingAccount,
         User $user
     ) {
-        // TODO
+        return $this->labelCreateService->createLabelsForOrders(
+            $orders, $orderLabels, $ordersData, $orderParcelsData, $orderItemsData, $rootOu, $shippingAccount, $user
+        );
     }
 
     public function cancelOrderLabels(OrderLabelCollection $orderLabels, Account $shippingAccount)
@@ -59,6 +67,12 @@ class Service implements CarrierProviderServiceInterface
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
     {
         $this->adapterImplementationService = $adapterImplementationService;
+        return $this;
+    }
+
+    protected function setLabelCreateService(LabelCreateService $labelCreateService)
+    {
+        $this->labelCreateService = $labelCreateService;
         return $this;
     }
 }
