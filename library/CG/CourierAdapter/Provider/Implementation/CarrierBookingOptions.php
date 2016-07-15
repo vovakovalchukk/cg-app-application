@@ -96,28 +96,33 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
         $deliveryService = $courierInstance->fetchDeliveryServiceByReference($serviceCode);
         $shipmentClass = $deliveryService->getShipmentClass();
-        $options = $this->getCarrierBookingOptionsForDeliveryClass($shipmentClass);
+        $options = $this->getCarrierBookingOptionsForShipmentClass($shipmentClass);
 
         if (!is_a($shipmentClass, ShipmentField\PackagesInterface::class, true)) {
             $this->carrierBookingOptionsForService[$account->getId()][$serviceCode] = $options;
             return $options;
         }
         $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
-        $options = array_merge($options, $this->getCarrierBookingOptionsForDeliveryClass($packageClass));
+        $options = array_merge($options, $this->getCarrierBookingOptionsForPackageClass($packageClass));
 
         $this->carrierBookingOptionsForService[$account->getId()][$serviceCode] = $options;
         return $options;
     }
 
-    protected function getCarrierBookingOptionsForDeliveryClass($className)
+    protected function getCarrierBookingOptionsForShipmentClass($shipmentClass)
     {
-        $map = [];
-        if (is_a($className, ShipmentInterface::class, true)) {
-            $map = $this->optionInterfacesToOptionNameMap['shipment'];
-        } elseif (is_a($className, PackageInterface::class, true)) {
-            $map = $this->optionInterfacesToOptionNameMap['package'];
-        }
+        $map = $this->optionInterfacesToOptionNameMap['shipment'];
+        return $this->getCarrierBookingOptionsForDeliveryClass($shipmentClass, $map);
+    }
 
+    protected function getCarrierBookingOptionsForPackageClass($packageClass)
+    {
+        $map = $this->optionInterfacesToOptionNameMap['package'];
+        return $this->getCarrierBookingOptionsForDeliveryClass($packageClass, $map);
+    }
+
+    protected function getCarrierBookingOptionsForDeliveryClass($className, array $map)
+    {
         $options = [];
         foreach ($map as $interface => $optionNames) {
             if (!is_a($className, $interface, true)) {
