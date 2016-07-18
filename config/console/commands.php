@@ -1,6 +1,7 @@
 <?php
 $files = [
     'failoverClient.php',
+    'netdespatch.php',
 ];
 
 $commands = [];

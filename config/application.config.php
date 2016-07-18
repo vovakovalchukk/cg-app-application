@@ -29,6 +29,7 @@ return array (
     24 => 'CG_WooCommerce',
     25 => 'CG_Dataplug',
     26 => 'CG_NetDespatch',
+    27 => 'Shopify',
   ),
   'module_listener_options' => 
   array (
