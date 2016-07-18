@@ -62,20 +62,7 @@ class Service implements LoggerAwareInterface
      */
     public function processOauth($redirectUri, array $parameters)
     {
-        if (!isset($parameters['code'], $parameters['scope'], $parameters['context'])) {
-            $this->logPrettyDebug(
-                static::LOG_MSG_MISSING_OAUTH_PARAMS,
-                array_merge(['code' => '-', 'scope' => '-', 'context' => '-'], $parameters),
-                [],
-                static::LOG_CODE_MISSING_OAUTH_PARAMS
-            );
-            throw new \InvalidArgumentException(static::LOG_CODE_MISSING_OAUTH_PARAMS);
-        }
-
-        $this->validateScope(
-            is_array($parameters['scope']) ? $parameters['scope'] : explode(' ', $parameters['scope'])
-        );
-
+        $this->validateOauthParameters($parameters);
         $shopHash = $this->getShopHash($parameters['context']);
         return $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
@@ -95,6 +82,18 @@ class Service implements LoggerAwareInterface
             throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
         }
         return $this->getAccount($data['store_hash']);
+    }
+
+    protected function validateOauthParameters(array $parameters)
+    {
+        if (!isset($parameters['code'], $parameters['scope'], $parameters['context'])) {
+            $this->logPrettyDebug(static::LOG_MSG_MISSING_OAUTH_PARAMS, array_merge(['code' => '-', 'scope' => '-', 'context' => '-'], $parameters), [], static::LOG_CODE_MISSING_OAUTH_PARAMS);
+            throw new \InvalidArgumentException(static::LOG_CODE_MISSING_OAUTH_PARAMS);
+        }
+
+        $this->validateScope(
+            is_array($parameters['scope']) ? $parameters['scope'] : explode(' ', $parameters['scope'])
+        );
     }
 
     protected function validateScope(array $scopes)
