@@ -178,11 +178,22 @@ define([
                     } else {
                         elements.removeClass('required');
                     }
+                    elements.each(function()
+                    {
+                        if ($(this).data('placeholder')) {
+                            $(this).attr('placeholder', $(this).data('placeholder'));
+                        }
+                    });
                 } else {
                     elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');
                     if (elements.parent().hasClass('custom-select')) {
                         elements.parent().addClass('disabled');
                     }
+                    elements.each(function()
+                    {
+                        $(this).data('placeholder', $(this).attr('placeholder'));
+                        $(this).attr('placeholder', 'N/A');
+                    });
                 }
             }
         });
