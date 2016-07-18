@@ -1,7 +1,6 @@
 <?php
 namespace BigCommerce\App;
 
-use BigCommerce\Account\Session as BigCommerceAccountSession;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
@@ -34,8 +33,6 @@ class Service implements LoggerAwareInterface
     protected $viewModelFactory;
     /** @var BigCommerceAccountCreationService $accountCreationService */
     protected $accountCreationService;
-    /** @var BigCommerceAccountSession $accountSession */
-    protected $accountSession;
     /** @var AccountService $accountService */
     protected $accountService;
     /** @var OUService $ouService */
@@ -47,7 +44,6 @@ class Service implements LoggerAwareInterface
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService,
-        BigCommerceAccountSession $accountSession,
         AccountService $accountService,
         OUService $ouService,
         BigCommerceClientSigner $clientSigner
@@ -56,7 +52,6 @@ class Service implements LoggerAwareInterface
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService)
-            ->setAccountSession($accountSession)
             ->setAccountService($accountService)
             ->setOuService($ouService)
             ->setClientSigner($clientSigner);
@@ -141,11 +136,6 @@ class Service implements LoggerAwareInterface
 
     protected function getAccountId($shopHash)
     {
-        $accountId = $this->accountSession->getAccountId($shopHash);
-        if ($accountId) {
-            return $accountId;
-        }
-
         try {
             return $this->getAccount($shopHash)->getId();
         } catch (NotFound $exception) {
@@ -197,15 +187,6 @@ class Service implements LoggerAwareInterface
     protected function setAccountCreationService(BigCommerceAccountCreationService $accountCreationService)
     {
         $this->accountCreationService = $accountCreationService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setAccountSession(BigCommerceAccountSession $accountSession)
-    {
-        $this->accountSession = $accountSession;
         return $this;
     }
 
