@@ -4,6 +4,7 @@ namespace CG\CourierAdapter\Provider\Label;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\CarrierProviderServiceInterface;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\Provider\Label\Create as LabelCreateService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -16,13 +17,17 @@ class Service implements CarrierProviderServiceInterface
     protected $adapterImplementationService;
     /** @var LabelCreateService */
     protected $labelCreateService;
+    /** @var LabelCancelService */
+    protected $labelCancelService;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
-        LabelCreateService $labelCreateService
+        LabelCreateService $labelCreateService,
+        LabelCancelService $labelCancelService
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
-            ->setLabelCreateService($labelCreateService);
+            ->setLabelCreateService($labelCreateService)
+            ->setLabelCancelService($labelCancelService);
     }
 
     /**
@@ -43,9 +48,12 @@ class Service implements CarrierProviderServiceInterface
         );
     }
 
+    /**
+     * @return null
+     */
     public function cancelOrderLabels(OrderLabelCollection $orderLabels, Account $shippingAccount)
     {
-        // TODO
+        $this->labelCancelService->cancelOrderLabels($orderLabels, $shippingAccount);
     }
 
     /**
@@ -73,6 +81,12 @@ class Service implements CarrierProviderServiceInterface
     protected function setLabelCreateService(LabelCreateService $labelCreateService)
     {
         $this->labelCreateService = $labelCreateService;
+        return $this;
+    }
+
+    protected function setLabelCancelService(LabelCancelService $labelCancelService)
+    {
+        $this->labelCancelService = $labelCancelService;
         return $this;
     }
 }
