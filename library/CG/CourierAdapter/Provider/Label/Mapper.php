@@ -50,11 +50,7 @@ class Mapper
         $shipmentClass,
         array $packages = null
     ) {
-        $caShipmentData = [
-            'customerReference' => $ohOrder->getId(),
-            'account' => $this->caAccountMapper->fromOHAccount($ohAccount),
-            'deliveryAddress' => $this->ohOrderToDeliveryAddress($ohOrder),
-        ];
+        $caShipmentData = $this->ohOrderAndAccountToMinimalCAShipmentData($ohOrder, $ohAccount);
         if ($packages) {
             $caShipmentData['packages'] = $packages;
         }
@@ -78,6 +74,18 @@ class Mapper
         }
 
         return $caShipmentData;
+    }
+
+    // Called internally and externally (by Label\Cancel)
+    public function ohOrderAndAccountToMinimalCAShipmentData(
+        OHOrder $ohOrder,
+        OHAccount $ohAccount
+    ) {
+        return [
+            'customerReference' => $ohOrder->getId(),
+            'account' => $this->caAccountMapper->fromOHAccount($ohAccount),
+            'deliveryAddress' => $this->ohOrderToDeliveryAddress($ohOrder),
+        ];
     }
 
     protected function ohOrderToDeliveryAddress(OHOrder $ohOrder)
