@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba72754cb8fbfcdf15da91bf3c0ccc78",
-    "content-hash": "75a09a8c62918fa4211cb2f357022cc5",
+    "hash": "16bb7e73fffd98db1971a849c39d2400",
+    "content-hash": "17b7e3f1e5bd44fb557036a95fd9937b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1301,12 +1301,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "03aac2ba997660232cb80feda74ba347359d1bab"
+                "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7246-courier-adapter-provider-label-creation-1c6619.zip",
-                "reference": "03aac2ba997660232cb80feda74ba347359d1bab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7246-courier-adapter-provider-label-creation-5700d8.zip",
+                "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122",
                 "shasum": null
             },
             "require": {
@@ -1370,7 +1370,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-18 15:33:31"
+            "time": "2016-07-19 09:53:41"
         },
         {
             "name": "channelgrabber/permission",
@@ -3502,16 +3502,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.60",
+            "version": "1.16.61",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6956926e98344a30f325074b621fec91f85d8933"
+                "reference": "47786db5de4df74a556facdbe642ea2b933ae881"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.60-e7ffca.zip",
-                "reference": "6956926e98344a30f325074b621fec91f85d8933",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.61-b6fd11.zip",
+                "reference": "47786db5de4df74a556facdbe642ea2b933ae881",
                 "shasum": null
             },
             "require": {
@@ -3558,7 +3558,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-12 12:57:45"
+            "time": "2016-07-18 12:31:09"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

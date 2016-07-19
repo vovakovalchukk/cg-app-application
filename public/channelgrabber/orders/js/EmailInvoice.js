@@ -1,47 +1,79 @@
 define([
     'Orders/OrdersBulkActionAbstract',
-    'Orders/SaveCheckboxes'
+    'Orders/SaveCheckboxes',
+    'popup/confirm'
 ], function(
     OrdersBulkActionAbstract,
-    saveCheckboxes
+    saveCheckboxes,
+    ConfirmPopup
 ) {
     function EmailInvoice()
     {
         OrdersBulkActionAbstract.call(this);
     }
 
+    EmailInvoice.TITLE_YES = 'Send all';
+    EmailInvoice.TITLE_NO = 'Send unsent';
+
     EmailInvoice.prototype = Object.create(OrdersBulkActionAbstract.prototype);
 
     EmailInvoice.prototype.invoke = function()
     {
-        var orders = this.getOrders();
-        if (!orders.length) {
-            return;
+        if (this.getOrders().length) {
+            this.validate();
         }
-
-        var ajaxConfig = this.buildAjaxConfig();
-        this.getNotificationHandler().notice("Marking Orders for Email");
-        return $.ajax(ajaxConfig);
     };
 
-    EmailInvoice.prototype.buildAjaxConfig = function()
+    EmailInvoice.prototype.validate = function()
     {
-        var datatable = this.getDataTableElement();
-        var data = this.getDataToSubmit();
-        return {
-            context: this,
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            url: this.getElement().data("url"),
-            complete: function() {
-                if (!datatable.length) {
-                    return;
+        this.getNotificationHandler().notice("Preparing Orders for Email");
+        this.sendAjaxRequest(
+            this.getElement().data("url"),
+            $.extend({"validate": true}, this.getDataToSubmit()),
+            function(data) {
+                if (data.emailed > 0) {
+                    this.confirm(data);
+                } else {
+                    this.process();
                 }
-                datatable.cgDataTable("redraw");
-                saveCheckboxes.refreshCheckboxes(datatable);
             },
-            success : function(data) {
+            function(request, textStatus, errorThrown) {
+                return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
+            },
+            this
+        );
+    };
+
+    EmailInvoice.prototype.confirm = function(stats)
+    {
+        this.getNotificationHandler().clearNotifications();
+        var self = this;
+        new ConfirmPopup(
+            CGMustache.get().renderTemplate(
+                "{{emailed}} of the {{total}} invoices you're trying to send have already been emailed."
+                + " Do you want to re-send them or send only invoices that have not been previously sent?",
+                stats
+            ),
+            function(includePreviouslySent) {
+                if (includePreviouslySent !== undefined) {
+                    self.process(includePreviouslySent);
+                }
+            },
+            [
+                {title: EmailInvoice.TITLE_YES, value: ConfirmPopup.VALUE_YES},
+                {title: EmailInvoice.TITLE_NO, value: ConfirmPopup.VALUE_NO}
+            ],
+            false
+        );
+    };
+
+    EmailInvoice.prototype.process = function(includePreviouslySent)
+    {
+        this.getNotificationHandler().notice("Marking Orders for Email");
+        this.sendAjaxRequest(
+            this.getElement().data("url"),
+            $.extend({"includePreviouslySent": (includePreviouslySent !== undefined ? includePreviouslySent : false)}, this.getDataToSubmit()),
+            function(data) {
                 if (data.emailing) {
                     saveCheckboxes.setSavedCheckboxes(this.getOrders())
                         .setSavedCheckAll(this.isAllSelected());
@@ -51,10 +83,20 @@ define([
                 }
                 this.getNotificationHandler().error(data.error);
             },
-            error: function(request, textStatus, errorThrown) {
+            function(request, textStatus, errorThrown) {
                 return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
+            },
+            this,
+            {
+                complete: function() {
+                    if (!this.getDataTableElement().length) {
+                        return;
+                    }
+                    this.getDataTableElement().cgDataTable("redraw");
+                    saveCheckboxes.refreshCheckboxes(datatable);
+                }
             }
-        };
+        );
     };
 
     return EmailInvoice;
