@@ -52,7 +52,10 @@ use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
 use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
 
+// Logging
 use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
+use CG\Log\Psr\Logger as CGPsrLogger;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
@@ -263,6 +266,7 @@ $config = array(
                 LockingStorage::class => LockingRedisStorage::class,
                 AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
+                PsrLoggerInterface::class => CGPsrLogger::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,

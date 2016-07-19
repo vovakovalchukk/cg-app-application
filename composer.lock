@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9f9abe8960a8dc7525b5b6be08a7301",
-    "content-hash": "79e27244b1dc25541008771ae934a337",
+    "hash": "ec6455365fd99633e253c22cb81a72dd",
+    "content-hash": "d65523dee0e3a9818563f91ec71406b3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1152,16 +1152,16 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.0.27",
+            "version": "dev-CGIV-7135-psr-3-logger",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "08abc2a099552ba0ba8edebee82cbc8e04dbf351"
+                "reference": "b6b834bca11154cbe253261a95f7a4e39d924714"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.27-20561d.zip",
-                "reference": "08abc2a099552ba0ba8edebee82cbc8e04dbf351",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-CGIV-7135-psr-3-logger-77cc80.zip",
+                "reference": "b6b834bca11154cbe253261a95f7a4e39d924714",
                 "shasum": null
             },
             "require": {
@@ -1173,6 +1173,7 @@
                 "channelgrabber/validation": ">=1.1.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
+                "psr/log": "^1.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
                 "zendframework/zend-eventmanager": ">=2.2,<3.0"
             },
@@ -1190,7 +1191,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-12 12:40:07"
+            "time": "2016-07-19 11:56:39"
         },
         {
             "name": "channelgrabber/netdespatch",
@@ -7756,6 +7757,12 @@
             "package": "channelgrabber/dataplug"
         },
         {
+            "alias": "2.0.28",
+            "alias_normalized": "2.0.28.0",
+            "version": "dev-CGIV-7135-psr-3-logger",
+            "package": "channelgrabber/log"
+        },
+        {
             "alias": "1.0.11",
             "alias_normalized": "1.0.11.0",
             "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
@@ -7775,6 +7782,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/dataplug": 20,
+        "channelgrabber/log": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "composer/composer": 20,

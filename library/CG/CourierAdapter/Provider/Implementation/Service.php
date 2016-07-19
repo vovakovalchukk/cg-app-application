@@ -7,13 +7,17 @@ use CG\CourierAdapter\Provider\Implementation\Collection;
 use CG\CourierAdapter\Provider\Implementation\Entity;
 use CG\CourierAdapter\Provider\Implementation\Mapper;
 use CG\Order\Shared\Entity as Order;
+use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
-class Service implements ShippingOptionsProviderInterface
+class Service implements ShippingOptionsProviderInterface, PsrLoggerAwareInterface
 {
     /** @var Mapper */
     protected $mapper;
     /** @var Collection */
     protected $adapterImplementations;
+    /** @var PsrLoggerInterface */
+    protected $psrLogger;
 
     protected $adapterImplementationCourierInstances = [];
 
@@ -67,9 +71,12 @@ class Service implements ShippingOptionsProviderInterface
         if (isset($this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()])) {
             return $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()];
         }
-        $courerInterface = call_user_func($adapterImplementation->getCourierFactory());
-        $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()] = $courerInterface;
-        return $courerInterface;
+        $courierInstance = call_user_func($adapterImplementation->getCourierFactory());
+        // Pass the logger along so implementers can do their own logging
+        $courierInstance->setLogger($this->psrLogger);
+
+        $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()] = $courierInstance;
+        return $courierInstance;
     }
 
     /**
@@ -153,6 +160,14 @@ class Service implements ShippingOptionsProviderInterface
     protected function setAdapterImplementations(Collection $adapterImplementations)
     {
         $this->adapterImplementations = $adapterImplementations;
+        return $this;
+    }
+
+    // For \Psr\Log\LoggerAwareInterface
+    public function setLogger(PsrLoggerInterface $psrLogger)
+    {
+        $this->psrLogger = $psrLogger;
+        $this->psrLogger->setCGLogCode('CourierAdapter');
         return $this;
     }
 }
