@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4bce25607e7ce3b52d94b63a3aef99c9",
-    "content-hash": "b0b7c1d366e29fcb8178d2d2c2d846bb",
+    "hash": "ba72754cb8fbfcdf15da91bf3c0ccc78",
+    "content-hash": "75a09a8c62918fa4211cb2f357022cc5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1297,16 +1297,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
+            "version": "dev-CGIV-7246-courier-adapter-provider-label-creation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a15b9d84cd0704fd82175f56cdd3de9ffd7642e6"
+                "reference": "03aac2ba997660232cb80feda74ba347359d1bab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-863a70.zip",
-                "reference": "a15b9d84cd0704fd82175f56cdd3de9ffd7642e6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7246-courier-adapter-provider-label-creation-1c6619.zip",
+                "reference": "03aac2ba997660232cb80feda74ba347359d1bab",
                 "shasum": null
             },
             "require": {
@@ -1370,7 +1370,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-07 07:55:05"
+            "time": "2016-07-18 15:33:31"
         },
         {
             "name": "channelgrabber/permission",
@@ -7764,7 +7764,7 @@
         {
             "alias": "1.23.9",
             "alias_normalized": "1.23.9.0",
-            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
+            "version": "dev-CGIV-7246-courier-adapter-provider-label-creation",
             "package": "channelgrabber/order"
         }
     ],
