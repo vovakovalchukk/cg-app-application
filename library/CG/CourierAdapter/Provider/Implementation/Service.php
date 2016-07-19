@@ -3,6 +3,8 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\ShippingOptionsProviderInterface;
+use CG\CourierAdapter\EmailClientAwareInterface;
+use CG\CourierAdapter\EmailClientInterface;
 use CG\CourierAdapter\Provider\Implementation\Collection;
 use CG\CourierAdapter\Provider\Implementation\Entity;
 use CG\CourierAdapter\Provider\Implementation\Mapper;
@@ -12,7 +14,11 @@ use CG\Order\Shared\Entity as Order;
 use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
-class Service implements ShippingOptionsProviderInterface, PsrLoggerAwareInterface, StorageAwareInterface
+class Service implements
+    ShippingOptionsProviderInterface,
+    PsrLoggerAwareInterface,
+    StorageAwareInterface,
+    EmailClientAwareInterface
 {
     /** @var Mapper */
     protected $mapper;
@@ -22,6 +28,8 @@ class Service implements ShippingOptionsProviderInterface, PsrLoggerAwareInterfa
     protected $psrLogger;
     /** @var StorageInterface */
     protected $storage;
+    /** @var EmailClientInterface */
+    protected $emailClient;
 
     protected $adapterImplementationCourierInstances = [];
 
@@ -79,8 +87,12 @@ class Service implements ShippingOptionsProviderInterface, PsrLoggerAwareInterfa
         $courierInstance = call_user_func($adapterImplementation->getCourierFactory());
         // Pass the logger along so implementers can do their own logging
         $courierInstance->setLogger($this->psrLogger);
+
         if ($courierInstance instanceof StorageAwareInterface) {
             $courierInstance->setStorage($this->storage);
+        }
+        if ($courierInstance instanceof EmailClientAwareInterface) {
+            $courierInstance->setEmailClient($this->emailClient);
         }
 
         $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()] = $courierInstance;
@@ -183,6 +195,12 @@ class Service implements ShippingOptionsProviderInterface, PsrLoggerAwareInterfa
     public function setStorage(StorageInterface $storage)
     {
         $this->storage = $storage;
+        return $this;
+    }
+
+    public function setEmailClient(EmailClientInterface $emailClient)
+    {
+        $this->emailClient = $emailClient;
         return $this;
     }
 }
