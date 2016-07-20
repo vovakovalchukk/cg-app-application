@@ -172,12 +172,33 @@ class Service extends ClientService implements StatsAwareInterface
         return $this;
     }
 
-    public function emailInvoicesForCollection(Collection $orders)
+    public function getInvoiceStats(Collection $orders)
+    {
+        $stats = ['printed' => 0, 'emailed' => 0, 'total' => 0];
+        /** @var Order $order */
+        foreach ($orders as $order) {
+            if ($order->getInvoiceDate()) {
+                $stats['printed']++;
+            }
+            if ($order->getEmailDate()) {
+                $stats['emailed']++;
+            }
+            $stats['total']++;
+        }
+        return $stats;
+    }
+
+    public function emailInvoicesForCollection(Collection $orders, $includePreviouslySent = false)
     {
         /**
          * @var Order $order
          */
         foreach ($orders as $order) {
+            if (!$includePreviouslySent && $order->getEmailDate()) {
+                // Skip any orders we have previously emailed
+                continue;
+            }
+
             $workload = new EmailInvoice($order->getId());
             $this->gearmanClient->doBackground(
                 $workload->getWorkerFunctionName(),

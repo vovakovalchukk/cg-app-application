@@ -242,7 +242,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->{$this->typeMap[$type]}();
             $response->setVariable('filterId', $orders->getFilterId());
-            $callable($orders);
+            $outcome = $callable($orders);
+            if (is_array($outcome)) {
+                $response->setVariables(array_merge([$action => true], $outcome));
+            } else {
+                $response->setVariable($action, (is_bool($outcome) ? $outcome : true));
+            }
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -257,7 +262,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
             throw new \Exception('Failed to update the following orders: ' . implode(', ', $failedOrderIds), 0, $exception);
         }
-        return $response->setVariable($action, true);
+        return $response;
     }
 
     protected function performPatchingAction($action, callable $callable)
@@ -359,7 +364,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
-        $this->getInvoiceService()->emailInvoicesForCollection($orders);
+        $invoiceService = $this->getInvoiceService();
+        if ($this->params()->fromPost('validate', false)) {
+            return $invoiceService->getInvoiceStats($orders);
+        }
+        $invoiceService->emailInvoicesForCollection(
+            $orders,
+            filter_var($this->params()->fromPost('includePreviouslySent', false), FILTER_VALIDATE_BOOLEAN)
+        );
     }
 
     public function checkInvoiceGenerationProgressAction()

@@ -174,7 +174,11 @@ class Mapper extends UIMapper
 
         $values = explode(PHP_EOL, $value);
         for ($i = 1; $i < count($values); $i++) {
-            $values[$i] = sprintf('<i>%s</i>', $values[$i]);
+            if (preg_match('/^(?<name>[^:]*:)(?<value>.*)$/', $values[$i], $info)) {
+                $values[$i] = sprintf('<i><b>%s</b>%s</i>', $info['name'], $info['value']);
+            } else {
+                $values[$i] = sprintf('<i>%s</i>', $values[$i]);
+            }
         }
 
         if (empty($entity->getUrl())) {
