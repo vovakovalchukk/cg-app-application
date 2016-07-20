@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ec6455365fd99633e253c22cb81a72dd",
-    "content-hash": "d65523dee0e3a9818563f91ec71406b3",
+    "hash": "cce9403dd8ec68eee88aeec05ec69ddb",
+    "content-hash": "6984baaaae63df34b3a1de34d5e20280",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1152,7 +1152,7 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "dev-CGIV-7135-psr-3-logger",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
@@ -1160,7 +1160,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-CGIV-7135-psr-3-logger-77cc80.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-EPIC-CGIV-7108-integrate-courier-adapters-77cc80.zip",
                 "reference": "b6b834bca11154cbe253261a95f7a4e39d924714",
                 "shasum": null
             },
@@ -1302,12 +1302,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "452d7c48d1dd7cb0971c1b728c2ed1e35590b82a"
+                "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-416a8d.zip",
-                "reference": "452d7c48d1dd7cb0971c1b728c2ed1e35590b82a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-5700d8.zip",
+                "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122",
                 "shasum": null
             },
             "require": {
@@ -1371,7 +1371,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-19 09:53:29"
+            "time": "2016-07-19 09:53:41"
         },
         {
             "name": "channelgrabber/permission",
@@ -7759,7 +7759,7 @@
         {
             "alias": "2.0.28",
             "alias_normalized": "2.0.28.0",
-            "version": "dev-CGIV-7135-psr-3-logger",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/log"
         },
         {
