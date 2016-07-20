@@ -106,7 +106,7 @@ class Create implements LoggerAwareInterface
         $results = $this->bookShipments($shipments, $orders, $orderLabels, $shippingAccount, $user, $courierInstance);
 
         $this->logInfo(static::LOG_END, [$rootOu->getId(), $shippingAccount->getId(), $shippingAccount->getChannel(), implode(', ', $orders->getIds())], [static::LOG_CODE, 'End']);
-        $this->removeGlobalLogEventParams(['ou', 'account', 'channel']);
+        $this->removeGlobalLogEventParams(['ou', 'rootOu', 'account', 'channel']);
 
         return $results;
     }
