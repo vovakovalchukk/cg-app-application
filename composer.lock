@@ -1302,12 +1302,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "452d7c48d1dd7cb0971c1b728c2ed1e35590b82a"
+                "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-416a8d.zip",
-                "reference": "452d7c48d1dd7cb0971c1b728c2ed1e35590b82a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-5700d8.zip",
+                "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122",
                 "shasum": null
             },
             "require": {
@@ -1371,7 +1371,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-19 09:53:29"
+            "time": "2016-07-19 09:53:41"
         },
         {
             "name": "channelgrabber/permission",
