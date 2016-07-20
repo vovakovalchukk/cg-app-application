@@ -21,6 +21,7 @@ class Client implements EmailClientInterface
     public function send($to, $subject, $message)
     {
         $viewModel = clone($this->viewModel);
+        $viewModel->setTemplate('courier-adapter/email');
         $viewModel->setVariable('message', $message);
 
         $this->mailer->send($to, $subject, $viewModel);
@@ -35,7 +36,6 @@ class Client implements EmailClientInterface
     protected function setViewModel(ViewModel $viewModel)
     {
         $this->viewModel = $viewModel;
-        $this->viewModel->setTemplate('courier-adapter/email');
         return $this;
     }
 }
