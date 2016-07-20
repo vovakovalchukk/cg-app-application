@@ -187,6 +187,7 @@ use CG\Account\Client\Storage\Api as AccountApiStorage;
 // CourierAdapters
 use CG\CourierAdapter\Provider\Implementation\CarrierBookingOptions as CourierAdapterProviderCarrierBookingOptions;
 use CG\CourierAdapter\Provider\Implementation\Service as CourierAdapterProviderImplementationService;
+use CG\CourierAdapter\Provider\Label\Service as CourierAdapterProviderLabelService;
 
 $config = array(
     'di' => array(
@@ -681,6 +682,7 @@ $config = array(
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
                         ['provider' => AmazonCarrierProvider::class],
+                        ['provider' => CourierAdapterProviderLabelService::class],
                     ]
                 ]
             ],

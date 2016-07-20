@@ -63,7 +63,7 @@ class CreateService extends ServiceAbstract
         $orders = $this->getOrdersByIds($orderIds);
 
         $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
-        $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
+        $orderLabels = $this->createOrderLabelsForOrders($orders, $ordersData, $shippingAccount);
         $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
 
         try {
@@ -204,22 +204,24 @@ class CreateService extends ServiceAbstract
         return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
     }
 
-    protected function createOrderLabelsForOrders(OrderCollection $orders, Account $shippingAccount)
+    protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, Account $shippingAccount)
     {
         $orderLabels = new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
         foreach ($orders as $order) {
-            $orderLabels->attach($this->createOrderLabelForOrder($order, $shippingAccount));
+            $orderData = $ordersData[$order->getId()];
+            $orderLabels->attach($this->createOrderLabelForOrder($order, $orderData, $shippingAccount));
         }
         return $orderLabels;
     }
 
-    protected function createOrderLabelForOrder(Order $order, Account $shippingAccount)
+    protected function createOrderLabelForOrder(Order $order, array $orderData, Account $shippingAccount)
     {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
             'shippingAccountId' => $shippingAccount->getId(),
+            'shippingServiceCode' => $orderData['service'],
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),

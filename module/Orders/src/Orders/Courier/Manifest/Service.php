@@ -4,6 +4,7 @@ namespace Orders\Courier\Manifest;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shared\Manifest\Entity as AccountManifest;
 use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
 use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
@@ -130,15 +131,17 @@ class Service
         }
     }
 
-    protected function getOpenOrderCountForAccount(Account $account, DateTime $latestManifestDate)
+    protected function getOpenOrderCountForAccount(Account $account, DateTime $latestManifestDate = null)
     {
         try {
             $filter = (new OrderLabelFilter())
                 ->setLimit(1)
                 ->setPage(1)
                 ->setShippingAccountId([$account->getId()])
-                ->setStatus(array_values(OrderLabelStatus::getPrintableStatuses()))
-                ->setCreatedFrom($latestManifestDate->format(StdlibDateTime::FORMAT));
+                ->setStatus(array_values(OrderLabelStatus::getPrintableStatuses()));
+            if ($latestManifestDate) {
+                $filter->setCreatedFrom($latestManifestDate->format(StdlibDateTime::FORMAT));
+            }
             $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
             return $orderLabels->getTotal();
 

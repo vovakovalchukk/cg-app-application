@@ -7,6 +7,7 @@ use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField as PackageField;
 use CG\CourierAdapter\ShipmentInterface;
@@ -20,6 +21,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     protected $adapterImplementationService;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
+    /** @var LabelCancelService */
+    protected $labelCancelService;
 
     protected $carrierBookingOptionsForAccount = [];
     protected $carrierBookingOptionsForService = [];
@@ -48,10 +51,12 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
-        CAAccountMapper $caAccountMapper
+        CAAccountMapper $caAccountMapper,
+        LabelCancelService $labelCancelService
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
-            ->setCAAccountMapper($caAccountMapper);
+            ->setCAAccountMapper($caAccountMapper)
+            ->setLabelCancelService($labelCancelService);
     }
 
     /**
@@ -241,8 +246,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
      */
     public function isCancellationAllowedForOrder(AccountEntity $account, OrderEntity $order)
     {
-        // TODO in CGIV-7246
-        return false;
+        return $this->labelCancelService->isCancellationAllowedForOrder($account, $order);
     }
 
     /**
@@ -270,6 +274,12 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
     {
         $this->caAccountMapper = $caAccountMapper;
+        return $this;
+    }
+
+    protected function setLabelCancelService(LabelCancelService $labelCancelService)
+    {
+        $this->labelCancelService = $labelCancelService;
         return $this;
     }
 }

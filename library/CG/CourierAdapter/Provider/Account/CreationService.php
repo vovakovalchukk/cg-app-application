@@ -27,7 +27,8 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         
         $account->setChannel($channelName)
             ->setType([ChannelType::SHIPPING])
-            ->setDisplayName($adapterImplementation->getDisplayName());
+            ->setDisplayName($adapterImplementation->getDisplayName())
+            ->setDisplayChannel($adapterImplementation->getDisplayName());
 
         if ($courierInstance instanceof CredentialRequestInterface && !$account->getId()) {
             $this->configureAccountFromCredentialsRequest($account, $params);
