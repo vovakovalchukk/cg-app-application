@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "16bb7e73fffd98db1971a849c39d2400",
-    "content-hash": "17b7e3f1e5bd44fb557036a95fd9937b",
+    "hash": "b9f9abe8960a8dc7525b5b6be08a7301",
+    "content-hash": "79e27244b1dc25541008771ae934a337",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1297,7 +1297,7 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7246-courier-adapter-provider-label-creation",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
@@ -1305,7 +1305,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7246-courier-adapter-provider-label-creation-5700d8.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7108-integrate-courier-adapters-5700d8.zip",
                 "reference": "9a455b4392056f1a1a7b3fa15b1409a676e14122",
                 "shasum": null
             },
@@ -7764,7 +7764,7 @@
         {
             "alias": "1.23.9",
             "alias_normalized": "1.23.9.0",
-            "version": "dev-CGIV-7246-courier-adapter-provider-label-creation",
+            "version": "dev-EPIC-CGIV-7108-integrate-courier-adapters",
             "package": "channelgrabber/order"
         }
     ],

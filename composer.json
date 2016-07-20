@@ -51,7 +51,7 @@
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.27",
         "channelgrabber/netdespatch": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.0.11",
-        "channelgrabber/order": "dev-CGIV-7246-courier-adapter-provider-label-creation as 1.23.9",
+        "channelgrabber/order": "dev-EPIC-CGIV-7108-integrate-courier-adapters as 1.23.9",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
