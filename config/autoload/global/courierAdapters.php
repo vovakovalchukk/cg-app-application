@@ -1,5 +1,7 @@
 <?php
 
+use CG\CourierAdapter\EmailClientInterface;
+use CG\CourierAdapter\Provider\Implementation\Email\Client as EmailClient;
 use CG\CourierAdapter\Provider\Implementation\Service;
 use CG\CourierAdapter\Provider\Implementation\Storage\Redis as RedisStorage;
 use CG\CourierAdapter\StorageInterface;
@@ -9,6 +11,7 @@ return [
         'instance' => [
             'preferences' => [
                 StorageInterface::class => RedisStorage::class,
+                EmailClientInterface::class => EmailClient::class,
             ],
             RedisStorage::class => [
                 'parameters' => [
