@@ -26,7 +26,6 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\DateTime as StdlibDateTime;
-use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -49,6 +48,7 @@ class Create implements LoggerAwareInterface
     const LOG_TRACKING = 'Saving tracking number for Order %s, OU %d of %s';
     const LOG_NO_TRACKING = 'No tracking numbers for Order %s, OU %d';
     const LOG_FETCH_LABELS = 'Attempting to fetch shipment label(s) for Order %s';
+    const LOG_FETCH_LABELS_FAILED = 'Failed to fetch shipment label(s). This is unexpected. The shipment has been booked but we have no labels';
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -277,7 +277,8 @@ class Create implements LoggerAwareInterface
         }
         $fetchedShipment = $courierInstance->fetchShipment($shipment);
         if (empty($fetchedShipment->getLabels())) {
-            throw new NotFound('No labels found for shipment');
+            $this->logCritical(static::LOG_FETCH_LABELS_FAILED, [], [static::LOG_CODE, 'FetchLabelsFailed']);
+            throw new OperationFailed('No labels found for shipment');
         }
         return $fetchedShipment->getLabels();
     }
