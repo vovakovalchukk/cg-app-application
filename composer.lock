@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11b2ab150fb8fbc47bc68b681f7af696",
-    "content-hash": "3825cab621fd756415cd430acb28ac9b",
+    "hash": "e7446c6346d2381dc5f082d8e3a6e7e5",
+    "content-hash": "61e768a1763e78af17b13bb3be604ee4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -113,22 +113,23 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7196-BigCommerceWebHookFramework",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "3d57b4c87b39d882e4d2446eb4a58e012c74c14d"
+                "reference": "a74ebb338957a9764c94b2fd0228a154ea2de489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-CGIV-7193-BigCommerceIntegration-28924e.zip",
-                "reference": "3d57b4c87b39d882e4d2446eb4a58e012c74c14d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7196-BigCommerceWebHookFramework-ce1fe7.zip",
+                "reference": "a74ebb338957a9764c94b2fd0228a154ea2de489",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-7193-BigCommerceIntegration as 1.24.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/webhook-framework": "dev-CGIV-7196-BigCommerceWebHookFramework as 1.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "realityking/hash_equals": "@dev",
                 "zendframework/zend-di": "~2.3"
@@ -148,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-18 08:21:07"
+            "time": "2016-07-20 08:09:03"
         },
         {
             "name": "channelgrabber/billing",
@@ -2600,6 +2601,39 @@
                 }
             },
             "time": "2013-11-04 13:10:03"
+        },
+        {
+            "name": "channelgrabber/webhook-framework",
+            "version": "dev-CGIV-7196-BigCommerceWebHookFramework",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-webhook-framework.git",
+                "reference": "a22dabe1356e5141c45c8424849a0105d469730a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-webhook-framework-dev-CGIV-7196-BigCommerceWebHookFramework-bf477e.zip",
+                "reference": "a22dabe1356e5141c45c8424849a0105d469730a",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/channel": "^1.24.6",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/gearman": "^1.2.21",
+                "channelgrabber/stdlib": "^2.12.33"
+            },
+            "suggest": {
+                "channelgrabber/phinx": "Allows you to use the phinx migration to create the DB storage",
+                "channelgrabber/zf2-stdlib": "Allow storing event timestamps in db",
+                "predis/predis": "Allow storing event timestamps in redis"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Webhook\\": "src"
+                }
+            },
+            "time": "2016-07-19 08:53:12"
         },
         {
             "name": "channelgrabber/woocommerce",
@@ -7791,7 +7825,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7196-BigCommerceWebHookFramework",
             "package": "channelgrabber/bigcommerce"
         },
         {
@@ -7799,6 +7833,12 @@
             "alias_normalized": "1.24.6.0",
             "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-7196-BigCommerceWebHookFramework",
+            "package": "channelgrabber/webhook-framework"
         },
         {
             "alias": "1.16.61",
@@ -7812,6 +7852,7 @@
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/webhook-framework": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
