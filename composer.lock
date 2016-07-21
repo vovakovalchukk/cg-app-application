@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b86ecd3bdc317ab60e272edc7188f546",
+    "hash": "2f4a3d20cbf01ba5bae60da3d18b2463",
     "content-hash": "0367774fdd87271438da90c937f864c3",
     "packages": [
         {
@@ -3125,12 +3125,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "5562bd62859b8e0e2c28551590cf39cd072f6255"
+                "reference": "9cff0464483d349546c0cb259495d0bc23812624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7259-Update-royal-mail-integration-form-b621d9.zip",
-                "reference": "5562bd62859b8e0e2c28551590cf39cd072f6255",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7259-Update-royal-mail-integration-form-a7f17e.zip",
+                "reference": "9cff0464483d349546c0cb259495d0bc23812624",
                 "shasum": null
             },
             "require": {
@@ -3162,7 +3162,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-07-21 08:12:05"
+            "time": "2016-07-21 09:12:43"
         },
         {
             "name": "channelgrabber/zf2-permission",
