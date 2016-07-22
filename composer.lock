@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f0f3dcc1323784a9b52ed95ebd7e572e",
-    "content-hash": "569310040a5daba69b5c48d6364f1a3f",
+    "hash": "194cb4dce8db72d0f4ce20850452bc96",
+    "content-hash": "d980d7d4743a2bbb613c851e4f36638d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3121,16 +3121,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "c1ae5a8c0e9815a19f6e9f3f182b7874f19f7d42"
+                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.5-c311c3.zip",
-                "reference": "c1ae5a8c0e9815a19f6e9f3f182b7874f19f7d42",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.6-d4f4f3.zip",
+                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8",
                 "shasum": null
             },
             "require": {
@@ -3162,7 +3162,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-07-06 07:40:29"
+            "time": "2016-07-22 08:05:15"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3478,12 +3478,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d59e9043afad85b9940be6199eeef8f318fd1466"
+                "reference": "df5bc94988938b2e1a79141a9629e18c595add60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7115-Orders-page-layout-issues-4bdc2c.zip",
-                "reference": "d59e9043afad85b9940be6199eeef8f318fd1466",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7115-Orders-page-layout-issues-afae4f.zip",
+                "reference": "df5bc94988938b2e1a79141a9629e18c595add60",
                 "shasum": null
             },
             "require": {
@@ -3530,7 +3530,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-21 14:44:08"
+            "time": "2016-07-22 09:24:39"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7710,8 +7710,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.61",
-            "alias_normalized": "1.16.61.0",
+            "alias": "1.16.63",
+            "alias_normalized": "1.16.63.0",
             "version": "dev-CGIV-7115-Orders-page-layout-issues",
             "package": "channelgrabber/zf2-v4-ui"
         }
