@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f4a3d20cbf01ba5bae60da3d18b2463",
-    "content-hash": "0367774fdd87271438da90c937f864c3",
+    "hash": "72ddce911d337199f31a74dc774e28aa",
+    "content-hash": "094f5eb6ac989d5034ad31b01bfd3c0d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3121,16 +3121,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "dev-CGIV-7259-Update-royal-mail-integration-form",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "9cff0464483d349546c0cb259495d0bc23812624"
+                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7259-Update-royal-mail-integration-form-a7f17e.zip",
-                "reference": "9cff0464483d349546c0cb259495d0bc23812624",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.6-d4f4f3.zip",
+                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8",
                 "shasum": null
             },
             "require": {
@@ -3162,7 +3162,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-07-21 09:12:43"
+            "time": "2016-07-22 08:05:15"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3474,16 +3474,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.61",
+            "version": "1.16.62",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "47786db5de4df74a556facdbe642ea2b933ae881"
+                "reference": "40e868c304515201de738d23851706113d38c2b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.61-b6fd11.zip",
-                "reference": "47786db5de4df74a556facdbe642ea2b933ae881",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.62-0f608d.zip",
+                "reference": "40e868c304515201de738d23851706113d38c2b0",
                 "shasum": null
             },
             "require": {
@@ -3530,7 +3530,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-18 12:31:09"
+            "time": "2016-07-22 08:07:17"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7708,18 +7708,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-7259-Update-royal-mail-integration-form",
-            "package": "channelgrabber/zf2-netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
