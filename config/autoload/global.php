@@ -726,6 +726,7 @@ $config = array(
                                 ],
                             ],
                         ],
+                        /*
                         [
                             'channelName' => DataplugCarriers::DPD,
                             'displayName' => 'DPD',
@@ -776,6 +777,7 @@ $config = array(
                                 ],
                             ],
                         ],
+                        */
                         [
                             'channelName' => DataplugCarriers::FEDEX,
                             'displayName' => 'FedEx',
@@ -810,6 +812,7 @@ $config = array(
                                 ],
                             ],
                         ],
+                        /*
                         [
                             'channelName' => DataplugCarriers::INTERLINK,
                             'displayName' => 'Interlink',
@@ -871,6 +874,7 @@ $config = array(
                                 ],
                             ],
                         ],
+                        */
                         [
                             'channelName' => DataplugCarriers::MYHERMES,
                             'displayName' => 'MyHermes',
@@ -896,6 +900,7 @@ $config = array(
                                 'signature' => false,
                             ],
                         ],
+                        /*
                         [
                             'channelName' => DataplugCarriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
@@ -932,6 +937,7 @@ $config = array(
                                 ],
                             ],
                         ],
+                        */
                         [
                             'channelName' => DataplugCarriers::TNT,
                             'displayName' => 'TNT',
