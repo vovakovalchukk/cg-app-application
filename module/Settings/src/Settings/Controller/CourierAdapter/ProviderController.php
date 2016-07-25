@@ -65,8 +65,8 @@ class ProviderController extends AbstractActionController
         if (isset($account->getExternalData()['config'])) {
             $values = json_decode($account->getExternalData()['config'], true);
         }
-        $this->prepareAdapterImplementationFields($fields, $values);
-        $view->setVariable('configFields', $fields);
+        $form = $this->prepareAdapterImplementationFields($fields, $values);
+        $view->setVariable('configForm', $form);
     }
 
     protected function addTestPackVariablesToChannelSpecificView(

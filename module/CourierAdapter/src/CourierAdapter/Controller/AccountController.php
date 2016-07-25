@@ -12,16 +12,15 @@ use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFields
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\User\ActiveUserInterface;
+use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CourierAdapter\Account\Service as CAModuleAccountService;
 use CourierAdapter\Module;
-use InvalidArgumentException;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
-use Zend\Form\Element as ZendFormElement;
+use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Zend\Stdlib\Http\FileResponse;
 
 class AccountController extends AbstractActionController
 {
@@ -77,13 +76,12 @@ class AccountController extends AbstractActionController
         if ($accountId) {
             $fieldValues = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
         }
-
-        $this->prepareAdapterImplementationFields($fields, $fieldValues);
+        $form = $this->convertAdapterImplementationFieldsToForm($fields, $fieldValues);
 
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
 
         return $this->getAdapterFieldsView(
-            $fields,
+            $form,
             $channelName,
             $saveRoute,
             'Saving credentials',
@@ -101,12 +99,12 @@ class AccountController extends AbstractActionController
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
         $fields = $courierInstance->getCredentialsRequestFields($caAddress, $rootOu->getAddressCompanyName());
-        $this->prepareAdapterImplementationFields($fields);
+        $form = $this->convertAdapterImplementationFieldsToForm($fields);
 
         $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
 
         $view = $this->getAdapterFieldsView(
-            $fields,
+            $form,
             $channelName,
             $saveRoute,
             'Submitting request',
@@ -127,7 +125,7 @@ class AccountController extends AbstractActionController
     }
 
     protected function getAdapterFieldsView(
-        array $fields,
+        ZendForm $form,
         $channelName,
         $saveRoute,
         $savingNotification = null,
@@ -147,7 +145,7 @@ class AccountController extends AbstractActionController
             'channelName' => $channelName,
             'saveUrl' => $saveUrl,
             'goBackUrl' => $goBackUrl,
-            'fields' => $fields,
+            'form' => $form,
             'savingNotification' => $savingNotification,
             'savedNotification' => $savedNotification,
         ]);
@@ -180,8 +178,10 @@ class AccountController extends AbstractActionController
         $params = $this->getSanitisedPostParams();
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
 
-        $fields = $courierInstance->getCredentialsRequestFields();
-        $this->prepareAdapterImplementationFields($fields, $params);
+        $rootOu = $this->getActiveUserRootOu();
+        $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
+        $fields = $courierInstance->getCredentialsRequestFields($caAddress, $rootOu->getAddressCompanyName());
+        $this->convertAdapterImplementationFieldsToForm($fields, $params);
 
         $courierInstance->submitCredentialsRequestFields($fields);
 

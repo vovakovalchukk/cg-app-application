@@ -10,7 +10,7 @@ $configSaveUrl = $this->url(Module::ROUTE.'/'.AccountController::ROUTE.'/'.Accou
         <input type="hidden" name="accountId" value="<?= $account->getId() ;?>" />
         <input type="hidden" name="channel" value="<?= $account->getChannel() ;?>" />
 
-        <?=$this->partial('courier-adapter/adapter-fields.phtml', ['fields' => $configFields]);?>
+        <?=$this->partial('courier-adapter/adapter-fields.phtml', ['form' => $configForm]);?>
 
         <div class="order-inputbox-holder">
             <?=$this->mustache('elements/buttons.mustache', ['buttons' => ['id' => 'ca-account-config-save', 'value' => 'Save', 'type' => 'submit']]);?>
