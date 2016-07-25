@@ -113,11 +113,9 @@ define([
         }
         n.notice('Saving stock level');
         var self = this;
-        var eTag = $('#etag_'+productId).val();
         this.getDeferredQueue().queue(function() {
-            return self.getStorage().saveStockLevel(productId, stockLevel, eTag, function(response) {
-                for (var id in response.eTags) {
-                    $('#etag_'+id).val(response.eTags[id]);
+            return self.getStorage().saveStockLevel(productId, stockLevel, function(response) {
+                for (var id in response.affectedProducts) {
                     $('#product-stock-level-'+id).val(stockLevel);
                 }
                 n.success('Product stock level updated successfully');
@@ -125,18 +123,12 @@ define([
         });
     };
 
-    Service.prototype.saveStockModeForProduct = function(productId, value, eTagElement)
+    Service.prototype.saveStockModeForProduct = function(productId, value, eTagCallback)
     {
         n.notice('Saving stock mode');
         var self = this;
-        var eTag = eTagElement.val();
         this.getDeferredQueue().queue(function() {
-            return self.getStorage().saveStockMode(productId, value, eTag, function(response) {
-                eTagElement.val(response.eTags.productId);
-                for (var variationId in response.eTags) {
-                    var eTag = response.eTags[variationId];
-                    $(Service.SELECTOR_STOCK_ROW_PREFIX + variationId + ' ' + DomListener.SELECTOR_STOCK_PROD_ETAG).val(eTag);
-                }
+            return self.getStorage().saveStockMode(productId, value, function(response) {
                 var stockMode = (value !== 'null' ? value : null);
                 self.checkStockModeAgainstAccountSettings(stockMode);
                 self.getDomListener().triggerStockModeUpdatedEvent(productId, stockMode, response.stockModeDefault, response.stockModeDesc, response.stockLevel);

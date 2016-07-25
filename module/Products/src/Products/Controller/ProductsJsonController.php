@@ -5,11 +5,12 @@ namespace Products\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\Entity as ProductEntity;
-use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Listing\Entity as ListingEntity;
 use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Entity as Product;
+use CG\Product\Entity as ProductEntity;
+use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Zend\Stdlib\Http\FileResponse;
@@ -265,22 +266,19 @@ class ProductsJsonController extends AbstractActionController
         $this->checkUsage();
 
         $productId = $this->params()->fromPost('id');
-        $eTag = $this->params()->fromPost('eTag');
         $stockMode = $this->params()->fromPost('stockMode');
         if ($stockMode === 'null') {
             $stockMode = null;
         }
-        $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
-        $data = [
-            'eTags' => [$product->getId() => $product->getStoredEtag()],
-            'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
-            'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
-            'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
-        ];
-        foreach ($product->getVariations() as $variation) {
-            $data['eTags'][$variation->getId()] = $variation->getStoredEtag();
-        }
-        return $this->jsonModelFactory->newInstance($data);
+
+        $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode);
+        return $this->jsonModelFactory->newInstance(
+            [
+                'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
+                'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
+                'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
+            ]
+        );
     }
 
     public function saveProductStockLevelAction()
@@ -288,15 +286,10 @@ class ProductsJsonController extends AbstractActionController
         $this->checkUsage();
 
         $productId = $this->params()->fromPost('id');
-        $eTag = $this->params()->fromPost('eTag');
         $stockLevel = $this->params()->fromPost('stockLevel');
 
-        $affectedProducts = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel, $eTag);
-        $data = ['eTags' => []];
-        foreach ($affectedProducts as $product) {
-            $data['eTags'][$product->getId()] = $product->getStoredEtag();
-        }
-        return $this->jsonModelFactory->newInstance($data);
+        $affectedProducts = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel);
+        return $this->jsonModelFactory->newInstance(['affectedProducts' => $affectedProducts->getIds()]);
     }
 
     public function stockCsvExportAction()
