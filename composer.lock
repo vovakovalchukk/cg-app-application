@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5bc11c18a72750872773309e923f6ea4",
-    "content-hash": "3a2d2787ffe10cfc1522b222ddfec8e0",
+    "hash": "6461d3aada9a3ed699d45f8122f23f11",
+    "content-hash": "3ff6661ac29e4e976f649c555a7bff61",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1612,16 +1612,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad"
+                "reference": "79f17299bef391a90c86a19ce6fdab72f45d5a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.7.0-48b07e.zip",
-                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.7.1-5112e8.zip",
+                "reference": "79f17299bef391a90c86a19ce6fdab72f45d5a23",
                 "shasum": null
             },
             "require": {
@@ -1644,6 +1644,10 @@
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.2",
+                "phpunit/phpunit": "~4.0.0"
+            },
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
@@ -1655,7 +1659,12 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-06-20 08:31:18"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Product\\Test\\": "tests/src"
+                }
+            },
+            "time": "2016-06-29 13:08:35"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2140,16 +2149,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-7268-ExtractStockUpdater",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "e76a56e2c175771711eae98e0ca1b5dc8de4b80b"
+                "reference": "9e981426b7ab9f3f5e9cd74945bef48b60b7eb1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7268-ExtractStockUpdater-3a9f37.zip",
-                "reference": "e76a56e2c175771711eae98e0ca1b5dc8de4b80b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.0-567fc1.zip",
+                "reference": "9e981426b7ab9f3f5e9cd74945bef48b60b7eb1f",
                 "shasum": null
             },
             "require": {
@@ -2190,7 +2199,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-07-21 14:30:01"
+            "time": "2016-07-25 10:41:23"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -7709,18 +7718,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.0",
-            "alias_normalized": "1.8.0.0",
-            "version": "dev-CGIV-7268-ExtractStockUpdater",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
