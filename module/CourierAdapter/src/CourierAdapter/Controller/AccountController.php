@@ -7,7 +7,9 @@ use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
+use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -41,19 +43,27 @@ class AccountController extends AbstractActionController
     protected $activeUserContainer;
     /** @var CAModuleAccountService */
     protected $caModuleAccountService;
+    /** @var CAAddressMapper */
+    protected $caAddressMapper;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         AccountCreationService $accountCreationService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         ActiveUserInterface $activeUserContainer,
-        CAModuleAccountService $caModuleAccountService
+        CAModuleAccountService $caModuleAccountService,
+        CAAddressMapper $caAddressMapper,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setAccountCreationService($accountCreationService)
             ->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setActiveUserContainer($activeUserContainer)
-            ->setCaModuleAccountService($caModuleAccountService);
+            ->setCaModuleAccountService($caModuleAccountService)
+            ->setCAAddressMapper($caAddressMapper)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function setupAction()
@@ -88,7 +98,9 @@ class AccountController extends AbstractActionController
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
 
         $instructions = $courierInstance->getCredentialsRequestInstructions();
-        $fields = $courierInstance->getCredentialsRequestFields();
+        $rootOu = $this->getActiveUserRootOu();
+        $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
+        $fields = $courierInstance->getCredentialsRequestFields($caAddress, $rootOu->getAddressCompanyName());
         $this->prepareAdapterImplementationFields($fields);
 
         $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
@@ -106,6 +118,12 @@ class AccountController extends AbstractActionController
         $linkButton->setVariable('value', 'Submit Request');
 
         return $view;
+    }
+
+    protected function getActiveUserRootOu()
+    {
+        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        return $this->organisationUnitService->fetch($ouId);
     }
 
     protected function getAdapterFieldsView(
@@ -296,6 +314,18 @@ class AccountController extends AbstractActionController
     protected function setCaModuleAccountService(CAModuleAccountService $caModuleAccountService)
     {
         $this->caModuleAccountService = $caModuleAccountService;
+        return $this;
+    }
+
+    protected function setCAAddressMapper(CAAddressMapper $caAddressMapper)
+    {
+        $this->caAddressMapper = $caAddressMapper;
+        return $this;
+    }
+
+    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 }

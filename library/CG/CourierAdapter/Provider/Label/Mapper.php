@@ -3,7 +3,7 @@ namespace CG\CourierAdapter\Provider\Label;
 
 use CG\Account\Shared\Entity as OHAccount;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
-use CG\CourierAdapter\Provider\Implementation\Address as CAAddress;
+use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\Order\Shared\Entity as OHOrder;
@@ -13,10 +13,13 @@ class Mapper
 {
     /** @var CAAccountMapper */
     protected $caAccountMapper;
+    /** @var CAAddressMapper */
+    protected $caAddressMapper;
 
-    public function __construct(CAAccountMapper $caAccountMapper)
+    public function __construct(CAAccountMapper $caAccountMapper, CAAddressMapper $caAddressMapper)
     {
-        $this->setCaAccountMapper($caAccountMapper);
+        $this->setCaAccountMapper($caAccountMapper)
+            ->setCAAddressMapper($caAddressMapper);
     }
 
     public function ohParcelDataToCAPackageData(array $ohParcelData, $shipmentClass, $packageClass)
@@ -55,7 +58,7 @@ class Mapper
             $caShipmentData['packages'] = $packages;
         }
         if (is_a($shipmentClass, CollectionAddressInterface::class, true)) {
-            $caShipmentData['collectionAddress'] = $this->organisationUnitToCollectionAddress($rootOu);
+            $caShipmentData['collectionAddress'] = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
         }
         if (isset($ohOrderData['collectionDate'])) {
             $caShipmentData['collectionDateTime'] = $this->ohOrderDataToCollectionDateTime($ohOrderData);
@@ -84,55 +87,8 @@ class Mapper
         return [
             'customerReference' => $ohOrder->getId(),
             'account' => $this->caAccountMapper->fromOHAccount($ohAccount),
-            'deliveryAddress' => $this->ohOrderToDeliveryAddress($ohOrder),
+            'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($ohOrder),
         ];
-    }
-
-    protected function ohOrderToDeliveryAddress(OHOrder $ohOrder)
-    {
-        list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ohOrder->getShippingAddressFullNameForCourier());
-
-        return new CAAddress(
-            $firstName,
-            $lastName,
-            $ohOrder->getShippingAddress1ForCourier(),
-            $ohOrder->getShippingAddress2ForCourier(),
-            $ohOrder->getShippingAddressCityForCourier(),
-            $ohOrder->getShippingAddressCountyForCourier(),
-            $ohOrder->getShippingAddressPostcodeForCourier(),
-            $ohOrder->getShippingAddressCountryForCourier(),
-            $ohOrder->getShippingAddressCountryCodeForCourier(),
-            $ohOrder->getShippingEmailAddressForCourier(),
-            $ohOrder->getShippingPhoneNumberForCourier()
-        );
-    }
-
-    protected function organisationUnitToCollectionAddress(OrganisationUnit $ou)
-    {
-        list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ou->getAddressFullName());
-
-        return new CAAddress(
-            $firstName,
-            $lastName,
-            $ou->getAddress1(),
-            $ou->getAddress2(),
-            $ou->getAddressCity(),
-            $ou->getAddressCounty(),
-            $ou->getAddressPostcode(),
-            $ou->getAddressCountry(),
-            $ou->getAddressCountryCode(),
-            $ou->getEmailAddress(),
-            $ou->getPhoneNumber()
-        );
-    }
-
-    protected function getFirstAndLastNameFromFullName($fullName)
-    {
-        $nameParts = explode(' ', $fullName);
-        $firstName = array_shift($nameParts);
-        $lastName = (!empty($nameParts) ? implode(' ', $nameParts) : $firstName);
-
-        return [$firstName, $lastName];
     }
 
     protected function ohOrderDataToCollectionDateTime(array $ohOrderData)
@@ -147,6 +103,12 @@ class Mapper
     protected function setCaAccountMapper(CAAccountMapper $caAccountMapper)
     {
         $this->caAccountMapper = $caAccountMapper;
+        return $this;
+    }
+
+    protected function setCAAddressMapper(CAAddressMapper $caAddressMapper)
+    {
+        $this->caAddressMapper = $caAddressMapper;
         return $this;
     }
 }
