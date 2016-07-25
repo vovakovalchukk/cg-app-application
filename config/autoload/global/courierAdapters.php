@@ -6,6 +6,11 @@ use CG\CourierAdapter\Provider\Implementation\Service;
 use CG\CourierAdapter\Provider\Implementation\Storage\Redis as RedisStorage;
 use CG\CourierAdapter\StorageInterface;
 
+// Adapter implementations
+use CG\Courier\Geopost\Dpd\Courier as DpdCourier;
+use CG\Courier\Geopost\Interlink\Courier as InterlinkCourier;
+use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
+
 return [
     'di' => [
         'instance' => [
@@ -21,16 +26,36 @@ return [
             Service::class => [
                 'parameters' => [
                     'adapterImplementationsConfig' => [
-                        /* Example:
                         [
-                            'channelName' => 'example',
-                            'displayName' => 'Example',
+                            'channelName' => 'parcelforce-ca',
+                            'displayName' => 'Parcelforce',
                             'courierFactory' => function()
                             {
-                                return new \ExampleAdapter\Courier();
+                                $courier = new ParcelforceCourier();
+$courier->setTestMode(true); // Don't put live!
+                                return $courier;
                             }
-                        ]
-                        */
+                        ],
+                        [
+                            'channelName' => 'dpd-ca',
+                            'displayName' => 'DPD',
+                            'courierFactory' => function()
+                            {
+                                $courier = new DpdCourier();
+$courier->setTestMode(true); // Don't put live!
+                                return $courier;
+                            }
+                        ],
+                        [
+                            'channelName' => 'interlink-ca',
+                            'displayName' => 'Interlink',
+                            'courierFactory' => function()
+                            {
+                                $courier = new InterlinkCourier();
+$courier->setTestMode(true); // Don't put live!
+                                return $courier;
+                            }
+                        ],
                     ]
                 ]
             ]

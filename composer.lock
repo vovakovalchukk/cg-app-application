@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cce9403dd8ec68eee88aeec05ec69ddb",
-    "content-hash": "6984baaaae63df34b3a1de34d5e20280",
+    "hash": "08347880c11430253061bab6d9ee5202",
+    "content-hash": "e527866a9500689f41a2a879d3a8c640",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -483,17 +483,55 @@
             "time": "2015-02-06 12:09:38"
         },
         {
-            "name": "channelgrabber/courieradapter",
-            "version": "dev-master",
+            "name": "channelgrabber/courier",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "cda2650add18eae8a9c7abfdf6d427a57487ef84"
+                "url": "git@bitbucket.org:channelgrabber/courier.git",
+                "reference": "a54d30d7704b20076ea066e5aeeabfda616e242e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-fc4afe.zip",
-                "reference": "cda2650add18eae8a9c7abfdf6d427a57487ef84",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-3c434b.zip",
+                "reference": "a54d30d7704b20076ea066e5aeeabfda616e242e",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/courieradapter": "dev-testpack",
+                "guzzlehttp/guzzle": "*",
+                "zendframework/zend-servicemanager": "^2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Courier\\": "src",
+                    "CG\\Courier\\Test\\": "test"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Matthew King",
+                    "email": "matthew.king@channelgrabber.com"
+                }
+            ],
+            "description": "Courier",
+            "time": "2016-07-25 10:13:40"
+        },
+        {
+            "name": "channelgrabber/courieradapter",
+            "version": "dev-testpack",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
+                "reference": "cfe78d300d25af698737500ec125172d1f75c141"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-testpack-252680.zip",
+                "reference": "cfe78d300d25af698737500ec125172d1f75c141",
                 "shasum": null
             },
             "require": {
@@ -513,7 +551,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-07-13 14:57:19"
+            "time": "2016-07-19 10:23:31"
         },
         {
             "name": "channelgrabber/dataplug",
@@ -7780,6 +7818,7 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/dataplug": 20,
         "channelgrabber/log": 20,
