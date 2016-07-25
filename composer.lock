@@ -2154,12 +2154,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "30bfe68221149dafb820c57be178270a802bc92c"
+                "reference": "1d19c2cc4e7b4bf8d5606079148b220115240cfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7266-MoveStockModeToStockEntity-3343a6.zip",
-                "reference": "30bfe68221149dafb820c57be178270a802bc92c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7266-MoveStockModeToStockEntity-a6d725.zip",
+                "reference": "1d19c2cc4e7b4bf8d5606079148b220115240cfb",
                 "shasum": null
             },
             "require": {
@@ -2200,7 +2200,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-07-25 08:06:29"
+            "time": "2016-07-25 11:21:59"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -6510,7 +6510,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/richardheelin/projects/channelgrabber/cgcodeception",
+                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6538,7 +6538,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/richardheelin/projects/channelgrabber/spork",
+                "url": "git@github.com:channelgrabber/spork.git",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
