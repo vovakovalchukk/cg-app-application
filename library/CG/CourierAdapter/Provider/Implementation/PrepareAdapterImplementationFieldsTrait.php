@@ -3,6 +3,7 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
+use Zend\Form\Fieldset as ZendFormFieldset;
 
 trait PrepareAdapterImplementationFieldsTrait
 {
@@ -11,6 +12,10 @@ trait PrepareAdapterImplementationFieldsTrait
         foreach ($fields as $field) {
             if (!$field instanceof ZendFormElement) {
                 throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
+            }
+            if ($field instanceof ZendFormFieldset) {
+                $this->prepareAdapterImplementationFields($field->getElements(), $values);
+                continue;
             }
             if ($field->getOption('required')) {
                 $class = $field->getAttribute('class') ?: '';
