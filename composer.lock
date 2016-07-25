@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5bc11c18a72750872773309e923f6ea4",
-    "content-hash": "3a2d2787ffe10cfc1522b222ddfec8e0",
+    "hash": "fffbd6236d7a9a4be54656ee3271cd53",
+    "content-hash": "b6deffaaf13fbfbb9e402d02f47760e5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1612,16 +1612,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.7.0",
+            "version": "dev-CGIV-7266-MoveStockModeToStockEntity",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad"
+                "reference": "c43547c034ab576e0bf22bc1cf871812d6219456"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.7.0-48b07e.zip",
-                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7266-MoveStockModeToStockEntity-84def6.zip",
+                "reference": "c43547c034ab576e0bf22bc1cf871812d6219456",
                 "shasum": null
             },
             "require": {
@@ -1638,11 +1638,16 @@
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/stock": "dev-CGIV-7266-MoveStockModeToStockEntity as 1.8.1",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.2",
+                "phpunit/phpunit": "~4.0.0"
             },
             "type": "di-definition",
             "extra": {
@@ -1655,7 +1660,12 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-06-20 08:31:18"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Product\\Test\\": "tests/src"
+                }
+            },
+            "time": "2016-07-25 09:15:03"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2140,16 +2150,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-7268-ExtractStockUpdater",
+            "version": "dev-CGIV-7266-MoveStockModeToStockEntity",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "e76a56e2c175771711eae98e0ca1b5dc8de4b80b"
+                "reference": "30bfe68221149dafb820c57be178270a802bc92c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7268-ExtractStockUpdater-3a9f37.zip",
-                "reference": "e76a56e2c175771711eae98e0ca1b5dc8de4b80b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7266-MoveStockModeToStockEntity-3343a6.zip",
+                "reference": "30bfe68221149dafb820c57be178270a802bc92c",
                 "shasum": null
             },
             "require": {
@@ -2190,7 +2200,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-07-21 14:30:01"
+            "time": "2016-07-25 08:06:29"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -6500,7 +6510,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
+                "url": "/home/richardheelin/projects/channelgrabber/cgcodeception",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6528,7 +6538,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/spork.git",
+                "url": "/home/richardheelin/projects/channelgrabber/spork",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
@@ -7713,13 +7723,20 @@
         {
             "alias": "1.8.0",
             "alias_normalized": "1.8.0.0",
-            "version": "dev-CGIV-7268-ExtractStockUpdater",
+            "version": "dev-CGIV-7266-MoveStockModeToStockEntity",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.8.1",
+            "alias_normalized": "1.8.1.0",
+            "version": "dev-CGIV-7266-MoveStockModeToStockEntity",
             "package": "channelgrabber/stock"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
