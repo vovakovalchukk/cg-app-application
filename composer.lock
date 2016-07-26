@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a93a22f94d113c8cfad3ef80f2bc27bf",
-    "content-hash": "475b2210c99edb05b22eaa8c6d783601",
+    "hash": "a9221c3e1e7859b773b0424435af932a",
+    "content-hash": "a93ee7b4a5ac1ccfbc37fb451f20b3ce",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3252,16 +3252,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7269-Prevent-excessive-pre-reg-emails",
+            "version": "1.4.47",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "172421d3a4f94ee84bf332b7e4d621eeed617918"
+                "reference": "116dfebf157203ce5a501e73fccabee4542f4ae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7269-Prevent-excessive-pre-reg-emails-cb75c8.zip",
-                "reference": "172421d3a4f94ee84bf332b7e4d621eeed617918",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.47-1ee94f.zip",
+                "reference": "116dfebf157203ce5a501e73fccabee4542f4ae3",
                 "shasum": null
             },
             "require": {
@@ -3300,7 +3300,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-07-25 13:48:23"
+            "time": "2016-07-26 10:02:43"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -7745,19 +7745,11 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.47",
-            "alias_normalized": "1.4.47.0",
-            "version": "dev-CGIV-7269-Prevent-excessive-pre-reg-emails",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
