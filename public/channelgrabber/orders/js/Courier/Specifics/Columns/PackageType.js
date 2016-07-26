@@ -40,8 +40,18 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         selected,
         container
     ) {
-        if (options.indexOf(selected) == -1) {
-            selected = options[0];
+        if (options instanceof Array) {
+            var optionsObject = {};
+            for (var index in options) {
+                optionsObject[options[index]] = options[index];
+            }
+            options = optionsObject;
+        }
+        if (!options[selected]) {
+            for (var value in options) {
+                selected = value;
+                break;
+            }
         }
         var data = {
             id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('#', '') + orderId,
@@ -49,10 +59,11 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             class: 'required',
             options: []
         };
-        for (var index in options) {
+        for (var value in options) {
             data.options.push({
-                title: options[index],
-                selected: (options[index] == selected)
+                title: options[value],
+                value: value,
+                selected: (options[value] == selected)
             });
         }
         var html = cgMustache.renderTemplate(template, data);
