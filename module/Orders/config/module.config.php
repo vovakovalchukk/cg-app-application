@@ -741,6 +741,17 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierJsonController::ROUTE_SPECIFICS_OPTIONS => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/options',
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'options',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                     CourierJsonController::ROUTE_SPECIFICS_OPTION_DATA => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
@@ -2192,6 +2203,7 @@ return [
                     'class' => 'insurance-col',
                     'sortable' => false,
                     'order' => 120,
+                    'defaultContent' => '',
                 ],
             ],
             'CourierSpecificsInsuranceMonetaryColumnView' => [
@@ -2222,6 +2234,7 @@ return [
                     'class' => 'signature-col',
                     'sortable' => false,
                     'order' => 140,
+                    'defaultContent' => '',
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
