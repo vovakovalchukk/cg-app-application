@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9a82e394274fef5be1da18396b2e606f",
-    "content-hash": "1041a515f6c8831b95b6102ec73c0192",
+    "hash": "6fe313f293bc211da63568d0d03428d5",
+    "content-hash": "9575d4acc7356e55c14d5a816c3181f8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -7885,8 +7885,8 @@
             "package": "channelgrabber/webhook-framework"
         },
         {
-            "alias": "1.16.61",
-            "alias_normalized": "1.16.61.0",
+            "alias": "1.16.63",
+            "alias_normalized": "1.16.63.0",
             "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "package": "channelgrabber/zf2-v4-ui"
         }
