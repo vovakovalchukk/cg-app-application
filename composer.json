@@ -30,7 +30,7 @@
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/billing": "~1.11.0",
         "channelgrabber/cache": "~2.1.0",
-        "channelgrabber/cglib": "~1.10.0",
+        "channelgrabber/cglib": "dev-CGIV-7266-MoveStockModeToStockEntity as 1.10.2",
         "channelgrabber/channel": "~1.25.0",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
