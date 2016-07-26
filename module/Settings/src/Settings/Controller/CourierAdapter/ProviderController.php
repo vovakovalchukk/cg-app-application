@@ -65,7 +65,7 @@ class ProviderController extends AbstractActionController
         if (isset($account->getExternalData()['config'])) {
             $values = json_decode($account->getExternalData()['config'], true);
         }
-        $form = $this->prepareAdapterImplementationFields($fields, $values);
+        $form = $this->convertAdapterImplementationFieldsToForm($fields, $values);
         $view->setVariable('configForm', $form);
     }
 
