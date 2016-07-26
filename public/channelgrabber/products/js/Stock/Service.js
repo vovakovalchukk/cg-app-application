@@ -116,7 +116,7 @@ define([
         this.getDeferredQueue().queue(function() {
             return self.getStorage().saveStockLevel(productId, stockLevel, function(response) {
                 for (var id in response.affectedProducts) {
-                    $('#product-stock-level-'+id).val(stockLevel);
+                    $('#product-stock-level-'+id+' input').val(stockLevel);
                 }
                 n.success('Product stock level updated successfully');
             });
