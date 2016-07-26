@@ -1,19 +1,22 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
         babel: {
             options: {
-                plugins: ['transform-react-jsx'],
-                presets: ['es2015', 'react']
+                presets: ['react']
             },
-            jsx: {
-                files: [{
-                    expand: true,
-                    cwd: 'public/channelgrabber/**/jsx/',
-                    src: ['*.jsx'],
-                    dest: 'public/cg-built/**/js/',
-                    ext: '.js'
-                }]
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/channelgrabber/',
+                        src: ['**/js/**/*.jsx'],
+                        dest: 'public/cg-built/',
+                        ext: '.js'
+                    }
+                ]
             }
         }
     });
