@@ -40,3 +40,4 @@ public/channelgrabber/zf2-usage
 public/channelgrabber/zf2-v4-ui
 vendor/channelgrabber/zf2-v4-ui/public/js/whichbrowser
 vendor/channelgrabber/zf2-v4-ui/public/js/zeroclipboard
+node_modules/
