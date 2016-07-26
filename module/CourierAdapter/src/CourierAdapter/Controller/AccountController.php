@@ -175,7 +175,7 @@ class AccountController extends AbstractActionController
     public function sendCredentialsRequestAction()
     {
         $channelName = $this->params('channel');
-        $params = $this->getSanitisedPostParams();
+        $params = $this->params()->fromPost();
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
 
         $rootOu = $this->getActiveUserRootOu();
@@ -234,7 +234,7 @@ class AccountController extends AbstractActionController
 
     public function saveConfigAction()
     {
-        $params = $this->getSanitisedPostParams();
+        $params = $this->params()->fromPost();
         $accountId = $params['accountId'];
         $this->caModuleAccountService->saveConfigForAccount($accountId, $params);
 
