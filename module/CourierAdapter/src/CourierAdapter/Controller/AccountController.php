@@ -181,7 +181,7 @@ class AccountController extends AbstractActionController
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
         $fields = $courierInstance->getCredentialsRequestFields($caAddress, $rootOu->getAddressCompanyName());
-        $this->convertAdapterImplementationFieldsToForm($fields, $params);
+        $this->prepareAdapterImplementationFields($fields, $params);
 
         $courierInstance->submitCredentialsRequestFields($fields);
 

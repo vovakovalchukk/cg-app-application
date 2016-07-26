@@ -12,30 +12,30 @@ trait PrepareAdapterImplementationFieldsTrait
     {
         $form = new ZendForm();
 
-        $this->prepareAdapterImplementationFields($fields);
+        $this->prepareAdapterImplementationFields($fields, $values);
         foreach ($fields as $field) {
             $form->add($field);
         }
 
-        if ($values) {
-            $form->setData($values);
-        }
         return $form;
     }
 
-    protected function prepareAdapterImplementationFields(array $fields)
+    protected function prepareAdapterImplementationFields(array $fields, array $values = [])
     {
         foreach ($fields as $field) {
             if (!$field instanceof ZendFormElement) {
                 throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
             }
             if ($field instanceof ZendFormFieldset) {
-                $this->prepareAdapterImplementationFields($field->getElements());
+                $this->prepareAdapterImplementationFields($field->getElements(), $values);
                 continue;
             }
             if ($field->getOption('required')) {
                 $class = $field->getAttribute('class') ?: '';
                 $field->setAttribute('class', $class . ' required');
+            }
+            if (isset($values[$field->getName()])) {
+                $field->setValue($values[$field->getName()]);
             }
         }
     }
