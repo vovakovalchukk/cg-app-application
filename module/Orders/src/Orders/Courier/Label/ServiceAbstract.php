@@ -2,7 +2,8 @@
 namespace Orders\Courier\Label;
 
 use CG\Account\Client\Service as AccountService;
-use CG\Channel\CarrierProviderServiceInterface;
+use CG\Account\Shared\Entity as Account;
+use CG\Channel\CarrierProviderServiceRepository;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
@@ -48,8 +49,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $productDetailService;
     /** @var GearmanClient */
     protected $gearmanClient;
-    /** @var CarrierProviderServiceInterface */
-    protected $carrierProviderService;
+    /** @var CarrierProviderServiceRepository */
+    protected $carrierProviderServiceRepo;
 
     public function __construct(
         UserOUService $userOuService,
@@ -61,7 +62,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         ProductDetailMapper $productDetailMapper,
         ProductDetailService $productDetailService,
         GearmanClient $gearmanClient,
-        CarrierProviderServiceInterface $carrierProviderService
+        CarrierProviderServiceRepository $carrierProviderServiceRepo
     ) {
         $this->setUserOUService($userOuService)
             ->setOrderService($orderService)
@@ -72,7 +73,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setProductDetailMapper($productDetailMapper)
             ->setProductDetailService($productDetailService)
             ->setGearmanClient($gearmanClient)
-            ->setCarrierProviderService($carrierProviderService);
+            ->setCarrierProviderServiceRepo($carrierProviderServiceRepo);
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -104,6 +105,11 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setOrderId($orderIds)
             ->setStatus($labelStatusesNotCancelled);
         return $this->orderLabelService->fetchCollectionByFilter($filter);
+    }
+
+    protected function getCarrierProviderService(Account $account)
+    {
+        return $this->carrierProviderServiceRepo->getProviderForAccount($account);
     }
 
     protected function setUserOUService(UserOUService $userOUService)
@@ -160,9 +166,9 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setCarrierProviderService(CarrierProviderServiceInterface $carrierProviderService)
+    protected function setCarrierProviderServiceRepo(CarrierProviderServiceRepository $carrierProviderServiceRepo)
     {
-        $this->carrierProviderService = $carrierProviderService;
+        $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
         return $this;
     }
 }

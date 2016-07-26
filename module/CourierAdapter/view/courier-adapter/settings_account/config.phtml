@@ -1,0 +1,26 @@
+<?php
+use CourierAdapter\Controller\AccountController;
+use CourierAdapter\Module;
+
+$configSaveUrl = $this->url(Module::ROUTE.'/'.AccountController::ROUTE.'/'.AccountController::ROUTE_SAVE_CONFIG);
+?>
+<span class="heading-medium"><?=$this->translate('Configuration');?></span>
+<form method="POST" action="<?= $configSaveUrl; ?>" id="ca-account-config-form" style="padding-bottom: 10px">
+    <div class="half">
+        <input type="hidden" name="accountId" value="<?= $account->getId() ;?>" />
+        <input type="hidden" name="channel" value="<?= $account->getChannel() ;?>" />
+
+        <?=$this->partial('courier-adapter/adapter-fields.phtml', ['fields' => $configFields]);?>
+
+        <div class="order-inputbox-holder">
+            <?=$this->mustache('elements/buttons.mustache', ['buttons' => ['id' => 'ca-account-config-save', 'value' => 'Save', 'type' => 'submit']]);?>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+$(document).ready(function() {
+    require(['ajaxForm'], function(AjaxForm) {
+        var form = new AjaxForm(n, '#ca-account-config-form');
+    });
+});
+</script>
