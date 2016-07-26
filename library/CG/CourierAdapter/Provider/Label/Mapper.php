@@ -1,12 +1,15 @@
 <?php
 namespace CG\CourierAdapter\Provider\Label;
 
-use CG\Account\Shared\Entity as OHAccount;
+use CG\Account\Shared\Entity as Account;
+use CG\CourierAdapter\Package\SupportedField\ContentsInterface as PackageContentsInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
+use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
-use CG\Order\Shared\Entity as OHOrder;
+use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Item\Entity as Item;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Mapper
@@ -22,58 +25,63 @@ class Mapper
             ->setCAAddressMapper($caAddressMapper);
     }
 
-    public function ohParcelDataToCAPackageData(array $ohParcelData, $shipmentClass, $packageClass)
-    {
+    public function ohParcelDataToCAPackageData(
+        Order $order,
+        array $parcelData,
+        array $itemsData,
+        $shipmentClass,
+        $packageClass
+    ) {
         $caPackageData = [
-            'weight' => (isset($ohParcelData['weight']) ? $ohParcelData['weight'] : null),
-            'height' => (isset($ohParcelData['height']) ? $ohParcelData['height'] : null),
-            'width' => (isset($ohParcelData['width']) ? $ohParcelData['width'] : null),
-            'length' => (isset($ohParcelData['length']) ? $ohParcelData['length'] : null),
+            'weight' => (isset($parcelData['weight']) ? $parcelData['weight'] : null),
+            'height' => (isset($parcelData['height']) ? $parcelData['height'] : null),
+            'width' => (isset($parcelData['width']) ? $parcelData['width'] : null),
+            'length' => (isset($parcelData['length']) ? $parcelData['length'] : null),
         ];
-        if (isset($ohParcelData['packageType']) && is_a($shipmentClass, PackageTypesInterface::class, true)) {
-            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($ohParcelData, $shipmentClass);
+        if (isset($parcelData['packageType']) && is_a($shipmentClass, PackageTypesInterface::class, true)) {
+            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
         }
-        // Deliberately NOT checking for $ohParcelData['itemParcelAssignment'] as the CA code is only partially implemented
-        // for package contents (we have no way to get the concrete implementation of Package\ContentInterface) and we
-        // don't have any use cases for it at the moment.
+        if (isset($parcelData['itemParcelAssignment']) && is_a($packageClass, PackageContentsInterface::class, true)) {
+            $caPackageData['contents'] = $this->ohOrderAndDataToPackageContents($order, $parcelData, $itemsData);
+        }
 
         return $caPackageData;
     }
 
-    protected function ohParcelDataToCAPackageType(array $ohParcelData, $shipmentClass)
+    protected function ohParcelDataToCAPackageType(array $parcelData, $shipmentClass)
     {
-        return call_user_func([$shipmentClass, 'getPackageTypeByReference'], $ohParcelData['packageType']);;
+        return call_user_func([$shipmentClass, 'getPackageTypeByReference'], $parcelData['packageType']);;
     }
 
     public function ohOrderAndDataToCAShipmentData(
-        OHOrder $ohOrder,
-        array $ohOrderData,
-        OHAccount $ohAccount,
+        Order $order,
+        array $orderData,
+        Account $account,
         OrganisationUnit $rootOu,
         $shipmentClass,
         array $packages = null
     ) {
-        $caShipmentData = $this->ohOrderAndAccountToMinimalCAShipmentData($ohOrder, $ohAccount);
+        $caShipmentData = $this->ohOrderAndAccountToMinimalCAShipmentData($order, $account);
         if ($packages) {
             $caShipmentData['packages'] = $packages;
         }
         if (is_a($shipmentClass, CollectionAddressInterface::class, true)) {
             $caShipmentData['collectionAddress'] = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
         }
-        if (isset($ohOrderData['collectionDate'])) {
-            $caShipmentData['collectionDateTime'] = $this->ohOrderDataToCollectionDateTime($ohOrderData);
+        if (isset($orderData['collectionDate'])) {
+            $caShipmentData['collectionDateTime'] = $this->ohOrderDataToCollectionDateTime($orderData);
         }
-        if (isset($ohOrderData['deliveryInstructions'])) {
-            $caShipmentData['deliveryInstructions'] = $ohOrderData['deliveryInstructions'];
+        if (isset($orderData['deliveryInstructions'])) {
+            $caShipmentData['deliveryInstructions'] = $orderData['deliveryInstructions'];
         }
-        if (isset($ohOrderData['insurance'])) {
-            $caShipmentData['insuranceRequired'] = (bool)$ohOrderData['insurance'];
+        if (isset($orderData['insurance'])) {
+            $caShipmentData['insuranceRequired'] = (bool)$orderData['insurance'];
         }
-        if (isset($ohOrderData['insuranceMonetary'])) {
-            $caShipmentData['insuranceAmount'] = $ohOrderData['insuranceMonetary'];
+        if (isset($orderData['insuranceMonetary'])) {
+            $caShipmentData['insuranceAmount'] = $orderData['insuranceMonetary'];
         }
-        if (isset($ohOrderData['signature'])) {
-            $caShipmentData['signatureRequired'] = (bool)$ohOrderData['signature'];
+        if (isset($orderData['signature'])) {
+            $caShipmentData['signatureRequired'] = (bool)$orderData['signature'];
         }
 
         return $caShipmentData;
@@ -81,23 +89,56 @@ class Mapper
 
     // Called internally and externally (by Label\Cancel)
     public function ohOrderAndAccountToMinimalCAShipmentData(
-        OHOrder $ohOrder,
-        OHAccount $ohAccount
+        Order $order,
+        Account $account
     ) {
         return [
-            'customerReference' => $ohOrder->getId(),
-            'account' => $this->caAccountMapper->fromOHAccount($ohAccount),
-            'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($ohOrder),
+            'customerReference' => $order->getId(),
+            'account' => $this->caAccountMapper->fromOHAccount($account),
+            'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($order),
         ];
     }
 
-    protected function ohOrderDataToCollectionDateTime(array $ohOrderData)
+    protected function ohOrderDataToCollectionDateTime(array $orderData)
     {
-        $dateTimeString = $ohOrderData['collectionDate'];
-        if (isset($ohOrderData['collectionTime'])) {
-            $dateTimeString .= ' ' . $ohOrderData['collectionTime'];
+        $dateTimeString = $orderData['collectionDate'];
+        if (isset($orderData['collectionTime'])) {
+            $dateTimeString .= ' ' . $orderData['collectionTime'];
         }
         return new \DateTime($dateTimeString);
+    }
+
+    protected function ohOrderAndDataToPackageContents(
+        Order $order,
+        array $parcelData,
+        array $itemsData
+    ) {
+        $contents = [];
+        $items = $order->getItems();
+        foreach ($parcelData['itemParcelAssignment'] as $parcelItemId => $parcelItemQty) {
+            $item = $items->getById($parcelItemId);
+            $itemData = $itemsData[$parcelItemId];
+            $contents[] = $this->ohItemAndDataToPackageContents($item, $order, $itemData, $parcelItemQty);
+        }
+        return $contents;
+    }
+
+    protected function ohItemAndDataToPackageContents(
+        Item $item,
+        Order $order,
+        array $itemData,
+        $parcelItemQty
+    ) {
+        $itemUnitWeight = $itemData['weight'] / $item->getItemQuantity();
+        return new CAPackageContent(
+            $item->getItemName(),
+            '',
+            'UK',
+            $parcelItemQty,
+            $itemUnitWeight,
+            $item->getIndividualItemPrice(),
+            $order->getCurrencyCode()
+        );
     }
 
     protected function setCaAccountMapper(CAAccountMapper $caAccountMapper)

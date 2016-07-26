@@ -102,7 +102,7 @@ class Create implements LoggerAwareInterface
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($shippingAccount);
         $this->logDebug(static::LOG_SHIPMENTS, [$rootOu->getId(), $shippingAccount->getId(), $shippingAccount->getChannel()], [static::LOG_CODE, 'CreateShipments']);
         $shipments = $this->createShipmentsForOrdersAndData(
-            $orders, $ordersData, $orderParcelsData, $shippingAccount, $rootOu, $courierInstance
+            $orders, $ordersData, $orderParcelsData, $orderItemsData, $shippingAccount, $rootOu, $courierInstance
         );
 
         $this->logDebug(static::LOG_BOOK, [$rootOu->getId(), $shippingAccount->getId(), $shippingAccount->getChannel()], [static::LOG_CODE, 'BookShipments']);
@@ -118,6 +118,7 @@ class Create implements LoggerAwareInterface
         OrderCollection $orders,
         array $ordersData,
         array $orderParcelsData,
+        array $orderItemsData,
         Account $shippingAccount,
         OrganisationUnit $rootOu,
         CourierInterface $courierInstance
@@ -128,13 +129,16 @@ class Create implements LoggerAwareInterface
 
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()];
+            $itemsData = $orderItemsData[$order->getId()];
 
             $deliveryService = $courierInstance->fetchDeliveryServiceByReference($orderData['service']);
             $shipmentClass = $deliveryService->getShipmentClass();
             $packages = null;
             if (is_a($shipmentClass, PackagesInterface::class, true)) {
                 $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
-                $packages = $this->createPackagesForOrderParcelData($parcelsData, $shipmentClass, $packageClass);
+                $packages = $this->createPackagesForOrderParcelData(
+                    $order, $parcelsData, $itemsData, $shipmentClass, $packageClass
+                );
             }
 
             $caShipmentData = $this->mapper->ohOrderAndDataToCAShipmentData(
@@ -147,11 +151,18 @@ class Create implements LoggerAwareInterface
         return $shipments;
     }
 
-    protected function createPackagesForOrderParcelData(array $parcelsData, $shipmentClass, $packageClass)
-    {
+    protected function createPackagesForOrderParcelData(
+        Order $order,
+        array $parcelsData,
+        array $itemsData,
+        $shipmentClass,
+        $packageClass
+    ) {
         $packages = [];
         foreach ($parcelsData as $parcelData) {
-            $caPackagedata = $this->mapper->ohParcelDataToCAPackageData($parcelData, $shipmentClass, $packageClass);
+            $caPackagedata = $this->mapper->ohParcelDataToCAPackageData(
+                $order, $parcelData, $itemsData, $shipmentClass, $packageClass
+            );
             $package = call_user_func([$shipmentClass, 'createPackage'], $caPackagedata);
             $packages = [
                 $package
