@@ -35,7 +35,11 @@ trait PrepareAdapterImplementationFieldsTrait
                 $field->setAttribute('class', $class . ' required');
             }
             if (isset($values[$field->getName()])) {
-                $field->setValue($values[$field->getName()]);
+                $value = $values[$field->getName()];
+                if ($field->getAttribute('type') == 'checkbox' && is_string($value) && $value !== '') {
+                    $value = true;
+                }
+                $field->setValue($value);
             }
         }
     }
