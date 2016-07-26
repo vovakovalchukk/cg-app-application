@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6fe313f293bc211da63568d0d03428d5",
-    "content-hash": "9575d4acc7356e55c14d5a816c3181f8",
+    "hash": "e7505a81f32b0c1813d6b9c2023b8c56",
+    "content-hash": "d0d16f6c27ed41ebf6074db95e0b3372",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -113,16 +113,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7203-BigCommerceUnimportedListings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "161639b5191c2f02af686ee44164058798a1b21b"
+                "reference": "746c9bb7c4aaf9b87a311924bd276f2dfce9fe62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-CGIV-7193-BigCommerceIntegration-3f8533.zip",
-                "reference": "161639b5191c2f02af686ee44164058798a1b21b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7203-BigCommerceUnimportedListings-991239.zip",
+                "reference": "746c9bb7c4aaf9b87a311924bd276f2dfce9fe62",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-20 14:30:12"
+            "time": "2016-07-21 12:53:23"
         },
         {
             "name": "channelgrabber/billing",
@@ -7863,7 +7863,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7203-BigCommerceUnimportedListings",
             "package": "channelgrabber/bigcommerce"
         },
         {
