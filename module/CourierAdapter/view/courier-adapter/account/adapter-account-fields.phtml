@@ -27,6 +27,9 @@
             var height = $('.account-form-holder').height();
             var halfHeight = Math.floor(height / 2);
             $('.account-form-holder').css('top', 'calc(50% - ' + halfHeight + 'px)');
+            if ($('.account-form-holder').offset().top < 50) {
+                $('.account-form-holder').css('top', '50px');
+            }
         })();
 
         require(["<?= $this->basePath() . CourierAdapter\Module::PUBLIC_FOLDER; ?>/js/Account/Service.js"], function(Service) {
