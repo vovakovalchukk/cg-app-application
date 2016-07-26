@@ -93,9 +93,8 @@ class Service
         $externalData = $account->getExternalData();
         $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
         foreach ($courierInstance->getConfigFields() as $field) {
-            if (isset($config[$field->getName()])) {
-                $externalDataConfig[$field->getName()] = $config[$field->getName()];
-            }
+            $value = (isset($config[$field->getName()]) ? $config[$field->getName()] : null);
+            $externalDataConfig[$field->getName()] = $value;
         }
         $externalData['config'] = json_encode($externalDataConfig);
 
