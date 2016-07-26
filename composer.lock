@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "00820887f4939611613dce1606cc40e7",
-    "content-hash": "d129fd8ce6619373cfffc5a253700fbe",
+    "hash": "b5bd07c02c9dbb8c060e97f1e732d52e",
+    "content-hash": "8eff358165f6a2582fac67e6621d6770",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3549,16 +3549,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.62",
+            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "40e868c304515201de738d23851706113d38c2b0"
+                "reference": "888a768b7f3ca6fadb5f5ee45212cd3f64895ca1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.62-0f608d.zip",
-                "reference": "40e868c304515201de738d23851706113d38c2b0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-b70eb0.zip",
+                "reference": "888a768b7f3ca6fadb5f5ee45212cd3f64895ca1",
                 "shasum": null
             },
             "require": {
@@ -3605,7 +3605,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-22 08:07:17"
+            "time": "2016-07-26 10:11:45"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7783,12 +7783,20 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.63",
+            "alias_normalized": "1.16.63.0",
+            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
