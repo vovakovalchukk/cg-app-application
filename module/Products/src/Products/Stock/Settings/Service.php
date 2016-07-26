@@ -131,7 +131,7 @@ class Service
         if (!$stockMode) {
             return null;
         }
-        return StockMode::getStockModeDescription($stockMode);;
+        return StockMode::getStockModeDescription($stockMode);
     }
 
     public function getStockModeDefault()
