@@ -45,7 +45,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
             self.addOrderIdsToAjaxRequest()
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
-                .disableInputsForCreatedLabels();
+                .disableInputsForCreatedLabels()
+                .disableInputsForNonRequiredOptions();
         });
         dataTable.on('fnPreDrawCallback', function()
         {
@@ -295,6 +296,55 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
     });
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = function()
+{
+    this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
+    {
+        if (aData.labelStatus != '' && aData.labelStatus != 'cancelled') {
+            return;
+        }
+
+        var orderId = aData.orderId;
+        var parcelNumber = (typeof aData.parcelNumber != 'undefined' ? aData.parcelNumber : 0);
+        var itemId = (typeof aData.itemId != 'undefined' ? aData.itemId : 0);
+        for (var name in aData.requiredFields) {
+            var selector = 'input[name="orderData['+orderId+']['+name+']"]'
+                + ', input[name="parcelData['+orderId+']['+parcelNumber+']['+name+']"]'
+                + ', input[name="itemData['+orderId+']['+itemId+']['+name+']"]';
+            var elements = $(nRow).find(selector);
+            if (aData.requiredFields[name].show) {
+                elements.removeAttr('disabled').removeClass('disabled');
+                if (elements.parent().hasClass('custom-select')) {
+                    elements.parent().removeClass('disabled');
+                }
+                if (aData.requiredFields[name].required) {
+                    elements.addClass('required');
+                } else {
+                    elements.removeClass('required');
+                }
+                elements.each(function()
+                {
+                    if ($(this).data('placeholder')) {
+                        $(this).attr('placeholder', $(this).data('placeholder'));
+                    }
+                });
+            } else {
+                elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');
+                if (elements.parent().hasClass('custom-select')) {
+                    elements.parent().addClass('disabled');
+                }
+                elements.each(function()
+                {
+                    $(this).data('placeholder', $(this).attr('placeholder'));
+                    $(this).attr('placeholder', 'N/A');
+                });
+            }
+        }
+    });
+    return this;
 };
 
 CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
