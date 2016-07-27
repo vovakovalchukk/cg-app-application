@@ -70,8 +70,7 @@ define([
         var service = this.getService();
         $(document).on('change', DomListener.SELECTOR_STOCK_MODE, function(event, element, value) {
             var productId = $(element).attr('id').split('-').pop();
-            var eTagElement = $('input[name="product[' + productId + '][eTag]"]');
-            service.saveStockModeForProduct(productId, value, eTagElement);
+            service.saveStockModeForProduct(productId, value);
         });
         return this;
     };
