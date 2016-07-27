@@ -11,15 +11,19 @@ use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Implementation\ServiceAwareInterface as AdapterImplementationServiceAwareInterface;
 use CG\CourierAdapter\Provider\Credentials;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
 use Zend\Form\Fieldset as ZendFormFieldset;
 
 class CreationService extends CreationServiceAbstract implements AdapterImplementationServiceAwareInterface
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
 
@@ -64,9 +68,13 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
     ) {
         $account->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
-        foreach ($courierInstance->getCredentialsFields() as $field) {
-            $credentials->set($field->getName(), ($params[$field->getName()] ?: null));
+        $credentialsForm = $courierInstance->getCredentialsForm();
+        $credentialsForm->setData($params);
+        if (!$credentialsForm->isValid()) {
+            throw new ValidationException('There were problems submitting the form. Please review it and try again');
         }
+        $credentials->setData($credentialsForm->getData());
+
         $account->setCredentials($this->cryptor->encrypt($credentials));
 
         $this->addConfigFieldsToAccountExternalData($account, $courierInstance);
@@ -102,28 +110,19 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
             return;
         }
         $externalData = $account->getExternalData();
-        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
-        $this->ensureConfigFieldsInConfigArray($courierInstance->getConfigFields(), $externalDataConfig, $values);
-        $externalData['config'] = json_encode($externalDataConfig);
-        $account->setExternalData($externalData);
-    }
-
-    protected function ensureConfigFieldsInConfigArray(array $fields, array &$configArray, array $values = [])
-    {
-        foreach ($fields as $field) {
-            if (!$field instanceof ZendFormElement) {
-                throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
-            }
-            if ($field instanceof ZendFormFieldset) {
-                $this->ensureConfigFieldsInConfigArray($field->getElements(), $configArray, $values);
-                continue;
-            }
-            if (isset($configArray[$field->getName()])) {
-                continue;
-            }
-            $value = (isset($values[$field->getName()]) ? $values[$field->getName()] : null);
-            $configArray[$field->getName()] = $value;
+        if (isset($externalData['config']) && empty($values)) {
+            return;
         }
+
+        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
+        $allValues = array_merge($externalDataConfig, $values);
+        $form = $courierInstance->getConfigForm();
+        $this->prepareAdapterImplementationFormForSubmission($form, $allValues);
+        // We can't call getData() until isValid() has been called, even if we don't care if its valid or not
+        $form->isValid();
+
+        $externalData['config'] = json_encode($form->getData());
+        $account->setExternalData($externalData);
     }
 
     // Required by CreationServiceAbstract but will be changed by configureAccount()

@@ -3,44 +3,65 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
+use Zend\Form\Element\Checkbox as ZendFormCheckbox;
 use Zend\Form\Fieldset as ZendFormFieldset;
 use Zend\Form\Form as ZendForm;
 
 trait PrepareAdapterImplementationFieldsTrait
 {
-    protected function convertAdapterImplementationFieldsToForm(array $fields, array $values = [])
+    protected function prepareAdapterImplementationFormForDisplay(ZendForm $form, array $values = [])
     {
-        $form = new ZendForm();
+        $fieldsOrSets = array_merge($form->getFieldsets(), $form->getElements());
+        $this->prepareAdapterImplementationFieldsForDisplay($fieldsOrSets, $values);
 
-        $this->prepareAdapterImplementationFields($fields, $values);
-        foreach ($fields as $field) {
-            $form->add($field);
+        if (!empty($values)) {
+            $form->setData($values);
         }
 
-        return $form;
+        $form->prepare();
     }
 
-    protected function prepareAdapterImplementationFields(array $fields, array $values = [])
+    protected function prepareAdapterImplementationFieldsForDisplay(array $fields, array $values = [])
     {
         foreach ($fields as $field) {
             if (!$field instanceof ZendFormElement) {
                 throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
             }
             if ($field instanceof ZendFormFieldset) {
-                $this->prepareAdapterImplementationFields($field->getElements(), $values);
+                $this->prepareAdapterImplementationFieldsForDisplay($field->getElements(), $values);
                 continue;
             }
             if ($field->getOption('required')) {
                 $class = $field->getAttribute('class') ?: '';
                 $field->setAttribute('class', $class . ' required');
             }
-            if (isset($values[$field->getName()])) {
-                $value = $values[$field->getName()];
-                if ($field->getAttribute('type') == 'checkbox' && is_string($value) && $value !== '') {
-                    $value = true;
-                }
-                $field->setValue($value);
+        }
+    }
+
+    protected function prepareAdapterImplementationFormForSubmission(ZendForm $form, array $values)
+    {
+        $preparedValues = $this->prepareAdapterImplementationFormValuesForSubmission($form, $values);
+        $form->setData($preparedValues);
+    }
+
+    protected function prepareAdapterImplementationFormValuesForSubmission(ZendFormFieldset $fieldset, array $values)
+    {
+        $fieldsOrSets = array_merge($fieldset->getFieldsets(), $fieldset->getElements());
+        foreach ($fieldsOrSets as $fieldsOrSet) {
+            if ($fieldsOrSet instanceof ZendFormFieldset) {
+                $subSetValues = (isset($values[$fieldsOrSet->getName()]) ? $values[$fieldsOrSet->getName()] : []);
+                $values[$fieldsOrSet->getName()] = $this->prepareAdapterImplementationFormValuesForSubmission($fieldsOrSet, $subSetValues);
+                continue;
+            }
+            if (isset($values[$fieldsOrSet->getName()])) {
+                continue;
+            }
+            if ($fieldsOrSet instanceof ZendFormCheckbox) {
+                $values[$fieldsOrSet->getName()] = $fieldsOrSet->getUncheckedValue();
+            } else {
+                $values[$fieldsOrSet->getName()] = null;
             }
         }
+        return $values;
     }
 }

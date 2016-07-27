@@ -71,12 +71,12 @@ class AccountController extends AbstractActionController
         $accountId = $this->params()->fromQuery('accountId');
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
 
-        $fields = $courierInstance->getCredentialsFields();
-        $fieldValues = [];
+        $form = $courierInstance->getCredentialsForm();
+        $values = [];
         if ($accountId) {
-            $fieldValues = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
+            $values = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
         }
-        $form = $this->convertAdapterImplementationFieldsToForm($fields, $fieldValues);
+        $this->prepareAdapterImplementationFormForDisplay($form, $values);
 
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
 
@@ -98,8 +98,8 @@ class AccountController extends AbstractActionController
         $instructions = $courierInstance->getCredentialsRequestInstructions();
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
-        $fields = $courierInstance->getCredentialsRequestFields($caAddress, $rootOu->getAddressCompanyName());
-        $form = $this->convertAdapterImplementationFieldsToForm($fields);
+        $form = $courierInstance->getCredentialsRequestForm($caAddress, $rootOu->getAddressCompanyName());
+        $this->prepareAdapterImplementationFormForDisplay($form);
 
         $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
 
@@ -180,25 +180,23 @@ class AccountController extends AbstractActionController
 
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
-        $fields = $courierInstance->getCredentialsRequestFields($caAddress, $rootOu->getAddressCompanyName());
-        $this->prepareAdapterImplementationFields($fields, $params);
+        $form = $courierInstance->getCredentialsRequestForm($caAddress, $rootOu->getAddressCompanyName());
+        $this->prepareAdapterImplementationFormForSubmission($form, $params);
 
-        $courierInstance->submitCredentialsRequestFields($fields);
+        if (!$form->isValid()) {
+            $view = $this->jsonModelFactory->newInstance([
+                'valid' => false,
+                'messages' => $form->getMessages(),
+            ]);
+            return $view;
+        }
+
+        $courierInstance->submitCredentialsRequestForm($form);
 
         $view = $this->jsonModelFactory->newInstance();
         $url = $this->connectAccountAndGetRedirectUrl($params);
         $view->setVariable('redirectUrl', $url);
         return $view;
-    }
-
-    protected function getSanitisedPostParams()
-    {
-       // ZF2 replaces spaces in param names with underscores, need to undo that
-        $params = [];
-        foreach ($this->params()->fromPost() as $key => $value) {
-            $params[str_replace('_', ' ', $key)] = $value;
-        }
-        return $params;
     }
 
     protected function connectAccountAndGetRedirectUrl(array $params)
@@ -215,14 +213,15 @@ class AccountController extends AbstractActionController
 
     public function saveAction()
     {
-        $params = $this->getSanitisedPostParams();
+        $params = $this->params()->fromPost();
         $channelName = $params['channel'];
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
         $view = $this->jsonModelFactory->newInstance();
 
-        $fields = $courierInstance->getCredentialsFields();
+        $form = $courierInstance->getCredentialsForm();
+        $this->prepareAdapterImplementationFormForSubmission($form, $params);
 
-        $valid = $this->caModuleAccountService->validateSetupFields($fields, $params, $courierInstance);
+        $valid = $this->caModuleAccountService->validateSetupForm($form, $courierInstance);
         if (!$valid) {
             throw new ValidationException('The entered credentials are invalid or incomplete. Please check them and try again.');
         }
@@ -236,8 +235,15 @@ class AccountController extends AbstractActionController
     {
         $params = $this->params()->fromPost();
         $accountId = $params['accountId'];
-        $this->caModuleAccountService->saveConfigForAccount($accountId, $params);
 
+        $result = $this->caModuleAccountService->saveConfigForAccount($accountId, $params);
+
+        if (is_array($result)) {
+            return $this->jsonModelFactory->newInstance([
+                'valid' => false,
+                'messages' => $result
+            ]);
+        }
         return $this->jsonModelFactory->newInstance([
             'valid' => true,
             'status' => $this->translate('Changes Saved')

@@ -8,13 +8,17 @@ use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use InvalidArgumentException;
 use Zend\Form\Element as ZendFormElement;
+use Zend\Form\Form as ZendForm;
 
 class Service
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
     /** @var OHAccountService */
     protected $ohAccountService;
     /** @var Cryptor */
@@ -65,23 +69,19 @@ class Service
     /**
      * @return bool
      */
-    public function validateSetupFields(array $fields, array $values, CourierInterface $courierInstance)
+    public function validateSetupForm(ZendForm $form, CourierInterface $courierInstance)
     {
+        if (!$form->isValid()) {
+            return false;
+        }
+
         if ($courierInstance instanceof CredentialVerificationInterface) {
             $caAccount = $this->caAccountMapper->fromArray([
-                'credentials' => $values,
+                'credentials' => $form->getData(),
             ]);
             return $courierInstance->validateCredentials($caAccount);
         }
 
-        foreach ($fields as $field) {
-            if (!$field instanceof ZendFormElement) {
-                throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
-            }
-            if ($field->getOption('required') && (!isset($values[$field->getName()]) || $values[$field->getName()] == '')) {
-                return false;
-            }
-        }
         return true;
     }
 
@@ -90,13 +90,16 @@ class Service
         $account = $this->ohAccountService->fetch($accountId);
         $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), ConfigInterface::class);
 
-        $externalData = $account->getExternalData();
-        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
-        foreach ($courierInstance->getConfigFields() as $field) {
-            $value = (isset($config[$field->getName()]) ? $config[$field->getName()] : null);
-            $externalDataConfig[$field->getName()] = $value;
+        $form = $courierInstance->getConfigForm();
+        $this->prepareAdapterImplementationFormForSubmission($form, $config);
+
+        if (!$form->isValid()) {
+            return $form->getMessages();
         }
-        $externalData['config'] = json_encode($externalDataConfig);
+        $formData = $form->getData();
+
+        $externalData = $account->getExternalData();
+        $externalData['config'] = json_encode($formData);
 
         try {
             $account->setExternalData($externalData);
@@ -104,6 +107,7 @@ class Service
         } catch (NotModified $e) {
             // No-op
         }
+        return true;
     }
 
     /**

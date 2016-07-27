@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b5bd07c02c9dbb8c060e97f1e732d52e",
-    "content-hash": "8eff358165f6a2582fac67e6621d6770",
+    "hash": "e0fed1987d3d6c0897c34800b44b5eda",
+    "content-hash": "dbd0f1221440aa0c1691f6a089d98fe1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -522,16 +522,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-testpack",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "cfe78d300d25af698737500ec125172d1f75c141"
+                "reference": "e9072dc13ad228a059df49dece9e6560dfa48296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-testpack-252680.zip",
-                "reference": "cfe78d300d25af698737500ec125172d1f75c141",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-3b9ceb.zip",
+                "reference": "e9072dc13ad228a059df49dece9e6560dfa48296",
                 "shasum": null
             },
             "require": {
@@ -551,7 +551,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-07-19 10:23:31"
+            "time": "2016-07-27 09:05:26"
         },
         {
             "name": "channelgrabber/dataplug",
@@ -7784,6 +7784,12 @@
         }
     ],
     "aliases": [
+        {
+            "alias": "dev-testpack",
+            "alias_normalized": "dev-testpack",
+            "version": "9999999-dev",
+            "package": "channelgrabber/courieradapter"
+        },
         {
             "alias": "1.16.63",
             "alias_normalized": "1.16.63.0",

@@ -60,12 +60,12 @@ class ProviderController extends AbstractActionController
         ViewModel $view,
         CourierInterface $courierInstance
     ) {
-        $fields = $courierInstance->getConfigFields();
+        $form = $courierInstance->getConfigForm();
         $values = [];
         if (isset($account->getExternalData()['config'])) {
             $values = json_decode($account->getExternalData()['config'], true);
         }
-        $form = $this->convertAdapterImplementationFieldsToForm($fields, $values);
+        $this->prepareAdapterImplementationFormForDisplay($form, $values);
         $view->setVariable('configForm', $form);
     }
 

@@ -36,7 +36,7 @@
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "dev-develop",
-        "channelgrabber/courieradapter": "dev-testpack",
+        "channelgrabber/courieradapter": "dev-master as dev-testpack",
         "channelgrabber/dataplug": "~1.2.8",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.9.48",
