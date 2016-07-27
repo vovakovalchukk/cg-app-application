@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a547368369f47af28c2ff452888b0209",
-    "content-hash": "fd4e5e0e881b0ee4c3e5982a598de363",
+    "hash": "03fde7cc09d0ab7ee4719d357e06763d",
+    "content-hash": "83a9d4a7cb7c5db2a515028ed57372e4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -117,16 +117,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "746c9bb7c4aaf9b87a311924bd276f2dfce9fe62"
+                "reference": "1d05c36f138a934bf7fd7aad2b55511a59d0ef8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7203-BigCommerceUnimportedListings-991239.zip",
-                "reference": "746c9bb7c4aaf9b87a311924bd276f2dfce9fe62",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7203-BigCommerceUnimportedListings-d7120a.zip",
+                "reference": "1d05c36f138a934bf7fd7aad2b55511a59d0ef8b",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-7193-BigCommerceIntegration as 1.24.6",
+                "channelgrabber/channel": "dev-CGIV-7203-BigCommerceUnimportedListings as 1.25.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/webhook-framework": "dev-EPIC-CGIV-7193-BigCommerceIntegration as 1.0.0",
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-21 12:53:23"
+            "time": "2016-07-27 10:37:29"
         },
         {
             "name": "channelgrabber/billing",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7203-BigCommerceUnimportedListings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9cfe1a18ae23372e8bf833333e6019cab997e118"
+                "reference": "4d6fcca6948a952517cb2453cd0c8f39b90c70bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7193-BigCommerceIntegration-48fba6.zip",
-                "reference": "9cfe1a18ae23372e8bf833333e6019cab997e118",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7203-BigCommerceUnimportedListings-cd914f.zip",
+                "reference": "4d6fcca6948a952517cb2453cd0c8f39b90c70bd",
                 "shasum": null
             },
             "require": {
@@ -417,7 +417,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-26 12:30:26"
+            "time": "2016-07-27 10:10:52"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7874,7 +7874,7 @@
         {
             "alias": "1.25.1",
             "alias_normalized": "1.25.1.0",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7203-BigCommerceUnimportedListings",
             "package": "channelgrabber/channel"
         },
         {
