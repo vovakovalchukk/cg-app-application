@@ -8,9 +8,9 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/Service", "Variation/Service", 'Stock/Service', 'Details/Service'
+    "showHideFilters", "Product/Service", "Variation/Service", 'Stock/Service', 'Details/Service', 'Product/Product'
 ],
-function(ShowHideFilters, ProductService, VariationService, StockService, DetailsService) {
+function(ShowHideFilters, ProductService, VariationService, StockService, DetailsService, ProductRoot) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
@@ -20,6 +20,7 @@ function(ShowHideFilters, ProductService, VariationService, StockService, Detail
         var variationService = new VariationService(productService);
         var stockService = new StockService(<?= json_encode($this->accountStockModesEnabled); ?>);
         var detailsService = new DetailsService();
+        var productRoot = new ProductRoot('products-list');
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
