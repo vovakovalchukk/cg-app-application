@@ -5,8 +5,8 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\CarrierBookingOptionsInterface;
-use CG\Channel\ShippingChannelsProviderInterface;
+use CG\Channel\CarrierBookingOptionsRepository;
+use CG\Channel\ShippingChannelsProviderRepository;
 use CG\Channel\ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
@@ -73,10 +73,10 @@ class Service implements LoggerAwareInterface
     protected $productDetailService;
     /** @var Di */
     protected $di;
-    /** @var ShippingChannelsProviderInterface */
-    protected $shippingChannelsProvider;
-    /** @var CarrierBookingOptionsInterface */
-    protected $carrierBookingOptions;
+    /** @var ShippingChannelsProviderRepository */
+    protected $shippingChannelsProviderRepo;
+    /** @var CarrierBookingOptionsRepository */
+    protected $carrierBookingOptionsRepo;
 
     protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
@@ -92,8 +92,8 @@ class Service implements LoggerAwareInterface
         OrderLabelStorage $orderLabelStorage,
         ProductDetailService $productDetailService,
         Di $di,
-        ShippingChannelsProviderInterface $shippingChannelsProvider,
-        CarrierBookingOptionsInterface $carrierBookingOptions
+        ShippingChannelsProviderRepository $shippingChannelsProviderRepo,
+        CarrierBookingOptionsRepository $carrierBookingOptionsRepo
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -104,8 +104,8 @@ class Service implements LoggerAwareInterface
             ->setOrderLabelStorage($orderLabelStorage)
             ->setProductDetailService($productDetailService)
             ->setDi($di)
-            ->setShippingChannelsProvider($shippingChannelsProvider)
-            ->setCarrierBookingOptions($carrierBookingOptions);
+            ->setShippingChannelsProviderRepo($shippingChannelsProviderRepo)
+            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo);
     }
     
     /**
@@ -126,12 +126,13 @@ class Service implements LoggerAwareInterface
         foreach ($accounts as $account)
         {
             // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
-            if (!$this->shippingChannelsProvider->isProvidedChannel($account->getChannel())) {
+            if (!$this->shippingChannelsProviderRepo->isProvidedAccount($account)) {
                 continue;
             }
 
             // Only show accounts that support the requested order
-            if ($order && !$this->shippingChannelsProvider->isOrderSupported($account->getChannel(), $order)) {
+            $provider = $this->getShippingChannelsProvider($account);
+            if ($order && !$provider->isOrderSupported($account->getChannel(), $order)) {
                 continue;
             }
 
@@ -350,9 +351,19 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function getCarrierOptions(Account $account)
+    protected function getShippingChannelsProvider(Account $account)
     {
-        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account);
+        return $this->shippingChannelsProviderRepo->getProviderForAccount($account);
+    }
+
+    protected function getCarrierOptionsProvider(Account $account)
+    {
+        return $this->carrierBookingOptionsRepo->getProviderForAccount($account);
+    }
+
+    protected function getCarrierOptions(Account $account, $serviceCode = null)
+    {
+        return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
     /**
@@ -381,7 +392,7 @@ class Service implements LoggerAwareInterface
         $products = $this->getProductsForOrders($orders, $rootOu);
         $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         $labels = $this->getOrderLabelsForOrders($orders);
-        $options = $this->getCarrierOptions($courierAccount);
+        $carrierOptions = $this->getCarrierOptions($courierAccount);
         foreach ($orders as $order) {
             $orderData = $this->getCommonOrderListData($order, $rootOu);
             unset($orderData['courier']);
@@ -391,13 +402,14 @@ class Service implements LoggerAwareInterface
                 $orderLabels->rewind();
                 $orderLabel = $orderLabels->current();
             }
-            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
+            $options = $this->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
+            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
-            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options);
-            $parcelsData = $this->getParcelOrderListData($order, $options, $orderData, $parcelsInputData);
+            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions);
+            $parcelsData = $this->getParcelOrderListData($order, $orderData, $parcelsInputData, $options, $carrierOptions);
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
@@ -409,7 +421,7 @@ class Service implements LoggerAwareInterface
             $row['timezone'] = $now->getTimezone()->getName();
         }
         $data = $this->performSumsOnSpecificsListData($data, $options);
-        $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
+        $data = $this->getCarrierOptionsProvider($courierAccount)->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
 
@@ -426,7 +438,7 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
-        $cancellable = $this->carrierBookingOptions->isCancellationAllowedForAccount($courierAccount);
+        $cancellable = $this->getCarrierOptionsProvider($courierAccount)->isCancellationAllowedForOrder($courierAccount, $order);
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
@@ -487,7 +499,8 @@ class Service implements LoggerAwareInterface
         array $orderData,
         ProductCollection $products,
         ProductDetailCollection $productDetails,
-        array $options
+        array $options,
+        array $carrierOptions
     ) {
         $itemsData = [];
         $itemCount = 0;
@@ -501,6 +514,7 @@ class Service implements LoggerAwareInterface
             $specificsItemData['itemRow'] = true;
             $specificsItemData['showWeight'] = true;
             $specificsItemData['labelStatus'] = $orderData['labelStatus'];
+            $specificsItemData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
         }
@@ -558,8 +572,31 @@ class Service implements LoggerAwareInterface
         return $value;
     }
 
-    protected function getParcelOrderListData(Order $order, array $options, array $orderData, array $parcelsInputData)
+    protected function getFieldsRequirementStatus(array $serviceOptions, array $carrierOptions)
     {
+        $fieldsRequiredStatus = [];
+        $notRequiredFields = array_diff($carrierOptions, $serviceOptions);
+        $notRequiredFieldsKeyed = array_flip($notRequiredFields);
+        $requiredFields = array_merge($this->specificsListRequiredOrderFields, $this->specificsListRequiredParcelFields);
+        $requiredFieldsKeyed = array_flip($requiredFields);
+
+        foreach ($carrierOptions as $option) {
+            $fieldsRequiredStatus[$option] = [
+                'show' => (!isset($notRequiredFieldsKeyed[$option])),
+                'required' => (isset($requiredFieldsKeyed[$option])),
+            ];
+        }
+
+        return $fieldsRequiredStatus;
+    }
+
+    protected function getParcelOrderListData(
+        Order $order,
+        array $orderData,
+        array $parcelsInputData,
+        array $options,
+        array $carrierOptions
+    ) {
         $parcels = $orderData['parcels'];
         if (count($order->getItems()) <= 1 && $parcels <= 1) {
             return [];
@@ -574,6 +611,7 @@ class Service implements LoggerAwareInterface
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['cancellable'] = $orderData['cancellable'];
+            $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }
@@ -644,16 +682,18 @@ class Service implements LoggerAwareInterface
 
     protected function sortSpecificsListData(array $data, Account $courierAccount)
     {
-        $carrierOptions = $this->getCarrierOptions($courierAccount);
-        $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $carrierOptions);
-        // service field is always required and can ocassionally get unset if the chosen service is not available
-        $orderRequiredFields[] = 'service';
-        $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $carrierOptions);
-        return $this->sortOrderListData($data, $orderRequiredFields, $parcelRequiredFields);
+        return $this->sortOrderListData(
+            $data, $this->specificsListRequiredOrderFields, $this->specificsListRequiredParcelFields, true, $courierAccount
+       );
     }
 
-    protected function sortOrderListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
-    {
+    protected function sortOrderListData(
+        array $data,
+        array $orderRequiredFields,
+        array $parcelRequiredFields = [],
+        $intersectServiceOptions = false,
+        Account $courierAccount = null
+    ) {
         // Separate out the fully pre-filled rows from those still requiring input
         $preFilledRows = [];
         $inputRequiredRows = [];
@@ -661,8 +701,17 @@ class Service implements LoggerAwareInterface
         foreach ($orderRows as $orderId => $rows) {
             $complete = true;
             foreach ($rows as $row) {
+                $rowOrderRequiredFields = $orderRequiredFields;
+                $rowParcelRequiredFields = $parcelRequiredFields;
+                if ($intersectServiceOptions) {
+                    $options = $this->getCarrierOptions($courierAccount, (isset($row['service']) ? $row['service'] : null));
+                    $rowOrderRequiredFields = array_intersect($orderRequiredFields, $options);
+                    // service field is always required and can ocassionally get unset if the chosen service is not available
+                    $rowOrderRequiredFields[] = 'service';
+                    $rowParcelRequiredFields = array_intersect($parcelRequiredFields, $options);
+                }
                 if (isset($row['orderRow']) && $row['orderRow']) {
-                    foreach ($orderRequiredFields as $field) {
+                    foreach ($rowOrderRequiredFields as $field) {
                         if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
                             break 2;
@@ -670,7 +719,7 @@ class Service implements LoggerAwareInterface
                     }
                 }
                 if (isset($row['parcelRow']) && $row['parcelRow']) {
-                    foreach ($parcelRequiredFields as $field) {
+                    foreach ($rowParcelRequiredFields as $field) {
                         if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
                             break 2;
@@ -736,12 +785,20 @@ class Service implements LoggerAwareInterface
         return $orderMetaData;
     }
 
+    public function getCarrierOptionsForService($orderId, $accountId, $service)
+    {
+        $account = $this->accountService->fetch($accountId);
+        $carrierOptions = $this->getCarrierOptions($account);
+        $serviceOptions = $this->getCarrierOptions($account, $service);
+        return $this->getFieldsRequirementStatus($serviceOptions, $carrierOptions);
+    }
+
     public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
     {
         $order = $this->orderService->fetch($orderId);
         $account = $this->accountService->fetch($accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
-        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
+        return $this->getCarrierOptionsProvider($account)->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
     }
 
     protected function setOrderService(OrderService $orderService)
@@ -798,15 +855,15 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setShippingChannelsProvider(ShippingChannelsProviderInterface $shippingChannelsProvider)
+    protected function setShippingChannelsProviderRepo(ShippingChannelsProviderRepository $shippingChannelsProviderRepo)
     {
-        $this->shippingChannelsProvider = $shippingChannelsProvider;
+        $this->shippingChannelsProviderRepo = $shippingChannelsProviderRepo;
         return $this;
     }
 
-    protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
+    protected function setCarrierBookingOptionsRepo(CarrierBookingOptionsRepository $carrierBookingOptionsRepo)
     {
-        $this->carrierBookingOptions = $carrierBookingOptions;
+        $this->carrierBookingOptionsRepo = $carrierBookingOptionsRepo;
         return $this;
     }
 

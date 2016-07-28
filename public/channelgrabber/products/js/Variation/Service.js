@@ -70,6 +70,7 @@ define([
     Service.SELECTOR_VARIATION_TABLE = '.variation-table';
     Service.SELECTOR_DETAILS_TABLE = '.details-table';
     Service.SELECTOR_STOCK_TABLE = '.stock-table';
+    Service.SELECTOR_STOCK_MODE = '.stock-mode-holder';
     Service.SELECTOR_ID = ':input[name=id]';
     Service.CLASS_AJAX = 'expand-button-ajax';
     Service.CLASS_EXPANDED = 'expanded';
@@ -123,9 +124,11 @@ define([
         var stockTableBodySelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_STOCK_TABLE + ' tbody');
         var attributeNamesSelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_VARIATION_TABLE + ' thead th:nth-child(n+3)');
         var attributeNames = this.getAttributeNamesFromDom(attributeNamesSelector);
+        var stockModesSelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_STOCK_MODE);
         var variationRows = '';
         var detailsRows = '';
         var stockRows = '';
+        var stockModes = '';
 
         for (var index in variations) {
             var variation = variations[index];
@@ -136,11 +139,21 @@ define([
             stockRows += this.getProductService().getStockTableLineView(
                 variation, variation['stock']['locations'][0], templates
             );
+            if (!stockModes) {
+                stockModes = this.getProductService().getStockModesCustomSelectView(
+                    {
+                        id: variation.parentProductId,
+                        stockModeOptions: variation.stockModeOptions
+                    },
+                    templates
+                );
+            }
         }
 
         this.getDomManipulator().setHtml(variationTableBodySelector, variationRows);
         this.getDomManipulator().setHtml(detailsTableBodySelector, detailsRows);
         this.getDomManipulator().setHtml(stockTableBodySelector, stockRows);
+        this.getDomManipulator().setHtml(stockModesSelector, stockModes);
     };
 
     Service.prototype.getAttributeNamesFromDom = function(attributeNamesSelector)

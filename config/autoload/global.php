@@ -52,7 +52,10 @@ use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
 use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
 
+// Logging
 use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
+use CG\Log\Psr\Logger as CGPsrLogger;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
@@ -181,7 +184,12 @@ use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
 use CG\Account\Client\StorageInterface as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 
-return array(
+// CourierAdapters
+use CG\CourierAdapter\Provider\Implementation\CarrierBookingOptions as CourierAdapterProviderCarrierBookingOptions;
+use CG\CourierAdapter\Provider\Implementation\Service as CourierAdapterProviderImplementationService;
+use CG\CourierAdapter\Provider\Label\Service as CourierAdapterProviderLabelService;
+
+$config = array(
     'di' => array(
         'definition' => [
             'class' => [
@@ -249,10 +257,6 @@ return array(
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
-                ChannelShippingOptionsProviderInterface::class => ChannelShippingOptionsProviderRepository::class,
-                ChannelShippingChannelsProviderInterface::class => ChannelShippingChannelsProviderRepository::class,
-                ChannelCarrierBookingOptionsInterface::class => ChannelCarrierBookingOptionsRepository::class,
-                ChannelCarrierProviderServiceInterface::class => ChannelCarrierProviderServiceRepository::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -263,6 +267,7 @@ return array(
                 LockingStorage::class => LockingRedisStorage::class,
                 AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
+                PsrLoggerInterface::class => CGPsrLogger::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -648,6 +653,7 @@ return array(
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
+                        ['provider' => CourierAdapterProviderImplementationService::class],
                     ]
                 ]
             ],
@@ -656,6 +662,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => CourierAdapterProviderImplementationService::class],
                     ]
                 ]
             ],
@@ -665,6 +672,7 @@ return array(
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
+                        ['provider' => CourierAdapterProviderCarrierBookingOptions::class],
                     ]
                 ]
             ],
@@ -674,6 +682,7 @@ return array(
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
                         ['provider' => AmazonCarrierProvider::class],
+                        ['provider' => CourierAdapterProviderLabelService::class],
                     ]
                 ]
             ],
@@ -1421,3 +1430,10 @@ return array(
         ]
     ]
 );
+
+$configFiles = glob(__DIR__ . '/global/*.php');
+foreach ($configFiles as $configFile) {
+    $configFileContents = require_once $configFile;
+    $config = \Zend\Stdlib\ArrayUtils::merge($config, $configFileContents);
+}
+return $config;
