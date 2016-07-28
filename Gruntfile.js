@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
-
     grunt.initConfig({
         babel: {
             options: {
@@ -18,8 +17,16 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+        watch: {
+            babel: {
+                files: 'public/channelgrabber/**/*.jsx',
+                tasks: ['babel']
+            }
         }
     });
 
-    grunt.registerTask('default', ['babel']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+    grunt.registerTask('default', ['watch']);
 };
