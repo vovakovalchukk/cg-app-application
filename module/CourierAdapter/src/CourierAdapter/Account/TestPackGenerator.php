@@ -18,6 +18,7 @@ use CG\Order\Shared\Entity as OHOrder;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use DateTime;
 use InvalidArgumentException;
+use RuntimeException;
 
 class TestPackGenerator
 {
@@ -87,12 +88,8 @@ class TestPackGenerator
         $order = null;
         $deliveryService = null;
         for ($count = 0; $count < $testPackFile->getRequiredShipmentCount(); $count++) {
-            if (!empty($ordersArray)) {
-                $order = array_shift($ordersArray);
-            }
-            if (!empty($deliveryServices)) {
-                $deliveryService = array_shift($deliveryServices);
-            }
+            $order = $this->getNextOrderForTestPackShipments($ordersArray, $order);
+            $deliveryService = $this->getNextDeliveryServiceForTestPackShipments($order, $deliveryServices, $deliveryService);
 
             $orderData = $this->getExampleOrderData($order, $deliveryService);
             $parcelsData = $this->getExampleParcelsData($order, $deliveryService);
@@ -131,6 +128,47 @@ class TestPackGenerator
 
         $caAccount = $this->caAccountMapper->fromOHAccount($account);
         return $courierInstance->fetchDeliveryServicesForAccount($caAccount);
+    }
+
+    protected function getNextOrderForTestPackShipments(array &$ordersArray, OHOrder $currentOrder = null)
+    {
+        if (empty($ordersArray)) {
+            // If we've run out of orders just use the last one
+            return $currentOrder;
+        }
+        return array_shift($ordersArray);
+    }
+
+    protected function getNextDeliveryServiceForTestPackShipments(
+        OHOrder $order,
+        array &$deliveryServices,
+        DeliveryServiceInterface $currentDeliveryService = null
+    ) {
+        if (empty($deliveryServices)) {
+            // If we've run out of services just use the last one
+            return $currentDeliveryService;
+        }
+
+        $deliveryService = array_shift($deliveryServices);
+        $countryCode = $order->getShippingAddressCountryCodeForCourier();
+        if ($deliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
+            return $deliveryService;
+        }
+
+        array_unshift($deliveryServices, $deliveryService);
+        for ($count = 0; $count < count($deliveryServices); $count++) {
+            $potentialDeliveryService = $deliveryServices[$count];
+            if ($potentialDeliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
+                $deliveryService = $potentialDeliveryService;
+                array_slice($deliveryServices, $count, 1);
+                return $deliveryService;
+            }
+        }
+
+        // Reached the end of the delivery services without returning one, this is unexpected.
+        throw new RuntimeException(
+            sprintf('No suitable delivery services found for Order %s, country %s', $order->getId(), $countryCode)
+        );
     }
 
     protected function getExampleOrderData(OHOrder $order, DeliveryServiceInterface $deliveryService)
