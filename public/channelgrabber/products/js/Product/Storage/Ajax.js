@@ -31,11 +31,11 @@ define(function () {
         });
     };
 
-    Ajax.prototype.saveStockMode = function(productId, stockMode, eTag, callback)
+    Ajax.prototype.saveStockMode = function(productId, stockMode, callback)
     {
         return $.ajax({
             'url' : '/products/stockMode',
-            'data' : { id: productId, stockMode: stockMode, eTag: eTag },
+            'data' : { id: productId, stockMode: stockMode },
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(response) {
@@ -48,11 +48,11 @@ define(function () {
         });
     };
 
-    Ajax.prototype.saveStockLevel = function(productId, stockLevel, eTag, callback)
+    Ajax.prototype.saveStockLevel = function(productId, stockLevel, callback)
     {
         return $.ajax({
             'url' : '/products/stockLevel',
-            'data' : { id: productId, stockLevel: stockLevel, eTag: eTag },
+            'data' : { id: productId, stockLevel: stockLevel },
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(response) {
