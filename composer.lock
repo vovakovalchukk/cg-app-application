@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e0fed1987d3d6c0897c34800b44b5eda",
-    "content-hash": "dbd0f1221440aa0c1691f6a089d98fe1",
+    "hash": "3d396f29539c40538a11154d534a2d89",
+    "content-hash": "433e29be7f6bdf7a0c16dca471db47b3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -488,16 +488,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "f94fb44c34d0dab5fa14fadba7af5554fb32d66e"
+                "reference": "eeaca816bd2156120d412e1c2cb31b02719c73f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-21fd49.zip",
-                "reference": "f94fb44c34d0dab5fa14fadba7af5554fb32d66e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-c6ca4d.zip",
+                "reference": "eeaca816bd2156120d412e1c2cb31b02719c73f0",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-testpack",
+                "channelgrabber/courieradapter": "dev-master",
                 "guzzlehttp/guzzle": "*",
                 "zendframework/zend-servicemanager": "^2.3"
             },
@@ -518,7 +518,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-07-27 15:31:22"
+            "time": "2016-07-27 16:05:48"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3553,12 +3553,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "888a768b7f3ca6fadb5f5ee45212cd3f64895ca1"
+                "reference": "c9c0a99c6f2df04b3adf42091e2569aa85b256aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-b70eb0.zip",
-                "reference": "888a768b7f3ca6fadb5f5ee45212cd3f64895ca1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-387540.zip",
+                "reference": "c9c0a99c6f2df04b3adf42091e2569aa85b256aa",
                 "shasum": null
             },
             "require": {
@@ -3605,7 +3605,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-26 10:11:45"
+            "time": "2016-07-27 14:19:06"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7785,8 +7785,14 @@
     ],
     "aliases": [
         {
-            "alias": "dev-testpack",
-            "alias_normalized": "dev-testpack",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
             "version": "9999999-dev",
             "package": "channelgrabber/courieradapter"
         },
