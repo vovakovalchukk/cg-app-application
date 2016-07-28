@@ -140,10 +140,18 @@ class ProductsJsonController extends AbstractActionController
             'listings' => $this->getProductListingsArray($productEntity),
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
-            'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
-            'stockModeOptions' => $this->stockSettingsService->getStockModeOptionsForProduct($productEntity),
-            'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
         ]);
+
+        if (!$productEntity->isParent()) {
+            $product = array_merge(
+                $product,
+                [
+                    'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
+                    'stockModeOptions' => $this->stockSettingsService->getStockModeOptionsForProduct($productEntity),
+                    'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
+                ]
+            );
+        }
 
         if($rootOrganisationUnit->isVatRegistered()) {
             $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity, $rootOrganisationUnit->getMemberState());

@@ -45,9 +45,10 @@ class Service
     /**
      * @return array
      */
-    public function getStockModeOptionsForStock(Stock $stock)
+    public function getStockModeOptionsForStock(Stock $stock = null)
     {
-        return $this->getStockModeOptions($stock->getStockMode() ?: 'null');
+        $stockMode = $stock ? $stock->getStockMode() : null;
+        return $this->getStockModeOptions($stockMode ?: 'null');
     }
 
     /**
@@ -110,9 +111,9 @@ class Service
     /**
      * @return string
      */
-    public function getStockModeDecriptionForStock(Stock $stock)
+    public function getStockModeDecriptionForStock(Stock $stock = null)
     {
-        return $this->getStockModeDecription($stock->getStockMode());
+        return $this->getStockModeDecription($stock ? $stock->getStockMode() : null);
     }
 
     /**
@@ -143,9 +144,12 @@ class Service
     /**
      * @return int|null Null returned if stockLevel is not applicable to this Product
      */
-    public function getStockLevelForStock(Stock $stock)
+    public function getStockLevelForStock(Stock $stock = null)
     {
-        return $this->getStockLevel($stock->getStockMode(), $stock->getStockLevel());
+        return $this->getStockLevel(
+            $stock ? $stock->getStockMode() : null,
+            $stock ? $stock->getStockLevel() : null
+        );
     }
 
     /**
