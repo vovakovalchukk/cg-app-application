@@ -69,20 +69,24 @@ class Service
     /**
      * @return bool
      */
-    public function validateSetupForm(ZendForm $form, CourierInterface $courierInstance)
+    public function validateSetupForm(ZendForm $form, CourierInterface $courierInstance, $accountId = null)
     {
         if (!$form->isValid()) {
             return false;
         }
 
-        if ($courierInstance instanceof CredentialVerificationInterface) {
-            $caAccount = $this->caAccountMapper->fromArray([
-                'credentials' => $form->getData(),
-            ]);
-            return $courierInstance->validateCredentials($caAccount);
+        if (!$courierInstance instanceof CredentialVerificationInterface) {
+            return true;
         }
 
-        return true;
+        $caAccountData = ['credentials' => $form->getData()];
+        if ($accountId) {
+            $account = $this->ohAccountService->fetch($accountId);
+            $caAccountData['id'] = $account->getExternalId();
+        }
+
+        $caAccount = $this->caAccountMapper->fromArray($caAccountData);
+        return $courierInstance->validateCredentials($caAccount);
     }
 
     public function saveConfigForAccount($accountId, array $config)

@@ -125,6 +125,17 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setExternalData($externalData);
     }
 
+    protected function afterAccountSave(AccountEntity $account)
+    {
+        if ($account->getExternalId()) {
+            return $account;
+        }
+        // If we have no externalId (e.g. when using LocalAuth) we need to set it to something so
+        // the adapter code can make use of it
+        $account->setExternalId($account->getId());
+        return $account;
+    }
+
     // Required by CreationServiceAbstract but will be changed by configureAccount()
     public function getChannelName()
     {

@@ -215,13 +215,15 @@ class AccountController extends AbstractActionController
     {
         $params = $this->params()->fromPost();
         $channelName = $params['channel'];
+        $accountId = (isset($params['account']) ? $params['account'] : null);
+
         $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
         $view = $this->jsonModelFactory->newInstance();
 
         $form = $courierInstance->getCredentialsForm();
         $this->prepareAdapterImplementationFormForSubmission($form, $params);
 
-        $valid = $this->caModuleAccountService->validateSetupForm($form, $courierInstance);
+        $valid = $this->caModuleAccountService->validateSetupForm($form, $courierInstance, $accountId);
         if (!$valid) {
             throw new ValidationException('The entered credentials are invalid or incomplete. Please check them and try again.');
         }
