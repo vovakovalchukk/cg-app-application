@@ -124,7 +124,8 @@
             "compass compile vendor/channelgrabber/zf2-register",
             "compass compile public/channelgrabber/settings",
             "compass compile public/channelgrabber/setup-wizard",
-            "cd public-build && node r.js -o require-build.js && cd -"
+            "cd public-build && node r.js -o require-build.js && cd -",
+            "grunt babel"
         ],
         "post-update-cmd": [
             "composer -o dump-autoload",
