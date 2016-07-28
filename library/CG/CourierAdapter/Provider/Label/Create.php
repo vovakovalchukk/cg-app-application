@@ -132,23 +132,39 @@ class Create implements LoggerAwareInterface
             $itemsData = $orderItemsData[$order->getId()];
 
             $deliveryService = $courierInstance->fetchDeliveryServiceByReference($orderData['service']);
-            $shipmentClass = $deliveryService->getShipmentClass();
-            $packages = null;
-            if (is_a($shipmentClass, PackagesInterface::class, true)) {
-                $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
-                $packages = $this->createPackagesForOrderParcelData(
-                    $order, $parcelsData, $itemsData, $shipmentClass, $packageClass
-                );
-            }
 
-            $caShipmentData = $this->mapper->ohOrderAndDataToCAShipmentData(
-                $order, $orderData, $shippingAccount, $rootOu, $shipmentClass, $packages
+            $shipments[$order->getId()] = $this->createShipmentForOrderAndData(
+                $order, $orderData, $parcelsData, $itemsData, $shippingAccount, $rootOu, $deliveryService
             );
-            $shipments[$order->getId()] = $this->createShipment($deliveryService, $caShipmentData, $order->getId());
 
             $this->removeGlobalLogEventParam('order');
         }
         return $shipments;
+    }
+
+    // Called internally and externally (by Account\Service)
+    public function createShipmentForOrderAndData(
+        Order $order,
+        array $orderData,
+        array $parcelsData,
+        array $itemsData,
+        Account $shippingAccount,
+        OrganisationUnit $rootOu,
+        DeliveryServiceInterface $deliveryService
+    ) {
+        $shipmentClass = $deliveryService->getShipmentClass();
+        $packages = null;
+        if (is_a($shipmentClass, PackagesInterface::class, true)) {
+            $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
+            $packages = $this->createPackagesForOrderParcelData(
+                $order, $parcelsData, $itemsData, $shipmentClass, $packageClass
+            );
+        }
+
+        $caShipmentData = $this->mapper->ohOrderAndDataToCAShipmentData(
+            $order, $orderData, $shippingAccount, $rootOu, $shipmentClass, $packages
+        );
+        return $this->createShipment($deliveryService, $caShipmentData, $order->getId());
     }
 
     protected function createPackagesForOrderParcelData(

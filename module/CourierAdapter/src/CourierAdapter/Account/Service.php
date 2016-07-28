@@ -3,16 +3,16 @@ namespace CourierAdapter\Account;
 
 use CG\Account\Client\Service as OHAccountService;
 use CG\Account\Credentials\Cryptor;
-use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
-use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
+use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\Provider\Label\Create as CALabelCreateService;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Client\Service as OHOrderService;
 use InvalidArgumentException;
-use Zend\Form\Element as ZendFormElement;
 use Zend\Form\Form as ZendForm;
 
 class Service
@@ -112,29 +112,6 @@ class Service
             // No-op
         }
         return true;
-    }
-
-    /**
-     * @return string dataUri
-     */
-    public function generateTestPackFileDataForAccount($accountId, $fileReference)
-    {
-        $account = $this->ohAccountService->fetch($accountId);
-        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), TestPackInterface::class);
-
-        $testPackFileToGenerate = null;
-        foreach ($courierInstance->getTestPackFileList() as $testPackFile) {
-            if ($testPackFile->getReference() == $fileReference) {
-                $testPackFileToGenerate = $testPackFile;
-                break;
-            }
-        }
-        if (!$testPackFileToGenerate) {
-            throw new InvalidArgumentException('No test pack file with reference "' . $fileReference . '" found');
-        }
-
-        $caAccount = $this->caAccountMapper->fromOHAccount($account);
-        return $courierInstance->generateTestPackFile($testPackFileToGenerate, $caAccount);
     }
 
     protected function setOHAccountService(OHAccountService $ohAccountService)

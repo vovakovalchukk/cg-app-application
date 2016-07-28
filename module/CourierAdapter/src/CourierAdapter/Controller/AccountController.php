@@ -16,6 +16,7 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CourierAdapter\Account\Service as CAModuleAccountService;
+use CourierAdapter\Account\TestPackGenerator;
 use CourierAdapter\Module;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -46,6 +47,8 @@ class AccountController extends AbstractActionController
     protected $caAddressMapper;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var TestPackGenerator */
+    protected $testPackGenerator;
 
     public function __construct(
         AccountCreationService $accountCreationService,
@@ -54,7 +57,8 @@ class AccountController extends AbstractActionController
         ActiveUserInterface $activeUserContainer,
         CAModuleAccountService $caModuleAccountService,
         CAAddressMapper $caAddressMapper,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        TestPackGenerator $testPackGenerator
     ) {
         $this->setAccountCreationService($accountCreationService)
             ->setViewModelFactory($viewModelFactory)
@@ -62,7 +66,8 @@ class AccountController extends AbstractActionController
             ->setActiveUserContainer($activeUserContainer)
             ->setCaModuleAccountService($caModuleAccountService)
             ->setCAAddressMapper($caAddressMapper)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setTestPackGenerator($testPackGenerator);
     }
 
     public function setupAction()
@@ -282,7 +287,8 @@ class AccountController extends AbstractActionController
         $accountId = $this->params()->fromQuery('accountId');
         $fileReference = $this->params()->fromQuery('file');
 
-        $dataUri = $this->caModuleAccountService->generateTestPackFileDataForAccount($accountId, $fileReference);
+        $generator = $this->testPackGenerator;
+        $dataUri = $generator($accountId, $fileReference);
 
         list($type, $data) = explode(';', $dataUri);
         list($encoding, $data) = explode(',', $data);
@@ -334,6 +340,12 @@ class AccountController extends AbstractActionController
     protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
         $this->organisationUnitService = $organisationUnitService;
+        return $this;
+    }
+
+    protected function setTestPackGenerator(TestPackGenerator $testPackGenerator)
+    {
+        $this->testPackGenerator = $testPackGenerator;
         return $this;
     }
 }
