@@ -32,7 +32,6 @@ return [
                             'courierFactory' => function()
                             {
                                 $courier = new ParcelforceCourier();
-$courier->setTestMode(true); // Don't put live!
                                 return $courier;
                             }
                         ],
@@ -42,7 +41,6 @@ $courier->setTestMode(true); // Don't put live!
                             'courierFactory' => function()
                             {
                                 $courier = new DpdCourier();
-$courier->setTestMode(true); // Don't put live!
                                 return $courier;
                             }
                         ],
@@ -52,7 +50,6 @@ $courier->setTestMode(true); // Don't put live!
                             'courierFactory' => function()
                             {
                                 $courier = new InterlinkCourier();
-$courier->setTestMode(true); // Don't put live!
                                 return $courier;
                             }
                         ],
