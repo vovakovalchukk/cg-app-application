@@ -22,6 +22,8 @@ use RuntimeException;
 
 class TestPackGenerator
 {
+    const EXAMPLE_ITEM_WEIGHT_KG = 0.1;
+
     /** @var OHAccountService */
     protected $ohAccountService;
     /** @var AdapterImplementationService */
@@ -149,18 +151,14 @@ class TestPackGenerator
             return $currentDeliveryService;
         }
 
-        $deliveryService = array_shift($deliveryServices);
+        // Get the next delivery service that supports sending to the country of our order
         $countryCode = $order->getShippingAddressCountryCodeForCourier();
-        if ($deliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
-            return $deliveryService;
-        }
-
-        array_unshift($deliveryServices, $deliveryService);
         for ($count = 0; $count < count($deliveryServices); $count++) {
             $potentialDeliveryService = $deliveryServices[$count];
             if ($potentialDeliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
                 $deliveryService = $potentialDeliveryService;
-                array_slice($deliveryServices, $count, 1);
+                // Take it out of the list so we don't use it again as we want a mix of services if possible
+                array_splice($deliveryServices, $count, 1);
                 return $deliveryService;
             }
         }
@@ -211,7 +209,7 @@ class TestPackGenerator
             $parcelData['height'] = $parcelData['width'] = $parcelData['length'] = 1;
         }
         if (is_a($packageClass, PackageField\WeightInterface::class, true)) {
-            $parcelData['weight'] = 0.1 * count($order->getItems());
+            $parcelData['weight'] = static::EXAMPLE_ITEM_WEIGHT_KG * count($order->getItems());
         }
         if (is_a($packageClass, PackageField\ContentsInterface::class, true)) {
             $itemQuantities = [];
@@ -239,7 +237,7 @@ class TestPackGenerator
 
         foreach ($order->getItems() as $item) {
             $itemsData[$item->getId()] = [
-                'weight' => 0.1
+                'weight' => static::EXAMPLE_ITEM_WEIGHT_KG
             ];
         }
 
