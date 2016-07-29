@@ -111,6 +111,11 @@ class Service implements
             $courierInstance->setEmailClient($this->emailClient);
         }
 
+        // Some couriers need to be told if we're in a non-Live environment
+        if (defined('ENVIRONMENT') && ENVIRONMENT != 'live' && is_callable([$courierInstance, 'setTestMode'])) {
+            $courierInstance->setTestMode(true);
+        }
+
         $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()] = $courierInstance;
         return $courierInstance;
     }
