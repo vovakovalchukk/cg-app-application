@@ -9,6 +9,7 @@ use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
+use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\User\ActiveUserInterface;
@@ -33,6 +34,8 @@ class AccountController extends AbstractActionController
     const ROUTE_SAVE_CONFIG = 'Save Config';
     const ROUTE_TEST_PACK_FILE = 'Test Pack File';
 
+    /** @var AdapterImplementationService */
+    protected $adapterImplementationService;
     /** @var AccountCreationService */
     protected $accountCreationService;
     /** @var ViewModelFactory */
@@ -51,6 +54,7 @@ class AccountController extends AbstractActionController
     protected $testPackGenerator;
 
     public function __construct(
+        AdapterImplementationService $adapterImplementationService,
         AccountCreationService $accountCreationService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
@@ -60,7 +64,8 @@ class AccountController extends AbstractActionController
         OrganisationUnitService $organisationUnitService,
         TestPackGenerator $testPackGenerator
     ) {
-        $this->setAccountCreationService($accountCreationService)
+        $this->setAdapterImplementationService($adapterImplementationService)
+            ->setAccountCreationService($accountCreationService)
             ->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setActiveUserContainer($activeUserContainer)
@@ -74,7 +79,9 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
-        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $channelName, LocalAuthInterface::class
+        );
 
         $form = $courierInstance->getCredentialsForm();
         $values = [];
@@ -98,7 +105,9 @@ class AccountController extends AbstractActionController
     public function requestCredentialsAction()
     {
         $channelName = $this->params('channel');
-        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $channelName, CredentialRequestInterface::class
+        );
 
         $instructions = $courierInstance->getCredentialsRequestInstructions();
         $rootOu = $this->getActiveUserRootOu();
@@ -181,7 +190,9 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $params = $this->params()->fromPost();
-        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, CredentialRequestInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $channelName, CredentialRequestInterface::class
+        );
 
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
@@ -222,7 +233,9 @@ class AccountController extends AbstractActionController
         $channelName = $params['channel'];
         $accountId = (isset($params['account']) ? $params['account'] : null);
 
-        $courierInstance = $this->caModuleAccountService->getCourierInstanceForChannel($channelName, LocalAuthInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $channelName, LocalAuthInterface::class
+        );
         $view = $this->jsonModelFactory->newInstance();
 
         $form = $courierInstance->getCredentialsForm();
@@ -299,6 +312,12 @@ class AccountController extends AbstractActionController
         list(, $fileExt) = explode('/', $mimeType);
 
         return new FileResponse($mimeType, $fileReference . '.' . $fileExt, $data);
+    }
+
+    protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
+    {
+        $this->adapterImplementationService = $adapterImplementationService;
+        return $this;
     }
 
     protected function setAccountCreationService(AccountCreationService $accountCreationService)

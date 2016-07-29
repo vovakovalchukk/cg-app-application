@@ -59,7 +59,9 @@ class TestPackGenerator
     public function __invoke($accountId, $fileReference)
     {
         $account = $this->ohAccountService->fetch($accountId);
-        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), TestPackInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $account->getChannel(), TestPackInterface::class
+        );
 
         $testPackFileToGenerate = null;
         foreach ($courierInstance->getTestPackFileList() as $testPackFile) {
@@ -249,19 +251,6 @@ class TestPackGenerator
     protected function getOrganisationUnitForAccount(AccountEntity $account)
     {
         return $this->organisationUnitService->fetch($account->getOrganisationUnitId());
-    }
-
-    protected function getCourierInstanceForChannel($channelName, $specificInterface = null)
-    {
-        if (!$this->adapterImplementationService->isProvidedChannel($channelName)) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
-        }
-        $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
-        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstance($adapterImplementation);
-        if ($specificInterface && !$courierInstance instanceof $specificInterface) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but its adapter does not implement ' . $specificInterface);
-        }
-        return $courierInstance;
     }
 
     protected function setOhAccountService(OHAccountService $ohAccountService)

@@ -41,22 +41,6 @@ class Service
     }
 
     /**
-     * @return CourierInterface
-     */
-    public function getCourierInstanceForChannel($channelName, $specificInterface = null)
-    {
-        if (!$this->adapterImplementationService->isProvidedChannel($channelName)) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
-        }
-        $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
-        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstance($adapterImplementation);
-        if ($specificInterface && !$courierInstance instanceof $specificInterface) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but its adapter does not implement ' . $specificInterface);
-        }
-        return $courierInstance;
-    }
-
-    /**
      * @return array
      */
     public function getCredentialsArrayForAccount($accountId)
@@ -92,7 +76,9 @@ class Service
     public function saveConfigForAccount($accountId, array $config)
     {
         $account = $this->ohAccountService->fetch($accountId);
-        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), ConfigInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $account->getChannel(), ConfigInterface::class
+        );
 
         $form = $courierInstance->getConfigForm();
         $this->prepareAdapterImplementationFormForSubmission($form, $config);
