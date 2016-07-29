@@ -134,7 +134,7 @@ class TestPackGenerator
 
     protected function getNextOrderForTestPackShipments(array &$ordersArray, OHOrder $currentOrder = null)
     {
-        if (empty($ordersArray)) {
+        if (empty($ordersArray) && $currentOrder) {
             // If we've run out of orders just use the last one
             return $currentOrder;
         }
@@ -146,7 +146,7 @@ class TestPackGenerator
         array &$deliveryServices,
         DeliveryServiceInterface $currentDeliveryService = null
     ) {
-        if (empty($deliveryServices)) {
+        if (empty($deliveryServices) && $currentDeliveryService) {
             // If we've run out of services just use the last one
             return $currentDeliveryService;
         }
@@ -155,12 +155,14 @@ class TestPackGenerator
         $countryCode = $order->getShippingAddressCountryCodeForCourier();
         for ($count = 0; $count < count($deliveryServices); $count++) {
             $potentialDeliveryService = $deliveryServices[$count];
-            if ($potentialDeliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
-                $deliveryService = $potentialDeliveryService;
-                // Take it out of the list so we don't use it again as we want a mix of services if possible
-                array_splice($deliveryServices, $count, 1);
-                return $deliveryService;
+
+            if (!$potentialDeliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
+                continue;
             }
+            $deliveryService = $potentialDeliveryService;
+            // Take it out of the list so we don't use it again as we want a mix of services if possible
+            array_splice($deliveryServices, $count, 1);
+            return $deliveryService;
         }
 
         // Reached the end of the delivery services without returning one, this is unexpected.
