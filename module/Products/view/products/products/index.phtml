@@ -20,7 +20,7 @@ function(ShowHideFilters, ProductService, VariationService, StockService, Detail
         var variationService = new VariationService(productService);
         var stockService = new StockService(<?= json_encode($this->accountStockModesEnabled); ?>);
         var detailsService = new DetailsService();
-        var productRoot = new ProductRoot('products-list');
+        var productRoot = new ProductRoot(document.getElementById('products-list'));
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
