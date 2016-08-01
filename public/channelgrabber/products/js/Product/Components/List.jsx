@@ -10,17 +10,20 @@ define([
     "use strict";
 
     var ListComponent = React.createClass({
-        getInitialState: function()
-        {
-            //  Retrieve list of products via ajax and save to state
-        },
         render: function()
         {
-            return
-            <ul>
-                <li><ParentProduct/></li>
-                <li><SimpleProduct/></li>
-            </ul>;
+            return (
+                <div id="products-list">
+                    {this.props.products.map(function(object) {
+                        if (object.parentProductId > 0) {
+                            return <ParentProduct key={object.id} data={object} />
+                        } else {
+                            return <SimpleProduct key={object.id} data={object}/>;
+                        }
+                    })}
+                </div>
+            );
+
         }
     });
 
