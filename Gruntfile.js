@@ -18,14 +18,31 @@ module.exports = function(grunt) {
                 ]
             }
         },
+        copy: {
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/channelgrabber/',
+                        src: ['**/js/**/*.js', '!**/*.jsx'],
+                        dest: 'public/cg-built/'
+                    },
+                ],
+            }
+        },
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/*.jsx',
                 tasks: ['babel']
+            },
+            copy: {
+                files: 'public/channelgrabber/**/*.js',
+                tasks: ['copy']
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['watch']);
