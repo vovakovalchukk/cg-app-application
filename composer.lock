@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "4c833d8584cacc27f29a5c5026feea7fd30cf5a5"
+                "reference": "0013581c947188859cbe7862d9a98487372afb43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7206-BigCommerceImportListings-940ec5.zip",
-                "reference": "4c833d8584cacc27f29a5c5026feea7fd30cf5a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7206-BigCommerceImportListings-f5c1bc.zip",
+                "reference": "0013581c947188859cbe7862d9a98487372afb43",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-29 10:10:18"
+            "time": "2016-08-01 13:35:41"
         },
         {
             "name": "channelgrabber/billing",
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0248442992c7fcf7ff81b9aaf9772d8128292e7b"
+                "reference": "fc9f80e6302e37b3857cc22dc49db0ce9a955c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7206-BigCommerceImportListings-37666f.zip",
-                "reference": "0248442992c7fcf7ff81b9aaf9772d8128292e7b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7206-BigCommerceImportListings-f9b647.zip",
+                "reference": "fc9f80e6302e37b3857cc22dc49db0ce9a955c82",
                 "shasum": null
             },
             "require": {
@@ -417,7 +417,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-29 09:52:14"
+            "time": "2016-08-01 13:33:18"
         },
         {
             "name": "channelgrabber/cilex",
