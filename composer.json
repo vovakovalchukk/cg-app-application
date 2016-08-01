@@ -28,11 +28,11 @@
     "require": {
         "channelgrabber/amazon": "~1.17.15",
         "channelgrabber/api-lib": "~1.0.1",
-        "channelgrabber/bigcommerce": "dev-CGIV-7203-BigCommerceUnimportedListings as 1.0.0",
+        "channelgrabber/bigcommerce": "dev-EPIC-CGIV-7193-BigCommerceIntegration as 1.0.0",
         "channelgrabber/billing": "~1.11.0",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.10.2",
-        "channelgrabber/channel": "dev-CGIV-7203-BigCommerceUnimportedListings as 1.25.1",
+        "channelgrabber/channel": "dev-EPIC-CGIV-7193-BigCommerceIntegration as 1.25.1",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
