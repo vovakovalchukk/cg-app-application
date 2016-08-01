@@ -23,11 +23,23 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'public/channelgrabber/',
-                        src: ['**/js/**/*.js', '!**/*.jsx'],
+                        src: [
+                            'public/channelgrabber/**/*.js',
+                            '!public/channelgrabber/**/*.jsx'
+                        ],
                         dest: 'public/cg-built/'
-                    },
-                ],
+                    }
+                ]
+            },
+            vendor: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'vendor/channelgrabber/',
+                        src: '**/*.js',
+                        dest: 'public/cg-built/'
+                    }
+                ]
             }
         },
         watch: {
@@ -37,7 +49,11 @@ module.exports = function(grunt) {
             },
             copy: {
                 files: 'public/channelgrabber/**/*.js',
-                tasks: ['copy']
+                tasks: ['copy:main']
+            },
+            copyVendor: {
+                files: 'vendor/channelgrabber/**/*.js',
+                tasks: ['copy:vendor']
             }
         }
     });
