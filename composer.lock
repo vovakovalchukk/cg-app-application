@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "617b07e9aff09c6298e8c284eb7a3a08",
-    "content-hash": "f42ce6306598bd7f99ae7a5d856767d7",
+    "hash": "0a220ad9116c1f46126c104d786ed7be",
+    "content-hash": "30470e52d831c360e701585135cf9186",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "a26ee1e24eeb14a6c4df089ece0190e2f2b1c0b4"
+                "reference": "a0754ff43c800b9b3c6912bd7f202c35a5cf90fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7202-bigcommerce-order-dispatch-f2fb05.zip",
-                "reference": "a26ee1e24eeb14a6c4df089ece0190e2f2b1c0b4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7202-bigcommerce-order-dispatch-ef06d7.zip",
+                "reference": "a0754ff43c800b9b3c6912bd7f202c35a5cf90fd",
                 "shasum": null
             },
             "require": {
@@ -1338,16 +1338,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.11",
+            "version": "dev-CGIV-7202-bigcommerce-order-dispatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c636b695c751f69b34fe04121189afe59e74a114"
+                "reference": "fb3d04c6d59ab85a1cac2031b1244d078f1a0326"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.11-c08444.zip",
-                "reference": "c636b695c751f69b34fe04121189afe59e74a114",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7202-bigcommerce-order-dispatch-e41741.zip",
+                "reference": "fb3d04c6d59ab85a1cac2031b1244d078f1a0326",
                 "shasum": null
             },
             "require": {
@@ -1411,7 +1411,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-26 07:50:49"
+            "time": "2016-08-01 10:42:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -7876,6 +7876,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.23.12",
+            "alias_normalized": "1.23.12.0",
+            "version": "dev-CGIV-7202-bigcommerce-order-dispatch",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
             "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
@@ -7900,6 +7906,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/shopify": 20,
         "channelgrabber/webhook-framework": 20,
         "channelgrabber/zf2-v4-ui": 20,
