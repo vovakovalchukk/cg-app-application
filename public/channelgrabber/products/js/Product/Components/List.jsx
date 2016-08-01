@@ -1,11 +1,9 @@
 define([
     'react',
-    'Product/Components/ParentProduct',
-    'Product/Components/SimpleProduct'
+    'Product/Components/ProductRow'
 ], function(
     React,
-    ParentProduct,
-    SimpleProduct
+    ProductRow
 ) {
     "use strict";
 
@@ -15,11 +13,7 @@ define([
             return (
                 <div id="products-list">
                     {this.props.products.map(function(object) {
-                        if (object.parentProductId > 0) {
-                            return <ParentProduct key={object.id} data={object} />
-                        } else {
-                            return <SimpleProduct key={object.id} data={object}/>;
-                        }
+                        return <ProductRow key={object.id} data={object}/>;
                     })}
                 </div>
             );

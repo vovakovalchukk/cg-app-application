@@ -9,7 +9,7 @@ define([
 ) {
     var Product = function(mountingNode)
     {
-        ReactDOM.render(<RootComponent />, mountingNode);
+        ReactDOM.render(<RootComponent productsUrl="/products/ajax"/>, mountingNode);
     };
 
     return Product;
