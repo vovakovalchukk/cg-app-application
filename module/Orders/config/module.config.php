@@ -1287,7 +1287,7 @@ return [
             ],
             'OrdersIdColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Order ID / Product Information'],
+                    'variables' => ['value' => 'Order ID /<br>Product Information'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1385,7 +1385,7 @@ return [
             ],
             'OrdersShippingColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Shipping Method'],
+                    'variables' => ['value' => 'Shipping<br>Method'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1413,7 +1413,7 @@ return [
             ],
             'OrdersFulfilmentChannelColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Fulfilment Channel'],
+                    'variables' => ['value' => 'Fulfilment<br>Channel'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1476,7 +1476,7 @@ return [
             ],
             'OrdersShippingPriceColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Shipping Price'],
+                    'variables' => ['value' => 'Shipping<br>Price'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1491,7 +1491,7 @@ return [
             ],
             'OrdersTotalDiscountColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Total Discount'],
+                    'variables' => ['value' => 'Total<br>Discount'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1506,7 +1506,7 @@ return [
             ],
             'OrdersPaymentDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Payment Date'],
+                    'variables' => ['value' => 'Payment<br>Date'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1521,7 +1521,7 @@ return [
             ],
             'OrdersPrintedDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Printed Date'],
+                    'variables' => ['value' => 'Printed<br>Date'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1536,7 +1536,7 @@ return [
             ],
             'OrdersDispatchedDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Dispatched Date'],
+                    'variables' => ['value' => 'Dispatched<br>Date'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1551,7 +1551,7 @@ return [
             ],
             'OrdersInvoiceEmailedDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Invoice Emailed'],
+                    'variables' => ['value' => 'Invoice<br>Emailed'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1566,7 +1566,7 @@ return [
             ],
             'OrdersPaymentMethodColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Payment Method'],
+                    'variables' => ['value' => 'Payment<br>Method'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1581,7 +1581,7 @@ return [
             ],
             'OrdersPaymentReferenceColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Payment Reference'],
+                    'variables' => ['value' => 'Payment<br>Reference'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1596,7 +1596,7 @@ return [
             ],
             'OrdersTrackingInfoColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Tracking Info'],
+                    'variables' => ['value' => 'Tracking<br>Info'],
                     'template' => 'value.phtml',
                 ]
             ],
@@ -1626,7 +1626,7 @@ return [
             ],
             'OrdersProductImageColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Product Image'],
+                    'variables' => ['value' => 'Product<br>Image'],
                     // Note: this is NOT using the standard template but a bespoke one that loads up some JS
                     'template' => 'orders/orders/table/columns/productImage.phtml',
                 ]
