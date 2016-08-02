@@ -7,9 +7,9 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode)
+    var Product = function(mountingNode, imageBasePath)
     {
-        ReactDOM.render(<RootComponent productsUrl="/products/ajax"/>, mountingNode);
+        ReactDOM.render(<RootComponent productsUrl="/products/ajax" imageBasePath={imageBasePath} />, mountingNode);
     };
 
     return Product;

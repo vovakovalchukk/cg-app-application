@@ -30,7 +30,7 @@ define([
         },
         render: function()
         {
-            return <ProductList products={this.state.products} />;
+            return <ProductList products={this.state.products} imageBasePath={this.props.imageBasePath} />;
         }
     });
 

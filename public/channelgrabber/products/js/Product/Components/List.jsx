@@ -10,10 +10,11 @@ define([
     var ListComponent = React.createClass({
         render: function()
         {
+            var imageBasePath = this.props.imageBasePath;
             return (
                 <div id="products-list">
                     {this.props.products.map(function(object) {
-                        return <ProductRow key={object.id} data={object}/>;
+                        return <ProductRow key={object.id} data={object} imageBasePath={imageBasePath} />;
                     })}
                 </div>
             );

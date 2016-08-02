@@ -32,7 +32,7 @@ define([
 
             this.props.listings.forEach(function(listing) {
                 rows.push(
-                    <tr>
+                    <tr key={listing.id}>
                         <td><span className={"status " + listing.status} title="">{listing.status}</span></td>
                         <td><a href={listing.url} target="_blank">{listing.channel}</a></td>
                     </tr>
