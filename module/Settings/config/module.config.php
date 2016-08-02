@@ -966,6 +966,7 @@ return [
                 'parameters' => [
                     'templateId' => 'enable',
                     'viewModel' => 'AccountEnableColumnView',
+                    'class' => 'toggle-col',
                     'sortable' => false,
                     'hideable' => false,
                     'width' => '100px',
@@ -975,9 +976,9 @@ return [
                 'parameters' => [
                     'templateId' => 'status',
                     'viewModel' => 'AccountStatusColumnView',
+                    'class' => 'status-col',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
                 ],
             ],
             'AccountChannelColumn' => [

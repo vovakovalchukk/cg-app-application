@@ -6,7 +6,7 @@
         </div>
         <div class="productinfo">
             <span class="subtitle">
-                {{items.0.itemQuantity}} x {{#items.0.itemSku}}({{items.0.itemSku}}) - {{/items.0.itemSku}}{{#formatItemName}}{{items.0.itemName}}{{/formatItemName}}
+                <span class="itemQuantity">{{items.0.itemQuantity}}</span> x {{#items.0.itemSku}}<span class="itemSku">({{items.0.itemSku}}) - </span>{{/items.0.itemSku}}{{#formatItemName}}<span class="itemName">{{items.0.itemName}}</span>{{/formatItemName}}
             </span>
         </div>
         {{#items.1}}
@@ -15,7 +15,7 @@
         <div class="hidden additional-items">
             <div class="productinfo">
                 <span class="subtitle">
-                  {{itemQuantity}} x {{#itemSku}}({{itemSku}}) - {{/itemSku}}{{#formatItemName}}{{itemName}}{{/formatItemName}}
+                  <span class="itemQuantity">{{itemQuantity}}</span> x {{#itemSku}}<span class="itemSku">({{itemSku}}) - </span>{{/itemSku}}{{#formatItemName}}<span class="itemName">{{itemName}}</span>{{/formatItemName}}
                 </span>
             </div>
         </div>

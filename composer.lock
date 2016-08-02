@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "07e45e573ab30119e78d65e67eb41d44",
-    "content-hash": "94dd46dd5c3151b0cb28bd7c962d9a6c",
+    "hash": "8ec1d2ca0c80f1cb11e19415b13131b0",
+    "content-hash": "35718e93cea06e77e11f15833c3dca36",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3559,12 +3559,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c9c0a99c6f2df04b3adf42091e2569aa85b256aa"
+                "reference": "3a2ebb0a74f40302b63fd5a21944752f7cfb6edd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-387540.zip",
-                "reference": "c9c0a99c6f2df04b3adf42091e2569aa85b256aa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-9ab4dd.zip",
+                "reference": "3a2ebb0a74f40302b63fd5a21944752f7cfb6edd",
                 "shasum": null
             },
             "require": {
@@ -3611,7 +3611,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-07-27 14:19:06"
+            "time": "2016-08-02 12:54:01"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5439,7 +5439,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/5b899b2b41463bf261aa69840fd30b50950a500c",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-5b899b2b41463bf261aa69840fd30b50950a500c-zip-ecd95d.zip",
                 "reference": "5b899b2b41463bf261aa69840fd30b50950a500c",
                 "shasum": ""
             },
@@ -7985,8 +7985,8 @@
             "package": "channelgrabber/courieradapter"
         },
         {
-            "alias": "1.16.63",
-            "alias_normalized": "1.16.63.0",
+            "alias": "1.16.64",
+            "alias_normalized": "1.16.64.0",
             "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
             "package": "channelgrabber/zf2-v4-ui"
         }
