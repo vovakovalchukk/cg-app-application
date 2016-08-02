@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91cdef33fb35ab5aab6ed46d5f13e181",
-    "content-hash": "009e02eeb95c51c000ab231d6a7a2021",
+    "hash": "031acf5b4b34e4866b4f9bba1809e517",
+    "content-hash": "882f3d4198833b4bab82b2ea36018e61",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3516,16 +3516,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.64",
+            "version": "dev-CGIV-7300-Add-headway-changelog-notifications-to-logo",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "da4386971916861d28432ceff109f858991fe1e1"
+                "reference": "e85276a1485117edfe65e0988765adc16f67ce8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.64-56341e.zip",
-                "reference": "da4386971916861d28432ceff109f858991fe1e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7300-Add-headway-changelog-notifications-to-logo-ce5ade.zip",
+                "reference": "e85276a1485117edfe65e0988765adc16f67ce8b",
                 "shasum": null
             },
             "require": {
@@ -3572,7 +3572,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-02 14:18:46"
+            "time": "2016-08-02 15:37:37"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7750,11 +7750,19 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.65",
+            "alias_normalized": "1.16.65.0",
+            "version": "dev-CGIV-7300-Add-headway-changelog-notifications-to-logo",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
