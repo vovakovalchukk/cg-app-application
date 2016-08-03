@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b1ace41b421b13e716e306c1f3fd88b7",
-    "content-hash": "1190b6409a0013ca3fdb1ce90972140d",
+    "hash": "a08094443bfca7d45714c3be4fdd3a02",
+    "content-hash": "d8d474f3bcd5da592b3227542c5b4905",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.17.15",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "3ec22bef9bf2e64785326b1e59a899c0122d8c00"
+                "reference": "1d10d57cb3c2e5817282e1f1b2b3b937e8e1e897"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.15-9845e5.zip",
-                "reference": "3ec22bef9bf2e64785326b1e59a899c0122d8c00",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-42a523.zip",
+                "reference": "1d10d57cb3c2e5817282e1f1b2b3b937e8e1e897",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-26 07:58:14"
+            "time": "2016-08-03 10:41:46"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -7752,6 +7752,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.17.16",
+            "alias_normalized": "1.17.16.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/amazon"
+        },
+        {
             "alias": "1.25.1",
             "alias_normalized": "1.25.1.0",
             "version": "dev-EPIC-CGIV-7181-amazon-mcf-with-fba",
@@ -7760,6 +7766,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
