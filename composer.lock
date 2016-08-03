@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91cdef33fb35ab5aab6ed46d5f13e181",
-    "content-hash": "009e02eeb95c51c000ab231d6a7a2021",
+    "hash": "b1ace41b421b13e716e306c1f3fd88b7",
+    "content-hash": "1190b6409a0013ca3fdb1ce90972140d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.0",
+            "version": "dev-EPIC-CGIV-7181-amazon-mcf-with-fba",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d5c8b628a5d6faad8a4af6c7d92c311f816425c6"
+                "reference": "1fed4f02407c59558169b9b1f21cb1ecc1fdcb32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.0-66f1ef.zip",
-                "reference": "d5c8b628a5d6faad8a4af6c7d92c311f816425c6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7181-amazon-mcf-with-fba-433070.zip",
+                "reference": "1fed4f02407c59558169b9b1f21cb1ecc1fdcb32",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-26 07:49:52"
+            "time": "2016-08-03 08:32:59"
         },
         {
             "name": "channelgrabber/cilex",
@@ -5454,12 +5454,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -7750,9 +7750,17 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.25.1",
+            "alias_normalized": "1.25.1.0",
+            "version": "dev-EPIC-CGIV-7181-amazon-mcf-with-fba",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
         "composer/composer": 20,
