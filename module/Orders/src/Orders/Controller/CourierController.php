@@ -10,6 +10,7 @@ use Orders\Module;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
+use Orders\Courier\ShippingAccountsService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -43,6 +44,8 @@ class CourierController extends AbstractActionController
     protected $manifestService;
     /** @var OrdersToOperateOn */
     protected $ordersToOperatorOn;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -51,7 +54,8 @@ class CourierController extends AbstractActionController
         Service $service,
         LabelPrintService $labelPrintService,
         ManifestService $manifestService,
-        OrdersToOperateOn $ordersToOperatorOn
+        OrdersToOperateOn $ordersToOperatorOn,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
@@ -59,7 +63,8 @@ class CourierController extends AbstractActionController
             ->setService($service)
             ->setLabelPrintService($labelPrintService)
             ->setManifestService($manifestService)
-            ->setOrdersToOperatorOn($ordersToOperatorOn);
+            ->setOrdersToOperatorOn($ordersToOperatorOn)
+            ->setShippingAccountsService($shippingAccountsService);
     }
 
     public function indexAction()
@@ -228,7 +233,7 @@ class CourierController extends AbstractActionController
     {
         $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
         $url = $this->url()->fromRoute($route, ['account' => $account->getId()]);
-        return [$url, $account->getDisplayName()];
+        return [$url, $this->shippingAccountsService->getDisplayNameForAccount($account)];
     }
 
     protected function getSpecificsBulkActionsButtons(AccountCollection $accounts, Account $selectedAccount)
@@ -419,6 +424,12 @@ class CourierController extends AbstractActionController
     protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
     {
         $this->ordersToOperatorOn = $ordersToOperatorOn;
+        return $this;
+    }
+
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
+    {
+        $this->shippingAccountsService = $shippingAccountsService;
         return $this;
     }
 }

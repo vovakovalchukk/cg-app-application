@@ -88,7 +88,10 @@ class ShippingAccountsService
         return $courierOptions;
     }
 
-    protected function getDisplayNameForAccount(Account $account)
+    /**
+     * @return string
+     */
+    public function getDisplayNameForAccount(Account $account)
     {
         $displayName = $account->getDisplayname();
         if (!$this->shippingChannelsProviderRepository->isProvidedAccount($account)) {
