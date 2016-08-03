@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eab721e2833cc8775dedf27a0f455bed",
-    "content-hash": "72391dbd9941caca13b4e30dc7c817a1",
+    "hash": "ee9770c07f01b4c799069eac22de2cfb",
+    "content-hash": "2ecac4796348d5e8251947518facddf2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1303,16 +1303,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.11",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c636b695c751f69b34fe04121189afe59e74a114"
+                "reference": "a6354d5610ce932e423200ba71c45d06db02bf5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.11-c08444.zip",
-                "reference": "c636b695c751f69b34fe04121189afe59e74a114",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7186-amazon-mcf-carrier-provider-d87514.zip",
+                "reference": "a6354d5610ce932e423200ba71c45d06db02bf5a",
                 "shasum": null
             },
             "require": {
@@ -1376,7 +1376,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-26 07:50:49"
+            "time": "2016-08-03 14:35:19"
         },
         {
             "name": "channelgrabber/permission",
@@ -3949,7 +3949,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-800792db8030c7c01cd2a377b2e53f4d3850d584-zip-3a5383.zip",
+                "url": "https://api.github.com/repos/contextio/PHP-ContextIO/zipball/800792db8030c7c01cd2a377b2e53f4d3850d584",
                 "reference": "800792db8030c7c01cd2a377b2e53f4d3850d584",
                 "shasum": ""
             },
@@ -4343,7 +4343,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -4919,7 +4919,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -6124,7 +6124,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -7767,6 +7767,12 @@
             "alias_normalized": "1.25.1.0",
             "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.23.12",
+            "alias_normalized": "1.23.12.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
@@ -7775,6 +7781,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
