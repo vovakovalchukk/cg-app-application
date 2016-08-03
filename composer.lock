@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a08094443bfca7d45714c3be4fdd3a02",
-    "content-hash": "d8d474f3bcd5da592b3227542c5b4905",
+    "hash": "eab721e2833cc8775dedf27a0f455bed",
+    "content-hash": "72391dbd9941caca13b4e30dc7c817a1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -13,18 +13,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "1d10d57cb3c2e5817282e1f1b2b3b937e8e1e897"
+                "reference": "f225d332ab5d2df5686f574423963800bed1e490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-42a523.zip",
-                "reference": "1d10d57cb3c2e5817282e1f1b2b3b937e8e1e897",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-29f0f4.zip",
+                "reference": "f225d332ab5d2df5686f574423963800bed1e490",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.25.0",
+                "channelgrabber/channel": "dev-CGIV-7186-amazon-mcf-carrier-provider as 1.25.1",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-03 10:41:46"
+            "time": "2016-08-03 11:25:40"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-7181-amazon-mcf-with-fba",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1fed4f02407c59558169b9b1f21cb1ecc1fdcb32"
+                "reference": "494bf5cf185b0e1bd2951ad201a6bd2eb860f42e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7181-amazon-mcf-with-fba-433070.zip",
-                "reference": "1fed4f02407c59558169b9b1f21cb1ecc1fdcb32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7186-amazon-mcf-carrier-provider-19d723.zip",
+                "reference": "494bf5cf185b0e1bd2951ad201a6bd2eb860f42e",
                 "shasum": null
             },
             "require": {
@@ -364,6 +364,11 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "CGIV-7186-amazon-mcf-carrier-provider": "1.25.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -377,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-03 08:32:59"
+            "time": "2016-08-03 11:20:14"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7760,7 +7765,7 @@
         {
             "alias": "1.25.1",
             "alias_normalized": "1.25.1.0",
-            "version": "dev-EPIC-CGIV-7181-amazon-mcf-with-fba",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "package": "channelgrabber/channel"
         }
     ],

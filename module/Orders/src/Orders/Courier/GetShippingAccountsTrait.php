@@ -4,6 +4,9 @@ namespace Orders\Courier;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Channel\Type as ChannelType;
 
+/**
+ * @deprecated Use ShippingAccountsService instead
+ */
 trait GetShippingAccountsTrait
 {
     protected $shippingAccounts;

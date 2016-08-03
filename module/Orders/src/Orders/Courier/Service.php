@@ -36,6 +36,7 @@ use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\DataTable;
 use DateTimeZone;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
+use Orders\Courier\ShippingAccountsService;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
@@ -43,10 +44,6 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
-    use GetShippingAccountsTrait {
-        getShippingAccounts as traitGetShippingAccounts;
-    }
-    use GetShippingAccountOptionsTrait;
 
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
     const DEFAULT_PARCELS = 1;
@@ -77,6 +74,8 @@ class Service implements LoggerAwareInterface
     protected $shippingChannelsProviderRepo;
     /** @var CarrierBookingOptionsRepository */
     protected $carrierBookingOptionsRepo;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
@@ -93,7 +92,8 @@ class Service implements LoggerAwareInterface
         ProductDetailService $productDetailService,
         Di $di,
         ShippingChannelsProviderRepository $shippingChannelsProviderRepo,
-        CarrierBookingOptionsRepository $carrierBookingOptionsRepo
+        CarrierBookingOptionsRepository $carrierBookingOptionsRepo,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -105,7 +105,8 @@ class Service implements LoggerAwareInterface
             ->setProductDetailService($productDetailService)
             ->setDi($di)
             ->setShippingChannelsProviderRepo($shippingChannelsProviderRepo)
-            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo);
+            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo)
+            ->setShippingAccountsService($shippingAccountsService);
     }
     
     /**
@@ -114,22 +115,17 @@ class Service implements LoggerAwareInterface
     public function getCourierOptionsForOrder(Order $order, $selectedAccountId = null)
     {
         $shippingAccounts = $this->getShippingAccounts($order);
-        return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
+        return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
     public function getShippingAccounts(Order $order = null)
     {
-        $accounts = $this->traitGetShippingAccounts();
+        $accounts = $this->shippingAccountsService->getProvidedShippingAccounts();
         $carrierAccounts = new AccountCollection(Account::class, __FUNCTION__);
 
         /** @var Account $account */
         foreach ($accounts as $account)
         {
-            // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
-            if (!$this->shippingChannelsProviderRepo->isProvidedAccount($account)) {
-                continue;
-            }
-
             // Only show accounts that support the requested order
             $provider = $this->getShippingChannelsProvider($account);
             if ($order && !$provider->isOrderSupported($account->getChannel(), $order)) {
@@ -867,19 +863,15 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
+    {
+        $this->shippingAccountsService = $shippingAccountsService;
+        return $this;
+    }
+
     // Required by GetProductDetailsForOrdersTrait
     protected function getProductDetailService()
     {
         return $this->productDetailService;
-    }
-
-    // Required by GetShippingAccountsTrait
-    protected function getAccountService()
-    {
-        return $this->accountService;
-    }
-    protected function getUserOuService()
-    {
-        return $this->userOuService;
     }
 }
