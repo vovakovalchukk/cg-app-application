@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "031acf5b4b34e4866b4f9bba1809e517",
+    "hash": "f0f4687a2d389636264ff655f1779168",
     "content-hash": "882f3d4198833b4bab82b2ea36018e61",
     "packages": [
         {
@@ -3520,12 +3520,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e85276a1485117edfe65e0988765adc16f67ce8b"
+                "reference": "3b0a6345f61360e7c5475cef80bffe5e225bc37b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7300-Add-headway-changelog-notifications-to-logo-ce5ade.zip",
-                "reference": "e85276a1485117edfe65e0988765adc16f67ce8b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7300-Add-headway-changelog-notifications-to-logo-a8b72f.zip",
+                "reference": "3b0a6345f61360e7c5475cef80bffe5e225bc37b",
                 "shasum": null
             },
             "require": {
@@ -3572,7 +3572,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-02 15:37:37"
+            "time": "2016-08-03 11:31:52"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
