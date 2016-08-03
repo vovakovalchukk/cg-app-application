@@ -69,7 +69,7 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
         $credentialsForm = $courierInstance->getCredentialsForm();
-        $credentialsForm->setData($params);
+        $this->prepareAdapterImplementationFormForSubmission($credentialsForm, $params);
         if (!$credentialsForm->isValid()) {
             throw new ValidationException('There were problems submitting the form. Please review it and try again');
         }
