@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ec1d2ca0c80f1cb11e19415b13131b0",
-    "content-hash": "35718e93cea06e77e11f15833c3dca36",
+    "hash": "ba42ec1ef14de17556ea4ad24287c0d8",
+    "content-hash": "a686e8add6c8866ea938c77f43152c45",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3555,16 +3555,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
+            "version": "dev-CGIV-7305-courier-adapters-improved-form-styling",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3a2ebb0a74f40302b63fd5a21944752f7cfb6edd"
+                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-9ab4dd.zip",
-                "reference": "3a2ebb0a74f40302b63fd5a21944752f7cfb6edd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7305-courier-adapters-improved-form-styling-a0efd0.zip",
+                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c",
                 "shasum": null
             },
             "require": {
@@ -3611,7 +3611,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-02 12:54:01"
+            "time": "2016-08-04 12:53:12"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5675,12 +5675,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
@@ -7985,9 +7985,9 @@
             "package": "channelgrabber/courieradapter"
         },
         {
-            "alias": "1.16.64",
-            "alias_normalized": "1.16.64.0",
-            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
+            "alias": "1.16.65",
+            "alias_normalized": "1.16.65.0",
+            "version": "dev-CGIV-7305-courier-adapters-improved-form-styling",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
