@@ -5,6 +5,7 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\CarrierBookingOptions\ActionDescriptionsInterface;
 use CG\Channel\CarrierBookingOptionsRepository;
 use CG\Channel\ShippingChannelsProviderRepository;
 use CG\Channel\ShippingServiceFactory;
@@ -360,6 +361,64 @@ class Service implements LoggerAwareInterface
     protected function getCarrierOptions(Account $account, $serviceCode = null)
     {
         return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateActionDescription(Account $account)
+    {
+        return $this->getActionDescription('Create', 'Create label', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCancelActionDescription(Account $account)
+    {
+        return $this->getActionDescription('Cancel', 'Cancel', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrintActionDescription(Account $account)
+    {
+        return $this->getActionDescription('Print', 'Print label', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateAllActionDescription(Account $account)
+    {
+        return $this->getActionDescription('CreateAll', 'Create all labels', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCancelAllActionDescription(Account $account)
+    {
+        return $this->getActionDescription('CancelAll', 'Cancel all', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrintAllActionDescription(Account $account)
+    {
+        return $this->getActionDescription('PrintAll', 'Print all labels', $account);
+    }
+
+    protected function getActionDescription($action, $defaultDescription, Account $account)
+    {
+        $provider = $this->getCarrierOptionsProvider($account);
+        if (!$provider instanceof ActionDescriptionsInterface) {
+            return $defaultDescription;
+        }
+        $method = 'get' . $action . 'ActionDescription';
+        return $provider->$method();
     }
 
     /**
