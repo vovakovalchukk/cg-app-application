@@ -76,7 +76,8 @@ CourierSpecificsDataTable.labelStatusActions = {
     'not printed': {'print': true, 'cancel': true},
     'printed': {'print': true},
     'cancelled': {'create': true},
-    'creating': {}
+    'creating': {},
+    'dispatched': {'cancel': true}
 };
 
 CourierSpecificsDataTable.columnRenderers = {
@@ -189,10 +190,10 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     if (!templateData.actionRow) {
         return;
     }
-    if (templateData.labelStatus == 'creating') {
-        return this.addCreatingMessageToActionsColumn(templateData);
-    }
     var actions = this.getActionsFromRowData(templateData);
+    if (!actions || $.isEmptyObject(actions)) {
+        return this.addStatusLozengeToActionsColumn(templateData);
+    }
     this.trackDistinctStatusActions(actions);
     var buttonsHtml = '';
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
@@ -213,9 +214,10 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     return this;
 };
 
-CourierSpecificsDataTable.prototype.addCreatingMessageToActionsColumn = function(rowData)
+CourierSpecificsDataTable.prototype.addStatusLozengeToActionsColumn = function(rowData)
 {
-    rowData.actions = '<span class="status processing">Creating</span>';
+    var statusDisplay = String(rowData.labelStatus).ucfirst();
+    rowData.actions = '<span class="status ' + rowData.labelStatus + '">' + statusDisplay + '</span>';
     return this;
 };
 

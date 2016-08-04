@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ee9770c07f01b4c799069eac22de2cfb",
-    "content-hash": "2ecac4796348d5e8251947518facddf2",
+    "hash": "d1370c4bf9718747db130899690d3116",
+    "content-hash": "292951d6f888e905f34ff001989df61b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "06862217b196ecd8a0465c9845bf3ff5f76ac03a"
+                "reference": "dbd00d2b7183c60be0b92769a8f8910927c3ef7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-54757b.zip",
-                "reference": "06862217b196ecd8a0465c9845bf3ff5f76ac03a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-03d205.zip",
+                "reference": "dbd00d2b7183c60be0b92769a8f8910927c3ef7f",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-04 08:30:15"
+            "time": "2016-08-04 11:19:02"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1307,12 +1307,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a6354d5610ce932e423200ba71c45d06db02bf5a"
+                "reference": "716e66dcbca4cc304a8dbd6e47d23bcf808db127"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7186-amazon-mcf-carrier-provider-d87514.zip",
-                "reference": "a6354d5610ce932e423200ba71c45d06db02bf5a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7186-amazon-mcf-carrier-provider-b0921e.zip",
+                "reference": "716e66dcbca4cc304a8dbd6e47d23bcf808db127",
                 "shasum": null
             },
             "require": {
@@ -1376,7 +1376,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-03 14:35:19"
+            "time": "2016-08-04 11:10:34"
         },
         {
             "name": "channelgrabber/permission",
@@ -3521,16 +3521,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.64",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "da4386971916861d28432ceff109f858991fe1e1"
+                "reference": "0109cd896c4a1a053c3879c99a4152a7b1d02e42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.64-56341e.zip",
-                "reference": "da4386971916861d28432ceff109f858991fe1e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7186-amazon-mcf-carrier-provider-3f3885.zip",
+                "reference": "0109cd896c4a1a053c3879c99a4152a7b1d02e42",
                 "shasum": null
             },
             "require": {
@@ -3577,7 +3577,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-02 14:18:46"
+            "time": "2016-08-04 11:09:01"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7773,6 +7773,12 @@
             "alias_normalized": "1.23.12.0",
             "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.16.66",
+            "alias_normalized": "1.16.66.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -7782,6 +7788,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
