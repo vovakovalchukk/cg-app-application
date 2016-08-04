@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dac44b90d0df2f9ecd0904d7b1f94b3d",
+    "hash": "2271ed405d9132f21ad5ed5494f93503",
     "content-hash": "2b3c625a64e9c034c5a2f412a772f7c4",
     "packages": [
         {
@@ -3520,12 +3520,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "619b34b67b7ca9747c0a3bbb5266e03ff49d3eb6"
+                "reference": "b18f5109205f858cc60c7501a3b252cab04ef313"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7309-Courier-review-page-column-adjustments-3e6b68.zip",
-                "reference": "619b34b67b7ca9747c0a3bbb5266e03ff49d3eb6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7309-Courier-review-page-column-adjustments-5df238.zip",
+                "reference": "b18f5109205f858cc60c7501a3b252cab04ef313",
                 "shasum": null
             },
             "require": {
@@ -3572,7 +3572,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-03 15:30:30"
+            "time": "2016-08-04 08:50:02"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
