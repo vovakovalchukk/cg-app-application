@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f9b0e0a899e856653020381054ab8e87",
-    "content-hash": "b88dfd0252517c316f17d2553e66359b",
+    "hash": "2d52b6bb00ab195f298a20c7464a39dc",
+    "content-hash": "f753d6ff48916ea7289f638f91782a29",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -113,16 +113,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7241-BigCommerceUserSessions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "b286cf305b283252f2eaa8bc6238af0154e54c99"
+                "reference": "149b08607f9e7ed34b2dea2a6ae2477fe8b340a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-CGIV-7193-BigCommerceIntegration-82abfb.zip",
-                "reference": "b286cf305b283252f2eaa8bc6238af0154e54c99",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7241-BigCommerceUserSessions-024886.zip",
+                "reference": "149b08607f9e7ed34b2dea2a6ae2477fe8b340a2",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-03 14:57:00"
+            "time": "2016-08-04 09:14:53"
         },
         {
             "name": "channelgrabber/billing",
@@ -6479,7 +6479,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -6534,7 +6534,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -6589,7 +6589,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -6640,7 +6640,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -7868,7 +7868,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7241-BigCommerceUserSessions",
             "package": "channelgrabber/bigcommerce"
         },
         {

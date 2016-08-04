@@ -7,6 +7,13 @@ use CG\Channel\Service as ChannelService;
 use Zend\Mvc\Router\Http\Literal;
 
 return [
+    'CG' => [
+        'global' => [
+            'white_listed_routes' => [
+                implode('/', [Module::ROUTE, AppController::ROUTE_LOAD]) => true,
+            ],
+        ],
+    ],
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
