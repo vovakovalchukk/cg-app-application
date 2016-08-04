@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba42ec1ef14de17556ea4ad24287c0d8",
-    "content-hash": "a686e8add6c8866ea938c77f43152c45",
+    "hash": "102deaa93fcf6e611793f3bd8d4450c8",
+    "content-hash": "aedb63e42f3d8ad899ff0dc3bc15f791",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3555,7 +3555,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7305-courier-adapters-improved-form-styling",
+            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -3563,7 +3563,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7305-courier-adapters-improved-form-styling-a0efd0.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-a0efd0.zip",
                 "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c",
                 "shasum": null
             },
@@ -7987,7 +7987,7 @@
         {
             "alias": "1.16.65",
             "alias_normalized": "1.16.65.0",
-            "version": "dev-CGIV-7305-courier-adapters-improved-form-styling",
+            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
