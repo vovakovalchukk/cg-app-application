@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2d52b6bb00ab195f298a20c7464a39dc",
-    "content-hash": "f753d6ff48916ea7289f638f91782a29",
+    "hash": "4b47f62ee8bd58454875abcffb08ac8f",
+    "content-hash": "898e989c31095222ea21e1b28d934795",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "149b08607f9e7ed34b2dea2a6ae2477fe8b340a2"
+                "reference": "3dec6fcfc949561686f8309941fb78568af66587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7241-BigCommerceUserSessions-024886.zip",
-                "reference": "149b08607f9e7ed34b2dea2a6ae2477fe8b340a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7241-BigCommerceUserSessions-fe96db.zip",
+                "reference": "3dec6fcfc949561686f8309941fb78568af66587",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-04 09:14:53"
+            "time": "2016-08-04 13:15:59"
         },
         {
             "name": "channelgrabber/billing",
@@ -3147,16 +3147,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.33",
+            "version": "dev-CGIV-7241-BigCommerceUserSessions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "efb053431e1b590d5f9dec3e3b56e0e09e613123"
+                "reference": "8db09f354dbd22b936083befad97fb3a8cb466eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.33-d7994a.zip",
-                "reference": "efb053431e1b590d5f9dec3e3b56e0e09e613123",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-faa7a1.zip",
+                "reference": "8db09f354dbd22b936083befad97fb3a8cb466eb",
                 "shasum": null
             },
             "require": {
@@ -3197,7 +3197,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-06-06 08:35:45"
+            "time": "2016-08-04 13:11:25"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -7896,6 +7896,12 @@
             "package": "channelgrabber/webhook-framework"
         },
         {
+            "alias": "1.5.0",
+            "alias_normalized": "1.5.0.0",
+            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.16.63",
             "alias_normalized": "1.16.63.0",
             "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
@@ -7911,6 +7917,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/shopify": 20,
         "channelgrabber/webhook-framework": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

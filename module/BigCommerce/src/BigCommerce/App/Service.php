@@ -12,6 +12,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG_Login\Event\LoginEvent;
 use CG_UI\View\Prototyper\ViewModelFactory;
 
 class Service implements LoggerAwareInterface
@@ -24,8 +25,10 @@ class Service implements LoggerAwareInterface
     const LOG_MSG_MISSING_SCOPES = 'OAuth request does not include all required scopes - Missing scopes: ';
     const LOG_CODE_INVALID_SHOP_CONTEXT = 'OAuth request does not have a valid store context';
     const LOG_MSG_INVALID_SHOP_CONTEXT = 'OAuth request does not have a valid store context - %s';
-    const LOG_CODE_MISSING_SHOP_HASH = 'Signed load request does not include a store hash';
-    const LOG_MSG_MISSING_SHOP_HASH = 'Signed load request does not include a store hash';
+    const LOG_CODE_MISSING_SHOP_HASH = 'Signed payload does not include a store hash';
+    const LOG_MSG_MISSING_SHOP_HASH = 'Signed payload does not include a store hash';
+    const LOG_CODE_MISSING_USER_ID = 'Signed payload does not include a userId';
+    const LOG_MSG_MISSING_USER_ID = 'Signed payload does not include a userId';
 
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
@@ -39,6 +42,8 @@ class Service implements LoggerAwareInterface
     protected $ouService;
     /** @var BigCommerceClientSigner $clientSigner */
     protected $clientSigner;
+    /** @var UserService $userService */
+    protected $userService;
 
     public function __construct(
         ActiveUserInterface $activeUser,
@@ -46,7 +51,8 @@ class Service implements LoggerAwareInterface
         BigCommerceAccountCreationService $accountCreationService,
         AccountService $accountService,
         OUService $ouService,
-        BigCommerceClientSigner $clientSigner
+        BigCommerceClientSigner $clientSigner,
+        UserService $userService
     ) {
         $this
             ->setActiveUser($activeUser)
@@ -54,7 +60,8 @@ class Service implements LoggerAwareInterface
             ->setAccountCreationService($accountCreationService)
             ->setAccountService($accountService)
             ->setOuService($ouService)
-            ->setClientSigner($clientSigner);
+            ->setClientSigner($clientSigner)
+            ->setUserService($userService);
     }
 
     /**
@@ -64,11 +71,18 @@ class Service implements LoggerAwareInterface
     {
         $this->validateOauthParameters($parameters);
         $shopHash = $this->getShopHash($parameters['context']);
-        return $this->accountCreationService->connectAccount(
+
+        $account = $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $this->getAccountId($shopHash),
             array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
         );
+
+        if ($userId = $this->accountCreationService->getUserId()) {
+            $this->userService->registerUserAssociation($userId, $this->activeUser->getActiveUser());
+        }
+
+        return $account;
     }
 
     /**
@@ -77,6 +91,7 @@ class Service implements LoggerAwareInterface
     public function processLoadRequest($signedPayload)
     {
         $data = $this->clientSigner->getDataFromSignedPayload($signedPayload);
+        $this->loginUserForPayload($data);
         if (!isset($data['store_hash'])) {
             $this->logPrettyDebug(static::LOG_MSG_MISSING_SHOP_HASH, $data, [], static::LOG_CODE_MISSING_SHOP_HASH);
             throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
@@ -131,6 +146,21 @@ class Service implements LoggerAwareInterface
             throw new \InvalidArgumentException(static::LOG_CODE_INVALID_SHOP_CONTEXT);
         }
         return $store['hash'];
+    }
+
+    protected function loginUserForPayload(array $payload)
+    {
+        if ($this->activeUser->getActiveUser()) {
+            return;
+        }
+
+        if (!isset($payload['user']['id'])) {
+            $this->logPrettyAlert(static::LOG_MSG_MISSING_USER_ID, $payload, [], static::LOG_CODE_MISSING_USER_ID);
+            throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
+        }
+
+        $user = $this->userService->getAssociatedUser($payload['user']['id']);
+        LoginEvent::triggerLoginForUser($user);
     }
 
     protected function getAccountId($shopHash)
@@ -213,6 +243,15 @@ class Service implements LoggerAwareInterface
     protected function setClientSigner(BigCommerceClientSigner $clientSigner)
     {
         $this->clientSigner = $clientSigner;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setUserService(UserService $userService)
+    {
+        $this->userService = $userService;
         return $this;
     }
 }

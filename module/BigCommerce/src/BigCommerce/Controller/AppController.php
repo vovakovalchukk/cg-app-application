@@ -38,7 +38,7 @@ class AppController extends AbstractActionController
     protected function getAccountUrl(Account $account)
     {
         $route = [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT];
-        return $this->plugin('url')->fromRoute(
+        return $this->url()->fromRoute(
             implode('/', $route),
             [
                 'type' => $account->getType(),
