@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "22d808b2562ee6b13ec7a6362a55daff6be9f941"
+                "reference": "e3383e74257292196a7d7183681e638793c70ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-4e1936.zip",
-                "reference": "22d808b2562ee6b13ec7a6362a55daff6be9f941",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-81c082.zip",
+                "reference": "e3383e74257292196a7d7183681e638793c70ab1",
                 "shasum": null
             },
             "require": {
@@ -519,7 +519,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-08-04 09:22:17"
+            "time": "2016-08-05 11:52:16"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3559,12 +3559,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "dc05a1c68ff91280356083dc0b4a7ba3db5cc3ed"
+                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-59cb77.zip",
-                "reference": "dc05a1c68ff91280356083dc0b4a7ba3db5cc3ed",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-a0efd0.zip",
+                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c",
                 "shasum": null
             },
             "require": {
@@ -3611,7 +3611,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-04 09:40:10"
+            "time": "2016-08-04 12:53:12"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
