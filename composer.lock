@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d0e0429fec51360a961cfda54701a133abf6ae50"
+                "reference": "726e7bf02d16ac6975bf8c94ebdcbd55f1057303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-702617.zip",
-                "reference": "d0e0429fec51360a961cfda54701a133abf6ae50",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-9c65f5.zip",
+                "reference": "726e7bf02d16ac6975bf8c94ebdcbd55f1057303",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-04 14:31:44"
+            "time": "2016-08-05 11:07:20"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1307,12 +1307,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "716e66dcbca4cc304a8dbd6e47d23bcf808db127"
+                "reference": "1eac3fbcf5e7d0af683556196a55c20f9b9523ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7186-amazon-mcf-carrier-provider-b0921e.zip",
-                "reference": "716e66dcbca4cc304a8dbd6e47d23bcf808db127",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7186-amazon-mcf-carrier-provider-57a393.zip",
+                "reference": "1eac3fbcf5e7d0af683556196a55c20f9b9523ad",
                 "shasum": null
             },
             "require": {
@@ -1376,7 +1376,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-04 11:10:34"
+            "time": "2016-08-05 11:03:12"
         },
         {
             "name": "channelgrabber/permission",
