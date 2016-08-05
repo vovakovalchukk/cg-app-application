@@ -1877,7 +1877,7 @@ return [
             ],
             'CourierReviewBuyerOrderColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'variables' => ['value' => 'Buyer /<br>Order ID'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1891,7 +1891,7 @@ return [
             ],
             'CourierReviewShippingMethodColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Shipping Method'],
+                    'variables' => ['value' => 'Shipping <br>Method'],
                     'template' => 'value.phtml',
                 ],
             ],
