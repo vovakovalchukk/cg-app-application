@@ -38,10 +38,7 @@ class AppController extends AbstractActionController
             $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
             return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
         } catch (LoginException $exception) {
-            $mvcEvent = $this->getEvent();
-            $routeMatch = $mvcEvent->getRouteMatch();
-            LandingUrlEvent::triggerSet($routeMatch->getMatchedRouteName(), $routeMatch->getParams());
-            return LoginEvent::triggerRedirect($mvcEvent);
+            return $this->redirectToLogin();
         }
     }
 
@@ -55,6 +52,19 @@ class AppController extends AbstractActionController
                 'account' => $account->getId(),
             ]
         );
+    }
+
+    protected function redirectToLogin()
+    {
+        $mvcEvent = $this->getEvent();
+        LandingUrlEvent::triggerSet(
+            $mvcEvent->getRouteMatch()->getMatchedRouteName(),
+            $this->params()->fromRoute(),
+            [
+                'query' => $this->params()->fromQuery()
+            ]
+        );
+        return LoginEvent::triggerRedirect($mvcEvent);
     }
 
     /**

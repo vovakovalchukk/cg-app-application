@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "67f242125133dfe2fb29888d8d708766",
+    "hash": "bca797ceeee58ca96ad377408ac6221b",
     "content-hash": "c367ece9bd1132a6ba88299b6e837d1f",
     "packages": [
         {
@@ -3151,12 +3151,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ad8031c7883dbf02ab75d7f159c6d9af12e8f514"
+                "reference": "f4f69ac46fdcfe82db20f24171da388df134c3b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-07a8d8.zip",
-                "reference": "ad8031c7883dbf02ab75d7f159c6d9af12e8f514",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-8874af.zip",
+                "reference": "f4f69ac46fdcfe82db20f24171da388df134c3b0",
                 "shasum": null
             },
             "require": {
@@ -3197,7 +3197,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-08 08:54:47"
+            "time": "2016-08-08 10:47:23"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3507,12 +3507,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "8d679f61f55f31d2078dbd95d7b52df6aae9fa23"
+                "reference": "9cd318f0f62dc1de617c2e0801c50edaf93ba805"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-7241-BigCommerceUserSessions-f1c1b7.zip",
-                "reference": "8d679f61f55f31d2078dbd95d7b52df6aae9fa23",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-7241-BigCommerceUserSessions-b14302.zip",
+                "reference": "9cd318f0f62dc1de617c2e0801c50edaf93ba805",
                 "shasum": null
             },
             "require": {
@@ -3543,7 +3543,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-05 11:10:19"
+            "time": "2016-08-08 10:38:45"
         },
         {
             "name": "channelgrabber/zf2-usage",
