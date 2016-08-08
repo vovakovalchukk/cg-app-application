@@ -69,6 +69,10 @@ class Service implements LoggerAwareInterface
      */
     public function processOauth($redirectUri, array $parameters)
     {
+        if (!$this->activeUser->getActiveUser()) {
+            throw new LoginException('User is not logged in');
+        }
+
         $this->validateOauthParameters($parameters);
         $shopHash = $this->getShopHash($parameters['context']);
 

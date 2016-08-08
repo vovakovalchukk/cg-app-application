@@ -25,11 +25,15 @@ class AppController extends AbstractActionController
 
     public function oauthAction()
     {
-        $account = $this->appService->processOauth(
-            $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]),
-            $this->params()->fromQuery()
-        );
-        return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+        try {
+            $account = $this->appService->processOauth(
+                $this->url()->fromRoute(null, $this->params()->fromRoute(), ['force_canonical' => true]),
+                $this->params()->fromQuery()
+            );
+            return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+        } catch (LoginException $exception) {
+            return $this->redirectToLogin();
+        }
     }
 
     public function loadAction()

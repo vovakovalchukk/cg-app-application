@@ -10,6 +10,7 @@ return [
     'CG' => [
         'global' => [
             'white_listed_routes' => [
+                implode('/', [Module::ROUTE, AppController::ROUTE_OAUTH]) => true,
                 implode('/', [Module::ROUTE, AppController::ROUTE_LOAD]) => true,
             ],
         ],
