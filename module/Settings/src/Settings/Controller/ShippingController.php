@@ -17,6 +17,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as AccountEntity;
+use Orders\Courier\ShippingAccountsService;
 
 class ShippingController extends AbstractActionController
 {
@@ -38,6 +39,8 @@ class ShippingController extends AbstractActionController
     protected $organisationUnitService;
     protected $accountService;
     protected $shippingServiceFactory;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     protected $serviceOptionsTypeMap = [
         'select' => 'custom-select',
@@ -52,7 +55,8 @@ class ShippingController extends AbstractActionController
         ActiveUserInterface $activeUser,
         OrganisationUnitService $organisationUnitService,
         AccountService $accountService,
-        ShippingServiceFactory $shippingServiceFactory
+        ShippingServiceFactory $shippingServiceFactory,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
@@ -61,7 +65,8 @@ class ShippingController extends AbstractActionController
             ->setActiveUser($activeUser)
             ->setOrganisationUnitService($organisationUnitService)
             ->setAccountService($accountService)
-            ->setShippingServiceFactory($shippingServiceFactory);
+            ->setShippingServiceFactory($shippingServiceFactory)
+            ->setShippingAccountsService($shippingAccountsService);
     }
 
     public function aliasAction()
@@ -216,7 +221,7 @@ class ShippingController extends AbstractActionController
         ];
         foreach($shippingAccounts as $account) {
             $options[] = [
-                'title' => $account->getDisplayName(),
+                'title' => $this->shippingAccountsService->getDisplayNameForAccount($account),
                 'value' => $account->getId(),
                 'selected' => $alias->getAccountId() == $account->getId()
             ];
@@ -466,5 +471,11 @@ class ShippingController extends AbstractActionController
     protected function getShippingServiceFactory()
     {
         return $this->shippingServiceFactory;
+    }
+
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
+    {
+        $this->shippingAccountsService = $shippingAccountsService;
+        return $this;
     }
 }
