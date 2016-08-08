@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a680ce40e250732ab59535a28667b6b",
-    "content-hash": "1ef8696c98dbe63858e555b263ca9cd2",
+    "hash": "f67735651a3f04ed0b7a1078f5a0d779",
+    "content-hash": "9b3ac8aa1f3e7bb02ed673f38cb19f3d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2184,16 +2184,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.8.1",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "39530e4e857c207cd4d75a75cc5a79ad4a459cb1"
+                "reference": "9bfc34351ad5fc1b254cc5e04c49c0fba564a1be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.1-7fac7d.zip",
-                "reference": "39530e4e857c207cd4d75a75cc5a79ad4a459cb1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7186-amazon-mcf-carrier-provider-ca0a4e.zip",
+                "reference": "9bfc34351ad5fc1b254cc5e04c49c0fba564a1be",
                 "shasum": null
             },
             "require": {
@@ -2238,7 +2238,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-07-27 08:53:12"
+            "time": "2016-08-08 10:38:41"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -7793,6 +7793,12 @@
             "package": "channelgrabber/shopify"
         },
         {
+            "alias": "1.8.2",
+            "alias_normalized": "1.8.2.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/stock"
+        },
+        {
             "alias": "1.16.66",
             "alias_normalized": "1.16.66.0",
             "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
@@ -7809,6 +7815,7 @@
         "channelgrabber/ekm": 20,
         "channelgrabber/order": 20,
         "channelgrabber/shopify": 20,
+        "channelgrabber/stock": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
