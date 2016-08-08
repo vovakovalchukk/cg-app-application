@@ -87,7 +87,7 @@
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.6",
         "channelgrabber/zf2-permission": "~1.1.13",
-        "channelgrabber/zf2-register": "~1.4.47",
+        "channelgrabber/zf2-register": "dev-CGIV-7320-further-layout-fixes as 1.4.48",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.5",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
