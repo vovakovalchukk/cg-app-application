@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d1370c4bf9718747db130899690d3116",
-    "content-hash": "292951d6f888e905f34ff001989df61b",
+    "hash": "8a680ce40e250732ab59535a28667b6b",
+    "content-hash": "1ef8696c98dbe63858e555b263ca9cd2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "726e7bf02d16ac6975bf8c94ebdcbd55f1057303"
+                "reference": "f3e20ff5843e85d230fe5b0c1b6310ae058093df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-9c65f5.zip",
-                "reference": "726e7bf02d16ac6975bf8c94ebdcbd55f1057303",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-3dc3f3.zip",
+                "reference": "f3e20ff5843e85d230fe5b0c1b6310ae058093df",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-05 11:07:20"
+            "time": "2016-08-08 11:01:20"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "42daafc7d2dcfe8f9e6343484b04348ca384cf99"
+                "reference": "3d8b9455401b5ed8a94bf0aa2ac9ad6af61f0ad3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7186-amazon-mcf-carrier-provider-28d38d.zip",
-                "reference": "42daafc7d2dcfe8f9e6343484b04348ca384cf99",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7186-amazon-mcf-carrier-provider-3ea067.zip",
+                "reference": "3d8b9455401b5ed8a94bf0aa2ac9ad6af61f0ad3",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-04 14:21:23"
+            "time": "2016-08-08 10:54:42"
         },
         {
             "name": "channelgrabber/cilex",
@@ -633,35 +633,35 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.48",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "9be4bbbb5b30a5d2bace20999815c96dd3ac0c6b"
+                "reference": "1aa12ab1990b53efb7573ab931fd86e5b3a35638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.48-e20931.zip",
-                "reference": "9be4bbbb5b30a5d2bace20999815c96dd3ac0c6b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-7186-amazon-mcf-carrier-provider-dcd860.zip",
+                "reference": "1aa12ab1990b53efb7573ab931fd86e5b3a35638",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/cglib": "^1.9.0",
-                "channelgrabber/channel": "^1.19.9",
+                "channelgrabber/cglib": "^1.9.3",
+                "channelgrabber/channel": "^1.21.9",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.9.4",
+                "channelgrabber/listing": "^1.9.8",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.21.5",
+                "channelgrabber/order": "^1.23.1",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.12.23",
+                "channelgrabber/stdlib": "^2.12.28",
                 "channelgrabber/stock": ">=1.3.4",
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/user": "^1.19.4",
@@ -676,7 +676,7 @@
                 "channelgrabber/phpunit": ">=1.0.0",
                 "phpunit/phpunit": "~4.6.6"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Ebay\\": "src/"
@@ -687,34 +687,34 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2016-03-02 13:58:42"
+            "time": "2016-08-08 11:02:48"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.8.30",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "271b00e6dc560fbbe0914a2d1927d25c4c297f31"
+                "reference": "cfca57ffcc5550bb68b0ba01d316f2110efbb4f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.30-5712b6.zip",
-                "reference": "271b00e6dc560fbbe0914a2d1927d25c4c297f31",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-7186-amazon-mcf-carrier-provider-d93751.zip",
+                "reference": "cfca57ffcc5550bb68b0ba01d316f2110efbb4f5",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "^1.9.0",
+                "channelgrabber/cglib": "^1.9.3",
                 "channelgrabber/channel": "^1.19.9",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.4",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.21.9",
+                "channelgrabber/order": "^1.23.1",
                 "channelgrabber/php-phantomjs": ">=3.1.5",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -732,7 +732,7 @@
                 "channelgrabber/phpunit": ">=1.0.0",
                 "phpunit/phpunit": "~3.7.28"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Ekm\\": "src/"
@@ -744,7 +744,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-03-02 14:00:40"
+            "time": "2016-08-08 11:00:54"
         },
         {
             "name": "channelgrabber/email",
@@ -1965,16 +1965,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.0.0.1",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "dbd179f14b125b92161f93f97efc95913623e2cd"
+                "reference": "5571e239943f56584ebf11ae19d6077d3ed24094"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.0.1-e0b17b.zip",
-                "reference": "dbd179f14b125b92161f93f97efc95913623e2cd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7186-amazon-mcf-carrier-provider-041046.zip",
+                "reference": "5571e239943f56584ebf11ae19d6077d3ed24094",
                 "shasum": null
             },
             "require": {
@@ -2004,7 +2004,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-13 09:44:54"
+            "time": "2016-08-08 11:09:47"
         },
         {
             "name": "channelgrabber/slim",
@@ -7769,10 +7769,28 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.9.49",
+            "alias_normalized": "1.9.49.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.8.31",
+            "alias_normalized": "1.8.31.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/ekm"
+        },
+        {
             "alias": "1.23.12",
             "alias_normalized": "1.23.12.0",
             "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-7186-amazon-mcf-carrier-provider",
+            "package": "channelgrabber/shopify"
         },
         {
             "alias": "1.16.66",
@@ -7787,7 +7805,10 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/shopify": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
