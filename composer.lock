@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "f3e20ff5843e85d230fe5b0c1b6310ae058093df"
+                "reference": "614278d044c6fb2a3af1edb0852e56a5ae77ca09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-3dc3f3.zip",
-                "reference": "f3e20ff5843e85d230fe5b0c1b6310ae058093df",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7186-amazon-mcf-carrier-provider-7d02bc.zip",
+                "reference": "614278d044c6fb2a3af1edb0852e56a5ae77ca09",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-08 11:01:20"
+            "time": "2016-08-08 15:39:32"
         },
         {
             "name": "channelgrabber/api-lib",
