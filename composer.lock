@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b47f62ee8bd58454875abcffb08ac8f",
-    "content-hash": "898e989c31095222ea21e1b28d934795",
+    "hash": "67f242125133dfe2fb29888d8d708766",
+    "content-hash": "c367ece9bd1132a6ba88299b6e837d1f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3151,12 +3151,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "8db09f354dbd22b936083befad97fb3a8cb466eb"
+                "reference": "ad8031c7883dbf02ab75d7f159c6d9af12e8f514"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-faa7a1.zip",
-                "reference": "8db09f354dbd22b936083befad97fb3a8cb466eb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-07a8d8.zip",
+                "reference": "ad8031c7883dbf02ab75d7f159c6d9af12e8f514",
                 "shasum": null
             },
             "require": {
@@ -3168,7 +3168,7 @@
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": ">=1.19.0,<2.0.0",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
-                "channelgrabber/zf2-stdlib": ">=1.0.1",
+                "channelgrabber/zf2-stdlib": "dev-CGIV-7241-BigCommerceUserSessions as 1.2.2",
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
@@ -3197,7 +3197,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-04 13:11:25"
+            "time": "2016-08-08 08:54:47"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3503,17 +3503,17 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.2.1",
+            "version": "dev-CGIV-7241-BigCommerceUserSessions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "d635cf80fab00b4d044fbd9fb0351078c8674f8f"
+                "reference": "8d679f61f55f31d2078dbd95d7b52df6aae9fa23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.2.1-961ddc.zip",
-                "reference": "d635cf80fab00b4d044fbd9fb0351078c8674f8f",
-                "shasum": "d9cab4f326f87f17e48a003fa88aa1fd63c2e005"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-7241-BigCommerceUserSessions-f1c1b7.zip",
+                "reference": "8d679f61f55f31d2078dbd95d7b52df6aae9fa23",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.1",
@@ -3543,7 +3543,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2015-09-14 09:44:43"
+            "time": "2016-08-05 11:10:19"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -7902,6 +7902,12 @@
             "package": "channelgrabber/zf2-login"
         },
         {
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "package": "channelgrabber/zf2-stdlib"
+        },
+        {
             "alias": "1.16.63",
             "alias_normalized": "1.16.63.0",
             "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
@@ -7918,6 +7924,7 @@
         "channelgrabber/shopify": 20,
         "channelgrabber/webhook-framework": 20,
         "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

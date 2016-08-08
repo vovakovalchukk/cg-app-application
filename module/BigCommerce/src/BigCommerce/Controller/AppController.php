@@ -1,8 +1,11 @@
 <?php
 namespace BigCommerce\Controller;
 
+use BigCommerce\App\LoginException;
 use BigCommerce\App\Service as BigCommerceAppService;
 use CG\Account\Shared\Entity as Account;
+use CG_Login\Event\LandingUrlEvent;
+use CG_Login\Event\LoginEvent;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -31,8 +34,15 @@ class AppController extends AbstractActionController
 
     public function loadAction()
     {
-        $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
-        return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+        try {
+            $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
+            return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+        } catch (LoginException $exception) {
+            $mvcEvent = $this->getEvent();
+            $routeMatch = $mvcEvent->getRouteMatch();
+            LandingUrlEvent::triggerSet($routeMatch->getMatchedRouteName(), $routeMatch->getParams());
+            return LoginEvent::triggerRedirect($mvcEvent);
+        }
     }
 
     protected function getAccountUrl(Account $account)

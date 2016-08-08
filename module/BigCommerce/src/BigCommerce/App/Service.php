@@ -154,13 +154,18 @@ class Service implements LoggerAwareInterface
             return;
         }
 
-        if (!isset($payload['user']['id'])) {
-            $this->logPrettyAlert(static::LOG_MSG_MISSING_USER_ID, $payload, [], static::LOG_CODE_MISSING_USER_ID);
-            throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
-        }
+        try {
+            if (!isset($payload['user']['id'])) {
+                $this->logPrettyAlert(static::LOG_MSG_MISSING_USER_ID, $payload, [], static::LOG_CODE_MISSING_USER_ID);
+                throw new \InvalidArgumentException(static::LOG_CODE_MISSING_USER_ID);
+            }
 
-        $user = $this->userService->getAssociatedUser($payload['user']['id']);
-        LoginEvent::triggerLoginForUser($user);
+            $user = $this->userService->getAssociatedUser($payload['user']['id']);
+            LoginEvent::triggerLoginForUser($user);
+        } catch (\Exception $exception) {
+            $this->logException($exception, 'debug', __NAMESPACE__);
+            throw new LoginException('Failed to login user', 0, $exception);
+        }
     }
 
     protected function getAccountId($shopHash)
