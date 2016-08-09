@@ -36,6 +36,8 @@ define(
                 if (messages.success) {
                     notifications.success(messages.success);
                 }
+
+                $(baseSelector + ' ' + selector).trigger('saved');
             });
 
             return ajaxCheckbox;
