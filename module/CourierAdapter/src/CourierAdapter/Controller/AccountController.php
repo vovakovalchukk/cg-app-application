@@ -21,6 +21,7 @@ use CourierAdapter\Account\TestPackGenerator;
 use CourierAdapter\Module;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
+use Zend\Form\Element\Hidden as ZendHiddenElement;
 use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -79,6 +80,7 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
+        $requestCredentialsSkipped = $this->params()->fromQuery('rcs');
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
         );
@@ -89,6 +91,10 @@ class AccountController extends AbstractActionController
             $values = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
         }
         $this->prepareAdapterImplementationFormForDisplay($form, $values);
+        if ($requestCredentialsSkipped) {
+            $rcsField = (new ZendHiddenElement(AccountCreationService::REQUEST_CREDENTIALS_SKIPPED_FIELD))->setValue(1);
+            $form->add($rcsField);
+        }
 
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
 
@@ -109,6 +115,11 @@ class AccountController extends AbstractActionController
             $channelName, CredentialRequestInterface::class
         );
 
+        $setupUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_SETUP, ['channel' => $channelName]);
+        $setupUri .= '?rcs=1';
+        $preInstructions = '<p>Request credentials from the courier using the form below. ';
+        $preInstructions .= '<a href="' . $setupUri . '">I already have credentials.</a></p>';
+
         $instructions = $courierInstance->getCredentialsRequestInstructions();
         $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
@@ -124,7 +135,8 @@ class AccountController extends AbstractActionController
             'Submitting request',
             'Request Submitted'
         );
-        $view->setVariable('instructions', $instructions);
+        $view->setVariable('preInstructions', $preInstructions)
+            ->setVariable('instructions', $instructions);
 
         $linkButton = $view->getChildrenByCaptureTo('linkAccount')[0];
         $linkButton->setVariable('value', 'Submit Request');

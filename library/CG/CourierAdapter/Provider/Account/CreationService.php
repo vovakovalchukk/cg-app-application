@@ -16,13 +16,12 @@ use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationSe
 use CG\CourierAdapter\Provider\Implementation\ServiceAwareInterface as AdapterImplementationServiceAwareInterface;
 use CG\CourierAdapter\Provider\Credentials;
 use CG\Stdlib\Exception\Runtime\ValidationException;
-use InvalidArgumentException;
-use Zend\Form\Element as ZendFormElement;
-use Zend\Form\Fieldset as ZendFormFieldset;
 
 class CreationService extends CreationServiceAbstract implements AdapterImplementationServiceAwareInterface
 {
     use PrepareAdapterImplementationFieldsTrait;
+
+    const REQUEST_CREDENTIALS_SKIPPED_FIELD = '_rcs';
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -38,14 +37,20 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
             ->setDisplayName($adapterImplementation->getDisplayName())
             ->setDisplayChannel($adapterImplementation->getDisplayName());
 
-        if ($courierInstance instanceof CredentialRequestInterface && !$account->getId()) {
+        if ($courierInstance instanceof CredentialRequestInterface 
+            && !$account->getId()
+            && !isset($params[static::REQUEST_CREDENTIALS_SKIPPED_FIELD])
+        ) {
             $this->configureAccountFromCredentialsRequest($account, $params);
             return $account;
         }
+        unset($params[static::REQUEST_CREDENTIALS_SKIPPED_FIELD]);
+
         if ($courierInstance instanceof LocalAuthInterface) {
             $this->configureAccountFromLocalAuth($account, $params, $courierInstance);
             return $account;
         }
+
         if ($courierInstance instanceof ThirdPartyAuthInterface) {
             $this->configureAccountFromThirdPartyAuth($account, $params, $courierInstance);
             return $account;
@@ -66,7 +71,8 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         array $params,
         CourierInterface $courierInstance
     ) {
-        $account->setPending(false);
+        $account->setActive(true)
+            ->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
         $credentialsForm = $courierInstance->getCredentialsForm();
         $this->prepareAdapterImplementationFormForSubmission($credentialsForm, $params);
@@ -90,7 +96,8 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
             throw new InvalidCredentialsException('Return value of validateCredentials() was not an Account object');
         }
 
-        $account->setPending(false);
+        $account->setActive(true)
+            ->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
         foreach ($caAccount->getCredentials() as $field => $value) {
             $credentials->set($field, $value);

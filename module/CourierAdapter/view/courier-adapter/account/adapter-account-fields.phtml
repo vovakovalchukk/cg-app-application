@@ -8,6 +8,7 @@
 
     <?php if($this->instructions):?>
     <div class="section">
+        <?=($this->preInstructions ?: '');?>
         <?=$this->instructions;?>
     </div>
     <?php endif;?>
