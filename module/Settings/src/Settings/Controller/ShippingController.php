@@ -212,20 +212,15 @@ class ShippingController extends AbstractActionController
     {
         $shippingAccounts = $this->getShippingAccounts();
 
-        $options = [
-            [
-                'title' => 'None',
-                'value' => '0',
-                'selected' => (!$alias->getAccountId())
-            ]
+        $noneOption = [
+            'title' => 'None',
+            'value' => '0',
+            'selected' => (!$alias->getAccountId())
         ];
-        foreach($shippingAccounts as $account) {
-            $options[] = [
-                'title' => $this->shippingAccountsService->getDisplayNameForAccount($account),
-                'value' => $account->getId(),
-                'selected' => $alias->getAccountId() == $account->getId()
-            ];
-        }
+        $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
+            $shippingAccounts, $alias->getAccountId()
+        );
+        array_unshift($options, $noneOption);
 
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
@@ -341,14 +336,7 @@ class ShippingController extends AbstractActionController
     {
         $shippingAccounts = [];
         try {
-            $shippingAccounts = $this->getAccountService()->fetchByOUAndStatus(
-                $this->getActiveUser()->getActiveUser()->getOuList(),
-                null,
-                false,
-                static::LIMIT,
-                static::FIRST_PAGE,
-                static::TYPE
-            );
+            $shippingAccounts = $this->shippingAccountsService->getShippingAccounts();
         } catch (NotFound $e) {
             // Ignore if there are no shipping accounts
         }
