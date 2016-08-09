@@ -5,6 +5,14 @@
     label {
         width: 100%;
     }
+    fieldset {
+        margin-bottom: 10px;
+
+        legend {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
     .inputbox-label {
         width: 40%;
     }
