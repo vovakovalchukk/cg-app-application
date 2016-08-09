@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "d503c7d9cfdb9202dda9b949c4a0063cc73c2373"
+                "reference": "c508936dc9fa0239286b8d1906e927cca8d22f70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7241-BigCommerceUserSessions-1d45a9.zip",
-                "reference": "d503c7d9cfdb9202dda9b949c4a0063cc73c2373",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7241-BigCommerceUserSessions-4ac87c.zip",
+                "reference": "c508936dc9fa0239286b8d1906e927cca8d22f70",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-09 11:12:19"
+            "time": "2016-08-09 13:03:11"
         },
         {
             "name": "channelgrabber/billing",

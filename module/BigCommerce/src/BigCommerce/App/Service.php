@@ -82,8 +82,8 @@ class Service implements LoggerAwareInterface
             array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
         );
 
-        if ($userId = $this->accountCreationService->getUserId()) {
-            $this->userService->registerUserAssociation($userId, $this->activeUser->getActiveUser());
+        if ($bigCommerceUserId = $this->accountCreationService->getBigCommerceUserId()) {
+            $this->userService->registerUserAssociation($bigCommerceUserId, $this->activeUser->getActiveUser());
         }
 
         return $account;
