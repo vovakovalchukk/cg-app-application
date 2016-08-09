@@ -47,8 +47,15 @@ class ProviderController extends AbstractActionController
         if ($account->getActive() && $courierInstance instanceof ConfigInterface) {
             $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
-        if ($account->getActive() && $courierInstance instanceof TestPackInterface) {
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+        if ($account->getActive()
+            && $courierInstance instanceof TestPackInterface
+            && $courierInstance->isAccountInTestMode($caAccount)
+        ) {
             $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
+        }
+        if ($account->getActive() && $courierInstance->isAccountInTestMode($caAccount)) {
+            $this->addTestModeVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
 
         $setupUrl = $this->caAccountSetup->getInitialisationUrl($account, '');
@@ -74,12 +81,16 @@ class ProviderController extends AbstractActionController
         ViewModel $view,
         CourierInterface $courierInstance
     ) {
-        $caAccount = $this->caAccountMapper->fromOHAccount($account);
-        if (!$courierInstance->isAccountInTestMode($caAccount)) {
-            return;
-        }
         $files = $courierInstance->getTestPackFileList();
         $view->setVariable('testPackFiles', $files);
+    }
+
+    protected function addTestModeVariablesToChannelSpecificView(
+        Account $account,
+        ViewModel $view,
+        CourierInterface $courierInstance
+    ) {
+        $view->setVariable('testModeInstructions', 'Add your live credentials by clicking "Renew Connection".');
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
