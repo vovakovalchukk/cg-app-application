@@ -37,7 +37,9 @@ define(
                     notifications.success(messages.success);
                 }
 
-                $(baseSelector + ' ' + selector).trigger('saved');
+                if (data.redirect) {
+                    window.location = data.redirect;
+                }
             });
 
             return ajaxCheckbox;

@@ -39,13 +39,10 @@ require(
             },
             {
                 info: "<?= $this->translate('Updating Channel Status') ?>",
-                error: "<?= $this->translate('Updating Channel Status') ?>"
+                error: "<?= $this->translate('Updating Channel Status') ?>",
+                success: "<?= $this->translate('Channel Status Updated') ?>"
             }
         );
-        $('.account-status .mustache input.toggle').on('saved', function()
-        {
-            window.location.reload();
-        });
 
         CGMustache.get().fetchTemplates(
             {
