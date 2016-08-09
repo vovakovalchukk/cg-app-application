@@ -48,7 +48,7 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .disableInputsForCreatedLabels()
                 .disableInputsForNonRequiredOptions();
         });
-        dataTable.on('fnPreDrawCallback', function()
+        dataTable.on('fnServerData', function()
         {
             self.distinctStatusActions = {};
         });
