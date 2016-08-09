@@ -4,7 +4,7 @@ use CourierAdapter\Module;
 
 $configSaveUrl = $this->url(Module::ROUTE.'/'.AccountController::ROUTE.'/'.AccountController::ROUTE_SAVE_CONFIG);
 ?>
-<span class="heading-medium"><?=$this->translate('Configuration');?></span>
+<span class="heading-medium"><?=$this->translate('Settings');?></span>
 <form method="POST" action="<?= $configSaveUrl; ?>" id="ca-account-config-form" style="padding-bottom: 10px">
     <div class="half">
         <input type="hidden" name="accountId" value="<?= $account->getId() ;?>" />
