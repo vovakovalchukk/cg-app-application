@@ -12,8 +12,9 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
-use CG_Login\Event\LoginEvent;
+use CG_Login\Service as LoginService;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Zend\Mvc\MvcEvent;
 
 class Service implements LoggerAwareInterface
 {
@@ -30,6 +31,8 @@ class Service implements LoggerAwareInterface
     const LOG_CODE_MISSING_USER_ID = 'Signed payload does not include a userId';
     const LOG_MSG_MISSING_USER_ID = 'Signed payload does not include a userId';
 
+    /** @var LoginService $loginService */
+    protected $loginService;
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
     /** @var ViewModelFactory $viewModelFactory */
@@ -46,6 +49,7 @@ class Service implements LoggerAwareInterface
     protected $userService;
 
     public function __construct(
+        LoginService $loginService,
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService,
@@ -55,6 +59,7 @@ class Service implements LoggerAwareInterface
         UserService $userService
     ) {
         $this
+            ->setLoginService($loginService)
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService)
@@ -62,6 +67,12 @@ class Service implements LoggerAwareInterface
             ->setOuService($ouService)
             ->setClientSigner($clientSigner)
             ->setUserService($userService);
+    }
+
+    public function saveProgressAndRedirectToLogin(MvcEvent $event, $route, array $routeParams = [], array $routeOptions = [])
+    {
+        $this->loginService->setLandingRoute($route, $routeParams, $routeOptions);
+        return $this->loginService->loginRedirect($event);
     }
 
     /**
@@ -165,7 +176,7 @@ class Service implements LoggerAwareInterface
             }
 
             $user = $this->userService->getAssociatedUser($payload['user']['id']);
-            LoginEvent::triggerLoginForUser($user);
+            $this->loginService->loginAsUser($user);
         } catch (\Exception $exception) {
             $this->logException($exception, 'debug', __NAMESPACE__);
             throw new LoginException('Failed to login user', 0, $exception);
@@ -199,6 +210,15 @@ class Service implements LoggerAwareInterface
         $accounts = $this->accountService->fetchByFilter($filter);
         $accounts->rewind();
         return $accounts->current();
+    }
+
+    /**
+     * @return self
+     */
+    protected function setLoginService(LoginService $loginService)
+    {
+        $this->loginService = $loginService;
+        return $this;
     }
 
     /**

@@ -3151,12 +3151,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "56daeb0117e1874cdc4c44cc2ed961d3d1a1486f"
+                "reference": "30af10f41ba12ee1979e46ffbba26bb233f12cfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-837005.zip",
-                "reference": "56daeb0117e1874cdc4c44cc2ed961d3d1a1486f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-7ce155.zip",
+                "reference": "30af10f41ba12ee1979e46ffbba26bb233f12cfb",
                 "shasum": null
             },
             "require": {
@@ -3197,7 +3197,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-09 11:17:53"
+            "time": "2016-08-09 14:02:43"
         },
         {
             "name": "channelgrabber/zf2-mustache",

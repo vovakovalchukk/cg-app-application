@@ -61,14 +61,14 @@ class AppController extends AbstractActionController
     protected function redirectToLogin()
     {
         $mvcEvent = $this->getEvent();
-        LandingUrlEvent::triggerSet(
+        return $this->appService->saveProgressAndRedirectToLogin(
+            $mvcEvent,
             $mvcEvent->getRouteMatch()->getMatchedRouteName(),
             $this->params()->fromRoute(),
             [
                 'query' => $this->params()->fromQuery()
             ]
         );
-        return LoginEvent::triggerRedirect($mvcEvent);
     }
 
     /**
