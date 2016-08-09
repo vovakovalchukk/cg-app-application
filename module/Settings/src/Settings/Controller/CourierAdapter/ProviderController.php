@@ -44,17 +44,20 @@ class ProviderController extends AbstractActionController
             $view->setVariable('accountPendingInstructions', $pendingInstructions);
             return;
         }
-        if ($account->getActive() && $courierInstance instanceof ConfigInterface) {
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+
+        if ($account->getActive()
+            && $courierInstance instanceof ConfigInterface
+            && (!$courierInstance instanceof TestPackInterface || !$courierInstance->isAccountInTestMode($caAccount))
+        ) {
             $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
-        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+
         if ($account->getActive()
             && $courierInstance instanceof TestPackInterface
             && $courierInstance->isAccountInTestMode($caAccount)
         ) {
             $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
-        }
-        if ($account->getActive() && $courierInstance->isAccountInTestMode($caAccount)) {
             $this->addTestModeVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
 
