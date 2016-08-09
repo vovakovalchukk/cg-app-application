@@ -10,12 +10,16 @@ class Mapper
     public function ohOrderToDeliveryAddress(OHOrder $ohOrder)
     {
         list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ohOrder->getShippingAddressFullNameForCourier());
+        $line2 = $ohOrder->getShippingAddress2ForCourier();
+        if ($ohOrder->getShippingAddress3ForCourier()) {
+            $line2 .= ', ' . $ohOrder->getShippingAddress3ForCourier();
+        }
 
         return new CAAddress(
             $firstName,
             $lastName,
             $ohOrder->getShippingAddress1ForCourier(),
-            $ohOrder->getShippingAddress2ForCourier(),
+            $line2,
             $ohOrder->getShippingAddressCityForCourier(),
             $ohOrder->getShippingAddressCountyForCourier(),
             $ohOrder->getShippingAddressPostcodeForCourier(),
@@ -29,12 +33,16 @@ class Mapper
     public function organisationUnitToCollectionAddress(OrganisationUnit $ou)
     {
         list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ou->getAddressFullName());
+        $line2 = $ou->getAddress2();
+        if ($ou->getAddress3()) {
+            $line2 .= ', ' . $ou->getAddress3();
+        }
 
         return new CAAddress(
             $firstName,
             $lastName,
             $ou->getAddress1(),
-            $ou->getAddress2(),
+            $line2,
             $ou->getAddressCity(),
             $ou->getAddressCounty(),
             $ou->getAddressPostcode(),
