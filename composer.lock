@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bca797ceeee58ca96ad377408ac6221b",
-    "content-hash": "c367ece9bd1132a6ba88299b6e837d1f",
+    "hash": "2634840d5c7efccb163e6f6378a3ebd2",
+    "content-hash": "b06169dbadc2d34e59588ba644f5d532",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -113,16 +113,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "c508936dc9fa0239286b8d1906e927cca8d22f70"
+                "reference": "47123bd97445579924c5ef0707863a96ad902b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7241-BigCommerceUserSessions-4ac87c.zip",
-                "reference": "c508936dc9fa0239286b8d1906e927cca8d22f70",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-CGIV-7193-BigCommerceIntegration-5d0283.zip",
+                "reference": "47123bd97445579924c5ef0707863a96ad902b89",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-09 13:03:11"
+            "time": "2016-08-09 14:35:08"
         },
         {
             "name": "channelgrabber/billing",
@@ -3147,16 +3147,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "30af10f41ba12ee1979e46ffbba26bb233f12cfb"
+                "reference": "b936c005df01e16413f40dcd2260cd688be78107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7241-BigCommerceUserSessions-7ce155.zip",
-                "reference": "30af10f41ba12ee1979e46ffbba26bb233f12cfb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-CGIV-7193-BigCommerceIntegration-9e0fb5.zip",
+                "reference": "b936c005df01e16413f40dcd2260cd688be78107",
                 "shasum": null
             },
             "require": {
@@ -3168,7 +3168,7 @@
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": ">=1.19.0,<2.0.0",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
-                "channelgrabber/zf2-stdlib": "dev-CGIV-7241-BigCommerceUserSessions as 1.2.2",
+                "channelgrabber/zf2-stdlib": "dev-EPIC-CGIV-7193-BigCommerceIntegration as 1.2.2",
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
@@ -3197,7 +3197,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-09 14:02:43"
+            "time": "2016-08-09 14:31:14"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3503,16 +3503,16 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "9cd318f0f62dc1de617c2e0801c50edaf93ba805"
+                "reference": "d92966129d63c89cb745821a8a94099fcccf1d0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-7241-BigCommerceUserSessions-b14302.zip",
-                "reference": "9cd318f0f62dc1de617c2e0801c50edaf93ba805",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-EPIC-CGIV-7193-BigCommerceIntegration-637da0.zip",
+                "reference": "d92966129d63c89cb745821a8a94099fcccf1d0d",
                 "shasum": null
             },
             "require": {
@@ -3543,7 +3543,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-08 10:38:45"
+            "time": "2016-08-09 14:24:55"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -7868,7 +7868,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "package": "channelgrabber/bigcommerce"
         },
         {
@@ -7898,13 +7898,13 @@
         {
             "alias": "1.5.0",
             "alias_normalized": "1.5.0.0",
-            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "package": "channelgrabber/zf2-login"
         },
         {
             "alias": "1.2.2",
             "alias_normalized": "1.2.2.0",
-            "version": "dev-CGIV-7241-BigCommerceUserSessions",
+            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
             "package": "channelgrabber/zf2-stdlib"
         },
         {
