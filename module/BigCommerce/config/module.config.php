@@ -15,6 +15,14 @@ return [
             ],
         ],
     ],
+    'SetupWizard' => [
+        'SetupWizard' => [
+            'white_listed_routes' => [
+                implode('/', [Module::ROUTE, AccountController::ROUTE_AUTH]) => true,
+                implode('/', [Module::ROUTE, AppController::ROUTE_OAUTH]) => true,
+            ],
+        ],
+    ],
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
