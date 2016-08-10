@@ -6,9 +6,13 @@
     <input type="hidden" id="accountId" name="account" value="<?= $this->accountId; ?>" />
     <input type="hidden" id="channel" name="channel" value="<?= $this->channelName; ?>" />
 
+    <?php if($this->preInstructions):?>
+    <div class="section" style='margin-bottom: 0px'>
+        <?=$this->preInstructions;?>
+    </div>
+    <?php endif;?>
     <?php if($this->instructions):?>
     <div class="section">
-        <?=($this->preInstructions ?: '');?>
         <?=$this->instructions;?>
     </div>
     <?php endif;?>

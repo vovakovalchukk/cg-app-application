@@ -111,14 +111,15 @@ class AccountController extends AbstractActionController
     public function requestCredentialsAction()
     {
         $channelName = $this->params('channel');
+        $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, CredentialRequestInterface::class
         );
 
         $setupUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_SETUP, ['channel' => $channelName]);
         $setupUri .= '?rcs=1';
-        $preInstructions = '<p>Request credentials from the courier using the form below. ';
-        $preInstructions .= '<a href="' . $setupUri . '">I already have credentials.</a></p>';
+        $preInstructions = '<h1>Already have your ' . $adapter->getDisplayName() . ' credentials?</h1>';
+        $preInstructions .= '<p><a href="' . $setupUri . '">Enter your details</a></p>';
 
         $instructions = $courierInstance->getCredentialsRequestInstructions();
         $rootOu = $this->getActiveUserRootOu();
