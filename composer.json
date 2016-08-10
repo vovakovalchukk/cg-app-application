@@ -50,7 +50,7 @@
         "channelgrabber/locale": "~1.0.6",
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.28",
-        "channelgrabber/netdespatch": "~1.0.11",
+        "channelgrabber/netdespatch": "dev-CGIV-6992-NetDespatchCountryNameLookup as 1.0.12",
         "channelgrabber/order": "~1.23.11",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
