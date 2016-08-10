@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ea25a29b2bc0ea23f21fcb383771846f721a49cb"
+                "reference": "c5003340f4936633a8b4ad605b392bcb1e37e717"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates-b22564.zip",
-                "reference": "ea25a29b2bc0ea23f21fcb383771846f721a49cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates-1258ea.zip",
+                "reference": "c5003340f4936633a8b4ad605b392bcb1e37e717",
                 "shasum": null
             },
             "require": {
@@ -364,11 +364,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "CGIV-7186-amazon-mcf-carrier-provider": "1.25.1-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
