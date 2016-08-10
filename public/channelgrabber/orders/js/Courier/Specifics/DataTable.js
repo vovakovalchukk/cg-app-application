@@ -42,7 +42,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         var self = this;
         dataTable.on('before-cgdatatable-init', function()
         {
-            self.addOrderIdsToAjaxRequest()
+            self.setupResizeFunctions()
+                .addOrderIdsToAjaxRequest()
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
@@ -95,6 +96,21 @@ CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.pro
  * @protected
  */
 CourierSpecificsDataTable.prototype.distinctStatusActions = {};
+
+CourierSpecificsDataTable.prototype.setupResizeFunctions = function()
+{
+    function heightResizeFunction()
+    {
+        var headingHeight = $('.heading-large').outerHeight();
+        var fixedHeaderHeight = $('#fixed-header').outerHeight();
+
+        $('.dataTables_wrapper').height('calc(100% - ' + headingHeight + 'px)');
+        $('.dataTables_scroll').height('calc(100% - ' + fixedHeaderHeight + 'px)');
+    }
+
+    this.getDataTable().cgDataTable('addResizeOverrideFunctions', heightResizeFunction);
+    return this;
+};
 
 CourierSpecificsDataTable.prototype.addOrderServicesToAjaxRequest = function()
 {
@@ -398,7 +414,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
     {
         var buttonTemplate = this;
-        var id = $('input.button', buttonTemplate).attr('id')
+        var id = $('input.button', buttonTemplate).attr('id');
         var action = id.split('-')[0];
         if (!actions[action]) {
             return true; //continue
