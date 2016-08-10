@@ -3520,12 +3520,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fb0974e05f1ccd7ad1db2c83a25a34d6b8cececc"
+                "reference": "c21e76d8500559a87ee2438e91bf477196a151e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7300-Add-headway-changelog-notifications-to-logo-663226.zip",
-                "reference": "fb0974e05f1ccd7ad1db2c83a25a34d6b8cececc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7300-Add-headway-changelog-notifications-to-logo-49c126.zip",
+                "reference": "c21e76d8500559a87ee2438e91bf477196a151e8",
                 "shasum": null
             },
             "require": {
@@ -3572,7 +3572,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-10 10:52:48"
+            "time": "2016-08-10 12:34:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
