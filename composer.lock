@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "57aa84b1c39f0e595dc9916ad85a1ff8",
-    "content-hash": "b00dbd38a3a7e94a663d54cb67a49d11",
+    "hash": "c9672a74ef05cf8f8b2c9a808494a672",
+    "content-hash": "c7a445eeb7c27c2871a7a917fa02c1f3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3516,16 +3516,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7300-Add-headway-changelog-notifications-to-logo",
+            "version": "1.16.66",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c21e76d8500559a87ee2438e91bf477196a151e8"
+                "reference": "dc5d9f3aa8882c05f23704edaaaacf4cf73ab5d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7300-Add-headway-changelog-notifications-to-logo-49c126.zip",
-                "reference": "c21e76d8500559a87ee2438e91bf477196a151e8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.66-f239f4.zip",
+                "reference": "dc5d9f3aa8882c05f23704edaaaacf4cf73ab5d7",
                 "shasum": null
             },
             "require": {
@@ -3572,7 +3572,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-10 12:34:41"
+            "time": "2016-08-10 12:51:26"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7750,19 +7750,11 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.66",
-            "alias_normalized": "1.16.66.0",
-            "version": "dev-CGIV-7300-Add-headway-changelog-notifications-to-logo",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
