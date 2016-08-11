@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9672a74ef05cf8f8b2c9a808494a672",
-    "content-hash": "c7a445eeb7c27c2871a7a917fa02c1f3",
+    "hash": "e3b56825ce0b389803e6304c06abcdcc",
+    "content-hash": "353fdeca4b5be4300fd430c453cc10f0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1926,16 +1926,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.13",
+            "version": "dev-CGIV-7043-auto-archive-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "c9a6fd90cb69db24c3f22b9a2105b33f435f7b19"
+                "reference": "ee0bc765d53d8744fe1509d280b42fd04a94e215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.13-1ef306.zip",
-                "reference": "c9a6fd90cb69db24c3f22b9a2105b33f435f7b19",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7043-auto-archive-orders-8a006c.zip",
+                "reference": "ee0bc765d53d8744fe1509d280b42fd04a94e215",
                 "shasum": null
             },
             "require": {
@@ -1956,7 +1956,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-06-06 08:35:17"
+            "time": "2016-08-11 15:00:23"
         },
         {
             "name": "channelgrabber/shopify",
@@ -5454,12 +5454,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -7750,11 +7750,19 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.14",
+            "alias_normalized": "1.3.14.0",
+            "version": "dev-CGIV-7043-auto-archive-orders",
+            "package": "channelgrabber/settings"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/settings": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
