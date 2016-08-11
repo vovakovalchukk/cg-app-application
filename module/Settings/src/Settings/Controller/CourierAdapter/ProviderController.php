@@ -3,8 +3,9 @@ namespace Settings\Controller\CourierAdapter;
 
 use CG\Account\Shared\Entity as Account;
 use CG\CourierAdapter\Account\ConfigInterface;
-use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
+use CG\CourierAdapter\Account\TestModeInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
@@ -48,17 +49,19 @@ class ProviderController extends AbstractActionController
 
         if ($account->getActive()
             && $courierInstance instanceof ConfigInterface
-            && (!$courierInstance instanceof TestPackInterface || !$courierInstance->isAccountInTestMode($caAccount))
+            && (!$courierInstance instanceof TestModeInterface || !$courierInstance->isAccountInTestMode($caAccount))
         ) {
             $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
 
         if ($account->getActive()
-            && $courierInstance instanceof TestPackInterface
+            && $courierInstance instanceof TestModeInterface
             && $courierInstance->isAccountInTestMode($caAccount)
         ) {
-            $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
             $this->addTestModeVariablesToChannelSpecificView($account, $view, $courierInstance);
+            if ($courierInstance instanceof TestPackInterface) {
+                $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
+            }
         }
 
         $setupUrl = $this->caAccountSetup->getInitialisationUrl($account, '');
