@@ -6,6 +6,7 @@ use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
+use CG\BigCommerce\Client\Factory as BigCommerceClientFactory;
 use CG\BigCommerce\Client\Signer as BigCommerceClientSigner;
 use CG\OrganisationUnit\Service as OUService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -13,9 +14,9 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_Login\Service as LoginService;
+use CG_Register\Service as RegisterService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\MvcEvent;
-use CG_Register\Service as RegisterService;
 
 class Service implements LoggerAwareInterface
 {
@@ -46,10 +47,14 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     /** @var OUService $ouService */
     protected $ouService;
+    /** @var BigCommerceClientFactory $clientFactory */
+    protected $clientFactory;
     /** @var BigCommerceClientSigner $clientSigner */
     protected $clientSigner;
     /** @var UserService $userService */
     protected $userService;
+    /** @var TokenService $tokenService */
+    protected $tokenService;
 
     public function __construct(
         LoginService $loginService,
@@ -59,8 +64,10 @@ class Service implements LoggerAwareInterface
         BigCommerceAccountCreationService $accountCreationService,
         AccountService $accountService,
         OUService $ouService,
+        BigCommerceClientFactory $clientFactory,
         BigCommerceClientSigner $clientSigner,
-        UserService $userService
+        UserService $userService,
+        TokenService $tokenService
     ) {
         $this
             ->setLoginService($loginService)
@@ -70,8 +77,10 @@ class Service implements LoggerAwareInterface
             ->setAccountCreationService($accountCreationService)
             ->setAccountService($accountService)
             ->setOuService($ouService)
+            ->setClientFactory($clientFactory)
             ->setClientSigner($clientSigner)
-            ->setUserService($userService);
+            ->setUserService($userService)
+            ->setTokenService($tokenService);
     }
 
     public function saveProgressAndRedirectToLogin(MvcEvent $event, $route, array $routeParams = [], array $routeOptions = [])
@@ -92,10 +101,19 @@ class Service implements LoggerAwareInterface
         $this->validateOauthParameters($parameters);
         $shopHash = $this->getShopHash($parameters['context']);
 
+        $accountParameters = array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters);
+        if ($token = $this->tokenService->fetchToken($shopHash, $additionalInfo)) {
+            $accountParameters = array_merge(
+                ['accessToken' => $token],
+                $additionalInfo,
+                $accountParameters
+            );
+        }
+
         $account = $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $this->getAccountId($shopHash),
-            array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
+            $accountParameters
         );
 
         if ($bigCommerceUserId = $this->accountCreationService->getBigCommerceUserId()) {
@@ -103,6 +121,25 @@ class Service implements LoggerAwareInterface
         }
 
         return $account;
+    }
+
+    public function cacheOauthRequest($redirectUri, array $parameters)
+    {
+        $this->validateOauthParameters($parameters);
+        $shopHash = $this->getShopHash($parameters['context']);
+        $client = $this->clientFactory->createSimpleClient($shopHash);
+
+        $accessToken = BigCommerceAccountCreationService::getAccessToken(
+            $client,
+            array_merge(['redirectUri' => $redirectUri], $parameters),
+            $response
+        );
+
+        $this->tokenService->storeToken($shopHash, $accessToken, ['response' => $response]);
+        if (isset($response['user']['email'])) {
+            $this->loginService->setUsername($response['user']['email']);
+            $this->registerService->setUserData(['email' => $response['user']['email']]);
+        }
     }
 
     /**
@@ -287,6 +324,15 @@ class Service implements LoggerAwareInterface
     /**
      * @return self
      */
+    protected function setClientFactory(BigCommerceClientFactory $clientFactory)
+    {
+        $this->clientFactory = $clientFactory;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
     protected function setClientSigner(BigCommerceClientSigner $clientSigner)
     {
         $this->clientSigner = $clientSigner;
@@ -299,6 +345,15 @@ class Service implements LoggerAwareInterface
     protected function setUserService(UserService $userService)
     {
         $this->userService = $userService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setTokenService(TokenService $tokenService)
+    {
+        $this->tokenService = $tokenService;
         return $this;
     }
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04ef48720a558b29c75bf29bc5ef6ade",
-    "content-hash": "12a3ccabbca368db4e4b5d3bd0e89bcd",
+    "hash": "dab33404c90bca1f73fbe1e96a39d8cd",
+    "content-hash": "6cd2181e2ef7515340e0fecc8807e4b1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -113,16 +113,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7343-BigCommercePreFill",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "25ccc582aca7524d7a9ee9e7aeedac8971930fbd"
+                "reference": "717b010204060d162b0fc3339f4edf7d09b81044"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-CGIV-7193-BigCommerceIntegration-cef71a.zip",
-                "reference": "25ccc582aca7524d7a9ee9e7aeedac8971930fbd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7343-BigCommercePreFill-88d6c6.zip",
+                "reference": "717b010204060d162b0fc3339f4edf7d09b81044",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-11 09:30:35"
+            "time": "2016-08-11 14:56:54"
         },
         {
             "name": "channelgrabber/billing",
@@ -7868,7 +7868,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7193-BigCommerceIntegration",
+            "version": "dev-CGIV-7343-BigCommercePreFill",
             "package": "channelgrabber/bigcommerce"
         },
         {
