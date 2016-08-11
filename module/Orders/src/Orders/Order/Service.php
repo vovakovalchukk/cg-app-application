@@ -229,11 +229,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $orders;
     }
 
+    public function getStatusMessageForOrder(OrderEntity $order)
+    {
+        return "Error: Placeholder Status Message";
+    }
+
     protected function getOrdersArrayWithSanitisedStatus(array $orders)
     {
         foreach ($orders as $index => $order) {
             $orders[$index]['status'] = str_replace(['_', '-'], ' ', $orders[$index]['status']);
             $orders[$index]['statusClass'] = str_replace(' ', '-', $orders[$index]['status']);
+            $orders[$index]['message'] = $this->getStatusMessageForOrder($order);
         }
         return $orders;
     }
