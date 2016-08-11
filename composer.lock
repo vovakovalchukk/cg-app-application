@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4d859c0c20ed0fb1937403bbfd75bd32",
-    "content-hash": "e985747ededefec25cd2cad1136d1254",
+    "hash": "1deeb219844e7f7e9480b400ec45a5e5",
+    "content-hash": "a94b84a1f9967522ba94b3735184f7e7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d5c8b628a5d6faad8a4af6c7d92c311f816425c6"
+                "reference": "cef31081b3e2b55487429d47152659774a6919bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.0-66f1ef.zip",
-                "reference": "d5c8b628a5d6faad8a4af6c7d92c311f816425c6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.1-6da5cc.zip",
+                "reference": "cef31081b3e2b55487429d47152659774a6919bc",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-26 07:49:52"
+            "time": "2016-08-09 12:34:13"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3559,12 +3559,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c"
+                "reference": "4414fd452d7c00da3d5e6c154c4e6b7038df6374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-a0efd0.zip",
-                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-986a16.zip",
+                "reference": "4414fd452d7c00da3d5e6c154c4e6b7038df6374",
                 "shasum": null
             },
             "require": {
@@ -3611,7 +3611,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-04 12:53:12"
+            "time": "2016-08-11 11:07:45"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7985,8 +7985,8 @@
             "package": "channelgrabber/courieradapter"
         },
         {
-            "alias": "1.16.66",
-            "alias_normalized": "1.16.66.0",
+            "alias": "1.16.67",
+            "alias_normalized": "1.16.67.0",
             "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
             "package": "channelgrabber/zf2-v4-ui"
         }
