@@ -3559,12 +3559,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c"
+                "reference": "4414fd452d7c00da3d5e6c154c4e6b7038df6374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-a0efd0.zip",
-                "reference": "57b563dc4d0ed7e1f35b47ded9cd9a718f23c67c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-986a16.zip",
+                "reference": "4414fd452d7c00da3d5e6c154c4e6b7038df6374",
                 "shasum": null
             },
             "require": {
@@ -3611,7 +3611,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-04 12:53:12"
+            "time": "2016-08-11 11:07:45"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7997,8 +7997,8 @@
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.16.66",
-            "alias_normalized": "1.16.66.0",
+            "alias": "1.16.67",
+            "alias_normalized": "1.16.67.0",
             "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
             "package": "channelgrabber/zf2-v4-ui"
         }
