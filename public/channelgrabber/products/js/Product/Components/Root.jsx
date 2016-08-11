@@ -1,10 +1,8 @@
 define([
     'react',
-    'jquery',
     'Product/Components/List'
 ], function(
     React,
-    $,
     ProductList
 ) {
     "use strict";
