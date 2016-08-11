@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0aeca6ebf3ce7d23347a3291bc448938",
+    "hash": "fd866b0af7ff07a01e839d36cd6d26d6",
     "content-hash": "c9c1a12cbec700880283e13ff5ddcb9e",
     "packages": [
         {
@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "37e88d832cb2a837b8ebb08ce3a3d449c5bd6c15"
+                "reference": "b18118ee8cc500af874771d146b4302d4fe7b050"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7350-BigCommerce504Response-7fe19e.zip",
-                "reference": "37e88d832cb2a837b8ebb08ce3a3d449c5bd6c15",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7350-BigCommerce504Response-0e955b.zip",
+                "reference": "b18118ee8cc500af874771d146b4302d4fe7b050",
                 "shasum": null
             },
             "require": {
@@ -149,7 +149,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-11 07:58:22"
+            "time": "2016-08-11 08:35:26"
         },
         {
             "name": "channelgrabber/billing",
