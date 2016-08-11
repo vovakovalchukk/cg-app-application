@@ -3,7 +3,9 @@ namespace BigCommerce\Controller;
 
 use BigCommerce\App\LoginException;
 use BigCommerce\App\Service as BigCommerceAppService;
+use BigCommerce\Module;
 use CG\Account\Shared\Entity as Account;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -42,8 +44,12 @@ class AppController extends AbstractActionController
     public function loadAction()
     {
         try {
-            $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'));
+            $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'), $shopHash);
             return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
+        } catch (NotFound $exception) {
+            if (isset($shopHash)) {
+                return $this->plugin('redirect')->toUrl($this->getOauthAction($shopHash));
+            }
         } catch (LoginException $exception) {
             return $this->redirectToLogin();
         }
@@ -57,6 +63,18 @@ class AppController extends AbstractActionController
             [
                 'type' => $account->getType(),
                 'account' => $account->getId(),
+            ]
+        );
+    }
+
+    protected function getOauthAction($shopHash)
+    {
+        $route = [Module::ROUTE, AppController::ROUTE_OAUTH];
+        return $this->url()->fromRoute(
+            implode('/', $route),
+            [],
+            [
+                'query' => ['shopHash' => $shopHash],
             ]
         );
     }

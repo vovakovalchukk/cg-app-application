@@ -98,22 +98,29 @@ class Service implements LoggerAwareInterface
             throw new LoginException('User is not logged in');
         }
 
-        $this->validateOauthParameters($parameters);
-        $shopHash = $this->getShopHash($parameters['context']);
-
-        $accountParameters = array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters);
-        if ($token = $this->tokenService->fetchToken($shopHash, $additionalInfo)) {
-            $accountParameters = array_merge(
-                ['accessToken' => $token],
-                $additionalInfo,
-                $accountParameters
-            );
+        $shopHash = null;
+        if (isset($parameters['shopHash'])) {
+            $shopHash = $parameters['shopHash'];
+        } else if (isset($parameters['context'])) {
+            $shopHash = $this->getShopHash($parameters['context']);
         }
 
+        $accountParameters = ['shopHash' => $shopHash, 'redirectUri' => $redirectUri];
+        if ($token = $this->tokenService->fetchToken($shopHash, $additionalInfo)) {
+            $accountParameters['accessToken'] = $token;
+            if (isset($additionalInfo['parameters'])) {
+                $parameters = $additionalInfo['parameters'];
+            }
+            if (isset($additionalInfo['response'])) {
+                $accountParameters['response'] = $additionalInfo['response'];
+            }
+        }
+
+        $this->validateOauthParameters($parameters);
         $account = $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $this->getAccountId($shopHash),
-            $accountParameters
+            array_merge($parameters, $accountParameters)
         );
 
         if ($bigCommerceUserId = $this->accountCreationService->getBigCommerceUserId()) {
@@ -135,7 +142,7 @@ class Service implements LoggerAwareInterface
             $response
         );
 
-        $this->tokenService->storeToken($shopHash, $accessToken, ['response' => $response]);
+        $this->tokenService->storeToken($shopHash, $accessToken, ['parameters' => $parameters, 'response' => $response]);
         if (isset($response['user']['email'])) {
             $this->loginService->setUsername($response['user']['email']);
             $this->registerService->setUserData(['email' => $response['user']['email']]);
@@ -145,15 +152,18 @@ class Service implements LoggerAwareInterface
     /**
      * @return Account
      */
-    public function processLoadRequest($signedPayload)
+    public function processLoadRequest($signedPayload, &$shopHash = null)
     {
         $data = $this->clientSigner->getDataFromSignedPayload($signedPayload);
         $this->loginUserForPayload($data);
+
         if (!isset($data['store_hash'])) {
             $this->logPrettyDebug(static::LOG_MSG_MISSING_SHOP_HASH, $data, [], static::LOG_CODE_MISSING_SHOP_HASH);
             throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
         }
-        return $this->getAccount($data['store_hash']);
+
+        $shopHash = $data['store_hash'];
+        return $this->getAccount($shopHash);
     }
 
     protected function validateOauthParameters(array $parameters)
