@@ -2,6 +2,8 @@
 namespace Orders\Order;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
+use CG\Amazon\Mcf\FulfillmentStatus\Status as McfFulfillmentStatus;
 use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Carrier;
@@ -103,6 +105,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $dateFormatHelper;
     /** @var ImageService */
     protected $imageService;
+    /** @var  McfFulfillmentStatusStorage */
+    protected $mcfFulfillmentStatusStorage;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -126,7 +130,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         IntercomEventService $intercomEventService,
         RowMapper $rowMapper,
         DateFormatHelper $dateFormatHelper,
-        ImageService $imageService
+        ImageService $imageService,
+        McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -149,7 +154,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setIntercomEventService($intercomEventService)
             ->setRowMapper($rowMapper)
             ->setDateFormatHelper($dateFormatHelper)
-            ->setImageService($imageService);
+            ->setImageService($imageService)
+            ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -229,9 +235,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $orders;
     }
 
-    public function getStatusMessageForOrder(OrderEntity $order)
+    public function getStatusMessageForOrder($orderId)
     {
-        return "Error: Placeholder Status Message";
+        /**
+         *  NOTE:
+         *      If we ever want to retrieve fulfillment status information from
+         *      another channel, refactor this into a generic channel class which
+         *      returns the fulfillment status for any channel
+         *       -- DO NOT ADD ANOTHER CHANNEL DEPENDENCY IN HERE --
+         */
+        try {
+            $mcfFulfillmentStatusEntity = $this->mcfFulfillmentStatusStorage->fetch($orderId);
+
+            if (in_array($mcfFulfillmentStatusEntity->getStatus(), McfFulfillmentStatus::getErrorStatuses())) {
+                return $mcfFulfillmentStatusEntity->getError();
+            }
+            return "";
+        } catch (NotFound $e) {
+            return "";
+        }
     }
 
     protected function getOrdersArrayWithSanitisedStatus(array $orders)
@@ -239,7 +261,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         foreach ($orders as $index => $order) {
             $orders[$index]['status'] = str_replace(['_', '-'], ' ', $orders[$index]['status']);
             $orders[$index]['statusClass'] = str_replace(' ', '-', $orders[$index]['status']);
-            $orders[$index]['message'] = $this->getStatusMessageForOrder($order);
+            $orders[$index]['message'] = $this->getStatusMessageForOrder($orders[$index]['id']);
         }
         return $orders;
     }
@@ -1207,6 +1229,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setImageService(ImageService $imageService)
     {
         $this->imageService = $imageService;
+        return $this;
+    }
+
+    protected function setMcfFulfillmentStatusStorage(McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage)
+    {
+        $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
         return $this;
     }
 }
