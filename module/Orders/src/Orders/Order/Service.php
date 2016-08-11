@@ -240,8 +240,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         /**
          *  NOTE:
          *      If we ever want to retrieve fulfillment status information from
-         *      another channel, refactor this into a generic channel class which
-         *      returns the fulfillment status for any channel
+         *      another channel, refactor this to store order statuses in orderhub
+         *      rather than in channel specific storages. Do not add other channels
+         *      and layers of dependencies, a la dataplug. For reasons, ask Aaron.
          *       -- DO NOT ADD ANOTHER CHANNEL DEPENDENCY IN HERE --
          */
         try {
