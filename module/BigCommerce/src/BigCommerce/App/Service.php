@@ -15,6 +15,7 @@ use CG\User\ActiveUserInterface;
 use CG_Login\Service as LoginService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\MvcEvent;
+use CG_Register\Service as RegisterService;
 
 class Service implements LoggerAwareInterface
 {
@@ -33,6 +34,8 @@ class Service implements LoggerAwareInterface
 
     /** @var LoginService $loginService */
     protected $loginService;
+    /** @var RegisterService $registerService */
+    protected $registerService;
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
     /** @var ViewModelFactory $viewModelFactory */
@@ -50,6 +53,7 @@ class Service implements LoggerAwareInterface
 
     public function __construct(
         LoginService $loginService,
+        RegisterService $registerService,
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService,
@@ -60,6 +64,7 @@ class Service implements LoggerAwareInterface
     ) {
         $this
             ->setLoginService($loginService)
+            ->setRegisterService($registerService)
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService)
@@ -179,6 +184,10 @@ class Service implements LoggerAwareInterface
             $this->loginService->loginAsUser($user);
         } catch (\Exception $exception) {
             $this->logException($exception, 'debug', __NAMESPACE__);
+            if (isset($payload['user']['email'])) {
+                $this->loginService->setUsername($payload['user']['email']);
+                $this->registerService->setUserData(['email' => $payload['user']['email']]);
+            }
             throw new LoginException('Failed to login user', 0, $exception);
         }
     }
@@ -218,6 +227,15 @@ class Service implements LoggerAwareInterface
     protected function setLoginService(LoginService $loginService)
     {
         $this->loginService = $loginService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setRegisterService(RegisterService $registerService)
+    {
+        $this->registerService = $registerService;
         return $this;
     }
 

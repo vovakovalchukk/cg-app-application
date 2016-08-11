@@ -4,8 +4,6 @@ namespace BigCommerce\Controller;
 use BigCommerce\App\LoginException;
 use BigCommerce\App\Service as BigCommerceAppService;
 use CG\Account\Shared\Entity as Account;
-use CG_Login\Event\LandingUrlEvent;
-use CG_Login\Event\LoginEvent;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
