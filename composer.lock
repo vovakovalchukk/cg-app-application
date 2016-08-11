@@ -488,17 +488,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "e3383e74257292196a7d7183681e638793c70ab1"
+                "reference": "9df490b8aa23343deacb55f1ee771d76524aff2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-81c082.zip",
-                "reference": "e3383e74257292196a7d7183681e638793c70ab1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-dd1238.zip",
+                "reference": "9df490b8aa23343deacb55f1ee771d76524aff2c",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-master",
-                "guzzlehttp/guzzle": "*",
+                "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
                 "zendframework/zend-servicemanager": "^2.3"
             },
@@ -519,7 +519,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-08-05 11:52:16"
+            "time": "2016-08-09 11:24:08"
         },
         {
             "name": "channelgrabber/courieradapter",

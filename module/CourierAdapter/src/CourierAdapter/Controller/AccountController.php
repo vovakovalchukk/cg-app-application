@@ -80,10 +80,16 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
-        $requestCredentialsSkipped = $this->params()->fromQuery('rcs');
+        $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
         );
+
+        if (!$accountId && $courierInstance instanceof CredentialRequestInterface) {
+            $requestUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_REQUEST, ['channel' => $channelName]);
+            $preInstructions = '<h1>Do you need to request your ' . $adapter->getDisplayName() . ' credentials?</h1>';
+            $preInstructions .= '<p><a href="' . $requestUri . '">Request your credentials</a></p>';
+        }
 
         $form = $courierInstance->getCredentialsForm();
         $values = [];
@@ -91,14 +97,10 @@ class AccountController extends AbstractActionController
             $values = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
         }
         $this->prepareAdapterImplementationFormForDisplay($form, $values);
-        if ($requestCredentialsSkipped) {
-            $rcsField = (new ZendHiddenElement(AccountCreationService::REQUEST_CREDENTIALS_SKIPPED_FIELD))->setValue(1);
-            $form->add($rcsField);
-        }
 
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
 
-        return $this->getAdapterFieldsView(
+        $view = $this->getAdapterFieldsView(
             $form,
             $channelName,
             $saveRoute,
@@ -106,6 +108,11 @@ class AccountController extends AbstractActionController
             'Credentials saved',
             $accountId
         );
+        if (isset($preInstructions)) {
+            $view->setVariable('preInstructions', $preInstructions);
+        }
+
+        return $view;
     }
 
     public function requestCredentialsAction()
@@ -115,17 +122,20 @@ class AccountController extends AbstractActionController
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, CredentialRequestInterface::class
         );
+        $rootOu = $this->getActiveUserRootOu();
 
-        $setupUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_SETUP, ['channel' => $channelName]);
-        $setupUri .= '?rcs=1';
+        $credentialsUri = $this->caModuleAccountService->getCredentialsUriForNewAccount($channelName, $rootOu->getId());
         $preInstructions = '<h1>Already have your ' . $adapter->getDisplayName() . ' credentials?</h1>';
-        $preInstructions .= '<p><a href="' . $setupUri . '">Enter your details</a></p>';
+        $preInstructions .= '<p><a href="' . $credentialsUri . '">Enter your credentials</a></p>';
 
         $instructions = $courierInstance->getCredentialsRequestInstructions();
-        $rootOu = $this->getActiveUserRootOu();
         $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($rootOu);
         $form = $courierInstance->getCredentialsRequestForm($caAddress, $rootOu->getAddressCompanyName());
         $this->prepareAdapterImplementationFormForDisplay($form);
+
+        // All the forms are processed in one place, make that easier by marking this as the request form
+        $rcField = (new ZendHiddenElement(AccountCreationService::REQUEST_CREDENTIALS_FIELD))->setValue(1);
+        $form->add($rcField);
 
         $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
 

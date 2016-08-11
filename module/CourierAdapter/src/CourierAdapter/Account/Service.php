@@ -1,18 +1,19 @@
 <?php
 namespace CourierAdapter\Account;
 
+use CG\Account\Client\Mapper as OHAccountMapper;
 use CG\Account\Client\Service as OHAccountService;
 use CG\Account\Credentials\Cryptor;
+use CG\Channel\AccountFactory as AccountSetupFactory;
+use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
-use CG\CourierAdapter\Provider\Label\Create as CALabelCreateService;
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Order\Client\Service as OHOrderService;
-use InvalidArgumentException;
 use Zend\Form\Form as ZendForm;
 
 class Service
@@ -21,23 +22,31 @@ class Service
 
     /** @var OHAccountService */
     protected $ohAccountService;
+    /** @var OHAccountMapper */
+    protected $ohAccountMapper;
     /** @var Cryptor */
     protected $cryptor;
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
+    /** @var AccountSetupFactory */
+    protected $accountSetupFactory;
 
     public function __construct(
         OHAccountService $ohAccountService,
+        OHAccountMapper $ohAccountMapper,
         Cryptor $cryptor,
         AdapterImplementationService $adapterImplementationService,
-        CAAccountMapper $caAccountMapper
+        CAAccountMapper $caAccountMapper,
+        AccountSetupFactory $accountSetupFactory
     ) {
         $this->setOHAccountService($ohAccountService)
+            ->setOhAccountMapper($ohAccountMapper)
             ->setCryptor($cryptor)
             ->setAdapterImplementationService($adapterImplementationService)
-            ->setCAAccountMapper($caAccountMapper);
+            ->setCAAccountMapper($caAccountMapper)
+            ->setAccountSetupFactory($accountSetupFactory);
     }
 
     /**
@@ -100,9 +109,38 @@ class Service
         return true;
     }
 
+    /**
+     * @return string
+     */
+    public function getCredentialsUriForNewAccount($channelName, $organisationUnitId)
+    {
+        $account = $this->getNewAccount($channelName, $organisationUnitId);
+        $routeVariables = [AccountCreationService::REQUEST_CREDENTIALS_SKIPPED_FIELD => true];
+        return $this->accountSetupFactory->createRedirect($account, '', $routeVariables);
+    }
+
+    protected function getNewAccount($channelName, $organisationUnitId)
+    {
+        return $this->ohAccountMapper->fromArray([
+            'channel' => $channelName,
+            'organisationUnitId' => $organisationUnitId,
+            'displayName' => '',
+            'credentials' => '',
+            'active' => true,
+            'deleted' => false,
+            'type' => [ChannelType::SHIPPING]
+        ]);
+    }
+
     protected function setOHAccountService(OHAccountService $ohAccountService)
     {
         $this->ohAccountService = $ohAccountService;
+        return $this;
+    }
+
+    protected function setOhAccountMapper(OHAccountMapper $ohAccountMapper)
+    {
+        $this->ohAccountMapper = $ohAccountMapper;
         return $this;
     }
 
@@ -121,6 +159,12 @@ class Service
     protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
     {
         $this->caAccountMapper = $caAccountMapper;
+        return $this;
+    }
+
+    public function setAccountSetupFactory(AccountSetupFactory $accountSetupFactory)
+    {
+        $this->accountSetupFactory = $accountSetupFactory;
         return $this;
     }
 }

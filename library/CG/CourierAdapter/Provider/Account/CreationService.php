@@ -22,6 +22,7 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
     use PrepareAdapterImplementationFieldsTrait;
 
     const REQUEST_CREDENTIALS_SKIPPED_FIELD = '_rcs';
+    const REQUEST_CREDENTIALS_FIELD = '_rc';
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -39,12 +40,11 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
 
         if ($courierInstance instanceof CredentialRequestInterface 
             && !$account->getId()
-            && !isset($params[static::REQUEST_CREDENTIALS_SKIPPED_FIELD])
+            && isset($params[static::REQUEST_CREDENTIALS_FIELD])
         ) {
             $this->configureAccountFromCredentialsRequest($account, $params);
             return $account;
         }
-        unset($params[static::REQUEST_CREDENTIALS_SKIPPED_FIELD]);
 
         if ($courierInstance instanceof LocalAuthInterface) {
             $this->configureAccountFromLocalAuth($account, $params, $courierInstance);
