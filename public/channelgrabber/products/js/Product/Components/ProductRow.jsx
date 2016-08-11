@@ -14,7 +14,6 @@ define([
     var ProductRowComponent = React.createClass({
         render: function()
         {
-            console.log(this.props.data);
             return (
                 <div className="product-container " id={"product-container-" + this.props.data.id}>
                     <input type="hidden" value={this.props.data.id} name="id" />

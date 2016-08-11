@@ -16,10 +16,12 @@ define([
         },
         componentDidMount: function()
         {
+            $('#products-loading-message').show();
             this.productsRequest = $.get(this.props.productsUrl, function(result) {
                 this.setState({
                     products: result.products
                 });
+                $('#products-loading-message').hide();
             }.bind(this));
         },
         componentWillUnmount: function()
