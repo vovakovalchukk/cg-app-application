@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                 stderr: false
             },
             triggerSync: {
-                command: "touch .sync"
+                command: "rm .sync; touch .sync"
             },
 
             compileSettings: {
@@ -92,41 +92,41 @@ module.exports = function(grunt) {
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/*.jsx',
-                tasks: ['babel', 'triggerSync']
+                tasks: ['babel']
             },
             copyApplicationJs: {
                 files: 'public/channelgrabber/**/*.js',
-                tasks: ['copy:main', 'triggerSync']
+                tasks: ['copy:main']
             },
             copyVendorJs: {
                 files: 'vendor/channelgrabber/**/*.js',
-                tasks: ['copy:vendor', 'triggerSync']
+                tasks: ['copy:vendor']
             },
             compileV4UiCss: {
                 files: 'vendor/channelgrabber/zf2-v4-ui/**/*.scss',
-                tasks: ['compileV4Ui', 'triggerSync']
+                tasks: ['compileV4Ui']
             },
             compileRegisterModuleCss: {
                 files: 'vendor/channelgrabber/zf2-register/**/*.scss',
-                tasks: ['compileRegisterModule', 'triggerSync']
+                tasks: ['compileRegisterModule']
             },
             compileSettingsCss: {
                 files: 'public/channelgrabber/settings/**/*.scss',
-                tasks: ['compileSettings', 'triggerSync']
+                tasks: ['compileSettings']
             },
             compileSetupWizardCss: {
                 files: 'public/channelgrabber/setup-wizard/**/*.scss',
-                tasks: ['compileSetupWizard', 'triggerSync']
+                tasks: ['compileSetupWizard']
             }
         }
     });
 
     grunt.registerTask('default', ['watch']);
 
-    grunt.registerTask('compileV4Ui', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui']);
-    grunt.registerTask('compileRegisterModule', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule']);
-    grunt.registerTask('compileSettings', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings']);
-    grunt.registerTask('compileSetupWizard', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard']);
+    grunt.registerTask('compileV4Ui', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui', 'shell:triggerSync']);
+    grunt.registerTask('compileRegisterModule', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule', 'shell:triggerSync']);
+    grunt.registerTask('compileSettings', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings', 'shell:triggerSync']);
+    grunt.registerTask('compileSetupWizard', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard', 'shell:triggerSync']);
 
     grunt.registerTask('compileVendorCss', ['compileV4Ui', 'compileRegisterModule']);
     grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard']);
