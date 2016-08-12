@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 .sass-cache/
+.sync
 /config/autoload/app.global.php
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php

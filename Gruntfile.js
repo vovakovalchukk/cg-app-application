@@ -42,24 +42,94 @@ module.exports = function(grunt) {
                 ]
             }
         },
+        shell: {
+            options: {
+                stderr: false
+            },
+            triggerSync: {
+                command: "touch .sync"
+            },
+
+            compileSettings: {
+                command: "compass compile public/channelgrabber/settings"
+            },
+            compileSetupWizard: {
+                command: "compass compile public/channelgrabber/setup-wizard"
+            },
+            compileV4Ui: {
+                command: "compass compile vendor/channelgrabber/zf2-v4-ui"
+            },
+            compileRegisterModule: {
+                command: "compass compile vendor/channelgrabber/zf2-register"
+            },
+
+            cleanSettings: {
+                command: "rm -rf public/channelgrabber/settings/css/*"
+            },
+            cleanSetupWizard: {
+                command: "rm -rf public/channelgrabber/setup-wizard/css/*"
+            },
+            cleanV4Ui: {
+                command: "rm -rf vendor/channelgrabber/zf2-v4-ui/css/*"
+            },
+            cleanRegisterModule: {
+                command: "rm -rf vendor/channelgrabber/zf2-register/css/*"
+            },
+
+            copySettings: {
+                command: "rm -rf public/cg-built/settings/css/* ; cp -r public/channelgrabber/settings/css/* public/cg-built/settings/css/"
+            },
+            copySetupWizard: {
+                command: "rm -rf public/cg-built/setup-wizard/css/* ; cp -r public/channelgrabber/setup-wizard/css/* public/cg-built/setup-wizard/css/"
+            },
+            copyV4Ui: {
+                command: "rm -rf public/cg-built/zf2-v4-ui/css/* ; cp -r public/channelgrabber/zf2-v4-ui/css/* public/cg-built/zf2-v4-ui/css/"
+            },
+            copyRegisterModule: {
+                command: "rm -rf public/cg-built/zf2-register/css/* ; cp -r public/channelgrabber/zf2-register/css/* public/cg-built/zf2-register/css/"
+            }
+        },
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/*.jsx',
-                tasks: ['babel']
+                tasks: ['babel', 'triggerSync']
             },
-            copy: {
+            copyApplicationJs: {
                 files: 'public/channelgrabber/**/*.js',
-                tasks: ['copy:main']
+                tasks: ['copy:main', 'triggerSync']
             },
-            copyVendor: {
+            copyVendorJs: {
                 files: 'vendor/channelgrabber/**/*.js',
-                tasks: ['copy:vendor']
+                tasks: ['copy:vendor', 'triggerSync']
+            },
+            compileV4UiCss: {
+                files: 'vendor/channelgrabber/zf2-v4-ui/**/*.scss',
+                tasks: ['compileV4Ui', 'triggerSync']
+            },
+            compileRegisterModuleCss: {
+                files: 'vendor/channelgrabber/zf2-register/**/*.scss',
+                tasks: ['compileRegisterModule', 'triggerSync']
+            },
+            compileSettingsCss: {
+                files: 'public/channelgrabber/settings/**/*.scss',
+                tasks: ['compileSettings', 'triggerSync']
+            },
+            compileSetupWizardCss: {
+                files: 'public/channelgrabber/setup-wizard/**/*.scss',
+                tasks: ['compileSetupWizard', 'triggerSync']
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
     grunt.registerTask('default', ['watch']);
+
+    grunt.registerTask('compileV4Ui', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui']);
+    grunt.registerTask('compileRegisterModule', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule']);
+    grunt.registerTask('compileSettings', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings']);
+    grunt.registerTask('compileSetupWizard', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard']);
+
+    grunt.registerTask('compileVendorCss', ['compileV4Ui', 'compileRegisterModule']);
+    grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard']);
+
+    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'babel']);
 };
