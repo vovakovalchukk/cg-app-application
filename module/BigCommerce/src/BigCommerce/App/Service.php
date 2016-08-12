@@ -146,12 +146,36 @@ class Service implements LoggerAwareInterface
             array_merge(['redirectUri' => $redirectUri], $parameters),
             $response
         );
-
         $this->tokenService->storeToken($shopHash, $accessToken, ['parameters' => $parameters, 'response' => $response]);
-        if (isset($response['user']['email'])) {
-            $this->loginService->setUsername($response['user']['email']);
-            $this->registerService->setUserData(['email' => $response['user']['email']]);
+
+        if (!isset($response['user']['email'])) {
+            return;
         }
+
+        $firstName = $lastName = null;
+        if (preg_match('/^(?<firstName>[^\.]+)\.(?<lastName>[^@\+]+)/', $response['user']['email'], $match)) {
+            $firstName = ucfirst(strtolower($match['firstName']));
+            $lastName = ucwords(strtolower(str_replace('.', ' ', $match['lastName'])));
+        }
+
+        try {
+            $storeInformation = $client->setToken($accessToken)->getStoreInformation();
+        } catch (\Exception $exception) {
+            // Ignore all errors - this is more a nice to have that a requirement
+            $storeInformation = [];
+        }
+
+        $this->loginService->setUsername($response['user']['email']);
+        $this->registerService->setUserData(
+            [
+                'email' => $response['user']['email'],
+                'ouName' => isset($storeInformation['name']) ? $storeInformation['name'] : null,
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'telephone' => isset($storeInformation['phone']) ? $storeInformation['phone'] : null,
+                'address' => isset($storeInformation['address']) ? $storeInformation['address'] : null,
+            ]
+        );
     }
 
     /**
