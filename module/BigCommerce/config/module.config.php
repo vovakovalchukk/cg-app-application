@@ -28,7 +28,7 @@ return [
             dirname(__DIR__) . '/view/',
         ],
         'template_map' => [
-            ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . \CG\Stdlib\hyphenToClassname(BigCommerceAccountCreator::CHANNEL) => dirname(__DIR__) . '/view/bigcommerce/account/settings.phtml',
+            ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . \CG\Stdlib\hyphenToClassname(BigCommerceAccountCreator::CHANNEL) => dirname(__DIR__) . '/view/big-commerce/account/settings.phtml',
         ],
     ],
     'router' => [
