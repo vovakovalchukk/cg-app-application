@@ -6,6 +6,7 @@ use BigCommerce\App\Service as BigCommerceAppService;
 use BigCommerce\Module;
 use CG\Account\Shared\Entity as Account;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -17,10 +18,12 @@ class AppController extends AbstractActionController
 
     /** @var BigCommerceAppService $appService */
     protected $appService;
+    /** @var ViewModelFactory $viewModelFactory */
+    protected $viewModelFactory;
 
-    public function __construct(BigCommerceAppService $appService)
+    public function __construct(BigCommerceAppService $appService, ViewModelFactory $viewModelFactory)
     {
-        $this->setAppService($appService);
+        $this->setAppService($appService)->setViewModelFactory($viewModelFactory);
     }
 
     public function oauthAction()
@@ -50,7 +53,7 @@ class AppController extends AbstractActionController
             if (isset($shopHash) && $this->appService->hasCachedOauthRequest($shopHash)) {
                 return $this->plugin('redirect')->toUrl($this->getOauthAction($shopHash));
             }
-            throw $exception;
+            return $this->getNotFoundView();
         } catch (LoginException $exception) {
             return $this->redirectToLogin();
         }
@@ -80,6 +83,17 @@ class AppController extends AbstractActionController
         );
     }
 
+    protected function getNotFoundView()
+    {
+        $view = $this->viewModelFactory->newInstance(
+            [
+                'isHeaderBarVisible' => false,
+                'isSidebarPresent' => false,
+            ]
+        );
+        return $view->setTemplate('big-commerce/app/notFound');
+    }
+
     protected function redirectToLogin()
     {
         $mvcEvent = $this->getEvent();
@@ -99,6 +113,15 @@ class AppController extends AbstractActionController
     protected function setAppService(BigCommerceAppService $appService)
     {
         $this->appService = $appService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    {
+        $this->viewModelFactory = $viewModelFactory;
         return $this;
     }
 }

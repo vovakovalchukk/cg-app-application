@@ -37,6 +37,10 @@ return [
                 'type' => Literal::class,
                 'options' => [
                     'route' => '/bigcommerce',
+                    'defaults' => [
+                        'subHeader' => false,
+                        'sidebar' => false,
+                    ],
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
