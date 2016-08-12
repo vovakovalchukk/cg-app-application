@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb4d98f16052b8f5ff4a0766cc5d64c5",
-    "content-hash": "5e01cbcb8b9989ac6fff1ca4ea6a94f3",
+    "hash": "e9cf150014f8f200d9c60e0b3a8a7c2f",
+    "content-hash": "8cccbfc4a13c0057a964de75723939a4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3331,16 +3331,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7320-further-layout-fixes",
+            "version": "1.4.48",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "a7b419447f9db3e86f7fb1226d91865ead84a266"
+                "reference": "d8c31c4db6176d0d3e8cf7f6b5aec375a24773f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7320-further-layout-fixes-48dfdd.zip",
-                "reference": "a7b419447f9db3e86f7fb1226d91865ead84a266",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.48-5b81b6.zip",
+                "reference": "d8c31c4db6176d0d3e8cf7f6b5aec375a24773f2",
                 "shasum": null
             },
             "require": {
@@ -3379,7 +3379,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-08-08 10:09:53"
+            "time": "2016-08-12 12:45:40"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3590,16 +3590,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7320-further-layout-fixes",
+            "version": "1.16.69",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fe0675eeae2580f39713aaf5badcd0f101d3f296"
+                "reference": "82ab321677fec4e661ce7d05b5d4e6962ee7d431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7320-further-layout-fixes-e53233.zip",
-                "reference": "fe0675eeae2580f39713aaf5badcd0f101d3f296",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.69-222eb6.zip",
+                "reference": "82ab321677fec4e661ce7d05b5d4e6962ee7d431",
                 "shasum": null
             },
             "require": {
@@ -3646,7 +3646,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-10 15:05:53"
+            "time": "2016-08-12 12:45:27"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7862,26 +7862,11 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.48",
-            "alias_normalized": "1.4.48.0",
-            "version": "dev-CGIV-7320-further-layout-fixes",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.16.69",
-            "alias_normalized": "1.16.69.0",
-            "version": "dev-CGIV-7320-further-layout-fixes",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
