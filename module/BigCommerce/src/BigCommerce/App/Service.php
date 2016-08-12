@@ -130,6 +130,11 @@ class Service implements LoggerAwareInterface
         return $account;
     }
 
+    public function hasCachedOauthRequest($shopHash)
+    {
+        return $this->tokenService->hasToken($shopHash);
+    }
+
     public function cacheOauthRequest($redirectUri, array $parameters)
     {
         $this->validateOauthParameters($parameters);

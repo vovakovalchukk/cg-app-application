@@ -47,9 +47,10 @@ class AppController extends AbstractActionController
             $account = $this->appService->processLoadRequest($this->params()->fromQuery('signed_payload'), $shopHash);
             return $this->plugin('redirect')->toUrl($this->getAccountUrl($account));
         } catch (NotFound $exception) {
-            if (isset($shopHash)) {
+            if (isset($shopHash) && $this->appService->hasCachedOauthRequest($shopHash)) {
                 return $this->plugin('redirect')->toUrl($this->getOauthAction($shopHash));
             }
+            throw $exception;
         } catch (LoginException $exception) {
             return $this->redirectToLogin();
         }
