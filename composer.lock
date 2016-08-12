@@ -3335,12 +3335,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "0f9ae964f1859660a42728d13811a9258cf32a46"
+                "reference": "f3f2147cd6f43bb5112d66da8a141ece97e2054d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7343-BigCommercePreFill-12f488.zip",
-                "reference": "0f9ae964f1859660a42728d13811a9258cf32a46",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7343-BigCommercePreFill-b47d43.zip",
+                "reference": "f3f2147cd6f43bb5112d66da8a141ece97e2054d",
                 "shasum": null
             },
             "require": {
@@ -3378,8 +3378,13 @@
                     "./Module.php"
                 ]
             },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG_Register\\Test\\": "tests"
+                }
+            },
             "description": "module to register a new user account",
-            "time": "2016-08-11 11:34:52"
+            "time": "2016-08-12 14:17:52"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
