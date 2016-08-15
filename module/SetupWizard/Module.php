@@ -8,6 +8,7 @@ use Zend\Config\Factory as ConfigFactory;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Renderer\PhpRenderer;
+use CG\PasswordResetToken\Email\Controller as LoginPasswordController;
 
 class Module implements DependencyIndicatorInterface
 {
@@ -69,12 +70,12 @@ class Module implements DependencyIndicatorInterface
 
     protected function isLoginRoute($route)
     {
-        return preg_match('/^cg_login/', $route);
+        return preg_match('/^(cg_login|' . preg_quote(LoginPasswordController::ROUTE, '/') . ')/', $route);
     }
 
     protected function isSetupWizardRoute($route)
     {
-        return preg_match('/^' . static::ROUTE . '/', $route);
+        return preg_match('/^' . preg_quote(static::ROUTE, '/') . '/', $route);
     }
 
     protected function redirectToRoute($route, MvcEvent $e)

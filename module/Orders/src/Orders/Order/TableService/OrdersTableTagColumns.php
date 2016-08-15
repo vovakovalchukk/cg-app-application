@@ -157,6 +157,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptio
             DataTable\Column::class,
             [
                 'column' => $tag->getTag(),
+                'class' => 'user-created-tag-col',
                 'templateId' => 'custom-tag',
                 'viewModel' => $viewModel,
                 'defaultContent' => '',
