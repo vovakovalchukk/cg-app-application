@@ -39,10 +39,17 @@ class OrderController extends AbstractActionController
     public function indexAction()
     {
         $settings = $this->getOrderSettings();
-        return $this->viewModelFactory->newInstance([
-            'autoArchiveTimeframeSelect' => $this->getAutoArchiveTimeframeSelect($settings->getAutoArchiveTimeframe()),
+
+        $view = $this->viewModelFactory->newInstance([
+            'title' => 'Order Management',
             'eTag' => $settings->getStoredETag(),
         ]);
+
+        $view->addChild($this->getAutoArchiveTimeframeSelect($settings->getAutoArchiveTimeframe()), 'autoArchiveTimeframeSelect');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
+
+        return $view;
     }
 
     protected function getOrderSettings()
@@ -57,12 +64,12 @@ class OrderController extends AbstractActionController
         foreach (AutoArchiveTimeframe::getAllTimeframes() as $timeframe) {
             $options[] = [
                 'value' => $timeframe,
-                'text' => $timeframe,
+                'title' => $timeframe,
                 'selected' => ($selected == $timeframe),
             ];
         }
 
-        $customSelect = $this->getViewModelFactory()->newInstance([
+        $customSelect = $this->viewModelFactory->newInstance([
             'name' => 'autoArchiveTimeframe',
             'id' => 'autoArchiveTimeframe-custom-select',
             'options' => $options
