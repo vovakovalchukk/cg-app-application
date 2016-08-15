@@ -1,0 +1,7 @@
+<?php
+use BigCommerce\Controller\AccountController;
+use BigCommerce\Module;
+use CG_Channel\Module as ChannelModule;
+
+$url = $this->url(implode('/', [Module::ROUTE, AccountController::ROUTE_AUTH]));
+echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL, compact('account', 'form', 'route', 'url'));
