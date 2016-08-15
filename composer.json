@@ -29,7 +29,7 @@
         "channelgrabber/amazon": "~1.17.15",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.0",
-        "channelgrabber/billing": "~1.11.0",
+        "channelgrabber/billing": "dev-CGIV-7327-new-ou-improvements as 1.11.4",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.10.2",
         "channelgrabber/channel": "~1.25.2",
