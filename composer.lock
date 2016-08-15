@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9cf150014f8f200d9c60e0b3a8a7c2f",
-    "content-hash": "8cccbfc4a13c0057a964de75723939a4",
+    "hash": "f74b50fec27d9b2c155ea97308357d8a",
+    "content-hash": "bcd93f7d644b23e5cee9d1ed8db13f53",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3147,16 +3147,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.0",
+            "version": "dev-CGIV-7327-new-ou-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "298e14ba1ee098439d0fd6953926e8c03ccd333e"
+                "reference": "e1764e5a41524ca953d8a72d089e351765d278bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.0-3d1213.zip",
-                "reference": "298e14ba1ee098439d0fd6953926e8c03ccd333e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7327-new-ou-improvements-d4c45c.zip",
+                "reference": "e1764e5a41524ca953d8a72d089e351765d278bc",
                 "shasum": null
             },
             "require": {
@@ -3197,7 +3197,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-12 08:27:32"
+            "time": "2016-08-15 13:06:38"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -5566,12 +5566,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -7862,11 +7862,19 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.5.1",
+            "alias_normalized": "1.5.1.0",
+            "version": "dev-CGIV-7327-new-ou-improvements",
+            "package": "channelgrabber/zf2-login"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/zf2-login": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
