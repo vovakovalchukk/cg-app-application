@@ -6,7 +6,7 @@ $(document).ready(function() {
         }
     });
     require([
-        'Settings/Order/Order'
+        'Settings/Order/Order',
         'element/Factory/Select'
     ], function(
         order,
@@ -32,7 +32,7 @@ $(document).ready(function() {
             <input type='hidden' value="<?= $eTag ?>" id="order-eTag">
             <div class="half">
                 <label>
-                    <span class="inputbox-label">Automatically archive after:</span>
+                    <span class="inputbox-label">Auto archive after:</span>
                     <div class="order-inputbox-holder">
                         <?= $autoArchiveTimeframeSelect; ?>
                     </div>
