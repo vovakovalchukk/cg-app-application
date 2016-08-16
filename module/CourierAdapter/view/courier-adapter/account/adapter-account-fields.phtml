@@ -20,8 +20,8 @@
     <?=$this->partial('courier-adapter/adapter-fields.phtml', compact('form'));?>
 
     <div class="account-form-buttons-holder">
-        <?= $this->linkAccount ?>
         <a href='<?= $this->goBackUrl; ?>'><?= $this->goBack ?></a>
+        <?= $this->linkAccount ?>
     </div>
 </form>
 <?php $this->inlineScript()->captureStart(); ?>
