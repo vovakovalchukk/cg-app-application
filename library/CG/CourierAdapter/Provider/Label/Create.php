@@ -180,9 +180,7 @@ class Create implements LoggerAwareInterface
                 $order, $parcelData, $itemsData, $shipmentClass, $packageClass
             );
             $package = call_user_func([$shipmentClass, 'createPackage'], $caPackagedata);
-            $packages = [
-                $package
-            ];
+            $packages[] = $package;
         }
         return $packages;
     }
