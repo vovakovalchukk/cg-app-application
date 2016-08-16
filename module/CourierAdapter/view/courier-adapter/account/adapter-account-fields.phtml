@@ -19,9 +19,9 @@
 
     <?=$this->partial('courier-adapter/adapter-fields.phtml', compact('form'));?>
 
-    <div class="account-form-buttons-holder">
-        <a href='<?= $this->goBackUrl; ?>'><?= $this->goBack ?></a>
-        <?= $this->linkAccount ?>
+    <div class="center">
+        <a class="cancel" href='<?= $this->goBackUrl; ?>'><?= $this->translate('Cancel') ?></a>
+        or <div style="display: inline-block; vertical-align: middle;"><?= $this->linkAccount ?></div>
     </div>
 </form>
 <?php $this->inlineScript()->captureStart(); ?>
