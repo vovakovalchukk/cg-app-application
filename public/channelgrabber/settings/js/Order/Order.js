@@ -26,8 +26,6 @@ define([
             "autoArchiveTimeframe": $(Order.ARCHIVE_TIME_SELECTOR).val()
         };
 
-        console.log(orderSettings);
-
         var self = this;
         $.ajax({
             url: "orders/save",
