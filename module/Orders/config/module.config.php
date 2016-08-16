@@ -1119,6 +1119,8 @@ return [
                 'CourierSpecificsAddOnsColumn' => DataTable\Column::class,
                 'CourierSpecificsDeliveryExperienceColumnView' => ViewModel::class,
                 'CourierSpecificsDeliveryExperienceColumn' => DataTable\Column::class,
+                'CourierSpecificsSaturdayColumnView' => ViewModel::class,
+                'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2265,7 +2267,7 @@ return [
                     'viewModel' => 'CourierSpecificsItemParcelAssignmentColumnView',
                     'class' => 'itemParcelAssignment-col',
                     'sortable' => false,
-                    'order' => 145,
+                    'order' => 115,
                 ],
             ],
             'CourierSpecificsPackageTypeColumnView' => [
@@ -2314,6 +2316,22 @@ return [
                     'class' => 'experience-col',
                     'sortable' => false,
                     'order' => 35,
+                ],
+            ],
+            'CourierSpecificsSaturdayColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Saturday?'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsSaturdayColumn' => [
+                'parameters' => [
+                    'column' => 'saturday',
+                    'viewModel' => 'CourierSpecificsSaturdayColumnView',
+                    'class' => 'saturday-col',
+                    'sortable' => false,
+                    'order' => 145,
+                    'defaultContent' => '',
                 ],
             ],
         ],

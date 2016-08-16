@@ -83,6 +83,9 @@ class Mapper
         if (isset($orderData['signature'])) {
             $caShipmentData['signatureRequired'] = (bool)$orderData['signature'];
         }
+        if (isset($orderData['saturday'])) {
+            $caShipmentData['saturdayDelivery'] = (bool)$orderData['saturday'];
+        }
 
         return $caShipmentData;
     }
