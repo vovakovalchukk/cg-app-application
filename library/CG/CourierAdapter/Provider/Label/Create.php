@@ -272,12 +272,18 @@ class Create implements LoggerAwareInterface
             $this->logDebug(static::LOG_FETCH_LABELS, [$orderLabel->getOrderId()], [static::LOG_CODE, 'FetchLabels']);
             $shipmentLabels = $this->fetchShipmentLabels($bookedShipment, $courierInstance);
         }
+        $pdfLabels = [];
         foreach ($shipmentLabels as $shipmentLabel) {
             if ($shipmentLabel->getType() == LabelInterface::TYPE_PDF) {
-                $orderLabel->setLabel($shipmentLabel->getData());
+                $pdfLabels[] = $shipmentLabel->getData();
             } elseif ($shipmentLabel->getType() == LabelInterface::TYPE_PNG) {
                 $orderLabel->setImage($shipmentLabel->getData());
             }
+        }
+        if (count($pdfLabels) == 1) {
+            $orderLabel->setLabel($pdfLabels[0]);
+        } else {
+            $orderLabel->setLabel($this->mergeEncodedPdfLabels($pdfLabels));
         }
 
         if ($orderLabel->getLabel() && !$orderLabel->getImage()) {
@@ -306,6 +312,15 @@ class Create implements LoggerAwareInterface
             throw new OperationFailed('No labels found for shipment');
         }
         return $fetchedShipment->getLabels();
+    }
+
+    protected function mergeEncodedPdfLabels(array $pdfLabels)
+    {
+        $rawLabels = [];
+        foreach ($pdfLabels as $pdfLabel) {
+            $rawLabels[] = base64_decode($pdfLabel);
+        }
+        return base64_encode(\CG\Stdlib\mergePdfData($rawLabels));
     }
 
     protected function setOrderLabelImageFromPDF(OrderLabel $orderLabel)
