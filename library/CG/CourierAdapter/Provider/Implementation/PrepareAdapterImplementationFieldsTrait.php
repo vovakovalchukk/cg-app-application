@@ -33,7 +33,7 @@ trait PrepareAdapterImplementationFieldsTrait
                 $this->prepareAdapterImplementationFieldsForDisplay($field->getElements(), $values);
                 continue;
             }
-            if ($field->getOption('required')) {
+            if ($field->getOption('required') || $field->getAttribute('required')) {
                 $class = $field->getAttribute('class') ?: '';
                 $field->setAttribute('class', $class . ' required');
             }
