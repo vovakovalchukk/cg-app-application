@@ -270,6 +270,11 @@ class Service
     public function getHistoricManifestYearsForShippingAccount($accountId)
     {
         $account = $this->accountService->fetch($accountId);
+        // This is a hack. For DPD and Interlink we need to send a manifest request but they dont return a PDF.
+        // If in future we get more couriers that do this then replace this code with something more elegant.
+        if ($account->getChannel() == 'dpd-ca' || $account->getChannel() == 'interlink-ca') {
+            return [];
+        }
         return $this->getHistoricManifestPeriods($account, 'Y');
     }
 
