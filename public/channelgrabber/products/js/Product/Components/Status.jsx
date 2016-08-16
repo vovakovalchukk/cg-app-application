@@ -40,7 +40,7 @@ define([
             });
             return (
                 <span className="product-status-holder">
-                    <span className="status active">{this.productStatusDecider()}</span>
+                    <span className={"status " + this.productStatusDecider()}>{this.productStatusDecider()}</span>
                     <div className="product-listing-status-dropdown true">
                         <table>
                             <tbody>
