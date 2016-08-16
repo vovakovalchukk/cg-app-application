@@ -92,7 +92,7 @@ module.exports = function(grunt) {
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/*.jsx',
-                tasks: ['babel']
+                tasks: ['babel', 'shell:triggerSync']
             },
             copyApplicationJs: {
                 files: 'public/channelgrabber/**/*.js',
@@ -131,5 +131,7 @@ module.exports = function(grunt) {
     grunt.registerTask('compileVendorCss', ['compileV4Ui', 'compileRegisterModule']);
     grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard']);
 
-    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'babel']);
+    grunt.registerTask('compileJsx', ['babel', 'shell:triggerSync']);
+
+    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx']);
 };
