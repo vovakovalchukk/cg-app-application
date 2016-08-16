@@ -1,5 +1,7 @@
 define([
+    'popup/confirm'
 ], function(
+    Confirm
 ) {
     var Order = function()
     {
@@ -14,6 +16,20 @@ define([
         var self = this;
 
         $(document).on('change', Order.SELECTOR, function(event, data){
+            var selection = data[0].innerText.trim();
+
+            if (selection === 'Do not auto archive') {
+                var message = "If you disable auto archiving of orders this may affect the performance of your OrderHub account as time goes by. " +
+                    "Are you sure you want to disable auto archiving?";
+                var confirm = new Confirm(message, function(answer)
+                {
+                    if (answer == Confirm.VALUE_YES) {
+                        self.save();
+                    }
+                });
+                confirm.show();
+                return;
+            }
             self.save();
         });
     };
