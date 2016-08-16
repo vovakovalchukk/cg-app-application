@@ -12,12 +12,7 @@
             pickList,
             select
         ) {
-            pickList.init();
-
-            $(document).on('fnDrawCallback', function(event, data) {
-                select.init('sort-field-custom-select');
-                select.init('sort-direction-custom-select');
-            });
+            new pickList();
         });
     });
 <?php $this->inlineScript()->captureEnd(); ?>

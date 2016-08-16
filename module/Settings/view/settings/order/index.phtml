@@ -12,11 +12,7 @@ $(document).ready(function() {
         order,
         select
     ) {
-        order.init();
-
-        $(document).on('fnDrawCallback', function(event, data) {
-            select.init('autoArchiveTimeframe-custom-select');
-        });
+        new order();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

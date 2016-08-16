@@ -5,20 +5,18 @@ define([
 ) {
     var Order = function()
     {
-    };
+        var init = function()
+        {
+            var self = this;
 
-    Order.SELECTOR = '.order-form';
-    Order.ARCHIVE_TIME_SELECTOR = '#autoArchiveTimeframe-custom-select input';
-    Order.ETAG_SELECTOR = '#order-eTag';
+            $(document).on('change', Order.SELECTOR, function(event, data){
+                var selection = data[0].innerText.trim();
 
-    Order.prototype.init = function()
-    {
-        var self = this;
+                if (selection !== 'Do not auto archive') {
+                    self.save();
+                    return;
+                }
 
-        $(document).on('change', Order.SELECTOR, function(event, data){
-            var selection = data[0].innerText.trim();
-
-            if (selection === 'Do not auto archive') {
                 var message = "If you disable auto archiving of orders this may affect the performance of your OrderHub account as time goes by. " +
                     "Are you sure you want to disable auto archiving?";
                 var confirm = new Confirm(message, function(answer)
@@ -28,11 +26,14 @@ define([
                     }
                 });
                 confirm.show();
-                return;
-            }
-            self.save();
-        });
+            });
+        };
+        init.call(this);
     };
+
+    Order.SELECTOR = '.order-form';
+    Order.ARCHIVE_TIME_SELECTOR = '#autoArchiveTimeframe-custom-select input';
+    Order.ETAG_SELECTOR = '#order-eTag';
 
     Order.prototype.save = function()
     {
@@ -58,5 +59,5 @@ define([
         });
     };
 
-    return new Order;
+    return Order;
 });
