@@ -19,6 +19,8 @@ trait PrepareAdapterImplementationFieldsTrait
         }
 
         $form->prepare();
+        // ZendFrom will remove any password values on prepare()
+        $this->reAddPasswordFieldValues($fieldsOrSets, $values);
     }
 
     protected function prepareAdapterImplementationFieldsForDisplay(array $fields, array $values = [])
@@ -34,6 +36,25 @@ trait PrepareAdapterImplementationFieldsTrait
             if ($field->getOption('required')) {
                 $class = $field->getAttribute('class') ?: '';
                 $field->setAttribute('class', $class . ' required');
+            }
+        }
+    }
+
+    protected function reAddPasswordFieldValues(array $fields, $values = [])
+    {
+        if (empty($values)) {
+            return;
+        }
+        foreach ($fields as $field) {
+            if (!$field instanceof ZendFormElement) {
+                throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
+            }
+            if ($field instanceof ZendFormFieldset) {
+                $this->reAddPasswordFieldValues($field->getElements(), $values);
+                continue;
+            }
+            if ($field->getAttribute('type') == 'password' && isset($values[$field->getName()])) {
+                $field->setValue($values[$field->getName()]);
             }
         }
     }
