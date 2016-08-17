@@ -22,8 +22,8 @@ define([
     var ProductRowComponent = React.createClass({
         getProductVariationsView: function()
         {
-            if (this.props.data.variationCount !== undefined && this.props.data.variationCount > 1) {
-                return <VariationView variations={this.props.data.variations}/>;
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+                return <VariationView variations={this.props.variations}/>;
 
             }
         },
@@ -33,23 +33,31 @@ define([
         },
         getProductFooter: function()
         {
-            if (this.props.data.variationCount > 2) {
+            if (this.props.product.variationCount > 2) {
                 return <span>Expand Variations</span>
             }
         },
         render: function()
         {
             return (
-                <div className="product-container " id={"product-container-" + this.props.data.id}>
-                    <input type="hidden" value={this.props.data.id} name="id" />
-                    <input type="hidden" value={this.props.data.eTag} name={"product[" + this.props.data.id + "][eTag]"} />
-                    <Checkbox id={this.props.data.id} />
-                    <ProductImage images={this.props.data.images} imageBasePath={this.props.imageBasePath} />
+                <div className="product-container " id={"product-container-" + this.props.product.id}>
+                    <input type="hidden" value={this.props.product.id} name="id" />
+                    <input type="hidden" value={this.props.product.eTag} name={"product[" + this.props.product.id + "][eTag]"} />
+                    <Checkbox id={this.props.product.id} />
+                    <div className="product-holder">
+                        <div className="product-image-container">
+                            <div className="product-image">
+                            <span>
+                                <img src={this.props.product.images.length > 0 ? this.props.product.images[0]['url'] : this.props.imageBasePath + '/noproductsimage.png'} />
+                            </span>
+                            </div>
+                        </div>
+                    </div>
                     <div className="product-info-container">
                         <div className="product-header">
-                            <b>{this.props.data.name}</b>
-                            <span className="product-sku">{this.props.data.sku}</span>
-                            <Status listings={this.props.data.listings} />
+                            <b>{this.props.product.name}</b>
+                            <span className="product-sku">{this.props.product.sku}</span>
+                            <Status listings={this.props.product.listings} />
                         </div>
                         <div className="product-content-container">
                             <div className="variations-layout-column">

@@ -7,6 +7,7 @@ define([
 
     var VariationViewComponent = React.createClass({
         render: function () {
+            console.log(this.props.variations);
             return (
                 <div className="variation-table">
                     <table>

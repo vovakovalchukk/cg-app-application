@@ -23,9 +23,10 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
+                        cwd: 'public/channelgrabber/',
                         src: [
-                            'public/channelgrabber/**/*.js',
-                            '!public/channelgrabber/**/*.jsx'
+                            '**/*.js',
+                            '!**/*.jsx'
                         ],
                         dest: 'public/cg-built/'
                     }
