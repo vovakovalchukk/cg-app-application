@@ -132,7 +132,7 @@ module.exports = function(grunt) {
     grunt.registerTask('compileVendorCss', ['compileV4Ui', 'compileRegisterModule']);
     grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard']);
 
-    grunt.registerTask('compileJsx', ['babel', 'shell:triggerSync']);
+    grunt.registerTask('compileJsx', ['babel']);
 
     grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx']);
 };
