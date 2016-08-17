@@ -23,8 +23,7 @@ define([
         getProductVariationsView: function()
         {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return <VariationView variations={this.props.variations}/>;
-
+                return <VariationView attributeNames={this.props.product.attributeNames} variations={this.props.variations}/>;
             }
         },
         getProductDetailView: function()
@@ -48,7 +47,7 @@ define([
                         <div className="product-image-container">
                             <div className="product-image">
                             <span>
-                                <img src={this.props.product.images.length > 0 ? this.props.product.images[0]['url'] : this.props.imageBasePath + '/noproductsimage.png'} />
+                                <img src={this.props.product.images.length > 0 ? this.props.product.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} />
                             </span>
                             </div>
                         </div>
@@ -73,6 +72,10 @@ define([
             );
         }
     });
+
+    ProductRowComponent.contextTypes = {
+        imageBasePath: React.PropTypes.string
+    };
 
     return ProductRowComponent;
 });

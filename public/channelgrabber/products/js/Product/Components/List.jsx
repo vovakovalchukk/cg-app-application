@@ -60,7 +60,7 @@ define([
             return (
                 <div id="products-list">
                     {this.props.products.map(function(object) {
-                        return <ProductRow key={object.id} product={object} imageBasePath={imageBasePath} variations={this.state.variations[object.id]}/>;
+                        return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]}/>;
                     }.bind(this))}
                 </div>
             );

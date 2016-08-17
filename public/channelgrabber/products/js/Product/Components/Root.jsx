@@ -8,6 +8,10 @@ define([
     "use strict";
 
     var RootComponent = React.createClass({
+        getChildContext() {
+            return {
+                imageBasePath: this.props.imageBasePath};
+        },
         getInitialState: function()
         {
             return {
@@ -30,9 +34,13 @@ define([
         },
         render: function()
         {
-            return <ProductList products={this.state.products} imageBasePath={this.props.imageBasePath} />;
+            return <ProductList products={this.state.products} />;
         }
     });
+
+    RootComponent.childContextTypes = {
+        imageBasePath: React.PropTypes.string
+    };
 
     return RootComponent;
 });
