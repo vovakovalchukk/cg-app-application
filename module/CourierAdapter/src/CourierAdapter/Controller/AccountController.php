@@ -323,8 +323,20 @@ class AccountController extends AbstractActionController
         $accountId = $this->params()->fromQuery('accountId');
         $fileReference = $this->params()->fromQuery('file');
 
-        $generator = $this->testPackGenerator;
-        $dataUri = $generator($accountId, $fileReference);
+        try {
+            $generator = $this->testPackGenerator;
+            $dataUri = $generator($accountId, $fileReference);
+
+        } catch (ValidationException $e) {
+            // Show an error page
+            $goBackUrl = $this->plugin('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]) . '/' . $accountId;
+            return $this->viewModelFactory->newInstance([
+                'error' => $e->getMessage(),
+                'goBackUrl' => $goBackUrl,
+                'isHeaderBarVisible' => false,
+                'isSidebarPresent' => false,
+            ])->setTemplate('courier-adapter/account/download-test-pack-error.phtml');
+        }
 
         list($type, $data) = explode(';', $dataUri);
         list($encoding, $data) = explode(',', $data);

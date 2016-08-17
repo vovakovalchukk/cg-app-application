@@ -3,10 +3,13 @@ namespace CourierAdapter\Account;
 
 use CG\Account\Client\Service as OHAccountService;
 use CG\Account\Shared\Entity as AccountEntity;
+use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackFile;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
+use CG\CourierAdapter\Exception\OperationFailed;
+use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Label\Create as CALabelCreateService;
@@ -16,13 +19,21 @@ use CG\Order\Client\Service as OHOrderService;
 use CG\Order\Service\Filter as OHOrderFilter;
 use CG\Order\Shared\Entity as OHOrder;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use DateTime;
 use InvalidArgumentException;
 use RuntimeException;
 
-class TestPackGenerator
+class TestPackGenerator implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const EXAMPLE_ITEM_WEIGHT_KG = 0.1;
+
+    const LOG_CODE = 'CourierAdapterTestPackGenerator';
+    const LOG_ERROR = 'There was an error when generating the test pack, the user will be informed';
 
     /** @var OHAccountService */
     protected $ohAccountService;
@@ -77,7 +88,7 @@ class TestPackGenerator
         $caAccount = $this->caAccountMapper->fromOHAccount($account);
         $shipments = $this->generateTestPackFileShipmentsForAccount($account, $testPackFileToGenerate, $courierInstance);
 
-        return $courierInstance->generateTestPackFile($testPackFileToGenerate, $caAccount, $shipments);
+        return $this->generateTestPackFile($courierInstance, $testPackFileToGenerate, $caAccount, $shipments);
     }
 
     protected function generateTestPackFileShipmentsForAccount(
@@ -246,6 +257,41 @@ class TestPackGenerator
         }
 
         return $itemsData;
+    }
+
+    protected function generateTestPackFile(
+        CourierInterface $courierInstance,
+        TestPackFile $testPackFileToGenerate,
+        CAAccount $caAccount,
+        array $shipments
+    ) {
+        try {
+            return $courierInstance->generateTestPackFile($testPackFileToGenerate, $caAccount, $shipments);
+
+        } catch (UserError $e) {
+            $this->logException($e, 'warning', __NAMESPACE__);
+            $this->logWarning(static::LOG_ERROR, [], static::LOG_CODE);
+            $orderNumbers = $this->getOrderNumbersFromShipments($shipments);
+            throw new ValidationException($e->getMessage() . '.<br />Test pack orders: ' . implode(', ', $orderNumbers));
+
+        } catch (OperationFailed $e) {
+            $this->logException($e, 'warning', __NAMESPACE__);
+            $this->logWarning(static::LOG_ERROR, [], static::LOG_CODE);
+            $orderNumbers = $this->getOrderNumbersFromShipments($shipments);
+            throw new ValidationException('There was an unexpected problem creating this test pack.<br />Test pack orders: ' . implode(', ', $orderNumbers));
+        }
+    }
+
+    protected function getOrderNumbersFromShipments(array $shipments)
+    {
+        $orderNumbers = [];
+        foreach ($shipments as $shipment) {
+            $orderId = $shipment->getCustomerReference();
+            $orderIdParts = explode('-', $orderId);
+            array_shift($orderIdParts);
+            $orderNumbers[] = implode('-', $orderIdParts);
+        }
+        return $orderNumbers;
     }
 
     protected function getOrganisationUnitForAccount(AccountEntity $account)

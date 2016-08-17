@@ -65,6 +65,8 @@ return [
                                     'route' => '/ca-test-pack-file',
                                     'defaults' => [
                                         'action' => 'downloadTestPackFile',
+                                        'sidebar' => false,
+                                        'subHeader' => false,
                                     ]
                                 ],
                                 'may_terminate' => true,
