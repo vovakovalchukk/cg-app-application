@@ -529,12 +529,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "9ecbea82df96dfd4166812f2a557e907cccc726b"
+                "reference": "51fda526b6f666aa3ec4c1e69c3367a5e47cf7d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-76928d.zip",
-                "reference": "9ecbea82df96dfd4166812f2a557e907cccc726b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-10a83f.zip",
+                "reference": "51fda526b6f666aa3ec4c1e69c3367a5e47cf7d0",
                 "shasum": null
             },
             "require": {
@@ -560,7 +560,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-08-16 10:56:34"
+            "time": "2016-08-17 12:51:20"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -568,12 +568,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "277e9d06018e370aaf1b688273c5d0500f29315b"
+                "reference": "1ffdff33e34c6d6a8b7a37ce8c5cfc1b33d19528"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-58fbe5.zip",
-                "reference": "277e9d06018e370aaf1b688273c5d0500f29315b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-fbdae0.zip",
+                "reference": "1ffdff33e34c6d6a8b7a37ce8c5cfc1b33d19528",
                 "shasum": null
             },
             "require": {
@@ -593,7 +593,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-11 09:28:21"
+            "time": "2016-08-16 14:36:13"
         },
         {
             "name": "channelgrabber/dataplug",
