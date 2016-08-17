@@ -1,18 +1,12 @@
 define([
     'react',
     'Product/Components/Checkbox',
-    'Product/Components/Image',
-    'Product/Components/Header',
-    'Product/Components/Details',
     'Product/Components/Status',
     'Product/Components/VariationView',
     'Product/Components/DetailView'
 ], function(
     React,
     Checkbox,
-    ProductImage,
-    Header,
-    Details,
     Status,
     VariationView,
     DetailView
