@@ -6,47 +6,54 @@ define([
     "use strict";
 
     var VariationViewComponent = React.createClass({
+        getAttributeHeaders: function() {
+            var headers = [
+                <th key="image">Image</th>,
+                <th key="sky">SKU</th>
+            ];
+            this.props.attributeNames.forEach(function(attributeName) {
+                headers.push(<th key={attributeName}>{attributeName}</th>);
+            });
+            return headers;
+        },
+        getAttributeValues: function(variation) {
+            var values = [
+                <td key="image"><img src={variation.images.length > 0 ? variation.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} /></td>,
+                <td key="sku">{variation.sku}</td>
+            ];
+            this.props.attributeNames.forEach(function (attributeName) {
+                values.push(<td key={attributeName}>{variation.attributeValues[attributeName]}</td>);
+            });
+            return values;
+        },
+        getDefaultProps: function() {
+            return {
+                variations: []
+            };
+        },
         render: function () {
-            console.log(this.props.variations);
             return (
                 <div className="variation-table">
                     <table>
                         <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>SKU</th>
-                            <th>chicken</th>
-                            <th>daniel</th>
-                            <th>Size</th>
-                            <th>Variance</th>
-                        </tr>
+                            <tr>
+                                {this.getAttributeHeaders()}
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr key="">
-                        <td><img src="/cg-built/products/img/noproductsimage.png" height="23"/></td>
-                        <td>0</td>
-                        <td>little</td>
-                        <td>kjui</td>
-                        <td>Green</td>
-                        <td>big</td>
-                        </tr>
-                        {/*{this.props.variations.map(function (listing) {*/}
-                            {/*return (*/}
-                                {/*<tr key="">*/}
-                                    {/*<td><img src="/cg-built/products/img/noproductsimage.png" height="23"/></td>*/}
-                                    {/*<td>0</td>*/}
-                                    {/*<td>little</td>*/}
-                                    {/*<td>kjui</td>*/}
-                                    {/*<td>Green</td>*/}
-                                    {/*<td>big</td>*/}
-                                {/*</tr>*/}
-                            {/*);*/}
-                        {/*})}*/}
+                            {this.props.variations.map(function (variation) {
+                                return <tr key={variation.id}>{this.getAttributeValues(variation)}</tr>;
+                            }.bind(this))}
                         </tbody>
                     </table>
                 </div>
             );
         }
     });
+
+    VariationViewComponent.contextTypes = {
+        imageBasePath: React.PropTypes.string
+    };
+
     return VariationViewComponent;
 });
