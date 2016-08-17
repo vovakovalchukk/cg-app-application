@@ -28,7 +28,7 @@ define([
         },
         getProductDetailView: function()
         {
-            return <DetailView/>;
+            return <DetailView variations={this.props.variations}/>;
         },
         getProductFooter: function()
         {
@@ -45,11 +45,7 @@ define([
                     <Checkbox id={this.props.product.id} />
                     <div className="product-holder">
                         <div className="product-image-container">
-                            <div className="product-image">
-                            <span>
-                                <img src={this.props.product.images.length > 0 ? this.props.product.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} />
-                            </span>
-                            </div>
+                            <img src={this.props.product.images.length > 0 ? this.props.product.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} />
                         </div>
                     </div>
                     <div className="product-info-container">
