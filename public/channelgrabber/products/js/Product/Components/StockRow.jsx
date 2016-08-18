@@ -53,7 +53,7 @@ define([
                 dataType : 'json',
                 data: {
                     'stockLocationId': this.getStockLocationId(variation),
-                    'totalQuantity': this.getOnHandStock(variation),
+                    'totalQuantity': value,
                     'eTag': this.getStockEtag(variation)
                 },
                 success: function() {
