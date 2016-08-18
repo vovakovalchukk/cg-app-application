@@ -1,9 +1,9 @@
 define([
     'react',
-    'Product/Components/Input'
+    'Product/Components/StockRow'
 ], function(
     React,
-    Input
+    StockRow
 ) {
     "use strict";
 
@@ -12,37 +12,10 @@ define([
             return [
                 <th key="stock-available">Available</th>,
                 <th key="stock-undispatched">Undispatched</th>,
-                <th key="stock-total">Total Stock</th>,
-                <th key="stock-mode">Stock Mode</th>,
-                <th key="stock-level">Stock Level</th>,
+                <th key="stock-total">Total</th>,
+                <th key="stock-mode">Mode</th>,
+                <th key="stock-level">Fix Level</th>,
             ];
-        },
-        getValues: function(variation) {
-            return [
-                <td key="stock-available" className="product-stock-available">
-                    <Input name='available' value={(this.getOnHandStock(variation) - Math.max(this.getAllocatedStock(variation), 0))}/>
-                </td>,
-                <td key="stock-undispatched" className="product-stock-allocated">
-                    <Input name='undispatched' value={this.getOnHandStock(variation)}/>
-                </td>,
-                <td key="stock-total" className="product-stock-available">
-                    <Input name='total' value={this.getOnHandStock(variation)}/>
-                    <input type='hidden' value={variation.eTag} />
-                    <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
-                </td>,
-                <td key="stock-mode" className="product-stock-mode">
-                    Dropdown
-                </td>,
-                <td key="stock-level" className="product-stock-level">
-                    <Input name='level' value={this.getOnHandStock(variation)}/>
-                </td>
-            ];
-        },
-        getOnHandStock: function(variation) {
-            return (variation.stock ? variation.stock.locations[0].onHand : '');
-        },
-        getAllocatedStock: function(variation) {
-            return (variation.stock ? variation.stock.locations[0].allocated : '');
         },
         getDefaultProps: function() {
             return {
@@ -60,7 +33,7 @@ define([
                         </thead>
                         <tbody>
                         {this.props.variations.map(function (variation) {
-                            return <tr key={variation.id}>{this.getValues(variation)}</tr>;
+                            return <StockRow key={variation.id} variation={variation} updateUrl="products/stock/update"/>;
                         }.bind(this))}
                         </tbody>
                     </table>

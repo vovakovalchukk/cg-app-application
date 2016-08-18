@@ -34,8 +34,8 @@ define([
             if (! this.state.editable) {
                 return;
             }
-            //  call submit callback
-            console.log('Submitting Input as '+this.state.newValue);
+            //  call submit callback (onSuccess: oldValue = newValue)
+            this.props.submitCallback(this.props.name, this.state.newValue);
         },
         mouseOver: function () {
             this.setState({ hover: true });
@@ -44,18 +44,21 @@ define([
             this.setState({ hover: false });
         },
         onChange: function (e) {
-            if (! this.state.editable) {
-                return;
-            }
             this.setState({
+                editable: true,
                 newValue: e.target.value
             });
+        },
+        onKeyPress: function (e) {
+            if (e.key === 'Enter') {
+                this.submitInput();
+            }
         },
         render: function () {
             return (
                 <div className="detail-text-holder">
                     <div className="submit-input active">
-                        <input type={this.props.type} className="submit-inputbox product-detail" onChange={this.onChange} value={this.state.newValue} name={this.props.name} step={this.props.step} />
+                        <input type={this.props.type} className="submit-inputbox product-detail" onKeyPress={this.onKeyPress} onChange={this.onChange} value={this.state.newValue} name={this.props.name} step={this.props.step} />
                         <div className="edit-btn" style={{display: (this.state.editable ? "none" : "inline-block")}}>
                             <ul>
                                 <li onClick={this.editInput}><span className="edit"></span></li>

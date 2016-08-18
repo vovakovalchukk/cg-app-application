@@ -1,9 +1,9 @@
 define([
     'react',
-    'Product/Components/Input'
+    'Product/Components/DimensionsRow'
 ], function(
     React,
-    Input
+    DimensionsRow
 ) {
     "use strict";
 
@@ -14,22 +14,6 @@ define([
                 <th key="height">Height (cm)</th>,
                 <th key="width">Width (cm)</th>,
                 <th key="length">Length (cm)</th>,
-            ];
-        },
-        getValues: function(variation) {
-            return [
-                <td key="weight" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='weight' value={variation.details ?variation.details.weight: ''} step="0.1"/>
-                </td>,
-                <td key="height" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='height' value={variation.details ?variation.details.height: ''} step="0.1"/>
-                </td>,
-                <td key="width" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='width' value={variation.details ?variation.details.width: ''} step="0.1"/>
-                </td>,
-                <td key="length" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='length' value={variation.details ?variation.details.length: ''} step="0.1"/>
-                </td>,
             ];
         },
         getDefaultProps: function() {
@@ -48,7 +32,7 @@ define([
                         </thead>
                         <tbody>
                         {this.props.variations.map(function (variation) {
-                            return <tr key={variation.id}>{this.getValues(variation)}</tr>;
+                            return <DimensionsRow key={variation.id} updateUrl='/products/details/update' variation={variation}/>;
                         }.bind(this))}
                         </tbody>
                     </table>
