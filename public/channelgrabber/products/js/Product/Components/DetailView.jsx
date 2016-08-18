@@ -18,11 +18,11 @@ define([
             return (
                 <div className="product-details-layout">
                     <Tabs selected={0}>
-                        <Pane label="Dimensions">
-                            <DimensionsView variations={this.props.variations}/>
-                        </Pane>
                         <Pane label="Stock">
                             <StockView variations={this.props.variations}/>
+                        </Pane>
+                        <Pane label="Dimensions">
+                            <DimensionsView variations={this.props.variations}/>
                         </Pane>
                     </Tabs>
                 </div>
