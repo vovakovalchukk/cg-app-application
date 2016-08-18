@@ -1150,6 +1150,8 @@ $config = array(
                         // These codes are prefixes, more characters will be added based on chosen options
                         '24' => '24',
                         '48' => '48',
+                        '24F' => '24 (Flat)',
+                        '48F' => '48 (Flat)',
                         'TPN01' => '24 Tracked',
                         'TPS01' => '48 Tracked',
                         'RMSD9' => 'Special Delivery 9am',
@@ -1307,6 +1309,18 @@ $config = array(
                             ]
                         ],
                         '48' => [
+                            'packageTypes' => ['Large Letter', 'Parcel'],
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
+                        ],
+                        '24F' => [
+                            'packageTypes' => ['Large Letter', 'Parcel'],
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
+                        ],
+                        '48F' => [
                             'packageTypes' => ['Large Letter', 'Parcel'],
                             'addOns' => [
                                 ['title' => 'Signature'],
