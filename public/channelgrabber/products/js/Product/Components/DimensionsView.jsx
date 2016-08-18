@@ -19,16 +19,16 @@ define([
         getValues: function(variation) {
             return [
                 <td key="weight" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='weight' value={variation.details ?variation.details.weight: ''} type="number"/>
+                    <Input name='weight' value={variation.details ?variation.details.weight: ''} step="0.1"/>
                 </td>,
                 <td key="height" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='height' value={variation.details ?variation.details.height: ''} type="number"/>
+                    <Input name='height' value={variation.details ?variation.details.height: ''} step="0.1"/>
                 </td>,
                 <td key="width" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='width' value={variation.details ?variation.details.width: ''} type="number"/>
+                    <Input name='width' value={variation.details ?variation.details.width: ''} step="0.1"/>
                 </td>,
                 <td key="length" class="detail" data-id={variation.id} data-sku={variation.sku}>
-                    <Input name='length' value={variation.details ?variation.details.length: ''} type="number"/>
+                    <Input name='length' value={variation.details ?variation.details.length: ''} step="0.1"/>
                 </td>,
             ];
         },

@@ -20,13 +20,13 @@ define([
         getValues: function(variation) {
             return [
                 <td key="stock-available" className="product-stock-available">
-                    <Input name='available' value={(this.getOnHandStock(variation) - Math.max(this.getAllocatedStock(variation), 0))} type="number"/>
+                    <Input name='available' value={(this.getOnHandStock(variation) - Math.max(this.getAllocatedStock(variation), 0))}/>
                 </td>,
                 <td key="stock-undispatched" className="product-stock-allocated">
-                    <Input name='undispatched' value={this.getOnHandStock(variation)} type="number"/>
+                    <Input name='undispatched' value={this.getOnHandStock(variation)}/>
                 </td>,
                 <td key="stock-total" className="product-stock-available">
-                    <Input name='total' value={this.getOnHandStock(variation)} type="number"/>
+                    <Input name='total' value={this.getOnHandStock(variation)}/>
                     <input type='hidden' value={variation.eTag} />
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
@@ -34,7 +34,7 @@ define([
                     Dropdown
                 </td>,
                 <td key="stock-level" className="product-stock-level">
-                    <Input name='level' value={this.getOnHandStock(variation)} type="number"/>
+                    <Input name='level' value={this.getOnHandStock(variation)}/>
                 </td>
             ];
         },
