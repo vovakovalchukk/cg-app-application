@@ -31,6 +31,7 @@ return array (
     26 => 'CG_Dataplug',
     27 => 'CG_NetDespatch',
     28 => 'Shopify',
+    29 => 'BigCommerce',
   ),
   'module_listener_options' => 
   array (
