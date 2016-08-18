@@ -26,6 +26,14 @@ define([
                 return <VariationView attributeNames={this.props.product.attributeNames} variations={this.state.variations}/>;
             }
         },
+        getDetailsView: function ()
+        {
+            var products = [this.props.product];
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+                products = this.state.variations;
+            }
+            return  <DetailView variations={products}/>
+        },
         getExpandVariationsButton: function()
         {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
@@ -81,7 +89,7 @@ define([
                             <div className="variations-layout-column">
                                 {this.getProductVariationsView()}
                             </div>
-                            <DetailView variations={this.state.variations}/>
+                            {this.getDetailsView()}
                         </div>
                         <div className="product-footer">
                             <div className="variations-button-holder">
