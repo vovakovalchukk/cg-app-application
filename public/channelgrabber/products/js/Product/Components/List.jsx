@@ -1,11 +1,13 @@
 define([
     'react',
     'Product/Components/ProductRow',
-    'Product/Filter/Entity'
+    'Product/Filter/Entity',
+    'Product/Storage/Ajax'
 ], function(
     React,
     ProductRow,
-    ProductFilter
+    ProductFilter,
+    AjaxHandler
 ) {
     "use strict";
 
@@ -16,26 +18,18 @@ define([
             }
         },
         fetchVariations: function (filter) {
-            this.variationsRequest = $.ajax({
-                'url' : '/products/ajax',
-                'data' : {'filter': filter.toObject()},
-                'method' : 'POST',
-                'dataType' : 'json',
-                'success' : function(data) {
-                    var variationsByParent = {};
-                    for (var index in data.products) {
-                        var variation = data.products[index];
-                        if (!variationsByParent[variation.parentProductId]) {
-                            variationsByParent[variation.parentProductId] = [];
-                        }
-                        variationsByParent[variation.parentProductId].push(variation);
+            function variations(data) {
+                var variationsByParent = {};
+                for (var index in data.products) {
+                    var variation = data.products[index];
+                    if (!variationsByParent[variation.parentProductId]) {
+                        variationsByParent[variation.parentProductId] = [];
                     }
-                    this.setState({variations: variationsByParent});
-                }.bind(this),
-                'error' : function () {
-                    throw 'Unable to load products';
+                    variationsByParent[variation.parentProductId].push(variation);
                 }
-            });
+                this.setState({variations: variationsByParent});
+            }
+            AjaxHandler.fetchByFilter(filter, variations.bind(this));
         },
         componentWillReceiveProps: function (nextProps) {
             var allDefaultVariationIds = [];

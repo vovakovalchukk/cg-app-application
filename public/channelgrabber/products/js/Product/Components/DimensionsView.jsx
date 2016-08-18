@@ -14,12 +14,12 @@ define([
                 <th key="length">Length (cm)</th>,
             ];
         },
-        getValues: function(details) {
+        getValues: function(variation) {
             return [
-                <td key="weight">{details.weight}</td>,
-                <td key="height">{details.height}</td>,
-                <td key="width">{details.width}</td>,
-                <td key="length">{details.length}</td>,
+                <td key="weight" class="detail" data-id={variation.id} data-sku={variation.sku}><div class="detail-text-holder">{variation.details ?variation.details.weight: ''}</div></td>,
+                <td key="height" class="detail" data-id={variation.id} data-sku={variation.sku}><div class="detail-text-holder">{variation.details ?variation.details.height: ''}</div></td>,
+                <td key="width" class="detail" data-id={variation.id} data-sku={variation.sku}><div class="detail-text-holder">{variation.details ?variation.details.width: ''}</div></td>,
+                <td key="length" class="detail" data-id={variation.id} data-sku={variation.sku}><div class="detail-text-holder">{variation.details ?variation.details.length: ''}</div></td>,
             ];
         },
         getDefaultProps: function() {
@@ -28,7 +28,7 @@ define([
             };
         },
         render: function () {
-            console.log(this.props.variations);
+            //console.log(this.props.variations);
             return (
                 <div className="details-table">
                     <table>
@@ -39,7 +39,7 @@ define([
                         </thead>
                         <tbody>
                         {this.props.variations.map(function (variation) {
-                            return <tr key={variation.id}>{this.getValues(variation.details)}</tr>;
+                            return <tr key={variation.id}>{this.getValues(variation)}</tr>;
                         }.bind(this))}
                         </tbody>
                     </table>
