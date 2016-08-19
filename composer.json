@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "dev-CGIV-7364-amazon-messages-not-marked-as-resolved as 1.17.17",
+        "channelgrabber/amazon": "~1.17.17",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.0",
         "channelgrabber/billing": "~1.11.0",

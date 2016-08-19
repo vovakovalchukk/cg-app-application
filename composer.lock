@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0cf3dff8d21583976b923c6563b11c08",
-    "content-hash": "2f0eb2612339cb6b2fda52a737c09a3e",
+    "hash": "2bc0803af6d6d5017f7162cf7291339e",
+    "content-hash": "a3d56274a4ae1782a4fe1601df7d4533",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-7364-amazon-messages-not-marked-as-resolved",
+            "version": "1.17.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4b071fdba43d7c09172e46f4a3e5a76b0c7e239d"
+                "reference": "ab0b102e8d812cdad46c4399c01f49e1cb4326aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7364-amazon-messages-not-marked-as-resolved-ac09e8.zip",
-                "reference": "4b071fdba43d7c09172e46f4a3e5a76b0c7e239d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.17-55bbc7.zip",
+                "reference": "ab0b102e8d812cdad46c4399c01f49e1cb4326aa",
                 "shasum": null
             },
             "require": {
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-19 12:58:54"
+            "time": "2016-08-19 15:21:14"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -7867,17 +7867,9 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.17",
-            "alias_normalized": "1.17.17.0",
-            "version": "dev-CGIV-7364-amazon-messages-not-marked-as-resolved",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
         "composer/composer": 20,
