@@ -10,8 +10,8 @@ define([
     var StockViewComponent = React.createClass({
         getHeaders: function() {
             return [
-                <th key="stock-available">Available</th>,
-                <th key="stock-undispatched">Undispatched</th>,
+                <th key="stock-available"><abbr title="Quantity of item available for sale">Available</abbr></th>,
+                <th key="stock-undispatched"><abbr title="Quantity of item currently awaiting dispatch">Undispatched</abbr></th>,
                 <th key="stock-total">Total</th>,
                 <th key="stock-mode">Mode</th>,
                 <th key="stock-level">Fix Level</th>,
@@ -33,7 +33,7 @@ define([
                         </thead>
                         <tbody>
                         {this.props.variations.map(function (variation) {
-                            return <StockRow key={variation.id} variation={variation} updateUrl="products/stock/update"/>;
+                            return <StockRow key={variation.id} variation={variation} />;
                         }.bind(this))}
                         </tbody>
                     </table>

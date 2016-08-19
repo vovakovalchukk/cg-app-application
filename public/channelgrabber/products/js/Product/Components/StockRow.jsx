@@ -1,9 +1,11 @@
 define([
     'react',
-    'Product/Components/Input'
+    'Product/Components/Input',
+    'Product/Components/Select'
 ], function(
     React,
-    Input
+    Input,
+    Select
 ) {
     "use strict";
 
@@ -17,7 +19,7 @@ define([
                     <div>{this.getOnHandStock(variation)}</div>
                 </td>,
                 <td key="stock-total" className="product-stock-available">
-                    <Input name='total' value={this.getOnHandStock(variation)} submitCallback={this.update}/>
+                    <Input name='total' value={this.getOnHandStock(variation)} submitCallback={this.updateStockTotal}/>
                     <input type='hidden' value={variation.eTag} />
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
@@ -25,44 +27,77 @@ define([
                     Dropdown
                 </td>,
                 <td key="stock-level" className="product-stock-level">
-                    <Input name='level' value={this.getOnHandStock(variation)} submitCallback={this.update}/>
+                    <Input name='level' value={this.getOnHandStock(variation)} submitCallback={this.updateFixLevel}/>
                 </td>
             ];
         },
+        getStockModeOptions: function() {
+            return [
+                {
+                    testA: 'test1'
+                }, {
+                    testB: 'test2'
+                }, {
+                    testC: 'test3'
+                }
+            ];
+        },
         getOnHandStock: function(variation) {
-            return (variation.stock ? variation.stock.locations[0].onHand : '');
+            return (this.props.variation.stock ? this.props.variation.stock.locations[0].onHand : '');
         },
         getAllocatedStock: function(variation) {
-            return (variation.stock ? variation.stock.locations[0].allocated : '');
+            return (this.props.variation.stock ? this.props.variation.stock.locations[0].allocated : '');
         },
         getStockEtag: function(variation) {
-            return (variation.stock ? variation.stock.locations[0].eTag : '');
+            return (this.props.variation.stock ? this.props.variation.stock.locations[0].eTag : '');
         },
         getStockLocationId: function(variation) {
-            return (variation.stock ? variation.stock.locations[0].id : '');
+            return (this.props.variation.stock ? this.props.variation.stock.locations[0].id : '');
         },
-        update: function(detail, value) {
+        updateStockTotal: function(name, value) {
             if (this.props.variation === null) {
                 return;
             }
-            console.log('Submitting stock '+detail+' as '+value+' to '+this.props.updateUrl);
-            return;
-            $.ajax({
-                url: this.props.updateUrl,
-                type: 'POST',
-                dataType : 'json',
-                data: {
-                    'stockLocationId': this.getStockLocationId(variation),
-                    'totalQuantity': value,
-                    'eTag': this.getStockEtag(variation)
-                },
-                success: function() {
-                    return true;
-                },
-                error: function() {
-                    return false;
-                }
-            });
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: 'products/stock/update',
+                    type: 'POST',
+                    dataType : 'json',
+                    data: {
+                        stockLocationId: this.getStockLocationId(),
+                        totalQuantity: value,
+                        eTag: this.getStockEtag()
+                    },
+                    success: function() {
+                        resolve({ savedValue: value });
+                    },
+                    error: function(error) {
+                        reject(new Error(error));
+                    }
+                });
+            }.bind(this));
+        },
+        updateFixLevel: function(name, value) {
+            if (this.props.variation === null) {
+                return;
+            }
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: 'products/stockLevel',
+                    type: 'POST',
+                    dataType : 'json',
+                    data: {
+                        id: productId,
+                        stockLevel: value
+                    },
+                    success: function() {
+                        resolve({ savedValue: value });
+                    },
+                    error: function(error) {
+                        reject(new Error(error));
+                    }
+                });
+            }.bind(this));
         },
         getDefaultProps: function() {
             return {
