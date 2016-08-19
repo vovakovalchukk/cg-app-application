@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bdfc734d543342d53132940577c3ee9b",
-    "content-hash": "b161346ccdea27bdbc5b4ead1e2d5bec",
+    "hash": "c1773e5341a75738bf48f423cc99b60f",
+    "content-hash": "c8651bc29dd1296bccfc99b46be9278a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -153,16 +153,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.11.2",
+            "version": "1.11.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "0caa4d5cf93c2e97702e36983099fb185b5d6b9c"
+                "reference": "dafea07d37e4a33783c6a1a89ae92e0b35c1c780"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.2-310356.zip",
-                "reference": "0caa4d5cf93c2e97702e36983099fb185b5d6b9c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.3-48d1b3.zip",
+                "reference": "dafea07d37e4a33783c6a1a89ae92e0b35c1c780",
                 "shasum": null
             },
             "require": {
@@ -173,6 +173,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
+                "channelgrabber/phinx": "~0.3.2",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stdlib": ">=2.12.0",
                 "channelgrabber/user": ">= 1.18.7",
@@ -199,7 +200,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2016-05-05 10:58:29"
+            "time": "2016-05-20 09:14:53"
         },
         {
             "name": "channelgrabber/cache",
@@ -1240,16 +1241,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "3545363b161a99945e67e738d822e7fe41ffc499"
+                "reference": "6478409fe6ab354f76401c5623f2c699aabedc09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.12-6a7b04.zip",
-                "reference": "3545363b161a99945e67e738d822e7fe41ffc499",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.13-5b6912.zip",
+                "reference": "6478409fe6ab354f76401c5623f2c699aabedc09",
                 "shasum": null
             },
             "require": {
@@ -1291,7 +1292,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-08-12 10:13:46"
+            "time": "2016-08-19 08:00:53"
         },
         {
             "name": "channelgrabber/notification",
@@ -5571,12 +5572,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
