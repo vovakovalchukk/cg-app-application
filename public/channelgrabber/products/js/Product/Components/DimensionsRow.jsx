@@ -30,7 +30,7 @@ define([
             }
             return new Promise(function(resolve, reject) {
                 $.ajax({
-                    url: this.props.updateUrl,
+                    url: '/products/details/update',
                     type: 'POST',
                     dataType : 'json',
                     data: {

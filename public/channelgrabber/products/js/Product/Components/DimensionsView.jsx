@@ -32,7 +32,7 @@ define([
                         </thead>
                         <tbody>
                         {this.props.variations.map(function (variation) {
-                            return <DimensionsRow key={variation.id} updateUrl='/products/details/update' variation={variation}/>;
+                            return <DimensionsRow key={variation.id} variation={variation}/>;
                         }.bind(this))}
                         </tbody>
                     </table>
