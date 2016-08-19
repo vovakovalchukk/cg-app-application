@@ -34,8 +34,18 @@ define([
             if (! this.state.editable) {
                 return;
             }
-            //  call submit callback (onSuccess: oldValue = newValue)
-            this.props.submitCallback(this.props.name, this.state.newValue);
+
+            var promise = this.props.submitCallback(this.props.name, this.state.newValue);
+            promise.then(function(data) {
+                this.setState({
+                    editable: false,
+                    oldValue: data.savedValue
+                });
+                console.log(data);
+            }.bind(this));
+            promise.catch(function(error) {
+                console.log(error.message);
+            });
         },
         mouseOver: function () {
             this.setState({ hover: true });

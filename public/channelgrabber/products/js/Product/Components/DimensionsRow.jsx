@@ -28,25 +28,25 @@ define([
             if (this.props.variation === null) {
                 return;
             }
-            console.log('Submitting dimension '+detail+' as '+value+' to '+this.props.updateUrl);
-            return;
-            $.ajax({
-                url: this.props.updateUrl,
-                type: 'POST',
-                dataType : 'json',
-                body: {
-                    id: this.props.variation.id,
-                    detail: detail,
-                    value: value,
-                    sku: this.props.variation.sku
-                },
-                success: function() {
-                    return true;
-                },
-                error: function() {
-                    return false;
-                }
-            });
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: this.props.updateUrl,
+                    type: 'POST',
+                    dataType : 'json',
+                    data: {
+                        id: this.props.variation.details.id,
+                        detail: detail,
+                        value: value,
+                        sku: this.props.variation.sku
+                    },
+                    success: function() {
+                        resolve({ savedValue: value });
+                    },
+                    error: function(error) {
+                        reject(new Error(error));
+                    }
+                });
+            }.bind(this));
         },
         getDefaultProps: function() {
             return {
