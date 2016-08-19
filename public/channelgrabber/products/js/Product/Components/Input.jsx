@@ -9,14 +9,14 @@ define([
         getDefaultProps: function () {
             return {
                 type: 'number',
-                value: 0,
+                initialValue: '',
                 step: 1
             };
         },
         getInitialState: function () {
             return {
-                oldValue: this.props.value,
-                newValue: this.props.value,
+                oldValue: this.props.initialValue,
+                newValue: this.props.initialValue,
                 editable: false,
                 hover: false
             }
@@ -68,7 +68,7 @@ define([
             return (
                 <div className="detail-text-holder">
                     <div className="submit-input active">
-                        <input type={this.props.type} className="submit-inputbox product-detail" onKeyPress={this.onKeyPress} onChange={this.onChange} value={this.state.newValue} name={this.props.name} step={this.props.step} />
+                        <input type={this.props.type} className="submit-inputbox product-detail" onKeyPress={this.onKeyPress} onChange={this.onChange} value={this.state.newValue || this.props.initialValue} name={this.props.name} step={this.props.step} />
                         <div className="edit-btn" style={{display: (this.state.editable ? "none" : "inline-block")}}>
                             <ul>
                                 <li onClick={this.editInput}><span className="edit"></span></li>
