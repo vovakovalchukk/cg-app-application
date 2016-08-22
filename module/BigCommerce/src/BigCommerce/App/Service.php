@@ -153,7 +153,7 @@ class Service implements LoggerAwareInterface
         }
 
         $firstName = $lastName = null;
-        if (preg_match('/^(?<firstName>[^\.]+)\.(?<lastName>[^@\+]+)/', $response['user']['email'], $match)) {
+        if (preg_match('/^(?<firstName>[^@\+\.]+)\.(?<lastName>[^@\+]+)/', $response['user']['email'], $match)) {
             $firstName = ucfirst(strtolower($match['firstName']));
             $lastName = ucwords(strtolower(str_replace('.', ' ', $match['lastName'])));
         }
