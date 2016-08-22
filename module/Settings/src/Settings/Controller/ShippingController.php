@@ -17,6 +17,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as AccountEntity;
+use Orders\Courier\ShippingAccountsService;
 
 class ShippingController extends AbstractActionController
 {
@@ -38,6 +39,8 @@ class ShippingController extends AbstractActionController
     protected $organisationUnitService;
     protected $accountService;
     protected $shippingServiceFactory;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     protected $serviceOptionsTypeMap = [
         'select' => 'custom-select',
@@ -52,7 +55,8 @@ class ShippingController extends AbstractActionController
         ActiveUserInterface $activeUser,
         OrganisationUnitService $organisationUnitService,
         AccountService $accountService,
-        ShippingServiceFactory $shippingServiceFactory
+        ShippingServiceFactory $shippingServiceFactory,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
@@ -61,7 +65,8 @@ class ShippingController extends AbstractActionController
             ->setActiveUser($activeUser)
             ->setOrganisationUnitService($organisationUnitService)
             ->setAccountService($accountService)
-            ->setShippingServiceFactory($shippingServiceFactory);
+            ->setShippingServiceFactory($shippingServiceFactory)
+            ->setShippingAccountsService($shippingAccountsService);
     }
 
     public function aliasAction()
@@ -207,20 +212,15 @@ class ShippingController extends AbstractActionController
     {
         $shippingAccounts = $this->getShippingAccounts();
 
-        $options = [
-            [
-                'title' => 'None',
-                'value' => '0',
-                'selected' => (!$alias->getAccountId())
-            ]
+        $noneOption = [
+            'title' => 'None',
+            'value' => '0',
+            'selected' => (!$alias->getAccountId())
         ];
-        foreach($shippingAccounts as $account) {
-            $options[] = [
-                'title' => $account->getDisplayName(),
-                'value' => $account->getId(),
-                'selected' => $alias->getAccountId() == $account->getId()
-            ];
-        }
+        $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
+            $shippingAccounts, $alias->getAccountId()
+        );
+        array_unshift($options, $noneOption);
 
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
@@ -336,14 +336,7 @@ class ShippingController extends AbstractActionController
     {
         $shippingAccounts = [];
         try {
-            $shippingAccounts = $this->getAccountService()->fetchByOUAndStatus(
-                $this->getActiveUser()->getActiveUser()->getOuList(),
-                null,
-                false,
-                static::LIMIT,
-                static::FIRST_PAGE,
-                static::TYPE
-            );
+            $shippingAccounts = $this->shippingAccountsService->getShippingAccounts();
         } catch (NotFound $e) {
             // Ignore if there are no shipping accounts
         }
@@ -466,5 +459,11 @@ class ShippingController extends AbstractActionController
     protected function getShippingServiceFactory()
     {
         return $this->shippingServiceFactory;
+    }
+
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
+    {
+        $this->shippingAccountsService = $shippingAccountsService;
+        return $this;
     }
 }

@@ -189,6 +189,11 @@ use CG\CourierAdapter\Provider\Implementation\CarrierBookingOptions as CourierAd
 use CG\CourierAdapter\Provider\Implementation\Service as CourierAdapterProviderImplementationService;
 use CG\CourierAdapter\Provider\Label\Service as CourierAdapterProviderLabelService;
 
+// Amazon MCF (Multi-Channel Fulfilment)
+use CG\Amazon\Mcf\ShippingChannelsProvider as AmazonMcfShippingChannelsProvider;
+use CG\Amazon\Mcf\CarrierBookingOptions as AmazonMcfCarrierBookingOptions;
+use CG\Amazon\Mcf\CarrierProviderService as AmazonMcfCarrierProviderService;
+
 $config = array(
     'di' => array(
         'definition' => [
@@ -652,6 +657,8 @@ $config = array(
                     'addProvider' => [
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        // Amazon MCF must come before Amazon Logistics
+                        ['provider' => AmazonMcfShippingChannelsProvider::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
                         ['provider' => CourierAdapterProviderImplementationService::class],
                     ]
@@ -671,6 +678,8 @@ $config = array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        // Amazon MCF must come before Amazon Logistics
+                        ['provider' => AmazonMcfCarrierBookingOptions::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
                         ['provider' => CourierAdapterProviderCarrierBookingOptions::class],
                     ]
@@ -681,6 +690,8 @@ $config = array(
                     'addProvider' => [
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
+                        // Amazon MCF must come before Amazon Logistics
+                        ['provider' => AmazonMcfCarrierProviderService::class],
                         ['provider' => AmazonCarrierProvider::class],
                         ['provider' => CourierAdapterProviderLabelService::class],
                     ]
