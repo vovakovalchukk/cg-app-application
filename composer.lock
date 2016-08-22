@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9702ec2c1df3c0b6e80de20064c49d37",
-    "content-hash": "888e403a79691eab05d4b7f58c465aa7",
+    "hash": "e3311e208b3fde833c4d588b924ac027",
+    "content-hash": "be217e52a39d428e766eb47ac87251fc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -152,16 +152,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-CGIV-7327-new-ou-improvements",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "ee27606232100e85f053a5b5e76924868d8299b7"
+                "reference": "01f374e50bfb39d86b410685c627ed126e368ccc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-7327-new-ou-improvements-841a44.zip",
-                "reference": "ee27606232100e85f053a5b5e76924868d8299b7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.4-462c95.zip",
+                "reference": "01f374e50bfb39d86b410685c627ed126e368ccc",
                 "shasum": null
             },
             "require": {
@@ -199,7 +199,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-15 14:07:44"
+            "time": "2016-08-22 15:21:45"
         },
         {
             "name": "channelgrabber/cache",
@@ -3152,16 +3152,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-7327-new-ou-improvements",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "e1764e5a41524ca953d8a72d089e351765d278bc"
+                "reference": "6efa4b368ba4c0959ac82cff39492c9696406813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7327-new-ou-improvements-d4c45c.zip",
-                "reference": "e1764e5a41524ca953d8a72d089e351765d278bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.1-6f1b61.zip",
+                "reference": "6efa4b368ba4c0959ac82cff39492c9696406813",
                 "shasum": null
             },
             "require": {
@@ -3202,7 +3202,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-15 13:06:38"
+            "time": "2016-08-22 15:22:19"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -7867,26 +7867,11 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.4",
-            "alias_normalized": "1.11.4.0",
-            "version": "dev-CGIV-7327-new-ou-improvements",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.5.1",
-            "alias_normalized": "1.5.1.0",
-            "version": "dev-CGIV-7327-new-ou-improvements",
-            "package": "channelgrabber/zf2-login"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
-        "channelgrabber/zf2-login": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
