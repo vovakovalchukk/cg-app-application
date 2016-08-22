@@ -19,24 +19,15 @@ use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Storage as StorageException;
-use CG\User\OrganisationUnit\Service as UserOUService;
 use DateTime;
-use Orders\Courier\GetShippingAccountOptionsTrait;
-use Orders\Courier\GetShippingAccountsTrait;
+use Orders\Courier\ShippingAccountsService;
 
 class Service
 {
     const MANIFEST_SAVE_MAX_ATTEMPTS = 2;
 
-    use GetShippingAccountsTrait {
-        getShippingAccounts as traitGetShippingAccounts;
-    }
-    use GetShippingAccountOptionsTrait;
-
     /** @var AccountService */
     protected $accountService;
-    /** @var UserOUService */
-    protected $userOuService;
     /** @var CarrierProviderServiceRepository */
     protected $carrierProviderServiceRepo;
     /** @var AccountManifestMapper */
@@ -45,32 +36,31 @@ class Service
     protected $accountManifestService;
     /** @var OrderLabelService */
     protected $orderLabelService;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     public function __construct(
         AccountService $accountService,
-        UserOUService $userOuService,
         CarrierProviderServiceRepository $carrierProviderServiceRepo,
         AccountManifestMapper $accountManifestMapper,
         AccountManifestService $accountManifestService,
-        OrderLabelService $orderLabelService
+        OrderLabelService $orderLabelService,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setAccountService($accountService)
-            ->setUserOuService($userOuService)
             ->setCarrierProviderServiceRepo($carrierProviderServiceRepo)
             ->setAccountManifestMapper($accountManifestMapper)
             ->setAccountManifestService($accountManifestService)
-            ->setOrderLabelService($orderLabelService);
+            ->setOrderLabelService($orderLabelService)
+            ->setShippingAccountsService($shippingAccountsService);
     }
 
     public function getShippingAccounts()
     {
-        $accounts = $this->traitGetShippingAccounts();
+        $accounts = $this->shippingAccountsService->getProvidedShippingAccounts();
         $manifestableAccounts = new AccountCollection(Account::class, __FUNCTION__);
         foreach ($accounts as $account)
         {
-            if (!$this->carrierProviderServiceRepo->isProvidedAccount($account)) {
-                continue;
-            }
             $provider = $this->getCarrierProviderService($account);
             if (!$provider instanceof CarrierProviderServiceManifestInterface
                 || !$provider->isManifestingAllowedForAccount($account)
@@ -91,7 +81,7 @@ class Service
             $shippingAccounts->rewind();
             $selectedAccountId = $shippingAccounts->current()->getId();
         }
-        return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
+        return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
     /**
@@ -307,12 +297,6 @@ class Service
         return $this;
     }
 
-    protected function setUserOuService(UserOUService $userOuService)
-    {
-        $this->userOuService = $userOuService;
-        return $this;
-    }
-
     protected function setCarrierProviderServiceRepo(CarrierProviderServiceRepository $carrierProviderServiceRepo)
     {
         $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
@@ -337,13 +321,9 @@ class Service
         return $this;
     }
 
-    // Required by GetShippingAccountsTrait
-    protected function getAccountService()
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
     {
-        return $this->accountService;
-    }
-    protected function getUserOuService()
-    {
-        return $this->userOuService;
+        $this->shippingAccountsService = $shippingAccountsService;
+        return $this;
     }
 }

@@ -99,7 +99,7 @@ class CreateService extends ServiceAbstract
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
-            $parcelsData = $orderParcelsData[$order->getId()];
+            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
             // If there's multiple items and we don't have specific data for each then we don't know how the parcel data is made up
             if (count($order->getItems()) > 1 && !isset($ordersItemsData[$order->getId()])) {
                 continue;
@@ -109,9 +109,9 @@ class CreateService extends ServiceAbstract
 
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
-            $parcelsData = $orderParcelsData[$order->getId()];
+            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
             $parcelCount = count($parcelsData);
-            $parcelData = array_pop($parcelsData);
+            $parcelData = (!empty($parcelsData) ? array_pop($parcelsData) : []);
             $itemData = (isset($ordersItemsData[$order->getId()]) ? $ordersItemsData[$order->getId()] : []);
             $items = $order->getItems();
             foreach ($items as $item) {
@@ -261,13 +261,14 @@ class CreateService extends ServiceAbstract
             if (isset($ordersItemsData[$order->getId()])) {
                 continue;
             }
-            if (count($order->getItems()) > 1 || count($orderParcelsData[$order->getId()]) > 1) {
+            $parcelData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []); 
+            if (count($order->getItems()) > 1 || count($parcelData) > 1) {
                 continue;
             }
             $items = $order->getItems();
             $items->rewind();
             $item = $items->current();
-            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($orderParcelsData[$order->getId()]);
+            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($parcelData);
         }
         return $ordersItemsData;
     }

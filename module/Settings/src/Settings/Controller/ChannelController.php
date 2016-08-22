@@ -285,7 +285,8 @@ class ChannelController extends AbstractActionController
         $channelSpecificView->setVariables([
             'form' => $form,
             'account' => $accountEntity,
-            'route' => $returnRoute
+            'route' => $returnRoute,
+            'isAdmin'=> $this->activeUserContainer->isAdmin()
         ]);
         $this->addAccountsChannelSpecificVariablesToChannelSpecificView($accountEntity, $channelSpecificView);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
