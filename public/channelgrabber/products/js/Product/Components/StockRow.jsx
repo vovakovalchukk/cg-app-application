@@ -126,7 +126,7 @@ define([
                     type: 'POST',
                     dataType : 'json',
                     data: {
-                        id: productId,
+                        id: this.props.variation.id,
                         stockLevel: value
                     },
                     success: function() {
