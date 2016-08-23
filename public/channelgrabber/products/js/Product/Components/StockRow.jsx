@@ -35,7 +35,7 @@ define([
                     <Select options={this.getStockModeOptions()} initialSelected={this.getStockMode()} onNewOption={this.updateStockMode}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
-                    <Input name='level' initialValue={this.getOnHandStock()} submitCallback={this.updateFixLevel} disabled={this.state.stockMode.value == null} />
+                    <Input name='level' initialValue={this.getOnHandStock()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
                 </td>
             ];
         },
@@ -80,6 +80,18 @@ define([
             this.setState({
                 stockMode: stockMode
             });
+            $.ajax({
+                url : '/products/stockMode',
+                data : { id: this.props.variation.id, stockMode: stockMode.value },
+                method : 'POST',
+                dataType : 'json',
+                success : function(response) {
+                    console.log(response);
+                },
+                error : function(response) {
+                    console.log(response);
+                }
+            });
         },
         updateStockTotal: function(name, value) {
             if (this.props.variation === null) {
@@ -104,7 +116,7 @@ define([
                 });
             }.bind(this));
         },
-        updateFixLevel: function(name, value) {
+        updateStockLevel: function(name, value) {
             if (this.props.variation === null) {
                 return;
             }
