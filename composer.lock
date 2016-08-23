@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89be9df58c989472cbd5a5e40d0f4a61",
-    "content-hash": "158e79e38ad91f9994a107bb83679b7a",
+    "hash": "3d4dab9222d24a586ed4fc22067c056c",
+    "content-hash": "9a47e7da4d58d8cdd9eb615d02c0bc76",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -731,16 +731,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-CGIV-7179-use-channel-country-iso-code",
+            "version": "1.8.37",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "d08806209d7b829d68fbc26e70736601b52e1d9c"
+                "reference": "f8e04d83eed08fb8592f993c9623b16c6e304cb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-7179-use-channel-country-iso-code-65ff8a.zip",
-                "reference": "d08806209d7b829d68fbc26e70736601b52e1d9c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.37-3224ad.zip",
+                "reference": "f8e04d83eed08fb8592f993c9623b16c6e304cb6",
                 "shasum": null
             },
             "require": {
@@ -754,7 +754,7 @@
                 "channelgrabber/listing": "^1.6.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-7179-use-channel-country-iso-code as 1.23.15",
+                "channelgrabber/order": "^1.23.16",
                 "channelgrabber/php-phantomjs": ">=3.1.5",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -784,7 +784,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-22 15:11:46"
+            "time": "2016-08-23 08:26:20"
         },
         {
             "name": "channelgrabber/email",
@@ -1343,16 +1343,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7179-use-channel-country-iso-code",
+            "version": "1.23.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "fd50d1feabe32a505c08ba9d4bf96cd3fa071958"
+                "reference": "c63ec4ea17377e7ab4f3300b1bb08fbbc2f65bfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7179-use-channel-country-iso-code-2194ae.zip",
-                "reference": "fd50d1feabe32a505c08ba9d4bf96cd3fa071958",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.16-598ffb.zip",
+                "reference": "c63ec4ea17377e7ab4f3300b1bb08fbbc2f65bfc",
                 "shasum": null
             },
             "require": {
@@ -1416,7 +1416,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-22 11:51:09"
+            "time": "2016-08-23 08:16:19"
         },
         {
             "name": "channelgrabber/permission",
@@ -7867,26 +7867,11 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.37",
-            "alias_normalized": "1.8.37.0",
-            "version": "dev-CGIV-7179-use-channel-country-iso-code",
-            "package": "channelgrabber/ekm"
-        },
-        {
-            "alias": "1.23.16-dev",
-            "alias_normalized": "1.23.16.0-dev",
-            "version": "dev-CGIV-7179-use-channel-country-iso-code",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courieradapter": 20,
-        "channelgrabber/ekm": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
