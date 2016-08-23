@@ -4,7 +4,6 @@ use CG_Channel\Module as ChannelModule;
 
 if (isset($accountPendingInstructions)) {
     echo $accountPendingInstructions;
-    return;
 }
 
 if (isset($testPackFiles)) {
@@ -18,4 +17,7 @@ if (isset($configForm)) {
 if (isset($testModeInstructions)) {
     echo $this->partial('courier-adapter/settings_account/test_mode_instructions.phtml', compact('testModeInstructions'));
 }
-echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
+
+if (!$account->getPending()) {
+    echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
+}
