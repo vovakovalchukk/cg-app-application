@@ -3340,12 +3340,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "613857739f39f8e254c1b021e73f9d499df65a53"
+                "reference": "b410dd591a1bc97b2f9ba6244e963e0761fb8df8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7343-BigCommercePreFill-525ea4.zip",
-                "reference": "613857739f39f8e254c1b021e73f9d499df65a53",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7343-BigCommercePreFill-91bea0.zip",
+                "reference": "b410dd591a1bc97b2f9ba6244e963e0761fb8df8",
                 "shasum": null
             },
             "require": {
@@ -3361,6 +3361,7 @@
                 "channelgrabber/zf2-v4-ui": "^1.16.57",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
+                "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
@@ -3389,7 +3390,7 @@
                 }
             },
             "description": "module to register a new user account",
-            "time": "2016-08-22 13:12:03"
+            "time": "2016-08-23 10:18:15"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
