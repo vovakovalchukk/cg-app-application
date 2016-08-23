@@ -24,6 +24,8 @@ define([
         {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
                 return <VariationView attributeNames={this.props.product.attributeNames} variations={this.state.variations}/>;
+            } else {
+                return <VariationView variations={[this.props.product]}/>;
             }
         },
         getDetailsView: function ()
@@ -74,14 +76,9 @@ define([
                     <input type="hidden" value={this.props.product.id} name="id" />
                     <input type="hidden" value={this.props.product.eTag} name={"product[" + this.props.product.id + "][eTag]"} />
                     <Checkbox id={this.props.product.id} />
-                    <div className="product-holder">
-                        <div className="product-image-container">
-                            <img src={this.props.product.images.length > 0 ? this.props.product.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} />
-                        </div>
-                    </div>
                     <div className="product-info-container">
                         <div className="product-header">
-                            <b>{this.props.product.name}</b>
+                            <span className="product-title">{this.props.product.name}</span>
                             <span className="product-sku">{this.props.product.sku}</span>
                             <Status listings={this.props.product.listings} />
                         </div>

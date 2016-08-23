@@ -28,7 +28,8 @@ define([
         },
         getDefaultProps: function() {
             return {
-                variations: []
+                variations: [],
+                attributeNames: []
             };
         },
         render: function () {
