@@ -456,8 +456,18 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            'unarchive' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/unarchive',
+                                    'defaults' => [
+                                        'action' => 'unarchiveOrderIds',
+                                    ],
+                                ],
+                            ],
                             'filterId' => [
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'priority' => -100,
                                 'options' => [
                                     'route' => '/:filterId',
                                     'constraints' => [

@@ -49,6 +49,16 @@ return [
                         ],
                     ],
                 ],
+                Action\Archive::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
         'instance' => [
@@ -284,6 +294,26 @@ return [
                     'urlView' => 'UrlDataViewArchive',
                     'elementData' => [
                         'datatable' => 'datatable',
+                        'message' => 'Archiving Orders',
+                        'success' => 'Archived Successfully',
+                        'error' => 'Failed to archived Orders',
+                    ],
+                    'javascript' => 'ArchiveJavascript',
+                ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => SubAction\UnArchive::class]
+                    ]
+                ],
+            ],
+            SubAction\UnArchive::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewArchive',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                        'message' => 'Un-Archiving Orders',
+                        'success' => 'Un-Archived Successfully',
+                        'error' => 'Failed to un-archived Orders',
                     ],
                     'javascript' => 'ArchiveJavascript',
                 ],
