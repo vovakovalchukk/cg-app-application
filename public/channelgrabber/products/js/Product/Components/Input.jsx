@@ -9,8 +9,7 @@ define([
         getDefaultProps: function () {
             return {
                 type: 'number',
-                initialValue: '',
-                step: 1
+                initialValue: ''
             };
         },
         getInitialState: function () {
@@ -65,19 +64,19 @@ define([
         },
         render: function () {
             return (
-                <div className="detail-text-holder">
-                    <div className="submit-input active">
-                        <input type={this.props.type} className="submit-inputbox product-detail" onKeyPress={this.onKeyPress} onChange={this.onChange} value={this.state.newValue || this.props.initialValue} name={this.props.name} step={this.props.step} />
-                        <div className="edit-btn" style={{display: (this.state.editable ? "none" : "inline-block")}}>
-                            <ul>
-                                <li onClick={this.editInput}><span className="edit"></span></li>
-                            </ul>
-                        </div>
-                        <div className="submit-cancel" style={{display: (this.state.editable ? "inline-block" : "none")}}>
-                            <ul>
-                                <li onClick={this.submitInput}><span className="submit"></span></li>
-                                <li onClick={this.cancelInput}><span className="cancel"></span></li>
-                            </ul>
+                <div className="safe-input-box">
+                    <div className="submit-input" onFocus={this.editInput}>
+                        <input
+                            type={this.props.type}
+                            onKeyPress={this.onKeyPress}
+                            onChange={this.onChange}
+                            value={this.state.newValue || this.props.initialValue}
+                            name={this.props.name}
+                            disabled={this.props.disabled ? 'disabled' : ''}
+                        />
+                        <div className={"submit-cancel " + (this.state.editable ? "active" : "")}>
+                            <div className="button-input" onClick={this.submitInput}><span className="submit"></span></div>
+                            <div className="button-input" onClick={this.cancelInput}><span className="cancel"></span></div>
                         </div>
                     </div>
                 </div>

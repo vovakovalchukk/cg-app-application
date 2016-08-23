@@ -12,7 +12,10 @@ define([
     var StockRowComponent = React.createClass({
         getInitialState: function() {
             return   {
-                stockMode: ''
+                stockMode: {
+                    name: '',
+                    value: ''
+                }
             };
         },
         getColumns: function(variation) {
@@ -24,7 +27,7 @@ define([
                     <div>{this.getOnHandStock()}</div>
                 </td>,
                 <td key="stock-total" className="product-stock-available">
-                    <Input name='total' value={this.getOnHandStock()} submitCallback={this.updateStockTotal}/>
+                    <Input name='total' initialValue={this.getOnHandStock()} submitCallback={this.updateStockTotal}/>
                     <input type='hidden' value={variation.eTag} />
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
@@ -32,7 +35,7 @@ define([
                     <Select options={this.getStockModeOptions()} initialSelected={this.getStockMode()} onNewOption={this.updateStockMode}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
-                    <Input name='level' value={this.getOnHandStock()} submitCallback={this.updateFixLevel}/>
+                    <Input name='level' initialValue={this.getOnHandStock()} submitCallback={this.updateFixLevel} disabled={this.state.stockMode.value == null} />
                 </td>
             ];
         },
