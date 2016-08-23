@@ -10,6 +10,7 @@ use Orders\Module;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
+use Orders\Courier\ShippingAccountsService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -43,6 +44,8 @@ class CourierController extends AbstractActionController
     protected $manifestService;
     /** @var OrdersToOperateOn */
     protected $ordersToOperatorOn;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -51,7 +54,8 @@ class CourierController extends AbstractActionController
         Service $service,
         LabelPrintService $labelPrintService,
         ManifestService $manifestService,
-        OrdersToOperateOn $ordersToOperatorOn
+        OrdersToOperateOn $ordersToOperatorOn,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
@@ -59,7 +63,8 @@ class CourierController extends AbstractActionController
             ->setService($service)
             ->setLabelPrintService($labelPrintService)
             ->setManifestService($manifestService)
-            ->setOrdersToOperatorOn($ordersToOperatorOn);
+            ->setOrdersToOperatorOn($ordersToOperatorOn)
+            ->setShippingAccountsService($shippingAccountsService);
     }
 
     public function indexAction()
@@ -190,7 +195,7 @@ class CourierController extends AbstractActionController
             ->setVariable('selectedCourier', $selectedCourier)
             ->addChild($this->getSpecificsBulkActionsButtons($courierAccounts, $selectedCourier), 'bulkActionsButtons')
             ->addChild($this->specificsTable, 'specificsTable')
-            ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
+            ->addChild($this->getSpecificsActionsButtons($selectedCourier), 'actionsButtons')
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
             ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
             ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
@@ -228,7 +233,7 @@ class CourierController extends AbstractActionController
     {
         $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
         $url = $this->url()->fromRoute($route, ['account' => $account->getId()]);
-        return [$url, $account->getDisplayName()];
+        return [$url, $this->shippingAccountsService->getDisplayNameForAccount($account)];
     }
 
     protected function getSpecificsBulkActionsButtons(AccountCollection $accounts, Account $selectedAccount)
@@ -236,19 +241,19 @@ class CourierController extends AbstractActionController
         $viewConfig = [
             'buttons' => [
                 [
-                    'value' => 'Create all labels',
+                    'value' => $this->service->getCreateAllActionDescription($selectedAccount),
                     'id' => 'create-all-labels-button',
                     'class' => 'courier-create-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => 'Print all labels',
+                    'value' => $this->service->getPrintAllActionDescription($selectedAccount),
                     'id' => 'print-all-labels-button',
                     'class' => 'courier-print-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => 'Cancel all',
+                    'value' => $this->service->getCancelAllActionDescription($selectedAccount),
                     'id' => 'cancel-all-labels-button',
                     'class' => 'courier-cancel-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
@@ -287,24 +292,24 @@ class CourierController extends AbstractActionController
         ];
     }
 
-    protected function getSpecificsActionsButtons()
+    protected function getSpecificsActionsButtons(Account $selectedAccount)
     {
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [
                 [
-                    'value' => 'Create label',
+                    'value' => $this->service->getCreateActionDescription($selectedAccount),
                     'id' => 'create-label-button',
                     'class' => 'courier-create-label-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => 'Print label',
+                    'value' => $this->service->getPrintActionDescription($selectedAccount),
                     'id' => 'print-label-button',
                     'class' => 'courier-print-label-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => 'Cancel',
+                    'value' => $this->service->getCancelActionDescription($selectedAccount),
                     'id' => 'cancel-label-button',
                     'class' => 'courier-cancel-label-button',
                     'disabled' => false,
@@ -419,6 +424,12 @@ class CourierController extends AbstractActionController
     protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
     {
         $this->ordersToOperatorOn = $ordersToOperatorOn;
+        return $this;
+    }
+
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
+    {
+        $this->shippingAccountsService = $shippingAccountsService;
         return $this;
     }
 }

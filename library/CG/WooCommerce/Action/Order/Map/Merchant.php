@@ -25,6 +25,11 @@ class Merchant extends DefaultMap
             Status::DISPATCHED => [
                 static::REFUND,
             ],
+            Status::DISPATCH_FAILED => [
+                static::DISPATCH,
+                static::CANCEL,
+                static::REFUND,
+            ],
             Status::UNKNOWN => [
                 static::DISPATCH,
                 static::CANCEL,
