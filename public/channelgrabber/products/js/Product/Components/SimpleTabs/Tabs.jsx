@@ -27,10 +27,8 @@ define([
                     {this.props.children.map(function (child, index) {
                         var activeClass = (this.state.selected === index ? 'active' : '');
                         return (
-                            <li key={index}>
-                                <a href="#"
-                                   className={activeClass}
-                                   onClick={this.handleClick.bind(this, index)}>
+                            <li key={index} className={activeClass}>
+                                <a href="#" onClick={this.handleClick.bind(this, index)}>
                                     {child.props.label}
                                 </a>
                             </li>
