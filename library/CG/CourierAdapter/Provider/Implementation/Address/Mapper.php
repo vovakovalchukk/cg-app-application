@@ -16,6 +16,7 @@ class Mapper
         }
 
         return new CAAddress(
+            $ohOrder->getShippingAddressCompanyNameForCourier(),
             $firstName,
             $lastName,
             $ohOrder->getShippingAddress1ForCourier(),
@@ -39,6 +40,7 @@ class Mapper
         }
 
         return new CAAddress(
+            $ou->getAddressCompanyName(),
             $firstName,
             $lastName,
             $ou->getAddress1(),

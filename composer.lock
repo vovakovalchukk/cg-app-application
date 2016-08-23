@@ -572,12 +572,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "1ffdff33e34c6d6a8b7a37ce8c5cfc1b33d19528"
+                "reference": "704c14c17674a0f567364c0f13f8b4800cb5ed01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-fbdae0.zip",
-                "reference": "1ffdff33e34c6d6a8b7a37ce8c5cfc1b33d19528",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-2d8303.zip",
+                "reference": "704c14c17674a0f567364c0f13f8b4800cb5ed01",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-16 14:36:13"
+            "time": "2016-08-23 14:21:09"
         },
         {
             "name": "channelgrabber/dataplug",
