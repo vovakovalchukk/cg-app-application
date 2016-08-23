@@ -91,6 +91,7 @@ return [
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
                 'UrlDataViewArchive' => ViewModel::class,
+                'UrlDataViewUnArchive' => ViewModel::class,
                 'UrlDataViewBatch' => ViewModel::class,
                 'UrlDataViewBatchRemove' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
@@ -308,7 +309,7 @@ return [
             ],
             SubAction\UnArchive::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataViewArchive',
+                    'urlView' => 'UrlDataViewUnArchive',
                     'elementData' => [
                         'datatable' => 'datatable',
                         'message' => 'Un-Archiving Orders',
@@ -464,6 +465,11 @@ return [
                 ],
             ],
             'UrlDataViewArchive' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewUnArchive' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
