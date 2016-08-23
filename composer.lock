@@ -152,16 +152,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.11.3",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "dafea07d37e4a33783c6a1a89ae92e0b35c1c780"
+                "reference": "01f374e50bfb39d86b410685c627ed126e368ccc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.3-48d1b3.zip",
-                "reference": "dafea07d37e4a33783c6a1a89ae92e0b35c1c780",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.4-462c95.zip",
+                "reference": "01f374e50bfb39d86b410685c627ed126e368ccc",
                 "shasum": null
             },
             "require": {
@@ -199,7 +199,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2016-05-20 09:14:53"
+            "time": "2016-08-22 15:21:45"
         },
         {
             "name": "channelgrabber/cache",
@@ -3152,16 +3152,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "298e14ba1ee098439d0fd6953926e8c03ccd333e"
+                "reference": "6efa4b368ba4c0959ac82cff39492c9696406813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.0-3d1213.zip",
-                "reference": "298e14ba1ee098439d0fd6953926e8c03ccd333e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.1-6f1b61.zip",
+                "reference": "6efa4b368ba4c0959ac82cff39492c9696406813",
                 "shasum": null
             },
             "require": {
@@ -3202,7 +3202,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-12 08:27:32"
+            "time": "2016-08-22 15:22:19"
         },
         {
             "name": "channelgrabber/zf2-mustache",
