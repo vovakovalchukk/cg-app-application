@@ -19,10 +19,12 @@ define([
         },
         getDefaultProps: function() {
             return {
-                variations: []
+                variations: [],
+                fullView: false
             };
         },
         render: function () {
+            var count = 0;
             return (
                 <div className="stock-table">
                     <table>
@@ -33,6 +35,10 @@ define([
                         </thead>
                         <tbody>
                         {this.props.variations.map(function (variation) {
+                            if (this.props.fullView && count > 1) {
+                                return;
+                            }
+                            count++;
                             return <StockRow key={variation.id} variation={variation} />;
                         }.bind(this))}
                         </tbody>

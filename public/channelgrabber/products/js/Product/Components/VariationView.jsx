@@ -29,10 +29,12 @@ define([
         getDefaultProps: function() {
             return {
                 variations: [],
-                attributeNames: []
+                attributeNames: [],
+                fullView: false
             };
         },
         render: function () {
+            var count = 0;
             return (
                 <div className="variation-table">
                     <table>
@@ -43,6 +45,10 @@ define([
                         </thead>
                         <tbody>
                             {this.props.variations.map(function (variation) {
+                                if (this.props.fullView && count > 1) {
+                                    return;
+                                }
+                                count++;
                                 return <tr key={variation.id}>{this.getAttributeValues(variation)}</tr>;
                             }.bind(this))}
                         </tbody>

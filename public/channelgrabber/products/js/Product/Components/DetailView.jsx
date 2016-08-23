@@ -19,10 +19,10 @@ define([
                 <div className="product-details-layout">
                     <Tabs selected={0}>
                         <Pane label="Stock">
-                            <StockView variations={this.props.variations}/>
+                            <StockView variations={this.props.variations} fullView={this.props.fullView}/>
                         </Pane>
                         <Pane label="Dimensions">
-                            <DimensionsView variations={this.props.variations}/>
+                            <DimensionsView variations={this.props.variations} fullView={this.props.fullView}/>
                         </Pane>
                     </Tabs>
                 </div>

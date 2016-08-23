@@ -23,9 +23,9 @@ define([
         getProductVariationsView: function()
         {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return <VariationView attributeNames={this.props.product.attributeNames} variations={this.state.variations}/>;
+                return <VariationView attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
             } else {
-                return <VariationView variations={[this.props.product]}/>;
+                return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
             }
         },
         getDetailsView: function ()
@@ -34,7 +34,7 @@ define([
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
                 products = this.state.variations;
             }
-            return  <DetailView variations={products}/>
+            return  <DetailView variations={products} fullView={this.state.expanded}/>
         },
         getExpandVariationsButton: function()
         {
