@@ -3,6 +3,9 @@ namespace Orders\Courier;
 
 use CG\Account\Shared\Collection as AccountCollection;
 
+/**
+ * @deprecated Use ShippingAccountsService instead
+ */
 trait GetShippingAccountOptionsTrait
 {
     /**
