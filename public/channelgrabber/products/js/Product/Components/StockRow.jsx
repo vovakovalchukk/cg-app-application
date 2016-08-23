@@ -15,7 +15,7 @@ define([
                 stockMode: ''
             };
         },
-        getValues: function(variation) {
+        getColumns: function(variation) {
             return [
                 <td key="stock-available" className="product-stock-available">
                     <div>{(this.getOnHandStock() - Math.max(this.getAllocatedStock(), 0))}</div>
@@ -29,7 +29,7 @@ define([
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} selected={this.getStockMode()}/>
+                    <Select options={this.getStockModeOptions()} initialSelected={this.getStockMode()} onNewOption={this.updateStockMode}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
                     <Input name='level' value={this.getOnHandStock()} submitCallback={this.updateFixLevel}/>
@@ -50,11 +50,16 @@ define([
             if (!this.props.variation.stockModeOptions) {
                 return [];
             }
+            var selectedStockMode = null;
             this.props.variation.stockModeOptions.map(function(option) {
                 if (option.selected) {
-                    return option.value;
+                    selectedStockMode = {value: option.value, name: option.title};
                 }
             });
+            if (selectedStockMode === null) {
+                selectedStockMode = {value: this.props.variation.stockModeOptions[0].value, name: this.props.variation.stockModeOptions[0].title};
+            }
+            return selectedStockMode;
         },
         getOnHandStock: function() {
             return (this.props.variation.stock ? this.props.variation.stock.locations[0].onHand : '');
@@ -67,6 +72,11 @@ define([
         },
         getStockLocationId: function() {
             return (this.props.variation.stock ? this.props.variation.stock.locations[0].id : '');
+        },
+        updateStockMode: function(stockMode) {
+            this.setState({
+                stockMode: stockMode
+            });
         },
         updateStockTotal: function(name, value) {
             if (this.props.variation === null) {
@@ -119,7 +129,7 @@ define([
             };
         },
         render: function () {
-            return <tr>{this.getValues(this.props.variation)}</tr>;
+            return <tr>{this.getColumns(this.props.variation)}</tr>;
         }
     });
 

@@ -41,7 +41,6 @@ define([
                     editable: false,
                     oldValue: data.savedValue
                 });
-                console.log(data);
             }.bind(this));
             promise.catch(function(error) {
                 console.log(error.message);
