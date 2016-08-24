@@ -39,25 +39,24 @@ class ProviderController extends AbstractActionController
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
     {
-        $caAccount = $this->caAccountMapper->fromOHAccount($account);
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
-
-        if ($courierInstance instanceof CredentialRequestInterface
-            && ($account->getPending() || $this->isCAAccountInTestMode($caAccount, $courierInstance))
-        ) {
+        if ($account->getPending() && $courierInstance instanceof CredentialRequestInterface) {
             $pendingInstructions = $courierInstance->getAccountPendingInstructions();
             $view->setVariable('accountPendingInstructions', $pendingInstructions);
+            return;
         }
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
 
-        if ($account->getActive() && !$account->getPending()
+        if ($account->getActive()
             && $courierInstance instanceof ConfigInterface
             && (!$courierInstance instanceof TestModeInterface || !$courierInstance->isAccountInTestMode($caAccount))
         ) {
             $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
 
-        if ($account->getActive() && !$account->getPending()
-            && $this->isCAAccountInTestMode($caAccount, $courierInstance)
+        if ($account->getActive()
+            && $courierInstance instanceof TestModeInterface
+            && $courierInstance->isAccountInTestMode($caAccount)
         ) {
             $this->addTestModeVariablesToChannelSpecificView($account, $view, $courierInstance);
             if ($courierInstance instanceof TestPackInterface) {
@@ -98,11 +97,6 @@ class ProviderController extends AbstractActionController
         CourierInterface $courierInstance
     ) {
         $view->setVariable('testModeInstructions', 'Add your live credentials by clicking "Renew Connection".');
-    }
-
-    protected function isCAAccountInTestMode($caAccount, $courierInstance)
-    {
-        return $courierInstance instanceof TestModeInterface && $courierInstance->isAccountInTestMode($caAccount);
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)

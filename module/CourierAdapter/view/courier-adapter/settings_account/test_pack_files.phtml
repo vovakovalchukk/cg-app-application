@@ -4,17 +4,15 @@ use CourierAdapter\Module;
 
 $downloadUrl = $this->url(Module::ROUTE.'/'.AccountController::ROUTE.'/'.AccountController::ROUTE_TEST_PACK_FILE);
 ?>
-<div style="margin-top: 20px;">
-    <span class="heading-medium"><?=$this->translate('Test Pack Files');?>:</span>
-    <div class="half" style="padding-bottom: 10px">
-        <ul>
-            <?php foreach ($testPackFiles as $testPackFile):?>
-            <li>
-                <a href="<?=$downloadUrl;?>?accountId=<?=$account->getId();?>&file=<?=urlencode($testPackFile->getReference());?>">
-                    <?=$this->translate('Download ' . $testPackFile->getName());?>
-                </a>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+<span class="heading-medium"><?=$this->translate('Test Pack Files');?>:</span>
+<div class="half" style="padding-bottom: 10px">
+    <ul>
+        <?php foreach ($testPackFiles as $testPackFile):?>
+        <li>
+            <a href="<?=$downloadUrl;?>?accountId=<?=$account->getId();?>&file=<?=urlencode($testPackFile->getReference());?>">
+                <?=$this->translate('Download ' . $testPackFile->getName());?>
+            </a>
+        </li>
+        <?php endforeach; ?>
+    </ul>
 </div>
