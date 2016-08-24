@@ -16,7 +16,7 @@ define([
     var DetailViewComponent = React.createClass({
         render: function () {
             return (
-                <div className="product-details-layout">
+                <div className="details-layout-column">
                     <Tabs selected={0}>
                         <Pane label="Stock">
                             <StockView variations={this.props.variations} fullView={this.props.fullView}/>
