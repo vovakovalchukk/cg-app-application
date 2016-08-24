@@ -42,7 +42,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         var self = this;
         dataTable.on('before-cgdatatable-init', function()
         {
-            self.addOrderIdsToAjaxRequest()
+            self.setupResizeFunctions()
+                .addOrderIdsToAjaxRequest()
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
@@ -76,7 +77,8 @@ CourierSpecificsDataTable.labelStatusActions = {
     'not printed': {'print': true, 'cancel': true},
     'printed': {'print': true},
     'cancelled': {'create': true},
-    'creating': {}
+    'creating': {},
+    'dispatched': {'cancel': true}
 };
 
 CourierSpecificsDataTable.columnRenderers = {
@@ -95,6 +97,21 @@ CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.pro
  * @protected
  */
 CourierSpecificsDataTable.prototype.distinctStatusActions = {};
+
+CourierSpecificsDataTable.prototype.setupResizeFunctions = function()
+{
+    function heightResizeFunction()
+    {
+        var headingHeight = $('.heading-large').outerHeight();
+        var fixedHeaderHeight = $('#fixed-header').outerHeight();
+
+        $('.dataTables_wrapper').height('calc(100% - ' + headingHeight + 'px)');
+        $('.dataTables_scroll').height('calc(100% - ' + fixedHeaderHeight + 'px)');
+    }
+
+    this.getDataTable().cgDataTable('addResizeOverrideFunctions', heightResizeFunction);
+    return this;
+};
 
 CourierSpecificsDataTable.prototype.addOrderServicesToAjaxRequest = function()
 {
@@ -189,10 +206,10 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     if (!templateData.actionRow) {
         return;
     }
-    if (templateData.labelStatus == 'creating') {
-        return this.addCreatingMessageToActionsColumn(templateData);
-    }
     var actions = this.getActionsFromRowData(templateData);
+    if (!actions || $.isEmptyObject(actions)) {
+        return this.addStatusLozengeToActionsColumn(templateData);
+    }
     this.trackDistinctStatusActions(actions);
     var buttonsHtml = '';
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
@@ -213,9 +230,10 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     return this;
 };
 
-CourierSpecificsDataTable.prototype.addCreatingMessageToActionsColumn = function(rowData)
+CourierSpecificsDataTable.prototype.addStatusLozengeToActionsColumn = function(rowData)
 {
-    rowData.actions = '<span class="status processing">Creating</span>';
+    var statusDisplay = String(rowData.labelStatus).ucfirst();
+    rowData.actions = '<span class="status ' + rowData.labelStatus + '">' + statusDisplay + '</span>';
     return this;
 };
 
@@ -398,7 +416,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
     {
         var buttonTemplate = this;
-        var id = $('input.button', buttonTemplate).attr('id')
+        var id = $('input.button', buttonTemplate).attr('id');
         var action = id.split('-')[0];
         if (!actions[action]) {
             return true; //continue

@@ -1,0 +1,39 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
+    require([
+        'Settings/Order/Order',
+        'element/Factory/Select'
+    ], function(
+        order,
+        select
+    ) {
+        new order();
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div id="breadcrumbs" class="floatLeftClear">
+  <span class="heading-large">
+    <?= $this->translate($title) ?>
+  </span>
+</div>
+<div class="module clearfix">
+    <form>
+        <div class="order-form">
+            <input type='hidden' value="<?= $eTag ?>" id="order-eTag">
+            <div class="half">
+                <label>
+                    <span class="inputbox-label">Auto archive after:</span>
+                    <div class="order-inputbox-holder">
+                        <?= $autoArchiveTimeframeSelect; ?>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
