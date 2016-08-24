@@ -1,12 +1,15 @@
 <?php
 namespace CourierAdapter\Controller;
 
+use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
+use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
@@ -17,7 +20,6 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CourierAdapter\Account\Service as CAModuleAccountService;
-use CourierAdapter\Account\TestPackGenerator;
 use CourierAdapter\Module;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -51,8 +53,10 @@ class AccountController extends AbstractActionController
     protected $caAddressMapper;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
-    /** @var TestPackGenerator */
-    protected $testPackGenerator;
+    /** @var AccountService */
+    protected $accountService;
+    /** @var CAAccountMapper */
+    protected $caAccountMapper;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -63,7 +67,8 @@ class AccountController extends AbstractActionController
         CAModuleAccountService $caModuleAccountService,
         CAAddressMapper $caAddressMapper,
         OrganisationUnitService $organisationUnitService,
-        TestPackGenerator $testPackGenerator
+        AccountService $accountService,
+        CAAccountMapper $caAccountMapper
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -73,7 +78,8 @@ class AccountController extends AbstractActionController
             ->setCaModuleAccountService($caModuleAccountService)
             ->setCAAddressMapper($caAddressMapper)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setTestPackGenerator($testPackGenerator);
+            ->setAccountService($accountService)
+            ->setCAAccountMapper($caAccountMapper);
     }
 
     public function setupAction()
@@ -323,21 +329,33 @@ class AccountController extends AbstractActionController
         $accountId = $this->params()->fromQuery('accountId');
         $fileReference = $this->params()->fromQuery('file');
 
-        try {
-            $generator = $this->testPackGenerator;
-            $dataUri = $generator($accountId, $fileReference);
+        $account = $this->accountService->fetch($accountId);
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+        $ou = $this->organisationUnitService->fetch($account->getOrganisationUnitId());
+        $caAddress = $this->caAddressMapper->organisationUnitToCollectionAddress($ou);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $account->getChannel(), TestPackInterface::class
+        );
+        $testPackFile = $this->fetchTestPackFile($fileReference, $courierInstance);
 
-        } catch (ValidationException $e) {
-            // Show an error page
-            $goBackUrl = $this->plugin('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]) . '/' . $accountId;
-            return $this->viewModelFactory->newInstance([
-                'error' => $e->getMessage(),
-                'goBackUrl' => $goBackUrl,
-                'isHeaderBarVisible' => false,
-                'isSidebarPresent' => false,
-            ])->setTemplate('courier-adapter/account/download-test-pack-error.phtml');
+        $dataUri = $courierInstance->generateTestPackFile($testPackFile, $caAccount, $caAddress);
+
+        return $this->dataUriToFileResponse($dataUri, $fileReference);
+    }
+
+    protected function fetchTestPackFile($fileReference, TestPackInterface $courierInstance)
+    {
+        foreach ($courierInstance->getTestPackFileList() as $testPackFile) {
+            if ($testPackFile->getReference() == $fileReference) {
+                return $testPackFile;
+            }
         }
 
+        throw new InvalidArgumentException('No test pack file with reference "' . $fileReference . '" found');
+    }
+
+    protected function dataUriToFileResponse($dataUri, $fileReference)
+    {
         list($type, $data) = explode(';', $dataUri);
         list($encoding, $data) = explode(',', $data);
         if ($encoding == 'base64') {
@@ -397,9 +415,15 @@ class AccountController extends AbstractActionController
         return $this;
     }
 
-    protected function setTestPackGenerator(TestPackGenerator $testPackGenerator)
+    protected function setAccountService(AccountService $accountService)
     {
-        $this->testPackGenerator = $testPackGenerator;
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
+    {
+        $this->caAccountMapper = $caAccountMapper;
         return $this;
     }
 }
