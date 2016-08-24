@@ -35,9 +35,15 @@ define([
                     <Select options={this.getStockModeOptions()} initialSelected={this.getStockMode()} onNewOption={this.updateStockMode}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
-                    <Input name='level' initialValue={this.getOnHandStock()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
+                    <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
                 </td>
             ];
+        },
+        getStockModeLevel: function() {
+            if (this.props.variation.stock && this.props.variation.stock.stockLevel) {
+                return this.props.variation.stock.stockLevel;
+            }
+            return "";
         },
         getStockModeOptions: function() {
             if (!this.props.variation.stockModeOptions) {
