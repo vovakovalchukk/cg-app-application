@@ -71,7 +71,7 @@ class ProviderController extends AbstractActionController
     protected function addConfigVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInstance
+        ConfigInterface $courierInstance
     ) {
         $form = $courierInstance->getConfigForm();
         $values = [];
@@ -85,7 +85,7 @@ class ProviderController extends AbstractActionController
     protected function addTestPackVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInstance
+        TestPackInterface $courierInstance
     ) {
         $files = $courierInstance->getTestPackFileList();
         $view->setVariable('testPackFiles', $files);
@@ -94,9 +94,13 @@ class ProviderController extends AbstractActionController
     protected function addTestModeVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInstance
+        TestModeInterface $courierInstance
     ) {
-        $view->setVariable('testModeInstructions', 'Add your live credentials by clicking "Renew Connection".');
+        $testModeInstructions = $courierInstance->getTestModeInstructions();
+        if (!$testModeInstructions) {
+            $testModeInstructions = '<p>Add your live credentials by clicking "Renew Connection".</p>';
+        }
+        $view->setVariable('testModeInstructions', $testModeInstructions);
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
