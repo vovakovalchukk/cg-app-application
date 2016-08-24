@@ -57,7 +57,7 @@ define([
         },
         getStockMode: function() {
             if (!this.props.variation.stockModeOptions) {
-                return [];
+                return {};
             }
             var selectedStockMode = null;
             this.props.variation.stockModeOptions.map(function(option) {
