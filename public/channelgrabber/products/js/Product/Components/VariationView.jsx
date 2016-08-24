@@ -8,8 +8,8 @@ define([
     var VariationViewComponent = React.createClass({
         getAttributeHeaders: function() {
             var headers = [
-                <th key="image">Image</th>,
-                <th key="sky">SKU</th>
+                <th key="image" className="image-col">Image</th>,
+                <th key="sky" className="sku-col">SKU</th>
             ];
             this.props.attributeNames.forEach(function(attributeName) {
                 headers.push(<th key={attributeName}>{attributeName}</th>);
