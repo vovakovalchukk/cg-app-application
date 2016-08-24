@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b764d988a074fe2272171f072ebe19c6",
+    "hash": "660241bdbee33de40191fef8f6c397ca",
     "content-hash": "0d340ab8e1772800df7fd74706904f26",
     "packages": [
         {
@@ -2935,12 +2935,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "a5ad11e0a97f5c29cc6039e9a2b5f674d312d122"
+                "reference": "166c456fc486ba49db7eaf6296a7671feb355292"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-c0d571.zip",
-                "reference": "a5ad11e0a97f5c29cc6039e9a2b5f674d312d122",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-307911.zip",
+                "reference": "166c456fc486ba49db7eaf6296a7671feb355292",
                 "shasum": null
             },
             "require": {
@@ -2967,7 +2967,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-08-10 13:20:50"
+            "time": "2016-08-24 15:36:06"
         },
         {
             "name": "channelgrabber/zf2-ekm",
