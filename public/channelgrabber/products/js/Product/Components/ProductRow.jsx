@@ -104,16 +104,7 @@ define([
             if (this.state.variations.length < 1) {
                 return;
             }
-            var stockLevel = '';
-            var stockLevelsSame = this.state.variations.reduce(function (element, nextElement) {
-                if (element.stock.stockLevel === nextElement.stock.stockLevel) {
-                    stockLevel = element.stock.stockLevel;
-                    return true;
-                }
-            });
-            if (stockLevelsSame) {
-                return stockLevel;
-            }
+            return this.state.variations[0].stockLevel;
         },
         bulkUpdateStockLevel: function(name, value) {
             if (this.state.variations.length < 1) {
