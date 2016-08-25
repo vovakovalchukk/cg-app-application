@@ -46,6 +46,33 @@ define([
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
+        getVariationsBulkActions: function () {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+                return (
+                <div className="footer-row">
+                    <div className="variations-layout-column">
+                        <div className="variations-button-holder">
+                            {this.getExpandVariationsButton()}
+                        </div>
+                    </div>
+                    <div className="details-layout-column">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{this.getBulkStockModeDropdown()}</td>
+                                <td>{this.getBulkStockLevelInput()}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                );
+            }
+        },
         getBulkStockModeDropdown: function () {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
                 return <Select prefix="All" options={this.getStockModeOptions()} onNewOption={this.bulkUpdateStockMode}/>
@@ -220,26 +247,7 @@ define([
                             {this.getDetailsView()}
                         </div>
                         <div className="product-footer">
-                            <div className="footer-row">
-                                <div className="variations-layout-column">
-                                    <div className="variations-button-holder">
-                                        {this.getExpandVariationsButton()}
-                                    </div>
-                                </div>
-                                <div className="details-layout-column">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>{this.getBulkStockModeDropdown()}</td>
-                                            <td>{this.getBulkStockLevelInput()}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                {this.getVariationsBulkActions()}
                             <div className="footer-row vat-row">
                                 {this.getVatDropdowns()}
                             </div>
