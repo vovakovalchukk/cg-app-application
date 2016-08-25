@@ -57,7 +57,45 @@ define([
             }
         },
         getVatDropdowns: function () {
-            return "";
+            if (this.props.product.taxRates) {
+                var showCodeInLabel = (Object.keys(this.props.product.taxRates).length > 1);
+                var vatDropdowns = [];
+
+                for (var memberState in this.props.product.taxRates) {
+                    if (! this.props.product.taxRates.hasOwnProperty(memberState)) {
+                        continue;
+                    }
+                    var options = [];
+                    for(var taxRateId in this.props.product.taxRates[memberState]) {
+                        if(! this.props.product.taxRates[memberState].hasOwnProperty(taxRateId)) {
+                            continue;
+                        }
+                        var formattedRate = parseFloat(this.props.product.taxRates[memberState][taxRateId]['rate']);
+                        options.push({
+                            'name': formattedRate + '% (' +this.props.product.taxRates[memberState][taxRateId]['name'] + ')',
+                            'value': taxRateId,
+                            'selected': this.props.product.taxRates[memberState][taxRateId]['selected']
+                        });
+                    }
+                    vatDropdowns.push(<Select prefix={showCodeInLabel ? memberState+' VAT' : "VAT"} options={options} onNewOption={this.vatUpdated}/>);
+                }
+                return vatDropdowns;
+            }
+        },
+        vatUpdated: function (selection) {
+            n.notice('Updating product tax rate.');
+            $.ajax({
+                url : '/products/taxRate',
+                data : { productId: this.props.product.id, taxRateId: selection.value, memberState: selection.value.substring(0, 2) },
+                method : 'POST',
+                dataType : 'json',
+                success : function(response) {
+                    n.success('Product tax rate updated successfully.');
+                },
+                error : function(response) {
+                    n.error("There was an error when attempting to update the product tax rate.");
+                }
+            });
         },
         expandButtonClicked: function (e) {
             this.setState({
