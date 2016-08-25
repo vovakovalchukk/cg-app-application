@@ -45,7 +45,7 @@ define([
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
-                        n.error(error);
+                        n.error("There was an error when attempting to update the "+detail+".");
                         reject(new Error(error));
                     }
                 });

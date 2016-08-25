@@ -124,7 +124,7 @@ define([
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
-                        n.error(error);
+                        n.error("There was an error when attempting to bulk update the stock level.");
                         reject(new Error(error));
                     }
                 });
@@ -145,7 +145,7 @@ define([
                     this.updateVariationsStockMode(stockMode);
                 }.bind(this),
                 error : function(response) {
-                    n.error(error);
+                    n.error("There was an error when attempting to bulk update the stock mode.");
                 }
             });
         },

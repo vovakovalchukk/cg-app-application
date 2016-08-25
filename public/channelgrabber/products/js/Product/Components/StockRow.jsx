@@ -81,7 +81,7 @@ define([
                     n.success('Stock mode updated successfully..');
                 },
                 error : function(error) {
-                    n.error(error);
+                    n.error("There was an error when attempting to update the stock mode.");
                 }
             });
         },
@@ -105,7 +105,7 @@ define([
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
-                        n.error(error);
+                        n.error("There was an error when attempting to update the stock total.");
                         reject(new Error(error));
                     }
                 });
@@ -130,7 +130,7 @@ define([
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
-                        n.error(error);
+                        n.error("There was an error when attempting to update the stock level.");
                         reject(new Error(error));
                     }
                 });
