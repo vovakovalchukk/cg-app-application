@@ -6,8 +6,7 @@ define([
     "use strict";
 
     var StatusComponent = React.createClass({
-        productStatusDecider: function()
-        {
+        productStatusDecider: function() {
             var statusPrecedence = {
                 'inactive': 1,
                 'ended': 1,
@@ -26,29 +25,29 @@ define([
             }
             return status;
         },
-        render: function()
-        {
-            var rows = [];
-
-            this.props.listings.forEach(function(listing) {
-                rows.push(
+        getStatusRows: function () {
+            return this.props.listings.map(function(listing) {
+                return (
                     <tr key={listing.id}>
                         <td><span className={"status " + listing.status} title="">{listing.status}</span></td>
                         <td><a href={listing.url} target="_blank">{listing.channel}</a></td>
                     </tr>
                 );
             });
+        },
+        render: function() {
+            var productStatus = this.productStatusDecider();
             return (
                 <span className="product-status-holder">
-                    <span className={"status " + this.productStatusDecider()}>{this.productStatusDecider()}</span>
-                    <div className="product-listing-status-dropdown true">
+                    <span className={"status " + productStatus}>{productStatus}</span>
+                    <div className="product-listing-status-dropdown">
                         <table>
                             <tbody>
                             <tr>
                                 <td>Status</td>
                                 <td>Account</td>
                             </tr>
-                            {rows}
+                            {this.getStatusRows()}
                             </tbody>
                         </table>
                     </div>
