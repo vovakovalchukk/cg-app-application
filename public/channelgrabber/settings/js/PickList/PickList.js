@@ -11,6 +11,20 @@ define([
         {
             return eventCollator;
         };
+
+        var init = function()
+        {
+            var self = this;
+
+            $(document).on('change', PickList.SELECTOR, function(event, data){
+                self.triggerRequestMadeEvent(this);
+            });
+
+            $(document).on(eventCollator.getQueueTimeoutEventPrefix() + PickList.EVENT_COLLATOR_TYPE, function(event, data) {
+                self.save();
+            });
+        };
+        init.call(this);
     };
 
     PickList.SELECTOR = '.pick-list-form';
@@ -20,19 +34,6 @@ define([
     PickList.SHOW_SKULESS_SELECTOR = '#show-skuless-checkbox';
     PickList.ETAG_SELECTOR = '#pick-list-eTag';
     PickList.EVENT_COLLATOR_TYPE = 'PickListForm';
-
-    PickList.prototype.init = function()
-    {
-        var self = this;
-
-        $(document).on('change', PickList.SELECTOR, function(event, data){
-            self.triggerRequestMadeEvent(this);
-        });
-
-        $(document).on(eventCollator.getQueueTimeoutEventPrefix() + PickList.EVENT_COLLATOR_TYPE, function(event, data) {
-            self.save();
-        });
-    };
 
     PickList.prototype.triggerRequestMadeEvent = function(domElement)
     {
@@ -44,6 +45,7 @@ define([
 
     PickList.prototype.save = function()
     {
+        n.notice('Saving pick list settings');
         var eTag = $(PickList.ETAG_SELECTOR).val();
         var sortField = $(PickList.SORT_FIELD_SELECTOR).val();
         var sortDirection = $(PickList.SORT_DIRECTION_SELECTOR).val();
@@ -75,5 +77,5 @@ define([
         });
     };
 
-    return new PickList;
+    return PickList;
 });
