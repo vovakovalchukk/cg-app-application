@@ -60,7 +60,9 @@ define([
             return "";
         },
         expandButtonClicked: function (e) {
-            e.preventDefault();
+            this.setState({
+                expanded: !this.state.expanded
+            });
 
             if (this.state.variations.length <= 2)  {
                 $('#products-loading-message').show();
@@ -71,9 +73,6 @@ define([
                 }.bind(this));
 
             }
-            this.setState({
-                expanded: !this.state.expanded
-            })
         },
         getInitialState: function () {
             return {

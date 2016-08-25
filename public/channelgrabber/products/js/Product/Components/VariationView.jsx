@@ -45,7 +45,7 @@ define([
                         </thead>
                         <tbody>
                             {this.props.variations.map(function (variation) {
-                                if (this.props.fullView && count > 1) {
+                                if ((! this.props.fullView) && count > 1) {
                                     return;
                                 }
                                 count++;
