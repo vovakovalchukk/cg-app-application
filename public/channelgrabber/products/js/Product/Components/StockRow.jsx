@@ -71,16 +71,17 @@ define([
             this.setState({
                 stockMode: stockMode
             });
+            n.notice('Updating stock mode.');
             $.ajax({
                 url : '/products/stockMode',
                 data : { id: this.props.variation.id, stockMode: stockMode.value },
                 method : 'POST',
                 dataType : 'json',
                 success : function(response) {
-                    console.log(response);
+                    n.success('Stock mode updated successfully..');
                 },
-                error : function(response) {
-                    console.log(response);
+                error : function(error) {
+                    n.error(error);
                 }
             });
         },
@@ -88,6 +89,7 @@ define([
             if (this.props.variation === null) {
                 return;
             }
+            n.notice('Updating stock total.');
             return new Promise(function(resolve, reject) {
                 $.ajax({
                     url: 'products/stock/update',
@@ -99,9 +101,11 @@ define([
                         eTag: this.getStockEtag()
                     },
                     success: function() {
+                        n.success('Stock total updated successfully..');
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
+                        n.error(error);
                         reject(new Error(error));
                     }
                 });
@@ -111,6 +115,7 @@ define([
             if (this.props.variation === null) {
                 return;
             }
+            n.notice('Updating stock level.');
             return new Promise(function(resolve, reject) {
                 $.ajax({
                     url: 'products/stockLevel',
@@ -121,9 +126,11 @@ define([
                         stockLevel: value
                     },
                     success: function() {
+                        n.success('Stock level updated successfully..');
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
+                        n.error(error);
                         reject(new Error(error));
                     }
                 });

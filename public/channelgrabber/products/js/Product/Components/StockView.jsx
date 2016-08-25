@@ -14,7 +14,7 @@ define([
                 <th key="stock-undispatched"><abbr title="Quantity of item currently awaiting dispatch">Undispatched</abbr></th>,
                 <th key="stock-total">Total</th>,
                 <th key="stock-mode">Mode</th>,
-                <th key="stock-level"><abbr title="Quantity of items that will be listed, according to the currently chosen Stock Mode.">List Quantity</abbr></th>,
+                <th key="stock-level"><abbr title="Quantity of items that will be listed, according to the currently chosen Stock Mode.">Level</abbr></th>,
             ];
         },
         getDefaultProps: function() {

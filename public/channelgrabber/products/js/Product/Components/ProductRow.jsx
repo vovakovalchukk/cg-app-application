@@ -119,6 +119,7 @@ define([
             if (this.state.variations.length < 1) {
                 return;
             }
+            n.notice('Bulk updating stock level for all variations.');
             return new Promise(function(resolve, reject) {
                 $.ajax({
                     url: 'products/stockLevel',
@@ -129,15 +130,18 @@ define([
                         stockLevel: value
                     },
                     success: function() {
+                        n.success('Bulk stock level updated successfully.');
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
+                        n.error(error);
                         reject(new Error(error));
                     }
                 });
             }.bind(this));
         },
         bulkUpdateStockMode: function(stockMode) {
+            n.notice('Bulk updating stock mode for all variations.');
             this.setState({
                 bulkStockMode: stockMode
             });
@@ -147,10 +151,11 @@ define([
                 method : 'POST',
                 dataType : 'json',
                 success : function(response) {
+                    n.success('Bulk stock mode updated successfully.');
                     this.updateVariationsStockMode(stockMode);
                 }.bind(this),
                 error : function(response) {
-                    console.log(response);
+                    n.error(error);
                 }
             });
         },

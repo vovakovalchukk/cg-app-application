@@ -28,6 +28,7 @@ define([
             if (this.props.variation === null) {
                 return;
             }
+            n.notice('Updating '+detail+' value.');
             return new Promise(function(resolve, reject) {
                 $.ajax({
                     url: '/products/details/update',
@@ -40,9 +41,11 @@ define([
                         sku: this.props.variation.sku
                     },
                     success: function() {
+                        n.success('Successfully updated '+detail+'.');
                         resolve({ savedValue: value });
                     },
                     error: function(error) {
+                        n.error(error);
                         reject(new Error(error));
                     }
                 });
