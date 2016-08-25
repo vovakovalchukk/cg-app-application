@@ -277,7 +277,7 @@ class Service
         if ($product->isParent()) {
             $variations = $product->getVariations();
         } else {
-            $variations = $this->getVariationsForParentId($product->getParentProductId());
+            $variations = [$product];
         }
 
         // Only update current variation unless all variations have a stock level of 0, then update all
