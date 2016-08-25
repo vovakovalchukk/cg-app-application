@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68059cddde3ded8dd62d2ac8ee8a2218",
-    "content-hash": "6ae5f0aed7f8b40758a1133933586ce2",
+    "hash": "2cb14c6b5816ddcb575c630676a8b4a5",
+    "content-hash": "8b2dbf651f71b426e736ccec661cca7b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates",
+            "version": "1.25.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7ffc74bcf3b0dda029d01d57eee65a1af60a33c4"
+                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates-a40296.zip",
-                "reference": "7ffc74bcf3b0dda029d01d57eee65a1af60a33c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.5-3de055.zip",
+                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-23 10:17:32"
+            "time": "2016-08-25 15:24:15"
         },
         {
             "name": "channelgrabber/cilex",
@@ -529,20 +529,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-develop",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "71f3ceaace2124ca45d6538d369f73705e12ab41"
+                "reference": "ede5da1451fa0d0222d9c054db60f86a3e519e38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-05f94e.zip",
-                "reference": "71f3ceaace2124ca45d6538d369f73705e12ab41",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.1-f36634.zip",
+                "reference": "ede5da1451fa0d0222d9c054db60f86a3e519e38",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-master",
+                "channelgrabber/courieradapter": "^1.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
                 "zendframework/zend-servicemanager": "^2.3"
@@ -564,20 +564,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-08-25 10:18:29"
+            "time": "2016-08-26 07:29:25"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "5fdde6152d3e04e7893680031bd81ba1c49f0144"
+                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-3334ec.zip",
-                "reference": "5fdde6152d3e04e7893680031bd81ba1c49f0144",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.0.0-465a97.zip",
+                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-25 07:40:14"
+            "time": "2016-08-25 15:27:51"
         },
         {
             "name": "channelgrabber/dataplug",
@@ -1279,16 +1279,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "2f917d581836c10d650bb0335b841c599e1114b7"
+                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates-64269a.zip",
-                "reference": "2f917d581836c10d650bb0335b841c599e1114b7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.14-350c76.zip",
+                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970",
                 "shasum": null
             },
             "require": {
@@ -1330,7 +1330,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-08-15 08:11:20"
+            "time": "2016-08-25 15:25:39"
         },
         {
             "name": "channelgrabber/notification",
@@ -3634,16 +3634,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
+            "version": "1.16.71",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "015d379ae6bdaacb4cbb873223c4a7c0609bae8e"
+                "reference": "cafbe713d9897bfb0ffcab66e9778525f40f31a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink-385153.zip",
-                "reference": "015d379ae6bdaacb4cbb873223c4a7c0609bae8e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.71-f9536a.zip",
+                "reference": "cafbe713d9897bfb0ffcab66e9778525f40f31a3",
                 "shasum": null
             },
             "require": {
@@ -3690,7 +3690,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-23 09:16:51"
+            "time": "2016-08-25 15:31:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8088,46 +8088,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.25.4",
-            "alias_normalized": "1.25.4.0",
-            "version": "dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-develop",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "9999999-dev",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.0.12",
-            "alias_normalized": "1.0.12.0",
-            "version": "dev-CGIV-7328-courier-adapters-parcelforce-dpd-interlink-flow-updates",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.16.71",
-            "alias_normalized": "1.16.71.0",
-            "version": "dev-CGIV-7257-courier-adapters-parcelforce-dpd-interlink",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
