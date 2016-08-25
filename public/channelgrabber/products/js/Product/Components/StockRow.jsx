@@ -32,7 +32,7 @@ define([
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} initialSelected={this.getStockMode()} onNewOption={this.updateStockMode}/>
+                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
                     <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
@@ -51,24 +51,9 @@ define([
             }
             var options = [];
             this.props.variation.stockModeOptions.map(function(option) {
-                options.push({value: option.value, name: option.title});
+                options.push({value: option.value, name: option.title, selected: option.selected});
             });
             return options;
-        },
-        getStockMode: function() {
-            if (!this.props.variation.stockModeOptions) {
-                return {};
-            }
-            var selectedStockMode = null;
-            this.props.variation.stockModeOptions.map(function(option) {
-                if (option.selected) {
-                    selectedStockMode = {value: option.value, name: option.title};
-                }
-            });
-            if (selectedStockMode === null) {
-                selectedStockMode = {value: this.props.variation.stockModeOptions[0].value, name: this.props.variation.stockModeOptions[0].title};
-            }
-            return selectedStockMode;
         },
         getOnHandStock: function() {
             return (this.props.variation.stock ? this.props.variation.stock.locations[0].onHand : '');

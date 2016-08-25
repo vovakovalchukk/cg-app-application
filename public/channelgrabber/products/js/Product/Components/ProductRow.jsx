@@ -5,6 +5,8 @@ define([
     'Product/Components/VariationView',
     'Product/Components/DetailView',
     'Product/Components/Button',
+    'Product/Components/Select',
+    'Product/Components/Input',
     'Product/Filter/Entity',
     'Product/Storage/Ajax'
 ], function(
@@ -14,6 +16,8 @@ define([
     VariationView,
     DetailView,
     Button,
+    Select,
+    Input,
     ProductFilter,
     AjaxHandler
 ) {
@@ -42,6 +46,19 @@ define([
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
+        getBulkStockModeDropdown: function () {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+                return <Select prefix="All" options={this.getStockModeOptions()} onNewOption={this.bulkUpdateStockMode}/>
+            }
+        },
+        getBulkStockLevelInput: function () {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+                return <p>input</p>;//<Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
+            }
+        },
+        getVatDropdowns: function () {
+            return "";
+        },
         expandButtonClicked: function (e) {
             e.preventDefault();
 
@@ -61,13 +78,57 @@ define([
         getInitialState: function () {
             return {
                 expanded: false,
-                variations: []
+                variations: [],
+                bulkStockMode: {
+                    name: '',
+                    value: ''
+                }
             };
         },
         componentWillReceiveProps: function (newProps) {
             this.setState({
                 variations: newProps.variations
             })
+        },
+        getStockModeOptions: function() {
+            if (this.state.variations.length < 1) {
+                return [];
+            }
+            var options = [];
+            this.state.variations[0].stockModeOptions.map(function(option) {
+                options.push({value: option.value, name: option.title});
+            });
+            return options;
+        },
+        bulkUpdateStockMode: function(stockMode) {
+            this.setState({
+                bulkStockMode: stockMode
+            });
+            $.ajax({
+                url : '/products/stockMode',
+                data : { id: this.props.product.id, stockMode: stockMode.value },
+                method : 'POST',
+                dataType : 'json',
+                success : function(response) {
+                    this.updateVariationsStockMode(stockMode);
+                }.bind(this),
+                error : function(response) {
+                    console.log(response);
+                }
+            });
+        },
+        updateVariationsStockMode: function(stockMode) {
+            var updatedVariations = this.state.variations.map(function(variation) {
+                variation.stockModeOptions.forEach(function (mode, stockModeIndex) {
+                    if (mode.value === stockMode.value) {
+                        variation.stockModeOptions[stockModeIndex].selected = true;
+                    }
+                });
+                return variation;
+            });
+            this.setState({
+                variations: updatedVariations
+            });
         },
         render: function()
         {
@@ -89,8 +150,28 @@ define([
                             {this.getDetailsView()}
                         </div>
                         <div className="product-footer">
-                            <div className="variations-button-holder">
-                                {this.getExpandVariationsButton()}
+                            <div className="footer-row">
+                                <div className="variations-layout-column">
+                                    <div className="variations-button-holder">
+                                        {this.getExpandVariationsButton()}
+                                    </div>
+                                </div>
+                                <div className="details-layout-column">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{this.getBulkStockModeDropdown()}</td>
+                                            <td>{this.getBulkStockLevelInput()}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="footer-row vat-row">
+                                {this.getVatDropdowns()}
                             </div>
                         </div>
                     </div>
