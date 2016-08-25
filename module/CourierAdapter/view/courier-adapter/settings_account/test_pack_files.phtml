@@ -7,7 +7,7 @@ $downloadUrl = $this->url(Module::ROUTE.'/'.AccountController::ROUTE.'/'.Account
 <div style="margin-top: 20px;">
     <span class="heading-medium"><?=$this->translate('Test Pack Files');?>:</span>
     <div class="half" style="padding-bottom: 10px">
-        <ul>
+        <ul id="test-pack-file-list">
             <?php foreach ($testPackFiles as $testPackFile):?>
             <li>
                 <a href="<?=$downloadUrl;?>?accountId=<?=$account->getId();?>&file=<?=urlencode($testPackFile->getReference());?>">
@@ -18,3 +18,12 @@ $downloadUrl = $this->url(Module::ROUTE.'/'.AccountController::ROUTE.'/'.Account
         </ul>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#test-pack-file-list a').click(function()
+        {
+            n.notice('<?=$this->translate('Generating test pack, please wait');?>', true);
+        });
+    });
+</script>
