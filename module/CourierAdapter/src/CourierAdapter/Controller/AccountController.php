@@ -340,7 +340,7 @@ class AccountController extends AbstractActionController
 
         $dataUri = $courierInstance->generateTestPackFile($testPackFile, $caAccount, $caAddress);
 
-        return $this->dataUriToFileResponse($dataUri, $fileReference);
+        return $this->dataUriToFileResponse($dataUri, $testPackFile->getName());
     }
 
     protected function fetchTestPackFile($fileReference, TestPackInterface $courierInstance)
@@ -354,7 +354,7 @@ class AccountController extends AbstractActionController
         throw new InvalidArgumentException('No test pack file with reference "' . $fileReference . '" found');
     }
 
-    protected function dataUriToFileResponse($dataUri, $fileReference)
+    protected function dataUriToFileResponse($dataUri, $fileName)
     {
         list($type, $data) = explode(';', $dataUri);
         list($encoding, $data) = explode(',', $data);
@@ -364,7 +364,11 @@ class AccountController extends AbstractActionController
         $mimeType = preg_replace('/^data:/', '', $type);
         list(, $fileExt) = explode('/', $mimeType);
 
-        return new FileResponse($mimeType, $fileReference . '.' . $fileExt, $data);
+        if (!preg_match('/\.' . $fileExt . '$/i', $fileName)) {
+            $fileName .= '.' . $fileExt;
+        }
+
+        return new FileResponse($mimeType, $fileName, $data);
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
