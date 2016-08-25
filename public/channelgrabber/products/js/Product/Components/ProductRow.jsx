@@ -53,7 +53,7 @@ define([
         },
         getBulkStockLevelInput: function () {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return <p>input</p>;//<Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
+                return <Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.bulkUpdateStockLevel} />
             }
         },
         getVatDropdowns: function () {
@@ -99,6 +99,43 @@ define([
                 options.push({value: option.value, name: option.title});
             });
             return options;
+        },
+        getStockModeLevel: function () {
+            if (this.state.variations.length < 1) {
+                return;
+            }
+            var stockLevel = '';
+            var stockLevelsSame = this.state.variations.reduce(function (element, nextElement) {
+                if (element.stock.stockLevel === nextElement.stock.stockLevel) {
+                    stockLevel = element.stock.stockLevel;
+                    return true;
+                }
+            });
+            if (stockLevelsSame) {
+                return stockLevel;
+            }
+        },
+        bulkUpdateStockLevel: function(name, value) {
+            if (this.state.variations.length < 1) {
+                return;
+            }
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: 'products/stockLevel',
+                    type: 'POST',
+                    dataType : 'json',
+                    data: {
+                        id: this.props.product.id,
+                        stockLevel: value
+                    },
+                    success: function() {
+                        resolve({ savedValue: value });
+                    },
+                    error: function(error) {
+                        reject(new Error(error));
+                    }
+                });
+            }.bind(this));
         },
         bulkUpdateStockMode: function(stockMode) {
             this.setState({
