@@ -1,6 +1,7 @@
 <?php
 namespace SetupWizard\Controller;
 
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Helper\NavigationMenu;
 use CG\User\ActiveUserInterface;
@@ -17,17 +18,21 @@ class Service
     protected $serviceLocator;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         NavigationMenu $navigationMenu,
         ServiceLocatorInterface $serviceLocator,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setNavigationMenu($navigationMenu)
             ->setServiceLocator($serviceLocator)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function getSetupView($heading, $body, $footer = null)
@@ -144,6 +149,14 @@ class Service
         return $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
     }
 
+    /**
+     * @return \CG\OrganisationUnit\Entity
+     */
+    public function getActiveRootOu()
+    {
+        return $this->organisationUnitService->fetch($this->getActiveRootOuId());
+    }
+
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -167,6 +180,12 @@ class Service
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 }
