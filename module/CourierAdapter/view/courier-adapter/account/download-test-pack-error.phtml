@@ -1,0 +1,11 @@
+<div id='breadcrumbs'>
+    <span class='heading-large'>
+        <?=$this->translate('There was a problem generating the test pack');?>
+    </span>
+</div>
+<div class='module'>
+    <p><?=$this->translate('The following error(s) occurred when attempting to generate a test pack:');?></p>
+    <p><?=$this->translate($this->error);?></p>
+    <p><?=$this->translate('Please address these issues then try again. If this problem persists then please contact support');?>.</p>
+    <p><a href='<?=$this->goBackUrl;?>'>Go Back</a></p>
+</div>

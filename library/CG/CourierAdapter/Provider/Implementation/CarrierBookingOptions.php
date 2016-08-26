@@ -44,7 +44,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             ShipmentField\InsuranceRequiredInterface::class => 'insurance',
             ShipmentField\PackagesInterface::class => 'parcels',
             ShipmentField\PackageTypesInterface::class => 'packageType',
-            ShipmentField\SaturdayDeliveryInterface::class => 'saturdayDelivery',
+            ShipmentField\SaturdayDeliveryInterface::class => 'saturday',
             ShipmentField\SignatureRequiredInterface::class => 'signature',
         ]
     ];

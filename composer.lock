@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75a4ad856268c98f71d74f830255d720",
-    "content-hash": "eadf2b20e754c28251543dfcfccab337",
+    "hash": "2cb14c6b5816ddcb575c630676a8b4a5",
+    "content-hash": "8b2dbf651f71b426e736ccec661cca7b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.4",
+            "version": "1.25.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5b3d85024d11bc857bda0ffbd0646156317883bf"
+                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.4-ae60c0.zip",
-                "reference": "5b3d85024d11bc857bda0ffbd0646156317883bf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.5-3de055.zip",
+                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-19 13:27:46"
+            "time": "2016-08-25 15:24:15"
         },
         {
             "name": "channelgrabber/cilex",
@@ -528,17 +528,56 @@
             "time": "2015-02-06 12:09:38"
         },
         {
-            "name": "channelgrabber/courieradapter",
-            "version": "dev-master",
+            "name": "channelgrabber/courier",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "277e9d06018e370aaf1b688273c5d0500f29315b"
+                "url": "git@bitbucket.org:channelgrabber/courier.git",
+                "reference": "ede5da1451fa0d0222d9c054db60f86a3e519e38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-master-58fbe5.zip",
-                "reference": "277e9d06018e370aaf1b688273c5d0500f29315b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.1-f36634.zip",
+                "reference": "ede5da1451fa0d0222d9c054db60f86a3e519e38",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/courieradapter": "^1.0.0",
+                "guzzlehttp/guzzle": "^5.0.0",
+                "iio/libmergepdf": "~3.0",
+                "zendframework/zend-servicemanager": "^2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Courier\\": "src",
+                    "CG\\Courier\\Test\\": "test"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Matthew King",
+                    "email": "matthew.king@channelgrabber.com"
+                }
+            ],
+            "description": "Courier",
+            "time": "2016-08-26 07:29:25"
+        },
+        {
+            "name": "channelgrabber/courieradapter",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
+                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.0.0-465a97.zip",
+                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530",
                 "shasum": null
             },
             "require": {
@@ -558,7 +597,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-11 09:28:21"
+            "time": "2016-08-25 15:27:51"
         },
         {
             "name": "channelgrabber/dataplug",
@@ -1240,16 +1279,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "6478409fe6ab354f76401c5623f2c699aabedc09"
+                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.13-5b6912.zip",
-                "reference": "6478409fe6ab354f76401c5623f2c699aabedc09",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.14-350c76.zip",
+                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970",
                 "shasum": null
             },
             "require": {
@@ -1291,7 +1330,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-08-19 08:00:53"
+            "time": "2016-08-25 15:25:39"
         },
         {
             "name": "channelgrabber/notification",
@@ -3595,16 +3634,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.70",
+            "version": "1.16.71",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8eb57ea721a411aea31c7523a040ab97941b67c2"
+                "reference": "cafbe713d9897bfb0ffcab66e9778525f40f31a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.70-7ea188.zip",
-                "reference": "8eb57ea721a411aea31c7523a040ab97941b67c2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.71-f9536a.zip",
+                "reference": "cafbe713d9897bfb0ffcab66e9778525f40f31a3",
                 "shasum": null
             },
             "require": {
@@ -3651,7 +3690,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-19 10:22:41"
+            "time": "2016-08-25 15:31:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4360,6 +4399,56 @@
                 "stream"
             ],
             "time": "2014-10-12 19:18:40"
+        },
+        {
+            "name": "iio/libmergepdf",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hanneskod/libmergepdf.git",
+                "reference": "b6042db24d66a49f3ecd261395ec918f00763e9c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/iio-libmergepdf-b6042db24d66a49f3ecd261395ec918f00763e9c-zip-fac527.zip",
+                "reference": "b6042db24d66a49f3ecd261395ec918f00763e9c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "setasign/fpdi-fpdf": "^1.6"
+            },
+            "require-dev": {
+                "hanneskod/readme-tester": "dev-master",
+                "symfony/finder": "2.*"
+            },
+            "suggest": {
+                "symfony/finder": "Bulk add files using finder."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "iio\\libmergepdf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Hannes Forsgård",
+                    "email": "hannes.forsgard@gmail.com"
+                }
+            ],
+            "description": "Library for merging multiple PDFs",
+            "homepage": "https://github.com/hanneskod/libmergepdf",
+            "keywords": [
+                "concatenate",
+                "merge",
+                "pdf"
+            ],
+            "time": "2016-03-02 20:38:15"
         },
         {
             "name": "intercom/intercom-php",
@@ -5417,6 +5506,138 @@
                 "phra"
             ],
             "time": "2015-10-13 18:44:15"
+        },
+        {
+            "name": "setasign/fpdf",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDF.git",
+                "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdf-2c68c9e6c034ac3187d25968790139a73184cdb1-zip-a22a64.zip",
+                "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fpdf.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "no usage restriction"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Plathey",
+                    "email": "oliver@fpdf.org",
+                    "homepage": "http://fpdf.org/"
+                }
+            ],
+            "description": "FPDF is a PHP class which allows to generate PDF files with pure PHP. F from FPDF stands for Free: you may use it for any kind of usage and modify it to suit your needs.",
+            "homepage": "http://www.fpdf.org",
+            "keywords": [
+                "fpdf",
+                "pdf"
+            ],
+            "time": "2016-01-01 17:47:15"
+        },
+        {
+            "name": "setasign/fpdi",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDI.git",
+                "reference": "5b899b2b41463bf261aa69840fd30b50950a500c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-5b899b2b41463bf261aa69840fd30b50950a500c-zip-ecd95d.zip",
+                "reference": "5b899b2b41463bf261aa69840fd30b50950a500c",
+                "shasum": ""
+            },
+            "suggest": {
+                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use \"tecnickcom/tcpdf\" as an alternative there's no fixed dependency configured.",
+                "setasign/fpdi-fpdf": "Use this package to automatically evaluate dependencies to FPDF.",
+                "setasign/fpdi-tcpdf": "Use this package to automatically evaluate dependencies to TCPDF."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "filters/",
+                    "fpdi.php",
+                    "fpdf_tpl.php",
+                    "fpdi_pdf_parser.php",
+                    "pdf_context.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Slabon",
+                    "email": "jan.slabon@setasign.com",
+                    "homepage": "https://www.setasign.com"
+                }
+            ],
+            "description": "FPDI is a collection of PHP classes facilitating developers to read pages from existing PDF documents and use them as templates in FPDF. Because it is also possible to use FPDI with TCPDF, there are no fixed dependencies defined. Please see suggestions for packages which evaluates the dependencies automatically.",
+            "homepage": "https://www.setasign.com/fpdi",
+            "keywords": [
+                "fpdf",
+                "fpdi",
+                "pdf"
+            ],
+            "time": "2015-11-30 10:53:14"
+        },
+        {
+            "name": "setasign/fpdi-fpdf",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDI-FPDF.git",
+                "reference": "212a0d58c656b56925fd44669619a69dac85ac2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-fpdf-212a0d58c656b56925fd44669619a69dac85ac2c-zip-c87116.zip",
+                "reference": "212a0d58c656b56925fd44669619a69dac85ac2c",
+                "shasum": ""
+            },
+            "require": {
+                "setasign/fpdf": "1.8.*",
+                "setasign/fpdi": "1.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fpdi_bridge.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Slabon",
+                    "email": "jan.slabon@setasign.com",
+                    "homepage": "https://www.setasign.com"
+                }
+            ],
+            "description": "Kind of metadata package for dependencies of the latest versions of FPDI and FPDF.",
+            "homepage": "https://www.setasign.com/fpdi",
+            "keywords": [
+                "fpdf",
+                "fpdi",
+                "pdf"
+            ],
+            "time": "2015-11-30 11:10:35"
         },
         {
             "name": "slim/slim",
@@ -7871,7 +8092,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courieradapter": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

@@ -24,9 +24,9 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
             success : function(data) {
                 if (data.archived) {
                     this.setFilterId(data.filterId);
-                    return this.getNotificationHandler().success("Archived Successfully");
+                    return this.getNotificationHandler().success(this.getElement().data("success"));
                 } else if (!data.error) {
-                    return this.getNotificationHandler().error("Failed to archived Orders");
+                    return this.getNotificationHandler().error(this.getElement().data("error"));
                 }
                 this.getNotificationHandler().error(data.error);
             },
@@ -38,7 +38,7 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
             }
         };
 
-        this.getNotificationHandler().notice("Archiving Orders");
+        this.getNotificationHandler().notice(this.getElement().data("message"));
         $.ajax(ajax);
     };
 
