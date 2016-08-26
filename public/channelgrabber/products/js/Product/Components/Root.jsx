@@ -1,8 +1,12 @@
 define([
     'react',
+    'Product/Components/Search',
+    'Product/Filter/Entity',
     'Product/Components/List'
 ], function(
     React,
+    SearchBox,
+    ProductFilter,
     ProductList
 ) {
     "use strict";
@@ -20,21 +24,50 @@ define([
         },
         componentDidMount: function()
         {
-            $('#products-loading-message').show();
-            this.productsRequest = $.get(this.props.productsUrl, function(result) {
-                this.setState({
-                    products: result.products
-                });
-                $('#products-loading-message').hide();
-            }.bind(this));
+            this.performProductsRequest();
         },
         componentWillUnmount: function()
         {
             this.productsRequest.abort();
         },
+        filterBySearch: function(searchTerm) {
+            this.performProductsRequest(searchTerm);
+        },
+        performProductsRequest: function(searchTerm) {
+            searchTerm = searchTerm || '';
+
+            $('#products-loading-message').show();
+            var filter = new ProductFilter(searchTerm, null);
+
+            this.productsRequest = $.ajax({
+                'url' : this.props.productsUrl,
+                'data' : {'filter': filter.toObject()},
+                'method' : 'POST',
+                'dataType' : 'json',
+                'success' : function(result) {
+                    this.setState({
+                        products: result.products
+                    });
+                    $('#products-loading-message').hide();
+                }.bind(this),
+                'error' : function () {
+                    throw 'Unable to load products';
+                }
+            });
+        },
+        getSearchBox: function() {
+            if (this.props.searchAvailable) {
+                return <SearchBox submitCallback={this.filterBySearch}/>
+            }
+        },
         render: function()
         {
-            return <ProductList products={this.state.products} />;
+            return (
+                <div>
+                    {this.getSearchBox()}
+                    <ProductList products={this.state.products} />
+                </div>
+            );
         }
     });
 

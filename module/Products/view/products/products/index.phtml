@@ -11,7 +11,8 @@ require([
     'Product/Product'
 ],
 function(ProductRoot) {
-    var productRoot = new ProductRoot(document.getElementById('products-mount-node'), '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+    var searchAvailable = document.getElementById('searchBoxMount');
+    var productRoot = new ProductRoot(document.getElementById('products-mount-node'), '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img', searchAvailable);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
