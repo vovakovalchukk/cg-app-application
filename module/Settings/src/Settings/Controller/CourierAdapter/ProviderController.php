@@ -3,8 +3,9 @@ namespace Settings\Controller\CourierAdapter;
 
 use CG\Account\Shared\Entity as Account;
 use CG\CourierAdapter\Account\ConfigInterface;
-use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
+use CG\CourierAdapter\Account\TestModeInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
@@ -44,11 +45,23 @@ class ProviderController extends AbstractActionController
             $view->setVariable('accountPendingInstructions', $pendingInstructions);
             return;
         }
-        if ($account->getActive() && $courierInstance instanceof ConfigInterface) {
+        $caAccount = $this->caAccountMapper->fromOHAccount($account);
+
+        if ($account->getActive()
+            && $courierInstance instanceof ConfigInterface
+            && (!$courierInstance instanceof TestModeInterface || !$courierInstance->isAccountInTestMode($caAccount))
+        ) {
             $this->addConfigVariablesToChannelSpecificView($account, $view, $courierInstance);
         }
-        if ($account->getActive() && $courierInstance instanceof TestPackInterface) {
-            $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
+
+        if ($account->getActive()
+            && $courierInstance instanceof TestModeInterface
+            && $courierInstance->isAccountInTestMode($caAccount)
+        ) {
+            $this->addTestModeVariablesToChannelSpecificView($account, $view, $courierInstance);
+            if ($courierInstance instanceof TestPackInterface) {
+                $this->addTestPackVariablesToChannelSpecificView($account, $view, $courierInstance);
+            }
         }
 
         $setupUrl = $this->caAccountSetup->getInitialisationUrl($account, '');
@@ -58,28 +71,36 @@ class ProviderController extends AbstractActionController
     protected function addConfigVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInstance
+        ConfigInterface $courierInstance
     ) {
-        $fields = $courierInstance->getConfigFields();
+        $form = $courierInstance->getConfigForm();
         $values = [];
         if (isset($account->getExternalData()['config'])) {
             $values = json_decode($account->getExternalData()['config'], true);
         }
-        $this->prepareAdapterImplementationFields($fields, $values);
-        $view->setVariable('configFields', $fields);
+        $this->prepareAdapterImplementationFormForDisplay($form, $values);
+        $view->setVariable('configForm', $form);
     }
 
     protected function addTestPackVariablesToChannelSpecificView(
         Account $account,
         ViewModel $view,
-        CourierInterface $courierInstance
+        TestPackInterface $courierInstance
     ) {
-        $caAccount = $this->caAccountMapper->fromOHAccount($account);
-        if (!$courierInstance->isAccountInTestMode($caAccount)) {
-            return;
-        }
         $files = $courierInstance->getTestPackFileList();
         $view->setVariable('testPackFiles', $files);
+    }
+
+    protected function addTestModeVariablesToChannelSpecificView(
+        Account $account,
+        ViewModel $view,
+        TestModeInterface $courierInstance
+    ) {
+        $testModeInstructions = $courierInstance->getTestModeInstructions();
+        if (!$testModeInstructions) {
+            $testModeInstructions = '<p>Add your live credentials by clicking "Renew Connection".</p>';
+        }
+        $view->setVariable('testModeInstructions', $testModeInstructions);
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
