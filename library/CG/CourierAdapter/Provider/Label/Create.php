@@ -102,7 +102,7 @@ class Create implements LoggerAwareInterface
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($shippingAccount);
         $this->logDebug(static::LOG_SHIPMENTS, [$rootOu->getId(), $shippingAccount->getId(), $shippingAccount->getChannel()], [static::LOG_CODE, 'CreateShipments']);
         $shipments = $this->createShipmentsForOrdersAndData(
-            $orders, $ordersData, $orderParcelsData, $shippingAccount, $rootOu, $courierInstance
+            $orders, $ordersData, $orderParcelsData, $orderItemsData, $shippingAccount, $rootOu, $courierInstance
         );
 
         $this->logDebug(static::LOG_BOOK, [$rootOu->getId(), $shippingAccount->getId(), $shippingAccount->getChannel()], [static::LOG_CODE, 'BookShipments']);
@@ -118,6 +118,7 @@ class Create implements LoggerAwareInterface
         OrderCollection $orders,
         array $ordersData,
         array $orderParcelsData,
+        array $orderItemsData,
         Account $shippingAccount,
         OrganisationUnit $rootOu,
         CourierInterface $courierInstance
@@ -128,34 +129,58 @@ class Create implements LoggerAwareInterface
 
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()];
+            $itemsData = $orderItemsData[$order->getId()];
 
             $deliveryService = $courierInstance->fetchDeliveryServiceByReference($orderData['service']);
-            $shipmentClass = $deliveryService->getShipmentClass();
-            $packages = null;
-            if (is_a($shipmentClass, PackagesInterface::class, true)) {
-                $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
-                $packages = $this->createPackagesForOrderParcelData($parcelsData, $shipmentClass, $packageClass);
-            }
 
-            $caShipmentData = $this->mapper->ohOrderAndDataToCAShipmentData(
-                $order, $orderData, $shippingAccount, $rootOu, $shipmentClass, $packages
+            $shipments[$order->getId()] = $this->createShipmentForOrderAndData(
+                $order, $orderData, $parcelsData, $itemsData, $shippingAccount, $rootOu, $deliveryService
             );
-            $shipments[$order->getId()] = $this->createShipment($deliveryService, $caShipmentData, $order->getId());
 
             $this->removeGlobalLogEventParam('order');
         }
         return $shipments;
     }
 
-    protected function createPackagesForOrderParcelData(array $parcelsData, $shipmentClass, $packageClass)
-    {
+    // Called internally and externally (by Account\Service)
+    public function createShipmentForOrderAndData(
+        Order $order,
+        array $orderData,
+        array $parcelsData,
+        array $itemsData,
+        Account $shippingAccount,
+        OrganisationUnit $rootOu,
+        DeliveryServiceInterface $deliveryService
+    ) {
+        $shipmentClass = $deliveryService->getShipmentClass();
+        $packages = null;
+        if (is_a($shipmentClass, PackagesInterface::class, true)) {
+            $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
+            $packages = $this->createPackagesForOrderParcelData(
+                $order, $parcelsData, $itemsData, $shipmentClass, $packageClass
+            );
+        }
+
+        $caShipmentData = $this->mapper->ohOrderAndDataToCAShipmentData(
+            $order, $orderData, $shippingAccount, $rootOu, $shipmentClass, $packages
+        );
+        return $this->createShipment($deliveryService, $caShipmentData, $order->getId());
+    }
+
+    protected function createPackagesForOrderParcelData(
+        Order $order,
+        array $parcelsData,
+        array $itemsData,
+        $shipmentClass,
+        $packageClass
+    ) {
         $packages = [];
         foreach ($parcelsData as $parcelData) {
-            $caPackagedata = $this->mapper->ohParcelDataToCAPackageData($parcelData, $shipmentClass, $packageClass);
+            $caPackagedata = $this->mapper->ohParcelDataToCAPackageData(
+                $order, $parcelData, $itemsData, $shipmentClass, $packageClass
+            );
             $package = call_user_func([$shipmentClass, 'createPackage'], $caPackagedata);
-            $packages = [
-                $package
-            ];
+            $packages[] = $package;
         }
         return $packages;
     }
@@ -247,12 +272,18 @@ class Create implements LoggerAwareInterface
             $this->logDebug(static::LOG_FETCH_LABELS, [$orderLabel->getOrderId()], [static::LOG_CODE, 'FetchLabels']);
             $shipmentLabels = $this->fetchShipmentLabels($bookedShipment, $courierInstance);
         }
+        $pdfLabels = [];
         foreach ($shipmentLabels as $shipmentLabel) {
             if ($shipmentLabel->getType() == LabelInterface::TYPE_PDF) {
-                $orderLabel->setLabel($shipmentLabel->getData());
+                $pdfLabels[] = $shipmentLabel->getData();
             } elseif ($shipmentLabel->getType() == LabelInterface::TYPE_PNG) {
                 $orderLabel->setImage($shipmentLabel->getData());
             }
+        }
+        if (count($pdfLabels) == 1) {
+            $orderLabel->setLabel($pdfLabels[0]);
+        } else {
+            $orderLabel->setLabel($this->mergeEncodedPdfLabels($pdfLabels));
         }
 
         if ($orderLabel->getLabel() && !$orderLabel->getImage()) {
@@ -281,6 +312,15 @@ class Create implements LoggerAwareInterface
             throw new OperationFailed('No labels found for shipment');
         }
         return $fetchedShipment->getLabels();
+    }
+
+    protected function mergeEncodedPdfLabels(array $pdfLabels)
+    {
+        $rawLabels = [];
+        foreach ($pdfLabels as $pdfLabel) {
+            $rawLabels[] = base64_decode($pdfLabel);
+        }
+        return base64_encode(\CG\Stdlib\mergePdfData($rawLabels));
     }
 
     protected function setOrderLabelImageFromPDF(OrderLabel $orderLabel)

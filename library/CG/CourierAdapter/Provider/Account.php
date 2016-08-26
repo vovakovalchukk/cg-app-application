@@ -6,6 +6,7 @@ use CG\Channel\AccountInterface;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG_UI\View\Helper\RemoteUrl as RemoteUrlHelper;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
@@ -32,15 +33,19 @@ class Account implements AccountInterface
             ->setRemoteUrlHelper($remoteUrlHelper);
     }
 
-
     public function getInitialisationUrl(AccountEntity $account, $route, array $routeVariables = [])
     {
         $routeVariables['channel'] = $account->getChannel();
-
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
-        if ($courierInstance instanceof CredentialRequestInterface && !$account->getId()) {
+
+        if ($courierInstance instanceof CredentialRequestInterface
+            && !$account->getId()
+            && !isset($routeVariables[AccountCreationService::REQUEST_CREDENTIALS_SKIPPED_FIELD])
+        ) {
             return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_REQUEST, $routeVariables);
         }
+        unset($routeVariables[AccountCreationService::REQUEST_CREDENTIALS_SKIPPED_FIELD]);
+
         if ($courierInstance instanceof ThirdPartyAuthInterface) {
             return $this->getInitialisationUrlForThirdPartyAuth($account, $routeVariables, $courierInstance);
         }

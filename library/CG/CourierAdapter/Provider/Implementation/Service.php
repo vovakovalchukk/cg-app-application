@@ -3,6 +3,7 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\ShippingOptionsProviderInterface;
+use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\EmailClientAwareInterface;
 use CG\CourierAdapter\EmailClientInterface;
 use CG\CourierAdapter\Provider\Implementation\Collection;
@@ -11,6 +12,7 @@ use CG\CourierAdapter\Provider\Implementation\Mapper;
 use CG\CourierAdapter\StorageAwareInterface;
 use CG\CourierAdapter\StorageInterface;
 use CG\Order\Shared\Entity as Order;
+use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
@@ -60,31 +62,45 @@ class Service implements
     {
         $adapterImplementationsByChannelName = $this->adapterImplementations->getBy('channelName', $channelName);
         if (count($adapterImplementationsByChannelName) == 0) {
-            throw new \InvalidArgumentException('Adapter with channel name "'.$channelName.'" not found');
+            throw new InvalidArgumentException('Adapter with channel name "'.$channelName.'" not found');
         }
         $adapterImplementationsByChannelName->rewind();
         return $adapterImplementationsByChannelName->current();
     }
 
     /**
-     * @return \CG\CourierAdapter\CourierInterface
+     * @return CourierInterface
      */
-    public function getAdapterImplementationCourierInstanceForAccount(Account $account)
+    public function getAdapterImplementationCourierInstanceForAccount(Account $account, $specificInterface = null)
     {
         $adapterImplementation = $this->getAdapterImplementationForAccount($account);
-        return $this->getAdapterImplementationCourierInstance($adapterImplementation);
+        return $this->getAdapterImplementationCourierInstance($adapterImplementation, $specificInterface);
+    }
+
+    public function getAdapterImplementationCourierInstanceForChannel($channelName, $specificInterface = null)
+    {
+        $adapterImplementation = $this->getAdapterImplementationByChannelName($channelName);
+        return $this->getAdapterImplementationCourierInstance($adapterImplementation, $specificInterface);
     }
 
     /**
-     * @return \CG\CourierAdapter\CourierInterface
+     * @return CourierInterface
      */
-    public function getAdapterImplementationCourierInstance(Entity $adapterImplementation)
+    public function getAdapterImplementationCourierInstance(Entity $adapterImplementation, $specificInterface = null)
     {
         if (isset($this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()])) {
-            return $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()];
+            $courierInstance = $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()];
+            $this->checkCourierInstanceAgainstSpecificInterface(
+                $adapterImplementation->getChannelName(), $courierInstance, $specificInterface
+            );
+            return $courierInstance;
         }
 
         $courierInstance = call_user_func($adapterImplementation->getCourierFactory());
+        $this->checkCourierInstanceAgainstSpecificInterface(
+            $adapterImplementation->getChannelName(), $courierInstance, $specificInterface
+        );
+
         // Pass the logger along so implementers can do their own logging
         $courierInstance->setLogger($this->psrLogger);
 
@@ -95,8 +111,23 @@ class Service implements
             $courierInstance->setEmailClient($this->emailClient);
         }
 
+        // Some couriers need to be told if we're in a non-Live environment
+        if (defined('ENVIRONMENT') && ENVIRONMENT != 'live' && is_callable([$courierInstance, 'setTestMode'])) {
+            $courierInstance->setTestMode(true);
+        }
+
         $this->adapterImplementationCourierInstances[$adapterImplementation->getChannelName()] = $courierInstance;
         return $courierInstance;
+    }
+
+    protected function checkCourierInstanceAgainstSpecificInterface(
+        $channelName,
+        CourierInterface $courierInstance,
+        $specificInterface = null
+    ) {
+        if ($specificInterface && !$courierInstance instanceof $specificInterface) {
+            throw new InvalidArgumentException('Tried to get a courier instance for channel ' . $channelName . ' but its adapter does not implement ' . $specificInterface);
+        }
     }
 
     /**
