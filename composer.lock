@@ -3594,12 +3594,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e084aef788868c4993bcf22a5e6696ac34130f36"
+                "reference": "652081a24fed5e2352f8d15c3b80f9306996f9e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7254-Products-page-fixes-and-improvements-e26d94.zip",
-                "reference": "e084aef788868c4993bcf22a5e6696ac34130f36",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7254-Products-page-fixes-and-improvements-cf4fe6.zip",
+                "reference": "652081a24fed5e2352f8d15c3b80f9306996f9e4",
                 "shasum": null
             },
             "require": {
@@ -3646,7 +3646,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-26 11:28:48"
+            "time": "2016-08-30 15:31:12"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
