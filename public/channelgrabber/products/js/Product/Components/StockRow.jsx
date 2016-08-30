@@ -129,8 +129,10 @@ define([
                     },
                     success: function() {
                         n.success('Stock level updated successfully..');
+                        var levelUpdatedEvent = new CustomEvent('level-'+this.props.variation.sku, {'detail': {'value': value}});
+                        window.dispatchEvent(levelUpdatedEvent);
                         resolve({ savedValue: value });
-                    },
+                    }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to update the stock level.");
                         reject(new Error(error));
@@ -145,9 +147,11 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
+            window.addEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
         },
         componentWillUnmount: function () {
             window.removeEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
+            window.removeEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
         },
         render: function () {
             return <tr>{this.getColumns(this.props.variation)}</tr>;
