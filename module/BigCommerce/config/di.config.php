@@ -1,4 +1,5 @@
 <?php
+use BigCommerce\App\TokenService;
 use BigCommerce\App\UserService;
 use BigCommerce\Controller\AccountController;
 
@@ -11,6 +12,11 @@ return [
                 ],
             ],
             UserService::class => [
+                'parameters' => [
+                    'predis' => 'reliable_redis',
+                ],
+            ],
+            TokenService::class => [
                 'parameters' => [
                     'predis' => 'reliable_redis',
                 ],

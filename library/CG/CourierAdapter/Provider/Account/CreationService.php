@@ -6,16 +6,24 @@ use CG\Account\CreationServiceAbstract;
 use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\ConfigInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Implementation\ServiceAwareInterface as AdapterImplementationServiceAwareInterface;
 use CG\CourierAdapter\Provider\Credentials;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 
 class CreationService extends CreationServiceAbstract implements AdapterImplementationServiceAwareInterface
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
+    const REQUEST_CREDENTIALS_SKIPPED_FIELD = '_rcs';
+    const REQUEST_CREDENTIALS_FIELD = '_rc';
+
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
 
@@ -30,14 +38,19 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
             ->setDisplayName($adapterImplementation->getDisplayName())
             ->setDisplayChannel($adapterImplementation->getDisplayName());
 
-        if ($courierInstance instanceof CredentialRequestInterface && !$account->getId()) {
+        if ($courierInstance instanceof CredentialRequestInterface 
+            && !$account->getId()
+            && isset($params[static::REQUEST_CREDENTIALS_FIELD])
+        ) {
             $this->configureAccountFromCredentialsRequest($account, $params);
             return $account;
         }
+
         if ($courierInstance instanceof LocalAuthInterface) {
             $this->configureAccountFromLocalAuth($account, $params, $courierInstance);
             return $account;
         }
+
         if ($courierInstance instanceof ThirdPartyAuthInterface) {
             $this->configureAccountFromThirdPartyAuth($account, $params, $courierInstance);
             return $account;
@@ -58,12 +71,19 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         array $params,
         CourierInterface $courierInstance
     ) {
-        $account->setPending(false);
+        $account->setActive(true)
+            ->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
-        foreach ($courierInstance->getCredentialsFields() as $field) {
-            $credentials->set($field->getName(), ($params[$field->getName()] ?: null));
+        $credentialsForm = $courierInstance->getCredentialsForm();
+        $this->prepareAdapterImplementationFormForSubmission($credentialsForm, $params);
+        if (!$credentialsForm->isValid()) {
+            throw new ValidationException('There were problems submitting the form. Please review it and try again');
         }
+        $credentials->setData($credentialsForm->getData());
+
         $account->setCredentials($this->cryptor->encrypt($credentials));
+
+        $this->addConfigFieldsToAccountExternalData($account, $courierInstance);
     }
 
     protected function configureAccountFromThirdPartyAuth(
@@ -76,7 +96,8 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
             throw new InvalidCredentialsException('Return value of validateCredentials() was not an Account object');
         }
 
-        $account->setPending(false);
+        $account->setActive(true)
+            ->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
         foreach ($caAccount->getCredentials() as $field => $value) {
             $credentials->set($field, $value);
@@ -84,18 +105,42 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setCredentials($this->cryptor->encrypt($credentials));
         $account->setExternalId($caAccount->getId());
 
-        if (!$caAccount->getConfig()) {
+        $this->addConfigFieldsToAccountExternalData($account, $courierInstance, $caAccount->getConfig());
+    }
+
+    protected function addConfigFieldsToAccountExternalData(
+        AccountEntity $account,
+        CourierInterface $courierInstance,
+        array $values = []
+    ) {
+        if (!$courierInstance instanceof ConfigInterface) {
             return;
         }
         $externalData = $account->getExternalData();
-        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
-        foreach ($caAccount->getConfig() as $field => $value) {
-            if (!isset($externalDataConfig[$field])) {
-                $externalDataConfig[$field] = $value;
-            }
+        if (isset($externalData['config']) && empty($values)) {
+            return;
         }
-        $externalData['config'] = json_encode($externalDataConfig);
+
+        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
+        $allValues = array_merge($externalDataConfig, $values);
+        $form = $courierInstance->getConfigForm();
+        $this->prepareAdapterImplementationFormForSubmission($form, $allValues);
+        // We can't call getData() until isValid() has been called, even if we don't care if its valid or not
+        $form->isValid();
+
+        $externalData['config'] = json_encode($form->getData());
         $account->setExternalData($externalData);
+    }
+
+    protected function afterAccountSave(AccountEntity $account)
+    {
+        if ($account->getExternalId()) {
+            return $account;
+        }
+        // If we have no externalId (e.g. when using LocalAuth) we need to set it to something so
+        // the adapter code can make use of it
+        $account->setExternalId($account->getId());
+        return $account;
     }
 
     // Required by CreationServiceAbstract but will be changed by configureAccount()
