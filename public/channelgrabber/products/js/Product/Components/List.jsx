@@ -44,18 +44,36 @@ define([
 
             var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
             this.fetchVariations(productFilter);
+            this.initialRequest = false;
+        },
+        componentDidMount: function () {
+            this.initialRequest = true;
         },
         componentWillUnmount: function () {
             this.variationsRequest.abort();
         },
+        getProducts: function () {
+            if ((this.props.products.length === 0) && (this.initialRequest !== undefined)) {
+                 return (
+                     <div className="no-products-message-holder">
+                         <span className="sprite-noproducts"></span>
+                         <div className="message-holder">
+                             <span className="heading-large">No Products to Display</span>
+                             <span className="message">Please Search or Filter</span>
+                         </div>
+                     </div>
+                 );
+            }
+
+            return this.props.products.map(function(object) {
+                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]}/>;
+            }.bind(this))
+        },
         render: function()
         {
-            var imageBasePath = this.props.imageBasePath;
             return (
                 <div id="products-list">
-                    {this.props.products.map(function(object) {
-                        return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]}/>;
-                    }.bind(this))}
+                    {this.getProducts()}
                 </div>
             );
 
