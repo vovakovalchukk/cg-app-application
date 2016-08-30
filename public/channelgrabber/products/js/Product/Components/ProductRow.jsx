@@ -53,7 +53,7 @@ define([
                             <StockView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
                         </Pane>
                         <Pane label="Dimensions">
-                            <DimensionsView variations={products} fullView={this.state.expanded}/>
+                            <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
                         </Pane>
                     </Tabs>
                 </div>

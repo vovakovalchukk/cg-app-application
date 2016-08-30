@@ -22,6 +22,20 @@ define([
                 fullView: false
             };
         },
+        dimensionUpdated: function(e) {
+            var sku = e.type.substring('dimension-'.length);
+            var newValue = e.detail.value;
+            var dimension = e.detail.dimension;
+            var updatedVariation = null;
+
+            this.props.variations.forEach(function (variation) {
+                if (variation.sku === sku) {
+                    updatedVariation = variation;
+                }
+            });
+            updatedVariation.details[dimension] = newValue;
+            this.props.onVariationDetailChanged(updatedVariation);
+        },
         render: function () {
             var count = 0;
             return (
@@ -38,7 +52,7 @@ define([
                                 return;
                             }
                             count++;
-                            return <DimensionsRow key={variation.id} variation={variation}/>;
+                            return <DimensionsRow key={variation.id} variation={variation} dimensionUpdated={this.dimensionUpdated}/>;
                         }.bind(this))}
                         </tbody>
                     </table>

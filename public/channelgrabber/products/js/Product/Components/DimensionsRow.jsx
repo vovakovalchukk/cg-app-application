@@ -42,8 +42,10 @@ define([
                     },
                     success: function() {
                         n.success('Successfully updated '+detail+'.');
+                        var dimensionUpdatedEvent = new CustomEvent('dimension-'+this.props.variation.sku, {'detail': {'value': value, 'dimension': detail}});
+                        window.dispatchEvent(dimensionUpdatedEvent);
                         resolve({ savedValue: value });
-                    },
+                    }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to update the "+detail+".");
                         reject(new Error(error));
@@ -55,6 +57,12 @@ define([
             return {
                 variation: null
             };
+        },
+        componentDidMount: function () {
+            window.addEventListener('dimension-'+this.props.variation.sku, this.props.dimensionUpdated);
+        },
+        componentWillUnmount: function () {
+            window.removeEventListener('dimension-'+this.props.variation.sku, this.props.dimensionUpdated);
         },
         render: function () {
             return <tr>{this.getValues(this.props.variation)}</tr>;
