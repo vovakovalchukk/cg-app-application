@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a205dcb6d258751e728a472e34edaf0",
-    "content-hash": "f8ca21ad3af3241e66723dcc7db6b1e6",
+    "hash": "74848fdf582636f2f26616432ae91ba3",
+    "content-hash": "c8afdbcb166182649f65a2a97c8920af",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3635,16 +3635,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.71",
+            "version": "dev-CGIV-6501-ImportEbayMessages",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cafbe713d9897bfb0ffcab66e9778525f40f31a3"
+                "reference": "85b5e9d5f6868d6ae0e4d498178fab246f57c5ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.71-f9536a.zip",
-                "reference": "cafbe713d9897bfb0ffcab66e9778525f40f31a3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6501-ImportEbayMessages-eb3586.zip",
+                "reference": "85b5e9d5f6868d6ae0e4d498178fab246f57c5ba",
                 "shasum": null
             },
             "require": {
@@ -3691,7 +3691,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-25 15:31:41"
+            "time": "2016-08-30 14:39:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8103,6 +8103,12 @@
             "alias_normalized": "1.0.3.0",
             "version": "dev-CGIV-6501-ImportEbayMessages",
             "package": "channelgrabber/zf2-ebay"
+        },
+        {
+            "alias": "1.17.0",
+            "alias_normalized": "1.17.0.0",
+            "version": "dev-CGIV-6501-ImportEbayMessages",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8110,6 +8116,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-ebay": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
