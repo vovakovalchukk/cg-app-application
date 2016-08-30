@@ -23,6 +23,19 @@ define([
                 fullView: false
             };
         },
+        totalUpdated: function(e) {
+            var sku = e.type.substring('total-'.length);
+            var newValue = e.detail.value;
+            var updatedVariation = null;
+
+            this.props.variations.forEach(function (variation) {
+                if (variation.sku === sku) {
+                    updatedVariation = variation;
+                }
+            });
+            updatedVariation.stock.locations[0].onHand = newValue;
+            this.props.onVariationDetailChanged(updatedVariation);
+        },
         render: function () {
             var count = 0;
             return (
@@ -39,7 +52,7 @@ define([
                                 return;
                             }
                             count++;
-                            return <StockRow key={variation.id} variation={variation} />;
+                            return <StockRow key={variation.id} variation={variation} totalUpdated={this.totalUpdated}/>;
                         }.bind(this))}
                         </tbody>
                     </table>

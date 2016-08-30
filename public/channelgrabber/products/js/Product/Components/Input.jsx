@@ -12,6 +12,12 @@ define([
                 initialValue: ''
             };
         },
+        componentWillReceiveProps: function (newProps) {
+            this.setState({
+                newValue: newProps.initialValue,
+                oldValue: newProps.initialValue
+            });
+        },
         getInitialState: function () {
             return {
                 oldValue: this.props.initialValue,

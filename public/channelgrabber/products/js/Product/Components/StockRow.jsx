@@ -102,8 +102,10 @@ define([
                     },
                     success: function() {
                         n.success('Stock total updated successfully..');
+                        var totalUpdatedEvent = new CustomEvent('total-'+this.props.variation.sku, {'detail': {'value': value}});
+                        window.dispatchEvent(totalUpdatedEvent);
                         resolve({ savedValue: value });
-                    },
+                    }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to update the stock total.");
                         reject(new Error(error));
@@ -140,6 +142,12 @@ define([
             return {
                 variation: null
             };
+        },
+        componentDidMount: function () {
+            window.addEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
+        },
+        componentWillUnmount: function () {
+            window.removeEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
         },
         render: function () {
             return <tr>{this.getColumns(this.props.variation)}</tr>;

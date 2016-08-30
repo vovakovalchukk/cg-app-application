@@ -50,7 +50,7 @@ define([
                 <div className="details-layout-column">
                     <Tabs selected={0}>
                         <Pane label="Stock">
-                            <StockView variations={products} fullView={this.state.expanded}/>
+                            <StockView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
                         </Pane>
                         <Pane label="Dimensions">
                             <DimensionsView variations={products} fullView={this.state.expanded}/>
@@ -242,6 +242,25 @@ define([
                 });
                 return variation;
             });
+            this.setState({
+                variations: updatedVariations
+            });
+        },
+        onVariationDetailChanged: function(updatedVariation) {
+            if (this.props.product.variationCount <= 1) {
+                this.setState({
+                    variations: [updatedVariation]
+                });
+                return;
+            }
+            var updatedVariations = this.state.variations.slice();
+
+            updatedVariations.forEach(function (variation) {
+                if (updatedVariation.sku === variation.sku) {
+                    return updatedVariation;
+                }
+            });
+
             this.setState({
                 variations: updatedVariations
             });
