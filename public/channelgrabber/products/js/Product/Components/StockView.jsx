@@ -49,6 +49,19 @@ define([
             updatedVariation.stock.stockLevel = newValue;
             this.props.onVariationDetailChanged(updatedVariation);
         },
+        modeUpdated: function(e) {
+            var sku = e.type.substring('mode-'.length);
+            var newValue = e.detail.value;
+            var updatedVariation = null;
+
+            this.props.variations.forEach(function (variation) {
+                if (variation.sku === sku) {
+                    updatedVariation = variation;
+                }
+            });
+            updatedVariation.stock.stockMode = newValue;
+            this.props.onVariationDetailChanged(updatedVariation);
+        },
         render: function () {
             var count = 0;
             return (
@@ -65,7 +78,7 @@ define([
                                 return;
                             }
                             count++;
-                            return <StockRow key={variation.id} variation={variation} totalUpdated={this.totalUpdated} levelUpdated={this.levelUpdated}/>;
+                            return <StockRow key={variation.id} variation={variation} totalUpdated={this.totalUpdated} levelUpdated={this.levelUpdated} modeUpdated={this.modeUpdated}/>;
                         }.bind(this))}
                         </tbody>
                     </table>

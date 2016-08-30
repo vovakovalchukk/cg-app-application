@@ -79,7 +79,9 @@ define([
                 dataType : 'json',
                 success : function(response) {
                     n.success('Stock mode updated successfully..');
-                },
+                    var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': {'value': stockMode.value}});
+                    window.dispatchEvent(modeUpdatedEvent);
+                }.bind(this),
                 error : function(error) {
                     n.error("There was an error when attempting to update the stock mode.");
                 }
@@ -148,10 +150,12 @@ define([
         componentDidMount: function () {
             window.addEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
             window.addEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
+            window.addEventListener('mode-'+this.props.variation.sku, this.props.modeUpdated);
         },
         componentWillUnmount: function () {
             window.removeEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
             window.removeEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
+            window.removeEventListener('mode-'+this.props.variation.sku, this.props.modeUpdated);
         },
         render: function () {
             return <tr>{this.getColumns(this.props.variation)}</tr>;
