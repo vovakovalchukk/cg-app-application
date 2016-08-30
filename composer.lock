@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "24ca1ab527fc50d155e1a9d8eac6f2b8",
-    "content-hash": "0fa19c9c54d4d033fd712fc75f57f034",
+    "hash": "6138bb8a7ed0c81df75dd93ba3c3e06a",
+    "content-hash": "0f720f33f6daa84ce5e5823a71506d82",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1279,16 +1279,16 @@
         },
         {
             "name": "channelgrabber/manual-order",
-            "version": "dev-CGIV-7386-manual-orders-sales-channel",
+            "version": "dev-EPIC-CGIV-4778-manual-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-manual-order.git",
-                "reference": "0fdbc4d5ca172596836cbcbcb4c7c4219acd57a5"
+                "reference": "4207494b692f555022fca654ef92f42fba049765"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-CGIV-7386-manual-orders-sales-channel-fbd45e.zip",
-                "reference": "0fdbc4d5ca172596836cbcbcb4c7c4219acd57a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-EPIC-CGIV-4778-manual-orders-f249e9.zip",
+                "reference": "4207494b692f555022fca654ef92f42fba049765",
                 "shasum": null
             },
             "require": {
@@ -1311,7 +1311,7 @@
                     "CG\\ManualOrder\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-30 14:36:37"
+            "time": "2016-08-30 15:17:01"
         },
         {
             "name": "channelgrabber/netdespatch",
@@ -8129,7 +8129,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-7386-manual-orders-sales-channel",
+            "version": "dev-EPIC-CGIV-4778-manual-orders",
             "package": "channelgrabber/manual-order"
         }
     ],
