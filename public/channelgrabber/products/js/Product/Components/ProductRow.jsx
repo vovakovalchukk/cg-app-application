@@ -7,6 +7,10 @@ define([
     'Product/Components/Button',
     'Product/Components/Select',
     'Product/Components/Input',
+    'Product/Components/SimpleTabs/Tabs',
+    'Product/Components/SimpleTabs/Pane',
+    'Product/Components/DimensionsView',
+    'Product/Components/StockView',
     'Product/Filter/Entity',
     'Product/Storage/Ajax'
 ], function(
@@ -18,6 +22,10 @@ define([
     Button,
     Select,
     Input,
+    Tabs,
+    Pane,
+    DimensionsView,
+    StockView,
     ProductFilter,
     AjaxHandler
 ) {
@@ -32,13 +40,24 @@ define([
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
             }
         },
-        getDetailsView: function ()
+        getProductDetailsView: function ()
         {
             var products = [this.props.product];
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
                 products = this.state.variations;
             }
-            return  <DetailView variations={products} fullView={this.state.expanded}/>
+            return (
+                <div className="details-layout-column">
+                    <Tabs selected={0}>
+                        <Pane label="Stock">
+                            <StockView variations={products} fullView={this.state.expanded}/>
+                        </Pane>
+                        <Pane label="Dimensions">
+                            <DimensionsView variations={products} fullView={this.state.expanded}/>
+                        </Pane>
+                    </Tabs>
+                </div>
+            );
         },
         getExpandVariationsButton: function()
         {
@@ -244,7 +263,7 @@ define([
                             <div className="variations-layout-column">
                                 {this.getProductVariationsView()}
                             </div>
-                            {this.getDetailsView()}
+                            {this.getProductDetailsView()}
                         </div>
                         <div className="product-footer">
                                 {this.getVariationsBulkActions()}
