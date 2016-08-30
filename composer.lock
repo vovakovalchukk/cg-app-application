@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "62fe71399f256f4229771b679784b97d",
-    "content-hash": "2e71cb669dcca0e111713c9e77705574",
+    "hash": "68930b26c2a2addef2281961442514e0",
+    "content-hash": "875ca550f8d767dfe2923ba7e555bc46",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -112,16 +112,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-7343-BigCommercePreFill",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "4507fb8f2bd87d9df69c85bafca2f3009afdbe00"
+                "reference": "e335e05ddbd4b75bf3e6c1584aa3c117c4541516"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7343-BigCommercePreFill-814246.zip",
-                "reference": "4507fb8f2bd87d9df69c85bafca2f3009afdbe00",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.1-52e070.zip",
+                "reference": "e335e05ddbd4b75bf3e6c1584aa3c117c4541516",
                 "shasum": null
             },
             "require": {
@@ -148,7 +148,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-23 12:30:36"
+            "time": "2016-08-30 07:41:32"
         },
         {
             "name": "channelgrabber/billing",
@@ -3191,16 +3191,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-7343-BigCommercePreFill",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "80250870af0e343141802a736033f7e7832647bf"
+                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7343-BigCommercePreFill-fa7b04.zip",
-                "reference": "80250870af0e343141802a736033f7e7832647bf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.2-1184e9.zip",
+                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a",
                 "shasum": null
             },
             "require": {
@@ -3241,7 +3241,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-23 11:16:37"
+            "time": "2016-08-30 07:46:12"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3375,16 +3375,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7343-BigCommercePreFill",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7bbcfa615a295603e0256648fe3ffc524ae3f726"
+                "reference": "9e4feebb70854ff8ddb1d6be167f45fbdf010d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7343-BigCommercePreFill-3f7b9d.zip",
-                "reference": "7bbcfa615a295603e0256648fe3ffc524ae3f726",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.0-910e52.zip",
+                "reference": "9e4feebb70854ff8ddb1d6be167f45fbdf010d0a",
                 "shasum": null
             },
             "require": {
@@ -3424,7 +3424,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-08-23 13:06:58"
+            "time": "2016-08-30 08:13:37"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8091,32 +8091,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-CGIV-7343-BigCommercePreFill",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.5.2",
-            "alias_normalized": "1.5.2.0",
-            "version": "dev-CGIV-7343-BigCommercePreFill",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.5.0",
-            "alias_normalized": "1.5.0.0",
-            "version": "dev-CGIV-7343-BigCommercePreFill",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
