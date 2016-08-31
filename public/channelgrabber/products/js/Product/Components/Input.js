@@ -1,0 +1,104 @@
+define(['react'], function (React) {
+    "use strict";
+
+    var InputComponent = React.createClass({
+        displayName: 'InputComponent',
+
+        getDefaultProps: function () {
+            return {
+                type: 'number',
+                initialValue: ''
+            };
+        },
+        componentWillReceiveProps: function (newProps) {
+            this.setState({
+                newValue: newProps.initialValue,
+                oldValue: newProps.initialValue
+            });
+        },
+        getInitialState: function () {
+            return {
+                oldValue: this.props.initialValue,
+                newValue: this.props.initialValue,
+                editable: false,
+                hover: false
+            };
+        },
+        editInput: function () {
+            this.setState({ editable: true });
+        },
+        cancelInput: function () {
+            this.setState({
+                editable: false,
+                newValue: this.state.oldValue
+            });
+        },
+        submitInput: function () {
+            if (!this.state.editable) {
+                return;
+            }
+
+            var promise = this.props.submitCallback(this.props.name, this.state.newValue);
+            promise.then(function (data) {
+                this.setState({
+                    editable: false,
+                    oldValue: data.savedValue
+                });
+            }.bind(this));
+            promise.catch(function (error) {
+                console.log(error.message);
+            });
+        },
+        mouseOver: function () {
+            this.setState({ hover: true });
+        },
+        mouseOut: function () {
+            this.setState({ hover: false });
+        },
+        onChange: function (e) {
+            this.setState({
+                editable: true,
+                newValue: e.target.value
+            });
+        },
+        onKeyPress: function (e) {
+            if (e.key === 'Enter') {
+                this.submitInput();
+            }
+        },
+        render: function () {
+            return React.createElement(
+                'div',
+                { className: 'safe-input-box' },
+                React.createElement(
+                    'div',
+                    { className: 'submit-input', onFocus: this.editInput },
+                    React.createElement('input', {
+                        type: this.props.type,
+                        onKeyPress: this.onKeyPress,
+                        onChange: this.onChange,
+                        value: this.state.newValue || this.props.initialValue,
+                        name: this.props.name,
+                        disabled: this.props.disabled ? 'disabled' : ''
+                    }),
+                    React.createElement(
+                        'div',
+                        { className: "submit-cancel " + (this.state.editable ? "active" : "") },
+                        React.createElement(
+                            'div',
+                            { className: 'button-input', onClick: this.submitInput },
+                            React.createElement('span', { className: 'submit' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'button-input', onClick: this.cancelInput },
+                            React.createElement('span', { className: 'cancel' })
+                        )
+                    )
+                )
+            );
+        }
+    });
+
+    return InputComponent;
+});
