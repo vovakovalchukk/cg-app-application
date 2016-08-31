@@ -244,10 +244,6 @@
     text-decoration: underline;
     @include no-print();
   }
-  iframe {
-    border: none;
-    width: 100%;
-  }
 }
 .reply-section {
   @include no-print();
