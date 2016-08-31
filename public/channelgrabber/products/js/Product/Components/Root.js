@@ -1,4 +1,4 @@
-define(['react', 'Product/Components/Search', 'Product/Filter/Entity', 'Product/Components/List'], function (React, SearchBox, ProductFilter, ProductList) {
+define(['react', 'Product/Components/Search', 'Product/Filter/Entity', 'Product/Components/List', 'Product/Components/Footer'], function (React, SearchBox, ProductFilter, ProductList, ProductFooter) {
     "use strict";
 
     var RootComponent = React.createClass({
@@ -10,7 +10,12 @@ define(['react', 'Product/Components/Search', 'Product/Filter/Entity', 'Product/
         },
         getInitialState: function () {
             return {
-                products: []
+                products: [],
+                pagination: {
+                    total: 0,
+                    limit: 0,
+                    page: 0
+                }
             };
         },
         componentDidMount: function () {
@@ -22,11 +27,13 @@ define(['react', 'Product/Components/Search', 'Product/Filter/Entity', 'Product/
         filterBySearch: function (searchTerm) {
             this.performProductsRequest(searchTerm);
         },
-        performProductsRequest: function (searchTerm) {
+        performProductsRequest: function (searchTerm, pageNumber) {
             searchTerm = searchTerm || '';
+            pageNumber = pageNumber || 1;
 
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null);
+            filter.setPage(pageNumber);
 
             this.productsRequest = $.ajax({
                 'url': this.props.productsUrl,
@@ -35,7 +42,8 @@ define(['react', 'Product/Components/Search', 'Product/Filter/Entity', 'Product/
                 'dataType': 'json',
                 'success': function (result) {
                     this.setState({
-                        products: result.products
+                        products: result.products,
+                        pagination: result.pagination
                     });
                     $('#products-loading-message').hide();
                 }.bind(this),
@@ -49,12 +57,16 @@ define(['react', 'Product/Components/Search', 'Product/Filter/Entity', 'Product/
                 return React.createElement(SearchBox, { submitCallback: this.filterBySearch });
             }
         },
+        onPageChange: function (pageNumber) {
+            this.performProductsRequest(null, pageNumber);
+        },
         render: function () {
             return React.createElement(
                 'div',
                 null,
                 this.getSearchBox(),
-                React.createElement(ProductList, { products: this.state.products })
+                React.createElement(ProductList, { products: this.state.products }),
+                this.state.products.length ? React.createElement(ProductFooter, { pagination: this.state.pagination, onPageChange: this.onPageChange }) : ''
             );
         }
     });

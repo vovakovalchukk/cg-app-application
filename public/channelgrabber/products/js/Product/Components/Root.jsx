@@ -2,12 +2,14 @@ define([
     'react',
     'Product/Components/Search',
     'Product/Filter/Entity',
-    'Product/Components/List'
+    'Product/Components/List',
+    'Product/Components/Footer'
 ], function(
     React,
     SearchBox,
     ProductFilter,
-    ProductList
+    ProductList,
+    ProductFooter
 ) {
     "use strict";
 
@@ -19,7 +21,12 @@ define([
         getInitialState: function()
         {
             return {
-                products: []
+                products: [],
+                pagination: {
+                    total: 0,
+                    limit: 0,
+                    page: 0
+                }
             }
         },
         componentDidMount: function()
@@ -33,11 +40,13 @@ define([
         filterBySearch: function(searchTerm) {
             this.performProductsRequest(searchTerm);
         },
-        performProductsRequest: function(searchTerm) {
+        performProductsRequest: function(searchTerm, pageNumber) {
             searchTerm = searchTerm || '';
+            pageNumber = pageNumber || 1;
 
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null);
+            filter.setPage(pageNumber);
 
             this.productsRequest = $.ajax({
                 'url' : this.props.productsUrl,
@@ -46,7 +55,8 @@ define([
                 'dataType' : 'json',
                 'success' : function(result) {
                     this.setState({
-                        products: result.products
+                        products: result.products,
+                        pagination: result.pagination
                     });
                     $('#products-loading-message').hide();
                 }.bind(this),
@@ -60,12 +70,16 @@ define([
                 return <SearchBox submitCallback={this.filterBySearch}/>
             }
         },
+        onPageChange: function(pageNumber) {
+            this.performProductsRequest(null, pageNumber);
+        },
         render: function()
         {
             return (
                 <div>
                     {this.getSearchBox()}
                     <ProductList products={this.state.products} />
+                    {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );
         }
