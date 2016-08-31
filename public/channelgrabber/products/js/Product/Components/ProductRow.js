@@ -6,7 +6,7 @@ define(['react', 'Product/Components/Checkbox', 'Product/Components/Status', 'Pr
 
         getProductVariationsView: function () {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return React.createElement(VariationView, { attributeNames: this.props.product.attributeNames, variations: this.state.variations, fullView: this.state.expanded });
+                return React.createElement(VariationView, { onSortColumn: this.onSortColumn, variationSort: this.state.variationSort, attributeNames: this.props.product.attributeNames, variations: this.state.variations, fullView: this.state.expanded });
             } else {
                 return React.createElement(VariationView, { variations: [this.props.product], fullView: this.state.expanded });
             }
@@ -151,6 +151,38 @@ define(['react', 'Product/Components/Checkbox', 'Product/Components/Status', 'Pr
                 }.bind(this));
             }
         },
+        onSortColumn: function (attributeName) {
+            var minSortColumns = 1;
+            var maxSortColumns = 2;
+
+            if (this.state.variationSort.length < minSortColumns) {
+                this.setState({
+                    variationSort: [{ attribute: attributeName, ascending: true }]
+                });
+                return;
+            }
+
+            var newVariationSort = this.state.variationSort.slice();
+            var containsAttribute = false;
+            this.state.variationSort.forEach(function (sort, index) {
+                if (sort.attribute === attributeName) {
+                    containsAttribute = true;
+                    if (sort.ascending) {
+                        newVariationSort[index].ascending = false;
+                    } else {
+                        newVariationSort.splice(index, 1);
+                    }
+                }
+            });
+
+            if (!containsAttribute && this.state.variationSort.length < maxSortColumns) {
+                newVariationSort.push({ attribute: attributeName, ascending: true });
+            }
+
+            this.setState({
+                variationSort: newVariationSort
+            });
+        },
         getInitialState: function () {
             return {
                 expanded: false,
@@ -158,7 +190,11 @@ define(['react', 'Product/Components/Checkbox', 'Product/Components/Status', 'Pr
                 bulkStockMode: {
                     name: '',
                     value: ''
-                }
+                },
+                variationSort: [{
+                    attribute: this.props.product.attributeNames[0],
+                    ascending: true
+                }]
             };
         },
         componentWillReceiveProps: function (newProps) {

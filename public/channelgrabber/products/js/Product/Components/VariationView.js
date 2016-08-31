@@ -2,19 +2,27 @@ define(['react'], function (React) {
     "use strict";
 
     var VariationViewComponent = React.createClass({
-        displayName: "VariationViewComponent",
+        displayName: 'VariationViewComponent',
 
         getAttributeHeaders: function () {
             var headers = [];
             this.props.attributeNames.forEach(function (attributeName) {
+                var sortData = this.props.variationSort.find(function (sort) {
+                    return sort.attribute === attributeName;
+                });
                 headers.push(React.createElement(
-                    "th",
-                    { key: attributeName },
-                    attributeName
+                    'th',
+                    { className: 'sortable', key: attributeName, onClick: this.props.onSortColumn.bind(this, attributeName) },
+                    attributeName,
+                    sortData ? React.createElement(
+                        'span',
+                        { className: 'sort-dir' },
+                        sortData.ascending ? '▼' : '▲'
+                    ) : ''
                 ));
-            });
+            }.bind(this));
             if (!headers.length) {
-                headers.push(React.createElement("th", null));
+                headers.push(React.createElement('th', null));
             }
             return headers;
         },
@@ -22,13 +30,13 @@ define(['react'], function (React) {
             var values = [];
             this.props.attributeNames.forEach(function (attributeName) {
                 values.push(React.createElement(
-                    "td",
+                    'td',
                     { key: attributeName },
                     variation.attributeValues[attributeName]
                 ));
             });
             if (!values.length) {
-                values.push(React.createElement("td", null));
+                values.push(React.createElement('td', null));
             }
             return values;
         },
@@ -42,50 +50,50 @@ define(['react'], function (React) {
         render: function () {
             var count = 0;
             return React.createElement(
-                "div",
-                { className: "variation-table" },
+                'div',
+                { className: 'variation-table' },
                 React.createElement(
-                    "div",
-                    { className: "image-sku-table" },
+                    'div',
+                    { className: 'image-sku-table' },
                     React.createElement(
-                        "table",
+                        'table',
                         null,
                         React.createElement(
-                            "thead",
+                            'thead',
                             null,
                             React.createElement(
-                                "tr",
+                                'tr',
                                 null,
                                 React.createElement(
-                                    "th",
-                                    { key: "image", className: "image-col" },
-                                    "Image"
+                                    'th',
+                                    { key: 'image', className: 'image-col' },
+                                    'Image'
                                 ),
                                 React.createElement(
-                                    "th",
-                                    { key: "sky", className: "sku-col" },
-                                    "SKU"
+                                    'th',
+                                    { key: 'sky', className: 'sku-col' },
+                                    'SKU'
                                 )
                             )
                         ),
                         React.createElement(
-                            "tbody",
+                            'tbody',
                             null,
                             this.props.variations.map(function (variation) {
                                 if (!this.props.fullView && count > 1) {
                                     return;
                                 }
                                 return React.createElement(
-                                    "tr",
+                                    'tr',
                                     { key: variation.id },
                                     React.createElement(
-                                        "td",
-                                        { key: "image" },
-                                        React.createElement("img", { src: variation.images.length > 0 ? variation.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png' })
+                                        'td',
+                                        { key: 'image' },
+                                        React.createElement('img', { src: variation.images.length > 0 ? variation.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png' })
                                     ),
                                     React.createElement(
-                                        "td",
-                                        { key: "sku" },
+                                        'td',
+                                        { key: 'sku' },
                                         variation.sku
                                     )
                                 );
@@ -94,22 +102,22 @@ define(['react'], function (React) {
                     )
                 ),
                 React.createElement(
-                    "div",
-                    { className: "variations-table" },
+                    'div',
+                    { className: 'variations-table' },
                     React.createElement(
-                        "table",
+                        'table',
                         null,
                         React.createElement(
-                            "thead",
+                            'thead',
                             null,
                             React.createElement(
-                                "tr",
+                                'tr',
                                 null,
                                 this.getAttributeHeaders()
                             )
                         ),
                         React.createElement(
-                            "tbody",
+                            'tbody',
                             null,
                             this.props.variations.map(function (variation) {
                                 if (!this.props.fullView && count > 1) {
@@ -117,7 +125,7 @@ define(['react'], function (React) {
                                 }
                                 count++;
                                 return React.createElement(
-                                    "tr",
+                                    'tr',
                                     { key: variation.id },
                                     this.getAttributeValues(variation)
                                 );

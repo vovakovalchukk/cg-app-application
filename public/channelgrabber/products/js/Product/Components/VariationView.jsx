@@ -9,8 +9,15 @@ define([
         getAttributeHeaders: function() {
             var headers = [];
             this.props.attributeNames.forEach(function(attributeName) {
-                headers.push(<th key={attributeName}>{attributeName}</th>);
-            });
+                var sortData = this.props.variationSort.find(function (sort) {
+                    return sort.attribute === attributeName;
+                });
+                headers.push(
+                    <th className='sortable' key={attributeName} onClick={this.props.onSortColumn.bind(this, attributeName)}>
+                        {attributeName}{sortData ? <span className="sort-dir">{sortData.ascending ? '▼' : '▲'}</span> : ''}
+                    </th>
+                );
+            }.bind(this));
             if (! headers.length) {
                 headers.push(<th></th>);
             }
