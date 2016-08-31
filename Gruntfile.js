@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'public/channelgrabber/',
                         src: ['**/js/**/*.jsx'],
-                        dest: 'public/cg-built/',
+                        dest: 'public/channelgrabber/',
                         ext: '.js'
                     }
                 ]
@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/*.jsx',
-                tasks: ['babel', 'shell:triggerSync']
+                tasks: ['babel']
             },
             copyApplicationJs: {
                 files: 'public/channelgrabber/**/*.js',
