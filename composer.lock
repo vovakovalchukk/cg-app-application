@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "23b4d5abeca8335f4e3140795f6809ad",
+    "hash": "a13f7fb37429e3c65bc6b8ab24d1c537",
     "content-hash": "7667d7fec6aea12db772f19cd6f8db40",
     "packages": [
         {
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d7fe1372d1a3d0913772bec5c4574ab61c25ca25"
+                "reference": "0703f1b05f8a03372ef8f9d91ed452616eee61a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6501-ImportEbayMessages-a5382a.zip",
-                "reference": "d7fe1372d1a3d0913772bec5c4574ab61c25ca25",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6501-ImportEbayMessages-6bbcf9.zip",
+                "reference": "0703f1b05f8a03372ef8f9d91ed452616eee61a5",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-30 09:56:25"
+            "time": "2016-09-01 10:35:30"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2974,12 +2974,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "6b687eff7929166a52de094138aa55034a245a3d"
+                "reference": "591b0a2ff9a2bf6b910baa1103d532118f8ef181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-1552ae.zip",
-                "reference": "6b687eff7929166a52de094138aa55034a245a3d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-14e80f.zip",
+                "reference": "591b0a2ff9a2bf6b910baa1103d532118f8ef181",
                 "shasum": null
             },
             "require": {
@@ -3006,7 +3006,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-09-01 07:51:04"
+            "time": "2016-09-01 10:29:36"
         },
         {
             "name": "channelgrabber/zf2-ekm",
