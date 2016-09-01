@@ -1,0 +1,8 @@
+.resizer {
+  width: 10px;
+  height: 100%;
+  float: left;
+  border-right: 1px solid $color-lgrey;
+  display: block;
+  @include gradient-direction(90deg, $color-xlgrey, $color-white);
+}
