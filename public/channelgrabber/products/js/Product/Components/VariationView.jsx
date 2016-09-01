@@ -9,11 +9,11 @@ define([
         getAttributeHeaders: function() {
             var headers = [];
             this.props.attributeNames.forEach(function(attributeName) {
-                var sortData = this.props.variationSort.find(function (sort) {
+                var sortData = this.props.variationsSort.find(function (sort) {
                     return sort.attribute === attributeName;
                 });
                 headers.push(
-                    <th className='sortable' key={attributeName} onClick={this.props.onSortColumn.bind(this, attributeName)}>
+                    <th className='sortable' key={attributeName} onClick={this.props.onColumnSortClick.bind(this, attributeName)}>
                         {attributeName}{sortData ? <span className="sort-dir">{sortData.ascending ? '▼' : '▲'}</span> : ''}
                     </th>
                 );

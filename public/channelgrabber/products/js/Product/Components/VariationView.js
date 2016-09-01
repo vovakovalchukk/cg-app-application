@@ -7,12 +7,12 @@ define(['react'], function (React) {
         getAttributeHeaders: function () {
             var headers = [];
             this.props.attributeNames.forEach(function (attributeName) {
-                var sortData = this.props.variationSort.find(function (sort) {
+                var sortData = this.props.variationsSort.find(function (sort) {
                     return sort.attribute === attributeName;
                 });
                 headers.push(React.createElement(
                     'th',
-                    { className: 'sortable', key: attributeName, onClick: this.props.onSortColumn.bind(this, attributeName) },
+                    { className: 'sortable', key: attributeName, onClick: this.props.onColumnSortClick.bind(this, attributeName) },
                     attributeName,
                     sortData ? React.createElement(
                         'span',

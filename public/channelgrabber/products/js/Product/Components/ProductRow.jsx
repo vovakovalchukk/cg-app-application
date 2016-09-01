@@ -1,5 +1,6 @@
 define([
     'react',
+    'thenBy',
     'Product/Components/Checkbox',
     'Product/Components/Status',
     'Product/Components/VariationView',
@@ -14,6 +15,7 @@ define([
     'Product/Storage/Ajax'
 ], function(
     React,
+    ThenBySort,
     Checkbox,
     Status,
     VariationView,
@@ -33,7 +35,7 @@ define([
         getProductVariationsView: function()
         {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return <VariationView onSortColumn={this.onSortColumn} variationSort={this.state.variationSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
+                return <VariationView onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
             } else {
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
             }
@@ -151,41 +153,53 @@ define([
                 var filter = new ProductFilter(null, this.props.product.id);
                 AjaxHandler.fetchByFilter(filter, function(data) {
                     this.setState({variations: data.products});
+                    this.sortVariations(this.state.variationsSort);
                     $('#products-loading-message').hide();
                 }.bind(this));
 
             }
         },
-        onSortColumn: function(attributeName) {
-            var minSortColumns = 1;
-            var maxSortColumns = 2;
+        onColumnSortClick: function(attributeName) {
+            var newVariationSort = this.state.variationsSort.slice();
 
-            if (this.state.variationSort.length < minSortColumns) {
-                this.setState({
-                    variationSort: [{attribute: attributeName, ascending: true}]
+            if (newVariationSort.length < 1) {
+                newVariationSort.push({attribute: attributeName, ascending: true});
+            } else {
+                var attributeAlreadyExists = false;
+                newVariationSort.forEach(function (sort, index) {
+                    if (sort.attribute === attributeName) {
+                        attributeAlreadyExists = true;
+                        if (sort.ascending) {
+                            newVariationSort[index].ascending = false;
+                        } else {
+                            newVariationSort.splice(index, 1);
+                        }
+                    }
                 });
+
+                if (! attributeAlreadyExists) {
+                    newVariationSort.push({attribute: attributeName, ascending: true});
+                }
+            }
+            this.setState({
+                variationsSort: newVariationSort
+            });
+            this.sortVariations(newVariationSort);
+        },
+        sortVariations: function (newVariationSort) {
+            if (newVariationSort.length < 1) {
                 return;
             }
-
-            var newVariationSort = this.state.variationSort.slice();
-            var containsAttribute = false;
-            this.state.variationSort.forEach(function (sort, index) {
-                if (sort.attribute === attributeName) {
-                    containsAttribute = true;
-                    if (sort.ascending) {
-                        newVariationSort[index].ascending = false;
-                    } else {
-                        newVariationSort.splice(index, 1);
-                    }
-                }
+            var newVariations = this.state.variations.slice();
+            var sortFunction = firstBy();
+            newVariationSort.forEach(function (nextSort) {
+                sortFunction = sortFunction.thenBy(function(v){
+                    return v.attributeValues[nextSort.attribute];
+                }, {ignoreCase: true, direction: (nextSort.ascending ? 1 : -1)});
             });
 
-            if ((! containsAttribute) && this.state.variationSort.length < maxSortColumns) {
-                newVariationSort.push({attribute: attributeName, ascending: true});
-            }
-
             this.setState({
-                variationSort: newVariationSort
+                variations: newVariations.sort(sortFunction)
             });
         },
         getInitialState: function () {
@@ -196,7 +210,7 @@ define([
                     name: '',
                     value: ''
                 },
-                variationSort: [
+                variationsSort: [
                     {
                         attribute: this.props.product.attributeNames[0],
                         ascending: true
