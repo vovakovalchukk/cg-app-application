@@ -29,7 +29,12 @@ define([
             return this.props.listings.map(function(listing) {
                 return (
                     <tr key={listing.id}>
-                        <td><span className={"status " + listing.status} title="">{listing.status}</span></td>
+                        <td>
+                            <span className={"product-listing-status-row status " + listing.status}>
+                                {listing.status}
+                                {listing.message ? <span className={"tooltip status " + listing.status}>{listing.message}</span> : ''}
+                            </span>
+                        </td>
                         <td><a href={listing.url} target="_blank">{listing.channel}</a></td>
                     </tr>
                 );

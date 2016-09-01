@@ -33,8 +33,13 @@ define(['react'], function (React) {
                         null,
                         React.createElement(
                             'span',
-                            { className: "status " + listing.status, title: '' },
-                            listing.status
+                            { className: "product-listing-status-row status " + listing.status },
+                            listing.status,
+                            listing.message ? React.createElement(
+                                'span',
+                                { className: "tooltip status " + listing.status },
+                                listing.message
+                            ) : ''
                         )
                     ),
                     React.createElement(
