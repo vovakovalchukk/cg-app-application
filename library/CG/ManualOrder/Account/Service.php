@@ -20,6 +20,7 @@ class Service
     }
 
     /**
+     * @param OrganisationUnit $organisationUnit The Trading Company (or root OU) to get an Account for, as selected by the user
      * @return \CG\Account\Shared\Entity
      */
     public function getAccountForOrganisationUnit(OrganisationUnit $organisationUnit)
