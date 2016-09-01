@@ -48,7 +48,8 @@ define(['react'], function (React) {
             };
         },
         render: function () {
-            var count = 0;
+            var imageRow = 0;
+            var variationRow = 0;
             return React.createElement(
                 'div',
                 { className: 'variation-table' },
@@ -80,9 +81,10 @@ define(['react'], function (React) {
                             'tbody',
                             null,
                             this.props.variations.map(function (variation) {
-                                if (!this.props.fullView && count > 1) {
+                                if (!this.props.fullView && imageRow > 1) {
                                     return;
                                 }
+                                imageRow++;
                                 return React.createElement(
                                     'tr',
                                     { key: variation.id },
@@ -120,10 +122,10 @@ define(['react'], function (React) {
                             'tbody',
                             null,
                             this.props.variations.map(function (variation) {
-                                if (!this.props.fullView && count > 1) {
+                                if (!this.props.fullView && variationRow > 1) {
                                     return;
                                 }
-                                count++;
+                                variationRow++;
                                 return React.createElement(
                                     'tr',
                                     { key: variation.id },

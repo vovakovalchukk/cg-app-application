@@ -41,7 +41,8 @@ define([
             };
         },
         render: function () {
-            var count = 0;
+            var imageRow = 0;
+            var variationRow = 0;
             return (
                 <div className="variation-table">
                     <div className="image-sku-table">
@@ -54,9 +55,10 @@ define([
                             </thead>
                             <tbody>
                                 {this.props.variations.map(function (variation) {
-                                    if ((! this.props.fullView) && count > 1) {
+                                    if ((! this.props.fullView) && imageRow > 1) {
                                         return;
                                     }
+                                    imageRow++;
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image"><img src={variation.images.length > 0 ? variation.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} /></td>
@@ -76,10 +78,10 @@ define([
                             </thead>
                             <tbody>
                                 {this.props.variations.map(function (variation) {
-                                    if ((! this.props.fullView) && count > 1) {
+                                    if ((! this.props.fullView) && variationRow > 1) {
                                         return;
                                     }
-                                    count++;
+                                    variationRow++;
                                     return <tr key={variation.id}>{this.getAttributeValues(variation)}</tr>;
                                 }.bind(this))}
                             </tbody>
