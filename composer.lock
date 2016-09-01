@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8050393c8d98695082d839a41dfa00c0",
-    "content-hash": "3ad6cd1972a5e3139e2837fb93339fb3",
+    "hash": "2981596c6263575668698ffe877d8afb",
+    "content-hash": "36ef2f3ca4b1cddf5b38f0ba284c88c5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,7 +345,7 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7388-manual-orders-hide-channel",
+            "version": "dev-EPIC-CGIV-4778-manual-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
@@ -353,7 +353,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7388-manual-orders-hide-channel-2604d0.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-4778-manual-orders-2604d0.zip",
                 "reference": "f1e999846a18e80d862a6e958d12db75eadb40dc",
                 "shasum": null
             },
@@ -1283,12 +1283,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-manual-order.git",
-                "reference": "4207494b692f555022fca654ef92f42fba049765"
+                "reference": "33e84a73148a2f07d3ade84ba959490cfb8bb751"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-EPIC-CGIV-4778-manual-orders-f249e9.zip",
-                "reference": "4207494b692f555022fca654ef92f42fba049765",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-EPIC-CGIV-4778-manual-orders-5a0bfd.zip",
+                "reference": "33e84a73148a2f07d3ade84ba959490cfb8bb751",
                 "shasum": null
             },
             "require": {
@@ -1311,7 +1311,7 @@
                     "CG\\ManualOrder\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-30 15:17:01"
+            "time": "2016-08-31 15:24:05"
         },
         {
             "name": "channelgrabber/netdespatch",
@@ -8129,7 +8129,7 @@
         {
             "alias": "1.25.6",
             "alias_normalized": "1.25.6.0",
-            "version": "dev-CGIV-7388-manual-orders-hide-channel",
+            "version": "dev-EPIC-CGIV-4778-manual-orders",
             "package": "channelgrabber/channel"
         },
         {
