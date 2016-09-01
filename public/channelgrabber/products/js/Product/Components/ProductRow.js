@@ -146,8 +146,7 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
                 $('#products-loading-message').show();
                 var filter = new ProductFilter(null, this.props.product.id);
                 AjaxHandler.fetchByFilter(filter, function (data) {
-                    this.setState({ variations: data.products });
-                    this.sortVariations(this.state.variationsSort);
+                    this.sortVariations(this.state.variationsSort, data.products);
                     $('#products-loading-message').hide();
                 }.bind(this));
             }
@@ -179,11 +178,11 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
             });
             this.sortVariations(newVariationSort);
         },
-        sortVariations: function (newVariationSort) {
+        sortVariations: function (newVariationSort, variations) {
             if (newVariationSort.length < 1) {
                 return;
             }
-            var newVariations = this.state.variations.slice();
+            var newVariations = variations || this.state.variations.slice();
             var sortFunction = firstBy();
             newVariationSort.forEach(function (nextSort) {
                 sortFunction = sortFunction.thenBy(function (v) {
@@ -193,25 +192,6 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
 
             this.setState({
                 variations: newVariations.sort(sortFunction)
-            });
-        },
-        getInitialState: function () {
-            return {
-                expanded: false,
-                variations: [],
-                bulkStockMode: {
-                    name: '',
-                    value: ''
-                },
-                variationsSort: [{
-                    attribute: this.props.product.attributeNames[0],
-                    ascending: true
-                }]
-            };
-        },
-        componentWillReceiveProps: function (newProps) {
-            this.setState({
-                variations: newProps.variations
             });
         },
         getStockModeOptions: function () {
@@ -305,6 +285,23 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
             this.setState({
                 variations: updatedVariations
             });
+        },
+        getInitialState: function () {
+            return {
+                expanded: false,
+                variations: [],
+                bulkStockMode: {
+                    name: '',
+                    value: ''
+                },
+                variationsSort: [{
+                    attribute: this.props.product.attributeNames[0],
+                    ascending: true
+                }]
+            };
+        },
+        componentWillReceiveProps: function (newProps) {
+            this.sortVariations(this.state.variationsSort, newProps.variations);
         },
         render: function () {
             return React.createElement(
