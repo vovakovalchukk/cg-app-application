@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "74848fdf582636f2f26616432ae91ba3",
-    "content-hash": "c8afdbcb166182649f65a2a97c8920af",
+    "hash": "23b4d5abeca8335f4e3140795f6809ad",
+    "content-hash": "7667d7fec6aea12db772f19cd6f8db40",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -529,16 +529,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ede5da1451fa0d0222d9c054db60f86a3e519e38"
+                "reference": "b832bcf2abd8f4ebc0ed65b93d24affb17f880d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.1-f36634.zip",
-                "reference": "ede5da1451fa0d0222d9c054db60f86a3e519e38",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.2-fa053c.zip",
+                "reference": "b832bcf2abd8f4ebc0ed65b93d24affb17f880d7",
                 "shasum": null
             },
             "require": {
@@ -564,7 +564,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-08-26 07:29:25"
+            "time": "2016-09-01 07:37:04"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2974,12 +2974,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "b377af2957065fccede91da456b02e4b38efb462"
+                "reference": "6b687eff7929166a52de094138aa55034a245a3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-f5bb5a.zip",
-                "reference": "b377af2957065fccede91da456b02e4b38efb462",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-1552ae.zip",
+                "reference": "6b687eff7929166a52de094138aa55034a245a3d",
                 "shasum": null
             },
             "require": {
@@ -3006,7 +3006,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-08-25 08:37:24"
+            "time": "2016-09-01 07:51:04"
         },
         {
             "name": "channelgrabber/zf2-ekm",
