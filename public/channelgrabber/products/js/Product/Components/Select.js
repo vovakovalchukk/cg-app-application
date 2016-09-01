@@ -32,11 +32,7 @@ define(['react'], function (React) {
             this.props.onNewOption(selectedOption);
         },
         render: function () {
-            var selectedOption = "";
             var options = this.props.options.map(function (opt) {
-                if (opt.selected) {
-                    selectedOption = opt;
-                }
                 return React.createElement(
                     "li",
                     { className: "custom-select-item " + (opt.selected ? "active" : ""), value: opt.value, key: opt.value, onClick: this.onOptionSelected },
@@ -61,7 +57,7 @@ define(['react'], function (React) {
                             null,
                             this.props.prefix ? this.props.prefix + ": " : ""
                         ),
-                        this.state.currentSelection.name ? this.state.currentSelection.name : selectedOption.name
+                        this.state.currentSelection.name ? this.state.currentSelection.name : this.props.defaultValue
                     ),
                     React.createElement(
                         "span",

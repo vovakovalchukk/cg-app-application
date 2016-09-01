@@ -32,7 +32,7 @@ define([
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode}/>
+                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} defaultValue={this.props.variation.stockModeDesc}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
                     <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />

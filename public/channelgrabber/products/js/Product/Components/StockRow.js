@@ -38,7 +38,7 @@ define(['react', 'Product/Components/Input', 'Product/Components/Select'], funct
             ), React.createElement(
                 'td',
                 { key: 'stock-mode', className: 'product-stock-mode' },
-                React.createElement(Select, { options: this.getStockModeOptions(), onNewOption: this.updateStockMode })
+                React.createElement(Select, { options: this.getStockModeOptions(), onNewOption: this.updateStockMode, defaultValue: this.props.variation.stockModeDesc })
             ), React.createElement(
                 'td',
                 { key: 'stock-level', className: 'product-stock-level' },

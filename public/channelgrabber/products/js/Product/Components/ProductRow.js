@@ -87,12 +87,12 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
             }
         },
         getBulkStockModeDropdown: function () {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return React.createElement(Select, { prefix: 'All', options: this.getStockModeOptions(), onNewOption: this.bulkUpdateStockMode });
+            if (this.state.variations.length > 0) {
+                return React.createElement(Select, { prefix: 'All', options: this.getStockModeOptions(), defaultValue: this.state.variations[0].stockModeDesc, onNewOption: this.bulkUpdateStockMode });
             }
         },
         getBulkStockLevelInput: function () {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.state.variations.length > 0) {
                 return React.createElement(Input, { name: 'bulk-level', initialValue: this.getStockModeLevel(), submitCallback: this.bulkUpdateStockLevel });
             }
         },
@@ -106,18 +106,24 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
                         continue;
                     }
                     var options = [];
+                    var selectedOption = "";
                     for (var taxRateId in this.props.product.taxRates[memberState]) {
                         if (!this.props.product.taxRates[memberState].hasOwnProperty(taxRateId)) {
                             continue;
                         }
                         var formattedRate = parseFloat(this.props.product.taxRates[memberState][taxRateId]['rate']);
+                        var rateName = formattedRate + '% (' + this.props.product.taxRates[memberState][taxRateId]['name'] + ')';
+                        var selected = this.props.product.taxRates[memberState][taxRateId]['selected'];
+                        if (selected) {
+                            selectedOption = rateName;
+                        }
                         options.push({
-                            'name': formattedRate + '% (' + this.props.product.taxRates[memberState][taxRateId]['name'] + ')',
+                            'name': rateName,
                             'value': taxRateId,
-                            'selected': this.props.product.taxRates[memberState][taxRateId]['selected']
+                            'selected': selected
                         });
                     }
-                    vatDropdowns.push(React.createElement(Select, { prefix: showCodeInLabel ? memberState + ' VAT' : "VAT", options: options, onNewOption: this.vatUpdated }));
+                    vatDropdowns.push(React.createElement(Select, { prefix: showCodeInLabel ? memberState + ' VAT' : "VAT", options: options, onNewOption: this.vatUpdated, defaultValue: selectedOption }));
                 }
                 return vatDropdowns;
             }
@@ -227,7 +233,8 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
                     success: function () {
                         n.success('Bulk stock level updated successfully.');
                         resolve({ savedValue: value });
-                    },
+                        this.updateVariationsStockLevel(value);
+                    }.bind(this),
                     error: function (error) {
                         n.error("There was an error when attempting to bulk update the stock level.");
                         reject(new Error(error));
@@ -254,11 +261,24 @@ define(['react', 'thenBy', 'Product/Components/Checkbox', 'Product/Components/St
                 }
             });
         },
+        updateVariationsStockLevel: function (stockLevel) {
+            var updatedVariations = this.state.variations.slice();
+            updatedVariations.forEach(function (variation) {
+                variation.stockLevel = stockLevel;
+                variation.stock.stockLevel = stockLevel;
+                return variation;
+            });
+            this.setState({
+                variations: updatedVariations
+            });
+        },
         updateVariationsStockMode: function (stockMode) {
-            var updatedVariations = this.state.variations.map(function (variation) {
+            var updatedVariations = this.state.variations.slice();
+            updatedVariations.forEach(function (variation) {
                 variation.stockModeOptions.forEach(function (mode, stockModeIndex) {
                     if (mode.value === stockMode.value) {
                         variation.stockModeOptions[stockModeIndex].selected = true;
+                        variation.stockModeDesc = stockMode.name;
                     }
                 });
                 return variation;
