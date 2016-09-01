@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6138bb8a7ed0c81df75dd93ba3c3e06a",
-    "content-hash": "0f720f33f6daa84ce5e5823a71506d82",
+    "hash": "8050393c8d98695082d839a41dfa00c0",
+    "content-hash": "3ad6cd1972a5e3139e2837fb93339fb3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.5",
+            "version": "dev-CGIV-7388-manual-orders-hide-channel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574"
+                "reference": "f1e999846a18e80d862a6e958d12db75eadb40dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.5-3de055.zip",
-                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7388-manual-orders-hide-channel-2604d0.zip",
+                "reference": "f1e999846a18e80d862a6e958d12db75eadb40dc",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-25 15:24:15"
+            "time": "2016-09-01 08:28:12"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8127,6 +8127,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.25.6",
+            "alias_normalized": "1.25.6.0",
+            "version": "dev-CGIV-7388-manual-orders-hide-channel",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-EPIC-CGIV-4778-manual-orders",
@@ -8135,6 +8141,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/manual-order": 20,
         "composer/composer": 20,
