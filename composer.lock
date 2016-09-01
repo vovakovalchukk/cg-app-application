@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a13f7fb37429e3c65bc6b8ab24d1c537",
-    "content-hash": "7667d7fec6aea12db772f19cd6f8db40",
+    "hash": "8eae3ecf0bf3cb5bbd2b102fc421128f",
+    "content-hash": "34db8da8083af8a5fbf1804467ddcc83",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6501-ImportEbayMessages",
+            "version": "1.25.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0703f1b05f8a03372ef8f9d91ed452616eee61a5"
+                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6501-ImportEbayMessages-6bbcf9.zip",
-                "reference": "0703f1b05f8a03372ef8f9d91ed452616eee61a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.6-1542d9.zip",
+                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-01 10:35:30"
+            "time": "2016-09-01 14:17:08"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2970,20 +2970,20 @@
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "dev-CGIV-6501-ImportEbayMessages",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "591b0a2ff9a2bf6b910baa1103d532118f8ef181"
+                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-6501-ImportEbayMessages-14e80f.zip",
-                "reference": "591b0a2ff9a2bf6b910baa1103d532118f8ef181",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.3-cb56ad.zip",
+                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-6501-ImportEbayMessages as 1.25.5",
+                "channelgrabber/channel": "^1.25.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/ebay": ">=1.1.10",
                 "channelgrabber/zf2-channel": ">=1.0.0",
@@ -3006,7 +3006,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-09-01 10:29:36"
+            "time": "2016-09-01 14:37:26"
         },
         {
             "name": "channelgrabber/zf2-ekm",
@@ -3635,16 +3635,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6501-ImportEbayMessages",
+            "version": "1.17.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "85b5e9d5f6868d6ae0e4d498178fab246f57c5ba"
+                "reference": "6a2c0e037f594482eb0dbf7ac5d1e536535cace6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6501-ImportEbayMessages-eb3586.zip",
-                "reference": "85b5e9d5f6868d6ae0e4d498178fab246f57c5ba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.0-592b74.zip",
+                "reference": "6a2c0e037f594482eb0dbf7ac5d1e536535cace6",
                 "shasum": null
             },
             "require": {
@@ -3691,7 +3691,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-08-30 14:39:41"
+            "time": "2016-09-01 14:29:20"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8091,32 +8091,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.25.6",
-            "alias_normalized": "1.25.6.0",
-            "version": "dev-CGIV-6501-ImportEbayMessages",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-CGIV-6501-ImportEbayMessages",
-            "package": "channelgrabber/zf2-ebay"
-        },
-        {
-            "alias": "1.17.0",
-            "alias_normalized": "1.17.0.0",
-            "version": "dev-CGIV-6501-ImportEbayMessages",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-ebay": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
