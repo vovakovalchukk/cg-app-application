@@ -3,6 +3,7 @@ namespace Settings\Controller;
 
 use CG\Account\Client\Entity as AccountEntity;
 use CG\Account\Client\Service as AccountService;
+use CG\Channel\AccountFactory;
 use CG\Channel\GetNamespacePartForAccountTrait;
 use CG\Channel\Service as ChannelService;
 use CG\Channel\ShippingOptionsProviderRepository;
@@ -66,6 +67,8 @@ class ChannelController extends AbstractActionController
     protected $intercomEventService;
     /** @var ShippingOptionsProviderRepository */
     protected $shippingOptionsProviderRepo;
+    /** @var AccountFactory */
+    protected $accountFactory;
 
     public function __construct(
         Di $di,
@@ -81,7 +84,8 @@ class ChannelController extends AbstractActionController
         Translator $translator,
         OrganisationUnitService $organisationUnitService,
         IntercomEventService $intercomEventService,
-        ShippingOptionsProviderRepository $shippingOptionsProviderRepo
+        ShippingOptionsProviderRepository $shippingOptionsProviderRepo,
+        AccountFactory $accountFactory
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -96,7 +100,8 @@ class ChannelController extends AbstractActionController
             ->setTranslator($translator)
             ->setOrganisationUnitService($organisationUnitService)
             ->setIntercomEventService($intercomEventService)
-            ->setShippingOptionsProviderRepo($shippingOptionsProviderRepo);
+            ->setShippingOptionsProviderRepo($shippingOptionsProviderRepo)
+            ->setAccountFactory($accountFactory);
     }
 
     public function setService(Service $service)
@@ -285,7 +290,8 @@ class ChannelController extends AbstractActionController
         $channelSpecificView->setVariables([
             'form' => $form,
             'account' => $accountEntity,
-            'route' => $returnRoute
+            'route' => $returnRoute,
+            'isAdmin'=> $this->activeUserContainer->isAdmin()
         ]);
         $this->addAccountsChannelSpecificVariablesToChannelSpecificView($accountEntity, $channelSpecificView);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
@@ -423,6 +429,15 @@ class ChannelController extends AbstractActionController
                 $this->params()->fromPost('clearPending', !$account->getPending()),
                 FILTER_VALIDATE_BOOLEAN
             );
+
+            // If they're trying to enable a pending account force them to enter the credentials
+            if ($active && $account->getPending()) {
+                $baseRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_CHANNELS;
+                $credentialsUri = $this->accountFactory->createRedirect($account, $baseRoute, ['type' => $account->getType()]);
+                $response->setVariable('redirect', $credentialsUri)
+                    ->setVariable('updated', true);
+                return $response;
+            }
 
             $accountService->save($account->setActive($active)->setPending(!$clearPending));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
@@ -613,6 +628,12 @@ class ChannelController extends AbstractActionController
     protected function setShippingOptionsProviderRepo(ShippingOptionsProviderRepository $shippingOptionsProviderRepo)
     {
         $this->shippingOptionsProviderRepo = $shippingOptionsProviderRepo;
+        return $this;
+    }
+
+    protected function setAccountFactory(AccountFactory $accountFactory)
+    {
+        $this->accountFactory = $accountFactory;
         return $this;
     }
 

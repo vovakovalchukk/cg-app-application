@@ -1,0 +1,41 @@
+.account-form-holder.carrier-request-form {
+    left: 20%;
+    width: 60%;
+    max-width: 1200px;
+    label {
+        width: 100%;
+    }
+    fieldset {
+        margin-bottom: 10px;
+
+        legend {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+    .inputbox-label {
+        width: 40%;
+    }
+    .checkbox-holder {
+        width: 10%;
+        margin: 0 auto;
+    }
+    .order-inputbox-holder {
+        width: 59%;
+        margin-left: 1%;
+        .custom-select {
+            width: 104%;
+        }
+        textarea {
+            width: 100%;
+        }
+    }
+    .half {
+        width: 100%;
+    }
+    > .half {
+        width: 65%;
+        margin: 0 auto;
+        float: none;
+    }
+}

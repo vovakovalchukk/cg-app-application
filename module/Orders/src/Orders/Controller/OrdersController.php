@@ -278,7 +278,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $accountDetails = $this->getAccountDetails($order);
         $orderDetails = $this->getOrderDetails($order);
-        $statusTemplate = $this->getStatus($order->getStatus());
+        $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
 
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
@@ -361,11 +361,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $view;
     }
 
-    protected function getStatus($statusText)
+    protected function getStatus($statusText, $messageText)
     {
         $status = $this->getViewModelFactory()->newInstance();
         $status->setTemplate("columns/status.mustache");
         $status->setVariable('status', $statusText);
+        $status->setVariable('message', $messageText);
         $status->setVariable('statusClass', str_replace(' ', '-', $statusText));
 
         return $status;

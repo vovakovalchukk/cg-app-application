@@ -6,6 +6,7 @@ use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\BigCommerce\Account\CreationService as BigCommerceAccountCreationService;
+use CG\BigCommerce\Client\Factory as BigCommerceClientFactory;
 use CG\BigCommerce\Client\Signer as BigCommerceClientSigner;
 use CG\OrganisationUnit\Service as OUService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -13,6 +14,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_Login\Service as LoginService;
+use CG_Register\Service as RegisterService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\MvcEvent;
 
@@ -33,6 +35,8 @@ class Service implements LoggerAwareInterface
 
     /** @var LoginService $loginService */
     protected $loginService;
+    /** @var RegisterService $registerService */
+    protected $registerService;
     /** @var ActiveUserInterface $activeUser */
     protected $activeUser;
     /** @var ViewModelFactory $viewModelFactory */
@@ -43,30 +47,40 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     /** @var OUService $ouService */
     protected $ouService;
+    /** @var BigCommerceClientFactory $clientFactory */
+    protected $clientFactory;
     /** @var BigCommerceClientSigner $clientSigner */
     protected $clientSigner;
     /** @var UserService $userService */
     protected $userService;
+    /** @var TokenService $tokenService */
+    protected $tokenService;
 
     public function __construct(
         LoginService $loginService,
+        RegisterService $registerService,
         ActiveUserInterface $activeUser,
         ViewModelFactory $viewModelFactory,
         BigCommerceAccountCreationService $accountCreationService,
         AccountService $accountService,
         OUService $ouService,
+        BigCommerceClientFactory $clientFactory,
         BigCommerceClientSigner $clientSigner,
-        UserService $userService
+        UserService $userService,
+        TokenService $tokenService
     ) {
         $this
             ->setLoginService($loginService)
+            ->setRegisterService($registerService)
             ->setActiveUser($activeUser)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountCreationService($accountCreationService)
             ->setAccountService($accountService)
             ->setOuService($ouService)
+            ->setClientFactory($clientFactory)
             ->setClientSigner($clientSigner)
-            ->setUserService($userService);
+            ->setUserService($userService)
+            ->setTokenService($tokenService);
     }
 
     public function saveProgressAndRedirectToLogin(MvcEvent $event, $route, array $routeParams = [], array $routeOptions = [])
@@ -84,13 +98,29 @@ class Service implements LoggerAwareInterface
             throw new LoginException('User is not logged in');
         }
 
-        $this->validateOauthParameters($parameters);
-        $shopHash = $this->getShopHash($parameters['context']);
+        $shopHash = null;
+        if (isset($parameters['shopHash'])) {
+            $shopHash = $parameters['shopHash'];
+        } else if (isset($parameters['context'])) {
+            $shopHash = $this->getShopHash($parameters['context']);
+        }
 
+        $accountParameters = ['shopHash' => $shopHash, 'redirectUri' => $redirectUri];
+        if ($token = $this->tokenService->fetchToken($shopHash, $additionalInfo)) {
+            $accountParameters['accessToken'] = $token;
+            if (isset($additionalInfo['parameters'])) {
+                $parameters = $additionalInfo['parameters'];
+            }
+            if (isset($additionalInfo['response'])) {
+                $accountParameters['response'] = $additionalInfo['response'];
+            }
+        }
+
+        $this->validateOauthParameters($parameters);
         $account = $this->accountCreationService->connectAccount(
             $this->activeUser->getCompanyId(),
             $this->getAccountId($shopHash),
-            array_merge(['shopHash' => $shopHash, 'redirectUri' => $redirectUri], $parameters)
+            array_merge($parameters, $accountParameters)
         );
 
         if ($bigCommerceUserId = $this->accountCreationService->getBigCommerceUserId()) {
@@ -100,18 +130,72 @@ class Service implements LoggerAwareInterface
         return $account;
     }
 
+    public function hasCachedOauthRequest($shopHash)
+    {
+        return $this->tokenService->hasToken($shopHash);
+    }
+
+    public function cacheOauthRequest($redirectUri, array $parameters)
+    {
+        $this->validateOauthParameters($parameters);
+        $shopHash = $this->getShopHash($parameters['context']);
+        $client = $this->clientFactory->createSimpleClient($shopHash);
+
+        $accessToken = BigCommerceAccountCreationService::getAccessToken(
+            $client,
+            array_merge(['redirectUri' => $redirectUri], $parameters),
+            $response
+        );
+        $this->tokenService->storeToken($shopHash, $accessToken, ['parameters' => $parameters, 'response' => $response]);
+
+        if (!isset($response['user']['email'])) {
+            return;
+        }
+
+        $firstName = $lastName = null;
+        $seperators = ['.', '_'];
+        $pregSeperators = preg_quote(implode('', $seperators), '/');
+
+        if (preg_match('/^(?<firstName>[^@\+' . $pregSeperators . ']+)[' . $pregSeperators . '](?<lastName>[^@\+]+)/', $response['user']['email'], $match)) {
+            $firstName = ucfirst(strtolower($match['firstName']));
+            $lastName = ucwords(strtolower(str_replace($seperators, ' ', $match['lastName'])));
+        }
+
+        try {
+            $storeInformation = $client->setToken($accessToken)->getStoreInformation();
+        } catch (\Exception $exception) {
+            // Ignore all errors - this is more a nice to have that a requirement
+            $storeInformation = [];
+        }
+
+        $this->loginService->setUsername($response['user']['email']);
+        $this->registerService->setUserData(
+            [
+                'email' => $response['user']['email'],
+                'ouName' => isset($storeInformation['name']) ? $storeInformation['name'] : null,
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'telephone' => isset($storeInformation['phone']) ? $storeInformation['phone'] : null,
+                'address' => isset($storeInformation['address']) ? $storeInformation['address'] : null,
+            ]
+        );
+    }
+
     /**
      * @return Account
      */
-    public function processLoadRequest($signedPayload)
+    public function processLoadRequest($signedPayload, &$shopHash = null)
     {
         $data = $this->clientSigner->getDataFromSignedPayload($signedPayload);
         $this->loginUserForPayload($data);
+
         if (!isset($data['store_hash'])) {
             $this->logPrettyDebug(static::LOG_MSG_MISSING_SHOP_HASH, $data, [], static::LOG_CODE_MISSING_SHOP_HASH);
             throw new \InvalidArgumentException(static::LOG_CODE_MISSING_SHOP_HASH);
         }
-        return $this->getAccount($data['store_hash']);
+
+        $shopHash = $data['store_hash'];
+        return $this->getAccount($shopHash);
     }
 
     protected function validateOauthParameters(array $parameters)
@@ -179,6 +263,10 @@ class Service implements LoggerAwareInterface
             $this->loginService->loginAsUser($user);
         } catch (\Exception $exception) {
             $this->logException($exception, 'debug', __NAMESPACE__);
+            if (isset($payload['user']['email'])) {
+                $this->loginService->setUsername($payload['user']['email']);
+                $this->registerService->setUserData(['email' => $payload['user']['email']]);
+            }
             throw new LoginException('Failed to login user', 0, $exception);
         }
     }
@@ -218,6 +306,15 @@ class Service implements LoggerAwareInterface
     protected function setLoginService(LoginService $loginService)
     {
         $this->loginService = $loginService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setRegisterService(RegisterService $registerService)
+    {
+        $this->registerService = $registerService;
         return $this;
     }
 
@@ -269,6 +366,15 @@ class Service implements LoggerAwareInterface
     /**
      * @return self
      */
+    protected function setClientFactory(BigCommerceClientFactory $clientFactory)
+    {
+        $this->clientFactory = $clientFactory;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
     protected function setClientSigner(BigCommerceClientSigner $clientSigner)
     {
         $this->clientSigner = $clientSigner;
@@ -281,6 +387,15 @@ class Service implements LoggerAwareInterface
     protected function setUserService(UserService $userService)
     {
         $this->userService = $userService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setTokenService(TokenService $tokenService)
+    {
+        $this->tokenService = $tokenService;
         return $this;
     }
 }

@@ -5,6 +5,7 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\CarrierBookingOptions\ActionDescriptionsInterface;
 use CG\Channel\CarrierBookingOptionsRepository;
 use CG\Channel\ShippingChannelsProviderRepository;
 use CG\Channel\ShippingServiceFactory;
@@ -36,6 +37,7 @@ use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\DataTable;
 use DateTimeZone;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
+use Orders\Courier\ShippingAccountsService;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
@@ -43,10 +45,6 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
-    use GetShippingAccountsTrait {
-        getShippingAccounts as traitGetShippingAccounts;
-    }
-    use GetShippingAccountOptionsTrait;
 
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
     const DEFAULT_PARCELS = 1;
@@ -77,6 +75,8 @@ class Service implements LoggerAwareInterface
     protected $shippingChannelsProviderRepo;
     /** @var CarrierBookingOptionsRepository */
     protected $carrierBookingOptionsRepo;
+    /** @var ShippingAccountsService */
+    protected $shippingAccountsService;
 
     protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
@@ -93,7 +93,8 @@ class Service implements LoggerAwareInterface
         ProductDetailService $productDetailService,
         Di $di,
         ShippingChannelsProviderRepository $shippingChannelsProviderRepo,
-        CarrierBookingOptionsRepository $carrierBookingOptionsRepo
+        CarrierBookingOptionsRepository $carrierBookingOptionsRepo,
+        ShippingAccountsService $shippingAccountsService
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -105,7 +106,8 @@ class Service implements LoggerAwareInterface
             ->setProductDetailService($productDetailService)
             ->setDi($di)
             ->setShippingChannelsProviderRepo($shippingChannelsProviderRepo)
-            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo);
+            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo)
+            ->setShippingAccountsService($shippingAccountsService);
     }
     
     /**
@@ -114,22 +116,17 @@ class Service implements LoggerAwareInterface
     public function getCourierOptionsForOrder(Order $order, $selectedAccountId = null)
     {
         $shippingAccounts = $this->getShippingAccounts($order);
-        return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
+        return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
     public function getShippingAccounts(Order $order = null)
     {
-        $accounts = $this->traitGetShippingAccounts();
+        $accounts = $this->shippingAccountsService->getProvidedShippingAccounts();
         $carrierAccounts = new AccountCollection(Account::class, __FUNCTION__);
 
         /** @var Account $account */
         foreach ($accounts as $account)
         {
-            // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
-            if (!$this->shippingChannelsProviderRepo->isProvidedAccount($account)) {
-                continue;
-            }
-
             // Only show accounts that support the requested order
             $provider = $this->getShippingChannelsProvider($account);
             if ($order && !$provider->isOrderSupported($account->getChannel(), $order)) {
@@ -364,6 +361,64 @@ class Service implements LoggerAwareInterface
     protected function getCarrierOptions(Account $account, $serviceCode = null)
     {
         return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateActionDescription(Account $account)
+    {
+        return $this->getActionDescription('Create', 'Create label', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCancelActionDescription(Account $account)
+    {
+        return $this->getActionDescription('Cancel', 'Cancel', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrintActionDescription(Account $account)
+    {
+        return $this->getActionDescription('Print', 'Print label', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateAllActionDescription(Account $account)
+    {
+        return $this->getActionDescription('CreateAll', 'Create all labels', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCancelAllActionDescription(Account $account)
+    {
+        return $this->getActionDescription('CancelAll', 'Cancel all', $account);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrintAllActionDescription(Account $account)
+    {
+        return $this->getActionDescription('PrintAll', 'Print all labels', $account);
+    }
+
+    protected function getActionDescription($action, $defaultDescription, Account $account)
+    {
+        $provider = $this->getCarrierOptionsProvider($account);
+        if (!$provider instanceof ActionDescriptionsInterface) {
+            return $defaultDescription;
+        }
+        $method = 'get' . $action . 'ActionDescription';
+        return $provider->$method();
     }
 
     /**
@@ -867,19 +922,15 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
+    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
+    {
+        $this->shippingAccountsService = $shippingAccountsService;
+        return $this;
+    }
+
     // Required by GetProductDetailsForOrdersTrait
     protected function getProductDetailService()
     {
         return $this->productDetailService;
-    }
-
-    // Required by GetShippingAccountsTrait
-    protected function getAccountService()
-    {
-        return $this->accountService;
-    }
-    protected function getUserOuService()
-    {
-        return $this->userOuService;
     }
 }

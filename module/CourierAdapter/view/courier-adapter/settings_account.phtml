@@ -7,12 +7,16 @@ if (isset($accountPendingInstructions)) {
     return;
 }
 
+if (isset($testModeInstructions)) {
+    echo $testModeInstructions;
+}
+
 if (isset($testPackFiles)) {
     echo $this->partial('courier-adapter/settings_account/test_pack_files.phtml', compact('account', 'testPackFiles'));
 }
 
-if (isset($configFields)) {
-    echo $this->partial('courier-adapter/settings_account/config.phtml', compact('account', 'configFields'));
+if (isset($configForm)) {
+    echo $this->partial('courier-adapter/settings_account/config.phtml', compact('account', 'configForm'));
 }
 
 echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));

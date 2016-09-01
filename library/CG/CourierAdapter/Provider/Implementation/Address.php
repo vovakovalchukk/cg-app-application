@@ -5,6 +5,7 @@ use CG\CourierAdapter\AddressInterface;
 
 class Address implements AddressInterface
 {
+    protected $companyName;
     protected $firstName;
     protected $lastName;
     protected $line1;
@@ -18,6 +19,7 @@ class Address implements AddressInterface
     protected $phoneNumber;
 
     public function __construct(
+        $companyName,
         $firstName,
         $lastName,
         $line1,
@@ -30,7 +32,8 @@ class Address implements AddressInterface
         $emailAddress,
         $phoneNumber
     ) {
-        $this->setFirstName($firstName)
+        $this->setCompanyName($companyName)
+            ->setFirstName($firstName)
             ->setLastName($lastName)
             ->setLine1($line1)
             ->setLine2($line2)
@@ -41,6 +44,11 @@ class Address implements AddressInterface
             ->setISOAlpha2CountryCode($ISOAlpha2CountryCode)
             ->setEmailAddress($emailAddress)
             ->setPhoneNumber($phoneNumber);
+    }
+
+    public function getCompanyName()
+    {
+        return $this->companyName;
     }
 
     public function getFirstName()
@@ -96,6 +104,12 @@ class Address implements AddressInterface
     public function getPhoneNumber()
     {
         return $this->phoneNumber;
+    }
+
+    public function setCompanyName($companyName)
+    {
+        $this->companyName = $companyName;
+        return $this;
     }
 
     public function setFirstName($firstName)

@@ -11,7 +11,7 @@ return [
                 'pages' => [
                     'royal-mail' => [
                         'label' => 'Add Royal Mail',
-                        'title' => 'Royal Mail',
+                        'title' => RoyalMailController::STEP_NAME,
                         'route' => Module::ROUTE . '/' . RoyalMailController::ROUTE_ROYAL_MAIL,
                         'order' => 30,
                         'sprite' => 'sprite-delivery-van-circle-25-white',

@@ -33,6 +33,12 @@ class Credentials implements CredentialsInterface
         return $this->data;
     }
 
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
     public function get($field)
     {
         if (isset($this->data[$field])) {

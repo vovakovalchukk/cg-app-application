@@ -33,14 +33,21 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     const TYPE_ORDER_IDS = 'orderIds';
     const TYPE_FILTER_ID = 'filterId';
 
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var OrderService $orderService */
     protected $orderService;
+    /** @var InvoiceService $invoiceService */
     protected $invoiceService;
+    /** @var PickListService $pickListService */
     protected $pickListService;
+    /** @var CsvService $csvService */
     protected $csvService;
+    /** @var BatchService $batchService */
     protected $batchService;
+    /** @var UsageService $usageService */
     protected $usageService;
-    /** @var OrdersToOperateOn */
+    /** @var OrdersToOperateOn $ordersToOperatorOn */
     protected $ordersToOperatorOn;
 
     protected $typeMap = [
@@ -595,6 +602,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function archiveOrdersByFilter(Filter $filter)
     {
         $this->orderService->archiveOrdersByFilter($filter);
+    }
+
+    public function unarchiveOrderIdsAction()
+    {
+        return $this->performPatchingAction('archived', [$this, 'unarchiveOrdersByFilter']);
+    }
+
+    protected function unarchiveOrdersByFilter(Filter $filter)
+    {
+        $this->orderService->archiveOrdersByFilter($filter, false);
     }
 
     public function checkInvoicePrintingAllowedAction()

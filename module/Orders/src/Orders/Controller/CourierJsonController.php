@@ -432,7 +432,11 @@ class CourierJsonController extends AbstractActionController
         $accountId = $this->params()->fromPost('account');
         try {
             $accountManifest = $this->manifestService->generateManifestForShippingAccount($accountId);
-            return $this->jsonModelFactory->newInstance(['id' => $accountManifest->getId()]);
+            $returnData = ['success' => true];
+            if ($accountManifest) {
+                $returnData['id'] = $accountManifest->getId();
+            }
+            return $this->jsonModelFactory->newInstance($returnData);
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e

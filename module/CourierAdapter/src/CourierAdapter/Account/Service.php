@@ -1,55 +1,52 @@
 <?php
 namespace CourierAdapter\Account;
 
+use CG\Account\Client\Mapper as OHAccountMapper;
 use CG\Account\Client\Service as OHAccountService;
 use CG\Account\Credentials\Cryptor;
-use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
-use CG\CourierAdapter\Account\CredentialVerificationInterface;
+use CG\Channel\AccountFactory as AccountSetupFactory;
+use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account\ConfigInterface;
+use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Provider\Account\CreationService as AccountCreationService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\Http\Exception\Exception3xx\NotModified;
-use InvalidArgumentException;
-use Zend\Form\Element as ZendFormElement;
+use Zend\Form\Form as ZendForm;
 
 class Service
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
     /** @var OHAccountService */
     protected $ohAccountService;
+    /** @var OHAccountMapper */
+    protected $ohAccountMapper;
     /** @var Cryptor */
     protected $cryptor;
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
+    /** @var AccountSetupFactory */
+    protected $accountSetupFactory;
 
     public function __construct(
         OHAccountService $ohAccountService,
+        OHAccountMapper $ohAccountMapper,
         Cryptor $cryptor,
         AdapterImplementationService $adapterImplementationService,
-        CAAccountMapper $caAccountMapper
+        CAAccountMapper $caAccountMapper,
+        AccountSetupFactory $accountSetupFactory
     ) {
         $this->setOHAccountService($ohAccountService)
+            ->setOhAccountMapper($ohAccountMapper)
             ->setCryptor($cryptor)
             ->setAdapterImplementationService($adapterImplementationService)
-            ->setCAAccountMapper($caAccountMapper);
-    }
-
-    /**
-     * @return CourierInterface
-     */
-    public function getCourierInstanceForChannel($channelName, $specificInterface = null)
-    {
-        if (!$this->adapterImplementationService->isProvidedChannel($channelName)) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but that is not a channel provided by the Courier Adapters');
-        }
-        $adapterImplementation = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
-        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstance($adapterImplementation);
-        if ($specificInterface && !$courierInstance instanceof $specificInterface) {
-            throw new InvalidArgumentException(__METHOD__ . ' called with channel ' . $channelName . ' but its adapter does not implement ' . $specificInterface);
-        }
-        return $courierInstance;
+            ->setCAAccountMapper($caAccountMapper)
+            ->setAccountSetupFactory($accountSetupFactory);
     }
 
     /**
@@ -65,39 +62,43 @@ class Service
     /**
      * @return bool
      */
-    public function validateSetupFields(array $fields, array $values, CourierInterface $courierInstance)
+    public function validateSetupForm(ZendForm $form, CourierInterface $courierInstance, $accountId = null)
     {
-        if ($courierInstance instanceof CredentialVerificationInterface) {
-            $caAccount = $this->caAccountMapper->fromArray([
-                'credentials' => $values,
-            ]);
-            return $courierInstance->validateCredentials($caAccount);
+        if (!$form->isValid()) {
+            return false;
         }
 
-        foreach ($fields as $field) {
-            if (!$field instanceof ZendFormElement) {
-                throw new InvalidArgumentException('Form elements must be instances of ' . ZendFormElement::class);
-            }
-            if ($field->getOption('required') && (!isset($values[$field->getName()]) || $values[$field->getName()] == '')) {
-                return false;
-            }
+        if (!$courierInstance instanceof CredentialVerificationInterface) {
+            return true;
         }
-        return true;
+
+        $caAccountData = ['credentials' => $form->getData()];
+        if ($accountId) {
+            $account = $this->ohAccountService->fetch($accountId);
+            $caAccountData['id'] = $account->getExternalId();
+        }
+
+        $caAccount = $this->caAccountMapper->fromArray($caAccountData);
+        return $courierInstance->validateCredentials($caAccount);
     }
 
     public function saveConfigForAccount($accountId, array $config)
     {
         $account = $this->ohAccountService->fetch($accountId);
-        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), ConfigInterface::class);
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $account->getChannel(), ConfigInterface::class
+        );
+
+        $form = $courierInstance->getConfigForm();
+        $this->prepareAdapterImplementationFormForSubmission($form, $config);
+
+        if (!$form->isValid()) {
+            return $form->getMessages();
+        }
+        $formData = $form->getData();
 
         $externalData = $account->getExternalData();
-        $externalDataConfig = (isset($externalData['config']) ? json_decode($externalData['config'], true) : []);
-        foreach ($courierInstance->getConfigFields() as $field) {
-            if (isset($config[$field->getName()])) {
-                $externalDataConfig[$field->getName()] = $config[$field->getName()];
-            }
-        }
-        $externalData['config'] = json_encode($externalDataConfig);
+        $externalData['config'] = json_encode($formData);
 
         try {
             $account->setExternalData($externalData);
@@ -105,34 +106,41 @@ class Service
         } catch (NotModified $e) {
             // No-op
         }
+        return true;
     }
 
     /**
-     * @return string dataUri
+     * @return string
      */
-    public function generateTestPackFileDataForAccount($accountId, $fileReference)
+    public function getCredentialsUriForNewAccount($channelName, $organisationUnitId)
     {
-        $account = $this->ohAccountService->fetch($accountId);
-        $courierInstance = $this->getCourierInstanceForChannel($account->getChannel(), TestPackInterface::class);
+        $account = $this->getNewAccount($channelName, $organisationUnitId);
+        $routeVariables = [AccountCreationService::REQUEST_CREDENTIALS_SKIPPED_FIELD => true];
+        return $this->accountSetupFactory->createRedirect($account, '', $routeVariables);
+    }
 
-        $testPackFileToGenerate = null;
-        foreach ($courierInstance->getTestPackFileList() as $testPackFile) {
-            if ($testPackFile->getReference() == $fileReference) {
-                $testPackFileToGenerate = $testPackFile;
-                break;
-            }
-        }
-        if (!$testPackFileToGenerate) {
-            throw new InvalidArgumentException('No test pack file with reference "' . $fileReference . '" found');
-        }
-
-        $caAccount = $this->caAccountMapper->fromOHAccount($account);
-        return $courierInstance->generateTestPackFile($testPackFileToGenerate, $caAccount);
+    protected function getNewAccount($channelName, $organisationUnitId)
+    {
+        return $this->ohAccountMapper->fromArray([
+            'channel' => $channelName,
+            'organisationUnitId' => $organisationUnitId,
+            'displayName' => '',
+            'credentials' => '',
+            'active' => true,
+            'deleted' => false,
+            'type' => [ChannelType::SHIPPING]
+        ]);
     }
 
     protected function setOHAccountService(OHAccountService $ohAccountService)
     {
         $this->ohAccountService = $ohAccountService;
+        return $this;
+    }
+
+    protected function setOhAccountMapper(OHAccountMapper $ohAccountMapper)
+    {
+        $this->ohAccountMapper = $ohAccountMapper;
         return $this;
     }
 
@@ -151,6 +159,12 @@ class Service
     protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
     {
         $this->caAccountMapper = $caAccountMapper;
+        return $this;
+    }
+
+    public function setAccountSetupFactory(AccountSetupFactory $accountSetupFactory)
+    {
+        $this->accountSetupFactory = $accountSetupFactory;
         return $this;
     }
 }
