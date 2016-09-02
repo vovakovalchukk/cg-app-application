@@ -167,6 +167,7 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $this->removeZeroQuantityItemsFromOrders($orders);
         $data = $this->formatOrdersAsReviewListData($orders);
         return $this->sortReviewListData($data);
     }
@@ -238,9 +239,6 @@ class Service implements LoggerAwareInterface
         $itemData = [];
         $itemCount = 0;
         foreach ($items as $item) {
-            if ($item->getItemQuantity() == 0) {
-                continue;
-            }
             $rowData = null;
             if ($itemCount == 0) {
                 $rowData = $orderData;
@@ -434,6 +432,7 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $this->removeZeroQuantityItemsFromOrders($orders);
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);
@@ -563,9 +562,6 @@ class Service implements LoggerAwareInterface
         $itemsData = [];
         $itemCount = 0;
         foreach ($items as $item) {
-            if ($item->getItemQuantity() == 0) {
-                continue;
-            }
             $rowData = null;
             if ($itemCount == 0) {
                 $rowData = $orderData;
@@ -820,6 +816,25 @@ class Service implements LoggerAwareInterface
             $orderRows[$row['orderId']][] = $row;
         }
         return $orderRows;
+    }
+
+    protected function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
+    {
+        foreach ($orders as $order) {
+            $items = $order->getItems();
+            $nonZeroItems = new ItemCollection(
+                Item::class,
+                $items->getSourceDescription(),
+                array_merge($items->getSourceFilters(), ['itemQuantityGreaterThan' => 0])
+            );
+            foreach ($items as $item) {
+                if ($item->getItemQuantity() == 0) {
+                    continue;
+                }
+                $nonZeroItems->attach($item);
+            }
+            $order->setItems($nonZeroItems);
+        }
     }
 
     public function getSpecificsMetaDataFromRecords(array $records)
