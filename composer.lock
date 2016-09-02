@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5fd950855f3545c341e1cd7aaf3c0c20",
-    "content-hash": "aff1948494bebca9e5b7f91f3fa7c6ad",
+    "hash": "05e97a546b29b6ff99d75acadc9eb817",
+    "content-hash": "51beac02df0c2d12200c3a1a81320343",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.5",
+            "version": "1.25.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574"
+                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.5-3de055.zip",
-                "reference": "242ca79f8bd2afa4a3b1828bb4d7dc5d992f4574",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.6-1542d9.zip",
+                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-25 15:24:15"
+            "time": "2016-09-01 14:17:08"
         },
         {
             "name": "channelgrabber/cilex",
@@ -529,16 +529,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.2",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b832bcf2abd8f4ebc0ed65b93d24affb17f880d7"
+                "reference": "d807a96b2361633bf9111e189104005059eb34b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.2-fa053c.zip",
-                "reference": "b832bcf2abd8f4ebc0ed65b93d24affb17f880d7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-99a3c1.zip",
+                "reference": "d807a96b2361633bf9111e189104005059eb34b5",
                 "shasum": null
             },
             "require": {
@@ -564,7 +564,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-01 07:37:04"
+            "time": "2016-09-01 16:19:11"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2970,20 +2970,20 @@
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "801b47ee7b97471636b951238cb63fab74848b91"
+                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.2-a396d6.zip",
-                "reference": "801b47ee7b97471636b951238cb63fab74848b91",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.3-cb56ad.zip",
+                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": ">=1.1.5",
+                "channelgrabber/channel": "^1.25.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/ebay": ">=1.1.10",
                 "channelgrabber/zf2-channel": ">=1.0.0",
@@ -3006,7 +3006,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2014-08-15 11:15:15"
+            "time": "2016-09-01 14:37:26"
         },
         {
             "name": "channelgrabber/zf2-ekm",
@@ -3639,12 +3639,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "af39c7da45613f2d118c842ae4c1c9da20d6e2dd"
+                "reference": "9e310fec306afe7c4e6eda23fb2d69fad4413122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7411-MyHermesIntegration-603268.zip",
-                "reference": "af39c7da45613f2d118c842ae4c1c9da20d6e2dd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7411-MyHermesIntegration-2e43dd.zip",
+                "reference": "9e310fec306afe7c4e6eda23fb2d69fad4413122",
                 "shasum": null
             },
             "require": {
@@ -3691,7 +3691,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-09-01 11:40:07"
+            "time": "2016-09-02 10:53:58"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8093,8 +8093,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.72",
-            "alias_normalized": "1.16.72.0",
+            "alias": "1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.17.1",
+            "alias_normalized": "1.17.1.0",
             "version": "dev-CGIV-7411-MyHermesIntegration",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -8102,6 +8108,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

@@ -1,0 +1,301 @@
+.message-preview {
+  @include calc(width, "100% - 362px");
+  @include print() {
+    width: 100%;
+    height: auto;
+    display: table;
+    overflow: auto;
+  };
+  height: 100%;
+  float: left;
+  display: block;
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.no-messages-content {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    @include calc(top, "50% - 50px");
+    float: left;
+    clear:both;
+    .paragraph {
+        width: 100%;
+        float: left;
+        clear:both;
+        text-align: center;
+        h1 {
+            width: 100%;
+            float: left;
+            clear:both;
+            font-size: 20px;
+            color: $color-black;
+        }
+        p {
+            width: 100%;
+            float: left;
+            clear: both;
+            font-size: 16px;
+            color: $color-dgrey;
+            margin: 5px 0px 0px 0px;
+        }
+    }
+}
+.preview-header {
+  @include calc(width, "100% - 362px");
+  @include print() {
+    display: table-header-group;
+    position: relative;
+    float: initial;
+  };
+  float: left;
+  clear:both;
+  border-bottom: 1px solid $color-lgrey;
+  display: block;
+  position: fixed;
+  z-index: 2;
+  padding: 20px;
+  background-color: white;
+  @include box-sizing(border);
+}
+.message-title, .message-orders{
+  width: 100%;
+  min-width: 880px;
+}
+.message-title, .message-orders, .message-title a, .message-orders a{
+  float: left;
+  clear:both;
+  font-size: 14px;
+  font-weight: bold;
+}
+.message-section {
+  width: 100%;
+  float: left;
+  clear:both;
+  margin-top: 120px;
+  padding: 20px;
+  overflow: hidden;
+  @include box-sizing(border);
+  @include print() {
+    display: table-row-group;
+    float: initial;
+  };
+  ul {
+    width: 100%;
+    float: left;
+    clear:both;
+    padding: 0px;
+    margin: 0px;
+    @include print() {
+      @include calc(width, "100% - 40px");
+      margin: 20px;
+    }
+    li {
+      width: 100%;
+      min-width: 880px;
+      min-height: 40px;
+      float: left;
+      clear:both;
+      border: 1px solid $color-lgrey;
+      border-bottom: none;
+      overflow: hidden;
+      &:first-child {
+        @include border-radius(5px 5px 0px 0px);
+      }
+      &:last-child {
+        @include border-radius(0px 0px 5px 5px);
+        border-bottom: 1px solid $color-lgrey;
+      }
+      &:only-child {
+        @include border-radius(5px);
+        border-bottom: 1px solid $color-lgrey;
+      }
+      &.print-message {
+        @include print() {
+          @include border-radius(5px);
+          border-bottom: 1px solid $color-lgrey;
+        }
+      }
+      &:not(.print-message) {
+        @include no-print();
+      }
+    }
+  }
+}
+.message-actions {
+  width: 100%;
+  min-width: 880px;
+  float: left;
+  clear:both;
+  margin-top: 15px;
+  .channel-company {
+    width: 360px;
+    float: left;
+    clear:both;
+    .logo-large {
+      float: left;
+      clear:both;
+    }
+    .company {
+      width: 100px;
+      float: left;
+      font-size: 12px;
+      margin: 9px 0px 0px 10px;
+    }
+  }
+  .actions {
+    @include calc(width, "100% - 360px");
+    @include no-print();
+    float: right;
+    margin: 0px;
+    .assign {
+      width: 200px;
+      float: right;
+    }
+    .action-nav {
+      float: right;
+      margin-left: 20px;
+      ul {
+        width: 100%;
+        float: right;
+        clear:both;
+        border: 1px solid $color-lgrey;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+        @include border-radius(5px);
+        li {
+          float: left;
+          padding: 6px 15px 5px 15px;
+          border-right: 1px solid $color-lgrey;
+          cursor: pointer;
+          @include gradient-no-img($color-white, $color-xlgrey);
+          &:last-child {
+            border-right: none;
+          }
+          &:active {
+            @include gradient-no-img($color-xlgrey, $color-white);
+          }
+        }
+      }
+    }
+    .message-status {
+      width: 122px;
+      height: 24px;
+      float: right;
+      margin: 0px 10px 0px 20px;
+      .status {
+        width: 100%;
+        height: 100%;
+        line-height: 24px;
+      }
+    }
+  }
+}
+.message-head {
+  width: 100%;
+  min-height: 20px;
+  float: left;
+  clear:both;
+  background-color: $color-xlgrey;
+  display: block;
+  border-bottom: 1px solid $color-lgrey;
+  padding: 10px 15px 10px 10px;
+  font-size: 12px;
+  @include box-sizing(border);
+  .sprite-sprite {
+    float: left;
+    clear:both;
+  }
+  .name-user {
+    @include calc(width, "50% - 40px");
+    float: left;
+    margin-left: 10px;
+    margin-top: 2px;
+    .name {
+      font-weight: bold;
+    }
+    .user {
+      font-style: italic;
+      font-size: 11px;
+    }
+  }
+  .date-time {
+    width: 50%;
+    float: right;
+    text-align: right;
+    margin-top: 2px;
+    .date {
+      font-weight: bold;
+    }
+  }
+}
+.message-body {
+  width: 100%;
+  float: left;
+  clear:both;
+  padding: 10px 15px 10px 15px;
+  font-size: 12px;
+  @include box-sizing(border);
+  .message-print {
+    float: right;
+    text-decoration: underline;
+    @include no-print();
+  }
+}
+.reply-section {
+  @include no-print();
+  width: 100%;
+  min-width: 880px;
+  float: left;
+  clear: both;
+  margin-top: 20px;
+  .reply-actions {
+    width: 100%;
+    float: left;
+    clear:both;
+    .template-holder {
+      float: right;
+      position: relative;
+      z-index: 0;
+    }
+  }
+  .reply-message {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-top: 20px;
+    textarea {
+      width: 100%;
+      min-height: 210px;
+      min-width: 100%;
+      float: left;
+      clear:both;
+      border: 1px solid $color-lgrey;
+      padding: 10px;
+      font-size: 12px;
+      @include border-radius(5px);
+      @include box-sizing(border);
+    }
+  }
+  .reply-buttons {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-top: 20px;
+    .button-holder {
+      float: right;
+      margin-left: 20px;
+      .button.blue {
+        background-color: $color-dblue;
+        color: $color-white;
+        border: 1px solid darken($color-dblue, 10%);
+        padding-left: 10px;
+        padding-right: 10px;
+        @include gradient-no-img($color-dblue, $color-dblue);
+      }
+    }
+  }
+}
