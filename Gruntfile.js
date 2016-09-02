@@ -11,9 +11,12 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/',
-                        src: ['**/js/**/*.jsx'],
+                        src: ['**/jsx/**/*.jsx'],
                         dest: 'public/channelgrabber/',
-                        ext: '.js'
+                        ext: '.js',
+                        rename: function (dest, src) {
+                            return dest + src.replace('jsx', 'js');
+                        }
                     }
                 ]
             }
@@ -24,10 +27,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/',
-                        src: [
-                            '**/*.js',
-                            '!**/*.jsx'
-                        ],
+                        src: [ '**/js/**/*.js'],
                         dest: 'public/cg-built/'
                     }
                 ]
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'vendor/channelgrabber/',
-                        src: '**/*.js',
+                        src: [ '**/js/**/*.js'],
                         dest: 'public/cg-built/'
                     }
                 ]
@@ -49,6 +49,9 @@ module.exports = function(grunt) {
             },
             triggerSync: {
                 command: "rm .sync; touch .sync"
+            },
+            copyHandWrittenProductsJs: {
+                command: "cp -r public/channelgrabber/products/js-hand-written/* public/channelgrabber/products/js"
             },
 
             compileProducts: {
@@ -101,52 +104,49 @@ module.exports = function(grunt) {
         },
         watch: {
             babel: {
-                files: 'public/channelgrabber/**/*.jsx',
+                files: 'public/channelgrabber/**/jsx/**/*.jsx',
                 tasks: ['babel']
             },
-            copyApplicationJs: {
-                files: 'public/channelgrabber/**/*.js',
-                tasks: ['copy:main']
-            },
-            copyVendorJs: {
-                files: 'vendor/channelgrabber/**/*.js',
-                tasks: ['copy:vendor']
+            copyHandWrittenJs: {
+                files: 'public/channelgrabber/**/js-hand-written/**/*.js',
+                tasks: ['copyHandWrittenJs']
             },
             compileV4UiCss: {
                 files: 'vendor/channelgrabber/zf2-v4-ui/**/*.scss',
-                tasks: ['compileV4Ui']
+                tasks: ['compileV4UiCss']
             },
             compileRegisterModuleCss: {
                 files: 'vendor/channelgrabber/zf2-register/**/*.scss',
-                tasks: ['compileRegisterModule']
+                tasks: ['compileRegisterModuleCss']
             },
             compileProductsCss: {
                 files: 'public/channelgrabber/products/**/*.scss',
-                tasks: ['compileProducts']
+                tasks: ['compileProductsCss']
             },
             compileSettingsCss: {
                 files: 'public/channelgrabber/settings/**/*.scss',
-                tasks: ['compileSettings']
+                tasks: ['compileSettingsCss']
             },
             compileSetupWizardCss: {
                 files: 'public/channelgrabber/setup-wizard/**/*.scss',
-                tasks: ['compileSetupWizard']
+                tasks: ['compileSetupWizardCss']
             }
         }
     });
 
     grunt.registerTask('default', ['watch']);
 
-    grunt.registerTask('compileV4Ui', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui', 'shell:triggerSync']);
-    grunt.registerTask('compileRegisterModule', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule', 'shell:triggerSync']);
-    grunt.registerTask('compileProducts', ['shell:cleanProducts', 'shell:compileProducts', 'shell:copyProducts', 'shell:triggerSync']);
-    grunt.registerTask('compileSettings', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings', 'shell:triggerSync']);
-    grunt.registerTask('compileSetupWizard', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard', 'shell:triggerSync']);
+    grunt.registerTask('compileV4UiCss', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui', 'shell:triggerSync']);
+    grunt.registerTask('compileRegisterModuleCss', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule', 'shell:triggerSync']);
+    grunt.registerTask('compileProductsCss', ['shell:cleanProducts', 'shell:compileProducts', 'shell:copyProducts', 'shell:triggerSync']);
+    grunt.registerTask('compileSettingsCss', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings', 'shell:triggerSync']);
+    grunt.registerTask('compileSetupWizardCss', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard', 'shell:triggerSync']);
 
-    grunt.registerTask('compileVendorCss', ['compileV4Ui', 'compileRegisterModule']);
-    grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard', 'compileProducts']);
+    grunt.registerTask('compileVendorCss', ['compileV4UiCss', 'compileRegisterModuleCss']);
+    grunt.registerTask('compileApplicationCss', ['compileSettingsCss', 'compileSetupWizardCss', 'compileProductsCss']);
 
+    grunt.registerTask('copyHandWrittenJs', ['shell:copyHandWrittenProductsJs']);
     grunt.registerTask('compileJsx', ['babel']);
 
-    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx']);
+    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx', 'copyHandWrittenJs']);
 };
