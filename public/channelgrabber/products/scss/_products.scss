@@ -31,15 +31,15 @@
 #products-list {
     width: 100%;
     height: auto;
-    @include calc(min-height, "100% - 48px");
+    min-height: calc(100% - 48px);
     float: left;
     clear: both;
     margin-top: 50px;
     margin-bottom: 20px;
     padding: 20px 20px 0px 20px !important;
     background-color: $color-bluegrey;
-    @include box-sizing(border);
-    @include transition(all, 0.5s, ease);
+    box-sizing: border-box;
+    transition: all 0.5s ease;
 }
 
 #searchBtn {
@@ -58,10 +58,10 @@
     justify-content: space-between;
     align-items: stretch;
     border: 2px solid $color-lgrey;
-    @include border-radius(5px);
+    border-radius: 5px;
     background-color: $color-white;
     margin-bottom: 20px;
-    @include transition(all, 500ms, ease);
+    transition: all 500ms ease;
     .checkbox-container {
         width: 40px;
         display: flex;
@@ -96,7 +96,7 @@
             font-size: 18px;
             font-weight: 700;
             padding: 20px 10px 0 20px;
-            @include box-sizing(border);
+            box-sizing: border-box;
             span.product-title {
                 font-size: 22px;
             }
@@ -169,11 +169,11 @@
     .product-content-container {
         width: 100%;
         min-height: 143px;
-        @include flexbox();
-        @include flex-direction('row');
-        @include flex-wrap('nowrap');
-        @include align-items('stretch');
-        @include transition(height, 500ms, ease);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        transition: height 500ms ease;
         .variations-layout-column {
             margin-top: 36px;
         }
@@ -235,7 +235,7 @@ span.product-status-holder {
         right: 0;
         top: 22px;
         border: 1px solid $color-lgrey;
-        @include border-radius(5px);
+        border-radius: 5px;
         z-index: 10;
         display: none;
         table {
@@ -368,7 +368,7 @@ div#products-loading-message {
         .popup-stock-import-file {
             padding: 5px;
             border: 2px dashed $color-lgrey;
-            @include border-radius(5px);
+            border-radius: 5px;
             > * {
                 display: inline-block;
                 vertical-align: top;
