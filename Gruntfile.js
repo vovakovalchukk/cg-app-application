@@ -122,7 +122,7 @@ module.exports = function(grunt) {
             },
             compileProductsCss: {
                 files: 'public/channelgrabber/products/**/*.scss',
-                tasks: ['compileSettings']
+                tasks: ['compileProducts']
             },
             compileSettingsCss: {
                 files: 'public/channelgrabber/settings/**/*.scss',
