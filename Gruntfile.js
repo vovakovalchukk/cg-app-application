@@ -51,6 +51,9 @@ module.exports = function(grunt) {
                 command: "rm .sync; touch .sync"
             },
 
+            compileProducts: {
+                command: "compass compile public/channelgrabber/products"
+            },
             compileSettings: {
                 command: "compass compile public/channelgrabber/settings"
             },
@@ -64,6 +67,9 @@ module.exports = function(grunt) {
                 command: "compass compile vendor/channelgrabber/zf2-register"
             },
 
+            cleanProducts: {
+                command: "rm -rf public/channelgrabber/products/css/*"
+            },
             cleanSettings: {
                 command: "rm -rf public/channelgrabber/settings/css/*"
             },
@@ -77,6 +83,9 @@ module.exports = function(grunt) {
                 command: "rm -rf vendor/channelgrabber/zf2-register/css/*"
             },
 
+            copyProducts: {
+                command: "rm -rf public/cg-built/products/css/* ; mkdir public/cg-built/products/css; cp -r public/channelgrabber/products/css/* public/cg-built/products/css/"
+            },
             copySettings: {
                 command: "rm -rf public/cg-built/settings/css/* ; mkdir public/cg-built/settings/css; cp -r public/channelgrabber/settings/css/* public/cg-built/settings/css/"
             },
@@ -111,6 +120,10 @@ module.exports = function(grunt) {
                 files: 'vendor/channelgrabber/zf2-register/**/*.scss',
                 tasks: ['compileRegisterModule']
             },
+            compileProductsCss: {
+                files: 'public/channelgrabber/products/**/*.scss',
+                tasks: ['compileSettings']
+            },
             compileSettingsCss: {
                 files: 'public/channelgrabber/settings/**/*.scss',
                 tasks: ['compileSettings']
@@ -126,11 +139,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('compileV4Ui', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui', 'shell:triggerSync']);
     grunt.registerTask('compileRegisterModule', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule', 'shell:triggerSync']);
+    grunt.registerTask('compileProducts', ['shell:cleanProducts', 'shell:compileProducts', 'shell:copyProducts', 'shell:triggerSync']);
     grunt.registerTask('compileSettings', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings', 'shell:triggerSync']);
     grunt.registerTask('compileSetupWizard', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard', 'shell:triggerSync']);
 
     grunt.registerTask('compileVendorCss', ['compileV4Ui', 'compileRegisterModule']);
-    grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard']);
+    grunt.registerTask('compileApplicationCss', ['compileSettings', 'compileSetupWizard', 'compileProducts']);
 
     grunt.registerTask('compileJsx', ['babel']);
 
