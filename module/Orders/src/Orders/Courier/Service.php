@@ -238,6 +238,9 @@ class Service implements LoggerAwareInterface
         $itemData = [];
         $itemCount = 0;
         foreach ($items as $item) {
+            if ($item->getItemQuantity() == 0) {
+                continue;
+            }
             $rowData = null;
             if ($itemCount == 0) {
                 $rowData = $orderData;
@@ -560,6 +563,9 @@ class Service implements LoggerAwareInterface
         $itemsData = [];
         $itemCount = 0;
         foreach ($items as $item) {
+            if ($item->getItemQuantity() == 0) {
+                continue;
+            }
             $rowData = null;
             if ($itemCount == 0) {
                 $rowData = $orderData;
