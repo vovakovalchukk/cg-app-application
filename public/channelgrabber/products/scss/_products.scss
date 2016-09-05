@@ -440,6 +440,7 @@ div#products-loading-message {
             text-align: center;
         }
         input[type=number] {
+            -moz-appearance:textfield;
             &::-webkit-inner-spin-button,
             &::-webkit-outer-spin-button {
                 -webkit-appearance: none;
