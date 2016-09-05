@@ -26,8 +26,29 @@ class ManualOrderController extends AbstractActionController
         }
 
         $view = $this->viewModelFactory->newInstance();
-        // TODO: CGIV-7391
+        $view->setVariable('isHeaderBarVisible', false)
+            ->setVariable('subHeaderHide', true)
+            ->addChild($this->getSidebar(), 'sidebar');
+
         return $view;
+    }
+
+    protected function getSidebar()
+    {
+        $sidebar = $this->viewModelFactory->newInstance();
+        $sidebar->setTemplate('orders/manual-order/sidebar/navbar');
+
+        $links = [
+            'product-information' => 'Product Information',
+            'order-buyer-message' => 'Buyer Message',
+            'address-information' => 'Address Information',
+            'order-alert' => 'Order Alert',
+            'order-notes' => 'Notes'
+
+        ];
+        $sidebar->setVariable('links', $links);
+
+        return $sidebar;
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

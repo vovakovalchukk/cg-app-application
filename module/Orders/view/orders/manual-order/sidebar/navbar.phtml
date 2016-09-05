@@ -1,0 +1,11 @@
+<div id="section-nav" class="filter-module clearfix">
+    <ul id="section-nav-links" class="module-content nav">
+        <li>
+            <?php foreach($this->links as $id => $link): ?>
+                <ul>
+                    <li><a href="#<?= $id ?>"><?= $this->translate($link); ?></a></li>
+                </ul>
+            <?php endforeach;?>
+        </li>
+    </ul>
+</div>
