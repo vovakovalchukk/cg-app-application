@@ -42,15 +42,15 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            handWrittenJsToGeneratedJs: {
+            vanillaJsToGeneratedJs: {
                 files: [
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/',
-                        src: ['**/js-hand-written/**/*.js'],
+                        src: ['**/js-vanilla/**/*.js'],
                         dest: 'public/channelgrabber/',
                         rename: function (dest, src) {
-                            return dest + src.replace('js-hand-written', 'js');
+                            return dest + src.replace('js-vanilla', 'js');
                         }
                     }
                 ]
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
                 tasks: ['babel', 'copy:appJsToCgBuilt']
             },
             copyHandWrittenJs: {
-                files: 'public/channelgrabber/**/js-hand-written/**/*.js',
+                files: 'public/channelgrabber/**/js-vanilla/**/*.js',
                 tasks: ['copyHandWrittenJs', 'copy:appJsToCgBuilt']
             },
             compileV4UiCss: {
@@ -174,7 +174,7 @@ module.exports = function(grunt) {
     grunt.registerTask('compileVendorCss', ['compileV4UiCss', 'compileRegisterModuleCss']);
     grunt.registerTask('compileApplicationCss', ['compileSettingsCss', 'compileSetupWizardCss', 'compileProductsCss']);
 
-    grunt.registerTask('copyHandWrittenJs', ['copy:handWrittenJsToGeneratedJs']);
+    grunt.registerTask('copyHandWrittenJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
 
     grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx', 'copyHandWrittenJs', 'requirejs']);
