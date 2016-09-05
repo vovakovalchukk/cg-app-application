@@ -79,9 +79,6 @@ module.exports = function(grunt) {
             }
         },
         shell: {
-            options: {
-                stderr: false
-            },
             triggerSync: {
                 command: "rm .sync; touch .sync"
             },
