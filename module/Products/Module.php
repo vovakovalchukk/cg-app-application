@@ -4,6 +4,7 @@ namespace Products;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\MvcEvent;
+use Zend\View\Renderer\PhpRenderer;
 
 class Module implements DependencyIndicatorInterface
 {
@@ -12,6 +13,16 @@ class Module implements DependencyIndicatorInterface
 
     public function onBootstrap(MvcEvent $event)
     {
+        $eventManager = $event->getApplication()->getEventManager();
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
+    }
+
+    public function appendStylesheet(MvcEvent $e)
+    {
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $renderer = $serviceManager->get(PhpRenderer::class);
+        $basePath = $serviceManager->get('viewhelpermanager')->get('basePath');
+        $renderer->headLink()->appendStylesheet($basePath() . static::PUBLIC_FOLDER . 'css/default.css');
     }
 
     public function getConfig()

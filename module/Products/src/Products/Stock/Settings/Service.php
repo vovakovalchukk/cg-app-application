@@ -223,7 +223,7 @@ class Service
         if ($product->isParent()) {
             $variations = $product->getVariations();
         } else {
-            $variations = $this->getVariationsForParentId($product->getParentProductId());
+            $variations = [$product];
         }
 
         /** @var Product $variation */
