@@ -136,9 +136,13 @@ module.exports = function(grunt) {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
                 tasks: ['babel', 'copy:appJsToCgBuilt']
             },
-            copyHandWrittenJs: {
+            copyVanillaJs: {
                 files: 'public/channelgrabber/**/js-vanilla/**/*.js',
-                tasks: ['copyHandWrittenJs', 'copy:appJsToCgBuilt']
+                tasks: ['copyVanillaJs', 'copy:appJsToCgBuilt']
+            },
+            copyLegacyJs: {
+                files: 'public/channelgrabber/**/js/**/*.js',
+                tasks: ['copy:appJsToCgBuilt']
             },
             compileV4UiCss: {
                 files: 'vendor/channelgrabber/zf2-v4-ui/**/*.scss',
@@ -174,7 +178,7 @@ module.exports = function(grunt) {
     grunt.registerTask('compileVendorCss', ['compileV4UiCss', 'compileRegisterModuleCss']);
     grunt.registerTask('compileApplicationCss', ['compileSettingsCss', 'compileSetupWizardCss', 'compileProductsCss']);
 
-    grunt.registerTask('copyHandWrittenJs', ['copy:vanillaJsToGeneratedJs']);
+    grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
 
     grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx', 'copyHandWrittenJs', 'requirejs']);
