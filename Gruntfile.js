@@ -105,11 +105,11 @@ module.exports = function(grunt) {
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
-                tasks: ['babel']
+                tasks: ['babel', 'copy:main']
             },
             copyHandWrittenJs: {
                 files: 'public/channelgrabber/**/js-hand-written/**/*.js',
-                tasks: ['copyHandWrittenJs']
+                tasks: ['copyHandWrittenJs', 'copy:main']
             },
             compileV4UiCss: {
                 files: 'vendor/channelgrabber/zf2-v4-ui/**/*.scss',

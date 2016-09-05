@@ -9,6 +9,7 @@ define([
 ) {
     var Product = function(mountingNode, imageBasePath, searchAvailable)
     {
+        console.log('producstsda here compiles');
         ReactDOM.render(<RootComponent productsUrl="/products/ajax" imageBasePath={imageBasePath} searchAvailable={searchAvailable}/>, mountingNode);
     };
 
