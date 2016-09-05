@@ -14,7 +14,7 @@ define([
     "use strict";
 
     var RootComponent = React.createClass({
-        getChildContext() {
+        getChildContext: function() {
             return {
                 imageBasePath: this.props.imageBasePath};
         },
