@@ -41,6 +41,19 @@ module.exports = function(grunt) {
                         dest: 'public/cg-built/'
                     }
                 ]
+            },
+            handWrittenJsToGeneratedJs: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/channelgrabber/',
+                        src: ['**/js-hand-written/**/*.js'],
+                        dest: 'public/channelgrabber/',
+                        rename: function (dest, src) {
+                            return dest + src.replace('js-hand-written', 'js');
+                        }
+                    }
+                ]
             }
         },
         requirejs: {
@@ -60,7 +73,8 @@ module.exports = function(grunt) {
                         name: "element/moreButton",
                     }, {
                         name: "popup/mustache",
-                    }]
+                    }],
+                    logLevel: 0
                 }
             }
         },
@@ -70,9 +84,6 @@ module.exports = function(grunt) {
             },
             triggerSync: {
                 command: "rm .sync; touch .sync"
-            },
-            copyHandWrittenProductsJs: {
-                command: "cp -r public/channelgrabber/products/js-hand-written/* public/channelgrabber/products/js"
             },
 
             compileProducts: {
@@ -166,8 +177,8 @@ module.exports = function(grunt) {
     grunt.registerTask('compileVendorCss', ['compileV4UiCss', 'compileRegisterModuleCss']);
     grunt.registerTask('compileApplicationCss', ['compileSettingsCss', 'compileSetupWizardCss', 'compileProductsCss']);
 
-    grunt.registerTask('copyHandWrittenJs', ['shell:copyHandWrittenProductsJs']);
+    grunt.registerTask('copyHandWrittenJs', ['copy:handWrittenJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
 
-    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx', 'copyHandWrittenJs']);
+    grunt.registerTask('install', ['compileVendorCss', 'compileApplicationCss', 'compileJsx', 'copyHandWrittenJs', 'requirejs']);
 };
