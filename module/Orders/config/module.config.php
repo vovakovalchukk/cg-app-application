@@ -384,6 +384,18 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes' => [
+                            'create' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/create',
+                                    'defaults' => [
+                                        'action' => 'create',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
                     ],
                     'dispatch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
