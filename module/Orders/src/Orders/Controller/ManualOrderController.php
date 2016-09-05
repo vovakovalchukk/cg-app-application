@@ -5,6 +5,8 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
+use Orders\ManualOrder\Service;
+use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class ManualOrderController extends AbstractActionController
@@ -15,15 +17,19 @@ class ManualOrderController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var UsageService */
     protected $usageService;
+    /** @var Service */
+    protected $service;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
-        UsageService $usageService
+        UsageService $usageService,
+        Service $service
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setUsageService($usageService);
+            ->setUsageService($usageService)
+            ->setService($service);
     }
 
     public function indexAction()
@@ -61,7 +67,15 @@ class ManualOrderController extends AbstractActionController
     public function createAction()
     {
         $view = $this->jsonModelFactory->newInstance();
-        // TODO
+        try {
+            $order = $this->service->createOrderFromPostData($this->params()->fromPost());
+            $view->setVariable('success', true)
+                ->setVariable('url', $this->url()->fromRoute(Module::ROUTE . '/order', ['order' => $order->getId()]));
+
+        } catch (\Exception $e) {
+            $view->setVariable('success', false)
+                ->setVariable('message', 'There was a problem creating the order');
+        }
         return $view;
     }
 
@@ -80,6 +94,12 @@ class ManualOrderController extends AbstractActionController
     protected function setUsageService(UsageService $usageService)
     {
         $this->usageService = $usageService;
+        return $this;
+    }
+
+    protected function setService(Service $service)
+    {
+        $this->service = $service;
         return $this;
     }
 }
