@@ -1,3 +1,13 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'ManualOrder': '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER; ?>/js/ManualOrder'
+    }
+});
+require(['ManualOrder/ManualOrder'], function(ManualOrderRoot) {
+    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'));
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 
 <div class="module clearfix section-separator" id="product-information">
