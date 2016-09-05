@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            main: {
+            appJsToCgBuilt: {
                 files: [
                     {
                         expand: true,
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            vendor: {
+            vendorJsToCgBuilt: {
                 files: [
                     {
                         expand: true,
@@ -105,11 +105,11 @@ module.exports = function(grunt) {
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
-                tasks: ['babel', 'copy:main']
+                tasks: ['babel', 'copy:appJsToCgBuilt']
             },
             copyHandWrittenJs: {
                 files: 'public/channelgrabber/**/js-hand-written/**/*.js',
-                tasks: ['copyHandWrittenJs', 'copy:main']
+                tasks: ['copyHandWrittenJs', 'copy:appJsToCgBuilt']
             },
             compileV4UiCss: {
                 files: 'vendor/channelgrabber/zf2-v4-ui/**/*.scss',
