@@ -21,7 +21,7 @@ $this->placeholder('#sidebar')
     ->append($this->sidebarLinks);
 ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'css/orders.css', ['screen', 'print']) ?>
-<div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
+<div id="main" class="products transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
     <div id="products-mount-node">
