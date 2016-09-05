@@ -122,15 +122,13 @@
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "npm install",
-            "grunt install",
-            "cd public-build && node r.js -o require-build.js && cd -"
+            "grunt install"
         ],
         "post-update-cmd": [
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "npm install",
-            "grunt install",
-            "cd public-build && node r.js -o require-build.js && cd -"
+            "grunt install"
         ]
     }
 }
