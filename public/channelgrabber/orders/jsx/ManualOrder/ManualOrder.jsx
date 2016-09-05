@@ -9,8 +9,7 @@ define([
 ) {
     var Product = function(mountingNode, imageBasePath)
     {
-        console.log('Manual Orders');
-        ReactDOM.render(<RootComponent productsUrl="/products/ajax" imageBasePath={imageBasePath}/>, mountingNode);
+        ReactDOM.render(<RootComponent imageBasePath={imageBasePath}/>, mountingNode);
     };
 
     return Product;
