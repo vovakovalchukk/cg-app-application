@@ -133,7 +133,9 @@ class Service implements LoggerAwareInterface
         // TODO: get this from the UI?
         $orderData['currencyCode'] = 'GBP';
 
-        if (isset($orderData['shippingAddressSameAsBilling']) && (bool)$orderData['shippingAddressSameAsBilling'] == true) {
+        if (isset($orderData['shippingAddressSameAsBilling']) && 
+            filter_var($orderData['shippingAddressSameAsBilling'], FILTER_VALIDATE_BOOLEAN) == true
+        ) {
             $this->copyBillingAddressToShippingAddress($orderData);
         }
 
