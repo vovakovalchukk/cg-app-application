@@ -86,6 +86,9 @@ module.exports = function(grunt) {
             compileProducts: {
                 command: "compass compile public/channelgrabber/products"
             },
+            compileOrders: {
+                command: "compass compile public/channelgrabber/orders"
+            },
             compileSettings: {
                 command: "compass compile public/channelgrabber/settings"
             },
@@ -102,6 +105,9 @@ module.exports = function(grunt) {
             cleanProducts: {
                 command: "rm -rf public/channelgrabber/products/css/*"
             },
+            cleanOrders: {
+                command: "rm -rf public/channelgrabber/orders/css/*"
+            },
             cleanSettings: {
                 command: "rm -rf public/channelgrabber/settings/css/*"
             },
@@ -117,6 +123,9 @@ module.exports = function(grunt) {
 
             copyProducts: {
                 command: "rm -rf public/cg-built/products/css/* ; mkdir -p public/cg-built/products/css; cp -r public/channelgrabber/products/css/* public/cg-built/products/css/"
+            },
+            copyOrders: {
+                command: "rm -rf public/cg-built/orders/css/* ; mkdir -p public/cg-built/orders/css; cp -r public/channelgrabber/orders/css/* public/cg-built/orders/css/"
             },
             copySettings: {
                 command: "rm -rf public/cg-built/settings/css/* ; mkdir -p public/cg-built/settings/css; cp -r public/channelgrabber/settings/css/* public/cg-built/settings/css/"
@@ -156,6 +165,10 @@ module.exports = function(grunt) {
                 files: 'public/channelgrabber/products/**/*.scss',
                 tasks: ['compileProductsCss']
             },
+            compileOrdersCss: {
+                files: 'public/channelgrabber/orders/**/*.scss',
+                tasks: ['compileOrdersCss']
+            },
             compileSettingsCss: {
                 files: 'public/channelgrabber/settings/**/*.scss',
                 tasks: ['compileSettingsCss']
@@ -172,11 +185,12 @@ module.exports = function(grunt) {
     grunt.registerTask('compileV4UiCss', ['shell:cleanV4Ui', 'shell:compileV4Ui', 'shell:copyV4Ui', 'shell:triggerSync']);
     grunt.registerTask('compileRegisterModuleCss', ['shell:cleanRegisterModule', 'shell:compileRegisterModule', 'shell:copyRegisterModule', 'shell:triggerSync']);
     grunt.registerTask('compileProductsCss', ['shell:cleanProducts', 'shell:compileProducts', 'shell:copyProducts', 'shell:triggerSync']);
+    grunt.registerTask('compileOrdersCss', ['shell:cleanOrders', 'shell:compileOrders', 'shell:copyOrders', 'shell:triggerSync']);
     grunt.registerTask('compileSettingsCss', ['shell:cleanSettings', 'shell:compileSettings', 'shell:copySettings', 'shell:triggerSync']);
     grunt.registerTask('compileSetupWizardCss', ['shell:cleanSetupWizard', 'shell:compileSetupWizard', 'shell:copySetupWizard', 'shell:triggerSync']);
 
     grunt.registerTask('compileVendorCss', ['compileV4UiCss', 'compileRegisterModuleCss']);
-    grunt.registerTask('compileApplicationCss', ['compileSettingsCss', 'compileSetupWizardCss', 'compileProductsCss']);
+    grunt.registerTask('compileApplicationCss', ['compileSettingsCss', 'compileSetupWizardCss', 'compileProductsCss', 'compileOrdersCss']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);

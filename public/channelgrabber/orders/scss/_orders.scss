@@ -1,0 +1,18 @@
+.order-form-wrapper {
+    .detail-dropdown-wrapper {
+        .detail-dropdown-searchbox {
+
+        }
+        .detail-dropdown-popup {
+            display: none;
+            .detail-row-wrapper {
+
+            }
+        }
+        &.active {
+            .detail-dropdown-popup {
+                display: block;
+            }
+        }
+    }
+}
