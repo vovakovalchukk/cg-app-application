@@ -1,15 +1,45 @@
 .order-form-wrapper {
     .detail-dropdown-wrapper {
+        position: relative;
         .detail-dropdown-searchbox {
-
-        }
-        .detail-dropdown-popup {
-            display: none;
-            .detail-row-wrapper {
-
+            .detail-search-btn {
+                &.disabled {
+                    color: $color-lgrey;
+                    cursor: default;
+                }
             }
         }
-        &.active {
+        .detail-dropdown-popup {
+            position: absolute;
+            display: none;
+            max-height: 270px;
+            overflow: auto;
+            background-color: white;
+            border: 1px solid $color-lgrey;
+            .dropdown-count {
+                margin-left: 32%;
+                padding: 7px;
+            }
+            .detail-row-wrapper {
+                padding: 9px;
+                padding-left: 25px;
+                &:nth-of-type(even) {
+                    background-color: $color-xlgrey;
+                }
+                .detail-variation-row {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .variation-row-img {
+                        max-width: 50px;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+        &.active, &:focus {
             .detail-dropdown-popup {
                 display: block;
             }
