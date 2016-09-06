@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "346753f0210820342b08cfa76d0d4101",
-    "content-hash": "631ac4b50afbdbe29c0bdb902b8b4f1c",
+    "hash": "18c99eb143ff84047db3ec5bea48f202",
+    "content-hash": "d4926bb80c26fbb6facd76a796ff28e9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,7 +345,7 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7459-manual-order-creation-backend",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
@@ -353,7 +353,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7459-manual-order-creation-backend-63dadd.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-63dadd.zip",
                 "reference": "730b32bae9dcec44369f65ea3d475a67fff58b46",
                 "shasum": null
             },
@@ -5829,12 +5829,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -8127,9 +8127,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.25.6",
-            "alias_normalized": "1.25.6.0",
-            "version": "dev-CGIV-7459-manual-order-creation-backend",
+            "alias": "1.25.7",
+            "alias_normalized": "1.25.7.0",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/channel"
         },
         {

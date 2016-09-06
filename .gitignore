@@ -21,6 +21,7 @@
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
 /public/*/*/css
+/public/channelgrabber/products/js/
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml
@@ -43,4 +44,3 @@ public/channelgrabber/zf2-usage
 public/channelgrabber/zf2-v4-ui
 vendor/channelgrabber/zf2-v4-ui/public/js/whichbrowser
 vendor/channelgrabber/zf2-v4-ui/public/js/zeroclipboard
-/public/channelgrabber/products/js/
