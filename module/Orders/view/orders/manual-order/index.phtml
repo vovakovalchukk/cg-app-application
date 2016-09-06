@@ -6,7 +6,7 @@ require.config({
     }
 });
 require(['ManualOrder/ManualOrder'], function(ManualOrderRoot) {
-    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER; ?>img');
+    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
