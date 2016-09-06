@@ -39,7 +39,6 @@ define([
         },
         getDefaultProps: function () {
             return {
-                product: {},
                 variations: []
             }
         },
@@ -48,7 +47,7 @@ define([
             return (
                 <div className="detail-row-wrapper">
                     <div className="detail-row-header">
-                        {this.props.product.name}
+                        {this.props.name}
                     </div>
                     <div className="detail-row-variations-list">
                         {this.props.variations.map(function (variation) {
