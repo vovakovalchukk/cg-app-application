@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4609dc7990069cbf98370d9796bc730e",
-    "content-hash": "459ae12866cde3f3e9585baa23466dfb",
+    "hash": "346753f0210820342b08cfa76d0d4101",
+    "content-hash": "631ac4b50afbdbe29c0bdb902b8b4f1c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,7 +345,7 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7400-manual-order-creation",
+            "version": "dev-CGIV-7459-manual-order-creation-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
@@ -353,7 +353,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7400-manual-order-creation-63dadd.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7459-manual-order-creation-backend-63dadd.zip",
                 "reference": "730b32bae9dcec44369f65ea3d475a67fff58b46",
                 "shasum": null
             },
@@ -8129,7 +8129,7 @@
         {
             "alias": "1.25.6",
             "alias_normalized": "1.25.6.0",
-            "version": "dev-CGIV-7400-manual-order-creation",
+            "version": "dev-CGIV-7459-manual-order-creation-backend",
             "package": "channelgrabber/channel"
         },
         {
