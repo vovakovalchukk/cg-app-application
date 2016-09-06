@@ -1,0 +1,16 @@
+.setup-wizard-body {
+    .setup-wizard-messages-account-section {
+        float: left;
+        clear: both;
+        padding: 30px 0px;
+        width: 100%;
+
+        .setup-wizard-account-badge {
+            margin-bottom: 0px;
+
+            .setup-wizard-account-badge-footer div.setup-wizard-account-badge-name {
+                width: 95%;
+            }
+        }
+    }
+}

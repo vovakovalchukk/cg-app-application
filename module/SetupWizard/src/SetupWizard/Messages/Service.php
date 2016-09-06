@@ -7,9 +7,6 @@ use CG\Account\Credentials\Cryptor as AmazonCryptor;
 use CG\Channel\Type as ChannelType;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\User\ActiveUserInterface;
-use SetupWizard\Channels\Service as ChannelService;
-use SetupWizard\Module;
-use CG_UI\View\Prototyper\ViewModelFactory;
 
 class Service
 {
@@ -19,27 +16,19 @@ class Service
     protected $accountService;
     /** @var AmazonCryptor */
     protected $amazonCryptor;
-    /** @var ChannelService */
-    protected $channelService;
     /** @var InvoiceSettingsService */
     protected $invoiceSettingsService;
-    /** @var ViewModelFactory */
-    protected $viewModelFactory;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
         AmazonCryptor $amazonCryptor,
-        ChannelService $channelService,
-        InvoiceSettingsService $invoiceSettingsService,
-        ViewModelFactory $viewModelFactory
+        InvoiceSettingsService $invoiceSettingsService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
             ->setAmazonCryptor($amazonCryptor)
-            ->setChannelService($channelService)
-            ->setInvoiceSettingsService($invoiceSettingsService)
-            ->setViewModelFactory($viewModelFactory);
+            ->setInvoiceSettingsService($invoiceSettingsService);
     }
 
     public function fetchInvoiceSettings()
@@ -48,46 +37,22 @@ class Service
         return $this->invoiceSettingsService->fetch($ouId);
     }
 
-    public function getAccountBadgeSection($account)
-    {
-        //$setupFlag = $account->isMessagingSetup();
-
-        $badgeSection = $this->viewModelFactory->newInstance([
-            'setupFlag' => true,
-        ]);
-        $badgeSection->addChild($this->getAccountBadge($account), 'badge');
-        $badgeSection->setTemplate('setup-wizard/messages/accountBadgeSection');
-
-        return $badgeSection;
-    }
-    
-    protected function getAccountBadge($account)
-    {
-        $img = $this->channelService->getImageFromAccount($account);
-        $badgeView = $this->viewModelFactory->newInstance([
-            'image' => $img,
-            'id' => $account->getId(),
-            'name' => $account->getDisplayName(),
-        ]);
-        $badgeView->setTemplate('setup-wizard/channels/account-badge.mustache');
-        return $badgeView;
-    }
-
-    public function fetchAccountsForActiveUser()
+    public function fetchAmazonAccountsForActiveUser()
     {
         $activeUser = $this->activeUserContainer->getActiveUser();
         $ouList = $activeUser->getOuList();
-        return $this->fetchAccountsForOUList($ouList);
+        return $this->fetchAmazonAccountsForOUList($ouList);
     }
 
-    protected function fetchAccountsForOUList(array $ouList)
+    protected function fetchAmazonAccountsForOUList(array $ouList)
     {
         $filter = (new AccountFilter())
             ->setLimit('all')
             ->setPage(1)
             ->setOrganisationUnitId($ouList)
             ->setDeleted(false)
-            ->setType(ChannelType::SALES);
+            ->setType(ChannelType::SALES)
+            ->setChannel(['amazon']);
         return $this->accountService->fetchByFilter($filter);
     }
 
@@ -121,27 +86,9 @@ class Service
     /**
      * @return self
      */
-    protected function setChannelService(ChannelService $channelService)
-    {
-        $this->channelService = $channelService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
     public function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
     {
         $this->invoiceSettingsService = $invoiceSettingsService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
         return $this;
     }
 }
