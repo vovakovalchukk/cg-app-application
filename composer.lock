@@ -3671,16 +3671,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.0",
+            "version": "dev-CGIV-7254-Products-page-fixes-and-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6a2c0e037f594482eb0dbf7ac5d1e536535cace6"
+                "reference": "2de5f518f547acbab20d7b2b4a7e31605ae5394b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.0-592b74.zip",
-                "reference": "6a2c0e037f594482eb0dbf7ac5d1e536535cace6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7254-Products-page-fixes-and-improvements-8f177a.zip",
+                "reference": "2de5f518f547acbab20d7b2b4a7e31605ae5394b",
                 "shasum": null
             },
             "require": {
@@ -3727,7 +3727,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-09-01 14:29:20"
+            "time": "2016-09-02 09:43:22"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5829,12 +5829,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
@@ -8137,6 +8137,12 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-EPIC-CGIV-4778-manual-orders",
             "package": "channelgrabber/manual-order"
+        },
+        {
+            "alias": "1.17.1",
+            "alias_normalized": "1.17.1.0",
+            "version": "dev-CGIV-7254-Products-page-fixes-and-improvements",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8144,6 +8150,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/manual-order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

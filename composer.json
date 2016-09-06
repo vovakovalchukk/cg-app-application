@@ -96,7 +96,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-stdlib": "~1.2.2",
         "channelgrabber/zf2-usage": "~1.0.10",
-        "channelgrabber/zf2-v4-ui": "~1.17.0",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-7254-Products-page-fixes-and-improvements as 1.17.1",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
@@ -122,30 +122,14 @@
         "post-install-cmd": [
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
-            "if [ -d \"vendor/channelgrabber/zf2-v4-ui/public/css\" ]; then rm -rf vendor/channelgrabber/zf2-v4-ui/public/css/*; fi",
-            "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -rf public/channelgrabber/settings/css/*; fi",
-            "compass compile vendor/channelgrabber/zf2-v4-ui",
-            "compass compile vendor/channelgrabber/zf2-register",
-            "compass compile public/channelgrabber/messages",
-            "compass compile public/channelgrabber/settings",
-            "compass compile public/channelgrabber/setup-wizard",
-            "compass compile public/channelgrabber/courier-adapter",
-            "compass compile public/channelgrabber/zf2-ebay",
-            "cd public-build && node r.js -o require-build.js && cd -"
+            "./optimized_npm_install.sh",
+            "grunt install"
         ],
         "post-update-cmd": [
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
-            "if [ -d \"vendor/channelgrabber/zf2-v4-ui/public/css\" ]; then rm -rf vendor/channelgrabber/zf2-v4-ui/public/css/*; fi",
-            "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -rf public/channelgrabber/settings/css/*; fi",
-            "compass compile vendor/channelgrabber/zf2-v4-ui",
-            "compass compile vendor/channelgrabber/zf2-register",
-            "compass compile public/channelgrabber/messages",
-            "compass compile public/channelgrabber/settings",
-            "compass compile public/channelgrabber/setup-wizard",
-            "compass compile public/channelgrabber/courier-adapter",
-            "compass compile public/channelgrabber/zf2-ebay",
-            "cd public-build && node r.js -o require-build.js && cd -"
+            "./optimized_npm_install.sh",
+            "grunt install"
         ]
     }
 }
