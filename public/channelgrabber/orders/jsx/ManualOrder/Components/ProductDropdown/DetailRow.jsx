@@ -17,7 +17,7 @@ define([
             }
         },
         render: function () {
-            console.log(this.props.variations);
+            //console.log(this.props.variations);
             return (
                 <div className="detail-row-wrapper">
                     <div className="detail-row-header">
@@ -26,7 +26,7 @@ define([
                     <div className="detail-row-variations-list">
                         {this.props.variations.map(function (variation) {
                             return this.getVariationRow(variation);
-                        })}
+                        }.bind(this))}
                     </div>
                 </div>
             );
