@@ -84,7 +84,8 @@ class Service
 
     public function getSalesChannelOptions()
     {
-        return $this->channelService->getChannels(ChannelType::SALES);
+        $includeDarkDeploy = $this->activeUserContainer->isAdmin();
+        return $this->channelService->getChannels(ChannelType::SALES, $includeDarkDeploy);
     }
 
     public function getSalesChannelDisplayName($channel)

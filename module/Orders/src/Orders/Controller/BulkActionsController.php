@@ -33,14 +33,21 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     const TYPE_ORDER_IDS = 'orderIds';
     const TYPE_FILTER_ID = 'filterId';
 
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var OrderService $orderService */
     protected $orderService;
+    /** @var InvoiceService $invoiceService */
     protected $invoiceService;
+    /** @var PickListService $pickListService */
     protected $pickListService;
+    /** @var CsvService $csvService */
     protected $csvService;
+    /** @var BatchService $batchService */
     protected $batchService;
+    /** @var UsageService $usageService */
     protected $usageService;
-    /** @var OrdersToOperateOn */
+    /** @var OrdersToOperateOn $ordersToOperatorOn */
     protected $ordersToOperatorOn;
 
     protected $typeMap = [
@@ -242,7 +249,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->{$this->typeMap[$type]}();
             $response->setVariable('filterId', $orders->getFilterId());
-            $callable($orders);
+            $outcome = $callable($orders);
+            if (is_array($outcome)) {
+                $response->setVariables(array_merge([$action => true], $outcome));
+            } else {
+                $response->setVariable($action, (is_bool($outcome) ? $outcome : true));
+            }
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -257,7 +269,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
             throw new \Exception('Failed to update the following orders: ' . implode(', ', $failedOrderIds), 0, $exception);
         }
-        return $response->setVariable($action, true);
+        return $response;
     }
 
     protected function performPatchingAction($action, callable $callable)
@@ -359,7 +371,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
-        $this->getInvoiceService()->emailInvoicesForCollection($orders);
+        $invoiceService = $this->getInvoiceService();
+        if ($this->params()->fromPost('validate', false)) {
+            return $invoiceService->getInvoiceStats($orders);
+        }
+        $invoiceService->emailInvoicesForCollection(
+            $orders,
+            filter_var($this->params()->fromPost('includePreviouslySent', false), FILTER_VALIDATE_BOOLEAN)
+        );
     }
 
     public function checkInvoiceGenerationProgressAction()
@@ -583,6 +602,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function archiveOrdersByFilter(Filter $filter)
     {
         $this->orderService->archiveOrdersByFilter($filter);
+    }
+
+    public function unarchiveOrderIdsAction()
+    {
+        return $this->performPatchingAction('archived', [$this, 'unarchiveOrdersByFilter']);
+    }
+
+    protected function unarchiveOrdersByFilter(Filter $filter)
+    {
+        $this->orderService->archiveOrdersByFilter($filter, false);
     }
 
     public function checkInvoicePrintingAllowedAction()

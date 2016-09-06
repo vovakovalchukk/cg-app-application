@@ -42,12 +42,14 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         var self = this;
         dataTable.on('before-cgdatatable-init', function()
         {
-            self.addOrderIdsToAjaxRequest()
+            self.setupResizeFunctions()
+                .addOrderIdsToAjaxRequest()
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
-                .disableInputsForCreatedLabels();
+                .disableInputsForCreatedLabels()
+                .disableInputsForNonRequiredOptions();
         });
-        dataTable.on('fnPreDrawCallback', function()
+        dataTable.on('fnServerData', function()
         {
             self.distinctStatusActions = {};
         });
@@ -75,7 +77,8 @@ CourierSpecificsDataTable.labelStatusActions = {
     'not printed': {'print': true, 'cancel': true},
     'printed': {'print': true},
     'cancelled': {'create': true},
-    'creating': {}
+    'creating': {},
+    'dispatched': {'cancel': true}
 };
 
 CourierSpecificsDataTable.columnRenderers = {
@@ -94,6 +97,21 @@ CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.pro
  * @protected
  */
 CourierSpecificsDataTable.prototype.distinctStatusActions = {};
+
+CourierSpecificsDataTable.prototype.setupResizeFunctions = function()
+{
+    function heightResizeFunction()
+    {
+        var headingHeight = $('.heading-large').outerHeight();
+        var fixedHeaderHeight = $('#fixed-header').outerHeight();
+
+        $('.dataTables_wrapper').height('calc(100% - ' + headingHeight + 'px)');
+        $('.dataTables_scroll').height('calc(100% - ' + fixedHeaderHeight + 'px)');
+    }
+
+    this.getDataTable().cgDataTable('addResizeOverrideFunctions', heightResizeFunction);
+    return this;
+};
 
 CourierSpecificsDataTable.prototype.addOrderServicesToAjaxRequest = function()
 {
@@ -188,10 +206,10 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     if (!templateData.actionRow) {
         return;
     }
-    if (templateData.labelStatus == 'creating') {
-        return this.addCreatingMessageToActionsColumn(templateData);
-    }
     var actions = this.getActionsFromRowData(templateData);
+    if (!actions || $.isEmptyObject(actions)) {
+        return this.addStatusLozengeToActionsColumn(templateData);
+    }
     this.trackDistinctStatusActions(actions);
     var buttonsHtml = '';
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
@@ -212,9 +230,10 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     return this;
 };
 
-CourierSpecificsDataTable.prototype.addCreatingMessageToActionsColumn = function(rowData)
+CourierSpecificsDataTable.prototype.addStatusLozengeToActionsColumn = function(rowData)
 {
-    rowData.actions = '<span class="status processing">Creating</span>';
+    var statusDisplay = String(rowData.labelStatus).ucfirst();
+    rowData.actions = '<span class="status ' + rowData.labelStatus + '">' + statusDisplay + '</span>';
     return this;
 };
 
@@ -295,6 +314,55 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
     });
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = function()
+{
+    this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
+    {
+        if (aData.labelStatus != '' && aData.labelStatus != 'cancelled') {
+            return;
+        }
+
+        var orderId = aData.orderId;
+        var parcelNumber = (typeof aData.parcelNumber != 'undefined' ? aData.parcelNumber : 0);
+        var itemId = (typeof aData.itemId != 'undefined' ? aData.itemId : 0);
+        for (var name in aData.requiredFields) {
+            var selector = 'input[name="orderData['+orderId+']['+name+']"]'
+                + ', input[name="parcelData['+orderId+']['+parcelNumber+']['+name+']"]'
+                + ', input[name="itemData['+orderId+']['+itemId+']['+name+']"]';
+            var elements = $(nRow).find(selector);
+            if (aData.requiredFields[name].show) {
+                elements.removeAttr('disabled').removeClass('disabled');
+                if (elements.parent().hasClass('custom-select')) {
+                    elements.parent().removeClass('disabled');
+                }
+                if (aData.requiredFields[name].required) {
+                    elements.addClass('required');
+                } else {
+                    elements.removeClass('required');
+                }
+                elements.each(function()
+                {
+                    if ($(this).data('placeholder')) {
+                        $(this).attr('placeholder', $(this).data('placeholder'));
+                    }
+                });
+            } else {
+                elements.attr('disabled', 'disabled').removeClass('required').addClass('disabled');
+                if (elements.parent().hasClass('custom-select')) {
+                    elements.parent().addClass('disabled');
+                }
+                elements.each(function()
+                {
+                    $(this).data('placeholder', $(this).attr('placeholder'));
+                    $(this).attr('placeholder', 'N/A');
+                });
+            }
+        }
+    });
+    return this;
 };
 
 CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
@@ -348,7 +416,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
     {
         var buttonTemplate = this;
-        var id = $('input.button', buttonTemplate).attr('id')
+        var id = $('input.button', buttonTemplate).attr('id');
         var action = id.split('-')[0];
         if (!actions[action]) {
             return true; //continue

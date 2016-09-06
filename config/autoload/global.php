@@ -52,7 +52,10 @@ use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
 use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
 
+// Logging
 use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
+use CG\Log\Psr\Logger as CGPsrLogger;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
@@ -181,7 +184,17 @@ use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
 use CG\Account\Client\StorageInterface as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 
-return array(
+// CourierAdapters
+use CG\CourierAdapter\Provider\Implementation\CarrierBookingOptions as CourierAdapterProviderCarrierBookingOptions;
+use CG\CourierAdapter\Provider\Implementation\Service as CourierAdapterProviderImplementationService;
+use CG\CourierAdapter\Provider\Label\Service as CourierAdapterProviderLabelService;
+
+// Amazon MCF (Multi-Channel Fulfilment)
+use CG\Amazon\Mcf\ShippingChannelsProvider as AmazonMcfShippingChannelsProvider;
+use CG\Amazon\Mcf\CarrierBookingOptions as AmazonMcfCarrierBookingOptions;
+use CG\Amazon\Mcf\CarrierProviderService as AmazonMcfCarrierProviderService;
+
+$config = array(
     'di' => array(
         'definition' => [
             'class' => [
@@ -249,10 +262,6 @@ return array(
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
-                ChannelShippingOptionsProviderInterface::class => ChannelShippingOptionsProviderRepository::class,
-                ChannelShippingChannelsProviderInterface::class => ChannelShippingChannelsProviderRepository::class,
-                ChannelCarrierBookingOptionsInterface::class => ChannelCarrierBookingOptionsRepository::class,
-                ChannelCarrierProviderServiceInterface::class => ChannelCarrierProviderServiceRepository::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -263,6 +272,7 @@ return array(
                 LockingStorage::class => LockingRedisStorage::class,
                 AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
+                PsrLoggerInterface::class => CGPsrLogger::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -647,7 +657,10 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        // Amazon MCF must come before Amazon Logistics
+                        ['provider' => AmazonMcfShippingChannelsProvider::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
+                        ['provider' => CourierAdapterProviderImplementationService::class],
                     ]
                 ]
             ],
@@ -656,6 +669,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => CourierAdapterProviderImplementationService::class],
                     ]
                 ]
             ],
@@ -664,7 +678,10 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        // Amazon MCF must come before Amazon Logistics
+                        ['provider' => AmazonMcfCarrierBookingOptions::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
+                        ['provider' => CourierAdapterProviderCarrierBookingOptions::class],
                     ]
                 ]
             ],
@@ -673,7 +690,10 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
+                        // Amazon MCF must come before Amazon Logistics
+                        ['provider' => AmazonMcfCarrierProviderService::class],
                         ['provider' => AmazonCarrierProvider::class],
+                        ['provider' => CourierAdapterProviderLabelService::class],
                     ]
                 ]
             ],
@@ -717,6 +737,7 @@ return array(
                                 ],
                             ],
                         ],
+                        /*
                         [
                             'channelName' => DataplugCarriers::DPD,
                             'displayName' => 'DPD',
@@ -767,6 +788,7 @@ return array(
                                 ],
                             ],
                         ],
+                        */
                         [
                             'channelName' => DataplugCarriers::FEDEX,
                             'displayName' => 'FedEx',
@@ -801,6 +823,7 @@ return array(
                                 ],
                             ],
                         ],
+                        /*
                         [
                             'channelName' => DataplugCarriers::INTERLINK,
                             'displayName' => 'Interlink',
@@ -862,6 +885,7 @@ return array(
                                 ],
                             ],
                         ],
+                        */
                         [
                             'channelName' => DataplugCarriers::MYHERMES,
                             'displayName' => 'MyHermes',
@@ -887,6 +911,7 @@ return array(
                                 'signature' => false,
                             ],
                         ],
+                        /*
                         [
                             'channelName' => DataplugCarriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
@@ -923,6 +948,7 @@ return array(
                                 ],
                             ],
                         ],
+                        */
                         [
                             'channelName' => DataplugCarriers::TNT,
                             'displayName' => 'TNT',
@@ -1141,6 +1167,8 @@ return array(
                         // These codes are prefixes, more characters will be added based on chosen options
                         '24' => '24',
                         '48' => '48',
+                        '24F' => '24 (Flat)',
+                        '48F' => '48 (Flat)',
                         'TPN01' => '24 Tracked',
                         'TPS01' => '48 Tracked',
                         'RMSD9' => 'Special Delivery 9am',
@@ -1303,6 +1331,18 @@ return array(
                                 ['title' => 'Signature'],
                             ]
                         ],
+                        '24F' => [
+                            'packageTypes' => ['Large Letter', 'Parcel'],
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
+                        ],
+                        '48F' => [
+                            'packageTypes' => ['Large Letter', 'Parcel'],
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
+                        ],
                         'TPN01' => [
                             'packageTypes' => ['Large Letter', 'Parcel'],
                             'addOns' => [
@@ -1421,3 +1461,10 @@ return array(
         ]
     ]
 );
+
+$configFiles = glob(__DIR__ . '/global/*.php');
+foreach ($configFiles as $configFile) {
+    $configFileContents = require_once $configFile;
+    $config = \Zend\Stdlib\ArrayUtils::merge($config, $configFileContents);
+}
+return $config;

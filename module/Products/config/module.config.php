@@ -587,7 +587,7 @@ return [
                 'parameters' => [
                     'column' => 'status',
                     'viewModel' => 'ListingStatusColumnView',
-                    'class' => 'statuc-col',
+                    'class' => 'status-col',
                     'sortable' => false,
                 ],
             ],

@@ -1,0 +1,47 @@
+<form class="account-form-holder carrier-request-form" style="height:auto" id="carrier-account-form" action="<?=$this->saveUrl;?>" method="POST">
+    <div class="account-logo">
+        <span class="logo-large <?=$this->channelName;?>"></span>
+    </div>
+
+    <input type="hidden" id="accountId" name="account" value="<?= $this->accountId; ?>" />
+    <input type="hidden" id="channel" name="channel" value="<?= $this->channelName; ?>" />
+
+    <?php if($this->preInstructions):?>
+    <div class="section" style='margin-bottom: 0px'>
+        <?=$this->preInstructions;?>
+    </div>
+    <?php endif;?>
+    <?php if($this->instructions):?>
+    <div class="section">
+        <?=$this->instructions;?>
+    </div>
+    <?php endif;?>
+
+    <?=$this->partial('courier-adapter/adapter-fields.phtml', compact('form'));?>
+
+    <div class="center">
+        <a class="cancel" href='<?= $this->goBackUrl; ?>'><?= $this->translate('Cancel') ?></a>
+        or <div style="display: inline-block; vertical-align: middle;"><?= $this->linkAccount ?></div>
+    </div>
+</form>
+<?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function()
+    {
+        (function adjustFormPosition()
+        {
+            var height = $('.account-form-holder').height();
+            var halfHeight = Math.floor(height / 2);
+            $('.account-form-holder').css('top', 'calc(50% - ' + halfHeight + 'px)');
+            if ($('.account-form-holder').offset().top < 50) {
+                $('.account-form-holder').css('top', '50px');
+            }
+        })();
+
+        require(["<?= $this->basePath() . CourierAdapter\Module::PUBLIC_FOLDER; ?>/js/Account/Service.js"], function(Service) {
+            var service = new Service(
+                '<?=(isset($this->savingNotification) ? $this->translate($this->savingNotification) : $this->translate('Saving'));?>',
+                '<?=(isset($this->savedNotification) ? $this->translate($this->savedNotification) : $this->translate('Saved'));?>'
+            );
+        });
+    });
+<?php $this->inlineScript()->captureEnd(); ?>

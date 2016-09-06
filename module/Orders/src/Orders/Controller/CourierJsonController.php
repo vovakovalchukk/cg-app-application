@@ -20,6 +20,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_REVIEW_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_LIST = 'Specifics List';
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
+    const ROUTE_SPECIFICS_OPTIONS = 'Options';
     const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
@@ -314,6 +315,16 @@ class CourierJsonController extends AbstractActionController
         return $viewRender($orderErrorsView);
     }
 
+    public function optionsAction()
+    {
+        $courierId = $this->params()->fromRoute('account');
+        $orderId = $this->params()->fromPost('order');
+        $service = $this->params()->fromPost('service');
+
+        $options = $this->service->getCarrierOptionsForService($orderId, $courierId, $service);
+        return $this->jsonModelFactory->newInstance(['requiredFields' => $options]);
+    }
+
     public function optionDataAction()
     {
         $courierId = $this->params()->fromRoute('account');
@@ -421,7 +432,11 @@ class CourierJsonController extends AbstractActionController
         $accountId = $this->params()->fromPost('account');
         try {
             $accountManifest = $this->manifestService->generateManifestForShippingAccount($accountId);
-            return $this->jsonModelFactory->newInstance(['id' => $accountManifest->getId()]);
+            $returnData = ['success' => true];
+            if ($accountManifest) {
+                $returnData['id'] = $accountManifest->getId();
+            }
+            return $this->jsonModelFactory->newInstance($returnData);
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e

@@ -36,6 +36,10 @@ define(
                 if (messages.success) {
                     notifications.success(messages.success);
                 }
+
+                if (data.redirect) {
+                    window.location = data.redirect;
+                }
             });
 
             return ajaxCheckbox;

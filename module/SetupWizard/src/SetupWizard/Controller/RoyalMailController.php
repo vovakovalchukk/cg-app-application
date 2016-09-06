@@ -12,6 +12,8 @@ use CG_NetDespatch\Controller\AccountController;
 class RoyalMailController extends AbstractActionController
 {
     const ROUTE_ROYAL_MAIL = 'Royal Mail';
+    const STEP_NAME = 'Royal Mail';
+    const COUNTRY_UK = 'United Kingdom';
 
     /** @var SetupService */
     protected $setupService;
@@ -36,6 +38,8 @@ class RoyalMailController extends AbstractActionController
 
     public function indexAction()
     {
+        $this->skipIfNonUk();
+
         $account = null;
         if ($accountId = $this->params()->fromQuery('accountId')) {
             $account = $this->accountService->fetch($accountId);
@@ -52,6 +56,18 @@ class RoyalMailController extends AbstractActionController
             ->addChild($formView, 'formView');
 
         return $this->setupService->getSetupView('Add Royal Mail Shipping', $wrapperView);
+    }
+
+    protected function skipIfNonUk()
+    {
+        $ou = $this->setupService->getActiveRootOu();
+        if (strcasecmp($ou->getAddressCountry(), static::COUNTRY_UK) == 0) {
+            return;
+        }
+
+        $nextStepUri = $this->setupService->getNextStepUri();
+        $nextStepUri .= '?' . http_build_query(['prev' => static::STEP_NAME, 'status' => 'skipped']);
+        $this->redirect()->toUrl($nextStepUri);
     }
 
     protected function getAccountRoute()

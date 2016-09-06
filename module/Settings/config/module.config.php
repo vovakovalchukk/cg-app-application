@@ -45,6 +45,7 @@ use Settings\Controller\EkmController;
 use Settings\Controller\ExportController;
 use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
+use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
 use Settings\Controller\StockController;
@@ -124,11 +125,16 @@ return [
                     ],
                 ]
             ],
-            'Picking Management' => [
-                'label' => 'Picking Management',
+            'Order Management' => [
+                'label' => 'Order Management',
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
+                    [
+                        'label' => 'Orders',
+                        'title' => 'Order settings',
+                        'route' => Module::ROUTE . '/' . OrderController::ROUTE
+                    ],
                     [
                         'label' => PickListController::ROUTE_PICK_LIST,
                         'title' => PickListController::ROUTE_PICK_LIST,
@@ -529,6 +535,29 @@ return [
                                 ],
                                 'may_terminate' => true
                             ]
+                        ]
+                    ],
+                    OrderController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/orders',
+                            'defaults' => [
+                                'controller' => OrderController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            OrderController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     PickListController::ROUTE => [
@@ -966,6 +995,7 @@ return [
                 'parameters' => [
                     'templateId' => 'enable',
                     'viewModel' => 'AccountEnableColumnView',
+                    'class' => 'toggle-col',
                     'sortable' => false,
                     'hideable' => false,
                     'width' => '100px',
@@ -975,9 +1005,9 @@ return [
                 'parameters' => [
                     'templateId' => 'status',
                     'viewModel' => 'AccountStatusColumnView',
+                    'class' => 'status-col',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
                 ],
             ],
             'AccountChannelColumn' => [

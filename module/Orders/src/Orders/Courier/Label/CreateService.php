@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
@@ -61,14 +62,15 @@ class CreateService extends ServiceAbstract
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
+        $this->removeZeroQuantityItemsFromOrders($orders);
 
         $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
-        $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
+        $orderLabels = $this->createOrderLabelsForOrders($orders, $ordersData, $shippingAccount);
         $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
 
         try {
             $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-            $labelReadyStatuses = $this->carrierProviderService->createLabelsForOrders(
+            $labelReadyStatuses = $this->getCarrierProviderService($shippingAccount)->createLabelsForOrders(
                 $orders,
                 $orderLabels,
                 $ordersData,
@@ -99,7 +101,7 @@ class CreateService extends ServiceAbstract
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
-            $parcelsData = $orderParcelsData[$order->getId()];
+            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
             // If there's multiple items and we don't have specific data for each then we don't know how the parcel data is made up
             if (count($order->getItems()) > 1 && !isset($ordersItemsData[$order->getId()])) {
                 continue;
@@ -109,9 +111,9 @@ class CreateService extends ServiceAbstract
 
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
-            $parcelsData = $orderParcelsData[$order->getId()];
+            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
             $parcelCount = count($parcelsData);
-            $parcelData = array_pop($parcelsData);
+            $parcelData = (!empty($parcelsData) ? array_pop($parcelsData) : []);
             $itemData = (isset($ordersItemsData[$order->getId()]) ? $ordersItemsData[$order->getId()] : []);
             $items = $order->getItems();
             foreach ($items as $item) {
@@ -204,22 +206,24 @@ class CreateService extends ServiceAbstract
         return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
     }
 
-    protected function createOrderLabelsForOrders(OrderCollection $orders, Account $shippingAccount)
+    protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, Account $shippingAccount)
     {
         $orderLabels = new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
         foreach ($orders as $order) {
-            $orderLabels->attach($this->createOrderLabelForOrder($order, $shippingAccount));
+            $orderData = $ordersData[$order->getId()];
+            $orderLabels->attach($this->createOrderLabelForOrder($order, $orderData, $shippingAccount));
         }
         return $orderLabels;
     }
 
-    protected function createOrderLabelForOrder(Order $order, Account $shippingAccount)
+    protected function createOrderLabelForOrder(Order $order, array $orderData, Account $shippingAccount)
     {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
             'shippingAccountId' => $shippingAccount->getId(),
+            'shippingServiceCode' => $orderData['service'],
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
@@ -251,6 +255,25 @@ class CreateService extends ServiceAbstract
         }
     }
 
+    protected function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
+    {
+        foreach ($orders as $order) {
+            $items = $order->getItems();
+            $nonZeroItems = new ItemCollection(
+                Item::class,
+                $items->getSourceDescription(),
+                array_merge($items->getSourceFilters(), ['itemQuantityGreaterThan' => 0])
+            );
+            foreach ($items as $item) {
+                if ($item->getItemQuantity() == 0) {
+                    continue;
+                }
+                $nonZeroItems->attach($item);
+            }
+            $order->setItems($nonZeroItems);
+        }
+    }
+
     protected function ensureOrderItemsData(OrderCollection $orders, array $ordersItemsData, array $orderParcelsData)
     {
         // Each table row can be an item, a parcel or both (when there's only one item we collapse the item and parcel
@@ -259,13 +282,14 @@ class CreateService extends ServiceAbstract
             if (isset($ordersItemsData[$order->getId()])) {
                 continue;
             }
-            if (count($order->getItems()) > 1 || count($orderParcelsData[$order->getId()]) > 1) {
+            $parcelData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []); 
+            if (count($order->getItems()) > 1 || count($parcelData) > 1) {
                 continue;
             }
             $items = $order->getItems();
             $items->rewind();
             $item = $items->current();
-            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($orderParcelsData[$order->getId()]);
+            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($parcelData);
         }
         return $ordersItemsData;
     }

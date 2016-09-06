@@ -3,9 +3,10 @@ namespace Settings\Controller;
 
 use CG\Account\Client\Entity as AccountEntity;
 use CG\Account\Client\Service as AccountService;
+use CG\Channel\AccountFactory;
 use CG\Channel\GetNamespacePartForAccountTrait;
 use CG\Channel\Service as ChannelService;
-use CG\Channel\ShippingOptionsProviderInterface;
+use CG\Channel\ShippingOptionsProviderRepository;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -64,8 +65,10 @@ class ChannelController extends AbstractActionController
     protected $translator;
     protected $organisationUnitService;
     protected $intercomEventService;
-    /** @var ShippingOptionsProviderInterface */
-    protected $shippingOptionsProvider;
+    /** @var ShippingOptionsProviderRepository */
+    protected $shippingOptionsProviderRepo;
+    /** @var AccountFactory */
+    protected $accountFactory;
 
     public function __construct(
         Di $di,
@@ -81,7 +84,8 @@ class ChannelController extends AbstractActionController
         Translator $translator,
         OrganisationUnitService $organisationUnitService,
         IntercomEventService $intercomEventService,
-        ShippingOptionsProviderInterface $shippingOptionsProvider
+        ShippingOptionsProviderRepository $shippingOptionsProviderRepo,
+        AccountFactory $accountFactory
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -96,7 +100,8 @@ class ChannelController extends AbstractActionController
             ->setTranslator($translator)
             ->setOrganisationUnitService($organisationUnitService)
             ->setIntercomEventService($intercomEventService)
-            ->setShippingOptionsProvider($shippingOptionsProvider);
+            ->setShippingOptionsProviderRepo($shippingOptionsProviderRepo)
+            ->setAccountFactory($accountFactory);
     }
 
     public function setService(Service $service)
@@ -174,8 +179,8 @@ class ChannelController extends AbstractActionController
         $addChannelSelect = $this->newViewModel();
         $addChannelSelect->setTemplate('settings/channel/create/select');
         // CGIV-6572: dark deploy of Dataplug - only show Dataplug couriers to admins for now
-        $includeProvided = $this->activeUserContainer->isAdmin();
-        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type'), $includeProvided));
+        $includeDarkDeploy = $this->activeUserContainer->isAdmin();
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type'), $includeDarkDeploy));
         return $addChannelSelect;
     }
 
@@ -285,7 +290,8 @@ class ChannelController extends AbstractActionController
         $channelSpecificView->setVariables([
             'form' => $form,
             'account' => $accountEntity,
-            'route' => $returnRoute
+            'route' => $returnRoute,
+            'isAdmin'=> $this->activeUserContainer->isAdmin()
         ]);
         $this->addAccountsChannelSpecificVariablesToChannelSpecificView($accountEntity, $channelSpecificView);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
@@ -423,6 +429,15 @@ class ChannelController extends AbstractActionController
                 $this->params()->fromPost('clearPending', !$account->getPending()),
                 FILTER_VALIDATE_BOOLEAN
             );
+
+            // If they're trying to enable a pending account force them to enter the credentials
+            if ($active && $account->getPending()) {
+                $baseRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_CHANNELS;
+                $credentialsUri = $this->accountFactory->createRedirect($account, $baseRoute, ['type' => $account->getType()]);
+                $response->setVariable('redirect', $credentialsUri)
+                    ->setVariable('updated', true);
+                return $response;
+            }
 
             $accountService->save($account->setActive($active)->setPending(!$clearPending));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
@@ -610,15 +625,24 @@ class ChannelController extends AbstractActionController
         return $this;
     }
 
-    protected function setShippingOptionsProvider(ShippingOptionsProviderInterface $shippingOptionsProvider)
+    protected function setShippingOptionsProviderRepo(ShippingOptionsProviderRepository $shippingOptionsProviderRepo)
     {
-        $this->shippingOptionsProvider = $shippingOptionsProvider;
+        $this->shippingOptionsProviderRepo = $shippingOptionsProviderRepo;
         return $this;
     }
 
-    // Required by GetNamespacePartForAccountTrait
-    protected function getShippingOptionsProvider()
+    protected function setAccountFactory(AccountFactory $accountFactory)
     {
-        return $this->shippingOptionsProvider;
+        $this->accountFactory = $accountFactory;
+        return $this;
+    }
+
+    /**
+     * To satisfy GetNamespacePartForAccountTrait
+     * @return ShippingOptionsProviderRepository
+     */
+    protected function getShippingOptionsProviderRepo()
+    {
+        return $this->shippingOptionsProviderRepo;
     }
 }

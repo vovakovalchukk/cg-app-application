@@ -1,0 +1,53 @@
+<form class="account-form-holder" action="<?= $submitUrl ?>" method="POST">
+    <div class="account-logo">
+        <span class="logo-large shopify"></span>
+    </div>
+    <?php if ($accountId) : ?>
+        <input type="hidden" name="accountId" value="<?= $accountId ?>">
+    <?php endif ?>
+    <div class="account-field-holder">
+        <div class="label">
+            <span class="name"><?= $this->translate('Shop') ?>:</span>
+            <abbr class="required">*</abbr>
+        </div>
+        <div class="text-field">
+            <?= $this->mustache(
+                'elements/text.mustache',
+                [
+                    'name' => 'shopHost',
+                    'value' => isset($accountData['externalData']['shopHost']) ? $accountData['externalData']['shopHost'] : '',
+                    'placeholder' => '{shop}.myshopify.com',
+                ]
+            ) ?>
+        </div>
+        <div class="account-form-buttons-holder">
+            <?= $this->mustache(
+                'elements/buttons.mustache',
+                [
+                    'buttons' => true,
+                    'id' => 'linkAccount',
+                    'type' => 'submit',
+                    'value' => $this->translate('Link Account'),
+                ]
+            ) ?>
+            <?php if ($cancelUrl) : ?>
+                <a href="<?= $cancelUrl ?>">
+                    <?= $this->mustache(
+                        'elements/buttons.mustache',
+                        [
+                            'buttons' => true,
+                            'id' => 'goBack',
+                            'type' => 'button',
+                            'value' => $this->translate('Go Back'),
+                        ]
+                    ) ?>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+</form>
+<?php $this->inlineScript()->captureStart(); ?>
+require(["<?= $this->basePath() . \Shopify\Module::PUBLIC_FOLDER; ?>/js/Setup/Service.js"], function(Service) {
+    var service = new Service();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

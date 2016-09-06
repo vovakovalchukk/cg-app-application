@@ -253,8 +253,12 @@ define([
         this.getPopup().hide();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GENERATE, {"account": accountId}, function(response)
         {
-            self.getNotificationHandler().success('Manifest generated successfully, now downloading...');
-            self.sendPrintManifestRequest(response.id);
+            if (response.id) {
+                self.getNotificationHandler().success('Manifest generated successfully, now downloading...');
+                self.sendPrintManifestRequest(response.id);
+            } else {
+                self.getNotificationHandler().success('Manifest generated and sent to courier successfully.');
+            }
             self.removePopup();
         }, function(response)
         {
