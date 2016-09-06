@@ -101,9 +101,9 @@ define([
             return (
                 <div className={"detail-dropdown-wrapper "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
                     <div className="detail-dropdown-searchbox">
-                        <span className="icon-search"></span>
+                        <div className="sprite-search-18-black"></div>
                         <input onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress}/>
-                        <button className={"detail-search-btn "+(this.state.fetchingData ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
+                        <button className={"detail-search-btn button "+(this.state.fetchingData ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
                     </div>
                     {this.getDropdown()}
                 </div>
