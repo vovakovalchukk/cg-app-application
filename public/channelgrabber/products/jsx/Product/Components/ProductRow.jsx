@@ -61,7 +61,7 @@ define([
         },
         getExpandVariationsButton: function()
         {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 2) {
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
