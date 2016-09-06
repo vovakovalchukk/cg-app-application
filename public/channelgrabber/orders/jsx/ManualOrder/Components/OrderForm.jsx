@@ -19,7 +19,7 @@ define([
             return (
                 <div className="order-form-wrapper">
                     <h2>Search for Products to Add</h2>
-                    <ProductDropdown dataUrl="/products/ajax" onOptionSelected={this.onProductSelected} />
+                    <ProductDropdown onOptionSelected={this.onProductSelected} />
                 </div>
             );
         }
