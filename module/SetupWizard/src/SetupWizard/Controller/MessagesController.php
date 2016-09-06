@@ -2,6 +2,8 @@
 namespace SetupWizard\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Controller\InvoiceController as InvoiceSettingsController;
+use Settings\Module as SettingsModule;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Messages\Service as MessagesService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -43,7 +45,14 @@ class MessagesController extends AbstractActionController
          */
         $view = $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/messages/index');
 
-        $view->setVariable('emailInvoiceDispatchToggleValue', $this->messagesService->getEmailInvoiceOnDispatchToggleValue());
+        $invoiceSettings = $this->messagesService->fetchInvoiceSettings();
+        $view->setVariable('emailInvoiceDispatchToggleValue', $invoiceSettings->getAutoEmail());
+        $view->setVariable('emailInvoiceDispatchToggleETag', $invoiceSettings->getStoredETag());
+
+        $saveEmailInvoicesUrl = $this->url()->fromRoute(
+            SettingsModule::ROUTE . '/' . InvoiceSettingsController::ROUTE . '/' . InvoiceSettingsController::ROUTE_MAPPING . '/' . InvoiceSettingsController::ROUTE_SAVE
+        );
+        $view->setVariable('saveEmailInvoicesUrl', $saveEmailInvoicesUrl);
         
         foreach ($this->messagesService->fetchAccountsForActiveUser() as $account) {
             if ($account->getChannel() !== 'amazon') {

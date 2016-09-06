@@ -42,14 +42,10 @@ class Service
             ->setViewModelFactory($viewModelFactory);
     }
 
-    public function getEmailInvoiceOnDispatchToggleValue()
+    public function fetchInvoiceSettings()
     {
-        $invoiceSettings = $this->invoiceSettingsService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
-
-        if ($invoiceSettings->getAutoEmail()) {
-            return true;
-        }
-        return false;
+        $ouId = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
+        return $this->invoiceSettingsService->fetch($ouId);
     }
 
     public function getAccountBadgeSection($account)
