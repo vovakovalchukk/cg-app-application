@@ -81,7 +81,7 @@ define([
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>{this.getBulkStockModeDropdown()}</td>
+                                <td className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
                                 <td>{this.getBulkStockLevelInput()}</td>
                             </tr>
                             </tbody>

@@ -109,9 +109,13 @@
         .product-content-container {
             table {
                 th {
+                    width: auto;
                     white-space: nowrap;
                     overflow: hidden;
                     box-sizing: border-box;
+                    &.stock-mode-header-col {
+                        width: 210px;
+                    }
                 }
                 td {
                     height: 45px;
@@ -121,7 +125,7 @@
                         max-height: 23px;
                     }
                     .custom-select {
-                        width: 100%;
+                        width: 200px;
                     }
                 }
             }
@@ -145,7 +149,6 @@
             }
         }
         .variations-table {
-            width: 52%;
             border-left: 0;
             box-sizing: border-box;
             overflow: auto;
@@ -207,13 +210,16 @@
             }
             table {
                 .custom-select {
-                    width: 100%;
+                    width: 200px;
                 }
                 tr {
                     border: 0;
                     td {
                         border: 0 !important;
                         overflow: initial;
+                        &.product-stock-mode {
+                            width: 200px;
+                        }
                     }
                 }
             }
