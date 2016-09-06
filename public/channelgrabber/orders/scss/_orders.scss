@@ -1,4 +1,5 @@
 .order-form-wrapper {
+    color: $color-mgrey;
     .detail-dropdown-wrapper {
         position: relative;
         .detail-dropdown-searchbox {
@@ -17,24 +18,60 @@
             background-color: white;
             border: 1px solid $color-lgrey;
             .dropdown-count {
-                margin-left: 32%;
+                width: 100%;
+                text-align: center;
                 padding: 7px;
+                box-sizing: border-box;
             }
             .detail-row-wrapper {
-                padding: 9px;
-                padding-left: 25px;
+                padding: 14px 20px 14px 40px;
                 &:nth-of-type(even) {
                     background-color: $color-xlgrey;
                 }
+                .detail-row-header {
+                    font-size: 17px;
+                    margin-bottom: 9px;
+                    color: $color-dgrey;
+                }
                 .detail-variation-row {
+                    min-height: 32px;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     .variation-row-img {
-                        max-width: 50px;
+                        max-width: 32px;
+                        margin-right: 14px;
                         img {
                             width: 100%;
                         }
+                    }
+                    .variation-row-sku {
+                        width: 120px;
+                        margin-right: 24px;
+                        overflow: hidden;
+                    }
+                    .variation-row-attributes {
+                        width: 140px;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-right: 24px;
+                        overflow: auto;
+                    }
+                    .variation-row-stock {
+                        width: 90px;
+                        margin-right: 14px;
+                        text-align: center;
+                    }
+                    .variation-row-qty-input {
+                        width: 30px;
+                        margin-right: 14px;
+                        input {
+                            width: 100%;
+                        }
+                    }
+                    .variation-row-actions {
+                        width: 50px;
+                        text-align: center;
                     }
                 }
             }
