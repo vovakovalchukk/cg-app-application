@@ -4,16 +4,17 @@ namespace Orders\ManualOrder;
 use CG\Account\Shared\Entity as Account;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\ManualOrder\Account\Service as ManualOrderAccountService;
-use CG\Order\Client\Alert\Service as OrderAlertService;
 use CG\Order\Client\Item\Service as OrderItemService;
-use CG\Order\Client\Note\Service as OrderNoteService;
 use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Alert\Service as OrderAlertService;
+use CG\Order\Service\Note\Service as OrderNoteService;
 use CG\Order\Shared\Alert\Mapper as OrderAlertMapper;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as OrderItemCollection;
 use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Item\Mapper as OrderItemMapper;
 use CG\Order\Shared\Mapper as OrderMapper;
+use CG\Order\Shared\Note\Mapper as OrderNoteMapper;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -53,6 +54,8 @@ class Service implements LoggerAwareInterface
     protected $orderItemMapper;
     /** @var OrderAlertMapper */
     protected $orderAlertMapper;
+    /** @var OrderNoteMapper */
+    protected $orderNoteMapper;
     /** @var TaxService */
     protected $taxService;
 
@@ -68,6 +71,7 @@ class Service implements LoggerAwareInterface
         OrderMapper $orderMapper,
         OrderItemMapper $orderItemMapper,
         OrderAlertMapper $orderAlertMapper,
+        OrderNoteMapper $orderNoteMapper,
         TaxService $taxService
     ) {
         $this->setManualOrderAccountService($manualOrderAccountService)
@@ -81,9 +85,13 @@ class Service implements LoggerAwareInterface
             ->setOrderMapper($orderMapper)
             ->setOrderItemMapper($orderItemMapper)
             ->setOrderAlertMapper($orderAlertMapper)
+            ->setOrderNoteMapper($orderNoteMapper)
             ->setTaxService($taxService);
     }
 
+    /**
+     * @return Order
+     */
     public function createOrderFromPostData(array $orderData)
     {
         $organisationUnitId = $this->getOrganisationUnitIdForOrderCreation($orderData);
@@ -91,9 +99,11 @@ class Service implements LoggerAwareInterface
         $account = $this->manualOrderAccountService->getAccountForOrganisationUnit($organisationUnit);
 
         $order = $this->createOrder($orderData, $account);
-        $this->createItems($orderData['item'], $order);
-        $this->createAlert($orderData['alert'], $order);
-        // TODO: notes
+        $this->createItems($orderData['item'], $order)
+            ->createAlert($orderData['alert'], $order)
+            ->createNotes($orderData['note'], $order);
+
+        return $order;
     }
     
     protected function getOrganisationUnitIdForOrderCreation(array $orderData)
@@ -206,7 +216,7 @@ class Service implements LoggerAwareInterface
     protected function createAlert($alertMessage, Order $order)
     {
         if (trim($alertMessage) == '') {
-            return;
+            return $this;
         }
 
         $alert = $this->orderAlertMapper->fromArray([
@@ -217,6 +227,28 @@ class Service implements LoggerAwareInterface
             'organisationUnitId' => $order->getOrganisationUnitId()
         ]);
         $this->orderAlertService->save($alert);
+
+        return $this;
+    }
+
+    protected function createNotes(array $notes, Order $order)
+    {
+        if (empty($notes)) {
+            return $this;
+        }
+
+        foreach ($notes as $noteMessage) {
+            $note = $this->orderNoteMapper->fromArray([
+                'orderId' => $order->getId(),
+                'userId' => $this->activeUserContainer->getActiveUser()->getId(),
+                'timestamp' => (new StdlibDateTime())->stdFormat(),
+                'note' => $noteMessage,
+                'organisationUnitId' => $order->getOrganisationUnitId()
+            ]);
+            $this->orderNoteService->save($note);
+        }
+
+        return $this;
     }
 
     // This is required to satisfy SaveCollectionHandleErrorsTrait but we shouldn't get conflicts as we're creating a new order
@@ -289,6 +321,12 @@ class Service implements LoggerAwareInterface
     protected function setOrderAlertMapper(OrderAlertMapper $orderAlertMapper)
     {
         $this->orderAlertMapper = $orderAlertMapper;
+        return $this;
+    }
+
+    protected function setOrderNoteMapper(OrderNoteMapper $orderNoteMapper)
+    {
+        $this->orderNoteMapper = $orderNoteMapper;
         return $this;
     }
 
