@@ -100,8 +100,10 @@ class Service implements LoggerAwareInterface
 
         $order = $this->createOrder($orderData, $account);
         $this->createItems($orderData['item'], $order)
-            ->createAlert($orderData['alert'], $order)
-            ->createNotes($orderData['note'], $order);
+            ->createAlert($orderData['alert'], $order);
+        if (isset($orderData['note']) && !empty($orderData['note'])) {
+            $this->createNotes($orderData['note'], $order);
+        }
 
         return $order;
     }
