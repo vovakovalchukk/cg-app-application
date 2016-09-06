@@ -116,13 +116,18 @@ class Service implements LoggerAwareInterface
 
     protected function createOrder(array $orderData, Account $account)
     {
-        unset($orderData['item'], $orderData['alert'], $orderData['note']);
+        $orderId = $this->manualOrderAccountService->getNextOrderIdForAccount($account);
         $orderData['accountId'] = $account->getId();
-        $orderData['id'] = $this->manualOrderAccountService->getNextOrderIdForAccount($account);
+        $orderData['externalId'] = $orderId;
+        $orderData['id'] = $account->getId() . '-' . $orderId;
         $orderData['channel'] = $account->getChannel();
         $orderData['organisationUnitId'] = $account->getOrganisationUnitId();
         $orderData['status'] = OrderStatus::AWAITING_PAYMENT;
         $orderData['purchaseDate'] = (new StdlibDateTime())->stdFormat();
+        $orderData['paymentDate'] = null;
+        $orderData['printedDate'] = null;
+        $orderData['dispatchDate'] = null;
+        $orderData['total'] = $this->calculateTotalFromOrderData($orderData);
         // TODO: get this from the UI?
         $orderData['currencyCode'] = 'GBP';
 
@@ -130,8 +135,20 @@ class Service implements LoggerAwareInterface
             $this->copyBillingAddressToShippingAddress($orderData);
         }
 
+        unset($orderData['item'], $orderData['alert'], $orderData['note']);
         $order = $this->orderMapper->fromArray($orderData);
         return $this->orderService->save($order);
+    }
+
+    protected function calculateTotalFromOrderData(array $orderData)
+    {
+        $total = 0;
+        foreach ($orderData['item'] as $itemData) {
+            $total += ((float)$itemData['individualItemPrice'] * (int)$itemData['itemQuantity']);
+        }
+        $total += (float)$orderData['shippingPrice'];
+        $total -= (float)$orderData['totalDiscount'];
+        return $total;
     }
 
     protected function copyBillingAddressToShippingAddress(array &$orderData)
@@ -153,26 +170,30 @@ class Service implements LoggerAwareInterface
         $products = $this->fetchProductsForItemsData($itemsData);
         foreach ($itemsData as $itemData) {
             $count++;
-            $itemProducts = $products->getById($itemData['productId']);
-            $itemProducts->rewind();
-            $item = $this->createItem($itemData, $order, $itemProducts->current(), $count);
+            $product = $products->getById($itemData['productId']);
+            $item = $this->createItem($itemData, $order, $product, $count);
             $collection->attach($item);
         }
 
         $this->saveCollectionHandleErrors($this->orderItemService, $collection);
         $order->setItems($collection);
+
+        return $this;
     }
 
     protected function createItem(array $itemData, Order $order, Product $product, $index)
     {
         $itemData['id'] = $order->getId() . '-' . $index;
+        $itemData['externalId'] = $order->getExternalId() . '-' . $index;
         $itemData['orderId'] = $order->getId();
         $itemData['accountId'] = $order->getAccountId();
         $itemData['organisationUnitId'] = $order->getOrganisationUnitId();
         $itemData['purchaseDate'] = $order->getPurchaseDate();
         $itemData['status'] = $order->getStatus();
         $itemData['stockManaged'] = true;
+        $itemData['individualItemDiscountPrice'] = 0;
         $itemData['itemVariationAttribute'] = $product->getAttributeValues();
+        $itemData['imageIds'] = $product->getImageIds();
         if (!isset($itemData['itemName'])) {
             $itemData['itemName'] = $product->getName();
         }
@@ -180,6 +201,8 @@ class Service implements LoggerAwareInterface
             $itemData['itemSku'] = $product->getSku();
         }
 
+        // This has to exist in the array but we don't know what it is yet, we'll recalculate it later
+        $itemData['itemTaxPercentage'] = 0;
         $item = $this->orderItemMapper->fromArray($itemData);
 
         $taxPercentage = $this->calculateItemTaxPercentage($item, $order);
