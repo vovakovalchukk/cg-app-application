@@ -116,19 +116,19 @@ module.exports = function(grunt) {
             },
 
             copyProducts: {
-                command: "rm -rf public/cg-built/products/css/* ; mkdir public/cg-built/products/css; cp -r public/channelgrabber/products/css/* public/cg-built/products/css/"
+                command: "rm -rf public/cg-built/products/css/* ; mkdir -p public/cg-built/products/css; cp -r public/channelgrabber/products/css/* public/cg-built/products/css/"
             },
             copySettings: {
-                command: "rm -rf public/cg-built/settings/css/* ; mkdir public/cg-built/settings/css; cp -r public/channelgrabber/settings/css/* public/cg-built/settings/css/"
+                command: "rm -rf public/cg-built/settings/css/* ; mkdir -p public/cg-built/settings/css; cp -r public/channelgrabber/settings/css/* public/cg-built/settings/css/"
             },
             copySetupWizard: {
-                command: "rm -rf public/cg-built/setup-wizard/css/* ; mkdir public/cg-built/setup-wizard/css; cp -r public/channelgrabber/setup-wizard/css/* public/cg-built/setup-wizard/css/"
+                command: "rm -rf public/cg-built/setup-wizard/css/* ; mkdir -p public/cg-built/setup-wizard/css; cp -r public/channelgrabber/setup-wizard/css/* public/cg-built/setup-wizard/css/"
             },
             copyV4Ui: {
-                command: "rm -rf public/cg-built/zf2-v4-ui/css/* ; mkdir public/cg-built/zf2-v4-ui/css; cp -r public/channelgrabber/zf2-v4-ui/css/* public/cg-built/zf2-v4-ui/css/"
+                command: "rm -rf public/cg-built/zf2-v4-ui/css/* ; mkdir -p public/cg-built/zf2-v4-ui/css; cp -r public/channelgrabber/zf2-v4-ui/css/* public/cg-built/zf2-v4-ui/css/"
             },
             copyRegisterModule: {
-                command: "rm -rf public/cg-built/zf2-register/css/* ; mkdir public/cg-built/zf2-register/css; cp -r public/channelgrabber/zf2-register/css/* public/cg-built/zf2-register/css/"
+                command: "rm -rf public/cg-built/zf2-register/css/* ; mkdir -p public/cg-built/zf2-register/css; cp -r public/channelgrabber/zf2-register/css/* public/cg-built/zf2-register/css/"
             }
         },
         watch: {
