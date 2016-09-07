@@ -24,7 +24,7 @@ define([
                     <div>{(this.getOnHandStock() - Math.max(this.getAllocatedStock(), 0))}</div>
                 </td>,
                 <td key="stock-undispatched" className="product-stock-allocated">
-                    <div>{this.getOnHandStock()}</div>
+                    <div>{this.getAllocatedStock()}</div>
                 </td>,
                 <td key="stock-total" className="product-stock-available">
                     <Input name='total' initialValue={this.getOnHandStock()} submitCallback={this.updateStockTotal}/>
