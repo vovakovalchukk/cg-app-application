@@ -447,6 +447,10 @@ div#products-loading-message {
             outline: 0;
             max-width: 60px;
             text-align: center;
+            &:disabled {
+                color: $color-lgrey;
+                cursor: not-allowed;
+            }
         }
         input[type=number] {
             -moz-appearance:textfield;
