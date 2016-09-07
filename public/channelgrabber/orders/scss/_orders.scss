@@ -101,6 +101,10 @@
                             input {
                                 width: 100%;
                             }
+                            .safe-input-box .submit-input .submit-cancel {
+                                left: 0;
+                                z-index: 10;
+                            }
                         }
                         .variation-row-actions {
                             width: 50px;
