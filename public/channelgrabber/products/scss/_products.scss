@@ -62,6 +62,12 @@
     background-color: $color-white;
     margin-bottom: 20px;
     transition: all 500ms ease;
+    .custom-select {
+        width: 200px;
+        .open-content {
+            margin-bottom: 50px;
+        }
+    }
     .checkbox-container {
         width: 40px;
         display: flex;
@@ -123,12 +129,6 @@
                     box-sizing: border-box;
                     img {
                         max-height: 23px;
-                    }
-                    .custom-select {
-                        width: 200px;
-                        .open-content {
-                            margin-bottom: 50px;
-                        }
                     }
                 }
             }
@@ -197,9 +197,6 @@
                 padding-left: 10px;
                 width: 150px !important;
             }
-            .custom-select {
-                width: 200px;
-            }
             &.vat-row {
                 margin-bottom: 15px;
                 margin-top: 10px;
@@ -215,9 +212,6 @@
                 }
             }
             table {
-                .custom-select {
-                    width: 200px;
-                }
                 tr {
                     border: 0;
                     td {
