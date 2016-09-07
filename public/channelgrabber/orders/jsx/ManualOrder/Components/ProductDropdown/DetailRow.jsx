@@ -28,16 +28,19 @@ define([
                         {this.getAttributeValues(variation.attributeValues)}
                     </div>
                     <div className="variation-row-stock">
-                        {variation.stockLevel} Available
+                        {variation.stockLevel ? variation.stockLevel : 0} Available
                     </div>
                     <div className="variation-row-qty-input">
                         <Input name='quantity' initialValue="1" submitCallback={this.onStockQuantitySelected} />
                     </div>
                     <div className="variation-row-actions">
-                        <span className="variation-add-action">Add</span>
+                        <span className="variation-add-action" onClick={this.onAddClicked.bind(this, variation.sku)}>Add</span>
                     </div>
                 </div>
             );
+        },
+        onAddClicked: function (sku) {
+            this.props.onAddClicked(sku, this.state.selectedQuantity);
         },
         onStockQuantitySelected: function (name, quantity) {
             this.setState({selectedQuantity: quantity});

@@ -12,8 +12,9 @@ define([
                 orderRows: []
             }
         },
-        onProductSelected: function () {
-
+        onProductSelected: function (sku, quantity) {
+            console.log(sku);
+            console.log(quantity);
         },
         render: function () {
             return (
