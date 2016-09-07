@@ -32,4 +32,52 @@
             }
         }
     }
+
+    #setup-wizard-messages-amazon-setup-instructions {
+        float: left;
+        width: 50%;
+    }
+
+    #setup-wizard-messages-amazon-setup-instructions {
+        ol {
+            float: left;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            >li {
+                float: left;
+                clear: both;
+                margin-bottom: 20px;
+                width: 100%;
+
+                img {
+                    float: left;
+                    margin-right: 20px;
+                }
+                div {
+                    float: left;
+                    display: inline-block;
+                    padding-top: 13px;
+                    width: calc(100% - 72px);
+
+                    .inputbox {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+
+        #setup-wizard-messages-amazon-email-field-list {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        #setup-wizard-messages-amazon-setup-small-screenshot {
+            img {
+                border: solid 2px $color-lblue;
+                margin-top: 20px;
+            }
+        }
+    }
 }

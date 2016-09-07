@@ -136,13 +136,13 @@ class MessagesController extends AbstractActionController
                 [
                     'value' => 'Done',
                     'id' => 'setup-wizard-messages-amazon-done-button',
-                    'class' => 'setup-wizard-done-button',
+                    'class' => 'setup-wizard-messages-amazon-button setup-wizard-done-button',
                     'action' => $doneUrl,
                 ],
                 [
                     'value' => 'Cancel',
                     'id' => 'setup-wizard-messages-amazon-cancel-button',
-                    'class' => 'setup-wizard-cancel-button',
+                    'class' => 'setup-wizard-messages-amazon-button setup-wizard-cancel-button',
                     'action' => $cancelUrl,
                 ]
             ]

@@ -1,1 +1,35 @@
-<?=$this->email;?>
+<div id="setup-wizard-messages-amazon-setup-instructions">
+    <ol>
+        <li>
+            <img src="<?=SetupWizard\Module::PUBLIC_FOLDER;?>img/messages/point1.png" />
+            <div>Login to Amazon</div>
+        </li>
+        <li>
+            <img src="<?=SetupWizard\Module::PUBLIC_FOLDER;?>img/messages/point2.png" />
+            <div>
+                Copy email address below<br />
+                <input class="inputbox" type="email" readonly="readonly" value="<?=$this->email;?>" />
+            </div>
+        </li>
+        <li>
+            <img src="<?=SetupWizard\Module::PUBLIC_FOLDER;?>img/messages/point3.png" />
+            <div>
+            Paste the above email address into:
+            <ul id="setup-wizard-messages-amazon-email-field-list">
+                <li>&ndash; Customer Service Email</li>
+                <li>&ndash; Customer Service Reply To Email</li>
+            </ul>
+            </div>
+        </li>
+    </ol>
+    <div id="setup-wizard-messages-amazon-setup-small-screenshot">
+        Screenshot:
+        <img src="<?=SetupWizard\Module::PUBLIC_FOLDER;?>img/messages/screenshot-seller-central-email-settings.png" />
+    </div>
+</div>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>/js/steps/Messages/Setup.js'], function(Setup)
+    {
+        new Setup();
+    });
+</script>
