@@ -47,6 +47,19 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                                'child_routes' => [
+                                    MessagesController::ROUTE_SETUP_DONE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/done',
+                                            'defaults' => [
+                                                'controller' => MessagesController::class,
+                                                'action' => 'setupDone',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ]
+                                ]
                             ]
                         ]
                     ]

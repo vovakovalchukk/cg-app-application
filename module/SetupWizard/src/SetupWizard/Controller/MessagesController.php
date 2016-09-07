@@ -15,6 +15,7 @@ class MessagesController extends AbstractActionController
 {
     const ROUTE_MESSAGE = 'Messages';
     const ROUTE_SETUP = 'Setup';
+    const ROUTE_SETUP_DONE = 'Done';
 
     /** @var SetupService */
     protected $setupService;
@@ -117,7 +118,45 @@ class MessagesController extends AbstractActionController
 
     public function setupAction()
     {
+        $accountId = $this->params()->fromRoute('account');
+        $view = $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/messages/setup');
+        $view->setVariable('email', $this->messagesService->getEmailForAmazonAccount($accountId));
 
+        return $this->setupService->getSetupView('Add Amazon Messaging', $view, $this->getSetupFooterView($accountId));
+    }
+
+    protected function getSetupFooterView($accountId)
+    {
+        $doneUrl = $this->url()->fromRoute(
+            Module::ROUTE . '/' . static::ROUTE_MESSAGE . '/' . static::ROUTE_SETUP . '/' . static::ROUTE_SETUP_DONE, ['account' => $accountId]
+        );
+        $cancelUrl = $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_MESSAGE);
+        $footer = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                [
+                    'value' => 'Done',
+                    'id' => 'setup-wizard-messages-amazon-done-button',
+                    'class' => 'setup-wizard-done-button',
+                    'action' => $doneUrl,
+                ],
+                [
+                    'value' => 'Cancel',
+                    'id' => 'setup-wizard-messages-amazon-cancel-button',
+                    'class' => 'setup-wizard-cancel-button',
+                    'action' => $cancelUrl,
+                ]
+            ]
+        ]);
+        $footer->setTemplate('elements/buttons.mustache');
+        return $footer;
+    }
+
+    public function setupDoneAction()
+    {
+        $accountId = $this->params()->fromRoute('account');
+        $this->messagesService->markAmazonMessagingSetupDone($accountId);
+
+        $this->redirect()->toRoute(Module::ROUTE . '/' . static::ROUTE_MESSAGE);
     }
 
     /**

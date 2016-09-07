@@ -4,8 +4,10 @@ namespace SetupWizard\Messages;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor as AmazonCryptor;
+use CG\Amazon\Message\AccountAddressGenerator;
 use CG\Channel\Type as ChannelType;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\User\ActiveUserInterface;
 
 class Service
@@ -18,17 +20,21 @@ class Service
     protected $amazonCryptor;
     /** @var InvoiceSettingsService */
     protected $invoiceSettingsService;
+    /** @var AccountAddressGenerator */
+    protected $accountAddressGenerator;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
         AmazonCryptor $amazonCryptor,
-        InvoiceSettingsService $invoiceSettingsService
+        InvoiceSettingsService $invoiceSettingsService,
+        AccountAddressGenerator $accountAddressGenerator
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
             ->setAmazonCryptor($amazonCryptor)
-            ->setInvoiceSettingsService($invoiceSettingsService);
+            ->setInvoiceSettingsService($invoiceSettingsService)
+            ->setAccountAddressGenerator($accountAddressGenerator);
     }
 
     public function fetchInvoiceSettings()
@@ -54,6 +60,27 @@ class Service
             ->setType(ChannelType::SALES)
             ->setChannel(['amazon']);
         return $this->accountService->fetchByFilter($filter);
+    }
+
+    public function getEmailForAmazonAccount($accountId)
+    {
+        $account = $this->accountService->fetch($accountId);
+        $emailGenerator = $this->accountAddressGenerator;
+        return $emailGenerator($account);
+    }
+
+    public function markAmazonMessagingSetupDone($accountId)
+    {
+        $account = $this->accountService->fetch($accountId);
+        $externalData = $account->getExternalData();
+        $externalData['messagingSetUp'] = true;
+        $account->setExternalData($externalData);
+
+        try {
+            $this->accountService->save($account);
+        } catch (NotModified $e) {
+            // No-op
+        }
     }
 
     /**
@@ -86,9 +113,18 @@ class Service
     /**
      * @return self
      */
-    public function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
+    protected function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
     {
         $this->invoiceSettingsService = $invoiceSettingsService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setAccountAddressGenerator(AccountAddressGenerator $accountAddressGenerator)
+    {
+        $this->accountAddressGenerator = $accountAddressGenerator;
         return $this;
     }
 }
