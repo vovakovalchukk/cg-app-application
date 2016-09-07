@@ -2,6 +2,8 @@
 namespace SetupWizard\Controller;
 
 use CG\Account\Shared\Entity as Account;
+use CG_Amazon\Controller\AccountController as AmazonAccountController;
+use CG_Amazon\Module as AmazonModule;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\InvoiceController as InvoiceSettingsController;
 use Settings\Module as SettingsModule;
@@ -62,6 +64,7 @@ class MessagesController extends AbstractActionController
             SettingsModule::ROUTE . '/' . InvoiceSettingsController::ROUTE . '/' . InvoiceSettingsController::ROUTE_MAPPING . '/' . InvoiceSettingsController::ROUTE_SAVE
         );
         $view->setVariable('saveEmailInvoicesUrl', $saveEmailInvoicesUrl);
+        $saveAmazonOriginalEmailUrl = $this->url()->fromRoute(AmazonModule::ROUTE . '/' . AmazonAccountController::ROUTE . '/' . AmazonAccountController::ROUTE_SAVE);
         
         foreach ($this->messagesService->fetchAmazonAccountsForActiveUser() as $account) {
             $section = $this->getSectionViewForAccount($account);
@@ -78,6 +81,7 @@ class MessagesController extends AbstractActionController
             'originalEmailAddress' => (isset($externalData['originalEmailAddress']) ? $externalData['originalEmailAddress'] : null),
             'setupRequired' => !(isset($externalData['messagingSetUp']) && $externalData['messagingSetUp']),
             'name' => $account->getDisplayName(),
+            'id' => $account->getId(),
         ]);
         $sectionView->addChild($this->getAccountBadge($account), 'badge')
             ->addChild($this->getSetupButton($account), 'setupButton')
