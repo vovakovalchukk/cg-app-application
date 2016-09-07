@@ -34,7 +34,11 @@ define([
             this.props.onNewOption(selectedOption);
         },
         render: function () {
+            var selectedValue = (this.state.currentSelection.name ? this.state.currentSelection.name : this.props.defaultValue);
             var options = this.props.options.map(function(opt) {
+                if (opt.selected && (selectedValue === null || selectedValue === undefined)) {
+                    selectedValue = opt.name;
+                }
                 return (
                     <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={opt.value} onClick={this.onOptionSelected}>
                         <a value={opt.value}>{opt.name}</a>
@@ -44,7 +48,7 @@ define([
             return (
                 <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
                         <div className="selected">
-                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{(this.state.currentSelection.name ? this.state.currentSelection.name : this.props.defaultValue)}</span>
+                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{selectedValue}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>
                         </div>
                         <div className="animated fadeInDown open-content">
