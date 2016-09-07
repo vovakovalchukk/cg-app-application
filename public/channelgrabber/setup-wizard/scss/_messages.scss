@@ -1,4 +1,9 @@
 .setup-wizard-body {
+    #email-invoice-dispatch-section {
+        float: left;
+        padding-bottom: 30px;
+    }
+
     .setup-wizard-messages-account-section {
         float: left;
         clear: both;
@@ -10,6 +15,20 @@
 
             .setup-wizard-account-badge-footer div.setup-wizard-account-badge-name {
                 width: 95%;
+            }
+        }
+
+        .setup-wizard-messages-account-section-body {
+            float: left;
+            margin: 20px 0 0 80px;
+
+            .setup-wizard-messages-account-name {
+                font-weight: bold;
+            }
+
+            .setup-wizard-messages-account-section-buttons {
+                float: left;
+                margin-top: 20px;
             }
         }
     }

@@ -1,3 +1,13 @@
 <div class="setup-wizard-messages-account-section section-separator">
     <?= $this->badge; ?>
+    <div class="setup-wizard-messages-account-section-body">
+        <?php if ($this->setupRequired): ?>
+        <div class="heading-medium">Add messaging for <span class="setup-wizard-messages-account-name"><?=$this->name;?></span></div>
+        <div class="setup-wizard-messages-account-section-buttons">
+            <?=$this->setupButton;?>
+        </div>
+        <?php else: ?>
+
+        <?php endif; ?>
+    </div>
 </div>

@@ -8,11 +8,13 @@ use Settings\Module as SettingsModule;
 use SetupWizard\Channels\Service as ChannelService;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Messages\Service as MessagesService;
+use SetupWizard\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class MessagesController extends AbstractActionController
 {
     const ROUTE_MESSAGE = 'Messages';
+    const ROUTE_SETUP = 'Setup';
 
     /** @var SetupService */
     protected $setupService;
@@ -70,13 +72,15 @@ class MessagesController extends AbstractActionController
 
     protected function getSectionViewForAccount(Account $account)
     {
-        //$setupFlag = $account->isMessagingSetup();
-
+        $externalData = $account->getExternalData();
         $sectionView = $this->viewModelFactory->newInstance([
-            'setupFlag' => true,
+            'originalEmailAddress' => (isset($externalData['originalEmailAddress']) ? $externalData['originalEmailAddress'] : null),
+            'setupRequired' => !(isset($externalData['messagingSetUp']) && $externalData['messagingSetUp']),
+            'name' => $account->getDisplayName(),
         ]);
-        $sectionView->addChild($this->getAccountBadge($account), 'badge');
-        $sectionView->setTemplate('setup-wizard/messages/accountSection');
+        $sectionView->addChild($this->getAccountBadge($account), 'badge')
+            ->addChild($this->getSetupButton($account), 'setupButton')
+            ->setTemplate('setup-wizard/messages/accountSection');
 
         return $sectionView;
     }
@@ -93,11 +97,27 @@ class MessagesController extends AbstractActionController
         return $badgeView;
     }
 
-    public function addMessagingAction()
+    protected function getSetupButton(Account $account)
     {
-        /**
-         * Generate the email address for this account
-         */
+        $url = $this->url()->fromRoute(
+            Module::ROUTE . '/' . static::ROUTE_MESSAGE . '/' . static::ROUTE_SETUP, ['account' => $account->getId()]
+        );
+        $view = $this->viewModelFactory->newInstance([
+            'buttons' => [[
+                'value' => 'Add Messaging',
+                'id' => 'setup-wizard-messaging-add-button-' . $account->getId(),
+                'class' => 'setup-wizard-messaging-add-button',
+                'disabled' => false,
+                'action' => $url,
+            ]]
+        ]);
+        $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
+    public function setupAction()
+    {
+
     }
 
     /**

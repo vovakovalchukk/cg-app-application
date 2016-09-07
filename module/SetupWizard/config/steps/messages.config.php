@@ -35,6 +35,20 @@ return [
                                 'action' => 'index',
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            MessagesController::ROUTE_SETUP => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/setup/:account',
+                                    'defaults' => [
+                                        'controller' => MessagesController::class,
+                                        'action' => 'setup',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ]
+                        ]
                     ]
                 ],
             ]

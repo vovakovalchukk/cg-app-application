@@ -14,7 +14,8 @@ define([], function()
 
         var init = function()
         {
-            this.listenForEmailInvoicesToggle();
+            this.listenForEmailInvoicesToggle()
+                .listenForAmazonMessagingSetupButtonClicks();
         };
         init.call(this);
     }
@@ -26,6 +27,16 @@ define([], function()
         {
             self.saveEmailInvoicesToggle(this);
         });
+        return this;
+    };
+
+    Messages.prototype.listenForAmazonMessagingSetupButtonClicks = function()
+    {
+        $('.setup-wizard-messaging-add-button').click(function()
+        {
+            window.location = $(this).find('.action').data('action');
+        });
+
         return this;
     };
 
