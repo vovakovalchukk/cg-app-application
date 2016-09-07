@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Product/Components/Input'
 ], function(
-    React
+    React,
+    Input
 ) {
     "use strict";
     var DetailRow = React.createClass({
@@ -29,7 +31,7 @@ define([
                         {variation.stockLevel} Available
                     </div>
                     <div className="variation-row-qty-input">
-                        <input value={variation.stockLevel} />
+                        <Input name='quantity' initialValue="1" submitCallback={this.onStockQuantitySelected} />
                     </div>
                     <div className="variation-row-actions">
                         <span className="variation-add-action">Add</span>
@@ -37,13 +39,23 @@ define([
                 </div>
             );
         },
+        onStockQuantitySelected: function (name, quantity) {
+            this.setState({selectedQuantity: quantity});
+            return new Promise(function(resolve) {
+                resolve({savedValue: quantity});
+            });
+        },
+        getInitialState: function () {
+            return {
+                selectedQuantity: 0
+            }
+        },
         getDefaultProps: function () {
             return {
                 variations: []
             }
         },
         render: function () {
-            //console.log(this.props.variations);
             return (
                 <div className="detail-row-wrapper">
                     <div className="detail-row-header">
