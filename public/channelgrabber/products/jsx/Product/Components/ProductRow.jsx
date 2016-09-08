@@ -99,8 +99,12 @@ define([
         },
         getBulkStockLevelInput: function () {
             if (this.state.variations.length > 0) {
-                return <Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.bulkUpdateStockLevel} />
+                return <Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
             }
+        },
+        shouldBulkLevelBeDisabled: function () {
+            var disabledStockMode = 'all';
+            return (this.state.bulkStockMode.value === "" || this.state.bulkStockMode.value === null || this.state.bulkStockMode.value === disabledStockMode);
         },
         getVatDropdowns: function () {
             if (this.props.product.taxRates) {
