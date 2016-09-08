@@ -50,10 +50,11 @@ define([
                     </li>
                 )
             }.bind(this));
+            var selectedOptionName = this.state.selectedOption.name ? this.state.selectedOption.name : (this.props.options.length > 0 ? this.props.options[0].name : '');
             return (
                 <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
                         <div className="selected">
-                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.state.selectedOption.name}</span>
+                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{selectedOptionName}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>
                         </div>
                         <div className="animated fadeInDown open-content">
