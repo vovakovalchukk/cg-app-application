@@ -104,7 +104,12 @@ define([
         },
         shouldBulkLevelBeDisabled: function () {
             var disabledStockMode = 'all';
-            return (this.state.bulkStockMode.value === "" || this.state.bulkStockMode.value === null || this.state.bulkStockMode.value === disabledStockMode);
+            return (
+                this.state.bulkStockMode.value === "" ||
+                this.state.bulkStockMode.value === null ||
+                this.state.bulkStockMode.value === "null" ||
+                this.state.bulkStockMode.value === disabledStockMode
+            );
         },
         getVatDropdowns: function () {
             if (this.props.product.taxRates) {
