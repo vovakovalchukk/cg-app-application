@@ -73,6 +73,9 @@ define([
                         <div className="variations-button-holder">
                             {this.getExpandVariationsButton()}
                         </div>
+                        <div className="stocklog-link-holder">
+                            {this.context.isAdmin ? <a href={"/products/stockLog/"+this.props.product.id}>History Log</a> : ''}
+                        </div>
                     </div>
                     <div className="details-layout-column">
                         <table>
@@ -376,7 +379,8 @@ define([
     });
 
     ProductRowComponent.contextTypes = {
-        imageBasePath: React.PropTypes.string
+        imageBasePath: React.PropTypes.string,
+        isAdmin: React.PropTypes.bool
     };
 
     return ProductRowComponent;
