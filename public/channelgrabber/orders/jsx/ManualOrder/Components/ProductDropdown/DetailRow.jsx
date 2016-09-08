@@ -31,7 +31,7 @@ define([
                         {variation.stockLevel ? variation.stockLevel : 0} Available
                     </div>
                     <div className="variation-row-qty-input">
-                        <Input name='quantity' initialValue="1" submitCallback={this.onStockQuantitySelected} />
+                        <Input name='quantity' initialValue={this.state.selectedQuantity[variation.sku]} submitCallback={this.onStockQuantitySelected} />
                     </div>
                     <div className="variation-row-actions">
                         <span className="variation-add-action" onClick={this.onAddClicked.bind(this, variation)}>Add</span>
@@ -40,17 +40,22 @@ define([
             );
         },
         onAddClicked: function (variation) {
-            this.props.onAddClicked(variation, this.state.selectedQuantity);
+            var selectedQuantity = this.state.selectedQuantity[variation.sku];
+            this.props.onAddClicked(variation, selectedQuantity);
         },
-        onStockQuantitySelected: function (name, quantity) {
-            this.setState({selectedQuantity: quantity});
+        onStockQuantitySelected: function (sku, quantity) {
+            var newSelectedQuantities = this.state.selectedQuantity;
+            newSelectedQuantities[sku] = quantity;
+            this.setState({
+                selectedQuantity: newSelectedQuantities
+            });
             return new Promise(function(resolve) {
                 resolve({savedValue: quantity});
             });
         },
         getInitialState: function () {
             return {
-                selectedQuantity: 1
+                selectedQuantity: {}
             }
         },
         getDefaultProps: function () {
