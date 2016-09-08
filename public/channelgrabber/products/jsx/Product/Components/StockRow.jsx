@@ -32,12 +32,18 @@ define([
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} defaultValue={this.props.variation.stockModeDesc}/>
+                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} selectedOption={this.getSelectedOption()}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
                     <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.shouldInputBeDisabled()} />
                 </td>
             ];
+        },
+        getSelectedOption: function() {
+            return {
+                name: this.props.variation.stockModeDesc ,
+                value: this.props.variation.stock.stockMode
+            }
         },
         shouldInputBeDisabled: function() {
             if (!this.props.variation.stock) {
