@@ -42,18 +42,6 @@ class MessagesController extends AbstractActionController
 
     public function indexAction()
     {
-        /**
-         * Get flag value for Email Invoice on Dispatch
-         *
-         *  For each amazon account
-         *      Check if we have messaging setup for this account
-         *      if we do then show the forwarding form
-         *      else show the add messaging form
-         *
-         *
-         *  POST to /amazon/account/save
-         *  with variable originalEmailAddress as the forwarding email address
-         */
         $view = $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/messages/index');
 
         $invoiceSettings = $this->messagesService->fetchInvoiceSettings();

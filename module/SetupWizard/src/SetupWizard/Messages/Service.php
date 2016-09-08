@@ -3,7 +3,6 @@ namespace SetupWizard\Messages;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
-use CG\Account\Credentials\Cryptor as AmazonCryptor;
 use CG\Amazon\Message\AccountAddressGenerator;
 use CG\Channel\Type as ChannelType;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
@@ -16,8 +15,6 @@ class Service
     protected $activeUserContainer;
     /** @var AccountService */
     protected $accountService;
-    /** @var AmazonCryptor */
-    protected $amazonCryptor;
     /** @var InvoiceSettingsService */
     protected $invoiceSettingsService;
     /** @var AccountAddressGenerator */
@@ -26,13 +23,11 @@ class Service
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
-        AmazonCryptor $amazonCryptor,
         InvoiceSettingsService $invoiceSettingsService,
         AccountAddressGenerator $accountAddressGenerator
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
-            ->setAmazonCryptor($amazonCryptor)
             ->setInvoiceSettingsService($invoiceSettingsService)
             ->setAccountAddressGenerator($accountAddressGenerator);
     }
@@ -98,15 +93,6 @@ class Service
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setAmazonCryptor(AmazonCryptor $amazonCryptor)
-    {
-        $this->amazonCryptor = $amazonCryptor;
         return $this;
     }
 
