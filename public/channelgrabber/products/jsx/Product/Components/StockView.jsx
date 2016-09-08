@@ -59,7 +59,11 @@ define([
                     updatedVariation = variation;
                 }
             });
+            var newName = updatedVariation.stockModeOptions.find(function (option) {
+                return option.value === newValue;
+            });
             updatedVariation.stock.stockMode = newValue;
+            updatedVariation.stockModeDesc = newName.title;
             this.props.onVariationDetailChanged(updatedVariation);
         },
         render: function () {
