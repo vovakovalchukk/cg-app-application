@@ -8,6 +8,10 @@ define([
     var SelectComponent = React.createClass({
         getDefaultProps: function () {
             return {
+                selectedOption: {
+                    name: '',
+                    value: ''
+                },
                 options: []
             };
         },
