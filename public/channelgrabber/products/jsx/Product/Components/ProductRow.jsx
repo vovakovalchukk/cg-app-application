@@ -94,7 +94,7 @@ define([
         },
         getBulkStockModeDropdown: function () {
             if (this.state.variations.length > 0) {
-                return <Select prefix="All" options={this.getStockModeOptions()} defaultValue={this.state.variations[0].stockModeDesc} onNewOption={this.bulkUpdateStockMode}/>
+                return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onNewOption={this.bulkUpdateStockMode}/>
             }
         },
         getBulkStockLevelInput: function () {
@@ -120,16 +120,17 @@ define([
                         var formattedRate = parseFloat(this.props.product.taxRates[memberState][taxRateId]['rate']);
                         var rateName = formattedRate + '% (' +this.props.product.taxRates[memberState][taxRateId]['name'] + ')';
                         var selected = this.props.product.taxRates[memberState][taxRateId]['selected'];
-                        if (selected) {
-                            selectedOption = rateName;
-                        }
-                        options.push({
+                        var option = {
                             'name': rateName,
                             'value': taxRateId,
                             'selected': selected
-                        });
+                        };
+                        if (selected) {
+                            selectedOption = option;
+                        }
+                        options.push(option);
                     }
-                    vatDropdowns.push(<Select prefix={showCodeInLabel ? memberState+' VAT' : "VAT"} options={options} onNewOption={this.vatUpdated} defaultValue={selectedOption}/>);
+                    vatDropdowns.push(<Select prefix={showCodeInLabel ? memberState+' VAT' : "VAT"} options={options} onNewOption={this.vatUpdated} selectedOption={selectedOption}/>);
                 }
                 return vatDropdowns;
             }
@@ -251,9 +252,6 @@ define([
         },
         bulkUpdateStockMode: function(stockMode) {
             n.notice('Bulk updating stock mode for all variations.');
-            this.setState({
-                bulkStockMode: stockMode
-            });
             $.ajax({
                 url : '/products/stockMode',
                 data : { id: this.props.product.id, stockMode: stockMode.value },
@@ -262,6 +260,9 @@ define([
                 success : function(response) {
                     n.success('Bulk stock mode updated successfully.');
                     this.updateVariationsStockMode(stockMode);
+                    this.setState({
+                        bulkStockMode: stockMode
+                    });
                 }.bind(this),
                 error : function(response) {
                     n.error("There was an error when attempting to bulk update the stock mode.");
@@ -283,9 +284,11 @@ define([
             var updatedVariations = this.state.variations.slice();
             updatedVariations.forEach(function(variation) {
                 variation.stockModeOptions.forEach(function (mode, stockModeIndex) {
+                    variation.stockModeOptions[stockModeIndex].selected = false;
                     if (mode.value === stockMode.value) {
                         variation.stockModeOptions[stockModeIndex].selected = true;
                         variation.stockModeDesc = stockMode.name;
+                        variation.stock.stockMode = stockMode.value;
                     }
                 });
                 return variation;
