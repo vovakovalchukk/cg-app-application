@@ -31,7 +31,7 @@ define([
                         {variation.stockLevel ? variation.stockLevel : 0} Available
                     </div>
                     <div className="variation-row-qty-input">
-                        <Input name='quantity' initialValue={this.state.selectedQuantity[variation.sku]} submitCallback={this.onStockQuantitySelected} />
+                        <Input name='quantity' initialValue={this.getQuantity(variation.sku)} submitCallback={this.onStockQuantitySelected.bind(this, variation.sku)} />
                     </div>
                     <div className="variation-row-actions">
                         <span className="variation-add-action" onClick={this.onAddClicked.bind(this, variation)}>Add</span>
@@ -39,13 +39,17 @@ define([
                 </div>
             );
         },
+        getQuantity: function (sku) {
+            return this.state.selectedQuantity[sku] ? this.state.selectedQuantity[sku] : this.defaultQuantityValue;
+        },
         onAddClicked: function (variation) {
-            var selectedQuantity = this.state.selectedQuantity[variation.sku];
+            var selectedQuantity = this.getQuantity(variation.sku);
             this.props.onAddClicked(variation, selectedQuantity);
         },
-        onStockQuantitySelected: function (sku, quantity) {
+        onStockQuantitySelected: function (sku, inputName, quantity) {
             var newSelectedQuantities = this.state.selectedQuantity;
             newSelectedQuantities[sku] = quantity;
+
             this.setState({
                 selectedQuantity: newSelectedQuantities
             });
@@ -54,6 +58,7 @@ define([
             });
         },
         getInitialState: function () {
+            this.defaultQuantityValue = 1;
             return {
                 selectedQuantity: {}
             }
