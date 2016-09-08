@@ -40,6 +40,9 @@ define([
             ];
         },
         getSelectedOption: function() {
+            if (!this.props.variation.stock) {
+                return;
+            }
             return {
                 name: this.props.variation.stockModeDesc ,
                 value: this.props.variation.stock.stockMode
