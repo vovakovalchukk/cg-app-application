@@ -17,8 +17,8 @@
     <?= $this->accountSections; ?>
 </div>
 <script type="text/javascript">
-    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>/js/steps/Messages.js'], function(Messages)
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Messages.js'], function(Messages)
     {
-        new Messages(n, '<?=$this->saveEmailInvoicesUrl;?>');
+        new Messages(n, '<?=$this->saveEmailInvoicesUrl;?>', '<?=$this->saveAmazonOriginalEmailUrl;?>');
     });
 </script>

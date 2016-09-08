@@ -64,7 +64,8 @@ class MessagesController extends AbstractActionController
             SettingsModule::ROUTE . '/' . InvoiceSettingsController::ROUTE . '/' . InvoiceSettingsController::ROUTE_MAPPING . '/' . InvoiceSettingsController::ROUTE_SAVE
         );
         $view->setVariable('saveEmailInvoicesUrl', $saveEmailInvoicesUrl);
-        $saveAmazonOriginalEmailUrl = $this->url()->fromRoute(AmazonModule::ROUTE . '/' . AmazonAccountController::ROUTE . '/' . AmazonAccountController::ROUTE_SAVE);
+        $saveAmazonOriginalEmailUrl = $this->url()->fromRoute(AmazonModule::ROUTE . '/' . AmazonAccountController::ROUTE . '/' . AmazonAccountController::ROUTE_SAVE_ORIG_EMAIL);
+        $view->setVariable('saveAmazonOriginalEmailUrl', $saveAmazonOriginalEmailUrl);
         
         foreach ($this->messagesService->fetchAmazonAccountsForActiveUser() as $account) {
             $section = $this->getSectionViewForAccount($account);
