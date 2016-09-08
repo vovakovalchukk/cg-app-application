@@ -34,13 +34,13 @@ define([
                         <Input name='quantity' initialValue="1" submitCallback={this.onStockQuantitySelected} />
                     </div>
                     <div className="variation-row-actions">
-                        <span className="variation-add-action" onClick={this.onAddClicked.bind(this, variation.sku)}>Add</span>
+                        <span className="variation-add-action" onClick={this.onAddClicked.bind(this, variation)}>Add</span>
                     </div>
                 </div>
             );
         },
-        onAddClicked: function (sku) {
-            this.props.onAddClicked(sku, this.state.selectedQuantity);
+        onAddClicked: function (variation) {
+            this.props.onAddClicked(variation, this.state.selectedQuantity);
         },
         onStockQuantitySelected: function (name, quantity) {
             this.setState({selectedQuantity: quantity});
@@ -50,7 +50,7 @@ define([
         },
         getInitialState: function () {
             return {
-                selectedQuantity: 0
+                selectedQuantity: 1
             }
         },
         getDefaultProps: function () {
