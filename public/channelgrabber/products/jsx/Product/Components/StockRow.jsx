@@ -56,10 +56,10 @@ define([
             return (this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === disabledStockMode);
         },
         getStockModeLevel: function() {
-            if (this.props.variation.stock && this.props.variation.stock.stockLevel) {
+            if (this.props.variation.stock.stockLevel) {
                 return this.props.variation.stock.stockLevel;
             }
-            return "";
+            return this.props.variation.stockLevel;
         },
         getStockModeOptions: function() {
             if (!this.props.variation.stockModeOptions) {
