@@ -49,14 +49,15 @@ define([
             }
         },
         shouldInputBeDisabled: function() {
-            if (!this.props.variation.stock) {
-                return;
-            }
             var disabledStockMode = 'all';
-            return (this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === disabledStockMode);
+            return (
+                (!this.props.variation.stock) ||
+                (this.props.variation.stock.stockMode === null && this.props.variation.stockModeDefault === disabledStockMode) ||
+                (this.props.variation.stock.stockMode === disabledStockMode)
+            );
         },
         getStockModeLevel: function() {
-            if (this.props.variation.stock.stockLevel) {
+            if (this.props.variation.stock && this.props.variation.stock.stockLevel) {
                 return this.props.variation.stock.stockLevel;
             }
             return this.props.variation.stockLevel;
