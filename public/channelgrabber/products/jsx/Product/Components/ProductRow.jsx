@@ -35,7 +35,7 @@ define([
         getProductVariationsView: function()
         {
             if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
-                return <VariationView onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
+                return <VariationView parentProduct={this.props.product} onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
             } else {
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
             }

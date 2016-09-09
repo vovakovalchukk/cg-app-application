@@ -33,10 +33,21 @@ define([
             }
             return values;
         },
+        getImageUrl: function(variation) {
+            if (variation.images.length > 0) {
+                return variation.images[0]['url'];
+            }
+
+            if (this.props.parentProduct.images && this.props.parentProduct.images.length > 0) {
+                return this.props.parentProduct.images[0]['url'];
+            }
+            return this.context.imageBasePath + '/noproductsimage.png';
+        },
         getDefaultProps: function() {
             return {
                 variations: [],
                 attributeNames: [],
+                parentProduct: {},
                 fullView: false
             };
         },
@@ -61,7 +72,7 @@ define([
                                     imageRow++;
                                     return (
                                         <tr key={variation.id}>
-                                            <td key="image"><img src={variation.images.length > 0 ? variation.images[0]['url'] : this.context.imageBasePath + '/noproductsimage.png'} /></td>
+                                            <td key="image"><img src={this.getImageUrl(variation)} /></td>
                                             <td key="sku">{variation.sku}</td>
                                         </tr>
                                     );
