@@ -52,7 +52,7 @@ define([
             var disabledStockMode = 'all';
             return (
                 (!this.props.variation.stock) ||
-                (this.props.variation.stock.stockMode === null && this.props.variation.stockModeDefault === disabledStockMode) ||
+                ((this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === 'null') && this.props.variation.stockModeDefault === disabledStockMode) ||
                 (this.props.variation.stock.stockMode === disabledStockMode)
             );
         },
