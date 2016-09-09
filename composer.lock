@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f3924c8b169ce771c8923014b4982b4",
-    "content-hash": "ed6efcfbb1d785791f56902d5ca8cafa",
+    "hash": "b44bb1a83682ebbd9cd82447d94a95f5",
+    "content-hash": "9b604bd2b38829a9d6f281774d616e2d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1119,16 +1119,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.7",
+            "version": "dev-CGIV-6802-non-eu-fiscal-area-postcodes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1cd5e05cc79ee120fe59cfc9c130ca745fe41fbb"
+                "reference": "2fa24869bbf3f8d017a2ecbf34f61c8b151609b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.7-d36fa9.zip",
-                "reference": "1cd5e05cc79ee120fe59cfc9c130ca745fe41fbb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-6802-non-eu-fiscal-area-postcodes-ff7956.zip",
+                "reference": "2fa24869bbf3f8d017a2ecbf34f61c8b151609b8",
                 "shasum": null
             },
             "require": {
@@ -1148,7 +1148,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-06-20 08:16:52"
+            "time": "2016-09-09 10:38:23"
         },
         {
             "name": "channelgrabber/location",
@@ -1279,23 +1279,23 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.14",
+            "version": "dev-CGIV-6802-non-eu-fiscal-area-postcodes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970"
+                "reference": "a1c788b0c0cdfcbc4ea09fc6f1e8c138d7fae996"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.14-350c76.zip",
-                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6802-non-eu-fiscal-area-postcodes-d7b1af.zip",
+                "reference": "a1c788b0c0cdfcbc4ea09fc6f1e8c138d7fae996",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.25.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/locale": "^1.0.5",
+                "channelgrabber/locale": "dev-CGIV-6802-non-eu-fiscal-area-postcodes as 1.0.8",
                 "channelgrabber/order": "^1.21.12",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
@@ -1330,7 +1330,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-08-25 15:25:39"
+            "time": "2016-09-09 10:58:47"
         },
         {
             "name": "channelgrabber/notification",
@@ -5793,12 +5793,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -8089,10 +8089,25 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.8",
+            "alias_normalized": "1.0.8.0",
+            "version": "dev-CGIV-6802-non-eu-fiscal-area-postcodes",
+            "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.0.15",
+            "alias_normalized": "1.0.15.0",
+            "version": "dev-CGIV-6802-non-eu-fiscal-area-postcodes",
+            "package": "channelgrabber/netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
+        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
