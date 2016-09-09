@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f3924c8b169ce771c8923014b4982b4",
-    "content-hash": "ed6efcfbb1d785791f56902d5ca8cafa",
+    "hash": "b35b06a8ecc6f91d3fe81b782edc8170",
+    "content-hash": "8ab3055e25e5d8d9a3b22e4088927ad8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3635,17 +3635,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.1",
+            "version": "dev-CGIV-7466-product-page-update-issues",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "109c485c4fb02d5f70b44232c56a668de2db0a24"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.1-9318a0.zip",
-                "reference": "109c485c4fb02d5f70b44232c56a668de2db0a24",
-                "shasum": null
+                "reference": "536bfb08829ffcd90c0ce772a9995355a1a350fa"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8089,16 +8083,30 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.2",
+            "alias_normalized": "1.17.2.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.17.2",
+            "alias_normalized": "1.17.2.0",
+            "version": "dev-CGIV-7466-product-page-update-issues",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
