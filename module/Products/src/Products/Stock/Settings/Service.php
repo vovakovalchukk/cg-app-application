@@ -273,25 +273,8 @@ class Service
             return $updatedProducts;
         }
 
-        /** @var ProductCollection $variations */
-        if ($product->isParent()) {
-            $variations = $product->getVariations();
-        } else {
-            $variations = $this->getVariationsForParentId($product->getParentProductId());
-        }
-
-        // Only update current variation unless all variations have a stock level of 0, then update all
-        if ($product->isVariation() && !$this->checkAllSiblingsHaveZeroStockLevel($product, $variations)) {
-            $stock = $this->saveStockStockLevel($product->getStock()->getId(), $stockLevel);
-            $updatedProducts->attach($product->setStock($stock));
-            return $updatedProducts;
-        }
-
-        foreach ($variations as $variation) {
-            $stock = $this->saveStockStockLevel($variation->getStock()->getId(), $stockLevel);
-            $updatedProducts->attach($variation->setStock($stock));
-        }
-
+        $stock = $this->saveStockStockLevel($product->getStock()->getId(), $stockLevel);
+        $updatedProducts->attach($product->setStock($stock));
         return $updatedProducts;
     }
 
