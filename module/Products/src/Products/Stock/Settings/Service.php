@@ -273,8 +273,18 @@ class Service
             return $updatedProducts;
         }
 
-        $stock = $this->saveStockStockLevel($product->getStock()->getId(), $stockLevel);
-        $updatedProducts->attach($product->setStock($stock));
+        /** @var ProductCollection $variations */
+        if ($product->isParent()) {
+            $variations = $product->getVariations();
+        } else {
+            $variations = [$product];
+        }
+
+        /** @var Product $variation */
+        foreach ($variations as $variation) {
+            $stock = $this->saveStockStockLevel($variation->getStock()->getId(), $stockLevel);
+            $updatedProducts->attach($variation->setStock($stock));
+        }
         return $updatedProducts;
     }
 
