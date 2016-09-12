@@ -16,7 +16,9 @@ define([
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
-                imageBasePath: this.props.imageBasePath};
+                imageBasePath: this.props.imageBasePath,
+                isAdmin: this.props.isAdmin
+            };
         },
         getInitialState: function()
         {
@@ -86,7 +88,8 @@ define([
     });
 
     RootComponent.childContextTypes = {
-        imageBasePath: React.PropTypes.string
+        imageBasePath: React.PropTypes.string,
+        isAdmin: React.PropTypes.bool
     };
 
     return RootComponent;
