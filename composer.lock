@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9e9230b1a7175eb01c64871344ad5e4",
-    "content-hash": "5b97941f6102004f9e7f86a05248ce80",
+    "hash": "18c99eb143ff84047db3ec5bea48f202",
+    "content-hash": "d4926bb80c26fbb6facd76a796ff28e9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-4778-manual-orders",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e97c7cc2cb37d5b409cfded2088f6f428284c26d"
+                "reference": "730b32bae9dcec44369f65ea3d475a67fff58b46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-4778-manual-orders-40ac48.zip",
-                "reference": "e97c7cc2cb37d5b409cfded2088f6f428284c26d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-63dadd.zip",
+                "reference": "730b32bae9dcec44369f65ea3d475a67fff58b46",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-01 15:33:52"
+            "time": "2016-09-05 15:06:26"
         },
         {
             "name": "channelgrabber/cilex",
@@ -5829,12 +5829,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -8127,9 +8127,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.25.6",
-            "alias_normalized": "1.25.6.0",
-            "version": "dev-EPIC-CGIV-4778-manual-orders",
+            "alias": "1.25.7",
+            "alias_normalized": "1.25.7.0",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/channel"
         },
         {
