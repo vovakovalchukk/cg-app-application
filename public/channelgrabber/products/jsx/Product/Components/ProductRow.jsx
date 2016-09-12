@@ -108,8 +108,8 @@ define([
         shouldBulkLevelBeDisabled: function () {
             var disabledStockMode = 'all';
             return (
-                (this.state.bulkStockMode.value === "" || this.state.bulkStockMode.value === "null") &&
-                (this.props.product.stockModeDefault === disabledStockMode || this.state.bulkStockMode.value === disabledStockMode)
+                (this.state.bulkStockMode.value === "" || this.state.bulkStockMode.value === "null" || this.state.bulkStockMode.value === disabledStockMode) &&
+                (this.props.product.stockModeDefault === disabledStockMode || this.props.product.stockModeDefault === null)
             );
         },
         getVatDropdowns: function () {
