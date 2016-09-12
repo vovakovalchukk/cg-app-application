@@ -85,12 +85,9 @@ define([
             }
         },
         getDropdown: function () {
-            if (this.state.products.length < 1) {
-                return;
-            }
             return (
                 <div className="detail-dropdown-popup">
-                    <div className="dropdown-count">{this.state.products.length} products</div>
+                    <div className="dropdown-count">{this.state.products.length + (this.state.products.length === 1 ? ' product' : ' products')}</div>
                     {this.state.products.map(function (product) {
                         return <DetailRow name={product.name} variations={this.state.variations[product.id] ? this.state.variations[product.id] : [product]} onAddClicked={this.props.onOptionSelected}/>
                     }.bind(this))}

@@ -13,8 +13,8 @@ define([
             }
         },
         onProductSelected: function (variation, quantity) {
-            console.log(variation);
-            console.log(quantity);
+            //console.log(variation);
+            //console.log(quantity);
         },
         render: function () {
             return (
