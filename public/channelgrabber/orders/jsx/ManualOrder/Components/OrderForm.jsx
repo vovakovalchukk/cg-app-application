@@ -17,7 +17,7 @@ define([
         onProductSelected: function (product, sku, quantity) {
             var orderRows = this.state.orderRows.slice();
             var alreadyAddedToForm = orderRows.find(function (row) {
-                if (row.variation.sku === sku) {
+                if (row.product.sku === sku) {
                     row.quantity += quantity;
                     return true;
                 }
