@@ -62,6 +62,12 @@
     background-color: $color-white;
     margin-bottom: 20px;
     transition: all 500ms ease;
+    .custom-select {
+        width: 200px;
+        .open-content {
+            margin-bottom: 50px;
+        }
+    }
     .checkbox-container {
         width: 40px;
         display: flex;
@@ -109,9 +115,13 @@
         .product-content-container {
             table {
                 th {
+                    width: auto;
                     white-space: nowrap;
                     overflow: hidden;
                     box-sizing: border-box;
+                    &.stock-mode-header-col {
+                        width: 210px;
+                    }
                 }
                 td {
                     height: 45px;
@@ -119,9 +129,6 @@
                     box-sizing: border-box;
                     img {
                         max-height: 23px;
-                    }
-                    .custom-select {
-                        width: 100%;
                     }
                 }
             }
@@ -145,7 +152,6 @@
             }
         }
         .variations-table {
-            width: 52%;
             border-left: 0;
             box-sizing: border-box;
             overflow: auto;
@@ -186,13 +192,15 @@
             width: 100%;
             .variations-button-holder {
                 padding: 10px;
+                display: inline-block;
+                width: auto;
+            }
+            .stocklog-link-holder {
+                display: inline-block;
             }
             .button {
                 padding-left: 10px;
                 width: 150px !important;
-            }
-            .custom-select {
-                width: 200px;
             }
             &.vat-row {
                 margin-bottom: 15px;
@@ -203,17 +211,20 @@
                     &:last-child {
                         margin-right: 15px;
                     }
+                    .open-content {
+                        margin-bottom: 50px;
+                    }
                 }
             }
             table {
-                .custom-select {
-                    width: 100%;
-                }
                 tr {
                     border: 0;
                     td {
                         border: 0 !important;
                         overflow: initial;
+                        &.product-stock-mode {
+                            width: 200px;
+                        }
                     }
                 }
             }
@@ -438,6 +449,10 @@ div#products-loading-message {
             outline: 0;
             max-width: 60px;
             text-align: center;
+            &:disabled {
+                color: $color-lgrey;
+                cursor: not-allowed;
+            }
         }
         input[type=number] {
             -moz-appearance:textfield;

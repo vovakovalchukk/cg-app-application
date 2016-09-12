@@ -24,7 +24,7 @@ define([
                     <div>{(this.getOnHandStock() - Math.max(this.getAllocatedStock(), 0))}</div>
                 </td>,
                 <td key="stock-undispatched" className="product-stock-allocated">
-                    <div>{this.getOnHandStock()}</div>
+                    <div>{this.getAllocatedStock()}</div>
                 </td>,
                 <td key="stock-total" className="product-stock-available">
                     <Input name='total' initialValue={this.getOnHandStock()} submitCallback={this.updateStockTotal}/>
@@ -32,12 +32,28 @@ define([
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} defaultValue={this.props.variation.stockModeDesc}/>
+                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} selectedOption={this.getSelectedOption()}/>
                 </td>,
                 <td key="stock-level" className="product-stock-level">
-                    <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.state.stockMode.value == null} />
+                    <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.shouldInputBeDisabled()} />
                 </td>
             ];
+        },
+        getSelectedOption: function() {
+            if (!this.props.variation.stock) {
+                return;
+            }
+            return {
+                name: this.props.variation.stockModeDesc ,
+                value: this.props.variation.stock.stockMode
+            }
+        },
+        shouldInputBeDisabled: function() {
+            if (!this.props.variation.stock) {
+                return;
+            }
+            var disabledStockMode = 'all';
+            return (this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === disabledStockMode);
         },
         getStockModeLevel: function() {
             if (this.props.variation.stock && this.props.variation.stock.stockLevel) {
