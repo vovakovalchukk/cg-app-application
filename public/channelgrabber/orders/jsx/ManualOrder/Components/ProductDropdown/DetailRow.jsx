@@ -1,6 +1,6 @@
 define([
     'react',
-    'Product/Components/Input'
+    'ManualOrder/Components/IncrementorInput'
 ], function(
     React,
     Input
@@ -46,7 +46,7 @@ define([
             var selectedQuantity = this.getQuantity(variation.sku);
             this.props.onAddClicked(variation, selectedQuantity);
         },
-        onStockQuantitySelected: function (sku, inputName, quantity) {
+        onStockQuantitySelected: function (sku, quantity) {
             var newSelectedQuantities = this.state.selectedQuantity;
             newSelectedQuantities[sku] = quantity;
 
