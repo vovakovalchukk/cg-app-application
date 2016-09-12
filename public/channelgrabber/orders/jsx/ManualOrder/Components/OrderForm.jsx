@@ -1,9 +1,11 @@
 define([
     'react',
-    'ManualOrder/Components/ProductDropdown/Dropdown'
+    'ManualOrder/Components/ProductDropdown/Dropdown',
+    'ManualOrder/Components/OrderTable'
 ], function(
     React,
-    ProductDropdown
+    ProductDropdown,
+    OrderTable
 ) {
     "use strict";
     var OrderForm = React.createClass({
@@ -13,14 +15,27 @@ define([
             }
         },
         onProductSelected: function (variation, quantity) {
-            //console.log(variation);
-            //console.log(quantity);
+            var orderRows = this.state.orderRows.slice();
+            var alreadyAddedToForm = orderRows.find(function (row) {
+                if (row.variation.sku === variation.sku) {
+                    row.quantity += quantity;
+                    return true;
+                }
+            });
+            if (! alreadyAddedToForm) {
+                orderRows.push({variation: variation, quantity: quantity});
+            }
+
+            this.setState({
+                orderRows: orderRows
+            });
         },
         render: function () {
             return (
                 <div className="order-form-wrapper">
                     <h2>Search for Products to Add</h2>
                     <ProductDropdown onOptionSelected={this.onProductSelected} />
+                    <OrderTable orderRows={this.state.orderRows} />
                 </div>
             );
         }
