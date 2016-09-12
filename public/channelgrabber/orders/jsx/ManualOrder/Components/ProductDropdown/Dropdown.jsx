@@ -42,10 +42,16 @@ define([
                     }
                     variationsByParent[variation.parentProductId].push(variation);
                 }
+                var productsWithVariations = this.state.products.slice();
+                productsWithVariations.forEach(function (product) {
+                    if (variationsByParent[product.id]) {
+                        product.variations = variationsByParent[product.id];
+                    }
+                });
                 this.setState({
                     active: true,
                     fetchingData: false,
-                    variations: variationsByParent
+                    products: productsWithVariations
                 });
             }
             AjaxHandler.fetchByFilter(filter, variations.bind(this));
@@ -89,7 +95,7 @@ define([
                 <div className="detail-dropdown-popup">
                     <div className="dropdown-count">{this.state.products.length + (this.state.products.length === 1 ? ' product' : ' products')}</div>
                     {this.state.products.map(function (product) {
-                        return <DetailRow name={product.name} variations={this.state.variations[product.id] ? this.state.variations[product.id] : [product]} onAddClicked={this.props.onOptionSelected}/>
+                        return <DetailRow product={product} onAddClicked={this.props.onOptionSelected}/>
                     }.bind(this))}
                 </div>
             );

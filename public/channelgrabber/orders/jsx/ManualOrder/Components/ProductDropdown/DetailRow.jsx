@@ -34,7 +34,7 @@ define([
                         <Input name='quantity' initialValue={this.getQuantity(variation.sku)} submitCallback={this.onStockQuantitySelected.bind(this, variation.sku)} />
                     </div>
                     <div className="variation-row-actions">
-                        <span className="variation-add-action" onClick={this.onAddClicked.bind(this, variation)}>Add</span>
+                        <span className="variation-add-action" onClick={this.onAddClicked.bind(this, this.props.product, variation.sku)}>Add</span>
                     </div>
                 </div>
             );
@@ -42,9 +42,9 @@ define([
         getQuantity: function (sku) {
             return this.state.selectedQuantity[sku] ? this.state.selectedQuantity[sku] : this.defaultQuantityValue;
         },
-        onAddClicked: function (variation) {
-            var selectedQuantity = this.getQuantity(variation.sku);
-            this.props.onAddClicked(variation, selectedQuantity);
+        onAddClicked: function (product, sku) {
+            var selectedQuantity = this.getQuantity(sku);
+            this.props.onAddClicked(product, sku, selectedQuantity);
         },
         onStockQuantitySelected: function (sku, quantity) {
             var newSelectedQuantities = this.state.selectedQuantity;
@@ -65,17 +65,18 @@ define([
         },
         getDefaultProps: function () {
             return {
-                variations: []
+                product: {}
             }
         },
         render: function () {
+            var variations = this.props.product.variations ? this.props.product.variations : [this.props.product];
             return (
                 <div className="detail-row-wrapper">
                     <div className="detail-row-header">
-                        {this.props.name}
+                        {this.props.product.name}
                     </div>
                     <div className="detail-row-variations-list">
-                        {this.props.variations.map(function (variation) {
+                        {variations.map(function (variation) {
                             return this.getVariationRow(variation);
                         }.bind(this))}
                     </div>

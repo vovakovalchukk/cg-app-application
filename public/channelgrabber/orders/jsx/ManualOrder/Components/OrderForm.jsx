@@ -14,16 +14,16 @@ define([
                 orderRows: []
             }
         },
-        onProductSelected: function (variation, quantity) {
+        onProductSelected: function (product, sku, quantity) {
             var orderRows = this.state.orderRows.slice();
             var alreadyAddedToForm = orderRows.find(function (row) {
-                if (row.variation.sku === variation.sku) {
+                if (row.variation.sku === sku) {
                     row.quantity += quantity;
                     return true;
                 }
             });
             if (! alreadyAddedToForm) {
-                orderRows.push({variation: variation, quantity: quantity});
+                orderRows.push({product: product, sku: sku, quantity: quantity});
             }
 
             this.setState({
