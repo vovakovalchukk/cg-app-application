@@ -98,9 +98,6 @@
                         .variation-row-qty-input {
                             width: 70px;
                             margin-right: 14px;
-                            input {
-                                width: 100%;
-                            }
                             .safe-input-box .submit-input .submit-cancel {
                                 left: 0;
                                 z-index: 10;
@@ -120,6 +117,39 @@
             .detail-dropdown-popup {
                 display: block;
             }
+        }
+    }
+}
+
+.incrementor-input-box {
+    color: $color-lgrey;
+    .incrementor-button {
+        width: 25%;
+        display: inline-block;
+        cursor: pointer;
+        box-sizing: border-box;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none;   /* Chrome/Safari/Opera */
+        -moz-user-select: none;      /* Firefox */
+        -ms-user-select: none;       /* Internet Explorer/Edge */
+        user-select: none;
+        .increment {
+            margin-left: 5px;
+        }
+    }
+    input {
+        width: 50%;
+        text-align: center;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1px solid $color-lgrey;
+    }
+    input[type=number] {
+        -moz-appearance:textfield;
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
     }
 }
