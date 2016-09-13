@@ -14,14 +14,22 @@ define([
                 orderRows: []
             }
         },
-        getVariationSwitcherDropdown: function (product) {
+        getVariationSwitcherDropdown: function (product, thisSku) {
             if (! product.variations) {
                 return;
             }
+            var selectedOption = null;
             var options = product.variations.map(function (variation) {
-                return <p>{variation.sku}</p>
+                var option = {value: variation.sku, name: variation.sku};
+                if (thisSku === variation.sku) {
+                    selectedOption = option;
+                }
+                return option;
             });
-            return options;
+            return <Select options={options} onNewOption={this.onSkuChanged} selectedOption={selectedOption}/>
+        },
+        onSkuChanged: function () {
+
         },
         onStockQuantityUpdated: function (sku, quantity) {
             console.log(sku);
@@ -40,7 +48,7 @@ define([
                                 <div className="order-row-sku">{row.sku}</div>
                             </div>
                             <div className="order-row-attributes">
-                                {this.getVariationSwitcherDropdown(row.product)}
+                                {this.getVariationSwitcherDropdown(row.product, row.sku)}
                             </div>
                             <div className="order-row-qty-input">
                                 <span className="multiplier">X</span>
