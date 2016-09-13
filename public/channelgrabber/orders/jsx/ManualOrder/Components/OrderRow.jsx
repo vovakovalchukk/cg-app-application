@@ -37,6 +37,7 @@ define([
             return <Select options={options} onNewOption={this.props.onSkuChange} selectedOption={selectedOption}/>
         },
         render: function () {
+            var currency = "£";
             return (
                 <div className="order-row">
                     <div className="order-row-img">
@@ -50,14 +51,14 @@ define([
                         {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                     </div>
                     <div className="order-row-price">
-                        <input type="number" name="price" value="0" onChange={this.props.onPriceChange} />
+                        <span className="currency-symbol">{currency}<input type="number" name="price" step="0.01" value={this.props.row.price.toFixed(2)} onChange={this.props.onPriceChange} /></span>
                     </div>
                     <div className="order-row-qty-input">
-                        <span className="multiplier">X</span>
+                        <span className="multiplier">x</span>
                         <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.props.onStockQuantityUpdate.bind(this, this.props.row.product.sku)} />
                     </div>
                     <div className="order-row-total">
-                        {this.props.row.price}
+                        {currency + (this.props.row.price * this.props.row.quantity).toFixed(2)}
                     </div>
                 </div>
             );

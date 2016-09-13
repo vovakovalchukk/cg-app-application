@@ -16,7 +16,7 @@ define([
             return (
                 this.props.orderRows.map(function (row) {
                     return (
-                        <OrderRow row={row} onSkuChange={this.onSkuChanged} onStockQuantityUpdate={this.onStockQuantityUpdated}/>
+                        <OrderRow row={row} onSkuChange={this.onSkuChanged} onStockQuantityUpdate={this.onStockQuantityUpdated} onPriceChange={this.onPriceChanged}/>
                     )
                 }.bind(this))
             );
@@ -24,7 +24,7 @@ define([
         onSkuChanged: function () {
             console.log('SKU change');
         },
-        onPriceChange: function () {
+        onPriceChanged: function () {
             console.log('Price change');
         },
         onStockQuantityUpdated: function (sku, quantity) {

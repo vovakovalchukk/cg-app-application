@@ -155,7 +155,7 @@
                     }
                 }
                 .order-row-description {
-                    width: 200px;
+                    width: 246px;
                     margin-right: 30px;
                     .order-row-name {
                         width: 100%;
@@ -168,7 +168,7 @@
                 }
                 .order-row-attributes {
                     width: 210px;
-                    margin-right: 30px;
+                    margin-right: 64px;
                     .custom-select {
                         width: 100%;
                         .open-content {
@@ -186,12 +186,36 @@
                         }
                     }
                 }
+                .order-row-price {
+                    width: 75px;
+                    margin-right: 15px;
+                    .currency-symbol {
+                        border-radius: 5px;
+                        background-clip: padding-box;
+                        background-color: $color-white;
+                        border: 1px solid $color-lgrey;
+                        padding: 3px;
+                        font-size: 12px;
+                        outline: 0;
+                        max-width: 75px;
+                    }
+                    input {
+                        width: 55px;
+                        border: 0;
+                        text-align: center;
+                    }
+                }
                 .order-row-qty-input {
+                    width: 90px;
                     margin-right: 30px;
                     display: flex;
                     align-items: center;
                     .multiplier {
-                        margin-right: 12px;
+                        margin-right: 20px;
+                    }
+                    .safe-input-box .submit-input .submit-cancel {
+                        left: 0;
+                        z-index: 10;
                     }
                 }
             }
