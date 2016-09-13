@@ -5,8 +5,10 @@ require.config({
         'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product'
     }
 });
-require(['ManualOrder/ManualOrder'], function(ManualOrderRoot) {
-    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+require(['ManualOrder/ManualOrder', 'ManualOrder/Utils'], function(ManualOrderRoot, ManualOrderUtils) {
+    var manualOrderUtils = new ManualOrderUtils('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+console.log(manualOrderUtils);
+    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), manualOrderUtils);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>

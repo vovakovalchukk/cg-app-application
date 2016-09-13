@@ -31,27 +31,6 @@ define([
         onSkuChanged: function () {
 
         },
-        getImageSource: function (variation) {
-            var noProductImage = this.context.imageBasePath + '/noproductsimage.png';
-            return variation.images.length > 0 ? variation.images[0]['url'] : noProductImage;
-        },
-        getVariationImageSource: function (orderRow) {
-            var sku = orderRow.sku;
-
-            if (! orderRow.product.variations) {
-                return this.getImageSource(orderRow.product);
-            }
-
-            var variation = orderRow.product.variations.find(function (variation) {
-                if (variation.sku === sku && variation.images.length > 0) {
-                    return true;
-                }
-            });
-            if (! variation) {
-                return this.getImageSource(orderRow.product);
-            }
-            return this.getImageSource(variation);
-        },
         onStockQuantityUpdated: function (sku, quantity) {
             console.log(sku);
             console.log(quantity);
@@ -62,7 +41,7 @@ define([
                     return (
                         <div className="order-row">
                             <div className="order-row-img">
-                                <img src={this.getVariationImageSource(row)} />
+                                <img src={this.context.manualOrderUtils.getProductImage(row.product, row.sku)} />
                             </div>
                             <div className="order-row-description">
                                 <div className="order-row-name">{row.product.name}</div>
@@ -94,7 +73,7 @@ define([
     });
 
     OrderTable.contextTypes = {
-        imageBasePath: React.PropTypes.string
+        manualOrderUtils: React.PropTypes.object
     };
 
     return OrderTable;

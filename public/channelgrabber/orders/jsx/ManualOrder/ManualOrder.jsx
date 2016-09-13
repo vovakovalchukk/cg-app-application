@@ -7,9 +7,9 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode, imageBasePath)
+    var Product = function(mountingNode, manualOrderUtils)
     {
-        ReactDOM.render(<RootComponent imageBasePath={imageBasePath}/>, mountingNode);
+        ReactDOM.render(<RootComponent manualOrderUtils={manualOrderUtils}/>, mountingNode);
     };
 
     return Product;

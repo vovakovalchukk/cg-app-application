@@ -10,7 +10,7 @@ define([
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
-                imageBasePath: this.props.imageBasePath
+                manualOrderUtils: this.props.manualOrderUtils
             };
         },
         render: function()
@@ -24,7 +24,7 @@ define([
     });
 
     RootComponent.childContextTypes = {
-        imageBasePath: React.PropTypes.string
+        manualOrderUtils: React.PropTypes.object
     };
 
     return RootComponent;
