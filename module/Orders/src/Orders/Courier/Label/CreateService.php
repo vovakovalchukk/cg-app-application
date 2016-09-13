@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
@@ -61,6 +62,7 @@ class CreateService extends ServiceAbstract
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
+        $this->removeZeroQuantityItemsFromOrders($orders);
 
         $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
         $orderLabels = $this->createOrderLabelsForOrders($orders, $ordersData, $shippingAccount);
@@ -250,6 +252,25 @@ class CreateService extends ServiceAbstract
     {
         foreach ($orderLabels as $orderLabel) {
             $this->orderLabelService->remove($orderLabel);
+        }
+    }
+
+    protected function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
+    {
+        foreach ($orders as $order) {
+            $items = $order->getItems();
+            $nonZeroItems = new ItemCollection(
+                Item::class,
+                $items->getSourceDescription(),
+                array_merge($items->getSourceFilters(), ['itemQuantityGreaterThan' => 0])
+            );
+            foreach ($items as $item) {
+                if ($item->getItemQuantity() == 0) {
+                    continue;
+                }
+                $nonZeroItems->attach($item);
+            }
+            $order->setItems($nonZeroItems);
         }
     }
 
