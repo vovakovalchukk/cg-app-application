@@ -1,12 +1,12 @@
 .order-form-wrapper {
     h2 {
-        font-size: 18px;
+        font-size: 17px;
         margin-bottom: 15px;
     }
     color: $color-dgrey;
     .detail-dropdown-wrapper {
         position: relative;
-        margin-bottom: 25px;
+        margin-bottom: 50px;
         .detail-dropdown-searchbox {
             width: 780px;
             .sprite-search-18-black {
@@ -134,7 +134,8 @@
                 align-items: center;
                 justify-content: flex-start;
                 border: 1px solid white;
-                padding: 2px;
+                padding: 1px;
+                margin-bottom: 8px;
                 .order-row-actions {
                     cursor: pointer;
                     display: none;
@@ -158,6 +159,7 @@
                     margin-right: 30px;
                     .order-row-name {
                         width: 100%;
+                        font-size: 15px;
                     }
                     .order-row-sku {
                         color: $color-lgrey;
@@ -165,6 +167,11 @@
                     }
                 }
                 .order-row-attributes {
+                    width: 200px;
+                    margin-right: 30px;
+                    .custom-select {
+                        width: 100%;
+                    }
                     .selected-content, .custom-select-item a {
                         display: flex;
                         justify-content: space-between;
