@@ -14,17 +14,17 @@ define([
                 orderRows: []
             }
         },
-        getOptionName: function (attributes, variation) {
-            var optionName = "";
+        getOptionComponents: function (attributes, variation) {
+            var optionComponents = [];
             attributes.forEach(function (attributeName) {
                 if (variation.attributeValues[attributeName] === undefined) {
-                    optionName += "\t\t";
+                    optionComponents.push('');
                     return;
                 }
-                optionName += variation.attributeValues[attributeName] + "\t";
+                optionComponents.push(variation.attributeValues[attributeName]);
             });
-            optionName += "("+variation.stock.locations[0].onHand+")";
-            return optionName;
+            optionComponents.push("("+variation.stock.locations[0].onHand+")");
+            return optionComponents;
         },
         getVariationSwitcherDropdown: function (product, thisSku) {
             if (! product.variations) {
@@ -32,12 +32,12 @@ define([
             }
             var selectedOption = null;
             var options = product.variations.map(function (variation) {
-                var optionName = this.getOptionName(product.attributeNames, variation);
+                var optionName = this.getOptionComponents(product.attributeNames, variation);
                 var option = {value: variation.sku, name: optionName};
                 if (thisSku === variation.sku) {
                     selectedOption = option;
                 }
-                return option;
+                return {value: variation.sku, name: optionName};
             }.bind(this));
             return <Select options={options} onNewOption={this.onSkuChanged} selectedOption={selectedOption}/>
         },

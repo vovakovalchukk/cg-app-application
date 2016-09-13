@@ -164,6 +164,18 @@
                         width: 100%;
                     }
                 }
+                .order-row-attributes {
+                    .selected-content, .custom-select-item a {
+                        display: flex;
+                        justify-content: space-between;
+                        .option-component {
+                            min-width: 50px;
+                            &:last-child {
+                                min-width: 0;
+                            }
+                        }
+                    }
+                }
                 .order-row-qty-input {
                     margin-right: 30px;
                     display: flex;

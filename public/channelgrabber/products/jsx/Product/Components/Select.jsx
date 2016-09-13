@@ -42,24 +42,44 @@ define([
             });
             this.props.onNewOption(selectedOption);
         },
-        render: function () {
+        splitOptionNameIntoComponents: function (optionName) {
+            var optionComponentArray = optionName.map(function (optionComponent) {
+                return <span className="option-component">{optionComponent}</span>
+            });
+            return optionComponentArray;
+        },
+        getOptionNames: function () {
             var options = this.props.options.map(function(opt) {
+                var optionName = opt.name;
+                if (Array.isArray(opt.name)) {
+                    optionName = this.splitOptionNameIntoComponents(opt.name);
+                }
+
                 return (
                     <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={opt.value} onClick={this.onOptionSelected}>
-                        <a value={opt.value}>{opt.name}</a>
+                        <a value={opt.value}>{optionName}</a>
                     </li>
                 )
             }.bind(this));
+            return options;
+        },
+        getSelectedOptionName: function () {
             var selectedOptionName = this.state.selectedOption.name ? this.state.selectedOption.name : (this.props.options.length > 0 ? this.props.options[0].name : '');
+            if (Array.isArray(selectedOptionName)) {
+                return this.splitOptionNameIntoComponents(selectedOptionName);
+            }
+            return selectedOptionName;
+        },
+        render: function () {
             return (
                 <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
                         <div className="selected">
-                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{selectedOptionName}</span>
+                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>
                         </div>
                         <div className="animated fadeInDown open-content">
                             <ul>
-                                {options}
+                                {this.getOptionNames()}
                             </ul>
                         </div>
                 </div>
