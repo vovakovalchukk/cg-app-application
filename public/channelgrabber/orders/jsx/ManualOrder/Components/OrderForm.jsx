@@ -23,7 +23,7 @@ define([
                 }
             });
             if (! alreadyAddedToForm) {
-                orderRows.push({product: product, sku: sku, quantity: quantity});
+                orderRows.push({product: product, sku: sku, quantity: quantity, price: 0});
             }
 
             this.setState({
