@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8eae3ecf0bf3cb5bbd2b102fc421128f",
-    "content-hash": "34db8da8083af8a5fbf1804467ddcc83",
+    "hash": "7f90a66a32ddda7b0e0af4e53b87449d",
+    "content-hash": "a225e15fe5a7c5427acf8cad14b49193",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.6",
+            "version": "dev-CGIV-7474-EbayDispatchFixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33"
+                "reference": "b7dce5f24a2e66b4c89ec31832b86abd9b47f768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.6-1542d9.zip",
-                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7474-EbayDispatchFixes-d71b11.zip",
+                "reference": "b7dce5f24a2e66b4c89ec31832b86abd9b47f768",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-01 14:17:08"
+            "time": "2016-09-13 14:32:16"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8091,9 +8091,17 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.25.8",
+            "alias_normalized": "1.25.8.0",
+            "version": "dev-CGIV-7474-EbayDispatchFixes",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
