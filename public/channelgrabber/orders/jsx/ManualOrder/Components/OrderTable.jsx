@@ -14,18 +14,31 @@ define([
                 orderRows: []
             }
         },
+        getOptionName: function (attributes, variation) {
+            var optionName = "";
+            attributes.forEach(function (attributeName) {
+                if (variation.attributeValues[attributeName] === undefined) {
+                    optionName += "\t\t";
+                    return;
+                }
+                optionName += variation.attributeValues[attributeName] + "\t";
+            });
+            optionName += "("+variation.stock.locations[0].onHand+")";
+            return optionName;
+        },
         getVariationSwitcherDropdown: function (product, thisSku) {
             if (! product.variations) {
                 return;
             }
             var selectedOption = null;
             var options = product.variations.map(function (variation) {
-                var option = {value: variation.sku, name: variation.sku};
+                var optionName = this.getOptionName(product.attributeNames, variation);
+                var option = {value: variation.sku, name: optionName};
                 if (thisSku === variation.sku) {
                     selectedOption = option;
                 }
                 return option;
-            });
+            }.bind(this));
             return <Select options={options} onNewOption={this.onSkuChanged} selectedOption={selectedOption}/>
         },
         onSkuChanged: function () {
