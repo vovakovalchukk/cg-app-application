@@ -7,12 +7,12 @@ define([
 ) {
     "use strict";
     var DetailRow = React.createClass({
-        getAttributeValues: function (attributes) {
+        getAttributeValues: function (variation) {
             var attributeValues = [];
-            for (var value in attributes) {
-                if (!attributes.hasOwnProperty(value)) continue;
-                attributeValues.push(<span className="variation-attribute">{value}</span>);
-            }
+            this.props.product.attributeNames.forEach(function(attributeName) {
+                var attributeValue = variation.attributeValues[attributeName];
+                attributeValues.push(<span className="variation-attribute">{attributeValue === undefined ? "" : attributeValue}</span>);
+            });
             return attributeValues;
         },
         getVariationRow: function (variation) {
@@ -25,7 +25,7 @@ define([
                         {variation.sku}
                     </div>
                     <div className="variation-row-attributes">
-                        {this.getAttributeValues(variation.attributeValues)}
+                        {this.getAttributeValues(variation)}
                     </div>
                     <div className="variation-row-stock">
                         {variation.stockLevel ? variation.stockLevel : 0} Available

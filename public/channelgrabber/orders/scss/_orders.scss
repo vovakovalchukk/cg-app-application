@@ -93,6 +93,9 @@
                             justify-content: space-between;
                             margin-right: 24px;
                             overflow: auto;
+                            .variation-attribute {
+                                min-width: 60px;
+                            }
                         }
                         .variation-row-stock {
                             width: 90px;
