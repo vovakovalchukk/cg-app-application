@@ -8,7 +8,7 @@ define([
     Select
 ) {
     "use strict";
-    var OrderTable = React.createClass({
+    var OrderRow = React.createClass({
         getOptionComponents: function (attributes, variation) {
             var optionComponents = [];
             attributes.forEach(function (attributeName) {
@@ -34,7 +34,18 @@ define([
                 }
                 return {value: variation.sku, name: optionName};
             }.bind(this));
-            return <Select options={options} onNewOption={this.props.onSkuChange} selectedOption={selectedOption}/>
+            return <Select options={options} onNewOption={this.props.onSkuChange.bind(this, thisSku)} selectedOption={selectedOption}/>
+        },
+        onPriceChange: function (e) {
+            var price = e.target.value;
+            if (price < 0) {
+                price = 0;
+            }
+            this.props.onPriceChange(this.props.row.sku, price);
+        },
+        onStockQuantityUpdate: function (e) {
+            var quantity = e.target.value;
+            this.props.onStockQuantityUpdate(this.props.row.product.sku, quantity);
         },
         render: function () {
             var currency = "£";
@@ -51,11 +62,11 @@ define([
                         {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                     </div>
                     <div className="order-row-price">
-                        <span className="currency-symbol">{currency}<input type="number" name="price" step="0.01" value={this.props.row.price.toFixed(2)} onChange={this.props.onPriceChange} /></span>
+                        <span className="currency-symbol">{currency}<input type="number" name="price" step="0.01" value={this.props.row.price} onChange={this.onPriceChange} /></span>
                     </div>
                     <div className="order-row-qty-input">
                         <span className="multiplier">x</span>
-                        <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.props.onStockQuantityUpdate.bind(this, this.props.row.product.sku)} />
+                        <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.props.onStockQuantityUpdate} />
                     </div>
                     <div className="order-row-total">
                         {currency + (this.props.row.price * this.props.row.quantity).toFixed(2)}
@@ -65,9 +76,9 @@ define([
         }
     });
 
-    OrderTable.contextTypes = {
+    OrderRow.contextTypes = {
         manualOrderUtils: React.PropTypes.object
     };
 
-    return OrderTable;
+    return OrderRow;
 });

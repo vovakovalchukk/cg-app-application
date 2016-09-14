@@ -90,12 +90,17 @@ define([
                 this.submitInput();
             }
         },
+        onOptionSelected: function (product, sku, quantity) {
+            var data = {'quantity': quantity, 'sku': sku, 'product': product};
+            var optionSelectedEvent = new CustomEvent('productSelection', {'detail': data});
+            window.dispatchEvent(optionSelectedEvent);
+        },
         getDropdown: function () {
             return (
                 <div className="detail-dropdown-popup">
                     <div className="dropdown-count">{this.state.products.length + (this.state.products.length === 1 ? ' product' : ' products')}</div>
                     {this.state.products.map(function (product) {
-                        return <DetailRow product={product} onAddClicked={this.props.onOptionSelected}/>
+                        return <DetailRow product={product} onAddClicked={this.onOptionSelected}/>
                     }.bind(this))}
                 </div>
             );

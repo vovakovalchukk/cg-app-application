@@ -7,14 +7,41 @@ define([
 ) {
     "use strict";
     var OrderTable = React.createClass({
-        getDefaultProps: function () {
+        getInitialState: function () {
             return {
                 orderRows: []
             }
         },
+        componentDidMount: function () {
+            window.addEventListener('productSelection', this.onProductSelected);
+        },
+        componentWillUnmount: function () {
+            window.removeEventListener('productSelection', this.onProductSelected);
+        },
+        onProductSelected: function (e) {
+            var data = e.detail;
+            this.addOrderRow(data.product, data.sku, data.quantity);
+        },
+        addOrderRow: function (product, sku, quantity) {
+            var orderRows = this.state.orderRows.slice();
+
+            var alreadyAddedToForm = orderRows.find(function (row) {
+                if (row.sku === sku) {
+                    row.quantity += quantity;
+                    return true;
+                }
+            });
+            if (! alreadyAddedToForm) {
+                orderRows.push({product: product, sku: sku, quantity: quantity, price: 0});
+            }
+
+            this.setState({
+                orderRows: orderRows
+            });
+        },
         getOrderRows: function () {
             return (
-                this.props.orderRows.map(function (row) {
+                this.state.orderRows.map(function (row) {
                     return (
                         <OrderRow row={row} onSkuChange={this.onSkuChanged} onStockQuantityUpdate={this.onStockQuantityUpdated} onPriceChange={this.onPriceChanged}/>
                     )
@@ -24,7 +51,15 @@ define([
         onSkuChanged: function () {
             console.log('SKU change');
         },
-        onPriceChanged: function () {
+        onPriceChanged: function (sku, price) {
+            var orderRows = this.state.orderRows.slice();
+            var rowToChange = orderRows.find(function (row) {
+                if (row.sku === sku) {
+                    return true;
+                }
+            });
+            console.log(sku);
+            console.log(price);
             console.log('Price change');
         },
         onStockQuantityUpdated: function (sku, quantity) {
