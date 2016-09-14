@@ -60,6 +60,9 @@ define([
                 resolve({ savedValue: quantity });
             });
         },
+        onRowRemove: function (e) {
+            this.props.onRowRemove(this.props.row.sku);
+        },
         render: function () {
             var currency = "£";
             return (
@@ -83,6 +86,9 @@ define([
                     </div>
                     <div className="order-row-total">
                         {currency + (this.props.row.price * this.props.row.quantity).toFixed(2)}
+                    </div>
+                    <div className="order-row-actions">
+                        <a className="action remove" onClick={this.onRowRemove}>Remove</a>
                     </div>
                 </div>
             );

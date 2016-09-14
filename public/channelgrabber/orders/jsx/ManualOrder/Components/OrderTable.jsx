@@ -43,10 +43,23 @@ define([
             return (
                 this.state.orderRows.map(function (row) {
                     return (
-                        <OrderRow row={row} onSkuChange={this.onSkuChanged} onStockQuantityUpdate={this.onStockQuantityUpdated} onPriceChange={this.onPriceChanged}/>
+                        <OrderRow row={row}
+                                  onSkuChange={this.onSkuChanged}
+                                  onStockQuantityUpdate={this.onStockQuantityUpdated}
+                                  onPriceChange={this.onPriceChanged}
+                                  onRowRemove={this.onRowRemove}
+                        />
                     )
                 }.bind(this))
             );
+        },
+        onRowRemove: function (sku) {
+            var orderRows = this.state.orderRows.filter(function (row) {
+                return row.sku !== sku;
+            });
+            this.setState({
+                orderRows: orderRows
+            });
         },
         onSkuChanged: function () {
             console.log('SKU change');
