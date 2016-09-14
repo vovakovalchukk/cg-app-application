@@ -129,6 +129,7 @@
     .order-table-wrapper {
         margin-bottom: 25px;
         .order-rows-wrapper {
+            margin-bottom: 45px;
             .order-row {
                 display: flex;
                 align-items: center;
@@ -148,8 +149,8 @@
                     }
                 }
                 .order-row-img {
-                    max-width: 40px;
-                    margin-right: 30px;
+                    max-width: 39px;
+                    margin-right: 19px;
                     img {
                         width: 100%;
                     }
@@ -206,7 +207,9 @@
                     }
                 }
                 .order-row-total {
-                    margin-right: 100px;
+                    margin-right: 70px;
+                    width: 60px;
+                    text-align: right;
                 }
                 .order-row-actions {
                     font-size: 15px;
@@ -226,18 +229,41 @@
                 }
             }
         }
-        .order-footer-wrapper {
-            .order-discount {
-
+        .discount-wrapper {
+            cursor: pointer;
+            margin-left: 790px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .subtotal-wrapper {
+            margin-left: 740px;
+            margin-bottom: 15px;
+            .subtotal-label {
+                margin-right: 24px;
+                font-size: 15px;
+                font-weight: 600;
             }
-            .order-sub-total {
-
+            .subtotal-value {
+                width: 60px;
+                text-align: right;
+                display: inline-block;
             }
-            .order-shipping {
-
+        }
+        .shipping-wrapper {
+            margin-bottom: 15px;
+        }
+        .order-total-wrapper {
+            margin-left: 764px;
+            margin-bottom: 15px;
+            .total-label {
+                margin-right: 24px;
+                font-size: 15px;
+                font-weight: 600;
             }
-            .order-total {
-
+            .total-value {
+                width: 60px;
+                text-align: right;
+                display: inline-block;
             }
         }
     }

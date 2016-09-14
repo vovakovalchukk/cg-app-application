@@ -39,20 +39,6 @@ define([
                 orderRows: orderRows
             });
         },
-        getOrderRows: function () {
-            return (
-                this.state.orderRows.map(function (row) {
-                    return (
-                        <OrderRow row={row}
-                                  onSkuChange={this.onSkuChanged}
-                                  onStockQuantityUpdate={this.onStockQuantityUpdated}
-                                  onPriceChange={this.onPriceChanged}
-                                  onRowRemove={this.onRowRemove}
-                        />
-                    )
-                }.bind(this))
-            );
-        },
         onRowRemove: function (sku) {
             var orderRows = this.state.orderRows.filter(function (row) {
                 return row.sku !== sku;
@@ -81,14 +67,72 @@ define([
                 orderRows: orderRows
             });
         },
+        getOrderRowsMarkup: function () {
+            return (
+                this.state.orderRows.map(function (row) {
+                    return (
+                        <OrderRow row={row}
+                                  onSkuChange={this.onSkuChanged}
+                                  onStockQuantityUpdate={this.onStockQuantityUpdated}
+                                  onPriceChange={this.onPriceChanged}
+                                  onRowRemove={this.onRowRemove}
+                        />
+                    )
+                }.bind(this))
+            );
+        },
+        getDiscountMarkup: function () {
+            if (this.state.orderRows.length < 1) {
+                return;
+            }
+            return <a>Add Discount</a>
+        },
+        getSubtotalMarkup: function () {
+            if (this.state.orderRows.length < 1) {
+                return;
+            }
+            var currency = "£";
+            var rowTotal = 0;
+            this.state.orderRows.forEach(function (row) {
+                rowTotal += parseFloat(row.price * row.quantity);
+            });
+            return (
+                <div>
+                    <span className="subtotal-label">Subtotal</span>
+                    <span className="subtotal-value">{currency + rowTotal.toFixed(2)}</span>
+                </div>
+            );
+        },
+        getShippingMarkup: function () {
+            if (this.state.orderRows.length < 1) {
+                return;
+            }
+        },
+        getOrderTotalMarkup: function () {
+            if (this.state.orderRows.length < 1) {
+                return;
+            }
+            var currency = "£";
+            var orderTotal = 0;
+            var shippingTotal = 0;
+            this.state.orderRows.forEach(function (row) {
+                orderTotal += parseFloat(row.price * row.quantity);
+            });
+            return (
+                <div>
+                    <span className="total-label">Total</span>
+                    <span className="total-value">{currency + orderTotal.toFixed(2)}</span>
+                </div>
+            );
+        },
         render: function () {
             return (
                 <div className="order-table-wrapper">
-                    <div className="order-rows-wrapper">
-                        {this.getOrderRows()}
-                    </div>
-                    <div className="order-footer-wrapper">
-                    </div>
+                    <div className="order-rows-wrapper">{this.getOrderRowsMarkup()}</div>
+                    <div className="discount-wrapper">{this.getDiscountMarkup()}</div>
+                    <div className="subtotal-wrapper">{this.getSubtotalMarkup()}</div>
+                    <div className="shipping-wrapper">{this.getShippingMarkup()}</div>
+                    <div className="order-total-wrapper">{this.getOrderTotalMarkup()}</div>
                 </div>
             );
         }
