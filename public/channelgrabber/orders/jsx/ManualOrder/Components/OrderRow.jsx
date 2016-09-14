@@ -51,9 +51,14 @@ define([
             });
             this.props.onPriceChange(this.props.row.sku, price);
         },
-        onStockQuantityUpdate: function (e) {
-            var quantity = e.target.value;
-            this.props.onStockQuantityUpdate(this.props.row.product.sku, quantity);
+        onStockQuantityUpdate: function (name, value) {
+            var quantity = value;
+            var sku = this.props.row.sku;
+            this.props.onStockQuantityUpdate(sku, quantity);
+
+            return new Promise(function(resolve) {
+                resolve({ savedValue: quantity });
+            });
         },
         render: function () {
             var currency = "£";
@@ -74,7 +79,7 @@ define([
                     </div>
                     <div className="order-row-qty-input">
                         <span className="multiplier">x</span>
-                        <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.props.onStockQuantityUpdate} />
+                        <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.onStockQuantityUpdate} />
                     </div>
                     <div className="order-row-total">
                         {currency + (this.props.row.price * this.props.row.quantity).toFixed(2)}
