@@ -411,9 +411,6 @@ div#products-loading-message {
             padding: 5px;
             &.active {
                 background-color: $color-lblue;
-                margin-top: 0;
-                font-size: 14px;
-                padding: 9px 15px 8px 15px;
             }
             &:hover {
                 background-color: $color-vlblue;
