@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "05e97a546b29b6ff99d75acadc9eb817",
-    "content-hash": "51beac02df0c2d12200c3a1a81320343",
+    "hash": "0622e86f7900c858dc47b473d8988fc3",
+    "content-hash": "a2a8895584c96bc85d188939bfac7415",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.6",
+            "version": "1.25.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33"
+                "reference": "289a07e8b9d8a823e077304c77228a8655290293"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.6-1542d9.zip",
-                "reference": "1bdad79f763d5285d1aec5dbffa2065a3042dd33",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.8-62025d.zip",
+                "reference": "289a07e8b9d8a823e077304c77228a8655290293",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-01 14:17:08"
+            "time": "2016-09-14 08:32:25"
         },
         {
             "name": "channelgrabber/cilex",
@@ -529,16 +529,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-develop",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d807a96b2361633bf9111e189104005059eb34b5"
+                "reference": "b600e33476a2a7b37c40378d753f714aaf7916ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-99a3c1.zip",
-                "reference": "d807a96b2361633bf9111e189104005059eb34b5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.3-5ba7ff.zip",
+                "reference": "b600e33476a2a7b37c40378d753f714aaf7916ad",
                 "shasum": null
             },
             "require": {
@@ -564,7 +564,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-01 16:19:11"
+            "time": "2016-09-14 15:10:21"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3639,12 +3639,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9e310fec306afe7c4e6eda23fb2d69fad4413122"
+                "reference": "8f87e324fc547fc495830892ccb3aca601915c3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7411-MyHermesIntegration-2e43dd.zip",
-                "reference": "9e310fec306afe7c4e6eda23fb2d69fad4413122",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7411-MyHermesIntegration-5a6321.zip",
+                "reference": "8f87e324fc547fc495830892ccb3aca601915c3d",
                 "shasum": null
             },
             "require": {
@@ -3691,7 +3691,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-09-02 10:53:58"
+            "time": "2016-09-14 15:20:28"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8093,14 +8093,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-develop",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.17.1",
-            "alias_normalized": "1.17.1.0",
+            "alias": "1.17.3",
+            "alias_normalized": "1.17.3.0",
             "version": "dev-CGIV-7411-MyHermesIntegration",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -8108,7 +8102,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

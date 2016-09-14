@@ -1,18 +1,11 @@
 define([
-    'BulkActionAbstract',
-    'Product/Service'
+    'BulkActionAbstract'
 ], function(
-    BulkActionAbstract,
-    service
+    BulkActionAbstract
 ) {
     var Delete = function()
     {
         BulkActionAbstract.call(this);
-
-        this.getService = function()
-        {
-            return service;
-        };
     };
 
     Delete.prototype = Object.create(BulkActionAbstract.prototype);
@@ -48,7 +41,6 @@ define([
     Delete.prototype.handleSuccess = function()
     {
         this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
-        this.getService().refresh();
     };
 
     return new Delete();
