@@ -60,7 +60,7 @@ define([
                         <table>
                             <thead>
                                 <tr>
-                                    <th key="image" className="image-col">Image</th>
+                                    <th key="image" className="image-col"></th>
                                     <th key="sky" className="sku-col">SKU</th>
                                 </tr>
                             </thead>

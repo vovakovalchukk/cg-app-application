@@ -63,7 +63,7 @@
     margin-bottom: 20px;
     transition: all 500ms ease;
     .custom-select {
-        width: 200px;
+        width: 190px;
         .open-content {
             margin-bottom: 50px;
         }
@@ -120,13 +120,14 @@
                     overflow: hidden;
                     box-sizing: border-box;
                     &.stock-mode-header-col {
-                        width: 210px;
+                        width: 300px;
                     }
                 }
                 td {
                     height: 45px;
                     overflow: initial;
                     box-sizing: border-box;
+                    border-left: 0;
                     img {
                         max-height: 23px;
                     }
@@ -135,17 +136,21 @@
         }
     }
     .details-layout-column {
-        width: 66%;
+        width: 50%;
     }
     .variations-layout-column {
-        width: 35%;
-        margin-right: 7px;
+        width: 50%;
         .image-sku-table {
             width: 40%;
             border-right: 0;
             box-sizing: border-box;
             table {
                 clear: none;
+                tr {
+                    td:first-child {
+                        border-left: 1px solid $color-lgrey;
+                    }
+                }
                 td {
                     border-right: 0;
                 }
@@ -181,7 +186,7 @@
         align-items: stretch;
         transition: height 500ms ease;
         .variations-layout-column {
-            margin-top: 36px;
+            margin-top: 28px;
         }
     }
     .product-footer {
@@ -223,7 +228,10 @@
                         border: 0 !important;
                         overflow: initial;
                         &.product-stock-mode {
-                            width: 200px;
+                            width: 190px;
+                        }
+                        &.product-stock-level {
+                            width: 90px;
                         }
                     }
                 }
@@ -406,7 +414,6 @@ div#products-loading-message {
             background-color: $color-dblue;
             font-size: 13px;
             font-weight: 700;
-            margin-top: 7px;
             min-width: 110px;
             padding: 5px;
             &.active {

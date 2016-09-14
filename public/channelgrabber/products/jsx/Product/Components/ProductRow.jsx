@@ -81,11 +81,11 @@ define([
                         <table>
                             <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
-                                <td>{this.getBulkStockLevelInput()}</td>
+                                <td className="product-stock-available"></td>
+                                <td className="product-stock-allocated"></td>
+                                <td className="product-stock-available"></td>
+                                <td colSpan="2" className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
+                                <td colSpan="1" className="product-stock-level">{this.getBulkStockLevelInput()}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -355,7 +355,6 @@ define([
                     <div className="product-info-container">
                         <div className="product-header">
                             <span className="product-title">{this.props.product.name}</span>
-                            <span className="product-sku">{this.props.product.sku}</span>
                             <Status listings={this.props.product.listings} />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
