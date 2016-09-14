@@ -52,19 +52,21 @@ define([
             console.log('SKU change');
         },
         onPriceChanged: function (sku, price) {
+            this.updateOrderRow(sku, 'price', price);
+        },
+        onStockQuantityUpdated: function (sku, quantity) {
+            this.updateOrderRow(sku, 'quantity', quantity);
+        },
+        updateOrderRow: function (sku, key, value) {
             var orderRows = this.state.orderRows.slice();
             orderRows.forEach(function (row) {
                 if (row.sku === sku) {
-                    row.price = price;
+                    row[key] = value;
                 }
             });
             this.setState({
                 orderRows: orderRows
             });
-        },
-        onStockQuantityUpdated: function (sku, quantity) {
-            console.log(sku);
-            console.log(quantity);
         },
         render: function () {
             return (
