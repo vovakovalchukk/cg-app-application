@@ -1,14 +1,21 @@
 define([
     'react',
-    'ManualOrder/Components/OrderRow'
+    'ManualOrder/Components/OrderRow',
+    'Product/Components/Select'
 ], function(
     React,
-    OrderRow
+    OrderRow,
+    Select
 ) {
     "use strict";
     var OrderTable = React.createClass({
         getInitialState: function () {
+            this.currency = "£";
             return {
+                shippingMethod: {
+                    name: "",
+                    cost: 0
+                },
                 orderRows: []
             }
         },
@@ -56,6 +63,23 @@ define([
         onStockQuantityUpdated: function (sku, quantity) {
             this.updateOrderRow(sku, 'quantity', quantity);
         },
+        onShippingMethodSelected: function (data) {
+            var shippingMethod = {
+                name: data.name,
+                cost: data.value
+            };
+            this.setState({
+                shippingMethod: shippingMethod
+            });
+        },
+        onManualShippingCost: function (e) {
+            var manualShippingCost = e.target.value;
+            var shippingMethod = this.state.shippingMethod;
+            shippingMethod.cost = manualShippingCost;
+            this.setState({
+                shippingMethod: shippingMethod
+            });
+        },
         updateOrderRow: function (sku, key, value) {
             var orderRows = this.state.orderRows.slice();
             orderRows.forEach(function (row) {
@@ -91,7 +115,6 @@ define([
             if (this.state.orderRows.length < 1) {
                 return;
             }
-            var currency = "£";
             var rowTotal = 0;
             this.state.orderRows.forEach(function (row) {
                 rowTotal += parseFloat(row.price * row.quantity);
@@ -99,7 +122,7 @@ define([
             return (
                 <div>
                     <span className="subtotal-label">Subtotal</span>
-                    <span className="subtotal-value">{currency + rowTotal.toFixed(2)}</span>
+                    <span className="subtotal-value">{this.currency + rowTotal.toFixed(2)}</span>
                 </div>
             );
         },
@@ -107,21 +130,34 @@ define([
             if (this.state.orderRows.length < 1) {
                 return;
             }
+
+            var options = [
+                { name: 'Spensive', value: '12.23'},
+                { name: 'Cheap', value: '5.67'},
+                { name: 'Cheaper', value: '3.45'},
+                { name: 'Cheapest', value: '0.99'}
+            ];
+
+            return (
+                <div>
+                    <Select options={options} onNewOption={this.onShippingMethodSelected} />
+                    <span className="shipping-label">Shipping</span>
+                    <span className="currency-symbol">{this.currency}<input type="number" name="price" step="0.01" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
+                </div>
+            );
         },
         getOrderTotalMarkup: function () {
             if (this.state.orderRows.length < 1) {
                 return;
             }
-            var currency = "£";
-            var orderTotal = 0;
-            var shippingTotal = 0;
+            var orderTotal = parseFloat(this.state.shippingMethod.cost);
             this.state.orderRows.forEach(function (row) {
                 orderTotal += parseFloat(row.price * row.quantity);
             });
             return (
                 <div>
                     <span className="total-label">Total</span>
-                    <span className="total-value">{currency + orderTotal.toFixed(2)}</span>
+                    <span className="total-value">{this.currency + orderTotal.toFixed(2)}</span>
                 </div>
             );
         },
