@@ -27,7 +27,7 @@ define([
 
             var alreadyAddedToForm = orderRows.find(function (row) {
                 if (row.sku === sku) {
-                    row.quantity += quantity;
+                    row.quantity += parseInt(quantity);
                     return true;
                 }
             });
