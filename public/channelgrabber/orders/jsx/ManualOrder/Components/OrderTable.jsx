@@ -53,14 +53,14 @@ define([
         },
         onPriceChanged: function (sku, price) {
             var orderRows = this.state.orderRows.slice();
-            var rowToChange = orderRows.find(function (row) {
+            orderRows.forEach(function (row) {
                 if (row.sku === sku) {
-                    return true;
+                    row.price = price;
                 }
             });
-            console.log(sku);
-            console.log(price);
-            console.log('Price change');
+            this.setState({
+                orderRows: orderRows
+            });
         },
         onStockQuantityUpdated: function (sku, quantity) {
             console.log(sku);

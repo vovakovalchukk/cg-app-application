@@ -9,6 +9,11 @@ define([
 ) {
     "use strict";
     var OrderRow = React.createClass({
+        getInitialState: function () {
+            return {
+                price: 0
+            }
+        },
         getOptionComponents: function (attributes, variation) {
             var optionComponents = [];
             attributes.forEach(function (attributeName) {
@@ -41,6 +46,9 @@ define([
             if (price < 0) {
                 price = 0;
             }
+            this.setState({
+                price: price
+            });
             this.props.onPriceChange(this.props.row.sku, price);
         },
         onStockQuantityUpdate: function (e) {
@@ -62,7 +70,7 @@ define([
                         {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                     </div>
                     <div className="order-row-price">
-                        <span className="currency-symbol">{currency}<input type="number" name="price" step="0.01" value={this.props.row.price} onChange={this.onPriceChange} /></span>
+                        <span className="currency-symbol">{currency}<input type="number" name="price" step="0.01" value={this.state.price} onChange={this.onPriceChange} /></span>
                     </div>
                     <div className="order-row-qty-input">
                         <span className="multiplier">x</span>
