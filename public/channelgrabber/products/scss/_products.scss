@@ -140,6 +140,13 @@
     }
     .variations-layout-column {
         width: 50%;
+        td {
+            &.ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden !important;
+                white-space: nowrap;
+            }
+        }
         .image-sku-table {
             width: 40%;
             border-right: 0;
