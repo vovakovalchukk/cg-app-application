@@ -21,6 +21,11 @@ define([
         searchButtonPressed: function () {
             this.props.submitCallback(this.state.searchTerm);
         },
+        onKeyPress: function (e) {
+            if (e.key === 'Enter') {
+                this.searchButtonPressed();
+            }
+        },
         render: function() {
             return (
                 <div id="search-box-wrapper">
@@ -29,7 +34,7 @@ define([
                             <label htmlFor="filter-search-field">
                                 <div className="sprite-search-18-black"></div>
                             </label>
-                            <input name="filter-search-field" value={this.state.searchTerm} type="text" className="search-field-input" onChange={this.searchTermUpdate} />
+                            <input name="filter-search-field" value={this.state.searchTerm} type="text" className="search-field-input" onChange={this.searchTermUpdate} onKeyPress={this.onKeyPress}/>
                         </div>
                     </div>
                     <div id="searchBtn">
