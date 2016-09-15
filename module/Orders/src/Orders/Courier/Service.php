@@ -209,6 +209,12 @@ class Service implements LoggerAwareInterface
             $shippingCountry = '';
         }
 
+        $options = $this->getCourierOptionsForOrder($order, $courierId);
+        if (count($options) == 1) {
+            $index = key($options);
+            $options[$index]['selected'] = true;
+        }
+
         $orderData = [
             'orderRow' => true,
             'orderId' => $order->getId(),
@@ -221,9 +227,10 @@ class Service implements LoggerAwareInterface
             'courierOptions' => [
                 'name' => 'courier_' . $order->getId(),
                 'class' => 'courier-courier-custom-select',
+                'disabled' => (count($options) == 1),
                 'blankOption' => false,
                 'searchField' => false,
-                'options' => $this->getCourierOptionsForOrder($order, $courierId),
+                'options' => $options,
             ],
             'service' => $service,
             'serviceOptions' => $serviceOptions,
