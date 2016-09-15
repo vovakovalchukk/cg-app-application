@@ -10,7 +10,7 @@ return [
         'description' => 'Import Geogaz data file to update version',
         'arguments' => [
         ],
-        'command' => function(InputInterface $input, OutputInterface $output) use ()
+        'command' => function()
         {
             $import = new ImportGeogaz();
             $import();
