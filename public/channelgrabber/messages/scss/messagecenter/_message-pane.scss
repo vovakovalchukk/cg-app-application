@@ -1,5 +1,6 @@
 .message-pane {
-  width: 350px;
+  @include calc(width, "18% - 2px");
+  min-width: 300px;
   height: 100%;
   float: left;
   border-right: 1px solid $color-lgrey;
