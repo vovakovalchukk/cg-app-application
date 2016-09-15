@@ -5,15 +5,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zend\Di\Di;
 
-/**
- * @var Di $di
- */
 return [
     'geopost:importGeogaz' => [
         'description' => 'Import Geogaz data file to update version',
         'arguments' => [
         ],
-        'command' => function(InputInterface $input, OutputInterface $output) use ($di)
+        'command' => function(InputInterface $input, OutputInterface $output) use ()
         {
             $import = new ImportGeogaz();
             $import();
