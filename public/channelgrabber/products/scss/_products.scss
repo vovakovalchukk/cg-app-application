@@ -461,7 +461,8 @@ div#products-loading-message {
             max-width: 60px;
             text-align: center;
             &:disabled {
-                color: $color-lgrey;
+                color: $color-xlgrey;
+                border-color: $color-xlgrey;
                 cursor: not-allowed;
             }
         }
