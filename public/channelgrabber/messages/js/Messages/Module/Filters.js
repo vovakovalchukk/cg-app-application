@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'Messages/Module/Filter/EventHandler',
     'Messages/ModuleAbstract',
     'Messages/Module/Filter/Assignee',
@@ -8,6 +9,7 @@ define([
     'Messages/Module/Filter/ExternalUsername',
     'Messages/Headline/Storage/Ajax'
 ], function(
+    $,
     EventHandler,
     ModuleAbstract,
     AssigneeFilter,
@@ -70,14 +72,33 @@ define([
             var filter = filters[selectedFilter];
             filter.setValue(selectedFilterValue);
             filter.activate();
-        } else if (this.getApplication().getSingleUserMode() && filters.open.getCount() > 0) {
-            filters.open.activate();
-        } else if (filters.myMessages.getCount() > 0) {
-            filters.myMessages.activate();
-        } else if (filters.unassigned.getCount() > 0) {
-            filters.unassigned.activate();
         } else {
-            filters.resolved.activate();
+            var loader = function(loading, filter, minCount, filterLoading) {
+                filterLoading = filterLoading || $.Deferred();
+                loading.fail(function () {
+                    var count = filter.getCount();
+                    if (typeof(minCount) === "undefined" || count > minCount) {
+                        filter.activate();
+                        filterLoading.resolve();
+                    } else if (!isFinite(count)) {
+                        setTimeout(function() {
+                            loader(loading, filter, minCount, filterLoading);
+                        }, 250);
+                    } else {
+                        filterLoading.reject();
+                    }
+                });
+                return filterLoading;
+            }
+
+            var loading = $.Deferred().reject();
+            if (this.getApplication().getSingleUserMode()) {
+                loading = loader(loading, filters.open, 0);
+            } else {
+                loading = loader(loading, filters.myMessages, 0);
+                loading = loader(loading, filters.unassigned, 0);
+            }
+            loading = loader(loading, filters.resolved);
         }
     };
 
