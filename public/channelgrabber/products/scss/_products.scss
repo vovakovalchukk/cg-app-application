@@ -476,14 +476,10 @@ div#products-loading-message {
         .submit-cancel{
             position: absolute;
             left: 1px;
-            bottom: -18px;
+            bottom: -19px;
             display: none;
-            width: 66px;
+            width: 68px;
             margin: 0 auto;
-            border: 1px solid $color-lgrey;
-            border-top: 0;
-            background-color: $color-white;
-            border-radius: 0 0 5px 5px;
             &.active {
                 display: inline-block;
             }
@@ -491,11 +487,17 @@ div#products-loading-message {
                 border: 1px solid $color-lgrey;
                 border-radius: 5px;
                 cursor: pointer;
-                width: 25px;
-                margin: 1px;
-                padding: 2px;
+                width: 31px;
+                margin: 1px 0 1px 0;
+                padding: 2px 0 2px 0;
                 float: left;
                 background: linear-gradient(to bottom right, $color-white, $color-xlgrey);
+                &:first-child {
+                    margin-right: 1px;
+                }
+                &:last-child {
+                    margin-left: 1px;
+                }
                 &:active {
                     background: linear-gradient(to bottom right, $color-xlgrey, $color-white);
                 }
