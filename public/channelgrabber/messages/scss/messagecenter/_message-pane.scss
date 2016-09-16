@@ -25,6 +25,10 @@
       float: right;
       margin-right: 10px;
       margin-top: 5px;
+      @include transition(all, 0.3s, ease);
+    }
+    &.ascending span {
+      @include rotate(-180deg);
     }
   }
   ul {
