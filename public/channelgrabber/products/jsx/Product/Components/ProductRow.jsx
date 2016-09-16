@@ -327,9 +327,9 @@ define([
                 <div className="product-container" id={"product-container-" + this.props.product.id}>
                     <input type="hidden" value={this.props.product.id} name="id" />
                     <input type="hidden" value={this.props.product.eTag} name={"product[" + this.props.product.id + "][eTag]"} />
-                    <Checkbox id={this.props.product.id} />
                     <div className="product-info-container">
                         <div className="product-header">
+                            <Checkbox id={this.props.product.id} />
                             <span className="product-title">{this.props.product.name}</span>
                             <Status listings={this.props.product.listings} />
                         </div>

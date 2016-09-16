@@ -74,14 +74,13 @@
         }
     }
     .checkbox-container {
-        width: 40px;
-        display: flex;
+        display: inline-block;
         .checkbox-holder {
             width: 100%;
             height: 30px;
             align-self: center;
             .std-checkbox {
-                margin: 7px 0px 0px 1px;
+                margin: 17px 0px 0px 1px;
             }
         }
     }
@@ -455,6 +454,7 @@ div#products-loading-message {
             font-weight: 700;
             min-width: 110px;
             padding: 5px;
+            margin-right: 1px;
             &.active {
                 background-color: $color-lblue;
             }
