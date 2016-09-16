@@ -158,8 +158,16 @@
                 max-height: 90px;
             }
             td {
-                .rate {
-                    vertical-align: top;
+                .checkbox-wrapper {
+                    margin: 0 auto;
+                    .std-checkbox {
+                        float: none;
+                    }
+                    .rate {
+                        margin-left: 25px;
+                        display: inline-block;
+                        width: 42px;
+                    }
                 }
             }
         }
@@ -186,11 +194,6 @@
                 clear: none;
                 th {
                     height: 28px;
-                }
-                tr {
-                    td:first-child {
-                        border-left: 1px solid $color-lgrey;
-                    }
                 }
                 td {
                     border-right: 0;
@@ -239,6 +242,8 @@
         box-sizing: border-box;
         .variations-layout-column {
             border: 0;
+            padding-top: 5px;
+            padding-left: 22px;
         }
         .details-layout-column {
             border: 0;
@@ -510,20 +515,20 @@ div#products-loading-message {
             position: absolute;
             left: 1px;
             bottom: -19px;
-            display: none;
             width: 68px;
             margin: 0 auto;
+            font-size: 14px;
+            justify-content: space-between;
+            align-items: flex-end;
             &.active {
-                display: inline-block;
+                display: flex;
             }
             .button-input {
                 border: 1px solid $color-lgrey;
                 border-radius: 5px;
                 cursor: pointer;
-                width: 31px;
-                margin: 1px 0 1px 0;
+                width: 30px;
                 padding: 2px 0 2px 0;
-                float: left;
                 background: linear-gradient(to bottom right, $color-white, $color-xlgrey);
                 &:first-child {
                     margin-right: 1px;

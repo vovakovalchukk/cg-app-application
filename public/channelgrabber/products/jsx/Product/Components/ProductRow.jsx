@@ -61,7 +61,7 @@ define([
                             <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
                         </Pane>
                         <Pane label="VAT">
-                            <VatView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged} onVatChanged={this.vatUpdated}/>
+                            <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
                         </Pane>
                     </Tabs>
                 </div>
