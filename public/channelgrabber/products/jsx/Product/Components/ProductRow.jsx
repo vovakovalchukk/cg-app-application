@@ -34,9 +34,12 @@ define([
     "use strict";
 
     var ProductRowComponent = React.createClass({
+        isParentProduct: function() {
+            return this.props.product.variationCount !== undefined && this.props.product.variationCount > 1
+        },
         getProductVariationsView: function()
         {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.isParentProduct()) {
                 return <VariationView parentProduct={this.props.product} onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
             } else {
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
@@ -45,7 +48,7 @@ define([
         getProductDetailsView: function ()
         {
             var products = [this.props.product];
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.isParentProduct()) {
                 products = this.state.variations;
             }
             return (
@@ -58,7 +61,7 @@ define([
                             <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
                         </Pane>
                         <Pane label="VAT">
-                            <VatView variations={products} onVariationDetailChanged={this.onVariationDetailChanged} onVatChanged={this.vatUpdated}/>
+                            <VatView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged} onVatChanged={this.vatUpdated}/>
                         </Pane>
                     </Tabs>
                 </div>
@@ -71,7 +74,7 @@ define([
             }
         },
         getVariationsBulkActions: function () {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.isParentProduct()) {
                 return (
                 <div className="footer-row">
                     <div className="variations-layout-column">
@@ -117,11 +120,11 @@ define([
                 (this.props.product.stockModeDefault === disabledStockMode || this.props.product.stockModeDefault === null)
             );
         },
-        vatUpdated: function (selection) {
+        vatUpdated: function (taxRateId) {
             n.notice('Updating product tax rate.');
             $.ajax({
                 url : '/products/taxRate',
-                data : { productId: this.props.product.id, taxRateId: selection.value, memberState: selection.value.substring(0, 2) },
+                data : { productId: this.props.product.id, taxRateId: taxRateId, memberState: taxRateId.substring(0, 2) },
                 method : 'POST',
                 dataType : 'json',
                 success : function(response) {
@@ -182,7 +185,7 @@ define([
             var sortFunction = firstBy();
             newVariationSort.forEach(function (nextSort) {
                 sortFunction = sortFunction.thenBy(function(v){
-                    return v.attributeValues[nextSort.attribute];
+                    return v.attributeValues[nextSort.attribute] ? v.attributeValues[nextSort.attribute] : "";
                 }, {ignoreCase: true, direction: (nextSort.ascending ? 1 : -1)});
             });
 

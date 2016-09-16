@@ -18,8 +18,8 @@ define([
             this.headers = [
                 'Member State',
                 'Standard',
-                'Super Reduced',
                 'Reduced',
+                'Super Reduced',
                 'Zero'
             ];
 
@@ -43,37 +43,61 @@ define([
                     continue;
                 }
                 var rates = [];
-                this.headers.map(function (header, index) {
-                    if (index === 0) {
-                        rates.push(<td className="memberstate-cell">{memberState}</td>);
-                        return;
+                this.headers.map(function (header) {
+                    var element = {};
+                    for (var taxRateId in product.taxRates[memberState]) {
+                        if (!product.taxRates[memberState].hasOwnProperty(taxRateId)) {
+                            continue;
+                        }
+                        if (product.taxRates[memberState][taxRateId].name === header) {
+                            element = product.taxRates[memberState][taxRateId];
+                            element.taxRateId = taxRateId;
+                        }
                     }
-                    var taxRate = product.taxRates[memberState][memberState+index];
-                    if (taxRate === undefined) {
-                        rates.push(<td></td>);
-                        return;
-                    }
-                    var formattedRate = parseFloat(taxRate['rate']);
-                    rates.push(<td>
-                        <input type="radio" name={memberState+"-radio"} value={memberState+index} checked={taxRate['selected']}/>
-                        <span className="rate">{formattedRate + '%'}</span>
-                    </td>);
+                    rates.push(element);
                 });
-                vatRows.push(<tr>{rates}</tr>);
+                var row = rates.map(function (object, index) {
+                    if (object.name === undefined) {
+                        var cellText = "";
+                        if (index === 0) {
+                            cellText = memberState;
+                        }
+                        return (<td>{cellText}</td>);
+                    }
+                    return(<td>
+                        <input type="radio" name={memberState+"-radio"} value={object.taxRateId} onClick={this.onVatChanged.bind(this, object.taxRateId)} checked={object.selected} key={object.taxRateId}/>
+                        <span className="rate">{parseFloat(object.rate) + '%'}</span>
+                    </td>);
+                }.bind(this));
+                vatRows.push(<tr>{row}</tr>);
             }
             return vatRows;
         },
+        onVatChanged: function (memberState, index, event) {
+            this.props.onVatChanged(memberState, index);
+        },
         render: function () {
+            var rowheight = 45;
+            var numberRows = this.props.variations[0].parentProductId ? (this.props.fullView ? this.props.variations.length : 2) : 1;
+            var style = {
+                maxHeight: numberRows * rowheight
+            };
             return (
                 <div className="vat-table">
-                    <table>
-                        <thead>
-                            <tr>{this.getHeaders()}</tr>
-                        </thead>
-                        <tbody>
-                            {this.getVatRows()}
-                        </tbody>
-                    </table>
+                    <div className="head">
+                        <table>
+                            <thead>
+                                <tr>{this.getHeaders()}</tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div className="body" style={style}>
+                        <table>
+                            <tbody>
+                                {this.getVatRows()}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             );
         }

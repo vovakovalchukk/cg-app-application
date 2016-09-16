@@ -62,6 +62,11 @@
     background-color: $color-white;
     margin-bottom: 20px;
     transition: all 500ms ease;
+    &.simple {
+        .vat-table .body{
+            max-height: 45px;
+        }
+    }
     .custom-select {
         width: 190px;
         .open-content {
@@ -146,7 +151,13 @@
         }
         .vat-table{
             max-height: 118px;
-            overflow: auto;
+            .head {
+                height: 28px;
+            }
+            .body {
+                overflow-y: auto;
+                max-height: 90px;
+            }
             td {
                 .rate {
                     vertical-align: top;
