@@ -121,7 +121,6 @@ define([
             );
         },
         vatUpdated: function (taxRateId) {
-            console.log(taxRateId);
             n.notice('Updating product tax rate.');
             $.ajax({
                 url : '/products/taxRate',
