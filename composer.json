@@ -34,7 +34,7 @@
         "channelgrabber/cglib": "~1.10.2",
         "channelgrabber/channel": "~1.25.8",
         "channelgrabber/cilex": "~1.1.2",
-        "channelgrabber/communication": "~1.0.2",
+        "channelgrabber/communication": "dev-CGIV-6907-MessagesSortOrder as 1.0.6",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.0.2",
         "channelgrabber/courieradapter": "~1.0.0",

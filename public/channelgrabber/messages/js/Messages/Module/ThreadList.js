@@ -124,7 +124,7 @@ define([
     {
         this.setSortDescending(!this.isSortDescending());
         this.getDomManipulator().toggleClass(this.getEventHandler().getSelectorSortOrder(), 'ascending');
-        this.loadForFilter(this.getPreviousFilter(), null, true);
+        this.loadForFilter(this.getPreviousFilter(), null);
     };
 
     ThreadList.prototype.loadNextPage = function()
