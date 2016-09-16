@@ -65,7 +65,7 @@ define([
                         return (<td>{cellText}</td>);
                     }
                     return(<td>
-                        <input type="radio" name={memberState+"-radio"} value={object.taxRateId} onClick={this.onVatChanged.bind(this, object.taxRateId)} checked={object.selected} key={object.taxRateId}/>
+                        <input type="radio" name={memberState+"-radio"} value={object.taxRateId} onClick={this.onVatChanged.bind(this, object.taxRateId)} checked={object.selected === true} key={object.taxRateId}/>
                         <span className="rate">{parseFloat(object.rate) + '%'}</span>
                     </td>);
                 }.bind(this));
