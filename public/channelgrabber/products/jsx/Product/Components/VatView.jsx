@@ -73,8 +73,17 @@ define([
             }
             return vatRows;
         },
-        onVatChanged: function (memberState, index, event) {
-            this.props.onVatChanged(memberState, index);
+        onVatChanged: function (taxRateId) {
+            var product = this.props.variations[0];
+            var memberState = taxRateId.substring(0, 2);
+            for (var taxRate in product.taxRates[memberState]) {
+                if (!product.taxRates.hasOwnProperty(memberState)) {
+                    continue;
+                }
+                product.taxRates[memberState][taxRate].selected = (product.taxRates[memberState][taxRate].taxRateId === taxRateId);
+            }
+            this.props.onVariationDetailChanged(product);
+            this.props.onVatChanged(taxRateId);
         },
         render: function () {
             var rowheight = 45;
