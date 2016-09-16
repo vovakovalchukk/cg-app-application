@@ -11,6 +11,7 @@ define([
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
+    'Product/Components/VatView',
     'Product/Filter/Entity',
     'Product/Storage/Ajax'
 ], function(
@@ -26,6 +27,7 @@ define([
     Pane,
     DimensionsView,
     StockView,
+    VatView,
     ProductFilter,
     AjaxHandler
 ) {
@@ -54,6 +56,9 @@ define([
                         </Pane>
                         <Pane label="Dimensions">
                             <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
+                        </Pane>
+                        <Pane label="VAT">
+                            <VatView variations={products} onVariationDetailChanged={this.onVariationDetailChanged} onVatChanged={this.vatUpdated}/>
                         </Pane>
                     </Tabs>
                 </div>
@@ -111,39 +116,6 @@ define([
                 (this.state.bulkStockMode.value === "" || this.state.bulkStockMode.value === "null" || this.state.bulkStockMode.value === disabledStockMode) &&
                 (this.props.product.stockModeDefault === disabledStockMode || this.props.product.stockModeDefault === null)
             );
-        },
-        getVatDropdowns: function () {
-            if (this.props.product.taxRates) {
-                var showCodeInLabel = (Object.keys(this.props.product.taxRates).length > 1);
-                var vatDropdowns = [];
-
-                for (var memberState in this.props.product.taxRates) {
-                    if (! this.props.product.taxRates.hasOwnProperty(memberState)) {
-                        continue;
-                    }
-                    var options = [];
-                    var selectedOption = "";
-                    for(var taxRateId in this.props.product.taxRates[memberState]) {
-                        if(! this.props.product.taxRates[memberState].hasOwnProperty(taxRateId)) {
-                            continue;
-                        }
-                        var formattedRate = parseFloat(this.props.product.taxRates[memberState][taxRateId]['rate']);
-                        var rateName = formattedRate + '% (' +this.props.product.taxRates[memberState][taxRateId]['name'] + ')';
-                        var selected = this.props.product.taxRates[memberState][taxRateId]['selected'];
-                        var option = {
-                            'name': rateName,
-                            'value': taxRateId,
-                            'selected': selected
-                        };
-                        if (selected) {
-                            selectedOption = option;
-                        }
-                        options.push(option);
-                    }
-                    vatDropdowns.push(<Select prefix={showCodeInLabel ? memberState+' VAT' : "VAT"} options={options} onNewOption={this.vatUpdated} selectedOption={selectedOption}/>);
-                }
-                return vatDropdowns;
-            }
         },
         vatUpdated: function (selection) {
             n.notice('Updating product tax rate.');
@@ -364,10 +336,7 @@ define([
                             {this.getProductDetailsView()}
                         </div>
                         <div className="product-footer">
-                                {this.getVariationsBulkActions()}
-                            <div className="footer-row vat-row">
-                                {this.getVatDropdowns()}
-                            </div>
+                            {this.getVariationsBulkActions()}
                         </div>
                     </div>
                 </div>
