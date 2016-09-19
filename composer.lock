@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1045dc22ba69a10a6012b0a2ce6fe428",
-    "content-hash": "3a26bac6de5f1702967ed3e8906e1521",
+    "hash": "0d58b2e78f79faefc59f62943d1970f7",
+    "content-hash": "af2763d4cf11dbb621b23bc4bd492309",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -529,16 +529,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-develop",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "5622984a7c639a669559a20e571f003c2a28c1a9"
+                "reference": "17af93e71419e4d6527228e7d0e9fb0e93a6fb52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-develop-64d88c.zip",
-                "reference": "5622984a7c639a669559a20e571f003c2a28c1a9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.4-a4af4d.zip",
+                "reference": "17af93e71419e4d6527228e7d0e9fb0e93a6fb52",
                 "shasum": null
             },
             "require": {
@@ -564,7 +564,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-16 10:53:47"
+            "time": "2016-09-19 09:59:38"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -8127,18 +8127,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-develop",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
