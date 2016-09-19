@@ -5,6 +5,8 @@ use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Filter as AccountFilter;
+use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Channel implements SelectOptionsInterface
@@ -57,13 +59,14 @@ class Channel implements SelectOptionsInterface
         return $this->accountService;
     }
 
-    protected function getAccounts(User $user)
+    protected function getAccounts(User $user, $includeInvisible = false)
     {
-        return $this->getAccountService()->fetchByOUAndType(
-            $user->getOuList(),
-            'sales',
-            'all'
-        );
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setType(ChannelType::SALES)
+            ->setOrganisationUnitId($user->getOuList());
+        return $this->accountService->fetchByFilter($filter, $includeInvisible);
     }
 
     /**
@@ -73,12 +76,15 @@ class Channel implements SelectOptionsInterface
     {
         $options = [];
         try {
-            $accounts = $this->getAccounts($this->getActiveUser());
+            // Include hidden Accounts' channels as we still want to allow filtering by them
+            $includeInvisible = true;
+            $accounts = $this->getAccounts($this->getActiveUser(), $includeInvisible);
             foreach ($accounts as $account) {
                 if (isset($options[$account->getChannel()])) {
                     continue;
                 }
-                $options[$account->getChannel()] = $account->getChannel();
+                $displayName = ($account->getDisplayChannel() ?: ucwords(str_replace('-', ' ', $account->getChannel())));
+                $options[$account->getChannel()] = $displayName;
             }
         } catch (NotFound $exception) {
             // No accounts means no channels so ignore
