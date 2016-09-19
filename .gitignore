@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 .sass-cache/
+.sync
 /config/autoload/app.global.php
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
@@ -20,12 +21,14 @@
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
 /public/*/*/css
+/public/channelgrabber/products/js/
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml
 /tools/capistrano/log/
 /tools/post_deploy.sh
 /vendor
+node_modules/
 phinx/migrations/channelgrabber/zf2-sessions
 public/cg-built
 public/channelgrabber/zf2-amazon

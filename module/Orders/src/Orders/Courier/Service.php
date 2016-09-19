@@ -167,6 +167,7 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $this->removeZeroQuantityItemsFromOrders($orders);
         $data = $this->formatOrdersAsReviewListData($orders);
         return $this->sortReviewListData($data);
     }
@@ -208,6 +209,12 @@ class Service implements LoggerAwareInterface
             $shippingCountry = '';
         }
 
+        $options = $this->getCourierOptionsForOrder($order, $courierId);
+        if (count($options) == 1) {
+            $index = key($options);
+            $options[$index]['selected'] = true;
+        }
+
         $orderData = [
             'orderRow' => true,
             'orderId' => $order->getId(),
@@ -220,9 +227,10 @@ class Service implements LoggerAwareInterface
             'courierOptions' => [
                 'name' => 'courier_' . $order->getId(),
                 'class' => 'courier-courier-custom-select',
+                'disabled' => (count($options) == 1),
                 'blankOption' => false,
                 'searchField' => false,
-                'options' => $this->getCourierOptionsForOrder($order, $courierId),
+                'options' => $options,
             ],
             'service' => $service,
             'serviceOptions' => $serviceOptions,
@@ -431,6 +439,7 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $this->removeZeroQuantityItemsFromOrders($orders);
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);
@@ -814,6 +823,25 @@ class Service implements LoggerAwareInterface
             $orderRows[$row['orderId']][] = $row;
         }
         return $orderRows;
+    }
+
+    protected function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
+    {
+        foreach ($orders as $order) {
+            $items = $order->getItems();
+            $nonZeroItems = new ItemCollection(
+                Item::class,
+                $items->getSourceDescription(),
+                array_merge($items->getSourceFilters(), ['itemQuantityGreaterThan' => 0])
+            );
+            foreach ($items as $item) {
+                if ($item->getItemQuantity() == 0) {
+                    continue;
+                }
+                $nonZeroItems->attach($item);
+            }
+            $order->setItems($nonZeroItems);
+        }
     }
 
     public function getSpecificsMetaDataFromRecords(array $records)

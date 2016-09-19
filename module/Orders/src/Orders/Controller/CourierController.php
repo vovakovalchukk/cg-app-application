@@ -123,9 +123,14 @@ class CourierController extends AbstractActionController
 
     protected function getCourierServiceView($courierId, array $options)
     {
+        if (count($options) == 1) {
+            $index = key($options);
+            $options[$index]['selected'] = true;
+        }
         $view = $this->viewModelFactory->newInstance([
             'id' => 'courier-service-select-'.$courierId,
             'class' => 'courier-service-select',
+            'disabled' => (count($options) == 1),
             'blankOption' => false,
             'searchField' => true,
             'options' => $options,

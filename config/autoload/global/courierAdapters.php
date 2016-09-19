@@ -10,6 +10,7 @@ use CG\CourierAdapter\StorageInterface;
 use CG\Courier\Geopost\Dpd\Courier as DpdCourier;
 use CG\Courier\Geopost\Interlink\Courier as InterlinkCourier;
 use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
+use CG\Courier\MyHermes\Courier as MyHermesCourier;
 
 return [
     'di' => [
@@ -50,6 +51,15 @@ return [
                             'courierFactory' => function()
                             {
                                 $courier = new InterlinkCourier();
+                                return $courier;
+                            }
+                        ],
+                        [
+                            'channelName' => 'myhermes-ca',
+                            'displayName' => 'MyHermes',
+                            'courierFactory' => function()
+                            {
+                                $courier = new MyHermesCourier();
                                 return $courier;
                             }
                         ],
