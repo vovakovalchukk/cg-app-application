@@ -26,7 +26,7 @@ define([
         getAttributeValues: function(variation) {
             var values = [];
             this.props.attributeNames.forEach(function (attributeName) {
-                values.push(<td key={attributeName}>{variation.attributeValues[attributeName]}</td>);
+                values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="ellipsis">{variation.attributeValues[attributeName]}</td>);
             });
             if (! values.length) {
                 values.push(<td></td>);
@@ -60,7 +60,7 @@ define([
                         <table>
                             <thead>
                                 <tr>
-                                    <th key="image" className="image-col">Image</th>
+                                    <th key="image" className="image-col"></th>
                                     <th key="sky" className="sku-col">SKU</th>
                                 </tr>
                             </thead>
@@ -73,7 +73,7 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image"><img src={this.getImageUrl(variation)} /></td>
-                                            <td key="sku">{variation.sku}</td>
+                                            <td key="sku" className="ellipsis" title={variation.sku}>{variation.sku}</td>
                                         </tr>
                                     );
                                 }.bind(this))}
