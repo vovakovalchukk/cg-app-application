@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         modulesNames.forEach(function(module) {
             watchTasks[replaceAll(module, '-', '')] = {
                 files: ["public/channelgrabber/" + module + "/**/*.scss"],
-                tasks: ["shell:compile" + replaceAll(module, '-', '') + "Css"]
+                tasks: ["shell:compile" + replaceAll(module, '-', '') + "Css", "shell:copy" + replaceAll(module, '-', '') + "Css"]
             };
         });
         grunt.config.set('watch', watchTasks);

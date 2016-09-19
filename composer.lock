@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0622e86f7900c858dc47b473d8988fc3",
-    "content-hash": "a2a8895584c96bc85d188939bfac7415",
+    "hash": "6354ac36494dc95fe54d24610cbde598",
+    "content-hash": "8c7fdfa0bd7c811730b9273e344cafe6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -469,7 +469,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-1.0.2-0826db.zip",
                 "reference": "2edeb98c589f952cc6a45723b0de3250408493e3",
-                "shasum": "93e841d96fd0815fe804a85627c1c007541e3742"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -529,16 +529,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b600e33476a2a7b37c40378d753f714aaf7916ad"
+                "reference": "17af93e71419e4d6527228e7d0e9fb0e93a6fb52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.3-5ba7ff.zip",
-                "reference": "b600e33476a2a7b37c40378d753f714aaf7916ad",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.4-a4af4d.zip",
+                "reference": "17af93e71419e4d6527228e7d0e9fb0e93a6fb52",
                 "shasum": null
             },
             "require": {
@@ -564,7 +564,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-14 15:10:21"
+            "time": "2016-09-19 09:59:38"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1276,6 +1276,42 @@
                 }
             },
             "time": "2016-07-26 07:50:37"
+        },
+        {
+            "name": "channelgrabber/manual-order",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-manual-order.git",
+                "reference": "96a2c8dec6340bc3e00b584fb3cc09571683e9ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-1.0.0-f05aa0.zip",
+                "reference": "96a2c8dec6340bc3e00b584fb3cc09571683e9ea",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/channel": "^1.25.5",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "^2.12.24"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "^1.0.0",
+                "phpunit/phpunit": "~4.6.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\ManualOrder\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\ManualOrder\\Test\\": "tests/"
+                }
+            },
+            "time": "2016-09-13 09:43:22"
         },
         {
             "name": "channelgrabber/netdespatch",
