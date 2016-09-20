@@ -35,7 +35,7 @@ define([
 
     var ProductRowComponent = React.createClass({
         isParentProduct: function() {
-            return this.props.product.variationCount !== undefined && this.props.product.variationCount > 1
+            return this.props.product.variationCount !== undefined && this.props.product.variationCount >= 1
         },
         getProductVariationsView: function()
         {
