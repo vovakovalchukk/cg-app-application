@@ -1309,16 +1309,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.14",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970"
+                "reference": "f4a9a1ecbdc5d1f5e6aca48701d4d8352b28d45f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.14-350c76.zip",
-                "reference": "59859ccbad9df0270c61a64d3dc76a4c196c6970",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.15-2e3862.zip",
+                "reference": "f4a9a1ecbdc5d1f5e6aca48701d4d8352b28d45f",
                 "shasum": null
             },
             "require": {
@@ -1360,7 +1360,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-08-25 15:25:39"
+            "time": "2016-09-20 08:43:46"
         },
         {
             "name": "channelgrabber/notification",
@@ -6950,7 +6950,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
+                "url": "/home/aaron/.cg-loki/cgcodeception",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6978,7 +6978,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/spork.git",
+                "url": "/home/aaron/.cg-loki/spork",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
