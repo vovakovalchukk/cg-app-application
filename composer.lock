@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7f41d51e3f819d68b33157ceabdf610",
+    "hash": "949e154c8f29f1325bc11a2db65e200b",
     "content-hash": "da692cc46f22d31d594d9c7797856d9d",
     "packages": [
         {
@@ -529,17 +529,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.4",
+            "version": "dev-CGIV-7489-dpd-direct-international",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "17af93e71419e4d6527228e7d0e9fb0e93a6fb52"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.4-a4af4d.zip",
-                "reference": "17af93e71419e4d6527228e7d0e9fb0e93a6fb52",
-                "shasum": null
+                "reference": "424befbdd0206c868b701ac45fbaf5395be3a519"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.0.0",
@@ -8127,16 +8121,24 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
+            "version": "dev-CGIV-7489-dpd-direct-international",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
