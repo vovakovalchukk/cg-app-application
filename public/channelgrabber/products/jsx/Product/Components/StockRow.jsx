@@ -96,7 +96,7 @@ define([
                 dataType : 'json',
                 success : function(response) {
                     n.success('Stock mode updated successfully..');
-                    var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': {'value': stockMode.value}});
+                    var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': response});
                     window.dispatchEvent(modeUpdatedEvent);
                 }.bind(this),
                 error : function(error) {
@@ -146,11 +146,11 @@ define([
                         id: this.props.variation.id,
                         stockLevel: value
                     },
-                    success: function() {
+                    success: function(response) {
                         n.success('Stock level updated successfully..');
-                        var levelUpdatedEvent = new CustomEvent('level-'+this.props.variation.sku, {'detail': {'value': value}});
-                        window.dispatchEvent(levelUpdatedEvent);
-                        resolve({ savedValue: value });
+                        var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': response});
+                        window.dispatchEvent(modeUpdatedEvent);
+                        resolve({ savedValue: response[this.props.variation.sku].level || 0 });
                     }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to update the stock level.");
@@ -166,12 +166,10 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
-            window.addEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
             window.addEventListener('mode-'+this.props.variation.sku, this.props.modeUpdated);
         },
         componentWillUnmount: function () {
             window.removeEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
-            window.removeEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
             window.removeEventListener('mode-'+this.props.variation.sku, this.props.modeUpdated);
         },
         render: function () {

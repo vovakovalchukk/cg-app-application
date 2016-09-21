@@ -279,13 +279,8 @@ class ProductsJsonController extends AbstractActionController
             $stockMode = null;
         }
 
-        $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode);
         return $this->jsonModelFactory->newInstance(
-            [
-                'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
-                'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
-                'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
-            ]
+            $this->stockSettingsService->saveProductStockMode($productId, $stockMode)
         );
     }
 
@@ -296,8 +291,9 @@ class ProductsJsonController extends AbstractActionController
         $productId = $this->params()->fromPost('id');
         $stockLevel = $this->params()->fromPost('stockLevel');
 
-        $affectedProducts = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel);
-        return $this->jsonModelFactory->newInstance(['affectedProducts' => $affectedProducts->getIds()]);
+        return $this->jsonModelFactory->newInstance(
+            $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel)
+        );
     }
 
     public function stockCsvExportAction()

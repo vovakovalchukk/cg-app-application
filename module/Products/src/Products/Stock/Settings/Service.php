@@ -208,31 +208,30 @@ class Service
     }
 
     /**
-     * @return Product
+     * @return array
      */
     public function saveProductStockMode($productId, $stockMode)
     {
         /** @var Product $product */
         $product = $this->productService->fetch($productId);
-        if (!$product->isParent() && !$product->isVariation()) {
-            $stock = $this->saveStockStockMode($product->getStock()->getId(), $stockMode);
-            return $product->setStock($stock);
-        }
-
-        /** @var ProductCollection $variations */
         if ($product->isParent()) {
             $variations = $product->getVariations();
         } else {
             $variations = [$product];
         }
 
+        $skuMap = [];
+
         /** @var Product $variation */
         foreach ($variations as $variation) {
             $stock = $this->saveStockStockMode($variation->getStock()->getId(), $stockMode);
-            $variation->setStock($stock);
+            $skuMap[$stock->getSku()] = [
+                'mode' => $stock->getStockMode(),
+                'level' => $stock->getStockLevel(),
+            ];
         }
 
-        return $product;
+        return $skuMap;
     }
 
     protected function saveStockLevel(Stock $stock, $stockLevel = null, $eTag = null)
@@ -259,33 +258,30 @@ class Service
     }
 
     /**
-     * @return ProductCollection
+     * @return array
      */
     public function saveProductStockLevel($productId, $stockLevel)
     {
-        $updatedProducts = new ProductCollection(Product::class, __FUNCTION__, compact('productId', 'stockLevel'));
-
         /** @var Product $product */
         $product = $this->productService->fetch($productId);
-        if (!$product->isParent() && !$product->isVariation()) {
-            $stock = $this->saveStockStockLevel($product->getStock()->getId(), $stockLevel);
-            $updatedProducts->attach($product->setStock($stock));
-            return $updatedProducts;
-        }
-
-        /** @var ProductCollection $variations */
         if ($product->isParent()) {
             $variations = $product->getVariations();
         } else {
             $variations = [$product];
         }
 
+        $skuMap = [];
+
         /** @var Product $variation */
         foreach ($variations as $variation) {
             $stock = $this->saveStockStockLevel($variation->getStock()->getId(), $stockLevel);
-            $updatedProducts->attach($variation->setStock($stock));
+            $skuMap[$stock->getSku()] = [
+                'mode' => $stock->getStockMode(),
+                'level' => $stock->getStockLevel(),
+            ];
         }
-        return $updatedProducts;
+
+        return $skuMap;
     }
 
     /**
