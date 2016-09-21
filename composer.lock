@@ -6956,7 +6956,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/aaron/.cg-loki/cgcodeception",
+                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6984,7 +6984,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/aaron/.cg-loki/spork",
+                "url": "git@github.com:channelgrabber/spork.git",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
