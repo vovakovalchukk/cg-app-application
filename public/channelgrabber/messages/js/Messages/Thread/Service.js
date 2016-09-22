@@ -18,9 +18,9 @@ define([
     Service.ASSIGNEE_ACTIVE_USER = 'active-user';
     Service.STATUS_RESOLVED = 'resolved';
 
-    Service.prototype.fetchCollectionByFilter = function(filter, page, callback)
+    Service.prototype.fetchCollectionByFilter = function(filter, page, sortDescending, callback)
     {
-        this.getStorage().fetchCollectionByFilter(filter, page, function(threads) {
+        this.getStorage().fetchCollectionByFilter(filter, page, sortDescending, function(threads) {
             $(document).trigger(StorageEvents.THREADS_FETCHED, [threads]);
             callback(threads);
         });
