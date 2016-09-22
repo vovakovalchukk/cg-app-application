@@ -57,10 +57,7 @@ define([
             return shouldBeDisabled;
         },
         getStockModeLevel: function() {
-            if (this.props.variation.stock && this.props.variation.stock.stockLevel) {
-                return this.props.variation.stock.stockLevel;
-            }
-            return this.props.variation.stockLevel;
+            return this.props.variation.stock.stockLevel;
         },
         getStockModeOptions: function() {
             if (!this.props.variation.stockModeOptions) {
