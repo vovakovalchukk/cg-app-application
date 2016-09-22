@@ -339,7 +339,7 @@ define([
                         <div className="product-header">
                             <Checkbox id={this.props.product.id} />
                             <span className="product-title">{this.props.product.name}</span>
-                            <Status listings={this.props.product.listings} />
+                            <Status listings={this.props.product.listings} accounts={this.props.product.accounts} />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
                             <div className="variations-layout-column">
