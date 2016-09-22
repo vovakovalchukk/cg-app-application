@@ -213,6 +213,7 @@ class Service implements LoggerAwareInterface
         if (count($options) == 1) {
             $index = key($options);
             $options[$index]['selected'] = true;
+            $courierId = $options[$index]['value'];
         }
 
         $orderData = [
