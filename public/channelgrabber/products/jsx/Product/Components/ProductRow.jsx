@@ -11,6 +11,7 @@ define([
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
+    'Product/Components/VatView',
     'Product/Filter/Entity',
     'Product/Storage/Ajax'
 ], function(
@@ -26,15 +27,19 @@ define([
     Pane,
     DimensionsView,
     StockView,
+    VatView,
     ProductFilter,
     AjaxHandler
 ) {
     "use strict";
 
     var ProductRowComponent = React.createClass({
+        isParentProduct: function() {
+            return this.props.product.variationCount !== undefined && this.props.product.variationCount >= 1
+        },
         getProductVariationsView: function()
         {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.isParentProduct()) {
                 return <VariationView parentProduct={this.props.product} onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
             } else {
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
@@ -43,7 +48,7 @@ define([
         getProductDetailsView: function ()
         {
             var products = [this.props.product];
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.isParentProduct()) {
                 products = this.state.variations;
             }
             return (
@@ -54,6 +59,9 @@ define([
                         </Pane>
                         <Pane label="Dimensions">
                             <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
+                        </Pane>
+                        <Pane label="VAT">
+                            <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
                         </Pane>
                     </Tabs>
                 </div>
@@ -66,7 +74,7 @@ define([
             }
         },
         getVariationsBulkActions: function () {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 1) {
+            if (this.isParentProduct()) {
                 return (
                 <div className="footer-row">
                     <div className="variations-layout-column">
@@ -81,11 +89,11 @@ define([
                         <table>
                             <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
-                                <td>{this.getBulkStockLevelInput()}</td>
+                                <td className="product-stock-available"></td>
+                                <td className="product-stock-allocated"></td>
+                                <td className="product-stock-available"></td>
+                                <td colSpan="2" className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
+                                <td colSpan="1" className="product-stock-level">{this.getBulkStockLevelInput()}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -102,7 +110,7 @@ define([
         },
         getBulkStockLevelInput: function () {
             if (this.state.variations.length > 0) {
-                return <Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
+                return <Input name='bulk-level' submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
             }
         },
         shouldBulkLevelBeDisabled: function () {
@@ -112,44 +120,11 @@ define([
                 (this.props.product.stockModeDefault === disabledStockMode || this.props.product.stockModeDefault === null)
             );
         },
-        getVatDropdowns: function () {
-            if (this.props.product.taxRates) {
-                var showCodeInLabel = (Object.keys(this.props.product.taxRates).length > 1);
-                var vatDropdowns = [];
-
-                for (var memberState in this.props.product.taxRates) {
-                    if (! this.props.product.taxRates.hasOwnProperty(memberState)) {
-                        continue;
-                    }
-                    var options = [];
-                    var selectedOption = "";
-                    for(var taxRateId in this.props.product.taxRates[memberState]) {
-                        if(! this.props.product.taxRates[memberState].hasOwnProperty(taxRateId)) {
-                            continue;
-                        }
-                        var formattedRate = parseFloat(this.props.product.taxRates[memberState][taxRateId]['rate']);
-                        var rateName = formattedRate + '% (' +this.props.product.taxRates[memberState][taxRateId]['name'] + ')';
-                        var selected = this.props.product.taxRates[memberState][taxRateId]['selected'];
-                        var option = {
-                            'name': rateName,
-                            'value': taxRateId,
-                            'selected': selected
-                        };
-                        if (selected) {
-                            selectedOption = option;
-                        }
-                        options.push(option);
-                    }
-                    vatDropdowns.push(<Select prefix={showCodeInLabel ? memberState+' VAT' : "VAT"} options={options} onNewOption={this.vatUpdated} selectedOption={selectedOption}/>);
-                }
-                return vatDropdowns;
-            }
-        },
-        vatUpdated: function (selection) {
+        vatUpdated: function (taxRateId) {
             n.notice('Updating product tax rate.');
             $.ajax({
                 url : '/products/taxRate',
-                data : { productId: this.props.product.id, taxRateId: selection.value, memberState: selection.value.substring(0, 2) },
+                data : { productId: this.props.product.id, taxRateId: taxRateId, memberState: taxRateId.substring(0, 2) },
                 method : 'POST',
                 dataType : 'json',
                 success : function(response) {
@@ -210,7 +185,7 @@ define([
             var sortFunction = firstBy();
             newVariationSort.forEach(function (nextSort) {
                 sortFunction = sortFunction.thenBy(function(v){
-                    return v.attributeValues[nextSort.attribute];
+                    return v.attributeValues[nextSort.attribute] ? v.attributeValues[nextSort.attribute] : "";
                 }, {ignoreCase: true, direction: (nextSort.ascending ? 1 : -1)});
             });
 
@@ -232,7 +207,7 @@ define([
             if (this.state.variations.length < 1) {
                 return;
             }
-            return this.state.variations[0].stockLevel;
+            return this.state.variations[0].stock.stockLevel;
         },
         bulkUpdateStockLevel: function(name, value) {
             if (this.state.variations.length < 1) {
@@ -248,10 +223,10 @@ define([
                         id: this.props.product.id,
                         stockLevel: value
                     },
-                    success: function() {
+                    success: function(response) {
                         n.success('Bulk stock level updated successfully.');
-                        resolve({ savedValue: value });
-                        this.updateVariationsStockLevel(value);
+                        resolve({ savedValue: response.level || 0 });
+                        this.updateVariationsStockMode(response);
                     }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to bulk update the stock level.");
@@ -269,7 +244,7 @@ define([
                 dataType : 'json',
                 success : function(response) {
                     n.success('Bulk stock mode updated successfully.');
-                    this.updateVariationsStockMode(stockMode);
+                    this.updateVariationsStockMode(response);
                     this.setState({
                         bulkStockMode: stockMode
                     });
@@ -279,28 +254,20 @@ define([
                 }
             });
         },
-        updateVariationsStockLevel: function(stockLevel) {
+        updateVariationsStockMode: function(stockModes) {
             var updatedVariations = this.state.variations.slice();
             updatedVariations.forEach(function(variation) {
-                variation.stockLevel = stockLevel;
-                variation.stock.stockLevel = stockLevel;
-                return variation;
-            });
-            this.setState({
-                variations: updatedVariations
-            });
-        },
-        updateVariationsStockMode: function(stockMode) {
-            var updatedVariations = this.state.variations.slice();
-            updatedVariations.forEach(function(variation) {
+                var stockMode = stockModes[variation.sku];
+                var stockModeOption;
                 variation.stockModeOptions.forEach(function (mode, stockModeIndex) {
-                    variation.stockModeOptions[stockModeIndex].selected = false;
-                    if (mode.value === stockMode.value) {
-                        variation.stockModeOptions[stockModeIndex].selected = true;
-                        variation.stockModeDesc = stockMode.name;
-                        variation.stock.stockMode = stockMode.value;
+                    variation.stockModeOptions[stockModeIndex].selected = (mode.value == stockMode.mode + "");
+                    if (variation.stockModeOptions[stockModeIndex].selected) {
+                        stockModeOption = mode;
                     }
                 });
+                variation.stockModeDesc = stockModeOption.title;
+                variation.stock.stockMode = stockMode.mode;
+                variation.stock.stockLevel = stockMode.level || 0;
                 return variation;
             });
             this.setState({
@@ -351,11 +318,10 @@ define([
                 <div className="product-container" id={"product-container-" + this.props.product.id}>
                     <input type="hidden" value={this.props.product.id} name="id" />
                     <input type="hidden" value={this.props.product.eTag} name={"product[" + this.props.product.id + "][eTag]"} />
-                    <Checkbox id={this.props.product.id} />
                     <div className="product-info-container">
                         <div className="product-header">
+                            <Checkbox id={this.props.product.id} />
                             <span className="product-title">{this.props.product.name}</span>
-                            <span className="product-sku">{this.props.product.sku}</span>
                             <Status listings={this.props.product.listings} />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
@@ -365,10 +331,7 @@ define([
                             {this.getProductDetailsView()}
                         </div>
                         <div className="product-footer">
-                                {this.getVariationsBulkActions()}
-                            <div className="footer-row vat-row">
-                                {this.getVatDropdowns()}
-                            </div>
+                            {this.getVariationsBulkActions()}
                         </div>
                     </div>
                 </div>
