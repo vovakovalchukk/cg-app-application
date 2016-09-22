@@ -73,35 +73,52 @@ define([
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
-        getVariationsBulkActions: function () {
+        getFooterActions: function () {
             if (this.isParentProduct()) {
-                return (
-                <div className="footer-row">
-                    <div className="variations-layout-column">
-                        <div className="variations-button-holder">
-                            {this.getExpandVariationsButton()}
-                        </div>
-                        <div className="stocklog-link-holder">
-                            {this.context.isAdmin ? <a href={"/products/stockLog/"+this.props.product.id}>History Log</a> : ''}
-                        </div>
-                    </div>
-                    <div className="details-layout-column">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td className="product-stock-available"></td>
-                                <td className="product-stock-allocated"></td>
-                                <td className="product-stock-available"></td>
-                                <td colSpan="2" className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
-                                <td colSpan="1" className="product-stock-level">{this.getBulkStockLevelInput()}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                );
+                return this.getVariationsBulkActions();
             }
+            return this.getStandaloneBulkActions();
+        },
+        getVariationsBulkActions: function()
+        {
+            return (
+            <div className="footer-row">
+                <div className="variations-layout-column">
+                    <div className="variations-button-holder">
+                        {this.getExpandVariationsButton()}
+                    </div>
+                    <div className="stocklog-link-holder">
+                        {this.context.isAdmin ? <a href={"/products/stockLog/"+this.props.product.id}>History Log</a> : ''}
+                    </div>
+                </div>
+                <div className="details-layout-column">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td className="product-stock-available"></td>
+                            <td className="product-stock-allocated"></td>
+                            <td className="product-stock-available"></td>
+                            <td colSpan="2" className="product-stock-mode">{this.getBulkStockModeDropdown()}</td>
+                            <td colSpan="1" className="product-stock-level">{this.getBulkStockLevelInput()}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            );
+        },
+        getStandaloneBulkActions: function()
+        {
+            return (
+            <div className="footer-row">
+                <div className="variations-layout-column">
+                    <div className="stocklog-link-holder">
+                        {this.context.isAdmin ? <a href={"/products/stockLog/"+this.props.product.id}>History Log</a> : ''}
+                    </div>
+                </div>
+            </div>
+            );
         },
         getBulkStockModeDropdown: function () {
             if (this.state.variations.length > 0) {
@@ -331,7 +348,7 @@ define([
                             {this.getProductDetailsView()}
                         </div>
                         <div className="product-footer">
-                            {this.getVariationsBulkActions()}
+                            {this.getFooterActions()}
                         </div>
                     </div>
                 </div>
