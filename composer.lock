@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c10b411ae854cc5458333ff8d5e6f586",
-    "content-hash": "0e3f881756f930b4fbee5921ebe6c26b",
+    "hash": "af804aab130cf4659306e64f0398c4f9",
+    "content-hash": "661c08760b9a5b0716560e5fef21ef37",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -459,16 +459,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "dev-CGIV-6907-MessagesSortOrder",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "1501aabaaa5468ca07061043babdd994ec8eeb25"
+                "reference": "25bb6527926d0b05d880d771eb28bd9c7e936c91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-6907-MessagesSortOrder-a4c69c.zip",
-                "reference": "1501aabaaa5468ca07061043babdd994ec8eeb25",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-1.0.6-aa0f78.zip",
+                "reference": "25bb6527926d0b05d880d771eb28bd9c7e936c91",
                 "shasum": null
             },
             "require": {
@@ -499,7 +499,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2016-09-16 10:13:50"
+            "time": "2016-09-22 13:46:35"
         },
         {
             "name": "channelgrabber/constants",
@@ -2840,16 +2840,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-7506-cant-save-amazon-settings",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "7a985ea9a50417d99e98170de3072db6977d4f8f"
+                "reference": "2ea7108d46eba8e9cb04c8de688a87dcb3b956aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-7506-cant-save-amazon-settings-e61709.zip",
-                "reference": "7a985ea9a50417d99e98170de3072db6977d4f8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.14-8b6489.zip",
+                "reference": "2ea7108d46eba8e9cb04c8de688a87dcb3b956aa",
                 "shasum": null
             },
             "require": {
@@ -2881,7 +2881,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-09-22 09:10:45"
+            "time": "2016-09-22 13:42:32"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -8126,25 +8126,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-6907-MessagesSortOrder",
-            "package": "channelgrabber/communication"
-        },
-        {
-            "alias": "1.0.14",
-            "alias_normalized": "1.0.14.0",
-            "version": "dev-CGIV-7506-cant-save-amazon-settings",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
