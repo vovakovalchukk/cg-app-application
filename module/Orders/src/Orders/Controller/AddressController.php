@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Locale\CountryNameByCode;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\UserChange\Service as UserChangeService;
@@ -33,12 +34,30 @@ class AddressController extends AbstractActionController
         $order = $this->fetchOrder();
         $userChanges = $this->params()->fromPost();
         unset($userChanges['eTag']);
+        $this->ensureCountryCodeSetIfCountryChanged($userChanges);
+
         $userChange = $this->fetchUserChange($order, $userChanges);
         $this->getService()->save($userChange);
 
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $userChange->getStoredETag());
         return $view;
+    }
+
+    protected function ensureCountryCodeSetIfCountryChanged(array &$userChanges)
+    {
+        if (isset($userChanges['billingAddressCountry']) &&
+            $userChanges['billingAddressCountry'] != '' &&
+            !isset($userChanges['billingAddressCountryCode'])
+        ) {
+            $userChanges['billingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($userChanges['billingAddressCountry']);
+        }
+        if (isset($userChanges['shippingAddressCountry']) &&
+            $userChanges['shippingAddressCountry'] != '' &&
+            !isset($userChanges['shippingAddressCountryCode'])
+        ) {
+            $userChanges['shippingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($userChanges['shippingAddressCountry']);
+        }
     }
 
     protected function fetchUserChange(OrderEntity $order, array $userChanges)
