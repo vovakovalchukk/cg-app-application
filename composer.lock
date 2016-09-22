@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b6503aa5caf6452a8721751dce371bdb",
-    "content-hash": "b0494b0f5f4e5f42e2766d8982cb6915",
+    "hash": "c10b411ae854cc5458333ff8d5e6f586",
+    "content-hash": "0e3f881756f930b4fbee5921ebe6c26b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2840,16 +2840,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.13",
+            "version": "dev-CGIV-7506-cant-save-amazon-settings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "3af3c576d48f480424ae72b0ef28b6badf36ccd0"
+                "reference": "7a985ea9a50417d99e98170de3072db6977d4f8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.13-0e2f98.zip",
-                "reference": "3af3c576d48f480424ae72b0ef28b6badf36ccd0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-7506-cant-save-amazon-settings-e61709.zip",
+                "reference": "7a985ea9a50417d99e98170de3072db6977d4f8f",
                 "shasum": null
             },
             "require": {
@@ -2881,7 +2881,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-08-19 10:22:26"
+            "time": "2016-09-22 09:10:45"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -8132,12 +8132,19 @@
             "alias_normalized": "1.0.6.0",
             "version": "dev-CGIV-6907-MessagesSortOrder",
             "package": "channelgrabber/communication"
+        },
+        {
+            "alias": "1.0.14",
+            "alias_normalized": "1.0.14.0",
+            "version": "dev-CGIV-7506-cant-save-amazon-settings",
+            "package": "channelgrabber/zf2-amazon"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
