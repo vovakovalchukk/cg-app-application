@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7d32a6c01caad778fa780cbb494c8c4",
-    "content-hash": "d7ac952a24a5b6065512f80cfd3b0ef0",
+    "hash": "b6503aa5caf6452a8721751dce371bdb",
+    "content-hash": "b0494b0f5f4e5f42e2766d8982cb6915",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -459,28 +459,27 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.0.2",
+            "version": "dev-CGIV-6907-MessagesSortOrder",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "2edeb98c589f952cc6a45723b0de3250408493e3"
+                "reference": "1501aabaaa5468ca07061043babdd994ec8eeb25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-1.0.2-0826db.zip",
-                "reference": "2edeb98c589f952cc6a45723b0de3250408493e3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-6907-MessagesSortOrder-a4c69c.zip",
+                "reference": "1501aabaaa5468ca07061043babdd994ec8eeb25",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
@@ -500,7 +499,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-12 15:39:19"
+            "time": "2016-09-16 10:13:50"
         },
         {
             "name": "channelgrabber/constants",
@@ -8127,9 +8126,17 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.6",
+            "alias_normalized": "1.0.6.0",
+            "version": "dev-CGIV-6907-MessagesSortOrder",
+            "package": "channelgrabber/communication"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
