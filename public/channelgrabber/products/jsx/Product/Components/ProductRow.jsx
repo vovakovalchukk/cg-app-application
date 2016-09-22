@@ -110,7 +110,7 @@ define([
         },
         getBulkStockLevelInput: function () {
             if (this.state.variations.length > 0) {
-                return <Input name='bulk-level' initialValue={this.getStockModeLevel()} submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
+                return <Input name='bulk-level' submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
             }
         },
         shouldBulkLevelBeDisabled: function () {
@@ -207,7 +207,7 @@ define([
             if (this.state.variations.length < 1) {
                 return;
             }
-            return this.state.variations[0].stockLevel;
+            return this.state.variations[0].stock.stockLevel;
         },
         bulkUpdateStockLevel: function(name, value) {
             if (this.state.variations.length < 1) {
@@ -223,10 +223,10 @@ define([
                         id: this.props.product.id,
                         stockLevel: value
                     },
-                    success: function() {
+                    success: function(response) {
                         n.success('Bulk stock level updated successfully.');
-                        resolve({ savedValue: value });
-                        this.updateVariationsStockLevel(value);
+                        resolve({ savedValue: response.level || 0 });
+                        this.updateVariationsStockMode(response);
                     }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to bulk update the stock level.");
@@ -244,7 +244,7 @@ define([
                 dataType : 'json',
                 success : function(response) {
                     n.success('Bulk stock mode updated successfully.');
-                    this.updateVariationsStockMode(stockMode);
+                    this.updateVariationsStockMode(response);
                     this.setState({
                         bulkStockMode: stockMode
                     });
@@ -254,28 +254,20 @@ define([
                 }
             });
         },
-        updateVariationsStockLevel: function(stockLevel) {
+        updateVariationsStockMode: function(stockModes) {
             var updatedVariations = this.state.variations.slice();
             updatedVariations.forEach(function(variation) {
-                variation.stockLevel = stockLevel;
-                variation.stock.stockLevel = stockLevel;
-                return variation;
-            });
-            this.setState({
-                variations: updatedVariations
-            });
-        },
-        updateVariationsStockMode: function(stockMode) {
-            var updatedVariations = this.state.variations.slice();
-            updatedVariations.forEach(function(variation) {
+                var stockMode = stockModes[variation.sku];
+                var stockModeOption;
                 variation.stockModeOptions.forEach(function (mode, stockModeIndex) {
-                    variation.stockModeOptions[stockModeIndex].selected = false;
-                    if (mode.value === stockMode.value) {
-                        variation.stockModeOptions[stockModeIndex].selected = true;
-                        variation.stockModeDesc = stockMode.name;
-                        variation.stock.stockMode = stockMode.value;
+                    variation.stockModeOptions[stockModeIndex].selected = (mode.value == stockMode.mode + "");
+                    if (variation.stockModeOptions[stockModeIndex].selected) {
+                        stockModeOption = mode;
                     }
                 });
+                variation.stockModeDesc = stockModeOption.title;
+                variation.stock.stockMode = stockMode.mode;
+                variation.stock.stockLevel = stockMode.level || 0;
                 return variation;
             });
             this.setState({
