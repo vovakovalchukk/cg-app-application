@@ -207,7 +207,7 @@ define([
             if (this.state.variations.length < 1) {
                 return;
             }
-            return this.state.variations[0].stockLevel;
+            return this.state.variations[0].stock.stockLevel;
         },
         bulkUpdateStockLevel: function(name, value) {
             if (this.state.variations.length < 1) {

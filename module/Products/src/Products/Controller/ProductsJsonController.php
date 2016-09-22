@@ -148,7 +148,6 @@ class ProductsJsonController extends AbstractActionController
                 [
                     'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
                     'stockModeOptions' => $this->stockSettingsService->getStockModeOptionsForProduct($productEntity),
-                    'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
                 ]
             );
         }
