@@ -1,10 +1,12 @@
 .message-pane {
+  @include flexbox();
+  @include flex-direction(column);
+  @include flex-wrap(nowrap);
   @include calc(width, "18% - 2px");
   min-width: 300px;
   height: 100%;
   float: left;
   border-right: 1px solid $color-lgrey;
-  display: block;
   overflow-x: hidden;
   overflow-y: hidden;
   @include no-print();
@@ -32,10 +34,8 @@
     }
   }
   ul {
+    @include flex(1);
     width: 100%;
-    @include calc(height, "100% - 10px");
-    float: left;
-    clear:both;
     padding: 0px;
     margin: 0px;
     overflow-y: scroll;
@@ -57,12 +57,9 @@
     }
   }
   #next-page {
-    width:117px;
-    margin:0px auto 20px auto;
-    position:relative;
-    top:10px;
-    display:none;
-    clear:both;
+    display: none;
+    width: 100%;
+    margin: 20px auto;
   }
 }
 .channel-logo-holder {
