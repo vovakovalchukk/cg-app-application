@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b44bb1a83682ebbd9cd82447d94a95f5",
-    "content-hash": "9b604bd2b38829a9d6f281774d616e2d",
+    "hash": "c02db8d00f89577ede38e270e8171b78",
+    "content-hash": "fdff685cfee27ca752394300bcb3a06e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1122,12 +1122,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "2fa24869bbf3f8d017a2ecbf34f61c8b151609b8"
+                "reference": "c83761fc06a3f408486badf4e933ca274150f983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-6802-non-eu-fiscal-area-postcodes-ff7956.zip",
-                "reference": "2fa24869bbf3f8d017a2ecbf34f61c8b151609b8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-6802-non-eu-fiscal-area-postcodes-18f750.zip",
+                "reference": "c83761fc06a3f408486badf4e933ca274150f983",
                 "shasum": null
             },
             "require": {
@@ -1147,7 +1147,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-09-09 10:38:23"
+            "time": "2016-09-23 12:53:08"
         },
         {
             "name": "channelgrabber/location",
@@ -1318,12 +1318,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "a1c788b0c0cdfcbc4ea09fc6f1e8c138d7fae996"
+                "reference": "9f840f88bd2ed3c2ed0a4a6bae08a035bb677c04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6802-non-eu-fiscal-area-postcodes-d7b1af.zip",
-                "reference": "a1c788b0c0cdfcbc4ea09fc6f1e8c138d7fae996",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6802-non-eu-fiscal-area-postcodes-cda219.zip",
+                "reference": "9f840f88bd2ed3c2ed0a4a6bae08a035bb677c04",
                 "shasum": null
             },
             "require": {
@@ -1365,7 +1365,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-09-09 10:58:47"
+            "time": "2016-09-23 11:27:57"
         },
         {
             "name": "channelgrabber/notification",
