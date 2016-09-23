@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9501de7b925008c44cd4d4af951d7fef",
-    "content-hash": "56dffcc164aca1c5a862bbc1fdac7351",
+    "hash": "d8fa97414cc9f978eb4b7b79a3a009cd",
+    "content-hash": "36604be0c65595fa452e728c888c8897",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1118,16 +1118,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-CGIV-7486-set-default-vat-code",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "e7930b491b4ee9c97b2b83b320ea018f1b784e39"
+                "reference": "8586983621824154b4fdffc3a31b262214f7b4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-7486-set-default-vat-code-022a97.zip",
-                "reference": "e7930b491b4ee9c97b2b83b320ea018f1b784e39",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.8-1f5abf.zip",
+                "reference": "8586983621824154b4fdffc3a31b262214f7b4b8",
                 "shasum": null
             },
             "require": {
@@ -1147,7 +1147,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-09-21 15:36:55"
+            "time": "2016-09-23 10:53:29"
         },
         {
             "name": "channelgrabber/location",
@@ -3410,16 +3410,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7486-set-default-vat-code",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "321205f59b063ef989152ad69959a75a3f0b6ff8"
+                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7486-set-default-vat-code-816393.zip",
-                "reference": "321205f59b063ef989152ad69959a75a3f0b6ff8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.1-972696.zip",
+                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc",
                 "shasum": null
             },
             "require": {
@@ -3459,7 +3459,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-09-20 16:11:36"
+            "time": "2016-09-23 10:53:41"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8124,25 +8124,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.7",
-            "alias_normalized": "1.0.7.0",
-            "version": "dev-CGIV-7486-set-default-vat-code",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.5.1",
-            "alias_normalized": "1.5.1.0",
-            "version": "dev-CGIV-7486-set-default-vat-code",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
