@@ -1118,16 +1118,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1cd5e05cc79ee120fe59cfc9c130ca745fe41fbb"
+                "reference": "8586983621824154b4fdffc3a31b262214f7b4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.7-d36fa9.zip",
-                "reference": "1cd5e05cc79ee120fe59cfc9c130ca745fe41fbb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.8-1f5abf.zip",
+                "reference": "8586983621824154b4fdffc3a31b262214f7b4b8",
                 "shasum": null
             },
             "require": {
@@ -1147,7 +1147,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-06-20 08:16:52"
+            "time": "2016-09-23 10:53:29"
         },
         {
             "name": "channelgrabber/location",
@@ -3410,16 +3410,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "9e4feebb70854ff8ddb1d6be167f45fbdf010d0a"
+                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.0-910e52.zip",
-                "reference": "9e4feebb70854ff8ddb1d6be167f45fbdf010d0a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.1-972696.zip",
+                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc",
                 "shasum": null
             },
             "require": {
@@ -3459,7 +3459,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-08-30 08:13:37"
+            "time": "2016-09-23 10:53:41"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
