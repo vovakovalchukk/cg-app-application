@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02edc448d3ee36306aade169a30345e1",
-    "content-hash": "f13cf5579c67cfeeed911dbfc82c45e1",
+    "hash": "70fa3440683e1d653c5cab8fbf5a4084",
+    "content-hash": "a0ff5d01435f19f7cd066b0b2c53a2a3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -528,16 +528,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-7489-dpd-direct-international",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b5af01862562c78a32b0099c24aa6fcb951f4ccd"
+                "reference": "dc8f32b7f6d50f1f814093934f67fb0185cc80e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-7489-dpd-direct-international-af9265.zip",
-                "reference": "b5af01862562c78a32b0099c24aa6fcb951f4ccd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.5-2376d6.zip",
+                "reference": "dc8f32b7f6d50f1f814093934f67fb0185cc80e7",
                 "shasum": null
             },
             "require": {
@@ -563,7 +563,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-23 10:32:22"
+            "time": "2016-09-23 11:02:13"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -8124,18 +8124,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.5",
-            "alias_normalized": "1.0.5.0",
-            "version": "dev-CGIV-7489-dpd-direct-international",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
