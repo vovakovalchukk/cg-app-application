@@ -13,8 +13,7 @@ define([
                 <th key="stock-available"><abbr title="Quantity of item available for sale">Available</abbr></th>,
                 <th key="stock-undispatched"><abbr title="Quantity of item currently awaiting dispatch">Undispatched</abbr></th>,
                 <th key="stock-total">Total</th>,
-                <th key="stock-mode" className="stock-mode-header-col">Mode</th>,
-                <th key="stock-level"><abbr title="Quantity of items that will be listed, according to the currently chosen Stock Mode.">Level</abbr></th>,
+                <th key="stock-mode" colSpan="3" className="stock-mode-header-col">Stock Mode</th>
             ];
         },
         getDefaultProps: function() {
@@ -36,22 +35,9 @@ define([
             updatedVariation.stock.locations[0].onHand = newValue;
             this.props.onVariationDetailChanged(updatedVariation);
         },
-        levelUpdated: function(e) {
-            var sku = e.type.substring('level-'.length);
-            var newValue = e.detail.value;
-            var updatedVariation = null;
-
-            this.props.variations.forEach(function (variation) {
-                if (variation.sku === sku) {
-                    updatedVariation = variation;
-                }
-            });
-            updatedVariation.stock.stockLevel = newValue;
-            this.props.onVariationDetailChanged(updatedVariation);
-        },
         modeUpdated: function(e) {
             var sku = e.type.substring('mode-'.length);
-            var newValue = e.detail.value;
+            var stockMode = e.detail[sku];
             var updatedVariation = null;
 
             this.props.variations.forEach(function (variation) {
@@ -59,11 +45,15 @@ define([
                     updatedVariation = variation;
                 }
             });
-            var newName = updatedVariation.stockModeOptions.find(function (option) {
-                return option.value === newValue;
+
+            var stockModeOption = updatedVariation.stockModeOptions.find(function (option) {
+                return option.value == stockMode.mode + "";
             });
-            updatedVariation.stock.stockMode = newValue;
-            updatedVariation.stockModeDesc = newName.title;
+
+            updatedVariation.stockModeDesc = stockModeOption.title;
+            updatedVariation.stock.stockMode = stockMode.mode;
+            updatedVariation.stock.stockLevel = stockMode.level || 0;
+
             this.props.onVariationDetailChanged(updatedVariation);
         },
         render: function () {
@@ -82,7 +72,7 @@ define([
                                 return;
                             }
                             count++;
-                            return <StockRow key={variation.id} variation={variation} totalUpdated={this.totalUpdated} levelUpdated={this.levelUpdated} modeUpdated={this.modeUpdated}/>;
+                            return <StockRow key={variation.id} variation={variation} totalUpdated={this.totalUpdated} modeUpdated={this.modeUpdated}/>;
                         }.bind(this))}
                         </tbody>
                     </table>

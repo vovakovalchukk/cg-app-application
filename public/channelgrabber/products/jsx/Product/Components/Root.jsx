@@ -24,6 +24,7 @@ define([
         {
             return {
                 products: [],
+                searchTerm: "",
                 pagination: {
                     total: 0,
                     limit: 0,
@@ -40,14 +41,17 @@ define([
             this.productsRequest.abort();
         },
         filterBySearch: function(searchTerm) {
-            this.performProductsRequest(searchTerm);
+            this.setState({
+                searchTerm: searchTerm
+            },
+                this.performProductsRequest
+            );
         },
-        performProductsRequest: function(searchTerm, pageNumber) {
-            searchTerm = searchTerm || '';
+        performProductsRequest: function(pageNumber) {
             pageNumber = pageNumber || 1;
 
             $('#products-loading-message').show();
-            var filter = new ProductFilter(searchTerm, null);
+            var filter = new ProductFilter(this.state.searchTerm, null);
             filter.setPage(pageNumber);
 
             this.productsRequest = $.ajax({
@@ -59,8 +63,7 @@ define([
                     this.setState({
                         products: result.products,
                         pagination: result.pagination
-                    });
-                    $('#products-loading-message').hide();
+                    }, function(){$('#products-loading-message').hide()});
                 }.bind(this),
                 'error' : function () {
                     throw 'Unable to load products';
@@ -73,7 +76,7 @@ define([
             }
         },
         onPageChange: function(pageNumber) {
-            this.performProductsRequest(null, pageNumber);
+            this.performProductsRequest(pageNumber);
         },
         render: function()
         {
