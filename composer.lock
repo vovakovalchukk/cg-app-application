@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c77b8e9ed1e6c088400f1b453582678d",
-    "content-hash": "7f666fce6c9c75b9127fd786365b3cb3",
+    "hash": "39544458d71ff02ea2fc3d2ae6697e05",
+    "content-hash": "54910b6b4f998c4fdb1c6cfbd9799eed",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2433,16 +2433,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.8",
+            "version": "dev-CGIV-7467-invoice-elements-truncated",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "55965e393d101db8a0d4054cd856a588e3270f3b"
+                "reference": "5bdd6aa8c7158198cdb87ae86038916bfb7b27be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.8-d040f4.zip",
-                "reference": "55965e393d101db8a0d4054cd856a588e3270f3b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-7467-invoice-elements-truncated-8f376c.zip",
+                "reference": "5bdd6aa8c7158198cdb87ae86038916bfb7b27be",
                 "shasum": null
             },
             "require": {
@@ -2485,7 +2485,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-07-06 09:32:57"
+            "time": "2016-09-26 09:48:54"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8124,10 +8124,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.9",
+            "alias_normalized": "1.4.9.0",
+            "version": "dev-CGIV-7467-invoice-elements-truncated",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
