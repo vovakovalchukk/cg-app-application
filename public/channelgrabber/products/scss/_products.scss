@@ -134,8 +134,12 @@
                     overflow: initial;
                     box-sizing: border-box;
                     border-left: 0;
+                    &.image-cell {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
                     img {
-                        max-height: 23px;
+                        max-height: 44px;
                     }
                 }
             }
@@ -545,5 +549,14 @@ div#products-loading-message {
                 }
             }
         }
+    }
+}
+
+div.tether-element div.hover-image {
+    border: solid 1px $color-lblue;
+    background-color: white;
+    img {
+        max-height: 200px;
+        max-width: 200px;
     }
 }
