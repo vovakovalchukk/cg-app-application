@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c77b8e9ed1e6c088400f1b453582678d",
-    "content-hash": "7f666fce6c9c75b9127fd786365b3cb3",
+    "hash": "cc8bd0a7f88021d92beda16ec365a459",
+    "content-hash": "cf444b313d2fd5b450fe4a19514061b3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3670,16 +3670,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.3",
+            "version": "dev-CGIV-7529-make-product-images-bigger",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "795e2b1c26d8d2ce5a43af2f42457fcca73ced93"
+                "reference": "dee5fb3ae26e9d945bc005fa31bfc68c91dc5f96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.3-d34f1e.zip",
-                "reference": "795e2b1c26d8d2ce5a43af2f42457fcca73ced93",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7529-make-product-images-bigger-870b72.zip",
+                "reference": "dee5fb3ae26e9d945bc005fa31bfc68c91dc5f96",
                 "shasum": null
             },
             "require": {
@@ -3726,7 +3726,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-09-19 13:14:39"
+            "time": "2016-09-26 13:58:45"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8124,10 +8124,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.4",
+            "alias_normalized": "1.17.4.0",
+            "version": "dev-CGIV-7529-make-product-images-bigger",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

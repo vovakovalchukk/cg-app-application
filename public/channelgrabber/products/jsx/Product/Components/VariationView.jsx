@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Product/Components/Image',
 ], function(
-    React
+    React,
+    Image
 ) {
     "use strict";
 
@@ -72,7 +74,7 @@ define([
                                     imageRow++;
                                     return (
                                         <tr key={variation.id}>
-                                            <td key="image" className="image-cell"><img src={this.getImageUrl(variation)} /></td>
+                                            <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
                                             <td key="sku" className="ellipsis" title={variation.sku}>{variation.sku}</td>
                                         </tr>
                                     );

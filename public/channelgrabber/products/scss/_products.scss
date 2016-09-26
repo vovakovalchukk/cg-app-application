@@ -551,3 +551,12 @@ div#products-loading-message {
         }
     }
 }
+
+div.tether-element div.hover-image {
+    border: solid 1px $color-lblue;
+    background-color: white;
+    img {
+        max-height: 200px;
+        max-width: 200px;
+    }
+}
