@@ -72,7 +72,7 @@ define([
                                     imageRow++;
                                     return (
                                         <tr key={variation.id}>
-                                            <td key="image"><img src={this.getImageUrl(variation)} /></td>
+                                            <td key="image" className="image-cell"><img src={this.getImageUrl(variation)} /></td>
                                             <td key="sku" className="ellipsis" title={variation.sku}>{variation.sku}</td>
                                         </tr>
                                     );

@@ -134,8 +134,12 @@
                     overflow: initial;
                     box-sizing: border-box;
                     border-left: 0;
+                    &.image-cell {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
                     img {
-                        max-height: 23px;
+                        max-height: 44px;
                     }
                 }
             }
