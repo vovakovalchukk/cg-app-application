@@ -71,7 +71,7 @@
         "channelgrabber/stdlib": "~2.12.33",
         "channelgrabber/stock": "~1.8.2",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "dev-CGIV-7467-invoice-elements-truncated as 1.4.9",
+        "channelgrabber/template": "~1.4.9",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.22.1",
         "channelgrabber/userpreference": "~1.2.4",
