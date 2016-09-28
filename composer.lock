@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ce1f3e4afcc17d8f1b334dc023159f4",
-    "content-hash": "a4f5d7ec5718464b199c9696bdbb7ceb",
+    "hash": "725e08ba642746455fc5b5ed14573d55",
+    "content-hash": "067f505a2faf369c1b406e028bb91af5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.25.8",
+            "version": "1.25.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "289a07e8b9d8a823e077304c77228a8655290293"
+                "reference": "a9893f1f706eed7ddd5f853d07aa8ffee196deed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.8-62025d.zip",
-                "reference": "289a07e8b9d8a823e077304c77228a8655290293",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.10-250574.zip",
+                "reference": "a9893f1f706eed7ddd5f853d07aa8ffee196deed",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-14 08:32:25"
+            "time": "2016-09-26 15:27:20"
         },
         {
             "name": "channelgrabber/cilex",
@@ -528,16 +528,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "bd76e44a917410666039e114b7f84d46295ea579"
+                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.6-50da43.zip",
-                "reference": "bd76e44a917410666039e114b7f84d46295ea579",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.7-5cafdf.zip",
+                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd",
                 "shasum": null
             },
             "require": {
@@ -563,7 +563,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-27 08:02:19"
+            "time": "2016-09-28 14:24:52"
         },
         {
             "name": "channelgrabber/courieradapter",
