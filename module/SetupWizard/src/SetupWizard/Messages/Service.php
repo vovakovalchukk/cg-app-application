@@ -3,6 +3,7 @@ namespace SetupWizard\Messages;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Credentials\Cryptor;
 use CG\Amazon\Message\AccountAddressGenerator;
 use CG\Channel\Type as ChannelType;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
@@ -11,6 +12,8 @@ use CG\User\ActiveUserInterface;
 
 class Service
 {
+    const AMAZON_SETTINGS_URI = '/gp/on-board/configuration/global-seller-profile/index.html?exceptionMarketplaceID=all';
+
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
     /** @var AccountService */
@@ -19,17 +22,23 @@ class Service
     protected $invoiceSettingsService;
     /** @var AccountAddressGenerator */
     protected $accountAddressGenerator;
+    /** @var Cryptor */
+    protected $cryptor;
+
+    protected $accounts = [];
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
         InvoiceSettingsService $invoiceSettingsService,
-        AccountAddressGenerator $accountAddressGenerator
+        AccountAddressGenerator $accountAddressGenerator,
+        Cryptor $cryptor
     ) {
-        $this->setActiveUserContainer($activeUserContainer)
-            ->setAccountService($accountService)
-            ->setInvoiceSettingsService($invoiceSettingsService)
-            ->setAccountAddressGenerator($accountAddressGenerator);
+        $this->activeUserContainer = $activeUserContainer;
+        $this->accountService = $accountService;
+        $this->invoiceSettingsService = $invoiceSettingsService;
+        $this->accountAddressGenerator = $accountAddressGenerator;
+        $this->cryptor = $cryptor;
     }
 
     public function fetchInvoiceSettings()
@@ -59,14 +68,14 @@ class Service
 
     public function getEmailForAmazonAccount($accountId)
     {
-        $account = $this->accountService->fetch($accountId);
+        $account = $this->fetchAccountById($accountId);
         $emailGenerator = $this->accountAddressGenerator;
         return $emailGenerator($account);
     }
 
     public function markAmazonMessagingSetupDone($accountId)
     {
-        $account = $this->accountService->fetch($accountId);
+        $account = $this->fetchAccountById($accountId);
         $externalData = $account->getExternalData();
         $externalData['messagingSetUp'] = true;
         $account->setExternalData($externalData);
@@ -79,38 +88,25 @@ class Service
     }
 
     /**
-     * @return self
+     * @return string
      */
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    public function getAmazonSettingsUrlForAccount($accountId)
     {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
+        $account = $this->fetchAccountById($accountId);
+        $credentials = $this->cryptor->decrypt($account->getCredentials());
+        $marketplaceClass = 'CG\\Amazon\\Account\\' . ucfirst(strtolower($credentials->getRegionCode()));
+        return 'https://' . constant($marketplaceClass . '::BASE_URL') . static::AMAZON_SETTINGS_URI;
     }
 
     /**
-     * @return self
+     * @return Account
      */
-    protected function setAccountService(AccountService $accountService)
+    protected function fetchAccountById($id)
     {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
-    {
-        $this->invoiceSettingsService = $invoiceSettingsService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setAccountAddressGenerator(AccountAddressGenerator $accountAddressGenerator)
-    {
-        $this->accountAddressGenerator = $accountAddressGenerator;
-        return $this;
+        if (isset($this->accounts[$id])) {
+            return $this->accounts[$id];
+        }
+        $this->accounts[$id] = $this->accountService->fetch($id);
+        return $this->accounts[$id];
     }
 }

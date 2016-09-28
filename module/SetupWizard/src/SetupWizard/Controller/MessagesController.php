@@ -19,8 +19,6 @@ class MessagesController extends AbstractActionController
     const ROUTE_SETUP = 'Setup';
     const ROUTE_SETUP_DONE = 'Done';
 
-    const AMAZON_SETTINGS_URL = 'https://sellercentral.amazon.co.uk/gp/on-board/configuration/global-seller-profile/index.html?exceptionMarketplaceID=all';
-
     /** @var SetupService */
     protected $setupService;
     /** @var ViewModelFactory */
@@ -116,18 +114,18 @@ class MessagesController extends AbstractActionController
         $accountId = $this->params()->fromRoute('account');
         $view = $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/messages/setup');
         $view->setVariable('email', $this->messagesService->getEmailForAmazonAccount($accountId));
-        $view->addChild($this->getAmazonSettingsButton(), 'amazonSettingsButton');
+        $view->addChild($this->getAmazonSettingsButton($accountId), 'amazonSettingsButton');
 
         return $this->setupService->getSetupView('Add Amazon Messaging', $view, $this->getSetupFooterView($accountId));
     }
 
-    protected function getAmazonSettingsButton()
+    protected function getAmazonSettingsButton($accountId)
     {
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [[
                 'value' => 'Amazon Settings',
                 'id' => 'setup-wizard-messaging-amazon-settings-button',
-                'action' => static::AMAZON_SETTINGS_URL,
+                'action' => $this->messagesService->getAmazonSettingsUrlForAccount($accountId),
             ]]
         ]);
         $view->setTemplate('elements/buttons.mustache');
