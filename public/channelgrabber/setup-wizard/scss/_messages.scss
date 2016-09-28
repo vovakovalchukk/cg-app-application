@@ -67,7 +67,7 @@
                     float: left;
                     margin-right: 20px;
                 }
-                div {
+                div.setup-wizard-messages-list-text {
                     float: left;
                     display: inline-block;
                     padding-top: 13px;
@@ -76,6 +76,10 @@
                     .inputbox {
                         margin-top: 20px;
                     }
+                }
+                div.button {
+                    float: left;
+                    margin-top: 20px;
                 }
             }
         }

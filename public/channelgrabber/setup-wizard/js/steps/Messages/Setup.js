@@ -5,6 +5,7 @@ define([], function()
         var init = function()
         {
             this.listenForButtonClicks()
+                .listenForAmazonSettingsButtonClick()
                 .selectEmailText();
         };
         init.call(this);
@@ -15,6 +16,15 @@ define([], function()
         $('.setup-wizard-messages-amazon-button').click(function()
         {
             window.location = $(this).find('.action').data('action');
+        });
+        return this;
+    };
+
+    Setup.prototype.listenForAmazonSettingsButtonClick = function()
+    {
+        $('#setup-wizard-messaging-amazon-settings-button').click(function()
+        {
+            window.open($(this).data('action'));
         });
         return this;
     };
