@@ -131,21 +131,13 @@ use CG\Channel\ShippingOptionsProviderRepository as ChannelShippingOptionsProvid
 use CG\Channel\CarrierProviderServiceInterface as ChannelCarrierProviderServiceInterface;
 use CG\Channel\CarrierProviderServiceRepository as ChannelCarrierProviderServiceRepository;
 
-// Dataplug
-use CG\Dataplug\Carrier\Service as DataplugCarrierService;
+// Couriers
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
 use CG\Product\Detail\StorageInterface as ProductDetailStorage;
 use CG\Product\Detail\Storage\Api as ProductDetailApiStorage;
-use CG\Dataplug\Account\Service as DataplugAccountService;
-use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
-use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
-use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
-use CG\Dataplug\Carriers as DataplugCarriers;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
-use CG\Dataplug\Request\Carrier as DataplugCarrier;
-use CG\Dataplug\Order\Service as DataplugOrderService;
 
 // NetDespatch
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
@@ -622,26 +614,6 @@ $config = array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-            DataplugCreateCarrierRequestFactory::class => [
-                'parameters' => [
-                    'cryptor' => 'dataplug_cryptor'
-                ]
-            ],
-            DataplugUpdateCarrierRequestFactory::class => [
-                'parameters' => [
-                    'cryptor' => 'dataplug_cryptor'
-                ]
-            ],
-            DataplugAccountService::class => [
-                'parameters' => [
-                    'repository' => DataplugAccountApi::class
-                ]
-            ],
-            DataplugAccountApi::class => [
-                'parameters' => [
-                    'client' => 'account_guzzle'
-                ]
-            ],
             AccountManifestApiStorage::class => [
                 'parameters' => [
                     'client' => 'account_guzzle'
@@ -655,7 +627,6 @@ $config = array(
             ChannelShippingChannelsProviderRepository::class => [
                 'injections' => [
                     'addProvider' => [
-                        ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
                         // Amazon MCF must come before Amazon Logistics
                         ['provider' => AmazonMcfShippingChannelsProvider::class],
@@ -667,7 +638,6 @@ $config = array(
             ChannelShippingOptionsProviderRepository::class => [
                 'injections' => [
                     'addProvider' => [
-                        ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
                         ['provider' => CourierAdapterProviderImplementationService::class],
                     ]
@@ -676,7 +646,6 @@ $config = array(
             ChannelCarrierBookingOptionsRepository::class => [
                 'injections' => [
                     'addProvider' => [
-                        ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
                         // Amazon MCF must come before Amazon Logistics
                         ['provider' => AmazonMcfCarrierBookingOptions::class],
@@ -688,7 +657,6 @@ $config = array(
             ChannelCarrierProviderServiceRepository::class => [
                 'injections' => [
                     'addProvider' => [
-                        ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
                         // Amazon MCF must come before Amazon Logistics
                         ['provider' => AmazonMcfCarrierProviderService::class],
@@ -697,470 +665,7 @@ $config = array(
                     ]
                 ]
             ],
-            DataplugCarrierService::class => [
-                'parameters' => [
-                    'carriersConfig' => [
-                        [
-                            'channelName' => DataplugCarriers::DHL,
-                            'displayName' => 'DHL',
-                            'code' => DataplugCarrier\Dhl::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
-                            'fields' => [
-                                ['name' => 'Domestic Account no'],
-                                ['name' => 'International Account no'],
-                                ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Site ID']
-                            ],
-                            'services' => [
-                                ['value' => 'DHLEXPWW00PA', 'name' => 'Express Worldwide Parcel'],
-                                ['value' => 'DHLEXPWW00DC', 'name' => 'Express Worldwide Docs'],
-                                ['value' => 'DHLECONSELPA', 'name' => 'Economy Select Parcel'],
-                                ['value' => 'DHLECONSELDC', 'name' => 'Economy Select Docs'],
-                                ['value' => 'DHLEXP0000PA0900', 'name' => 'Express 09:00am Parcel'],
-                                ['value' => 'DHLEXP0000DC0900', 'name' => 'Express 09:00am Docs'],
-                                ['value' => 'DHLEXP0000PA1200', 'name' => 'Express 12:00noon Parcel'],
-                                ['value' => 'DHLEXP0000DC1200', 'name' => 'Express 12:00noon Docs'],
-                                ['value' => 'DHLDOMEXP0PA', 'name' => 'Domestic Express Parcel'],
-                                ['value' => 'DHLDOMEXP0PA0900', 'name' => 'Domestic Express 09:00am Parcel'],
-                                ['value' => 'DHLDOMEXP0PA1200', 'name' => 'Domestic Express 12:00noon Parcel']
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                                'deliveryInstructions' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206517099-DHL',
-                                ],
-                            ],
-                        ],
-                        /*
-                        [
-                            'channelName' => DataplugCarriers::DPD,
-                            'displayName' => 'DPD',
-                            'code' => DataplugCarrier\Dpd::CODE,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'User ID'],
-                                ['name' => 'SLID'],
-                                ['name' => 'Authorisation Code'],
-                                ['name' => 'Start Sequence', 'label' => 'Start Parcel Sequence'],
-                                ['name' => 'End Sequence', 'label' => 'End Parcel Sequence'],
-                            ],
-                            'services' => [
-                                ['value' => 'DPDEXPR000PA', 'name' => 'Express Parcel'],
-                                ['value' => 'DPDEXPDOC0PA', 'name' => 'Express Document'],
-                                ['value' => 'DPDEXP00EUPA', 'name' => 'Express EU Parcel'],
-                                ['value' => 'DPDTWODAY0PA', 'name' => 'Two Day Parcel'],
-                                ['value' => 'DPDNEXTDAYPA', 'name' => 'Next Day Parcel'],
-                                ['value' => 'DPDNEXTDAYPA1200', 'name' => 'Next Day 12:00noon Parcel'],
-                                ['value' => 'DPDNEXTDAYPA1030', 'name' => 'Next Day 10:30am Parcel'],
-                                ['value' => 'DPDSAT0000PA', 'name' => 'Saturday Parcel'],
-                                ['value' => 'DPDSAT0000PA1200', 'name' => 'Saturday 12:00noon Parcel'],
-                                ['value' => 'DPDSAT0000PA1030', 'name' => 'Saturday 10:30am Parcel'],
-                                ['value' => 'DPDCLASSICPA', 'name' => 'Classic Parcel'],
-                                ['value' => 'DPDNEXTDAYPK', 'name' => 'Next day Express Pack'],
-                                ['value' => 'DPDNEXTDAYPK1200', 'name' => 'Next day 12:00noon Express Pack'],
-                                ['value' => 'DPDNEXTDAYPK1030', 'name' => 'Next day 10:30am Express Pack'],
-                                ['value' => 'DPDTWODAY0PL', 'name' => 'Two Day Pallet'],
-                                ['value' => 'DPDNEXTDAYPL', 'name' => 'Next Day Pallet'],
-                                ['value' => 'DPDNEXTDAYPL1200', 'name' => 'Next Day 12:00noon Pallet'],
-                                ['value' => 'DPDNEXTDAYPL1030', 'name' => 'Next Day 10:30am Pallet'],
-                                ['value' => 'DPDSAT0000PL', 'name' => 'Saturday Pallet'],
-                                ['value' => 'DPDSAT0000PL1200', 'name' => 'Saturday 12:00noon Pallet'],
-                                ['value' => 'DPDSAT0000PL1030', 'name' => 'Saturday 10:30am Pallet'],
-                                ['value' => 'DPDCLASAIRPA', 'name' => 'Classic Air Parcel'],
-                                ['value' => 'DPDSAT0000PK', 'name' => 'Saturday Express Pack'],
-                                ['value' => 'DPDSAT0000PK1030', 'name' => 'Saturday 10:30am Express Pack'],
-                                ['value' => 'DPDSAT0000PK1200', 'name' => 'Saturday 12:00noon Express Pack']
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206517189-DPD',
-                                ],
-                            ],
-                        ],
-                        */
-                        [
-                            'channelName' => DataplugCarriers::FEDEX,
-                            'displayName' => 'FedEx',
-                            'code' => DataplugCarrier\Fedex::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'Key'],
-                                ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Trans ID', 'inputType' => 'hidden', 'value' => 'ORDERHUB'],
-                                ['name' => 'Meter No'],
-                            ],
-                            'services' => [
-                                ['value' => 'FDXINTPRIOPA', 'name' => 'International Priority Parcel'],
-                                ['value' => 'FDXINTECONPA', 'name' => 'International Economy Parcel'],
-                                ['value' => 'FDXINTPRIOLT', 'name' => 'International Priority Letter'],
-                                ['value' => 'FDXINTPRIOPK', 'name' => 'International Priority Pak'],
-                                ['value' => 'FDXINTECONPK', 'name' => 'International Economy Pak'],
-                                ['value' => 'FDXINTPRIO10', 'name' => 'International Priority 10KG Box'],
-                                ['value' => 'FDXINTPRIO25', 'name' => 'International Priority 25KG Box'],
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                                'deliveryInstructions' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207217195-Fedex',
-                                ],
-                            ],
-                        ],
-                        /*
-                        [
-                            'channelName' => DataplugCarriers::INTERLINK,
-                            'displayName' => 'Interlink',
-                            'code' => DataplugCarrier\Interlink::CODE,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'FTP Username', 'required' => false],
-                                ['name' => 'FTP Password', 'required' => false],
-                                ['name' => 'Authorisation Code'],
-                                ['name' => 'Start Sequence', 'label' => 'Start Parcel Sequence'],
-                                ['name' => 'End Sequence', 'label' => 'End Parcel Sequence'],
-                                ['name' => 'Order Start Sequence', 'label' => 'Start Consignment Sequence'],
-                                ['name' => 'Order End Sequence', 'label' => 'End Consignment Sequence'],
-                            ],
-                            'services' => [
-                                ['value' => 'INTHOMECALPK1', 'name' => 'HomeCall Express Pack 1 Parcel'],
-                                ['value' => 'INTNEXTDAYPK1', 'name' => 'Next Day Express Pack 1 Parcel'],
-                                ['value' => 'INTNEXTDAYPK11030', 'name' => 'By 10:30am Express Pack 1 Parcel'],
-                                ['value' => 'INTNEXTDAYPK11200', 'name' => 'By 12:00am Express Pack 1 Parcel'],
-                                ['value' => 'INTSAT000PK1', 'name' => 'Saturday Express Pack 1 Parcel'],
-                                ['value' => 'INTSATUDAYPK11030', 'name' => 'Saturday by 10:30am Express Pack 1 Parcel'],
-                                ['value' => 'INTSATUDAYPK11200', 'name' => 'Saturday by 12:00am Express Pack 1 Parcel'],
-                                ['value' => 'INTSUN000PK1', 'name' => 'Sunday Express Pack 1 Parcel'],
-                                ['value' => 'INTSUNDAYPK11030', 'name' => 'Sunday by 10:30am Express Pack 1 Parcel'],
-                                ['value' => 'INTSUNDAYPK11200', 'name' => 'Sunday by 12:00am Express Pack 1 Parcel'],
-                                ['value' => 'INTHOMECALPK5', 'name' => 'HomeCall Express Pack 5 Parcel'],
-                                ['value' => 'INTNEXTDAYPK5', 'name' => 'Next Day Express Pack 5 Parcel'],
-                                ['value' => 'INTNEXTDAYPK51030', 'name' => 'By 10:30am Express Pack 5 Parcel'],
-                                ['value' => 'INTNEXTDAYPK51200', 'name' => 'By 12:00am Express Pack 5 Parcel'],
-                                ['value' => 'INTSAT000PK5', 'name' => 'Saturday Express Pack 5 Parcel'],
-                                ['value' => 'INTSATUDAYPK51030', 'name' => 'Saturday by 10:30am Express Pack 5 Parcel'],
-                                ['value' => 'INTSATUDAYPK51200', 'name' => 'Saturday by 12:00am Express Pack 5 Parcel'],
-                                ['value' => 'INTSUN000PK5', 'name' => 'Sunday Express Pack 5 Parcel'],
-                                ['value' => 'INTSUNDAYK5A1030', 'name' => 'Sunday by 10:30am Express Pack 5 Parcel'],
-                                ['value' => 'INTSUNDAYPK51200', 'name' => 'Sunday by 12:00am Express Pack 5 Parcel'],
-                                ['value' => 'INTHOMECALPA', 'name' => 'HomeCall Parcel'],
-                                ['value' => 'INTNEXTDAYPA', 'name' => 'Next Day Parcel'],
-                                ['value' => 'INTNEXTDAYPA1030', 'name' => 'By 10:30am Parcel'],
-                                ['value' => 'INTNEXTDAYPA1200', 'name' => 'By 12:00am Parcel'],
-                                ['value' => 'INTSAT0000PA', 'name' => 'Saturday Parcel'],
-                                ['value' => 'INTSATUDAYPA1030', 'name' => 'Saturday by 10:30am Parcel'],
-                                ['value' => 'INTSATUDAYPA1200', 'name' => 'Saturday by 12:00am Parcel'],
-                                ['value' => 'INTSUN0000PA', 'name' => 'Sunday Parcel'],
-                                ['value' => 'INTSUNDAYPA1030', 'name' => 'Sunday by 10:30am Parcel'],
-                                ['value' => 'INTSUNDAYPA1200', 'name' => 'Sunday by 12:00am Parcel'],
-                                ['value' => 'INTTWODAY0PA', 'name' => 'Two Day Parcel'],
-                                ['value' => 'DPDEXPAIR0PA', 'name' => 'Air Express Parcel'],
-                                ['value' => 'DPDCLASSICPA', 'name' => 'Classic Parcel'],
-                                ['value' => 'DPDCLASAIRPA', 'name' => 'Classic Air Parcel'],
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206521369-Interlink-Express',
-                                ],
-                            ],
-                        ],
-                        */
-                        [
-                            'channelName' => DataplugCarriers::MYHERMES,
-                            'displayName' => 'MyHermes',
-                            'salesChannelName' => 'Hermes',
-                            'code' => DataplugCarrier\Myhermes::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
-                            'fields' => [
-                                ['name' => 'Email'],
-                                ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Client ID'],
-                                ['name' => 'Client Secret'],
-                            ],
-                            'services' => [
-                                ['value' => 'MYHER48HRPAKG', 'name' => '48 Hour Parcel'],
-                                ['value' => 'MYHER48HRSFPAKG', 'name' => '48 Hour Signed For Parcel'],
-                            ],
-                            'options' => [
-                                'height' => false,
-                                'width' => false,
-                                'length' => false,
-                                'insurance' => false,
-                                'signature' => false,
-                            ],
-                        ],
-                        /*
-                        [
-                            'channelName' => DataplugCarriers::PARCELFORCE,
-                            'displayName' => 'Parcelforce',
-                            'code' => DataplugCarrier\Parcelforce::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'Contract no'],
-                                ['name' => 'User ID'],
-                                ['name' => 'Password', 'inputType' => 'password'],
-                            ],
-                            'services' => [
-                                ['value' => 'PFWEXP0024PA0900', 'name' => 'Express 9 Parcel'],
-                                ['value' => 'PFWEXP0024PA1000', 'name' => 'Express 10 Parcel'],
-                                ['value' => 'PFWEXP00AMPA', 'name' => 'Express AM Parcel'],
-                                ['value' => 'PFWEXP0024PA', 'name' => 'Express 24 Parcel'],
-                                ['value' => 'PFWEXP0048PA', 'name' => 'Express 48 Parcel'],
-                                ['value' => 'PFWEXPLG48PA', 'name' => 'Express 48 Large Parcel'],
-                                ['value' => 'PFWGLOBEXPPA', 'name' => 'Global Express Parcel'],
-                                ['value' => 'PFWEUPHOMEPA', 'name' => 'Europriority Home Parcel'],
-                                ['value' => 'PFWEUPBUSSPA', 'name' => 'Europriority Business Parcel'],
-                                ['value' => 'PFWGLOPRI0PA', 'name' => 'Global Priority Parcel'],
-                                ['value' => 'PFWGLOVAL0PA', 'name' => 'Global Value Parcel']
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207220525-Parcelforce',
-                                ],
-                            ],
-                        ],
-                        */
-                        [
-                            'channelName' => DataplugCarriers::TNT,
-                            'displayName' => 'TNT',
-                            'code' => DataplugCarrier\Tnt::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
-                            'fields' => [
-                                ['name' => 'Domestic Account no'],
-                                ['name' => 'International Account no'],
-                                ['name' => 'ExpressConnect User'],
-                                ['name' => 'ExpressConnect Password', 'inputType' => 'password'],
-                                ['name' => 'ExpressLabel User'],
-                                ['name' => 'ExpressLabel Password', 'inputType' => 'password'],
-                            ],
-                            'services' => [
-                                ['value' => 'TNTEXP0000PA', 'name' => 'Express Parcel'],
-                                ['value' => 'TNTEXPECONPA', 'name' => 'Economy Express Parcel'],
-                                ['value' => 'TNTNEXTDAYPA0900', 'name' => 'Next Day 09:00am Parcel'],
-                                ['value' => 'TNTNEXTDAYPA1000', 'name' => 'Next Day 10:00am Parcel'],
-                                ['value' => 'TNTNEXTDAYPA1200', 'name' => 'Next Day 12:00noon Parcel'],
-                                ['value' => 'TNTNEXTDAYPA1700', 'name' => 'Next Day 17:00pm Parcel'],
-                                ['value' => 'TNTSAT0000PA', 'name' => 'Saturday Parcel'],
-                                ['value' => 'TNTSAT0000PA0900', 'name' => 'Saturday 09:00am Parcel'],
-                                ['value' => 'TNTSAT0000PA1000', 'name' => 'Saturday 10:00am Parcel'],
-                                ['value' => 'TNTSAT0000PA1200', 'name' => 'Saturday 12:00noon Parcel'],
-                                ['value' => 'TNTEXP0000PA0900', 'name' => '09:00am Parcel'],
-                                ['value' => 'TNTEXP0000PA1000', 'name' => '10:00am Parcel'],
-                                ['value' => 'TNTEXP0000PA1200', 'name' => '12:00noon Parcel'],
-                                ['value' => 'TNTEXPECONPA1200', 'name' => '12:00noon Economy Parcel']
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                                'deliveryInstructions' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206521389-TNT',
-                                ],
-                            ],
-                        ],
-                        [
-                            'channelName' => DataplugCarriers::UK_MAIL,
-                            'displayName' => 'UK Mail',
-                            'code' => DataplugCarrier\UkMail::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
-                            'fields' => [
-                                ['name' => 'Account no (Item Rates)'],
-                                ['name' => 'Account no (KG Rates)'],
-                                ['name' => 'User ID'],
-                                ['name' => 'Password', 'inputType' => 'password']
-                            ],
-                            'services' => [
-                                ['value' => 'UKMNEXTDAYPA', 'name' => 'Next Working Day'],
-                                ['value' => 'UKMNEXTDAYPA1200', 'name' => 'Next Working Day 12:00'],
-                                ['value' => 'UKMNEXTDAYPA1030', 'name' => 'Next Working Day 10:30'],
-                                ['value' => 'UKMNEXTDAYPA0900', 'name' => 'Next Working Day 09:00'],
-                                ['value' => 'UKMPREMR48PA', 'name' => '48 Hour Parcel'],
-                                ['value' => 'UKMSATUDAYPA', 'name' => 'Saturday'],
-                                ['value' => 'UKMSATUDAYPA1030', 'name' => 'Saturday 10:30'],
-                                ['value' => 'UKMSATUDAYPA0900', 'name' => 'Saturday 09:00'],
-                                /*
-                                // Not using these for now, may add them in later
-                                ['value' => 'UKMEXP4800PA', 'name' => 'Parcel 48 Hr'],
-                                ['value' => 'UMKEXP7200PA', 'name' => 'Parcel 72 Hour'],
-                                ['value' => 'UKMNEXTDAYSB', 'name' => 'Small Bag it Next Day'],
-                                ['value' => 'UKMNEXTDAYSB1200', 'name' => 'Small Bag it Next Day by 12:00noon'],
-                                ['value' => 'UKMNEXTDAYSB1030', 'name' => 'Small Bag it Next Day by 10:30am'],
-                                ['value' => 'UKMNEXTDAYSB0900', 'name' => 'Small Bag it Next day by 09:00am'],
-                                ['value' => 'UKMSAT0000SB', 'name' => 'Small Bag it Saturday'],
-                                ['value' => 'UKMNEXTDAYMB', 'name' => 'Medium Bag it Next Day'],
-                                ['value' => 'UKMNEXTDAYMB1200', 'name' => 'Medium Bag it Next Day by 12:00noon'],
-                                ['value' => 'UKMNEXTDAYMB1030', 'name' => 'Medium Bag it Next Day by 10:30am'],
-                                ['value' => 'UKMNEXTDAYMB0900', 'name' => 'Medium Bag it Next day by 09:00am'],
-                                ['value' => 'UKMSAT0000MB', 'name' => 'Medium Bag it Saturday'],
-                                ['value' => 'UKMNEXTDAYLB', 'name' => 'Large Bag it Next Day'],
-                                ['value' => 'UKMNEXTDAYLB1200', 'name' => 'Large Bag it Next Day by 12:00noon'],
-                                ['value' => 'UKMNEXTDAYLB1030', 'name' => 'Large Bag it Next Day by 10:30am'],
-                                ['value' => 'UKMNEXTDAYLB0900', 'name' => 'Large Bag it Next day by 09:00am'],
-                                ['value' => 'UKMSAT0000LB', 'name' => 'Large Bag it Saturday'],
-                                ['value' => 'UKMNEXTDAYXL', 'name' => 'Extra Large Bag it Next Day'],
-                                ['value' => 'UKMNEXTDAYXL1200', 'name' => 'Extra Large Bag it Next Day by 12:00noon'],
-                                ['value' => 'UKMNEXTDAYXL1030', 'name' => 'Extra Large Bag it Next Day by 10:30am'],
-                                ['value' => 'UKMNEXTDAYXL0900', 'name' => 'Extra Large Bag it Next day by 09:00am'],
-                                ['value' => 'UKMSAT0000XL', 'name' => 'Extra Large Bag it Saturday'],
-                                */
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                                'deliveryInstructions' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206521539-UKMail',
-                                ],
-                            ],
-                        ],
-                        [
-                            'channelName' => DataplugCarriers::UPS,
-                            'displayName' => 'UPS',
-                            'code' => DataplugCarrier\Ups::CODE,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'Book no'],
-                                ['name' => 'Username'],
-                                ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Prefix'],
-                                ['name' => 'Start Sequence'],
-                                ['name' => 'End Sequence'],
-                            ],
-                            'services' => [
-                                ['value' => 'UPSEXPRESSPA', 'name' => 'Express Parcel'],
-                                ['value' => 'UPSEXPRESSLT', 'name' => 'Express Letter'],
-                                ['value' => 'UPSEXPRESSPK', 'name' => 'Express Pak'],
-                                ['value' => 'UPSEXPSAVEPA', 'name' => 'Express Saver Parcel'],
-                                ['value' => 'UPSEXPSAVELT', 'name' => 'Express Saver Letter'],
-                                ['value' => 'UPSEXPSAVEPK', 'name' => 'Express Saver Pak'],
-                                ['value' => 'UPSSTANSINPA', 'name' => 'Standard Single Parcel'],
-                                ['value' => 'UPSSTANMTIPA', 'name' => 'Standard Multi Parcel'],
-                                ['value' => 'UPSEXPITEDPA', 'name' => 'Expedited Parcel'],
-                                ['value' => 'UPSEXPPLUSPA', 'name' => 'Express Plus Parcel'],
-                                ['value' => 'UPSEXPPLUSLT', 'name' => 'Express Plus Letter'],
-                                ['value' => 'UPSEXPPLUSPK', 'name' => 'Express Plus Pak'],
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'deliveryInstructions' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207220635-UPS',
-                                ],
-                            ],
-                        ],
-                        [
-                            'channelName' => DataplugCarriers::YODEL,
-                            'displayName' => 'Yodel',
-                            'code' => DataplugCarrier\Yodel::CODE,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'Meter no'],
-                                ['name' => 'Contract no'],
-                                ['name' => 'Schedule no'],
-                                ['name' => 'Username'],
-                                ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Licence Plate Prefix', 'inputType' => 'hidden', 'value' => 'JJD00022'],
-                                ['name' => 'Start Sequence'],
-                                ['name' => 'End Sequence'],
-                            ],
-                            'services' => [
-                                ['value' => 'YDLPRIO000PA1200', 'name' => 'Priority 12:00noon Parcel'],
-                                ['value' => 'YDLEXP0024PA', 'name' => 'Express 24 Parcel'],
-                                ['value' => 'YDLEXP0048PA', 'name' => 'Express 48 Parcel'],
-                                ['value' => 'YDLSATPRIOPA1200', 'name' => 'Saturday Priority 12:00noon Parcel'],
-                                ['value' => 'YDLEXPNI24PA', 'name' => 'Express 24 (NI) Parcel'],
-                                ['value' => 'YDLEXPIS24PA', 'name' => 'Express (Isle) Parcel'],
-                                ['value' => 'YDLEXPRT24PA', 'name' => 'Express 24 Return Parcel'],
-                                ['value' => 'YDLPRIONI0PA1000', 'name' => 'Priority 10:00am (NI) Parcel'],
-                                ['value' => 'YDLPRIO000PA1000', 'name' => 'Priority 10:00am Parcel'],
-                                ['value' => 'YDLSAT0000PA1000', 'name' => 'Saturday 10:00am Parcel'],
-                                ['value' => 'YDLEXPNT24PA', 'name' => 'Express 24 (NI INT) Parcel'],
-                                ['value' => 'YDLEXPUK24PA', 'name' => 'Express 24 (UK) Parcel'],
-                                ['value' => 'YDLEXPUK48PA', 'name' => 'Express 48 (UK) Parcel'],
-                                ['value' => 'YDLHOMNI24PA', 'name' => '@Home 24 (NI) Parcel'],
-                                ['value' => 'YDLHOMNI48PA', 'name' => '@Home 48 (NI) Parcel'],
-                                ['value' => 'YDLHOMBT24PA', 'name' => '@Home 24 (BT) Parcel'],
-                                ['value' => 'YDLHOMBT48PA', 'name' => '@Home 48 (BT) Parcel'],
-                                ['value' => 'YDLHOMCAT0PA', 'name' => '@Home 24 Catalogue Parcel'],
-                                ['value' => 'YDLHOM0072PA', 'name' => '@Home 72 Parcel '],
-                                ['value' => 'YDLHOMNI72PA', 'name' => '@Home 72 (NI) Parcel'],
-                                ['value' => 'YDLEXPNI48PA', 'name' => 'Express 48 (NI) Parcel'],
-                                ['value' => 'YDLHOM0024PA', 'name' => '@Home 24 Parcel'],
-                                ['value' => 'YDLHOM0048PA', 'name' => '@Home 48 Parcel'],
-                                ['value' => 'YDLHOMRET0PA', 'name' => '@Home Return Parcel'],
-                                ['value' => 'YDLGRN0000PA', 'name' => 'GRN Next Day Parcel'],
-                                ['value' => 'YDLSTEC000PA', 'name' => 'STEC Parcel'],
-                                ['value' => 'YDLSRTN000PA', 'name' => 'SRTN Parcel'],
-                                ['value' => 'YDLSATEXP0PA', 'name' => 'Express Saturday Parcel'],
-                                ['value' => 'YDLSATHOM0PA', 'name' => '@Home Saturday Parcel']
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                                'deliveryInstructions' => false,
-                            ],
-                            'links' => [
-                                [
-                                    'description' => 'Follow this guide to get your credentials',
-                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207220655-Yodel',
-                                ],
-                            ],
-                        ],
-                    ],
-                    'defaultOptions' => [
-                        'parcels' => true,
-                        'collectionDate' => true,
-                        'weight' => true,
-                        'height' => true,
-                        'width' => true,
-                        'length' => true,
-                        'insurance' => true,
-                        'insuranceMonetary' => true,
-                        'signature' => true,
-                        'deliveryInstructions' => true,
-                    ]
-                ]
-            ],
+
             NetDespatchShippingService::class => [
                 'parameters' => [
                     'defaultDomesticServices' => [
