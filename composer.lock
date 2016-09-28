@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ce1f3e4afcc17d8f1b334dc023159f4",
-    "content-hash": "a4f5d7ec5718464b199c9696bdbb7ceb",
+    "hash": "036dc1ee0a39503e771bf440a436a4ba",
+    "content-hash": "874f11d49afc9909195ca04464e21ac3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -597,52 +597,6 @@
             ],
             "description": "A suite of interfaces that describe courier functionality",
             "time": "2016-08-25 15:27:51"
-        },
-        {
-            "name": "channelgrabber/dataplug",
-            "version": "1.2.8",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "9f6d9bd771eca552c5055e729153305b3bba963e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.8-f22446.zip",
-                "reference": "9f6d9bd771eca552c5055e729153305b3bba963e",
-                "shasum": null
-            },
-            "require": {
-                "channelgrabber/channel": "^1.25.0",
-                "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": "^2.2.0",
-                "channelgrabber/gearman": "^1.2.0",
-                "channelgrabber/order": "^1.21.5",
-                "channelgrabber/product": "^1.5.0",
-                "channelgrabber/stats": "^1.0.0",
-                "channelgrabber/stdlib": "^2.12.18",
-                "channelgrabber/user": "^1.20.3",
-                "composer/composer": "@dev",
-                "zendframework/zend-di": ">=2.2.5"
-            },
-            "type": "di-definition",
-            "autoload": {
-                "psr-4": {
-                    "CG\\Dataplug\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "CG\\Dataplug\\Test\\": "tests"
-                }
-            },
-            "authors": [
-                {
-                    "name": "ChannelGrabber",
-                    "email": "dev@channelgrabber.com"
-                }
-            ],
-            "time": "2016-07-26 08:00:14"
         },
         {
             "name": "channelgrabber/db",
@@ -2958,50 +2912,6 @@
             },
             "description": "Channel module",
             "time": "2015-04-24 15:50:10"
-        },
-        {
-            "name": "channelgrabber/zf2-dataplug",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "a2934ec8120c6c617e26d792a3486b23fc0a03ee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.4-3c36f3.zip",
-                "reference": "a2934ec8120c6c617e26d792a3486b23fc0a03ee",
-                "shasum": null
-            },
-            "require": {
-                "channelgrabber/channel": "^1.19.0",
-                "channelgrabber/constants": "dev-master",
-                "channelgrabber/dataplug": "^1.0.0",
-                "channelgrabber/product": "^1.5.0",
-                "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
-                "channelgrabber/zf2-v4-ui": "^1.16.7",
-                "composer/composer": "@dev",
-                "zendframework/zend-config": "2.*",
-                "zendframework/zend-form": "2.*",
-                "zendframework/zend-loader": "2.*",
-                "zendframework/zend-modulemanager": "2.*",
-                "zendframework/zend-mvc": "2.*",
-                "zendframework/zend-view": "2.*"
-            },
-            "type": "zf2-module",
-            "extra": {
-                "zf2-module": "CG_Dataplug"
-            },
-            "autoload": {
-                "psr-4": {
-                    "CG_Dataplug\\": "src"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "description": "Dataplug module",
-            "time": "2016-03-22 16:04:44"
         },
         {
             "name": "channelgrabber/zf2-ebay",
