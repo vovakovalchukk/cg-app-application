@@ -1,0 +1,46 @@
+#product-stock-logs {
+    .product-image,
+    .product-image img {
+        display: inline-block;
+        max-height: 190px;
+        max-width: 230px;
+    }
+
+    .product-details {
+        margin-left: 20px;
+    }
+
+    .datatable-container {
+        clear: both;
+
+        #datatable_wrapper {
+            margin-top: 0px;
+            height: calc(100% - 75px);
+
+            tr.stock-log-row {
+                background-color: $color-green25;
+            }
+
+            .stock-log-id-cell,
+            .stock-log-itid-cell,
+            .stock-log-stid-cell {
+                text-align: left;
+                width: 50px;
+                max-width: 50px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .stock-log-stock-management-cell .status {
+                width: 30px;
+                margin: auto;
+            }
+
+            .stock-log-status-cell .status {
+                width: 80px;
+                margin: auto;
+            }
+        }
+    }
+}

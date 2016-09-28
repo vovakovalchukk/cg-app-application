@@ -98,14 +98,16 @@ class Service
     /**
      * @return array
      */
-    public function fetchThreadDataForFilters(array $filters, $page = 1)
+    public function fetchThreadDataForFilters(array $filters, $page = 1, $sortDescending = true)
     {
         $ou = $this->userOuService->getRootOuByActiveUser();
 
         $threadFilter = new ThreadFilter();
         $threadFilter->setLimit(isset($filters['limit']) ? $filters['limit'] : static::DEFAULT_LIMIT)
             ->setOrganisationUnitId([$ou->getId()])
-            ->setPage($page);
+            ->setPage($page)
+            ->setSortBy(ThreadFilter::SORT_UPDATED)
+            ->setSortDirection($sortDescending ? ThreadFilter::SORT_DESCENDING : ThreadFilter::SORT_ASCENDING);
         if (isset($filters['id'])) {
             $threadFilter->setId((array)$filters['id']);
         }
@@ -227,7 +229,7 @@ class Service
 
     protected function sortThreadCollection(ThreadCollection $threads)
     {
-        // Sort by status then updated date
+        // Sort by status
         $sortedCollection = new ThreadCollection(Thread::class, __FUNCTION__);
         $threadsByStatus = [];
         foreach ($this->statusSortOrder as $status)
@@ -239,12 +241,9 @@ class Service
             if (!isset($threadsByStatus[$thread->getStatus()])) {
                 $threadsByStatus[$thread->getStatus()] = [];
             }
-            // Append the ID to the updated date to make it unique but still sortable
-            $key = $thread->getUpdated() . ' ' . $thread->getId();
-            $threadsByStatus[$thread->getStatus()][$key] = $thread;
+            $threadsByStatus[$thread->getStatus()][] = $thread;
         }
         foreach ($threadsByStatus as $status => $threadsByUpdated) {
-            ksort($threadsByUpdated);
             foreach ($threadsByUpdated as $thread) {
                 $sortedCollection->attach($thread);
             }

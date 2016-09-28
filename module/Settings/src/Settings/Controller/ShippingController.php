@@ -248,6 +248,11 @@ class ShippingController extends AbstractActionController
             return null;
         }
 
+        if (count($options) == 1) {
+            $index = key($options);
+            $options[$index]['selected'] = true;
+        }
+
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-service-custom-select-' . $alias->getId(),
             'id' => 'shipping-service-custom-select-' . $alias->getId(),

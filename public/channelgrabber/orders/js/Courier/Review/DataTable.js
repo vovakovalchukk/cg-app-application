@@ -32,6 +32,13 @@ CourierReviewDataTable.prototype.addCustomSelectsToServiceColumn = function(temp
         var serviceSelectCopy = self.cloneCustomSelectElement(
             templateSelector, name, 'courier-service-custom-select', data.service
         );
+        if ($(serviceSelectCopy).is(".disabled")) {
+            $(serviceSelectCopy).removeAttr('class').html(function() {
+                var input = $('input[type=hidden]', this);
+                var selected = $('.custom-select-item.active', this);
+                return $('<div></div>').text(selected.text()).append(input.val(selected.attr('data-value')));
+            });
+        }
         data.serviceOptions = $('<div>').append(serviceSelectCopy).html();
     });
     return this;

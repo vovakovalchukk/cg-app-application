@@ -191,10 +191,12 @@ class Create implements LoggerAwareInterface
             return $deliveryService->createShipment($caShipmentData);
 
         } catch (UserError $e) {
+            $this->logException($e, 'debug', __NAMESPACE__);
             $this->logNotice(static::LOG_SHIPMENT_INVALID, [$orderId, $e->getMessage()], [static::LOG_CODE, 'ShipmentInvalid']);
             return $this->userErrorToValidationMessagesException($e, $orderId);
 
         } catch (OperationFailed $e) {
+            $this->logException($e, 'warning', __NAMESPACE__);
             $this->logWarning(static::LOG_SHIPMENT_ERROR, [$orderId, $e->getMessage()], [static::LOG_CODE, 'ShipmentError']);
             return $this->operationFailedToValidationMessagesException($e, $orderId);
         }
@@ -246,11 +248,13 @@ class Create implements LoggerAwareInterface
                 $results[$orderId] = true;
 
             } catch (UserError $e) {
+                $this->logException($e, 'debug', __NAMESPACE__);
                 $this->logNotice(static::LOG_BOOK_INVALID, [$orderId, $e->getMessage()], [static::LOG_CODE, 'BookInvalid']);
                 $exception = $this->userErrorToValidationMessagesException($e, $orderId);
                 $results[$orderId] = $exception;
 
             } catch (OperationFailed $e) {
+                $this->logException($e, 'warning', __NAMESPACE__);
                 $this->logWarning(static::LOG_BOOK_ERROR, [$orderId, $e->getMessage()], [static::LOG_CODE, 'BookError']);
                 $exception = $this->operationFailedToValidationMessagesException($e, $orderId);
                 $results[$orderId] = $exception;
