@@ -1,7 +1,7 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Channel\ShippingServiceFactory;
+use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Zend\Stdlib\View\Model\Exception;
 use CG_UI\View\Prototyper\JsonModelFactory;

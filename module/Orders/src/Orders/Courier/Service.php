@@ -5,10 +5,12 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\CarrierBookingOptions\ActionDescriptionsInterface;
-use CG\Channel\CarrierBookingOptionsRepository;
-use CG\Channel\ShippingChannelsProviderRepository;
-use CG\Channel\ShippingServiceFactory;
+use CG\Channel\Shipping\Provider\BookingOptions\ActionDescriptionsInterface;
+use CG\Channel\Shipping\Provider\BookingOptions\Repository as CarrierBookingOptionsRepository;
+use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
+use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
+use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
+use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -75,6 +77,8 @@ class Service implements LoggerAwareInterface
     protected $shippingChannelsProviderRepo;
     /** @var CarrierBookingOptionsRepository */
     protected $carrierBookingOptionsRepo;
+    /** @var CarrierServiceProviderRepository */
+    protected $carrierServiceProviderRepository;
     /** @var ShippingAccountsService */
     protected $shippingAccountsService;
 
@@ -94,6 +98,7 @@ class Service implements LoggerAwareInterface
         Di $di,
         ShippingChannelsProviderRepository $shippingChannelsProviderRepo,
         CarrierBookingOptionsRepository $carrierBookingOptionsRepo,
+        CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ShippingAccountsService $shippingAccountsService
     ) {
         $this->setOrderService($orderService)
@@ -107,6 +112,7 @@ class Service implements LoggerAwareInterface
             ->setDi($di)
             ->setShippingChannelsProviderRepo($shippingChannelsProviderRepo)
             ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo)
+            ->setCarrierServiceProviderRepository($carrierServiceProviderRepository)
             ->setShippingAccountsService($shippingAccountsService);
     }
     
@@ -372,6 +378,11 @@ class Service implements LoggerAwareInterface
         return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
+    protected function getCarrierServiceProvider(Account $account)
+    {
+        return $this->carrierServiceProviderRepository->getProviderForAccount($account);
+    }
+
     /**
      * @return string
      */
@@ -503,7 +514,9 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
-        $cancellable = $this->getCarrierOptionsProvider($courierAccount)->isCancellationAllowedForOrder($courierAccount, $order);
+        $providerService = $this->getCarrierServiceProvider($courierAccount);
+        $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface && 
+            $providerService->isCancellationAllowedForOrder($courierAccount, $order));
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
@@ -948,6 +961,12 @@ class Service implements LoggerAwareInterface
     protected function setCarrierBookingOptionsRepo(CarrierBookingOptionsRepository $carrierBookingOptionsRepo)
     {
         $this->carrierBookingOptionsRepo = $carrierBookingOptionsRepo;
+        return $this;
+    }
+
+    protected function setCarrierServiceProviderRepository(CarrierServiceProviderRepository $carrierServiceProviderRepository)
+    {
+        $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
         return $this;
     }
 

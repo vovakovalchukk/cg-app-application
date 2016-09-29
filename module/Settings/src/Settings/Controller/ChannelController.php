@@ -6,7 +6,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Channel\AccountFactory;
 use CG\Channel\GetNamespacePartForAccountTrait;
 use CG\Channel\Service as ChannelService;
-use CG\Channel\ShippingOptionsProviderRepository;
+use CG\Channel\Shipping\Provider\Channels\Repository as ShippingProviderChannelsRepository;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -65,8 +65,8 @@ class ChannelController extends AbstractActionController
     protected $translator;
     protected $organisationUnitService;
     protected $intercomEventService;
-    /** @var ShippingOptionsProviderRepository */
-    protected $shippingOptionsProviderRepo;
+    /** @var ShippingProviderChannelsRepository */
+    protected $shippingProviderChannelsRepository;
     /** @var AccountFactory */
     protected $accountFactory;
 
@@ -84,7 +84,7 @@ class ChannelController extends AbstractActionController
         Translator $translator,
         OrganisationUnitService $organisationUnitService,
         IntercomEventService $intercomEventService,
-        ShippingOptionsProviderRepository $shippingOptionsProviderRepo,
+        ShippingProviderChannelsRepository $shippingProviderChannelsRepository,
         AccountFactory $accountFactory
     ) {
         $this->setDi($di)
@@ -100,7 +100,7 @@ class ChannelController extends AbstractActionController
             ->setTranslator($translator)
             ->setOrganisationUnitService($organisationUnitService)
             ->setIntercomEventService($intercomEventService)
-            ->setShippingOptionsProviderRepo($shippingOptionsProviderRepo)
+            ->setShippingProviderChannelsRepository($shippingProviderChannelsRepository)
             ->setAccountFactory($accountFactory);
     }
 
@@ -623,9 +623,9 @@ class ChannelController extends AbstractActionController
         return $this;
     }
 
-    protected function setShippingOptionsProviderRepo(ShippingOptionsProviderRepository $shippingOptionsProviderRepo)
+    protected function setShippingProviderChannelsRepository(ShippingProviderChannelsRepository $shippingProviderChannelsRepository)
     {
-        $this->shippingOptionsProviderRepo = $shippingOptionsProviderRepo;
+        $this->shippingProviderChannelsRepository = $shippingProviderChannelsRepository;
         return $this;
     }
 
@@ -637,10 +637,10 @@ class ChannelController extends AbstractActionController
 
     /**
      * To satisfy GetNamespacePartForAccountTrait
-     * @return ShippingOptionsProviderRepository
+     * @return ShippingProviderChannelsRepository
      */
-    protected function getShippingOptionsProviderRepo()
+    protected function getShippingProviderChannelsRepository()
     {
-        return $this->shippingOptionsProviderRepo;
+        return $this->shippingProviderChannelsRepository;
     }
 }
