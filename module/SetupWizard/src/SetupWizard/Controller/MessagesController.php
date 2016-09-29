@@ -4,6 +4,7 @@ namespace SetupWizard\Controller;
 use CG\Account\Shared\Entity as Account;
 use CG_Amazon\Controller\AccountController as AmazonAccountController;
 use CG_Amazon\Module as AmazonModule;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\InvoiceController as InvoiceSettingsController;
 use Settings\Module as SettingsModule;
@@ -54,10 +55,14 @@ class MessagesController extends AbstractActionController
         $view->setVariable('saveEmailInvoicesUrl', $saveEmailInvoicesUrl);
         $saveAmazonOriginalEmailUrl = $this->url()->fromRoute(AmazonModule::ROUTE . '/' . AmazonAccountController::ROUTE . '/' . AmazonAccountController::ROUTE_SAVE_ORIG_EMAIL);
         $view->setVariable('saveAmazonOriginalEmailUrl', $saveAmazonOriginalEmailUrl);
-        
-        foreach ($this->messagesService->fetchAmazonAccountsForActiveUser() as $account) {
-            $section = $this->getSectionViewForAccount($account);
-            $view->addChild($section, 'accountSections', true);
+
+        try {
+            foreach ($this->messagesService->fetchAmazonAccountsForActiveUser() as $account) {
+                $section = $this->getSectionViewForAccount($account);
+                $view->addChild($section, 'accountSections', true);
+            }
+        } catch (NotFound $ex) {
+            // No-op
         }
 
         return $this->setupService->getSetupView('Set Up Customer Messages', $view);
