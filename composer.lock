@@ -528,16 +528,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "bd76e44a917410666039e114b7f84d46295ea579"
+                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.6-50da43.zip",
-                "reference": "bd76e44a917410666039e114b7f84d46295ea579",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.7-5cafdf.zip",
+                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd",
                 "shasum": null
             },
             "require": {
@@ -563,7 +563,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-27 08:02:19"
+            "time": "2016-09-28 14:24:52"
         },
         {
             "name": "channelgrabber/courieradapter",
