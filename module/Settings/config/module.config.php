@@ -66,6 +66,7 @@ return [
             'white_listed_routes' => [
                 Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . EkmAccount::ROUTE . '/' . EkmController::ROUTE_AJAX => true,
                 Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . WooCommerceAccount::ROUTE . '/' . WooCommerceController::ROUTE_AJAX => true,
+                Module::ROUTE . '/' . InvoiceController::ROUTE . '/' . InvoiceController::ROUTE_MAPPING . '/' . InvoiceController::ROUTE_SAVE,
             ]
         ]
     ],

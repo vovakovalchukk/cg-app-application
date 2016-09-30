@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f996a176eec47465c025a26bdc7cff86",
-    "content-hash": "73d3daa26f90becfda3a11db944e7d9f",
+    "hash": "e9f4c983c04d2395409b3f99112b2353",
+    "content-hash": "574e46e9f55b89c1b82bfa1f1667ac83",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -349,7 +349,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "af7272728f887610f7aa8939af27765ccc0ee822"
+                "reference": "68c116363abcd1fb869d8a5a437791046a9d9b2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7336-remove-dataplug-and-tidy-couriers-50935d.zip",
+                "reference": "68c116363abcd1fb869d8a5a437791046a9d9b2c",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -416,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-26 15:27:20"
+            "time": "2016-09-30 08:28:20"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2788,16 +2794,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.14",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "2ea7108d46eba8e9cb04c8de688a87dcb3b956aa"
+                "reference": "0ea29a8f7fd09b94d71c0126f932fd4f702cdab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.14-8b6489.zip",
-                "reference": "2ea7108d46eba8e9cb04c8de688a87dcb3b956aa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.15-8031cc.zip",
+                "reference": "0ea29a8f7fd09b94d71c0126f932fd4f702cdab3",
                 "shasum": null
             },
             "require": {
@@ -2829,7 +2835,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-09-22 13:42:32"
+            "time": "2016-09-30 08:06:44"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -8030,8 +8036,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.25.9",
-            "alias_normalized": "1.25.9.0",
+            "alias": "1.25.12",
+            "alias_normalized": "1.25.12.0",
             "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
             "package": "channelgrabber/channel"
         }
@@ -8044,8 +8050,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
