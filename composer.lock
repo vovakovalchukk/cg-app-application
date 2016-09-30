@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b969cf27927e650262dab8e13f7d749",
-    "content-hash": "c1c39ba991692a02a2035f5332dfac32",
+    "hash": "33e4e3da8f79faaaf15c05e573e1f678",
+    "content-hash": "1192c87b792ef9eed75bcb4b50bf1ac5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7068-Add-message-config-to-setup-wizard",
+            "version": "1.25.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cdfc0312c5b45c2b1fe942bf77ac2965f7060168"
+                "reference": "f2b6e1eea869ce239b821fdcefa60bf9a47c27d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7068-Add-message-config-to-setup-wizard-cc355c.zip",
-                "reference": "cdfc0312c5b45c2b1fe942bf77ac2965f7060168",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.25.11-61cf26.zip",
+                "reference": "f2b6e1eea869ce239b821fdcefa60bf9a47c27d8",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-28 13:20:11"
+            "time": "2016-09-30 08:06:31"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2840,16 +2840,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-7068-Add-message-config-to-setup-wizard",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "dac5cc66f23073ede61b6ebcea987f9b1c3fdc6d"
+                "reference": "0ea29a8f7fd09b94d71c0126f932fd4f702cdab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-7068-Add-message-config-to-setup-wizard-12ad17.zip",
-                "reference": "dac5cc66f23073ede61b6ebcea987f9b1c3fdc6d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.15-8031cc.zip",
+                "reference": "0ea29a8f7fd09b94d71c0126f932fd4f702cdab3",
                 "shasum": null
             },
             "require": {
@@ -2881,7 +2881,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-09-28 13:21:59"
+            "time": "2016-09-30 08:06:44"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -8124,25 +8124,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.25.11",
-            "alias_normalized": "1.25.11.0",
-            "version": "dev-CGIV-7068-Add-message-config-to-setup-wizard",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.15",
-            "alias_normalized": "1.0.15.0",
-            "version": "dev-CGIV-7068-Add-message-config-to-setup-wizard",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
