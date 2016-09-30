@@ -4,27 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9f4c983c04d2395409b3f99112b2353",
-    "content-hash": "574e46e9f55b89c1b82bfa1f1667ac83",
+    "hash": "82aa260248a18457f4cda9e749a3abc6",
+    "content-hash": "685ee877b24908676eaac5ce9480b649",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.17.17",
+            "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ab0b102e8d812cdad46c4399c01f49e1cb4326aa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.17-55bbc7.zip",
-                "reference": "ab0b102e8d812cdad46c4399c01f49e1cb4326aa",
-                "shasum": null
+                "reference": "3c776d62606036aa34a72765599f18c8f3bec69d"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.25.3",
+                "channelgrabber/channel": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers as 1.26.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -33,9 +27,9 @@
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": ">=1.1.2",
                 "channelgrabber/listing": "^1.9.0",
-                "channelgrabber/locale": "^1.0.5",
+                "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.23.15",
+                "channelgrabber/order": "^1.23.20",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -65,7 +59,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-19 15:21:14"
+            "time": "2016-09-30 10:17:59"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -349,12 +343,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "68c116363abcd1fb869d8a5a437791046a9d9b2c"
+                "reference": "4c3cff9d4f07af6c593238a8d5445837e7cc56f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7336-remove-dataplug-and-tidy-couriers-50935d.zip",
-                "reference": "68c116363abcd1fb869d8a5a437791046a9d9b2c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7336-remove-dataplug-and-tidy-couriers-10d7dc.zip",
+                "reference": "4c3cff9d4f07af6c593238a8d5445837e7cc56f1",
                 "shasum": null
             },
             "require": {
@@ -422,7 +416,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-09-30 08:28:20"
+            "time": "2016-10-03 10:50:12"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1268,20 +1262,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.16",
+            "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "ffda7041392efeec35fa733a8dc85104a81bb3b5"
+                "reference": "b2e007d8f98ac397539b59675f32add43f2b312c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.16-00c2bb.zip",
-                "reference": "ffda7041392efeec35fa733a8dc85104a81bb3b5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7336-remove-dataplug-and-tidy-couriers-803a8c.zip",
+                "reference": "b2e007d8f98ac397539b59675f32add43f2b312c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.25.0",
+                "channelgrabber/channel": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers as 1.26.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.9",
@@ -1319,7 +1313,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-09-23 14:49:51"
+            "time": "2016-09-30 09:55:34"
         },
         {
             "name": "channelgrabber/notification",
@@ -1371,16 +1365,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.16",
+            "version": "1.23.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c63ec4ea17377e7ab4f3300b1bb08fbbc2f65bfc"
+                "reference": "a70b64f8d33ee283cacce90a557a40fa5d03fd51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.16-598ffb.zip",
-                "reference": "c63ec4ea17377e7ab4f3300b1bb08fbbc2f65bfc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.20-074e43.zip",
+                "reference": "a70b64f8d33ee283cacce90a557a40fa5d03fd51",
                 "shasum": null
             },
             "require": {
@@ -1388,6 +1382,7 @@
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.8.11",
                 "channelgrabber/channel": "^1.17.7",
+                "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": "^1.0.9",
@@ -1397,7 +1392,7 @@
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.0",
-                "channelgrabber/locale": "^1.0.7",
+                "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
@@ -1406,7 +1401,7 @@
                 "channelgrabber/product": "^1.7.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.3.9",
+                "channelgrabber/settings": "^1.3.14",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.25",
@@ -1444,7 +1439,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-08-23 08:16:19"
+            "time": "2016-09-23 14:28:14"
         },
         {
             "name": "channelgrabber/permission",
@@ -1906,20 +1901,20 @@
         },
         {
             "name": "channelgrabber/royalmail",
-            "version": "1.0.5",
+            "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "02fea813defefb6dbe81f45e9442741d5ae927a2"
+                "reference": "f2e2c865eaf445c53471d06384a97d9a3847fa73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.5-445234.zip",
-                "reference": "02fea813defefb6dbe81f45e9442741d5ae927a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-dev-CGIV-7336-remove-dataplug-and-tidy-couriers-895c6a.zip",
+                "reference": "f2e2c865eaf445c53471d06384a97d9a3847fa73",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": ">=1.5.3, <2.0.0",
+                "channelgrabber/channel": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers as 1.26.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0"
             },
@@ -1929,7 +1924,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2016-06-06 12:14:26"
+            "time": "2016-09-30 10:43:32"
         },
         {
             "name": "channelgrabber/scraper",
@@ -8036,16 +8031,37 @@
     ],
     "aliases": [
         {
-            "alias": "1.25.12",
-            "alias_normalized": "1.25.12.0",
+            "alias": "1.17.18",
+            "alias_normalized": "1.17.18.0",
+            "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.26.0",
+            "alias_normalized": "1.26.0.0",
             "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.0.17",
+            "alias_normalized": "1.0.17.0",
+            "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
+            "alias": "1.0.6",
+            "alias_normalized": "1.0.6.0",
+            "version": "dev-CGIV-7336-remove-dataplug-and-tidy-couriers",
+            "package": "channelgrabber/royalmail"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
+        "channelgrabber/royalmail": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

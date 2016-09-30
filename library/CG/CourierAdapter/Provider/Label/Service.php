@@ -3,19 +3,24 @@ namespace CG\CourierAdapter\Provider\Label;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Manifest\Entity as AccountManifest;
-use CG\Channel\CarrierProviderServiceInterface;
-use CG\Channel\CarrierProviderServiceManifestInterface;
+use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierProviderServiceCancelInterface;
+use CG\Channel\Shipping\Provider\ServiceInterface as CarrierProviderServiceInterface;
+use CG\Channel\Shipping\Provider\Service\ManifestInterface as CarrierProviderServiceManifestInterface;
 use CG\CourierAdapter\Manifest\GeneratingInterface as ManifestGeneratingInterface;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\Provider\Label\Create as LabelCreateService;
 use CG\CourierAdapter\Provider\Manifest\Service as ManifestService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\User\Entity as User;
 
-class Service implements CarrierProviderServiceInterface, CarrierProviderServiceManifestInterface
+class Service implements
+    CarrierProviderServiceInterface,
+    CarrierProviderServiceCancelInterface,
+    CarrierProviderServiceManifestInterface
 {
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -54,6 +59,14 @@ class Service implements CarrierProviderServiceInterface, CarrierProviderService
         return $this->labelCreateService->createLabelsForOrders(
             $orders, $orderLabels, $ordersData, $orderParcelsData, $orderItemsData, $rootOu, $shippingAccount, $user
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCancellationAllowedForOrder(Account $account, Order $order)
+    {
+        return $this->labelCancelService->isCancellationAllowedForOrder($account, $order);
     }
 
     /**
