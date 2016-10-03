@@ -676,22 +676,10 @@ class Service implements LoggerAwareInterface
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['cancellable'] = $orderData['cancellable'];
+            $parcelData['itemImageText'] = 'Package ' . $parcel;
             $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
-            }
-            $optionKeys = array_flip($options);
-            if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
-                $itemImageText = 'Package ' . $parcel . ' ';
-                $itemImageTextAdtnl = [];
-                if (isset($optionKeys['weight'])) {
-                    $itemImageTextAdtnl[] = 'weight';
-                }
-                if (isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
-                    $itemImageTextAdtnl[] = 'dimensions';
-                }
-                $itemImageText .= implode(' and ', $itemImageTextAdtnl);
-                $parcelData['itemImageText'] = $itemImageText;
             }
 
             if (isset($parcelsInputData[$parcel])) {
