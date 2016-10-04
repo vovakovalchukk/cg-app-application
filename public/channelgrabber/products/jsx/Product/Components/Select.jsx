@@ -49,14 +49,14 @@ define([
             return optionComponentArray;
         },
         getOptionNames: function () {
-            var options = this.props.options.map(function(opt) {
+            var options = this.props.options.map(function(opt, index) {
                 var optionName = opt.name;
                 if (Array.isArray(opt.name)) {
                     optionName = this.splitOptionNameIntoComponents(opt.name);
                 }
 
                 return (
-                    <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={opt.value} onClick={this.onOptionSelected}>
+                    <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected}>
                         <a value={opt.value}>{optionName}</a>
                     </li>
                 )
