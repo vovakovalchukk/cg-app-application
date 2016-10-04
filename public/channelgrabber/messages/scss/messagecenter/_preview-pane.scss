@@ -1,5 +1,6 @@
 .message-preview {
-  @include calc(width, "100% - 362px");
+  width: 82%;
+  @include calc(max-width, "100% - 301px");
   @include print() {
     width: 100%;
     height: auto;

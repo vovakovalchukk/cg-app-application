@@ -17,6 +17,7 @@ define([
 
         var threads;
         var page = 1;
+        var sortDescending = true;
         var previousFilter;
 
         this.getService = function()
@@ -49,6 +50,17 @@ define([
         this.getPage = function()
         {
             return page;
+        };
+
+        this.setSortDescending = function(newSortDescending)
+        {
+            sortDescending = newSortDescending;
+            return this;
+        };
+
+        this.isSortDescending = function()
+        {
+            return sortDescending;
         };
 
         this.setPreviousFilter = function(newPreviousFilter)
@@ -84,7 +96,7 @@ define([
         }
         this.setPreviousFilter(filter);
         this.getApplication().busy();
-        this.getService().fetchCollectionByFilter(filter, this.getPage(), function(threads)
+        this.getService().fetchCollectionByFilter(filter, this.getPage(), this.isSortDescending(), function(threads)
         {
             if (threads.count() == 100) {
                 self.getDomManipulator().show(self.getEventHandler().getSelectorNextPage());
@@ -106,6 +118,13 @@ define([
             self.getApplication().unbusy();
             n.ajaxError(response);
         });
+    };
+
+    ThreadList.prototype.changeSortDirection = function()
+    {
+        this.setSortDescending(!this.isSortDescending());
+        this.getDomManipulator().toggleClass(this.getEventHandler().getSelectorSortOrder(), 'ascending');
+        this.loadForFilter(this.getPreviousFilter(), null);
     };
 
     ThreadList.prototype.loadNextPage = function()

@@ -40,7 +40,7 @@ define([
                 return;
             }
 
-            var promise = this.props.submitCallback(this.props.name, this.state.newValue);
+            var promise = this.props.submitCallback(this.props.name, this.state.newValue || 0);
             promise.then(function(data) {
                 this.setState({
                     editable: false,
@@ -76,7 +76,7 @@ define([
                             type={this.props.type}
                             onKeyPress={this.onKeyPress}
                             onChange={this.onChange}
-                            value={this.state.newValue || this.props.initialValue}
+                            value={this.state.newValue}
                             name={this.props.name}
                             disabled={this.props.disabled ? 'disabled' : ''}
                         />

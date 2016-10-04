@@ -22,6 +22,9 @@ function($,domManipulator)
                             servicesOptions.push({title:services[service], value: service});
                         }
                     }
+                    if (servicesOptions.length == 1) {
+                        servicesOptions[0].selected = true;
+                    }
                     domManipulator.updateServicesCustomSelect(aliasId, servicesOptions);
                 }
             });
