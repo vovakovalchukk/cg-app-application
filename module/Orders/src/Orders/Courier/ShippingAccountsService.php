@@ -6,8 +6,8 @@ use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Type as ChannelType;
-use CG\Channel\ShippingChannelsProvider\AccountDisplayNameInterface;
-use CG\Channel\ShippingChannelsProviderRepository;
+use CG\Channel\Shipping\Provider\Channels\AccountDisplayNameInterface;
+use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
 use CG\User\OrganisationUnit\Service as UserOuService;
 
 class ShippingAccountsService
