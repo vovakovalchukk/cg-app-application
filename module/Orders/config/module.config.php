@@ -397,6 +397,17 @@ return [
                             ],
                         ]
                     ],
+                    'shippingOptions' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/shippingOptions',
+                            'defaults' => [
+                                'controller' => ManualOrderController::class,
+                                'action' => 'getShippingOptions',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                     'dispatch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [

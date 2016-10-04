@@ -6,6 +6,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\ManualOrder\Service;
+use Orders\Order\Service as OrderService;
 use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -19,17 +20,21 @@ class ManualOrderController extends AbstractActionController
     protected $usageService;
     /** @var Service */
     protected $service;
+    /** @var OrderService */
+    protected $orderService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         UsageService $usageService,
-        Service $service
+        Service $service,
+        OrderService $orderService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setUsageService($usageService)
-            ->setService($service);
+            ->setService($service)
+            ->setOrderService($orderService);
     }
 
     public function indexAction()
@@ -79,6 +84,19 @@ class ManualOrderController extends AbstractActionController
         return $view;
     }
 
+    public function getShippingOptionsAction()
+    {
+        $carriers = $this->orderService->getCarriersData();
+        $options = [];
+        foreach ($carriers as $carrier) {
+            $options[] = [
+                'name' => $carrier,
+                'value' => 0,
+            ];
+        }
+        return $this->jsonModelFactory->newInstance(['options' => $options]);
+    }
+
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -101,5 +119,16 @@ class ManualOrderController extends AbstractActionController
     {
         $this->service = $service;
         return $this;
+    }
+
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    protected function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
     }
 }
