@@ -1,0 +1,99 @@
+.setup-wizard-body {
+    #email-invoice-dispatch-section {
+        float: left;
+        padding-bottom: 30px;
+    }
+
+    .setup-wizard-messages-account-section {
+        float: left;
+        clear: both;
+        padding: 30px 0px;
+        width: 100%;
+
+        .setup-wizard-account-badge {
+            margin-bottom: 0px;
+
+            .setup-wizard-account-badge-footer div.setup-wizard-account-badge-name {
+                width: 95%;
+            }
+        }
+
+        .setup-wizard-messages-account-section-body {
+            float: left;
+            margin: 20px 0 0 80px;
+
+            .setup-wizard-messages-account-name {
+                font-weight: bold;
+            }
+
+            .setup-wizard-messages-account-section-buttons {
+                float: left;
+                margin-top: 20px;
+            }
+
+            &.setup-done {
+                color: $color-green;
+
+                .heading-medium {
+                    color: $color-green;
+                }
+
+                .inputbox {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+
+    #setup-wizard-messages-amazon-setup-instructions {
+        float: left;
+        width: 50%;
+    }
+
+    #setup-wizard-messages-amazon-setup-instructions {
+        ol {
+            float: left;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            >li {
+                float: left;
+                clear: both;
+                margin-bottom: 20px;
+                width: 100%;
+
+                img {
+                    float: left;
+                    margin-right: 20px;
+                }
+                div.setup-wizard-messages-list-text {
+                    float: left;
+                    display: inline-block;
+                    padding-top: 13px;
+                    width: calc(100% - 72px);
+
+                    .inputbox {
+                        margin-top: 20px;
+                    }
+                }
+                div.button {
+                    float: left;
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        #setup-wizard-messages-amazon-email-field-list {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        #setup-wizard-messages-amazon-setup-small-screenshot {
+            img {
+                border: solid 2px $color-lblue;
+                margin-top: 20px;
+            }
+        }
+    }
+}

@@ -3,6 +3,7 @@ namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Http\StatusCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
@@ -32,6 +33,7 @@ class CreateService extends ServiceAbstract
     const LOG_PROD_DET_PERSIST = 'Looking for dimensions to save to ProductDetails';
     const LOG_PROD_DET_UPDATE = 'Updating ProductDetail for SKU %s, OU %d from data for Order %s';
     const LOG_PROD_DET_CREATE = 'Creating ProductDetail for SKU %s, OU %d from data for Order %s';
+    const LOG_PROD_DET_ERROR = 'Failed to save ProductDetails for SKU %s, OU %d from data for Order %s. Will skip.';
     const LOG_GET_LABEL_ATTEMPT = 'Attempt %d to get label data for order number %s, Order %s, shipping Account %d';
     const LOG_GET_LABEL_RETRY = 'No label data found on this attempt, will retry for order number %s, Order %s, shipping Account %d. Giving up.';
     const LOG_GET_LABEL_FAILED = 'Max attempts (%d) to get label data reached for order number %s, Order %s, shipping Account %d. Giving up.';
@@ -65,7 +67,16 @@ class CreateService extends ServiceAbstract
         $this->removeZeroQuantityItemsFromOrders($orders);
 
         $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
-        $orderLabels = $this->createOrderLabelsForOrders($orders, $ordersData, $shippingAccount);
+
+        $orderLabelsData = $this->createOrderLabelsForOrders($orders, $ordersData, $shippingAccount);
+        if (count($orderLabelsData['orderLabels']) == 0) {
+            return $orderLabelsData['errors'];
+        }
+        if (!empty($orderLabelsData['errors'])) {
+            $orders = $this->removeOrdersWithNoOrderLabel($orders, $orderLabelsData['errors']);
+        }
+        $orderLabels = $orderLabelsData['orderLabels'];
+
         $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
 
         try {
@@ -84,6 +95,9 @@ class CreateService extends ServiceAbstract
             $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
 
+            if (!empty($orderLabelsData['errors'])) {
+                $labelReadyStatuses = array_merge($orderLabelsData['errors'], $labelReadyStatuses);
+            }
             return $labelReadyStatuses;
         } catch (\Exception $e) {
             // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
@@ -123,7 +137,13 @@ class CreateService extends ServiceAbstract
                     $itemProductDetails->rewind();
                     $itemProductDetail = $itemProductDetails->current();
                     $this->logDebug(static::LOG_PROD_DET_UPDATE, [$itemProductDetail->getSku(), $itemProductDetail->getOrganisationUnitId(), $order->getId()], static::LOG_CODE);
-                    $this->updateProductDetailFromInputData($itemProductDetail, $productDetailData, $item, $parcelCount);
+                    try {
+                        $this->updateProductDetailFromInputData($itemProductDetail, $productDetailData, $item, $parcelCount);
+                    } catch (\Exception $e) {
+                        // We can live without product details, don't fail for this
+                        $this->logException($e, 'error', __NAMESPACE__);
+                        $this->logError(static::LOG_PROD_DET_ERROR, ['sku' => $itemProductDetail->getSku(), 'ou' => $itemProductDetail->getOrganisationUnitId(), 'order' => $order->getId()], [static::LOG_CODE, 'ProductDetailError']);
+                    }
                 } else {
                     $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
                     $productDetail = $this->createProductDetailFromInputData($productDetailData, $item, $parcelCount, $rootOu);
@@ -208,12 +228,20 @@ class CreateService extends ServiceAbstract
 
     protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, Account $shippingAccount)
     {
-        $orderLabels = new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
+        $orderLabelsData = [
+            'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
+            'errors' => [],
+        ];
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
-            $orderLabels->attach($this->createOrderLabelForOrder($order, $orderData, $shippingAccount));
+            $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $shippingAccount);
+            if ($orderLabel instanceof ValidationMessagesException) {
+                $orderLabelsData['errors'][$order->getId()] = $orderLabel;
+            } else {
+                $orderLabelsData['orderLabels']->attach($orderLabel);
+            }
         }
-        return $orderLabels;
+        return $orderLabelsData;
     }
 
     protected function createOrderLabelForOrder(Order $order, array $orderData, Account $shippingAccount)
@@ -229,7 +257,29 @@ class CreateService extends ServiceAbstract
             'created' => $date->stdFormat(),
         ];
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
-        return $this->orderLabelService->save($orderLabel);
+
+        try {
+            return $this->orderLabelService->save($orderLabel);
+
+        } catch (\Exception $e) {
+            $this->logException($e, 'error', __NAMESPACE__);
+            $exception = new ValidationMessagesException('Unknown error');
+            $errorCode = StatusCode::INTERNAL_SERVER_ERROR;
+            $exception->addError('There was a problem preparing the courier data. Please try again.', $order->getId() . ':' . $errorCode);
+            return $exception;
+        }
+    }
+
+    protected function removeOrdersWithNoOrderLabel(OrderCollection $orders, array $labelErrors)
+    {
+        $ordersWithLabels = new OrderCollection(Order::class, 'ordersWithOrderLabels');
+        foreach ($orders as $order) {
+            if (isset($labelErrors[$order->getId()])) {
+                continue;
+            }
+            $ordersWithLabels->attach($order);
+        }
+        return $ordersWithLabels;
     }
 
     protected function deleteOrderLabelsForFailedCreateAttempts(

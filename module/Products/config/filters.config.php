@@ -8,6 +8,7 @@ use Filters\Options\Marketplace;
 use Filters\Options\OrderStatus;
 use Products\Controller\ListingsController;
 use Products\Controller\StockLogController;
+use Products\Listing\Filter\Options\Status as StatusFilterOptionsProvider;
 
 return [
     'di' => [
@@ -107,21 +108,9 @@ return [
                                 'id' => 'filter-status',
                                 'searchField' => true,
                                 'concatenate' => true,
-                                'options' => [
-                                    [
-                                        'title' => ucwords(str_replace("_", " ", UnimportedListingStatus::NOT_STARTED)),
-                                        'value' => UnimportedListingStatus::NOT_STARTED
-                                    ],
-                                    [
-                                        'title' => ucwords(UnimportedListingStatus::IMPORTING),
-                                        'value' => UnimportedListingStatus::IMPORTING
-                                    ],
-                                    [
-                                        'title' => ucwords(UnimportedListingStatus::ERROR),
-                                        'value' => UnimportedListingStatus::ERROR
-                                    ],
-                                ],
+                                'options' => [],
                             ],
+                            'optionsProvider' => StatusFilterOptionsProvider::class,
                         ],
                         [
                             'filterType' => 'customSelectGroup',

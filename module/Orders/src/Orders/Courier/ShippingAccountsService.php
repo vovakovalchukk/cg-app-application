@@ -46,7 +46,8 @@ class ShippingAccountsService
             ->setPage(1)
             ->setOrganisationUnitId($ouIds)
             ->setType(ChannelType::SHIPPING)
-            ->setDeleted(false);
+            ->setDeleted(false)
+            ->setActive(true);
         $this->shippingAccounts =  $this->accountService->fetchByFilter($filter);
         return $this->shippingAccounts;
     }
