@@ -16,6 +16,10 @@ define([
                     name: "",
                     cost: 0
                 },
+                discount: {
+                    active: false,
+                    value: 0
+                },
                 orderRows: []
             }
         },
@@ -80,6 +84,20 @@ define([
                 shippingMethod: shippingMethod
             });
         },
+        onToggleDiscountBox: function (e) {
+            var discount = this.state.discount;
+            discount.active = (! discount.active);
+            this.setState({
+                discount: discount
+            });
+        },
+        onDiscountValueUpdate: function (e) {
+            var discount = this.state.discount;
+            discount.value = e.target.value;
+            this.setState({
+                discount: discount
+            });
+        },
         updateOrderRow: function (sku, key, value) {
             var orderRows = this.state.orderRows.slice();
             orderRows.forEach(function (row) {
@@ -109,7 +127,21 @@ define([
             if (this.state.orderRows.length < 1) {
                 return;
             }
-            return <a>Add Discount</a>
+            if (this.state.discount.active) {
+                return (
+                    <div className="discount-box">
+                        <span className="discount-label">Discount</span>
+                        <span className="discount-value">
+                            <span className="currency-symbol">{this.currency}<input type="number" name="price" step="0.01" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
+                        </span>
+                        <span className="discount-actions">
+                            <a onClick={this.onToggleDiscountBox}>Remove</a>
+                        </span>
+                    </div>
+                );
+            }
+
+            return <a className="add-discount-action" onClick={this.onToggleDiscountBox}>Add Discount</a>
         },
         getSubtotalMarkup: function () {
             if (this.state.orderRows.length < 1) {
@@ -151,6 +183,10 @@ define([
                 return;
             }
             var orderTotal = parseFloat(this.state.shippingMethod.cost);
+
+            if (this.state.discount.active) {
+                orderTotal -= parseFloat(this.state.discount.value);
+            }
             this.state.orderRows.forEach(function (row) {
                 orderTotal += parseFloat(row.price * row.quantity);
             });

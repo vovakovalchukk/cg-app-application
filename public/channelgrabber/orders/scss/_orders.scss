@@ -145,8 +145,22 @@
     .order-table-wrapper {
         width: 1050px;
         margin-bottom: 25px;
+        .currency-symbol {
+            border-radius: 5px;
+            background-clip: padding-box;
+            background-color: $color-white;
+            border: 1px solid $color-lgrey;
+            padding: 3px;
+            font-size: 13px;
+            outline: 0;
+            input {
+                width: 48px;
+                border: 0;
+                text-align: right;
+            }
+        }
         .order-rows-wrapper {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             .order-row {
                 display: flex;
                 align-items: center;
@@ -247,10 +261,35 @@
             }
         }
         .discount-wrapper {
-            cursor: pointer;
-            margin-left: 790px;
+            margin-left: 727px;
             margin-bottom: 15px;
             font-size: 15px;
+            .add-discount-action {
+                cursor: pointer;
+                display: inline-block;
+                margin-left: 66px;
+            }
+            .discount-box {
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid white;
+                .discount-label {
+                    margin-right: 39px;
+                }
+                .discount-value {
+                    margin-right: 50px;
+                }
+                .discount-actions {
+                    cursor: pointer;
+                    display: none;
+                }
+                &:hover {
+                    border-color: $color-lgrey;
+                    .discount-actions {
+                        display: inline-block;
+                    }
+                }
+            }
         }
         .subtotal-wrapper {
             margin-left: 740px;
@@ -276,20 +315,6 @@
             .shipping-label {
                 margin-right: 39px;
                 font-size: 15px;
-            }
-            .currency-symbol {
-                border-radius: 5px;
-                background-clip: padding-box;
-                background-color: $color-white;
-                border: 1px solid $color-lgrey;
-                padding: 3px;
-                font-size: 13px;
-                outline: 0;
-                input {
-                    width: 48px;
-                    border: 0;
-                    text-align: right;
-                }
             }
         }
         .order-total-wrapper {
