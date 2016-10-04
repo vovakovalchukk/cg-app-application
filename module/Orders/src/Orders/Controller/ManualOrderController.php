@@ -91,7 +91,7 @@ class ManualOrderController extends AbstractActionController
         foreach ($carriers as $carrier) {
             $options[] = [
                 'name' => $carrier,
-                'value' => 0,
+                'value' => $carrier,
             ];
         }
         return $this->jsonModelFactory->newInstance(['options' => $options]);

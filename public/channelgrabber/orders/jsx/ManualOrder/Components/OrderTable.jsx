@@ -12,6 +12,7 @@ define([
         getInitialState: function () {
             this.currency = "£";
             return {
+                shippingOptions: [],
                 shippingMethod: {
                     name: "",
                     cost: 0
@@ -25,9 +26,22 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('productSelection', this.onProductSelected);
+
+            this.shippingOptionsRequest = $.ajax({
+                dataType: "json",
+                url: '/orders/shippingOptions',
+                success: function (response) {
+                    var shippingOptions = [{name: 'N/A', value: 0}];
+                    this.setState({
+                        shippingOptions: shippingOptions.concat(response.options)
+                    });
+                }.bind(this)
+            });
         },
         componentWillUnmount: function () {
             window.removeEventListener('productSelection', this.onProductSelected);
+
+            this.shippingOptionsRequest.abort();
         },
         onProductSelected: function (e) {
             var data = e.detail;
@@ -70,7 +84,7 @@ define([
         onShippingMethodSelected: function (data) {
             var shippingMethod = {
                 name: data.name,
-                cost: data.value
+                cost: 0
             };
             this.setState({
                 shippingMethod: shippingMethod
@@ -163,16 +177,9 @@ define([
                 return;
             }
 
-            var options = [
-                { name: 'Spensive', value: '12.23'},
-                { name: 'Cheap', value: '5.67'},
-                { name: 'Cheaper', value: '3.45'},
-                { name: 'Cheapest', value: '0.99'}
-            ];
-
             return (
                 <div>
-                    <Select options={options} onNewOption={this.onShippingMethodSelected} />
+                    <Select options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />
                     <span className="shipping-label">Shipping</span>
                     <span className="currency-symbol">{this.currency}<input type="number" name="price" step="0.01" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
                 </div>
