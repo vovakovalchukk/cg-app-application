@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad68211f10dba85e0dbb4007b1be7711",
-    "content-hash": "efd65c3d759fb048a7bd2a11d8689fc6",
+    "hash": "78f2458085face2f9e5146238bd25f47",
+    "content-hash": "fad09ab7a6c8dfee264680ccbb08db8f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3587,6 +3587,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "21b52ff986c684a56fc0c4713b2faa09b4a563cb"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7532-courier-ui-improvements-a14ab5.zip",
+                "reference": "21b52ff986c684a56fc0c4713b2faa09b4a563cb",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3631,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-09-26 14:35:30"
+            "time": "2016-10-04 12:37:21"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8045,8 +8051,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
