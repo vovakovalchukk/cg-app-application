@@ -20,12 +20,14 @@ define([
             this.listenForThreadFetched()
                 .listenForFilterApplyRequested()
                 .listenForThreadDomSelection()
+                .listenForThreadSortDirectionChange()
                 .listenForThreadNextPage();
         };
         init.call(this);
     };
 
     EventHandler.SELECTOR_THREAD = '.message-pane ul li';
+    EventHandler.SELECTOR_SORT_ORDER = '.message-pane .sort-order';
     EventHandler.SELECTOR_NEXT_PAGE = '.message-pane #next-page';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
@@ -62,6 +64,16 @@ define([
         return this;
     };
 
+    EventHandler.prototype.listenForThreadSortDirectionChange = function()
+    {
+        var self = this;
+        $(document).on('click', EventHandler.SELECTOR_SORT_ORDER, function(event)
+        {
+            self.getModule().changeSortDirection();
+        });
+        return this;
+    };
+
     EventHandler.prototype.listenForThreadNextPage = function()
     {
         var self = this;
@@ -80,6 +92,11 @@ define([
     EventHandler.prototype.triggerThreadsRendered = function(threads)
     {
         $(document).trigger(ThreadListEvents.THREADS_RENDERED, [threads]);
+    };
+
+    EventHandler.prototype.getSelectorSortOrder = function()
+    {
+        return EventHandler.SELECTOR_SORT_ORDER;
     };
 
     EventHandler.prototype.getSelectorNextPage = function()

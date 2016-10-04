@@ -41,6 +41,14 @@ define(['./EventHandler.js'], function(EventHandler)
         serviceSelectCopy.removeAttr('id').attr('data-element-name', name).addClass('courier-service-custom-select');
         $('input[type=hidden]', serviceSelectCopy).attr('name', name);
 
+        if ($(serviceSelectCopy).is(".disabled")) {
+            $(serviceSelectCopy).removeAttr('class').html(function() {
+                var input = $('input[type=hidden]', this);
+                var selected = $('.custom-select-item.active', this);
+                return $('<div></div>').text(selected.text()).append(input.val(selected.attr('data-value')));
+            });
+        }
+
         $(Service.SELECTOR_ORDER_SERVICE_CONTAINER_PREFIX+orderId).append(serviceSelectCopy);
         this.getDataTable().cgDataTable('adjustTable');
         return this;

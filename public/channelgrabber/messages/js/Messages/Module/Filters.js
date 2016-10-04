@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'Messages/Module/Filter/EventHandler',
     'Messages/ModuleAbstract',
     'Messages/Module/Filter/Assignee',
@@ -8,6 +9,7 @@ define([
     'Messages/Module/Filter/ExternalUsername',
     'Messages/Headline/Storage/Ajax'
 ], function(
+    $,
     EventHandler,
     ModuleAbstract,
     AssigneeFilter,
@@ -21,7 +23,15 @@ define([
     {
         ModuleAbstract.call(this, application);
 
+        var queues = {};
         var filters = {};
+
+        this.getQueue = function(queue) {
+            if (!queues.hasOwnProperty(queue)) {
+                queues[queue] = $.Deferred();
+            }
+            return queues[queue];
+        };
 
         this.getFilters = function()
         {
@@ -70,15 +80,21 @@ define([
             var filter = filters[selectedFilter];
             filter.setValue(selectedFilterValue);
             filter.activate();
-        } else if (this.getApplication().getSingleUserMode() && filters.open.getCount() > 0) {
-            filters.open.activate();
-        } else if (filters.myMessages.getCount() > 0) {
-            filters.myMessages.activate();
-        } else if (filters.unassigned.getCount() > 0) {
-            filters.unassigned.activate();
-        } else {
-            filters.resolved.activate();
+            return;
         }
+
+        var application = this.getApplication();
+        this.getQueue('filterCounts').done(function() {
+            if (application.getSingleUserMode() && filters.open.getCount() > 0) {
+                filters.open.activate();
+            } else if (filters.myMessages.getCount() > 0) {
+                filters.myMessages.activate();
+            } else if (filters.unassigned.getCount() > 0) {
+                filters.unassigned.activate();
+            } else {
+                filters.resolved.activate();
+            }
+        });
     };
 
     Filters.prototype.applyFilter = function(filter, selectedThreadId)
@@ -119,6 +135,7 @@ define([
     Filters.prototype.updateFilterCounts = function()
     {
         var self = this;
+        var queue = this.getQueue('filterCounts');
         this.getHeadlineStorage().fetch(this.getApplication().getOrganisationUnitId(), function(headline)
         {
             var filters = self.getFilters();
@@ -127,6 +144,7 @@ define([
             filters.assigned.setCount(headline.getAssigned());
             filters.resolved.setCount(headline.getResolved());
             filters.open.setCount(parseInt(headline.getMyMessages()) + parseInt(headline.getUnassigned()) + parseInt(headline.getAssigned()));
+            queue.resolve();
         });
         return this;
     };

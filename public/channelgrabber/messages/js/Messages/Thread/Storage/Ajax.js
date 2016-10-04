@@ -24,10 +24,10 @@ define([
 
     Ajax.prototype = Object.create(StorageAbstract.prototype);
 
-    Ajax.prototype.fetchCollectionByFilter = function(filter, page, callback, failureCallback)
+    Ajax.prototype.fetchCollectionByFilter = function(filter, page, sortDescending, callback, failureCallback)
     {
         var self = this;
-        this.getRequester().sendRequest(Ajax.URL_COLLECTION, {filter: filter, page: page}, function(response)
+        this.getRequester().sendRequest(Ajax.URL_COLLECTION, {filter: filter, page: page, sortDescending: sortDescending}, function(response)
         {
             if (response.message) {
                 n.error(response.message);

@@ -2,6 +2,7 @@
 $files = [
     'failoverClient.php',
     'netdespatch.php',
+    'geopost.php',
 ];
 
 $commands = [];

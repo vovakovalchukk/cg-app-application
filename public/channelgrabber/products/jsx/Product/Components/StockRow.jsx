@@ -31,10 +31,10 @@ define([
                     <input type='hidden' value={variation.eTag} />
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
-                <td key="stock-mode" className="product-stock-mode">
+                <td key="stock-mode" colSpan="2" className="product-stock-mode">
                     <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} selectedOption={this.getSelectedOption()}/>
                 </td>,
-                <td key="stock-level" className="product-stock-level">
+                <td key="stock-level" colSpan="1" className="product-stock-level">
                     <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.shouldInputBeDisabled()} />
                 </td>
             ];
@@ -49,17 +49,15 @@ define([
             }
         },
         shouldInputBeDisabled: function() {
-            if (!this.props.variation.stock) {
-                return;
-            }
             var disabledStockMode = 'all';
-            return (this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === disabledStockMode);
+            var shouldBeDisabled = (!this.props.variation.stock) ||
+                (   (this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === 'null') &&
+                (this.props.variation.stockModeDefault === null || this.props.variation.stockModeDefault === disabledStockMode) ) ||
+                (this.props.variation.stock.stockMode === disabledStockMode);
+            return shouldBeDisabled;
         },
         getStockModeLevel: function() {
-            if (this.props.variation.stock && this.props.variation.stock.stockLevel) {
-                return this.props.variation.stock.stockLevel;
-            }
-            return "";
+            return this.props.variation.stock ? this.props.variation.stock.stockLevel : '';
         },
         getStockModeOptions: function() {
             if (!this.props.variation.stockModeOptions) {
@@ -95,7 +93,7 @@ define([
                 dataType : 'json',
                 success : function(response) {
                     n.success('Stock mode updated successfully..');
-                    var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': {'value': stockMode.value}});
+                    var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': response});
                     window.dispatchEvent(modeUpdatedEvent);
                 }.bind(this),
                 error : function(error) {
@@ -145,11 +143,11 @@ define([
                         id: this.props.variation.id,
                         stockLevel: value
                     },
-                    success: function() {
+                    success: function(response) {
                         n.success('Stock level updated successfully..');
-                        var levelUpdatedEvent = new CustomEvent('level-'+this.props.variation.sku, {'detail': {'value': value}});
-                        window.dispatchEvent(levelUpdatedEvent);
-                        resolve({ savedValue: value });
+                        var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': response});
+                        window.dispatchEvent(modeUpdatedEvent);
+                        resolve({ savedValue: response[this.props.variation.sku].level || 0 });
                     }.bind(this),
                     error: function(error) {
                         n.error("There was an error when attempting to update the stock level.");
@@ -165,12 +163,10 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
-            window.addEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
             window.addEventListener('mode-'+this.props.variation.sku, this.props.modeUpdated);
         },
         componentWillUnmount: function () {
             window.removeEventListener('total-'+this.props.variation.sku, this.props.totalUpdated);
-            window.removeEventListener('level-'+this.props.variation.sku, this.props.levelUpdated);
             window.removeEventListener('mode-'+this.props.variation.sku, this.props.modeUpdated);
         },
         render: function () {

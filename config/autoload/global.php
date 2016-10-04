@@ -1361,7 +1361,7 @@ $config = array(
                             'packageTypes' => ['Parcel'],
                             'addOns' => [
                                 ['title' => 'Saturday'],
-                                ['title' => 'Insurance £500', 'excludes' => 'Insurance £1000,Insurance £2500'],
+                                ['title' => 'Insurance £500', 'excludes' => 'Insurance £1000,Insurance £2500', 'default' => true],
                                 ['title' => 'Insurance £1000', 'excludes' => 'Insurance £500,Insurance £2500'],
                                 ['title' => 'Insurance £2500', 'excludes' => 'Insurance £500,Insurance £1000'],
                             ]
@@ -1370,7 +1370,7 @@ $config = array(
                             'packageTypes' => ['Parcel'],
                             'addOns' => [
                                 ['title' => 'Saturday'],
-                                ['title' => 'Insurance £50', 'excludes' => 'Insurance £1000,Insurance £2500'],
+                                ['title' => 'Insurance £50', 'excludes' => 'Insurance £1000,Insurance £2500', 'default' => true],
                                 ['title' => 'Insurance £1000', 'excludes' => 'Insurance £50,Insurance £2500'],
                                 ['title' => 'Insurance £2500', 'excludes' => 'Insurance £50,Insurance £1000'],
                             ]
