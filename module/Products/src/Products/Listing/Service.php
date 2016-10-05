@@ -38,6 +38,7 @@ class Service implements LoggerAwareInterface
     const ONE_SECOND_DELAY = 1;
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
     const REFRESH_TIMEOUT = 300;
+    const BATCH_SIZE = 500;
 
     protected $activeUserContainer;
     protected $userPreferenceService;
@@ -210,6 +211,13 @@ class Service implements LoggerAwareInterface
         $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
         $filter->setId($listingIds);
         $listings = $this->getListingService()->fetchCollectionByFilter($filter);
+
+        $this->importListingsCollection($listings);
+        $this->notifyOfImport();
+    }
+
+    protected function importListingsCollection($listings)
+    {
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
             null,
@@ -228,7 +236,30 @@ class Service implements LoggerAwareInterface
             $listing->setStatus(UnimportedStatus::IMPORTING);
         }
         $this->getListingService()->saveCollection($listings);
-        $this->notifyOfImport();
+    }
+
+    public function importListingsByFilters(ListingFilter $listingFilter)
+    {
+        try {
+            $listingFilter->setPage(static::DEFAULT_PAGE)->setLimit(static::BATCH_SIZE);
+            $this->importListingsByFiltersBatch($listingFilter);
+            $this->notifyOfImport();
+            return true;
+
+        } catch (NotFound $e) {
+            return false;
+        }
+    }
+
+    protected function importListingsByFiltersBatch(ListingFilter $listingFilter)
+    {
+        $listings = $this->fetchListings($listingFilter);
+        $this->importListingsCollection($listings);
+
+        if ($listings->getTotal() > ($listingFilter->getPage() * $listingFilter->getLimit())) {
+            $listingFilter->setPage($listingFilter->getPage() + 1);
+            $this->importListingsByFiltersBatch($listingFilter);
+        }
     }
 
     protected function notifyOfImport()
