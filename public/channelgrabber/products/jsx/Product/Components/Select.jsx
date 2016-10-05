@@ -42,21 +42,21 @@ define([
             });
             this.props.onNewOption(selectedOption);
         },
-        splitOptionNameIntoComponents: function (optionName) {
+        splitOptionNameIntoComponents: function (optionName, optionValue) {
             var optionComponentArray = optionName.map(function (optionComponent) {
-                return <span className="option-component">{optionComponent}</span>
+                return <span className="option-component" value={optionValue}>{optionComponent}</span>
             });
             return optionComponentArray;
         },
-        getOptionName: function (optionName) {
+        getOptionName: function (optionName, optionValue) {
             if (Array.isArray(optionName)) {
-                return this.splitOptionNameIntoComponents(optionName);
+                return this.splitOptionNameIntoComponents(optionName, optionValue);
             }
             return optionName;
         },
         getOptionNames: function () {
             var options = this.props.options.map(function(opt, index) {
-                var optionName = this.getOptionName(opt.name);
+                var optionName = this.getOptionName(opt.name, opt.value);
 
                 return (
                     <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected}>
