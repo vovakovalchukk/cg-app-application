@@ -18,7 +18,9 @@ use CG\Order\Shared\Note\Mapper as OrderNoteMapper;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\Product\Client\Service as ProductService;
+use Orders\Order\CurrencyService;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -26,6 +28,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use NumberFormatter;
 
 class Service implements LoggerAwareInterface
 {
@@ -58,6 +61,10 @@ class Service implements LoggerAwareInterface
     protected $orderNoteMapper;
     /** @var TaxService */
     protected $taxService;
+    /** @var CurrencyService */
+    protected $currencyService;
+    /** @var UserOuService */
+    protected $userOuService;
 
     public function __construct(
         ManualOrderAccountService $manualOrderAccountService,
@@ -72,7 +79,9 @@ class Service implements LoggerAwareInterface
         OrderItemMapper $orderItemMapper,
         OrderAlertMapper $orderAlertMapper,
         OrderNoteMapper $orderNoteMapper,
-        TaxService $taxService
+        TaxService $taxService,
+        CurrencyService $currencyService,
+        UserOuService $userOuService
     ) {
         $this->setManualOrderAccountService($manualOrderAccountService)
             ->setActiveUserContainer($activeUserContainer)
@@ -86,7 +95,9 @@ class Service implements LoggerAwareInterface
             ->setOrderItemMapper($orderItemMapper)
             ->setOrderAlertMapper($orderAlertMapper)
             ->setOrderNoteMapper($orderNoteMapper)
-            ->setTaxService($taxService);
+            ->setTaxService($taxService)
+            ->setCurrencyService($currencyService)
+            ->setUserOuService($userOuService);
     }
 
     /**
@@ -142,6 +153,23 @@ class Service implements LoggerAwareInterface
         unset($orderData['item'], $orderData['alert'], $orderData['note']);
         $order = $this->orderMapper->fromArray($orderData);
         return $this->orderService->save($order);
+    }
+
+    public function getCurrencyOptions()
+    {
+        $currencyCodes = array_keys(array_merge($this->currencyService->getPriorityActiveUserCurrencies(), $this->currencyService->getActiveUserCurrencies()));
+        $locale = $this->userOuService->getRootOuByActiveUser()->getLocale();
+
+        $currencyOptions = [];
+        foreach ($currencyCodes as $code) {
+            $fmt = new NumberFormatter($locale."@currency=$code", NumberFormatter::CURRENCY);
+
+            $currencyOptions[] = [
+                'name' => $code,
+                'value' => $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL),
+            ];
+        }
+        return $currencyOptions;
     }
 
     protected function calculateTotalFromOrderData(array $orderData)
@@ -360,6 +388,18 @@ class Service implements LoggerAwareInterface
     protected function setTaxService(TaxService $taxService)
     {
         $this->taxService = $taxService;
+        return $this;
+    }
+
+    protected function setCurrencyService(CurrencyService $currencyService)
+    {
+        $this->currencyService = $currencyService;
+        return $this;
+    }
+
+    protected function setUserOuService(UserOuService $userOuService)
+    {
+        $this->userOuService = $userOuService;
         return $this;
     }
 }
