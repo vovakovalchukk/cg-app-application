@@ -15,6 +15,9 @@ define([
             }
         },
         getOptionComponents: function (attributes, variation) {
+            if (variation.stock === undefined) {
+                return;
+            }
             var optionComponents = [];
             attributes.forEach(function (attributeName) {
                 if (variation.attributeValues[attributeName] === undefined) {
