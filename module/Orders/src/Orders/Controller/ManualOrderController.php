@@ -43,9 +43,11 @@ class ManualOrderController extends AbstractActionController
             throw new UsageExceeded();
         }
 
+        $currenciesJson = json_encode([['name'=>'GBP','value'=>'£'],['name'=>'EUR','value'=>'€']]);//$this->orderService->getCurrencyMap();
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true)
+            ->setVariable('currenciesJson', $currenciesJson)
             ->addChild($this->getSidebar(), 'sidebar');
 
         return $view;

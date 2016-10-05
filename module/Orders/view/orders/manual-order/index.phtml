@@ -6,7 +6,8 @@ require.config({
     }
 });
 require(['ManualOrder/ManualOrder', 'ManualOrder/Utils'], function(ManualOrderRoot, ManualOrderUtils) {
-    var manualOrderUtils = new ManualOrderUtils('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+    var currencies = JSON.parse('<?= $currenciesJson ?>');
+    var manualOrderUtils = new ManualOrderUtils(currencies, '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
     var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), manualOrderUtils);
 });
 <?php $this->inlineScript()->captureEnd(); ?>

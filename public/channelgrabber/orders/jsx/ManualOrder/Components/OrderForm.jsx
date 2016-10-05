@@ -1,25 +1,52 @@
 define([
     'react',
     'ManualOrder/Components/ProductDropdown/Dropdown',
-    'ManualOrder/Components/OrderTable'
+    'ManualOrder/Components/OrderTable',
+    'Product/Components/Select'
 ], function(
     React,
     ProductDropdown,
-    OrderTable
+    OrderTable,
+    Select
 ) {
     "use strict";
     var OrderForm = React.createClass({
-
+        getInitialState: function () {
+            return {
+                selectedCurrency: {
+                    name: 'GBP',
+                    value: '£'
+                }
+            }
+        },
+        getCurrencyOptions: function () {
+            return this.context.manualOrderUtils.getCurrencies();
+        },
+        onCurrencyChanged: function (newCurrency) {
+            this.setState({
+                selectedCurrency: newCurrency
+            })
+        },
         render: function () {
             return (
                 <div className="order-form-wrapper">
                     <h2>Search for Products to Add</h2>
-                    <ProductDropdown />
-                    <OrderTable />
+                    <div className="form-row">
+                        <ProductDropdown />
+                        <div className="currency-dropdown-wrapper">
+                            <span className="currency-label">Currency</span>
+                            <Select options={this.getCurrencyOptions()} selectedOption={this.state.selectedCurrency} onNewOption={this.onCurrencyChanged}/>
+                        </div>
+                    </div>
+                    <OrderTable currency={this.state.selectedCurrency}/>
                 </div>
             );
         }
     });
+
+    OrderForm.contextTypes = {
+        manualOrderUtils: React.PropTypes.object
+    };
 
     return OrderForm;
 });

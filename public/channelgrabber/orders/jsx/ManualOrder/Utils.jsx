@@ -1,8 +1,13 @@
 define([
 ], function(
 ) {
-    var ManualOrderUtils = function(imageBasePath) {
+    var ManualOrderUtils = function(currencies, imageBasePath) {
+        this.currencies = currencies;
         this.imageBasePath = imageBasePath;
+    };
+
+    ManualOrderUtils.prototype.getCurrencies = function () {
+        return this.currencies;
     };
 
     ManualOrderUtils.prototype.getImageSource = function(product) {
