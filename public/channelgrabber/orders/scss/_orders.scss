@@ -31,6 +31,9 @@
         .currency-label {
             margin-right: 15px;
         }
+        .open-content {
+            min-width: 100%;
+        }
     }
     .detail-dropdown-wrapper {
         position: relative;
@@ -234,21 +237,6 @@
                 .order-row-price {
                     width: 75px;
                     margin-right: 15px;
-                    .currency-symbol {
-                        border-radius: 5px;
-                        background-clip: padding-box;
-                        background-color: $color-white;
-                        border: 1px solid $color-lgrey;
-                        padding: 3px;
-                        font-size: 12px;
-                        outline: 0;
-                        max-width: 75px;
-                    }
-                    input {
-                        width: 55px;
-                        border: 0;
-                        text-align: center;
-                    }
                 }
                 .order-row-total {
                     margin-right: 70px;
