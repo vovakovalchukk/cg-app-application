@@ -11,6 +11,9 @@ use Orders\Order\Filter\Shipping;
 use Orders\Controller\OrdersController;
 use CG\Order\Shared\Status;
 
+// We'll need this in a moment when setting up the order count status group filters
+$orderCountStatusGroups = Status::getOrderCountStatusGroups();
+
 return [
     'di' => [
         'instance' => [
@@ -75,40 +78,7 @@ return [
                                 'id' => 'filter-status',
                                 'searchField' => true,
                                 'concatenate' => true,
-                                'options' => [
-                                    [
-                                        'title' => ucwords(Status::AWAITING_PAYMENT),
-                                        'value' => Status::AWAITING_PAYMENT
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::NEW_ORDER),
-                                        'value' => Status::NEW_ORDER
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::DISPATCHING),
-                                        'value' => Status::DISPATCHING
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::DISPATCHED),
-                                        'value' => Status::DISPATCHED
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::CANCELLING),
-                                        'value' => Status::CANCELLING
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::CANCELLED),
-                                        'value' => Status::CANCELLED
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::REFUNDING),
-                                        'value' => Status::REFUNDING
-                                    ],
-                                    [
-                                        'title' => ucwords(Status::REFUNDED),
-                                        'value' => Status::REFUNDED
-                                    ],
-                                ],
+                                'options' => Status::getAllStatusesAsSelectOptions(),
                             ],
                         ],
                         [
@@ -359,9 +329,7 @@ return [
                 'statusColourClass' => 'awaiting-payment',
                 'filter' => json_encode(
                     [
-                        'status' => [
-                            Status::AWAITING_PAYMENT
-                        ]
+                        'status' => $orderCountStatusGroups['awaitingPayment']
                     ]
                 )
             ],
@@ -372,9 +340,7 @@ return [
                 'statusColourClass' => 'new',
                 'filter' => json_encode(
                     [
-                        'status' => [
-                            Status::NEW_ORDER
-                        ]
+                        'status' => $orderCountStatusGroups['newOrders']
                     ]
                 )
             ],
@@ -385,11 +351,7 @@ return [
                 'statusColourClass' => 'processing',
                 'filter' => json_encode(
                     [
-                        'status' => [
-                            Status::DISPATCHING,
-                            Status::CANCELLING,
-                            Status::REFUNDING
-                        ]
+                        'status' => $orderCountStatusGroups['processing']
                     ]
                 )
             ],
@@ -400,9 +362,7 @@ return [
                 'statusColourClass' => 'dispatched',
                 'filter' => json_encode(
                     [
-                        'status' => [
-                            Status::DISPATCHED
-                        ]
+                        'status' => $orderCountStatusGroups['dispatched']
                     ]
                 )
             ],
@@ -413,10 +373,18 @@ return [
                 'statusColourClass' => 'cancelled',
                 'filter' => json_encode(
                     [
-                        'status' => [
-                            Status::CANCELLED,
-                            Status::REFUNDED
-                        ]
+                        'status' => $orderCountStatusGroups['cancelledAndRefunded']
+                    ]
+                )
+            ],
+            [
+                'name' => 'Errors',
+                'id' => 'errorsCount',
+                'subid' => 'errorsCountSub',
+                'statusColourClass' => 'error',
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['errors']
                     ]
                 )
             ],
