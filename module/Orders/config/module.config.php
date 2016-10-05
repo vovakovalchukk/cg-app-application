@@ -2304,6 +2304,7 @@ return [
                     'class' => 'itemParcelAssignment-col',
                     'sortable' => false,
                     'order' => 115,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsPackageTypeColumnView' => [

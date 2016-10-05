@@ -3,7 +3,7 @@ namespace Orders\Courier\Label;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\CarrierProviderServiceRepository;
+use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;

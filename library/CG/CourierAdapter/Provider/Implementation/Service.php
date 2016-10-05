@@ -2,7 +2,8 @@
 namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\ShippingOptionsProviderInterface;
+use CG\Channel\Shipping\Provider\ChannelsInterface as ShippingProviderChannelsInterface;
+use CG\Channel\Shipping\Provider\Channels\ShippingOptionsInterface as ShippingProviderChannelOptionsInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\EmailClientAwareInterface;
 use CG\CourierAdapter\EmailClientInterface;
@@ -17,7 +18,8 @@ use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 class Service implements
-    ShippingOptionsProviderInterface,
+    ShippingProviderChannelsInterface,
+    ShippingProviderChannelOptionsInterface,
     PsrLoggerAwareInterface,
     StorageAwareInterface,
     EmailClientAwareInterface
