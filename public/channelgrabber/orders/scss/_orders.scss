@@ -20,6 +20,18 @@
     input {
         color: $color-dgrey;
     }
+    .form-row {
+        width: 902px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .currency-dropdown-wrapper {
+        display: flex;
+        align-items: baseline;
+        .currency-label {
+            margin-right: 15px;
+        }
+    }
     .detail-dropdown-wrapper {
         position: relative;
         margin-bottom: 50px;
@@ -64,8 +76,6 @@
                 display: block;
             }
             .dropdown-count {
-
-
                 width: 100%;
                 text-align: center;
                 padding: 7px;
@@ -250,7 +260,7 @@
                 }
                 .order-row-qty-input {
                     width: 90px;
-                    margin-right: 30px;
+                    margin-right: 51px;
                     display: flex;
                     align-items: center;
                     .multiplier {
@@ -277,7 +287,7 @@
                 border-radius: 5px;
                 border: 1px solid white;
                 .discount-label {
-                    margin-right: 39px;
+                    margin-right: 56px;
                 }
                 .discount-value {
                     margin-right: 50px;
@@ -298,7 +308,7 @@
             margin-left: 740px;
             margin-bottom: 20px;
             .subtotal-label {
-                margin-right: 24px;
+                margin-right: 41px;
                 font-size: 15px;
                 font-weight: 600;
             }
@@ -316,7 +326,7 @@
                 margin-right: 30px;
             }
             .shipping-label {
-                margin-right: 39px;
+                margin-right: 56px;
                 font-size: 15px;
             }
         }
@@ -324,7 +334,7 @@
             margin-left: 764px;
             margin-bottom: 20px;
             .total-label {
-                margin-right: 24px;
+                margin-right: 42px;
                 font-size: 15px;
                 font-weight: 600;
             }
