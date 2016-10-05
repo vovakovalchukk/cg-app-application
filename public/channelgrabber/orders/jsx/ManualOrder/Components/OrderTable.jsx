@@ -72,8 +72,11 @@ define([
                 orderRows: orderRows
             });
         },
-        onSkuChanged: function () {
-            console.log('SKU change');
+        onSkuChanged: function (oldSku, selection) {
+            if (selection === undefined || oldSku === selection.value) {
+                return;
+            }
+            this.updateOrderRow(oldSku, 'sku', selection.value);
         },
         onPriceChanged: function (sku, price) {
             this.updateOrderRow(sku, 'price', price);

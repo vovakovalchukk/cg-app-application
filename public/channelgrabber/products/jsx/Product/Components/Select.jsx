@@ -48,12 +48,15 @@ define([
             });
             return optionComponentArray;
         },
+        getOptionName: function (optionName) {
+            if (Array.isArray(optionName)) {
+                return this.splitOptionNameIntoComponents(optionName);
+            }
+            return optionName;
+        },
         getOptionNames: function () {
             var options = this.props.options.map(function(opt, index) {
-                var optionName = opt.name;
-                if (Array.isArray(opt.name)) {
-                    optionName = this.splitOptionNameIntoComponents(opt.name);
-                }
+                var optionName = this.getOptionName(opt.name);
 
                 return (
                     <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected}>
@@ -64,11 +67,8 @@ define([
             return options;
         },
         getSelectedOptionName: function () {
-            var selectedOptionName = this.state.selectedOption.name ? this.state.selectedOption.name : (this.props.options.length > 0 ? this.props.options[0].name : '');
-            if (Array.isArray(selectedOptionName)) {
-                return this.splitOptionNameIntoComponents(selectedOptionName);
-            }
-            return selectedOptionName;
+            var selectedOptionName = this.state.selectedOption && this.state.selectedOption.name ? this.state.selectedOption.name : (this.props.options.length > 0 ? this.props.options[0].name : '');
+            return this.getOptionName(selectedOptionName);
         },
         render: function () {
             return (
