@@ -382,6 +382,7 @@ return [
                 'id' => 'errorsCount',
                 'subid' => 'errorsCountSub',
                 'statusColourClass' => 'error',
+                'hideIfZero' => true,
                 'filter' => json_encode(
                     [
                         'status' => $orderCountStatusGroups['errors']
