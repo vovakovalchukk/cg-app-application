@@ -10,7 +10,6 @@ define([
     "use strict";
     var OrderTable = React.createClass({
         getInitialState: function () {
-            this.currency = "£";
             return {
                 shippingOptions: [],
                 shippingMethod: {
@@ -131,6 +130,7 @@ define([
                 this.state.orderRows.map(function (row) {
                     return (
                         <OrderRow row={row}
+                                  currency={this.props.currency}
                                   onSkuChange={this.onSkuChanged}
                                   onStockQuantityUpdate={this.onStockQuantityUpdated}
                                   onPriceChange={this.onPriceChanged}
@@ -149,7 +149,7 @@ define([
                     <div className="discount-box">
                         <span className="discount-label">Discount</span>
                         <span className="discount-value">
-                            <span className="currency-symbol">{this.currency}<input type="number" name="price" step="0.01" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
+                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
                         </span>
                         <span className="discount-actions">
                             <a onClick={this.onToggleDiscountBox}>Remove</a>
@@ -171,7 +171,7 @@ define([
             return (
                 <div>
                     <span className="subtotal-label">Subtotal</span>
-                    <span className="subtotal-value">{this.currency + rowTotal.toFixed(2)}</span>
+                    <span className="subtotal-value">{this.props.currency.value + " " + rowTotal.toFixed(2)}</span>
                 </div>
             );
         },
@@ -184,7 +184,7 @@ define([
                 <div>
                     <Select options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />
                     <span className="shipping-label">Shipping</span>
-                    <span className="currency-symbol">{this.currency}<input type="number" name="price" step="0.01" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
+                    <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
                 </div>
             );
         },
@@ -203,7 +203,7 @@ define([
             return (
                 <div>
                     <span className="total-label">Total</span>
-                    <span className="total-value">{this.currency + orderTotal.toFixed(2)}</span>
+                    <span className="total-value">{this.props.currency.value + " " + orderTotal.toFixed(2)}</span>
                 </div>
             );
         },

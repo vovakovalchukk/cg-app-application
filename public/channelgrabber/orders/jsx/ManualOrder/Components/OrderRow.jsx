@@ -67,7 +67,6 @@ define([
             this.props.onRowRemove(this.props.row.sku);
         },
         render: function () {
-            var currency = "£";
             return (
                 <div className="order-row">
                     <div className="order-row-img">
@@ -81,14 +80,14 @@ define([
                         {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                     </div>
                     <div className="order-row-price">
-                        <span className="currency-symbol">{currency}<input type="number" name="price" step="0.01" value={this.state.price} onChange={this.onPriceChange} /></span>
+                        <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.price} onChange={this.onPriceChange} /></span>
                     </div>
                     <div className="order-row-qty-input">
                         <span className="multiplier">x</span>
                         <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.onStockQuantityUpdate} />
                     </div>
                     <div className="order-row-total">
-                        {currency + (this.props.row.price * this.props.row.quantity).toFixed(2)}
+                        {this.props.currency.value + " " + (this.props.row.price * this.props.row.quantity).toFixed(2)}
                     </div>
                     <div className="order-row-actions">
                         <a className="action remove" onClick={this.onRowRemove}>Remove</a>
