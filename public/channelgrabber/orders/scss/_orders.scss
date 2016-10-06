@@ -340,7 +340,6 @@
 }
 
 .incrementor-input-box {
-    color: $color-lgrey;
     .incrementor-button {
         width: 25%;
         display: inline-block;
@@ -352,17 +351,13 @@
         -ms-user-select: none;       /* Internet Explorer/Edge */
         user-select: none;
         .increment {
-            margin-left: 5px;
+            margin-left: 1px;
         }
     }
-    input {
-        width: 50%;
-        text-align: center;
-        border-radius: 5px;
-        box-sizing: border-box;
-        border: 1px solid $color-lgrey;
-    }
     input[type=number] {
+        width: 20px;
+        padding: 2px;
+        text-align: center;
         -moz-appearance:textfield;
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {
