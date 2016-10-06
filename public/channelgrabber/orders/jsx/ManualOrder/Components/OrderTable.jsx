@@ -72,7 +72,27 @@ define([
             });
         },
         onSkuChanged: function (oldSku, selection) {
-            if (selection === undefined || oldSku === selection.value) {
+            var newSku = selection.value;
+            if (selection === undefined || oldSku === newSku) {
+                return;
+            }
+
+            var oldSkuQuantity = 0;
+            var orderRows = this.state.orderRows.slice();
+            orderRows.forEach(function (row) {
+                if (row.sku === oldSku) {
+                    oldSkuQuantity = row.quantity;
+                }
+            });
+
+            var alreadyAddedToForm = orderRows.find(function (row) {
+                if (row.sku === newSku) {
+                    row.quantity += parseInt(oldSkuQuantity);
+                    return true;
+                }
+            });
+            if (alreadyAddedToForm) {
+                this.onRowRemove(oldSku);
                 return;
             }
             this.updateOrderRow(oldSku, 'sku', selection.value);
