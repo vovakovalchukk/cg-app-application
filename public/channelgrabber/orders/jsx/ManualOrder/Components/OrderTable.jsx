@@ -141,9 +141,6 @@ define([
             );
         },
         getDiscountMarkup: function () {
-            if (this.state.orderRows.length < 1) {
-                return;
-            }
             if (this.state.discount.active) {
                 return (
                     <div className="discount-box">
@@ -161,9 +158,6 @@ define([
             return <a className="add-discount-action" onClick={this.onToggleDiscountBox}>Add Discount</a>
         },
         getSubtotalMarkup: function () {
-            if (this.state.orderRows.length < 1) {
-                return;
-            }
             var rowTotal = 0;
             this.state.orderRows.forEach(function (row) {
                 rowTotal += parseFloat(row.price * row.quantity);
@@ -176,10 +170,6 @@ define([
             );
         },
         getShippingMarkup: function () {
-            if (this.state.orderRows.length < 1) {
-                return;
-            }
-
             return (
                 <div>
                     <Select options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />
@@ -189,9 +179,6 @@ define([
             );
         },
         getOrderTotalMarkup: function () {
-            if (this.state.orderRows.length < 1) {
-                return;
-            }
             var orderTotal = parseFloat(this.state.shippingMethod.cost);
 
             if (this.state.discount.active) {
