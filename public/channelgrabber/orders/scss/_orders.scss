@@ -13,7 +13,6 @@
 
 .order-form-wrapper {
     color: $color-dgrey;
-    font-size: 15px;
     h2 {
         font-size: 17px;
         margin-bottom: 15px;
@@ -57,14 +56,14 @@
         margin-bottom: 50px;
         font-size: 13px;
         .detail-dropdown-searchbox {
-            width: 650px;
+            width: 690px;
             .sprite-search-18-black {
                 position: absolute;
                 top: 4px;
                 left: 5px;
             }
             input {
-                width: 80%;
+                width: 85%;
                 height: 27px;
                 padding: 4px 4px 4px 28px;
                 box-sizing: border-box;
@@ -76,7 +75,7 @@
                 display: inline-block;
                 padding: 4px;
                 border-radius: 0 5px 5px 0;
-                width: 20% !important;
+                width: 15% !important;
                 &.disabled {
                     color: $color-lgrey;
                     cursor: default;
@@ -85,7 +84,7 @@
         }
         .detail-dropdown-popup {
             position: absolute;
-            width: 648px;
+            width: 688px;
             display: none;
             max-height: 270px;
             overflow: auto;
@@ -275,6 +274,7 @@
                         margin-right: 23px;
                     }
                     input {
+                        color: $color-dgrey;
                         text-align: center;
                     }
                 }
@@ -297,7 +297,7 @@
             }
             .detail-shipping {
                 .detail-label {
-                    margin-right: 40px;
+                    margin-right: 36px;
                 }
             }
         }
@@ -307,13 +307,13 @@
             display: flex;
             justify-content: flex-end;
             .discount-box {
-                width: 285px;
+                width: 277px;
                 padding: 10px;
                 border-radius: 5px;
                 border: 1px solid white;
                 .detail-label {
                     width: 100%;
-                    margin-right: 40px;
+                    margin-right: 36px;
                 }
                 .detail-value {
                     margin-right: 30px;
