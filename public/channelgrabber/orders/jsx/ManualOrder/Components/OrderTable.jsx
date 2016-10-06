@@ -172,7 +172,7 @@ define([
         getShippingMarkup: function () {
             return (
                 <div className="detail-shipping">
-                    <span className="detail-label"><Select options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />Shipping</span>
+                    <span className="detail-label"><Select filterable={true} options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />Shipping</span>
                     <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
                 </div>
             );
