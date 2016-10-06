@@ -349,13 +349,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "730b32bae9dcec44369f65ea3d475a67fff58b46"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-63dadd.zip",
-                "reference": "730b32bae9dcec44369f65ea3d475a67fff58b46",
-                "shasum": null
+                "reference": "0cbf1db7775f142a8f155ab165cb3a7a66b3e801"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -8058,8 +8052,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
