@@ -47,6 +47,7 @@ class ManualOrderController extends AbstractActionController
 
         $carrierList = $this->orderService->getCarriersData();
         $carrierDropdownOptions = [];
+        $carrierDropdownOptions[] = ['name' => 'N/A', 'value' => 'N/A'];
         foreach ($carrierList as $carrier) {
             $carrierDropdownOptions[] = [
                 'name' => $carrier,
