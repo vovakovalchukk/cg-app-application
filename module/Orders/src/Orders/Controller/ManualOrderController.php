@@ -43,11 +43,22 @@ class ManualOrderController extends AbstractActionController
             throw new UsageExceeded();
         }
 
-        $currenciesJson = json_encode($this->service->getCurrencyOptions());
+        $currenciesList = $this->service->getCurrencyOptions();
+
+        $carrierList = $this->orderService->getCarriersData();
+        $carrierDropdownOptions = [];
+        foreach ($carrierList as $carrier) {
+            $carrierDropdownOptions[] = [
+                'name' => $carrier,
+                'value' => $carrier,
+            ];
+        }
+
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true)
-            ->setVariable('currenciesJson', $currenciesJson)
+            ->setVariable('currenciesJson', json_encode($currenciesList))
+            ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->addChild($this->getSidebar(), 'sidebar');
 
         return $view;
@@ -84,19 +95,6 @@ class ManualOrderController extends AbstractActionController
                 ->setVariable('message', 'There was a problem creating the order');
         }
         return $view;
-    }
-
-    public function getShippingOptionsAction()
-    {
-        $carriers = $this->orderService->getCarriersData();
-        $options = [];
-        foreach ($carriers as $carrier) {
-            $options[] = [
-                'name' => $carrier,
-                'value' => $carrier,
-            ];
-        }
-        return $this->jsonModelFactory->newInstance(['options' => $options]);
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

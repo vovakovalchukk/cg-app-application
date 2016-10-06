@@ -11,7 +11,6 @@ define([
     var OrderTable = React.createClass({
         getInitialState: function () {
             return {
-                shippingOptions: [],
                 shippingMethod: {
                     name: "",
                     cost: 0
@@ -25,22 +24,9 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('productSelection', this.onProductSelected);
-
-            this.shippingOptionsRequest = $.ajax({
-                dataType: "json",
-                url: '/orders/shippingOptions',
-                success: function (response) {
-                    var shippingOptions = [{name: 'N/A', value: 0}];
-                    this.setState({
-                        shippingOptions: shippingOptions.concat(response.options)
-                    });
-                }.bind(this)
-            });
         },
         componentWillUnmount: function () {
             window.removeEventListener('productSelection', this.onProductSelected);
-
-            this.shippingOptionsRequest.abort();
         },
         onProductSelected: function (e) {
             var data = e.detail;
@@ -192,7 +178,7 @@ define([
         getShippingMarkup: function () {
             return (
                 <div className="detail-shipping">
-                    <span className="detail-label"><Select filterable={true} options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />Shipping</span>
+                    <span className="detail-label"><Select filterable={true} options={this.context.manualOrderUtils.getCarriers()} onNewOption={this.onShippingMethodSelected} />Shipping</span>
                     <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
                 </div>
             );
@@ -225,6 +211,10 @@ define([
             );
         }
     });
+
+    OrderTable.contextTypes = {
+        manualOrderUtils: React.PropTypes.object
+    };
 
     return OrderTable;
 });
