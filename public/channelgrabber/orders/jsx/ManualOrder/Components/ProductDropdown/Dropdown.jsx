@@ -96,6 +96,9 @@ define([
             window.dispatchEvent(optionSelectedEvent);
         },
         getDropdown: function () {
+            if (this.state.searchTerm.length < 1 && this.state.products.length < 1) {
+                return;
+            }
             return (
                 <div className="detail-dropdown-popup">
                     <div className="dropdown-count">{this.state.products.length + (this.state.products.length === 1 ? ' product' : ' products')}</div>
