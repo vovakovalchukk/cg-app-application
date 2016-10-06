@@ -13,6 +13,7 @@
 
 .order-form-wrapper {
     color: $color-dgrey;
+    font-size: 15px;
     h2 {
         font-size: 17px;
         margin-bottom: 15px;
@@ -20,8 +21,17 @@
     input {
         color: $color-dgrey;
     }
+    input[type=number] {
+        color: $color-lgrey;
+        padding-right: 4px;
+        -moz-appearance: textfield;
+        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
     .form-row {
-        width: 902px;
+        width: 919px;
         display: flex;
         justify-content: space-between;
     }
@@ -29,7 +39,6 @@
         display: flex;
         align-items: baseline;
         .currency-label {
-            font-size: 15px;
             margin-right: 15px;
         }
         .open-content {
@@ -39,6 +48,7 @@
     .detail-dropdown-wrapper {
         position: relative;
         margin-bottom: 50px;
+        font-size: 13px;
         .detail-dropdown-searchbox {
             width: 650px;
             .sprite-search-18-black {
@@ -163,12 +173,14 @@
             border-radius: 5px;
             background-clip: padding-box;
             background-color: $color-white;
+            color: $color-lgrey;
             border: 1px solid $color-lgrey;
             padding: 3px;
+            padding-left: 7px;
             font-size: 13px;
             outline: 0;
             input {
-                width: 48px;
+                width: 40px;
                 border: 0;
                 text-align: right;
             }
@@ -182,10 +194,6 @@
                 justify-content: flex-start;
                 border: 1px solid white;
                 margin-bottom: 5px;
-                .order-row-actions {
-                    cursor: pointer;
-                    display: none;
-                }
                 &:hover {
                     border-radius: 5px;
                     border: 1px solid $color-lgrey;
@@ -193,93 +201,115 @@
                         display: inline-block;
                     }
                 }
-                .order-row-img {
-                    max-width: 39px;
-                    max-height: 39px;
-                    overflow: hidden;
-                    border-radius: 5px;
-                    margin-right: 19px;
-                    img {
-                        width: 100%;
-                    }
-                }
-                .order-row-description {
-                    width: 246px;
-                    margin-right: 30px;
-                    .order-row-name {
-                        width: 100%;
-                        font-size: 15px;
-                    }
-                    .order-row-sku {
-                        color: $color-lgrey;
-                        width: 100%;
-                    }
-                }
-                .order-row-attributes {
-                    width: 210px;
-                    margin-right: 64px;
-                    .custom-select {
-                        width: 100%;
-                        .open-content {
+                .order-row-details {
+                    width: 813px;
+                    margin-right: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .order-row-img {
+                        max-width: 39px;
+                        max-height: 39px;
+                        overflow: hidden;
+                        border-radius: 5px;
+                        margin-right: 19px;
+                        img {
                             width: 100%;
                         }
                     }
-                    .selected-content, .custom-select-item a {
-                        display: flex;
-                        justify-content: space-between;
-                        .option-component {
-                            min-width: 50px;
-                            &:last-child {
-                                min-width: 0;
+                    .order-row-description {
+                        width: 246px;
+                        margin-right: 30px;
+                        .order-row-name {
+                            width: 100%;
+                        }
+                        .order-row-sku {
+                            color: $color-lgrey;
+                            width: 100%;
+                        }
+                    }
+                    .order-row-attributes {
+                        width: 210px;
+                        margin-right: 50px;
+                        .custom-select {
+                            width: 100%;
+                            .open-content {
+                                width: 100%;
+                            }
+                        }
+                        .selected-content, .custom-select-item a {
+                            display: flex;
+                            justify-content: space-between;
+                            .option-component {
+                                min-width: 50px;
+                                &:last-child {
+                                    min-width: 0;
+                                }
                             }
                         }
                     }
-                }
-                .order-row-price {
-                    width: 75px;
-                    margin-right: 15px;
-                }
-                .order-row-total {
-                    margin-right: 70px;
-                    width: 60px;
-                    text-align: right;
+                    .order-row-price {
+                        margin-right: 21px;
+                    }
                 }
                 .order-row-actions {
-                    font-size: 15px;
+                    cursor: pointer;
+                    display: none;
+                }
+                .order-row-total {
+                    margin-right: 40px;
+                    text-align: right;
                 }
                 .order-row-qty-input {
-                    width: 90px;
-                    margin-right: 51px;
+                    color: $color-dgrey;
                     display: flex;
                     align-items: center;
                     .multiplier {
-                        margin-right: 20px;
+                        margin-right: 23px;
                     }
-                    .safe-input-box .submit-input .submit-cancel {
-                        left: 0;
-                        z-index: 10;
+                    input {
+                        color: $color-dgrey;
                     }
                 }
             }
         }
-        .discount-wrapper {
-            margin-left: 727px;
+        .detail-wrapper {
+            width: 100%;
             margin-bottom: 20px;
-            font-size: 15px;
-            .add-discount-action {
-                cursor: pointer;
-                display: inline-block;
-                margin-left: 85px;
+            .detail-label {
+                width: 813px;
+                display: inline-flex;
+                justify-content: flex-end;
+                align-items: center;
+                margin-right: 50px;
+                text-align: right;
             }
+            .custom-select {
+                width: 200px;
+                margin-right: 30px;
+            }
+            .detail-shipping {
+                .detail-label {
+                    margin-right: 40px;
+                }
+            }
+        }
+        .discount-wrapper {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
             .discount-box {
+                width: 285px;
                 padding: 10px;
                 border-radius: 5px;
                 border: 1px solid white;
-                .discount-label {
-                    margin-right: 56px;
+                .detail-label {
+                    width: 100%;
+                    margin-right: 40px;
                 }
-                .discount-value {
-                    margin-right: 50px;
+                .detail-value {
+                    margin-right: 30px;
                 }
                 .discount-actions {
                     cursor: pointer;
@@ -292,45 +322,11 @@
                     }
                 }
             }
-        }
-        .subtotal-wrapper {
-            margin-left: 740px;
-            margin-bottom: 20px;
-            .subtotal-label {
-                margin-right: 41px;
-                font-size: 15px;
-                font-weight: 600;
-            }
-            .subtotal-value {
-                width: 60px;
+            .add-discount-action {
+                cursor: pointer;
+                display: block;
                 text-align: right;
-                display: inline-block;
-            }
-        }
-        .shipping-wrapper {
-            margin-left: 511px;
-            margin-bottom: 20px;
-            .custom-select {
-                width: 200px;
-                margin-right: 30px;
-            }
-            .shipping-label {
-                margin-right: 56px;
-                font-size: 15px;
-            }
-        }
-        .order-total-wrapper {
-            margin-left: 764px;
-            margin-bottom: 20px;
-            .total-label {
-                margin-right: 42px;
-                font-size: 15px;
-                font-weight: 600;
-            }
-            .total-value {
-                width: 60px;
-                text-align: right;
-                display: inline-block;
+                margin-right: 144px;
             }
         }
     }
@@ -367,4 +363,8 @@
             margin: 0;
         }
     }
+}
+
+.bold {
+    font-weight: 600;
 }

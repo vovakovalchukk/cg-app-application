@@ -144,9 +144,9 @@ define([
             if (this.state.discount.active) {
                 return (
                     <div className="discount-box">
-                        <span className="discount-label">Discount</span>
-                        <span className="discount-value">
-                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
+                        <span className="detail-label">Discount</span>
+                        <span className="detail-value">
+                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
                         </span>
                         <span className="discount-actions">
                             <a onClick={this.onToggleDiscountBox}>Remove</a>
@@ -164,17 +164,16 @@ define([
             });
             return (
                 <div>
-                    <span className="subtotal-label">Subtotal</span>
+                    <span className="bold detail-label">Subtotal</span>
                     <span className="subtotal-value">{this.props.currency.value + " " + rowTotal.toFixed(2)}</span>
                 </div>
             );
         },
         getShippingMarkup: function () {
             return (
-                <div>
-                    <Select options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />
-                    <span className="shipping-label">Shipping</span>
-                    <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
+                <div className="detail-shipping">
+                    <span className="detail-label"><Select options={this.state.shippingOptions} onNewOption={this.onShippingMethodSelected} />Shipping</span>
+                    <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
                 </div>
             );
         },
@@ -189,8 +188,8 @@ define([
             });
             return (
                 <div>
-                    <span className="total-label">Total</span>
-                    <span className="total-value">{this.props.currency.value + " " + orderTotal.toFixed(2)}</span>
+                    <span className="bold detail-label">Total</span>
+                    <span className="detail-value">{this.props.currency.value + " " + orderTotal.toFixed(2)}</span>
                 </div>
             );
         },
@@ -199,9 +198,9 @@ define([
                 <div className="order-table-wrapper">
                     <div className="order-rows-wrapper">{this.getOrderRowsMarkup()}</div>
                     <div className="discount-wrapper">{this.getDiscountMarkup()}</div>
-                    <div className="subtotal-wrapper">{this.getSubtotalMarkup()}</div>
-                    <div className="shipping-wrapper">{this.getShippingMarkup()}</div>
-                    <div className="order-total-wrapper">{this.getOrderTotalMarkup()}</div>
+                    <div className="detail-wrapper">{this.getSubtotalMarkup()}</div>
+                    <div className="detail-wrapper">{this.getShippingMarkup()}</div>
+                    <div className="detail-wrapper">{this.getOrderTotalMarkup()}</div>
                 </div>
             );
         }

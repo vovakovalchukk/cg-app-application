@@ -69,22 +69,24 @@ define([
         render: function () {
             return (
                 <div className="order-row">
-                    <div className="order-row-img">
-                        <img src={this.context.manualOrderUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
-                    </div>
-                    <div className="order-row-description">
-                        <div className="order-row-name">{this.props.row.product.name}</div>
-                        <div className="order-row-sku">{this.props.row.sku}</div>
-                    </div>
-                    <div className="order-row-attributes">
-                        {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
-                    </div>
-                    <div className="order-row-price">
-                        <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.price} onChange={this.onPriceChange} /></span>
-                    </div>
-                    <div className="order-row-qty-input">
-                        <span className="multiplier">x</span>
-                        <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.onStockQuantityUpdate} />
+                    <div className="order-row-details">
+                        <div className="order-row-img">
+                            <img src={this.context.manualOrderUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
+                        </div>
+                        <div className="order-row-description">
+                            <div className="order-row-name">{this.props.row.product.name}</div>
+                            <div className="order-row-sku">{this.props.row.sku}</div>
+                        </div>
+                        <div className="order-row-attributes">
+                            {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
+                        </div>
+                        <div className="order-row-price">
+                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.price} onChange={this.onPriceChange} /></span>
+                        </div>
+                        <div className="order-row-qty-input">
+                            <span className="multiplier">x</span>
+                            <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.onStockQuantityUpdate} />
+                        </div>
                     </div>
                     <div className="order-row-total">
                         {this.props.currency.value + " " + (this.props.row.price * this.props.row.quantity).toFixed(2)}
