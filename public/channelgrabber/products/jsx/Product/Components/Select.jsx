@@ -1,13 +1,16 @@
 define([
-    'react'
+    'react',
+    'react-dom'
 ], function(
-    React
+    React,
+    ReactDOM
 ) {
     "use strict";
 
     var SelectComponent = React.createClass({
         getDefaultProps: function () {
             return {
+                filterable: false,
                 selectedOption: {
                     name: '',
                     value: ''
@@ -17,9 +20,28 @@ define([
         },
         getInitialState: function () {
             return {
+                searchTerm: '',
+                inputFocus: false,
                 selectedOption: this.props.selectedOption,
                 active: false
             }
+        },
+        componentDidMount: function () {
+            var self = this;
+            self.el = ReactDOM.findDOMNode(this);
+
+            this.evt = function (e) {
+                var children = self.el.contains(e.target);
+                if (e.target != self.el && !children) {
+                    self.setState({
+                        active: false
+                    });
+                }
+            };
+            document.addEventListener('click', this.evt, false);
+        },
+        componentWillUnmount: function () {
+            document.removeEventListener('click', this.evt, false);
         },
         componentWillReceiveProps: function (newProps) {
             if (newProps.selectedOption.name !== "") {
@@ -29,8 +51,9 @@ define([
             }
         },
         onClick: function (e) {
+            var active = this.state.inputFocus ? true : !this.state.active;
             this.setState({
-                active: !this.state.active
+                active: active
             });
         },
         onOptionSelected: function (e) {
@@ -41,6 +64,30 @@ define([
                 selectedOption: selectedOption,
             });
             this.props.onNewOption(selectedOption);
+        },
+        onInputFocus: function (e) {
+            this.setState({
+                active: true,
+                inputFocus: true
+            });
+        },
+        onInputBlur: function (e) {
+            this.setState({
+                inputFocus: false
+            });
+        },
+        onFilterResults: function (e) {
+            this.setState({
+                searchTerm: e.target.value
+            });
+        },
+        filterBySearchTerm: function(option) {
+            if (! this.props.filterable) {
+                return true;
+            }
+            if (option.name.toUpperCase().includes(this.state.searchTerm.toUpperCase())) {
+                return true;
+            }
         },
         splitOptionNameIntoComponents: function (optionName, optionValue) {
             var optionComponentArray = optionName.map(function (optionComponent) {
@@ -55,7 +102,7 @@ define([
             return optionName;
         },
         getOptionNames: function () {
-            var options = this.props.options.map(function(opt, index) {
+            var options = this.props.options.filter(this.filterBySearchTerm).map(function(opt, index) {
                 var optionName = this.getOptionName(opt.name, opt.value);
 
                 return (
@@ -64,11 +111,29 @@ define([
                     </li>
                 )
             }.bind(this));
-            return options;
+
+            if (options.length) {
+                return options;
+            }
+            return <div className="results-none">No results</div>
         },
         getSelectedOptionName: function () {
             var selectedOptionName = this.state.selectedOption && this.state.selectedOption.name ? this.state.selectedOption.name : (this.props.options.length > 0 ? this.props.options[0].name : '');
             return this.getOptionName(selectedOptionName);
+        },
+        getFilterBox: function () {
+            if (this.props.filterable) {
+                return (
+                    <div className="filter-box">
+                            <input
+                              onFocus={this.onInputFocus}
+                              onBlur={this.onInputBlur}
+                              onChange={this.onFilterResults}
+                              placeholder={this.props.options.length ? 'Search...' : ''}
+                            />
+                    </div>
+                );
+            }
         },
         render: function () {
             return (
@@ -78,6 +143,7 @@ define([
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>
                         </div>
                         <div className="animated fadeInDown open-content">
+                            {this.getFilterBox()}
                             <ul>
                                 {this.getOptionNames()}
                             </ul>

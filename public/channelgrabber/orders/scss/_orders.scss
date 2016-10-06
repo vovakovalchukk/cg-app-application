@@ -65,7 +65,7 @@
             input {
                 width: 85%;
                 height: 27px;
-                padding: 4px 4px 4px 28px;
+                padding: 3px 4px 4px 32px;
                 box-sizing: border-box;
                 border-radius: 5px 0 0 5px;
                 border: 1px solid $color-lgrey;
@@ -108,13 +108,13 @@
                 }
                 .detail-row-header {
                     font-size: 16px;
-                    margin: 0 0 5px 40px;
+                    margin: 0 0 5px 30px;
                 }
                 .detail-row-variations-list {
                     color: $color-mgrey;
                     .detail-variation-row {
                         min-height: 32px;
-                        padding: 0 20px 0 40px;
+                        padding: 0 15px 0 30px;
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
@@ -224,7 +224,7 @@
                         }
                     }
                     .order-row-description {
-                        width: 246px;
+                        width: 200px;
                         margin-right: 30px;
                         .order-row-name {
                             width: 100%;
@@ -256,7 +256,6 @@
                     }
                     .order-row-price {
                         min-width: 64px;
-                        margin-right: 21px;
                     }
                 }
                 .order-row-actions {
@@ -363,6 +362,34 @@
         &::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
+        }
+    }
+}
+
+.custom-select {
+    .open-content {
+        .results-none {
+            padding: 5px;
+            text-align: left;
+        }
+        .filter-box {
+            padding: 5px;
+            input {
+                width: 100%;
+                box-sizing: border-box;
+                border-radius: 5px;
+                padding: 5px;
+                border: 1px solid $color-lgrey;
+            }
+            .delete-input {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+            }
+        }
+        ul {
+            border-top: 1px solid $color-lgrey;
         }
     }
 }
