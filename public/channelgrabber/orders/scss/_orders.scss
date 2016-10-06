@@ -22,8 +22,15 @@
         color: $color-dgrey;
     }
     input[type=number] {
+        width: 50px;
+        border-radius: 5px;
+        background-clip: padding-box;
+        background-color: $color-white;
         color: $color-lgrey;
+        border: 1px solid $color-lgrey;
+        padding: 3px;
         padding-right: 4px;
+        font-size: 13px;
         -moz-appearance: textfield;
         &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
             -webkit-appearance: none;
@@ -249,6 +256,7 @@
                         }
                     }
                     .order-row-price {
+                        min-width: 64px;
                         margin-right: 21px;
                     }
                 }
@@ -261,21 +269,20 @@
                     text-align: right;
                 }
                 .order-row-qty-input {
-                    color: $color-dgrey;
                     display: flex;
                     align-items: center;
                     .multiplier {
                         margin-right: 23px;
                     }
                     input {
-                        color: $color-dgrey;
+                        text-align: center;
                     }
                 }
             }
         }
         .detail-wrapper {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             .detail-label {
                 width: 813px;
                 display: inline-flex;
@@ -296,7 +303,7 @@
         }
         .discount-wrapper {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: flex;
             justify-content: flex-end;
             .discount-box {

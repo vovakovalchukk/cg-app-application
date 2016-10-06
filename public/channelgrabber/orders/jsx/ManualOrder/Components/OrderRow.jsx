@@ -54,14 +54,10 @@ define([
             });
             this.props.onPriceChange(this.props.row.sku, price);
         },
-        onStockQuantityUpdate: function (name, value) {
-            var quantity = value;
+        onStockQuantityUpdate: function (e) {
+            var quantity = e.target.value;
             var sku = this.props.row.sku;
             this.props.onStockQuantityUpdate(sku, quantity);
-
-            return new Promise(function(resolve) {
-                resolve({ savedValue: quantity });
-            });
         },
         onRowRemove: function (e) {
             this.props.onRowRemove(this.props.row.sku);
@@ -81,11 +77,11 @@ define([
                             {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                         </div>
                         <div className="order-row-price">
-                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" step="0.01" value={this.state.price} onChange={this.onPriceChange} /></span>
+                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.price} onChange={this.onPriceChange} /></span>
                         </div>
                         <div className="order-row-qty-input">
                             <span className="multiplier">x</span>
-                            <Input name='quantity' initialValue={this.props.row.quantity} submitCallback={this.onStockQuantityUpdate} />
+                            <input type="number" name='quantity' value={this.props.row.quantity} onChange={this.onStockQuantityUpdate} />
                         </div>
                     </div>
                     <div className="order-row-total">
