@@ -1,10 +1,12 @@
 define([
     'react',
+    'react-dom',
     'Product/Filter/Entity',
     'ManualOrder/Components/ProductDropdown/DetailRow',
     'Product/Storage/Ajax'
 ], function(
     React,
+    ReactDOM,
     ProductFilter,
     DetailRow,
     AjaxHandler
@@ -74,6 +76,23 @@ define([
                 products: [],
                 variations: [],
             }
+        },
+        componentDidMount: function () {
+            var self = this;
+            self.el = ReactDOM.findDOMNode(this);
+
+            this.evt = function (e) {
+                var children = self.el.contains(e.target);
+                if (e.target != self.el && !children) {
+                    self.setState({
+                        active: false
+                    });
+                }
+            };
+            document.addEventListener('click', this.evt, false);
+        },
+        componentWillUnmount: function () {
+            document.removeEventListener('click', this.evt, false);
         },
         onClick: function (e) {
             this.setState({
