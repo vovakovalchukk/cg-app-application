@@ -38,7 +38,12 @@ class Service implements LoggerAwareInterface
     const ONE_SECOND_DELAY = 1;
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
     const REFRESH_TIMEOUT = 300;
-    const BATCH_SIZE = 500;
+    const BATCH_SIZE = 300;
+
+    const LOG_CODE = 'ProductsListingService';
+    const LOG_IMPORT_ALL_FILTERED = 'Importing all unimported listings that match the filters:';
+    const LOG_IMPORT_ALL_BATCH = 'Importing page %d, limit %d of unimported listings that match the filters';
+    const LOG_IMPORT_ALL_NO_PGNTN = 'Filters include status which has been changed on processed listings so result set will change, not paginating';
 
     protected $activeUserContainer;
     protected $userPreferenceService;
@@ -238,28 +243,46 @@ class Service implements LoggerAwareInterface
         $this->getListingService()->saveCollection($listings);
     }
 
-    public function importListingsByFilters(ListingFilter $listingFilter)
+    public function importListingsByFilter(ListingFilter $listingFilter)
     {
+        $this->addGlobalLogEventParam('rootOu', $this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+        $this->logDebugDump(array_filter($listingFilter->toArray()), static::LOG_IMPORT_ALL_FILTERED, [], [static::LOG_CODE, 'ImportAllFiltered']);
+        $listingFilter->setPage(static::DEFAULT_PAGE)->setLimit(static::BATCH_SIZE);
+
         try {
-            $listingFilter->setPage(static::DEFAULT_PAGE)->setLimit(static::BATCH_SIZE);
-            $this->importListingsByFiltersBatch($listingFilter);
+            $this->importListingsByFilterBatch($listingFilter);
             $this->notifyOfImport();
-            return true;
+            $success = true;
 
         } catch (NotFound $e) {
-            return false;
+            $success = false;
         }
+
+        $this->removeGlobalLogEventParam('rootOu');
+        return $success;
     }
 
-    protected function importListingsByFiltersBatch(ListingFilter $listingFilter)
+    protected function importListingsByFilterBatch(ListingFilter $listingFilter)
     {
+        $this->logDebug(static::LOG_IMPORT_ALL_BATCH, [$listingFilter->getPage(), $listingFilter->getLimit()], [static::LOG_CODE, 'ImportAllBatch']);
         $listings = $this->fetchListings($listingFilter);
         $this->importListingsCollection($listings);
 
-        if ($listings->getTotal() > ($listingFilter->getPage() * $listingFilter->getLimit())) {
-            $listingFilter->setPage($listingFilter->getPage() + 1);
-            $this->importListingsByFiltersBatch($listingFilter);
+        // Any more to fetch?
+        if ($listings->getTotal() <= ($listingFilter->getPage() * $listingFilter->getLimit())) {
+            return;
         }
+
+        // As the listings are processed their status is changed to 'importing'. If the user filtered on status then the
+        // result set will now be different (unless the user included 'importing' in the filter)
+        // So: only paginate if there's no status filters or they include 'importing'
+        $statusFiltersKeyed = array_flip($listingFilter->getStatus());
+        if (empty($statusFiltersKeyed) || isset($statusFiltersKeyed[ListingStatus::IMPORTING])) {
+            $listingFilter->setPage($listingFilter->getPage() + 1);
+        } else {
+            $this->logDebug(static::LOG_IMPORT_ALL_NO_PGNTN, [], [static::LOG_CODE, 'ImportAllNoPgntn']);
+        }
+        $this->importListingsByFilterBatch($listingFilter);
     }
 
     protected function notifyOfImport()
