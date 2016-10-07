@@ -19,6 +19,7 @@ require(
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
 
 <div class="module clearfix section-separator" id="product-information">
 

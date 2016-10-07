@@ -6,7 +6,7 @@ define([
     'Product/Components/VariationView',
     'Product/Components/Button',
     'Common/Components/Select',
-    'Common/Components/Input',
+    'Common/Components/SafeInput',
     'Product/Components/SimpleTabs/Tabs',
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',

@@ -1,10 +1,8 @@
 define([
     'react',
-    'Common/Components/Input',
     'Common/Components/Select'
 ], function(
     React,
-    Input,
     Select
 ) {
     "use strict";

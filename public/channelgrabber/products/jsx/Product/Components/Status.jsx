@@ -29,6 +29,9 @@ define([
             var self = this;
             return this.props.listings.map(function(listing) {
                 var account = self.props.accounts[listing.accountId];
+                if (account === undefined) {
+                    return;
+                }
                 return (
                     <tr key={listing.id}>
                         <td>

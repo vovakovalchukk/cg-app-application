@@ -1,6 +1,6 @@
 define([
     'react',
-    'Common/Components/Input',
+    'Common/Components/SafeInput',
     'Common/Components/Select'
 ], function(
     React,
