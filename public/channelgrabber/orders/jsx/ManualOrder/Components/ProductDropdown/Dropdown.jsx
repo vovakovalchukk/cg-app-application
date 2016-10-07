@@ -1,12 +1,12 @@
 define([
     'react',
-    'react-dom',
+    'Common/Components/ClickOutside',
     'Product/Filter/Entity',
     'ManualOrder/Components/ProductDropdown/DetailRow',
     'Product/Storage/Ajax'
 ], function(
     React,
-    ReactDOM,
+    Popup,
     ProductFilter,
     DetailRow,
     AjaxHandler
@@ -77,22 +77,10 @@ define([
                 variations: [],
             }
         },
-        componentDidMount: function () {
-            var self = this;
-            self.el = ReactDOM.findDOMNode(this);
-
-            this.evt = function (e) {
-                var children = self.el.contains(e.target);
-                if (e.target != self.el && !children) {
-                    self.setState({
-                        active: false
-                    });
-                }
-            };
-            document.addEventListener('click', this.evt, false);
-        },
-        componentWillUnmount: function () {
-            document.removeEventListener('click', this.evt, false);
+        onClickOutside: function (e) {
+            this.setState({
+                active: false
+            });
         },
         onClick: function (e) {
             this.setState({
@@ -129,14 +117,16 @@ define([
         },
         render: function () {
             return (
-                <div className={"detail-dropdown-wrapper "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
-                    <div className="detail-dropdown-searchbox">
-                        <div className="sprite-search-18-black"></div>
-                        <input onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress}/>
-                        <button className={"detail-search-btn button "+(this.state.fetchingData ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
+                <ClickOutside onClickOutside={this.onClickOutside}>
+                    <div className={"detail-dropdown-wrapper "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
+                        <div className="detail-dropdown-searchbox">
+                            <div className="sprite-search-18-black"></div>
+                            <input onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress}/>
+                            <button className={"detail-search-btn button "+(this.state.fetchingData ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
+                        </div>
+                        {this.getDropdown()}
                     </div>
-                    {this.getDropdown()}
-                </div>
+                </ClickOutside>
             );
         }
     });
