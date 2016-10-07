@@ -6,7 +6,7 @@ define([
     'Product/Storage/Ajax'
 ], function(
     React,
-    Popup,
+    ClickOutside,
     ProductFilter,
     DetailRow,
     AjaxHandler

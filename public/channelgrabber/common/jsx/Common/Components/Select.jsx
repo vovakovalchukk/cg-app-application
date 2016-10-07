@@ -1,9 +1,9 @@
 define([
     'react',
-    'react-dom'
+    'Common/Components/ClickOutside'
 ], function(
     React,
-    ReactDOM
+    ClickOutside
 ) {
     "use strict";
 
@@ -26,22 +26,10 @@ define([
                 active: false
             }
         },
-        componentDidMount: function () {
-            var self = this;
-            self.el = ReactDOM.findDOMNode(this);
-
-            this.evt = function (e) {
-                var children = self.el.contains(e.target);
-                if (e.target != self.el && !children) {
-                    self.setState({
-                        active: false
-                    });
-                }
-            };
-            document.addEventListener('click', this.evt, false);
-        },
-        componentWillUnmount: function () {
-            document.removeEventListener('click', this.evt, false);
+        onClickOutside: function () {
+            this.setState({
+                active: false
+            });
         },
         componentWillReceiveProps: function (newProps) {
             if (newProps.selectedOption.name !== "") {
@@ -137,18 +125,20 @@ define([
         },
         render: function () {
             return (
-                <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
-                        <div className="selected">
-                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
-                            <span className="sprite-arrow-down-10-black">&nbsp;</span>
-                        </div>
-                        <div className="animated fadeInDown open-content">
-                            {this.getFilterBox()}
-                            <ul>
-                                {this.getOptionNames()}
-                            </ul>
-                        </div>
-                </div>
+                <ClickOutside onClickOutside={this.onClickOutside}>
+                    <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
+                            <div className="selected">
+                                <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
+                                <span className="sprite-arrow-down-10-black">&nbsp;</span>
+                            </div>
+                            <div className="animated fadeInDown open-content">
+                                {this.getFilterBox()}
+                                <ul>
+                                    {this.getOptionNames()}
+                                </ul>
+                            </div>
+                    </div>
+                </ClickOutside>
             );
         }
     });
