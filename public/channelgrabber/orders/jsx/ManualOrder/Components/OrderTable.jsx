@@ -166,11 +166,11 @@ define([
         getSubtotalMarkup: function () {
             var subTotal = 0;
             if (this.state.discount.active) {
-                subTotal -= parseFloat(this.state.discount.value);
+                subTotal -= this.getFloat(this.state.discount.value);
             }
             this.state.orderRows.forEach(function (row) {
-                subTotal += parseFloat(row.price * row.quantity);
-            });
+                subTotal += this.getFloat(row.price * row.quantity);
+            }.bind(this));
             return (
                 <div>
                     <span className="bold detail-label">Subtotal</span>
@@ -187,20 +187,24 @@ define([
             );
         },
         getOrderTotalMarkup: function () {
-            var orderTotal = parseFloat(this.state.shippingMethod.cost);
+            var orderTotal = this.getFloat(this.state.shippingMethod.cost);
 
             if (this.state.discount.active) {
-                orderTotal -= parseFloat(this.state.discount.value);
+                orderTotal -= this.getFloat(this.state.discount.value);
             }
             this.state.orderRows.forEach(function (row) {
-                orderTotal += parseFloat(row.price * row.quantity);
-            });
+                orderTotal += this.getFloat(row.price * row.quantity);
+            }.bind(this));
             return (
                 <div>
                     <span className="bold detail-label">Total</span>
                     <span className="detail-value">{this.props.currency.value + " " + orderTotal.toFixed(2)}</span>
                 </div>
             );
+        },
+        getFloat: function (stringNumber) {
+            var floatNumber = parseFloat(stringNumber);
+            return isNaN(floatNumber) ? 0 : floatNumber;
         },
         render: function () {
             return (
