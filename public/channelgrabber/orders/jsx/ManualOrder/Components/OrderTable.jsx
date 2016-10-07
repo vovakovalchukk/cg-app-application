@@ -164,14 +164,17 @@ define([
             return <a className="add-discount-action" onClick={this.onToggleDiscountBox}>Add Discount</a>
         },
         getSubtotalMarkup: function () {
-            var rowTotal = 0;
+            var subTotal = 0;
+            if (this.state.discount.active) {
+                subTotal -= parseFloat(this.state.discount.value);
+            }
             this.state.orderRows.forEach(function (row) {
-                rowTotal += parseFloat(row.price * row.quantity);
+                subTotal += parseFloat(row.price * row.quantity);
             });
             return (
                 <div>
                     <span className="bold detail-label">Subtotal</span>
-                    <span className="subtotal-value">{this.props.currency.value + " " + rowTotal.toFixed(2)}</span>
+                    <span className="subtotal-value">{this.props.currency.value + " " + subTotal.toFixed(2)}</span>
                 </div>
             );
         },
