@@ -19,7 +19,7 @@ define([
             return (
                 <div className="detail-variation-row">
                     <div className="variation-row-img">
-                        <img src={this.context.manualOrderUtils.getProductImage(this.props.product, variation.sku)} />
+                        <img src={this.context.imageUtils.getProductImage(this.props.product, variation.sku)} />
                     </div>
                     <div className="variation-row-sku">
                         {variation.sku}
@@ -86,7 +86,7 @@ define([
     });
 
     DetailRow.contextTypes = {
-        manualOrderUtils: React.PropTypes.object
+        imageUtils: React.PropTypes.object
     };
 
     return DetailRow;

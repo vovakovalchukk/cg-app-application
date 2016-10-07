@@ -2,7 +2,7 @@ define([
     'react',
     'ManualOrder/Components/ProductDropdown/Dropdown',
     'ManualOrder/Components/OrderTable',
-    'Product/Components/Select'
+    'Common/Components/Select'
 ], function(
     React,
     ProductDropdown,

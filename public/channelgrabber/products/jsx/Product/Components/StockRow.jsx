@@ -1,7 +1,7 @@
 define([
     'react',
-    'Product/Components/Input',
-    'Product/Components/Select'
+    'Common/Components/Input',
+    'Common/Components/Select'
 ], function(
     React,
     Input,

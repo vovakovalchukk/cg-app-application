@@ -7,10 +7,10 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode, utilities)
+    var ManualOrder = function(mountingNode, utilities)
     {
         ReactDOM.render(<RootComponent utilities={utilities}/>, mountingNode);
     };
 
-    return Product;
+    return ManualOrder;
 });

@@ -1,7 +1,7 @@
 define([
     'react',
     'ManualOrder/Components/OrderRow',
-    'Product/Components/Select'
+    'Common/Components/Select'
 ], function(
     React,
     OrderRow,
