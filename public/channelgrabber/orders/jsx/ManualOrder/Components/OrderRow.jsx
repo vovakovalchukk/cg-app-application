@@ -67,7 +67,7 @@ define([
                 <div className="order-row">
                     <div className="order-row-details">
                         <div className="order-row-img">
-                            <img src={this.context.manualOrderUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
+                            <img src={this.context.imageUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
                         </div>
                         <div className="order-row-description">
                             <div className="order-row-name">{this.props.row.product.name}</div>
@@ -96,7 +96,7 @@ define([
     });
 
     OrderRow.contextTypes = {
-        manualOrderUtils: React.PropTypes.object
+        imageUtils: React.PropTypes.object
     };
 
     return OrderRow;

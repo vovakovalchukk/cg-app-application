@@ -10,7 +10,9 @@ define([
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
-                manualOrderUtils: this.props.manualOrderUtils
+                carrierUtils: this.props.utilities.carrier,
+                currencyUtils: this.props.utilities.currency,
+                imageUtils: this.props.utilities.image
             };
         },
         render: function()
@@ -24,7 +26,9 @@ define([
     });
 
     RootComponent.childContextTypes = {
-        manualOrderUtils: React.PropTypes.object
+        carrierUtils: React.PropTypes.object,
+        currencyUtils: React.PropTypes.object,
+        imageUtils: React.PropTypes.object
     };
 
     return RootComponent;

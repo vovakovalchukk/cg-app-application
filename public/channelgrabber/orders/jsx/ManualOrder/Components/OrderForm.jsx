@@ -20,7 +20,7 @@ define([
             }
         },
         getCurrencyOptions: function () {
-            return this.context.manualOrderUtils.getCurrencies();
+            return this.context.currencyUtils.getCurrencies();
         },
         onCurrencyChanged: function (newCurrency) {
             this.setState({
@@ -45,7 +45,7 @@ define([
     });
 
     OrderForm.contextTypes = {
-        manualOrderUtils: React.PropTypes.object
+        currencyUtils: React.PropTypes.object
     };
 
     return OrderForm;

@@ -2,18 +2,20 @@
 require.config({
     paths: {
         'ManualOrder': '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER; ?>/js/ManualOrder',
-        'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product'
+        'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product',
+        'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
     }
 });
-require(['ManualOrder/ManualOrder', 'ManualOrder/Utils'], function(ManualOrderRoot, ManualOrderUtils) {
-    var options = {
-        currencies: JSON.parse('<?= $currenciesJson ?>'),
-        carriers: JSON.parse('<?= $carriersJson ?>'),
-        imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img'
-    };
+require(
+    ['ManualOrder/ManualOrder', 'Common/Utils/Carrier', 'Common/Utils/Currency', 'Common/Utils/Image'],
+    function(ManualOrderRoot, CarrierUtils, CurrencyUtils, ImageUtils) {
 
-    var manualOrderUtils = new ManualOrderUtils(options);
-    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), manualOrderUtils);
+    var utilities = {
+        carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
+        currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
+        image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
+    };
+    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), utilities);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
