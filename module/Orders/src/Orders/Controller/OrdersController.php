@@ -281,12 +281,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
 
         $buyerMessage = $this->getBuyerMessage($order);
+        $addressInformation = $this->getAddressInformation($order);
 
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
         $view->addChild($buyerMessage, 'buyerMessage');
+        $view->addChild($addressInformation, 'addressInformation');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getNotes($order), 'notes');
@@ -341,6 +343,17 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             return $view;
         }
         $view->setVariable('buyerMessage', $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"));
+        return $view;
+    }
+
+    protected function getAddressInformation(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/addressInformation');
+        $view->setVariable('order', $order);
+        $view->setVariable('addressSaveUrl', 'Orders/order/address');
+        $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('requiresSaveButton', true);
         return $view;
     }
 
