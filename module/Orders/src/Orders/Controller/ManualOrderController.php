@@ -80,8 +80,11 @@ class ManualOrderController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/addressInformation');
         $view->setVariable('order', null);
+        $view->setVariable('addressSaveUrl', 'Orders/new/create');
         $view->setVariable('editable', true);
         $view->setVariable('requiresSaveButton', false);
+        $view->setVariable('includeAddressCopy', false);
+        $view->setVariable('includeUseBillingInfo', true);
         return $view;
     }
 

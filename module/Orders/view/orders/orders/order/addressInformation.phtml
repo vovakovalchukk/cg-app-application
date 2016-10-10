@@ -8,8 +8,15 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
         <input type="hidden" id="eTag" name="eTag" value="<?=  $order && $order->getUserChange() ? $order->getUserChange()->getStoredETag() : null; ?>">
         <div class="half" id="billing-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Billing Information'); ?>
+                    <?php if ($includeAddressCopy): ?>
                     <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $this->translate("Copy address to clipboard"); ?></a>
+                    <?php endif; ?>
                 </span>
+            <?php if ($includeUseBillingInfo): ?>
+                <label>
+                    <span class="inputbox-label"></span><div class="order-inputbox-holder"></div>
+                </label>
+            <?php endif; ?>
             <label>
                 <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
                 <div class="order-inputbox-holder">
@@ -90,8 +97,18 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
         </div>
         <div class="half"  id="shipping-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Shipping Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $this->translate("Copy address to clipboard"); ?></a>
+                    <?php if ($includeAddressCopy): ?>
+                        <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $this->translate("Copy address to clipboard"); ?></a>
+                    <?php endif; ?>
                 </span>
+            <?php if ($includeUseBillingInfo): ?>
+                <label>
+                    <span class="inputbox-label"><?= $this->translate('Use Billing Information'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox copy-address" type="checkbox" name="shippingAddressUseBilling" />
+                    </div>
+                </label>
+            <?php endif; ?>
             <?php if (!$order || !$order->getFulfilmentAddress()): ?>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
