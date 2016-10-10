@@ -7,6 +7,7 @@ use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\ManualOrder\Service;
 use Orders\Order\Service as OrderService;
+use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -61,6 +62,7 @@ class ManualOrderController extends AbstractActionController
             ->setVariable('currenciesJson', json_encode($currenciesList))
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
+            ->addChild($this->getAddressInformation(), 'addressInformation')
             ->addChild($this->getSidebar(), 'sidebar');
 
         return $view;
@@ -70,6 +72,16 @@ class ManualOrderController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/buyerMessage');
+        return $view;
+    }
+
+    protected function getAddressInformation()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('orders/orders/order/addressInformation');
+        $view->setVariable('order', null);
+        $view->setVariable('editable', true);
+        $view->setVariable('requiresSaveButton', false);
         return $view;
     }
 
