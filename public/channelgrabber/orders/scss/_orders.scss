@@ -39,13 +39,14 @@
     .form-row {
         width: 919px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
     }
     .currency-dropdown-wrapper {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         .currency-label {
-            margin-right: 15px;
+            margin-right: 8px;
         }
         .open-content {
             min-width: 100%;
@@ -53,8 +54,6 @@
     }
     .detail-dropdown-wrapper {
         position: relative;
-        margin-bottom: 50px;
-        font-size: 13px;
         .detail-dropdown-searchbox {
             width: 690px;
             .sprite-search-18-black {
