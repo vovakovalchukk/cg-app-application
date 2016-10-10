@@ -280,10 +280,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderDetails = $this->getOrderDetails($order);
         $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
 
+        $buyerMessage = $this->getBuyerMessage($order);
+
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
+        $view->addChild($buyerMessage, 'buyerMessage');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getNotes($order), 'notes');
@@ -327,6 +330,17 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('channelImgUrl', $externalData['imageUrl']);
         }
 
+        return $view;
+    }
+
+    protected function getBuyerMessage(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/buyerMessage');
+        if (! $order) {
+            return $view;
+        }
+        $view->setVariable('buyerMessage', $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"));
         return $view;
     }
 

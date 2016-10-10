@@ -91,13 +91,7 @@ require([
     </form>
 </div>
 <div class="module clearfix section-separator" id="order-buyer-message">
-    <form class="single-row">
-        <label>
-            <span class="sprite-user-28-black"></span>
-            <span class="large-heading-left">Buyer Message:</span>
-            <p class="buyer-message"><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
-        </label>
-    </form>
+    <?= $this->buyerMessage ?>
 </div>
 <div class="module clearfix section-separator">
     <div id="detailsForm">
