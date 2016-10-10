@@ -348,6 +348,19 @@
     }
 }
 
+.manual-order {
+    form.single-row {
+        label {
+            p {
+                margin: 0;
+                input {
+                    width: 360px;
+                }
+            }
+        }
+    }
+}
+
 .incrementor-input-box {
     .incrementor-button {
         width: 25%;

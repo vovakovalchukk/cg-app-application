@@ -60,8 +60,16 @@ class ManualOrderController extends AbstractActionController
             ->setVariable('subHeaderHide', true)
             ->setVariable('currenciesJson', json_encode($currenciesList))
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
+            ->addChild($this->getBuyerMessage(), 'buyerMessage')
             ->addChild($this->getSidebar(), 'sidebar');
 
+        return $view;
+    }
+
+    protected function getBuyerMessage()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('orders/orders/order/buyerMessage');
         return $view;
     }
 
