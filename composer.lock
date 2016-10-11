@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b15d04c9202906baeb7cd4c2d0c4df26",
-    "content-hash": "e9dd2acc82b400de20bc0d21478d7a34",
+    "hash": "40022940bda1a4de894b4caefc83a623",
+    "content-hash": "ad3af85f6f28fec22166cf01cf512c68",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1475,16 +1475,16 @@
         },
         {
             "name": "channelgrabber/phinx",
-            "version": "0.3.2.5",
+            "version": "dev-CGIV-7125-4ByteUTF8",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/phinx.git",
-                "reference": "9b3ca473efa4635c9556bd7a1f9437e8889095b1"
+                "reference": "72a84bfe683ca7e161c36706427e48417a8b72db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.2.5-b01046.zip",
-                "reference": "9b3ca473efa4635c9556bd7a1f9437e8889095b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-dev-CGIV-7125-4ByteUTF8-0267f7.zip",
+                "reference": "72a84bfe683ca7e161c36706427e48417a8b72db",
                 "shasum": null
             },
             "require": {
@@ -1517,7 +1517,8 @@
                 {
                     "name": "Rob Morgan",
                     "email": "robbym@gmail.com",
-                    "homepage": "http://robmorgan.id.au"
+                    "homepage": "http://robmorgan.id.au",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Phinx makes it ridiculously easy to manage the database migrations for your PHP app.",
@@ -1529,7 +1530,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2015-03-04 15:41:30"
+            "time": "2016-10-10 11:30:22"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -1664,7 +1665,7 @@
             "version": "v0.2.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/predis-async.git",
+                "url": "/home/richardheelin/.cg-loki/predis-async",
                 "reference": "27dbf1a362ff1e1ecb84cb42718ae9dadd97579d"
             },
             "dist": {
@@ -3413,23 +3414,22 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.1.5",
+            "version": "dev-CGIV-7125-4ByteUTF8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "cf8d93a58db3425c62a56dc1c687c6806bfdb3d5"
+                "reference": "01f001a2a85ad4f804983d7116050199e99e010c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.5-b1b59f.zip",
-                "reference": "cf8d93a58db3425c62a56dc1c687c6806bfdb3d5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-7125-4ByteUTF8-eb39b3.zip",
+                "reference": "01f001a2a85ad4f804983d7116050199e99e010c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/phinx": "~0.3.2.3",
+                "channelgrabber/di": "^2.1.0",
+                "channelgrabber/phinx": "^0.3.2.3",
                 "channelgrabber/stdlib": "^2.12.0",
-                "composer/composer": "@dev",
                 "predis/predis": "~0.8.3",
                 "zendframework/zend-config": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
@@ -3448,7 +3448,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2015-09-09 10:29:36"
+            "time": "2016-10-11 11:40:21"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -8035,10 +8035,25 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "0.3.8.2",
+            "alias_normalized": "0.3.8.2",
+            "version": "dev-CGIV-7125-4ByteUTF8",
+            "package": "channelgrabber/phinx"
+        },
+        {
+            "alias": "1.1.6",
+            "alias_normalized": "1.1.6.0",
+            "version": "dev-CGIV-7125-4ByteUTF8",
+            "package": "channelgrabber/zf2-sessions"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/phinx": 20,
+        "channelgrabber/zf2-sessions": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
