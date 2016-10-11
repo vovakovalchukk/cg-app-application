@@ -1,0 +1,24 @@
+<form class="single-row" id="alert" data-url="<?= isset($order) ? $this->url('Orders/order/alert', array('order' => $order->getId())) : ''; ?>"
+      data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
+    <label>
+        <span class="sprite-alert-tri-28-black"></span>
+        <span class="large-heading-left"><?= $this->translate('Order Alert'); ?>:</span>
+        <?php
+        $alerts = isset($order) ? $order->getAlerts() : null;
+        $alert = null;
+        if ($alerts !== null) {
+            $alerts->rewind();
+            $alert = $alerts->current();
+        }
+        ?>
+        <div class="order-alert-inputholder">
+            <input type="text" class="inputbox" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
+        </div>
+        <input type="hidden" value="<?= ($alert) ? $alert->getStoredETag() : ""; ?>" id="eTag"/>
+        <?php if (isset($order)): ?>
+            <div class="order-alert-button">
+                <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
+            </div>
+        <?php endif; ?>
+    </label>
+</form>
