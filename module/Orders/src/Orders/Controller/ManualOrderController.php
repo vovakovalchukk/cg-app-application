@@ -63,6 +63,7 @@ class ManualOrderController extends AbstractActionController
             ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
             ->addChild($this->getBuyerMessage(), 'buyerMessage')
             ->addChild($this->getAddressInformation(), 'addressInformation')
+            ->addChild($this->getOrderAlert(), 'orderAlert')
             ->addChild($this->getSidebar(), 'sidebar');
 
         return $view;
@@ -85,6 +86,13 @@ class ManualOrderController extends AbstractActionController
         $view->setVariable('requiresSaveButton', false);
         $view->setVariable('includeAddressCopy', false);
         $view->setVariable('includeUseBillingInfo', true);
+        return $view;
+    }
+
+    protected function getOrderAlert()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('orders/orders/order/orderAlert');
         return $view;
     }
 

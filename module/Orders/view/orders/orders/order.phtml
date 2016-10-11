@@ -68,25 +68,7 @@ require([
 </div>
 
 <div class="module clearfix section-separator" id="order-alert">
-    <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
-          data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
-        <label>
-            <span class="sprite-alert-tri-28-black"></span>
-            <span class="large-heading-left"><?= $this->translate('Order Alert'); ?>:</span>
-            <?php
-                $alerts = $order->getAlerts();
-                $alerts->rewind();
-                $alert = $alerts->current();
-            ?>
-            <div class="order-alert-inputholder">
-                <input type="text" class="inputbox" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
-            </div>
-            <input type="hidden" value="<?= ($alert) ? $alert->getStoredETag() : ""; ?>" id="eTag"/>
-            <div class="order-alert-button">
-                <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
-            </div>
-        </label>
-    </form>
+    <?= $this->orderAlert; ?>
 </div>
 <div class="module clearfix section-separator" id="order-buyer-message">
     <?= $this->buyerMessage ?>
