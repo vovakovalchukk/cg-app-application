@@ -12,13 +12,16 @@ define([], function()
         {
             this.listenForSearchSelection()
                 .listenForManualEntryToggle()
+                .listenForUseToggle();
         };
         init.call(this);
     }
 
     AddressSearch.SEARCH_INPUT_SUFFIX = '-address-search-input';
     AddressSearch.SEARCH_TOGGLE_SUFFIX = '-address-search-toggle-shadow';
+    AddressSearch.USE_ADDRESS_TOGGLE_SUFFIX = '-address-use-toggle';
     AddressSearch.ADDRESS_SECTION_SUFFIX = '-address-section';
+    AddressSearch.ADDRESS_INFO_SECTION_SUFFIX = '-information-section';
     AddressSearch.SELECTOR_FORM = '#detailsForm form';
 
     AddressSearch.prototype.listenForSearchSelection = function()
@@ -81,6 +84,19 @@ define([], function()
         countryOption.click();
         countrySelect.removeClass('active');
         return this;
+    };
+
+    AddressSearch.prototype.listenForUseToggle = function () {
+
+        var self = this;
+        $('#' + this.getSelectorPrefix() + AddressSearch.USE_ADDRESS_TOGGLE_SUFFIX).click(function (e) {
+            self.toggleUseSection();
+        });
+    };
+
+    AddressSearch.prototype.toggleUseSection = function()
+    {
+        $('#' + this.getSelectorPrefix() + AddressSearch.ADDRESS_INFO_SECTION_SUFFIX).toggle();
     };
 
     return AddressSearch;
