@@ -29,13 +29,13 @@ define([
             });
         },
         onDelete: function (e) {
-            this.props.onDelete(this.props.data.id)
+            this.props.onDelete(this.props.data.id, this.props.data.eTag)
         },
         onSaveChanges: function (e) {
             this.setState({
                 editing: false
             }, function () {
-                this.props.onEdit(this.props.data.id, this.state.newContent)
+                this.props.onEdit(this.props.data.id, this.state.newContent, this.props.data.eTag)
             });
         },
         getBody: function () {
@@ -70,7 +70,6 @@ define([
                     <span className="sprite-write-20-black edit-note" onClick={this.onToggleEditMode}></span>
                     <h3>{this.props.data.author} - {this.getTimestamp()}</h3>
                     {this.getBody()}
-                    <input type="hidden" value={this.state.eTag} />
                 </div>
             );
         }
