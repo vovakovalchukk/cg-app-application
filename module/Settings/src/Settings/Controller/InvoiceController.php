@@ -110,8 +110,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
         try {
             $data = $this->params()->fromPost();
-            $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
-            $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
+            if (isset($data['autoEmail'])) {
+                $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
+            }
+            if (isset($data['productImages'])) {
+                $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
+            }
 
             if ($data['autoEmail'] && $autoEmail) {
                 $data['autoEmail'] = $autoEmail;

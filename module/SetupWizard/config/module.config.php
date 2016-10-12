@@ -3,6 +3,7 @@ namespace SetupWizard;
 
 use SetupWizard\Channels\Service;
 use SetupWizard\Controller\IndexController;
+use SetupWizard\Messages\Service as MessagesService;
 use SetupWizard\Module;
 use SetupWizard\Navigation\SidebarNavFactory;
 use SetupWizard\StepStatusService;
@@ -78,6 +79,11 @@ return [
             SetupProgressApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle',
+                ]
+            ],
+            MessagesService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
                 ]
             ],
             'preferences' => [

@@ -1,0 +1,24 @@
+<div id="email-invoice-dispatch-section" class="module">
+    <form>
+        <label>
+            <span class="inputbox-label">Email Invoices on Dispatch</span>
+            <div class="order-inputbox-holder">
+            <?= $this->mustache('elements/toggle.mustache', [
+                'id' => 'email-invoice-dispatch-toggle',
+                'name' => 'autoEmail',
+                'selected' => $this->emailInvoiceDispatchToggleValue
+            ]); ?>
+            </div>
+            <input type="hidden" name="eTag" value="<?=$this->emailInvoiceDispatchToggleETag;?>"
+        </label>
+    </form>
+</div>
+<div id="email-invoice-account-badges-section" class="module">
+    <?= $this->accountSections; ?>
+</div>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Messages.js'], function(Messages)
+    {
+        new Messages(n, '<?=$this->saveEmailInvoicesUrl;?>', '<?=$this->saveAmazonOriginalEmailUrl;?>');
+    });
+</script>
