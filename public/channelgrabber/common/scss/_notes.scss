@@ -10,11 +10,13 @@
     }
     .note-list {
         margin-bottom: 25px;
-        float: left;
-        width: 100%;
-        .note-body {
-            textarea {
-                width: 640px;
+        .note {
+            width: 100%;
+            float: none;
+            .note-body {
+                textarea {
+                    width: 640px;
+                }
             }
         }
     }
