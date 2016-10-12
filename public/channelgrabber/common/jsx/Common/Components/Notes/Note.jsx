@@ -19,7 +19,7 @@ define([
         },
         onToggleEditMode: function (e) {
             this.setState({
-                newContent: this.props.data.content,
+                newContent: this.props.data.note,
                 editing: !this.state.editing
             });
         },
@@ -50,7 +50,7 @@ define([
 
             return (
                 <div className="note-body">
-                    <div className="note-content">{this.props.data.content}</div>
+                    <div className="note-content">{this.props.data.note}</div>
                 </div>
             );
         },

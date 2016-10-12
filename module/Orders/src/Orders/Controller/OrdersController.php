@@ -490,24 +490,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getNotes(OrderEntity $order)
     {
-        $formattedNotes = [];
         $existingNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        foreach ($existingNotes as $note) {
-            $formattedNote = [
-                'id' => $note['id'],
-                'author' => $note['author'],
-                'eTag' => $note['eTag'],
-                'timestamp' => $note['timestamp'],
-                'content' => $note['note'],
-            ];
-            $formattedNotes[] = $formattedNote;
-        }
 
-        usort($formattedNotes, function ($a, $b) {
+        usort($existingNotes, function ($a, $b) {
             return strtotime($a['timestamp']) > strtotime($b['timestamp']);
         });
 
-        return json_encode($formattedNotes);
+        return json_encode($existingNotes);
     }
 
     protected function getFilterBar()

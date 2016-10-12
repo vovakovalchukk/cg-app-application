@@ -34,7 +34,7 @@ define([
                 url: '/orders/' + this.props.orderId + '/note/create',
                 type: 'POST',
                 data: {
-                    'note': newNote.content
+                    'note': newNote.note
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -110,7 +110,7 @@ define([
 
             return {
                 id: newId,
-                content: this.state.noteInput,
+                note: this.state.noteInput,
                 timestamp: Date.now(),
                 author: this.props.author
             };
@@ -127,7 +127,7 @@ define([
         editNoteInList: function (id, newContent) {
             var notes = this.state.notes.map(function (note) {
                 if (note.id === id) {
-                    note.content = newContent;
+                    note.note = newContent;
                 }
                 return note;
             });
