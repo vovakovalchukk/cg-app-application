@@ -78,16 +78,7 @@ class ListingsJsonController extends AbstractActionController
 
         try {
             $requestFilter = $this->params()->fromPost('filter', []);
-
-            if (!isset($requestFilter['hidden'])) {
-                $requestFilter['hidden'] = [false];
-            }
-
-            foreach ($requestFilter['hidden'] as $index => $hidden) {
-                if ($hidden == 'No') {
-                    $requestFilter['hidden'][$index] = false;
-                }
-            }
+            $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
 
             $requestFilter = $this->getFilterMapper()->fromArray($requestFilter)
                 ->setPage($pageLimit->getPage())
@@ -115,6 +106,21 @@ class ListingsJsonController extends AbstractActionController
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    protected function ensureHiddenFilterApplied(array $requestFilter)
+    {
+        if (!isset($requestFilter['hidden'])) {
+            $requestFilter['hidden'] = [false];
+        }
+
+        foreach ($requestFilter['hidden'] as $index => $hidden) {
+            if ($hidden == 'No') {
+                $requestFilter['hidden'][$index] = false;
+            }
+        }
+
+        return $requestFilter;
     }
 
     public function hideAction()
@@ -163,15 +169,7 @@ class ListingsJsonController extends AbstractActionController
         $this->checkUsage();
 
         $requestFilter = $this->params()->fromPost('filter', []);
-        if (!isset($requestFilter['hidden'])) {
-            $requestFilter['hidden'] = [false];
-        }
-
-        foreach ($requestFilter['hidden'] as $index => $hidden) {
-            if ($hidden == 'No') {
-                $requestFilter['hidden'][$index] = false;
-            }
-        }
+        $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
 
         $listingFilter = $this->filterMapper->fromArray($requestFilter);        
         $success = $this->listingService->importListingsByFilter($listingFilter);
