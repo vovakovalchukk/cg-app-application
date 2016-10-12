@@ -24,7 +24,7 @@ require([
     ],
     function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
         //References to n need to be migrated, it is the notification library
-        var existingNotes = <?= $existingNotes ? $existingNotes : [] ?>;
+        var existingNotes = <?= $existingNotes ?>;
         var orderId = '<?= $order->getId() ?>';
         ReactDOM.render(React.createElement(NoteComponent, { author: usersName, orderId: orderId, existingNotes: existingNotes }), document.getElementById('order-notes'));
         var sidebar = new OrderDetailsSidebar();
