@@ -56,8 +56,8 @@ define([
         },
         getTimestamp: function () {
             var date = new Date(this.props.data.timestamp);
-            var minute = date.getMinutes();
-            var hour = date.getHours();
+            var minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+            var hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
             var day = date.getDate();
             var month = date.getMonth() + 1;
             var year = date.getFullYear();
