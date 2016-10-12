@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b15d04c9202906baeb7cd4c2d0c4df26",
-    "content-hash": "e9dd2acc82b400de20bc0d21478d7a34",
+    "hash": "dc99dffa792bd8f3dab158dc3956d4fe",
+    "content-hash": "636500bb9e2e5561a80ff976d125ad2c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.9.8.2",
+            "version": "dev-CGIV-6517-import-all-filtered-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "0e71e8813836339bddb63405ef0c844960170511"
+                "reference": "daff86e5994699b28a6be2232b69906b965fffd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.8.2-d5edb7.zip",
-                "reference": "0e71e8813836339bddb63405ef0c844960170511",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6517-import-all-filtered-listings-155ff0.zip",
+                "reference": "daff86e5994699b28a6be2232b69906b965fffd6",
                 "shasum": null
             },
             "require": {
@@ -1068,7 +1068,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-04-19 08:04:14"
+            "time": "2016-10-12 10:22:40"
         },
         {
             "name": "channelgrabber/locale",
@@ -8035,10 +8035,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.11.0",
+            "alias_normalized": "1.11.0.0",
+            "version": "dev-CGIV-6517-import-all-filtered-listings",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

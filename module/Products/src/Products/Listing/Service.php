@@ -8,6 +8,7 @@ use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Filter as ListingFilter;
 use CG\Listing\Unimported\Collection as ListingCollection;
@@ -38,12 +39,9 @@ class Service implements LoggerAwareInterface
     const ONE_SECOND_DELAY = 1;
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
     const REFRESH_TIMEOUT = 300;
-    const BATCH_SIZE = 300;
 
     const LOG_CODE = 'ProductsListingService';
-    const LOG_IMPORT_ALL_FILTERED = 'Importing all unimported listings that match the filters:';
-    const LOG_IMPORT_ALL_BATCH = 'Importing page %d, limit %d of unimported listings that match the filters';
-    const LOG_IMPORT_ALL_NO_PGNTN = 'Filters include status which has been changed on processed listings so result set will change, not paginating';
+    const LOG_IMPORT_ALL_FILTERED = 'Creating job to import all unimported listings that match the filters:';
 
     protected $activeUserContainer;
     protected $userPreferenceService;
@@ -217,72 +215,24 @@ class Service implements LoggerAwareInterface
         $filter->setId($listingIds);
         $listings = $this->getListingService()->fetchCollectionByFilter($filter);
 
-        $this->importListingsCollection($listings);
+        $this->listingService->importListingsCollection($listings);
         $this->notifyOfImport();
-    }
-
-    protected function importListingsCollection($listings)
-    {
-        $accounts = $this->getAccountService()->fetchByOUAndStatus(
-            $this->getActiveUser()->getOuList(),
-            null,
-            null,
-            static::DEFAULT_LIMIT,
-            static::DEFAULT_PAGE,
-            ChannelType::SALES
-        );
-
-        foreach ($listings as $listing) {
-            if (!ListingStatus::canImport($listing->getStatus())) {
-                continue;
-            }
-            $account = $accounts->getById($listing->getAccountId());
-            $this->unimportedListingImportGenerator->__invoke($listing, $account);
-            $listing->setStatus(UnimportedStatus::IMPORTING);
-        }
-        $this->getListingService()->saveCollection($listings);
     }
 
     public function importListingsByFilter(ListingFilter $listingFilter)
     {
         $this->addGlobalLogEventParam('rootOu', $this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+
+        // Ensure we only get listings for this user's OUs
+        $listingFilter->setOrganisationUnitId($this->getActiveUser()->getOuList());
         $this->logDebugDump(array_filter($listingFilter->toArray()), static::LOG_IMPORT_ALL_FILTERED, [], [static::LOG_CODE, 'ImportAllFiltered']);
-        $listingFilter->setPage(static::DEFAULT_PAGE)->setLimit(static::BATCH_SIZE);
 
-        try {
-            $this->importListingsByFilterBatch($listingFilter);
-            $this->notifyOfImport();
-            $success = true;
+        // This can potentially take a long time, do it in the background
+        $workload = new ImportListingsByFilterWorkload($listingFilter);
+        $this->gearmanClient->doBackground(ImportListingsByFilterWorkload::FUNCTION_NAME, serialize($workload));
 
-        } catch (NotFound $e) {
-            $success = false;
-        }
-
-        $this->removeGlobalLogEventParam('rootOu');
-        return $success;
-    }
-
-    protected function importListingsByFilterBatch(ListingFilter $listingFilter)
-    {
-        $this->logDebug(static::LOG_IMPORT_ALL_BATCH, [$listingFilter->getPage(), $listingFilter->getLimit()], [static::LOG_CODE, 'ImportAllBatch']);
-        $listings = $this->fetchListings($listingFilter);
-        $this->importListingsCollection($listings);
-
-        // Any more to fetch?
-        if ($listings->getTotal() <= ($listingFilter->getPage() * $listingFilter->getLimit())) {
-            return;
-        }
-
-        // As the listings are processed their status is changed to 'importing'. If the user filtered on status then the
-        // result set will now be different (unless the user included 'importing' in the filter)
-        // So: only paginate if there's no status filters or they include 'importing'
-        $statusFiltersKeyed = array_flip($listingFilter->getStatus());
-        if (empty($statusFiltersKeyed) || isset($statusFiltersKeyed[ListingStatus::IMPORTING])) {
-            $listingFilter->setPage($listingFilter->getPage() + 1);
-        } else {
-            $this->logDebug(static::LOG_IMPORT_ALL_NO_PGNTN, [], [static::LOG_CODE, 'ImportAllNoPgntn']);
-        }
-        $this->importListingsByFilterBatch($listingFilter);
+        $this->notifyOfImport();
+        return true;
     }
 
     protected function notifyOfImport()
