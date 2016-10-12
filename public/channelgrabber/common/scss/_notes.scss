@@ -1,0 +1,29 @@
+
+.note-root {
+    textarea {
+        min-height: 100px;
+        border: 1px solid $color-lgrey;
+        padding: 5px;
+        border-radius: 5px;
+        background-clip: padding-box;
+        box-sizing: border-box;
+    }
+    .note-list {
+        margin-bottom: 25px;
+        float: left;
+        width: 100%;
+        .note-body {
+            textarea {
+                width: 640px;
+            }
+        }
+    }
+    .note-form {
+        textarea {
+            width: 260px;
+        }
+        button {
+            margin-left: 0px;
+        }
+    }
+}

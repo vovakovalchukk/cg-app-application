@@ -10,12 +10,20 @@ require(
     ['ManualOrder/ManualOrder', 'Common/Utils/Carrier', 'Common/Utils/Currency', 'Common/Utils/Image'],
     function(ManualOrderRoot, CarrierUtils, CurrencyUtils, ImageUtils) {
 
+    var domElements = {
+        productInfo: document.getElementById('product-information'),
+        orderNotes: document.getElementById('order-notes')
+    };
+
     var utilities = {
         carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
         currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
     };
-    var manualOrdersRoot = new ManualOrderRoot(document.getElementById('product-information'), utilities);
+
+    var currentUser = "<?php ?>";
+
+    var manualOrdersRoot = new ManualOrderRoot(domElements, utilities, currentUser);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
@@ -38,5 +46,4 @@ require(
 </div>
 
 <div class="module clearfix section-separator" id="order-notes">
-
 </div>
