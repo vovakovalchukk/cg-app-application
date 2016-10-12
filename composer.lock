@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "40022940bda1a4de894b4caefc83a623",
-    "content-hash": "ad3af85f6f28fec22166cf01cf512c68",
+    "hash": "a241568ea16de985e2a6ed7a0b5717d3",
+    "content-hash": "97ceac8c8e09d412713acd75b76a5fee",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1475,16 +1475,16 @@
         },
         {
             "name": "channelgrabber/phinx",
-            "version": "dev-CGIV-7125-4ByteUTF8",
+            "version": "0.3.8.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/phinx.git",
-                "reference": "72a84bfe683ca7e161c36706427e48417a8b72db"
+                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-dev-CGIV-7125-4ByteUTF8-0267f7.zip",
-                "reference": "72a84bfe683ca7e161c36706427e48417a8b72db",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.8.2-dde0a9.zip",
+                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73",
                 "shasum": null
             },
             "require": {
@@ -1530,7 +1530,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2016-10-10 11:30:22"
+            "time": "2016-10-11 15:35:33"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -1665,7 +1665,7 @@
             "version": "v0.2.3.2",
             "source": {
                 "type": "git",
-                "url": "/home/richardheelin/.cg-loki/predis-async",
+                "url": "git@github.com:channelgrabber/predis-async.git",
                 "reference": "27dbf1a362ff1e1ecb84cb42718ae9dadd97579d"
             },
             "dist": {
@@ -3414,16 +3414,16 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "dev-CGIV-7125-4ByteUTF8",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "01f001a2a85ad4f804983d7116050199e99e010c"
+                "reference": "570a31cc44bc1deee8b53ed000bd45fea8181e8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-7125-4ByteUTF8-eb39b3.zip",
-                "reference": "01f001a2a85ad4f804983d7116050199e99e010c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.6-9f4a5b.zip",
+                "reference": "570a31cc44bc1deee8b53ed000bd45fea8181e8f",
                 "shasum": null
             },
             "require": {
@@ -3448,7 +3448,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2016-10-11 11:40:21"
+            "time": "2016-10-12 08:02:06"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -8035,25 +8035,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "0.3.8.2",
-            "alias_normalized": "0.3.8.2",
-            "version": "dev-CGIV-7125-4ByteUTF8",
-            "package": "channelgrabber/phinx"
-        },
-        {
-            "alias": "1.1.6",
-            "alias_normalized": "1.1.6.0",
-            "version": "dev-CGIV-7125-4ByteUTF8",
-            "package": "channelgrabber/zf2-sessions"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/phinx": 20,
-        "channelgrabber/zf2-sessions": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
