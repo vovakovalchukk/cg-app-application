@@ -38,7 +38,7 @@ define([
                 },
                 dataType: 'json',
                 success: function (data) {
-                    this.addNoteToList(newNote);
+                    this.addNoteToList(data.note);
                     n.success("Note created.");
                 }.bind(this),
                 error: function (error, textStatus, errorThrown) {
