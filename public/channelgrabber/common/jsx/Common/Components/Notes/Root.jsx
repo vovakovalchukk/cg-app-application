@@ -12,7 +12,13 @@ define([
             return {
                 currentId: 0,
                 noteInput: "",
-                notes: []
+                notes: this.props.existingNotes
+            }
+        },
+        getDefaultProps: function () {
+            return {
+                author: "N/A",
+                existingNotes: []
             }
         },
         onCreateNote: function (e) {

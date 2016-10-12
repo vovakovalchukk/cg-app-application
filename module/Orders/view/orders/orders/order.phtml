@@ -7,13 +7,14 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
     });
     require.config({
         paths: {
-            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
+            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>",
+            'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
         }
     });
 require([
-        "note/NoteDomAccess",
-        "note/Notes",
-        "note/Note",
+        'react',
+        'react-dom',
+        'Common/Components/Notes/Root',
         "orderDetails/OrderDetailsSidebar",
         "address/Address",
         "alert/Alert",
@@ -21,15 +22,16 @@ require([
         "tracking/orderTracking",
         "Clipboard"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
+    function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
         //References to n need to be migrated, it is the notification library
-        var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
-        var notes = new Notes(noteDomAccess, n, Note);
+        var existingNotes = <?= $existingNotes ? $existingNotes : [] ?>;
+        var orderId = '<?= $order->getId() ?>';
+        ReactDOM.render(React.createElement(NoteComponent, { author: usersName, orderId: orderId, existingNotes: existingNotes }), document.getElementById('order-notes'));
         var sidebar = new OrderDetailsSidebar();
         var address = new Address(n, '#addressInformation');
         var orderTracking = new OrderTracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, orderTracking);
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, alert, orderTracking);
 
         var billingClipboard = new Clipboard(
             '#copy-billing-address',
@@ -50,7 +52,7 @@ require([
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
-
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
 
 <div class="bulk-actions-section clearfix section-seperator">
     <div class="orderid-logo-holder">
@@ -161,6 +163,5 @@ require([
         </tr>
     </table>
 </div>
-<div id="order-notes">
-    <?= $this->notes ?>
+<div id="order-notes" class="module clearfix section-separator">
 </div>

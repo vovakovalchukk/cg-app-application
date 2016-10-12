@@ -293,8 +293,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($addressInformation, 'addressInformation');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
+        $view->setVariable('existingNotes', $this->getNotes($order));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
@@ -490,10 +490,24 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getNotes(OrderEntity $order)
     {
-        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
-        $notes->setTemplate('elements/notes');
-        return $notes;
+        $formattedNotes = [];
+        $existingNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
+        foreach ($existingNotes as $note) {
+            $formattedNote = [
+                'id' => $note['id'],
+                'author' => $note['author'],
+                'eTag' => $note['eTag'],
+                'timestamp' => $note['timestamp'],
+                'content' => $note['note'],
+            ];
+            $formattedNotes[] = $formattedNote;
+        }
+
+        usort($formattedNotes, function ($a, $b) {
+            return strtotime($a['timestamp']) > strtotime($b['timestamp']);
+        });
+
+        return json_encode($formattedNotes);
     }
 
     protected function getFilterBar()
