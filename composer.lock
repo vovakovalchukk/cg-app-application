@@ -3322,11 +3322,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7494-spam-notification",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "90c53dbf2105985e43692f38f0056cf3ae2b5df4"
+                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.1-972696.zip",
+                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
@@ -8029,24 +8035,16 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.2",
-            "alias_normalized": "1.5.2.0",
-            "version": "dev-CGIV-7494-spam-notification",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
