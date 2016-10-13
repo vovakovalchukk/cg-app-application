@@ -8,6 +8,7 @@ use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Filter as ListingFilter;
 use CG\Listing\Unimported\Collection as ListingCollection;
@@ -38,6 +39,9 @@ class Service implements LoggerAwareInterface
     const ONE_SECOND_DELAY = 1;
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
     const REFRESH_TIMEOUT = 300;
+
+    const LOG_CODE = 'ProductsListingService';
+    const LOG_IMPORT_ALL_FILTERED = 'Creating job to import all unimported listings that match the filters:';
 
     protected $activeUserContainer;
     protected $userPreferenceService;
@@ -210,25 +214,25 @@ class Service implements LoggerAwareInterface
         $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
         $filter->setId($listingIds);
         $listings = $this->getListingService()->fetchCollectionByFilter($filter);
-        $accounts = $this->getAccountService()->fetchByOUAndStatus(
-            $this->getActiveUser()->getOuList(),
-            null,
-            null,
-            static::DEFAULT_LIMIT,
-            static::DEFAULT_PAGE,
-            ChannelType::SALES
-        );
 
-        foreach ($listings as $listing) {
-            if (!ListingStatus::canImport($listing->getStatus())) {
-                continue;
-            }
-            $account = $accounts->getById($listing->getAccountId());
-            $this->unimportedListingImportGenerator->__invoke($listing, $account);
-            $listing->setStatus(UnimportedStatus::IMPORTING);
-        }
-        $this->getListingService()->saveCollection($listings);
+        $this->listingService->importListingsCollection($listings);
         $this->notifyOfImport();
+    }
+
+    public function importListingsByFilter(ListingFilter $listingFilter)
+    {
+        $this->addGlobalLogEventParam('rootOu', $this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+
+        // Ensure we only get listings for this user's OUs
+        $listingFilter->setOrganisationUnitId($this->getActiveUser()->getOuList());
+        $this->logDebugDump(array_filter($listingFilter->toArray()), static::LOG_IMPORT_ALL_FILTERED, [], [static::LOG_CODE, 'ImportAllFiltered']);
+
+        // This can potentially take a long time, do it in the background
+        $workload = new ImportListingsByFilterWorkload($listingFilter);
+        $this->gearmanClient->doBackground(ImportListingsByFilterWorkload::FUNCTION_NAME, serialize($workload));
+
+        $this->notifyOfImport();
+        return true;
     }
 
     protected function notifyOfImport()

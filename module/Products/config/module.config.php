@@ -244,7 +244,17 @@ return [
                                         'action' => 'import'
                                     ]
                                 ],
-                            ]
+                            ],
+                            ListingsJsonController::ROUTE_IMPORT_ALL_FILTERED => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/importAllFiltered',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'importAllFiltered'
+                                    ]
+                                ],
+                            ],
                         ],
                         'may_terminate' => true,
                     ],

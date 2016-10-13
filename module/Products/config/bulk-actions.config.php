@@ -8,6 +8,20 @@ use Products\Listing\BulkActions\Action as ListingAction;
 
 return [
     'di' => [
+        'definition' => [
+            'class' => [
+                ListingAction\Import::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        ],
         'instance' => [
             'aliases' => [
                 'ProductListBulkActions' => BulkActions::class,
@@ -19,6 +33,7 @@ return [
                 'StockExportJSViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
                 'ImportJSViewModel' => ViewModel::class,
+                'ImportAllFilteredJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class,
                 'UrlDataViewStockImport' => ViewModel::class,
                 'UrlDataViewStockExport' => ViewModel::class
@@ -122,6 +137,16 @@ return [
             ListingAction\Import::class => [
                 'parameters' => [
                     'javascript' => 'ImportJSViewModel'
+                ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => ListingAction\ImportAllFiltered::class],
+                    ],
+                ],
+            ],
+            ListingAction\ImportAllFiltered::class => [
+                'parameters' => [
+                    'javascript' => 'ImportAllFilteredJSViewModel'
                 ]
             ],
             'HideJSViewModel' => [
@@ -132,6 +157,11 @@ return [
             'ImportJSViewModel' => [
                 'parameters' => [
                     'template' => 'products/listings/bulk-actions/import-js',
+                ],
+            ],
+            'ImportAllFilteredJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/listings/bulk-actions/import-all-filtered-js',
                 ],
             ],
             'ListingDetailBulkActions' => [

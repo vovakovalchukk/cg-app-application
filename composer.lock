@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a241568ea16de985e2a6ed7a0b5717d3",
-    "content-hash": "97ceac8c8e09d412713acd75b76a5fee",
+    "hash": "f6229d30dad5b513f00777e0478d84d2",
+    "content-hash": "b377579ef6321a1b9b29962a20472fab",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.9.8.2",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "0e71e8813836339bddb63405ef0c844960170511"
+                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.8.2-d5edb7.zip",
-                "reference": "0e71e8813836339bddb63405ef0c844960170511",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.0-76c296.zip",
+                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8",
                 "shasum": null
             },
             "require": {
@@ -1068,7 +1068,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-04-19 08:04:14"
+            "time": "2016-10-13 12:35:24"
         },
         {
             "name": "channelgrabber/locale",
