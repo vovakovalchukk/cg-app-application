@@ -37,6 +37,7 @@ define([], function() {
             }
             $('#' + status + 'Count').html(json.status[status]);
             $('#' + status + 'CountSub').html(json.status[status]);
+            this.showHideCount(status, json.status[status]);
         }
         var maxCount = 0;
         var batches = json.batches;
@@ -50,6 +51,22 @@ define([], function() {
         };
         this.setCountWidths(json.status)
             .changeMarginOfDeleteCrossBasedOnBatchCountStringLength(maxCount);
+    };
+
+    OrderCounts.prototype.showHideCount = function(status, count)
+    {
+        if (count == 0) {
+            if ($('#' + status + 'Count').length && $('#' + status + 'Count').closest('li').hasClass('hide-if-zero')) {
+                $('#' + status + 'Count').closest('li').addClass('hidden');
+            }
+            if ($('#' + status + 'CountSub').length && $('#' + status + 'CountSub').closest('li').hasClass('hide-if-zero')) {
+                $('#' + status + 'CountSub').closest('li').addClass('hidden');
+            }
+
+        } else {
+            $('#' + status + 'Count').closest('li').removeClass('hidden');
+            $('#' + status + 'CountSub').closest('li').removeClass('hidden');
+        }
     };
 
     OrderCounts.prototype.setCountWidths = function(statusCounts)

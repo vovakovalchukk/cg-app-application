@@ -1,7 +1,6 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Dataplug\Order\Services\Service as DataplugServicesService;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG_UI\View\Helper\Mustache as MustacheViewHelper;
@@ -51,11 +50,8 @@ class CourierJsonController extends AbstractActionController
     protected $labelReadyService;
     /** @var ManifestService */
     protected $manifestService;
-    /** @var DataplugServicesService */
-    protected $dataplugServicesService;
 
     protected $errorMessageMap = [
-        DataplugServicesService::PRODUCT_CODE_ERROR_REGEX => 'Your selected service is not available for that order, please choose another'
     ];
 
     public function __construct(
@@ -65,8 +61,7 @@ class CourierJsonController extends AbstractActionController
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
-        ManifestService $manifestService,
-        DataplugServicesService $dataplugServicesService
+        ManifestService $manifestService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -74,8 +69,7 @@ class CourierJsonController extends AbstractActionController
             ->setLabelCreateService($labelCreateService)
             ->setLabelCancelService($labelCancelService)
             ->setLabelReadyService($labelReadyService)
-            ->setManifestService($manifestService)
-            ->setDataplugServicesService($dataplugServicesService);
+            ->setManifestService($manifestService);
     }
 
     /**
@@ -181,9 +175,6 @@ class CourierJsonController extends AbstractActionController
         $accountId
     ) {
         $orderFieldErrors = $this->validationExceptionToPerOrderErrorArray($e);
-        $services = $this->dataplugServicesService->checkForUnavailableServiceErrorAndGetAvailableServices(
-            $orderFieldErrors, $ordersData, $ordersParcelsData, $accountId
-        );
         $message = $this->getValidationFailureMessage($orderFieldErrors);
         return $this->jsonModelFactory->newInstance([
             'readyStatuses' => [],
@@ -191,7 +182,6 @@ class CourierJsonController extends AbstractActionController
             'notReadyCount' => 0,
             'errorCount' => count($orderFieldErrors),
             'partialErrorMessage' => $message,
-            'orderServices' => $services,
         ]);
     }
 
@@ -215,9 +205,6 @@ class CourierJsonController extends AbstractActionController
                 $notReadyCount++;
             }
         }
-        $services = $this->dataplugServicesService->checkForUnavailableServiceErrorAndGetAvailableServices(
-            $orderFieldErrors, $ordersData, $ordersParcelsData, $accountId
-        );
         $partialErrorMessage = $this->getPartialErrorMessage($orderFieldErrors);
         return $this->jsonModelFactory->newInstance([
             'readyStatuses' => $labelReadyStatuses,
@@ -225,7 +212,6 @@ class CourierJsonController extends AbstractActionController
             'notReadyCount' => $notReadyCount,
             'errorCount' => $errorCount,
             'partialErrorMessage' => $partialErrorMessage,
-            'orderServices' => $services,
         ]);
     }
 
@@ -483,12 +469,6 @@ class CourierJsonController extends AbstractActionController
     protected function setManifestService(ManifestService $manifestService)
     {
         $this->manifestService = $manifestService;
-        return $this;
-    }
-
-    protected function setDataplugServicesService(DataplugServicesService $dataplugServicesService)
-    {
-        $this->dataplugServicesService = $dataplugServicesService;
         return $this;
     }
 }

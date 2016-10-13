@@ -2,7 +2,7 @@
 namespace CG\CourierAdapter\Provider;
 
 use CG\Account\Shared\Entity as AccountEntity;
-use CG\Channel\ShippingServiceInterface;
+use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 

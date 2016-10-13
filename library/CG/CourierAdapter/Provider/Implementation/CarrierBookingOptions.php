@@ -2,7 +2,7 @@
 namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\Account\Shared\Entity as AccountEntity;
-use CG\Channel\CarrierBookingOptionsInterface;
+use CG\Channel\Shipping\Provider\BookingOptionsInterface as CarrierBookingOptionsInterface;
 use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
@@ -239,14 +239,6 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             $data[$insuranceOption->getReference()] = $insuranceOption->getDisplayName();
         }
         return $data;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCancellationAllowedForOrder(AccountEntity $account, OrderEntity $order)
-    {
-        return $this->labelCancelService->isCancellationAllowedForOrder($account, $order);
     }
 
     /**
