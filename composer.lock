@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f6229d30dad5b513f00777e0478d84d2",
-    "content-hash": "b377579ef6321a1b9b29962a20472fab",
+    "hash": "af747f645f47e120ce44077af9a42467",
+    "content-hash": "81682f1663f54f6e2932394a2a0e839a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3328,6 +3328,12 @@
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "90c53dbf2105985e43692f38f0056cf3ae2b5df4"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7494-spam-notification-20cd45.zip",
+                "reference": "90c53dbf2105985e43692f38f0056cf3ae2b5df4",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
                 "channelgrabber/constants": "dev-master",
@@ -3365,7 +3371,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-09-23 10:53:41"
+            "time": "2016-10-10 14:17:44"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -6858,7 +6864,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
+                "url": "/home/phillclarence/.cg-loki/cgcodeception",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6886,7 +6892,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/spork.git",
+                "url": "/home/phillclarence/.cg-loki/spork",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
@@ -8045,8 +8051,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
