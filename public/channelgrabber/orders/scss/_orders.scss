@@ -10,6 +10,53 @@
     overflow-y: auto;
     max-height: 400px;
 }
+.sidebar-hidden {
+    .section-header {
+        width: calc(100% - 121px);
+    }
+}
+
+.section-header {
+    max-height: 140px;
+    width: calc(100% - 261px);
+    position: fixed;
+    z-index: 10;
+    border-bottom: 1px solid $color-lgrey;
+    border-left: 1px solid $color-lgrey;
+    background: $color-grey;
+    display: flex;
+    justify-content: space-between;
+    .manual-order-header {
+        .manual-order-header-text {
+            h1 {
+                font-size: 24px;
+            }
+            .sprite-sprite {
+                display: inline-block;
+                float: left;
+                margin-right: 6px;
+            }
+        }
+    }
+    .manual-order-actions {
+        .create-order-btn {
+            color: white;
+            max-width: 120px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            padding: 10px;
+            background: linear-gradient(to bottom right, $color-active-dblue, $color-dblue);
+            &:active {
+                background: linear-gradient(to bottom right, $color-dblue, $color-active-dblue);
+            }
+        }
+    }
+}
+
+#product-information {
+    margin-top: 140px;
+    border-top: 0;
+}
 
 .order-form-wrapper {
     color: $color-dgrey;
