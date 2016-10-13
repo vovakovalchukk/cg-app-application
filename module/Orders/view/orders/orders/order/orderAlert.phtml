@@ -12,7 +12,7 @@
         }
         ?>
         <div class="order-alert-inputholder">
-            <input type="text" class="inputbox" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
+            <input type="text" class="inputbox" name="orderAlertText" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
         </div>
         <input type="hidden" value="<?= ($alert) ? $alert->getStoredETag() : ""; ?>" id="eTag"/>
         <?php if (isset($order)): ?>
