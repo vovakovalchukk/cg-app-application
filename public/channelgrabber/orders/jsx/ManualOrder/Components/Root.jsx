@@ -21,7 +21,7 @@ define([
             }
         },
         getCurrencyOptions: function () {
-            return this.context.currencyUtils.getCurrencies();
+            return this.props.utilities.currency.getCurrencies();
         },
         onCurrencyChanged: function (newCurrency) {
             this.setState({
@@ -35,6 +35,11 @@ define([
                 imageUtils: this.props.utilities.image
             };
         },
+        getOrderData: function (orderData) {
+            this.setState({
+                order: orderData
+            });
+        },
         render: function () {
             return (
                 <div className="order-form-wrapper">
@@ -46,7 +51,7 @@ define([
                             <Select filterable={true} options={this.getCurrencyOptions()} selectedOption={this.state.selectedCurrency} onNewOption={this.onCurrencyChanged}/>
                         </div>
                     </div>
-                    <OrderTable currency={this.state.selectedCurrency}/>
+                    <OrderTable currency={this.state.selectedCurrency} getOrderData={this.getOrderData.bind(this)}/>
                 </div>
             );
         }

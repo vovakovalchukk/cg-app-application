@@ -24,13 +24,18 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('productSelection', this.onProductSelected);
+            window.addEventListener('orderSubmit', this.onOrderSubmit);
         },
         componentWillUnmount: function () {
             window.removeEventListener('productSelection', this.onProductSelected);
+            window.removeEventListener('orderSubmit', this.onOrderSubmit);
         },
         onProductSelected: function (e) {
             var data = e.detail;
             this.addOrderRow(data.product, data.sku, data.quantity);
+        },
+        onOrderSubmit: function (e) {
+            this.props.getOrderData(this.state);
         },
         addOrderRow: function (product, sku, quantity) {
             var orderRows = this.state.orderRows.slice();
