@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ac1e625fd6cc2136752eb173c15703c3",
-    "content-hash": "bb45dad79aaac72dddcfdefbd490c44d",
+    "hash": "da610c3324593c91e4cbc418984a6e0b",
+    "content-hash": "077071cca4ba7a5b4966e1c53d254b53",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3575,17 +3575,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.5",
+            "version": "dev-CGIV-7400-implement-order-creation-action",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.5-3604eb.zip",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080",
-                "shasum": null
+                "reference": "aa12375dd7ab9f48af084d04d28ca574d601b9c9"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8035,18 +8029,25 @@
             "alias_normalized": "1.26.1.0",
             "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7400-implement-order-creation-action",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
