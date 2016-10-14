@@ -3581,17 +3581,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.5",
+            "version": "dev-CGIV-7555-bigcommerce-app-store-revisions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.5-3604eb.zip",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080",
-                "shasum": null
+                "reference": "532a6597488c30e43c3ad2996507d66e46024dde"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8041,18 +8035,25 @@
             "alias_normalized": "1.5.2.0",
             "version": "dev-CGIV-7494-spam-notification",
             "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7555-bigcommerce-app-store-revisions",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-register": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
