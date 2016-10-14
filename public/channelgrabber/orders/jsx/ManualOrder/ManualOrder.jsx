@@ -30,9 +30,11 @@ define([
 
         this.collectFormData = function() {
             var rawOrderData = self.manualOrderRef.state.order;
+            var rawCurrencyData = self.manualOrderRef.state.selectedCurrency;
             var rawNoteData = self.noteRef.state;
 
             self.submitFormData({
+                "currencyCode": rawCurrencyData.name,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
                 "totalDiscount": (rawOrderData.discount.active ? rawOrderData.discount.value : 0),
