@@ -33,7 +33,6 @@ define([
             var rawNoteData = self.noteRef.state;
 
             self.submitFormData({
-                "organisationUnitId": 2,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
                 "totalDiscount": (rawOrderData.discount.active ? rawOrderData.discount.value : 0),
