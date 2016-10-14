@@ -56,38 +56,6 @@ module.exports = function(grunt) {
                 ]
             }
         },
-        sync: {
-            appJsToCgBuilt: {
-                files: [{
-                    expand: true,
-                    cwd: 'public/channelgrabber/',
-                    src: [ '**/js/**/*.js'],
-                    dest: 'public/cg-built/'
-                }],
-                verbose: true
-            },
-            vendorJsToCgBuilt: {
-                files: [{
-                    expand: true,
-                    cwd: 'vendor/channelgrabber/',
-                    src: [ '**/js/**/*.js'],
-                    dest: 'public/cg-built/'
-                }],
-                verbose: true
-            },
-            vanillaJsToGeneratedJs: {
-                files: [{
-                    expand: true,
-                    cwd: 'public/channelgrabber/',
-                    src: ['**/js-vanilla/**/*.js'],
-                    dest: 'public/channelgrabber/',
-                    rename: function (dest, src) {
-                        return dest + src.replace('js-vanilla', 'js');
-                    },
-                    verbose: true
-                }]
-            }
-        },
         requirejs: {
             compile: {
                 options: {
@@ -122,11 +90,11 @@ module.exports = function(grunt) {
             },
             copyVanillaJs: {
                 files: 'public/channelgrabber/**/js-vanilla/**/*.js',
-                tasks: ['sync:vanillaJsToGeneratedJs']
+                tasks: ['newer:copy:vanillaJsToGeneratedJs']
             },
             copyLegacyJs: {
                 files: 'public/channelgrabber/**/js/**/*.js',
-                tasks: ['sync:appJsToCgBuilt']
+                tasks: ['newer:copy:appJsToCgBuilt']
             }
         }
     });
