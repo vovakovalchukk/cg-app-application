@@ -3,6 +3,7 @@ namespace Orders\ManualOrder;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Http\SaveCollectionHandleErrorsTrait;
+use CG\Locale\CountryNameByCode;
 use CG\ManualOrder\Account\Service as ManualOrderAccountService;
 use CG\Order\Client\Item\Service as OrderItemService;
 use CG\Order\Client\Service as OrderService;
@@ -141,14 +142,13 @@ class Service implements LoggerAwareInterface
         $orderData['printedDate'] = null;
         $orderData['dispatchDate'] = null;
         $orderData['total'] = $this->calculateTotalFromOrderData($orderData);
-        // TODO: get this from the UI?
-        $orderData['currencyCode'] = 'GBP';
 
         if (isset($orderData['shippingAddressSameAsBilling']) && 
             filter_var($orderData['shippingAddressSameAsBilling'], FILTER_VALIDATE_BOOLEAN) == true
         ) {
             $this->copyBillingAddressToShippingAddress($orderData);
         }
+        $this->ensureCountryCodes($orderData);
 
         unset($orderData['item'], $orderData['alert'], $orderData['note']);
         $order = $this->orderMapper->fromArray($orderData);
@@ -192,6 +192,16 @@ class Service implements LoggerAwareInterface
             }
             $shippingField = str_replace('billing', 'shipping', $field);
             $orderData[$shippingField] = $value;
+        }
+    }
+
+    protected function ensureCurrencyCodes(array &$orderData)
+    {
+        if (!isset($orderData['billingAddressCountryCode'])) {
+            $orderData['billingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($orderData['billingAddressCountry']);
+        }
+        if (!isset($orderData['shippingAddressCountryCode'])) {
+            $orderData['shippingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($orderData['shippingAddressCountry']);
         }
     }
 
