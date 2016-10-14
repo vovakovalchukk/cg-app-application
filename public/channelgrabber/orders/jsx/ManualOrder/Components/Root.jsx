@@ -38,7 +38,7 @@ define([
         getOrderData: function (orderData) {
             this.setState({
                 order: orderData
-            });
+            }, function(){this.props.onCreateOrder()});
         },
         render: function () {
             return (
@@ -51,7 +51,7 @@ define([
                             <Select filterable={true} options={this.getCurrencyOptions()} selectedOption={this.state.selectedCurrency} onNewOption={this.onCurrencyChanged}/>
                         </div>
                     </div>
-                    <OrderTable currency={this.state.selectedCurrency} getOrderData={this.getOrderData.bind(this)}/>
+                    <OrderTable currency={this.state.selectedCurrency} getOrderData={this.getOrderData}/>
                 </div>
             );
         }
