@@ -2,32 +2,43 @@ define([
     'react',
     'react-dom',
     'ManualOrder/Components/Root',
-    'Common/Components/Notes/Root'
+    'Common/Components/Notes/Root',
+    'Common/Components/Popup'
 ], function(
     React,
     ReactDOM,
     RootComponent,
-    NoteComponent
+    NoteComponent,
+    PopupComponent
 ) {
     var ManualOrder = function(mountingNodes, utilities, currentUser)
     {
-        this.orderSubmitEvent = new CustomEvent('orderSubmit');
-        this.manualOrderRef = ReactDOM.render(<RootComponent utilities={utilities}/>, mountingNodes.productInfo);
-        this.noteRef = ReactDOM.render(<NoteComponent author={currentUser}/>, mountingNodes.orderNotes);
+        var self = this;
+        this.popupContent = <p className="center-align">Create the order?</p>;
+        function onPopupClickNo() {
+            self.popupRef.setState({
+                active: false
+            });
+        }
+        function onPopupClickYes() {
+            window.dispatchEvent(self.orderSubmitEvent);
+            self.popupRef.setState({
+                active: false
+            });
+            n.notice("Creating order...");
+        }
 
         this.collectFormData = function() {
-            window.dispatchEvent(this.orderSubmitEvent);
+            var rawOrderData = self.manualOrderRef.state.order;
+            var rawNoteData = self.noteRef.state;
 
-            var rawOrderData = this.manualOrderRef.state.order;
-            var rawNoteData = this.noteRef.state;
-
-            return {
+            self.submitFormData({
                 "organisationUnitId": 2,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
                 "totalDiscount": (rawOrderData.discount.active ? rawOrderData.discount.value : 0),
-                "item": this.mapOrderItems(rawOrderData.orderRows),
-                "note": this.mapNotes(rawNoteData.notes),
+                "item": self.mapOrderItems(rawOrderData.orderRows),
+                "note": self.mapNotes(rawNoteData.notes),
                 "billingAddressCompanyName": $("input[name='billingAddressCompanyName']").val(),
                 "billingAddressFullName": $("input[name='billingAddressFullName']").val(),
                 "billingAddress1": $("input[name='billingAddress1']").val(),
@@ -55,7 +66,7 @@ define([
                 "shippingAddressCountryCode": "",
                 "buyerMessage":$('#buyer-message').val(),
                 "alert": $("input[name='orderAlertText']").val()
-            };
+            });
         };
 
         this.mapNotes = function (notes) {
@@ -77,14 +88,17 @@ define([
         };
 
         this.submitFormData = function (formData) {
-            console.log(formData); return;
             $.ajax({
                 url: '/orders/new/create',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
+                    if (data.success) {
+                        n.success('Order Created');
+                        return;
+                    }
+                    n.error(data.message);
                 }.bind(this),
                 error: function (error, textStatus, errorThrown) {
                     n.ajaxError(error, textStatus, errorThrown);
@@ -96,8 +110,9 @@ define([
         {
             var self = this;
             $('#create-order-button').click(function(e) {
-                var formData = self.collectFormData();
-                self.submitFormData(formData);
+                self.popupRef.setState({
+                    active: true
+                });
             });
         };
 
@@ -105,6 +120,11 @@ define([
             this.listenForCreateOrderAction();
         };
         init.call(this);
+
+        this.orderSubmitEvent = new CustomEvent('orderSubmit');
+        this.manualOrderRef = ReactDOM.render(<RootComponent utilities={utilities} onCreateOrder={this.collectFormData}/>, mountingNodes.productInfo);
+        this.noteRef = ReactDOM.render(<NoteComponent author={currentUser}/>, mountingNodes.orderNotes);
+        this.popupRef = ReactDOM.render(<PopupComponent onNoButtonPressed={onPopupClickNo} onYesButtonPressed={onPopupClickYes}>{this.popupContent}</PopupComponent>, mountingNodes.popup);
     };
 
     return ManualOrder;
