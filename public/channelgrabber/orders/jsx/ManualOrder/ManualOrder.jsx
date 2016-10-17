@@ -97,6 +97,7 @@ define([
                 success: function (data) {
                     if (data.success) {
                         n.success('Order Created');
+                        window.location = data.url;
                         return;
                     }
                     n.error(data.message);
