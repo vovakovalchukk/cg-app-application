@@ -175,6 +175,7 @@ return [
                 'label'  => 'Settings',
                 'sprite' => 'sprite-settings-18-white',
                 'order'  => 20,
+                'target' => '_self',
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/settings'
             ]
         ]

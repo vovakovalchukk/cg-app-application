@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "af747f645f47e120ce44077af9a42467",
-    "content-hash": "81682f1663f54f6e2932394a2a0e839a",
+    "hash": "cd19595e4d92d6afc70f0111c69f391a",
+    "content-hash": "cbd510cde278e88f8905b6adad91110b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3585,7 +3585,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "532a6597488c30e43c3ad2996507d66e46024dde"
+                "reference": "d42d6f9d31fed3641e218f6dc37b2eb00a46905f"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
