@@ -178,7 +178,8 @@ class ChannelController extends AbstractActionController
     {
         $addChannelSelect = $this->newViewModel();
         $addChannelSelect->setTemplate('settings/channel/create/select');
-        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type')));
+        $includeDarkDeploy = $this->activeUserContainer->isAdmin();
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type'), $includeDarkDeploy));
         return $addChannelSelect;
     }
 
