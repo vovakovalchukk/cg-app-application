@@ -20,6 +20,7 @@ class ListingsJsonController extends AbstractActionController
     const ROUTE_HIDE = 'HIDE';
     const ROUTE_REFRESH = 'refresh';
     const ROUTE_IMPORT = 'import';
+    const ROUTE_IMPORT_ALL_FILTERED = 'import all filtered';
 
     protected $listingService;
     protected $jsonModelFactory;
@@ -77,16 +78,7 @@ class ListingsJsonController extends AbstractActionController
 
         try {
             $requestFilter = $this->params()->fromPost('filter', []);
-
-            if (!isset($requestFilter['hidden'])) {
-                $requestFilter['hidden'] = [false];
-            }
-
-            foreach ($requestFilter['hidden'] as $index => $hidden) {
-                if ($hidden == 'No') {
-                    $requestFilter['hidden'][$index] = false;
-                }
-            }
+            $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
 
             $requestFilter = $this->getFilterMapper()->fromArray($requestFilter)
                 ->setPage($pageLimit->getPage())
@@ -114,6 +106,21 @@ class ListingsJsonController extends AbstractActionController
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    protected function ensureHiddenFilterApplied(array $requestFilter)
+    {
+        if (!isset($requestFilter['hidden'])) {
+            $requestFilter['hidden'] = [false];
+        }
+
+        foreach ($requestFilter['hidden'] as $index => $hidden) {
+            if ($hidden == 'No') {
+                $requestFilter['hidden'][$index] = false;
+            }
+        }
+
+        return $requestFilter;
     }
 
     public function hideAction()
@@ -155,6 +162,19 @@ class ListingsJsonController extends AbstractActionController
         $this->getListingService()->importListingsById($listingIds);
         $view->setVariable('import', true);
         return $view;
+    }
+
+    public function importAllFilteredAction()
+    {
+        $this->checkUsage();
+
+        $requestFilter = $this->params()->fromPost('filter', []);
+        $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
+
+        $listingFilter = $this->filterMapper->fromArray($requestFilter);        
+        $success = $this->listingService->importListingsByFilter($listingFilter);
+
+        return $this->getJsonModelFactory()->newInstance(['import' => $success]);
     }
 
     protected function checkUsage()

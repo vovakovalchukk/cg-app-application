@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e9963f494719613b1838501b26ae632",
-    "content-hash": "077071cca4ba7a5b4966e1c53d254b53",
+    "hash": "d839042c01621baa66389f79184de2dc",
+    "content-hash": "c8c10af5925fa827b07bf3278c440127",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,11 +345,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
+            "version": "1.26.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0cbf1db7775f142a8f155ab165cb3a7a66b3e801"
+                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.0-16b8be.zip",
+                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -416,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-06 08:24:52"
+            "time": "2016-10-04 14:00:29"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1018,16 +1024,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.9.8.2",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "0e71e8813836339bddb63405ef0c844960170511"
+                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.8.2-d5edb7.zip",
-                "reference": "0e71e8813836339bddb63405ef0c844960170511",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.0-76c296.zip",
+                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8",
                 "shasum": null
             },
             "require": {
@@ -1062,7 +1068,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-04-19 08:04:14"
+            "time": "2016-10-13 12:35:24"
         },
         {
             "name": "channelgrabber/locale",
@@ -1469,16 +1475,16 @@
         },
         {
             "name": "channelgrabber/phinx",
-            "version": "0.3.2.5",
+            "version": "0.3.8.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/phinx.git",
-                "reference": "9b3ca473efa4635c9556bd7a1f9437e8889095b1"
+                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.2.5-b01046.zip",
-                "reference": "9b3ca473efa4635c9556bd7a1f9437e8889095b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.8.2-dde0a9.zip",
+                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73",
                 "shasum": null
             },
             "require": {
@@ -1511,7 +1517,8 @@
                 {
                     "name": "Rob Morgan",
                     "email": "robbym@gmail.com",
-                    "homepage": "http://robmorgan.id.au"
+                    "homepage": "http://robmorgan.id.au",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Phinx makes it ridiculously easy to manage the database migrations for your PHP app.",
@@ -1523,7 +1530,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2015-03-04 15:41:30"
+            "time": "2016-10-11 15:35:33"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -2539,16 +2546,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.3",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "14d218b8ee28b3d98c397b5872223369645c9201"
+                "reference": "26789fab4c424834b215505024351ba79fce6cdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.3-c63d6f.zip",
-                "reference": "14d218b8ee28b3d98c397b5872223369645c9201",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.1-1e34f3.zip",
+                "reference": "26789fab4c424834b215505024351ba79fce6cdd",
                 "shasum": null
             },
             "require": {
@@ -2586,7 +2593,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-10-11 10:19:10"
+            "time": "2016-07-05 13:04:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3315,16 +3322,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc"
+                "reference": "2aa05f1c171e564bf2305f1f27f4d83659ef4b17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.1-972696.zip",
-                "reference": "7620805fca1c33eeaffa49ecc50e39789ea4bbcc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.2-451878.zip",
+                "reference": "2aa05f1c171e564bf2305f1f27f4d83659ef4b17",
                 "shasum": null
             },
             "require": {
@@ -3364,7 +3371,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-09-23 10:53:41"
+            "time": "2016-10-14 10:27:18"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3407,23 +3414,22 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "cf8d93a58db3425c62a56dc1c687c6806bfdb3d5"
+                "reference": "570a31cc44bc1deee8b53ed000bd45fea8181e8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.5-b1b59f.zip",
-                "reference": "cf8d93a58db3425c62a56dc1c687c6806bfdb3d5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.6-9f4a5b.zip",
+                "reference": "570a31cc44bc1deee8b53ed000bd45fea8181e8f",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/phinx": "~0.3.2.3",
+                "channelgrabber/di": "^2.1.0",
+                "channelgrabber/phinx": "^0.3.2.3",
                 "channelgrabber/stdlib": "^2.12.0",
-                "composer/composer": "@dev",
                 "predis/predis": "~0.8.3",
                 "zendframework/zend-config": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
@@ -3442,7 +3448,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2015-09-09 10:29:36"
+            "time": "2016-10-12 08:02:06"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -3575,11 +3581,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7400-implement-order-creation-action",
+            "version": "1.17.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "27b1f0f79c98fd2285d6d7b9b0f6fba7841dacb5"
+                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.5-3604eb.zip",
+                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3800,7 +3812,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-c41079192f38f0fc446b17baa8f628dcb3b61e7d-zip-2f144b.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/c41079192f38f0fc446b17baa8f628dcb3b61e7d",
                 "reference": "c41079192f38f0fc446b17baa8f628dcb3b61e7d",
                 "shasum": "557f4fb72b06f29ad2f07f44ce744b703b7cea9a"
             },
@@ -5727,12 +5739,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -8023,31 +8035,16 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.1",
-            "alias_normalized": "1.26.1.0",
-            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.17.6",
-            "alias_normalized": "1.17.6.0",
-            "version": "dev-CGIV-7400-implement-order-creation-action",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
