@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d839042c01621baa66389f79184de2dc",
+    "hash": "9508d85ebd57068a6de71229aa999f1b",
     "content-hash": "c8c10af5925fa827b07bf3278c440127",
     "packages": [
         {
@@ -345,17 +345,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.26.0",
+            "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.0-16b8be.zip",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967",
-                "shasum": null
+                "reference": "b45d1efb6e06fef4dc35aa45ded855379d6657a5"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -8035,16 +8029,24 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.26.1",
+            "alias_normalized": "1.26.1.0",
+            "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
