@@ -7,16 +7,18 @@ require.config({
     }
 });
 require(
-    ['ManualOrder/ManualOrder', 'Common/Utils/Carrier', 'Common/Utils/Currency', 'Common/Utils/Image'],
-    function(ManualOrderRoot, CarrierUtils, CurrencyUtils, ImageUtils) {
+    ['ManualOrder/ManualOrder', 'Common/Utils/Carrier', 'Common/Utils/Currency', 'Common/Utils/Image', 'Common/Utils/Ou'],
+    function(ManualOrderRoot, CarrierUtils, CurrencyUtils, ImageUtils, OuUtils) {
 
     var domElements = {
         productInfo: document.getElementById('product-information'),
         orderNotes: document.getElementById('order-notes'),
-        popup: document.getElementById('popup-container-id')
+        popup: document.getElementById('popup-container-id'),
+        companySelect: document.getElementById('trading-company-select')
     };
 
     var utilities = {
+        ou: new OuUtils({ ouList: JSON.parse('<?= $tradingCompanies ?>') }),
         carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
         currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
         image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
@@ -35,7 +37,7 @@ require(
             <h1>Manual Order</h1>
         </div>
         <div class="manual-order-options">
-
+            <div id="trading-company-select"></div>
         </div>
     </div>
     <div class="manual-order-actions">

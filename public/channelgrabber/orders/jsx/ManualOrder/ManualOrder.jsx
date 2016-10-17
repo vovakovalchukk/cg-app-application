@@ -3,12 +3,14 @@ define([
     'react-dom',
     'ManualOrder/Components/Root',
     'Common/Components/Notes/Root',
+    'Common/Components/Select',
     'Common/Components/Popup'
 ], function(
     React,
     ReactDOM,
     RootComponent,
     NoteComponent,
+    Select,
     PopupComponent
 ) {
     var ManualOrder = function(mountingNodes, utilities, currentUser)
@@ -32,8 +34,10 @@ define([
             var rawOrderData = self.manualOrderRef.state.order;
             var rawCurrencyData = self.manualOrderRef.state.selectedCurrency;
             var rawNoteData = self.noteRef.state;
+            var rawCompanySelData = self.companySelRef.state;
 
             self.submitFormData({
+                "organisationUnitId": rawCompanySelData.selectedOption.value,
                 "currencyCode": rawCurrencyData.name,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
@@ -127,6 +131,11 @@ define([
         this.manualOrderRef = ReactDOM.render(<RootComponent utilities={utilities} onCreateOrder={this.collectFormData}/>, mountingNodes.productInfo);
         this.noteRef = ReactDOM.render(<NoteComponent author={currentUser}/>, mountingNodes.orderNotes);
         this.popupRef = ReactDOM.render(<PopupComponent onNoButtonPressed={onPopupClickNo} onYesButtonPressed={onPopupClickYes}>{this.popupContent}</PopupComponent>, mountingNodes.popup);
+
+        var tradingCompanies = utilities.ou.getTradingCompanies();
+        if (tradingCompanies.length > 1) {
+            this.companySelRef = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
+        }
     };
 
     return ManualOrder;
