@@ -6,7 +6,7 @@ class StockImportFileTable extends AbstractMigration
 {
     public function change()
     {
-        $this->table("stockImportFiles", ['id' => false])
+        $this->table("stockImportFiles", ['id' => false, 'collation' => 'utf8_general_ci'])
             ->addColumn('status', 'string')
             ->addColumn('type', 'string')
             ->addColumn('fileContents', 'text')
