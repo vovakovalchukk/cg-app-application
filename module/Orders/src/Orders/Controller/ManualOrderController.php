@@ -7,7 +7,9 @@ use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\ManualOrder\Service;
 use Orders\Order\Service as OrderService;
+use CG\OrganisationUnit\Service as OuService;
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
 use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -21,20 +23,28 @@ class ManualOrderController extends AbstractActionController
     protected $usageService;
     /** @var Service */
     protected $service;
+    /** @var OuService */
+    protected $ouService;
     /** @var OrderService */
     protected $orderService;
+    /** @var ActiveUserContainer */
+    protected $activeUserContainer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         UsageService $usageService,
         Service $service,
+        OuService $ouService,
+        ActiveUserContainer $activeUserContainer,
         OrderService $orderService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setUsageService($usageService)
             ->setService($service)
+            ->setOuService($ouService)
+            ->setActiveUserContainer($activeUserContainer)
             ->setOrderService($orderService);
     }
 
@@ -45,6 +55,40 @@ class ManualOrderController extends AbstractActionController
         }
 
         $currenciesList = $this->service->getCurrencyOptions();
+        $tradingCompanies = $this->getTradingCompanyOptions();
+        $carrierDropdownOptions = $this->getCarrierDropdownOptions();
+
+        $view = $this->viewModelFactory->newInstance();
+        $view->setVariable('isHeaderBarVisible', false)
+            ->setVariable('subHeaderHide', true)
+            ->setVariable('currenciesJson', json_encode($currenciesList))
+            ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
+            ->setVariable('tradingCompanies', json_encode($tradingCompanies))
+            ->addChild($this->getBuyerMessage(), 'buyerMessage')
+            ->addChild($this->getAddressInformation(), 'addressInformation')
+            ->addChild($this->getOrderAlert(), 'orderAlert')
+            ->addChild($this->getSidebar(), 'sidebar');
+
+        return $view;
+    }
+
+    protected function getTradingCompanyOptions()
+    {
+        $tradingCompanies = $this->activeUserContainer->getActiveUser()->getOuList();
+
+        $tradingCompanyOptions = [];
+        foreach ($tradingCompanies as $ouId) {
+            $ou = $this->ouService->fetch($ouId);
+            $tradingCompanyOptions[] = [
+                'name' => $ou->getAddressCompanyName(),
+                'value' => $ouId
+            ];
+        }
+        return $tradingCompanyOptions;
+    }
+
+    protected function getCarrierDropdownOptions()
+    {
 
         $carrierList = $this->orderService->getCarriersData();
         $carrierDropdownOptions = [];
@@ -55,18 +99,7 @@ class ManualOrderController extends AbstractActionController
                 'value' => $carrier,
             ];
         }
-
-        $view = $this->viewModelFactory->newInstance();
-        $view->setVariable('isHeaderBarVisible', false)
-            ->setVariable('subHeaderHide', true)
-            ->setVariable('currenciesJson', json_encode($currenciesList))
-            ->setVariable('carriersJson', json_encode($carrierDropdownOptions))
-            ->addChild($this->getBuyerMessage(), 'buyerMessage')
-            ->addChild($this->getAddressInformation(), 'addressInformation')
-            ->addChild($this->getOrderAlert(), 'orderAlert')
-            ->addChild($this->getSidebar(), 'sidebar');
-
-        return $view;
+        return $carrierDropdownOptions;
     }
 
     protected function getBuyerMessage()
@@ -150,6 +183,18 @@ class ManualOrderController extends AbstractActionController
     protected function setService(Service $service)
     {
         $this->service = $service;
+        return $this;
+    }
+
+    protected function setOuService(OuService $ouService)
+    {
+        $this->ouService = $ouService;
+        return $this;
+    }
+
+    protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
