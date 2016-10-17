@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d839042c01621baa66389f79184de2dc",
-    "content-hash": "c8c10af5925fa827b07bf3278c440127",
+    "hash": "2480c008e9c9e07ffc4ee5a76234d5aa",
+    "content-hash": "7daa83ea04af49c8bb68b9b12cf7194e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.26.0",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967"
+                "reference": "0cbf1db7775f142a8f155ab165cb3a7a66b3e801"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.0-16b8be.zip",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-56031a.zip",
+                "reference": "0cbf1db7775f142a8f155ab165cb3a7a66b3e801",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-04 14:00:29"
+            "time": "2016-10-06 08:24:52"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2546,16 +2546,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.1",
+            "version": "1.22.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "26789fab4c424834b215505024351ba79fce6cdd"
+                "reference": "14d218b8ee28b3d98c397b5872223369645c9201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.1-1e34f3.zip",
-                "reference": "26789fab4c424834b215505024351ba79fce6cdd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.3-c63d6f.zip",
+                "reference": "14d218b8ee28b3d98c397b5872223369645c9201",
                 "shasum": null
             },
             "require": {
@@ -2593,7 +2593,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-07-05 13:04:00"
+            "time": "2016-10-11 10:19:10"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3581,16 +3581,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.5",
+            "version": "dev-CGIV-7400-implement-order-creation-action",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080"
+                "reference": "27b1f0f79c98fd2285d6d7b9b0f6fba7841dacb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.5-3604eb.zip",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7400-implement-order-creation-action-281714.zip",
+                "reference": "27b1f0f79c98fd2285d6d7b9b0f6fba7841dacb5",
                 "shasum": null
             },
             "require": {
@@ -3637,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-05 07:50:57"
+            "time": "2016-10-13 10:28:51"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6864,7 +6864,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
+                "url": "/home/jackmonk/Code/libs/cgcodeception",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6892,7 +6892,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/spork.git",
+                "url": "/home/jackmonk/Code/libs/spork",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
@@ -8035,10 +8035,25 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.26.1",
+            "alias_normalized": "1.26.1.0",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7400-implement-order-creation-action",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
