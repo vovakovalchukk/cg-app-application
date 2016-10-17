@@ -345,17 +345,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.26.0",
+            "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.0-16b8be.zip",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967",
-                "shasum": null
+                "reference": "b45d1efb6e06fef4dc35aa45ded855379d6657a5"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -8035,10 +8029,17 @@
             "alias_normalized": "1.17.6.0",
             "version": "dev-CGIV-7535-remove-duplicate-courier-name",
             "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.26.1",
+            "alias_normalized": "1.26.1.0",
+            "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
+            "package": "channelgrabber/channel"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
