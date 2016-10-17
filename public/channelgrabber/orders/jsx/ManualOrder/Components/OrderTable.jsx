@@ -12,7 +12,7 @@ define([
         getInitialState: function () {
             return {
                 shippingMethod: {
-                    name: "",
+                    name: "N/A",
                     cost: 0
                 },
                 discount: {
