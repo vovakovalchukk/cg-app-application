@@ -94,7 +94,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-stdlib": "~1.2.2",
         "channelgrabber/zf2-usage": "~1.0.10",
-        "channelgrabber/zf2-v4-ui": "~1.17.5",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs as 1.17.6",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",

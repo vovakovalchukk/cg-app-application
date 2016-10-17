@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d839042c01621baa66389f79184de2dc",
-    "content-hash": "c8c10af5925fa827b07bf3278c440127",
+    "hash": "ce76dfc9c3876f6237901e5a4ae6b477",
+    "content-hash": "e34e166bef91633504ccf3c796383ec9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3581,16 +3581,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.5",
+            "version": "dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080"
+                "reference": "b2f8f84de34ba7c8442e59dc959f4a10e655355e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.5-3604eb.zip",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs-6c96f5.zip",
+                "reference": "b2f8f84de34ba7c8442e59dc959f4a10e655355e",
                 "shasum": null
             },
             "require": {
@@ -3637,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-05 07:50:57"
+            "time": "2016-10-17 11:45:52"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8035,10 +8035,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
