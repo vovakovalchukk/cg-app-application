@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d839042c01621baa66389f79184de2dc",
-    "content-hash": "c8c10af5925fa827b07bf3278c440127",
+    "hash": "4ae15d5c6f1870cabda934596985d04b",
+    "content-hash": "fa50aff427381164461722ed4c4a7bc2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1268,17 +1268,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.1.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8993f98b561f50f33259529810710ae443bfdcea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.1.0-d937d5.zip",
-                "reference": "8993f98b561f50f33259529810710ae443bfdcea",
-                "shasum": null
+                "reference": "c1fa7ba9d2c2e2f09488d0d48168b3b444c0890f"
             },
             "require": {
                 "channelgrabber/channel": "^1.26.0",
@@ -3228,17 +3222,11 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.6",
+            "version": "dev-CGIV-7368-royal-mail-international",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.6-d4f4f3.zip",
-                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8",
-                "shasum": null
+                "reference": "63a7a49c7f5a5c34dd939c88f5f65c8a4cd8f9ef"
             },
             "require": {
                 "channelgrabber/channel": "^1.24.2",
@@ -8035,16 +8023,31 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
+            "package": "channelgrabber/zf2-netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
+        "channelgrabber/zf2-netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
