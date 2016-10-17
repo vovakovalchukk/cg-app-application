@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d839042c01621baa66389f79184de2dc",
+    "hash": "9508d85ebd57068a6de71229aa999f1b",
     "content-hash": "c8c10af5925fa827b07bf3278c440127",
     "packages": [
         {
@@ -1024,17 +1024,11 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.11.0",
+            "version": "dev-CGIV-7562-unimported-listings-missing-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.0-76c296.zip",
-                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8",
-                "shasum": null
+                "reference": "fed92b14df7904662be2251bb665da3aeba6c115"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -8035,16 +8029,24 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.11.1",
+            "alias_normalized": "1.11.1.0",
+            "version": "dev-CGIV-7562-unimported-listings-missing-images",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
