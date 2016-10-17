@@ -103,7 +103,7 @@ define([
             if (options.length) {
                 return options;
             }
-            return <div className="results-none">No results</div>
+            return <div className="results-none">{this.props.filterable ? 'No results' : ''}</div>
         },
         getSelectedOptionName: function () {
             var selectedOptionName = this.state.selectedOption && this.state.selectedOption.name ? this.state.selectedOption.name : (this.props.options.length > 0 ? this.props.options[0].name : '');
