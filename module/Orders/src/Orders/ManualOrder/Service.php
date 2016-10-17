@@ -195,7 +195,7 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function ensureCurrencyCodes(array &$orderData)
+    protected function ensureCountryCodes(array &$orderData)
     {
         if (!isset($orderData['billingAddressCountryCode'])) {
             $orderData['billingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($orderData['billingAddressCountry']);
