@@ -3585,12 +3585,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "27b1f0f79c98fd2285d6d7b9b0f6fba7841dacb5"
+                "reference": "a4707535d00b3283473f3a102e28402577eda9df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7400-implement-order-creation-action-281714.zip",
-                "reference": "27b1f0f79c98fd2285d6d7b9b0f6fba7841dacb5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7400-implement-order-creation-action-85812c.zip",
+                "reference": "a4707535d00b3283473f3a102e28402577eda9df",
                 "shasum": null
             },
             "require": {
@@ -3637,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-13 10:28:51"
+            "time": "2016-10-17 09:01:34"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
