@@ -32,7 +32,7 @@
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.10.2",
-        "channelgrabber/channel": "~1.26.0",
+        "channelgrabber/channel": "dev-HEAD as 1.26.1",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
