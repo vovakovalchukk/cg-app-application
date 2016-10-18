@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "84c7febf85d0c18a737b4f4880aa7a7b",
+    "content-hash": "c915fa4327ecf899733a420a3004d57a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -344,16 +344,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.26.0",
+            "version": "1.26.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967"
+                "reference": "0ae359eafdbd4719bfda9a47ca0ee411fa178c4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.0-16b8be.zip",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.1-812ad8.zip",
+                "reference": "0ae359eafdbd4719bfda9a47ca0ee411fa178c4a",
                 "shasum": null
             },
             "require": {
@@ -365,7 +365,7 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": ">=1.1.2,<2.0.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.9.6",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
@@ -373,7 +373,7 @@
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.5.6",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
@@ -405,7 +405,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "EPIC-CGIV-7181-amazon-mcf-with-fba": "1.25.1-dev"
+                    "dev-develop": "1.x-dev"
                 }
             },
             "autoload": {
@@ -421,7 +421,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-04T14:00:29+00:00"
+            "time": "2016-10-18T11:03:12+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -950,16 +950,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "dev-CGIV-7484-ProductImageOrder",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "bca1b9eb795a1c9d305803b5d141644e3f3fca09"
+                "reference": "71f867a18a197590916b3babd44d88966d517a11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-dev-CGIV-7484-ProductImageOrder-ed3d94.zip",
-                "reference": "bca1b9eb795a1c9d305803b5d141644e3f3fca09",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.2-0bf76f.zip",
+                "reference": "71f867a18a197590916b3babd44d88966d517a11",
                 "shasum": null
             },
             "require": {
@@ -981,7 +981,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2016-09-27T12:29:56+00:00"
+            "time": "2016-10-18T10:36:01+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -1715,16 +1715,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-7484-ProductImageOrder",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "1d0cb2b3bb9d7036186e5440371455376c51c1a4"
+                "reference": "2ac32bf11e6034ca7e6d822761155e948d8861f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7484-ProductImageOrder-388495.zip",
-                "reference": "1d0cb2b3bb9d7036186e5440371455376c51c1a4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.0-78861b.zip",
+                "reference": "2ac32bf11e6034ca7e6d822761155e948d8861f4",
                 "shasum": null
             },
             "require": {
@@ -1734,7 +1734,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "dev-CGIV-7484-ProductImageOrder as 1.2.2",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.8.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
@@ -1768,7 +1768,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-09-28 15:20:31"
+            "time": "2016-10-18T10:50:12+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2034,16 +2034,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-7484-ProductImageOrder",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "4724d2c66433d8c001db46902f1ebd9cec14ff4b"
+                "reference": "af04c9d237fe24deba3cc15c33b71e91d95d3600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7484-ProductImageOrder-182140.zip",
-                "reference": "4724d2c66433d8c001db46902f1ebd9cec14ff4b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.4-2a7172.zip",
+                "reference": "af04c9d237fe24deba3cc15c33b71e91d95d3600",
                 "shasum": null
             },
             "require": {
@@ -2074,7 +2074,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-09-28T09:39:02+00:00"
+            "time": "2016-10-18T11:43:26+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -8034,32 +8034,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
-            "version": "dev-CGIV-7484-ProductImageOrder",
-            "package": "channelgrabber/image"
-        },
-        {
-            "alias": "1.9.0",
-            "alias_normalized": "1.9.0.0",
-            "version": "dev-CGIV-7484-ProductImageOrder",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-7484-ProductImageOrder",
-            "package": "channelgrabber/shopify"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/image": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/shopify": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
