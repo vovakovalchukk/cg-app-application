@@ -18,26 +18,26 @@ define([
         var self = this;
         this.popupContent = <p className="center-align">Create the order?</p>;
         function onPopupClickNo() {
-            self.popupRef.setState({
+            self.popup.setState({
                 active: false
             });
         }
         function onPopupClickYes() {
             window.dispatchEvent(self.orderSubmitEvent);
-            self.popupRef.setState({
+            self.popup.setState({
                 active: false
             });
             n.notice("Creating order...");
         }
 
         this.collectFormData = function() {
-            var rawOrderData = self.manualOrderRef.state.order;
-            var rawCurrencyData = self.manualOrderRef.state.selectedCurrency;
-            var rawNoteData = self.noteRef.state;
-            var rawCompanySelectData = self.companySelectRef ? self.companySelectRef.state: null;
+            var rawOrderData = self.manualOrder.state.order;
+            var rawCurrencyData = self.manualOrder.state.selectedCurrency;
+            var rawNoteData = self.note.state;
+            var rawCompanySelectData = self.companySelect ? self.companySelect.state: null;
 
             self.submitFormData({
-                "organisationUnitId": self.companySelectRef ? rawCompanySelectData.selectedOption.value : '',
+                "organisationUnitId": self.companySelect ? rawCompanySelectData.selectedOption.value : '',
                 "currencyCode": rawCurrencyData.name,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
@@ -116,7 +116,7 @@ define([
         {
             var self = this;
             $('#create-order-button').click(function(e) {
-                self.popupRef.setState({
+                self.popup.setState({
                     active: true
                 });
             });
@@ -128,13 +128,13 @@ define([
         init.call(this);
 
         this.orderSubmitEvent = new CustomEvent('orderSubmit');
-        this.manualOrderRef = ReactDOM.render(<RootComponent utilities={utilities} onCreateOrder={this.collectFormData}/>, mountingNodes.productInfo);
-        this.noteRef = ReactDOM.render(<NoteComponent author={currentUser}/>, mountingNodes.orderNotes);
-        this.popupRef = ReactDOM.render(<PopupComponent onNoButtonPressed={onPopupClickNo} onYesButtonPressed={onPopupClickYes}>{this.popupContent}</PopupComponent>, mountingNodes.popup);
+        this.manualOrder = ReactDOM.render(<RootComponent utilities={utilities} onCreateOrder={this.collectFormData}/>, mountingNodes.productInfo);
+        this.note = ReactDOM.render(<NoteComponent author={currentUser}/>, mountingNodes.orderNotes);
+        this.popup = ReactDOM.render(<PopupComponent onNoButtonPressed={onPopupClickNo} onYesButtonPressed={onPopupClickYes}>{this.popupContent}</PopupComponent>, mountingNodes.popup);
 
         var tradingCompanies = utilities.ou.getTradingCompanies();
         if (tradingCompanies.length > 1) {
-            this.companySelectRef = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
+            this.companySelect = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
         }
     };
 
