@@ -55,6 +55,9 @@ define([
             );
         },
         getTimestamp: function () {
+            if (! Number.isInteger(this.props.data.timestamp)) {
+                return this.props.data.timestamp;
+            }
             var date = new Date(this.props.data.timestamp);
             var minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
             var hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
