@@ -349,7 +349,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c7a23dbdad363fa4826e34284fb5cc669c70f040"
+                "reference": "0c11fa122478b98738da52660c62912b9b424577"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
