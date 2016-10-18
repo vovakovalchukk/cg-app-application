@@ -34,10 +34,10 @@ define([
             var rawOrderData = self.manualOrderRef.state.order;
             var rawCurrencyData = self.manualOrderRef.state.selectedCurrency;
             var rawNoteData = self.noteRef.state;
-            var rawCompanySelData = self.companySelRef.state;
+            var rawCompanySelData = self.companySelRef ? self.companySelRef.state: null;
 
             self.submitFormData({
-                "organisationUnitId": rawCompanySelData.selectedOption.value,
+                "organisationUnitId": self.companySelRef ? rawCompanySelData.selectedOption.value : '',
                 "currencyCode": rawCurrencyData.name,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
