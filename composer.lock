@@ -345,25 +345,11 @@
         },
         {
             "name": "channelgrabber/channel",
-<<<<<<< HEAD
             "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "b29679b5cb53833958ad089eddc8ab39ad231ae4"
-=======
-            "version": "1.26.1",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0ae359eafdbd4719bfda9a47ca0ee411fa178c4a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.1-812ad8.zip",
-                "reference": "0ae359eafdbd4719bfda9a47ca0ee411fa178c4a",
-                "shasum": null
->>>>>>> origin/develop
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
