@@ -8025,12 +8025,15 @@
     ],
     "aliases": [
         {
+<<<<<<< HEAD
             "alias": "1.17.6",
             "alias_normalized": "1.17.6.0",
             "version": "dev-CGIV-7535-remove-duplicate-courier-name",
             "package": "channelgrabber/zf2-v4-ui"
         },
         {
+=======
+>>>>>>> CGIV-7536-make-tracking-numbers-clickable
             "alias": "1.26.1",
             "alias_normalized": "1.26.1.0",
             "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
