@@ -26,13 +26,13 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "~1.18.0",
+        "channelgrabber/amazon": "dev-CGIV-7368-royal-mail-international as 1.18.1",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.1",
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.10.2",
-        "channelgrabber/channel": "~1.26.0",
+        "channelgrabber/channel": "dev-CGIV-7368-royal-mail-international as 1.26.1",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",

@@ -4,22 +4,16 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ae15d5c6f1870cabda934596985d04b",
-    "content-hash": "fa50aff427381164461722ed4c4a7bc2",
+    "hash": "88b153055ae022bde9c92b9c7784c455",
+    "content-hash": "7e5a2e22027c5239b5ab8bb3f319a902",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.18.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d267fbbb33467678c4f258209b67d05d40ae4056"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.18.0-9c8c33.zip",
-                "reference": "d267fbbb33467678c4f258209b67d05d40ae4056",
-                "shasum": null
+                "reference": "775cba082bad2652c2ddad27fad0da43b8919d86"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -345,17 +339,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.26.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.0-16b8be.zip",
-                "reference": "d814d126ac6692a79f1ad941379e4a1fafe0a967",
-                "shasum": null
+                "reference": "055b6bee72b756d3ac31ca4255bd9d645fdda57f"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1272,7 +1260,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "c1fa7ba9d2c2e2f09488d0d48168b3b444c0890f"
+                "reference": "04387f5c7e7923d4831ac5c971013339b0829817"
             },
             "require": {
                 "channelgrabber/channel": "^1.26.0",
@@ -8025,6 +8013,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.18.1",
+            "alias_normalized": "1.18.1.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.26.1",
+            "alias_normalized": "1.26.1.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.1.1",
             "alias_normalized": "1.1.1.0",
             "version": "dev-CGIV-7368-royal-mail-international",
@@ -8039,6 +8039,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-netdespatch": 20,
