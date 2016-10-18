@@ -72,7 +72,7 @@ class Service implements
     /**
      * @return null
      */
-    public function cancelOrderLabels(OrderLabelCollection $orderLabels, Account $shippingAccount)
+    public function cancelOrderLabels(OrderLabelCollection $orderLabels, OrderCollection $orders, Account $shippingAccount)
     {
         $this->labelCancelService->cancelOrderLabels($orderLabels, $shippingAccount);
     }
