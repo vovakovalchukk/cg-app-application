@@ -74,17 +74,23 @@ class ManualOrderController extends AbstractActionController
 
     protected function getTradingCompanyOptions()
     {
-        $tradingCompanies = $this->activeUserContainer->getActiveUser()->getOuList();
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $rootOu = $this->ouService->fetch($rootOuId);
+        $tradingCompanyOptions = [[
+            'name' => $rootOu->getAddressCompanyName(),
+            'value' => $rootOuId
+        ]];
 
-        $tradingCompanyOptions = [];
-        foreach ($tradingCompanies as $ouId) {
-            $ou = $this->ouService->fetch($ouId);
-            if ($ou->getDeleted()) {
-                continue;
-            }
+        try {
+            $tradingCompanies = $this->ouService->fetchFiltered('all', 1, $rootOuId);
+        } catch (\Exception $e) {
+            return $tradingCompanyOptions;
+        }
+
+        foreach ($tradingCompanies as $ou) {
             $tradingCompanyOptions[] = [
                 'name' => $ou->getAddressCompanyName(),
-                'value' => $ouId
+                'value' => $ou->getId()
             ];
         }
         return $tradingCompanyOptions;
