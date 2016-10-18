@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2480c008e9c9e07ffc4ee5a76234d5aa",
-    "content-hash": "7daa83ea04af49c8bb68b9b12cf7194e",
+    "hash": "b821a3f103fa1ee5baf93a41ca3f4a50",
+    "content-hash": "268ab962a03bcaee435f7042a626e88a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3581,16 +3581,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7400-implement-order-creation-action",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a4707535d00b3283473f3a102e28402577eda9df"
+                "reference": "09545030c3f35e7b08d3ccb9722c6d3d29b48a0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7400-implement-order-creation-action-85812c.zip",
-                "reference": "a4707535d00b3283473f3a102e28402577eda9df",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7391-manual-orders-ui-cca7d8.zip",
+                "reference": "09545030c3f35e7b08d3ccb9722c6d3d29b48a0c",
                 "shasum": null
             },
             "require": {
@@ -3637,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-17 09:01:34"
+            "time": "2016-10-18 11:09:22"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6864,7 +6864,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/jackmonk/Code/libs/cgcodeception",
+                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6892,7 +6892,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/jackmonk/Code/libs/spork",
+                "url": "git@github.com:channelgrabber/spork.git",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
@@ -8045,7 +8045,7 @@
         {
             "alias": "1.17.6",
             "alias_normalized": "1.17.6.0",
-            "version": "dev-CGIV-7400-implement-order-creation-action",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
