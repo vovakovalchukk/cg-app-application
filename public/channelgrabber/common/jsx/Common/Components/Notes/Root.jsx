@@ -22,6 +22,9 @@ define([
             }
         },
         onCreateNote: function (e) {
+            if (! this.state.noteInput.length) {
+                return;
+            }
             var newNote = this.createNewNote();
             if (this.props.orderId == undefined) {
                 this.addNoteToList(newNote);
@@ -157,7 +160,7 @@ define([
                     </div>
                     <div className="note-form">
                         <textarea value={this.state.noteInput} onChange={this.onNoteInput}/>
-                        <button className="save button" onClick={this.onCreateNote}>Create note</button>
+                        <button className={"save button" + (this.state.noteInput.length ? "" : " disabled ")} onClick={this.onCreateNote}>Create note</button>
                     </div>
                 </div>
             );
