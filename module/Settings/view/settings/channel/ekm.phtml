@@ -40,15 +40,15 @@ $accountPageRoute = implode('/', [
 
 </div>
 <?php $this->inlineScript()->captureStart(); ?>
-require.config({
-paths: {
-'Ekm': '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER; ?>/js/Channel/Ekm'
-}
-});
-require(["Ekm/DomListener"], function(domListener) {
-domListener.init(<?= $accountId; ?>);
-});
-setTimeout(function(){
-document.getElementById('ekm-username').value = '';
-}, 150);
+    require.config({
+        paths: {
+            'Ekm': '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER; ?>/js/Channel/Ekm'
+        }
+    });
+    require(["Ekm/DomListener"], function(domListener) {
+        domListener.init(<?= $accountId; ?>);
+    });
+    setTimeout(function(){
+        document.getElementById('ekm-username').value = '';
+    }, 150);
 <?php $this->inlineScript()->captureEnd(); ?>
