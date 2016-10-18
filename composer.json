@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "~1.18.0",
+        "channelgrabber/amazon": "dev-CGIV-7089-use-users-email-address-when-sending-invoices as 1.18.1",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.1",
         "channelgrabber/billing": "~1.11.4",
