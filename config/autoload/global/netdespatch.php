@@ -46,7 +46,7 @@ return [
                         'insuranceMonetary' => false,
                         'signature' => false,
                         'deliveryInstructions' => true,
-                        'itemParcelAssignment' => false,
+                        'itemParcelAssignment' => true,
                     ],
                     'serviceOptions' => [
                         '24' => [
