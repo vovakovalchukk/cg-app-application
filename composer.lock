@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "88b153055ae022bde9c92b9c7784c455",
-    "content-hash": "7e5a2e22027c5239b5ab8bb3f319a902",
+    "hash": "ae92359c1f52375592d66e9f400d3ddc",
+    "content-hash": "1e4fd7591900f87b8cede08009eb01fd",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1260,7 +1260,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "04387f5c7e7923d4831ac5c971013339b0829817"
+                "reference": "33ab045510aa34b37871b17dd998349179e82ef0"
             },
             "require": {
                 "channelgrabber/channel": "^1.26.0",
