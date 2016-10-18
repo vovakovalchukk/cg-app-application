@@ -34,10 +34,10 @@ define([
             var rawOrderData = self.manualOrderRef.state.order;
             var rawCurrencyData = self.manualOrderRef.state.selectedCurrency;
             var rawNoteData = self.noteRef.state;
-            var rawCompanySelData = self.companySelRef ? self.companySelRef.state: null;
+            var rawCompanySelectData = self.companySelectRef ? self.companySelectRef.state: null;
 
             self.submitFormData({
-                "organisationUnitId": self.companySelRef ? rawCompanySelData.selectedOption.value : '',
+                "organisationUnitId": self.companySelectRef ? rawCompanySelectData.selectedOption.value : '',
                 "currencyCode": rawCurrencyData.name,
                 "shippingPrice": rawOrderData.shippingMethod.cost,
                 "shippingMethod": rawOrderData.shippingMethod.name,
@@ -134,7 +134,7 @@ define([
 
         var tradingCompanies = utilities.ou.getTradingCompanies();
         if (tradingCompanies.length > 1) {
-            this.companySelRef = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
+            this.companySelectRef = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
         }
     };
 
