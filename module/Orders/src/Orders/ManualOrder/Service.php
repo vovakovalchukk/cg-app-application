@@ -122,7 +122,7 @@ class Service implements LoggerAwareInterface
     
     protected function getOrganisationUnitIdForOrderCreation(array $orderData)
     {
-        if (isset($orderData['organisationUnitId'])) {
+        if (isset($orderData['organisationUnitId']) && is_numeric($orderData['organisationUnitId'])) {
             return $orderData['organisationUnitId'];
         }
         return $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
