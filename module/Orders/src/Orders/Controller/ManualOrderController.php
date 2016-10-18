@@ -79,6 +79,9 @@ class ManualOrderController extends AbstractActionController
         $tradingCompanyOptions = [];
         foreach ($tradingCompanies as $ouId) {
             $ou = $this->ouService->fetch($ouId);
+            if ($ou->getDeleted()) {
+                continue;
+            }
             $tradingCompanyOptions[] = [
                 'name' => $ou->getAddressCompanyName(),
                 'value' => $ouId
