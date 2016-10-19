@@ -29,8 +29,8 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
     ShippingServices.prototype.loadServicesSelectForOrder = function(orderId, accountId, name)
     {
         var self = this;
-        var td = $('#' + ShippingServices.SELECT_ID_PREFIX + orderId).closest('td');
-        td.empty().append(ShippingServices.LOADER);
+        var container = $('#' + ShippingServices.SELECT_ID_PREFIX + orderId);
+        container.empty().append(ShippingServices.LOADER);
 
         var templatePromise = self.fetchTemplate();
         var dataPromise = self.fetchServicesForOrder(orderId, accountId);
@@ -43,7 +43,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
                 orderId, dataResponse.serviceOptions, templateResponse.template, templateResponse.cgMustache, name
             );
 
-            td.empty().append(html);
+            container.empty().append(html);
         });
     };
 
@@ -83,17 +83,19 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 
     ShippingServices.prototype.renderServicesSelect = function(orderId, serviceOptions, template, cgMustache, name)
     {
-        name = name || 'service_' + orderId;
         var data = {
-            id: ShippingServices.SELECT_ID_PREFIX + orderId,
-            //name: 'orderData[' + orderId + '][service]',
-            name: name,
-            class: 'courier-service-custom-select',
+            id: ShippingServices.SELECT_ID_PREFIX + 'select-' + orderId,
+            name: name || 'service_' + orderId,
+            class: 'courier-service-select',
             searchField: false,
             options: serviceOptions
         };
         var html = cgMustache.renderTemplate(template, data);
-        var html = $(html).removeClass('med-element').html();
+
+        var $html = $(html);
+        $html.find('.custom-select').addClass('courier-service-custom-select');
+        // html() calls innerHtml which drops the outer-most element so wrap it in a throw-away first
+        html = $html.wrap('<div></div>').html();
 
         // If there's only one option don't bother with the select, just show it
         if (serviceOptions.length == 1) {
