@@ -224,11 +224,14 @@ class Service implements LoggerAwareInterface
         $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
         $shippingDescription = $order->getShippingMethod();
         $courierId = null;
+        $services = null;
         $service = null;
         $serviceOptions = null;
         if ($shippingAlias) {
             $shippingDescription = $shippingAlias->getName();
             $courierId = $shippingAlias->getAccountId();
+            $courierAccount = $this->accountService->fetch($courierId);
+            $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
             $service = $shippingAlias->getShippingService();
             $serviceOptions = $shippingAlias->getOptions();
         }
@@ -262,6 +265,7 @@ class Service implements LoggerAwareInterface
                 'searchField' => false,
                 'options' => $options,
             ],
+            'services' => $services,
             'service' => $service,
             'serviceOptions' => $serviceOptions,
         ];

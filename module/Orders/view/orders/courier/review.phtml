@@ -5,7 +5,11 @@
 $(document).ready(function()
 {
     var orderIds = <?=json_encode($this->orderIds);?>;
-    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds);
+    var templateMap = {
+        "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
+    };
+
+    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds, templateMap);
 
     require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
     {
