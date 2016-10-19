@@ -45,7 +45,7 @@ define([
                 'externalUsername': message.getExternalUsername(),
                 'created': message.getCreated(),
                 'createdFuzzy': message.getCreatedFuzzy(),
-                'body': message.getBody().nl2br(),
+                'body': message.getBody(),
                 'iconClass': iconClass
             });
         });
