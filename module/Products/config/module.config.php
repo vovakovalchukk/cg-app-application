@@ -948,6 +948,7 @@ return [
                     'importListings' => [
                         'id'    => 'importListings',
                         'label' => 'Import Listings',
+                        'target' => '_self',
                         'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                             '',
                             [
