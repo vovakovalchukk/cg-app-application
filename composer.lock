@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff6b6f2229864ccd7c446875f5a6ce1e",
-    "content-hash": "dbf2ef289255c9936ac7bdcb29f0336c",
+    "hash": "5f0db58106936e1b4839afa035813973",
+    "content-hash": "ea12e029c1020f079221de7665852ced",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -13,7 +13,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8fb14e46a4adae1a4804bb37c293f918984a31a1"
+                "reference": "5a449960649c4ae1ac1f4dc7cd0f718c87bb7f6e"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -343,7 +343,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ac21adb5df72fb3ef25225f6cf58d00a190ec242"
+                "reference": "2b79bb5c951207607462506e32917324d4bf3e0f"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1260,7 +1260,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "6d089da445d2d941eb8939bac72b99e1936edb1b"
+                "reference": "efabcda5e00aa64bdc5e49e90ab58c6f69abea93"
             },
             "require": {
                 "channelgrabber/channel": "^1.26.0",
