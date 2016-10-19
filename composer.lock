@@ -3585,13 +3585,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d12dce5f306865d62240d57af5dbd3346706a49e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7555-bigcommerce-app-store-revisions-e6fbc9.zip",
-                "reference": "d12dce5f306865d62240d57af5dbd3346706a49e",
-                "shasum": null
+                "reference": "d5d8dec72a1fdaf3f6d0c5ff27f9a23d73de676e"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8051,8 +8045,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
