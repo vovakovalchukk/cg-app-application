@@ -74,24 +74,6 @@ define([
             });
         };
 
-        this.mapNotes = function (notes) {
-            return notes.map(function (note) {
-                return note.note;
-            });
-        };
-
-        this.mapOrderItems = function (orderRows) {
-            return orderRows.map(function (row) {
-                return {
-                    "itemName": row.product.name,
-                    "itemSku": row.sku,
-                    "individualItemPrice": row.price,
-                    "itemQuantity": row.quantity,
-                    "productId": row.product.id
-                }
-            });
-        };
-
         this.submitFormData = function (formData) {
             $.ajax({
                 url: '/orders/new/create',
@@ -136,6 +118,24 @@ define([
         if (tradingCompanies.length > 1) {
             this.companySelect = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
         }
+    };
+
+    ManualOrder.prototype.mapNotes = function (notes) {
+        return notes.map(function (note) {
+            return note.note;
+        });
+    };
+
+    ManualOrder.prototype.mapOrderItems = function (orderRows) {
+        return orderRows.map(function (row) {
+            return {
+                "itemName": row.product.name,
+                "itemSku": row.sku,
+                "individualItemPrice": row.price,
+                "itemQuantity": row.quantity,
+                "productId": row.product.id
+            }
+        });
     };
 
     return ManualOrder;
