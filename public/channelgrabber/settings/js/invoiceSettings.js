@@ -9,7 +9,7 @@ define(
         var selector = container + ' .custom-select, ' + container + ' input:checkbox';
         var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
         var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
-        var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs'; 
+        var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
         var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
         var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
 
