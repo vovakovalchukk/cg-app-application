@@ -1,12 +1,23 @@
 define([
     'react',
-    'ManualOrder/Components/IncrementorInput'
+    'Common/Components/IncrementorInput'
 ], function(
     React,
     Input
 ) {
     "use strict";
     var DetailRow = React.createClass({
+        getDefaultProps: function () {
+            return {
+                product: {}
+            }
+        },
+        getInitialState: function () {
+            this.defaultQuantityValue = 1;
+            return {
+                selectedQuantity: {}
+            }
+        },
         getAttributeValues: function (variation) {
             var attributeValues = [];
             this.props.product.attributeNames.forEach(function(attributeName) {
@@ -56,17 +67,6 @@ define([
             return new Promise(function(resolve) {
                 resolve({savedValue: quantity});
             });
-        },
-        getInitialState: function () {
-            this.defaultQuantityValue = 1;
-            return {
-                selectedQuantity: {}
-            }
-        },
-        getDefaultProps: function () {
-            return {
-                product: {}
-            }
         },
         render: function () {
             var variations = this.props.product.variations ? this.props.product.variations : [this.props.product];
