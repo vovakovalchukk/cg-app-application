@@ -105,5 +105,8 @@ module.exports = function(grunt) {
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
 
-    grunt.registerTask('install', ['compileCss-gen', 'compileJsx', 'copyVanillaJs', 'requirejs']);
+    grunt.registerTask('install:css', ['compileCss-gen']);
+    grunt.registerTask('install:js', ['compileJsx', 'copyVanillaJs', 'requirejs']);
+
+    grunt.registerTask('install', ['install:css', 'install:js']);
 };
