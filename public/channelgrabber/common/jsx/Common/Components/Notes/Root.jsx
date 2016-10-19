@@ -1,53 +1,24 @@
 define([
     'react',
-    'Common/Components/Notes/Note'
+    'Common/Components/Notes/Note',
+    'Common/Components/Notes/Compose'
 ], function(
     React,
-    Note
+    Note,
+    Compose
 ) {
     "use strict";
 
     var RootComponent = React.createClass({
         getInitialState: function () {
             return {
-                currentId: 0,
-                noteInput: "",
                 notes: this.props.existingNotes
             }
         },
         getDefaultProps: function () {
             return {
-                author: "N/A",
                 existingNotes: []
             }
-        },
-        onCreateNote: function (e) {
-            if (! this.state.noteInput.length) {
-                return;
-            }
-            var newNote = this.createNewNote();
-            if (this.props.orderId == undefined) {
-                this.addNoteToList(newNote);
-                n.success("Note created.");
-                return;
-            }
-
-            n.notice("Creating Note...");
-            $.ajax({
-                url: '/orders/' + this.props.orderId + '/note/create',
-                type: 'POST',
-                data: {
-                    'note': newNote.note
-                },
-                dataType: 'json',
-                success: function (data) {
-                    this.addNoteToList(data.note);
-                    n.success("Note created.");
-                }.bind(this),
-                error: function (error, textStatus, errorThrown) {
-                    n.ajaxError(error, textStatus, errorThrown);
-                }
-            });
         },
         onEditNote: function (id, newContent, eTag) {
             if (this.props.orderId === undefined) {
@@ -100,30 +71,11 @@ define([
                 }
             });
         },
-        onNoteInput: function (e) {
-            this.setState({
-                noteInput: e.target.value
-            });
-        },
-        createNewNote: function () {
-            var newId = this.state.currentId + 1;
-            this.setState({
-                currentId: newId
-            });
-
-            return {
-                id: newId,
-                note: this.state.noteInput,
-                timestamp: Date.now(),
-                author: this.props.author
-            };
-        },
         addNoteToList: function (newNote) {
             var notes = this.state.notes.slice();
             notes.push(newNote);
             this.setState({
-                notes: notes,
-                noteInput: ""
+                notes: notes
             });
             return newNote;
         },
@@ -158,10 +110,7 @@ define([
                             return <Note data={note} onDelete={this.onDeleteNote} onEdit={this.onEditNote} />;
                         }.bind(this))}
                     </div>
-                    <div className="note-form">
-                        <textarea value={this.state.noteInput} onChange={this.onNoteInput}/>
-                        <button className={"save button" + (this.state.noteInput.length ? "" : " disabled ")} onClick={this.onCreateNote}>Create note</button>
-                    </div>
+                    <Compose orderId={this.props.orderId} addNoteToList={this.addNoteToList}/>
                 </div>
             );
         }
