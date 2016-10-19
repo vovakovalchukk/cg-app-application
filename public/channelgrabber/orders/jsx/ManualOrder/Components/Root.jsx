@@ -48,7 +48,7 @@ define([
                         <ProductDropdown />
                         <div className="currency-dropdown-wrapper">
                             <span className="currency-label">Currency</span>
-                            <Select filterable={true} options={this.getCurrencyOptions()} selectedOption={this.state.selectedCurrency} onNewOption={this.onCurrencyChanged}/>
+                            <Select filterable={true} options={this.getCurrencyOptions()} selectedOption={this.state.selectedCurrency} onOptionChange={this.onCurrencyChanged}/>
                         </div>
                     </div>
                     <OrderTable currency={this.state.selectedCurrency} getOrderData={this.getOrderData}/>

@@ -40,7 +40,7 @@ define([
                 }
                 return {value: variation.sku, name: optionName};
             }.bind(this));
-            return <Select options={options} onNewOption={this.props.onSkuChange.bind(this, thisSku)} selectedOption={selectedOption}/>
+            return <Select options={options} onOptionChange={this.props.onSkuChange.bind(this, thisSku)} selectedOption={selectedOption}/>
         },
         onPriceChange: function (e) {
             var price = e.target.value;

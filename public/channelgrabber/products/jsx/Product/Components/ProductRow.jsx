@@ -122,7 +122,7 @@ define([
         },
         getBulkStockModeDropdown: function () {
             if (this.state.variations.length > 0) {
-                return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onNewOption={this.bulkUpdateStockMode}/>
+                return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onOptionChange={this.bulkUpdateStockMode}/>
             }
         },
         getBulkStockLevelInput: function () {

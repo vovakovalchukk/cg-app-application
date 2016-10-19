@@ -51,7 +51,7 @@ define([
             this.setState({
                 selectedOption: selectedOption,
             });
-            this.props.onNewOption(selectedOption);
+            this.props.onOptionChange(selectedOption);
         },
         onInputFocus: function (e) {
             this.setState({
