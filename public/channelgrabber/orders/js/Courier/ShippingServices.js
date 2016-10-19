@@ -93,17 +93,26 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             options: serviceOptions
         };
         var html = cgMustache.renderTemplate(template, data);
+        var html = $(html).removeClass('med-element').html();
 
         // If there's only one option don't bother with the select, just show it
         if (serviceOptions.length == 1) {
-            $(html).removeAttr('class').html(function() {
-                var input = $('input[type=hidden]', this);
-                var selected = $('.custom-select-item.active', this);
-                return $('<div></div>').text(selected.text()).append(input.val(selected.attr('data-value'))).html();
-            });
+            html = this.renderSingleService(html, serviceOptions[0], orderId);
         }
 
         return html;
+    };
+
+    ShippingServices.prototype.renderSingleService = function(selectHtml, service, orderId)
+    {
+        // Keep the input, copy it to the new element
+        var input = $('input[type=hidden]', selectHtml);
+        input.val(service.value);
+
+        var html = $('<div><span>'+service.title+'</span></div>')
+            .append(input)
+            .html();
+        return '<div id="' + ShippingServices.SELECT_ID_PREFIX + orderId + '">' + html + '</div>';
     };
 
     return new ShippingServices();
