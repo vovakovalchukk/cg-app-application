@@ -112,7 +112,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $emailSendAs = $invoiceSettings->getEmailSendAs();
         } catch (NotFound $e) {
             $autoEmail = false;
-            $emailSendAs = '';
+            $emailSendAs = null;
         }
 
         try {
@@ -124,7 +124,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
             }
             if (isset($data['emailSendAs'])) {
-                $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL);
+                if(!filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL)) {
+                    $data['emailSendAs'] = null;
+                }
             }
 
             if ($data['autoEmail'] && $autoEmail) {
