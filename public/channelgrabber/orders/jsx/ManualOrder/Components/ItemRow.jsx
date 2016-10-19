@@ -12,7 +12,7 @@ define([
                 price: 0
             }
         },
-        getOptionComponents: function (attributes, variation) {
+        getVariationSwitcherOptions: function (attributes, variation) {
             if (variation.stock === undefined) {
                 return;
             }
@@ -33,7 +33,7 @@ define([
             }
             var selectedOption = null;
             var options = product.variations.map(function (variation) {
-                var optionName = this.getOptionComponents(product.attributeNames, variation);
+                var optionName = this.getVariationSwitcherOptions(product.attributeNames, variation);
                 var option = {value: variation.sku, name: optionName};
                 if (thisSku === variation.sku) {
                     selectedOption = option;
