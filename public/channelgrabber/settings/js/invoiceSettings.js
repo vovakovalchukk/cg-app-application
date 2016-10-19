@@ -7,6 +7,7 @@ define(
 
         var container = '.invoiceSettings';
         var selector = container + ' .custom-select, ' + container + ' input:checkbox';
+        var verifyEmailSelector = container + ' .invoiceDefaultSettings button#verifyEmail';
         var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
         var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
         var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
@@ -21,6 +22,10 @@ define(
                 } else {
                     ajaxSave(self);
                 }
+            });
+
+            $(document).on('click', verifyEmailSelector, function (){
+                ajaxSave(self);
             });
         };
         

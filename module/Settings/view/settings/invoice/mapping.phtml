@@ -44,6 +44,12 @@ $(document).ready(function() {
                 <div class="email-send-as-holder">
                     <?= $emailSendAs ?>
                 </div>
+                <button id="verifyEmail" class="button">Verify</button>
+                <?php if ($emailVerified): ?>
+                    <span>Verified</span>
+                <?php else: ?>
+                    <span>Pending verification, please check your email</span>
+                <?php endif; ?>
             </label>
             <label>
                 <span class="inputbox-label">Include Product Images:</span>

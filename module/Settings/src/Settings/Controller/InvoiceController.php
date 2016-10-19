@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Amazon\Aws\Ses\Service as AmazonSesService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -57,6 +58,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $intercomCompanyService;
     protected $accountService;
     protected $filter;
+    protected $amazonSesService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -70,7 +72,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Config $config,
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
-        AccountService $accountService
+        AccountService $accountService,
+        AmazonSesService $amazonSesService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -83,7 +86,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setConfig($config)
             ->setIntercomEventService($intercomEventService)
             ->setIntercomCompanyService($intercomCompanyService)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setAmazonSesService($amazonSesService);
     }
 
     public function indexAction()
@@ -103,9 +107,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function saveMappingAction()
     {
         try {
-            $autoEmail = $this->getInvoiceService()->getSettings()->getAutoEmail();
+            $invoiceSettings = $this->getInvoiceService()->getSettings();
+            $autoEmail = $invoiceSettings->getAutoEmail();
+            $emailSendAs = $invoiceSettings->getEmailSendAs();
         } catch (NotFound $e) {
             $autoEmail = false;
+            $emailSendAs = '';
         }
 
         try {
@@ -115,6 +122,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             }
             if (isset($data['productImages'])) {
                 $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
+            }
+            if (isset($data['emailSendAs'])) {
+                $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL);
             }
 
             if ($data['autoEmail'] && $autoEmail) {
@@ -126,6 +136,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             } else {
                 $data['autoEmail'] = null;
                 $this->notifyOfAutoEmailChange(false);
+            }
+
+            if ($data['emailSendAs'] !== $emailSendAs) {
+                if (! $isVerified = $this->getAmazonSesService()->getVerificationStatus($data['emailSendAs'])) {
+                    $this->getAmazonSesService()->verifyEmailIdentity($data['emailSendAs']);
+                }
             }
 
             $entity = $this->getInvoiceService()->saveSettings($data);
@@ -165,21 +181,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
-    public function checkIfUserHasAmazonAccount(){
-        try {
-            $filter = (new Filter())
-                ->setOrganisationUnitId($this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser())
-                ->setChannel(["amazon"])
-                ->setLimit("all");
-            if(!empty($this->accountService->fetchByFilter($filter))) {
-                return true;
-            }
-        } catch (NotFound $exception) {
-            return false;
-        }
-        return false;
-    }
-
     public function mappingAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
@@ -198,25 +199,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAs')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
-        $view->setVariable('subHeaderHide', true);    
+        $view->setVariable('subHeaderHide', true);
+        $view->setVariable('emailVerified', $invoiceSettings->isEmailVerified());
         return $view;
-    }
-
-    protected function getTradingCompanyInvoiceSettingsDataTable()
-    {
-        $datatables = $this->getInvoiceService()->getDatatable();
-        $settings = $datatables->getVariable('settings');
-
-        $settings->setSource(
-            $this->url()->fromRoute(
-                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
-            )
-        );
-        $settings->setTemplateUrlMap([
-            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
-            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . '/templates/elements/custom-select.mustache',
-        ]);
-        return $datatables;
     }
 
     public function designAction()
@@ -245,6 +230,61 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('dataFieldOptions', $this->getOrderTagManager()->getAvailableTags());
 
         return $view;
+    }
+
+    public function fetchAction()
+    {
+        $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
+        $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
+        return $view;
+    }
+
+    public function saveAction()
+    {
+        try{
+            $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
+            $this->notifyOfSave();
+            $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
+            return $view;
+        } catch (NotModified $e) {
+            throw $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
+        } catch (Exception $e) {
+            throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
+            $this->logException($e, 'log:error', __NAMESPACE__);
+        }
+        return false;
+    }
+
+    public function checkIfUserHasAmazonAccount(){
+        try {
+            $filter = (new Filter())
+                ->setOrganisationUnitId($this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser())
+                ->setChannel(["amazon"])
+                ->setLimit("all");
+            if(!empty($this->accountService->fetchByFilter($filter))) {
+                return true;
+            }
+        } catch (NotFound $exception) {
+            return false;
+        }
+        return false;
+    }
+
+    protected function getTradingCompanyInvoiceSettingsDataTable()
+    {
+        $datatables = $this->getInvoiceService()->getDatatable();
+        $settings = $datatables->getVariable('settings');
+
+        $settings->setSource(
+            $this->url()->fromRoute(
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
+            )
+        );
+        $settings->setTemplateUrlMap([
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
+            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . '/templates/elements/custom-select.mustache',
+        ]);
+        return $datatables;
     }
 
     protected function getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices)
@@ -363,29 +403,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $input;
     }
 
-    public function fetchAction()
-    {
-        $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
-        $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
-        return $view;
-    }
-
-    public function saveAction()
-    {
-        try{
-            $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
-            $this->notifyOfSave();
-            $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
-            return $view;
-        } catch (NotModified $e) {
-            throw $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
-        } catch (Exception $e) {
-            throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
-            $this->logException($e, 'log:error', __NAMESPACE__);
-        }
-        return false;
-    }
-
     protected function notifyOfSave()
     {
         $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
@@ -500,6 +517,24 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function setInvoiceMapper(InvoiceMapper $invoiceMapper)
     {
         $this->invoiceMapper = $invoiceMapper;
+        return $this;
+    }
+
+    /**
+     * @return AmazonSesService
+     */
+    public function getAmazonSesService()
+    {
+        return $this->amazonSesService;
+    }
+
+    /**
+     * @param AmazonSesService $amazonSesService
+     * @return $this
+     */
+    public function setAmazonSesService(AmazonSesService $amazonSesService)
+    {
+        $this->amazonSesService = $amazonSesService;
         return $this;
     }
 
