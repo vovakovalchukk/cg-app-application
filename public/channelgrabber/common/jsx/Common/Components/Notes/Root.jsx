@@ -110,7 +110,7 @@ define([
                             return <Note data={note} onDelete={this.onDeleteNote} onEdit={this.onEditNote} />;
                         }.bind(this))}
                     </div>
-                    <Compose orderId={this.props.orderId} addNoteToList={this.addNoteToList}/>
+                    <Compose author={this.props.author} orderId={this.props.orderId} onNoteCreated={this.addNoteToList}/>
                 </div>
             );
         }

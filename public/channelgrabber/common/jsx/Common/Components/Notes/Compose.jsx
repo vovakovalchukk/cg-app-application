@@ -47,7 +47,7 @@ define([
             this.setState({
                 noteInput: ""
             }, function() {
-                this.props.addNoteToList(newNote);
+                this.props.onNoteCreated(newNote);
                 n.success("Note created.");
             });
         },
