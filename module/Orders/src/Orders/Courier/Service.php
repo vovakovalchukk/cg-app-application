@@ -541,6 +541,7 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
+        $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
         $providerService = $this->getCarrierServiceProvider($courierAccount);
         $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface && 
             $providerService->isCancellationAllowedForOrder($courierAccount, $order));
@@ -550,6 +551,7 @@ class Service implements LoggerAwareInterface
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
             'cancellable' => $cancellable,
+            'services' => $services,
         ];
         foreach ($options as $option) {
             $data[$option] = '';
