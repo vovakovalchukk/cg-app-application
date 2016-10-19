@@ -6,7 +6,7 @@ define([
     Select
 ) {
     "use strict";
-    var OrderRow = React.createClass({
+    var ItemRow = React.createClass({
         getInitialState: function () {
             return {
                 price: 0
@@ -93,9 +93,9 @@ define([
         }
     });
 
-    OrderRow.contextTypes = {
+    ItemRow.contextTypes = {
         imageUtils: React.PropTypes.object
     };
 
-    return OrderRow;
+    return ItemRow;
 });

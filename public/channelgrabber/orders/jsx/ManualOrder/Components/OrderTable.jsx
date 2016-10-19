@@ -1,10 +1,10 @@
 define([
     'react',
-    'ManualOrder/Components/OrderRow',
+    'ManualOrder/Components/ItemRow',
     'Common/Components/Select'
 ], function(
     React,
-    OrderRow,
+    ItemRow,
     Select
 ) {
     "use strict";
@@ -32,12 +32,12 @@ define([
         },
         onProductSelected: function (e) {
             var data = e.detail;
-            this.addOrderRow(data.product, data.sku, data.quantity);
+            this.addItemRow(data.product, data.sku, data.quantity);
         },
         onOrderSubmit: function (e) {
             this.props.getOrderData(this.state);
         },
-        addOrderRow: function (product, sku, quantity) {
+        addItemRow: function (product, sku, quantity) {
             var orderRows = this.state.orderRows.slice();
 
             var alreadyAddedToForm = orderRows.find(function (row) {
@@ -86,13 +86,13 @@ define([
                 this.onRowRemove(oldSku);
                 return;
             }
-            this.updateOrderRow(oldSku, 'sku', selection.value);
+            this.updateItemRow(oldSku, 'sku', selection.value);
         },
         onPriceChanged: function (sku, price) {
-            this.updateOrderRow(sku, 'price', price);
+            this.updateItemRow(sku, 'price', price);
         },
         onStockQuantityUpdated: function (sku, quantity) {
-            this.updateOrderRow(sku, 'quantity', quantity);
+            this.updateItemRow(sku, 'quantity', quantity);
         },
         onShippingMethodSelected: function (data) {
             var shippingMethod = {
@@ -125,7 +125,7 @@ define([
                 discount: discount
             });
         },
-        updateOrderRow: function (sku, key, value) {
+        updateItemRow: function (sku, key, value) {
             var orderRows = this.state.orderRows.slice();
             orderRows.forEach(function (row) {
                 if (row.sku === sku) {
@@ -136,11 +136,11 @@ define([
                 orderRows: orderRows
             });
         },
-        getOrderRowsMarkup: function () {
+        getItemRowsMarkup: function () {
             return (
                 this.state.orderRows.map(function (row) {
                     return (
-                        <OrderRow row={row}
+                        <ItemRow row={row}
                                   currency={this.props.currency}
                                   onSkuChange={this.onSkuChanged}
                                   onStockQuantityUpdate={this.onStockQuantityUpdated}
@@ -214,7 +214,7 @@ define([
         render: function () {
             return (
                 <div className="order-table-wrapper">
-                    <div className="order-rows-wrapper">{this.getOrderRowsMarkup()}</div>
+                    <div className="order-rows-wrapper">{this.getItemRowsMarkup()}</div>
                     <div className="discount-wrapper">{this.getDiscountMarkup()}</div>
                     <div className="detail-wrapper">{this.getSubtotalMarkup()}</div>
                     <div className="detail-wrapper">{this.getShippingMarkup()}</div>
