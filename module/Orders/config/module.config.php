@@ -2353,7 +2353,6 @@ return [
                 'label'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
                 'order'  => 5,
-                'target' => '_self',
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders',
             )
         )

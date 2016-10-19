@@ -18,7 +18,6 @@ return [
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/messages',
                 'sprite' => 'sprite-messages-18-white',
                 'order'  => 15,
-                'target' => '_self',
                 'pre-render' => [
                     'diLoad' => [
                         'class' => Service::class,

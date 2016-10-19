@@ -943,12 +943,10 @@ return [
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/products',
                 'sprite' => 'sprite-products-18-white',
                 'order'  => 10,
-                'target' => '_self',
                 'pages'  => [
                     'importListings' => [
                         'id'    => 'importListings',
                         'label' => 'Import Listings',
-                        'target' => '_self',
                         'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                             '',
                             [
