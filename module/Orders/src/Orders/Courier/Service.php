@@ -145,6 +145,9 @@ class Service implements LoggerAwareInterface
         return $carrierAccounts;
     }
 
+    /**
+     * @return array
+     */
     public function getCourierServiceOptions()
     {
         $shippingServicesByAccount = [];
@@ -153,14 +156,34 @@ class Service implements LoggerAwareInterface
             $shippingServicesByAccount[$account->getId()] = [];
             $shippingService = $this->shippingServiceFactory->createShippingService($account);
             $shippingServices = $shippingService->getShippingServices();
-            foreach ($shippingServices as $value => $name) {
-                $shippingServicesByAccount[$account->getId()][] = [
-                    'value' => $value,
-                    'title' => $name,
-                ];
-            }
+            $shippingServicesByAccount[$account->getId()] = $this->shippingServicesToOptions($shippingServices);
         }
         return $shippingServicesByAccount;
+    }
+
+    /**
+     * @return array
+     */
+    public function getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId)
+    {
+        $order = $this->orderService->fetch($orderId);
+        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+
+        $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
+        $shippingServices = $shippingService->getShippingServicesForOrder($order);
+        return $this->shippingServicesToOptions($shippingServices);
+    }
+
+    protected function shippingServicesToOptions(array $shippingServices)
+    {
+        $options = [];
+        foreach ($shippingServices as $value => $name) {
+            $options[] = [
+                'value' => $value,
+                'title' => $name,
+            ];
+        }
+        return $options;
     }
 
     /**
