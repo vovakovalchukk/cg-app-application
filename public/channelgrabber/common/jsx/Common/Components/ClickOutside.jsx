@@ -8,6 +8,12 @@ define([
     "use strict";
 
     var ClickOutsideComponent = React.createClass({
+        getDefaultProps: function () {
+            return {
+                className: "",
+                onClickOutside: null
+            }
+        },
         componentDidMount: function () {
             var self = this;
             self.el = ReactDOM.findDOMNode(this);
