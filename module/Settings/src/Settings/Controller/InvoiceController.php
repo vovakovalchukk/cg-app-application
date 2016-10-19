@@ -195,6 +195,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
+            ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAs')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);    
@@ -285,6 +286,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsEmailSendAsView($invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'emailSendAs',
+                    'name' => 'emailSendAs',
+                    'value' => $invoiceSettings->getEmailSendAs(),
+                ]
+            )
+            ->setTemplate('elements/text.mustache');
     }
 
     protected function getTemplateSelectView()
