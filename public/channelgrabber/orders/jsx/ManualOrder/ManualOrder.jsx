@@ -116,7 +116,13 @@ define([
 
         var tradingCompanies = utilities.ou.getTradingCompanies();
         if (tradingCompanies.length > 1) {
-            this.companySelect = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()}/>, mountingNodes.companySelect);
+            var selectedCompany = null;
+            tradingCompanies.forEach(function(company) {
+                if (company.selected) {
+                    selectedCompany = company;
+                }
+            });
+            this.companySelect = ReactDOM.render(<Select options={utilities.ou.getTradingCompanies()} selectedOption={selectedCompany}/>, mountingNodes.companySelect);
         }
     };
 

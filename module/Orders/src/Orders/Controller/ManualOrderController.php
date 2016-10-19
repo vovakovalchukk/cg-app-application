@@ -87,11 +87,19 @@ class ManualOrderController extends AbstractActionController
             return $tradingCompanyOptions;
         }
 
+        $noneSelected = true;
         foreach ($tradingCompanies as $ou) {
-            $tradingCompanyOptions[] = [
+            $option = [
                 'name' => $ou->getAddressCompanyName(),
                 'value' => $ou->getId()
             ];
+
+            if ($noneSelected) {
+                $option['selected'] = true;
+                $noneSelected = false;
+            }
+
+            $tradingCompanyOptions[] = $option;
         }
         return $tradingCompanyOptions;
     }
