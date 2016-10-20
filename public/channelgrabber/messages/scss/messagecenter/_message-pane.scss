@@ -1,11 +1,11 @@
 .message-pane {
-  @include flexbox();
-  @include flex-direction(column);
-  @include flex-wrap(nowrap);
-  @include calc(width, "18% - 2px");
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 18%;
+  box-sizing: border-box;
   min-width: 300px;
   height: 100%;
-  float: left;
   border-right: 1px solid $color-lgrey;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -34,11 +34,11 @@
     }
   }
   ul {
-    @include flex(1);
+    flex: 1;
     width: 100%;
     padding: 0px;
     margin: 0px;
-    overflow-y: scroll;
+    overflow-y: auto;
     li {
       width: 100%;
       height: 105px;

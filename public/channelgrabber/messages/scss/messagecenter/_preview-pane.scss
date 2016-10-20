@@ -1,6 +1,6 @@
 .message-preview {
   width: 82%;
-  @include calc(max-width, "100% - 301px");
+  box-sizing: border-box;
   @include print() {
     width: 100%;
     height: auto;
@@ -8,12 +8,9 @@
     overflow: auto;
   };
   height: 100%;
-  float: left;
-  display: block;
+  display: flex;
   position: relative;
   z-index: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 .no-messages-content {
     width: 100%;
@@ -72,17 +69,12 @@
   font-weight: bold;
 }
 .message-section {
+  height: calc(100% - 129px);
   width: 100%;
-  float: left;
-  clear:both;
-  margin-top: 120px;
+  top: 129px;
   padding: 20px;
-  overflow: hidden;
-  @include box-sizing(border);
-  @include print() {
-    display: table-row-group;
-    float: initial;
-  };
+  overflow-y: scroll;
+  position: absolute;
   ul {
     width: 100%;
     float: left;
