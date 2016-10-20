@@ -67,12 +67,12 @@
   font-weight: bold;
 }
 .message-section {
-  height: calc(100% - 129px);
-  width: 100%;
-  top: 129px;
+  height: calc(100% - 169px);
+  margin-top: 129px;
   padding: 20px;
-  overflow-y: scroll;
-  position: absolute;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
   ul {
     width: 100%;
     float: left;
