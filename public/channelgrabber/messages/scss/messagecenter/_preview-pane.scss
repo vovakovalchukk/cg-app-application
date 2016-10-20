@@ -7,7 +7,6 @@
     display: table;
     overflow: auto;
   };
-  height: 100%;
   display: flex;
   position: relative;
   z-index: 1;
@@ -42,16 +41,14 @@
     }
 }
 .preview-header {
-  @include calc(width, "100% - 362px");
   @include print() {
     display: table-header-group;
     position: relative;
     float: initial;
   };
-  float: left;
-  clear:both;
   border-bottom: 1px solid $color-lgrey;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   position: fixed;
   z-index: 2;
   padding: 20px;
