@@ -3585,7 +3585,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f7f98b18100fb418cc9a77b8e713717cb45f19b4"
+                "reference": "b872f406a45a377f3572ffc7a96452cddb1b2c3c"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
