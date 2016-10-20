@@ -42,13 +42,14 @@ $(document).ready(function() {
             <label>
                 <span class="inputbox-label">Send as (email address):</span>
                 <div class="email-send-as-holder">
-                    <?= $emailSendAs ?>
+                    <?= $emailSendAsInput ?>
                 </div>
-                <button id="verifyEmail" class="button">Verify</button>
-                <?php if ($emailVerified): ?>
-                    <span>Verified</span>
-                <?php else: ?>
-                    <span>Pending verification, please check your email</span>
+                <?php if ($emailSendAs): ?>
+                    <?php if ($emailVerified): ?>
+                        <span>Verified</span>
+                    <?php else: ?>
+                        <span>Pending verification, please check your email</span>
+                    <?php endif; ?>
                 <?php endif; ?>
             </label>
             <label>

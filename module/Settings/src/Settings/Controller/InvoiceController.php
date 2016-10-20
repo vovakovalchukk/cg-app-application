@@ -123,11 +123,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             if (isset($data['productImages'])) {
                 $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
             }
-            if (isset($data['emailSendAs'])) {
-                if(!filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL)) {
-                    $data['emailSendAs'] = null;
-                }
-            }
 
             if ($data['autoEmail'] && $autoEmail) {
                 $data['autoEmail'] = $autoEmail;
@@ -140,10 +135,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 $this->notifyOfAutoEmailChange(false);
             }
 
-            if ($data['emailSendAs'] !== $emailSendAs) {
+            if (isset($data['emailSendAs']) && $data['emailSendAs'] !== '') {
+                $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL) ?: null;
+            }
+
+            if ($data['emailSendAs'] !== '' && $data['emailSendAs'] !== $emailSendAs) {
                 if (! $isVerified = $this->getAmazonSesService()->getVerificationStatus($data['emailSendAs'])) {
                     $this->getAmazonSesService()->verifyEmailIdentity($data['emailSendAs']);
                 }
+                $data['emailVerified'] = $isVerified;
+            }
+
+            if ($data['emailSendAs'] == '') {
+                $data['emailSendAs'] = null;
             }
 
             $entity = $this->getInvoiceService()->saveSettings($data);
@@ -198,11 +202,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
-            ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAs')
+            ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('emailVerified', $invoiceSettings->isEmailVerified());
+        $view->setVariable('emailSendAs', $invoiceSettings->getEmailSendAs());
         return $view;
     }
 
@@ -596,6 +601,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
     }
 
     public function getAccountService()
