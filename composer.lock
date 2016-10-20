@@ -3551,17 +3551,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.5",
+            "version": "dev-CGIV-7368-royal-mail-international",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.5-3604eb.zip",
-                "reference": "7289003b91a30e7bfbf26dc14cad6dbcafc92080",
-                "shasum": null
+                "reference": "c71da812c32e3ec1104d42b3d960af8da4837982"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8035,6 +8029,12 @@
             "alias_normalized": "1.0.7.0",
             "version": "dev-CGIV-7368-royal-mail-international",
             "package": "channelgrabber/zf2-netdespatch"
+        },
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7368-royal-mail-international",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8045,6 +8045,7 @@
         "channelgrabber/netdespatch": 20,
         "channelgrabber/royalmail": 20,
         "channelgrabber/zf2-netdespatch": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

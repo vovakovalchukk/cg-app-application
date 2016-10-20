@@ -125,7 +125,8 @@ return [
                             'packageTypes' => ['Letter', 'Large Letter', 'Printed Papers', 'Parcel'],
                             'addOns' => [
                                 ['title' => 'Signature'],
-                                ['title' => 'Compensation'],
+                                // Standard only allows for Compensation when its with Signature
+                                ['title' => 'Compensation', 'requires' => 'Signature'],
                             ]
                         ],
                         'OT' => [
