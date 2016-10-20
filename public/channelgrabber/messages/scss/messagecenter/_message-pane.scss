@@ -7,6 +7,7 @@
   min-width: 300px;
   border-right: 1px solid $color-lgrey;
   overflow: hidden;
+  height: calc(100% - 50px);
   @include no-print();
   .sort-order {
     width: 100%;

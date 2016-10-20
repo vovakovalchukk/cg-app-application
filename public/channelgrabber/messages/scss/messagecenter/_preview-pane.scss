@@ -7,6 +7,7 @@
     display: table;
     overflow: auto;
   };
+  height: calc(100% - 50px);
   display: flex;
   position: relative;
   z-index: 1;
