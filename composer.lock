@@ -93,13 +93,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7a4c3523c4e2fe42a3a948adf2d6363e367b0e4b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7089-use-users-email-address-when-sending-invoices-379c23.zip",
-                "reference": "7a4c3523c4e2fe42a3a948adf2d6363e367b0e4b",
-                "shasum": null
+                "reference": "f12a1c70cb364b5a6c6a9dbcb4c8bab8c589a882"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -8416,8 +8410,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
