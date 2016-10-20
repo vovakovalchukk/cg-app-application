@@ -5,10 +5,9 @@
   width: 18%;
   box-sizing: border-box;
   min-width: 300px;
-  height: 100%;
   border-right: 1px solid $color-lgrey;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
+  height: calc(100% - 51px);
   @include no-print();
   .sort-order {
     width: 100%;
