@@ -235,6 +235,9 @@ class Service implements LoggerAwareInterface
                 $serviceOptions = $shippingAlias->getOptions();
                 $courierAccount = $this->accountService->fetch($courierId);
                 $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+                if (!isset($services[$service])) {
+                    $service = null;
+                }
             }
         }
         $shippingCountry = $order->getShippingAddressCountryForCourier();
