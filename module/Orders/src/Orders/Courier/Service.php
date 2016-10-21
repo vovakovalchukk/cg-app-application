@@ -230,10 +230,12 @@ class Service implements LoggerAwareInterface
         if ($shippingAlias) {
             $shippingDescription = $shippingAlias->getName();
             $courierId = $shippingAlias->getAccountId();
-            $courierAccount = $this->accountService->fetch($courierId);
-            $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
-            $service = $shippingAlias->getShippingService();
-            $serviceOptions = $shippingAlias->getOptions();
+            if ($courierId) {
+                $service = $shippingAlias->getShippingService();
+                $serviceOptions = $shippingAlias->getOptions();
+                $courierAccount = $this->accountService->fetch($courierId);
+                $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+            }
         }
         $shippingCountry = $order->getShippingAddressCountryForCourier();
         // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries
