@@ -246,6 +246,10 @@ class Service implements LoggerAwareInterface
             $index = key($options);
             $options[$index]['selected'] = true;
             $courierId = $options[$index]['value'];
+            if (!$services) {
+                $courierAccount = $this->accountService->fetch($courierId);
+                $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+            }
         }
 
         $orderData = [
