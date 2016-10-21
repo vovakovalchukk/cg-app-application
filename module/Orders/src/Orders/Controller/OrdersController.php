@@ -280,14 +280,21 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderDetails = $this->getOrderDetails($order);
         $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
 
+        $buyerMessage = $this->getBuyerMessage($order);
+        $orderAlert = $this->getOrderAlert($order);
+        $addressInformation = $this->getAddressInformation($order);
+
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
+        $view->addChild($buyerMessage, 'buyerMessage');
+        $view->addChild($orderAlert, 'orderAlert');
+        $view->addChild($addressInformation, 'addressInformation');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
+        $view->setVariable('existingNotes', $this->getNotes($order));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
@@ -327,6 +334,41 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('channelImgUrl', $externalData['imageUrl']);
         }
 
+        return $view;
+    }
+
+    protected function getBuyerMessage(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/buyerMessage');
+        if (! $order) {
+            return $view;
+        }
+        $view->setVariable('buyerMessage', $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"));
+        return $view;
+    }
+
+    protected function getOrderAlert(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/orderAlert');
+        if (! $order) {
+            return $view;
+        }
+        $view->setVariable('order', $order);
+        return $view;
+    }
+
+    protected function getAddressInformation(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/addressInformation');
+        $view->setVariable('order', $order);
+        $view->setVariable('addressSaveUrl', 'Orders/order/address');
+        $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('requiresSaveButton', true);
+        $view->setVariable('includeAddressCopy', true);
+        $view->setVariable('includeUseBillingInfo', false);
         return $view;
     }
 
@@ -448,10 +490,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getNotes(OrderEntity $order)
     {
-        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
-        $notes->setTemplate('elements/notes');
-        return $notes;
+        $existingNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
+
+        usort($existingNotes, function ($a, $b) {
+            return strtotime($a['timestamp']) > strtotime($b['timestamp']);
+        });
+
+        return json_encode($existingNotes);
     }
 
     protected function getFilterBar()
