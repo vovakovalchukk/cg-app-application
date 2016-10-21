@@ -2,3 +2,25 @@
     <div class="shipping-method-label"><?= $this->translate('Shipping Method'); ?></div>
     <div class="shipping-method-value"><?= $this->shippingMethod; ?></div>
 </div>
+<div class="shipping-label-table">
+    <span class="fake-table">
+        <span class="fake-table-header-row">
+            <span class="fake-table-col carrier-col">Carrier</span>
+            <span class="fake-table-col carrier-service-col">Service</span>
+            <span class="fake-table-col deliver-instruction-col">Delivery Instruction</span>
+            <span class="fake-table-col parcels-col">Parcel</span>
+            <span class="fake-table-col weight-col">Weight</span>
+            <span class="fake-table-col tracking-no-col">Tracking Number</span>
+            <span class="fake-table-col action-col">Action</span>
+        </span>
+        <span class="fake-table-row">
+            <span class="fake-table-col carrier-col"><img src="https://app.dev.orderhub.io/cg-built/zf2-v4-ui/img/logos/dpd_92x46.png" /></span>
+            <span class="fake-table-col carrier-service-col">express10</span>
+            <span class="fake-table-col deliver-instruction-col">None</span>
+            <span class="fake-table-col col-split parcels-col"><span>1</span><span>2</span><span>3</span></span>
+            <span class="fake-table-col weight-col">0.5kg</span>
+            <span class="fake-table-col tracking-no-col"><a href="#">FW093493842</a></span>
+            <span class="fake-table-col action-col"><button>Print</button><button>Cancel</button></span>
+        </span>
+    </span>
+</div>

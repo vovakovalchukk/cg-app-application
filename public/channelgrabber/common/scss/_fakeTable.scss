@@ -1,0 +1,62 @@
+.fake-table {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+    border-radius: 5px;
+    .fake-table-header-row {
+        display:table-row;
+        border-left: 1px solid $color-lblue;
+        border-right: 1px solid $color-lblue;
+        border-bottom: none;
+        border-radius: 5px 5px 0 0;
+        .fake-table-col {
+            min-width: 60px;
+            background: $color-lblue;
+            color: $color-white;
+            padding: 5px 0 5px 0;
+            font-size: 13px;
+            font-weight: 700;
+        }
+    }
+    .fake-table-row {
+        display:table-row;
+        max-height: 60px;
+        background-color: $color-white;
+        .fake-table-col {
+            vertical-align: middle;
+            padding: 5px;
+            font-size: 12px;
+            border-bottom: 1px solid $color-lgrey;
+            border-right: 1px solid $color-lgrey;
+            &:first-child {
+                border-left: 1px solid $color-lgrey;
+            }
+        }
+        &:last-child {
+            border-radius: 0 0 5px 5px;
+        }
+    }
+    .fake-table-col {
+        display: table-cell;
+        text-align: center;
+        &.col-split {
+            padding: 0;
+            div, span {
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 28px;
+                padding-left: 5px;
+                padding-right: 5px;
+                border-bottom: $color-lgrey;
+                &:first-child {
+                    padding-top: 5px;
+                }
+                &:last-child {
+                    border-bottom: none;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }
+}
