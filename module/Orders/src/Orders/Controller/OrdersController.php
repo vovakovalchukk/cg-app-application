@@ -276,6 +276,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'afterActions'
         );
 
+        $labelDetails = $this->getShippingLabelDetails($order);
         $accountDetails = $this->getAccountDetails($order);
         $orderDetails = $this->getOrderDetails($order);
         $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
@@ -284,6 +285,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderAlert = $this->getOrderAlert($order);
         $addressInformation = $this->getAddressInformation($order);
 
+        $view->addChild($labelDetails, 'labelDetails');
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
@@ -303,6 +305,15 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
         $this->addLabelPrintButtonToView($view, $order);
+        return $view;
+    }
+
+    protected function getShippingLabelDetails(OrderEntity $order)
+    {
+        $shippingMethod = "Next Day Delivery";
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/shippingLabelDetails');
+        $view->setVariable('shippingMethod', $shippingMethod);
         return $view;
     }
 
