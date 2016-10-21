@@ -81,6 +81,7 @@ require([
 <?php if ($this->editable): ?>
 <div class="module clearfix section-separator" id="tracking-information">
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
+    <?= $this->labelDetails; ?>
     <form id="trackingInformation"
           data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
           data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
