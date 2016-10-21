@@ -136,11 +136,20 @@ class ProductsJsonController extends AbstractActionController
 
         $product = array_merge($product, [
             'eTag' => $productEntity->getStoredETag(),
-            'images' => $productEntity->getImages()->toArray(),
+            'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
         ]);
+
+        $images = array_column($productEntity->getImageIds(), 'id', 'order');
+        ksort($images, SORT_NUMERIC);
+        foreach ($images as $imageId) {
+            $image = $productEntity->getImages()->getById($imageId);
+            if ($image) {
+                $product['images'][] = $image->toArray();
+            }
+        }
 
         if (!$productEntity->isParent()) {
             $product = array_merge(
