@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1cbc055a1e190f8706c6badaeb5ee930",
-    "content-hash": "5bbd0aee0508d1c173ee978804572dd5",
+    "hash": "97534a9d1f1150b9ca82012e67ef02bb",
+    "content-hash": "845c5b54a8f2ed6d2729a70c958b5565",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0cbf1db7775f142a8f155ab165cb3a7a66b3e801"
+                "reference": "6a01efa70860ee5354011bc7e54ea2d7fb7a82cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-56031a.zip",
-                "reference": "0cbf1db7775f142a8f155ab165cb3a7a66b3e801",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-1462df.zip",
+                "reference": "6a01efa70860ee5354011bc7e54ea2d7fb7a82cc",
                 "shasum": null
             },
             "require": {
@@ -366,7 +366,7 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": ">=1.1.2,<2.0.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.9.6",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
@@ -374,7 +374,7 @@
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.5.6",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
@@ -406,7 +406,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "EPIC-CGIV-7181-amazon-mcf-with-fba": "1.25.1-dev"
+                    "dev-develop": "1.x-dev"
                 }
             },
             "autoload": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-06 08:24:52"
+            "time": "2016-10-24 11:20:54"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.11.0",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8"
+                "reference": "a66f91fc9b7272c587f3bd788178ed60d77438b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.0-76c296.zip",
-                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.2-43430c.zip",
+                "reference": "a66f91fc9b7272c587f3bd788178ed60d77438b6",
                 "shasum": null
             },
             "require": {
@@ -1068,7 +1068,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-10-13 12:35:24"
+            "time": "2016-10-21 10:48:16"
         },
         {
             "name": "channelgrabber/locale",
