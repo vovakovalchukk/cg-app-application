@@ -311,9 +311,36 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getShippingLabelDetails(OrderEntity $order)
     {
         $shippingMethod = "Next Day Delivery";
+        $testLabels = [
+            [
+                'imageSource' => "https://app.dev.orderhub.io/cg-built/zf2-v4-ui/img/logos/dpd_92x46.png",
+                'service' => "express10",
+                'deliveryInstructions' => '',
+                'parcels' => [
+                    [
+                        'number' => 1,
+                        'weight' => '0.5kg',
+                        'trackingNumber' => 'FW093493842',
+                        'trackingNumberUrl' => '#',
+                    ],[
+                        'number' => 2,
+                        'weight' => '0.25kg',
+                        'trackingNumber' => 'JK093493842',
+                        'trackingNumberUrl' => '#',
+                    ],[
+                        'number' => 3,
+                        'weight' => '5kg',
+                        'trackingNumber' => 'VF093493842',
+                        'trackingNumberUrl' => '#',
+                    ]
+                ],
+
+            ]
+        ];
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/shippingLabelDetails');
         $view->setVariable('shippingMethod', $shippingMethod);
+        $view->setVariable('labels', $testLabels);
         return $view;
     }
 

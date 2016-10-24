@@ -13,14 +13,27 @@
             <span class="fake-table-col tracking-no-col">Tracking Number</span>
             <span class="fake-table-col action-col">Action</span>
         </span>
-        <span class="fake-table-row">
-            <span class="fake-table-col carrier-col"><img src="https://app.dev.orderhub.io/cg-built/zf2-v4-ui/img/logos/dpd_92x46.png" /></span>
-            <span class="fake-table-col carrier-service-col">express10</span>
-            <span class="fake-table-col deliver-instruction-col">None</span>
-            <span class="fake-table-col col-split parcels-col"><span>1</span><span>2</span><span>3</span></span>
-            <span class="fake-table-col col-split weight-col"><span>0.5kg</span><span>0.25kg</span><span>3.5kg</span></span>
-            <span class="fake-table-col col-split tracking-no-col"><a href="#">FW093493842</a><a href="#">AD09234212</a><a href="#">JK093493232</a></span>
-            <span class="fake-table-col action-col"><button class="button form-button tracking-button">Print</button><button class="button form-button tracking-button">Cancel</button></span>
-        </span>
+        <?php if (isset($this->labels)) : ?>
+            <?php foreach ($this->labels as $label) : ?>
+            <span class="fake-table-row">
+                <span class="fake-table-col carrier-col"><img src=<?= $label['imageSource'] ?> /></span>
+                <span class="fake-table-col carrier-service-col"><?= $label['service'] ?></span>
+                <span class="fake-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
+                <span class="fake-table-col col-split parcels-col">
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['number']."</span>"; } ?>
+                </span>
+                <span class="fake-table-col col-split weight-col">
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['weight']."</span>"; } ?>
+                </span>
+                <span class="fake-table-col col-split tracking-no-col">
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<a href='".$parcel['trackingNumberUrl']."'>".$parcel['trackingNumber']."</a>"; } ?>
+                </span>
+                <span class="fake-table-col action-col">
+                    <button class="button form-button tracking-button">Print</button>
+                    <button class="button form-button tracking-button">Cancel</button>
+                </span>
+            </span>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </span>
 </div>
