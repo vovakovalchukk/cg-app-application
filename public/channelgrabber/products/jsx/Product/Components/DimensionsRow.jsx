@@ -47,11 +47,19 @@ define([
                         resolve({ savedValue: value });
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to update the "+detail+".");
+                        this.showErrorNotification(error, "There was an error when attempting to update the "+detail+".");
                         reject(new Error(error));
-                    }
+                    }.bind(this)
                 });
             }.bind(this));
+        },
+        showErrorNotification: function (error, alternativeMessage) {
+            var responseText = JSON.parse(error.responseText);
+            if (responseText.message.length) {
+                n.error(responseText.message);
+                return;
+            }
+            n.error(alternativeMessage);
         },
         getDefaultProps: function() {
             return {
