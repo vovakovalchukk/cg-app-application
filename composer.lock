@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f0db58106936e1b4839afa035813973",
-    "content-hash": "ea12e029c1020f079221de7665852ced",
+    "hash": "6419e00522b3f7925ffc38c94db164a9",
+    "content-hash": "a2f65a646724f2458be3affed9d2716e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1260,7 +1260,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "efabcda5e00aa64bdc5e49e90ab58c6f69abea93"
+                "reference": "5c54de41a58731b130e460edb5e5d31c4acffdfb"
             },
             "require": {
                 "channelgrabber/channel": "^1.26.0",
@@ -8039,6 +8039,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
@@ -8046,7 +8047,6 @@
         "channelgrabber/royalmail": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
