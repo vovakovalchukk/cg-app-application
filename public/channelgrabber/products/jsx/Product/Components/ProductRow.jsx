@@ -148,17 +148,9 @@ define([
                     n.success('Product tax rate updated successfully.');
                 },
                 error : function(response) {
-                    this.showErrorNotification(response, "There was an error when attempting to update the product tax rate.");
-                }.bind(this)
+                    n.showErrorNotification(response, "There was an error when attempting to update the product tax rate.");
+                }
             });
-        },
-        showErrorNotification: function (error, alternativeMessage) {
-            var responseText = JSON.parse(error.responseText);
-            if (responseText.message.length) {
-                n.error(responseText.message);
-                return;
-            }
-            n.error(alternativeMessage);
         },
         expandButtonClicked: function (e) {
             this.setState({
@@ -254,9 +246,9 @@ define([
                         this.updateVariationsStockMode(response);
                     }.bind(this),
                     error: function(error) {
-                        this.showErrorNotification(error, "There was an error when attempting to bulk update the stock level.");
+                        n.showErrorNotification(error, "There was an error when attempting to bulk update the stock level.");
                         reject(new Error(error));
-                    }.bind(this)
+                    }
                 });
             }.bind(this));
         },
@@ -275,8 +267,8 @@ define([
                     });
                 }.bind(this),
                 error : function(response) {
-                    this.showErrorNotification(response, "There was an error when attempting to bulk update the stock mode.");
-                }.bind(this)
+                    n.showErrorNotification(response, "There was an error when attempting to bulk update the stock mode.");
+                }
             });
         },
         updateVariationsStockMode: function(stockModes) {
