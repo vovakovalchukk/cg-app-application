@@ -235,7 +235,7 @@ class Service implements LoggerAwareInterface
         $itemData['stockManaged'] = true;
         $itemData['individualItemDiscountPrice'] = 0;
         $itemData['itemVariationAttribute'] = $product->getAttributeValues();
-        $itemData['imageIds'] = $product->getImageIds();
+        $itemData['imageIds'] = array_column($product->getImageIds(), 'id', 'order');
         if (!isset($itemData['itemName'])) {
             $itemData['itemName'] = $product->getName();
         }
