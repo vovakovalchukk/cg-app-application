@@ -157,7 +157,7 @@ define([
                     <div className="discount-box">
                         <span className="detail-label">Discount</span>
                         <span className="detail-value">
-                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
+                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" placeholder="0.00" value={this.state.discount.value ? this.state.discount.value : ''} onChange={this.onDiscountValueUpdate} /></span>
                         </span>
                         <span className="discount-actions">
                             <a onClick={this.onToggleDiscountBox}>Remove</a>
@@ -187,7 +187,7 @@ define([
             return (
                 <div className="detail-shipping">
                     <span className="detail-label"><Select filterable={true} options={this.context.carrierUtils.getCarriers()} onOptionChange={this.onShippingMethodSelected} />Shipping</span>
-                    <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
+                    <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" placeholder="0.00" value={this.state.shippingMethod.cost ? this.state.shippingMethod.cost : ''} onChange={this.onManualShippingCost} /></span>
                 </div>
             );
         },
