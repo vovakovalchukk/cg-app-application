@@ -84,7 +84,7 @@
         "channelgrabber/zf2-ekm": "~1.0.2",
         "channelgrabber/zf2-email-template": "~1.0.13",
         "channelgrabber/zf2-logclient": "~1.4.2",
-        "channelgrabber/zf2-login": "~1.5.2",
+        "channelgrabber/zf2-login": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page as 1.5.3",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.6",
         "channelgrabber/zf2-permission": "~1.1.13",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cf479396df1f54d6fc620acc293747fb",
-    "content-hash": "4c13887edb7fab02dad7244bee6e24a6",
+    "hash": "09bf31d20a228d3d274ebfad3353acf5",
+    "content-hash": "b36672e58af78416c205dfb1708cda1c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3138,17 +3138,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.2",
+            "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.2-1184e9.zip",
-                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a",
-                "shasum": null
+                "reference": "61f109fce7a743350c872ae01cc1597f83a21328"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -8031,6 +8025,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.5.3",
+            "alias_normalized": "1.5.3.0",
+            "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.17.6",
             "alias_normalized": "1.17.6.0",
             "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
@@ -8040,6 +8040,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
