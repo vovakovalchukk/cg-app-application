@@ -14,22 +14,28 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
                 "reference": "5a449960649c4ae1ac1f4dc7cd0f718c87bb7f6e"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7368-royal-mail-international-ffb932.zip",
+                "reference": "5a449960649c4ae1ac1f4dc7cd0f718c87bb7f6e",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.26.0",
+                "channelgrabber/channel": "dev-CGIV-7368-royal-mail-international as 1.27.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/email": "^1.0.8",
+                "channelgrabber/email": "^1.0.9",
                 "channelgrabber/gearman": "^1.2.22",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/image": ">=1.1.2",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.23.20",
-                "channelgrabber/product": "^1.5.0",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -58,7 +64,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-04T14:16:20+00:00"
+            "time": "2016-10-19 15:32:19"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -344,6 +350,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "2b79bb5c951207607462506e32917324d4bf3e0f"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7368-royal-mail-international-e0549b.zip",
+                "reference": "2b79bb5c951207607462506e32917324d4bf3e0f",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
@@ -409,7 +421,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-18T11:03:12+00:00"
+            "time": "2016-10-19 15:34:07"
         },
         {
             "name": "channelgrabber/cilex",
@@ -511,7 +523,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -767,16 +779,16 @@
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "e7e09e9a5401975206f8bcffedc08e52a7a093b1"
+                "reference": "95f8204f14d8ae2f7da00550a96315e476505722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.8-565393.zip",
-                "reference": "e7e09e9a5401975206f8bcffedc08e52a7a093b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.9-594724.zip",
+                "reference": "95f8204f14d8ae2f7da00550a96315e476505722",
                 "shasum": null
             },
             "require": {
@@ -799,7 +811,7 @@
                     "CG\\Email\\": "src"
                 }
             },
-            "time": "2015-07-23T13:20:12+00:00"
+            "time": "2016-10-14T08:07:27+00:00"
         },
         {
             "name": "channelgrabber/etag",
@@ -1261,8 +1273,14 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
                 "reference": "5c54de41a58731b130e460edb5e5d31c4acffdfb"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7368-royal-mail-international-a4c265.zip",
+                "reference": "5c54de41a58731b130e460edb5e5d31c4acffdfb",
+                "shasum": null
+            },
             "require": {
-                "channelgrabber/channel": "^1.26.0",
+                "channelgrabber/channel": "dev-CGIV-7368-royal-mail-international as 1.27.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.9",
@@ -1300,7 +1318,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-10-04T14:15:49+00:00"
+            "time": "2016-10-24 14:03:59"
         },
         {
             "name": "channelgrabber/notification",
@@ -1895,8 +1913,14 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
                 "reference": "58044cd6d2ef4c010e595ffc561dfadbc371d6f7"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-dev-CGIV-7368-royal-mail-international-fad38b.zip",
+                "reference": "58044cd6d2ef4c010e595ffc561dfadbc371d6f7",
+                "shasum": null
+            },
             "require": {
-                "channelgrabber/channel": "^1.26.0",
+                "channelgrabber/channel": "dev-CGIV-7368-royal-mail-international as 1.27.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0"
             },
@@ -1906,7 +1930,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2016-10-04T14:19:53+00:00"
+            "time": "2016-10-19 10:02:50"
         },
         {
             "name": "channelgrabber/scraper",
@@ -3209,6 +3233,12 @@
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
                 "reference": "63a7a49c7f5a5c34dd939c88f5f65c8a4cd8f9ef"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7368-royal-mail-international-e7c02a.zip",
+                "reference": "63a7a49c7f5a5c34dd939c88f5f65c8a4cd8f9ef",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.24.2",
                 "channelgrabber/constants": "dev-master",
@@ -3238,7 +3268,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-07-22T08:05:15+00:00"
+            "time": "2016-10-17 11:45:45"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3556,6 +3586,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "e4ff9239f9a65d7dbc6fbfdb05030dcbc32106a8"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7368-royal-mail-international-a576d6.zip",
+                "reference": "e4ff9239f9a65d7dbc6fbfdb05030dcbc32106a8",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3600,7 +3636,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-25T13:56:27+00:00"
+            "time": "2016-10-25 14:44:40"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4878,7 +4914,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8038,7 +8074,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
@@ -8046,11 +8081,12 @@
         "channelgrabber/royalmail": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
