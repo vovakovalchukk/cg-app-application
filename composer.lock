@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "97534a9d1f1150b9ca82012e67ef02bb",
+    "hash": "3ceb0d71c47628335c697deec08df7d2",
     "content-hash": "845c5b54a8f2ed6d2729a70c958b5565",
     "packages": [
         {
@@ -3581,17 +3581,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
+            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "09545030c3f35e7b08d3ccb9722c6d3d29b48a0c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7391-manual-orders-ui-cca7d8.zip",
-                "reference": "09545030c3f35e7b08d3ccb9722c6d3d29b48a0c",
-                "shasum": null
+                "reference": "c60ea239213abca84587f286a2cf882cdfe48ad9"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8047,6 +8041,12 @@
             "alias_normalized": "1.17.6.0",
             "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8058,8 +8058,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
