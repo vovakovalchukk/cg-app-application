@@ -83,9 +83,13 @@ define([
             });
         },
         onClick: function (e) {
-            this.setState({
+            var newState = {
                 active: !this.state.active
-            });
+            };
+            if (! this.state.active) {
+                newState['searchTerm'] = '';
+            }
+            this.setState(newState);
         },
         onChange: function (e) {
             this.setState({
