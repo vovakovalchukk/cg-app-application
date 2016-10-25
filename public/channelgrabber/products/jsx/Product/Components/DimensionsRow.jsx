@@ -1,6 +1,6 @@
 define([
     'react',
-    'Product/Components/Input'
+    'Common/Components/SafeInput'
 ], function(
     React,
     Input
