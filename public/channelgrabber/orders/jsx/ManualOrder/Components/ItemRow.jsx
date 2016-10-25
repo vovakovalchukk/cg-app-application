@@ -1,9 +1,11 @@
 define([
     'react',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    'Common/Components/CurrencyInput'
 ], function(
     React,
-    Select
+    Select,
+    CurrencyInput
 ) {
     "use strict";
     var ItemRow = React.createClass({
@@ -75,7 +77,7 @@ define([
                             {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                         </div>
                         <div className="order-row-price">
-                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" placeholder="0.00" value={this.state.price ? this.state.price : ''} onChange={this.onPriceChange} /></span>
+                            <CurrencyInput value={this.state.price} currency={this.props.currency.value} onChange={this.onPriceChange}/>
                         </div>
                         <div className="order-row-qty-input">
                             <span className="multiplier">x</span>
