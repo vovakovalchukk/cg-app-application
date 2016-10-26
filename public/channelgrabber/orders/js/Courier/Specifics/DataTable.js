@@ -86,6 +86,7 @@ CourierSpecificsDataTable.prototype.setupResizeFunctions = function()
 
         $('.dataTables_wrapper').height('calc(100% - ' + headingHeight + 'px)');
         $('.dataTables_scroll').height('calc(100% - ' + fixedHeaderHeight + 'px)');
+        $('.dataTables_scrollBody').height('calc(100% - ' + fixedHeaderHeight + 'px)');
     }
 
     this.getDataTable().cgDataTable('addResizeOverrideFunctions', heightResizeFunction);
