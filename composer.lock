@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d85df6cdefcf95b39df0a7a52e32b96b",
-    "content-hash": "6f57254bdda9d74888c874400ac11077",
+    "hash": "218e66f3c974875c5f2327b124d68f49",
+    "content-hash": "c319effa99b82ee118182a1547e75f1f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1371,23 +1371,23 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.22",
+            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a5aaac3b37768313e49bfef60082248234c0125a"
+                "reference": "4c131f36b634a3f621156f7c3428632125243539"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.22-1338f3.zip",
-                "reference": "a5aaac3b37768313e49bfef60082248234c0125a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7573-manual-orders-ui-tidy-up-af4b69.zip",
+                "reference": "4c131f36b634a3f621156f7c3428632125243539",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.8.11",
-                "channelgrabber/channel": "^1.26.1",
+                "channelgrabber/channel": "^1.17.7",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1397,14 +1397,14 @@
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.2",
-                "channelgrabber/locale": "^1.0.9",
+                "channelgrabber/image": "^1.2.0",
+                "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.9.0",
+                "channelgrabber/product": "^1.7.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.3.14",
@@ -1445,7 +1445,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-18 11:33:46"
+            "time": "2016-10-26 09:19:29"
         },
         {
             "name": "channelgrabber/permission",
@@ -8043,6 +8043,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.23.22",
+            "alias_normalized": "1.23.22.0",
+            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.17.6",
             "alias_normalized": "1.17.6.0",
             "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
@@ -8053,6 +8059,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

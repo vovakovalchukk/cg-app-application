@@ -17,6 +17,8 @@ use CG\Order\Shared\Item\Mapper as OrderItemMapper;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Mapper as OrderNoteMapper;
 use CG\Order\Shared\Status as OrderStatus;
+use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
+use CG\Order\Shared\Shipping\Method\Filter as ShippingFilter;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\User\OrganisationUnit\Service as UserOuService;
@@ -66,6 +68,8 @@ class Service implements LoggerAwareInterface
     protected $currencyService;
     /** @var UserOuService */
     protected $userOuService;
+    /** @var  ConversionService */
+    protected $conversionService;
 
     public function __construct(
         ManualOrderAccountService $manualOrderAccountService,
@@ -82,7 +86,8 @@ class Service implements LoggerAwareInterface
         OrderNoteMapper $orderNoteMapper,
         TaxService $taxService,
         CurrencyService $currencyService,
-        UserOuService $userOuService
+        UserOuService $userOuService,
+        ConversionService $conversionService
     ) {
         $this->setManualOrderAccountService($manualOrderAccountService)
             ->setActiveUserContainer($activeUserContainer)
@@ -98,6 +103,7 @@ class Service implements LoggerAwareInterface
             ->setOrderNoteMapper($orderNoteMapper)
             ->setTaxService($taxService)
             ->setCurrencyService($currencyService)
+            ->setConversionService($conversionService)
             ->setUserOuService($userOuService);
     }
 
@@ -170,6 +176,17 @@ class Service implements LoggerAwareInterface
             ];
         }
         return $currencyOptions;
+    }
+
+    public function getShippingMethods()
+    {
+        $organisationUnit = $this->userOuService->getRootOuByActiveUser();
+
+        $filter = (new ShippingFilter('all', 1))
+            ->setOrganisationUnitId([$organisationUnit->getRoot()])
+            ->setChannel('manual-order');
+
+        return $this->conversionService->fetchMethods($organisationUnit, $filter);
     }
 
     protected function calculateTotalFromOrderData(array $orderData)
@@ -404,6 +421,12 @@ class Service implements LoggerAwareInterface
     protected function setCurrencyService(CurrencyService $currencyService)
     {
         $this->currencyService = $currencyService;
+        return $this;
+    }
+
+    protected function setConversionService(ConversionService $conversionService)
+    {
+        $this->conversionService = $conversionService;
         return $this;
     }
 

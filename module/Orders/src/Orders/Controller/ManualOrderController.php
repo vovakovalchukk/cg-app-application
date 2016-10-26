@@ -12,7 +12,6 @@ use CG\Order\Shared\Entity as OrderEntity;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
 
 class ManualOrderController extends AbstractActionController
 {
@@ -30,8 +29,6 @@ class ManualOrderController extends AbstractActionController
     protected $orderService;
     /** @var ActiveUserContainer */
     protected $activeUserContainer;
-    /** @var  ConversionService */
-    protected $conversionService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -40,8 +37,7 @@ class ManualOrderController extends AbstractActionController
         Service $service,
         OuService $ouService,
         ActiveUserContainer $activeUserContainer,
-        OrderService $orderService,
-        ConversionService $conversionService
+        OrderService $orderService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -49,8 +45,7 @@ class ManualOrderController extends AbstractActionController
             ->setService($service)
             ->setOuService($ouService)
             ->setActiveUserContainer($activeUserContainer)
-            ->setOrderService($orderService)
-            ->setConversionService($conversionService);
+            ->setOrderService($orderService);
     }
 
     public function indexAction()
@@ -111,8 +106,8 @@ class ManualOrderController extends AbstractActionController
 
     protected function getCarrierDropdownOptions()
     {
-        $organisationUnit = $this->ouService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
-        $carrierList = $this->conversionService->fetchMethods($organisationUnit);
+        $carrierList = $this->service->getShippingMethods();
+
         $carrierDropdownOptions = [];
         $carrierDropdownOptions[] = ['name' => 'N/A', 'value' => -1];
         foreach ($carrierList as $carrier) {
@@ -217,12 +212,6 @@ class ManualOrderController extends AbstractActionController
     protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    protected function setConversionService(ConversionService $conversionService)
-    {
-        $this->conversionService = $conversionService;
         return $this;
     }
 
