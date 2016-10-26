@@ -1,12 +1,12 @@
 define([
     'react',
     'ManualOrder/Components/ItemRow',
-    'Common/Components/Select',
+    'Common/Components/SearchBox',
     'Common/Components/CurrencyInput'
 ], function(
     React,
     ItemRow,
-    Select,
+    SearchBox,
     CurrencyInput
 ) {
     "use strict";
@@ -188,7 +188,7 @@ define([
         getShippingMarkup: function () {
             return (
                 <div className="detail-shipping">
-                    <span className="detail-label"><Select filterable={true} options={this.context.carrierUtils.getCarriers()} onOptionChange={this.onShippingMethodSelected} />Shipping</span>
+                    <span className="detail-label"><SearchBox results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
                     <CurrencyInput value={this.state.shippingMethod.cost} currency={this.props.currency.value} onChange={this.onManualShippingCost}/>
                 </div>
             );
