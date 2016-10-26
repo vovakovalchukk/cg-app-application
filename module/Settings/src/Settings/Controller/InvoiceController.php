@@ -110,9 +110,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $invoiceSettings = $this->getInvoiceService()->getSettings();
             $autoEmail = $invoiceSettings->getAutoEmail();
             $emailSendAs = $invoiceSettings->getEmailSendAs();
+            $emailVerified = $invoiceSettings->isEmailVerified();
         } catch (NotFound $e) {
             $autoEmail = false;
             $emailSendAs = null;
+            $emailVerified = false;
         }
 
         try {
@@ -135,19 +137,17 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 $this->notifyOfAutoEmailChange(false);
             }
 
-            if (isset($data['emailSendAs']) && $data['emailSendAs'] !== '') {
+            if (isset($data['emailSendAs'])) {
                 $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL) ?: null;
             }
 
-            if ($data['emailSendAs'] !== '' && $data['emailSendAs'] !== $emailSendAs) {
-                if (! $isVerified = $this->getAmazonSesService()->getVerificationStatus($data['emailSendAs'])) {
+            if ($data['emailSendAs'] && $data['emailSendAs'] !== $emailSendAs) {
+                // Email address has changed so check if it has previously been verified, if not send a verify email identity request.
+                if (! $data['emailVerified'] = $this->getAmazonSesService()->getVerificationStatus($data['emailSendAs'])) {
                     $this->getAmazonSesService()->verifyEmailIdentity($data['emailSendAs']);
                 }
-                $data['emailVerified'] = $isVerified;
-            }
-
-            if ($data['emailSendAs'] == '') {
-                $data['emailSendAs'] = null;
+            } else {
+                $data['emailVerified'] = $emailVerified;
             }
 
             $entity = $this->getInvoiceService()->saveSettings($data);
