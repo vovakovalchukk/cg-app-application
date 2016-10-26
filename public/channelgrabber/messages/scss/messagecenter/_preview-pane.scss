@@ -1,19 +1,16 @@
 .message-preview {
   width: 82%;
-  @include calc(max-width, "100% - 301px");
+  box-sizing: border-box;
   @include print() {
     width: 100%;
     height: auto;
     display: table;
     overflow: auto;
   };
-  height: 100%;
-  float: left;
-  display: block;
+  height: calc(100% - 50px);
+  display: flex;
   position: relative;
   z-index: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 .no-messages-content {
     width: 100%;
@@ -45,16 +42,14 @@
     }
 }
 .preview-header {
-  @include calc(width, "100% - 362px");
   @include print() {
     display: table-header-group;
     position: relative;
     float: initial;
   };
-  float: left;
-  clear:both;
   border-bottom: 1px solid $color-lgrey;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   position: fixed;
   z-index: 2;
   padding: 20px;
@@ -72,17 +67,12 @@
   font-weight: bold;
 }
 .message-section {
-  width: 100%;
-  float: left;
-  clear:both;
-  margin-top: 120px;
+  height: calc(100% - 169px);
+  margin-top: 129px;
   padding: 20px;
-  overflow: hidden;
-  @include box-sizing(border);
-  @include print() {
-    display: table-row-group;
-    float: initial;
-  };
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
   ul {
     width: 100%;
     float: left;

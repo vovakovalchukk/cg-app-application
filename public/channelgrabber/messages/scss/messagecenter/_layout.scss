@@ -1,7 +1,7 @@
 .main-section {
+  display: flex;
+  position: fixed;
   width: 100%;
-  @include calc(height, "100% - 55px");
-  float: left;
-  clear:both;
+  height: calc(100% - 55px);
   margin-top: 55px;
 }
