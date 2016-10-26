@@ -48,7 +48,7 @@ define([
     Hide.prototype.handleSuccess = function()
     {
         this.getNotificationHandler().success(Hide.MESSAGE_SUCCESS);
-        this.getService().refreshDatatable();
+        $('#datatable').cgDataTable('archiveRows');
     };
 
     return new Hide();
