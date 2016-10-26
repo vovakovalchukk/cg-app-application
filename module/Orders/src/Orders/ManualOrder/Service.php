@@ -184,7 +184,7 @@ class Service implements LoggerAwareInterface
 
         $filter = (new ShippingFilter('all', 1))
             ->setOrganisationUnitId([$organisationUnit->getRoot()])
-            ->setChannel('manual-order');
+            ->setChannel(['manual-order']);
 
         return $this->conversionService->fetchMethods($organisationUnit, $filter);
     }
