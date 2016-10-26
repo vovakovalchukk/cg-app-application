@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "97534a9d1f1150b9ca82012e67ef02bb",
-    "content-hash": "845c5b54a8f2ed6d2729a70c958b5565",
+    "hash": "1de032803f1d3566302695d1e51ae7e3",
+    "content-hash": "fd0bc7a55f11c1544cfa80a4b4895daa",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1371,23 +1371,23 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.21",
+            "version": "1.23.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "32da45ea1c83130e4e94229236837abd84a3877c"
+                "reference": "a5aaac3b37768313e49bfef60082248234c0125a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.21-d0ed91.zip",
-                "reference": "32da45ea1c83130e4e94229236837abd84a3877c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.22-1338f3.zip",
+                "reference": "a5aaac3b37768313e49bfef60082248234c0125a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.8.11",
-                "channelgrabber/channel": "^1.17.7",
+                "channelgrabber/channel": "^1.26.1",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1397,14 +1397,14 @@
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.7.0",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.3.14",
@@ -1445,7 +1445,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-05 13:40:28"
+            "time": "2016-10-18 11:33:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -8043,8 +8043,8 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.17.6",
-            "alias_normalized": "1.17.6.0",
+            "alias": "1.17.7",
+            "alias_normalized": "1.17.7.0",
             "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
