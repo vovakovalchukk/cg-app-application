@@ -11,7 +11,7 @@ define([
         getValues: function(variation) {
             return [
                 <td key="weight" className="detail">
-                    <Input name='weight' initialValue={variation.details ?variation.details.weight: ''} step="0.1" submitCallback={this.update}/>
+                    <Input name='weight' initialValue={variation.details ?variation.details.weight.toFixed(3): ''} step="0.1" submitCallback={this.update}/>
                 </td>,
                 <td key="height" className="detail">
                     <Input name='height' initialValue={variation.details ?variation.details.height: ''} step="0.1" submitCallback={this.update}/>

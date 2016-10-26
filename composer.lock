@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09bf31d20a228d3d274ebfad3353acf5",
-    "content-hash": "b36672e58af78416c205dfb1708cda1c",
+    "hash": "8189f77592c16d3db1fecdbaac733233",
+    "content-hash": "abd58a4189727dfe81eb2706a855b3c9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1371,23 +1371,23 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.21",
+            "version": "1.23.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "32da45ea1c83130e4e94229236837abd84a3877c"
+                "reference": "a5aaac3b37768313e49bfef60082248234c0125a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.21-d0ed91.zip",
-                "reference": "32da45ea1c83130e4e94229236837abd84a3877c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.22-1338f3.zip",
+                "reference": "a5aaac3b37768313e49bfef60082248234c0125a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.8.11",
-                "channelgrabber/channel": "^1.17.7",
+                "channelgrabber/channel": "^1.26.1",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1397,14 +1397,14 @@
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.7.0",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.3.14",
@@ -1445,7 +1445,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-05 13:40:28"
+            "time": "2016-10-18 11:33:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -3144,6 +3144,12 @@
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
                 "reference": "61f109fce7a743350c872ae01cc1597f83a21328"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7566-add-usage-exceeded-error-to-products-page-b15319.zip",
+                "reference": "61f109fce7a743350c872ae01cc1597f83a21328",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -3182,7 +3188,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-30 07:46:12"
+            "time": "2016-10-25 09:23:35"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3579,7 +3585,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "006cc12b96749ec8f2f7f07ebaf1ae6c4d47f9fa"
+                "reference": "afd8e2b533a4ea5682dd1b42b6dc121c9cad5fc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7566-add-usage-exceeded-error-to-products-page-a6752c.zip",
+                "reference": "afd8e2b533a4ea5682dd1b42b6dc121c9cad5fc0",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3625,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-05 07:50:57"
+            "time": "2016-10-26 14:36:12"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8031,8 +8043,8 @@
             "package": "channelgrabber/zf2-login"
         },
         {
-            "alias": "1.17.6",
-            "alias_normalized": "1.17.6.0",
+            "alias": "1.17.7",
+            "alias_normalized": "1.17.7.0",
             "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -8046,8 +8058,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\CourierAdapter\Exception\UserError;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG_UI\View\Helper\Mustache as MustacheViewHelper;
@@ -152,6 +153,8 @@ class CourierJsonController extends AbstractActionController
             );
         } catch (ValidationMessagesException $e) {
             return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
+        } catch (UserError $e) {
+            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
