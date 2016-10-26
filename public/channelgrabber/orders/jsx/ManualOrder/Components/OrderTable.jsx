@@ -188,7 +188,7 @@ define([
         getShippingMarkup: function () {
             return (
                 <div className="detail-shipping">
-                    <span className="detail-label"><SearchBox results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
+                    <span className="detail-label"><SearchBox placeholder="Shipping method..." results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
                     <CurrencyInput value={this.state.shippingMethod.cost} currency={this.props.currency.value} onChange={this.onManualShippingCost}/>
                 </div>
             );
