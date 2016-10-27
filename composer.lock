@@ -3582,13 +3582,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e894a8636c16c510a12d42732c77d326eb166387"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7573-manual-orders-ui-tidy-up-61e7ab.zip",
-                "reference": "e894a8636c16c510a12d42732c77d326eb166387",
-                "shasum": null
+                "reference": "9ec748c8ef7939fe9dc9e31b2d1f70035e5f30af"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8054,16 +8048,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
