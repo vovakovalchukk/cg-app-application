@@ -43,7 +43,7 @@ define([
         getResultsMarkup: function () {
             var results = this.props.results.filter(this.filterBySearchTerm).map(function(result, index) {
                 return (
-                    <li className="react-search-box-result-item" key={index} onClick={() => this.onResultSelected(result)}>{result.name}</li>
+                    <li className="react-search-box-result-item" key={index} onClick={function(){this.onResultSelected(result)}.bind(this)}>{result.name}</li>
                 )
             }.bind(this));
 
@@ -59,7 +59,8 @@ define([
         render: function () {
             return (
                 <div className="react-search-box">
-                    <input value={this.state.searchTerm} placeholder={this.props.placeholder} onChange={this.onChange} onClick={() => this.setState({hasFocus:true})}/>
+                    <input value={this.state.searchTerm} placeholder={this.props.placeholder} onChange={this.onChange} onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
+                    <span className="sprite-delete-16-black" onClick={function(){this.setState({searchTerm:''})}.bind(this)}></span>
                     {this.getResultsMarkup()}
                 </div>
             );
