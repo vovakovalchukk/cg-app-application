@@ -74,7 +74,7 @@ define([
                         onChange={this.onChange}
                         onBlur={this.onBlur}
                         onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
-                    <span className="sprite-delete-16-black" onClick={function(){this.setState({searchTerm:''})}.bind(this)}></span>
+                    <span className="sprite-delete-16-black" onClick={function(){this.setState({searchTerm:'',selection: ''})}.bind(this)}></span>
                     {this.getResultsMarkup()}
                 </div>
             );
