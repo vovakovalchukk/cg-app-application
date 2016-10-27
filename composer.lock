@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b71e1b981799a16cada82e5ea7b08e9c",
-    "content-hash": "9285d4452480ff84925270305e3f08bf",
+    "hash": "d4cb9fbd4223a691665af46cfe512271",
+    "content-hash": "b3bbdbd03ff4051951be05cf16e93050",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.0",
+            "version": "1.27.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cf238db4617a3f8b241bdba928af8e0d79895cef"
+                "reference": "82c6a2731bcfd53f54395ab9ab4d76625d370950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.0-65e495.zip",
-                "reference": "cf238db4617a3f8b241bdba928af8e0d79895cef",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.1-8df19a.zip",
+                "reference": "82c6a2731bcfd53f54395ab9ab4d76625d370950",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-26 14:38:12"
+            "time": "2016-10-27 10:14:39"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1368,16 +1368,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.22",
+            "version": "1.23.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a5aaac3b37768313e49bfef60082248234c0125a"
+                "reference": "54afe5bd5b4c2a200bf6838f395ab13dff7ed4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.22-1338f3.zip",
-                "reference": "a5aaac3b37768313e49bfef60082248234c0125a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.23-82cd8b.zip",
+                "reference": "54afe5bd5b4c2a200bf6838f395ab13dff7ed4b8",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-18 11:33:46"
+            "time": "2016-10-26 15:21:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -2914,16 +2914,16 @@
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624"
+                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.3-cb56ad.zip",
-                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.4-822a40.zip",
+                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470",
                 "shasum": null
             },
             "require": {
@@ -2950,7 +2950,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-09-01 14:37:26"
+            "time": "2016-10-27 10:14:51"
         },
         {
             "name": "channelgrabber/zf2-ekm",
