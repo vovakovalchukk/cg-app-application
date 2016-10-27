@@ -9,34 +9,34 @@
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.18.0",
+            "version": "1.19.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d267fbbb33467678c4f258209b67d05d40ae4056"
+                "reference": "2b4dae41ef35c2401f763916acec17dcff5b6dbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.18.0-9c8c33.zip",
-                "reference": "d267fbbb33467678c4f258209b67d05d40ae4056",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.2-ab1d8b.zip",
+                "reference": "2b4dae41ef35c2401f763916acec17dcff5b6dbc",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.26.0",
+                "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/email": "^1.0.8",
+                "channelgrabber/email": "^1.0.9",
                 "channelgrabber/gearman": "^1.2.22",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/image": ">=1.1.2",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.23.20",
-                "channelgrabber/product": "^1.5.0",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-04T14:16:20+00:00"
+            "time": "2016-10-26 15:02:39"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -108,7 +108,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-19T09:20:37+00:00"
+            "time": "2016-04-19 09:20:37"
         },
         {
             "name": "channelgrabber/bigcommerce",
@@ -148,7 +148,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-30T07:41:32+00:00"
+            "time": "2016-08-30 07:41:32"
         },
         {
             "name": "channelgrabber/billing",
@@ -199,7 +199,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-22T15:21:45+00:00"
+            "time": "2016-08-22 15:21:45"
         },
         {
             "name": "channelgrabber/cache",
@@ -232,7 +232,7 @@
                     "CG\\Cache\\": "src"
                 }
             },
-            "time": "2015-10-05T11:15:11+00:00"
+            "time": "2015-10-05 11:15:11"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -284,7 +284,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2015-03-11T13:39:45+00:00"
+            "time": "2015-03-11 13:39:45"
         },
         {
             "name": "channelgrabber/cglib",
@@ -341,20 +341,20 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-07-27T08:47:15+00:00"
+            "time": "2016-07-27 08:47:15"
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.26.1",
+            "version": "1.27.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0ae359eafdbd4719bfda9a47ca0ee411fa178c4a"
+                "reference": "82c6a2731bcfd53f54395ab9ab4d76625d370950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.26.1-812ad8.zip",
-                "reference": "0ae359eafdbd4719bfda9a47ca0ee411fa178c4a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.1-8df19a.zip",
+                "reference": "82c6a2731bcfd53f54395ab9ab4d76625d370950",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-18T11:03:12+00:00"
+            "time": "2016-10-27 10:14:39"
         },
         {
             "name": "channelgrabber/cilex",
@@ -455,7 +455,7 @@
                     "CG\\Cilex\\": "src"
                 }
             },
-            "time": "2015-05-06T10:07:13+00:00"
+            "time": "2015-05-06 10:07:13"
         },
         {
             "name": "channelgrabber/communication",
@@ -499,7 +499,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2016-09-22T13:46:35+00:00"
+            "time": "2016-09-22 13:46:35"
         },
         {
             "name": "channelgrabber/constants",
@@ -524,7 +524,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -563,7 +563,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-28T14:24:52+00:00"
+            "time": "2016-09-28 14:24:52"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -596,7 +596,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-25T15:27:51+00:00"
+            "time": "2016-08-25 15:27:51"
         },
         {
             "name": "channelgrabber/db",
@@ -627,7 +627,7 @@
                     "CG\\Db\\": "src"
                 }
             },
-            "time": "2016-02-17T13:41:01+00:00"
+            "time": "2016-02-17 13:41:01"
         },
         {
             "name": "channelgrabber/di",
@@ -661,7 +661,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2016-03-30T13:39:22+00:00"
+            "time": "2016-03-30 13:39:22"
         },
         {
             "name": "channelgrabber/ebay",
@@ -719,7 +719,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2016-08-19T10:23:12+00:00"
+            "time": "2016-08-19 10:23:12"
         },
         {
             "name": "channelgrabber/ekm",
@@ -776,20 +776,20 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-08-23T08:26:20+00:00"
+            "time": "2016-08-23 08:26:20"
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "e7e09e9a5401975206f8bcffedc08e52a7a093b1"
+                "reference": "95f8204f14d8ae2f7da00550a96315e476505722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.8-565393.zip",
-                "reference": "e7e09e9a5401975206f8bcffedc08e52a7a093b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.9-594724.zip",
+                "reference": "95f8204f14d8ae2f7da00550a96315e476505722",
                 "shasum": null
             },
             "require": {
@@ -812,7 +812,7 @@
                     "CG\\Email\\": "src"
                 }
             },
-            "time": "2015-07-23T13:20:12+00:00"
+            "time": "2016-10-14 08:07:27"
         },
         {
             "name": "channelgrabber/etag",
@@ -839,7 +839,7 @@
                     "CG\\ETag\\": "src"
                 }
             },
-            "time": "2015-04-30T14:35:36+00:00"
+            "time": "2015-04-30 14:35:36"
         },
         {
             "name": "channelgrabber/gearman",
@@ -873,7 +873,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2016-03-08T12:05:40+00:00"
+            "time": "2016-03-08 12:05:40"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -898,7 +898,7 @@
                     "CG\\Guzzle\\": ""
                 }
             },
-            "time": "2013-10-29T14:49:23+00:00"
+            "time": "2013-10-29 14:49:23"
         },
         {
             "name": "channelgrabber/http",
@@ -947,7 +947,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-02-29T09:17:12+00:00"
+            "time": "2016-02-29 09:17:12"
         },
         {
             "name": "channelgrabber/image",
@@ -982,7 +982,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2016-10-18T10:36:01+00:00"
+            "time": "2016-10-18 10:36:01"
         },
         {
             "name": "channelgrabber/intercom",
@@ -1020,20 +1020,20 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-10-08T11:26:58+00:00"
+            "time": "2015-10-08 11:26:58"
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.11.0",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8"
+                "reference": "a66f91fc9b7272c587f3bd788178ed60d77438b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.0-76c296.zip",
-                "reference": "806e2b5667b65a7bd8d33cbd63dce3f0cf14fad8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.2-43430c.zip",
+                "reference": "a66f91fc9b7272c587f3bd788178ed60d77438b6",
                 "shasum": null
             },
             "require": {
@@ -1068,7 +1068,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-10-13T12:35:24+00:00"
+            "time": "2016-10-21 10:48:16"
         },
         {
             "name": "channelgrabber/locale",
@@ -1101,7 +1101,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-09-23T14:10:32+00:00"
+            "time": "2016-09-23 14:10:32"
         },
         {
             "name": "channelgrabber/location",
@@ -1150,7 +1150,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2015-06-25T08:07:55+00:00"
+            "time": "2015-06-25 08:07:55"
         },
         {
             "name": "channelgrabber/locking",
@@ -1185,7 +1185,7 @@
                     "CG\\Locking\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-01-27T14:17:45+00:00"
+            "time": "2016-01-27 14:17:45"
         },
         {
             "name": "channelgrabber/log",
@@ -1228,7 +1228,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-26T07:50:37+00:00"
+            "time": "2016-07-26 07:50:37"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -1264,24 +1264,24 @@
                     "CG\\ManualOrder\\Test\\": "tests/"
                 }
             },
-            "time": "2016-09-13T09:43:22+00:00"
+            "time": "2016-09-13 09:43:22"
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8993f98b561f50f33259529810710ae443bfdcea"
+                "reference": "4e0173472fed0a93ac4dc5924a0f4f8bbceca060"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.1.0-d937d5.zip",
-                "reference": "8993f98b561f50f33259529810710ae443bfdcea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.1.1-48951f.zip",
+                "reference": "4e0173472fed0a93ac4dc5924a0f4f8bbceca060",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.26.0",
+                "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.9",
@@ -1290,9 +1290,6 @@
                 "channelgrabber/stdlib": "^2.12.6",
                 "channelgrabber/user": "^1.20.3",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
-                "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "conflict": {
@@ -1319,7 +1316,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-10-04T14:15:49+00:00"
+            "time": "2016-10-26 15:10:35"
         },
         {
             "name": "channelgrabber/notification",
@@ -1367,27 +1364,27 @@
                     "CG\\Notification\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-09-15T11:22:02+00:00"
+            "time": "2015-09-15 11:22:02"
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.21",
+            "version": "1.23.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "32da45ea1c83130e4e94229236837abd84a3877c"
+                "reference": "54afe5bd5b4c2a200bf6838f395ab13dff7ed4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.21-d0ed91.zip",
-                "reference": "32da45ea1c83130e4e94229236837abd84a3877c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.23-82cd8b.zip",
+                "reference": "54afe5bd5b4c2a200bf6838f395ab13dff7ed4b8",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.8.11",
-                "channelgrabber/channel": "^1.17.7",
+                "channelgrabber/channel": "^1.26.1",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1397,14 +1394,14 @@
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "^1.2.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.7.0",
+                "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.3.14",
@@ -1445,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-05T13:40:28+00:00"
+            "time": "2016-10-26 15:21:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -1471,7 +1468,7 @@
                     "CG\\Permission\\": "src"
                 }
             },
-            "time": "2014-09-03T11:31:13+00:00"
+            "time": "2014-09-03 11:31:13"
         },
         {
             "name": "channelgrabber/phinx",
@@ -1530,7 +1527,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2016-10-11T15:35:33+00:00"
+            "time": "2016-10-11 15:35:33"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -1594,7 +1591,7 @@
                 "PhantomJS",
                 "Testing"
             ],
-            "time": "2014-11-20T15:17:20+00:00"
+            "time": "2014-11-20 15:17:20"
         },
         {
             "name": "channelgrabber/picklist",
@@ -1630,7 +1627,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-09-08T14:26:44+00:00"
+            "time": "2015-09-08 14:26:44"
         },
         {
             "name": "channelgrabber/predis",
@@ -1658,7 +1655,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2016-02-26T15:28:43+00:00"
+            "time": "2016-02-26 15:28:43"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -1712,7 +1709,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2015-06-17T11:08:31+00:00"
+            "time": "2015-06-17 11:08:31"
         },
         {
             "name": "channelgrabber/product",
@@ -1769,7 +1766,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-10-18T10:50:12+00:00"
+            "time": "2016-10-18 10:50:12"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -1805,7 +1802,7 @@
                     "CG\\Product\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2016-01-22T17:26:46+00:00"
+            "time": "2016-01-22 17:26:46"
         },
         {
             "name": "channelgrabber/purge",
@@ -1844,7 +1841,7 @@
                     "CG\\Purge\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-22T12:17:24+00:00"
+            "time": "2015-04-22 12:17:24"
         },
         {
             "name": "channelgrabber/redis",
@@ -1870,7 +1867,7 @@
                     "CG\\Redis\\": "src"
                 }
             },
-            "time": "2015-06-24T07:21:01+00:00"
+            "time": "2015-06-24 07:21:01"
         },
         {
             "name": "channelgrabber/redis-locking",
@@ -1904,24 +1901,24 @@
                     "CG\\Redis\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2016-01-19T15:18:35+00:00"
+            "time": "2016-01-19 15:18:35"
         },
         {
             "name": "channelgrabber/royalmail",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "1086b3e6ee2b74f715a85e52e37f43f078718e8a"
+                "reference": "b7a7cb7e73976f7c85ed623e6b0797e32cebf224"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.6-087380.zip",
-                "reference": "1086b3e6ee2b74f715a85e52e37f43f078718e8a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.7-24a75b.zip",
+                "reference": "b7a7cb7e73976f7c85ed623e6b0797e32cebf224",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.26.0",
+                "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0"
             },
@@ -1931,7 +1928,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2016-10-04T14:19:53+00:00"
+            "time": "2016-10-26 15:09:24"
         },
         {
             "name": "channelgrabber/scraper",
@@ -1966,7 +1963,7 @@
             "autoload-dev": {
                 "CG\\Scraper\\Test\\": "tests"
             },
-            "time": "2014-11-10T16:41:55+00:00"
+            "time": "2014-11-10 16:41:55"
         },
         {
             "name": "channelgrabber/sequential-numbering",
@@ -1997,7 +1994,7 @@
                 }
             },
             "description": "Provides sequential number generators",
-            "time": "2015-06-22T13:42:51+00:00"
+            "time": "2015-06-22 13:42:51"
         },
         {
             "name": "channelgrabber/settings",
@@ -2031,7 +2028,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-08-24T08:45:00+00:00"
+            "time": "2016-08-24 08:45:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2075,7 +2072,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-18T11:43:26+00:00"
+            "time": "2016-10-18 11:43:26"
         },
         {
             "name": "channelgrabber/slim",
@@ -2139,7 +2136,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-04-29T09:54:24+00:00"
+            "time": "2016-04-29 09:54:24"
         },
         {
             "name": "channelgrabber/sso",
@@ -2179,7 +2176,7 @@
                     "CG\\Sso\\": ""
                 }
             },
-            "time": "2015-04-09T13:53:19+00:00"
+            "time": "2015-04-09 13:53:19"
         },
         {
             "name": "channelgrabber/stats",
@@ -2207,7 +2204,7 @@
                 }
             },
             "description": "ChannelGrabber application stat logging",
-            "time": "2015-04-22T08:58:22+00:00"
+            "time": "2015-04-22 08:58:22"
         },
         {
             "name": "channelgrabber/stdlib",
@@ -2251,7 +2248,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-07-12T12:55:13+00:00"
+            "time": "2016-07-12 12:55:13"
         },
         {
             "name": "channelgrabber/stock",
@@ -2309,7 +2306,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-19T10:24:20+00:00"
+            "time": "2016-08-19 10:24:20"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -2345,7 +2342,7 @@
                     "CG\\Stock\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2016-01-27T14:28:45+00:00"
+            "time": "2016-01-27 14:28:45"
         },
         {
             "name": "channelgrabber/tax",
@@ -2385,7 +2382,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2016-06-28T08:12:20+00:00"
+            "time": "2016-06-28 08:12:20"
         },
         {
             "name": "channelgrabber/template",
@@ -2441,7 +2438,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-09-27T08:22:41+00:00"
+            "time": "2016-09-27 08:22:41"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2478,7 +2475,7 @@
                     "CG\\Transaction\\": "src"
                 }
             },
-            "time": "2016-02-05T13:27:34+00:00"
+            "time": "2016-02-05 13:27:34"
         },
         {
             "name": "channelgrabber/usage",
@@ -2512,7 +2509,7 @@
                     "CG\\Usage\\": "src"
                 }
             },
-            "time": "2015-05-28T15:13:29+00:00"
+            "time": "2015-05-28 15:13:29"
         },
         {
             "name": "channelgrabber/usage-check",
@@ -2542,7 +2539,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2016-02-05T08:50:13+00:00"
+            "time": "2016-02-05 08:50:13"
         },
         {
             "name": "channelgrabber/user",
@@ -2593,7 +2590,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-07-05T13:04:00+00:00"
+            "time": "2016-07-05 13:04:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2626,7 +2623,7 @@
                     "CG\\UserPreference\\": ""
                 }
             },
-            "time": "2015-03-20T10:03:23+00:00"
+            "time": "2015-03-20 10:03:23"
         },
         {
             "name": "channelgrabber/validation",
@@ -2653,7 +2650,7 @@
                     "CG\\Validation\\": "src"
                 }
             },
-            "time": "2015-08-26T12:57:40+00:00"
+            "time": "2015-08-26 12:57:40"
         },
         {
             "name": "channelgrabber/vnderror",
@@ -2678,7 +2675,7 @@
                     "CG\\VndError": ""
                 }
             },
-            "time": "2013-11-04T13:10:03+00:00"
+            "time": "2013-11-04 13:10:03"
         },
         {
             "name": "channelgrabber/webhook-framework",
@@ -2711,7 +2708,7 @@
                     "CG\\Webhook\\": "src"
                 }
             },
-            "time": "2016-08-12T07:55:48+00:00"
+            "time": "2016-08-12 07:55:48"
         },
         {
             "name": "channelgrabber/woocommerce",
@@ -2757,7 +2754,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-03-02T13:51:42+00:00"
+            "time": "2016-03-02 13:51:42"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -2792,7 +2789,7 @@
                     "CG\\Zendesk\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-15T12:09:57+00:00"
+            "time": "2014-10-15 12:09:57"
         },
         {
             "name": "channelgrabber/zf2-amazon",
@@ -2837,7 +2834,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-09-30T08:06:44+00:00"
+            "time": "2016-09-30 08:06:44"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -2874,7 +2871,7 @@
                 ]
             },
             "description": "Public API module",
-            "time": "2015-08-26T12:47:56+00:00"
+            "time": "2015-08-26 12:47:56"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -2913,20 +2910,20 @@
                 ]
             },
             "description": "Channel module",
-            "time": "2015-04-24T15:50:10+00:00"
+            "time": "2015-04-24 15:50:10"
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624"
+                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.3-cb56ad.zip",
-                "reference": "33bc7df766711c382bef3121fd8f66e6c5763624",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.4-822a40.zip",
+                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470",
                 "shasum": null
             },
             "require": {
@@ -2953,7 +2950,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-09-01T14:37:26+00:00"
+            "time": "2016-10-27 10:14:51"
         },
         {
             "name": "channelgrabber/zf2-ekm",
@@ -2990,7 +2987,7 @@
                 ]
             },
             "description": "Ekm module",
-            "time": "2015-07-09T14:27:04+00:00"
+            "time": "2015-07-09 14:27:04"
         },
         {
             "name": "channelgrabber/zf2-email-template",
@@ -3024,7 +3021,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2016-05-18T15:33:03+00:00"
+            "time": "2016-05-18 15:33:03"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -3058,7 +3055,7 @@
                     "CG\\Zend\\Hal\\": "src"
                 }
             },
-            "time": "2014-09-05T09:31:01+00:00"
+            "time": "2014-09-05 09:31:01"
         },
         {
             "name": "channelgrabber/zf2-installer",
@@ -3091,7 +3088,7 @@
                     "CG\\Zend\\Installer\\": "src"
                 }
             },
-            "time": "2016-05-18T12:51:53+00:00"
+            "time": "2016-05-18 12:51:53"
         },
         {
             "name": "channelgrabber/zf2-logclient",
@@ -3134,20 +3131,20 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-05T13:22:12+00:00"
+            "time": "2015-02-05 13:22:12"
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a"
+                "reference": "037a90b9b248f8c8dbe012386535f8e24931384d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.2-1184e9.zip",
-                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.3-e5c091.zip",
+                "reference": "037a90b9b248f8c8dbe012386535f8e24931384d",
                 "shasum": null
             },
             "require": {
@@ -3188,7 +3185,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-30T07:46:12+00:00"
+            "time": "2016-10-27 07:30:33"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3224,20 +3221,20 @@
                 ]
             },
             "description": "ZF2 Mustache rendering module",
-            "time": "2014-08-14T15:58:28+00:00"
+            "time": "2014-08-14 15:58:28"
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8"
+                "reference": "cae3e9b797d7fc15dc05916c9e388e3ddd110b57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.6-d4f4f3.zip",
-                "reference": "517631496d5e4fff2ed9ff7ee906d171c7f63ba8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.7-f68e3f.zip",
+                "reference": "cae3e9b797d7fc15dc05916c9e388e3ddd110b57",
                 "shasum": null
             },
             "require": {
@@ -3269,7 +3266,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-07-22T08:05:15+00:00"
+            "time": "2016-10-26 14:37:52"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3318,7 +3315,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-29T08:53:46+00:00"
+            "time": "2016-03-29 08:53:46"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -3371,7 +3368,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-10-14T10:27:18+00:00"
+            "time": "2016-10-14 10:27:18"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3410,7 +3407,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-09-30T16:53:18+00:00"
+            "time": "2014-09-30 16:53:18"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -3448,7 +3445,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2016-10-12T08:02:06+00:00"
+            "time": "2016-10-12 08:02:06"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -3490,7 +3487,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-03T13:54:53+00:00"
+            "time": "2015-09-03 13:54:53"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -3534,7 +3531,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-12T08:13:48+00:00"
+            "time": "2016-08-12 08:13:48"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -3577,7 +3574,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2016-05-20T09:35:12+00:00"
+            "time": "2016-05-20 09:35:12"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -3631,7 +3628,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-05T07:50:57+00:00"
+            "time": "2016-10-27 07:33:44"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3676,7 +3673,7 @@
                 ]
             },
             "description": "CG_WooCommerce module",
-            "time": "2015-09-29T07:47:15+00:00"
+            "time": "2015-09-29 07:47:15"
         },
         {
             "name": "cilex/cilex",
@@ -3735,7 +3732,7 @@
                 "cli",
                 "microframework"
             ],
-            "time": "2013-08-01T15:19:34+00:00"
+            "time": "2013-08-01 15:19:34"
         },
         {
             "name": "cilex/console-service-provider",
@@ -3794,7 +3791,7 @@
                 "service-provider",
                 "silex"
             ],
-            "time": "2012-12-19T10:50:58+00:00"
+            "time": "2012-12-19 10:50:58"
         },
         {
             "name": "composer/composer",
@@ -3930,7 +3927,7 @@
                 "validation",
                 "versioning"
             ],
-            "time": "2016-03-30T13:16:03+00:00"
+            "time": "2016-03-30 13:16:03"
         },
         {
             "name": "composer/spdx-licenses",
@@ -3991,7 +3988,7 @@
                 "spdx",
                 "validator"
             ],
-            "time": "2015-10-05T11:27:42+00:00"
+            "time": "2015-10-05 11:27:42"
         },
         {
             "name": "contextio/php-contextio",
@@ -4028,7 +4025,7 @@
                 "contextio",
                 "imap"
             ],
-            "time": "2015-08-25T01:42:05+00:00"
+            "time": "2015-08-25 01:42:05"
         },
         {
             "name": "fabpot/goutte",
@@ -4084,7 +4081,7 @@
             "keywords": [
                 "scraper"
             ],
-            "time": "2014-10-09T15:52:51+00:00"
+            "time": "2014-10-09 15:52:51"
         },
         {
             "name": "guzzle/guzzle",
@@ -4180,7 +4177,7 @@
                 "web service"
             ],
             "abandoned": "guzzlehttp/guzzle",
-            "time": "2015-03-18T18:23:50+00:00"
+            "time": "2015-03-18 18:23:50"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4238,7 +4235,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-05-20T03:47:55+00:00"
+            "time": "2015-05-20 03:47:55"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -4289,7 +4286,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-05-20T03:37:09+00:00"
+            "time": "2015-05-20 03:37:09"
         },
         {
             "name": "guzzlehttp/streams",
@@ -4339,7 +4336,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-10-12T19:18:40+00:00"
+            "time": "2014-10-12 19:18:40"
         },
         {
             "name": "iio/libmergepdf",
@@ -4389,7 +4386,7 @@
                 "merge",
                 "pdf"
             ],
-            "time": "2016-03-02T20:38:15+00:00"
+            "time": "2016-03-02 20:38:15"
         },
         {
             "name": "intercom/intercom-php",
@@ -4435,7 +4432,7 @@
                 "intercom",
                 "intercom.io"
             ],
-            "time": "2015-04-03T12:10:19+00:00"
+            "time": "2015-04-03 12:10:19"
         },
         {
             "name": "jakoch/phantomjs-installer",
@@ -4476,7 +4473,7 @@
                 "headless",
                 "phantomjs"
             ],
-            "time": "2014-07-29T09:42:52+00:00"
+            "time": "2014-07-29 09:42:52"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -4542,7 +4539,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2015-09-08T22:28:04+00:00"
+            "time": "2015-09-08 22:28:04"
         },
         {
             "name": "league/csv",
@@ -4599,7 +4596,7 @@
                 "read",
                 "write"
             ],
-            "time": "2015-06-10T11:12:37+00:00"
+            "time": "2015-06-10 11:12:37"
         },
         {
             "name": "league/event",
@@ -4649,7 +4646,7 @@
                 "event",
                 "listener"
             ],
-            "time": "2015-05-21T12:24:47+00:00"
+            "time": "2015-05-21 12:24:47"
         },
         {
             "name": "league/oauth2-server",
@@ -4713,7 +4710,7 @@
                 "secure",
                 "server"
             ],
-            "time": "2015-11-13T17:52:27+00:00"
+            "time": "2015-11-13 17:52:27"
         },
         {
             "name": "liuggio/statsd-php-client",
@@ -4763,7 +4760,7 @@
                 "php",
                 "statsd"
             ],
-            "time": "2015-07-23T23:12:45+00:00"
+            "time": "2015-07-23 23:12:45"
         },
         {
             "name": "mustache/mustache",
@@ -4809,7 +4806,7 @@
                 "mustache",
                 "templating"
             ],
-            "time": "2015-08-15T19:23:13+00:00"
+            "time": "2015-08-15 19:23:13"
         },
         {
             "name": "nocarrier/hal",
@@ -4857,7 +4854,7 @@
                 "rest",
                 "xml"
             ],
-            "time": "2015-07-01T09:57:11+00:00"
+            "time": "2015-07-01 09:57:11"
         },
         {
             "name": "php-jsonpatch/php-jsonpatch",
@@ -4960,7 +4957,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5011,7 +5008,7 @@
                 "data",
                 "measurements"
             ],
-            "time": "2015-12-12T19:31:49+00:00"
+            "time": "2015-12-12 19:31:49"
         },
         {
             "name": "phpish/link_header",
@@ -5053,7 +5050,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "pimple/pimple",
@@ -5099,7 +5096,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-03-08T08:21:40+00:00"
+            "time": "2013-03-08 08:21:40"
         },
         {
             "name": "psr/log",
@@ -5137,7 +5134,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21T11:40:51+00:00"
+            "time": "2012-12-21 11:40:51"
         },
         {
             "name": "react/event-loop",
@@ -5180,7 +5177,7 @@
             "keywords": [
                 "event-loop"
             ],
-            "time": "2013-07-21T02:23:09+00:00"
+            "time": "2013-07-21 02:23:09"
         },
         {
             "name": "react/promise",
@@ -5224,7 +5221,7 @@
                 }
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "time": "2015-07-03T13:48:55+00:00"
+            "time": "2015-07-03 13:48:55"
         },
         {
             "name": "realityking/hash_equals",
@@ -5262,7 +5259,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -5308,7 +5305,7 @@
                 "xml"
             ],
             "abandoned": "ramsey/vnderror",
-            "time": "2012-07-17T22:17:31+00:00"
+            "time": "2012-07-17 22:17:31"
         },
         {
             "name": "seld/cli-prompt",
@@ -5356,7 +5353,7 @@
                 "input",
                 "prompt"
             ],
-            "time": "2015-04-30T20:24:49+00:00"
+            "time": "2015-04-30 20:24:49"
         },
         {
             "name": "seld/jsonlint",
@@ -5402,7 +5399,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2015-01-04T21:18:15+00:00"
+            "time": "2015-01-04 21:18:15"
         },
         {
             "name": "seld/phar-utils",
@@ -5446,7 +5443,7 @@
             "keywords": [
                 "phra"
             ],
-            "time": "2015-10-13T18:44:15+00:00"
+            "time": "2015-10-13 18:44:15"
         },
         {
             "name": "setasign/fpdf",
@@ -5485,7 +5482,7 @@
                 "fpdf",
                 "pdf"
             ],
-            "time": "2016-01-01T17:47:15+00:00"
+            "time": "2016-01-01 17:47:15"
         },
         {
             "name": "setasign/fpdi",
@@ -5534,7 +5531,7 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2015-11-30T10:53:14+00:00"
+            "time": "2015-11-30 10:53:14"
         },
         {
             "name": "setasign/fpdi-fpdf",
@@ -5578,7 +5575,7 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2015-11-30T11:10:35+00:00"
+            "time": "2015-11-30 11:10:35"
         },
         {
             "name": "slim/slim",
@@ -5622,7 +5619,7 @@
                 "rest",
                 "router"
             ],
-            "time": "2013-10-31T02:05:09+00:00"
+            "time": "2013-10-31 02:05:09"
         },
         {
             "name": "symfony/browser-kit",
@@ -5676,7 +5673,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-23T14:47:27+00:00"
+            "time": "2015-10-23 14:47:27"
         },
         {
             "name": "symfony/class-loader",
@@ -5725,7 +5722,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-23T14:47:27+00:00"
+            "time": "2015-10-23 14:47:27"
         },
         {
             "name": "symfony/config",
@@ -5772,7 +5769,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11T09:39:48+00:00"
+            "time": "2015-10-11 09:39:48"
         },
         {
             "name": "symfony/console",
@@ -5828,7 +5825,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-20T14:38:46+00:00"
+            "time": "2015-10-20 14:38:46"
         },
         {
             "name": "symfony/css-selector",
@@ -5878,7 +5875,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11T09:39:48+00:00"
+            "time": "2015-10-11 09:39:48"
         },
         {
             "name": "symfony/dependency-injection",
@@ -5937,7 +5934,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-27T15:38:06+00:00"
+            "time": "2015-10-27 15:38:06"
         },
         {
             "name": "symfony/dom-crawler",
@@ -5989,7 +5986,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11T09:39:48+00:00"
+            "time": "2015-10-11 09:39:48"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -6046,7 +6043,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11T09:39:48+00:00"
+            "time": "2015-10-11 09:39:48"
         },
         {
             "name": "symfony/filesystem",
@@ -6092,7 +6089,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-18T20:23:18+00:00"
+            "time": "2015-10-18 20:23:18"
         },
         {
             "name": "symfony/finder",
@@ -6138,7 +6135,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11T09:39:48+00:00"
+            "time": "2015-10-11 09:39:48"
         },
         {
             "name": "symfony/http-foundation",
@@ -6190,7 +6187,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-23T14:47:27+00:00"
+            "time": "2015-10-23 14:47:27"
         },
         {
             "name": "symfony/process",
@@ -6236,7 +6233,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-23T14:47:27+00:00"
+            "time": "2015-10-23 14:47:27"
         },
         {
             "name": "symfony/yaml",
@@ -6282,7 +6279,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11T09:39:48+00:00"
+            "time": "2015-10-11 09:39:48"
         },
         {
             "name": "twig/twig",
@@ -6343,7 +6340,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-11-05T12:49:06+00:00"
+            "time": "2015-11-05 12:49:06"
         },
         {
             "name": "whichbrowser/whichbrowser",
@@ -6386,7 +6383,7 @@
                 "useragent"
             ],
             "abandoned": "whichbrowser/legacy",
-            "time": "2015-11-17T23:20:59+00:00"
+            "time": "2015-11-17 23:20:59"
         },
         {
             "name": "zendframework/zendframework",
@@ -6504,7 +6501,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2015-05-11T16:03:51+00:00"
+            "time": "2015-05-11 16:03:51"
         },
         {
             "name": "zendframework/zendpdf",
@@ -6539,7 +6536,7 @@
                 "pdf",
                 "zf2"
             ],
-            "time": "2014-09-22T08:39:00+00:00"
+            "time": "2014-09-22 08:39:00"
         },
         {
             "name": "zendframework/zendxml",
@@ -6584,7 +6581,7 @@
                 "xml",
                 "zf2"
             ],
-            "time": "2015-08-03T14:50:10+00:00"
+            "time": "2015-08-03 14:50:10"
         },
         {
             "name": "zeroclipboard/zeroclipboard",
@@ -6630,7 +6627,7 @@
                 "paste",
                 "zclip"
             ],
-            "time": "2014-07-27T06:38:43+00:00"
+            "time": "2014-07-27 06:38:43"
         }
     ],
     "packages-dev": [
@@ -6687,7 +6684,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2013-04-13T23:39:27+00:00"
+            "time": "2013-04-13 23:39:27"
         },
         {
             "name": "behat/mink-browserkit-driver",
@@ -6742,7 +6739,7 @@
                 "browser",
                 "testing"
             ],
-            "time": "2013-04-13T23:46:30+00:00"
+            "time": "2013-04-13 23:46:30"
         },
         {
             "name": "behat/mink-goutte-driver",
@@ -6793,7 +6790,7 @@
                 "headless",
                 "testing"
             ],
-            "time": "2013-07-03T18:43:54+00:00"
+            "time": "2013-07-03 18:43:54"
         },
         {
             "name": "behat/mink-selenium2-driver",
@@ -6851,7 +6848,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2013-06-02T19:09:45+00:00"
+            "time": "2013-06-02 19:09:45"
         },
         {
             "name": "channelgrabber/codeception",
@@ -6879,7 +6876,7 @@
                     "CG\\Codeception\\": "src"
                 }
             },
-            "time": "2015-02-17T16:11:07+00:00"
+            "time": "2015-02-17 16:11:07"
         },
         {
             "name": "channelgrabber/spork",
@@ -6926,7 +6923,7 @@
             ],
             "description": "Asynchronous PHP",
             "homepage": "https://github.com/channelgrabber/spork",
-            "time": "2014-09-16T11:12:42+00:00"
+            "time": "2014-09-16 11:12:42"
         },
         {
             "name": "codeception/codeception",
@@ -6993,7 +6990,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-11-15T02:57:56+00:00"
+            "time": "2013-11-15 02:57:56"
         },
         {
             "name": "doctrine/instantiator",
@@ -7047,7 +7044,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14T21:17:01+00:00"
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "facebook/webdriver",
@@ -7078,7 +7075,7 @@
             ],
             "description": "A php client for WebDriver",
             "homepage": "https://github.com/facebook/php-webdriver",
-            "time": "2013-10-15T05:25:07+00:00"
+            "time": "2013-10-15 05:25:07"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -7136,7 +7133,7 @@
                 "webdriver",
                 "webtest"
             ],
-            "time": "2013-10-04T15:03:51+00:00"
+            "time": "2013-10-04 15:03:51"
         },
         {
             "name": "monolog/monolog",
@@ -7213,7 +7210,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-10-14T12:51:02+00:00"
+            "time": "2015-10-14 12:51:02"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -7262,7 +7259,7 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "time": "2015-02-03T12:10:50+00:00"
+            "time": "2015-02-03 12:10:50"
         },
         {
             "name": "phpspec/php-diff",
@@ -7296,7 +7293,7 @@
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
-            "time": "2013-11-01T13:02:21+00:00"
+            "time": "2013-11-01 13:02:21"
         },
         {
             "name": "phpspec/phpspec",
@@ -7369,7 +7366,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-07-01T14:09:19+00:00"
+            "time": "2014-07-01 14:09:19"
         },
         {
             "name": "phpspec/prophecy",
@@ -7429,7 +7426,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-08-13T10:07:40+00:00"
+            "time": "2015-08-13 10:07:40"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7490,7 +7487,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-09-02T10:13:14+00:00"
+            "time": "2014-09-02 10:13:14"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -7537,7 +7534,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2015-06-21T13:08:43+00:00"
+            "time": "2015-06-21 13:08:43"
         },
         {
             "name": "phpunit/php-text-template",
@@ -7578,7 +7575,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2015-06-21T13:50:34+00:00"
+            "time": "2015-06-21 13:50:34"
         },
         {
             "name": "phpunit/php-timer",
@@ -7619,7 +7616,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2015-06-21T08:01:12+00:00"
+            "time": "2015-06-21 08:01:12"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -7669,7 +7666,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-03-03T05:10:30+00:00"
+            "time": "2014-03-03 05:10:30"
         },
         {
             "name": "phpunit/phpunit",
@@ -7742,7 +7739,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-10-17T09:04:17+00:00"
+            "time": "2014-10-17 09:04:17"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -7791,7 +7788,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2013-01-13T10:24:48+00:00"
+            "time": "2013-01-13 10:24:48"
         },
         {
             "name": "sebastian/comparator",
@@ -7855,7 +7852,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2015-07-26T15:48:44+00:00"
+            "time": "2015-07-26 15:48:44"
         },
         {
             "name": "sebastian/diff",
@@ -7907,7 +7904,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2015-12-08T07:14:41+00:00"
+            "time": "2015-12-08 07:14:41"
         },
         {
             "name": "sebastian/exporter",
@@ -7973,7 +7970,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2015-06-21T07:55:53+00:00"
+            "time": "2015-06-21 07:55:53"
         },
         {
             "name": "sebastian/recursion-context",
@@ -8026,7 +8023,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2015-11-11T19:50:13+00:00"
+            "time": "2015-11-11 19:50:13"
         }
     ],
     "aliases": [

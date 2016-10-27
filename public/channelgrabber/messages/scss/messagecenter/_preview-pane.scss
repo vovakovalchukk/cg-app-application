@@ -1,19 +1,16 @@
 .message-preview {
   width: 82%;
-  @include calc(max-width, "100% - 301px");
+  box-sizing: border-box;
   @include print() {
     width: 100%;
     height: auto;
     display: table;
     overflow: auto;
   };
-  height: 100%;
-  float: left;
-  display: block;
+  height: calc(100% - 50px);
+  display: flex;
   position: relative;
   z-index: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 .no-messages-content {
     width: 100%;
@@ -45,16 +42,14 @@
     }
 }
 .preview-header {
-  @include calc(width, "100% - 362px");
   @include print() {
     display: table-header-group;
     position: relative;
     float: initial;
   };
-  float: left;
-  clear:both;
   border-bottom: 1px solid $color-lgrey;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   position: fixed;
   z-index: 2;
   padding: 20px;
@@ -72,17 +67,12 @@
   font-weight: bold;
 }
 .message-section {
-  width: 100%;
-  float: left;
-  clear:both;
-  margin-top: 120px;
+  height: calc(100% - 169px);
+  margin-top: 129px;
   padding: 20px;
-  overflow: hidden;
-  @include box-sizing(border);
-  @include print() {
-    display: table-row-group;
-    float: initial;
-  };
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
   ul {
     width: 100%;
     float: left;
@@ -236,7 +226,7 @@
 .message-body {
   width: 100%;
   float: left;
-  clear:both;
+  clear: both;
   padding: 10px 15px 10px 15px;
   font-size: 12px;
   @include box-sizing(border);
@@ -244,6 +234,53 @@
     float: right;
     text-decoration: underline;
     @include no-print();
+  }
+  .message-content {
+    width: 606px;
+    margin: 0 auto;
+    table {
+      float: none;
+      clear: none;
+      white-space: normal;
+      line-height: normal;
+      font-weight: normal;
+      font-size: medium;
+      font-style: normal;
+      text-align: start;
+      border-spacing: 2px;
+      table-layout: auto;
+      tr {
+        max-height: 0 !important;
+        background: 0;
+        &:first-child, &:last-child {
+          border: none;
+          border-radius: 0;
+          background-clip: initial;
+          td {
+            border: none !important;
+          }
+        }
+        td {
+          padding: 0;
+          font-size: inherit;
+          max-height: inherit;
+          height: auto;
+          overflow: inherit;
+          font-weight: normal;
+          text-align: inherit;
+          border-bottom: none;
+          line-height: normal !important;
+          &:first-child, &:last-child {
+            border: none;
+            border-radius: 0;
+            background-clip: initial;
+          }
+          img {
+            max-width: inherit;
+          }
+        }
+      }
+    }
   }
 }
 .reply-section {
