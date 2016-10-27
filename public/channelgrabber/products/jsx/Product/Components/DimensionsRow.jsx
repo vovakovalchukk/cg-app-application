@@ -11,7 +11,7 @@ define([
         getValues: function(variation) {
             return [
                 <td key="weight" className="detail">
-                    <Input name='weight' initialValue={variation.details ?variation.details.weight: ''} step="0.1" submitCallback={this.update}/>
+                    <Input name='weight' initialValue={variation.details ?variation.details.weight.toFixed(3): ''} step="0.1" submitCallback={this.update}/>
                 </td>,
                 <td key="height" className="detail">
                     <Input name='height' initialValue={variation.details ?variation.details.height: ''} step="0.1" submitCallback={this.update}/>
@@ -47,7 +47,7 @@ define([
                         resolve({ savedValue: value });
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to update the "+detail+".");
+                        n.showErrorNotification(error, "There was an error when attempting to update the "+detail+".");
                         reject(new Error(error));
                     }
                 });
