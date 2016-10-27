@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "57b42ba1ceb0d94fd9889f0c4e4ea1a8",
-    "content-hash": "219062576a7cd6af450351488fa6fdfc",
+    "hash": "d4cb9fbd4223a691665af46cfe512271",
+    "content-hash": "b3bbdbd03ff4051951be05cf16e93050",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,16 +345,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7435-reset-ebay-inc-emails-css",
+            "version": "1.27.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3ac467bd79c5df3219c0a22ff8775b89a51c6e41"
+                "reference": "82c6a2731bcfd53f54395ab9ab4d76625d370950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7435-reset-ebay-inc-emails-css-896703.zip",
-                "reference": "3ac467bd79c5df3219c0a22ff8775b89a51c6e41",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.1-8df19a.zip",
+                "reference": "82c6a2731bcfd53f54395ab9ab4d76625d370950",
                 "shasum": null
             },
             "require": {
@@ -422,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-27 07:49:40"
+            "time": "2016-10-27 10:14:39"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2914,16 +2914,16 @@
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "dev-CGIV-7435-reset-ebay-inc-emails-css",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "37bfac81504cedfd796ff8b816055f268bd6c1e4"
+                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-dev-CGIV-7435-reset-ebay-inc-emails-css-c829dc.zip",
-                "reference": "37bfac81504cedfd796ff8b816055f268bd6c1e4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.4-822a40.zip",
+                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470",
                 "shasum": null
             },
             "require": {
@@ -2950,7 +2950,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-10-18 10:21:17"
+            "time": "2016-10-27 10:14:51"
         },
         {
             "name": "channelgrabber/zf2-ekm",
@@ -8032,25 +8032,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.27.1",
-            "alias_normalized": "1.27.1.0",
-            "version": "dev-CGIV-7435-reset-ebay-inc-emails-css",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-7435-reset-ebay-inc-emails-css",
-            "package": "channelgrabber/zf2-ebay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-ebay": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
