@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Common/Components/ClickOutside'
 ], function(
-    React
+    React,
+    ClickOutside
 ) {
     "use strict";
 
@@ -9,13 +11,13 @@ define([
         getDefaultProps: function () {
             return {
                 placeholder: 'Enter Search Term...',
-                selection: '',
                 results: []
             };
         },
         getInitialState: function () {
             return {
                 searchTerm: '',
+                selection: '',
                 hasFocus: false
             }
         },
@@ -23,6 +25,12 @@ define([
             this.setState({
                 searchTerm: e.target.value
             });
+        },
+        onBlur: function () {
+            console.log('blur');
+            if (this.props.onResultSelected) {
+                this.props.onResultSelected(this.state.searchTerm);
+            }
         },
         onResultSelected: function (selection) {
             this.setState({
@@ -32,7 +40,7 @@ define([
             });
 
             if (this.props.onResultSelected) {
-                this.props.onResultSelected(selection);
+                this.props.onResultSelected(selection.name);
             }
         },
         filterBySearchTerm: function(result) {
@@ -51,15 +59,22 @@ define([
                 return;
             }
             return (
-                <div className={"react-search-box-results" + (this.state.hasFocus ? ' active' : '')}>
-                    <ul>{results}</ul>
-                </div>
+                <ClickOutside onClickOutside={function(){this.setState({hasFocus:false})}.bind(this)}>
+                    <div className={"react-search-box-results" + (this.state.hasFocus ? ' active' : '')}>
+                        <ul>{results}</ul>
+                    </div>
+                </ClickOutside>
             );
         },
         render: function () {
             return (
                 <div className="react-search-box">
-                    <input value={this.state.searchTerm} placeholder={this.props.placeholder} onChange={this.onChange} onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
+                    <input
+                        value={this.state.searchTerm}
+                        placeholder={this.props.placeholder}
+                        onChange={this.onChange}
+                        onBlur={this.onBlur}
+                        onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
                     <span className="sprite-delete-16-black" onClick={function(){this.setState({searchTerm:''})}.bind(this)}></span>
                     {this.getResultsMarkup()}
                 </div>
