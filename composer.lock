@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8189f77592c16d3db1fecdbaac733233",
-    "content-hash": "abd58a4189727dfe81eb2706a855b3c9",
+    "hash": "256e4256da5bd5ac861a83076c5c488b",
+    "content-hash": "5348e34c5aa96aaa8b79a9b2fbf6b81c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3138,16 +3138,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "61f109fce7a743350c872ae01cc1597f83a21328"
+                "reference": "037a90b9b248f8c8dbe012386535f8e24931384d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7566-add-usage-exceeded-error-to-products-page-b15319.zip",
-                "reference": "61f109fce7a743350c872ae01cc1597f83a21328",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.3-e5c091.zip",
+                "reference": "037a90b9b248f8c8dbe012386535f8e24931384d",
                 "shasum": null
             },
             "require": {
@@ -3188,7 +3188,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-10-25 09:23:35"
+            "time": "2016-10-27 07:30:33"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3581,16 +3581,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
+            "version": "1.17.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "afd8e2b533a4ea5682dd1b42b6dc121c9cad5fc0"
+                "reference": "29696da50c5d3a9a434ed1685c0724703ce35a9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7566-add-usage-exceeded-error-to-products-page-a6752c.zip",
-                "reference": "afd8e2b533a4ea5682dd1b42b6dc121c9cad5fc0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.8-6f698f.zip",
+                "reference": "29696da50c5d3a9a434ed1685c0724703ce35a9f",
                 "shasum": null
             },
             "require": {
@@ -3637,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-26 14:36:12"
+            "time": "2016-10-27 07:33:44"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8035,25 +8035,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.3",
-            "alias_normalized": "1.5.3.0",
-            "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.17.7",
-            "alias_normalized": "1.17.7.0",
-            "version": "dev-CGIV-7566-add-usage-exceeded-error-to-products-page",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
