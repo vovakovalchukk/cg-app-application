@@ -2390,7 +2390,20 @@ return [
                 'label'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
                 'order'  => 5,
-                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders'
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders',
+                'pages'  => [
+                    'createNewOrder' => [
+                        'id'    => 'createNewOrder',
+                        'label' => 'Create New Order',
+                        'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
+                                '',
+                                [
+                                    Controller\OrdersController::ROUTE_INDEX_URL,
+                                    ManualOrderController::ROUTE_INDEX_URL
+                                ]
+                            )
+                    ]
+                ]
             )
         )
     ),

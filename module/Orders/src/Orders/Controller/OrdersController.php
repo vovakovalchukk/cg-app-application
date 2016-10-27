@@ -46,6 +46,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 {
     use LogTrait;
 
+    const ROUTE_INDEX_URL = '/orders';
     const ROUTE_IMAGES = 'Images';
 
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";

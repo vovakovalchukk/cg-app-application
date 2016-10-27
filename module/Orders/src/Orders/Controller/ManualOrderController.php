@@ -15,6 +15,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class ManualOrderController extends AbstractActionController
 {
+    const ROUTE_INDEX_URL = '/new';
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
