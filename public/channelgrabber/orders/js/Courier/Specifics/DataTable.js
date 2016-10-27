@@ -1,8 +1,6 @@
 function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices, templateMap)
 {
-    CourierDataTableAbstract.call(this, dataTable, orderIds);
-
-    var templates = {};
+    CourierDataTableAbstract.call(this, dataTable, orderIds, templateMap);
 
     this.getCourierAccountId = function()
     {
@@ -16,25 +14,6 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
 
     this.unsetOrderService = function(orderId) {
         delete orderServices[orderId];
-    };
-
-    this.getTemplateMap = function()
-    {
-        return templateMap;
-    };
-
-    this.getTemplate = function(type)
-    {
-        if (templates.hasOwnProperty(type)) {
-            return templates[type];
-        }
-        return null;
-    };
-
-    this.addTemplate = function(type, template)
-    {
-        templates[type] = template;
-        return this;
     };
 
     var init = function()
@@ -142,29 +121,6 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
         var method = CourierSpecificsDataTable.columnRenderers[column.mData];
         self[method](data, cgmustache);
     });
-    return this;
-};
-
-CourierSpecificsDataTable.prototype.addCustomSelectToServiceColumn = function(templateData)
-{
-    var name = 'orderData['+templateData.orderId+'][service]';
-    var templateSelector = CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX+this.getCourierAccountId();
-    // Unset the local service once we've got it so we don't override it after future changes
-    var service = this.getAndUnsetOrderService(templateData.orderId);
-    if (!service) {
-        service = templateData.service;
-    }
-    var serviceSelectCopy = this.cloneCustomSelectElement(
-        templateSelector, name, 'courier-service-custom-select', service
-    );
-    if ($(serviceSelectCopy).is(".disabled")) {
-        $(serviceSelectCopy).removeAttr('class').html(function() {
-            var input = $('input[type=hidden]', this);
-            var selected = $('.custom-select-item.active', this);
-            return $('<div></div>').text(selected.text()).append(input.val(selected.attr('data-value')));
-        });
-    }
-    templateData.serviceOptions = CourierSpecificsDataTable.elementToHtmlString(serviceSelectCopy);
     return this;
 };
 
@@ -402,19 +358,6 @@ CourierSpecificsDataTable.prototype.getAndUnsetOrderService = function(orderId)
     var service = this.getOrderServices()[orderId];
     this.unsetOrderService(orderId);
     return service;
-};
-
-CourierSpecificsDataTable.prototype.fetchTemplate = function (templateName, cgMustache, callback, synchronous)
-{
-    var template = this.getTemplate(templateName);
-    if (template) {
-        callback(template, cgMustache);
-        return;
-    }
-    cgMustache.fetchTemplate(this.getTemplateMap()[templateName], function(template)
-    {
-        callback(template, cgMustache);
-    }, synchronous);
 };
 
 // The following methods are static so they can be accessed here and in the Service
