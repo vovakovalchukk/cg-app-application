@@ -84,7 +84,7 @@ define([
                         onChange={this.onChange}
                         onBlur={this.onBlur}
                         onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
-                    <span className="sprite-delete-16-black" onClick={this.onClearInput}.bind(this)}></span>
+                    <span className="sprite-delete-16-black" onClick={this.onClearInput}></span>
                     {this.getResultsMarkup()}
                 </div>
             );
