@@ -42,6 +42,16 @@ define([
                 this.props.onResultSelected(selection.name);
             }
         },
+        onClearInput: function () {
+            this.setState({
+                searchTerm:'',
+                selection: ''
+            });
+
+            if (this.props.onResultSelected) {
+                this.props.onResultSelected('');
+            }
+        },
         filterBySearchTerm: function(result) {
             if (result.name.toUpperCase().includes(this.state.searchTerm.toUpperCase())) {
                 return true;
@@ -74,7 +84,7 @@ define([
                         onChange={this.onChange}
                         onBlur={this.onBlur}
                         onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
-                    <span className="sprite-delete-16-black" onClick={function(){this.setState({searchTerm:'',selection: ''})}.bind(this)}></span>
+                    <span className="sprite-delete-16-black" onClick={this.onClearInput}.bind(this)}></span>
                     {this.getResultsMarkup()}
                 </div>
             );
