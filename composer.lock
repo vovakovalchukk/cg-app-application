@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "34b84599b9955e9ae03c7c7a75f74c0d",
-    "content-hash": "674fb38f9061f5355c4063c446c21000",
+    "hash": "5f60c333f6350d50c1f19f5f21f356a7",
+    "content-hash": "4e183d73de9c8f2494acedee19b9ee00",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3582,7 +3582,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9ec748c8ef7939fe9dc9e31b2d1f70035e5f30af"
+                "reference": "59f9bea90f87a0cba4f554403c5a21c8d225323d"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8043,6 +8043,12 @@
             "alias": "1.17.9",
             "alias_normalized": "1.17.9.0",
             "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.17.9",
+            "alias_normalized": "1.17.9.0",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
