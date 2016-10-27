@@ -68,25 +68,25 @@ define([
                 return;
             }
             return (
-                <ClickOutside onClickOutside={function(){this.setState({hasFocus:false})}.bind(this)}>
                     <div className={"react-search-box-results" + (this.state.hasFocus ? ' active' : '')}>
                         <ul>{results}</ul>
                     </div>
-                </ClickOutside>
             );
         },
         render: function () {
             return (
-                <div className="react-search-box">
-                    <input
-                        value={this.state.searchTerm}
-                        placeholder={this.props.placeholder}
-                        onChange={this.onChange}
-                        onBlur={this.onBlur}
-                        onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
-                    <span className="sprite-delete-16-black" onClick={this.onClearInput}></span>
-                    {this.getResultsMarkup()}
-                </div>
+                <ClickOutside onClickOutside={function(){this.setState({hasFocus:false})}.bind(this)}>
+                    <div className="react-search-box">
+                        <input
+                            value={this.state.searchTerm}
+                            placeholder={this.props.placeholder}
+                            onChange={this.onChange}
+                            onBlur={this.onBlur}
+                            onClick={function(){this.setState({hasFocus:true})}.bind(this)}/>
+                        <span className="sprite-delete-16-black" onClick={this.onClearInput}></span>
+                        {this.getResultsMarkup()}
+                    </div>
+                </ClickOutside>
             );
         }
     });
