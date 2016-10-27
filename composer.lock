@@ -1372,13 +1372,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "29477e37ef21d0bfe91c00510892ba8b840d5795"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7573-manual-orders-ui-tidy-up-23d351.zip",
-                "reference": "29477e37ef21d0bfe91c00510892ba8b840d5795",
-                "shasum": null
+                "reference": "29fd35c3437530101643174928d3b349c1501f27"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",

@@ -18,7 +18,6 @@ use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Mapper as OrderNoteMapper;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
-use CG\Order\Shared\Shipping\Method\Filter as ShippingFilter;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\User\OrganisationUnit\Service as UserOuService;
@@ -181,12 +180,7 @@ class Service implements LoggerAwareInterface
     public function getShippingMethods()
     {
         $organisationUnit = $this->userOuService->getRootOuByActiveUser();
-
-        $filter = (new ShippingFilter('all', 1))
-            ->setOrganisationUnitId([$organisationUnit->getRoot()])
-            ->setChannel(['manual-order']);
-
-        return $this->conversionService->fetchMethods($organisationUnit, $filter);
+        return $this->conversionService->fetchMethods($organisationUnit, 'manual-order');
     }
 
     protected function calculateTotalFromOrderData(array $orderData)
