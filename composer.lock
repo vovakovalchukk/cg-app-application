@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d9f58d38a84aa38b7010af9e9dcff95",
-    "content-hash": "09587eae9ea646e7d8602d12e7234134",
+    "hash": "57b42ba1ceb0d94fd9889f0c4e4ea1a8",
+    "content-hash": "219062576a7cd6af450351488fa6fdfc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1368,16 +1368,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.22",
+            "version": "1.23.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a5aaac3b37768313e49bfef60082248234c0125a"
+                "reference": "54afe5bd5b4c2a200bf6838f395ab13dff7ed4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.22-1338f3.zip",
-                "reference": "a5aaac3b37768313e49bfef60082248234c0125a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.23-82cd8b.zip",
+                "reference": "54afe5bd5b4c2a200bf6838f395ab13dff7ed4b8",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-18 11:33:46"
+            "time": "2016-10-26 15:21:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -3135,16 +3135,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a"
+                "reference": "037a90b9b248f8c8dbe012386535f8e24931384d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.2-1184e9.zip",
-                "reference": "ceda9b0125ce971f4d33869eb3e34b97eb4a642a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.3-e5c091.zip",
+                "reference": "037a90b9b248f8c8dbe012386535f8e24931384d",
                 "shasum": null
             },
             "require": {
@@ -3185,7 +3185,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-08-30 07:46:12"
+            "time": "2016-10-27 07:30:33"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3578,16 +3578,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.7",
+            "version": "1.17.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e06e5ca94431b05b49381e9fd0b4366d3dfa9ab5"
+                "reference": "29696da50c5d3a9a434ed1685c0724703ce35a9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.7-ab8528.zip",
-                "reference": "e06e5ca94431b05b49381e9fd0b4366d3dfa9ab5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.8-6f698f.zip",
+                "reference": "29696da50c5d3a9a434ed1685c0724703ce35a9f",
                 "shasum": null
             },
             "require": {
@@ -3634,7 +3634,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-26 14:37:39"
+            "time": "2016-10-27 07:33:44"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
