@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6385656811128d5c13df25b7d1c47348",
+    "hash": "3fd91696495c99abb50ae951946dda30",
     "content-hash": "8882ef250f2ecb76f7d168d589e0e20d",
     "packages": [
         {
@@ -3582,13 +3582,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "59f9bea90f87a0cba4f554403c5a21c8d225323d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7573-manual-orders-ui-tidy-up-3f59e6.zip",
-                "reference": "59f9bea90f87a0cba4f554403c5a21c8d225323d",
-                "shasum": null
+                "reference": "4eb5a7ffc81928229c39aea3da958eab3f4d0b7b"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8054,16 +8048,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
