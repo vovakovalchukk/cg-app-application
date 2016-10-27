@@ -78,6 +78,13 @@
   div.what-is-this {
     display: none;
   }
+    fieldset {
+        margin-bottom: 10px;
+        legend {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
 }
 .account-logo {
   width: 100%;

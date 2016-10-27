@@ -145,6 +145,9 @@ class Service implements LoggerAwareInterface
         return $carrierAccounts;
     }
 
+    /**
+     * @return array
+     */
     public function getCourierServiceOptions()
     {
         $shippingServicesByAccount = [];
@@ -153,14 +156,34 @@ class Service implements LoggerAwareInterface
             $shippingServicesByAccount[$account->getId()] = [];
             $shippingService = $this->shippingServiceFactory->createShippingService($account);
             $shippingServices = $shippingService->getShippingServices();
-            foreach ($shippingServices as $value => $name) {
-                $shippingServicesByAccount[$account->getId()][] = [
-                    'value' => $value,
-                    'title' => $name,
-                ];
-            }
+            $shippingServicesByAccount[$account->getId()] = $this->shippingServicesToOptions($shippingServices);
         }
         return $shippingServicesByAccount;
+    }
+
+    /**
+     * @return array
+     */
+    public function getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId)
+    {
+        $order = $this->orderService->fetch($orderId);
+        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+
+        $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
+        $shippingServices = $shippingService->getShippingServicesForOrder($order);
+        return $this->shippingServicesToOptions($shippingServices);
+    }
+
+    protected function shippingServicesToOptions(array $shippingServices)
+    {
+        $options = [];
+        foreach ($shippingServices as $value => $name) {
+            $options[] = [
+                'value' => $value,
+                'title' => $name,
+            ];
+        }
+        return $options;
     }
 
     /**
@@ -201,13 +224,21 @@ class Service implements LoggerAwareInterface
         $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
         $shippingDescription = $order->getShippingMethod();
         $courierId = null;
+        $services = null;
         $service = null;
         $serviceOptions = null;
         if ($shippingAlias) {
             $shippingDescription = $shippingAlias->getName();
             $courierId = $shippingAlias->getAccountId();
-            $service = $shippingAlias->getShippingService();
-            $serviceOptions = $shippingAlias->getOptions();
+            if ($courierId) {
+                $service = $shippingAlias->getShippingService();
+                $serviceOptions = $shippingAlias->getOptions();
+                $courierAccount = $this->accountService->fetch($courierId);
+                $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+                if (!isset($services[$service])) {
+                    $service = null;
+                }
+            }
         }
         $shippingCountry = $order->getShippingAddressCountryForCourier();
         // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries
@@ -220,6 +251,10 @@ class Service implements LoggerAwareInterface
             $index = key($options);
             $options[$index]['selected'] = true;
             $courierId = $options[$index]['value'];
+            if (!$services) {
+                $courierAccount = $this->accountService->fetch($courierId);
+                $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+            }
         }
 
         $orderData = [
@@ -239,6 +274,7 @@ class Service implements LoggerAwareInterface
                 'searchField' => false,
                 'options' => $options,
             ],
+            'services' => $services,
             'service' => $service,
             'serviceOptions' => $serviceOptions,
         ];
@@ -514,6 +550,7 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
+        $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
         $providerService = $this->getCarrierServiceProvider($courierAccount);
         $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface && 
             $providerService->isCancellationAllowedForOrder($courierAccount, $order));
@@ -523,6 +560,7 @@ class Service implements LoggerAwareInterface
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
             'cancellable' => $cancellable,
+            'services' => $services,
         ];
         foreach ($options as $option) {
             $data[$option] = '';
