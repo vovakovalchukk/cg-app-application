@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         babel: {
             options: {
-                presets: ['react', 'es2015']
+                presets: ['react']
             },
             dist: {
                 files: [
