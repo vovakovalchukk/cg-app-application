@@ -9,6 +9,7 @@ use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Carrier;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
+use CG\Channel\Shipping\CourierTrackingUrl;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
@@ -107,6 +108,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $imageService;
     /** @var  McfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
+    protected $courierTrackingUrl;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -131,7 +133,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         RowMapper $rowMapper,
         DateFormatHelper $dateFormatHelper,
         ImageService $imageService,
-        McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage
+        McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
+        CourierTrackingUrl $courierTrackingUrl
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -155,7 +158,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setRowMapper($rowMapper)
             ->setDateFormatHelper($dateFormatHelper)
             ->setImageService($imageService)
-            ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage);
+            ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
+            ->setCourierTrackingUrl($courierTrackingUrl);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -177,6 +181,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithFormattedDates($orders);
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
         $orders = $this->getOrdersArrayWithProductImage($orders);
+        $orders = $this->getOrdersArrayWithTrackingUrl($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -356,6 +361,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 continue;
             }
             $orders[$orderIndex]['image'] = $image->getUrl();
+        }
+
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithTrackingUrl(array $orders)
+    {
+        foreach ($orders as $index => $order) {
+            foreach ($order['trackings'] as $i => $tracking) {
+                $orders[$index]['trackings'][$i]['trackingUrl'] = $this->courierTrackingUrl->getTrackingUrl($tracking['carrier'], $tracking['number']);
+            }
         }
 
         return $orders;
@@ -1236,6 +1252,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setMcfFulfillmentStatusStorage(McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage)
     {
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
+        return $this;
+    }
+
+    protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
+    {
+        $this->courierTrackingUrl = $courierTrackingUrl;
         return $this;
     }
 }
