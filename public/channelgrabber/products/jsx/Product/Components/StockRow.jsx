@@ -97,7 +97,7 @@ define([
                     window.dispatchEvent(modeUpdatedEvent);
                 }.bind(this),
                 error : function(error) {
-                    n.error("There was an error when attempting to update the stock mode.");
+                    n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
                 }
             });
         },
@@ -123,7 +123,7 @@ define([
                         resolve({ savedValue: value });
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to update the stock total.");
+                        n.showErrorNotification(error, "There was an error when attempting to update the stock total.");
                         reject(new Error(error));
                     }
                 });
@@ -150,7 +150,7 @@ define([
                         resolve({ savedValue: response[this.props.variation.sku].level || 0 });
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to update the stock level.");
+                        n.showErrorNotification(error, "There was an error when attempting to update the stock level.");
                         reject(new Error(error));
                     }
                 });

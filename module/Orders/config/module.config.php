@@ -727,6 +727,17 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            CourierJsonController::ROUTE_SERVICES => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/services',
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                        'action' => 'servicesOptions',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                             CourierController::ROUTE_REVIEW => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [

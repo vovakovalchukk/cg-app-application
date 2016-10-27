@@ -24,7 +24,7 @@ class CancelService extends ServiceAbstract
         $orders = $this->getOrdersByIds($orderIds);
         $orderLabels = $this->getOrderLabelsForOrders($orders);
 
-        $this->getCarrierProviderService($shippingAccount)->cancelOrderLabels($orderLabels, $shippingAccount);
+        $this->getCarrierProviderService($shippingAccount)->cancelOrderLabels($orderLabels, $orders, $shippingAccount);
         foreach ($orderLabels as $orderLabel) {
             $order = $orders->getById($orderLabel->getOrderId());
             $this->cancelOrderLabel($orderLabel);
