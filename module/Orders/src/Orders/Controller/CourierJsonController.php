@@ -16,6 +16,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class CourierJsonController extends AbstractActionController
 {
+    const ROUTE_SERVICES = 'Services';
     const ROUTE_REVIEW_LIST = 'Review List';
     const ROUTE_REVIEW_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_LIST = 'Specifics List';
@@ -71,6 +72,15 @@ class CourierJsonController extends AbstractActionController
             ->setLabelCancelService($labelCancelService)
             ->setLabelReadyService($labelReadyService)
             ->setManifestService($manifestService);
+    }
+
+    public function servicesOptionsAction()
+    {
+        $orderId = $this->params()->fromPost('order');
+        $shippingAccountId = $this->params()->fromPost('account');
+
+        $servicesOptions = $this->service->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
+        return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
     }
 
     /**
