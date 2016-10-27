@@ -84,7 +84,6 @@ class CourierController extends AbstractActionController
 
         $view->setVariable('orderIds', $orderIds);
         $view->setVariable('specificsUrl', $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS));
-        $this->addCourierServiceViews($view);
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');
         $view->setVariable('isHeaderBarVisible', false);
@@ -109,34 +108,6 @@ class CourierController extends AbstractActionController
             )
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('courierReview'));
-    }
-
-    protected function addCourierServiceViews(ViewModel $view, $selectedCourierId = null)
-    {
-        $courierServiceOptions = $this->service->getCourierServiceOptions();
-        foreach ($courierServiceOptions as $accountId => $options)
-        {
-            $optionsView = $this->getCourierServiceView($accountId, $options);
-            $view->addChild($optionsView, 'serviceSelects', true);
-        }
-    }
-
-    protected function getCourierServiceView($courierId, array $options)
-    {
-        if (count($options) == 1) {
-            $index = key($options);
-            $options[$index]['selected'] = true;
-        }
-        $view = $this->viewModelFactory->newInstance([
-            'id' => 'courier-service-select-'.$courierId,
-            'class' => 'courier-service-select',
-            'disabled' => (count($options) == 1),
-            'blankOption' => false,
-            'searchField' => true,
-            'options' => $options,
-        ]);
-        $view->setTemplate('elements/custom-select.mustache');
-        return $view;
     }
 
     protected function getReviewContinueButton()
@@ -206,7 +177,6 @@ class CourierController extends AbstractActionController
             ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
-        $this->addCourierServiceViewForSelectedCourier($view, $selectedCourierId);
 
         return $view;
     }
@@ -366,14 +336,6 @@ class CourierController extends AbstractActionController
         ]);
         $view->setTemplate('elements/buttons.mustache');
         return $view;
-    }
-
-    protected function addCourierServiceViewForSelectedCourier(ViewModel $view, $selectedCourierId)
-    {
-        $courierServiceOptions = $this->service->getCourierServiceOptions();
-        $options = $courierServiceOptions[$selectedCourierId];
-        $optionsView = $this->getCourierServiceView($selectedCourierId, $options);
-        $view->addChild($optionsView, 'serviceSelect', true);
     }
 
     public function printLabelAction()
