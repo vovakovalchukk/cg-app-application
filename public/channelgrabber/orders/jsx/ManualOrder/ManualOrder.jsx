@@ -108,7 +108,7 @@ define([
             "organisationUnitId": rawCompanySelectData ? rawCompanySelectData.selectedOption.value : '',
             "currencyCode": rawCurrencyData.name,
             "shippingPrice": rawOrderData.shippingMethod.cost,
-            "shippingMethod": rawOrderData.shippingMethod.name,
+            "shippingMethod": rawOrderData.shippingMethod.name ? rawOrderData.shippingMethod.name : 'N/A',
             "totalDiscount": (rawOrderData.discount.active ? rawOrderData.discount.value : 0),
             "item": this.mapOrderItems(rawOrderData.orderRows),
             "note": this.mapNotes(rawNoteData.notes),
