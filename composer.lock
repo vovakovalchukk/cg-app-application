@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bdc325ce300d72a900720e145c8aa11e",
-    "content-hash": "4cce4e546efddf24c1f0268811873ff4",
+    "content-hash": "90b3fce25413fdbeadd1a381d429761f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -349,7 +348,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b29679b5cb53833958ad089eddc8ab39ad231ae4"
+                "reference": "9f0893c61502da2bc9ad46870f5e2559e9467d40"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -3862,7 +3861,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -4903,7 +4902,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8025,16 +8024,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.6",
-            "alias_normalized": "1.17.6.0",
-            "version": "dev-CGIV-7535-remove-duplicate-courier-name",
-            "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
             "alias": "1.26.1",
             "alias_normalized": "1.26.1.0",
             "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.17.6",
+            "alias_normalized": "1.17.6.0",
+            "version": "dev-CGIV-7535-remove-duplicate-courier-name",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
