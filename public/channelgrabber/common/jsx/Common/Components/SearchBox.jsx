@@ -27,7 +27,6 @@ define([
             });
         },
         onBlur: function () {
-            console.log('blur');
             if (this.props.onResultSelected) {
                 this.props.onResultSelected(this.state.searchTerm);
             }

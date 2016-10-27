@@ -96,11 +96,9 @@ define([
         onStockQuantityUpdated: function (sku, quantity) {
             this.updateItemRow(sku, 'quantity', quantity);
         },
-        onShippingMethodSelected: function (data) {
-            var shippingMethod = {
-                name: data.name,
-                cost: 0
-            };
+        onShippingMethodSelected: function (methodName) {
+            var shippingMethod = this.state.shippingMethod;
+            shippingMethod.name = methodName;
             this.setState({
                 shippingMethod: shippingMethod
             });
