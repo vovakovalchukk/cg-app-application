@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6b013d4896292b8706335c5e7cb4c32a",
-    "content-hash": "2b9f9e0def22a660c7608a5336cdbe3a",
+    "hash": "29c85e6fd19e7ed87511a3afe40ebf21",
+    "content-hash": "809a26b88cd1fb229cc2e842fd569ad5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -349,13 +349,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "87e84de0c916bbf475baf403f2d288481b52af76"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-8f8291.zip",
-                "reference": "87e84de0c916bbf475baf403f2d288481b52af76",
-                "shasum": null
+                "reference": "2db769b341f1ac390fd50d715574105b03ee5f6d"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -3578,17 +3572,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
+            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f87252990cf9d52a28507440ad99ceb9d7bccc8a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7391-manual-orders-ui-6b4b68.zip",
-                "reference": "f87252990cf9d52a28507440ad99ceb9d7bccc8a",
-                "shasum": null
+                "reference": "499e05c038e447e570d24eae41c6684898415060"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8034,8 +8022,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.2",
-            "alias_normalized": "1.27.2.0",
+            "alias": "1.27.3",
+            "alias_normalized": "1.27.3.0",
             "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/channel"
         },
@@ -8044,19 +8032,25 @@
             "alias_normalized": "1.17.9.0",
             "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.17.10",
+            "alias_normalized": "1.17.10.0",
+            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
