@@ -63,6 +63,7 @@ define([
                 });
                 this.setState({
                     showResults: true,
+                    hasFocus: true,
                     fetchingData: false,
                     products: productsWithVariations
                 });
