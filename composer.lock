@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90b3fce25413fdbeadd1a381d429761f",
+    "hash": "99bdb1fc29a94bfaaf92d43f100f1b88",
+    "content-hash": "b6c07173513bd32102ddbba8e73bc142",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -344,11 +345,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
+            "version": "1.27.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9f0893c61502da2bc9ad46870f5e2559e9467d40"
+                "reference": "173e17ace3103bdb5c237f67a4c50926b3ee3ebd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.2-199f9c.zip",
+                "reference": "173e17ace3103bdb5c237f67a4c50926b3ee3ebd",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -415,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-27 10:14:39"
+            "time": "2016-10-28 10:14:12"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3571,11 +3578,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7535-remove-duplicate-courier-name",
+            "version": "1.17.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cb65f17678c59670053509499c9e7d393861fe67"
+                "reference": "e497f0eceb4a8e866b8c0476dc5a1761131fe1c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.9-ea8c2a.zip",
+                "reference": "e497f0eceb4a8e866b8c0476dc5a1761131fe1c4",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3621,7 +3634,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-27 07:33:44"
+            "time": "2016-10-28 10:15:26"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3858,7 +3871,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -4899,7 +4912,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8019,31 +8032,16 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.1",
-            "alias_normalized": "1.26.1.0",
-            "version": "dev-CGIV-7536-make-tracking-numbers-clickable",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.17.6",
-            "alias_normalized": "1.17.6.0",
-            "version": "dev-CGIV-7535-remove-duplicate-courier-name",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
