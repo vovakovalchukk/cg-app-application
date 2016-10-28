@@ -15,6 +15,13 @@ define([
 ) {
     var ManualOrder = function(mountingNodes, utilities, currentUser)
     {
+        document.body.addEventListener('keydown', function (event) {
+            //  Prevent Enter key from submitting the form
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
         var self = this;
         this.popupContent = <p className="center-align">Create the order?</p>;
         this.orderSubmitEvent = new CustomEvent('orderSubmit');
