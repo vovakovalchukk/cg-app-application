@@ -227,6 +227,17 @@ return [
                             ],
                         )
                     ],
+                    'barcode' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/barcode',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Barcode',
+                                'action' => 'submit',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'priority' => -100,
@@ -971,6 +982,9 @@ return [
             },
             'Orders\Controller\Batch' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+            },
+            'Orders\Controller\Barcode' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\BarcodeController::class);
             },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
