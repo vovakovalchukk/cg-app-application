@@ -37,6 +37,12 @@ class BarcodeController extends AbstractActionController
         $method = $this->actionMap[$orderAndAction['action']];
         $this->$method($orderAndAction['order'], $view);
 
+        // This action can be called from App or Admin
+        $this->getResponse()->getHeaders()->addHeaders([
+            'Access-control-allow-origin'       => 'https://admin.dev.orderhub.io',
+            'Access-Control-Allow-Credentials'  => 'true',
+        ]);
+
         return $view;
     }
 
