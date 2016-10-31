@@ -23,10 +23,10 @@ class BarcodeController extends AbstractActionController
     {
         $postData = $this->params()->fromPost();
 
-        //$result = $this->service->submitBarcode($postData['barcode']);
+        //$url = $this->service->submitBarcode($postData['barcode']);
 
         $view = $this->jsonModelFactory->newInstance();
-        $view->setVariable('result', 0);
+        $view->setVariable('url', 'www.google.com');
         return $view;
     }
 
