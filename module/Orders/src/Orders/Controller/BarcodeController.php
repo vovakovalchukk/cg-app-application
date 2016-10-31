@@ -1,44 +1,53 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Order\Shared\Barcode as BarcodeDecoder;
+use CG\Order\Shared\Entity as Order;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Orders\Module;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Order\Service\Note\Service;
+use Zend\View\Model\JsonModel;
 
 class BarcodeController extends AbstractActionController
 {
+    /** @var JsonModelFactory */
     protected $jsonModelFactory;
-    protected $service;
+    /** @var BarcodeDecoder */
+    protected $barcodeDecoder;
+
+    protected $actionMap = [
+        BarcodeDecoder::ACTION_VIEW => 'viewOrder',
+        BarcodeDecoder::ACTION_DISPATCH => 'dispatchOrder',
+    ];
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        Service $service)
-    {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setService($service);
+        BarcodeDecoder $barcodeDecoder
+    ) {
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->barcodeDecoder = $barcodeDecoder;
     }
 
     public function submitAction()
     {
         $postData = $this->params()->fromPost();
-
-        //$url = $this->service->submitBarcode($postData['barcode']);
-
         $view = $this->jsonModelFactory->newInstance();
-        $view->setVariable('url', 'www.google.com');
+
+        $orderAndAction = $this->barcodeDecoder->decodeBarcodeToOrderAndAction($postData['barcode']);
+        $method = $this->actionMap[$orderAndAction['action']];
+        $this->$method($orderAndAction['order'], $view);
+
         return $view;
     }
 
-    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    protected function viewOrder(Order $order, JsonModel $view)
     {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
+        $url = $this->url()->fromRoute(Module::ROUTE . '/order', ['order' => $order->getId()], ['force_canonical' => true]);
+        $view->setVariable('url', $url);
     }
 
-    public function setService(Service $service)
+    protected function dispatchOrder(Order $order, JsonModel $view)
     {
-        $this->service = $service;
-        return $this;
+// TODO
     }
 }
