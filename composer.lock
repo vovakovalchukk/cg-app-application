@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8360169fc349157ad9d8e9d0d53d3099",
+    "hash": "450cce356771e8300f52006f588b1a1d",
     "content-hash": "d463a817669f3391eb32dfe9b433ee51",
     "packages": [
         {
@@ -351,6 +351,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "2db769b341f1ac390fd50d715574105b03ee5f6d"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7391-manual-orders-ui-2b58b1.zip",
+                "reference": "2db769b341f1ac390fd50d715574105b03ee5f6d",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
@@ -416,7 +422,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-27 13:47:23"
+            "time": "2016-10-28 11:33:03"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3578,6 +3584,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "499e05c038e447e570d24eae41c6684898415060"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7573-manual-orders-ui-tidy-up-f65788.zip",
+                "reference": "499e05c038e447e570d24eae41c6684898415060",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3622,7 +3634,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-27 13:43:52"
+            "time": "2016-10-28 11:33:47"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8038,26 +8050,20 @@
             "alias_normalized": "1.17.10.0",
             "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
             "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
-            "alias": "1.17.10",
-            "alias_normalized": "1.17.10.0",
-            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
