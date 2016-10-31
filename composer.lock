@@ -1371,13 +1371,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e88e13b6995794d626fcbd10c4efd536716053e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7620-render-invoice-barcodes-fd9666.zip",
-                "reference": "e88e13b6995794d626fcbd10c4efd536716053e6",
-                "shasum": null
+                "reference": "408300a3241e1d38a109584428468712a98ad9ed"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -2389,7 +2383,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "062d9308e7dd4c32305e42b0af1818eddd61549e"
+                "reference": "ba0c728e9744be9d610828840702ed6a87e8f324"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
