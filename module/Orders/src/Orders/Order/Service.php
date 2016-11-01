@@ -74,12 +74,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_CODE = 'OrderModuleService';
     const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
     const LOG_DISPATCHING = 'Dispatching Order %s';
+    const LOG_UNPAYABLE = 'Order %s has been flagged for payment but it is not in a payable status (%s)';
+    const LOG_PAYING = 'Paying for Order %s';
     const LOG_ALREADY_CANCELLED = '%s requested for Order %s but its already in status %s';
     const STAT_ORDER_ACTION_DISPATCHED = 'orderAction.dispatched.%s.%d.%d';
     const STAT_ORDER_ACTION_CANCELLED = 'orderAction.cancelled.%s.%d.%d';
     const STAT_ORDER_ACTION_REFUNDED = 'orderAction.refunded.%s.%d.%d';
     const STAT_ORDER_ACTION_ARCHIVED = 'orderAction.archived.%s.%d.%d';
     const STAT_ORDER_ACTION_TAGGED = 'orderAction.tagged.%s.%d.%d';
+    const STAT_ORDER_ACTION_PAID = 'orderAction.paid.%s.%d.%d';
     const EVENT_ORDERS_DISPATCHED = 'Dispatched Orders';
     const EVENT_ORDER_CANCELLED = 'Refunded / Cancelled Orders';
     const MAX_SHIPPING_METHOD_LENGTH = 15;
@@ -926,6 +929,46 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->getOrderDispatcher()->generateJob($account, $order);
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_DISPATCHED, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId()
+            ]
+        );
+    }
+
+    public function markOrdersAsPaid(OrderCollection $orders)
+    {
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->markOrderAsPaid($order);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
+        }
+
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function markOrderAsPaid(OrderEntity $order)
+    {
+        $actions = $this->getActionService()->getAvailableActionsForOrder($order);
+        if (!array_key_exists(ActionMapInterface::PAY, array_flip($actions))) {
+            $this->logWarning(static::LOG_UNPAYABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
+            return;
+        }
+        $this->logInfo(static::LOG_PAYING, [$order->getId()], static::LOG_CODE);
+
+        $order->setStatus(OrderStatus::NEW_ORDER);
+        $order->setPaymentDate(date(StdlibDateTime::FORMAT));
+        $order = $this->saveOrder($order);
+
+        $this->statsIncrement(
+            static::STAT_ORDER_ACTION_PAID, [
                 $order->getChannel(),
                 $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
                 $this->getActiveUserContainer()->getActiveUser()->getId()

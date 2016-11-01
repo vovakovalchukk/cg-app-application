@@ -540,6 +540,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
+    public function payForOrder(OrderCollection $orders)
+    {
+        $this->getOrderService()->markOrdersAsPaid($orders);
+    }
+
     public function cancelOrderIdsAction()
     {
         return $this->performActionOnOrderIds(
