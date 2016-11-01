@@ -1,7 +1,5 @@
 <?php
-use CG\Locale\CountryNameByCode;
 use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
-use CG_UI\Form\Element\Text\Country as CountrySelect;
 ?>
 <?php $this->inlineScript()->captureStart(); ?>
     $('form').submit(function() {
@@ -9,13 +7,14 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
     });
     require.config({
         paths: {
-            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
+            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>",
+            'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
         }
     });
 require([
-        "note/NoteDomAccess",
-        "note/Notes",
-        "note/Note",
+        'react',
+        'react-dom',
+        'Common/Components/Notes/Root',
         "orderDetails/OrderDetailsSidebar",
         "address/Address",
         "alert/Alert",
@@ -23,15 +22,16 @@ require([
         "tracking/orderTracking",
         "Clipboard"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
+    function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
         //References to n need to be migrated, it is the notification library
-        var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
-        var notes = new Notes(noteDomAccess, n, Note);
+        var existingNotes = <?= $existingNotes ?>;
+        var orderId = '<?= $order->getId() ?>';
+        ReactDOM.render(React.createElement(NoteComponent, { author: usersName, orderId: orderId, existingNotes: existingNotes }), document.getElementById('order-notes'));
         var sidebar = new OrderDetailsSidebar();
         var address = new Address(n, '#addressInformation');
         var orderTracking = new OrderTracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, orderTracking);
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, alert, orderTracking);
 
         var billingClipboard = new Clipboard(
             '#copy-billing-address',
@@ -52,7 +52,7 @@ require([
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
-
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
 
 <div class="bulk-actions-section clearfix section-seperator">
     <div class="orderid-logo-holder">
@@ -70,230 +70,13 @@ require([
 </div>
 
 <div class="module clearfix section-separator" id="order-alert">
-    <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
-          data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
-        <label>
-            <span class="sprite-alert-tri-28-black"></span>
-            <span class="large-heading-left"><?= $this->translate('Order Alert'); ?>:</span>
-            <?php
-                $alerts = $order->getAlerts();
-                $alerts->rewind();
-                $alert = $alerts->current();
-            ?>
-            <div class="order-alert-inputholder">
-                <input type="text" class="inputbox" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
-            </div>
-            <input type="hidden" value="<?= ($alert) ? $alert->getStoredETag() : ""; ?>" id="eTag"/>
-            <div class="order-alert-button">
-                <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
-            </div>
-        </label>
-    </form>
+    <?= $this->orderAlert; ?>
 </div>
 <div class="module clearfix section-separator" id="order-buyer-message">
-    <form class="single-row">
-        <label>
-            <span class="sprite-user-28-black"></span>
-            <span class="large-heading-left">Buyer Message:</span>
-            <p class="buyer-message"><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
-        </label>
-    </form>
+    <?= $this->buyerMessage ?>
 </div>
-<div class="module clearfix section-separator">
-    <div id="detailsForm">
-        <form id="addressInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
-              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
-            <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getStoredETag() : null; ?>">
-            <div class="half" id="billing-information">
-                <span class="heading-large heading-spacing"><?= $this->translate('Billing Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $this->translate("Copy address to clipboard"); ?></a>
-                </span>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('City'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('County'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
-                    <?=
-                    $this->mustache(
-                        'elements/custom-select.mustache',
-                        [
-                            'holder' => 'order-inputbox-holder',
-                            'class' => 'copy-address',
-                            'name' => 'billingAddressCountry',
-                            'searchField' => true,
-                            'initialValue' => $order->getCalculatedBillingAddressCountry(),
-                            'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order->getCalculatedBillingAddressCountry(), false)),
-                            'disabled' => !$this->editable,
-                        ]
-                    )
-                    ?>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingEmailAddress" value="<?= $order->getCalculatedBillingEmailAddress(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Telephone'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingPhoneNumber" value="<?= $order->getCalculatedBillingPhoneNumber(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-            </div>
-            <div class="half"  id="shipping-information">
-                <span class="heading-large heading-spacing"><?= $this->translate('Shipping Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $this->translate("Copy address to clipboard"); ?></a>
-                </span>
-                <?php if (!$order->getFulfilmentAddress()): ?>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('City'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('County'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
-                    <?=
-                    $this->mustache(
-                        'elements/custom-select.mustache',
-                        [
-                            'holder' => 'order-inputbox-holder',
-                            'class' => 'copy-address',
-                            'name' => 'shippingAddressCountry',
-                            'searchField' => true,
-                            'initialValue' => $order->getCalculatedShippingAddressCountry(),
-                            'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order->getCalculatedShippingAddressCountry(), false)),
-                            'disabled' => !$this->editable,
-                        ]
-                    )
-                    ?>
-                </label>
-                <?php else: ?>
-                <fieldset class='inputbox'>
-                    <legend><?=$this->translate('eBay Global Shipping');?></legend>
-                    <p id='fulfilment-information'><?=
-                        ($order->getFulfilmentAddress()->getAddressFullName() ? $order->getFulfilmentAddress()->getAddressFullName() . '<br />' : '') .
-                        ($order->getFulfilmentAddress()->getAddressCompanyName() ? $order->getFulfilmentAddress()->getAddressCompanyName() . '<br />' : '') .
-                        $order->getFulfilmentAddress()->getAddress1() . '<br />' .
-                        $order->getFulfilmentAddress()->getAddress2() . '<br />' .
-                        ($order->getFulfilmentAddress()->getAddress3() ? $order->getFulfilmentAddress()->getAddress3() . '<br />' : '') .
-                        ($order->getFulfilmentAddress()->getAddressCity() ? $order->getFulfilmentAddress()->getAddressCity() . '<br />' : '') .
-                        ($order->getFulfilmentAddress()->getAddressCounty() ? $order->getFulfilmentAddress()->getAddressCounty() . '<br />' : '') .
-                        $order->getFulfilmentAddress()->getAddressPostcode() . '<br />' .
-                        $order->getFulfilmentAddress()->getAddressCountry()
-                    ;?></p>
-                </fieldset>
-                <?php endif; ?>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingEmailAddress" value="<?= $order->getCalculatedShippingEmailAddress(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label"><?= $this->translate('Telephone'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingPhoneNumber" value="<?= $order->getCalculatedShippingPhoneNumber(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
-                </label>
-            </div>
-            <?php if ($this->editable): ?>
-            <div class="half" style="clear:both; padding-top:0px;">
-                <label>
-                    <input type="submit" name="save" class="button form-button address-button" value="<?= $this->translate('Save'); ?>">
-                </label>
-            </div>
-            <?php endif; ?>
-        </form>
-    </div>
+<div class="module clearfix section-separator" id="address-information">
+    <?= $this->addressInformation ?>
 </div>
 <?php if ($this->editable): ?>
 <div class="module clearfix section-separator" id="tracking-information">
@@ -380,6 +163,5 @@ require([
         </tr>
     </table>
 </div>
-<div id="order-notes">
-    <?= $this->notes ?>
+<div id="order-notes" class="module clearfix section-separator">
 </div>
