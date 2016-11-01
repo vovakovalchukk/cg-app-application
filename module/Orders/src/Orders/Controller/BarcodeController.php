@@ -5,6 +5,7 @@ use CG\Order\Shared\Barcode as BarcodeDecoder;
 use CG\Order\Shared\Entity as Order;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Module;
+use Orders\Order\Service;
 use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -15,6 +16,8 @@ class BarcodeController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var BarcodeDecoder */
     protected $barcodeDecoder;
+    /** @var Service */
+    protected $service;
     /** @var Config */
     protected $config;
 
@@ -26,10 +29,12 @@ class BarcodeController extends AbstractActionController
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         BarcodeDecoder $barcodeDecoder,
+        Service $service,
         Config $config
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->barcodeDecoder = $barcodeDecoder;
+        $this->service = $service;
         $this->config = $config;
     }
 
@@ -60,6 +65,7 @@ class BarcodeController extends AbstractActionController
 
     protected function dispatchOrder(Order $order, JsonModel $view)
     {
-// TODO
+        $this->service->dispatchOrder($order);
+        $view->setVariable('message', $this->translate('Order ' . $order->getExternalId() . ' is now being dispatched'));
     }
 }
