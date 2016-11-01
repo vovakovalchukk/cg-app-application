@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a5e622f09cc869b24544f9baac2ca0d4",
-    "content-hash": "5eeeeb20ec131571e9453fb6926ccb08",
+    "hash": "6c06c589246b6c41b9e6c2256a093d30",
+    "content-hash": "015910c6f9b9ac3f9bc9a9add7590968",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3583,7 +3583,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bcdaf4de718c7bea05abca2e2da5180338d00c07"
+                "reference": "868c9251d86e3bd7a961179ab6d9eeadb19d962d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7618-invoice-designer-barcode-element-d232ed.zip",
+                "reference": "868c9251d86e3bd7a961179ab6d9eeadb19d962d",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3629,7 +3635,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-01 14:02:32"
+            "time": "2016-11-01 16:16:05"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8118,16 +8124,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
