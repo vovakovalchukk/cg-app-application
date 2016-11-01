@@ -24,9 +24,10 @@ define([
             context: this,
             type: "POST",
             dataType: 'json',
-            success : function(data) {
+            success : function(data, textStatus, request) {
                 if (data.error) {
-                    return this.getNotificationHandler().error("Failed to mark order as paid");
+                    var itid = request.getResponseHeader('ITID-Response');
+                    return this.getNotificationHandler().error("Failed to mark order as paid. Please contact support and provide the following reference code:\n"+itid);
                 }
                 this.getNotificationHandler().success("Successfully marked order as paid");
             },
