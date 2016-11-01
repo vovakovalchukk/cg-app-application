@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8360169fc349157ad9d8e9d0d53d3099",
-    "content-hash": "d463a817669f3391eb32dfe9b433ee51",
+    "hash": "fb5c1a6916e7f333bd7474688cebb4ce",
+    "content-hash": "3ca0746516ed55cdf2a2f1a65112182c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1368,7 +1368,7 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
@@ -1376,7 +1376,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7573-manual-orders-ui-tidy-up-0503f3.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-7391-manual-orders-ui-0503f3.zip",
                 "reference": "65e16afe41ca1e407e9f74eeae53470262ea59a7",
                 "shasum": null
             },
@@ -3578,7 +3578,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -3586,7 +3586,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7573-manual-orders-ui-tidy-up-4bf88b.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7391-manual-orders-ui-4bf88b.zip",
                 "reference": "fdafc3a676e54610fe63f53e8d71377731bfc710",
                 "shasum": null
             },
@@ -8040,15 +8040,15 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.23.22",
-            "alias_normalized": "1.23.22.0",
-            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "alias": "1.23.24",
+            "alias_normalized": "1.23.24.0",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/order"
         },
         {
             "alias": "1.17.10",
             "alias_normalized": "1.17.10.0",
-            "version": "dev-CGIV-7573-manual-orders-ui-tidy-up",
+            "version": "dev-EPIC-CGIV-7391-manual-orders-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
