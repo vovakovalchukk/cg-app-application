@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e6548857ddb5dc78dbc3348e2c6cf04",
+    "content-hash": "631996faef29ee3cdca079296e04b0d5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -523,7 +523,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -3577,11 +3577,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7642-saving-order-alert-error",
+            "version": "1.17.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a9c336f10471bd4a1fedbbf860b1404fb7618626"
+                "reference": "226be3bb6065e128c59d35e8c8694485ad1d37bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.11-6de413.zip",
+                "reference": "226be3bb6065e128c59d35e8c8694485ad1d37bd",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3627,7 +3633,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-01T14:02:32+00:00"
+            "time": "2016-11-02T09:39:35+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4905,7 +4911,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8025,24 +8031,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.11",
-            "alias_normalized": "1.17.11.0",
-            "version": "dev-CGIV-7642-saving-order-alert-error",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
