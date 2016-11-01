@@ -37,6 +37,7 @@ use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use Orders\Controller\StoredBatchesController;
+use Orders\Controller\BarcodeController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Shared\Tracking\StorageInterface as TrackingStorage;
@@ -1864,6 +1865,11 @@ return [
             OrganisationUnitService::class => [
                 'parameters' => [
                     'repository' => OrganisationUnitApiStorage::class
+                ]
+            ],
+            BarcodeController::class => [
+                'parameters' => [
+                    'config' => 'app_config',
                 ]
             ],
 

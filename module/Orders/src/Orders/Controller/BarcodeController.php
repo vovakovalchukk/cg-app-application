@@ -5,6 +5,7 @@ use CG\Order\Shared\Barcode as BarcodeDecoder;
 use CG\Order\Shared\Entity as Order;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Module;
+use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -14,6 +15,8 @@ class BarcodeController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var BarcodeDecoder */
     protected $barcodeDecoder;
+    /** @var Config */
+    protected $config;
 
     protected $actionMap = [
         BarcodeDecoder::ACTION_VIEW => 'viewOrder',
@@ -22,10 +25,12 @@ class BarcodeController extends AbstractActionController
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        BarcodeDecoder $barcodeDecoder
+        BarcodeDecoder $barcodeDecoder,
+        Config $config
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->barcodeDecoder = $barcodeDecoder;
+        $this->config = $config;
     }
 
     public function submitAction()
@@ -38,8 +43,9 @@ class BarcodeController extends AbstractActionController
         $this->$method($orderAndAction['order'], $view);
 
         // This action can be called from App or Admin
+        $adminHost = 'https://' . $this->config->get('cg')->get('sites')->get('admin')->get('host');
         $this->getResponse()->getHeaders()->addHeaders([
-            'Access-control-allow-origin'       => 'https://admin.dev.orderhub.io',
+            'Access-Control-Allow-Origin'       => $adminHost,
             'Access-Control-Allow-Credentials'  => 'true',
         ]);
 
