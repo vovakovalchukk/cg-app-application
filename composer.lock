@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f25758cbdaac884a72af76f371ca8fd0",
+    "hash": "a5e622f09cc869b24544f9baac2ca0d4",
     "content-hash": "5eeeeb20ec131571e9453fb6926ccb08",
     "packages": [
         {
@@ -3579,17 +3579,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.10",
+            "version": "dev-CGIV-7618-invoice-designer-barcode-element",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8137cab0de392b4ca0a13032a86045e04cd40a83"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.10-0b400e.zip",
-                "reference": "8137cab0de392b4ca0a13032a86045e04cd40a83",
-                "shasum": null
+                "reference": "bcdaf4de718c7bea05abca2e2da5180338d00c07"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8114,19 +8108,26 @@
             "alias_normalized": "1.4.10.0",
             "version": "dev-CGIV-7620-render-invoice-barcodes",
             "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.17.11",
+            "alias_normalized": "1.17.11.0",
+            "version": "dev-CGIV-7618-invoice-designer-barcode-element",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/template": 20,
-        "composer/composer": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
