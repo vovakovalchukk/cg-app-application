@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8360169fc349157ad9d8e9d0d53d3099",
+    "hash": "450cce356771e8300f52006f588b1a1d",
     "content-hash": "d463a817669f3391eb32dfe9b433ee51",
     "packages": [
         {
@@ -3576,13 +3576,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "499e05c038e447e570d24eae41c6684898415060"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7573-manual-orders-ui-tidy-up-f65788.zip",
-                "reference": "499e05c038e447e570d24eae41c6684898415060",
-                "shasum": null
+                "reference": "29f4770c23a9ac38a6af95f3020298b9320b7d38"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",

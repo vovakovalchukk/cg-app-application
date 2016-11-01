@@ -397,6 +397,16 @@ return [
                             ],
                         ]
                     ],
+                    'pay' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pay',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'payForOrder'
+                            ]
+                        ]
+                    ],
                     'dispatch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
