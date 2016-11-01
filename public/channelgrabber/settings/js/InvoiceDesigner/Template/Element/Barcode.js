@@ -8,6 +8,7 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         this.set('height', 33, true);
         this.set('borderWidth', undefined, true);
         this.setResizable(false);
+        this.disableBaseInspectors(['backgroundColour', 'borderWidth', 'borderColour']);
     };
 
     Barcode.prototype = Object.create(ElementAbstract.prototype);
