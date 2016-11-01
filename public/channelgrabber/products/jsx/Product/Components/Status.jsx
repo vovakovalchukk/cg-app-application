@@ -29,6 +29,9 @@ define([
             var self = this;
             return this.props.listings.map(function(listing) {
                 var account = self.props.accounts[listing.accountId];
+                if (account === undefined) {
+                    return;
+                }
                 return (
                     <tr key={listing.id}>
                         <td>
@@ -37,7 +40,7 @@ define([
                                 {listing.message ? <span className={"tooltip status " + listing.status}>{listing.message}</span> : ''}
                             </span>
                         </td>
-                        <td><a href={listing.url} target="_blank">{account.displayName}</a></td>
+                        <td><a href={listing.url} target="_blank">{account ? account.displayName : ' '}</a></td>
                     </tr>
                 );
             });

@@ -1,4 +1,4 @@
-define(['./EventHandler.js'], function(EventHandler)
+define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, shippingServices)
 {
     function Service(dataTable)
     {
@@ -20,6 +20,11 @@ define(['./EventHandler.js'], function(EventHandler)
             return eventHandler;
         };
 
+        this.getShippingServices = function()
+        {
+            return shippingServices;
+        };
+
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
@@ -34,22 +39,7 @@ define(['./EventHandler.js'], function(EventHandler)
 
     Service.prototype.courierChanged = function(orderId, courierId)
     {
-        var name = 'service_'+orderId;
-        $('div[data-element-name="'+name+'"]').remove();
-
-        var serviceSelectCopy = $(Service.SELECTOR_SERVICE_SELECT_PREFIX+courierId).clone();
-        serviceSelectCopy.removeAttr('id').attr('data-element-name', name).addClass('courier-service-custom-select');
-        $('input[type=hidden]', serviceSelectCopy).attr('name', name);
-
-        if ($(serviceSelectCopy).is(".disabled")) {
-            $(serviceSelectCopy).removeAttr('class').html(function() {
-                var input = $('input[type=hidden]', this);
-                var selected = $('.custom-select-item.active', this);
-                return $('<div></div>').text(selected.text()).append(input.val(selected.attr('data-value')));
-            });
-        }
-
-        $(Service.SELECTOR_ORDER_SERVICE_CONTAINER_PREFIX+orderId).append(serviceSelectCopy);
+        this.getShippingServices().loadServicesSelectForOrder(orderId, courierId);
         this.getDataTable().cgDataTable('adjustTable');
         return this;
     };

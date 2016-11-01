@@ -83,7 +83,7 @@ class Channel implements SelectOptionsInterface
                 if (isset($options[$account->getChannel()])) {
                     continue;
                 }
-                $displayName = ($account->getDisplayChannel() ?: ucwords(str_replace('-', ' ', $account->getChannel())));
+                $displayName = ($account->getDisplayChannel() ?: str_replace(' ', '', ucwords(str_replace('-', ' ', $account->getChannel()))));
                 $options[$account->getChannel()] = $displayName;
             }
         } catch (NotFound $exception) {

@@ -1,7 +1,7 @@
 define([
     'react',
-    'Product/Components/Input',
-    'Product/Components/Select'
+    'Common/Components/SafeInput',
+    'Common/Components/Select'
 ], function(
     React,
     Input,
@@ -32,7 +32,7 @@ define([
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" colSpan="2" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} onNewOption={this.updateStockMode} selectedOption={this.getSelectedOption()}/>
+                    <Select options={this.getStockModeOptions()} onOptionChange={this.updateStockMode} selectedOption={this.getSelectedOption()}/>
                 </td>,
                 <td key="stock-level" colSpan="1" className="product-stock-level">
                     <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.shouldInputBeDisabled()} />
@@ -97,7 +97,7 @@ define([
                     window.dispatchEvent(modeUpdatedEvent);
                 }.bind(this),
                 error : function(error) {
-                    n.error("There was an error when attempting to update the stock mode.");
+                    n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
                 }
             });
         },
@@ -123,7 +123,7 @@ define([
                         resolve({ savedValue: value });
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to update the stock total.");
+                        n.showErrorNotification(error, "There was an error when attempting to update the stock total.");
                         reject(new Error(error));
                     }
                 });
@@ -150,7 +150,7 @@ define([
                         resolve({ savedValue: response[this.props.variation.sku].level || 0 });
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to update the stock level.");
+                        n.showErrorNotification(error, "There was an error when attempting to update the stock level.");
                         reject(new Error(error));
                     }
                 });
