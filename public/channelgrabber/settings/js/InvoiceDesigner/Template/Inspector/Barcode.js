@@ -15,7 +15,7 @@ define([
                 text: 'Order ID',
             },{
                 id: 'view',
-                text: 'Take to order details page',
+                text: 'Open order details page',
             }, {
                 id: 'dispatch',
                 text: 'Dispatch the order'
