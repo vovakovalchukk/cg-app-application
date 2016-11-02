@@ -36,6 +36,7 @@ define([
                 },
                 dataType: 'json',
                 success: function (data) {
+                    data.note.author = usersName;
                     this.onSuccessfulNoteCreation(data.note);
                 }.bind(this),
                 error: function (error, textStatus, errorThrown) {
