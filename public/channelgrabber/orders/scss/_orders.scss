@@ -310,6 +310,7 @@
                             display: flex;
                             justify-content: space-between;
                             .option-component {
+                                text-transform: capitalize;
                                 min-width: 50px;
                                 &:last-child {
                                     min-width: 0;
