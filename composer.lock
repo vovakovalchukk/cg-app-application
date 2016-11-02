@@ -3583,12 +3583,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "868c9251d86e3bd7a961179ab6d9eeadb19d962d"
+                "reference": "32559d51316d9e05f59883fe9d33a01b9bba47fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7618-invoice-designer-barcode-element-d232ed.zip",
-                "reference": "868c9251d86e3bd7a961179ab6d9eeadb19d962d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7618-invoice-designer-barcode-element-d1067a.zip",
+                "reference": "32559d51316d9e05f59883fe9d33a01b9bba47fa",
                 "shasum": null
             },
             "require": {
@@ -3635,7 +3635,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-01 16:16:05"
+            "time": "2016-11-02 13:58:25"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

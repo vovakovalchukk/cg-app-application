@@ -14,7 +14,7 @@ define([
 
     Barcode.prototype.getHtmlContents = function(element)
     {
-        return '<div class="sprite-sprite sprite-barcode-200-black"></div>';
+        return '<div class="sprite-sprite sprite-barcode-167-black"></div>';
     };
 
     Barcode.prototype.createElement = function()
