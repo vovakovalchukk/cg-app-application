@@ -16,9 +16,8 @@ define([
 
     Barcode.prototype.init = function(inspector, element)
     {
-        var self = this;
         $('#' + inspector.getBarcodeInspectorActionsId()).off('change').on('change', function(event, container, id) {
-            element.setAction(self.getDomManipulator().getValue(this));
+            element.setAction(id);
         });
     };
 
