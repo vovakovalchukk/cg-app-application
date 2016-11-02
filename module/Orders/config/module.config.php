@@ -48,6 +48,9 @@ use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 
+// Manual Orders
+use Orders\Controller\ManualOrderController;
+
 // Courier
 use Orders\Controller\CourierController;
 use Orders\Controller\CourierJsonController;
@@ -380,6 +383,39 @@ return [
                                         'may_terminate' => true
                                     ],
                                 ]
+                            ]
+                        ]
+                    ],
+                    'new' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/new',
+                            'defaults' => [
+                                'controller' => ManualOrderController::class,
+                                'action' => 'index',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'create' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/create',
+                                    'defaults' => [
+                                        'action' => 'create',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
+                    'pay' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pay',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'payForOrder'
                             ]
                         ]
                     ],
@@ -2384,7 +2420,20 @@ return [
                 'label'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
                 'order'  => 5,
-                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders'
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders',
+                'pages'  => [
+                    'createNewOrder' => [
+                        'id'    => 'createNewOrder',
+                        'label' => 'Create New Order',
+                        'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
+                                '',
+                                [
+                                    Controller\OrdersController::ROUTE_INDEX_URL,
+                                    ManualOrderController::ROUTE_INDEX_URL
+                                ]
+                            )
+                    ]
+                ]
             )
         )
     ),

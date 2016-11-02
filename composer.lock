@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "04d4c95e53c1e077b2717749d3de0972",
+    "content-hash": "879f769830adfcaa3b3b95ee9da57d51",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -344,16 +344,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.2",
+            "version": "1.27.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "173e17ace3103bdb5c237f67a4c50926b3ee3ebd"
+                "reference": "a2b7f98f5a42f097d15333a9d041dd3686ac5647"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.2-199f9c.zip",
-                "reference": "173e17ace3103bdb5c237f67a4c50926b3ee3ebd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.3-f48c7d.zip",
+                "reference": "a2b7f98f5a42f097d15333a9d041dd3686ac5647",
                 "shasum": null
             },
             "require": {
@@ -421,7 +421,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-10-28 10:14:12"
+            "time": "2016-11-01T14:02:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -523,7 +523,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1371,12 +1371,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "408300a3241e1d38a109584428468712a98ad9ed"
+                "reference": "bd912396597a4bb1b214f66348f2527887f87116"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7620-render-invoice-barcodes-3e12f5.zip",
-                "reference": "408300a3241e1d38a109584428468712a98ad9ed",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7620-render-invoice-barcodes-c42866.zip",
+                "reference": "bd912396597a4bb1b214f66348f2527887f87116",
                 "shasum": null
             },
             "require": {
@@ -1441,7 +1441,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-31T14:08:23+00:00"
+            "time": "2016-11-02 15:28:47"
         },
         {
             "name": "channelgrabber/permission",
@@ -2438,7 +2438,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-10-31T14:26:15+00:00"
+            "time": "2016-10-31 14:26:15"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2543,16 +2543,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.1",
+            "version": "1.22.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "26789fab4c424834b215505024351ba79fce6cdd"
+                "reference": "14d218b8ee28b3d98c397b5872223369645c9201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.1-1e34f3.zip",
-                "reference": "26789fab4c424834b215505024351ba79fce6cdd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.3-c63d6f.zip",
+                "reference": "14d218b8ee28b3d98c397b5872223369645c9201",
                 "shasum": null
             },
             "require": {
@@ -2590,7 +2590,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-07-05T13:04:00+00:00"
+            "time": "2016-10-11T10:19:10+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3535,16 +3535,16 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "937f8fcfa61ee9698f2c2d48f580ef8c35c03d4a"
+                "reference": "7a667ec2e8d78b9a5d2d643c84a168037bf7cc57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.10-bcfdfc.zip",
-                "reference": "937f8fcfa61ee9698f2c2d48f580ef8c35c03d4a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.11-0f83ae.zip",
+                "reference": "7a667ec2e8d78b9a5d2d643c84a168037bf7cc57",
                 "shasum": null
             },
             "require": {
@@ -3574,7 +3574,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2016-05-20T09:35:12+00:00"
+            "time": "2016-11-01T16:14:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -3582,7 +3582,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "52142573d8fed343ad35d883f840acfd0a7fe77d"
+                "reference": "db567701990e4e9abea345498a7618d14474bbc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7621-perform-actions-on-invoice-barcode-scans-62d6c7.zip",
+                "reference": "db567701990e4e9abea345498a7618d14474bbc0",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3628,7 +3634,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-10-31T16:29:17+00:00"
+            "time": "2016-11-02 15:40:25"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4906,7 +4912,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8097,8 +8103,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.23.24",
-            "alias_normalized": "1.23.24.0",
+            "alias": "1.23.25",
+            "alias_normalized": "1.23.25.0",
             "version": "dev-CGIV-7620-render-invoice-barcodes",
             "package": "channelgrabber/order"
         },
@@ -8109,24 +8115,24 @@
             "package": "channelgrabber/template"
         },
         {
-            "alias": "1.17.9",
-            "alias_normalized": "1.17.9.0",
+            "alias": "1.17.12",
+            "alias_normalized": "1.17.12.0",
             "version": "dev-CGIV-7621-perform-actions-on-invoice-barcode-scans",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

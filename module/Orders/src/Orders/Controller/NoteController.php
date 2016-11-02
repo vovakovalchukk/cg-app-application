@@ -64,6 +64,7 @@ class NoteController extends AbstractActionController implements StatsAwareInter
             )
         );
         $this->getService()->save($note);
+        $this->view->setVariables(["note" => $note->toArray()]);
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_NOTED, [
                 $order->getChannel(),
