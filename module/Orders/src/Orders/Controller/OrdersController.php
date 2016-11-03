@@ -314,7 +314,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $shippingMethod = "Next Day Delivery";
         $testLabels = [
             [
-                'imageSource' => "https://app.dev.orderhub.io/cg-built/zf2-v4-ui/img/logos/dpd_92x46.png",
+                'imageSource' => "dpd_92x46.png",
                 'service' => "express10",
                 'deliveryInstructions' => '',
                 'parcels' => [

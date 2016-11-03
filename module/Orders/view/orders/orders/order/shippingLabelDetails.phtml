@@ -16,7 +16,7 @@
         <?php if (isset($this->labels)) : ?>
             <?php foreach ($this->labels as $label) : ?>
             <span class="grid-table-row">
-                <span class="grid-table-col carrier-col"><img src=<?= $label['imageSource'] ?> /></span>
+                <span class="grid-table-col carrier-col"><img src=<?= $this->basePath().CG_UI\Module::PUBLIC_FOLDER.'img/logos/'.$label['imageSource'] ?> /></span>
                 <span class="grid-table-col carrier-service-col"><?= $label['service'] ?></span>
                 <span class="grid-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
                 <span class="grid-table-col col-split parcels-col">
