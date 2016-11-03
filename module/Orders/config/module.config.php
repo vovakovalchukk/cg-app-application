@@ -37,6 +37,7 @@ use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use Orders\Controller\StoredBatchesController;
+use Orders\Controller\BarcodeController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Shared\Tracking\StorageInterface as TrackingStorage;
@@ -230,6 +231,17 @@ return [
                             ],
                         )
                     ],
+                    'barcode' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/barcode',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Barcode',
+                                'action' => 'submit',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'priority' => -100,
@@ -395,6 +407,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                        ]
+                    ],
+                    'pay' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pay',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'payForOrder'
+                            ]
                         ]
                     ],
                     'dispatch' => [
@@ -727,6 +749,17 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            CourierJsonController::ROUTE_SERVICES => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/services',
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                        'action' => 'servicesOptions',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                             CourierController::ROUTE_REVIEW => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
@@ -986,6 +1019,9 @@ return [
             },
             'Orders\Controller\Batch' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+            },
+            'Orders\Controller\Barcode' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\BarcodeController::class);
             },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
@@ -1867,6 +1903,11 @@ return [
                     'repository' => OrganisationUnitApiStorage::class
                 ]
             ],
+            BarcodeController::class => [
+                'parameters' => [
+                    'config' => 'app_config',
+                ]
+            ],
 
             CourierService::class => [
                 'parameters' => [
@@ -2379,7 +2420,20 @@ return [
                 'label'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
                 'order'  => 5,
-                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders'
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders',
+                'pages'  => [
+                    'createNewOrder' => [
+                        'id'    => 'createNewOrder',
+                        'label' => 'Create New Order',
+                        'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
+                                '',
+                                [
+                                    Controller\OrdersController::ROUTE_INDEX_URL,
+                                    ManualOrderController::ROUTE_INDEX_URL
+                                ]
+                            )
+                    ]
+                ]
             )
         )
     ),

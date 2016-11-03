@@ -8,6 +8,7 @@ define([
     'InvoiceDesigner/Template/Element/Mapper/Label',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
     'InvoiceDesigner/Template/Element/Mapper/Text',
+    'InvoiceDesigner/Template/Element/Mapper/Barcode',
     'InvoiceDesigner/Template/Entity',
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper'

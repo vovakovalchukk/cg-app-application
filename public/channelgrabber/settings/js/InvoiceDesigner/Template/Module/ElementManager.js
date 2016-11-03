@@ -42,6 +42,9 @@ define([
             },{ value: 'Courier Label',
                 icon: 'sprite-ppi-15-black',
                 element: 'Label'
+            },{ value: 'Barcode',
+                icon: 'sprite-barcode-15-black',
+                element: 'Barcode'
             }
         ]};
 

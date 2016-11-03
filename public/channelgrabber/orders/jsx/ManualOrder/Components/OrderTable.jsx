@@ -1,11 +1,13 @@
 define([
     'react',
     'ManualOrder/Components/ItemRow',
-    'Common/Components/Select'
+    'Common/Components/SearchBox',
+    'Common/Components/CurrencyInput'
 ], function(
     React,
     ItemRow,
-    Select
+    SearchBox,
+    CurrencyInput
 ) {
     "use strict";
     var OrderTable = React.createClass({
@@ -94,11 +96,9 @@ define([
         onStockQuantityUpdated: function (sku, quantity) {
             this.updateItemRow(sku, 'quantity', quantity);
         },
-        onShippingMethodSelected: function (data) {
-            var shippingMethod = {
-                name: data.name,
-                cost: 0
-            };
+        onShippingMethodSelected: function (methodName) {
+            var shippingMethod = this.state.shippingMethod;
+            shippingMethod.name = methodName;
             this.setState({
                 shippingMethod: shippingMethod
             });
@@ -157,7 +157,7 @@ define([
                     <div className="discount-box">
                         <span className="detail-label">Discount</span>
                         <span className="detail-value">
-                            <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.discount.value} onChange={this.onDiscountValueUpdate} /></span>
+                            <CurrencyInput value={this.state.discount.value} currency={this.props.currency.value} onChange={this.onDiscountValueUpdate}/>
                         </span>
                         <span className="discount-actions">
                             <a onClick={this.onToggleDiscountBox}>Remove</a>
@@ -186,8 +186,8 @@ define([
         getShippingMarkup: function () {
             return (
                 <div className="detail-shipping">
-                    <span className="detail-label"><Select filterable={true} options={this.context.carrierUtils.getCarriers()} onOptionChange={this.onShippingMethodSelected} />Shipping</span>
-                    <span className="currency-symbol">{this.props.currency.value}<input type="number" name="price" value={this.state.shippingMethod.cost} onChange={this.onManualShippingCost} /></span>
+                    <span className="detail-label"><SearchBox placeholder="Shipping method..." results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
+                    <CurrencyInput value={this.state.shippingMethod.cost} currency={this.props.currency.value} onChange={this.onManualShippingCost}/>
                 </div>
             );
         },

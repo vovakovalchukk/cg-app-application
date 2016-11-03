@@ -15,6 +15,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class ManualOrderController extends AbstractActionController
 {
+    const ROUTE_INDEX_URL = '/new';
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -106,14 +108,14 @@ class ManualOrderController extends AbstractActionController
 
     protected function getCarrierDropdownOptions()
     {
+        $carrierList = $this->service->getShippingMethods();
 
-        $carrierList = $this->orderService->getCarriersData();
         $carrierDropdownOptions = [];
-        $carrierDropdownOptions[] = ['name' => 'N/A', 'value' => 'N/A'];
+        $carrierDropdownOptions[] = ['name' => 'N/A', 'value' => -1];
         foreach ($carrierList as $carrier) {
             $carrierDropdownOptions[] = [
-                'name' => $carrier,
-                'value' => $carrier,
+                'name' => $carrier->getMethod(),
+                'value' => $carrier->getId(),
             ];
         }
         return $carrierDropdownOptions;
