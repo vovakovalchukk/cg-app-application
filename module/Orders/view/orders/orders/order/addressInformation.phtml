@@ -50,7 +50,7 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         </span>
                     </div>
                     <div class="order-inputbox-holder" style="<?=  $order && $order->getCalculatedBillingAddressPostcode() ? 'display:none' : ''; ?>">
-                        <input class="inputbox " type="text" name="search" id="billing-address-search-input" value="" placeholder="Start typing the billing address..." autocomplete="off">
+                        <input class="inputbox " type="text" id="billing-address-search-input" value="" placeholder="Start typing the billing address..." autocomplete="off">
                     </div>
                 </div>
             </label>
@@ -165,7 +165,7 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         </span>
                         </div>
                         <div class="order-inputbox-holder" style="<?=  $order && $order->getCalculatedShippingAddressPostcode() ? 'display:none' : ''; ?>">
-                            <input class="inputbox " type="text" name="search" id="shipping-address-search-input" value="" placeholder="Start typing the shipping address..." autocomplete="off">
+                            <input class="inputbox " type="text" id="shipping-address-search-input" value="" placeholder="Start typing the shipping address..." autocomplete="off">
                         </div>
                     </div>
                 </label>
