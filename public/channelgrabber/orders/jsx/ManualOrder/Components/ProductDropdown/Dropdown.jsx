@@ -13,6 +13,16 @@ define([
 ) {
     "use strict";
     var ProductDropdown = React.createClass({
+        getInitialState: function () {
+            return {
+                hasFocus: false,
+                fetchingData: false,
+                searchTerm: '',
+                products: [],
+                variations: [],
+                showResults: false
+            }
+        },
         performProductsRequest: function(filter) {
             function products(data) {
                 var allVariationIds = [];
@@ -24,7 +34,8 @@ define([
                 });
                 if (allVariationIds.length == 0) {
                     this.setState({
-                        active: true,
+                        showResults: true,
+                        hasFocus: true,
                         fetchingData: false
                     });
                     return;
@@ -51,7 +62,8 @@ define([
                     }
                 });
                 this.setState({
-                    active: true,
+                    showResults: true,
+                    hasFocus: true,
                     fetchingData: false,
                     products: productsWithVariations
                 });
@@ -68,24 +80,19 @@ define([
             var filter = new ProductFilter(this.state.searchTerm);
             this.performProductsRequest(filter);
         },
-        getInitialState: function () {
-            return {
-                active: false,
-                fetchingData: false,
-                searchTerm: '',
-                products: [],
-                variations: [],
-            }
-        },
         onClickOutside: function (e) {
             this.setState({
-                active: false
+                hasFocus: false
             });
         },
         onClick: function (e) {
-            this.setState({
-                active: !this.state.active
-            });
+            var newState = {
+                hasFocus: !this.state.hasFocus
+            };
+            if (! this.state.hasFocus) {
+                newState['searchTerm'] = '';
+            }
+            this.setState(newState);
         },
         onChange: function (e) {
             this.setState({
@@ -103,25 +110,27 @@ define([
             window.dispatchEvent(optionSelectedEvent);
         },
         getDropdown: function () {
-            if (this.state.searchTerm.length < 1 && this.state.products.length < 1) {
-                return;
+            var productsList = null;
+
+            if (this.state.products.length) {
+                productsList = this.state.products.map(function (product) {
+                    return <DetailRow product={product} onAddClicked={this.onOptionSelected}/>
+                }.bind(this));
             }
             return (
                 <div className="detail-dropdown-popup">
                     <div className="dropdown-count">{this.state.products.length + (this.state.products.length === 1 ? ' product' : ' products')}</div>
-                    {this.state.products.map(function (product) {
-                        return <DetailRow product={product} onAddClicked={this.onOptionSelected}/>
-                    }.bind(this))}
+                    {productsList}
                 </div>
             );
         },
         render: function () {
             return (
                 <ClickOutside onClickOutside={this.onClickOutside}>
-                    <div className={"detail-dropdown-wrapper "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
+                    <div className={"detail-dropdown-wrapper "+ (this.state.hasFocus && this.state.showResults && (! this.state.fetchingData) ? 'active' : '')}>
                         <div className="detail-dropdown-searchbox">
                             <div className="sprite-search-18-black"></div>
-                            <input onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress}/>
+                            <input onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress} onClick={this.onClick}/>
                             <button className={"detail-search-btn button "+(this.state.fetchingData ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
                         </div>
                         {this.getDropdown()}

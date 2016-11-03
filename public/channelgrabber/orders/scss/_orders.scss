@@ -81,7 +81,6 @@
         border-radius: 5px;
         background-clip: padding-box;
         background-color: $color-white;
-        color: $color-lgrey;
         border: 1px solid $color-lgrey;
         padding: 3px;
         padding-right: 4px;
@@ -237,7 +236,6 @@
             border-radius: 5px;
             background-clip: padding-box;
             background-color: $color-white;
-            color: $color-lgrey;
             border: 1px solid $color-lgrey;
             padding: 3px;
             padding-left: 7px;
@@ -251,6 +249,7 @@
                 height: 13px;
                 border: 0;
                 text-align: right;
+                outline: none;
             }
         }
         .order-rows-wrapper {
@@ -276,7 +275,7 @@
                     align-items: center;
                     justify-content: space-between;
                     .order-row-img {
-                        max-width: 39px;
+                        width: 39px;
                         max-height: 39px;
                         overflow: hidden;
                         border-radius: 5px;
@@ -311,6 +310,7 @@
                             display: flex;
                             justify-content: space-between;
                             .option-component {
+                                text-transform: capitalize;
                                 min-width: 50px;
                                 &:last-child {
                                     min-width: 0;
@@ -363,6 +363,9 @@
                 align-items: center;
                 .detail-label {
                     margin-right: 36px;
+                    .react-search-box {
+                        margin-right: 25px;
+                    }
                 }
             }
         }
@@ -455,6 +458,7 @@
 
 .custom-select {
     .open-content {
+        max-width: 250px;
         .results-none {
             padding: 5px;
             text-align: left;
@@ -483,4 +487,25 @@
 
 .bold {
     font-weight: 600;
+}
+
+#new-order-nav-icon {
+    position: absolute;
+    cursor: pointer;
+    right: 20px;
+    bottom: 90px;
+    width: 60px;
+    height: 60px;
+    background-color: $color-mblue;
+    background-image: linear-gradient($color-mblue, $color-dblue);
+    border-radius: 50%;
+    box-shadow: 0 1px 6px rgba(0,0,0,.06),0 2px 32px rgba(0,0,0,.16);
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,.09),0 4px 40px rgba(0,0,0,.24);
+    }
+    .sprite-clipboard-28-white {
+        position: absolute;
+        top: 9px;
+        right: 16px;
+    }
 }

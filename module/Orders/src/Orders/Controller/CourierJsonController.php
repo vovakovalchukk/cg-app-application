@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\CourierAdapter\Exception\UserError;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG_UI\View\Helper\Mustache as MustacheViewHelper;
@@ -15,6 +16,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class CourierJsonController extends AbstractActionController
 {
+    const ROUTE_SERVICES = 'Services';
     const ROUTE_REVIEW_LIST = 'Review List';
     const ROUTE_REVIEW_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_LIST = 'Specifics List';
@@ -70,6 +72,15 @@ class CourierJsonController extends AbstractActionController
             ->setLabelCancelService($labelCancelService)
             ->setLabelReadyService($labelReadyService)
             ->setManifestService($manifestService);
+    }
+
+    public function servicesOptionsAction()
+    {
+        $orderId = $this->params()->fromPost('order');
+        $shippingAccountId = $this->params()->fromPost('account');
+
+        $servicesOptions = $this->service->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
+        return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
     }
 
     /**
@@ -152,6 +163,8 @@ class CourierJsonController extends AbstractActionController
             );
         } catch (ValidationMessagesException $e) {
             return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
+        } catch (UserError $e) {
+            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 

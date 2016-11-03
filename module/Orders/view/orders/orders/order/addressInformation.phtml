@@ -49,12 +49,12 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                             <input class="button" type="button" value="Enter Manually" data-action="" id="billing-address-search-toggle" style="display:none;">
                         </span>
                     </div>
-                    <div class="order-inputbox-holder" style="display: block;">
+                    <div class="order-inputbox-holder" style="<?=  $order && $order->getCalculatedBillingAddressPostcode() ? 'display:none' : ''; ?>">
                         <input class="inputbox " type="text" name="search" id="billing-address-search-input" value="" placeholder="Start typing the billing address..." autocomplete="off">
                     </div>
                 </div>
             </label>
-            <div id="billing-address-section" style="display:none;">
+            <div id="billing-address-section" style="<?=  $order && $order->getCalculatedBillingAddressPostcode() ? '' : 'display:none'; ?>">
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
                     <div class="order-inputbox-holder">
@@ -164,12 +164,12 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                             <input class="button" type="button" value="Enter Manually" data-action="" id="shipping-address-search-toggle" style="display:none;">
                         </span>
                         </div>
-                        <div class="order-inputbox-holder" style="display: block;">
+                        <div class="order-inputbox-holder" style="<?=  $order && $order->getCalculatedShippingAddressPostcode() ? 'display:none' : ''; ?>">
                             <input class="inputbox " type="text" name="search" id="shipping-address-search-input" value="" placeholder="Start typing the shipping address..." autocomplete="off">
                         </div>
                     </div>
                 </label>
-                <div id="shipping-address-section" style="display:none;">
+                <div id="shipping-address-section" style="<?=  $order && $order->getCalculatedShippingAddressPostcode() ? '' : 'display:none'; ?>">
                     <label>
                         <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
                         <div class="order-inputbox-holder">

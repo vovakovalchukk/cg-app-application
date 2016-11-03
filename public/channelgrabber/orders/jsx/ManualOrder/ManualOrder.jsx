@@ -15,6 +15,13 @@ define([
 ) {
     var ManualOrder = function(mountingNodes, utilities, currentUser)
     {
+        document.body.addEventListener('keydown', function (event) {
+            //  Prevent Enter key from submitting the form
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
         var self = this;
         this.popupContent = <p className="center-align">Create the order?</p>;
         this.orderSubmitEvent = new CustomEvent('orderSubmit');
@@ -108,7 +115,7 @@ define([
             "organisationUnitId": rawCompanySelectData ? rawCompanySelectData.selectedOption.value : '',
             "currencyCode": rawCurrencyData.name,
             "shippingPrice": rawOrderData.shippingMethod.cost,
-            "shippingMethod": rawOrderData.shippingMethod.name,
+            "shippingMethod": rawOrderData.shippingMethod.name ? rawOrderData.shippingMethod.name : 'N/A',
             "totalDiscount": (rawOrderData.discount.active ? rawOrderData.discount.value : 0),
             "item": this.mapOrderItems(rawOrderData.orderRows),
             "note": this.mapNotes(rawNoteData.notes),

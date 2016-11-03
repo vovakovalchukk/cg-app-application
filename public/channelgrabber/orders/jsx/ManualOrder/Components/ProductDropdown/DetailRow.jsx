@@ -39,7 +39,7 @@ define([
                         {this.getAttributeValues(variation)}
                     </div>
                     <div className="variation-row-stock">
-                        {variation.stockLevel ? variation.stockLevel : 0} Available
+                        {variation.stock && variation.stock.locations[0].onHand ? (variation.stock.locations[0].onHand - variation.stock.locations[0].allocated) : 0} Available
                     </div>
                     <div className="variation-row-qty-input">
                         <Input name='quantity' initialValue={this.getQuantity(variation.sku)} submitCallback={this.onStockQuantitySelected.bind(this, variation.sku)} />
