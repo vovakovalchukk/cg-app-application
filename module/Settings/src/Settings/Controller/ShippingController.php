@@ -1,7 +1,6 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Account\Shared\Collection;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Zend\Stdlib\View\Model\Exception;
