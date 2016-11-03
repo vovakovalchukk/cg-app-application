@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d67cf391b2ef58be5eec03d5c5388924",
-    "content-hash": "f675ee660b2818924829138589a44047",
+    "hash": "e68127678123285c2e7cfe18fde1196e",
+    "content-hash": "3d1ac67ab8ac8c1b852dd8b06cbaf571",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3579,16 +3579,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.12",
+            "version": "dev-CGIV-7612-remove-grey-dotted-outline-from-links",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "be3466d22c2addfdd9d29836df295e79f87e79c5"
+                "reference": "e7547b1841764a7200ba470bb6b6540d71412b09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.12-8c07aa.zip",
-                "reference": "be3466d22c2addfdd9d29836df295e79f87e79c5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7612-remove-grey-dotted-outline-from-links-d64eff.zip",
+                "reference": "e7547b1841764a7200ba470bb6b6540d71412b09",
                 "shasum": null
             },
             "require": {
@@ -3635,7 +3635,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-03 12:26:50"
+            "time": "2016-11-03 14:19:50"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8102,10 +8102,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.13",
+            "alias_normalized": "1.17.13.0",
+            "version": "dev-CGIV-7612-remove-grey-dotted-outline-from-links",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
