@@ -43,7 +43,12 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         <span data-cgtype="Button" class="button-holder">
                             <div class="button link" id="billing-address-search-toggle-shadow">
                                 <span class="action" data-action="">
-                                    <span class="title">Enter Manually</span>
+                                    <? if ($order && $order->getCalculatedBillingAddress1() && $order->getCalculatedBillingAddressPostcode()) {
+                                        $linkText = "Search Address";
+                                    } else {
+                                        $linkText = "Enter Manually";
+                                    }?>
+                                    <span class="title"><?= $linkText ?></span>
                                 </span>
                             </div>
                             <input class="button" type="button" value="Enter Manually" data-action="" id="billing-address-search-toggle" style="display:none;">
@@ -158,7 +163,12 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         <span data-cgtype="Button" class="button-holder">
                             <div class="button link" id="shipping-address-search-toggle-shadow">
                                 <span class="action" data-action="">
-                                    <span class="title">Enter Manually</span>
+                                    <? if ($order && $order->getCalculatedShippingAddress1() && $order->getCalculatedShippingAddressPostcode()) {
+                                        $linkText = "Search Address";
+                                    } else {
+                                        $linkText = "Enter Manually";
+                                    }?>
+                                    <span class="title"><?= $linkText ?></span>
                                 </span>
                             </div>
                             <input class="button" type="button" value="Enter Manually" data-action="" id="shipping-address-search-toggle" style="display:none;">
