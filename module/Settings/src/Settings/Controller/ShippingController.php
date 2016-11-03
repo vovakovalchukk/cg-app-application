@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Account\Shared\Collection;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Zend\Stdlib\View\Model\Exception;
@@ -212,15 +213,19 @@ class ShippingController extends AbstractActionController
     {
         $shippingAccounts = $this->getShippingAccounts();
 
-        $noneOption = [
-            'title' => 'None',
-            'value' => '0',
-            'selected' => (!$alias->getAccountId())
-        ];
-        $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
-            $shippingAccounts, $alias->getAccountId()
-        );
-        array_unshift($options, $noneOption);
+        $options = [];
+        if (count($shippingAccounts)) {
+            $noneOption = [
+                'title' => 'None',
+                'value' => '0',
+                'selected' => (!$alias->getAccountId())
+            ];
+            $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
+                $shippingAccounts, $alias->getAccountId()
+            );
+            array_unshift($options, $noneOption);
+        }
+
 
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
