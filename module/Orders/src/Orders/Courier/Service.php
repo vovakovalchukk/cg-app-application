@@ -262,6 +262,7 @@ class Service implements LoggerAwareInterface
             'orderId' => $order->getId(),
             'buyerName' => $order->getBillingAddress()->getAddressFullName(),
             'shippingCountry' => $shippingCountry,
+            'shippingCountryCode' => $order->getShippingAddressCountryCodeForCourier(),
             'postcode' => $order->getShippingAddressPostcodeForCourier(),
             'orderNumber' => $order->getExternalId(),
             'shippingMethod' => $shippingDescription,
