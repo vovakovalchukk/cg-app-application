@@ -37,6 +37,7 @@ use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use Orders\Controller\StoredBatchesController;
+use Orders\Controller\BarcodeController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Shared\Tracking\StorageInterface as TrackingStorage;
@@ -229,6 +230,17 @@ return [
                                 'may_terminate' => true,
                             ],
                         )
+                    ],
+                    'barcode' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/barcode',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Barcode',
+                                'action' => 'submit',
+                            ],
+                        ],
+                        'may_terminate' => true,
                     ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
@@ -1007,6 +1019,9 @@ return [
             },
             'Orders\Controller\Batch' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+            },
+            'Orders\Controller\Barcode' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\BarcodeController::class);
             },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
@@ -1886,6 +1901,11 @@ return [
             OrganisationUnitService::class => [
                 'parameters' => [
                     'repository' => OrganisationUnitApiStorage::class
+                ]
+            ],
+            BarcodeController::class => [
+                'parameters' => [
+                    'config' => 'app_config',
                 ]
             ],
 
