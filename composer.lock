@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d67cf391b2ef58be5eec03d5c5388924",
+    "hash": "da446a6c2099b4c9b6c66f28f77f48a8",
     "content-hash": "f675ee660b2818924829138589a44047",
     "packages": [
         {
@@ -3579,17 +3579,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.12",
+            "version": "dev-CGIV-7619-shipping-alias-page-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "be3466d22c2addfdd9d29836df295e79f87e79c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.12-8c07aa.zip",
-                "reference": "be3466d22c2addfdd9d29836df295e79f87e79c5",
-                "shasum": null
+                "reference": "49129f66195b880a9ac4ff51b83498a9b2b5e580"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8102,16 +8096,24 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.13",
+            "alias_normalized": "1.17.13.0",
+            "version": "dev-CGIV-7619-shipping-alias-page-error",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
