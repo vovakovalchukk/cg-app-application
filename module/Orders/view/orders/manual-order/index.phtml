@@ -1,0 +1,70 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'ManualOrder': '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER; ?>/js/ManualOrder',
+        'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product',
+        'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
+    }
+});
+require(
+    ['ManualOrder/ManualOrder', 'Common/Utils/Carrier', 'Common/Utils/Currency', 'Common/Utils/Image', 'Common/Utils/Ou'],
+    function(ManualOrderRoot, CarrierUtils, CurrencyUtils, ImageUtils, OuUtils) {
+
+    var domElements = {
+        productInfo: document.getElementById('product-information'),
+        orderNotes: document.getElementById('order-notes'),
+        popup: document.getElementById('popup-container-id'),
+        companySelect: document.getElementById('trading-company-select')
+    };
+
+    var utilities = {
+        ou: new OuUtils({ ouList: JSON.parse('<?= $tradingCompanies ?>') }),
+        carrier: new CarrierUtils({ carriersList: JSON.parse('<?= $carriersJson ?>') }),
+        currency: new CurrencyUtils({ currenciesList: JSON.parse('<?= $currenciesJson ?>') }),
+        image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
+    };
+
+    var manualOrdersRoot = new ManualOrderRoot(domElements, utilities, usersName);
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+
+<div class="module section-header">
+    <div class="manual-order-header">
+        <div class="manual-order-header-text">
+            <span class="sprite-sprite sprite-clipboard-22-black"></span>
+            <h1>Manual Order</h1>
+        </div>
+        <div class="manual-order-options">
+            <div id="trading-company-select"></div>
+        </div>
+    </div>
+    <div class="manual-order-actions">
+        <div class="button create-order-btn" id="create-order-button">Create Order</div>
+        <div class="backorders_btn">
+            <a href="/orders" class="button">Back To Orders</a>
+        </div>
+    </div>
+</div>
+
+<div class="module clearfix section-separator" id="product-information">
+    <?php #React Mount Node ?>
+</div>
+
+<div class="module clearfix section-separator manual-order" id="order-buyer-message">
+    <?= $this->buyerMessage ?>
+</div>
+
+<div class="module clearfix section-separator" id="address-information">
+    <?= $this->addressInformation ?>
+</div>
+
+<div class="module clearfix section-separator" id="order-alert">
+    <?= $this->orderAlert ?>
+</div>
+
+<div class="module clearfix section-separator" id="order-notes">
+</div>
+
+<div class="popup-container" id="popup-container-id"></div>
