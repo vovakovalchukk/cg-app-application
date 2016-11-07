@@ -16,17 +16,17 @@
         <?php if (isset($this->labels)) : ?>
             <?php foreach ($this->labels as $label) : ?>
             <span class="grid-table-row">
-                <span class="grid-table-col carrier-col"><img src=<?= $this->basePath().CG_UI\Module::PUBLIC_FOLDER.'img/logos/'.$label['imageSource'] ?> /></span>
-                <span class="grid-table-col carrier-service-col"><?= $label['service'] ?></span>
+                <span class="grid-table-col carrier-col"><img src=<?= $this->basePath().CG_UI\Module::PUBLIC_FOLDER.'img/logos/'.$this->imageSource ?> /></span>
+                <span class="grid-table-col carrier-service-col"><?= $label['courierService'] ?></span>
                 <span class="grid-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
                 <span class="grid-table-col col-split parcels-col">
-                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['number']."</span>"; } ?>
+                    <?php foreach ($label['parcels'] as $key => $value){ echo "<span>".($key + 1)."</span>"; } ?>
                 </span>
                 <span class="grid-table-col col-split weight-col">
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['weight']."</span>"; } ?>
                 </span>
                 <span class="grid-table-col col-split tracking-no-col">
-                    <?php foreach ($label['parcels'] as $parcel){ echo "<a href='".$parcel['trackingNumberUrl']."'>".$parcel['trackingNumber']."</a>"; } ?>
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<a href='".$parcel['trackingNumber']."'>".$parcel['trackingNumber']."</a>"; } ?>
                 </span>
                 <span class="grid-table-col action-col">
                     <button class="button form-button tracking-button">Print</button>

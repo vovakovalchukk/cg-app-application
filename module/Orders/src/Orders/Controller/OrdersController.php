@@ -312,37 +312,41 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getShippingLabelDetails(OrderEntity $order)
     {
         $shippingMethod = "Next Day Delivery";
-        $testLabels = [
-            [
-                'imageSource' => "dpd_92x46.png",
-                'service' => "express10",
-                'deliveryInstructions' => '',
-                'parcels' => [
-                    [
-                        'number' => 1,
-                        'weight' => '0.5kg',
-                        'trackingNumber' => 'FW093493842',
-                        'trackingNumberUrl' => '#',
-                    ],[
-                        'number' => 2,
-                        'weight' => '0.25kg',
-                        'trackingNumber' => 'JK093493842',
-                        'trackingNumberUrl' => '#',
-                    ],[
-                        'number' => 3,
-                        'weight' => '5kg',
-                        'trackingNumber' => 'VF093493842',
-                        'trackingNumberUrl' => '#',
-                    ]
-                ],
+        $filter = (new OrderLabelFilter())
+            ->setOrderId([$order->getId()]);
 
-            ]
-        ];
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/shippingLabelDetails');
-        $view->setVariable('shippingMethod', $shippingMethod);
-        $view->setVariable('labels', $testLabels);
+
+        try {
+            $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
+
+            $labelData = [];
+            foreach ($labels as $label) {
+                $labelData[] = $label->toArray();
+            }
+            $view->setVariable('shippingMethod', $shippingMethod);
+            $view->setVariable('imageSource', "dpd_92x46.png");
+            $view->setVariable('labels', $labelData);
+        } catch (NotFound $e) {
+            //  no op
+        }
+
         return $view;
+    }
+
+    protected function getPrintLabelButton($view, $order)
+    {
+        $buttons = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                'value' => 'Print Label',
+                'id' => 'print-shipping-label-button',
+                'disabled' => false,
+                'action' => $order->getId(),
+            ]
+        ]);
+        $buttons->setTemplate('elements/buttons.mustache');
+        return $buttons;
     }
 
     protected function getAccountDetails(OrderEntity $order)
@@ -485,15 +489,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         } catch (NotFound $e) {
             return;
         }
-        $buttons = $this->viewModelFactory->newInstance([
-            'buttons' => [
-                'value' => 'Print Label',
-                'id' => 'print-shipping-label-button',
-                'disabled' => false,
-                'action' => $order->getId(),
-            ]
-        ]);
-        $buttons->setTemplate('elements/buttons.mustache');
+        $buttons = $this->getPrintLabelButton($view, $order);
         $view->addChild($buttons, 'printShippingLabelButton');
     }
 
