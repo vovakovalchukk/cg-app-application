@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da446a6c2099b4c9b6c66f28f77f48a8",
-    "content-hash": "f675ee660b2818924829138589a44047",
+    "hash": "3eb1e35458df8905bf7c5c3365e9d0a7",
+    "content-hash": "1ad24feee4b692f004213da4c39ad591",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1372,7 +1372,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9b3f0182d6fdc85039413e7ac4e3c7a39881cc56"
+                "reference": "61a10c17d2b84fdc00f1da48fdcc23e13d57d1a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-ad5001.zip",
+                "reference": "61a10c17d2b84fdc00f1da48fdcc23e13d57d1a3",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1436,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-03 12:18:30"
+            "time": "2016-11-07 11:38:52"
         },
         {
             "name": "channelgrabber/permission",
@@ -8106,14 +8112,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
