@@ -1,9 +1,7 @@
 define([
-    'react',
-    'Product/Components/Select'
+    'react'
 ], function(
-    React,
-    Select
+    React
 ) {
     "use strict";
 

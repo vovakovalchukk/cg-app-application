@@ -86,15 +86,15 @@ module.exports = function(grunt) {
         watch: {
             babel: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
-                tasks: ['babel', 'copy:appJsToCgBuilt']
+                tasks: ['newer:babel']
             },
             copyVanillaJs: {
                 files: 'public/channelgrabber/**/js-vanilla/**/*.js',
-                tasks: ['copyVanillaJs', 'copy:appJsToCgBuilt']
+                tasks: ['newer:copy:vanillaJsToGeneratedJs']
             },
             copyLegacyJs: {
                 files: 'public/channelgrabber/**/js/**/*.js',
-                tasks: ['copy:appJsToCgBuilt']
+                tasks: ['newer:copy:appJsToCgBuilt']
             }
         }
     });
@@ -105,5 +105,8 @@ module.exports = function(grunt) {
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
 
-    grunt.registerTask('install', ['compileCss-gen', 'compileJsx', 'copyVanillaJs', 'requirejs']);
+    grunt.registerTask('install:css', ['compileCss-gen']);
+    grunt.registerTask('install:js', ['compileJsx', 'copyVanillaJs', 'requirejs']);
+
+    grunt.registerTask('install', ['install:css', 'install:js']);
 };

@@ -1,3 +1,5 @@
+{{trackings.0.carrier}}
 {{#trackings}}
-{{carrier}} ({{number}}) 
+    {{#trackingUrl}}<a href="{{.}}" title="Track item {{number}}" target="_blank">{{number}}</a>{{/trackingUrl}}
+    {{^trackingUrl}}<span title="{{number}}">{{number}}</span>{{/trackingUrl}}
 {{/trackings}}
