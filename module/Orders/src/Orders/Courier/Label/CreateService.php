@@ -256,20 +256,20 @@ class CreateService extends ServiceAbstract
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
-            'courierService' => isset($orderData['service']) ?: '',
-            'insurance' => isset($orderData['insurance']) ?: '',
-            'insuranceMonetary' => isset($orderData['insuranceMonetary']) ?: '',
-            'signature' => isset($orderData['signature']) ?: '',
-            'deliveryInstructions' => isset($orderData['deliveryInstructions']) ?: '',
+            'courierService' => isset($orderData['service']) ? $orderData['service'] : '',
+            'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
+            'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
+            'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
+            'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
             'parcels' => [],
         ];
         foreach ($orderParcelsData as $parcel) {
             $orderLabelData['parcels'][] = [
-                'trackingNumber' => isset($parcel['trackingNumber']) ?: '',
-                'weight' => isset($parcel['weight']) ?: '',
-                'width' => isset($parcel['width']) ?: '',
-                'height' => isset($parcel['height']) ?: '',
-                'length' => isset($parcel['length']) ?: '',
+                'trackingNumber' => isset($parcel['trackingNumber']) ? $parcel['trackingNumber'] : '',
+                'weight' => isset($parcel['weight']) ? $parcel['weight'] : '',
+                'width' => isset($parcel['width']) ? $parcel['width'] : '',
+                'height' => isset($parcel['height']) ? $parcel['height'] : '',
+                'length' => isset($parcel['length']) ? $parcel['length'] : '',
             ];
         }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
