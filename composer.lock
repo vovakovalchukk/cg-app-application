@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3eb1e35458df8905bf7c5c3365e9d0a7",
+    "hash": "0fc055fc291b35b7632e103affe5ed42",
     "content-hash": "1ad24feee4b692f004213da4c39ad591",
     "packages": [
         {
@@ -1372,7 +1372,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d8337fb7030b1ed14757b3c0d70f0b2ed9f17569"
+                "reference": "7fcecbefd186e2078709531c54c9634d6f72c871"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
