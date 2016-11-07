@@ -728,6 +728,7 @@ class Service implements LoggerAwareInterface
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['cancellable'] = $orderData['cancellable'];
+            $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
             $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             foreach ($options as $option) {
