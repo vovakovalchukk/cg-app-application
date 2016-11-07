@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97a0423dbf370d68cb6031399b7c0bd3",
+    "content-hash": "6bf8f71edf45037471852b02c9ca07d7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1271,7 +1271,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "2c56c9b21727cf37cddd62ccf3afbf5cfd56a3cd"
+                "reference": "09e928802a15de76b62dafd40ef4fc30cb3693ba"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -3628,7 +3628,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-04 15:18:56"
+            "time": "2016-11-04T15:18:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
