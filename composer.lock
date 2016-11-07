@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "acc2cef010900a952b2762e570354d3d",
+    "content-hash": "75f8f241697fe86f0c1dd4934bbdfa2c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3578,16 +3578,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs",
+            "version": "1.17.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fb07f9a9221d233304d5de5a814c84693cca59ba"
+                "reference": "75f4908722aaa86fe6a9944e066e6d8f4945594b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs-b683af.zip",
-                "reference": "fb07f9a9221d233304d5de5a814c84693cca59ba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.15-42b67f.zip",
+                "reference": "75f4908722aaa86fe6a9944e066e6d8f4945594b",
                 "shasum": null
             },
             "require": {
@@ -3634,7 +3634,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-07 14:15:25"
+            "time": "2016-11-07T16:43:39+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6930,7 +6930,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/phillclarence/.cg-loki/cgcodeception",
+                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6958,7 +6958,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "/home/phillclarence/.cg-loki/spork",
+                "url": "git@github.com:channelgrabber/spork.git",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
@@ -8101,18 +8101,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.15",
-            "alias_normalized": "1.17.15.0",
-            "version": "dev-CGIV-7542-remove-autofill-from-sales-channel-text-inputs",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
