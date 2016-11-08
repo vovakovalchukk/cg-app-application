@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e9be51851af3b336f6a7210368870ad",
+    "content-hash": "76a3ec33550a51e7576343d4f261b132",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -13,6 +13,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
                 "reference": "904fe3268597aa192167eee6f5be6889b068fb5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7568-label-save-mongo-connection-error-667bb8.zip",
+                "reference": "904fe3268597aa192167eee6f5be6889b068fb5a",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -28,7 +34,8 @@
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.23.20",
+                "channelgrabber/order": "dev-CGIV-7568-label-save-mongo-connection-error as 1.23.27",
+                "channelgrabber/predis": "~1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -1265,14 +1272,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "7a9ca492f48627af2ab8c877adbed6a7df24cd03"
+                "reference": "9412b980d025481e8369edabeb68149e297584d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7568-label-save-mongo-connection-error-6edde9.zip",
+                "reference": "9412b980d025481e8369edabeb68149e297584d4",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/order": "^1.21.12",
+                "channelgrabber/order": "dev-CGIV-7568-label-save-mongo-connection-error as 1.23.27",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "channelgrabber/user": "^1.20.3",
@@ -1303,7 +1316,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-11-08 11:56:30"
+            "time": "2016-11-08 14:15:10"
         },
         {
             "name": "channelgrabber/notification",
@@ -8097,8 +8110,8 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
             "version": "dev-CGIV-7568-label-save-mongo-connection-error",
             "package": "channelgrabber/netdespatch"
         },
