@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d7ffd16719f7e640b93c9f96ebaca3b",
+    "content-hash": "a6ea33fc328429af47bd27f888ec8a42",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.2",
+            "version": "1.19.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2b4dae41ef35c2401f763916acec17dcff5b6dbc"
+                "reference": "fbdd4f2bf3a9481b9d44160b45952d12d2b8c813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.2-ab1d8b.zip",
-                "reference": "2b4dae41ef35c2401f763916acec17dcff5b6dbc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.4-fc2150.zip",
+                "reference": "fbdd4f2bf3a9481b9d44160b45952d12d2b8c813",
                 "shasum": null
             },
             "require": {
@@ -35,6 +35,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.23.20",
+                "channelgrabber/predis": "~1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -64,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-26T15:02:39+00:00"
+            "time": "2016-11-07T12:13:02+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1267,16 +1268,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7608-rm-intl-country-specific-service-options",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "6df9ab9249331e8328f1ed872022efd5798b2dd3"
+                "reference": "3b0314d1a50a789b96c234e49f9a9eee47608dc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7608-rm-intl-country-specific-service-options-ee94a5.zip",
-                "reference": "6df9ab9249331e8328f1ed872022efd5798b2dd3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.0-b17ab7.zip",
+                "reference": "3b0314d1a50a789b96c234e49f9a9eee47608dc3",
                 "shasum": null
             },
             "require": {
@@ -1315,7 +1316,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-11-07 16:32:35"
+            "time": "2016-11-08T14:14:33+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -8101,18 +8102,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
-            "version": "dev-CGIV-7608-rm-intl-country-specific-service-options",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
