@@ -2,6 +2,7 @@
     <div class="shipping-method-label"><?= $this->translate('Shipping Method'); ?></div>
     <div class="shipping-method-value"><?= $this->shippingMethod; ?></div>
 </div>
+<?php if (isset($this->labels)) : ?>
 <div class="shipping-label-table">
     <span class="grid-table">
         <span class="grid-table-header-row">
@@ -13,7 +14,6 @@
             <span class="grid-table-col tracking-no-col">Tracking Number</span>
             <span class="grid-table-col action-col">Action</span>
         </span>
-        <?php if (isset($this->labels)) : ?>
             <?php foreach ($this->labels as $label) : ?>
             <span class="grid-table-row">
                 <span class="grid-table-col carrier-col"><img src=<?= $this->basePath().CG_UI\Module::PUBLIC_FOLDER.'img/logos/'.$this->imageSource ?> /></span>
@@ -34,6 +34,6 @@
                 </span>
             </span>
             <?php endforeach; ?>
-        <?php endif; ?>
     </span>
 </div>
+<?php endif; ?>
