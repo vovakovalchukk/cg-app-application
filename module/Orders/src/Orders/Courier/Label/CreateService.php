@@ -248,6 +248,9 @@ class CreateService extends ServiceAbstract
     protected function createOrderLabelForOrder(Order $order, array $orderData, array $orderParcelsData, Account $shippingAccount)
     {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
+
+        $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
+
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
@@ -256,7 +259,8 @@ class CreateService extends ServiceAbstract
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
-            'courierService' => isset($orderData['service']) ? $orderData['service'] : '',
+            'courierName' => $shippingAccount->getDisplayName(),
+            'courierService' => $services ? $services[$orderData['service']] : '' ,
             'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
             'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
             'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
