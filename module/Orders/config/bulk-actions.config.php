@@ -80,6 +80,7 @@ return [
                 'BatchRemoveJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
                 'CancelJavascript' => ViewModel::class,
+                'PayJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
                 'ToCsvJavascript' => ViewModel::class,
@@ -94,6 +95,7 @@ return [
                 'UrlDataViewUnArchive' => ViewModel::class,
                 'UrlDataViewBatch' => ViewModel::class,
                 'UrlDataViewBatchRemove' => ViewModel::class,
+                'UrlDataViewPay' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
                 'UrlDataViewToCsv' => ViewModel::class,
@@ -141,6 +143,7 @@ return [
                         ['action' => Action\Dispatch::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Cancel::class],
+                        ['action' => Action\Pay::class],
                         ['action' => Action\Refund::class],
                     ],
                 ],
@@ -338,6 +341,15 @@ return [
                     'template' => 'orders/orders/bulk-actions/cancel.js',
                 ],
             ],
+            Action\Pay::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewPay',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'PayJavascript',
+                ],
+            ],
             Action\Refund::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewCancelRefund',
@@ -428,7 +440,16 @@ return [
                     'template' => 'orders/orders/bulk-actions/courierManifest.js'
                 ]
             ],
-
+            'PayJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/pay.js',
+                ],
+            ],
+            'UrlDataViewPay' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
             'RefundJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/cancel.js',

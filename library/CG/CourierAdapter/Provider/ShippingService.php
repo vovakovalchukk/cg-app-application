@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CG\Order\Shared\Entity as Order;
 
 class ShippingService implements ShippingServiceInterface
 {
@@ -44,6 +45,14 @@ class ShippingService implements ShippingServiceInterface
             $this->shippingServices[$deliveryService->getReference()] = $deliveryService->getDisplayName();
         }
         return $this->shippingServices;
+    }
+
+    /**
+     * return array [{value} => {title}]
+     */
+    public function getShippingServicesForOrder(Order $order)
+    {
+        return $this->getShippingServices();
     }
 
     /**

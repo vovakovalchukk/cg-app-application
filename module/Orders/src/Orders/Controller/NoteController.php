@@ -64,6 +64,9 @@ class NoteController extends AbstractActionController implements StatsAwareInter
             )
         );
         $this->getService()->save($note);
+        $note = $note->toArray();
+        $note['timestamp'] = date(DateTime::FORMAT_UI, strtotime($note['timestamp']));
+        $this->view->setVariables(["note" => $note]);
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_NOTED, [
                 $order->getChannel(),

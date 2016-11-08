@@ -5,8 +5,8 @@ define([
     'Product/Components/Status',
     'Product/Components/VariationView',
     'Product/Components/Button',
-    'Product/Components/Select',
-    'Product/Components/Input',
+    'Common/Components/Select',
+    'Common/Components/SafeInput',
     'Product/Components/SimpleTabs/Tabs',
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
@@ -122,7 +122,7 @@ define([
         },
         getBulkStockModeDropdown: function () {
             if (this.state.variations.length > 0) {
-                return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onNewOption={this.bulkUpdateStockMode}/>
+                return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onOptionChange={this.bulkUpdateStockMode}/>
             }
         },
         getBulkStockLevelInput: function () {
@@ -148,7 +148,7 @@ define([
                     n.success('Product tax rate updated successfully.');
                 },
                 error : function(response) {
-                    n.error("There was an error when attempting to update the product tax rate.");
+                    n.showErrorNotification(response, "There was an error when attempting to update the product tax rate.");
                 }
             });
         },
@@ -246,7 +246,7 @@ define([
                         this.updateVariationsStockMode(response);
                     }.bind(this),
                     error: function(error) {
-                        n.error("There was an error when attempting to bulk update the stock level.");
+                        n.showErrorNotification(error, "There was an error when attempting to bulk update the stock level.");
                         reject(new Error(error));
                     }
                 });
@@ -267,7 +267,7 @@ define([
                     });
                 }.bind(this),
                 error : function(response) {
-                    n.error("There was an error when attempting to bulk update the stock mode.");
+                    n.showErrorNotification(response, "There was an error when attempting to bulk update the stock mode.");
                 }
             });
         },
