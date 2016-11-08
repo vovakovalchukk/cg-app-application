@@ -6,8 +6,11 @@
     }
     .shipping-method {
         margin-bottom: 18px;
-        .inputbox-label {
-            margin: 0;
+        .half {
+            float: none;
+            .inputbox-label {
+                margin: 0;
+            }
         }
     }
 }
