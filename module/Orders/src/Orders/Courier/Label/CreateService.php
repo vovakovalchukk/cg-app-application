@@ -267,14 +267,16 @@ class CreateService extends ServiceAbstract
             'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
             'parcels' => [],
         ];
+        $parcelCount = 1;
         foreach ($orderParcelsData as $parcel) {
             $orderLabelData['parcels'][] = [
-                'trackingNumber' => isset($parcel['trackingNumber']) ? $parcel['trackingNumber'] : '',
+                'number' => $parcelCount,
                 'weight' => isset($parcel['weight']) ? $parcel['weight'] : '',
                 'width' => isset($parcel['width']) ? $parcel['width'] : '',
                 'height' => isset($parcel['height']) ? $parcel['height'] : '',
                 'length' => isset($parcel['length']) ? $parcel['length'] : '',
             ];
+            $parcelCount++;
         }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
 

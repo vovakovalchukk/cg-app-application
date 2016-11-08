@@ -20,7 +20,7 @@
                 <span class="grid-table-col carrier-service-col"><?= $label['courierService'] ?></span>
                 <span class="grid-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
                 <span class="grid-table-col col-split parcels-col">
-                    <?php foreach ($label['parcels'] as $key => $value){ echo "<span>".($key + 1)."</span>"; } ?>
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['number']."</span>"; } ?>
                 </span>
                 <span class="grid-table-col col-split weight-col">
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['weight']."</span>"; } ?>
