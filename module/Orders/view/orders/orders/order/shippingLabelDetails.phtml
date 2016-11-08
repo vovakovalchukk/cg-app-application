@@ -1,6 +1,10 @@
 <div class="shipping-method">
-    <div class="shipping-method-label"><?= $this->translate('Shipping Method'); ?></div>
-    <div class="shipping-method-value"><?= $this->shippingMethod; ?></div>
+    <div class="half">
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Shipping Method'); ?></span>
+            <span class="inputbox-value"><?= $this->shippingMethod; ?></span>
+        </label>
+    </div>
 </div>
 <?php if (isset($this->labels)) : ?>
 <div class="shipping-label-table">
