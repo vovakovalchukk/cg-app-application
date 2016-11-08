@@ -4,21 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "284f1da96afd5c0feea904e7348a5738",
+    "content-hash": "f39a47cad15469af4b57d25b39ed1d61",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.2",
+            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2b4dae41ef35c2401f763916acec17dcff5b6dbc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.2-ab1d8b.zip",
-                "reference": "2b4dae41ef35c2401f763916acec17dcff5b6dbc",
-                "shasum": null
+                "reference": "e958cd1315b9bd7ae6749e9c6fef0fbbaa409705"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1267,17 +1261,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.1.1",
+            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "4e0173472fed0a93ac4dc5924a0f4f8bbceca060"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.1.1-48951f.zip",
-                "reference": "4e0173472fed0a93ac4dc5924a0f4f8bbceca060",
-                "shasum": null
+                "reference": "0211d45b51cdf6fc4900fa3dee3acc790418c32b"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -8097,6 +8085,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.19.3",
+            "alias_normalized": "1.19.3.0",
+            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "1.23.27",
             "alias_normalized": "1.23.27.0",
             "version": "dev-CGIV-7568-label-save-mongo-connection-error",
@@ -8106,7 +8106,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "composer/composer": 20,
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
