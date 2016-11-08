@@ -25,8 +25,8 @@
                 <span class="grid-table-col col-split weight-col">
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
-                <span class="grid-table-col tracking-no-col">
-                    <?= ($tracking) ? $tracking->getNumber() : ""; ?>
+                <span class="grid-table-col col-split tracking-no-col">
+                    <?php foreach ($trackings as $tracking){ echo "<span>".$tracking->getNumber()."</span>"; } ?>
                 </span>
                 <span class="grid-table-col action-col">
                     <button class="button form-button tracking-button">Print</button>

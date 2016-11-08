@@ -325,7 +325,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 $labelData[] = $label->toArray();
             }
             $view->setVariable('shippingMethod', $order->getShippingMethod());
-            $view->setVariable('tracking', $order->getFirstTracking());
+            $view->setVariable('trackings', $order->getTrackings());
             $view->setVariable('imageSource', "dpd_92x46.png");
             $view->setVariable('labels', $labelData);
         } catch (NotFound $e) {
