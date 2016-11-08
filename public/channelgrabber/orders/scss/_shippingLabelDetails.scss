@@ -5,11 +5,10 @@
         display: block;
     }
     .shipping-method {
-        width: 30%;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
         margin-bottom: 18px;
+        .inputbox-label {
+            margin: 0;
+        }
     }
 }
 
