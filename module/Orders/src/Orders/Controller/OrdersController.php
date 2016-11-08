@@ -311,7 +311,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getShippingLabelDetails(OrderEntity $order)
     {
-        $shippingMethod = "Next Day Delivery";
         $filter = (new OrderLabelFilter())
             ->setOrderId([$order->getId()]);
 
@@ -325,7 +324,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             foreach ($labels as $label) {
                 $labelData[] = $label->toArray();
             }
-            $view->setVariable('shippingMethod', $shippingMethod);
+            $view->setVariable('shippingMethod', $order->getShippingMethod());
+            $view->setVariable('tracking', $order->getFirstTracking());
             $view->setVariable('imageSource', "dpd_92x46.png");
             $view->setVariable('labels', $labelData);
         } catch (NotFound $e) {

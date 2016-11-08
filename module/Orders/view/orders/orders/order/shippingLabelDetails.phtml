@@ -20,13 +20,13 @@
                 <span class="grid-table-col carrier-service-col"><?= $label['courierService'] ?></span>
                 <span class="grid-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
                 <span class="grid-table-col col-split parcels-col">
-                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['number']."</span>"; } ?>
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['number'])?$parcel['number']:'')."</span>"; } ?>
                 </span>
                 <span class="grid-table-col col-split weight-col">
-                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".$parcel['weight']."</span>"; } ?>
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
-                <span class="grid-table-col col-split tracking-no-col">
-                    <?php foreach ($label['parcels'] as $parcel){ echo "<a href='".$parcel['trackingNumber']."'>".$parcel['trackingNumber']."</a>"; } ?>
+                <span class="grid-table-col tracking-no-col">
+                    <?= ($tracking) ? $tracking->getNumber() : ""; ?>
                 </span>
                 <span class="grid-table-col action-col">
                     <button class="button form-button tracking-button">Print</button>
