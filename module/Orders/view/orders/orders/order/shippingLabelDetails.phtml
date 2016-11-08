@@ -29,8 +29,7 @@
                     <?php foreach ($trackings as $tracking){ echo "<span>".$tracking->getNumber()."</span>"; } ?>
                 </span>
                 <span class="grid-table-col action-col">
-                    <button class="button form-button tracking-button">Print</button>
-                    <button class="button form-button tracking-button">Cancel</button>
+                    <span class="grid-table-button-holder"><?= $this->printButton; ?></span>
                 </span>
             </span>
             <?php endforeach; ?>

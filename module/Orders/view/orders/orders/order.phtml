@@ -89,14 +89,6 @@ require([
           data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
         >
         <div class="half">
-        <?php if (isset($this->printShippingLabelButton)): ?>
-        <label>
-            <span class="inputbox-label"><?= $this->translate('Label'); ?></span>
-            <div class="alternate-input">
-                <?= $this->printShippingLabelButton ?>
-            </div>
-        </label>
-        <?php endif; ?>
         <label>
             <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
             <div class="order-inputbox-holder">

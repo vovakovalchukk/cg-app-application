@@ -328,6 +328,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('trackings', $order->getTrackings());
             $view->setVariable('imageSource', "dpd_92x46.png");
             $view->setVariable('labels', $labelData);
+            $view->addChild($this->getPrintLabelButton($view, $order), 'printButton');
         } catch (NotFound $e) {
             //  no op
         }
@@ -339,7 +340,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $buttons = $this->viewModelFactory->newInstance([
             'buttons' => [
-                'value' => 'Print Label',
+                'value' => 'Print',
                 'id' => 'print-shipping-label-button',
                 'disabled' => false,
                 'action' => $order->getId(),
