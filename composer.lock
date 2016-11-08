@@ -523,7 +523,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1371,13 +1371,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "59390c905766f02da36e87659dcaa7d1532752e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7568-label-save-mongo-connection-error-2f3577.zip",
-                "reference": "59390c905766f02da36e87659dcaa7d1532752e5",
-                "shasum": null
+                "reference": "4f73370e505b22007cfc1e74ccf8ee94e561b644"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1441,7 +1435,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-08 09:47:25"
+            "time": "2016-11-08T09:47:25+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4912,7 +4906,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8111,14 +8105,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
