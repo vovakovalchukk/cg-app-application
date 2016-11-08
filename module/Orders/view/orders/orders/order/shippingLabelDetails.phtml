@@ -16,7 +16,7 @@
         </span>
             <?php foreach ($this->labels as $label) : ?>
             <span class="grid-table-row">
-                <span class="grid-table-col carrier-col"><img src=<?= $this->basePath().CG_UI\Module::PUBLIC_FOLDER.'img/logos/'.$this->imageSource ?> /></span>
+                <span class="grid-table-col carrier-col"><span class="logo-large <?= $label['channelName']; ?>"></span></span>
                 <span class="grid-table-col carrier-service-col"><?= $label['courierService'] ?></span>
                 <span class="grid-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
                 <span class="grid-table-col col-split parcels-col">

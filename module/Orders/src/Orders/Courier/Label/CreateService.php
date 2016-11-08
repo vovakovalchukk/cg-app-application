@@ -259,6 +259,7 @@ class CreateService extends ServiceAbstract
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
+            'channelName' => $shippingAccount->getChannel(),
             'courierName' => $shippingAccount->getDisplayName(),
             'courierService' => $services ? $services[$orderData['service']] : '' ,
             'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
