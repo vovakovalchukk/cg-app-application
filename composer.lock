@@ -58,7 +58,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-10-26T15:02:39+00:00"
+            "time": "2016-11-08 12:09:56"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -517,7 +517,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1303,7 +1303,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-10-26T15:10:35+00:00"
+            "time": "2016-11-08 11:56:30"
         },
         {
             "name": "channelgrabber/notification",
@@ -1359,7 +1359,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4f73370e505b22007cfc1e74ccf8ee94e561b644"
+                "reference": "da2df791dffcc90384fe415b38f71a056d7c98c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7568-label-save-mongo-connection-error-caafc6.zip",
+                "reference": "da2df791dffcc90384fe415b38f71a056d7c98c9",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1423,7 +1429,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-08T09:47:25+00:00"
+            "time": "2016-11-08 12:36:19"
         },
         {
             "name": "channelgrabber/permission",
@@ -4894,7 +4900,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8105,16 +8111,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
