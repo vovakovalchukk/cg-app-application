@@ -79,7 +79,7 @@ return [
                             ]
                         ],
                         'RMSD1' => [
-                            'name' => 'Special Delivery 9am',
+                            'name' => 'Special Delivery 1pm',
                             'domestic' => true,
                             'packageTypes' => ['Parcel'],
                             'addOns' => [
@@ -90,7 +90,7 @@ return [
                             ]
                         ],
                         'RMSD9' => [
-                            'name' => 'Special Delivery 1pm',
+                            'name' => 'Special Delivery 9am',
                             'domestic' => true,
                             'packageTypes' => ['Parcel'],
                             'addOns' => [
