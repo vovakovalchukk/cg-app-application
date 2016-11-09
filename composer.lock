@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "76a3ec33550a51e7576343d4f261b132",
+    "content-hash": "3a9e7e299a26fb595d54af5575729771",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
+            "version": "1.19.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "904fe3268597aa192167eee6f5be6889b068fb5a"
+                "reference": "ae2a645ecb41acd1ff7551f4bfb994710aac55e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7568-label-save-mongo-connection-error-667bb8.zip",
-                "reference": "904fe3268597aa192167eee6f5be6889b068fb5a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.5-6e8fe6.zip",
+                "reference": "ae2a645ecb41acd1ff7551f4bfb994710aac55e6",
                 "shasum": null
             },
             "require": {
@@ -34,7 +34,7 @@
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-7568-label-save-mongo-connection-error as 1.23.27",
+                "channelgrabber/order": "^1.23.27",
                 "channelgrabber/predis": "~1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-08 12:09:56"
+            "time": "2016-11-09T11:23:45+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1268,16 +1268,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "9412b980d025481e8369edabeb68149e297584d4"
+                "reference": "ef4af3ea2e927df595316d5143602e48c3bd33e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7568-label-save-mongo-connection-error-6edde9.zip",
-                "reference": "9412b980d025481e8369edabeb68149e297584d4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.1-328f56.zip",
+                "reference": "ef4af3ea2e927df595316d5143602e48c3bd33e6",
                 "shasum": null
             },
             "require": {
@@ -1285,7 +1285,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/order": "dev-CGIV-7568-label-save-mongo-connection-error as 1.23.27",
+                "channelgrabber/order": "^1.23.27",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "channelgrabber/user": "^1.20.3",
@@ -1316,7 +1316,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-11-08 14:15:10"
+            "time": "2016-11-09T11:23:26+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -1368,16 +1368,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
+            "version": "1.23.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "da2df791dffcc90384fe415b38f71a056d7c98c9"
+                "reference": "d12b389a228eeeafd476fbbf5abe9330af542b00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7568-label-save-mongo-connection-error-caafc6.zip",
-                "reference": "da2df791dffcc90384fe415b38f71a056d7c98c9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.27-660ea3.zip",
+                "reference": "d12b389a228eeeafd476fbbf5abe9330af542b00",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-08 12:36:19"
+            "time": "2016-11-09T11:15:33+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8102,32 +8102,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.3",
-            "alias_normalized": "1.19.3.0",
-            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.2.1",
-            "alias_normalized": "1.2.1.0",
-            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.23.27",
-            "alias_normalized": "1.23.27.0",
-            "version": "dev-CGIV-7568-label-save-mongo-connection-error",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

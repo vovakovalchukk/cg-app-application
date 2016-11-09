@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "dev-CGIV-7568-label-save-mongo-connection-error as 1.19.3",
+        "channelgrabber/amazon": "~1.19.5",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.1",
         "channelgrabber/billing": "~1.11.4",
@@ -52,8 +52,8 @@
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.28",
         "channelgrabber/manual-order": "~1.0.0",
-        "channelgrabber/netdespatch": "dev-CGIV-7568-label-save-mongo-connection-error as 1.2.1",
-        "channelgrabber/order": "dev-CGIV-7568-label-save-mongo-connection-error as 1.23.27",
+        "channelgrabber/netdespatch": "~1.2.1",
+        "channelgrabber/order": "~1.23.27",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.0.2",
