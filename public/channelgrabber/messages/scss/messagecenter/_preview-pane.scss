@@ -126,6 +126,7 @@
     float: left;
     clear:both;
     .logo-large {
+      @include no-print();
       float: left;
       clear:both;
     }
@@ -134,6 +135,9 @@
       float: left;
       font-size: 12px;
       margin: 9px 0px 0px 10px;
+      @include print() {
+        margin-left: 0;
+      }
     }
   }
   .actions {
@@ -196,7 +200,11 @@
   padding: 10px 15px 10px 10px;
   font-size: 12px;
   @include box-sizing(border);
+  @include print() {
+    font-size: 16px;
+  }
   .sprite-sprite {
+    @include no-print();
     float: left;
     clear:both;
   }
@@ -230,6 +238,9 @@
   padding: 10px 15px 10px 15px;
   font-size: 12px;
   @include box-sizing(border);
+  @include print() {
+    font-size: 20px;
+  }
   .message-print {
     float: right;
     text-decoration: underline;
