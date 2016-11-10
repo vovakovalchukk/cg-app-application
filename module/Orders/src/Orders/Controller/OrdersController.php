@@ -324,8 +324,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             foreach ($labels as $label) {
                 $labelData[] = $label->toArray();
             }
+
+            $trackingNumbers = $order->getTrackings()->toArray();
+            usort($trackingNumbers, function($a, $b) {
+                return ($a['packageNumber'] - $b['packageNumber']);
+            });
+
             $view->setVariable('shippingMethod', $order->getShippingMethod());
-            $view->setVariable('trackings', $order->getTrackings());
+            $view->setVariable('trackings', $trackingNumbers);
             $view->setVariable('labels', $labelData);
             $view->addChild($this->getPrintLabelButton($view, $order), 'printButton');
         } catch (NotFound $e) {

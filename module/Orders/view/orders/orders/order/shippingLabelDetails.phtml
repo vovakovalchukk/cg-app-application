@@ -30,7 +30,7 @@
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
                 <span class="grid-table-col col-split tracking-no-col">
-                    <?php foreach ($trackings as $tracking){ echo "<span>".$tracking->getNumber()."</span>"; } ?>
+                    <?php foreach ($trackings as $tracking){ echo "<span>".$tracking['number']."</span>"; } ?>
                 </span>
                 <span class="grid-table-col action-col">
                     <span class="grid-table-button-holder"><?= $this->printButton; ?></span>
