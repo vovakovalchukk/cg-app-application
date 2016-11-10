@@ -465,6 +465,7 @@
         }
         .filter-box {
             padding: 5px;
+            border-bottom: 1px solid $color-lgrey;
             input {
                 width: 100%;
                 box-sizing: border-box;
@@ -478,8 +479,6 @@
                 top: 10px;
                 cursor: pointer;
             }
-        }
-        ul {
         }
     }
 }
