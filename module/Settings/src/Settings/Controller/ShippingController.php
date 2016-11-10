@@ -191,39 +191,41 @@ class ShippingController extends AbstractActionController
             'aliasEtag' => $alias->getStoredETag()
         ]);
         $view->setTemplate('ShippingAlias/alias.mustache');
+
+
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
-        $view->addChild($this->getAccountCustomSelectView($alias), 'accountCustomSelect');
-        $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
-        if (is_null($serviceCustomSelect)) {
-            return $view;
-        }
-        $view->addChild($serviceCustomSelect, 'serviceCustomSelect');
-        $serviceOptions = $this->getServiceOptionsView($alias, $account);
-        if ($serviceOptions) {
-            $view->addChild($serviceOptions, 'serviceOptions');
+
+        $shippingAccounts = $this->getShippingAccounts();
+        if (count($shippingAccounts)) {
+            $view->addChild($this->getAccountCustomSelectView($alias, $shippingAccounts), 'accountCustomSelect');
+            $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
+            if (is_null($serviceCustomSelect)) {
+                return $view;
+            }
+            $view->addChild($serviceCustomSelect, 'serviceCustomSelect');
+            $serviceOptions = $this->getServiceOptionsView($alias, $account);
+            if ($serviceOptions) {
+                $view->addChild($serviceOptions, 'serviceOptions');
+            }
         }
 
         return $view;
     }
 
-    protected function getAccountCustomSelectView(AliasEntity $alias)
+    protected function getAccountCustomSelectView(AliasEntity $alias, $shippingAccounts)
     {
-        $shippingAccounts = $this->getShippingAccounts();
-
         $options = [];
-        if (count($shippingAccounts)) {
-            $noneOption = [
-                'title' => 'None',
-                'value' => '0',
-                'selected' => (!$alias->getAccountId())
-            ];
-            $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
-                $shippingAccounts, $alias->getAccountId()
-            );
-            array_unshift($options, $noneOption);
-        }
+        $noneOption = [
+            'title' => 'None',
+            'value' => '0',
+            'selected' => (!$alias->getAccountId())
+        ];
+        $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
+            $shippingAccounts, $alias->getAccountId()
+        );
+        array_unshift($options, $noneOption);
 
 
         $customSelect = $this->getViewModelFactory()->newInstance([

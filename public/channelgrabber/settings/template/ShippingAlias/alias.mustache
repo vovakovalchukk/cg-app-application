@@ -16,7 +16,9 @@
             {{> multiSelectExpanded}}
         </div>
         <div class="shipping-services">
-            <span class="inputbox-label">Default Shipping Service</span>
+            {{^accountCustomSelect}}
+                <span class="inputbox-label">Default Shipping Service</span>
+            {{/accountCustomSelect}}
             <div class="shipping-account">
                 {{> accountCustomSelect}}
             </div>
