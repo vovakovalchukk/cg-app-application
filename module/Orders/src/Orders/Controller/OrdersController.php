@@ -335,7 +335,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('labels', $labelData);
             $view->addChild($this->getPrintLabelButton($view, $order), 'printButton');
         } catch (NotFound $e) {
-            //  no op
+            //  no op - we wont want to show this partial if there are no labels
         }
 
         return $view;
