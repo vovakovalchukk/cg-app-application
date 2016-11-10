@@ -55,20 +55,25 @@ define([
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
 
-            var accountCustomSelect = cgmustache.renderTemplate(templates, {
-                isOptional: 'true',
-                id: 'shipping-account-custom-select-'+aliasNo,
-                name: 'shipping-account-custom-select-'+aliasNo,
-                class: 'shipping-account-select',
-                options: accountCollection.getItems()
-            }, "customSelect");
-
-            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo}, "alias", {
+            var aliasTemplateParameters = {
                 'multiSelectExpanded' : multiSelectExpanded,
-                'accountCustomSelect': accountCustomSelect,
                 'deleteButton' : deleteButton,
                 'text' : text
-            });
+            };
+
+            var accountCustomSelectOptions = accountCollection.getItems();
+            if (accountCustomSelectOptions.length > 1) {
+                aliasTemplateParameters['accountCustomSelect'] = cgmustache.renderTemplate(templates, {
+                    isOptional: 'true',
+                    id: 'shipping-account-custom-select-'+aliasNo,
+                    name: 'shipping-account-custom-select-'+aliasNo,
+                    class: 'shipping-account-select',
+                    options: accountCustomSelectOptions
+                }, "customSelect");
+
+            }
+
+            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo}, "alias", aliasTemplateParameters);
 
             if ($(DomManipulator.DOM_SELECTOR_ALIAS_NONE).is(':visible')) {
                 $(DomManipulator.DOM_SELECTOR_ALIAS_NONE).hide();
