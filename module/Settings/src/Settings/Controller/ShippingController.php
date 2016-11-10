@@ -192,7 +192,6 @@ class ShippingController extends AbstractActionController
         ]);
         $view->setTemplate('ShippingAlias/alias.mustache');
 
-
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
@@ -226,8 +225,7 @@ class ShippingController extends AbstractActionController
             $shippingAccounts, $alias->getAccountId()
         );
         array_unshift($options, $noneOption);
-
-
+        
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
             'id' => 'shipping-account-custom-select-' . $alias->getId(),
