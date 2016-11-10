@@ -557,7 +557,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-28 14:24:52"
+            "time": "2016-11-09 12:22:11"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -584,7 +584,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-25 15:27:51"
+            "time": "2016-11-09 12:00:30"
         },
         {
             "name": "channelgrabber/db",
@@ -1360,7 +1360,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d6445101f96cf8f93c8337163dc66e975e197f53"
+                "reference": "b86f11cc4d7b61b10a92c43dbe1eeae0e2a78593"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-e8ef8f.zip",
+                "reference": "b86f11cc4d7b61b10a92c43dbe1eeae0e2a78593",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1424,7 +1430,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-07 14:15:58"
+            "time": "2016-11-09 16:39:42"
         },
         {
             "name": "channelgrabber/permission",
@@ -8106,16 +8112,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
