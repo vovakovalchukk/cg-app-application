@@ -572,12 +572,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "bf07883003183706c921c14e3e60f47216de4c7c"
+                "reference": "5342dffab4ac8b8d4257a492b9e99cfde7345ab7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-7544-show-user-created-shipping-label-backend-8710db.zip",
-                "reference": "bf07883003183706c921c14e3e60f47216de4c7c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-7544-show-user-created-shipping-label-backend-42d499.zip",
+                "reference": "5342dffab4ac8b8d4257a492b9e99cfde7345ab7",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-11-09 12:00:30"
+            "time": "2016-11-10 10:25:38"
         },
         {
             "name": "channelgrabber/db",
@@ -1373,12 +1373,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b86f11cc4d7b61b10a92c43dbe1eeae0e2a78593"
+                "reference": "6ef4f6a0d4bfc78b3c97ffd3063d7b508b6c9352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-e8ef8f.zip",
-                "reference": "b86f11cc4d7b61b10a92c43dbe1eeae0e2a78593",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-b95699.zip",
+                "reference": "6ef4f6a0d4bfc78b3c97ffd3063d7b508b6c9352",
                 "shasum": null
             },
             "require": {
@@ -1443,7 +1443,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-09 16:39:42"
+            "time": "2016-11-10 10:19:55"
         },
         {
             "name": "channelgrabber/permission",
