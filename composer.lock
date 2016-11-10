@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9774796ca61a880e0d631c4773ab9408",
-    "content-hash": "060216ea116c49c06fd81426235d43cd",
+    "hash": "0c234686459f6a5b462b6a1d643c56f1",
+    "content-hash": "687b82a4c8751c8dfb6ee61562a56451",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1373,12 +1373,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6ef4f6a0d4bfc78b3c97ffd3063d7b508b6c9352"
+                "reference": "aa6ae698b2598c76f213b257fbcca35d8f5c8c5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-b95699.zip",
-                "reference": "6ef4f6a0d4bfc78b3c97ffd3063d7b508b6c9352",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-96185c.zip",
+                "reference": "aa6ae698b2598c76f213b257fbcca35d8f5c8c5b",
                 "shasum": null
             },
             "require": {
@@ -1443,7 +1443,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-10 10:19:55"
+            "time": "2016-11-10 10:58:06"
         },
         {
             "name": "channelgrabber/permission",
@@ -8117,8 +8117,8 @@
             "package": "channelgrabber/courieradapter"
         },
         {
-            "alias": "1.23.27",
-            "alias_normalized": "1.23.27.0",
+            "alias": "1.24.1",
+            "alias_normalized": "1.24.1.0",
             "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
             "package": "channelgrabber/order"
         }
