@@ -43,14 +43,19 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         <span data-cgtype="Button" class="button-holder">
                             <div class="button link" id="billing-address-search-toggle-shadow">
                                 <span class="action" data-action="">
-                                    <span class="title">Enter Manually</span>
+                                    <? if ($order && $order->getCalculatedBillingAddress1() && $order->getCalculatedBillingAddressPostcode()) {
+                                        $linkText = "Search Address";
+                                    } else {
+                                        $linkText = "Enter Manually";
+                                    }?>
+                                    <span class="title"><?= $linkText ?></span>
                                 </span>
                             </div>
                             <input class="button" type="button" value="Enter Manually" data-action="" id="billing-address-search-toggle" style="display:none;">
                         </span>
                     </div>
                     <div class="order-inputbox-holder" style="<?=  $order && $order->getCalculatedBillingAddressPostcode() ? 'display:none' : ''; ?>">
-                        <input class="inputbox " type="text" name="search" id="billing-address-search-input" value="" placeholder="Start typing the billing address..." autocomplete="off">
+                        <input class="inputbox " type="text" id="billing-address-search-input" value="" placeholder="Start typing the billing address..." autocomplete="off">
                     </div>
                 </div>
             </label>
@@ -158,14 +163,19 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         <span data-cgtype="Button" class="button-holder">
                             <div class="button link" id="shipping-address-search-toggle-shadow">
                                 <span class="action" data-action="">
-                                    <span class="title">Enter Manually</span>
+                                    <? if ($order && $order->getCalculatedShippingAddress1() && $order->getCalculatedShippingAddressPostcode()) {
+                                        $linkText = "Search Address";
+                                    } else {
+                                        $linkText = "Enter Manually";
+                                    }?>
+                                    <span class="title"><?= $linkText ?></span>
                                 </span>
                             </div>
                             <input class="button" type="button" value="Enter Manually" data-action="" id="shipping-address-search-toggle" style="display:none;">
                         </span>
                         </div>
                         <div class="order-inputbox-holder" style="<?=  $order && $order->getCalculatedShippingAddressPostcode() ? 'display:none' : ''; ?>">
-                            <input class="inputbox " type="text" name="search" id="shipping-address-search-input" value="" placeholder="Start typing the shipping address..." autocomplete="off">
+                            <input class="inputbox " type="text" id="shipping-address-search-input" value="" placeholder="Start typing the shipping address..." autocomplete="off">
                         </div>
                     </div>
                 </label>
