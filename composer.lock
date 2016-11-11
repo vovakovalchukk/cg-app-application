@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d2a85ff0c70ad2268aa3029c6617b81",
+    "content-hash": "7480beab82010393d1a5ffb22fe86116",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3565,16 +3565,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.15",
+            "version": "1.17.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "75f4908722aaa86fe6a9944e066e6d8f4945594b"
+                "reference": "71b12131101ef6c8220de7f6cf9a5b5ef690a96c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.15-42b67f.zip",
-                "reference": "75f4908722aaa86fe6a9944e066e6d8f4945594b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.16-91b06c.zip",
+                "reference": "71b12131101ef6c8220de7f6cf9a5b5ef690a96c",
                 "shasum": null
             },
             "require": {
@@ -3621,7 +3621,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-07T16:43:39+00:00"
+            "time": "2016-11-11T10:31:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3858,7 +3858,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
