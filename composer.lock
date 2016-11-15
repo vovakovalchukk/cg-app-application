@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "52c125ce17634150b46099a1c8c5f822",
+    "content-hash": "94b4189f11b797b392714356980cddc8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -524,20 +524,20 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "9b579594d8a917502724a9a9be852ad2571fefc0"
+                "reference": "c5988b4d9eaf6ce82b9b9b27eff9763355b47962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-7544-show-user-created-shipping-label-backend-8b960d.zip",
-                "reference": "9b579594d8a917502724a9a9be852ad2571fefc0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.8-7f5833.zip",
+                "reference": "c5988b4d9eaf6ce82b9b9b27eff9763355b47962",
                 "shasum": null
             },
             "require": {
@@ -563,20 +563,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-11-09 12:22:11"
+            "time": "2016-11-15T16:35:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "5342dffab4ac8b8d4257a492b9e99cfde7345ab7"
+                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-7544-show-user-created-shipping-label-backend-42d499.zip",
-                "reference": "5342dffab4ac8b8d4257a492b9e99cfde7345ab7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.0-9aeaa1.zip",
+                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-11-10 10:25:38"
+            "time": "2016-11-15T16:33:33+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -1368,16 +1368,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
+            "version": "1.24.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f8e5cbfcec3b94bf6d1067ec72540765d84f0699"
+                "reference": "e7e4d90a59148d500e92d8d7c06fd572ad66bca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7544-show-user-created-shipping-label-backend-501f74.zip",
-                "reference": "f8e5cbfcec3b94bf6d1067ec72540765d84f0699",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.1-b8339d.zip",
+                "reference": "e7e4d90a59148d500e92d8d7c06fd572ad66bca0",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-10 12:15:05"
+            "time": "2016-11-15T16:35:41+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8102,32 +8102,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.8",
-            "alias_normalized": "1.0.8.0",
-            "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.24.1",
-            "alias_normalized": "1.24.1.0",
-            "version": "dev-CGIV-7544-show-user-created-shipping-label-backend",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
