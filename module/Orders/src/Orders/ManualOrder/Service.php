@@ -208,10 +208,10 @@ class Service implements LoggerAwareInterface
 
     protected function ensureCountryCodes(array &$orderData)
     {
-        if (!isset($orderData['billingAddressCountryCode'])) {
+        if (!isset($orderData['billingAddressCountryCode']) || trim($orderData['billingAddressCountryCode']) == '') {
             $orderData['billingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($orderData['billingAddressCountry']);
         }
-        if (!isset($orderData['shippingAddressCountryCode'])) {
+        if (!isset($orderData['shippingAddressCountryCode']) || trim($orderData['shippingAddressCountryCode']) == '') {
             $orderData['shippingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($orderData['shippingAddressCountry']);
         }
     }
