@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7480beab82010393d1a5ffb22fe86116",
+    "content-hash": "a63d10c621cf8041674e272a931b01ae",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1368,17 +1368,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.27",
+            "version": "dev-CGIV-7592-amazon-gearman-worker-fataling",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d12b389a228eeeafd476fbbf5abe9330af542b00"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.27-660ea3.zip",
-                "reference": "d12b389a228eeeafd476fbbf5abe9330af542b00",
-                "shasum": null
+                "reference": "83add90f71099c7b04bc3431d8c63c525dbd9652"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -3866,7 +3860,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -8098,6 +8092,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.23.28",
+            "alias_normalized": "1.23.28.0",
+            "version": "dev-CGIV-7592-amazon-gearman-worker-fataling",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.0.16",
             "alias_normalized": "1.0.16.0",
             "version": "dev-CGIV-7592-amazon-gearman-worker-fataling",
@@ -8108,6 +8108,7 @@
     "stability-flags": {
         "composer/composer": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-amazon": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

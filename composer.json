@@ -53,7 +53,7 @@
         "channelgrabber/log": "~2.0.28",
         "channelgrabber/manual-order": "~1.0.0",
         "channelgrabber/netdespatch": "~1.2.1",
-        "channelgrabber/order": "~1.23.27",
+        "channelgrabber/order": "dev-CGIV-7592-amazon-gearman-worker-fataling as 1.23.28",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.0.2",
