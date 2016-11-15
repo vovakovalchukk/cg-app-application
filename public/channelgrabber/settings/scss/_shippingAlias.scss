@@ -41,13 +41,14 @@
         clear:both;
         padding: 5px 20px 5px 15px;
         @include box-sizing(border);
-        border-right: 1px solid $color-lgrey;
     }
     .shipping-services {
         width: 50%;
+        height: 170px;
         float: left;
         padding: 5px 15px 5px 18px;
         @include box-sizing(border);
+        border-left: 1px solid $color-lgrey;
         .shipping-account-select {
             width: 100%;
             float: left;
