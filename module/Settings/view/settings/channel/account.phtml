@@ -55,9 +55,8 @@ require(
                         return;
                     }
 
-                    var status = $(ajaxCheckbox.getBaseSelector()).empty();
-                    status.append(cgmustache.renderTemplate(template, data.account, "enable"));
-                    status.append(cgmustache.renderTemplate(template, data.account, "status"));
+                    $('.enable-switch-account-manage').empty().append(cgmustache.renderTemplate(template, data.account, "enable"));
+                    $('.current-account-status-account-manage').empty().append(cgmustache.renderTemplate(template, data.account, "status"));
                 });
             }
         );
@@ -72,9 +71,11 @@ require(
         <label>
             <span class="inputbox-label">Enable Account:</span>
             <div class="alternate-input mustache">
-                <?= $this->mustache('columns/enable.mustache', array_merge($account, ['type' => $type])) ?>
-                <div class="current-account-status-inline">
-                  <?= $this->mustache('columns/accountStatus.mustache', $account) ?>
+                <div class="enable-switch-account-manage">
+                    <?= $this->mustache('columns/enable.mustache', array_merge($account, ['type' => $type])) ?>
+                </div>
+                <div class="current-account-status-account-manage">
+                    <?= $this->mustache('columns/accountStatus.mustache', $account) ?>
                 </div>
             </div>
         </label>

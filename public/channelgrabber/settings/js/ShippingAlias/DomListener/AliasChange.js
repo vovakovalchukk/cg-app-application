@@ -109,9 +109,9 @@ function(domManipulator, eventCollator, DeferredQueue)
             checkBoxValues[index] = $(this).val();
         });
 
-        if (aliasServiceOptions.length == 1) {
+        if (aliasServiceOptions && aliasServiceOptions.length == 1) {
             serviceOptionsValues = aliasServiceOptions.val();
-        } else if (aliasServiceOptions.length > 1) {
+        } else if (aliasServiceOptions && aliasServiceOptions.length > 1) {
             serviceOptionsValues = [];
             aliasServiceOptions.each(function()
             {
@@ -124,7 +124,7 @@ function(domManipulator, eventCollator, DeferredQueue)
             id: aliasID ? aliasID : null,
             name: aliasName,
             organisationUnitId: this.getRootOuId(),
-            accountId: (aliasAccount.length && parseInt(aliasAccount) > 0 ? aliasAccount : null),
+            accountId: (aliasAccount && aliasAccount.length && parseInt(aliasAccount) > 0 ? aliasAccount : null),
             shippingService: aliasService,
             methodIds: checkBoxValues,
             options: serviceOptionsValues
