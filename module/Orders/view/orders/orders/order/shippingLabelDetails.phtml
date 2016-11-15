@@ -2,10 +2,12 @@
 use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
 ?>
 <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
+<?php if (isset($this->shippingMethod)) : ?>
 <div class="shipping-method">
     <span class="inputbox-label"><?= $this->translate('Shipping Method'); ?></span>
     <span class="inputbox-value"><?= $this->shippingMethod; ?></span>
 </div>
+<?php endif; ?>
 <?php if (isset($this->labels)) : ?>
 <div class="shipping-label-table">
     <span class="grid-table">
