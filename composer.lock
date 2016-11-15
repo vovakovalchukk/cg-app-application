@@ -978,12 +978,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "a6879346f8344f7927d2b2afd6546100b7149d2a"
+                "reference": "7d1f4ed1c6e3c578d963928e09d70dd70a7228f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-7635-bigcommerce-signup-improvements-89c24f.zip",
-                "reference": "a6879346f8344f7927d2b2afd6546100b7149d2a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-7635-bigcommerce-signup-improvements-40183d.zip",
+                "reference": "7d1f4ed1c6e3c578d963928e09d70dd70a7228f5",
                 "shasum": null
             },
             "require": {
@@ -1006,7 +1006,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2016-11-14 15:48:51"
+            "time": "2016-11-15 12:56:46"
         },
         {
             "name": "channelgrabber/listing",
@@ -2534,12 +2534,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "dc1366f6226a28a0f1a29a80a588758f914d0cbd"
+                "reference": "83bde1b35b99832f4e08c1470678c2041c01fc24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7635-bigcommerce-signup-improvements-eea597.zip",
-                "reference": "dc1366f6226a28a0f1a29a80a588758f914d0cbd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7635-bigcommerce-signup-improvements-544e8c.zip",
+                "reference": "83bde1b35b99832f4e08c1470678c2041c01fc24",
                 "shasum": null
             },
             "require": {
@@ -2577,7 +2577,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-09 11:43:51"
+            "time": "2016-11-15 12:35:13"
         },
         {
             "name": "channelgrabber/userpreference",
