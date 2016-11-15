@@ -1,3 +1,7 @@
+<?php
+use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
+?>
+<span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
 <div class="shipping-method">
     <span class="inputbox-label"><?= $this->translate('Shipping Method'); ?></span>
     <span class="inputbox-value"><?= $this->shippingMethod; ?></span>
@@ -35,4 +39,36 @@
             <?php endforeach; ?>
     </span>
 </div>
+<?php endif; ?>
+<?php if (isset($this->carrierSelect)) : ?>
+<form id="trackingInformation"
+      data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
+      data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
+      data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
+      data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
+>
+    <div class="half">
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
+            <div class="order-inputbox-holder">
+                <?= $this->carrierSelect ?>
+            </div>
+        </label>
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Tracking Number'); ?></span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($trackings[0]) ? $trackings[0]['number'] : ""; ?>">
+            </div>
+            <?php if ($trackings[0] && $trackings[0]['status'] == OrderTrackingStatus::ERROR): ?>
+                <div class="sprite-alert-tri-28-black" title="There was a problem sending the tracking number to the channel" style="float: left; margin-left: 20px;"></div>
+            <?php endif; ?>
+        </label>
+        <input type="hidden" value="<?= ($trackings[0]) ? $trackings[0]['ETag'] : ""; ?>" id="eTag" name="eTag"/>
+        <div class="half" style="clear:both; padding-top:0px;">
+            <div class="order-inputbox-holder">
+                <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
+            </div>
+        </div>
+    </div>
+</form>
 <?php endif; ?>

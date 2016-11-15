@@ -301,8 +301,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
-        $view->addChild($this->getCarrierSelect(), 'carrierSelect');
-        $view->setVariable('tracking', $order->getFirstTracking());
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
         $this->addLabelPrintButtonToView($view, $order);
@@ -326,13 +324,19 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             }
 
             $trackingNumbers = $order->getTrackings()->toArray();
-            usort($trackingNumbers, function($a, $b) {
+            usort($trackingNumbers, function ($a, $b) {
                 return ($a['packageNumber'] - $b['packageNumber']);
             });
 
             $view->setVariable('shippingMethod', $order->getShippingMethod());
             $view->setVariable('trackings', $trackingNumbers);
-            $view->setVariable('labels', $labelData);
+
+            if ($labelData) {
+                $view->setVariable('labels', $labelData);
+            } else {
+                $view->addChild($this->getCarrierSelect(), 'carrierSelect');
+            }
+            $view->setVariable('order', $order);
             $view->addChild($this->getPrintLabelButton($view, $order), 'printButton');
         } catch (NotFound $e) {
             //  no op - we wont want to show this partial if there are no labels
