@@ -314,6 +314,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/shippingLabelDetails');
+        $view->setVariable('shippingMethod', $order->getShippingMethod());
+        $view->setVariable('order', $order);
 
         try {
             $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
@@ -328,18 +330,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 return ($a['packageNumber'] - $b['packageNumber']);
             });
 
-            $view->setVariable('shippingMethod', $order->getShippingMethod());
             $view->setVariable('trackings', $trackingNumbers);
-
-            if ($labelData) {
-                $view->setVariable('labels', $labelData);
-            } else {
-                $view->addChild($this->getCarrierSelect(), 'carrierSelect');
-            }
-            $view->setVariable('order', $order);
+            $view->setVariable('labels', $labelData);
             $view->addChild($this->getPrintLabelButton($view, $order), 'printButton');
         } catch (NotFound $e) {
-            //  no op - we wont want to show this partial if there are no labels
+            $view->addChild($this->getCarrierSelect(), 'carrierSelect');
+            $view->setVariable('tracking', $order->getFirstTracking());
         }
 
         return $view;

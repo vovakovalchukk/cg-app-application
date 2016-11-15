@@ -59,13 +59,13 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
         <label>
             <span class="inputbox-label"><?= $this->translate('Tracking Number'); ?></span>
             <div class="order-inputbox-holder">
-                <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($trackings[0]) ? $trackings[0]['number'] : ""; ?>">
+                <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
             </div>
-            <?php if ($trackings[0] && $trackings[0]['status'] == OrderTrackingStatus::ERROR): ?>
+            <?php if ($tracking && $tracking->getStatus() == OrderTrackingStatus::ERROR): ?>
                 <div class="sprite-alert-tri-28-black" title="There was a problem sending the tracking number to the channel" style="float: left; margin-left: 20px;"></div>
             <?php endif; ?>
         </label>
-        <input type="hidden" value="<?= ($trackings[0]) ? $trackings[0]['ETag'] : ""; ?>" id="eTag" name="eTag"/>
+        <input type="hidden" value="<?= ($tracking) ? $tracking->getStoredETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
             <div class="order-inputbox-holder">
                 <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
