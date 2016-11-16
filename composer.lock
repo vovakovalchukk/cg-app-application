@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a63d10c621cf8041674e272a931b01ae",
+    "content-hash": "a0b63b4277c62c1f49a601923b15db05",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -528,16 +528,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd"
+                "reference": "c5988b4d9eaf6ce82b9b9b27eff9763355b47962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.7-5cafdf.zip",
-                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.8-7f5833.zip",
+                "reference": "c5988b4d9eaf6ce82b9b9b27eff9763355b47962",
                 "shasum": null
             },
             "require": {
@@ -563,20 +563,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-28T14:24:52+00:00"
+            "time": "2016-11-15T16:35:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530"
+                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.0.0-465a97.zip",
-                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.0-9aeaa1.zip",
+                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-25T15:27:51+00:00"
+            "time": "2016-11-15T16:33:33+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -1372,7 +1372,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "83add90f71099c7b04bc3431d8c63c525dbd9652"
+                "reference": "3819cca994d7ab3c0a23b85905a1a24609ecd9c4"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1436,7 +1436,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-09T11:15:33+00:00"
+            "time": "2016-11-15T16:35:41+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8092,8 +8092,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.23.28",
-            "alias_normalized": "1.23.28.0",
+            "alias": "1.24.2",
+            "alias_normalized": "1.24.2.0",
             "version": "dev-CGIV-7592-amazon-gearman-worker-fataling",
             "package": "channelgrabber/order"
         },

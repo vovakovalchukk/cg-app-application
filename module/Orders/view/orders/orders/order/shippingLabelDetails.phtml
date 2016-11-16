@@ -1,0 +1,76 @@
+<?php
+use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
+?>
+<span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
+<?php if (isset($this->shippingMethod)) : ?>
+<div class="shipping-method">
+    <span class="inputbox-label"><?= $this->translate('Shipping Method'); ?></span>
+    <span class="inputbox-value"><?= $this->shippingMethod; ?></span>
+</div>
+<?php endif; ?>
+<?php if (isset($this->labels)) : ?>
+<div class="shipping-label-table">
+    <span class="grid-table">
+        <span class="grid-table-header-row">
+            <span class="grid-table-col carrier-col">Carrier</span>
+            <span class="grid-table-col carrier-service-col">Service</span>
+            <span class="grid-table-col deliver-instruction-col">Delivery Instruction</span>
+            <span class="grid-table-col parcels-col">Parcel</span>
+            <span class="grid-table-col weight-col">Weight</span>
+            <span class="grid-table-col tracking-no-col">Tracking Number</span>
+            <span class="grid-table-col action-col">Action</span>
+        </span>
+            <?php foreach ($this->labels as $label) : ?>
+            <span class="grid-table-row">
+                <span class="grid-table-col carrier-col"><span class="logo-large <?= $label['channelName']; ?>"></span></span>
+                <span class="grid-table-col carrier-service-col"><?= $label['courierService'] ?></span>
+                <span class="grid-table-col deliver-instruction-col"><?= $label['deliveryInstructions'] ?: 'None' ?></span>
+                <span class="grid-table-col col-split parcels-col">
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['number'])?$parcel['number']:'')."</span>"; } ?>
+                </span>
+                <span class="grid-table-col col-split weight-col">
+                    <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
+                </span>
+                <span class="grid-table-col col-split tracking-no-col">
+                    <?php foreach ($trackings as $tracking){ echo "<span>".$tracking['number']."</span>"; } ?>
+                </span>
+                <span class="grid-table-col action-col">
+                    <span class="grid-table-button-holder"><?= $this->printButton; ?></span>
+                </span>
+            </span>
+            <?php endforeach; ?>
+    </span>
+</div>
+<?php endif; ?>
+<?php if (isset($this->carrierSelect)) : ?>
+<form id="trackingInformation"
+      data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
+      data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
+      data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
+      data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
+>
+    <div class="half">
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
+            <div class="order-inputbox-holder">
+                <?= $this->carrierSelect ?>
+            </div>
+        </label>
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Tracking Number'); ?></span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
+            </div>
+            <?php if ($tracking && $tracking->getStatus() == OrderTrackingStatus::ERROR): ?>
+                <div class="sprite-alert-tri-28-black" title="There was a problem sending the tracking number to the channel" style="float: left; margin-left: 20px;"></div>
+            <?php endif; ?>
+        </label>
+        <input type="hidden" value="<?= ($tracking) ? $tracking->getStoredETag() : ""; ?>" id="eTag" name="eTag"/>
+        <div class="half" style="clear:both; padding-top:0px;">
+            <div class="order-inputbox-holder">
+                <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
+            </div>
+        </div>
+    </div>
+</form>
+<?php endif; ?>

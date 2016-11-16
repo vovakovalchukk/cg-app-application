@@ -355,23 +355,35 @@ class Create implements LoggerAwareInterface
             $this->logDebug(static::LOG_NO_TRACKING, [$order->getId(), $order->getOrganisationUnitId()], [static::LOG_CODE, 'NoTracking']);
             return;
         }
-        foreach ($shipment->getTrackingReferences() as $trackingReference) {
-            $date = new StdlibDateTime();
-            $trackingData = [
-                'organisationUnitId' => $order->getOrganisationUnitId(),
-                'orderId' => $order->getId(),
-                'userId' => $user->getId(),
-                'timestamp' => $date->stdFormat(),
-                'carrier' => $shippingAccount->getDisplayChannel(),
-                'number' => $trackingReference,
-            ];
-            $orderTracking = $this->orderTrackingMapper->fromArray($trackingData);
-            $this->logDebug(static::LOG_TRACKING, [$order->getId(), $order->getOrganisationUnitId(), $trackingReference], [static::LOG_CODE, 'Tracking']);
-            $this->orderTrackingService->save($orderTracking);
+        if ($shipment instanceof PackagesInterface) {
+            foreach ($shipment->getPackages() as $package) {
+                $this->saveOrderTracking($order, $user, $shippingAccount, $package->getTrackingReference(), $package->getNumber());
+            }
+        } else {
+            foreach ($shipment->getTrackingReferences() as $trackingReference) {
+                $this->saveOrderTracking($order, $user, $shippingAccount, $trackingReference);
+            }
         }
 
         // Update the sales channels
         $this->orderTrackingService->createGearmanJob($order);
+    }
+
+    protected function saveOrderTracking($order, $user, $shippingAccount, $trackingReference, $packageNumber = null)
+    {
+        $date = new StdlibDateTime();
+        $trackingData = [
+            'organisationUnitId' => $order->getOrganisationUnitId(),
+            'orderId' => $order->getId(),
+            'userId' => $user->getId(),
+            'timestamp' => $date->stdFormat(),
+            'carrier' => $shippingAccount->getDisplayChannel(),
+            'packageNumber' => $packageNumber,
+            'number' => $trackingReference,
+        ];
+        $orderTracking = $this->orderTrackingMapper->fromArray($trackingData);
+        $this->logDebug(static::LOG_TRACKING, [$order->getId(), $order->getOrganisationUnitId(), $trackingReference], [static::LOG_CODE, 'Tracking']);
+        $this->orderTrackingService->save($orderTracking);
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
