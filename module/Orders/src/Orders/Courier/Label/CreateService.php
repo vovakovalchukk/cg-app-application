@@ -68,7 +68,7 @@ class CreateService extends ServiceAbstract
 
         $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
 
-        $orderLabelsData = $this->createOrderLabelsForOrders($orders, $ordersData, $shippingAccount);
+        $orderLabelsData = $this->createOrderLabelsForOrders($orders, $ordersData, $orderParcelsData, $shippingAccount);
         if (count($orderLabelsData['orderLabels']) == 0) {
             return $orderLabelsData['errors'];
         }
@@ -226,7 +226,7 @@ class CreateService extends ServiceAbstract
         return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
     }
 
-    protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, Account $shippingAccount)
+    protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, array $orderParcelsData, Account $shippingAccount)
     {
         $orderLabelsData = [
             'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
@@ -234,7 +234,8 @@ class CreateService extends ServiceAbstract
         ];
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
-            $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $shippingAccount);
+            $parcelsData = $orderParcelsData[$order->getId()];
+            $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
             if ($orderLabel instanceof ValidationMessagesException) {
                 $orderLabelsData['errors'][$order->getId()] = $orderLabel;
             } else {
@@ -244,9 +245,12 @@ class CreateService extends ServiceAbstract
         return $orderLabelsData;
     }
 
-    protected function createOrderLabelForOrder(Order $order, array $orderData, Account $shippingAccount)
+    protected function createOrderLabelForOrder(Order $order, array $orderData, array $orderParcelsData, Account $shippingAccount)
     {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
+
+        $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
+
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
@@ -255,7 +259,26 @@ class CreateService extends ServiceAbstract
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
+            'channelName' => $shippingAccount->getChannel(),
+            'courierName' => $shippingAccount->getDisplayName(),
+            'courierService' => $services ? $services[$orderData['service']] : '' ,
+            'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
+            'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
+            'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
+            'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
+            'parcels' => [],
         ];
+        $parcelCount = 1;
+        foreach ($orderParcelsData as $parcel) {
+            $orderLabelData['parcels'][] = [
+                'number' => $parcelCount,
+                'weight' => isset($parcel['weight']) ? $parcel['weight'] : '',
+                'width' => isset($parcel['width']) ? $parcel['width'] : '',
+                'height' => isset($parcel['height']) ? $parcel['height'] : '',
+                'length' => isset($parcel['length']) ? $parcel['length'] : '',
+            ];
+            $parcelCount++;
+        }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
 
         try {

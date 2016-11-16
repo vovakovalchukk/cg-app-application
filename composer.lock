@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7480beab82010393d1a5ffb22fe86116",
+    "content-hash": "94b4189f11b797b392714356980cddc8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -524,20 +524,20 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd"
+                "reference": "c5988b4d9eaf6ce82b9b9b27eff9763355b47962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.7-5cafdf.zip",
-                "reference": "364b3984c0234f1f103d0a3f408e2184ac0c53dd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.8-7f5833.zip",
+                "reference": "c5988b4d9eaf6ce82b9b9b27eff9763355b47962",
                 "shasum": null
             },
             "require": {
@@ -563,20 +563,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-09-28T14:24:52+00:00"
+            "time": "2016-11-15T16:35:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530"
+                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.0.0-465a97.zip",
-                "reference": "9fb8273d2eb5c052d40385e00be69e1efc51b530",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.0-9aeaa1.zip",
+                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-08-25T15:27:51+00:00"
+            "time": "2016-11-15T16:33:33+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -1368,16 +1368,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.27",
+            "version": "1.24.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d12b389a228eeeafd476fbbf5abe9330af542b00"
+                "reference": "e7e4d90a59148d500e92d8d7c06fd572ad66bca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.27-660ea3.zip",
-                "reference": "d12b389a228eeeafd476fbbf5abe9330af542b00",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.1-b8339d.zip",
+                "reference": "e7e4d90a59148d500e92d8d7c06fd572ad66bca0",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-09T11:15:33+00:00"
+            "time": "2016-11-15T16:35:41+00:00"
         },
         {
             "name": "channelgrabber/permission",
