@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "94b4189f11b797b392714356980cddc8",
+    "content-hash": "e2042175967949eb0ca290dbd63dd694",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -524,7 +524,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1368,16 +1368,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.1",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e7e4d90a59148d500e92d8d7c06fd572ad66bca0"
+                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.1-b8339d.zip",
-                "reference": "e7e4d90a59148d500e92d8d7c06fd572ad66bca0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.2-9f3484.zip",
+                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-15T16:35:41+00:00"
+            "time": "2016-11-16T09:41:25+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2794,16 +2794,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.15",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "0ea29a8f7fd09b94d71c0126f932fd4f702cdab3"
+                "reference": "c24307be1a42279c818ea95f66d263db016a9b5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.15-8031cc.zip",
-                "reference": "0ea29a8f7fd09b94d71c0126f932fd4f702cdab3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.16-6908dc.zip",
+                "reference": "c24307be1a42279c818ea95f66d263db016a9b5f",
                 "shasum": null
             },
             "require": {
@@ -2835,7 +2835,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-09-30T08:06:44+00:00"
+            "time": "2016-11-16T09:48:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3872,7 +3872,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
