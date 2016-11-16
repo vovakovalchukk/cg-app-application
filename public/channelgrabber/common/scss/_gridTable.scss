@@ -1,0 +1,82 @@
+.grid-table {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border-bottom: 1px solid $color-lgrey;
+    border-left: 1px solid $color-lgrey;
+    border-right: 1px solid $color-lgrey;
+    overflow: hidden;
+    .grid-table-header-row {
+        display:table-row;
+        border-bottom: none;
+        border-radius: 5px 5px 0 0;
+        .grid-table-col {
+            min-width: 60px;
+            border-right: 1px solid $color-lgrey;
+            background: $color-lblue;
+            color: $color-white;
+            padding: 5px 0 5px 0;
+            font-size: 13px;
+            font-weight: 700;
+            overflow-wrap: break-word;
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+    .grid-table-row {
+        display:table-row;
+        max-height: 60px;
+        background-color: $color-white;
+        .grid-table-col {
+            vertical-align: middle;
+            padding: 5px;
+            font-size: 12px;
+            border-bottom: 1px solid $color-lgrey;
+            border-right: 1px solid $color-lgrey;
+            &:last-child {
+                border-right: none;
+            }
+        }
+        &:last-child {
+            border-radius: 0 0 5px 5px;
+            border-bottom: none;
+            .grid-table-col {
+                border-bottom: none;
+            }
+        }
+    }
+    .grid-table-col {
+        display: table-cell;
+        text-align: center;
+        &.col-split {
+            padding: 0;
+            div, span, a {
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 28px;
+                padding: 10px 0 10px 0;
+                border-bottom: 1px solid $color-lgrey;
+                &:first-child {
+                }
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+        span, div {
+            margin: 0 auto;
+        }
+    }
+    .grid-table-button-holder {
+        width: 70%;
+        margin: 0 auto;
+        display: block;
+        .button.form-button {
+            float: none;
+        }
+    }
+}

@@ -37,6 +37,7 @@ class Mapper
             'height' => (isset($parcelData['height']) ? $parcelData['height'] : null),
             'width' => (isset($parcelData['width']) ? $parcelData['width'] : null),
             'length' => (isset($parcelData['length']) ? $parcelData['length'] : null),
+            'number' => (isset($parcelData['number']) ? $parcelData['number'] : null),
         ];
         if (isset($parcelData['packageType']) && is_a($shipmentClass, PackageTypesInterface::class, true)) {
             $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
