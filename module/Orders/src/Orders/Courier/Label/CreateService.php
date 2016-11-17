@@ -234,7 +234,7 @@ class CreateService extends ServiceAbstract
         ];
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
-            $parcelsData = $orderParcelsData[$order->getId()];
+            $parcelsData = $orderParcelsData[$order->getId()] ? $orderParcelsData[$order->getId()] : [];
             $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
             if ($orderLabel instanceof ValidationMessagesException) {
                 $orderLabelsData['errors'][$order->getId()] = $orderLabel;
@@ -268,6 +268,11 @@ class CreateService extends ServiceAbstract
             'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
             'parcels' => [],
         ];
+
+        if (empty($orderParcelsData)) {
+            array_push($orderParcelsData, []);
+        }
+
         $parcelCount = 1;
         foreach ($orderParcelsData as $parcel) {
             $orderLabelData['parcels'][] = [
