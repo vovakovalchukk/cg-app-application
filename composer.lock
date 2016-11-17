@@ -335,7 +335,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-11-15 16:28:34"
+            "time": "2016-11-15T16:28:34+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -416,7 +416,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-11 10:47:17"
+            "time": "2016-11-11T10:47:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -518,7 +518,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1012,7 +1012,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2016-11-16 09:22:34"
+            "time": "2016-11-16T09:22:34+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -2583,7 +2583,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-16 09:06:46"
+            "time": "2016-11-16T09:06:46+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3312,17 +3312,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.2",
+            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "2aa05f1c171e564bf2305f1f27f4d83659ef4b17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.2-451878.zip",
-                "reference": "2aa05f1c171e564bf2305f1f27f4d83659ef4b17",
-                "shasum": null
+                "reference": "7b2081beae325aabf0e48229c6b5d3c7ce18ebd4"
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
@@ -3864,7 +3858,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -4905,7 +4899,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8118,6 +8112,12 @@
             "alias_normalized": "1.22.4.0",
             "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
             "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.5.3",
+            "alias_normalized": "1.5.3.0",
+            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
+            "package": "channelgrabber/zf2-register"
         }
     ],
     "minimum-stability": "stable",
@@ -8127,12 +8127,13 @@
         "channelgrabber/constants": 20,
         "channelgrabber/intercom": 20,
         "channelgrabber/user": 20,
+        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
