@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2042175967949eb0ca290dbd63dd694",
+    "content-hash": "2df9e4852bac4f586660c8d7b0dda974",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -292,7 +292,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "4c15b72cc1a89131b67d1081bd803ef94f7b1e53"
+                "reference": "a6338e7b39aae0a9c00d0a736b9fc9361132af8e"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
@@ -335,7 +335,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-11-10 09:13:34"
+            "time": "2016-11-15 16:28:34"
         },
         {
             "name": "channelgrabber/channel",
@@ -344,6 +344,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "a4f6afdc7f0ef7efa3ad7ea3f4543ac740ea7762"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7635-bigcommerce-signup-improvements-eac581.zip",
+                "reference": "a4f6afdc7f0ef7efa3ad7ea3f4543ac740ea7762",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -978,12 +984,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "7d1f4ed1c6e3c578d963928e09d70dd70a7228f5"
+                "reference": "6ecc53ee565b4347ea53680d4b58a7ce59307a6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-7635-bigcommerce-signup-improvements-40183d.zip",
-                "reference": "7d1f4ed1c6e3c578d963928e09d70dd70a7228f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-7635-bigcommerce-signup-improvements-dfb146.zip",
+                "reference": "6ecc53ee565b4347ea53680d4b58a7ce59307a6a",
                 "shasum": null
             },
             "require": {
@@ -1006,7 +1012,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2016-11-15 12:56:46"
+            "time": "2016-11-16 09:22:34"
         },
         {
             "name": "channelgrabber/listing",
@@ -2534,12 +2540,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "83bde1b35b99832f4e08c1470678c2041c01fc24"
+                "reference": "208e62b63be65a5300147875b2909fbe8ed671fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7635-bigcommerce-signup-improvements-544e8c.zip",
-                "reference": "83bde1b35b99832f4e08c1470678c2041c01fc24",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7635-bigcommerce-signup-improvements-86902e.zip",
+                "reference": "208e62b63be65a5300147875b2909fbe8ed671fb",
                 "shasum": null
             },
             "require": {
@@ -2577,7 +2583,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-15 12:35:13"
+            "time": "2016-11-16 09:06:46"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3858,7 +3864,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
