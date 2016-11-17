@@ -268,6 +268,11 @@ class CreateService extends ServiceAbstract
             'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
             'parcels' => [],
         ];
+
+        if (empty($orderParcelsData)) {
+            array_push($orderParcelsData, []);
+        }
+
         $parcelCount = 1;
         foreach ($orderParcelsData as $parcel) {
             $orderLabelData['parcels'][] = [
