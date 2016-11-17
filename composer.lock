@@ -294,6 +294,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
                 "reference": "a6338e7b39aae0a9c00d0a736b9fc9361132af8e"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-7635-bigcommerce-signup-improvements-960572.zip",
+                "reference": "a6338e7b39aae0a9c00d0a736b9fc9361132af8e",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
                 "channelgrabber/channel": "^1.18.4",
@@ -2303,16 +2309,16 @@
         },
         {
             "name": "channelgrabber/stock-locking",
-            "version": "1.0.1",
+            "version": "1.0.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock-locking.git",
-                "reference": "ed5118f7bc38e126ab7b51bd632698aa0305160e"
+                "reference": "d4756a16b13eba93b0613585dc7ede02afe6bc52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-1.0.1-6902a6.zip",
-                "reference": "ed5118f7bc38e126ab7b51bd632698aa0305160e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-1.0.3.1-f67635.zip",
+                "reference": "d4756a16b13eba93b0613585dc7ede02afe6bc52",
                 "shasum": null
             },
             "require": {
@@ -2335,7 +2341,7 @@
                     "CG\\Stock\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2016-01-27T14:28:45+00:00"
+            "time": "2016-11-02T11:42:59+00:00"
         },
         {
             "name": "channelgrabber/tax",
@@ -3318,6 +3324,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "7b2081beae325aabf0e48229c6b5d3c7ce18ebd4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7635-bigcommerce-signup-improvements-dbe5b2.zip",
+                "reference": "7b2081beae325aabf0e48229c6b5d3c7ce18ebd4",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
@@ -4438,7 +4450,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -4951,7 +4963,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5044,7 +5056,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "picqer/php-barcode-generator",
@@ -5322,7 +5334,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -5793,12 +5805,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
@@ -6458,7 +6470,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
