@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2df9e4852bac4f586660c8d7b0dda974",
+    "content-hash": "351bbca0d244e9c4d4ec777dd7cc2051",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -310,6 +310,7 @@
                 "channelgrabber/slim": ">=1.13.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.26",
                 "channelgrabber/stock": "^1.6.0",
+                "channelgrabber/stock-locking": "^1.0.3",
                 "channelgrabber/user": ">=1.18.7",
                 "channelgrabber/zf2-email-template": "^1.0.11",
                 "composer/composer": "@dev"
@@ -335,7 +336,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-11-15T16:28:34+00:00"
+            "time": "2016-11-15 16:28:34"
         },
         {
             "name": "channelgrabber/channel",
@@ -416,7 +417,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-11T10:47:17+00:00"
+            "time": "2016-11-11 10:47:17"
         },
         {
             "name": "channelgrabber/cilex",
@@ -518,7 +519,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1012,7 +1013,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2016-11-16T09:22:34+00:00"
+            "time": "2016-11-16 09:22:34"
         },
         {
             "name": "channelgrabber/listing",
@@ -2583,7 +2584,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-16T09:06:46+00:00"
+            "time": "2016-11-16 09:06:46"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3355,7 +3356,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-10-14T10:27:18+00:00"
+            "time": "2016-11-17 12:22:52"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3858,7 +3859,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -4899,7 +4900,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8132,8 +8133,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
