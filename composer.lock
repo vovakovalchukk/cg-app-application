@@ -342,7 +342,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-11-15 16:28:34"
+            "time": "2016-11-15T16:28:34+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-11 10:47:17"
+            "time": "2016-11-11T10:47:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -525,7 +525,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1019,7 +1019,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2016-11-16 09:22:34"
+            "time": "2016-11-16T09:22:34+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -2590,7 +2590,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-16 09:06:46"
+            "time": "2016-11-16T09:06:46+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3323,13 +3323,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7b2081beae325aabf0e48229c6b5d3c7ce18ebd4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7635-bigcommerce-signup-improvements-dbe5b2.zip",
-                "reference": "7b2081beae325aabf0e48229c6b5d3c7ce18ebd4",
-                "shasum": null
+                "reference": "d0ea44078420a61f2566bf05cfaeff5db43bc4ae"
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
@@ -3368,7 +3362,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-11-17 12:22:52"
+            "time": "2016-11-17T12:22:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3871,7 +3865,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -4912,7 +4906,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -4963,7 +4957,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5056,7 +5050,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "picqer/php-barcode-generator",
@@ -5334,7 +5328,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8145,8 +8139,8 @@
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
