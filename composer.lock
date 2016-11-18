@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "351bbca0d244e9c4d4ec777dd7cc2051",
+    "content-hash": "66f86a5a231e00d4ba08e6b63707d6eb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -288,16 +288,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
+            "version": "1.11.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "a6338e7b39aae0a9c00d0a736b9fc9361132af8e"
+                "reference": "41a581f79ead3ce82d733240818e3a7a5debdd82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-7635-bigcommerce-signup-improvements-960572.zip",
-                "reference": "a6338e7b39aae0a9c00d0a736b9fc9361132af8e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.11.3-83b816.zip",
+                "reference": "41a581f79ead3ce82d733240818e3a7a5debdd82",
                 "shasum": null
             },
             "require": {
@@ -317,7 +317,7 @@
                 "channelgrabber/stdlib": "^2.12.26",
                 "channelgrabber/stock": "^1.6.0",
                 "channelgrabber/stock-locking": "^1.0.3",
-                "channelgrabber/user": ">=1.18.7",
+                "channelgrabber/user": "^1.22.4",
                 "channelgrabber/zf2-email-template": "^1.0.11",
                 "composer/composer": "@dev"
             },
@@ -342,20 +342,20 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-11-15T16:28:34+00:00"
+            "time": "2016-11-18T14:18:28+00:00"
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
+            "version": "1.27.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a4f6afdc7f0ef7efa3ad7ea3f4543ac740ea7762"
+                "reference": "4139e57962178905feca4bc90883e5f447fa84c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7635-bigcommerce-signup-improvements-eac581.zip",
-                "reference": "a4f6afdc7f0ef7efa3ad7ea3f4543ac740ea7762",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.4-547034.zip",
+                "reference": "4139e57962178905feca4bc90883e5f447fa84c8",
                 "shasum": null
             },
             "require": {
@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-11T10:47:17+00:00"
+            "time": "2016-11-18T13:43:14+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -525,7 +525,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -987,30 +987,29 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "6ecc53ee565b4347ea53680d4b58a7ce59307a6a"
+                "reference": "ef7bb0d6e1993b797508f4ff05a2446428bd6d1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-7635-bigcommerce-signup-improvements-dfb146.zip",
-                "reference": "6ecc53ee565b4347ea53680d4b58a7ce59307a6a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.1.9-47150f.zip",
+                "reference": "ef7bb0d6e1993b797508f4ff05a2446428bd6d1c",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.0, <2.0.0",
                 "channelgrabber/channel": ">=1.15.11,<2.0.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.4",
                 "channelgrabber/order": "^1.19.0",
                 "channelgrabber/product": "^1.4.12",
                 "channelgrabber/settings": "^1.3.6",
                 "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
-                "channelgrabber/user": ">=1.18.16,<2.0.0",
-                "composer/composer": "@dev",
+                "channelgrabber/user": "^1.22.4",
                 "intercom/intercom-php": "~1.0.0"
             },
             "type": "di-definition",
@@ -1019,7 +1018,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2016-11-16T09:22:34+00:00"
+            "time": "2016-11-18T14:31:02+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -2543,16 +2542,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
+            "version": "1.22.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "208e62b63be65a5300147875b2909fbe8ed671fb"
+                "reference": "a462bb177cc91dcf7060e9bc6c45471f54113356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7635-bigcommerce-signup-improvements-86902e.zip",
-                "reference": "208e62b63be65a5300147875b2909fbe8ed671fb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.4-5f1fa4.zip",
+                "reference": "a462bb177cc91dcf7060e9bc6c45471f54113356",
                 "shasum": null
             },
             "require": {
@@ -2590,7 +2589,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-16T09:06:46+00:00"
+            "time": "2016-11-18T13:43:53+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3319,11 +3318,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "d0ea44078420a61f2566bf05cfaeff5db43bc4ae"
+                "reference": "d70f95f2e6d4607bfd8d5d295066c8a3a9f3bb48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.3-158bbf.zip",
+                "reference": "d70f95f2e6d4607bfd8d5d295066c8a3a9f3bb48",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
@@ -3362,7 +3367,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-11-17T12:22:52+00:00"
+            "time": "2016-11-18T13:44:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3865,7 +3870,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -4906,7 +4911,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -4957,7 +4962,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5050,7 +5055,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "picqer/php-barcode-generator",
@@ -5328,7 +5333,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -6924,7 +6929,7 @@
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
+                "url": "/home/phillclarence/.cg-loki/cgcodeception",
                 "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
             },
             "dist": {
@@ -6952,7 +6957,7 @@
             "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/spork.git",
+                "url": "/home/phillclarence/.cg-loki/spork",
                 "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
             },
             "dist": {
@@ -8095,52 +8100,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.10.3",
-            "alias_normalized": "1.10.3.0",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
-            "package": "channelgrabber/cglib"
-        },
-        {
-            "alias": "1.27.4",
-            "alias_normalized": "1.27.4.0",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.1.9",
-            "alias_normalized": "1.1.9.0",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
-            "package": "channelgrabber/intercom"
-        },
-        {
-            "alias": "1.22.4",
-            "alias_normalized": "1.22.4.0",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
-            "package": "channelgrabber/user"
-        },
-        {
-            "alias": "1.5.3",
-            "alias_normalized": "1.5.3.0",
-            "version": "dev-CGIV-7635-bigcommerce-signup-improvements",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/intercom": 20,
-        "channelgrabber/user": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
