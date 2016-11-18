@@ -9,6 +9,7 @@ use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Carrier;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
+use CG\Channel\Shipping\CourierTrackingUrl;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
@@ -73,12 +74,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_CODE = 'OrderModuleService';
     const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
     const LOG_DISPATCHING = 'Dispatching Order %s';
+    const LOG_UNPAYABLE = 'Order %s has been flagged for payment but it is not in a payable status (%s)';
+    const LOG_PAYING = 'Paying for Order %s';
     const LOG_ALREADY_CANCELLED = '%s requested for Order %s but its already in status %s';
     const STAT_ORDER_ACTION_DISPATCHED = 'orderAction.dispatched.%s.%d.%d';
     const STAT_ORDER_ACTION_CANCELLED = 'orderAction.cancelled.%s.%d.%d';
     const STAT_ORDER_ACTION_REFUNDED = 'orderAction.refunded.%s.%d.%d';
     const STAT_ORDER_ACTION_ARCHIVED = 'orderAction.archived.%s.%d.%d';
     const STAT_ORDER_ACTION_TAGGED = 'orderAction.tagged.%s.%d.%d';
+    const STAT_ORDER_ACTION_PAID = 'orderAction.paid.%s.%d.%d';
     const EVENT_ORDERS_DISPATCHED = 'Dispatched Orders';
     const EVENT_ORDER_CANCELLED = 'Refunded / Cancelled Orders';
     const MAX_SHIPPING_METHOD_LENGTH = 15;
@@ -107,6 +111,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $imageService;
     /** @var  McfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
+    protected $courierTrackingUrl;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -131,7 +136,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         RowMapper $rowMapper,
         DateFormatHelper $dateFormatHelper,
         ImageService $imageService,
-        McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage
+        McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
+        CourierTrackingUrl $courierTrackingUrl
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -155,7 +161,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setRowMapper($rowMapper)
             ->setDateFormatHelper($dateFormatHelper)
             ->setImageService($imageService)
-            ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage);
+            ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
+            ->setCourierTrackingUrl($courierTrackingUrl);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -177,6 +184,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithFormattedDates($orders);
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
         $orders = $this->getOrdersArrayWithProductImage($orders);
+        $orders = $this->getOrdersArrayWithTrackingUrl($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -356,6 +364,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 continue;
             }
             $orders[$orderIndex]['image'] = $image->getUrl();
+        }
+
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithTrackingUrl(array $orders)
+    {
+        foreach ($orders as $index => $order) {
+            foreach ($order['trackings'] as $i => $tracking) {
+                $orders[$index]['trackings'][$i]['trackingUrl'] = $this->courierTrackingUrl->getTrackingUrl($tracking['carrier'], $tracking['number']);
+            }
         }
 
         return $orders;
@@ -917,6 +936,46 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         );
     }
 
+    public function markOrdersAsPaid(OrderCollection $orders)
+    {
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->markOrderAsPaid($order);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
+        }
+
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function markOrderAsPaid(OrderEntity $order)
+    {
+        $actions = $this->getActionService()->getAvailableActionsForOrder($order);
+        if (!array_key_exists(ActionMapInterface::PAY, array_flip($actions))) {
+            $this->logWarning(static::LOG_UNPAYABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
+            return;
+        }
+        $this->logInfo(static::LOG_PAYING, [$order->getId()], static::LOG_CODE);
+
+        $order->setStatus(OrderStatus::NEW_ORDER);
+        $order->setPaymentDate(date(StdlibDateTime::FORMAT));
+        $order = $this->saveOrder($order);
+
+        $this->statsIncrement(
+            static::STAT_ORDER_ACTION_PAID, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId()
+            ]
+        );
+    }
+
     protected function setOrderToDispatching(OrderEntity $order, $attempt = 1, $maxAttempts = 2)
     {
         try {
@@ -1236,6 +1295,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setMcfFulfillmentStatusStorage(McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage)
     {
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
+        return $this;
+    }
+
+    protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
+    {
+        $this->courierTrackingUrl = $courierTrackingUrl;
         return $this;
     }
 }

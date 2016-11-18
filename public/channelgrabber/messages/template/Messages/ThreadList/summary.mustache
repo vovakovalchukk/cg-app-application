@@ -15,7 +15,12 @@
                     </div>
                 </div>
             </div>
-            {{^singleUserMode}}<span class="assigned"><strong>Assigned:</strong> {{#assignedUserName}}{{.}}{{/assignedUserName}}{{^assignedUserName}}N/A{{/assignedUserName}}</span>{{/singleUserMode}}
+            {{^singleUserMode}}
+                <span class="assigned">
+                    <span class="assigned-label">Assigned:</span>
+                    <span class="assigned-value">{{#assignedUserName}}{{.}}{{/assignedUserName}}{{^assignedUserName}}N/A{{/assignedUserName}}</span>
+                </span>
+            {{/singleUserMode}}
         </div>
     </div>
 </li>

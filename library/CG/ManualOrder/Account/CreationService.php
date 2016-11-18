@@ -12,7 +12,7 @@ class CreationService extends CreationServiceAbstract
 
     public function configureAccount(AccountEntity $account, array $params)
     {
-        $account->setCredentials($this->cryptor->encrypt(new Credentials()));
+        return $account->setCredentials($this->cryptor->encrypt(new Credentials()));
     }
 
     public function getChannelName()

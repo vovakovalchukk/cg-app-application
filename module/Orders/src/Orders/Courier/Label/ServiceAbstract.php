@@ -4,6 +4,7 @@ namespace Orders\Courier\Label;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
+use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
@@ -11,8 +12,8 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
-use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Product\Detail\Mapper as ProductDetailMapper;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -51,6 +52,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $gearmanClient;
     /** @var CarrierProviderServiceRepository */
     protected $carrierProviderServiceRepo;
+    /** @var ShippingServiceFactory */
+    protected $shippingServiceFactory;
 
     public function __construct(
         UserOUService $userOuService,
@@ -62,7 +65,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         ProductDetailMapper $productDetailMapper,
         ProductDetailService $productDetailService,
         GearmanClient $gearmanClient,
-        CarrierProviderServiceRepository $carrierProviderServiceRepo
+        CarrierProviderServiceRepository $carrierProviderServiceRepo,
+        ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->setUserOUService($userOuService)
             ->setOrderService($orderService)
@@ -73,7 +77,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setProductDetailMapper($productDetailMapper)
             ->setProductDetailService($productDetailService)
             ->setGearmanClient($gearmanClient)
-            ->setCarrierProviderServiceRepo($carrierProviderServiceRepo);
+            ->setCarrierProviderServiceRepo($carrierProviderServiceRepo)
+            ->setShippingServiceFactory($shippingServiceFactory);
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -169,6 +174,13 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function setCarrierProviderServiceRepo(CarrierProviderServiceRepository $carrierProviderServiceRepo)
     {
         $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
+        return $this;
+    }
+
+    protected function setShippingServiceFactory(ShippingServiceFactory $shippingServiceFactory)
+    {
+        $this->shippingServiceFactory = $shippingServiceFactory;
+
         return $this;
     }
 }

@@ -6,7 +6,8 @@ define([
     'InvoiceDesigner/Template/Inspector/Positioning',
     'InvoiceDesigner/Template/Inspector/Font',
     'InvoiceDesigner/Template/Inspector/Border',
-    'InvoiceDesigner/Template/Inspector/OrderTableOptions'
+    'InvoiceDesigner/Template/Inspector/OrderTableOptions',
+    'InvoiceDesigner/Template/Inspector/Barcode'
 ], function(
     Collection,
     // Inspector variables here
@@ -15,7 +16,8 @@ define([
     positioning,
     font,
     border,
-    orderTableOptions
+    orderTableOptions,
+    barcode
 ) {
     var Service = function()
     {
@@ -52,7 +54,8 @@ define([
             positioning,
             font,
             border,
-            orderTableOptions
+            orderTableOptions,
+            barcode
         ];
 
         for (var key in inspectorsToAdd) {

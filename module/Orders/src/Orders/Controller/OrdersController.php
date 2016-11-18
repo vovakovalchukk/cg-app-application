@@ -46,6 +46,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 {
     use LogTrait;
 
+    const ROUTE_INDEX_URL = '/orders';
     const ROUTE_IMAGES = 'Images';
 
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
@@ -276,27 +277,82 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'afterActions'
         );
 
+        $labelDetails = $this->getShippingLabelDetails($order);
         $accountDetails = $this->getAccountDetails($order);
         $orderDetails = $this->getOrderDetails($order);
         $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
 
+        $buyerMessage = $this->getBuyerMessage($order);
+        $orderAlert = $this->getOrderAlert($order);
+        $addressInformation = $this->getAddressInformation($order);
+
+        $view->addChild($labelDetails, 'labelDetails');
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
+        $view->addChild($buyerMessage, 'buyerMessage');
+        $view->addChild($orderAlert, 'orderAlert');
+        $view->addChild($addressInformation, 'addressInformation');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
+        $view->setVariable('existingNotes', $this->getNotes($order));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
-        $view->addChild($this->getCarrierSelect(), 'carrierSelect');
-        $view->setVariable('tracking', $order->getFirstTracking());
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
         $this->addLabelPrintButtonToView($view, $order);
         return $view;
+    }
+
+    protected function getShippingLabelDetails(OrderEntity $order)
+    {
+        $filter = (new OrderLabelFilter())
+            ->setOrderId([$order->getId()]);
+
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/shippingLabelDetails');
+        $view->setVariable('shippingMethod', $order->getShippingMethod());
+        $view->setVariable('order', $order);
+
+        try {
+            $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
+
+            $labelData = [];
+            foreach ($labels as $label) {
+                $labelData[] = $label->toArray();
+            }
+
+            $trackingNumbers = $order->getTrackings()->toArray();
+            usort($trackingNumbers, function ($a, $b) {
+                return ($a['packageNumber'] - $b['packageNumber']);
+            });
+
+            $view->setVariable('trackings', $trackingNumbers);
+            $view->setVariable('labels', $labelData);
+            $view->addChild($this->getPrintLabelButton($view, $order), 'printButton');
+        } catch (NotFound $e) {
+            $view->addChild($this->getCarrierSelect(), 'carrierSelect');
+            $view->setVariable('tracking', $order->getFirstTracking());
+        }
+
+        return $view;
+    }
+
+    protected function getPrintLabelButton($view, $order)
+    {
+        $buttons = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                'value' => 'Print',
+                'id' => 'print-shipping-label-button',
+                'disabled' => false,
+                'action' => $order->getId(),
+            ]
+        ]);
+        $buttons->setTemplate('elements/buttons.mustache');
+        return $buttons;
     }
 
     protected function getAccountDetails(OrderEntity $order)
@@ -327,6 +383,41 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('channelImgUrl', $externalData['imageUrl']);
         }
 
+        return $view;
+    }
+
+    protected function getBuyerMessage(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/buyerMessage');
+        if (! $order) {
+            return $view;
+        }
+        $view->setVariable('buyerMessage', $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"));
+        return $view;
+    }
+
+    protected function getOrderAlert(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/orderAlert');
+        if (! $order) {
+            return $view;
+        }
+        $view->setVariable('order', $order);
+        return $view;
+    }
+
+    protected function getAddressInformation(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/addressInformation');
+        $view->setVariable('order', $order);
+        $view->setVariable('addressSaveUrl', 'Orders/order/address');
+        $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('requiresSaveButton', true);
+        $view->setVariable('includeAddressCopy', true);
+        $view->setVariable('includeUseBillingInfo', false);
         return $view;
     }
 
@@ -404,15 +495,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         } catch (NotFound $e) {
             return;
         }
-        $buttons = $this->viewModelFactory->newInstance([
-            'buttons' => [
-                'value' => 'Print Label',
-                'id' => 'print-shipping-label-button',
-                'disabled' => false,
-                'action' => $order->getId(),
-            ]
-        ]);
-        $buttons->setTemplate('elements/buttons.mustache');
+        $buttons = $this->getPrintLabelButton($view, $order);
         $view->addChild($buttons, 'printShippingLabelButton');
     }
 
@@ -448,10 +531,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getNotes(OrderEntity $order)
     {
-        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
-        $notes->setTemplate('elements/notes');
-        return $notes;
+        $existingNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
+
+        usort($existingNotes, function ($a, $b) {
+            return strtotime($a['timestamp']) > strtotime($b['timestamp']);
+        });
+
+        return json_encode($existingNotes);
     }
 
     protected function getFilterBar()

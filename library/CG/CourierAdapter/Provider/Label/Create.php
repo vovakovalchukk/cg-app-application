@@ -15,13 +15,14 @@ use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\Http\StatusCode as HttpStatusCode;
 use CG\Order\Client\Gearman\WorkerFunction\OrderLabelPdfToPng as OrderLabelPdfToPngWorkerFunction;
 use CG\Order\Client\Gearman\Workload\OrderLabelPdfToPng as OrderLabelPdfToPngWorkload;
+use CG\Order\Client\Label\Exception\SaveFailedRetryRequested;
+use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\PngToPdfConverter;
-use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -243,9 +244,9 @@ class Create implements LoggerAwareInterface
                 $labels->rewind();
                 $orderLabel = $labels->current();
                 $order = $orders->getById($orderId);
-                $this->updateOrderLabelFromBookedShipment($orderLabel, $bookedShipment, $courierInstance)
-                    ->createOrderTrackingsFromBookedShipment($bookedShipment, $order, $shippingAccount, $user);
-                $results[$orderId] = true;
+                $saveSuccess = $this->updateOrderLabelFromBookedShipment($orderLabel, $bookedShipment, $courierInstance);
+                $this->createOrderTrackingsFromBookedShipment($bookedShipment, $order, $shippingAccount, $user);
+                $results[$orderId] = $saveSuccess;
 
             } catch (UserError $e) {
                 $this->logException($e, 'debug', __NAMESPACE__);
@@ -299,10 +300,13 @@ class Create implements LoggerAwareInterface
         $orderLabel->setExternalId($bookedShipment->getCourierReference())
             ->setStatus(OrderLabelStatus::NOT_PRINTED)
             ->setCreated((new StdlibDateTime())->stdFormat());
-        
-        $this->orderLabelService->save($orderLabel);
 
-        return $this;
+        try {
+            $this->orderLabelService->save($orderLabel);
+            return true;
+        } catch (SaveFailedRetryRequested $e) {
+            return false;
+        }
     }
 
     protected function fetchShipmentLabels(ShipmentInterface $shipment, CourierInterface $courierInstance)
@@ -351,23 +355,35 @@ class Create implements LoggerAwareInterface
             $this->logDebug(static::LOG_NO_TRACKING, [$order->getId(), $order->getOrganisationUnitId()], [static::LOG_CODE, 'NoTracking']);
             return;
         }
-        foreach ($shipment->getTrackingReferences() as $trackingReference) {
-            $date = new StdlibDateTime();
-            $trackingData = [
-                'organisationUnitId' => $order->getOrganisationUnitId(),
-                'orderId' => $order->getId(),
-                'userId' => $user->getId(),
-                'timestamp' => $date->stdFormat(),
-                'carrier' => $shippingAccount->getDisplayChannel(),
-                'number' => $trackingReference,
-            ];
-            $orderTracking = $this->orderTrackingMapper->fromArray($trackingData);
-            $this->logDebug(static::LOG_TRACKING, [$order->getId(), $order->getOrganisationUnitId(), $trackingReference], [static::LOG_CODE, 'Tracking']);
-            $this->orderTrackingService->save($orderTracking);
+        if ($shipment instanceof PackagesInterface) {
+            foreach ($shipment->getPackages() as $package) {
+                $this->saveOrderTracking($order, $user, $shippingAccount, $package->getTrackingReference(), $package->getNumber());
+            }
+        } else {
+            foreach ($shipment->getTrackingReferences() as $trackingReference) {
+                $this->saveOrderTracking($order, $user, $shippingAccount, $trackingReference);
+            }
         }
 
         // Update the sales channels
         $this->orderTrackingService->createGearmanJob($order);
+    }
+
+    protected function saveOrderTracking($order, $user, $shippingAccount, $trackingReference, $packageNumber = null)
+    {
+        $date = new StdlibDateTime();
+        $trackingData = [
+            'organisationUnitId' => $order->getOrganisationUnitId(),
+            'orderId' => $order->getId(),
+            'userId' => $user->getId(),
+            'timestamp' => $date->stdFormat(),
+            'carrier' => $shippingAccount->getDisplayChannel(),
+            'packageNumber' => $packageNumber,
+            'number' => $trackingReference,
+        ];
+        $orderTracking = $this->orderTrackingMapper->fromArray($trackingData);
+        $this->logDebug(static::LOG_TRACKING, [$order->getId(), $order->getOrganisationUnitId(), $trackingReference], [static::LOG_CODE, 'Tracking']);
+        $this->orderTrackingService->save($orderTracking);
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)

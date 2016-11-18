@@ -151,7 +151,8 @@ class CourierJsonController extends AbstractActionController
         $ordersItemsData = $this->params()->fromPost('itemData', []);
         $this->sanitiseInputArray($ordersData)
             ->sanitiseInputArray($ordersParcelsData)
-            ->decodeItemParcelAssignment($ordersParcelsData);
+            ->decodeItemParcelAssignment($ordersParcelsData)
+            ->assignParcelNumbers($ordersParcelsData);
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
@@ -166,6 +167,18 @@ class CourierJsonController extends AbstractActionController
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    protected function assignParcelNumbers(&$ordersParcelsData)
+    {
+        $parcelCount = 1;
+        foreach ($ordersParcelsData as &$parcelsData) {
+            foreach ($parcelsData as &$parcelData) {
+                $parcelData['number'] = $parcelCount;
+                $parcelCount++;
+            }
+        }
+        return $this;
     }
 
     protected function decodeItemParcelAssignment(&$ordersParcelsData)

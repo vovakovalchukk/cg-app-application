@@ -9,34 +9,34 @@ $accountPageRoute = implode('/', [
 ]);
 ?>
 <div class="account-form-holder">
-  <div class="account-logo">
-    <span class="logo-large ekm"></span>
-  </div>
-  <div class="account-field-holder">
-    <p>
-      Sign in with your ekmPowershop account to link it with OrderHub.io
-    </p>
-    <div class="label">
-      <?= $this->translate('Email Address or Username'); ?>:
+    <div class="account-logo">
+        <span class="logo-large ekm"></span>
     </div>
-    <div class="text-field">
-        <?= $this->mustache('elements/text.mustache', ['name' => 'ekm-username', 'id' => 'ekm-username']); ?>
+    <div class="account-field-holder">
+        <p>
+            Sign in with your ekmPowershop account to link it with OrderHub.io
+        </p>
+        <div class="label">
+            <?= $this->translate('Email Address or Username'); ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['name' => 'ekm-username', 'id' => 'ekm-username', 'value' => ' ', 'autocomplete' => 'off']); ?>
+        </div>
     </div>
-  </div>
-  <div class="account-field-holder">
-    <div class="label">
-      <?= $this->translate('Password'); ?>:
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('Password'); ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['name' => 'ekm-password', 'id' => 'ekm-password', 'type' => 'password', 'autocomplete' => 'off']); ?>
+        </div>
     </div>
-    <div class="text-field">
-        <?= $this->mustache('elements/text.mustache', ['name' => 'ekm-password', 'id' => 'ekm-password', 'type' => 'password']); ?>
+    <div class="account-form-buttons-holder">
+        <?= $this->mustache('elements/buttons.mustache', ['buttons' => [['id' => 'ekm-link-account', 'value' => 'Link Account']]]); ?>
+        <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES, 'account' => $accountId]) ?>'>
+            <?= $this->mustache('elements/buttons.mustache', ['buttons' => [['id' => 'ekm-go-back', 'value' => 'Go Back']]]); ?>
+        </a>
     </div>
-  </div>
-  <div class="account-form-buttons-holder">
-    <?= $this->mustache('elements/buttons.mustache', ['buttons' => [['id' => 'ekm-link-account', 'value' => 'Link Account']]]); ?>
-    <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES, 'account' => $accountId]) ?>'>
-        <?= $this->mustache('elements/buttons.mustache', ['buttons' => [['id' => 'ekm-go-back', 'value' => 'Go Back']]]); ?>
-    </a>
-  </div>
 
 </div>
 <?php $this->inlineScript()->captureStart(); ?>
@@ -48,4 +48,7 @@ $accountPageRoute = implode('/', [
     require(["Ekm/DomListener"], function(domListener) {
         domListener.init(<?= $accountId; ?>);
     });
+    setTimeout(function(){
+        document.getElementById('ekm-username').value = '';
+    }, 150);
 <?php $this->inlineScript()->captureEnd(); ?>

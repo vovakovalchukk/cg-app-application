@@ -1,0 +1,51 @@
+.react-popup-screen-mask {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.7;
+    z-index: 9998;
+    cursor: pointer;
+    background-color: rgb(0, 0, 0);
+}
+.react-popup {
+    min-width: 20%;
+    min-height: 60px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 38%;
+    top: 40%;
+    z-index: 9999;
+    opacity: 1;
+    display: block;
+    font-size: 18px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    .react-popup-header {
+        text-align: center;
+    }
+    .react-popup-content {
+        margin-bottom: 20px;
+        .center-align {
+            text-align: center;
+        }
+    }
+    .react-popup-buttons {
+        display: flex;
+        justify-content: space-between;
+        .button.react-popup-btn {
+            display: inline-block;
+            padding: 5px;
+            min-width: 75px;
+            &.no {
+
+            }
+            &.yes {
+
+            }
+        }
+    }
+}

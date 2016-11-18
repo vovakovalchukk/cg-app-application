@@ -74,10 +74,14 @@ $this->placeholder('#sidebar')
     ->append($this->storedFiltersSidebar)
     ->append($this->batches);
 ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'css/orders.css', ['screen', 'print']) ?>
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
 <div id="datatable-container">
     <?= $this->ordersTable; ?>
 </div>
+<a href="/orders/new">
+    <div id="new-order-nav-icon">
+        <span title="Create new order" class="sprite-sprite sprite-clipboard-28-white"></span>
+    </div>
+</a>

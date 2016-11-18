@@ -44,7 +44,7 @@ define([
             promise.then(function(data) {
                 this.setState({
                     editable: false,
-                    oldValue: data.savedValue
+                    newValue: data.savedValue
                 });
             }.bind(this));
             promise.catch(function(error) {
