@@ -2,6 +2,7 @@
     width: 100%;
     float: left;
     clear:both;
+
     .heading-large {
         margin-bottom: 20px;
     }
@@ -55,6 +56,14 @@
     @include calc(width, "100% - 60px");
     float: left;
     clear:both;
+
+    &.half {
+        width: 700px;
+
+        label {
+            width: 100%;
+        }
+    }
 }
 .default-invoice-holder {
     @include calc(width, "100% - 60px");
@@ -79,5 +88,47 @@
     float: left;
     .std-checkbox {
         top: -4px;
+    }
+}
+
+.email-send-as-label,
+.email-bcc-label {
+    display: flex;
+    align-items: center;
+}
+
+.email-send-as-holder {
+    display: flex;
+    width: 100%;
+    position: relative;
+    left: 10px;
+
+    .inputbox {
+        max-width: 230px;
+        box-sizing: border-box;
+        margin-right: 10px;
+    }
+    
+    .status {
+        display: inline-block;
+        overflow: visible;
+        min-width: 160px;
+        line-height: 20px;
+    }
+}
+
+.copy-required-holder {
+    .std-checkbox label:after {
+        margin-top: -8px;
+    }
+}
+
+.email-bcc-holder {
+    display: flex;
+    width: 100%;
+
+    .inputbox {
+        max-width: 200px;
+        box-sizing: border-box;
     }
 }

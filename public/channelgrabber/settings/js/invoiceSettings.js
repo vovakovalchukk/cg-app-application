@@ -14,19 +14,31 @@ define(
         var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
         var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
 
+        var emailInvoiceFields = $(container + ' .emailInvoiceFields');
+
         var init = function(){
             var self = this;
+
+            if ($('#autoEmail').prop('checked')) {
+                emailInvoiceFields.removeClass('hidden');
+            }
+
             $(document).on('change', selector, function (){
                 if (this.id == "autoEmail" && getElementOnClickCheckedStatus(this.id) && hasAmazonAccount == true){
                     showConfirmationMessageForAmazonAccount(self);
                 } else {
-                    ajaxSave(self);
+                    // ajaxSave(self);
                 }
             });
 
-            $(document).on('click', verifyEmailSelector, function (){
-                ajaxSave(self);
+            // $(document).on('click', verifyEmailSelector, function (){
+            //     ajaxSave(self);
+            // });
+
+            $(document).on('click', autoEmailSettingsSelector, function() {
+                toggleEmailInvoiceFields();
             });
+
         };
         
         function showConfirmationMessageForAmazonAccount(self){
@@ -39,10 +51,9 @@ define(
                var confirm = new Confirm(messageHTML, function (response) {
                     if (response == "Yes"){
                         $('#autoEmail').attr('checked', true);
-                        ajaxSave(self);
                     }
                     if (response == "No"){
-                        $('#autoEmail').attr('checked', false);
+                        $('#autoEmail').click();
                     }
                 });
             });
@@ -57,6 +68,11 @@ define(
                 return true;
             }
             return false;
+        }
+
+        function toggleEmailInvoiceFields()
+        {
+            emailInvoiceFields.toggleClass('hidden');
         }
 
         this.getInvoiceSettingsEntity = function()

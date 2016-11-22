@@ -199,10 +199,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
+			->setVariable('autoEmail', $invoiceSettings->getAutoEmail())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
+			->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
+			->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
@@ -347,6 +350,33 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             )
             ->setTemplate('elements/text.mustache');
     }
+
+	protected function getInvoiceSettingsCopyRequiredView($invoiceSettings)
+	{
+		return $this->getViewModelFactory()
+			->newInstance(
+				[
+					'id' => 'copyRequired',
+					'name' => 'copyRequired',
+					'selected' => $invoiceSettings->isCopyRequired(),
+				]
+			)
+			->setTemplate('elements/checkbox.mustache');
+	}
+
+	protected function getInvoiceSettingsEmailBccView($invoiceSettings)
+	{
+		return $this->getViewModelFactory()
+			->newInstance(
+				[
+					'id' => 'emailBcc',
+					'name' => 'emailBcc',
+					'placeholder' => 'Enter email to send to',
+					'value' => $invoiceSettings->getEmailBcc(),
+				]
+			)
+			->setTemplate('elements/text.mustache');
+	}
 
     protected function getTemplateSelectView()
     {

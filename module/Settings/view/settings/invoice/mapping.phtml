@@ -34,30 +34,44 @@ $(document).ready(function() {
                 </div>
             </label>
             <label>
-                <span class="inputbox-label">Email Invoice on Dispatch:</span>
-                <div class="email-invoice-holder">
-                    <?= $emailCheckbox ?>
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">Send as (email address):</span>
-                <div class="email-send-as-holder">
-                    <?= $emailSendAsInput ?>
-                </div>
-                <?php if ($emailSendAs): ?>
-                    <?php if ($emailVerified): ?>
-                        <span>Verified</span>
-                    <?php else: ?>
-                        <span>Pending verification, please check your email</span>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </label>
-            <label>
                 <span class="inputbox-label">Include Product Images:</span>
                 <div class="product-images-invoice-holder">
                     <?= $productImagesCheckbox ?>
                 </div>
             </label>
+            <label>
+                <span class="inputbox-label">Email Invoice on Dispatch:</span>
+                <div class="email-invoice-holder">
+                    <?= $emailCheckbox ?>
+                </div>
+            </label>
+            <div class="emailInvoiceFields <?php if (! $autoEmail) { echo 'hidden'; } ?>">
+                <label class="email-send-as-label">
+                    <span class="inputbox-label">Send From Email:</span>
+                    <div class="email-send-as-holder">
+                        <?= $emailSendAsInput ?>
+
+                        <?php if ($emailSendAs): ?>
+                            <?php if ($emailVerified): ?>
+                                <span class="status active">Verified</span>
+                            <?php else: ?>
+                                <span class="status pending">Awaiting verification</span>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <input type="submit" class="button inline account-save" value="Verify">
+                        <?php endif; ?>
+                    </div>
+                </label>
+                <label class="email-bcc-label">
+                <span class="inputbox-label">Email Myself a Copy:</span>
+                <div class="copy-required-holder">
+                    <?= $copyRequiredCheckbox ?>
+                </div>
+                <div class="email-bcc-holder">
+                    <?= $emailBccInput ?>
+                </div>
+            </label>
+            </div>
         </div>
         <div class="invoiceTradingCompanySettings module section-separator">
             <div class="heading-large">Trading Companies</div>
