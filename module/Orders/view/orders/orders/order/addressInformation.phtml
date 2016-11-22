@@ -43,7 +43,7 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         <span data-cgtype="Button" class="button-holder">
                             <div class="button link" id="billing-address-search-toggle-shadow">
                                 <span class="action" data-action="">
-                                    <? if ($order && $order->getCalculatedBillingAddress1() && $order->getCalculatedBillingAddressPostcode()) {
+                                    <?php if ($order && $order->getCalculatedBillingAddress1() && $order->getCalculatedBillingAddressPostcode()) {
                                         $linkText = "Search Address";
                                     } else {
                                         $linkText = "Enter Manually";
@@ -163,7 +163,7 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                         <span data-cgtype="Button" class="button-holder">
                             <div class="button link" id="shipping-address-search-toggle-shadow">
                                 <span class="action" data-action="">
-                                    <? if ($order && $order->getCalculatedShippingAddress1() && $order->getCalculatedShippingAddressPostcode()) {
+                                    <?php if ($order && $order->getCalculatedShippingAddress1() && $order->getCalculatedShippingAddressPostcode()) {
                                         $linkText = "Search Address";
                                     } else {
                                         $linkText = "Enter Manually";
