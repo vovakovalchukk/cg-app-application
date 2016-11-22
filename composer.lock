@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9536292488e85c9fdc57f362c23e6c3d",
+    "content-hash": "87094475940976d0d341ee0e1e6e9932",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -346,16 +346,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7731-AppPhp71",
+            "version": "1.27.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b01f964ab8e0e91ab835edb20417afbef7eab73f"
+                "reference": "52b2bbde9f9caad4e7b5242fdfb160d378be4476"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7731-AppPhp71-7800da.zip",
-                "reference": "b01f964ab8e0e91ab835edb20417afbef7eab73f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.5-7b888b.zip",
+                "reference": "52b2bbde9f9caad4e7b5242fdfb160d378be4476",
                 "shasum": null
             },
             "require": {
@@ -380,7 +380,7 @@
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
-                "channelgrabber/stdlib": "dev-CGIV-7731-AppPhp71 as 2.12.36",
+                "channelgrabber/stdlib": "^2.12.36",
                 "channelgrabber/stock": "^1.7.0",
                 "channelgrabber/stock-locking": "^1.0.0",
                 "channelgrabber/user": "^1.20.2",
@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-22 08:41:39"
+            "time": "2016-11-22T14:43:10+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -844,16 +844,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "dev-CGIV-7690-AdminPhp71",
+            "version": "1.2.26",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "caf011a11ffc436e7aa5d5e524dd12b0749fe51b"
+                "reference": "d6a1f270ac72249df9760f545ab614999166e241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-7690-AdminPhp71-fb272a.zip",
-                "reference": "caf011a11ffc436e7aa5d5e524dd12b0749fe51b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.26-7aad1c.zip",
+                "reference": "d6a1f270ac72249df9760f545ab614999166e241",
                 "shasum": null
             },
             "require": {
@@ -875,7 +875,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2016-11-21T11:01:44+00:00"
+            "time": "2016-11-22T14:01:02+00:00"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -2207,16 +2207,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-7731-AppPhp71",
+            "version": "2.12.36",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "ed949d97dfad201cdf1f947bf8addde602e4c0a4"
+                "reference": "2301724d746ca2c7a96fe75d39573ef6977c2a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-7731-AppPhp71-4e5fe6.zip",
-                "reference": "ed949d97dfad201cdf1f947bf8addde602e4c0a4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.36-e11c9a.zip",
+                "reference": "2301724d746ca2c7a96fe75d39573ef6977c2a0f",
                 "shasum": null
             },
             "require": {
@@ -2249,7 +2249,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-11-21T16:18:57+00:00"
+            "time": "2016-11-22T13:54:03+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -3137,16 +3137,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-7690-AdminPhp71",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "0d6ceab93d265f57f4c1701b8cdc467f81325e96"
+                "reference": "fe78bea650421b55c64f25fd7a28fcd833c4f659"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7690-AdminPhp71-4fed09.zip",
-                "reference": "0d6ceab93d265f57f4c1701b8cdc467f81325e96",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.4-e26712.zip",
+                "reference": "fe78bea650421b55c64f25fd7a28fcd833c4f659",
                 "shasum": null
             },
             "require": {
@@ -3187,7 +3187,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-11-18T11:05:28+00:00"
+            "time": "2016-11-22T14:09:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3321,16 +3321,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7690-AdminPhp71",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "c960a4aafc640ee27644231e3bc82a6c490b0424"
+                "reference": "7ec986e65c6bbb9639374988bcbd9c74655e4463"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7690-AdminPhp71-3fe09e.zip",
-                "reference": "c960a4aafc640ee27644231e3bc82a6c490b0424",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.4-219328.zip",
+                "reference": "7ec986e65c6bbb9639374988bcbd9c74655e4463",
                 "shasum": null
             },
             "require": {
@@ -3370,7 +3370,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-11-18 15:45:01"
+            "time": "2016-11-22T14:18:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3580,16 +3580,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7690-AdminPhp71",
+            "version": "1.17.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4d6a1e93a07441aa8342c27afd348d7c73d14ac5"
+                "reference": "87fb239b36d04b88c9d5d3f16ae8721f62980fcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7690-AdminPhp71-3c4484.zip",
-                "reference": "4d6a1e93a07441aa8342c27afd348d7c73d14ac5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.17-444d3c.zip",
+                "reference": "87fb239b36d04b88c9d5d3f16ae8721f62980fcd",
                 "shasum": null
             },
             "require": {
@@ -3637,7 +3637,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-18 11:05:29"
+            "time": "2016-11-22T14:23:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8277,58 +8277,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.5",
-            "alias_normalized": "1.27.5.0",
-            "version": "dev-CGIV-7731-AppPhp71",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.2.26",
-            "alias_normalized": "1.2.26.0",
-            "version": "dev-CGIV-7690-AdminPhp71",
-            "package": "channelgrabber/gearman"
-        },
-        {
-            "alias": "2.12.36",
-            "alias_normalized": "2.12.36.0",
-            "version": "dev-CGIV-7731-AppPhp71",
-            "package": "channelgrabber/stdlib"
-        },
-        {
             "alias": "1.4.11",
             "alias_normalized": "1.4.11.0",
             "version": "dev-CGIV-7731-AppPhp71",
             "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.5.4",
-            "alias_normalized": "1.5.4.0",
-            "version": "dev-CGIV-7690-AdminPhp71",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.5.4",
-            "alias_normalized": "1.5.4.0",
-            "version": "dev-CGIV-7690-AdminPhp71",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.17.17",
-            "alias_normalized": "1.17.17.0",
-            "version": "dev-CGIV-7690-AdminPhp71",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/gearman": 20,
-        "channelgrabber/stdlib": 20,
         "channelgrabber/template": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
