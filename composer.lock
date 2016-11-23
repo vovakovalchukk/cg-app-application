@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dc2648bbbd09237096007dbaf022b70",
+    "content-hash": "545acc557c97ea025a6d0e11fc6f6163",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -12,7 +12,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "387c9ef6835bfc68aa54f14c25920c2d4acd0b76"
+                "reference": "b45f5e5dea82f6e3ec395e00f3e020f7a6a335e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7112-expand-list-carrier-options-tracking-d6110c.zip",
+                "reference": "b45f5e5dea82f6e3ec395e00f3e020f7a6a335e7",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -59,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-22 14:22:03"
+            "time": "2016-11-23 10:15:30"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -106,16 +112,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.0.1",
+            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "e335e05ddbd4b75bf3e6c1584aa3c117c4541516"
+                "reference": "a40e0374508293a025ca29f355b2d6226ee1824a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.1-52e070.zip",
-                "reference": "e335e05ddbd4b75bf3e6c1584aa3c117c4541516",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7112-expand-list-carrier-options-tracking-43f2c3.zip",
+                "reference": "a40e0374508293a025ca29f355b2d6226ee1824a",
                 "shasum": null
             },
             "require": {
@@ -142,7 +148,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-08-30T07:41:32+00:00"
+            "time": "2016-11-23 13:00:07"
         },
         {
             "name": "channelgrabber/billing",
@@ -344,7 +350,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "2965bce76f385f080507d3fedbf8ea3837f437ca"
+                "reference": "7150b05fe22524077e80e4884c0edaabd5885156"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7112-expand-list-carrier-options-tracking-eacf09.zip",
+                "reference": "7150b05fe22524077e80e4884c0edaabd5885156",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -368,13 +380,13 @@
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.0",
+                "channelgrabber/stdlib": "^2.12.36",
                 "channelgrabber/stock": "^1.7.0",
                 "channelgrabber/stock-locking": "^1.0.0",
                 "channelgrabber/user": "^1.20.2",
                 "channelgrabber/zf2-email-template": "^1.0.12",
                 "composer/composer": "@dev",
-                "ext-gearman": "~1.1.0",
+                "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
                 "zendframework/zend-di": ">=2.2.5,<3.0"
@@ -411,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-22 13:35:07"
+            "time": "2016-11-23 13:58:10"
         },
         {
             "name": "channelgrabber/cilex",
@@ -658,21 +670,27 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "e69b926394ce6d520544b7a5b9daa03cb408cce4"
+                "reference": "ac565dbaf07fdd315656d0c29e29dcb7fe8a35f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-7112-expand-list-carrier-options-tracking-c86760.zip",
+                "reference": "ac565dbaf07fdd315656d0c29e29dcb7fe8a35f8",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.21.9",
+                "channelgrabber/cglib": "^1.11.0",
+                "channelgrabber/channel": "^1.25.8",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.9.8",
-                "channelgrabber/locale": "^1.0.5",
+                "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.23.1",
+                "channelgrabber/order": "^1.23.20",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
@@ -702,7 +720,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2016-11-22 14:17:00"
+            "time": "2016-11-23 13:51:17"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2188,23 +2206,27 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.33",
+            "version": "2.12.36.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "44bcb25064fc57df3babb10e168da5e1c89073af"
+                "reference": "4274b5b69913db5fe51b9e1ee17abd28a5d7594f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.33-46596e.zip",
-                "reference": "44bcb25064fc57df3babb10e168da5e1c89073af",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.36.1-bda091.zip",
+                "reference": "4274b5b69913db5fe51b9e1ee17abd28a5d7594f",
                 "shasum": null
             },
             "require": {
+                "phpseclib/mcrypt_compat": "~1.0.1",
                 "zendframework/zend-db": ">=2.2,<3.0"
             },
             "conflict": {
                 "channelgrabber/log": "<2.0.14"
+            },
+            "provide": {
+                "ext-mcrypt": "*"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "~1.0.1",
@@ -2220,7 +2242,8 @@
                 },
                 "files": [
                     "src/Utilities.php",
-                    "src/polyfill_70.php"
+                    "src/polyfill_70.php",
+                    "src/polyfill_71.php"
                 ]
             },
             "autoload-dev": {
@@ -2228,7 +2251,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-07-12T12:55:13+00:00"
+            "time": "2016-11-23T11:49:43+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -5075,6 +5098,147 @@
                 "http"
             ],
             "time": "2013-08-25T18:04:46+00:00"
+        },
+        {
+            "name": "phpseclib/mcrypt_compat",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpseclib/mcrypt_compat.git",
+                "reference": "a1761aa8462471c9955af0bccbe3ae19159745ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/phpseclib-mcrypt_compat-a1761aa8462471c9955af0bccbe3ae19159745ca-zip-96b6b4.zip",
+                "reference": "a1761aa8462471c9955af0bccbe3ae19159745ca",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "phpseclib/phpseclib": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-openssl": "Will enable faster cryptographic operations"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/mcrypt.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Wigginton",
+                    "email": "terrafrost@php.net",
+                    "homepage": "http://phpseclib.sourceforge.net"
+                }
+            ],
+            "description": "PHP 7.1 polyfill for the mcrypt extension from PHP <= 7.0",
+            "keywords": [
+                "cryptograpy",
+                "encryption",
+                "mcrypt"
+            ],
+            "time": "2016-11-01T00:48:18+00:00"
+        },
+        {
+            "name": "phpseclib/phpseclib",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpseclib/phpseclib.git",
+                "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/phpseclib-phpseclib-ab8028c93c03cc8d9c824efa75dc94f1db2369bf-zip-b18840.zip",
+                "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phing/phing": "~2.7",
+                "phpunit/phpunit": "~4.0",
+                "sami/sami": "~2.0",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "suggest": {
+                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+                "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
+                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
+                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "phpseclib/bootstrap.php"
+                ],
+                "psr-4": {
+                    "phpseclib\\": "phpseclib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Wigginton",
+                    "email": "terrafrost@php.net",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Patrick Monnerat",
+                    "email": "pm@datasphere.ch",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Fischer",
+                    "email": "bantu@phpbb.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Hans-Jürgen Petrich",
+                    "email": "petrich@tronic-media.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+            "homepage": "http://phpseclib.sourceforge.net",
+            "keywords": [
+                "BigInteger",
+                "aes",
+                "asn.1",
+                "asn1",
+                "blowfish",
+                "crypto",
+                "cryptography",
+                "encryption",
+                "rsa",
+                "security",
+                "sftp",
+                "signature",
+                "signing",
+                "ssh",
+                "twofish",
+                "x.509",
+                "x509"
+            ],
+            "time": "2016-10-04T00:57:04+00:00"
         },
         {
             "name": "picqer/php-barcode-generator",
@@ -8127,6 +8291,12 @@
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
             "alias": "1.27.5",
             "alias_normalized": "1.27.5.0",
             "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
@@ -8148,6 +8318,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
