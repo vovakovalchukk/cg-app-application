@@ -777,8 +777,10 @@ return [
                 'ChannelDeleteJavascript' => ViewModel::class,
                 'InvoiceTradingCompanyColumn' => DataTable\Column::class,
                 'InvoiceAssignedInvoiceColumn' => DataTable\Column::class,
+                'InvoiceSendFromAddressColumn' => DataTable\Column::class,
                 'InvoiceTradingCompanyColumnView' => ViewModel::class,
                 'InvoiceAssignedInvoiceColumnView' => ViewModel::class,
+                'InvoiceSendFromAddressColumnView' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -837,6 +839,7 @@ return [
                     'addColumn' => [
                         ['column' => 'InvoiceTradingCompanyColumn'],
                         ['column' => 'InvoiceAssignedInvoiceColumn'],
+                        ['column' => 'InvoiceSendFromAddressColumn'],
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'InvoiceSettingsDataTableSettings']
@@ -976,6 +979,15 @@ return [
                     'width' => '100px',
                 ],
             ],
+            'InvoiceSendFromAddressColumn' => [
+                'parameters' => [
+                    'templateId' => 'sendFromAddress',
+                    'viewModel' => 'InvoiceSendFromAddressColumnView',
+                    'sortable' => false,
+                    'hideable' => true,
+                    'width' => '100px',
+                ],
+            ],
             'InvoiceTradingCompanyColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Trading Company'],
@@ -985,6 +997,12 @@ return [
             'InvoiceAssignedInvoiceColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Assigned Invoice'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceSendFromAddressColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Send From Address'],
                     'template' => 'value.phtml',
                 ],
             ],

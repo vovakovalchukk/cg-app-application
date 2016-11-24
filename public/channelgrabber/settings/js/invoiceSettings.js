@@ -7,7 +7,8 @@ define(
         var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
         var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
         var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
-        var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
+        var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
+        var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
         var copyRequiredSelector = container + ' .invoiceDefaultSettings #copyRequired';
         var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
         var emailBccSelector = container + ' .invoiceDefaultSettings #emailBcc';
@@ -279,11 +280,19 @@ define(
         var getTradingCompanies = function()
         {
             var tradingCompanies = {};
-            $(tradingCompaniesSelector).each(function(){
+
+            $(tradingCompaniesAssignedInvoiceSelector).each(function() {
                 var assignedInvoice = $(this).val();
                 var tradingCompanyId = $(this).attr('name').replace('invoiceTradingCompaniesCustomSelect_', '');
-                tradingCompanies[tradingCompanyId] = assignedInvoice;
+                tradingCompanies[tradingCompanyId] = {'assignedInvoice': assignedInvoice};
             });
+
+            $(tradingCompaniesSendFromAddressSelector).each(function() {
+                var emailSendAs = $(this).val();
+                var tradingCompanyId = $(this).attr('name').replace('invoiceSendFromAddressInput_', '');
+               tradingCompanies[tradingCompanyId]['emailSendAs'] = emailSendAs;
+            });
+
             return tradingCompanies;
         };
 

@@ -12,21 +12,33 @@ class Mapper
         TemplateCollection $invoices,
         InvoiceSettingsEntity $settings
     ) {
-        $data = [
-            "organisationUnit" => $tradingCompany->getAddressCompanyName(),
-            'organisationUnitId' => $tradingCompany->getId(),
-            "assignedInvoice" => []
-        ];
-
-        $data['class'] = 'invoiceTradingCompaniesCustomSelect';
-        $data['name'] = 'invoiceTradingCompaniesCustomSelect_' . $tradingCompany->getId();
-        $data['id'] = $data['name'];
-
         $tradingCompanySettings = $settings->getTradingCompanies();
 
+        $data = [
+            'organisationUnit' => $tradingCompany->getAddressCompanyName(),
+            'organisationUnitId' => $tradingCompany->getId(),
+            'assignedInvoice' => [],
+            'class' => 'invoiceTradingCompaniesCustomSelect',
+            'name' => 'invoiceTradingCompaniesCustomSelect_' . $tradingCompany->getId(),
+            'id' => 'invoiceTradingCompaniesCustomSelect_' . $tradingCompany->getId(),
+            'sendFromAddress' => [
+                'class' => 'invoiceSendFromAddressInput',
+                'name' => 'invoiceSendFromAddressInput_' . $tradingCompany->getId(),
+                'id' => 'invoiceSendFromAddressInput_' . $tradingCompany->getId(),
+            ]
+        ];
+
+        if (isset($tradingCompanySettings[$tradingCompany->getId()]['emailSendAs'])) {
+            $data['sendFromAddress']['value'] = $settings->getTradingCompanies()[$tradingCompany->getId()]['emailSendAs'];
+        }
+
+        if (isset($tradingCompanySettings[$tradingCompany->getId()]['emailVerified'])) {
+            $data['sendFromAddress']['emailVerified'] = $settings->getTradingCompanies()[$tradingCompany->getId()]['emailVerified'];
+        }
+
         $selected = false;
-        if (isset($tradingCompanySettings[$tradingCompany->getId()])) {
-            $selected = $settings->getTradingCompanies()[$tradingCompany->getId()];
+        if (isset($tradingCompanySettings[$tradingCompany->getId()]['assignedInvoice'])) {
+            $selected = $settings->getTradingCompanies()[$tradingCompany->getId()]['assignedInvoice'];
         }
 
         foreach ($invoices as $invoice) {
