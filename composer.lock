@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f2fa0120bf57f8e257438b26be4f7b1",
+    "content-hash": "1d97a48204dfc758f9972eb3bb74b0d5",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -92,7 +92,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "aeb5828bc7e95c22362379b1d7e6f483165af111"
+                "reference": "1c64ee5517dafeac090d33801efdc9f89e032454"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -2075,13 +2075,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "63ebe30d679d220e141302c0a7ba0f644ead3f0e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7089-use-users-email-address-when-sending-invoices-758824.zip",
-                "reference": "63ebe30d679d220e141302c0a7ba0f644ead3f0e",
-                "shasum": null
+                "reference": "dadfe9323a520c9b0028ba396fdc17bb473f5666"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
