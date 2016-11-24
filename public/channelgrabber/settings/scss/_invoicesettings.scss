@@ -64,6 +64,10 @@
             width: 100%;
         }
     }
+
+    .settings-save {
+        float: none;
+    }
 }
 .default-invoice-holder {
     @include calc(width, "100% - 60px");
@@ -86,6 +90,17 @@
 .email-invoice-holder, .product-images-invoice-holder {
     width: 300px;
     float: left;
+}
+
+.email-invoice-holder {
+    .enable_switch {
+        top: -10px;
+        left: -20px;
+        position: relative;
+    }
+}
+
+.product-images-invoice-holder {
     .std-checkbox {
         top: -4px;
     }
@@ -126,9 +141,28 @@
 .email-bcc-holder {
     display: flex;
     width: 100%;
+    position: relative;
+    z-index: 2;
 
     .inputbox {
         max-width: 200px;
         box-sizing: border-box;
+    }
+}
+
+.email-verify {
+    &.hidden {
+        display: none;
+    }
+
+    &.verifying:before {
+        content: '';
+        background: url('../../zf2-v4-ui/img/loading-transparent-21x21.gif') no-repeat center center;
+        background-size: 80%;
+        display: block;
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        float: left;
     }
 }

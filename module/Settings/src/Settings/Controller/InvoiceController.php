@@ -40,6 +40,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_AJAX = 'Ajax';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
+    const ROUTE_VERIFY = 'Verify';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
@@ -106,59 +107,50 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveMappingAction()
     {
+        $invoiceSettings = $this->getInvoiceService()->getSettings();
+        $emailVerifiedStatus = null;
+
         try {
-            $invoiceSettings = $this->getInvoiceService()->getSettings();
             $autoEmail = $invoiceSettings->getAutoEmail();
-            $emailSendAs = $invoiceSettings->getEmailSendAs();
-            $emailVerified = $invoiceSettings->isEmailVerified();
         } catch (NotFound $e) {
             $autoEmail = false;
-            $emailSendAs = null;
-            $emailVerified = false;
         }
 
         try {
+
             $data = $this->params()->fromPost();
-            if (isset($data['autoEmail'])) {
-                $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
-            }
-            if (isset($data['productImages'])) {
-                $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
-            }
 
-            if ($data['autoEmail'] && $autoEmail) {
-                $data['autoEmail'] = $autoEmail;
-                // Value unchanged so don't tell intercom
-            } else if ($data['autoEmail']) {
-                $data['autoEmail'] = (new DateTime())->stdFormat();
-                $this->notifyOfAutoEmailChange(true);
-            } else {
-                $data['autoEmail'] = null;
-                $this->notifyOfAutoEmailChange(false);
-            }
+            $data = $this->validateEmailSendAs($data);
+            $data = $this->validateAutoEmail($data);
+            $data = $this->validateProductImages($data);
 
-            if (isset($data['emailSendAs'])) {
-                $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL) ?: null;
-            }
+            $data = $this->handleAutoEmailChange($autoEmail, $data);
 
-            if ($data['emailSendAs'] && $data['emailSendAs'] !== $emailSendAs) {
-                // Email address has changed so check if it has previously been verified, if not send a verify email identity request.
-                if (! $data['emailVerified'] = $this->getAmazonSesService()->getVerificationStatus($data['emailSendAs'])) {
-                    $this->getAmazonSesService()->verifyEmailIdentity($data['emailSendAs']);
+            if ($this->emailSendAsChanged($data['emailSendAs'], $invoiceSettings->getEmailSendAs())) {
+                $emailSendAs = $data['emailSendAs'];
+                $emailVerified = $this->getAmazonSesService()->getVerificationStatus($emailSendAs);
+                $emailVerifiedStatus = ['status' => 'active', 'message' => AmazonSesService::STATUS_MESSAGE_VERIFIED];
+
+                if (!$emailVerified) {
+                    $this->getAmazonSesService()->verifyEmailIdentity($emailSendAs);
+                    $emailVerifiedStatus = ['status' => 'pending', 'message' => AmazonSesService::STATUS_MESSAGE_PENDING];
                 }
-            } else {
+
                 $data['emailVerified'] = $emailVerified;
             }
 
-            $entity = $this->getInvoiceService()->saveSettings($data);
+            $settings = array_merge($invoiceSettings->toArray(), $data);
+            $entity = $this->getInvoiceService()->saveSettings($settings);
+
         } catch (NotModified $e) {
             // display saved message
             $entity = $this->getInvoiceService()->getSettings();
         }
 
         return $this->getJsonModelFactory()->newInstance([
-            "invoiceSettings" => json_encode($entity),
-            "eTag" => $entity->getStoredETag()
+            'invoiceSettings' => json_encode($entity),
+            'emailVerifiedStatus' => $emailVerifiedStatus,
+            'eTag' => $entity->getStoredETag()
         ]);
     }
 
@@ -186,6 +178,45 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         }
         return $this->getJsonModelFactory()->newInstance($data);
     }
+//
+//    public function verifyEmailAction()
+//    {
+//        $invoiceSettings = $this->getInvoiceService()->getSettings();
+//        $emailVerifiedStatus = null;
+//
+//        try {
+//            $autoEmail = $invoiceSettings->getAutoEmail();
+//        } catch (NotFound $e) {
+//            $autoEmail = false;
+//        }
+//
+//        $data = $this->params()->fromPost();
+//        $data = $this->validateEmailSendAs($data);
+//        $data = $this->validateAutoEmail($data);
+//        $data = $this->handleAutoEmailChange($autoEmail, $data);
+//
+//        if ($data['emailSendAs']) {
+//            $emailSendAs = $data['emailSendAs'];
+//            $emailVerified = $this->getAmazonSesService()->getVerificationStatus($emailSendAs);
+//            $emailVerifiedStatus = ['status' => 'active', 'message' => AmazonSesService::STATUS_MESSAGE_VERIFIED];
+//
+//            if (!$emailVerified) {
+//                $this->getAmazonSesService()->verifyEmailIdentity($emailSendAs);
+//                $emailVerifiedStatus = ['status' => 'pending', 'message' => AmazonSesService::STATUS_MESSAGE_PENDING];
+//            }
+//
+//            $data['emailVerified'] = $emailVerified;
+//        }
+//
+//        $settings = array_merge($invoiceSettings->toArray(), $data);
+//        $entity = $this->getInvoiceService()->saveSettings($settings);
+//
+//        return $this->getJsonModelFactory()->newInstance([
+//            'invoiceSettings' => json_encode($entity),
+//            'emailVerifiedStatus' => $emailVerifiedStatus,
+//            'eTag' => $entity->getStoredETag()
+//        ]);
+//    }
 
     public function mappingAction()
     {
@@ -201,7 +232,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
 			->setVariable('autoEmail', $invoiceSettings->getAutoEmail())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
-            ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
+            ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
 			->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
@@ -280,6 +311,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return false;
     }
 
+    public function emailSendAsChanged($emailSendAs, $invoiceSettingsEmailSendAs)
+    {
+        return $emailSendAs !== $invoiceSettingsEmailSendAs;
+    }
+
     protected function getTradingCompanyInvoiceSettingsDataTable()
     {
         $datatables = $this->getInvoiceService()->getDatatable();
@@ -312,7 +348,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                                             ->setTemplate('elements/custom-select.mustache');
     }
 
-    protected function getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings)
+    protected function getInvoiceSettingsAutoEmailToggleView($invoiceSettings)
     {
         return $this->getViewModelFactory()
             ->newInstance(
@@ -322,7 +358,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'selected' => (boolean) $invoiceSettings->getAutoEmail(),
                 ]
             )
-            ->setTemplate('elements/checkbox.mustache');
+            ->setTemplate('elements/toggle.mustache');
     }
 
     protected function getInvoiceSettingsProductImagesCheckboxView($invoiceSettings)
@@ -345,6 +381,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 [
                     'id' => 'emailSendAs',
                     'name' => 'emailSendAs',
+                    'type' => 'email',
                     'value' => $invoiceSettings->getEmailSendAs(),
                 ]
             )
@@ -371,6 +408,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 				[
 					'id' => 'emailBcc',
 					'name' => 'emailBcc',
+                    'type' => 'email',
 					'placeholder' => 'Enter email to send to',
 					'value' => $invoiceSettings->getEmailBcc(),
 				]
@@ -637,5 +675,66 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function getAccountService()
     {
         return $this->accountService;
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function validateEmailSendAs($data)
+    {
+        if (isset($data['emailSendAs'])) {
+            $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL) ? $data['emailSendAs'] : null;
+            return $data;
+        }
+        return $data;
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function validateAutoEmail($data)
+    {
+        if (isset($data['autoEmail'])) {
+            $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
+            return $data;
+        }
+        return $data;
+    }
+
+    /**
+     * @param $autoEmail
+     * @param $data
+     * @return mixed
+     */
+    protected function handleAutoEmailChange($autoEmail, $data)
+    {
+        if ($autoEmail && $data['autoEmail']) {
+            $data['autoEmail'] = $autoEmail;
+            return $data;
+            // Value unchanged so don't tell intercom
+        } else if ($data['autoEmail']) {
+            $data['autoEmail'] = (new DateTime())->stdFormat();
+            $this->notifyOfAutoEmailChange(true);
+            return $data;
+        } else {
+            $data['autoEmail'] = null;
+            $this->notifyOfAutoEmailChange(false);
+            return $data;
+        }
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function validateProductImages($data)
+    {
+        if (isset($data['productImages'])) {
+            $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
+            return $data;
+        }
+        return $data;
     }
 }
