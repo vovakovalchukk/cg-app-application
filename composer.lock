@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-23 10:15:30"
+            "time": "2016-11-23T10:15:30+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -148,7 +148,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-11-23 13:00:07"
+            "time": "2016-11-23T13:00:07+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-23 13:58:10"
+            "time": "2016-11-23T13:58:10+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -720,7 +720,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2016-11-23 13:51:17"
+            "time": "2016-11-23T13:51:17+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3586,13 +3586,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d2cb9cd33911d44bd6bc2060c125ca934b41434f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7112-expand-list-carrier-options-tracking-60dbc7.zip",
-                "reference": "d2cb9cd33911d44bd6bc2060c125ca934b41434f",
-                "shasum": null
+                "reference": "6bcf91507308a9e225fe62052f0be3ee95ac8c6e"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3639,7 +3633,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-23 09:33:08"
+            "time": "2016-11-23T09:33:08+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3876,7 +3870,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -4953,7 +4947,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8317,18 +8311,18 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
