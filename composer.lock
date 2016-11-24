@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-23 12:33:51"
+            "time": "2016-11-23T12:33:51+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -525,7 +525,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1266,17 +1266,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.1",
+            "version": "dev-CGIV-7666-only-show-enabled-royal-mail-services",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "ef4af3ea2e927df595316d5143602e48c3bd33e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.1-328f56.zip",
-                "reference": "ef4af3ea2e927df595316d5143602e48c3bd33e6",
-                "shasum": null
+                "reference": "ba305c73779b7d814af9302803dd270eb044d290"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -4916,7 +4910,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8252,18 +8246,25 @@
             "alias_normalized": "1.27.6.0",
             "version": "dev-CGIV-6975-NetDespatchAccountSetupEmail",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-CGIV-7666-only-show-enabled-royal-mail-services",
+            "package": "channelgrabber/netdespatch"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "composer/composer": 20,
+        "channelgrabber/netdespatch": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
