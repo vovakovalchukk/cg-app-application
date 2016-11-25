@@ -332,13 +332,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $vatCodeOptions = array_keys(EUCountryNameByVATCode::getCountryCodeToNameMap());
         $zeroRatedSelectBox = $this->viewModelFactory->newInstance([
-            'selectbox' => [
-                'class' => 'zero-rated-vat-code-select',
-                'name' => 'zeroRatedVatCode',
-                'searchField' => true,
-                'initialValue' => 'GB',
-                'options' => $vatCodeOptions,
-            ]
+            'class' => 'zero-rated-vat-code-select',
+            'name' => 'zeroRatedVatCode',
+            'searchField' => true,
+            'initialValue' => 'GB',
+            'options' => $vatCodeOptions,
         ]);
         $zeroRatedSelectBox->setTemplate('elements/custom-select.mustache');
         return $zeroRatedSelectBox;
@@ -347,11 +345,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getZeroRatedCheckbox($isOrderZeroRated)
     {
         $zeroRatedCheckbox = $this->viewModelFactory->newInstance([
-            'checkbox' => [
-                'id' => 'zero-rated-vat-checkbox',
-                'name' => 'zero-rated-vat-checkbox',
-                'selected' => (boolean) $isOrderZeroRated
-            ]
+            'id' => 'zero-rated-vat-checkbox',
+            'name' => 'zeroRatedVatCheckbox',
+            'selected' => (boolean) $isOrderZeroRated
         ]);
         $zeroRatedCheckbox->setTemplate('elements/checkbox.mustache');
         return $zeroRatedCheckbox;
