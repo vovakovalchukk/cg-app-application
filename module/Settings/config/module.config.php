@@ -985,7 +985,7 @@ return [
                     'viewModel' => 'InvoiceSendFromAddressColumnView',
                     'sortable' => false,
                     'hideable' => true,
-                    'width' => '100px',
+                    'width' => '200px',
                 ],
             ],
             'InvoiceTradingCompanyColumnView' => [

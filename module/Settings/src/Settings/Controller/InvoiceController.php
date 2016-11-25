@@ -107,8 +107,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveMappingAction()
     {
+        $data = $this->params()->fromPost();
         $invoiceSettings = $this->getInvoiceService()->getSettings();
-        $emailVerifiedStatus = null;
 
         try {
             $autoEmail = $invoiceSettings->getAutoEmail();
@@ -118,16 +118,17 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
         try {
 
-            $data = $this->params()->fromPost();
-
             $data = $this->validateEmailSendAs($data);
             $data = $this->validateAutoEmail($data);
             $data = $this->validateProductImages($data);
             $data = $this->handleAutoEmailChange($autoEmail, $data);
-            $data['emailVerified'] = $this->handleEmailSendAsVerification($data, $invoiceSettings);
-            $emailVerifiedStatus = $this->getEmailVerifiedStatus($data['emailVerified']);
+            $data['emailVerified'] = $invoiceSettings->isEmailVerified();
 
-            if (! empty($data['tradingCompanies'])) {
+            if ($this->emailSendAsChanged($data['emailSendAs'], $invoiceSettings->getEmailSendAs())) {
+                $data['emailVerified'] = $this->handleEmailSendAsVerification($data);
+            }
+
+            if (!empty($data['tradingCompanies'])) {
                 $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
             }
 
@@ -139,10 +140,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $entity = $this->getInvoiceService()->getSettings();
         }
 
+        $etag = $entity->getStoredETag();
+        $entity = array_merge($entity->toArray(), ['emailVerifiedStatus' => $this->setEmailVerifiedStatus($entity->isEmailVerified())]);
+
         return $this->getJsonModelFactory()->newInstance([
             'invoiceSettings' => json_encode($entity),
-            'emailVerifiedStatus' => $emailVerifiedStatus,
-            'eTag' => $entity->getStoredETag()
+            'eTag' => $etag
         ]);
     }
 
@@ -337,6 +340,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'name' => 'emailSendAs',
                     'type' => 'email',
                     'value' => $invoiceSettings->getEmailSendAs(),
+                    'class' => 'email-verify-input'
                 ]
             )
             ->setTemplate('elements/text.mustache');
@@ -639,8 +643,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         if (isset($data['emailSendAs'])) {
             $data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL) ? $data['emailSendAs'] : null;
-            return $data;
         }
+
         return $data;
     }
 
@@ -652,8 +656,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         if (isset($data['autoEmail'])) {
             $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
-            return $data;
         }
+
         return $data;
     }
 
@@ -666,17 +670,16 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         if ($autoEmail && $data['autoEmail']) {
             $data['autoEmail'] = $autoEmail;
-            return $data;
             // Value unchanged so don't tell intercom
         } else if ($data['autoEmail']) {
             $data['autoEmail'] = (new DateTime())->stdFormat();
             $this->notifyOfAutoEmailChange(true);
-            return $data;
         } else {
             $data['autoEmail'] = null;
             $this->notifyOfAutoEmailChange(false);
-            return $data;
         }
+
+        return $data;
     }
 
     /**
@@ -687,53 +690,57 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         if (isset($data['productImages'])) {
             $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
-            return $data;
         }
+
         return $data;
     }
 
     /**
-     * @param $data
-     * @param $invoiceSettings
-     * @return boolean
+     * @param $emailSendAs
+     * @return bool
      */
-    protected function handleEmailSendAsVerification(array $data, $invoiceSettings)
+    protected function handleEmailSendAsVerification($emailSendAs)
     {
-        if ($this->emailSendAsChanged($data['emailSendAs'], $invoiceSettings->getEmailSendAs())) {
-            $emailVerified = $this->getAmazonSesService()->getVerificationStatus($data['emailSendAs']);
+        $emailVerified = $this->getAmazonSesService()->getVerificationStatus($emailSendAs);
 
-            if (!$emailVerified) {
-                $this->getAmazonSesService()->verifyEmailIdentity($data['emailSendAs']);
-            }
-
-            return $emailVerified;
+        if (!$emailVerified) {
+            $this->getAmazonSesService()->verifyEmailIdentity($emailSendAs);
         }
 
-        return $invoiceSettings->getEmailVerified();
+        return $emailVerified;
     }
 
+    /**
+     * @param array $tradingCompanies
+     * @param array $invoiceSettingsTradingCompanies
+     * @return array
+     */
     protected function handleTradingCompanyEmailVerification(array $tradingCompanies, array $invoiceSettingsTradingCompanies)
     {
-        foreach ($tradingCompanies as $tradingCompany) {
-            $tradingCompany = $this->validateEmailSendAs($tradingCompany);
+        foreach ($tradingCompanies as $key => $value) {
+            $tradingCompany = $this->validateEmailSendAs($tradingCompanies[$key]);
 
-            if ($this->emailSendAsChanged($tradingCompany['emailSendAs'], $invoiceSettingsTradingCompanies['emailSendAs'])) {
-                $emailVerified = $this->getAmazonSesService()->getVerificationStatus($tradingCompany['emailSendAs']);
+            $emailSendAs = $tradingCompany['emailSendAs'];
+            $emailVerified = isset($invoiceSettingsTradingCompanies[$key]['emailVerified']) ? $invoiceSettingsTradingCompanies[$key]['emailVerified'] : false;
+            $invoiceSettingsEmailSendAs = isset($invoiceSettingsTradingCompanies[$key]['emailSendAs']) ? $invoiceSettingsTradingCompanies[$key]['emailSendAs'] : null;
 
-                if (!$emailVerified) {
-                    $this->getAmazonSesService()->verifyEmailIdentity($tradingCompany['emailSendAs']);
-                }
-
-                $tradingCompany['emailVerified'] = $emailVerified;
-            } else {
-                $tradingCompany['emailVerified'] = $invoiceSettingsTradingCompanies['emailVerified'];
+            if ($this->emailSendAsChanged($emailSendAs, $invoiceSettingsEmailSendAs)) {
+                $emailVerified = $this->handleEmailSendAsVerification($emailSendAs);
             }
+
+            $tradingCompany['emailVerified'] = $emailVerified;
+            $tradingCompany['emailVerifiedStatus'] = $this->setEmailVerifiedStatus($emailVerified);
+            $tradingCompanies[$key] = $tradingCompany;
         }
 
         return $tradingCompanies;
     }
 
-    protected function getEmailVerifiedStatus($emailVerified)
+    /**
+     * @param $emailVerified
+     * @return array
+     */
+    protected function setEmailVerifiedStatus($emailVerified)
     {
         return $emailVerified ? ['status' => 'active', 'message' => AmazonSesService::STATUS_MESSAGE_VERIFIED] : ['status' => 'pending', 'message' => AmazonSesService::STATUS_MESSAGE_PENDING];
     }

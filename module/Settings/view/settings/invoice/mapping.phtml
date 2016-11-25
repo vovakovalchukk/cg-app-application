@@ -62,13 +62,13 @@ $(document).ready(function() {
 
                         <?php if ($emailSendAs): ?>
                             <?php if ($emailVerified): ?>
-                                <span id="emailVerifiedStatus" class="status active">Verified</span>
+                                <span class="status active email-verify-status">Verified</span>
                             <?php else: ?>
-                                <span id="emailVerifiedStatus" class="status pending">Awaiting verification</span>
+                                <span class="status pending email-verify-status">Awaiting verification</span>
                             <?php endif; ?>
                         <?php endif; ?>
 
-                        <button id="emailVerifyButton" class="button inline email-verify <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
+                        <button id="emailVerifyButton" data-id="<?= $invoiceSettings->getId() ?>" class="button inline email-verify-button <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
                     </div>
                 </label>
                 <label class="email-bcc-label">

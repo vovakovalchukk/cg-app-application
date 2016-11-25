@@ -22,9 +22,11 @@ class Mapper
             'name' => 'invoiceTradingCompaniesCustomSelect_' . $tradingCompany->getId(),
             'id' => 'invoiceTradingCompaniesCustomSelect_' . $tradingCompany->getId(),
             'sendFromAddress' => [
-                'class' => 'invoiceSendFromAddressInput',
+                'class' => 'invoiceSendFromAddressInput email-verify-input',
                 'name' => 'invoiceSendFromAddressInput_' . $tradingCompany->getId(),
-                'id' => 'invoiceSendFromAddressInput_' . $tradingCompany->getId(),
+                'id' => $tradingCompany->getId(),
+                'buttonId' => 'invoiceSendFromAddressVerifyButton_' . $tradingCompany->getId(),
+                'buttonClass' => 'email-verify-button',
             ]
         ];
 

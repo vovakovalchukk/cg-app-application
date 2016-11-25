@@ -1,8 +1,14 @@
-<div class="email-send-as-holder">
-    <input class="inputbox {{sendFromAddress.class}}" type="email" name="{{sendFromAddress.name}}" id="{{sendFromAddress.id}}" value="{{sendFromAddress.value}}" />
+<div class="center email-send-as-holder">
+    <input class="inputbox {{sendFromAddress.class}}" data-id="{{sendFromAddress.id}}" type="email" name="{{sendFromAddress.name}}" id="{{sendFromAddress.name}}" value="{{sendFromAddress.value}}" />
 
-    <span id="emailVerifiedStatus" class="status active">Verified</span>
-    <span id="emailVerifiedStatus" class="status pending">Awaiting verification</span>
+    {{^sendFromAddress.emailSendAs}}
+        {{#sendFromAddress.emailVerified}}
+            <span class="status active email-verify-status">Verified</span>
+        {{/sendFromAddress.emailVerified}}
+        {{^sendFromAddress.emailVerified}}
+            <span class="status pending email-verify-status">Awaiting verification</span>
+        {{/sendFromAddress.emailVerified}}
+    {{/sendFromAddress.emailSendAs}}
 
-    <button id="emailVerifyButton" class="button inline email-verify ">Verify</button>
+    <button id="{{sendFromAddress.buttonId}}" data-id="{{sendFromAddress.id}}" class="button inline {{sendFromAddress.buttonClass}} {{^sendFromAddress.emailSendAs}}hidden{{/sendFromAddress.emailSendAs}}">Verify</button>
 </div>

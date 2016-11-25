@@ -12,19 +12,25 @@ define(
         var copyRequiredSelector = container + ' .invoiceDefaultSettings #copyRequired';
         var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
         var emailBccSelector = container + ' .invoiceDefaultSettings #emailBcc';
-        var emailVerifyButtonSelector = container + ' .email-verify';
+        var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
+        var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
+
+        var emailVerifyInputSelector = '.email-verify-input';
+        var emailVerifyButtonSelector = '.email-verify-button';
+        var emailVerifyStatusSelector = '.email-verify-status';
+        var emailVerifyHolderSelector = '.email-send-as-holder';
+        var isPendingConfirmationMessageRequired = false;
+
         var emailVerifiedStatusSelector = '#emailVerifiedStatus';
         var emailInvoiceFieldsSelector = container + ' .emailInvoiceFields';
         var emailInvoiceNotificationSelector = '#emailInvoiceNotification';
-        var saveSettingsButtonSelector = container + ' .settings-save';
 
-        var emailInvoiceFields = $(emailInvoiceFieldsSelector);
         var emailBccField = $(emailBccSelector);
-        var emailVerifyButton = $(emailVerifyButtonSelector);
         var emailVerifiedStatus = $(emailVerifiedStatusSelector);
 
         var init = function ()
         {
+            var attempt, timer;
             var self = this;
 
             // Set field states
@@ -32,107 +38,25 @@ define(
             setCopyRequired();
 
             // Set event listeners
-            setSelectorEvents(self);
-            setEmailSendAsEvents(self);
-            setEmailVerifyButtonEvents(self);
-            setSaveSettingsButtonEvents(self);
-            setCopyRequiredEvents(self);
-            setAutoEmailEvents(self);
-            setEmailBccEvents(self);
-        };
-
-        function showConfirmationMessageForAmazonAccount(self)
-        {
-            var templateUrlMap = {
-                message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
-            };
-
-            CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
-                new Confirm(messageHTML, function (response) {
-                    if (response == "Yes") {
-                        emailVerifyButton.prop('disabled', true).addClass('verifying').text('Verifying...');
-                        ajaxVerify(self);
-                    }
-                });
-            });
-        }
-
-        function showConfirmationMessage()
-        {
-            var templateUrlMap = {
-                message: '/cg-built/settings/template/Messages/emailInvoiceConfirmationMessage.mustache'
-            };
-
-            CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
-                new Confirm(messageHTML, null, ['Ok']);
-                // popup.show();
-            });
-        }
-
-        function ajaxSave(object)
-        {
-            object.save(object.handleSaveResponse);
-        }
-
-        function ajaxVerify(object)
-        {
-            object.save(object.handleVerifyResponse);
-        }
-
-        function setAutoEmail()
-        {
-            if ($('#autoEmail').prop('checked')) {
-                emailInvoiceFields.removeClass('hidden');
-            }
-        }
-
-        function setCopyRequired()
-        {
-            if (!$('#copyRequired').prop('checked')) {
-                emailBccField.hide();
-            }
-        }
-
-        function setSelectorEvents(self)
-        {
             $(document).on('change', selector, function() {
                 ajaxSave(self);
-            })
-        }
-
-        function setEmailSendAsEvents(self)
-        {
-            $(document).on('change keyup', emailSendAsSelector, function () {
-                emailVerifyButton.removeClass('hidden');
-                $(emailVerifiedStatusSelector).remove();
             });
-        }
 
-        function setEmailVerifyButtonEvents(self)
-        {
+            $(document).on('change keyup', emailVerifyInputSelector, function () {
+                $(this).siblings(emailVerifyButtonSelector).removeClass('hidden');
+                $(this).siblings(emailVerifyStatusSelector).remove();
+            });
+
             $(document).on('click', emailVerifyButtonSelector, function (e) {
                 e.preventDefault();
 
                 if (getElementOnClickCheckedStatus('autoEmail') && hasAmazonAccount == true) {
-                    showConfirmationMessageForAmazonAccount(self);
+                    showConfirmationMessageForAmazonAccount(self, $(this));
                 } else {
                     ajaxVerify(self);
                 }
             });
-        }
 
-        function setSaveSettingsButtonEvents(self)
-        {
-            $(document).on('click', saveSettingsButtonSelector, function (e) {
-                e.preventDefault();
-                ajaxSave(self);
-            });
-        }
-
-        function setCopyRequiredEvents(self)
-        {
             $(document).on('change', copyRequiredSelector, function () {
                 emailBccField.toggle();
 
@@ -143,12 +67,11 @@ define(
 
                 ajaxSave(self);
             });
-        }
 
-        function setAutoEmailEvents(self)
-        {
             $(document).on('click', autoEmailSettingsSelector, function () {
-                emailInvoiceFields.toggleClass('hidden');
+                $(emailInvoiceFieldsSelector).toggleClass('hidden');
+                $(invoiceSendFromAddressColumnHeadSelector).toggle();
+                $(invoiceSendFromAddressColumnSelector).toggle();
 
                 // If checked and sendEmailAs has no value, skip save.
                 if (getElementOnClickCheckedStatus(this.id) && $(emailSendAsSelector).val() == '') {
@@ -158,11 +81,6 @@ define(
 
                 ajaxSave(self);
             });
-        }
-
-        function setEmailBccEvents(self)
-        {
-            var attempt, timer;
 
             $(document).on('keyup', emailBccSelector, function() {
                 if (attempt) { attempt.abort() }
@@ -171,6 +89,74 @@ define(
                     attempt = handleEmailBccKeyup(self);
                 }, 1000)
             });
+
+            $(document).on('fnDrawCallback', function() {
+                if (! $('#autoEmail').prop('checked')) {
+                    hideSendFromAddressColumn();
+                }
+            });
+        };
+
+        function showConfirmationMessageForAmazonAccount(self, emailVerifyButton)
+        {
+            var templateUrlMap = {
+                message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
+            };
+
+            CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
+                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+                new Confirm(messageHTML, function (response) {
+                    if (response == "Yes") {
+                        setEmailVerifyButtonVerifying(emailVerifyButton);
+                        ajaxVerify(self);
+                    }
+                });
+            });
+        }
+
+        function showPendingConfirmationMessage()
+        {
+            var templateUrlMap = {
+                message: '/cg-built/settings/template/Messages/emailInvoiceConfirmationMessage.mustache'
+            };
+
+            CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
+                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+                new Confirm(messageHTML, function () {
+                    isPendingConfirmationMessageRequired = false;
+                }, ['Ok']);
+            });
+        }
+
+        function ajaxSave(object)
+        {
+            object.save(handleSaveResponse);
+        }
+
+        function ajaxVerify(object)
+        {
+            object.save(handleVerifyResponse);
+        }
+
+        function setAutoEmail()
+        {
+            if ($('#autoEmail').prop('checked')) {
+                $(emailInvoiceFieldsSelector).removeClass('hidden');
+            } else {
+                hideSendFromAddressColumn();
+            }
+        }
+
+        function setCopyRequired()
+        {
+            if (!$('#copyRequired').prop('checked')) {
+                emailBccField.hide();
+            }
+        }
+
+        function setEmailVerifyButtonVerifying(emailVerifyButton)
+        {
+            emailVerifyButton.prop('disabled', true).addClass('verifying').text('Verifying...');
         }
 
         function handleEmailBccKeyup(self)
@@ -186,19 +172,72 @@ define(
             return $('#' + elementID).is(":checked");
         }
 
-        function appendEmailVerifiedStatus(template, status)
+        function refreshEmailVerifiedStatus(status, target)
         {
-            status.id = 'emailVerifiedStatus';
-
-            CGMustache.get().fetchTemplates(template, function (templates, cgmustache) {
-                var emailVerifiedStatus = cgmustache.renderTemplate(templates, status, "status");
-                $('.email-send-as-holder').append(emailVerifiedStatus);
+            CGMustache.get().fetchTemplates('/cg-built/zf2-v4-ui/templates/elements/status.mustache', function (templates, cgmustache) {
+                if (target.children('.status').length) {
+                    target.children('.status').replaceWith(cgmustache.renderTemplate(templates, status, "status"))
+                } else {
+                    target.append(cgmustache.renderTemplate(templates, status, "status"));
+                }
             });
         }
 
         function validateEmail(email)
         {
             return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
+        }
+
+        function handleSaveResponse(data)
+        {
+            $('#setting-etag').val(data.eTag);
+            if (n) {
+                n.success(InvoiceSettings.SUCCESS_MESSAGE);
+            }
+        }
+
+        function handleVerifyResponse(data)
+        {
+            $('#setting-etag').val(data.eTag);
+
+            var invoiceSettings = JSON.parse(data.invoiceSettings);
+
+            updateEmailVerifiedStatusForId(invoiceSettings.id, invoiceSettings.emailVerifiedStatus);
+
+            $.each(invoiceSettings.tradingCompanies, function(index, element) {
+                updateEmailVerifiedStatusForId(index, element.emailVerifiedStatus);
+            });
+
+            if (isPendingConfirmationMessageRequired) {
+                showPendingConfirmationMessage();
+            }
+        }
+
+        function updateEmailVerifiedStatusForId(id, emailVerifiedStatus)
+        {
+            var emailVerifyButton = $(emailVerifyButtonSelector + '[data-id='+id+']')
+                .addClass('hidden')
+                .prop('disabled', false)
+                .removeClass('verifying')
+                .text('Verify');
+            var target = emailVerifyButton.parent(emailVerifyHolderSelector);
+
+            refreshEmailVerifiedStatus(emailVerifiedStatus, target);
+
+            if (emailVerifiedStatus.status == InvoiceSettings.EMAIL_STATUS_PENDING) {
+                isPendingConfirmationMessageRequired = true;
+                $(emailInvoiceNotificationSelector).removeClass('hidden');
+            }
+
+            if (emailVerifiedStatus.status == InvoiceSettings.EMAIL_STATUS_VERIFIED) {
+                $(emailInvoiceNotificationSelector).addClass('hidden');
+            }
+        }
+
+        function hideSendFromAddressColumn()
+        {
+            $(invoiceSendFromAddressColumnHeadSelector).hide();
+            $(invoiceSendFromAddressColumnSelector).hide();
         }
 
         this.getInvoiceSettingsEntity = function ()
@@ -213,38 +252,6 @@ define(
                 'tradingCompanies': getTradingCompanies(),
                 'eTag': $('#setting-etag').val()
             };
-        };
-
-        this.handleSaveResponse = function (data)
-        {
-            $('#setting-etag').val(data.eTag);
-            if (n) {
-                n.success(InvoiceSettings.SUCCESS_MESSAGE);
-            }
-        };
-
-        this.handleVerifyResponse = function (data)
-        {
-            $('#setting-etag').val(data.eTag);
-
-            if (data.emailVerifiedStatus) {
-                emailVerifyButton.addClass('hidden');
-
-                appendEmailVerifiedStatus({
-                    status: '/cg-built/zf2-v4-ui/templates/elements/status.mustache'
-                }, data.emailVerifiedStatus);
-
-                if (data.emailVerifiedStatus.status == InvoiceSettings.EMAIL_STATUS_PENDING) {
-                    showConfirmationMessage();
-                    $(emailInvoiceNotificationSelector).removeClass('hidden');
-                }
-
-                if (data.emailVerifiedStatus.status == InvoiceSettings.EMAIL_STATUS_VERIFIED) {
-                    $(emailInvoiceNotificationSelector).addClass('hidden');
-                }
-            }
-
-            emailVerifyButton.prop('disabled', false).removeClass('verifying').text('Verify');
         };
 
         var getDefault = function()
