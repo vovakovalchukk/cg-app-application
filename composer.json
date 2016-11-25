@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "~1.19.5",
+        "channelgrabber/amazon": "dev-CGIV-7636-support-non-gbp-orders-with-amazon-mcf as 1.19.6",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.1",
         "channelgrabber/billing": "~1.11.4",
@@ -40,6 +40,7 @@
         "channelgrabber/courieradapter": "~1.1.0",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.9.55",
+        "channelgrabber/exchangerate": "dev-CGIV-7636-support-non-gbp-orders-with-amazon-mcf as 1.0.1",
         "channelgrabber/ekm": "~1.8.37",
         "channelgrabber/email": "~1.0.8",
         "channelgrabber/etag": "~1.6.0",
