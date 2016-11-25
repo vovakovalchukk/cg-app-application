@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use ArrayObject;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
@@ -277,6 +278,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'afterActions'
         );
 
+        $productPaymentInfo = $this->getProductAndPaymentDetails($order);
         $labelDetails = $this->getShippingLabelDetails($order);
         $accountDetails = $this->getAccountDetails($order);
         $orderDetails = $this->getOrderDetails($order);
@@ -286,6 +288,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderAlert = $this->getOrderAlert($order);
         $addressInformation = $this->getAddressInformation($order);
 
+        $view->addChild($productPaymentInfo, 'productPaymentInfo');
         $view->addChild($labelDetails, 'labelDetails');
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
@@ -295,16 +298,63 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
-        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('existingNotes', $this->getNotes($order));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
-        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+
         $this->addLabelPrintButtonToView($view, $order);
         return $view;
+    }
+
+    protected function getProductAndPaymentDetails(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/productPaymentInfo');
+
+        $isOrderZeroRated = true;   //TODO Change to whatever is set in DB
+
+        $view->setVariable('order', $order);
+        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+        $view->setVariable('isOrderZeroRated', $isOrderZeroRated);
+
+        $view->addChild($this->getZeroRatedCheckbox($order), 'zeroRatedCheckbox');
+        $view->addChild($this->getZeroRatedSelectbox($order), 'zeroRatedSelectBox');
+
+        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
+
+        return $view;
+    }
+
+    protected function getZeroRatedSelectbox($order)
+    {
+        $vatCodeOptions = array_keys(EUCountryNameByVATCode::getCountryCodeToNameMap());
+        $zeroRatedSelectBox = $this->viewModelFactory->newInstance([
+            'selectbox' => [
+                'class' => 'zero-rated-vat-code-select',
+                'name' => 'zeroRatedVatCode',
+                'searchField' => true,
+                'initialValue' => 'GB',
+                'options' => $vatCodeOptions,
+            ]
+        ]);
+        $zeroRatedSelectBox->setTemplate('elements/custom-select.mustache');
+        return $zeroRatedSelectBox;
+    }
+
+    protected function getZeroRatedCheckbox($isOrderZeroRated)
+    {
+        $zeroRatedCheckbox = $this->viewModelFactory->newInstance([
+            'checkbox' => [
+                'id' => 'zero-rated-vat-checkbox',
+                'name' => 'zero-rated-vat-checkbox',
+                'selected' => (boolean) $isOrderZeroRated
+            ]
+        ]);
+        $zeroRatedCheckbox->setTemplate('elements/checkbox.mustache');
+        return $zeroRatedCheckbox;
     }
 
     protected function getShippingLabelDetails(OrderEntity $order)

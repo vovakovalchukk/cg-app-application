@@ -17,9 +17,10 @@ require([
         "alert/Alert",
         "orderDetails/OrderDetailsPage",
         "tracking/orderTracking",
-        "Clipboard"
+        "Clipboard",
+        "Orders/ProductPayment"
     ],
-    function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
+    function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard, ProductPayment) {
         //References to n need to be migrated, it is the notification library
         var existingNotes = <?= $existingNotes ?>;
         var orderId = '<?= $order->getId() ?>';
@@ -46,6 +47,9 @@ require([
         );
         <?php endif; ?>
 
+        <?php if(count($order->getItems())):?>
+            var productPaymentInfo = new ProductPayment();
+        <?php endif;?>
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
@@ -81,46 +85,7 @@ require([
 </div>
 <?php endif; ?>
 <div id="product-payment-table" class="module clearfix section-separator">
-    <span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
-    <?php if(count($order->getItems())):?>
-        <div id="products-table">
-          <?= $this->productPaymentTable; ?>
-        </div>
-    <?php else: ?>
-        <p><?= $this->translate('This order has no items'); ?></p>
-    <?php endif;?>
-    <table class="no-borders totals-table">
-        <tr>
-            <td class="leftcell" class="left">
-                <?php if ($order->getPaymentMethod()): ?>
-                    <strong><?= $this->translate('Paid Via'); ?>:</strong> <?= $order->getPaymentMethod() ?>
-                <?php endif; ?>
-            </td>
-            <td class="midcell"><strong><?= $this->translate('Postage & Packing'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
-        </tr>
-        <tr>
-            <td class="leftcell"></td>
-            <td class="midcell"><strong><?= $this->translate('Subtotal'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($order->getSubtotal(), $order->getCurrencyCode()); ?></strong></td>
-        </tr>
-        <?php if ($rootOu->isVatRegistered()): ?>
-        <tr>
-            <td class="leftcell">
-                <?php if ($order->getPaymentReference()): ?>
-                    <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
-                <?php endif; ?>
-            </td>
-            <td class="midcell"><strong><?= $this->translate('VAT'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
-        </tr>
-        <?php endif; ?>
-        <tr>
-            <td class="leftcell"></td>
-            <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
-        </tr>
-    </table>
+    <?= $this->productPaymentInfo; ?>
 </div>
 <div id="order-notes" class="module clearfix section-separator">
 </div>

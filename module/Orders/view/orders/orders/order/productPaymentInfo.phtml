@@ -1,0 +1,55 @@
+<?php if(count($order->getItems())):?>
+<span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
+<div id="zero-rated-vat-holder">
+    <span class="inputbox-label"><?= $this->translate('EU Zero-Rate VAT'); ?></span>
+    <span class="inputbox-value">
+        <?= $this->zeroRatedCheckbox; ?>
+        <div id="zero-rated-vat-form" <?= $isOrderZeroRated ? '' : 'style="display: none"' ?>>
+            <span id="zero-rated-vat-country">
+                <?= $this->zeroRatedSelectBox; ?>
+            </span>
+            <span id="zero-rated-vat-number">
+                <input class="inputbox " type="text" name="zeroRatedVatNumber" id="zero-rated-vat-number" value="" placeholder="" autocomplete="on">
+            </span>
+            <button id="zero-rated-vat-submit" class="save button">Apply</button>
+        </div>
+    </span>
+</div>
+<div id="products-table">
+    <?= $this->productPaymentTable; ?>
+</div>
+<table class="no-borders totals-table">
+    <tr>
+        <td class="leftcell" class="left">
+            <?php if ($order->getPaymentMethod()): ?>
+                <strong><?= $this->translate('Paid Via'); ?>:</strong> <?= $order->getPaymentMethod() ?>
+            <?php endif; ?>
+        </td>
+        <td class="midcell"><strong><?= $this->translate('Postage & Packing'); ?>:</strong></td>
+        <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
+    </tr>
+    <tr>
+        <td class="leftcell"></td>
+        <td class="midcell"><strong><?= $this->translate('Subtotal'); ?>:</strong></td>
+        <td class="rightcell"><?= $this->currencyFormat($order->getSubtotal(), $order->getCurrencyCode()); ?></strong></td>
+    </tr>
+    <?php if ($rootOu->isVatRegistered()): ?>
+        <tr>
+            <td class="leftcell">
+                <?php if ($order->getPaymentReference()): ?>
+                    <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
+                <?php endif; ?>
+            </td>
+            <td class="midcell"><strong><?= $this->translate('VAT'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
+        </tr>
+    <?php endif; ?>
+    <tr>
+        <td class="leftcell"></td>
+        <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>
+        <td class="rightcell"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
+    </tr>
+</table>
+<?php else: ?>
+    <p><?= $this->translate('This order has no items'); ?></p>
+<?php endif;?>
