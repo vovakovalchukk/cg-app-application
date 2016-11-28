@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-23T10:15:30+00:00"
+            "time": "2016-11-23 10:15:30"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -148,7 +148,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-11-23T13:00:07+00:00"
+            "time": "2016-11-23 13:00:07"
         },
         {
             "name": "channelgrabber/billing",
@@ -350,12 +350,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7150b05fe22524077e80e4884c0edaabd5885156"
+                "reference": "4a041f8a3c95fc5531378871a6667e1c4aa54bc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7112-expand-list-carrier-options-tracking-eacf09.zip",
-                "reference": "7150b05fe22524077e80e4884c0edaabd5885156",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7112-expand-list-carrier-options-tracking-51e45b.zip",
+                "reference": "4a041f8a3c95fc5531378871a6667e1c4aa54bc2",
                 "shasum": null
             },
             "require": {
@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-23T13:58:10+00:00"
+            "time": "2016-11-28 13:05:48"
         },
         {
             "name": "channelgrabber/cilex",
@@ -720,7 +720,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2016-11-23T13:51:17+00:00"
+            "time": "2016-11-23 13:51:17"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3588,6 +3588,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "af70ffb69f8211931808401c8413674715b6836a"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7112-expand-list-carrier-options-tracking-a5a312.zip",
+                "reference": "af70ffb69f8211931808401c8413674715b6836a",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3633,7 +3639,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-23T09:33:08+00:00"
+            "time": "2016-11-24 10:06:27"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3870,7 +3876,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -4947,7 +4953,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8311,18 +8317,18 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
