@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "545acc557c97ea025a6d0e11fc6f6163",
+    "content-hash": "4cc040b9ee76d452dfb6ece94ad66e57",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
+            "version": "1.19.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "b45f5e5dea82f6e3ec395e00f3e020f7a6a335e7"
+                "reference": "4293e99bc550b1451e9ee7eb2b6bb70bfaa658fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7112-expand-list-carrier-options-tracking-d6110c.zip",
-                "reference": "b45f5e5dea82f6e3ec395e00f3e020f7a6a335e7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.8-b51e59.zip",
+                "reference": "4293e99bc550b1451e9ee7eb2b6bb70bfaa658fe",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.27.0",
+                "channelgrabber/channel": "^1.27.6",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-23 10:15:30"
+            "time": "2016-11-28T15:33:57+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -112,20 +112,20 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "a40e0374508293a025ca29f355b2d6226ee1824a"
+                "reference": "8114d1ba3217037733eb3bca3f662a7c8185dcc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7112-expand-list-carrier-options-tracking-43f2c3.zip",
-                "reference": "a40e0374508293a025ca29f355b2d6226ee1824a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.2-ef279f.zip",
+                "reference": "8114d1ba3217037733eb3bca3f662a7c8185dcc7",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.25.2",
+                "channelgrabber/channel": "^1.27.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/webhook-framework": "^1.0.0",
@@ -148,7 +148,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-11-23 13:00:07"
+            "time": "2016-11-28T15:35:06+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -346,16 +346,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
+            "version": "1.27.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4a041f8a3c95fc5531378871a6667e1c4aa54bc2"
+                "reference": "d2d84ecf15c63a938c7b51a350d741e632a1d16f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7112-expand-list-carrier-options-tracking-51e45b.zip",
-                "reference": "4a041f8a3c95fc5531378871a6667e1c4aa54bc2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.6-c52d3f.zip",
+                "reference": "d2d84ecf15c63a938c7b51a350d741e632a1d16f",
                 "shasum": null
             },
             "require": {
@@ -423,7 +423,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-28 13:05:48"
+            "time": "2016-11-28T15:19:53+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -666,22 +666,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
+            "version": "1.9.69",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "ac565dbaf07fdd315656d0c29e29dcb7fe8a35f8"
+                "reference": "90b0066317c4a40e2b7cf2c3081d35d5990db9c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-7112-expand-list-carrier-options-tracking-c86760.zip",
-                "reference": "ac565dbaf07fdd315656d0c29e29dcb7fe8a35f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.69-5926c1.zip",
+                "reference": "90b0066317c4a40e2b7cf2c3081d35d5990db9c0",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "^1.25.8",
+                "channelgrabber/channel": "^1.27.6",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -699,7 +699,7 @@
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/user": "^1.19.4",
                 "composer/composer": "@dev",
-                "ext-gearman": "~1.1.0",
+                "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "php-units-of-measure/php-units-of-measure": "~2.0.0",
                 "zendframework/zend-di": ">=2.2.5",
@@ -720,7 +720,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2016-11-23 13:51:17"
+            "time": "2016-11-28T15:32:18+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3582,16 +3582,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
+            "version": "1.17.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "af70ffb69f8211931808401c8413674715b6836a"
+                "reference": "daba3b08ad0b091114095a8eb135eba390d27d76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7112-expand-list-carrier-options-tracking-a5a312.zip",
-                "reference": "af70ffb69f8211931808401c8413674715b6836a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.18-c48135.zip",
+                "reference": "daba3b08ad0b091114095a8eb135eba390d27d76",
                 "shasum": null
             },
             "require": {
@@ -3639,7 +3639,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-24 10:06:27"
+            "time": "2016-11-28T15:21:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8283,46 +8283,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.6",
-            "alias_normalized": "1.19.6.0",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.27.5",
-            "alias_normalized": "1.27.5.0",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.9.56",
-            "alias_normalized": "1.9.56.0",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.17.16",
-            "alias_normalized": "1.17.16.0",
-            "version": "dev-CGIV-7112-expand-list-carrier-options-tracking",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/bigcommerce": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
