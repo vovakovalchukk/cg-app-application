@@ -1370,12 +1370,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "328892ed5d5f20a81bb718d66aba0f4be2a39792"
+                "reference": "1535d7accd3874781032b6d30b01355c04434fda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6760-zero-rated-vat-invoices-45af73.zip",
-                "reference": "328892ed5d5f20a81bb718d66aba0f4be2a39792",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6760-zero-rated-vat-invoices-8da570.zip",
+                "reference": "1535d7accd3874781032b6d30b01355c04434fda",
                 "shasum": null
             },
             "require": {
@@ -1440,7 +1440,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-28 11:03:40"
+            "time": "2016-11-28 15:37:51"
         },
         {
             "name": "channelgrabber/permission",
