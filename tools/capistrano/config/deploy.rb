@@ -23,8 +23,11 @@ namespace :deploy do
 
     desc 'Restart application'
     task :restart do
-        on roles(:all), in: :parallel do
+        on roles(:php5), in: :parallel do
             execute :sudo, :restart, "php5-fpm"
+        end
+        on roles(:php71), in: :parallel do
+            execute :sudo, :service, "php7.1-fpm", :reload
         end
     end
 
