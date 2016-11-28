@@ -330,7 +330,15 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getZeroRatedSelectbox($order)
     {
-        $vatCodeOptions = array_keys(EUCountryNameByVATCode::getCountryCodeToNameMap());
+        $vatCodes = EUCountryNameByVATCode::getCountryCodeToNameMap();
+
+        $vatCodeOptions = [];
+        foreach ($vatCodes as $vatCode => $countryName) {
+            $vatCodeOptions[] = [
+                'title' => $vatCode,
+                'value' => $vatCode,
+            ];
+        }
         $zeroRatedSelectBox = $this->viewModelFactory->newInstance([
             'class' => 'zero-rated-vat-code-select',
             'name' => 'zeroRatedVatCode',
