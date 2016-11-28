@@ -10,6 +10,24 @@
             margin: 0;
         }
     }
+    .order-inputbox-holder {
+        width: 260px;
+        .open-content {
+            max-width: 260px;
+            width: 100%;
+            height: 211px;;
+            ul {
+                max-height: 170px;
+                .custom-select-blank-item {
+                    background: #dadfe3;
+                    height: 1px;
+                }
+            }
+        }
+        #trackingNumber {
+            width: 249px;
+        }
+    }
 }
 
 .shipping-label-table {
