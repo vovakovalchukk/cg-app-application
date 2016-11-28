@@ -27,6 +27,7 @@ class Mapper
                 'id' => $tradingCompany->getId(),
                 'buttonId' => 'invoiceSendFromAddressVerifyButton_' . $tradingCompany->getId(),
                 'buttonClass' => 'email-verify-button',
+				'value' => null,
             ]
         ];
 
