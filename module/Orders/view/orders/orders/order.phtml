@@ -48,7 +48,7 @@ require([
         <?php endif; ?>
 
         <?php if(count($order->getItems())):?>
-            var productPaymentInfo = new ProductPayment();
+            var productPaymentInfo = new ProductPayment(orderId);
         <?php endif;?>
 });
 <?php $this->inlineScript()->captureEnd(); ?>

@@ -1,12 +1,18 @@
 define([
 ], function(
 ) {
-    function ProductPayment() {
-        var init = function() {
-            this.listenForZeroRatedVATCheckboxCheck();
+    function ProductPayment(order) {
+        var orderId = order;
+
+        this.getOrderId = function ()
+        {
+            return orderId;
         };
 
-        init.call(this);
+        this.init = function() {
+            this.listenForZeroRatedVATCheckboxCheck();
+            this.listenForSubmitZeroRatedVATForm();
+        }.call(this);
     }
 
     ProductPayment.prototype.listenForZeroRatedVATCheckboxCheck = function () {
@@ -19,27 +25,35 @@ define([
         });
     };
 
-    ProductPayment.prototype.submitZeroRatedVATForm = function () {
-        this.getNotificationHandler().notice("Submitting the Zero Rated VAT values.");
-        $.ajax({
-            url: this.getElement().data("url"),
-            data: {
-                "orders": orders
-            },
-            context: this,
-            type: "POST",
-            dataType: 'json',
-            success : function(data, textStatus, request) {
-                if (data.error) {
-                    var itid = request.getResponseHeader('ITID-Response');
-                    return this.getNotificationHandler().error("Failed to mark order as paid. Please contact support and provide the following reference code:\n"+itid);
-                }
-                this.getNotificationHandler().success("Successfully marked order as paid");
-                location.reload();
-            },
-            error: function(request, textStatus, errorThrown) {
-                return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
+    ProductPayment.prototype.listenForSubmitZeroRatedVATForm = function () {
+        var self = this;
+        $('#zero-rated-vat-submit').click(function () {
+            if (! $('input[name="zeroRatedVatCode"]').val() || ! $('input[name="zeroRatedVatNumber"]').val()) {
+                return;
             }
+            var vatCode = $('input[name="zeroRatedVatCode"]').val() + $('input[name="zeroRatedVatNumber"]').val();
+            n.notice("Adding Zero-Rate VAT to the order.");
+            $.ajax({
+                url: '',
+                data: {
+                    order: self.getOrderId(),
+                    recipientVatCode: vatCode
+                },
+                context: this,
+                type: "POST",
+                dataType: 'json',
+                success : function(data, textStatus, request) {
+                    if (data.error) {
+                        var itid = request.getResponseHeader('ITID-Response');
+                        return n.error("Failed to add Zero-Rate VAT to the order. Please contact support and provide the following reference code:\n"+itid);
+                    }
+                    n.success("Successfully added Zero-Rate VAT to the order.");
+                    location.reload();
+                },
+                error: function(request, textStatus, errorThrown) {
+                    return n.ajaxError(request, textStatus, errorThrown);
+                }
+            });
         });
     };
 
