@@ -4,12 +4,12 @@
     <span class="inputbox-label"><?= $this->translate('EU Zero-Rate VAT'); ?></span>
     <span class="inputbox-value">
         <?= $this->zeroRatedCheckbox; ?>
-        <div id="zero-rated-vat-form" <?= $isOrderZeroRated ? '' : 'style="display: none"' ?>>
+        <div id="zero-rated-vat-form" <?= isset($isOrderZeroRated) && $isOrderZeroRated ? '' : 'style="display: none"' ?>>
             <span id="zero-rated-vat-country">
                 <?= $this->zeroRatedSelectBox; ?>
             </span>
             <span id="zero-rated-vat-number">
-                <input class="inputbox " type="text" name="zeroRatedVatNumber" id="zero-rated-vat-number" value="<?= $vatNumber; ?>" placeholder="VAT Number" autocomplete="on">
+                <input class="inputbox " type="text" name="zeroRatedVatNumber" id="zero-rated-vat-number" value="<?= isset($vatNumber) ? $vatNumber : ''; ?>" placeholder="VAT Number" autocomplete="on">
             </span>
             <button id="zero-rated-vat-submit" class="save button">Apply</button>
         </div>
@@ -40,7 +40,7 @@
                     <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
                 <?php endif; ?>
             </td>
-            <td class="midcell"><?= $isOrderZeroRated ? '<span class="zero-rated-vat-label">(Zero-Rate EU VAT)</span>' : '' ?><strong><?= $this->translate('VAT'); ?>:</strong></td>
+            <td class="midcell"><?= isset($isOrderZeroRated) && $isOrderZeroRated ? '<span class="zero-rated-vat-label">(Zero-Rate EU VAT)</span>' : '' ?><strong><?= $this->translate('VAT'); ?>:</strong></td>
             <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
     <?php endif; ?>
