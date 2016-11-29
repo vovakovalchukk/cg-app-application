@@ -45,4 +45,12 @@
             }
         }
     }
+    table {
+        .zero-rated-vat-label {
+            font-size: 0.9em;
+            color: $color-mgrey;
+            font-style: italic;
+            margin-right: 8px;
+        }
+    }
 }

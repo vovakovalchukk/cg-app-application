@@ -40,7 +40,7 @@
                     <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
                 <?php endif; ?>
             </td>
-            <td class="midcell"><strong><?= $this->translate('VAT'); ?>:</strong></td>
+            <td class="midcell"><?= $isOrderZeroRated ? '<span class="zero-rated-vat-label">(Zero-Rate EU VAT)</span>' : '' ?><strong><?= $this->translate('VAT'); ?>:</strong></td>
             <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
     <?php endif; ?>
