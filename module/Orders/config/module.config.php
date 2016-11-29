@@ -342,6 +342,17 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
+                            'markZeroRatedVat' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/markZeroRatedVat',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Order',
+                                        'action' => 'markOrderZeroRatedVat'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
                             'tracking' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [

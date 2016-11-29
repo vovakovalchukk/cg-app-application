@@ -34,7 +34,7 @@ define([
             var vatCode = $('input[name="zeroRatedVatCode"]').val() + $('input[name="zeroRatedVatNumber"]').val();
             n.notice("Adding Zero-Rate VAT to the order.");
             $.ajax({
-                url: '',
+                url: '/order/markZeroRatedVat',
                 data: {
                     order: self.getOrderId(),
                     recipientVatCode: vatCode

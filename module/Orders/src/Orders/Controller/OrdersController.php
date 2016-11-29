@@ -314,7 +314,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/productPaymentInfo');
 
-        $isOrderZeroRated = true;   //TODO Change to whatever is set in DB
+        $isOrderZeroRated = ($order->getRecipientVatNumber() === null);
 
         $view->setVariable('order', $order);
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
@@ -804,6 +804,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderIds = $this->params()->fromPost('orders');
         $imagesForOrders = $this->orderService->getImagesForOrders($orderIds);
         return $this->getJsonModelFactory()->newInstance($imagesForOrders);
+    }
+
+    public function markOrderZeroRatedVatAction()
+    {
+        $orderId = $this->params()->fromPost('order');
+        $recipientVatCode = $this->params()->fromPost('vatCode');
+
+        return $this->getJsonModelFactory()->newInstance();
     }
 
     /**
