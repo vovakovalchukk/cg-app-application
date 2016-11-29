@@ -22,7 +22,7 @@ define([
     ProductPayment.prototype.FORM_SUBMIT_SELECTOR = '#zero-rated-vat-submit';
     ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_SELECTOR = '.zero-rated-vat-code-select';
     ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR = 'input[name="zeroRatedVatCode"]';
-    ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR = 'input[name="zeroRatedVatCode"]';
+    ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR = 'input[name="zeroRatedVatNumber"]';
 
     ProductPayment.prototype.listenForZeroRatedVATCheckboxCheck = function () {
         $(ProductPayment.prototype.CHECKBOX_SELECTOR).change(function() {
