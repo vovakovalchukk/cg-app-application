@@ -314,24 +314,27 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/productPaymentInfo');
 
-        $recipientVatNumber = $order->getRecipientVatNumber();
 
         $view->setVariable('order', $order);
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
-        $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
-        $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
 
-        $view->addChild($this->getZeroRatedCheckbox($recipientVatNumber), 'zeroRatedCheckbox');
-        $view->addChild($this->getZeroRatedSelectbox($recipientVatNumber), 'zeroRatedSelectBox');
+        if ($this->orderService->orderEligibleForZeroRateVat($order)) {
+            $recipientVatNumber = $order->getRecipientVatNumber();
+            $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
+            $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
+
+            $view->addChild($this->getZeroRatedCheckbox($recipientVatNumber), 'zeroRatedCheckbox');
+            $view->addChild($this->getZeroRatedSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
+        }
 
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
 
         return $view;
     }
 
-    protected function getZeroRatedSelectbox($recipientVatNumber = null)
+    protected function getZeroRatedSelectbox($order, $recipientVatNumber = null)
     {
-        $initialValue = 'GB';
+        $initialValue = $order->getCalculatedShippingAddressCountryCode();
         if ($recipientVatNumber !== null) {
             $initialValue = substr($recipientVatNumber, 0, 2);
         }
