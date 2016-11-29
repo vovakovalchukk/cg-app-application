@@ -17,6 +17,7 @@ use CG\Image\Filter as ImageFilter;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Locale\CountryCode;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -763,6 +764,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $this->logWarning('Failed to set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
             throw $e;
         }
+    }
+
+    public function orderEligibleForZeroRateVat(OrderEntity $order)
+    {
+        $orderWithinEu = CountryCode::isEUCountryCode($order->getCalculatedShippingAddressCountryCode());
+        $orderHasNoVat = is_numeric($order->getTax()) && $order->getTax() > 0;
+
+        if ($orderWithinEu && $orderHasNoVat) {
+            return true;
+        }
+        return false;
     }
 
     protected function configureOrderTable()
