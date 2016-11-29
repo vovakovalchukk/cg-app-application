@@ -38,7 +38,7 @@ define([
                 url: url,
                 data: {
                     order: self.getOrderId(),
-                    recipientVatCode: vatCode
+                    recipientVatNumber: vatCode
                 },
                 context: this,
                 type: "POST",

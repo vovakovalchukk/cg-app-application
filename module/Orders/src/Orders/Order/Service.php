@@ -754,6 +754,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this;
     }
 
+    public function markAsZeroRatedForVat(OrderEntity $order, $recipientVatNumber)
+    {
+        try {
+            $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
+            $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+        } catch (Exception $e) {
+            $this->logWarning('Failed to set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            throw $e;
+        }
+    }
+
     protected function configureOrderTable()
     {
         $columns = $this->getOrdersTable()->getColumns();
