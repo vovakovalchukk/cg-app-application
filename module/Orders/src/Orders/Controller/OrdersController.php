@@ -823,7 +823,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $this->getOrderService()->markAsZeroRatedForVat($order, $recipientVatNumber);
 
-        return $this->getJsonModelFactory()->newInstance('success', true);
+        return $this->getJsonModelFactory()->newInstance(['success' => true]);
     }
 
     /**
