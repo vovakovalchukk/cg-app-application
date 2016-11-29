@@ -48,7 +48,7 @@
         "channelgrabber/image": "~1.2.2",
         "channelgrabber/intercom": "~1.1.9",
         "channelgrabber/listing": "~1.11.2",
-        "channelgrabber/locale": "~1.0.9",
+        "channelgrabber/locale": "dev-CGIV-6760-zero-rated-vat-invoices as 1.0.10",
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.28",
         "channelgrabber/manual-order": "~1.0.0",

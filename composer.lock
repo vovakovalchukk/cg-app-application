@@ -1070,17 +1070,11 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.9",
+            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "82d22470c62a81f3a62e4f5cf6700b8488ee0b9d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.9-5eab0c.zip",
-                "reference": "82d22470c62a81f3a62e4f5cf6700b8488ee0b9d",
-                "shasum": null
+                "reference": "098b9766023ca2c5d48bd04f6d2d07dabac2f2a6"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -1440,7 +1434,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-28 15:37:51"
+            "time": "2016-11-28T15:37:51+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3870,7 +3864,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -4911,7 +4905,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8102,6 +8096,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.10",
+            "alias_normalized": "1.0.10.0",
+            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
+            "package": "channelgrabber/locale"
+        },
+        {
             "alias": "1.24.4",
             "alias_normalized": "1.24.4.0",
             "version": "dev-CGIV-6760-zero-rated-vat-invoices",
@@ -8110,14 +8110,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
+        "channelgrabber/order": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
