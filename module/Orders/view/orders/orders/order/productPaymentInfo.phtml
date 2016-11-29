@@ -12,7 +12,7 @@
                 <span id="zero-rated-vat-number">
                     <input class="inputbox " type="text" name="zeroRatedVatNumber" id="zero-rated-vat-number" value="<?= isset($vatNumber) ? $vatNumber : ''; ?>" placeholder="VAT Number" autocomplete="on">
                 </span>
-                <button id="zero-rated-vat-submit" class="save button">Apply</button>
+                <button id="zero-rated-vat-submit" class="save button<?= isset($isOrderZeroRated) && $isOrderZeroRated ? ' disabled' : '' ?>">Apply</button>
             </div>
         </span>
     </div>
