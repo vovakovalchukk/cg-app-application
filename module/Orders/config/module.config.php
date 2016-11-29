@@ -347,8 +347,8 @@ return [
                                 'options' => [
                                     'route' => '/markZeroRatedVat',
                                     'defaults' => [
-                                        'controller' => 'Orders\Controller\Order',
-                                        'action' => 'markOrderZeroRatedVat'
+                                        'controller' => Controller\OrdersController::class,
+                                        'action' => 'markZeroRatedVat'
                                     ]
                                 ],
                                 'may_terminate' => true

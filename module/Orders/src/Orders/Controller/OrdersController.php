@@ -806,10 +806,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->getJsonModelFactory()->newInstance($imagesForOrders);
     }
 
-    public function markOrderZeroRatedVatAction()
+    public function markZeroRatedVatAction()
     {
         $orderId = $this->params()->fromPost('order');
-        $recipientVatCode = $this->params()->fromPost('vatCode');
+        $recipientVatCode = $this->params()->fromPost('recipientVatCode');
 
         return $this->getJsonModelFactory()->newInstance();
     }

@@ -31,10 +31,11 @@ define([
             if (! $('input[name="zeroRatedVatCode"]').val() || ! $('input[name="zeroRatedVatNumber"]').val()) {
                 return;
             }
+            var url = '/orders/'+self.getOrderId()+'/markZeroRatedVat';
             var vatCode = $('input[name="zeroRatedVatCode"]').val() + $('input[name="zeroRatedVatNumber"]').val();
             n.notice("Adding Zero-Rate VAT to the order.");
             $.ajax({
-                url: '/order/markZeroRatedVat',
+                url: url,
                 data: {
                     order: self.getOrderId(),
                     recipientVatCode: vatCode
