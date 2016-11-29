@@ -678,6 +678,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $table;
     }
 
+    public function getCarrierPriorityOptions()
+    {
+        $frequentCarrierList = [
+            'DPD',
+            'Interlink',
+            'MyHermes',
+            'Royal Mail',
+        ];
+
+        $carrierDropdownOptions = [];
+        foreach ($frequentCarrierList as $carrier) {
+            $carrierDropdownOptions[] = [
+                'title' => $carrier,
+                'value' => $carrier,
+            ];
+        }
+        return $carrierDropdownOptions;
+    }
+
     protected function addOrderDiscount(Table $table, $discount, $discountDescription)
     {
         if ($discountDescription) {
