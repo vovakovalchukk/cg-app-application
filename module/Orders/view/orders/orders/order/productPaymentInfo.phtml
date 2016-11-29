@@ -1,20 +1,22 @@
 <?php if(count($order->getItems())):?>
 <span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
-<div id="zero-rated-vat-holder">
-    <span class="inputbox-label"><?= $this->translate('EU Zero-Rate VAT'); ?></span>
-    <span class="inputbox-value">
-        <?= $this->zeroRatedCheckbox; ?>
-        <div id="zero-rated-vat-form" <?= isset($isOrderZeroRated) && $isOrderZeroRated ? '' : 'style="display: none"' ?>>
-            <span id="zero-rated-vat-country">
-                <?= $this->zeroRatedSelectBox; ?>
-            </span>
-            <span id="zero-rated-vat-number">
-                <input class="inputbox " type="text" name="zeroRatedVatNumber" id="zero-rated-vat-number" value="<?= isset($vatNumber) ? $vatNumber : ''; ?>" placeholder="VAT Number" autocomplete="on">
-            </span>
-            <button id="zero-rated-vat-submit" class="save button">Apply</button>
-        </div>
-    </span>
-</div>
+    <?php if (isset($isOrderZeroRated)): ?>
+    <div id="zero-rated-vat-holder">
+        <span class="inputbox-label"><?= $this->translate('EU Zero-Rate VAT'); ?></span>
+        <span class="inputbox-value">
+            <?= $this->zeroRatedCheckbox; ?>
+            <div id="zero-rated-vat-form" <?= isset($isOrderZeroRated) && $isOrderZeroRated ? '' : 'style="display: none"' ?>>
+                <span id="zero-rated-vat-country">
+                    <?= $this->zeroRatedSelectBox; ?>
+                </span>
+                <span id="zero-rated-vat-number">
+                    <input class="inputbox " type="text" name="zeroRatedVatNumber" id="zero-rated-vat-number" value="<?= isset($vatNumber) ? $vatNumber : ''; ?>" placeholder="VAT Number" autocomplete="on">
+                </span>
+                <button id="zero-rated-vat-submit" class="save button">Apply</button>
+            </div>
+        </span>
+    </div>
+    <?php endif; ?>
 <div id="products-table">
     <?= $this->productPaymentTable; ?>
 </div>
