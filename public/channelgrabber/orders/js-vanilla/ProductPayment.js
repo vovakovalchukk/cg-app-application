@@ -70,9 +70,10 @@ define([
                 type: "POST",
                 dataType: 'json',
                 success : function(data, textStatus, request) {
-                    if (data.error) {
+                    if (!data.success) {
                         var itid = request.getResponseHeader('ITID-Response');
-                        return n.error("Failed to add Zero-Rate VAT to the order. Please contact support and provide the following reference code:\n"+itid);
+                        var errorMessage = data.error ? data.error : "Error: Please contact support and provide the following reference code: "+itid;
+                        return n.error(errorMessage);
                     }
                     n.success("Successfully added Zero-Rate VAT to the order.");
                     location.reload();
