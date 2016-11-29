@@ -1,27 +1,38 @@
 <?php
 namespace Settings\Invoice;
 
+use CG\Amazon\Aws\Ses\Service as AmazonSesService;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\Service as TemplateService;
 use CG\Template\Entity as Template;
 use CG\Template\SystemTemplateEntity as SystemTemplate;
 use CG\User\ActiveUserInterface;
+use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
 
 class Service
 {
+    const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
+    const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
+    const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
+
     protected $invoiceService;
     protected $templateService;
     protected $organisationUnitService;
     protected $activeUserContainer;
     protected $invoiceSettingsMapper;
     protected $datatable;
-
-    const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
+    protected $userOrganisationUnitService;
     protected $templateImagesMap = [
         'FPS-3'  => 'Form-FPS3.png',
         'FPS-15'  => 'Form-FPS15.png',
@@ -42,47 +53,114 @@ class Service
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer,
         InvoiceSettingsMapper $invoiceSettingsMapper,
-        DataTable $datatable
+        DataTable $datatable,
+        AmazonSesService $amazonSesService,
+        IntercomEventService $intercomEventService,
+        IntercomCompanyService $intercomCompanyService,
+        UserOrganisationUnitService $userOrganisationUnitService
     ) {
-        $this->setInvoiceSettingsService($invoiceSettingsService)
-             ->setTemplateService($templateService)
-             ->setOrganisationUnitService($organisationUnitService)
-             ->setActiveUserContainer($activeUserContainer)
-             ->setInvoiceSettingsMapper($invoiceSettingsMapper)
-             ->setDatatable($datatable);
+        $this->invoiceSettingsService = $invoiceSettingsService;
+        $this->templateService = $templateService;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->invoiceSettingsMapper = $invoiceSettingsMapper;
+        $this->datatable = $datatable;
+        $this->amazonSesService = $amazonSesService;
+        $this->intercomEventService = $intercomEventService;
+        $this->intercomCompanyService = $intercomCompanyService;
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
+    }
+
+    public function saveSettingsFromPostData($data)
+    {
+        $invoiceSettings = $this->getSettings();
+
+        try {
+            $currentAutoEmail = $invoiceSettings->getAutoEmail();
+        } catch (NotFound $e) {
+            $currentAutoEmail = false;
+        }
+
+        try {
+
+            $emailSendAs = $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
+            $data['autoEmail'] = $this->validateAutoEmail($data['autoEmail']);
+            $data['productImages'] = $this->validateProductImages($data['productImages']);
+            $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
+            $data['emailVerified'] = $this->amazonSesService->getVerificationStatus($emailSendAs);
+
+            // If email is not verified and the address has changed, we need to submit a new verification request to SES.
+            if (! $data['emailVerified'] && $this->hasEmailChanged($emailSendAs, $invoiceSettings->getEmailSendAs())) {
+                $data['emailVerified'] = $this->handleEmailVerification($emailSendAs);
+            }
+
+            if (! empty($data['tradingCompanies'])) {
+                $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
+            }
+
+            $settings = array_merge($invoiceSettings->toArray(), $data);
+            $entity = $this->saveSettings($settings);
+
+        } catch (NotModified $e) {
+            // display saved message
+            $entity = $this->getSettings();
+        }
+
+        return $entity;
+    }
+
+    public function getEmailVerifiedStatusFromEntity(Entity $entity)
+    {
+        $emailVerifiedStatus = [];
+
+        if ($entity->getEmailSendAs()) {
+            $emailVerifiedStatus = [$entity->getId() => $this->setEmailVerifiedStatus($entity->isEmailVerified())];
+        }
+
+        if (empty($tradingCompanies = $entity->getTradingCompanies())) {
+            return $emailVerifiedStatus;
+        }
+
+        foreach ($tradingCompanies as $key => $tradingCompany) {
+            if ($tradingCompany['emailSendAs']) {
+                $emailVerifiedStatus[$key] = $this->setEmailVerifiedStatus($tradingCompany['emailVerified']);
+            }
+        }
+
+        return $emailVerifiedStatus;
     }
 
     public function saveSettings($invoiceSettingsArray)
     {
         $invoiceSettingsArray['id'] = $this->getOrganisationUnitId();
-        $entity = $this->getInvoiceSettingsMapper()->fromArray(
+        $entity = $this->invoiceSettingsMapper->fromArray(
             $invoiceSettingsArray
         );
         $entity->setStoredEtag($invoiceSettingsArray['eTag']);
-        $this->getInvoiceSettingsService()->save($entity);
+        $this->invoiceSettingsService->save($entity);
         return $entity;
     }
 
     public function getSettings()
     {
-        return $this->getInvoiceSettingsService()->fetch(
+        return $this->invoiceSettingsService->fetch(
             $this->getOrganisationUnitId()
         );
     }
 
     protected function getOrganisationUnitId()
     {
-        return $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId();
+        return $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
     }
 
     public function getInvoices()
     {
         $organisationUnits = [
-            $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId()
+            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId()
         ];
 
         try {
-            return $this->getTemplateService()->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
+            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
                 $organisationUnits
             );
         } catch (NotFound $e) {
@@ -142,10 +220,10 @@ class Service
     {
         $limit = 'all';
         $page = 1;
-        $ancestor = $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId();
+        $ancestor = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
 
         try {
-            return $this->getOrganisationUnitService()->fetchFiltered(
+            return $this->organisationUnitService->fetchFiltered(
                 $limit,
                 $page,
                 $ancestor
@@ -156,73 +234,125 @@ class Service
     }
 
     /**
-     * @return InvoiceSettingsService
+     * @param $emailSendAs
+     * @return mixed
      */
-    protected function getInvoiceSettingsService()
+    protected function validateEmailSendAs($emailSendAs)
     {
-        return $this->invoiceSettingsService;
-    }
-
-    public function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
-    {
-        $this->invoiceSettingsService = $invoiceSettingsService;
-        return $this;
+        return filter_var($emailSendAs, FILTER_VALIDATE_EMAIL) ? $emailSendAs : null;
     }
 
     /**
-     * @return TemplateService
+     * @param $autoEmail
+     * @return boolean
      */
-    protected function getTemplateService()
+    protected function validateAutoEmail($autoEmail)
     {
-        return $this->templateService;
-    }
-
-    public function setTemplateService(TemplateService $templateService)
-    {
-        $this->templateService = $templateService;
-        return $this;
+        return filter_var($autoEmail, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
-     * @return OrganisationUnitService
+     * @param $productImages
+     * @return boolean
      */
-    protected function getOrganisationUnitService()
+    protected function validateProductImages($productImages)
     {
-        return $this->organisationUnitService;
-    }
-
-    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
+        return filter_var($productImages, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
-     * @return ActiveUserInterface
+     * @param $emailSendAs
+     * @param $invoiceSettingsEmailSendAs
+     * @return bool
      */
-    protected function getActiveUserContainer()
+    protected function hasEmailChanged($emailSendAs, $invoiceSettingsEmailSendAs)
     {
-        return $this->activeUserContainer;
-    }
-
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
+        return $emailSendAs !== $invoiceSettingsEmailSendAs;
     }
 
     /**
-     * @return InvoiceSettingsMapper
+     * @param $currentAutoEmail
+     * @param $autoEmail
+     * @return mixed
      */
-    protected function getInvoiceSettingsMapper()
+    protected function handleAutoEmailChange($currentAutoEmail, $autoEmail)
     {
-        return $this->invoiceSettingsMapper;
+        if ($currentAutoEmail && $autoEmail) {
+            $autoEmail = $currentAutoEmail;
+            // Value unchanged so don't tell intercom
+        } else if ($autoEmail) {
+            $autoEmail = (new DateTime())->stdFormat();
+            $this->notifyOfAutoEmailChange(true);
+        } else {
+            $autoEmail = null;
+            $this->notifyOfAutoEmailChange(false);
+        }
+
+        return $autoEmail;
     }
 
-    public function setInvoiceSettingsMapper(InvoiceSettingsMapper $invoiceSettingsMapper)
+    /**
+     * @param $email
+     * @return bool
+     */
+    protected function handleEmailVerification($email)
     {
-        $this->invoiceSettingsMapper = $invoiceSettingsMapper;
-        return $this;
+        $emailVerified = $this->amazonSesService->getVerificationStatus($email);
+
+        if (!$emailVerified) {
+            $this->amazonSesService->verifyEmailIdentity($email);
+        }
+
+        return $emailVerified;
+    }
+
+    /**
+     * @param array $tradingCompanies
+     * @param array $invoiceSettingsTradingCompanies
+     * @return array
+     */
+    protected function handleTradingCompanyEmailVerification(array $tradingCompanies, array $invoiceSettingsTradingCompanies)
+    {
+        foreach ($tradingCompanies as $key => $value) {
+            $emailSendAs = $tradingCompany['emailSendAs'] = $this->validateEmailSendAs($tradingCompanies[$key]['emailSendAs']);
+            $emailVerified = isset($invoiceSettingsTradingCompanies[$key]['emailVerified']) ? $invoiceSettingsTradingCompanies[$key]['emailVerified'] : false;
+            $invoiceSettingsEmailSendAs = isset($invoiceSettingsTradingCompanies[$key]['emailSendAs']) ? $invoiceSettingsTradingCompanies[$key]['emailSendAs'] : null;
+
+            if ($this->hasEmailChanged($emailSendAs, $invoiceSettingsEmailSendAs)) {
+                $emailVerified = $this->handleEmailVerification($emailSendAs);
+            }
+
+            $tradingCompany['emailVerified'] = $emailVerified;
+            $tradingCompanies[$key] = array_merge($tradingCompanies[$key], $tradingCompany);
+        }
+
+        return $tradingCompanies;
+    }
+
+    /**
+     * @param $emailVerified
+     * @return array
+     */
+    protected function setEmailVerifiedStatus($emailVerified)
+    {
+        $active = ['status' => 'active', 'class' => 'email-verify-status', 'message' => AmazonSesService::STATUS_MESSAGE_VERIFIED];
+        $pending = ['status' => 'pending', 'class' => 'email-verify-status', 'message' => AmazonSesService::STATUS_MESSAGE_PENDING];
+        return $emailVerified ? $active : $pending ;
+    }
+
+    protected function notifyOfSave()
+    {
+        $activeUser = $this->userOrganisationUnitService->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_SAVED_INVOICE_CHANGES, $activeUser->getId());
+        $this->intercomEventService->save($event);
+    }
+
+    protected function notifyOfAutoEmailChange($enabled)
+    {
+        $activeUser = $this->userOrganisationUnitService->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_EMAIL_INVOICE_CHANGES, $activeUser->getId(), ['email-invoice' => (boolean) $enabled]);
+        $this->intercomEventService->save($event);
+        $this->intercomCompanyService->save($this->userOrganisationUnitService->getRootOuByUserEntity($activeUser));
     }
 
     /**

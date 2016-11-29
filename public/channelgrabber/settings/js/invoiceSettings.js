@@ -200,14 +200,8 @@ define(
         {
             $('#setting-etag').val(data.eTag);
 
-            var invoiceSettings = JSON.parse(data.invoiceSettings);
-            console.log(invoiceSettings);
-
-            updateEmailVerifiedStatusForId(invoiceSettings.id, invoiceSettings.emailVerifiedStatus);
-
-            $.each(invoiceSettings.tradingCompanies, function(index, element) {
-                console.log(index);
-                updateEmailVerifiedStatusForId(index, element.emailVerifiedStatus);
+            $.each(data.emailVerifiedStatus, function(index, status) {
+                updateEmailVerifiedStatusForId(index, status);
             });
 
             if (isPendingConfirmationMessageRequired) {

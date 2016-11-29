@@ -1,12 +1,7 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Amazon\Aws\Ses\Service as AmazonSesService;
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Intercom\Company\Service as IntercomCompanyService;
-use CG\Intercom\Event\Request as IntercomEvent;
-use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -43,8 +38,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_VERIFY = 'Verify';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
-    const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
-    const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -55,11 +48,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $invoiceMapper;
     protected $translator;
     protected $config;
-    protected $intercomEventService;
-    protected $intercomCompanyService;
     protected $accountService;
     protected $filter;
-    protected $amazonSesService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -71,10 +61,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         InvoiceMapper $invoiceMapper,
         Translator $translator,
         Config $config,
-        IntercomEventService $intercomEventService,
-        IntercomCompanyService $intercomCompanyService,
-        AccountService $accountService,
-        AmazonSesService $amazonSesService
+        AccountService $accountService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -85,10 +72,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setInvoiceMapper($invoiceMapper)
             ->setTranslator($translator)
             ->setConfig($config)
-            ->setIntercomEventService($intercomEventService)
-            ->setIntercomCompanyService($intercomCompanyService)
             ->setAccountService($accountService);
-		$this->amazonSesService = $amazonSesService;
     }
 
     public function indexAction()
@@ -106,54 +90,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveMappingAction()
     {
-        $data = $this->params()->fromPost();
-        $invoiceSettings = $this->invoiceService->getSettings();
-
-        try {
-            $autoEmail = $invoiceSettings->getAutoEmail();
-        } catch (NotFound $e) {
-            $autoEmail = false;
-        }
-
-        try {
-
-            $data = $this->validateEmailSendAs($data);
-            $data = $this->validateAutoEmail($data);
-            $data = $this->validateProductImages($data);
-			$data = $this->handleAutoEmailChange($autoEmail, $data);
-
-			$emailSendAs = $data['emailSendAs'];
-			$data['emailVerified'] = $this->amazonSesService->getVerificationStatus($emailSendAs);
-
-			// If email is not verified and the address has changed, we need to submit a new verification request to SES.
-            if (! $data['emailVerified'] && $this->hasEmailChanged($emailSendAs, $invoiceSettings->getEmailSendAs())) {
-                $data['emailVerified'] = $this->handleEmailVerification($emailSendAs);
-            }
-
-            if (! empty($data['tradingCompanies'])) {
-                $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
-            }
-
-            $settings = array_merge($invoiceSettings->toArray(), $data);
-            $entity = $this->invoiceService->saveSettings($settings);
-
-        } catch (NotModified $e) {
-            // display saved message
-            $entity = $this->invoiceService->getSettings();
-        }
-
-        $etag = $entity->getStoredETag();
-        $entity = array_merge($entity->toArray(), ['emailVerifiedStatus' => $this->setEmailVerifiedStatus($entity->isEmailVerified())]);
-
-		if (!empty($entity['tradingCompanies'])) {
-			foreach ($entity['tradingCompanies'] as $key => $tradingCompany) {
-				$entity['tradingCompanies'][$key]['emailVerifiedStatus'] = $this->setEmailVerifiedStatus($tradingCompany['emailVerified']);
-			}
-		}
+        $entity = $this->invoiceService->saveSettingsFromPostData($this->params()->fromPost());
+        $emailVerifiedStatus = $this->invoiceService->getEmailVerifiedStatusFromEntity($entity);
 
         return $this->getJsonModelFactory()->newInstance([
             'invoiceSettings' => json_encode($entity),
-            'eTag' => $etag
+            'emailVerifiedStatus' => $emailVerifiedStatus,
+            'eTag' => $entity->getStoredETag()
         ]);
     }
 
@@ -438,142 +381,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $input;
     }
 
-    protected function notifyOfSave()
-    {
-        $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
-        $event = new IntercomEvent(static::EVENT_SAVED_INVOICE_CHANGES, $activeUser->getId());
-        $this->intercomEventService->save($event);
-    }
-
-    protected function notifyOfAutoEmailChange($enabled)
-    {
-        $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
-        $event = new IntercomEvent(static::EVENT_EMAIL_INVOICE_CHANGES, $activeUser->getId(), ['email-invoice' => (boolean) $enabled]);
-        $this->intercomEventService->save($event);
-        $this->intercomCompanyService->save($this->getUserOrganisationUnitService()->getRootOuByUserEntity($activeUser));
-    }
-
-	/**
-	 * @param $data
-	 * @return mixed
-	 */
-	protected function validateEmailSendAs($data)
-	{
-		if (isset($data['emailSendAs'])) {
-			$data['emailSendAs'] = filter_var($data['emailSendAs'], FILTER_VALIDATE_EMAIL) ? $data['emailSendAs'] : null;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * @param $data
-	 * @return mixed
-	 */
-	protected function validateAutoEmail($data)
-	{
-		if (isset($data['autoEmail'])) {
-			$data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
-		}
-
-		return $data;
-	}
-
-	/**
-	 * @param $data
-	 * @return mixed
-	 */
-	protected function validateProductImages($data)
-	{
-		if (isset($data['productImages'])) {
-			$data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
-		}
-
-		return $data;
-	}
-
-	/**
-	 * @param $emailSendAs
-	 * @param $invoiceSettingsEmailSendAs
-	 * @return bool
-	 */
-	protected function hasEmailChanged($emailSendAs, $invoiceSettingsEmailSendAs)
-	{
-		return $emailSendAs !== $invoiceSettingsEmailSendAs;
-	}
-
-	/**
-	 * @param $autoEmail
-	 * @param $data
-	 * @return mixed
-	 */
-	protected function handleAutoEmailChange($autoEmail, $data)
-	{
-		if ($autoEmail && $data['autoEmail']) {
-			$data['autoEmail'] = $autoEmail;
-			// Value unchanged so don't tell intercom
-		} else if ($data['autoEmail']) {
-			$data['autoEmail'] = (new DateTime())->stdFormat();
-			$this->notifyOfAutoEmailChange(true);
-		} else {
-			$data['autoEmail'] = null;
-			$this->notifyOfAutoEmailChange(false);
-		}
-
-		return $data;
-	}
-
-	/**
-	 * @param $email
-	 * @return bool
-	 */
-	protected function handleEmailVerification($email)
-	{
-		$emailVerified = $this->amazonSesService->getVerificationStatus($email);
-
-		if (!$emailVerified) {
-			$this->amazonSesService->verifyEmailIdentity($email);
-		}
-
-		return $emailVerified;
-	}
-
-	/**
-	 * @param array $tradingCompanies
-	 * @param array $invoiceSettingsTradingCompanies
-	 * @return array
-	 */
-	protected function handleTradingCompanyEmailVerification(array $tradingCompanies, array $invoiceSettingsTradingCompanies)
-	{
-		foreach ($tradingCompanies as $key => $value) {
-			$tradingCompany = $this->validateEmailSendAs($tradingCompanies[$key]);
-
-			$emailSendAs = $tradingCompany['emailSendAs'];
-			$emailVerified = isset($invoiceSettingsTradingCompanies[$key]['emailVerified']) ? $invoiceSettingsTradingCompanies[$key]['emailVerified'] : false;
-			$invoiceSettingsEmailSendAs = isset($invoiceSettingsTradingCompanies[$key]['emailSendAs']) ? $invoiceSettingsTradingCompanies[$key]['emailSendAs'] : null;
-
-			if ($this->hasEmailChanged($emailSendAs, $invoiceSettingsEmailSendAs)) {
-				$emailVerified = $this->handleEmailVerification($emailSendAs);
-			}
-
-			$tradingCompany['emailVerified'] = $emailVerified;
-			$tradingCompanies[$key] = $tradingCompany;
-		}
-
-		return $tradingCompanies;
-	}
-
-	/**
-	 * @param $emailVerified
-	 * @return array
-	 */
-	protected function setEmailVerifiedStatus($emailVerified)
-	{
-		$active = ['status' => 'active', 'class' => 'email-verify-status', 'message' => AmazonSesService::STATUS_MESSAGE_VERIFIED];
-		$pending = ['status' => 'pending', 'class' => 'email-verify-status', 'message' => AmazonSesService::STATUS_MESSAGE_PENDING];
-		return $emailVerified ? $active : $pending ;
-	}
-
 	public function getViewModelFactory()
     {
         return $this->viewModelFactory;
@@ -690,23 +497,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this;
     }
 
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    protected function setIntercomCompanyService(IntercomCompanyService $intercomCompanyService)
-    {
-        $this->intercomCompanyService = $intercomCompanyService;
-        return $this;
-    }
-
 	protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
         return $this;
     }
-
-
 }
