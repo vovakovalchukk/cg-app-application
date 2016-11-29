@@ -171,6 +171,7 @@ class Service implements LoggerAwareInterface
         $this->loginService->setUsername($response['user']['email']);
         $this->registerService->setUserData(
             [
+                'referrer' => 'BigCommerce',
                 'email' => $response['user']['email'],
                 'ouName' => isset($storeInformation['name']) ? $storeInformation['name'] : null,
                 'firstName' => $firstName,
