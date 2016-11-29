@@ -11,28 +11,54 @@ define([
 
         this.init = function() {
             this.listenForZeroRatedVATCheckboxCheck();
+            this.listenForVatCodeSelectboxChange();
+            this.listenForVatNumberInputChange();
             this.listenForSubmitZeroRatedVATForm();
         }.call(this);
     }
 
+    ProductPayment.prototype.CHECKBOX_SELECTOR = '#zero-rated-vat-checkbox';
+    ProductPayment.prototype.FORM_SELECTOR = '#zero-rated-vat-form';
+    ProductPayment.prototype.FORM_SUBMIT_SELECTOR = '#zero-rated-vat-submit';
+    ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_SELECTOR = '.zero-rated-vat-code-select';
+    ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR = 'input[name="zeroRatedVatCode"]';
+    ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR = 'input[name="zeroRatedVatCode"]';
+
     ProductPayment.prototype.listenForZeroRatedVATCheckboxCheck = function () {
-        $('#zero-rated-vat-checkbox').change(function() {
+        $(ProductPayment.prototype.CHECKBOX_SELECTOR).change(function() {
             if($(this).is(":checked")) {
-                $('#zero-rated-vat-form').show();
+                $(ProductPayment.prototype.FORM_SELECTOR).show();
             } else {
-                $('#zero-rated-vat-form').hide();
+                $(ProductPayment.prototype.FORM_SELECTOR).hide();
             }
+        });
+    };
+
+    ProductPayment.prototype.listenForVatCodeSelectboxChange = function () {
+        $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_SELECTOR).change(function() {
+            $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).removeClass('disabled');
+        });
+    };
+
+    ProductPayment.prototype.listenForVatNumberInputChange = function () {
+        $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).change(function() {
+            $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).removeClass('disabled');
         });
     };
 
     ProductPayment.prototype.listenForSubmitZeroRatedVATForm = function () {
         var self = this;
-        $('#zero-rated-vat-submit').click(function () {
-            if (! $('input[name="zeroRatedVatCode"]').val() || ! $('input[name="zeroRatedVatNumber"]').val()) {
+        $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).click(function () {
+            if (! $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val()
+                || ! $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val()
+                || $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).hasClass('disabled')) {
                 return;
             }
+
+            $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).addClass('disabled');
             var url = '/orders/'+self.getOrderId()+'/markZeroRatedVat';
-            var vatCode = $('input[name="zeroRatedVatCode"]').val() + $('input[name="zeroRatedVatNumber"]').val();
+            var vatCode = $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val() + $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val();
+
             n.notice("Adding Zero-Rate VAT to the order.");
             $.ajax({
                 url: url,
