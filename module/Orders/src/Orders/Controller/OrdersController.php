@@ -314,22 +314,27 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/productPaymentInfo');
 
-        $isOrderZeroRated = ($order->getRecipientVatNumber() === null);
+        $recipientVatNumber = $order->getRecipientVatNumber();
 
         $view->setVariable('order', $order);
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
-        $view->setVariable('isOrderZeroRated', $isOrderZeroRated);
+        $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
+        $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
 
-        $view->addChild($this->getZeroRatedCheckbox($order), 'zeroRatedCheckbox');
-        $view->addChild($this->getZeroRatedSelectbox($order), 'zeroRatedSelectBox');
+        $view->addChild($this->getZeroRatedCheckbox($recipientVatNumber), 'zeroRatedCheckbox');
+        $view->addChild($this->getZeroRatedSelectbox($recipientVatNumber), 'zeroRatedSelectBox');
 
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
 
         return $view;
     }
 
-    protected function getZeroRatedSelectbox($order)
+    protected function getZeroRatedSelectbox($recipientVatNumber = null)
     {
+        $initialValue = 'GB';
+        if ($recipientVatNumber !== null) {
+            $initialValue = substr($recipientVatNumber, 0, 2);
+        }
         $vatCodes = EUCountryNameByVATCode::getCountryCodeToNameMap();
 
         $vatCodeOptions = [];
@@ -343,7 +348,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'class' => 'zero-rated-vat-code-select',
             'name' => 'zeroRatedVatCode',
             'searchField' => true,
-            'initialValue' => 'GB',
+            'initialValue' => $initialValue,
             'options' => $vatCodeOptions,
         ]);
         $zeroRatedSelectBox->setTemplate('elements/custom-select.mustache');
