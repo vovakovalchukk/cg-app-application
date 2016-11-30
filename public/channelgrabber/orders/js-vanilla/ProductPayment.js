@@ -57,14 +57,14 @@ define([
 
             $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).addClass('disabled');
             var url = '/orders/'+self.getOrderId()+'/markZeroRatedVat';
-            var vatCode = $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val() + $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val();
 
             n.notice("Adding Zero-Rate VAT to the order.");
             $.ajax({
                 url: url,
                 data: {
                     order: self.getOrderId(),
-                    recipientVatNumber: vatCode
+                    countryCode: $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val(),
+                    vatNumber: $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val()
                 },
                 context: this,
                 type: "POST",

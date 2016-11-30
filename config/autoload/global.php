@@ -151,6 +151,8 @@ use CG\Redis\Locking\Storage as LockingRedisStorage;
 use CG\Account\Client\StorageInterface as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 
+use CG\Stdlib\SoapClient as CGSoapClient;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -198,6 +200,13 @@ $config = array(
                 'StockSettingsAccountsAccountColumnView' => ViewModel::class,
                 'StockSettingsAccountsMaxColumnView' => ViewModel::class,
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
+                'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
+            ],
+            'EUVATCodeCheckerSoapClient' => [
+                'parameter' => [
+                    'wsdl' => 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl',
+                    'options' => ['exceptions' => true, 'trace' => true]
+                ]
             ],
             'amazonWriteCGSql' => [
                 'parameter' => [

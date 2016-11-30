@@ -800,13 +800,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function markZeroRatedVatAction()
     {
         $orderId = $this->params()->fromPost('order');
-        $recipientVatNumber = $this->params()->fromPost('recipientVatNumber');
+        $countryCode = $this->params()->fromPost('countryCode');
+        $vatNumber = $this->params()->fromPost('vatNumber');
 
         $order = $this->orderService->getOrder($orderId);
 
         $response = $this->getJsonModelFactory()->newInstance(['success' => false]);
         try {
-            $this->getOrderService()->saveRecipientVatNumberToOrder($order, $recipientVatNumber);
+            $this->getOrderService()->saveRecipientVatNumberToOrder($order, $countryCode, $vatNumber);
             $response->setVariable('success', true);
         } catch(Exception $e) {
             $response->setVariable('error', $e->getMessage());

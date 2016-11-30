@@ -57,6 +57,8 @@ use Orders\Controller\CourierJsonController;
 use Orders\Courier\Service as CourierService;
 use Settings\Factory\SidebarNavFactory;
 
+use CG\Locale\EUVATCodeChecker;
+
 return [
     'service_manager' => [
         'factories' => [
@@ -1764,7 +1766,11 @@ return [
             OrderService::class => [
                 'parameters' => [
                     'orderClient' => OrderClientService::class,
-                    'orderRpcClient' => 'OrderRpcClient'
+                ],
+            ],
+            EUVATCodeChecker::class => [
+                'parameters' => [
+                    'soapClient' => 'EUVATCodeCheckerSoapClient',
                 ],
             ],
             'OrderRpcClient' => [

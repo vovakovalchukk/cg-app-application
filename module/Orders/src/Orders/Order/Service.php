@@ -17,7 +17,7 @@ use CG\Image\Filter as ImageFilter;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Locale\EUCountryNameByVATCode;
+use CG\Locale\EUVATCodeChecker;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -113,6 +113,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     /** @var  McfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
     protected $courierTrackingUrl;
+    /** @var EUVATCodeChecker */
+    protected $euVatCodeChecker;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -138,7 +140,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         DateFormatHelper $dateFormatHelper,
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
-        CourierTrackingUrl $courierTrackingUrl
+        CourierTrackingUrl $courierTrackingUrl,
+        EUVATCodeChecker $euVatCodeChecker
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -163,7 +166,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setDateFormatHelper($dateFormatHelper)
             ->setImageService($imageService)
             ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
-            ->setCourierTrackingUrl($courierTrackingUrl);
+            ->setCourierTrackingUrl($courierTrackingUrl)
+            ->setEUVATCodeChecker($euVatCodeChecker);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -755,16 +759,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this;
     }
 
-    public function saveRecipientVatNumberToOrder(OrderEntity $order, $recipientVatNumber)
+    public function saveRecipientVatNumberToOrder(OrderEntity $order, $countryCode, $vatNumber)
     {
-        if (! EUCountryNameByVATCode::isValidVATCode($recipientVatNumber)) {
-            $this->logWarning('An invalid VAT code %s was attempted to be saved on order %s', [$recipientVatNumber, $order->getId()], static::LOG_CODE);
-            throw new Exception('The provided VAT code is invalid');
-        }
+        $recipientVatNumber = $countryCode.$vatNumber;
 
         try {
-            $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
-            $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            if ($this->euVatCodeChecker->checkVat($countryCode, str_replace(' ', '', $vatNumber))) {
+                $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
+                $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            }
         } catch (Exception $e) {
             $this->logWarning('Failed to set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
             throw $e;
@@ -1318,6 +1321,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
     {
         $this->courierTrackingUrl = $courierTrackingUrl;
+        return $this;
+    }
+
+    protected function setEUVATCodeChecker(EUVATCodeChecker $euVatCodeChecker)
+    {
+        $this->euVatCodeChecker = $euVatCodeChecker;
         return $this;
     }
 }
