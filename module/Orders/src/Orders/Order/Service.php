@@ -768,6 +768,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function orderEligibleForZeroRateVat(OrderEntity $order)
     {
+        $orderIsAlreadyZeroRatedForVat = strlen($order->getRecipientVatNumber());
+        if ($orderIsAlreadyZeroRatedForVat) {
+            return true;
+        }
+
         $orderWithinEu = CountryCode::isEUCountryCode($order->getCalculatedShippingAddressCountryCode());
         $orderHasVat = is_numeric($order->getTax()) && $order->getTax() > 0;
 
