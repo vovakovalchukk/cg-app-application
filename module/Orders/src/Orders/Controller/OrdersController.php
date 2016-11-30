@@ -324,7 +324,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
 
             $view->addChild($this->getZeroRatedCheckbox($recipientVatNumber), 'zeroRatedCheckbox');
-            $view->addChild($this->getZeroRatedSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
+            $view->addChild($this->getReceipientVatNumberSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
         }
 
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
@@ -332,30 +332,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $view;
     }
 
-    protected function getZeroRatedSelectbox($order, $recipientVatNumber = null)
+    protected function getReceipientVatNumberSelectbox($order, $recipientVatNumber = null)
     {
         $initialValue = $order->getCalculatedShippingAddressCountryCode();
         if ($recipientVatNumber !== null) {
             $initialValue = substr($recipientVatNumber, 0, 2);
         }
-        $vatCodes = EUCountryNameByVATCode::getCountryCodeToNameMap();
-
-        $vatCodeOptions = [];
-        foreach ($vatCodes as $vatCode => $countryName) {
-            $vatCodeOptions[] = [
-                'title' => $vatCode,
-                'value' => $vatCode,
-            ];
-        }
-        $zeroRatedSelectBox = $this->viewModelFactory->newInstance([
-            'class' => 'zero-rated-vat-code-select',
-            'name' => 'zeroRatedVatCode',
-            'searchField' => true,
-            'initialValue' => $initialValue,
-            'options' => $vatCodeOptions,
-        ]);
-        $zeroRatedSelectBox->setTemplate('elements/custom-select.mustache');
-        return $zeroRatedSelectBox;
+        return EUCountryNameByVATCode::getVatCodeSelectbox($this->viewModelFactory, $initialValue, 'zero-rated-vat-code-select', 'zeroRatedVatCode');
     }
 
     protected function getZeroRatedCheckbox($isOrderZeroRated)

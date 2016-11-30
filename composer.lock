@@ -1074,7 +1074,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "098b9766023ca2c5d48bd04f6d2d07dabac2f2a6"
+                "reference": "fe78818c1610d7686c29d006e576d3777ba36d07"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -1364,7 +1364,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "760511ecd573e796a29d760ddb5d148849d6dbab"
+                "reference": "ec0e63f77afa8ca9e675157345a1d819adedb449"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
