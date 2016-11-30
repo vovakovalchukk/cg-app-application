@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1eb06868d66efa4fefe4ebbe320fa210",
+    "content-hash": "206a98b8c259bd96efebbd6f9d5716d4",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -92,17 +92,24 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "972254ee5c1104ff88d101c9beb1d2bce53b0e2d"
+                "reference": "b86497d6a0ba041f36326c110d2b7b9f657435e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7089-use-users-email-address-when-sending-invoices-870794.zip",
+                "reference": "b86497d6a0ba041f36326c110d2b7b9f657435e9",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.27.0",
+                "channelgrabber/channel": "^1.27.6",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
+                "channelgrabber/exchangerate": "^1.0.0",
                 "channelgrabber/gearman": "^1.2.22",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
@@ -140,7 +147,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-29 14:28:24"
+            "time": "2016-11-30 10:08:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -916,6 +923,38 @@
                 }
             },
             "time": "2015-04-30T14:35:36+00:00"
+        },
+        {
+            "name": "channelgrabber/exchangerate",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-exchangerate.git",
+                "reference": "47caa85ac5decca8d8c0ec1247032b645bd509ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.1.0-024464.zip",
+                "reference": "47caa85ac5decca8d8c0ec1247032b645bd509ef",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/stdlib": "^2.12.36"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\ExchangeRate\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\ExchangeRate\\Test\\": "tests/src"
+                }
+            },
+            "time": "2016-11-29T15:35:49+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -2281,16 +2320,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.36.1",
+            "version": "2.12.37",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "4274b5b69913db5fe51b9e1ee17abd28a5d7594f"
+                "reference": "683d0e7dcce7f5be13cd82dda431535cc3480360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.36.1-bda091.zip",
-                "reference": "4274b5b69913db5fe51b9e1ee17abd28a5d7594f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.37-39d033.zip",
+                "reference": "683d0e7dcce7f5be13cd82dda431535cc3480360",
                 "shasum": null
             },
             "require": {
@@ -2326,7 +2365,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-11-23T11:49:43+00:00"
+            "time": "2016-11-23T15:50:21+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -8643,8 +8682,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.9",
-            "alias_normalized": "1.19.9.0",
+            "alias": "1.19.11",
+            "alias_normalized": "1.19.11.0",
             "version": "dev-CGIV-7089-use-users-email-address-when-sending-invoices",
             "package": "channelgrabber/amazon"
         },
