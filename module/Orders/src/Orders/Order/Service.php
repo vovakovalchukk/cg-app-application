@@ -18,6 +18,7 @@ use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Locale\CountryCode;
+use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -755,8 +756,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this;
     }
 
-    public function markAsZeroRatedForVat(OrderEntity $order, $recipientVatNumber)
+    public function saveRecipientVatNumberToOrder(OrderEntity $order, $recipientVatNumber)
     {
+        if (! EUCountryNameByVATCode::isValidVATCode($recipientVatNumber)) {
+            $this->logWarning('An invalid VAT code %s was attempted to be saved on order %s', [$recipientVatNumber, $order->getId()], static::LOG_CODE);
+            throw new Exception('The provided VAT code is invalid');
+        }
+
         try {
             $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
             $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);

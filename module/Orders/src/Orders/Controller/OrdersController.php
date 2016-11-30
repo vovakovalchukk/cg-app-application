@@ -802,15 +802,17 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderId = $this->params()->fromPost('order');
         $recipientVatNumber = $this->params()->fromPost('recipientVatNumber');
 
+        $order = $this->orderService->getOrder($orderId);
+
         $response = $this->getJsonModelFactory()->newInstance(['success' => false]);
-        if (! EUCountryNameByVATCode::isValidVATCode($recipientVatNumber)) {
-            return $response->setVariable('error', 'The provided VAT code is invalid');
+        try {
+            $this->getOrderService()->saveRecipientVatNumberToOrder($order, $recipientVatNumber);
+            $response->setVariable('success', true);
+        } catch(Exception $e) {
+            $response->setVariable('error', $e->getMessage());
         }
 
-        $order = $this->orderService->getOrder($orderId);
-        $this->getOrderService()->markAsZeroRatedForVat($order, $recipientVatNumber);
-
-        return $response->setVariable('success', true);
+        return $response;
     }
 
     /**
