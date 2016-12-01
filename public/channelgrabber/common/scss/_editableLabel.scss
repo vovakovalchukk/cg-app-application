@@ -1,0 +1,12 @@
+.editable-label-wrap {
+    display: inline-block;
+    .editable-label {
+        border: 1px solid white;
+        background-color: white;
+        padding: 0 5px 0 5px;
+        &:hover {
+            border: 1px solid $color-lgrey;
+            border-radius: 5px;
+        }
+    }
+}
