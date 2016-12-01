@@ -51,6 +51,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
     const EVENT_MANUAL_STOCK_CHANGE = 'Manual Stock Change';
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
+    const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
 
     protected $userService;
     /** @var ActiveUserInterface */
@@ -168,6 +169,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $this->logWarning(static::LOG_PRODUCT_NOT_FOUND, [$productId, $taxRateId], static::LOG_CODE);
         }  catch (HttpNotModified $e) {
             // Do nothing
+        }
+    }
+
+    public function saveProductName($productId, $newName)
+    {
+        try {
+            $product = $this->getProductService()->fetch($productId);
+
+            $this->getProductService()->save($product->setName($newName));
+        } catch (NotFound $e) {
+            $this->logWarning(static::LOG_PRODUCT_NAME_ERROR, [$productId, $newName], static::LOG_CODE);
         }
     }
 

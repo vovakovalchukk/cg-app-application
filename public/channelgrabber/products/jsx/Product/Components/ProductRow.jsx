@@ -293,6 +293,25 @@ define([
                 variations: updatedVariations
             });
         },
+        updateProductName: function(newName) {
+            n.notice('Updating the product name.');
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: 'products/name',
+                    type: 'POST',
+                    dataType : 'json',
+                    data : { id: this.props.product.id, name: newName },
+                    success: function(response) {
+                        n.success('Product name updated successfully.');
+                        resolve({ newFieldText: newName });
+                    }.bind(this),
+                    error: function(error) {
+                        n.showErrorNotification(error, "There was an error when attempting to update the product name.");
+                        reject(new Error(error));
+                    }
+                });
+            }.bind(this));
+        },
         onVariationDetailChanged: function(updatedVariation) {
             if (this.props.product.variationCount <= 1) {
                 this.setState({
@@ -341,7 +360,7 @@ define([
                         <div className="product-header">
                             <div className="checkbox-and-title">
                                 <Checkbox id={this.props.product.id} />
-                                <EditableField initialFieldText={this.props.product.name} />
+                                <EditableField initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
                             </div>
                             <Status listings={this.props.product.listings} accounts={this.props.product.accounts} />
                         </div>

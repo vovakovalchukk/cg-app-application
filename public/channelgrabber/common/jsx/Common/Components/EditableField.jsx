@@ -33,7 +33,21 @@ define([
             });
         },
         onSubmitInput: function () {
-            console.log(this.state.fieldText);
+            if (! this.state.editable) {
+                return;
+            }
+
+            var promise = this.props.onSubmit(this.state.fieldText);
+            promise.then(function(data) {
+                this.setState({
+                    editable: false,
+                    fieldText: data.newFieldText,
+                    oldFieldText: data.newFieldText
+                });
+            }.bind(this));
+            promise.catch(function(error) {
+                console.log(error.message);
+            });
         },
         render: function () {
             return (
