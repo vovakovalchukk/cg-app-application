@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f782377bb8f684be551891b00687b61e",
+    "content-hash": "9e2007e84222b7e795de44dec443755a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1299,16 +1299,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7666-only-show-enabled-royal-mail-services",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "ba305c73779b7d814af9302803dd270eb044d290"
+                "reference": "7028626a1c334920307c31ee1505db3521ecba48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7666-only-show-enabled-royal-mail-services-356517.zip",
-                "reference": "ba305c73779b7d814af9302803dd270eb044d290",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.2-70dc58.zip",
+                "reference": "7028626a1c334920307c31ee1505db3521ecba48",
                 "shasum": null
             },
             "require": {
@@ -1348,7 +1348,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-11-24 12:22:57"
+            "time": "2016-12-01T09:17:47+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -8317,18 +8317,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
-            "version": "dev-CGIV-7666-only-show-enabled-royal-mail-services",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
