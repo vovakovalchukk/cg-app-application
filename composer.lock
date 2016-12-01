@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3b51f206faaf9dd4aa2bd494445eb57",
+    "content-hash": "969e6eb2576c4ebe6fc4fcff0608c7f8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -71,16 +71,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.8",
+            "version": "1.19.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4293e99bc550b1451e9ee7eb2b6bb70bfaa658fe"
+                "reference": "d673edfa77664230c3112b38855414a4d550bc67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.8-b51e59.zip",
-                "reference": "4293e99bc550b1451e9ee7eb2b6bb70bfaa658fe",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.10-7a1842.zip",
+                "reference": "d673edfa77664230c3112b38855414a4d550bc67",
                 "shasum": null
             },
             "require": {
@@ -91,6 +91,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
+                "channelgrabber/exchangerate": "^1.0.0",
                 "channelgrabber/gearman": "^1.2.22",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
@@ -128,7 +129,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-28T15:33:57+00:00"
+            "time": "2016-11-29T15:33:36+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -409,16 +410,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.6",
+            "version": "1.27.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d2d84ecf15c63a938c7b51a350d741e632a1d16f"
+                "reference": "dfc702515ce51bd9b0e56083138e9f10783e2c11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.6-c52d3f.zip",
-                "reference": "d2d84ecf15c63a938c7b51a350d741e632a1d16f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.7-87604a.zip",
+                "reference": "dfc702515ce51bd9b0e56083138e9f10783e2c11",
                 "shasum": null
             },
             "require": {
@@ -486,7 +487,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-28T15:19:53+00:00"
+            "time": "2016-12-01T09:10:40+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -906,6 +907,38 @@
             "time": "2015-04-30T14:35:36+00:00"
         },
         {
+            "name": "channelgrabber/exchangerate",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-exchangerate.git",
+                "reference": "47caa85ac5decca8d8c0ec1247032b645bd509ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.1.0-024464.zip",
+                "reference": "47caa85ac5decca8d8c0ec1247032b645bd509ef",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/stdlib": "^2.12.36"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\ExchangeRate\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\ExchangeRate\\Test\\": "tests/src"
+                }
+            },
+            "time": "2016-11-29T15:35:49+00:00"
+        },
+        {
             "name": "channelgrabber/gearman",
             "version": "1.2.26",
             "source": {
@@ -1216,16 +1249,16 @@
         },
         {
             "name": "channelgrabber/locking",
-            "version": "1.1.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locking.git",
-                "reference": "a205535f7b4b7e3cfc8e573c0fa11addf21670ee"
+                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.1-8631a6.zip",
-                "reference": "a205535f7b4b7e3cfc8e573c0fa11addf21670ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.0-270824.zip",
+                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b",
                 "shasum": null
             },
             "require": {
@@ -1247,7 +1280,7 @@
                     "CG\\Locking\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-11-01T13:23:48+00:00"
+            "time": "2016-01-27T14:17:45+00:00"
         },
         {
             "name": "channelgrabber/log",
@@ -1330,22 +1363,23 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "ef4af3ea2e927df595316d5143602e48c3bd33e6"
+                "reference": "7028626a1c334920307c31ee1505db3521ecba48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.1-328f56.zip",
-                "reference": "ef4af3ea2e927df595316d5143602e48c3bd33e6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.2-70dc58.zip",
+                "reference": "7028626a1c334920307c31ee1505db3521ecba48",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/email": "^1.0.9",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/order": "^1.23.27",
                 "channelgrabber/stats": "^1.0.0",
@@ -1378,7 +1412,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-11-09T11:23:26+00:00"
+            "time": "2016-12-01T09:17:47+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -1432,16 +1466,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.3",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "32a2b1028f2cb5ef081592a04881c9f044b7592b"
+                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.3-a17675.zip",
-                "reference": "32a2b1028f2cb5ef081592a04881c9f044b7592b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.2-9f3484.zip",
+                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18",
                 "shasum": null
             },
             "require": {
@@ -1506,7 +1540,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-17T13:17:14+00:00"
+            "time": "2016-11-16T09:41:25+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -5552,16 +5586,16 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.4.1",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "8025426794f1944de806618671d4fa476dc7626f"
+                "reference": "3b6fca09c7d56321057fa8867c8dbe1abf648627"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/react-promise-8025426794f1944de806618671d4fa476dc7626f-zip-e25061.zip",
-                "reference": "8025426794f1944de806618671d4fa476dc7626f",
+                "url": "https://composer.build.channelgrabber.com/dist/react-promise-3b6fca09c7d56321057fa8867c8dbe1abf648627-zip-543019.zip",
+                "reference": "3b6fca09c7d56321057fa8867c8dbe1abf648627",
                 "shasum": ""
             },
             "require": {
@@ -5592,7 +5626,7 @@
                 }
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "time": "2016-05-03T17:50:52+00:00"
+            "time": "2015-07-03T13:48:55+00:00"
         },
         {
             "name": "realityking/hash_equals",
@@ -6512,16 +6546,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v3.1.7",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "5a4c8099a1547fe451256e056180ad4624177017"
+                "reference": "9963bc29d7f4398b137dd8efc480efe54fdbe5f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-http-foundation-5a4c8099a1547fe451256e056180ad4624177017-zip-916214.zip",
-                "reference": "5a4c8099a1547fe451256e056180ad4624177017",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-http-foundation-9963bc29d7f4398b137dd8efc480efe54fdbe5f1-zip-9bdc25.zip",
+                "reference": "9963bc29d7f4398b137dd8efc480efe54fdbe5f1",
                 "shasum": ""
             },
             "require": {
@@ -6534,7 +6568,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -6561,7 +6595,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-11-16T22:17:09+00:00"
+            "time": "2016-11-27T04:21:38+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
