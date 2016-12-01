@@ -78,7 +78,7 @@
         "channelgrabber/validation": "~1.2.7",
         "channelgrabber/woocommerce": "~1.2.3",
         "channelgrabber/zendesk": "~1.0.0",
-        "channelgrabber/zf2-amazon": "~1.0.16",
+        "channelgrabber/zf2-amazon": "dev-CGIV-7686-remove-first-courier-page-if-only-one-courier as 1.0.17",
         "channelgrabber/zf2-api": "~1.0.0",
         "channelgrabber/zf2-channel": "~1.0.6",
         "channelgrabber/zf2-ebay": "~1.0.4",
