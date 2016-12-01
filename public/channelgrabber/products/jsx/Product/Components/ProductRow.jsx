@@ -7,6 +7,7 @@ define([
     'Product/Components/Button',
     'Common/Components/Select',
     'Common/Components/SafeInput',
+    'Common/Components/EditableLabel',
     'Product/Components/SimpleTabs/Tabs',
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
@@ -23,6 +24,7 @@ define([
     Button,
     Select,
     Input,
+    EditableLabel,
     Tabs,
     Pane,
     DimensionsView,
@@ -338,7 +340,7 @@ define([
                     <div className="product-info-container">
                         <div className="product-header">
                             <Checkbox id={this.props.product.id} />
-                            <span className="product-title">{this.props.product.name}</span>
+                            <EditableLabel initialLabelText={this.props.product.name} />
                             <Status listings={this.props.product.listings} accounts={this.props.product.accounts} />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
