@@ -1,14 +1,9 @@
 .editable-field-wrap {
     display: inline-block;
-    height: 32px;
-    width: 564px;
     .editable-field {
-        width: 100%;
         border: 1px solid transparent;
         border-radius: 5px;
         padding: 0 5px 0 5px;
-        overflow: visible;
-        outline-offset: -8px;
         &:hover {
             border: 1px solid $color-lgrey;
         }

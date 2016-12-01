@@ -95,7 +95,7 @@
             font-family: $fonts-default;
             font-size: 18px;
             font-weight: 700;
-            padding: 20px 10px 0 20px;
+            padding: 20px 20px 0 20px;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
@@ -115,8 +115,12 @@
                     }
                 }
                 .editable-field-wrap {
+                    height: 32px;
+                    width: 552px;
+                    margin-left: 12px;
                     .editable-field {
                         font-size: 22px;
+                        width: 100%;
                     }
                 }
             }
@@ -300,7 +304,6 @@ span.product-status-holder {
     float: right;
     font-size: 12px;
     font-weight: 400;
-    margin-right: 10px;
     position: relative;
     .product-listing-status-dropdown {
         width: 180px;
