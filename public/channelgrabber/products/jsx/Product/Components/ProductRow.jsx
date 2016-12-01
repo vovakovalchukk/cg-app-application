@@ -339,8 +339,10 @@ define([
                     <input type="hidden" value={this.props.product.eTag} name={"product[" + this.props.product.id + "][eTag]"} />
                     <div className="product-info-container">
                         <div className="product-header">
-                            <Checkbox id={this.props.product.id} />
-                            <EditableField initialFieldText={this.props.product.name} />
+                            <div className="checkbox-and-title">
+                                <Checkbox id={this.props.product.id} />
+                                <EditableField initialFieldText={this.props.product.name} />
+                            </div>
                             <Status listings={this.props.product.listings} accounts={this.props.product.accounts} />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>

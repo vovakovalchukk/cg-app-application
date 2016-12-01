@@ -73,17 +73,6 @@
             margin-bottom: 50px;
         }
     }
-    .checkbox-container {
-        display: inline-block;
-        .checkbox-holder {
-            width: 100%;
-            height: 30px;
-            align-self: center;
-            .std-checkbox {
-                margin: 17px 0px 0px 1px;
-            }
-        }
-    }
     .product-holder {
         width: 190px;
         display: flex;
@@ -108,13 +97,31 @@
             font-weight: 700;
             padding: 20px 10px 0 20px;
             box-sizing: border-box;
-            .editable-field{
-                font-size: 22px;
+            display: flex;
+            justify-content: space-between;
+            .checkbox-and-title {
+                display: flex;
+                .checkbox-container {
+                    display: inline-flex;
+                    width: 32px;
+                    height: 32px;
+                    .checkbox-holder {
+                        width: 100%;
+                        .std-checkbox {
+                            float: none;
+                            display: inline-block;
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+                .editable-field-wrap {
+                    .editable-field {
+                        font-size: 22px;
+                    }
+                }
             }
-            span.product-sku {
-                font-size: 14px;
-                font-weight: 400;
-                margin-left: 10px;
+            .product-status-holder {
+                margin-top: 5px;
             }
         }
         .product-content-container {
