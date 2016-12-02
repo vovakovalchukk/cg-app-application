@@ -14,6 +14,8 @@ use Orders\Courier\ShippingAccountsService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter;
 
 class CourierController extends AbstractActionController
 {
@@ -46,6 +48,8 @@ class CourierController extends AbstractActionController
     protected $ordersToOperatorOn;
     /** @var ShippingAccountsService */
     protected $shippingAccountsService;
+    /** @var OrderService */
+    protected $orderService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -55,7 +59,8 @@ class CourierController extends AbstractActionController
         LabelPrintService $labelPrintService,
         ManifestService $manifestService,
         OrdersToOperateOn $ordersToOperatorOn,
-        ShippingAccountsService $shippingAccountsService
+        ShippingAccountsService $shippingAccountsService,
+        OrderService $orderService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
@@ -64,13 +69,23 @@ class CourierController extends AbstractActionController
             ->setLabelPrintService($labelPrintService)
             ->setManifestService($manifestService)
             ->setOrdersToOperatorOn($ordersToOperatorOn)
-            ->setShippingAccountsService($shippingAccountsService);
+            ->setShippingAccountsService($shippingAccountsService)
+            ->setOrderService($orderService);
     }
 
     public function indexAction()
     {
+        $requestParams = ['action' => 'review'];
+
         $orders = $this->getOrdersFromInput();
-        $requestParams = $this->service->getRequestParams($this->getRequest(), $orders);
+        $shippingAccounts = $this->service->getShippingAccountsForOrders($orders);
+        if (count($shippingAccounts) == 1) {
+            $shippingAccount = array_pop($shippingAccounts);
+            $this->setSpecificsPostParams($orders->getIds(), $shippingAccount['id']);
+
+            $requestParams['action'] = 'specifics';
+            $requestParams['account'] = $shippingAccount['id'];
+        }
         return $this->forward()->dispatch(CourierController::class, $requestParams);
     }
 
@@ -92,6 +107,31 @@ class CourierController extends AbstractActionController
         $view->setVariable('subHeaderHide', true);
 
         return $view;
+    }
+
+    /**
+     * @param array $orderIds
+     * @param int $courierAccountId
+     */
+    protected function setSpecificsPostParams(array $orderIds, $courierAccountId)
+    {
+        $this->getRequest()->getPost()->set('order', $orderIds);
+
+        $filter = (new Filter())
+            ->setOrderIds($orderIds);
+        $orders = $this->orderService->fetchCollectionByFilter($filter);
+
+        $shippingService = $this->service->getShippingServiceForCourier($courierAccountId);
+
+        foreach($orders as $order) {
+
+            $services = $shippingService->getShippingServicesForOrder($order);
+            reset($services);
+            $firstService = key($services);
+
+            $this->getRequest()->getPost()->set('courier_'.$order->getId(), $courierAccountId);
+            $this->getRequest()->getPost()->set('service_'.$order->getId(), $firstService);
+        }
     }
 
     protected function getOrdersFromInput()
@@ -399,6 +439,12 @@ class CourierController extends AbstractActionController
     protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
     {
         $this->shippingAccountsService = $shippingAccountsService;
+        return $this;
+    }
+
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
         return $this;
     }
 }

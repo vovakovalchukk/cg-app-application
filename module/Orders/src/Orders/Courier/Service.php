@@ -13,7 +13,6 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
-use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
@@ -134,7 +133,7 @@ class Service implements LoggerAwareInterface
      *
      * @return array $requestParams
      */
-    public function getRequestParams(RequestInterface $request, OrderCollection $orders)
+    public function getShippingAccountsForOrders(OrderCollection $orders)
     {
         $shippingAccounts = [];
         foreach ($orders as $order) {
@@ -142,44 +141,17 @@ class Service implements LoggerAwareInterface
             $shippingAccounts = array_merge($shippingAccounts, $shippingAccountsForOrder->toArray());
         }
 
-        $shippingAccounts = array_unique($shippingAccounts, SORT_REGULAR);
-        if (count($shippingAccounts) == 1) {
-            $shippingAccount = array_pop($shippingAccounts);
-            $this->setSpecificsPostParams($request, $orders->getIds(), $shippingAccount['id']);
-
-            return [
-                'action' => 'specifics',
-                'account' => $shippingAccount['id'],
-            ];
-        }
-        return ['action' => 'review'];
+        return array_unique($shippingAccounts, SORT_REGULAR);
     }
 
     /**
-     * @param RequestInterface $request
-     * @param array $orderIds
-     * @param int $courierAccountId
+     * @param $courierAccountId
+     * @return \CG\Channel\Shipping\ServicesInterface
      */
-    public function setSpecificsPostParams(RequestInterface $request, array $orderIds, $courierAccountId)
+    public function getShippingServiceForCourier($courierAccountId)
     {
-        $request->getPost()->set('order', $orderIds);
-
-        $filter = (new Filter())
-            ->setOrderIds($orderIds);
-        $orders = $this->orderService->fetchCollectionByFilter($filter);
-
         $courierAccount = $this->accountService->fetch($courierAccountId);
-        $shippingService = $this->shippingServiceFactory->createShippingService($courierAccount);
-
-        foreach($orders as $order) {
-
-            $services = $shippingService->getShippingServicesForOrder($order);
-            reset($services);
-            $firstService = key($services);
-
-            $request->getPost()->set('courier_'.$order->getId(), $courierAccountId);
-            $request->getPost()->set('service_'.$order->getId(), $firstService);
-        }
+        return $this->shippingServiceFactory->createShippingService($courierAccount);
     }
 
     public function getShippingAccounts(Order $order = null)
