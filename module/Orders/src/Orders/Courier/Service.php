@@ -38,12 +38,8 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\DataTable;
 use DateTimeZone;
-use Orders\Controller\CourierController;
-use Orders\Courier\GetProductDetailsForOrdersTrait;
-use Orders\Courier\ShippingAccountsService;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
-use Zend\Stdlib\RequestInterface;
 
 class Service implements LoggerAwareInterface
 {
@@ -128,10 +124,9 @@ class Service implements LoggerAwareInterface
     }
 
     /**
-     * @param RequestInterface $request
      * @param OrderCollection $orders
      *
-     * @return array $requestParams
+     * @return array shippingAccounts
      */
     public function getShippingAccountsForOrders(OrderCollection $orders)
     {

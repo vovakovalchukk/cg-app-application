@@ -365,7 +365,6 @@ return [
                                     'set' => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-
                                             'route' => '/update',
                                             'defaults' => [
                                                 'action' => 'update'
