@@ -131,6 +131,8 @@ class Service implements LoggerAwareInterface
     /**
      * @param RequestInterface $request
      * @param OrderCollection $orders
+     *
+     * @return array $requestParams
      */
     public function getRequestParams(RequestInterface $request, OrderCollection $orders)
     {
@@ -155,8 +157,8 @@ class Service implements LoggerAwareInterface
 
     /**
      * @param RequestInterface $request
-     * @param $orderIds
-     * @param array $shippingAccount
+     * @param array $orderIds
+     * @param int $courierAccountId
      */
     public function setSpecificsPostParams(RequestInterface $request, array $orderIds, $courierAccountId)
     {
