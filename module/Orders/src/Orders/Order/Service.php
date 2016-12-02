@@ -762,10 +762,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function saveRecipientVatNumberToOrder(OrderEntity $order, $countryCode, $vatNumber)
     {
-        $recipientVatNumber = str_replace(' ', '', $countryCode.$vatNumber);
+        $countryCode = str_replace(' ', '', $countryCode);
+        $vatNumber = str_replace(' ', '', $vatNumber);
+        $recipientVatNumber = $countryCode.$vatNumber;
 
         try {
-            if ($this->euVatCodeChecker->checkVat($countryCode, str_replace(' ', '', $vatNumber))) {
+            if ($this->euVatCodeChecker->checkVat($countryCode, $vatNumber)) {
                 $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
                 $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
             }
