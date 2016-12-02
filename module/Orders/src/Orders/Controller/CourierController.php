@@ -69,6 +69,13 @@ class CourierController extends AbstractActionController
 
     public function indexAction()
     {
+        $orders = $this->getOrdersFromInput();
+
+        $shippingAccounts = $this->service->shouldSkipReviewPage($orders);
+        if (count($shippingAccounts) == 1) {
+            $requestParams = $this->service->getSpecificsPageParams($this->getRequest(), $orders->getIds(), array_pop($shippingAccounts));
+            return $this->forward()->dispatch(CourierController::class, $requestParams);
+        }
         return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_REVIEW);
     }
 

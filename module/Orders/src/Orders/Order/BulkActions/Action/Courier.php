@@ -26,7 +26,7 @@ class Courier extends Action
         $this->urlView = $urlView;
         $this->urlView->setVariables(
             [
-                'route' => Module::ROUTE.'/'.CourierController::ROUTE.'/'.CourierController::ROUTE_REVIEW,
+                'route' => Module::ROUTE.'/'.CourierController::ROUTE,
                 'parameters' => []
             ]
         );

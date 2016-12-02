@@ -38,6 +38,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\DataTable;
 use DateTimeZone;
+use Orders\Controller\CourierController;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 use Orders\Courier\ShippingAccountsService;
 use Zend\Di\Di;
@@ -123,6 +124,39 @@ class Service implements LoggerAwareInterface
     {
         $shippingAccounts = $this->getShippingAccounts($order);
         return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
+    }
+
+    public function shouldSkipReviewPage($orders)
+    {
+        $shippingAccounts = [];
+        foreach ($orders as $order) {
+            $shippingAccountsForOrder = $this->getShippingAccounts($order);
+            $mergedAccounts = array_merge($shippingAccounts, $shippingAccountsForOrder->toArray());
+            $shippingAccounts = array_unique($mergedAccounts, SORT_REGULAR);
+        }
+        return $shippingAccounts;
+    }
+
+    public function getSpecificsPageParams($getRequest, $orderIds, $shippingAccount)
+    {
+        $requestParams = [
+            'action' => 'specifics',
+            'account' => $shippingAccount['id'],
+        ];
+        $getRequest->getPost()->set('order', $orderIds);
+        $courierAccount = $this->accountService->fetch($shippingAccount['id']);
+
+        foreach($orderIds as $orderId) {
+            $order = $this->orderService->fetch($orderId);
+            $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+            reset($services);
+            $firstService = key($services);
+
+            $getRequest->getPost()->set('courier_'.$orderId, $shippingAccount['id']);
+            $getRequest->getPost()->set('service_'.$orderId, $firstService);
+        }
+
+        return $requestParams;
     }
 
     public function getShippingAccounts(Order $order = null)
