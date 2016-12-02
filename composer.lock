@@ -1074,7 +1074,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "b6882bc0df94e2b228e4b83b386d2b2b1c3a83f3"
+                "reference": "f4115367d5ace5b64d94bca4e93033b7b03bc409"
             },
             "require": {
                 "php": ">=5.4.0"

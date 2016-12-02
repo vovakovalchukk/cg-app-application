@@ -11,6 +11,7 @@ use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Shipping\CourierTrackingUrl;
 use CG\Channel\Type;
+use CG\ETag\Exception\NotModified;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -166,8 +167,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setDateFormatHelper($dateFormatHelper)
             ->setImageService($imageService)
             ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
-            ->setCourierTrackingUrl($courierTrackingUrl)
-            ->setEUVATCodeChecker($euVatCodeChecker);
+            ->setCourierTrackingUrl($courierTrackingUrl);
+        $this->euVatCodeChecker = $euVatCodeChecker;
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -761,15 +762,21 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function saveRecipientVatNumberToOrder(OrderEntity $order, $countryCode, $vatNumber)
     {
-        $recipientVatNumber = $countryCode.$vatNumber;
+        $recipientVatNumber = str_replace(' ', '', $countryCode.$vatNumber);
 
         try {
             if ($this->euVatCodeChecker->checkVat($countryCode, str_replace(' ', '', $vatNumber))) {
                 $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
                 $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
             }
-        } catch (Exception $e) {
-            $this->logWarning('Failed to set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+        } catch (Conflict $e) {
+            $this->logWarning('Conflict when attempting to set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            throw $e;
+        } catch (NotFound $e) {
+            $this->logWarning('Could not find Order %s when attempting to set recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            throw $e;
+        } catch (NotModified $e) {
+            $this->logWarning('Not modified Order %s when attempting to set recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
             throw $e;
         }
     }
@@ -1321,12 +1328,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
     {
         $this->courierTrackingUrl = $courierTrackingUrl;
-        return $this;
-    }
-
-    protected function setEUVATCodeChecker(EUVATCodeChecker $euVatCodeChecker)
-    {
-        $this->euVatCodeChecker = $euVatCodeChecker;
         return $this;
     }
 }
