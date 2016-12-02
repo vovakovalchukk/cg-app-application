@@ -167,10 +167,13 @@ class Service implements LoggerAwareInterface
         $filter = (new Filter())
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
+
         $courierAccount = $this->accountService->fetch($courierAccountId);
+        $shippingService = $this->shippingServiceFactory->createShippingService($courierAccount);
+
         foreach($orders as $order) {
 
-            $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+            $services = $shippingService->getShippingServicesForOrder($order);
             reset($services);
             $firstService = key($services);
 
