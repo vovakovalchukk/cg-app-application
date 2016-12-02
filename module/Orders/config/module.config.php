@@ -344,13 +344,13 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
-                            'markZeroRatedVat' => [
+                            'recipientVatNumber' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/markZeroRatedVat',
+                                    'route' => '/recipientVatNumber',
                                     'defaults' => [
                                         'controller' => Controller\OrdersController::class,
-                                        'action' => 'markZeroRatedVat'
+                                        'action' => 'setRecipientVatNumber'
                                     ]
                                 ],
                                 'may_terminate' => true

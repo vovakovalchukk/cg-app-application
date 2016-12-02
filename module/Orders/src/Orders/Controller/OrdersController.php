@@ -324,7 +324,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
 
             $view->addChild($this->getZeroRatedCheckbox($recipientVatNumber), 'zeroRatedCheckbox');
-            $view->addChild($this->getReceipientVatNumberSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
+            $view->addChild($this->getRecipientVatNumberSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
         }
 
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
@@ -332,7 +332,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $view;
     }
 
-    protected function getReceipientVatNumberSelectbox($order, $recipientVatNumber = null)
+    protected function getRecipientVatNumberSelectbox($order, $recipientVatNumber = null)
     {
         $initialValue = $order->getCalculatedShippingAddressCountryCode();
         if ($recipientVatNumber !== null) {
@@ -797,7 +797,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->getJsonModelFactory()->newInstance($imagesForOrders);
     }
 
-    public function markZeroRatedVatAction()
+    public function setRecipientVatNumberAction()
     {
         $orderId = $this->params()->fromPost('order');
         $countryCode = $this->params()->fromPost('countryCode');

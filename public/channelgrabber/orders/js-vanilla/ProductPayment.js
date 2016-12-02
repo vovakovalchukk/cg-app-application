@@ -56,7 +56,7 @@ define([
             }
 
             $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).addClass('disabled');
-            var url = '/orders/'+self.getOrderId()+'/markZeroRatedVat';
+            var url = '/orders/'+self.getOrderId()+'/recipientVatNumber';
 
             n.notice("Adding Zero-Rate VAT to the order.");
             $.ajax({
