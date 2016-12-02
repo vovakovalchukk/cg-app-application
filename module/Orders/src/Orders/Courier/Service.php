@@ -13,6 +13,7 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
@@ -43,6 +44,7 @@ use Orders\Courier\GetProductDetailsForOrdersTrait;
 use Orders\Courier\ShippingAccountsService;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
+use Zend\Stdlib\RequestInterface;
 
 class Service implements LoggerAwareInterface
 {
@@ -126,37 +128,53 @@ class Service implements LoggerAwareInterface
         return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
-    public function shouldSkipReviewPage($orders)
+    /**
+     * @param RequestInterface $request
+     * @param OrderCollection $orders
+     */
+    public function getRequestParams(RequestInterface $request, OrderCollection $orders)
     {
         $shippingAccounts = [];
         foreach ($orders as $order) {
             $shippingAccountsForOrder = $this->getShippingAccounts($order);
-            $mergedAccounts = array_merge($shippingAccounts, $shippingAccountsForOrder->toArray());
-            $shippingAccounts = array_unique($mergedAccounts, SORT_REGULAR);
+            $shippingAccounts = array_merge($shippingAccounts, $shippingAccountsForOrder->toArray());
         }
-        return $shippingAccounts;
+
+        $shippingAccounts = array_unique($shippingAccounts, SORT_REGULAR);
+        if (count($shippingAccounts) == 1) {
+            $shippingAccount = array_pop($shippingAccounts);
+            $this->setSpecificsPostParams($request, $orders->getIds(), $shippingAccount['id']);
+
+            return [
+                'action' => 'specifics',
+                'account' => $shippingAccount['id'],
+            ];
+        }
+        return ['action' => 'review'];
     }
 
-    public function getSpecificsPageParams($getRequest, $orderIds, $shippingAccount)
+    /**
+     * @param RequestInterface $request
+     * @param $orderIds
+     * @param array $shippingAccount
+     */
+    public function setSpecificsPostParams(RequestInterface $request, array $orderIds, $courierAccountId)
     {
-        $requestParams = [
-            'action' => 'specifics',
-            'account' => $shippingAccount['id'],
-        ];
-        $getRequest->getPost()->set('order', $orderIds);
-        $courierAccount = $this->accountService->fetch($shippingAccount['id']);
+        $request->getPost()->set('order', $orderIds);
 
-        foreach($orderIds as $orderId) {
-            $order = $this->orderService->fetch($orderId);
+        $filter = (new Filter())
+            ->setOrderIds($orderIds);
+        $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $courierAccount = $this->accountService->fetch($courierAccountId);
+        foreach($orders as $order) {
+
             $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
             reset($services);
             $firstService = key($services);
 
-            $getRequest->getPost()->set('courier_'.$orderId, $shippingAccount['id']);
-            $getRequest->getPost()->set('service_'.$orderId, $firstService);
+            $request->getPost()->set('courier_'.$order->getId(), $courierAccountId);
+            $request->getPost()->set('service_'.$order->getId(), $firstService);
         }
-
-        return $requestParams;
     }
 
     public function getShippingAccounts(Order $order = null)
