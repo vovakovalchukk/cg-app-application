@@ -72,7 +72,7 @@
         "channelgrabber/stdlib": "~2.12.36",
         "channelgrabber/stock": "~1.8.2",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "dev-CGIV-7731-AppPhp71 as 1.4.11",
+        "channelgrabber/template": "~1.4.11",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.22.4",
         "channelgrabber/userpreference": "~1.2.4",
