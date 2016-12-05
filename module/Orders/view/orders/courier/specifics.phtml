@@ -37,7 +37,7 @@ $(document).ready(function()
         <div style="float:left"><span class="logo-large <?=$this->selectedCourier->getChannel();?>"></span></div>
         <div class="heading-buttons" id="courier-specifics-bulk-actions" style="display:none">
             <div class="backorders_btn button-holder">
-                <a href="/orders" class="button"><?=$this->translate('Back To Orders');?></a>
+                <a href="<?= $this->goBackUrl ?>" class="button"><?=$this->translate('Back To Orders');?></a>
             </div>
             <?=$this->bulkActionsButtons;?>
         </div>

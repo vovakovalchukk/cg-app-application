@@ -82,6 +82,7 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $this->prepReviewTable();
 
+        $view->setVariable('goBackUrl', $this->calculateGoBackUrl($orderIds));
         $view->setVariable('orderIds', $orderIds);
         $view->setVariable('specificsUrl', $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS));
         $view->addChild($this->reviewTable, 'reviewTable');
@@ -90,6 +91,16 @@ class CourierController extends AbstractActionController
         $view->setVariable('subHeaderHide', true);
 
         return $view;
+    }
+
+    protected function calculateGoBackUrl(array $orderIds)
+    {
+        $goBackUrl = '/orders';
+        if (count($orderIds) == 1) {
+            reset($orderIds);
+            $goBackUrl .= '/'.current($orderIds);
+        }
+        return $goBackUrl;
     }
 
     protected function getOrdersFromInput()
@@ -164,6 +175,7 @@ class CourierController extends AbstractActionController
 
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('orderIds', $orderIds)
+            ->setVariable('goBackUrl', $this->calculateGoBackUrl($orderIds))
             ->setVariable('courierOrderIds', $courierOrders[$selectedCourierId])
             ->setVariable('orderCouriers', $orderCouriers)
             ->setVariable('orderServices', $orderServices)
