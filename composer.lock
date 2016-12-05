@@ -92,13 +92,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "09c7fc9863ec2d4e6f06bae82191a4c3bffe70b1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7089-use-users-email-address-when-sending-invoices-bb1acf.zip",
-                "reference": "09c7fc9863ec2d4e6f06bae82191a4c3bffe70b1",
-                "shasum": null
+                "reference": "c76507d2accfd8f4e69e5dd0dd00a1f607cf3c4b"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -147,7 +141,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-12-01 12:02:11"
+            "time": "2016-12-02 09:09:42"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -2114,12 +2108,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "4953c4ec3a9805c5bee97712b7a2ddf1131829c9"
+                "reference": "70cf683d1145726932311f5c9d539be3dd6ab77d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7089-use-users-email-address-when-sending-invoices-414276.zip",
-                "reference": "4953c4ec3a9805c5bee97712b7a2ddf1131829c9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7089-use-users-email-address-when-sending-invoices-4db415.zip",
+                "reference": "70cf683d1145726932311f5c9d539be3dd6ab77d",
                 "shasum": null
             },
             "require": {
@@ -2140,7 +2134,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-11-29 11:32:02"
+            "time": "2016-12-05 10:26:31"
         },
         {
             "name": "channelgrabber/shopify",
@@ -3700,13 +3694,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0eba242d83a1898eed197a8c7bd5014cbf36f51f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7089-use-users-email-address-when-sending-invoices-6a60de.zip",
-                "reference": "0eba242d83a1898eed197a8c7bd5014cbf36f51f",
-                "shasum": null
+                "reference": "0213d154af579f4ff4be2e897098b965f56ae8c7"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3753,7 +3741,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-29 14:46:00"
+            "time": "2016-12-02 10:44:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

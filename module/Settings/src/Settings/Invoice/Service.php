@@ -82,31 +82,49 @@ class Service
         }
 
         try {
-
-            $emailSendAs = $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
+            $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
             $data['autoEmail'] = $this->validateAutoEmail($data['autoEmail']);
             $data['productImages'] = $this->validateProductImages($data['productImages']);
             $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
-            $data['emailVerified'] = $this->amazonSesService->getVerificationStatus($emailSendAs);
 
-            // If email is not verified and the address has changed, we need to submit a new verification request to SES.
-            if (! $data['emailVerified'] && $this->hasEmailChanged($emailSendAs, $invoiceSettings->getEmailSendAs())) {
-                $data['emailVerified'] = $this->handleEmailVerification($emailSendAs);
+            if ($data['emailSendAs']) {
+                $data = $this->handleEmailVerification($data);
             }
 
             if (! empty($data['tradingCompanies'])) {
                 $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
+                $data['tradingCompanies'] = $this->reformatTradingCompanies($data['tradingCompanies']);
             }
 
             $settings = array_merge($invoiceSettings->toArray(), $data);
+            $settings['autoEmailAllowed'] = $this->setAutoEmailAllowed($settings);
             $entity = $this->saveSettings($settings);
-
         } catch (NotModified $e) {
-            // display saved message
-            $entity = $this->getSettings();
+            $entity = $invoiceSettings;
         }
 
         return $entity;
+    }
+
+    /**
+     * Reformat trading companies array to move the id key inside the trading companies data
+     * and removing the named key in the main array prevents mongodb from being able to perform queries
+     * on the nested data.
+     *
+     * @param $tradingCompanies
+     * @return array
+     */
+    protected function reformatTradingCompanies($tradingCompanies)
+    {
+        $newTradingCompanies = [];
+
+        foreach ($tradingCompanies as $key => $tradingCompany) {
+            $data = ['id' => $key];
+            $data = array_merge($data, $tradingCompany);
+            $newTradingCompanies[] = $data;
+        }
+
+        return $newTradingCompanies;
     }
 
     public function getEmailVerifiedStatusFromEntity(Entity $entity)
@@ -114,7 +132,7 @@ class Service
         $emailVerifiedStatus = [];
 
         if ($entity->getEmailSendAs()) {
-            $emailVerifiedStatus = [$entity->getId() => $this->setEmailVerifiedStatus($entity->isEmailVerified())];
+            $emailVerifiedStatus = [$entity->getId() => $this->setEmailVerifiedStatus($entity->getEmailVerificationStatus())];
         }
 
         if (empty($tradingCompanies = $entity->getTradingCompanies())) {
@@ -123,7 +141,7 @@ class Service
 
         foreach ($tradingCompanies as $key => $tradingCompany) {
             if ($tradingCompany['emailSendAs']) {
-                $emailVerifiedStatus[$key] = $this->setEmailVerifiedStatus($tradingCompany['emailVerified']);
+                $emailVerifiedStatus[$key] = $this->setEmailVerifiedStatus($tradingCompany['emailVerificationStatus']);
             }
         }
 
@@ -139,98 +157,6 @@ class Service
         $entity->setStoredEtag($invoiceSettingsArray['eTag']);
         $this->invoiceSettingsService->save($entity);
         return $entity;
-    }
-
-    public function getSettings()
-    {
-        return $this->invoiceSettingsService->fetch(
-            $this->getOrganisationUnitId()
-        );
-    }
-
-    protected function getOrganisationUnitId()
-    {
-        return $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
-    }
-
-    public function getInvoices()
-    {
-        $organisationUnits = [
-            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId()
-        ];
-
-        try {
-            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
-                $organisationUnits
-            );
-        } catch (NotFound $e) {
-            return [];
-        }
-    }
-
-    public function getExistingInvoicesForView()
-    {
-        $userInvoices = [];
-        $systemInvoices[] = $this->getBlankTemplate();
-
-        $templates = $this->getInvoices();
-        foreach ($templates as $template) {
-            $templateViewDataElement = $this->getTemplateViewData($template);
-
-            if ($template instanceof SystemTemplate) {
-                $systemInvoices[] = $templateViewDataElement;
-            } else {
-                $userInvoices[] = $templateViewDataElement;
-            }
-        }
-        return ['system' => $systemInvoices, 'user' => $userInvoices];
-    }
-
-    private function getTemplateViewData($template)
-    {
-        $templateViewDataElement['name'] = $template->getName();
-        $templateViewDataElement['key'] = $template->getId();
-        $templateViewDataElement['invoiceId'] = $template->getId();
-        $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
-        $templateViewDataElement['links'] = $template->getViewLinks();
-
-        return $templateViewDataElement;
-    }
-
-    private function getBlankTemplate()
-    {
-        return [
-            'name' => 'Blank',
-            'key' => 'blank',
-            'invoiceId' => '',
-            'imageUrl' => Module::PUBLIC_FOLDER . static::TEMPLATE_THUMBNAIL_PATH . 'blank.png',
-            'links' => [
-                [
-                    'name' => 'Create',
-                    'key' => 'createLinkBlank',
-                    'properties' => [
-                        'href' => '/settings/invoice/designer',
-                    ],
-                ]
-            ]
-        ];
-    }
-
-    public function getTradingCompanies()
-    {
-        $limit = 'all';
-        $page = 1;
-        $ancestor = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
-
-        try {
-            return $this->organisationUnitService->fetchFiltered(
-                $limit,
-                $page,
-                $ancestor
-            );
-        } catch (NotFound $e) {
-            return [];
-        }
     }
 
     /**
@@ -292,18 +218,35 @@ class Service
     }
 
     /**
-     * @param $email
-     * @return bool
+     * @param array $data
+     * @return array
      */
-    protected function handleEmailVerification($email)
+    protected function handleEmailVerification(array $data)
     {
-        $emailVerified = $this->amazonSesService->getVerificationStatus($email);
+        $data = $this->setCurrentVerificationStatus($data);
 
-        if (!$emailVerified) {
-            $this->amazonSesService->verifyEmailIdentity($email);
+        if ($data['emailVerified']) {
+            return $data;
         }
 
-        return $emailVerified;
+        // Send verification request if there is no known status for the email account or if there is a failed status (retry)
+        if (! $data['emailVerificationStatus'] || $data['emailVerificationStatus'] === AmazonSesService::STATUS_FAILED) {
+            $this->amazonSesService->verifyEmailIdentity($data['emailSendAs']);
+            $data = $this->setCurrentVerificationStatus($data);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function setCurrentVerificationStatus(array $data)
+    {
+        $data['emailVerificationStatus'] = $this->amazonSesService->getVerificationStatus($data['emailSendAs']);
+        $data['emailVerified'] = $this->amazonSesService->isStatusVerified($data['emailVerificationStatus']);
+        return $data;
     }
 
     /**
@@ -314,15 +257,16 @@ class Service
     protected function handleTradingCompanyEmailVerification(array $tradingCompanies, array $invoiceSettingsTradingCompanies)
     {
         foreach ($tradingCompanies as $key => $value) {
-            $emailSendAs = $tradingCompany['emailSendAs'] = $this->validateEmailSendAs($tradingCompanies[$key]['emailSendAs']);
-            $emailVerified = isset($invoiceSettingsTradingCompanies[$key]['emailVerified']) ? $invoiceSettingsTradingCompanies[$key]['emailVerified'] : false;
-            $invoiceSettingsEmailSendAs = isset($invoiceSettingsTradingCompanies[$key]['emailSendAs']) ? $invoiceSettingsTradingCompanies[$key]['emailSendAs'] : null;
+            $tradingCompany = [
+                'emailSendAs' => $this->validateEmailSendAs($tradingCompanies[$key]['emailSendAs']),
+                'emailVerified' => isset($invoiceSettingsTradingCompanies[$key]['emailVerified']) ? $invoiceSettingsTradingCompanies[$key]['emailVerified'] : false,
+                'emailVerificationStatus' => isset($invoiceSettingsTradingCompanies[$key]['emailVerificationStatus']) ? $invoiceSettingsTradingCompanies[$key]['emailVerificationStatus'] : null,
+            ];
 
-            if ($this->hasEmailChanged($emailSendAs, $invoiceSettingsEmailSendAs)) {
-                $emailVerified = $this->handleEmailVerification($emailSendAs);
+            if ($tradingCompany['emailSendAs']) {
+                $tradingCompany = $this->handleEmailVerification($tradingCompany);
             }
 
-            $tradingCompany['emailVerified'] = $emailVerified;
             $tradingCompanies[$key] = array_merge($tradingCompanies[$key], $tradingCompany);
         }
 
@@ -330,14 +274,40 @@ class Service
     }
 
     /**
-     * @param $emailVerified
+     * @param $emailVerifiedStatus
      * @return array
      */
-    protected function setEmailVerifiedStatus($emailVerified)
+    public function setEmailVerifiedStatus($emailVerifiedStatus)
     {
-        $active = ['status' => 'active', 'class' => 'email-verify-status', 'message' => AmazonSesService::STATUS_MESSAGE_VERIFIED];
-        $pending = ['status' => 'pending', 'class' => 'email-verify-status', 'message' => AmazonSesService::STATUS_MESSAGE_PENDING];
-        return $emailVerified ? $active : $pending ;
+        $message = '';
+        $message = ($emailVerifiedStatus === AmazonSesService::STATUS_FAILED) ? AmazonSesService::STATUS_MESSAGE_FAILED : $message;
+        $message = ($emailVerifiedStatus === AmazonSesService::STATUS_PENDING) ? AmazonSesService::STATUS_MESSAGE_PENDING : $message;
+        $message = ($emailVerifiedStatus === AmazonSesService::STATUS_VERIFIED) ? AmazonSesService::STATUS_MESSAGE_VERIFIED : $message;
+
+        return [
+            'status' => strtolower($emailVerifiedStatus),
+            'class' => 'email-verify-status',
+            'message' => $message
+        ];
+    }
+
+    protected function setAutoEmailAllowed(array $data)
+    {
+        if (! $data['autoEmail']) {
+            return false;
+        }
+
+        if ($data['emailVerified']) {
+            return true;
+        }
+
+        foreach ($data['tradingCompanies'] as $tradingCompany) {
+            if ($tradingCompany['emailVerified']) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function notifyOfSave()
@@ -353,6 +323,98 @@ class Service
         $event = new IntercomEvent(static::EVENT_EMAIL_INVOICE_CHANGES, $activeUser->getId(), ['email-invoice' => (boolean) $enabled]);
         $this->intercomEventService->save($event);
         $this->intercomCompanyService->save($this->userOrganisationUnitService->getRootOuByUserEntity($activeUser));
+    }
+
+    public function getSettings()
+    {
+        return $this->invoiceSettingsService->fetch(
+            $this->getOrganisationUnitId()
+        );
+    }
+
+    protected function getOrganisationUnitId()
+    {
+        return $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
+    }
+
+    public function getInvoices()
+    {
+        $organisationUnits = [
+            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId()
+        ];
+
+        try {
+            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
+                $organisationUnits
+            );
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    public function getExistingInvoicesForView()
+    {
+        $userInvoices = [];
+        $systemInvoices[] = $this->getBlankTemplate();
+
+        $templates = $this->getInvoices();
+        foreach ($templates as $template) {
+            $templateViewDataElement = $this->getTemplateViewData($template);
+
+            if ($template instanceof SystemTemplate) {
+                $systemInvoices[] = $templateViewDataElement;
+            } else {
+                $userInvoices[] = $templateViewDataElement;
+            }
+        }
+        return ['system' => $systemInvoices, 'user' => $userInvoices];
+    }
+
+    private function getBlankTemplate()
+    {
+        return [
+            'name' => 'Blank',
+            'key' => 'blank',
+            'invoiceId' => '',
+            'imageUrl' => Module::PUBLIC_FOLDER . static::TEMPLATE_THUMBNAIL_PATH . 'blank.png',
+            'links' => [
+                [
+                    'name' => 'Create',
+                    'key' => 'createLinkBlank',
+                    'properties' => [
+                        'href' => '/settings/invoice/designer',
+                    ],
+                ]
+            ]
+        ];
+    }
+
+    public function getTradingCompanies()
+    {
+        $limit = 'all';
+        $page = 1;
+        $ancestor = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
+
+        try {
+            return $this->organisationUnitService->fetchFiltered(
+                $limit,
+                $page,
+                $ancestor
+            );
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    private function getTemplateViewData($template)
+    {
+        $templateViewDataElement['name'] = $template->getName();
+        $templateViewDataElement['key'] = $template->getId();
+        $templateViewDataElement['invoiceId'] = $template->getId();
+        $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
+        $templateViewDataElement['links'] = $template->getViewLinks();
+
+        return $templateViewDataElement;
     }
 
     /**

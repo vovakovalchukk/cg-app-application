@@ -12,7 +12,7 @@ class Mapper
         TemplateCollection $invoices,
         InvoiceSettingsEntity $settings
     ) {
-        $tradingCompanySettings = $settings->getTradingCompanies();
+        $tradingCompanySettings = $this->getTradingCompanySettings($settings, $tradingCompany);
 
         $data = [
             'organisationUnit' => $tradingCompany->getAddressCompanyName(),
@@ -27,22 +27,11 @@ class Mapper
                 'id' => $tradingCompany->getId(),
                 'buttonId' => 'invoiceSendFromAddressVerifyButton_' . $tradingCompany->getId(),
                 'buttonClass' => 'email-verify-button',
-				'value' => null,
+				'value' => isset($tradingCompanySettings['emailSendAs']) ? $tradingCompanySettings['emailSendAs'] : null,
+                'emailVerified' => isset($tradingCompanySettings['emailVerified']) ? $tradingCompanySettings['emailVerified'] : null,
             ]
         ];
-
-        if (isset($tradingCompanySettings[$tradingCompany->getId()]['emailSendAs'])) {
-            $data['sendFromAddress']['value'] = $settings->getTradingCompanies()[$tradingCompany->getId()]['emailSendAs'];
-        }
-
-        if (isset($tradingCompanySettings[$tradingCompany->getId()]['emailVerified'])) {
-            $data['sendFromAddress']['emailVerified'] = $settings->getTradingCompanies()[$tradingCompany->getId()]['emailVerified'];
-        }
-
-        $selected = false;
-        if (isset($tradingCompanySettings[$tradingCompany->getId()]['assignedInvoice'])) {
-            $selected = $settings->getTradingCompanies()[$tradingCompany->getId()]['assignedInvoice'];
-        }
+        $selected = isset($tradingCompanySettings['assignedInvoice']) ? $tradingCompanySettings['assignedInvoice'] : false;
 
         foreach ($invoices as $invoice) {
             $data['options'][] = [
@@ -52,5 +41,19 @@ class Mapper
             ];
         }
         return $data;
+    }
+
+    protected function getTradingCompanySettings($settings, $tradingCompany)
+    {
+        $tradingCompanySettings = $settings->getTradingCompanies();
+        $tradingCompanySettings = array_filter($tradingCompanySettings, function($record) use ($tradingCompany) {
+            return ($record['id'] === $tradingCompany->getId());
+        });
+
+        if (isset($tradingCompanySettings[0])) {
+            return $tradingCompanySettings[0];
+        }
+
+        return [];
     }
 }

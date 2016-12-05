@@ -51,6 +51,10 @@
         overflow: visible;
         text-align: center;
     }
+
+    td:nth-child(3) {
+        text-align: left;
+    }
 }
 .invoiceDefaultSettings {
     @include calc(width, "100% - 60px");
@@ -116,11 +120,9 @@
     display: flex;
     width: 100%;
     position: relative;
-    left: 10px;
 
-    &.center {
-        justify-content: center;
-    }
+
+    left: 10px;
 
     .inputbox {
         max-width: 230px;

@@ -21,12 +21,10 @@ define(
         var emailVerifyHolderSelector = '.email-send-as-holder';
         var isPendingConfirmationMessageRequired = false;
 
-        var emailVerifiedStatusSelector = '#emailVerifiedStatus';
         var emailInvoiceFieldsSelector = container + ' .emailInvoiceFields';
         var emailInvoiceNotificationSelector = '#emailInvoiceNotification';
 
         var emailBccField = $(emailBccSelector);
-        var emailVerifiedStatus = $(emailVerifiedStatusSelector);
 
         var init = function ()
         {
@@ -69,12 +67,21 @@ define(
             });
 
             $(document).on('click', autoEmailSettingsSelector, function () {
+                var emailVerifyInputFields = $(emailVerifyInputSelector);
+                var emailVerifyInputFieldsEmpty = true;
+
                 $(emailInvoiceFieldsSelector).toggleClass('hidden');
                 $(invoiceSendFromAddressColumnHeadSelector).toggle();
                 $(invoiceSendFromAddressColumnSelector).toggle();
 
-                // If checked and sendEmailAs has no value, skip save.
-                if (getElementOnClickCheckedStatus(this.id) && $(emailSendAsSelector).val() == '') {
+                $.each(emailVerifyInputFields, function(index, el) {
+                    if (el.value !== '') {
+                        emailVerifyInputFieldsEmpty = false;
+                    }
+                });
+
+                // If checked and all trading companies have no values, skip save.
+                if (getElementOnClickCheckedStatus(this.id) && emailVerifyInputFieldsEmpty) {
                     $(emailInvoiceNotificationSelector).removeClass('hidden');
                     return;
                 }
@@ -126,6 +133,8 @@ define(
                     isPendingConfirmationMessageRequired = false;
                 }, ['Ok']);
             });
+
+            $(emailInvoiceNotificationSelector).removeClass('hidden');
         }
 
         function ajaxSave(object)
@@ -199,6 +208,9 @@ define(
         function handleVerifyResponse(data)
         {
             $('#setting-etag').val(data.eTag);
+            $(emailVerifyButtonSelector).prop('disabled', false)
+                .removeClass('verifying')
+                .text('Verify');
 
             $.each(data.emailVerifiedStatus, function(index, status) {
                 updateEmailVerifiedStatusForId(index, status);
@@ -211,11 +223,7 @@ define(
 
         function updateEmailVerifiedStatusForId(id, emailVerifiedStatus)
         {
-            var emailVerifyButton = $(emailVerifyButtonSelector + '[data-id='+id+']')
-                .addClass('hidden')
-                .prop('disabled', false)
-                .removeClass('verifying')
-                .text('Verify');
+            var emailVerifyButton = $(emailVerifyButtonSelector + '[data-id='+id+']').addClass('hidden');
             var target = emailVerifyButton.parent(emailVerifyHolderSelector);
 
             refreshEmailVerifiedStatus(emailVerifiedStatus, target);
@@ -305,8 +313,9 @@ define(
     InvoiceSettings.POPUP_WIDTH_PX = 400;
     InvoiceSettings.POPUP_HEIGHT_PX = 'auto';
     InvoiceSettings.SUCCESS_MESSAGE = 'Settings Saved';
-    InvoiceSettings.EMAIL_STATUS_VERIFIED = 'active';
+    InvoiceSettings.EMAIL_STATUS_VERIFIED = 'success';
     InvoiceSettings.EMAIL_STATUS_PENDING = 'pending';
+    InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';
 
     InvoiceSettings.prototype.save = function(callback)
     {

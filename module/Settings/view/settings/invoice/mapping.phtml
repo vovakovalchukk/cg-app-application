@@ -60,12 +60,8 @@ $(document).ready(function() {
                     <div class="email-send-as-holder">
                         <?= $emailSendAsInput ?>
 
-                        <?php if ($emailSendAs): ?>
-                            <?php if ($emailVerified): ?>
-                                <span class="status active email-verify-status">Verified</span>
-                            <?php else: ?>
-                                <span class="status pending email-verify-status">Awaiting verification</span>
-                            <?php endif; ?>
+                        <?php if (isset($emailVerificationStatus)): ?>
+                            <?= $emailVerificationStatus ?>
                         <?php endif; ?>
 
                         <button id="emailVerifyButton" data-id="<?= $invoiceSettings->getId() ?>" class="button inline email-verify-button <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
