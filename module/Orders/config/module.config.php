@@ -1116,6 +1116,8 @@ return [
                 'OrdersPrintedDateColumn' => DataTable\Column::class,
                 'OrdersDispatchedDateColumnView' => ViewModel::class,
                 'OrdersDispatchedDateColumn' => DataTable\Column::class,
+                'OrdersLabelCreatedDateColumnView' => ViewModel::class,
+                'OrdersLabelCreatedDateColumn' => DataTable\Column::class,
                 'OrdersInvoiceEmailedDateColumnView' => ViewModel::class,
                 'OrdersInvoiceEmailedDateColumn' => DataTable\Column::class,
                 'OrdersPaymentMethodColumnView' => ViewModel::class,
@@ -1278,6 +1280,7 @@ return [
                         ['column' => 'OrdersPaymentDateColumn'],
                         ['column' => 'OrdersPrintedDateColumn'],
                         ['column' => 'OrdersDispatchedDateColumn'],
+                        ['column' => 'OrdersLabelCreatedDateColumn'],
                         ['column' => 'OrdersInvoiceEmailedDateColumn'],
                         ['column' => 'OrdersPaymentMethodColumn'],
                         ['column' => 'OrdersPaymentReferenceColumn'],
@@ -1620,6 +1623,21 @@ return [
                     'column' => 'dispatchDate',
                     'viewModel' => 'OrdersDispatchedDateColumnView',
                     'class' => 'order-dispatched-date-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersLabelCreatedDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Label Created<br>Date'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersLabelCreatedDateColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'labelCreatedDate',
+                    'viewModel' => 'OrdersLabelCreatedDateColumnView',
+                    'class' => 'order-label-created-date-col',
                     'sortable' => true,
                 ]
             ],
