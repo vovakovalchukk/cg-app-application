@@ -11,23 +11,28 @@ class Merchant extends DefaultMap
         return [
             Status::AWAITING_PAYMENT => [
                 static::CANCEL,
+                static::COURIER,
                 static::PAY
             ],
             Status::NEW_ORDER => [
                 static::CANCEL,
                 static::DISPATCH,
+                static::COURIER,
                 static::REFUND
             ],
             Status::DISPATCHING => [
                 static::CANCEL,
+                static::COURIER,
                 static::REFUND
             ],
             Status::DISPATCHED => [
+                static::COURIER,
                 static::REFUND
             ],
             Status::UNKNOWN => [
                 static::CANCEL,
                 static::DISPATCH,
+                static::COURIER,
                 static::REFUND
             ],
             Status::CANCELLING => [],

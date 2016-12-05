@@ -63,6 +63,6 @@ class Courier extends Action implements OrderAwareInterface
     public function setOrder(Order $order)
     {
         $actions = array_fill_keys($this->actionDecider->getAvailableActionsForOrder($order), true);
-        $this->setEnabled(isset($actions[ActionDeciderMap::DISPATCH]));
+        $this->setEnabled(isset($actions[ActionDeciderMap::COURIER]));
     }
 } 

@@ -4,21 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e2007e84222b7e795de44dec443755a",
+    "content-hash": "209bc870a67dcd12a7f595e75a51def5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.10",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d673edfa77664230c3112b38855414a4d550bc67"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.10-7a1842.zip",
-                "reference": "d673edfa77664230c3112b38855414a4d550bc67",
-                "shasum": null
+                "reference": "7ba56ce785f2ee35c77f26cf021dd7133f103de9"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -347,17 +341,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.7",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "dfc702515ce51bd9b0e56083138e9f10783e2c11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.7-87604a.zip",
-                "reference": "dfc702515ce51bd9b0e56083138e9f10783e2c11",
-                "shasum": null
+                "reference": "8a3b0f464df126a698aef48b65c252807b7e716a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -526,7 +514,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -667,17 +655,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.69",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "90b0066317c4a40e2b7cf2c3081d35d5990db9c0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.69-5926c1.zip",
-                "reference": "90b0066317c4a40e2b7cf2c3081d35d5990db9c0",
-                "shasum": null
+                "reference": "d29f1f697adf46c3d2c39b61a7dda67805b7c90f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -725,17 +707,11 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.8.37",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "f8e04d83eed08fb8592f993c9623b16c6e304cb6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.37-3224ad.zip",
-                "reference": "f8e04d83eed08fb8592f993c9623b16c6e304cb6",
-                "shasum": null
+                "reference": "07d4378bc67ade271f20e1bf412d63d77030cfbd"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -4987,7 +4963,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8317,16 +8293,45 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.11",
+            "alias_normalized": "1.19.11.0",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.27.8",
+            "alias_normalized": "1.27.8.0",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.9.70",
+            "alias_normalized": "1.9.70.0",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.8.38",
+            "alias_normalized": "1.8.38.0",
+            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "package": "channelgrabber/ekm"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
