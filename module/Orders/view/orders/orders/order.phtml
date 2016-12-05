@@ -48,6 +48,7 @@ require([
 
 });
 <?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
 
