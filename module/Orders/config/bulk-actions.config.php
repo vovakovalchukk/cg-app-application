@@ -141,6 +141,7 @@ return [
                     'addAction' => [
                         ['action' => 'Invoice'],
                         ['action' => Action\Dispatch::class],
+                        ['action' => Action\Courier::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Cancel::class],
                         ['action' => Action\Pay::class],
