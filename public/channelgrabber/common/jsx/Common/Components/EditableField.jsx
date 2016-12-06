@@ -62,6 +62,7 @@ define([
                         title="Click to edit"
                         className={"editable-field " + (this.state.editable ? "active" : "")}
                         value={this.state.fieldText}
+                        onKeyPress={this.onKeyPress}
                         onClick={this.onClick}
                         onChange={function(e){this.setState({fieldText:e.target.value});}.bind(this)}
                         onFocus={function(){this.refs.input.select()}.bind(this)}
