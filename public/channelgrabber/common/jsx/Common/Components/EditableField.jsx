@@ -32,6 +32,11 @@ define([
                 fieldText: this.state.oldFieldText
             });
         },
+        onKeyPress: function (e) {
+            if (e.key === 'Enter') {
+                this.onSubmitInput();
+            }
+        },
         onSubmitInput: function () {
             if (! this.state.editable) {
                 return;
