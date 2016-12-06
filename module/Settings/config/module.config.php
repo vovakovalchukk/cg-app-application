@@ -1002,7 +1002,7 @@ return [
             ],
             'InvoiceSendFromAddressColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Send From Address'],
+                    'variables' => ['value' => 'Send From Email'],
                     'template' => 'value.phtml',
                 ],
             ],

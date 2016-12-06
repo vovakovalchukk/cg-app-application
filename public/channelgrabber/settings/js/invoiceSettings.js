@@ -48,6 +48,11 @@ define(
             $(document).on('click', emailVerifyButtonSelector, function (e) {
                 e.preventDefault();
 
+                if (! validateEmailFields()) {
+                    n.error(InvoiceSettings.EMAIL_VALIDATION_FAILED);
+                    return;
+                }
+
                 if (getElementOnClickCheckedStatus('autoEmail') && hasAmazonAccount == true) {
                     showConfirmationMessageForAmazonAccount(self, $(this));
                 } else {
@@ -104,6 +109,27 @@ define(
             });
         };
 
+        function validateEmailFields()
+        {
+            var valid = true;
+
+            // If auto email is being switch off we can skip validation
+            if (! getElementOnClickCheckedStatus('autoEmail')) {
+                return true;
+            }
+
+            var emailFields = $(emailVerifyInputSelector);
+            $.each(emailFields, function(index, item) {
+                console.log(item.value.match(/no-reply@orderhub.io/gi));
+
+                if (item.value.match(/no-reply@orderhub.io/gi)) {
+                    valid = false;
+                }
+            });
+
+            return valid;
+        }
+
         function showConfirmationMessageForAmazonAccount(self, emailVerifyButton)
         {
             var templateUrlMap = {
@@ -139,6 +165,11 @@ define(
 
         function ajaxSave(object)
         {
+            if (! validateEmailFields()) {
+                n.error(InvoiceSettings.EMAIL_VALIDATION_FAILED);
+                return;
+            }
+
             object.save(handleSaveResponse);
         }
 
@@ -313,6 +344,7 @@ define(
     InvoiceSettings.POPUP_WIDTH_PX = 400;
     InvoiceSettings.POPUP_HEIGHT_PX = 'auto';
     InvoiceSettings.SUCCESS_MESSAGE = 'Settings Saved';
+    InvoiceSettings.EMAIL_VALIDATION_FAILED = 'We no longer send email invoices using no-reply@orderhub.io. Update the Send From Email to an alternative email address before saving.';
     InvoiceSettings.EMAIL_STATUS_VERIFIED = 'success';
     InvoiceSettings.EMAIL_STATUS_PENDING = 'pending';
     InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';

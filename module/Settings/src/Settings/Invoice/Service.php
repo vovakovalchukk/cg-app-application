@@ -132,16 +132,16 @@ class Service
         $emailVerifiedStatus = [];
 
         if ($entity->getEmailSendAs()) {
-            $emailVerifiedStatus = [$entity->getId() => $this->setEmailVerifiedStatus($entity->getEmailVerificationStatus())];
+            $emailVerifiedStatus[$entity->getId()] = $this->setEmailVerifiedStatus($entity->getEmailVerificationStatus());
         }
 
         if (empty($tradingCompanies = $entity->getTradingCompanies())) {
             return $emailVerifiedStatus;
         }
 
-        foreach ($tradingCompanies as $key => $tradingCompany) {
+        foreach ($tradingCompanies as $tradingCompany) {
             if ($tradingCompany['emailSendAs']) {
-                $emailVerifiedStatus[$key] = $this->setEmailVerifiedStatus($tradingCompany['emailVerificationStatus']);
+                $emailVerifiedStatus[$tradingCompany['id']] = $this->setEmailVerifiedStatus($tradingCompany['emailVerificationStatus']);
             }
         }
 
