@@ -88,7 +88,7 @@ class Service
     protected function getTimelineBox(OrderEntity $order, array $timelineHeading)
     {
         $dateFormatter = $this->dateFormatHelper;
-        $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
+        $unixTime = strtotime($order->{$timelineHeading["get"]}()) ?: null;
         $timelineBox = [
             'title' => $timelineHeading["title"],
             'subtitle' => $unixTime ? $dateFormatter($unixTime, "jS M Y") : "N/A",
