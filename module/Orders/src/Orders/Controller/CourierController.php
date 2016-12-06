@@ -82,7 +82,7 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $this->prepReviewTable();
 
-        $view->setVariable('goBackUrl', $this->calculateGoBackUrl($orderIds));
+        $view->setVariable('goBackUrl', $this->calculateGoBackUrl());
         $view->setVariable('orderIds', $orderIds);
         $view->setVariable('specificsUrl', $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS));
         $view->addChild($this->reviewTable, 'reviewTable');
@@ -93,13 +93,10 @@ class CourierController extends AbstractActionController
         return $view;
     }
 
-    protected function calculateGoBackUrl(array $orderIds)
+    protected function calculateGoBackUrl()
     {
-        $goBackUrl = '/orders';
-        if (count($orderIds) == 1) {
-            reset($orderIds);
-            $goBackUrl .= '/'.current($orderIds);
-        }
+        $goBackUrlDefault = '/orders';
+        $goBackUrl = $this->params()->fromPost('referrer', $goBackUrlDefault);
         return $goBackUrl;
     }
 
@@ -175,7 +172,7 @@ class CourierController extends AbstractActionController
 
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('orderIds', $orderIds)
-            ->setVariable('goBackUrl', $this->calculateGoBackUrl($orderIds))
+            ->setVariable('goBackUrl', $this->calculateGoBackUrl())
             ->setVariable('courierOrderIds', $courierOrders[$selectedCourierId])
             ->setVariable('orderCouriers', $orderCouriers)
             ->setVariable('orderServices', $orderServices)
