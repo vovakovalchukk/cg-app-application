@@ -1628,7 +1628,8 @@ return [
             ],
             'OrdersLabelCreatedDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Label Created<br>Date'],
+                    'variables' => ['value' => 'Shipping Label<br>Created Date'],
+
                     'template' => 'value.phtml',
                 ]
             ],
