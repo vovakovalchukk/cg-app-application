@@ -30,6 +30,9 @@ use CG\Order\Shared\Item\Entity as ItemEntity;
 use CG\Order\Shared\Item\GiftWrap\Collection as GiftWrapCollection;
 use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrapEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
@@ -112,6 +115,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     /** @var  McfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
     protected $courierTrackingUrl;
+    protected $orderLabelService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -137,7 +141,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         DateFormatHelper $dateFormatHelper,
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
-        CourierTrackingUrl $courierTrackingUrl
+        CourierTrackingUrl $courierTrackingUrl,
+        OrderLabelService $orderLabelService
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -162,7 +167,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setDateFormatHelper($dateFormatHelper)
             ->setImageService($imageService)
             ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
-            ->setCourierTrackingUrl($courierTrackingUrl);
+            ->setCourierTrackingUrl($courierTrackingUrl)
+            ->setOrderLabelService($orderLabelService);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -185,7 +191,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
         $orders = $this->getOrdersArrayWithProductImage($orders);
         $orders = $this->getOrdersArrayWithTrackingUrl($orders);
-        
+        $orders = $this->getOrdersArrayWithLabelData($orders);
+
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
             $filterId = $orderCollection->getFilterId();
@@ -377,6 +384,26 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             }
         }
 
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithLabelData(array $orders)
+    {
+        $dateFormatter = $this->dateFormatHelper;
+        $orderIds = [];
+        foreach ($orders as $order) {
+            $orderIds[$order['id']] = $order['id'];
+        }
+        $filter = (new OrderLabelFilter())
+            ->setOrderId($orderIds);
+        $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
+        $labelPrintedDates = [];
+        foreach ($labels as $index => $label) {
+            $labelPrintedDates[$label->getOrderId()] = $dateFormatter($label->getCreated(), StdlibDateTime::FORMAT);
+        }
+        foreach ($orders as $index => $order) {
+            $orders[$index]['labelCreatedDate'] = isset($labelPrintedDates[$order['id']]) ? $labelPrintedDates[$order['id']] : "";
+        }
         return $orders;
     }
 
@@ -1320,6 +1347,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
     {
         $this->courierTrackingUrl = $courierTrackingUrl;
+        return $this;
+    }
+
+    protected function setOrderLabelService(OrderLabelService $orderLabelService)
+    {
+        $this->orderLabelService = $orderLabelService;
         return $this;
     }
 }
