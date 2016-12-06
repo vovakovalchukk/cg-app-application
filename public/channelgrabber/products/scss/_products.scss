@@ -73,17 +73,6 @@
             margin-bottom: 50px;
         }
     }
-    .checkbox-container {
-        display: inline-block;
-        .checkbox-holder {
-            width: 100%;
-            height: 30px;
-            align-self: center;
-            .std-checkbox {
-                margin: 17px 0px 0px 1px;
-            }
-        }
-    }
     .product-holder {
         width: 190px;
         display: flex;
@@ -106,15 +95,38 @@
             font-family: $fonts-default;
             font-size: 18px;
             font-weight: 700;
-            padding: 20px 10px 0 20px;
+            padding: 20px 20px 0 20px;
             box-sizing: border-box;
-            span.product-title {
-                font-size: 22px;
+            display: flex;
+            justify-content: space-between;
+            .checkbox-and-title {
+                display: flex;
+                .checkbox-container {
+                    display: inline-flex;
+                    width: 32px;
+                    height: 32px;
+                    .checkbox-holder {
+                        width: 100%;
+                        .std-checkbox {
+                            float: none;
+                            display: inline-block;
+                            margin-bottom: 9px;
+                        }
+                    }
+                }
+                .editable-field-wrap {
+                    height: 32px;
+                    width: 552px;
+                    margin-left: 5px;
+                    .editable-field {
+                        font-size: 22px;
+                        font-weight: 700;
+                        width: 100%;
+                    }
+                }
             }
-            span.product-sku {
-                font-size: 14px;
-                font-weight: 400;
-                margin-left: 10px;
+            .product-status-holder {
+                margin-top: 5px;
             }
         }
         .product-content-container {
@@ -293,7 +305,6 @@ span.product-status-holder {
     float: right;
     font-size: 12px;
     font-weight: 400;
-    margin-right: 10px;
     position: relative;
     .product-listing-status-dropdown {
         width: 180px;

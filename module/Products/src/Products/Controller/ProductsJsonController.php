@@ -37,6 +37,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
+    const ROUTE_NEW_NAME = 'newName';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
@@ -301,6 +302,18 @@ class ProductsJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance(
             $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel)
+        );
+    }
+
+    public function saveProductNameAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('id');
+        $name = $this->params()->fromPost('name');
+
+        return $this->jsonModelFactory->newInstance(
+            $this->getProductService()->saveProductName($productId, $name)
         );
     }
 

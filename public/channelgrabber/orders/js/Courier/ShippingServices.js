@@ -87,7 +87,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             id: ShippingServices.SELECT_ID_PREFIX + 'select-' + orderId,
             name: name || 'service_' + orderId,
             class: 'courier-service-select',
-            searchField: false,
+            searchField: true,
             options: serviceOptions
         };
         var html = cgMustache.renderTemplate(template, data);
