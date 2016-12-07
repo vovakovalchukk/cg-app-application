@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a16bc6513f6121f6826d678d8b44e8d",
+    "content-hash": "205ea283501cdd0838260043390f82e1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -593,16 +593,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-7801-UpdateFPDF",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "737620eca92c5b92c931e220462375cc6eaf1fd4"
+                "reference": "63efd756ef6cc5ce306a569b4cb6a2cead0298d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-7801-UpdateFPDF-060035.zip",
-                "reference": "737620eca92c5b92c931e220462375cc6eaf1fd4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.9-34c3de.zip",
+                "reference": "63efd756ef6cc5ce306a569b4cb6a2cead0298d3",
                 "shasum": null
             },
             "require": {
@@ -628,7 +628,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-12-06 15:17:27"
+            "time": "2016-12-07T10:43:30+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -8496,18 +8496,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.9",
-            "alias_normalized": "1.0.9.0",
-            "version": "dev-CGIV-7801-UpdateFPDF",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
