@@ -715,7 +715,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     public function getDeferredColumnDataAction()
     {
-it diff
         $orders = $this->params()->fromPost('Records');
         $orderIds = [];
         $ordersById = [];
