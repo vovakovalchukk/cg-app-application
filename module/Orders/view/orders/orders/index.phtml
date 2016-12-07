@@ -65,7 +65,7 @@ require(["tooltip"], function(Tooltip) {
 
     $('#datatable-container').on('xhr', function(event, oSettings, oldJson) {
         $.ajax({
-            "url": '/orders/secondaryTableData',
+            "url": '/orders/getDeferredColumnData',
             "type": 'POST',
             "data": oldJson,
             "dataType": 'json',

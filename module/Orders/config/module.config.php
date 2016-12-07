@@ -242,13 +242,13 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
-                    'secondaryTableData' => [
+                    'getDeferredColumnData' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/secondaryTableData',
+                            'route' => '/getDeferredColumnData',
                             'defaults' => [
                                 'controller' => 'Orders\Controller\Orders',
-                                'action' => 'secondaryTableDataAjax',
+                                'action' => 'getDeferredColumnData',
                             ],
                         ],
                         'may_terminate' => true,
@@ -1650,7 +1650,6 @@ return [
                     'column' => 'labelCreatedDate',
                     'viewModel' => 'OrdersLabelCreatedDateColumnView',
                     'class' => 'order-label-created-date-col',
-                    'sortable' => true,
                 ]
             ],
             'OrdersInvoiceEmailedDateColumnView' => [

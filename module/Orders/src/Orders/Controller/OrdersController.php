@@ -713,8 +713,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
-    public function secondaryTableDataAjaxAction()
+    public function getDeferredColumnDataAction()
     {
+it diff
         $orders = $this->params()->fromPost('Records');
         $orderIds = [];
         $ordersById = [];
