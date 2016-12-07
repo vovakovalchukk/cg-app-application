@@ -76,7 +76,7 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
-                                            <td key="sku" className="sku-cell ellipsis" title={variation.sku}>{variation.sku}</td>
+                                            <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                         </tr>
                                     );
                                 }.bind(this))}
