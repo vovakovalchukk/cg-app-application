@@ -713,6 +713,31 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
+    public function secondaryTableDataAjaxAction()
+    {
+        $orders = $this->params()->fromPost('Records');
+        $orderIds = [];
+        $ordersById = [];
+        foreach($orders as $order) {
+            $orderIds[] = $order['id'];
+            $ordersById[$order['id']] = $order;
+        }
+
+        try {
+            $filter = (new OrderLabelFilter())
+                ->setOrderId($orderIds);
+            $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
+
+            foreach ($labels as $label) {
+                $ordersById[$label->getOrderId()]['labelCreatedDate'] = $label->getCreated();
+            }
+        } catch (NotFound $exception) {
+            // No Orders so ignoring
+        }
+
+        return $this->getJsonModelFactory()->newInstance(['Records' => $ordersById]);
+    }
+
     public function updateColumnsAction()
     {
         $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);

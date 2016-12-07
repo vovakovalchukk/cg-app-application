@@ -389,20 +389,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     protected function getOrdersArrayWithLabelData(array $orders)
     {
-        $dateFormatter = $this->dateFormatHelper;
-        $orderIds = [];
-        foreach ($orders as $order) {
-            $orderIds[$order['id']] = $order['id'];
-        }
-        $filter = (new OrderLabelFilter())
-            ->setOrderId($orderIds);
-        $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
-        $labelPrintedDates = [];
-        foreach ($labels as $index => $label) {
-            $labelPrintedDates[$label->getOrderId()] = $dateFormatter($label->getCreated(), StdlibDateTime::FORMAT);
-        }
         foreach ($orders as $index => $order) {
-            $orders[$index]['labelCreatedDate'] = isset($labelPrintedDates[$order['id']]) ? $labelPrintedDates[$order['id']] : "";
+            $orders[$index]['labelCreatedDate'] = "";
         }
         return $orders;
     }

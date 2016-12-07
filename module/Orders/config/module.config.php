@@ -242,6 +242,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    'secondaryTableData' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/secondaryTableData',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Orders',
+                                'action' => 'secondaryTableDataAjax',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'priority' => -100,

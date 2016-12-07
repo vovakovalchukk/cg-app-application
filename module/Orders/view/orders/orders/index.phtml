@@ -62,6 +62,24 @@ require(["tooltip"], function(Tooltip) {
             );
         }
     );
+
+    $('#datatable-container').on('xhr', function(event, oSettings, oldJson) {
+        $.ajax({
+            "url": '/orders/secondaryTableData',
+            "type": 'POST',
+            "data": oldJson,
+            "dataType": 'json',
+            "success": function(newJson)
+            {
+                oldJson['Records'].forEach(function (record, index) {
+                    if (newJson['Records'][record['id']] !== undefined) {
+                        oldJson['Records'][index] = newJson['Records'][record['id']];
+                        oSettings.oInstance.fnUpdate(oldJson['Records'][index], index, undefined, false, false);
+                    }
+                });
+            }
+        });
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
