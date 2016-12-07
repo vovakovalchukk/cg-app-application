@@ -56,9 +56,10 @@ define([
         render: function () {
             var imageRow = 0;
             var variationRow = 0;
+            var noVariations = this.props.variations.length == 1;
             return (
                 <div className="variation-table">
-                    <div className="image-sku-table">
+                    <div className={"image-sku-table" + (noVariations ? ' full' : '')}>
                         <table>
                             <thead>
                                 <tr>
@@ -75,14 +76,14 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
-                                            <td key="sku" className="ellipsis" title={variation.sku}>{variation.sku}</td>
+                                            <td key="sku" className="sku-cell ellipsis" title={variation.sku}>{variation.sku}</td>
                                         </tr>
                                     );
                                 }.bind(this))}
                             </tbody>
                         </table>
                     </div>
-                    <div className="variations-table">
+                    <div className={"variations-table" + (noVariations ? ' hide' : '')}>
                         <table>
                             <thead>
                                 <tr>
