@@ -71,10 +71,10 @@ require(["tooltip"], function(Tooltip) {
             "dataType": 'json',
             "success": function(newJson)
             {
-                oldJson['Records'].forEach(function (record, index) {
-                    if (newJson['Records'][record['id']] !== undefined) {
-                        oldJson['Records'][index] = newJson['Records'][record['id']];
-                        oSettings.oInstance.fnUpdate(oldJson['Records'][index], index, undefined, false, false);
+                oSettings.aoData.forEach(function (record, index) {
+                    if (newJson['Records'][record._aData['id']] !== undefined) {
+                        var newRecord = newJson['Records'][record._aData['id']];
+                        oSettings.oInstance.fnUpdate(newRecord, index, undefined, false, false);
                     }
                 });
             }
