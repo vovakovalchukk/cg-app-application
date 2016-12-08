@@ -20,11 +20,18 @@ define([
                 isAdmin: this.props.isAdmin
             };
         },
+        getDefaultProps: function () {
+            return {
+                searchAvailable: true,
+                isAdmin: false,
+                initialSearchTerm: ''
+            }
+        },
         getInitialState: function()
         {
             return {
                 products: [],
-                searchTerm: "",
+                searchTerm: this.props.initialSearchTerm,
                 pagination: {
                     total: 0,
                     limit: 0,
@@ -72,7 +79,7 @@ define([
         },
         getSearchBox: function() {
             if (this.props.searchAvailable) {
-                return <SearchBox submitCallback={this.filterBySearch}/>
+                return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
             }
         },
         onPageChange: function(pageNumber) {
