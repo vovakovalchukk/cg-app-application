@@ -42,6 +42,7 @@ use Settings\Controller\EkmController;
 use Settings\Controller\ExportController;
 use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
+use Settings\Controller\EmailController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
@@ -108,6 +109,10 @@ return [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
                         'route' => Module::ROUTE.'/'.InvoiceController::ROUTE
+                    ], [
+                        'label' => EmailController::ROUTE_DESIGNER,
+                        'title' => EmailController::ROUTE_DESIGNER,
+                        'route' => Module::ROUTE.'/'.EmailController::ROUTE
                     ],
                 ]
             ],
@@ -466,6 +471,30 @@ return [
                             ]
                         ]
                     ],
+                    EmailController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/email',
+                            'defaults' => [
+                                'controller' => EmailController::class,
+                                'action' => 'designer',
+                                'sidebar' => Module::SIDEBAR_TEMPLATE
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            EmailController::ROUTE_DESIGNER => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/designer',
+                                    'defaults' => [
+                                        'controller' => EmailController::class,
+                                        'action' => 'designer',
+                                    ]
+                                ],
+                            ],
+                        ],
+                    ],
                     ShippingController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
@@ -797,6 +826,11 @@ return [
                 'AccountStockManagementColumnView' => ViewModel::class,
             ],
             InvoiceController::class => [
+                'parameters' => [
+                    'config' => 'app_config'
+                ]
+            ],
+            EmailController::class => [
                 'parameters' => [
                     'config' => 'app_config'
                 ]

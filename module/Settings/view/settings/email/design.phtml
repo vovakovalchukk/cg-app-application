@@ -1,0 +1,17 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'EmailDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/EmailDesigner';?>"
+        }
+    });
+    require(['EmailDesigner/EmailDesigner'], function(EmailDesigner)
+    {
+        var mountingNode = document.getElementById('email-designer-mount');
+        new EmailDesigner(mountingNode, invoiceData);
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="email-designer">
+    <div id="email-designer-mount"></div>
+</div>
