@@ -8,30 +8,49 @@ define([
     "use strict";
 
     var VariationViewComponent = React.createClass({
+        getDefaultProps: function() {
+            return {
+                variations: [],
+                attributeNames: [],
+                parentProduct: {},
+                fullView: false
+            };
+        },
+        getInitialState: function () {
+            return {
+                tableWidth: 0
+            }
+        },
+        componentDidMount: function() {
+            const width = document.getElementsByClassName('variations-table')[0].clientWidth;
+            this.setState({ tableWidth: width });
+        },
         getAttributeHeaders: function() {
+            var columnWidth = this.state.tableWidth/this.props.maxVariationAttributes;
+
             var headers = [];
             this.props.attributeNames.forEach(function(attributeName) {
                 var sortData = this.props.variationsSort.find(function (sort) {
                     return sort.attribute === attributeName;
                 });
                 headers.push(
-                    <th className='sortable' key={attributeName} onClick={this.props.onColumnSortClick.bind(this, attributeName)}>
+                    <th style={{width: columnWidth}} className='sortable' key={attributeName} onClick={this.props.onColumnSortClick.bind(this, attributeName)}>
                         {attributeName}{sortData ? <span className="sort-dir">{sortData.ascending ? '▼' : '▲'}</span> : ''}
                     </th>
                 );
             }.bind(this));
-            if (! headers.length) {
-                headers.push(<th></th>);
+            while (headers.length < this.props.maxVariationAttributes) {
+                headers.push(<th style={{width: columnWidth}}></th>);
             }
             return headers;
         },
         getAttributeValues: function(variation) {
             var values = [];
             this.props.attributeNames.forEach(function (attributeName) {
-                values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="ellipsis">{variation.attributeValues[attributeName]}</td>);
+                values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="variation-attribute-col ellipsis">{variation.attributeValues[attributeName]}</td>);
             });
-            if (! values.length) {
-                values.push(<td></td>);
+            while (values.length < this.props.maxVariationAttributes) {
+                values.push(<td className="variation-attribute-col"></td>);
             }
             return values;
         },
@@ -44,14 +63,6 @@ define([
                 return this.props.parentProduct.images[0]['url'];
             }
             return this.context.imageBasePath + '/noproductsimage.png';
-        },
-        getDefaultProps: function() {
-            return {
-                variations: [],
-                attributeNames: [],
-                parentProduct: {},
-                fullView: false
-            };
         },
         render: function () {
             var imageRow = 0;
