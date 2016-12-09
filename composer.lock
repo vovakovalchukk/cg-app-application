@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ae6e7be23a5ae69a2bfe79ed733dff3",
+    "content-hash": "d307b794314a98e595508bbd041ff4b0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -589,7 +589,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -3681,16 +3681,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7754-sku-being-cut-off-when-over-a-certain-length",
+            "version": "1.17.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "637259fb1ee2efbcf771178094b6df6ad9a6ae6a"
+                "reference": "02cc9ff86083d83abc1f33038bb1c4c085c99712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7754-sku-being-cut-off-when-over-a-certain-length-e15b18.zip",
-                "reference": "637259fb1ee2efbcf771178094b6df6ad9a6ae6a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.19-f66faf.zip",
+                "reference": "02cc9ff86083d83abc1f33038bb1c4c085c99712",
                 "shasum": null
             },
             "require": {
@@ -3738,7 +3738,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-12-09 11:17:24"
+            "time": "2016-12-09T11:17:28+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8496,18 +8496,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.19",
-            "alias_normalized": "1.17.19.0",
-            "version": "dev-CGIV-7754-sku-being-cut-off-when-over-a-certain-length",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
