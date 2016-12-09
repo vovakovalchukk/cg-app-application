@@ -112,7 +112,7 @@ return [
                     ], [
                         'label' => EmailController::ROUTE_DESIGNER,
                         'title' => EmailController::ROUTE_DESIGNER,
-                        'route' => Module::ROUTE.'/'.EmailController::ROUTE
+                        'route' => Module::ROUTE.'/'.EmailController::ROUTE.'/'.EmailController::ROUTE_DESIGNER,
                     ],
                 ]
             ],
@@ -478,7 +478,6 @@ return [
                             'defaults' => [
                                 'controller' => EmailController::class,
                                 'action' => 'design',
-                                'sidebar' => Module::SIDEBAR_TEMPLATE
                             ]
                         ],
                         'may_terminate' => true,
