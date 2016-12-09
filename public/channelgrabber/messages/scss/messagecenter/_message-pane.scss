@@ -96,19 +96,18 @@
     width: 100%;
     float: left;
     clear:both;
+    margin-top: -15px;
     .actual-status {
       width: 116px;
       float: left;
       clear: both;
-      margin-top: 5px;
+      margin-bottom: 7px;
       span.status {
         cursor: pointer!important;
       }
     }
     .assigned {
-      float: right;
-      text-align: right;
-      margin-top: 10px;
+      width: 100%;
       display: flex;
       .assigned-label {
         width: 60px;

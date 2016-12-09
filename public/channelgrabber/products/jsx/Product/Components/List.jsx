@@ -11,6 +11,8 @@ define([
 ) {
     "use strict";
 
+    const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
+
     var ListComponent = React.createClass({
         getInitialState: function() {
             return {
@@ -32,11 +34,19 @@ define([
             AjaxHandler.fetchByFilter(filter, variations.bind(this));
         },
         componentWillReceiveProps: function (nextProps) {
+            var maxVariationAttributes = 1;
             var allDefaultVariationIds = [];
             nextProps.products.forEach(function(product) {
+                if (product.attributeNames.length > maxVariationAttributes) {
+                    maxVariationAttributes = product.attributeNames.length;
+                }
                 var defaultVariationIds = product.variationIds.slice(0, 2);
                 allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
             });
+            if (maxVariationAttributes > MAX_VARIATION_ATTRIBUTE_COLUMNS) {
+                maxVariationAttributes = MAX_VARIATION_ATTRIBUTE_COLUMNS;
+            }
+            this.setState({maxVariationAttributes: maxVariationAttributes});
 
             if (allDefaultVariationIds.length == 0) {
                 return;
@@ -66,7 +76,7 @@ define([
             }
 
             return this.props.products.map(function(object) {
-                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]}/>;
+                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]} maxVariationAttributes={this.state.maxVariationAttributes}/>;
             }.bind(this))
         },
         render: function()

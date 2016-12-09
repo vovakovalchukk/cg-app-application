@@ -1,0 +1,54 @@
+.editable-field-wrap {
+    display: inline-block;
+    .editable-field {
+        border: 1px solid transparent;
+        border-radius: 5px;
+        padding: 0 5px 0 5px;
+        &:hover {
+            border: 1px solid $color-lgrey;
+        }
+        &:focus {
+            outline: none;
+            border: 1px solid $color-mgrey;
+        }
+        &.active {
+            border: 1px solid $color-mgrey;
+        }
+    }
+    .submit-input {
+        position: relative;
+        .submit-cancel {
+            position: absolute;
+            right: -12px;
+            bottom: -19px;
+            width: 68px;
+            margin: 0 auto;
+            font-size: 14px;
+            justify-content: space-between;
+            align-items: flex-end;
+            &.active {
+                display: flex;
+            }
+            .button-input {
+                border: 1px solid $color-lgrey;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 30px;
+                padding: 2px 0 2px 0;
+                background: linear-gradient(to bottom right, $color-white, $color-xlgrey);
+                &:first-child {
+                    margin-right: 1px;
+                }
+                &:last-child {
+                    margin-left: 1px;
+                }
+                &:active {
+                    background: linear-gradient(to bottom right, $color-xlgrey, $color-white);
+                }
+                span {
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}
