@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "205ea283501cdd0838260043390f82e1",
+    "content-hash": "3ae6e7be23a5ae69a2bfe79ed733dff3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -589,7 +589,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -3685,7 +3685,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "058a08fe81d0bbdc6db5a9eafc1f69262b3cc445"
+                "reference": "637259fb1ee2efbcf771178094b6df6ad9a6ae6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7754-sku-being-cut-off-when-over-a-certain-length-e15b18.zip",
+                "reference": "637259fb1ee2efbcf771178094b6df6ad9a6ae6a",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3732,7 +3738,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-28T15:21:18+00:00"
+            "time": "2016-12-09 11:17:24"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3969,7 +3975,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5095,7 +5101,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8500,14 +8506,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
