@@ -1,15 +1,15 @@
 <?php $this->inlineScript()->captureStart(); ?>
-$(document).ready(function() {
-    require.config({
-        paths: {
-            'EmailDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/EmailDesigner';?>"
-        }
-    });
-    require(['EmailDesigner/EmailDesigner'], function(EmailDesigner)
-    {
-        var mountingNode = document.getElementById('email-designer-mount');
-        new EmailDesigner(mountingNode, invoiceData);
-    });
+require.config({
+    paths: {
+        'EmailDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/EmailDesigner';?>"
+    }
+});
+require(['EmailDesigner/EmailDesigner'], function(EmailDesigner)
+{
+    var mountingNodes = {
+        emailDesignerRoot: document.getElementById('email-designer-mount')
+    };
+    new EmailDesigner(mountingNodes);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="email-designer">
