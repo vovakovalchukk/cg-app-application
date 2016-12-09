@@ -486,7 +486,7 @@ return [
                             EmailController::ROUTE_DESIGNER => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/design',
+                                    'route' => '/designer',
                                     'defaults' => [
                                         'controller' => EmailController::class,
                                         'action' => 'design',
