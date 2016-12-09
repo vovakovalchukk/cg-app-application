@@ -477,7 +477,7 @@ return [
                             'route' => '/email',
                             'defaults' => [
                                 'controller' => EmailController::class,
-                                'action' => 'designer',
+                                'action' => 'design',
                                 'sidebar' => Module::SIDEBAR_TEMPLATE
                             ]
                         ],
@@ -486,10 +486,10 @@ return [
                             EmailController::ROUTE_DESIGNER => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/designer',
+                                    'route' => '/design',
                                     'defaults' => [
                                         'controller' => EmailController::class,
-                                        'action' => 'designer',
+                                        'action' => 'design',
                                     ]
                                 ],
                             ],
