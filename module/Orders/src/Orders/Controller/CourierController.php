@@ -118,6 +118,7 @@ class CourierController extends AbstractActionController
         $this->getRequest()->getPost()->set('order', $orderIds);
 
         $filter = (new Filter())
+            ->setLimit('all')
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
 
