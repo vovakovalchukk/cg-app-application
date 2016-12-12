@@ -152,7 +152,11 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         foreach ($data as &$row) {
             $service = $this->mapServiceFromListArrayRow($row);
-            $serviceOptions = $this->getCarrierBookingOptionsForService($account, $service, $courierInstance);
+            if ($service) {
+                $serviceOptions = $this->getCarrierBookingOptionsForService($account, $service, $courierInstance);
+            } else {
+                $serviceOptions = $this->getCarrierBookingOptionsForAccount($account);
+            }
 
             foreach ($serviceOptions as $optionType) {
                 if ($optionType == 'packageType') {

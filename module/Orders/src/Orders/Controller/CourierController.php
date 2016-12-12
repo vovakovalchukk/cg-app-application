@@ -121,16 +121,8 @@ class CourierController extends AbstractActionController
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
 
-        $shippingService = $this->service->getShippingServiceForCourier($courierAccountId);
-
         foreach($orders as $order) {
-
-            $services = $shippingService->getShippingServicesForOrder($order);
-            reset($services);
-            $firstService = key($services);
-
             $this->getRequest()->getPost()->set('courier_'.$order->getId(), $courierAccountId);
-            $this->getRequest()->getPost()->set('service_'.$order->getId(), $firstService);
         }
     }
 
@@ -178,8 +170,8 @@ class CourierController extends AbstractActionController
         $orderServices = [];
         foreach ($orderIds as $orderId) {
             $courierId = $this->params()->fromPost('courier_'.$orderId);
-            $serviceId = $this->params()->fromPost('service_'.$orderId);
-            if (!$courierId || !$serviceId) {
+            $serviceId = $this->params()->fromPost('service_'.$orderId, 0);
+            if (!$courierId) {
                 throw new \InvalidArgumentException('Order '.$orderId.' provided but no matching courier or service option was found');
             }
             $courierIds[] = $courierId;
