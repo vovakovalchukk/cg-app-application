@@ -6,6 +6,7 @@ use CG\Amazon\Mcf\FulfillmentStatus\Repository as McfFulfillmentStatusRepository
 use CG\Amazon\Mcf\FulfillmentStatus\Storage\Cache as McfFulfillmentStatusStorageCache;
 use CG\Amazon\Mcf\FulfillmentStatus\Storage\Db as McfFulfillmentStatusStorageDb;
 use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
+use CG\Amazon\Request\FulfillmentOutbound\Mapper as McfRequestFulfillmentOutboundMapper;
 
 return [
     'di' => [
@@ -25,6 +26,11 @@ return [
                 'parameters' => [
                     'storage' => McfFulfillmentStatusStorageCache::class,
                     'repository' => McfFulfillmentStatusStorageDb::class,
+                ]
+            ],
+            McfRequestFulfillmentOutboundMapper::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
                 ]
             ],
         ]

@@ -511,6 +511,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getCarrierSelect()
     {
         $order = $this->getOrderService()->getOrder($this->params('order'));
+        $priorityOptions = $this->getOrderService()->getCarrierPriorityOptions();
         $carriers = $this->getOrderService()->getCarriersData();
         $tracking = $order->getFirstTracking();
         $options = [];
@@ -530,6 +531,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $carrierSelect->setVariable("name", "carrier");
         $carrierSelect->setVariable("id", "carrier");
         $carrierSelect->setVariable("blankOption", true);
+        $carrierSelect->setVariable("searchField", true);
+        $carrierSelect->setVariable("priorityOptions", $priorityOptions);
         return $carrierSelect;
     }
 

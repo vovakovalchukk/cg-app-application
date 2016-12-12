@@ -152,6 +152,7 @@ CourierDataTableAbstract.prototype.addCustomSelectToServiceColumn = function(tem
             id: 'courier-service-options-select-' + templateData.orderId,
             name: name || 'orderData[' + templateData.orderId + '][service]',
             class: 'required courier-service-select',
+            searchField: true,
             options: []
         };
         for (var code in templateData.services) {
