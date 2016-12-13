@@ -63,6 +63,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_NEW_NAME => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/name',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductName'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_MODE => [
                         'type' => Literal::class,
                         'options' => [
