@@ -37,7 +37,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.0.8",
+        "channelgrabber/courier": "~1.0.9",
         "channelgrabber/courieradapter": "~1.1.0",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.9.69",
