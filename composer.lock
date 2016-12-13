@@ -155,13 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8d6ea67f8bab01b70d3ba6ccd45610892b3583a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7089-use-users-email-address-when-sending-invoices-404f40.zip",
-                "reference": "8d6ea67f8bab01b70d3ba6ccd45610892b3583a2",
-                "shasum": null
+                "reference": "c666935c1698bb2b785ada6af4f27548b15651ad"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -210,7 +204,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-12-06 16:35:44"
+            "time": "2016-12-06T16:35:44+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -670,7 +664,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2207,7 +2201,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-12-05 16:54:07"
+            "time": "2016-12-05T16:54:07+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2977,17 +2971,11 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.16",
+            "version": "dev-CGIV-7089-use-users-email-address-when-sending-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "c24307be1a42279c818ea95f66d263db016a9b5f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.16-6908dc.zip",
-                "reference": "c24307be1a42279c818ea95f66d263db016a9b5f",
-                "shasum": null
+                "reference": "def75d1d1b2d3a78c93338a34cd242a0bb47a6b4"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3819,7 +3807,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-12-02 10:44:00"
+            "time": "2016-12-02T10:44:00+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5346,7 +5334,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8818,6 +8806,12 @@
             "package": "channelgrabber/settings"
         },
         {
+            "alias": "1.0.17",
+            "alias_normalized": "1.0.17.0",
+            "version": "dev-CGIV-7089-use-users-email-address-when-sending-invoices",
+            "package": "channelgrabber/zf2-amazon"
+        },
+        {
             "alias": "1.17.19",
             "alias_normalized": "1.17.19.0",
             "version": "dev-CGIV-7089-use-users-email-address-when-sending-invoices",
@@ -8826,16 +8820,17 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,15 +1,10 @@
 define(['../SetupWizard.js'], function(setupWizard)
 {
-    function Messages(notifications, saveEmailInvoicesUrl, saveAmazonOriginalEmailUrl)
+    function Messages(notifications, saveAmazonOriginalEmailUrl)
     {
         this.getNotifications = function()
         {
             return notifications;
-        };
-
-        this.getSaveEmailInvoicesUrl = function()
-        {
-            return saveEmailInvoicesUrl;
         };
 
         this.getSaveAmazonOriginalEmailUrl = function()
@@ -24,22 +19,11 @@ define(['../SetupWizard.js'], function(setupWizard)
 
         var init = function()
         {
-            this.listenForEmailInvoicesToggle()
-                .listenForAmazonMessagingSetupButtonClicks()
+            this.listenForAmazonMessagingSetupButtonClicks()
                 .registerNextSave();
         };
         init.call(this);
     }
-
-    Messages.prototype.listenForEmailInvoicesToggle = function()
-    {
-        var self = this;
-        $('#email-invoice-dispatch-section form').on('change', 'input.toggle', function()
-        {
-            self.saveEmailInvoicesToggle(this);
-        });
-        return this;
-    };
 
     Messages.prototype.listenForAmazonMessagingSetupButtonClicks = function()
     {
@@ -49,30 +33,6 @@ define(['../SetupWizard.js'], function(setupWizard)
         });
 
         return this;
-    };
-
-    Messages.prototype.saveEmailInvoicesToggle = function(input)
-    {
-        var self = this;
-        $(input).prop("disabled", true);
-        $.ajax({
-            type: "POST",
-            url: self.getSaveEmailInvoicesUrl(),
-            data: {
-                autoEmail: $(input).is(':checked'),
-                eTag: $('#email-invoice-dispatch-section form input[name=eTag]').val()
-            }
-        }).then(function(response)
-        {
-            $('#email-invoice-dispatch-section form input[name=eTag]').val(response.eTag);
-        }, function()
-        {
-            self.getNotifications().error('There was a problem saving your settings');
-            $(input).prop('checked', !$(input).prop('checked'));
-        }).always(function()
-        {
-            $(input).prop("disabled", false);
-        });
     };
 
     Messages.prototype.registerNextSave = function()
