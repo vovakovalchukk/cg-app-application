@@ -8,30 +8,49 @@ define([
     "use strict";
 
     var VariationViewComponent = React.createClass({
+        getDefaultProps: function() {
+            return {
+                variations: [],
+                attributeNames: [],
+                parentProduct: {},
+                fullView: false
+            };
+        },
+        getInitialState: function () {
+            return {
+                tableWidth: 0
+            }
+        },
+        componentDidMount: function() {
+            const width = document.getElementsByClassName('variations-table')[0].clientWidth;
+            this.setState({ tableWidth: width });
+        },
         getAttributeHeaders: function() {
+            var columnWidth = this.state.tableWidth/this.props.maxVariationAttributes;
+
             var headers = [];
             this.props.attributeNames.forEach(function(attributeName) {
                 var sortData = this.props.variationsSort.find(function (sort) {
                     return sort.attribute === attributeName;
                 });
                 headers.push(
-                    <th className='sortable' key={attributeName} onClick={this.props.onColumnSortClick.bind(this, attributeName)}>
+                    <th style={{width: columnWidth}} className='sortable' key={attributeName} onClick={this.props.onColumnSortClick.bind(this, attributeName)}>
                         {attributeName}{sortData ? <span className="sort-dir">{sortData.ascending ? '▼' : '▲'}</span> : ''}
                     </th>
                 );
             }.bind(this));
-            if (! headers.length) {
-                headers.push(<th></th>);
+            while (headers.length < this.props.maxVariationAttributes) {
+                headers.push(<th style={{width: columnWidth}}></th>);
             }
             return headers;
         },
         getAttributeValues: function(variation) {
             var values = [];
             this.props.attributeNames.forEach(function (attributeName) {
-                values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="ellipsis">{variation.attributeValues[attributeName]}</td>);
+                values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="variation-attribute-col ellipsis">{variation.attributeValues[attributeName]}</td>);
             });
-            if (! values.length) {
-                values.push(<td></td>);
+            while (values.length < this.props.maxVariationAttributes) {
+                values.push(<td className="variation-attribute-col"></td>);
             }
             return values;
         },
@@ -45,20 +64,13 @@ define([
             }
             return this.context.imageBasePath + '/noproductsimage.png';
         },
-        getDefaultProps: function() {
-            return {
-                variations: [],
-                attributeNames: [],
-                parentProduct: {},
-                fullView: false
-            };
-        },
         render: function () {
             var imageRow = 0;
             var variationRow = 0;
+            var noVariations = this.props.variations.length == 1;
             return (
                 <div className="variation-table">
-                    <div className="image-sku-table">
+                    <div className={"image-sku-table" + (noVariations ? ' full' : '')}>
                         <table>
                             <thead>
                                 <tr>
@@ -75,14 +87,14 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
-                                            <td key="sku" className="ellipsis" title={variation.sku}>{variation.sku}</td>
+                                            <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                         </tr>
                                     );
                                 }.bind(this))}
                             </tbody>
                         </table>
                     </div>
-                    <div className="variations-table">
+                    <div className={"variations-table" + (noVariations ? ' hide' : '')}>
                         <table>
                             <thead>
                                 <tr>
