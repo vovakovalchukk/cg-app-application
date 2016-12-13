@@ -171,7 +171,7 @@ class CourierController extends AbstractActionController
         $orderServices = [];
         foreach ($orderIds as $orderId) {
             $courierId = $this->params()->fromPost('courier_'.$orderId);
-            $serviceId = $this->params()->fromPost('service_'.$orderId, 0);
+            $serviceId = $this->params()->fromPost('service_'.$orderId);
             if (!$courierId) {
                 throw new \InvalidArgumentException('Order '.$orderId.' provided but no matching courier or service option was found');
             }

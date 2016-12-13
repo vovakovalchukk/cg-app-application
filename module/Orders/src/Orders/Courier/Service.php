@@ -543,6 +543,9 @@ class Service implements LoggerAwareInterface
             $options = $this->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
             $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
+            if (isset($inputData['service']) && $inputData['service'] === "") {
+                unset($inputData['service']);
+            }
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
             $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions);
