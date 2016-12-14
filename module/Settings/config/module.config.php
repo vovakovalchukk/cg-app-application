@@ -489,7 +489,8 @@ return [
                                     'defaults' => [
                                         'controller' => EmailController::class,
                                         'action' => 'design',
-                                    ]
+                                        'sidebar' => false,
+                                    ],
                                 ],
                             ],
                         ],
