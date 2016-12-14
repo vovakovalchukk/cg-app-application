@@ -10,11 +10,13 @@ use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 
@@ -232,7 +234,14 @@ class CreateService extends ServiceAbstract
             'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
             'errors' => [],
         ];
+        $existingOrderLabels = $this->fetchOrderLabelsForOrders($orders);
         foreach ($orders as $order) {
+            // Check if there already is a label for this Order
+            $matchingLabels = $existingOrderLabels->getBy('orderId', $order->getId());
+            if ($matchingLabels->count() > 0) {
+                $orderLabelsData['errors'][$order->getId()] = (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
+                continue;
+            }
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()] ? $orderParcelsData[$order->getId()] : [];
             $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
@@ -295,6 +304,27 @@ class CreateService extends ServiceAbstract
             $errorCode = StatusCode::INTERNAL_SERVER_ERROR;
             $exception->addError('There was a problem preparing the courier data. Please try again.', $order->getId() . ':' . $errorCode);
             return $exception;
+        }
+    }
+
+    /**
+     * @return OrderLabelCollection
+     */
+    protected function fetchOrderLabelsForOrders(OrderCollection $orders)
+    {
+        $notCancelled = OrderLabelStatus::getAllStatuses();
+        unset($notCancelled[OrderLabelStatus::CANCELLED]);
+
+        try {
+            $filter = (new OrderLabelFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrderId($orders->getIds())
+                ->setStatus(array_values($notCancelled));
+
+            return $this->orderLabelService->fetchCollectionByFilter($filter);
+        } catch (NotFound $ex) {
+            return new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
         }
     }
 
