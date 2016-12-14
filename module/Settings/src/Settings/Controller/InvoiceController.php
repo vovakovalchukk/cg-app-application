@@ -226,7 +226,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceEmailVerificationStatusView(InvoiceSettingsEntity $invoiceSettings)
     {
-        $config = $this->invoiceService->setEmailVerificationStatus($invoiceSettings->getEmailVerificationStatus());
+        $config = $this->invoiceService->getEmailVerificationStatusForDisplay($invoiceSettings->getEmailVerificationStatus());
         return $this->getViewModelFactory()->newInstance($config)->setTemplate('elements/status.mustache');
     }
 

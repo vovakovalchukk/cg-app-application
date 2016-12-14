@@ -97,7 +97,7 @@ class Service
             }
 
             $settings = array_merge($invoiceSettings->toArray(), $data);
-            $settings['autoEmailAllowed'] = $this->setAutoEmailAllowed($settings);
+            $settings['autoEmailAllowed'] = $this->isAutoEmailAllowed($settings);
             $entity = $this->saveSettings($settings);
         } catch (NotModified $e) {
             $entity = $invoiceSettings;
@@ -132,7 +132,7 @@ class Service
         $emailVerificationStatus = [];
 
         if ($entity->getEmailSendAs()) {
-            $emailVerificationStatus[$entity->getId()] = $this->setEmailVerificationStatus($entity->getEmailVerificationStatus());
+            $emailVerificationStatus[$entity->getId()] = $this->getEmailVerificationStatusForDisplay($entity->getEmailVerificationStatus());
         }
 
         if (empty($tradingCompanies = $entity->getTradingCompanies())) {
@@ -141,7 +141,7 @@ class Service
 
         foreach ($tradingCompanies as $tradingCompany) {
             if ($tradingCompany['emailSendAs']) {
-                $emailVerificationStatus[$tradingCompany['id']] = $this->setEmailVerificationStatus($tradingCompany['emailVerificationStatus']);
+                $emailVerificationStatus[$tradingCompany['id']] = $this->getEmailVerificationStatusForDisplay($tradingCompany['emailVerificationStatus']);
             }
         }
 
@@ -223,7 +223,7 @@ class Service
      */
     protected function handleEmailVerification(array $data)
     {
-        $data = $this->setCurrentVerificationStatus($data);
+        $data = $this->addCurrentVerificationStatusToData($data);
 
         if ($data['emailVerified']) {
             return $data;
@@ -232,7 +232,7 @@ class Service
         // Send verification request if there is no known status for the email account or if there is a failed status (retry)
         if (! $data['emailVerificationStatus'] || $data['emailVerificationStatus'] === AmazonSesService::STATUS_FAILED) {
             $this->amazonSesService->verifyEmailIdentity($data['emailSendAs']);
-            $data = $this->setCurrentVerificationStatus($data);
+            $data = $this->addCurrentVerificationStatusToData($data);
         }
 
         return $data;
@@ -242,7 +242,7 @@ class Service
      * @param array $data
      * @return array
      */
-    protected function setCurrentVerificationStatus(array $data)
+    protected function addCurrentVerificationStatusToData(array $data)
     {
         $data['emailVerificationStatus'] = $this->amazonSesService->getVerificationStatus($data['emailSendAs']);
         $data['emailVerified'] = $this->amazonSesService->isStatusVerified($data['emailVerificationStatus']);
@@ -277,7 +277,7 @@ class Service
      * @param $emailVerificationStatus
      * @return array
      */
-    public function setEmailVerificationStatus($emailVerificationStatus)
+    public function getEmailVerificationStatusForDisplay($emailVerificationStatus)
     {
         $message = '';
         $message = ($emailVerificationStatus === AmazonSesService::STATUS_FAILED) ? AmazonSesService::STATUS_MESSAGE_FAILED : $message;
@@ -291,7 +291,7 @@ class Service
         ];
     }
 
-    protected function setAutoEmailAllowed(array $data)
+    protected function isAutoEmailAllowed(array $data)
     {
         if (! $data['autoEmail']) {
             return false;
