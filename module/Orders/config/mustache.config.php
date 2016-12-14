@@ -17,6 +17,7 @@ return [
                     'custom-tag' => Module::PUBLIC_FOLDER . 'template/columns/custom-tag.mustache',
                     'externalId' => Module::PUBLIC_FOLDER . 'template/columns/externalId.mustache',
                     'dispatchDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
+                    'labelCreatedDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'printedDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'purchaseDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',
                     'paymentDate' => Module::PUBLIC_FOLDER . 'template/columns/purchaseDate.mustache',

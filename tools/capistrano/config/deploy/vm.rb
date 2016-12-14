@@ -1,10 +1,6 @@
 set :stage, :vm
 
-role :app, [
-    "www-data@192.168.33.53"
-]
-
-set :log_level, :debug
+server 'www-data@192.168.33.53', :roles => [:app, :php71]
 
 module Capistrano
     module DSL

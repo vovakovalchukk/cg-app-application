@@ -62,6 +62,39 @@ require(["tooltip"], function(Tooltip) {
             );
         }
     );
+
+    $('#datatable-container').on('xhr', function(event, oSettings, oldJson) {
+        var orderIds = {};
+        oldJson.Records.forEach(function(record){
+            orderIds[record.id] = record;
+        });
+
+        $.ajax({
+            "url": '/orders/getDeferredColumnData',
+            "type": 'POST',
+            "data": {
+                orderIds: Object.keys(orderIds)
+            },
+            "dataType": 'json',
+            "success": function(response) {
+                var newData = response.newData;
+                oSettings.aoData.forEach(function (record, index) {
+                    var orderId = record._aData['id'];
+                    var newRecord = orderIds[orderId];
+                    if (newData[orderId] === undefined) {
+                        return;
+                    }
+                    for (var attrname in newData[orderId]) {
+                        newRecord[attrname] = newData[orderId][attrname];
+                    }
+                    oSettings.oInstance.fnUpdate(newRecord, index, undefined, false, false);
+                });
+            },
+            error: function(error) {
+                console.warn(error);
+            }
+        });
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>

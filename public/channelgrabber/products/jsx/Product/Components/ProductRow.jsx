@@ -7,6 +7,7 @@ define([
     'Product/Components/Button',
     'Common/Components/Select',
     'Common/Components/SafeInput',
+    'Common/Components/EditableField',
     'Product/Components/SimpleTabs/Tabs',
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
@@ -23,6 +24,7 @@ define([
     Button,
     Select,
     Input,
+    EditableField,
     Tabs,
     Pane,
     DimensionsView,
@@ -40,7 +42,15 @@ define([
         getProductVariationsView: function()
         {
             if (this.isParentProduct()) {
-                return <VariationView parentProduct={this.props.product} onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
+                return <VariationView
+                    parentProduct={this.props.product}
+                    onColumnSortClick={this.onColumnSortClick}
+                    variationsSort={this.state.variationsSort}
+                    attributeNames={this.props.product.attributeNames}
+                    variations={this.state.variations}
+                    maxVariationAttributes={this.props.maxVariationAttributes}
+                    fullView={this.state.expanded}
+                />;
             } else {
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
             }
@@ -291,6 +301,25 @@ define([
                 variations: updatedVariations
             });
         },
+        updateProductName: function(newName) {
+            n.notice('Updating the product name.');
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: 'products/name',
+                    type: 'POST',
+                    dataType : 'json',
+                    data : { id: this.props.product.id, name: newName },
+                    success: function(response) {
+                        n.success('Product name updated successfully.');
+                        resolve({ newFieldText: newName });
+                    }.bind(this),
+                    error: function(error) {
+                        n.showErrorNotification(error, "There was an error when attempting to update the product name.");
+                        reject(new Error(error));
+                    }
+                });
+            }.bind(this));
+        },
         onVariationDetailChanged: function(updatedVariation) {
             if (this.props.product.variationCount <= 1) {
                 this.setState({
@@ -337,8 +366,10 @@ define([
                     <input type="hidden" value={this.props.product.eTag} name={"product[" + this.props.product.id + "][eTag]"} />
                     <div className="product-info-container">
                         <div className="product-header">
-                            <Checkbox id={this.props.product.id} />
-                            <span className="product-title">{this.props.product.name}</span>
+                            <div className="checkbox-and-title">
+                                <Checkbox id={this.props.product.id} />
+                                <EditableField initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
+                            </div>
                             <Status listings={this.props.product.listings} accounts={this.props.product.accounts} />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
