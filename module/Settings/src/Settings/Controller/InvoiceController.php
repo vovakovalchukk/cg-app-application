@@ -92,11 +92,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function saveMappingAction()
     {
         $entity = $this->invoiceService->saveSettingsFromPostData($this->params()->fromPost());
-        $emailVerifiedStatus = $this->invoiceService->getEmailVerifiedStatusFromEntity($entity);
+        $emailVerificationStatus = $this->invoiceService->getEmailVerificationStatusFromEntity($entity);
 
         return $this->getJsonModelFactory()->newInstance([
             'invoiceSettings' => json_encode($entity),
-            'emailVerifiedStatus' => $emailVerifiedStatus,
+            'emailVerifiedStatus' => $emailVerificationStatus,
             'eTag' => $entity->getStoredETag()
         ]);
     }
@@ -226,7 +226,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceEmailVerificationStatusView(InvoiceSettingsEntity $invoiceSettings)
     {
-        $config = $this->invoiceService->setEmailVerifiedStatus($invoiceSettings->getEmailVerificationStatus());
+        $config = $this->invoiceService->setEmailVerificationStatus($invoiceSettings->getEmailVerificationStatus());
         return $this->getViewModelFactory()->newInstance($config)->setTemplate('elements/status.mustache');
     }
 

@@ -127,25 +127,25 @@ class Service
         return $newTradingCompanies;
     }
 
-    public function getEmailVerifiedStatusFromEntity(Entity $entity)
+    public function getEmailVerificationStatusFromEntity(Entity $entity)
     {
-        $emailVerifiedStatus = [];
+        $emailVerificationStatus = [];
 
         if ($entity->getEmailSendAs()) {
-            $emailVerifiedStatus[$entity->getId()] = $this->setEmailVerifiedStatus($entity->getEmailVerificationStatus());
+            $emailVerificationStatus[$entity->getId()] = $this->setEmailVerificationStatus($entity->getEmailVerificationStatus());
         }
 
         if (empty($tradingCompanies = $entity->getTradingCompanies())) {
-            return $emailVerifiedStatus;
+            return $emailVerificationStatus;
         }
 
         foreach ($tradingCompanies as $tradingCompany) {
             if ($tradingCompany['emailSendAs']) {
-                $emailVerifiedStatus[$tradingCompany['id']] = $this->setEmailVerifiedStatus($tradingCompany['emailVerificationStatus']);
+                $emailVerificationStatus[$tradingCompany['id']] = $this->setEmailVerificationStatus($tradingCompany['emailVerificationStatus']);
             }
         }
 
-        return $emailVerifiedStatus;
+        return $emailVerificationStatus;
     }
 
     public function saveSettings($invoiceSettingsArray)
@@ -274,18 +274,18 @@ class Service
     }
 
     /**
-     * @param $emailVerifiedStatus
+     * @param $emailVerificationStatus
      * @return array
      */
-    public function setEmailVerifiedStatus($emailVerifiedStatus)
+    public function setEmailVerificationStatus($emailVerificationStatus)
     {
         $message = '';
-        $message = ($emailVerifiedStatus === AmazonSesService::STATUS_FAILED) ? AmazonSesService::STATUS_MESSAGE_FAILED : $message;
-        $message = ($emailVerifiedStatus === AmazonSesService::STATUS_PENDING) ? AmazonSesService::STATUS_MESSAGE_PENDING : $message;
-        $message = ($emailVerifiedStatus === AmazonSesService::STATUS_VERIFIED) ? AmazonSesService::STATUS_MESSAGE_VERIFIED : $message;
+        $message = ($emailVerificationStatus === AmazonSesService::STATUS_FAILED) ? AmazonSesService::STATUS_MESSAGE_FAILED : $message;
+        $message = ($emailVerificationStatus === AmazonSesService::STATUS_PENDING) ? AmazonSesService::STATUS_MESSAGE_PENDING : $message;
+        $message = ($emailVerificationStatus === AmazonSesService::STATUS_VERIFIED) ? AmazonSesService::STATUS_MESSAGE_VERIFIED : $message;
 
         return [
-            'status' => strtolower($emailVerifiedStatus),
+            'status' => strtolower($emailVerificationStatus),
             'class' => 'email-verify-status',
             'message' => $message
         ];
