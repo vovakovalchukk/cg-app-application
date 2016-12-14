@@ -4,6 +4,7 @@ namespace Orders\Courier\Label;
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
+use CG\Locking\Failure as LockingFailure;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
@@ -295,8 +296,21 @@ class CreateService extends ServiceAbstract
         }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
 
+        // Lock to prevent two people creating the same label at the same time
         try {
-            return $this->orderLabelService->save($orderLabel);
+            $lock = $this->lockingService->lock($orderLabel);
+        } catch (LockingFailure $ex) {
+            $this->logException($ex, 'error', __NAMESPACE__);
+            $exception = new ValidationMessagesException('Locking error');
+            $errorCode = StatusCode::LOCKED;
+            $exception->addErrorWithField($order->getId().':'.StatusCode::LOCKED, 'Someone else appears to be creating that label');
+            return $exception;
+        }
+
+        try {
+            $savedLabel = $this->orderLabelService->save($orderLabel);
+            $this->lockingService->unlock($lock);
+            return $savedLabel;
 
         } catch (\Exception $e) {
             $this->logException($e, 'error', __NAMESPACE__);
