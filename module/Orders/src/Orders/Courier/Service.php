@@ -38,8 +38,6 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\DataTable;
 use DateTimeZone;
-use Orders\Courier\GetProductDetailsForOrdersTrait;
-use Orders\Courier\ShippingAccountsService;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
@@ -123,6 +121,32 @@ class Service implements LoggerAwareInterface
     {
         $shippingAccounts = $this->getShippingAccounts($order);
         return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
+    }
+
+    /**
+     * @param OrderCollection $orders
+     *
+     * @return array shippingAccounts
+     */
+    public function getShippingAccountsForOrders(OrderCollection $orders)
+    {
+        $shippingAccounts = [];
+        foreach ($orders as $order) {
+            $shippingAccountsForOrder = $this->getShippingAccounts($order);
+            $shippingAccounts = array_merge($shippingAccounts, $shippingAccountsForOrder->toArray());
+        }
+
+        return array_unique($shippingAccounts, SORT_REGULAR);
+    }
+
+    /**
+     * @param $courierAccountId
+     * @return \CG\Channel\Shipping\ServicesInterface
+     */
+    public function getShippingServiceForCourier($courierAccountId)
+    {
+        $courierAccount = $this->accountService->fetch($courierAccountId);
+        return $this->shippingServiceFactory->createShippingService($courierAccount);
     }
 
     public function getShippingAccounts(Order $order = null)
@@ -519,6 +543,9 @@ class Service implements LoggerAwareInterface
             $options = $this->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
             $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
+            if (isset($inputData['service']) && $inputData['service'] === "") {
+                unset($inputData['service']);
+            }
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
             $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions);

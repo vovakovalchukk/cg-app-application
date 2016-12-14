@@ -32,6 +32,9 @@ use CG\Order\Shared\Item\Entity as ItemEntity;
 use CG\Order\Shared\Item\GiftWrap\Collection as GiftWrapCollection;
 use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrapEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
@@ -116,6 +119,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $courierTrackingUrl;
     /** @var EUVATCodeChecker */
     protected $euVatCodeChecker;
+    protected $orderLabelService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -142,7 +146,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         CourierTrackingUrl $courierTrackingUrl,
-        EUVATCodeChecker $euVatCodeChecker
+        EUVATCodeChecker $euVatCodeChecker,
+        OrderLabelService $orderLabelService
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -167,7 +172,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setDateFormatHelper($dateFormatHelper)
             ->setImageService($imageService)
             ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
-            ->setCourierTrackingUrl($courierTrackingUrl);
+            ->setCourierTrackingUrl($courierTrackingUrl)
+            ->setOrderLabelService($orderLabelService);
         $this->euVatCodeChecker = $euVatCodeChecker;
     }
 
@@ -191,7 +197,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
         $orders = $this->getOrdersArrayWithProductImage($orders);
         $orders = $this->getOrdersArrayWithTrackingUrl($orders);
-        
+        $orders = $this->getOrdersArrayWithLabelData($orders);
+
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
             $filterId = $orderCollection->getFilterId();
@@ -383,6 +390,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             }
         }
 
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithLabelData(array $orders)
+    {
+        foreach ($orders as $index => $order) {
+            $orders[$index]['labelCreatedDate'] = "";
+        }
         return $orders;
     }
 
@@ -1349,6 +1364,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
     {
         $this->courierTrackingUrl = $courierTrackingUrl;
+        return $this;
+    }
+
+    protected function setOrderLabelService(OrderLabelService $orderLabelService)
+    {
+        $this->orderLabelService = $orderLabelService;
         return $this;
     }
 }

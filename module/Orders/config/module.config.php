@@ -244,6 +244,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    'getDeferredColumnData' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/getDeferredColumnData',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Orders',
+                                'action' => 'getDeferredColumnData',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'priority' => -100,
@@ -1129,6 +1140,8 @@ return [
                 'OrdersPrintedDateColumn' => DataTable\Column::class,
                 'OrdersDispatchedDateColumnView' => ViewModel::class,
                 'OrdersDispatchedDateColumn' => DataTable\Column::class,
+                'OrdersLabelCreatedDateColumnView' => ViewModel::class,
+                'OrdersLabelCreatedDateColumn' => DataTable\Column::class,
                 'OrdersInvoiceEmailedDateColumnView' => ViewModel::class,
                 'OrdersInvoiceEmailedDateColumn' => DataTable\Column::class,
                 'OrdersPaymentMethodColumnView' => ViewModel::class,
@@ -1291,6 +1304,7 @@ return [
                         ['column' => 'OrdersPaymentDateColumn'],
                         ['column' => 'OrdersPrintedDateColumn'],
                         ['column' => 'OrdersDispatchedDateColumn'],
+                        ['column' => 'OrdersLabelCreatedDateColumn'],
                         ['column' => 'OrdersInvoiceEmailedDateColumn'],
                         ['column' => 'OrdersPaymentMethodColumn'],
                         ['column' => 'OrdersPaymentReferenceColumn'],
@@ -1634,6 +1648,21 @@ return [
                     'viewModel' => 'OrdersDispatchedDateColumnView',
                     'class' => 'order-dispatched-date-col',
                     'sortable' => true,
+                ]
+            ],
+            'OrdersLabelCreatedDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping Label<br>Created Date'],
+
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersLabelCreatedDateColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'labelCreatedDate',
+                    'viewModel' => 'OrdersLabelCreatedDateColumnView',
+                    'class' => 'order-label-created-date-col',
                 ]
             ],
             'OrdersInvoiceEmailedDateColumnView' => [

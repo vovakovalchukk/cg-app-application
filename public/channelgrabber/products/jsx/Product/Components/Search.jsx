@@ -8,9 +8,14 @@ define([
     "use strict";
 
     var SearchComponent = React.createClass({
+        getDefaultProps: function () {
+            return {
+                initialSearchTerm: ''
+            }
+        },
         getInitialState: function() {
             return {
-                searchTerm: ""
+                searchTerm: this.props.initialSearchTerm
             }
         },
         searchTermUpdate: function (e) {
