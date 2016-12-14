@@ -17,7 +17,7 @@ class Courier extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('sprite-courier-22-black', 'Courier', 'courier', $elementData, $javascript, $subActions);
+        parent::__construct('sprite-courier-22-black', 'Ship', 'courier', $elementData, $javascript, $subActions);
         $this->setUrlView($urlView)->configure();
     }
 
@@ -26,7 +26,7 @@ class Courier extends Action
         $this->urlView = $urlView;
         $this->urlView->setVariables(
             [
-                'route' => Module::ROUTE.'/'.CourierController::ROUTE.'/'.CourierController::ROUTE_REVIEW,
+                'route' => Module::ROUTE.'/'.CourierController::ROUTE,
                 'parameters' => []
             ]
         );

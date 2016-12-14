@@ -42,7 +42,15 @@ define([
         getProductVariationsView: function()
         {
             if (this.isParentProduct()) {
-                return <VariationView parentProduct={this.props.product} onColumnSortClick={this.onColumnSortClick} variationsSort={this.state.variationsSort} attributeNames={this.props.product.attributeNames} variations={this.state.variations} fullView={this.state.expanded}/>;
+                return <VariationView
+                    parentProduct={this.props.product}
+                    onColumnSortClick={this.onColumnSortClick}
+                    variationsSort={this.state.variationsSort}
+                    attributeNames={this.props.product.attributeNames}
+                    variations={this.state.variations}
+                    maxVariationAttributes={this.props.maxVariationAttributes}
+                    fullView={this.state.expanded}
+                />;
             } else {
                 return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
             }

@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Courier\Label;
 
+use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Stdlib;
 
 class PrintService extends ServiceAbstract
@@ -18,8 +19,14 @@ class PrintService extends ServiceAbstract
         $orders = $this->getOrdersByIds($orderIds);
         $orderLabels = $this->getOrderLabelsForOrders($orders);
         $pdfsData = [];
-        foreach ($orderLabels as $orderLabel) {
-            $pdfsData[] = base64_decode($orderLabel->getLabel());
+        foreach ($orderIds as $orderId) {
+            $labels = $orderLabels->getBy('orderId', $orderId);
+            $labels->rewind();
+
+            /** @var OrderLabel $orderLabel */
+            if ($orderLabel = $labels->current()) {
+                $pdfsData[] = base64_decode($orderLabel->getLabel());
+            }
         }
         $pdfData = Stdlib\mergePdfData($pdfsData);
         $this->logDebug(static::LOG_PRINT_DONE, [$orderIdsString], static::LOG_CODE);

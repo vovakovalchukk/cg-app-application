@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "205ea283501cdd0838260043390f82e1",
+    "content-hash": "ca9193a7e999f442b4ae5736f916d48f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -589,7 +589,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2896,16 +2896,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.16",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "c24307be1a42279c818ea95f66d263db016a9b5f"
+                "reference": "705df012e17e06e3df66dfedd3b0aa3930fa7e23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.16-6908dc.zip",
-                "reference": "c24307be1a42279c818ea95f66d263db016a9b5f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.17-243fef.zip",
+                "reference": "705df012e17e06e3df66dfedd3b0aa3930fa7e23",
                 "shasum": null
             },
             "require": {
@@ -2937,7 +2937,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-11-16T09:48:18+00:00"
+            "time": "2016-12-13T14:57:47+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3681,16 +3681,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.18",
+            "version": "1.17.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "daba3b08ad0b091114095a8eb135eba390d27d76"
+                "reference": "50065548579fd1c82e8f8d81c7a85d70839b3042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.18-c48135.zip",
-                "reference": "daba3b08ad0b091114095a8eb135eba390d27d76",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.21-7595af.zip",
+                "reference": "50065548579fd1c82e8f8d81c7a85d70839b3042",
                 "shasum": null
             },
             "require": {
@@ -3738,7 +3738,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-11-28T15:21:18+00:00"
+            "time": "2016-12-13T16:41:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5152,7 +5152,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5245,7 +5245,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5664,7 +5664,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",

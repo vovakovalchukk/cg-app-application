@@ -203,7 +203,7 @@
             }
         }
         .image-sku-table {
-            width: 40%;
+            width: 50%;
             border-right: 0;
             box-sizing: border-box;
             table {
@@ -213,6 +213,16 @@
                 }
                 td {
                     border-right: 0;
+                }
+                .sku-col, .sku-cell {
+                    text-align: left;
+                    padding-left: 4px;
+                }
+            }
+            &.full {
+                width: 100%;
+                table {
+                    border-right: 1px solid $color-lgrey;
                 }
             }
         }
@@ -234,6 +244,9 @@
                 td {
                     border-left: 0;
                 }
+            }
+            &.hide {
+                display: none;
             }
         }
     }
