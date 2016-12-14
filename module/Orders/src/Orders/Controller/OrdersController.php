@@ -715,14 +715,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     public function getDeferredColumnDataAction()
     {
-        $orders = $this->params()->fromPost('Records');
-        $orderIds = [];
+        $orderIds = $this->params()->fromPost('orderIds');
         $ordersById = [];
-        foreach($orders as $order) {
-            $orderIds[] = $order['id'];
-            $ordersById[$order['id']] = $order;
-        }
-
         try {
             $filter = (new OrderLabelFilter())
                 ->setOrderId($orderIds);
@@ -735,7 +729,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             // No Orders so ignoring
         }
 
-        return $this->getJsonModelFactory()->newInstance(['Records' => $ordersById]);
+        return $this->getJsonModelFactory()->newInstance(['newData' => $ordersById]);
     }
 
     public function updateColumnsAction()

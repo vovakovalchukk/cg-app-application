@@ -64,19 +64,34 @@ require(["tooltip"], function(Tooltip) {
     );
 
     $('#datatable-container').on('xhr', function(event, oSettings, oldJson) {
+        var orderIds = {};
+        oldJson.Records.forEach(function(record){
+            orderIds[record.id] = record;
+        });
+
         $.ajax({
             "url": '/orders/getDeferredColumnData',
             "type": 'POST',
-            "data": oldJson,
+            "data": {
+                orderIds: Object.keys(orderIds)
+            },
             "dataType": 'json',
-            "success": function(newJson)
-            {
+            "success": function(response) {
+                var newData = response.newData;
                 oSettings.aoData.forEach(function (record, index) {
-                    if (newJson['Records'][record._aData['id']] !== undefined) {
-                        var newRecord = newJson['Records'][record._aData['id']];
-                        oSettings.oInstance.fnUpdate(newRecord, index, undefined, false, false);
+                    var orderId = record._aData['id'];
+                    var newRecord = orderIds[orderId];
+                    if (newData[orderId] === undefined) {
+                        return;
                     }
+                    for (var attrname in newData[orderId]) {
+                        newRecord[attrname] = newData[orderId][attrname];
+                    }
+                    oSettings.oInstance.fnUpdate(newRecord, index, undefined, false, false);
                 });
+            },
+            error: function(error) {
+                console.warn(error);
             }
         });
     });
