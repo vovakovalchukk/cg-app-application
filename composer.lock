@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5172e1d9124ac300588fe1fa5466ff0",
+    "content-hash": "ca9193a7e999f442b4ae5736f916d48f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3681,16 +3681,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7687-add-courier-label-created-date-to-orders-table",
+            "version": "1.17.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9daabbd8e574628cea563ee77e821e56487f80ac"
+                "reference": "50065548579fd1c82e8f8d81c7a85d70839b3042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7687-add-courier-label-created-date-to-orders-table-667976.zip",
-                "reference": "9daabbd8e574628cea563ee77e821e56487f80ac",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.21-7595af.zip",
+                "reference": "50065548579fd1c82e8f8d81c7a85d70839b3042",
                 "shasum": null
             },
             "require": {
@@ -3738,7 +3738,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-12-13 15:42:51"
+            "time": "2016-12-13T16:41:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8496,18 +8496,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.20",
-            "alias_normalized": "1.17.20.0",
-            "version": "dev-CGIV-7687-add-courier-label-created-date-to-orders-table",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
