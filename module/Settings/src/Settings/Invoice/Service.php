@@ -218,24 +218,24 @@ class Service
     }
 
     /**
-     * @param array $data
+     * @param array $ouEmailVerificationData
      * @return array
      */
-    protected function handleEmailVerification(array $data)
+    protected function handleEmailVerification(array $ouEmailVerificationData)
     {
-        $data = $this->addCurrentVerificationStatusToData($data);
+        $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
 
-        if ($data['emailVerified']) {
-            return $data;
+        if ($ouEmailVerificationData['emailVerified']) {
+            return $ouEmailVerificationData;
         }
 
         // Send verification request if there is no known status for the email account or if there is a failed status (retry)
-        if (! $data['emailVerificationStatus'] || $data['emailVerificationStatus'] === AmazonSesService::STATUS_FAILED) {
-            $this->amazonSesService->verifyEmailIdentity($data['emailSendAs']);
-            $data = $this->addCurrentVerificationStatusToData($data);
+        if (! $ouEmailVerificationData['emailVerificationStatus'] || $ouEmailVerificationData['emailVerificationStatus'] === AmazonSesService::STATUS_FAILED) {
+            $this->amazonSesService->verifyEmailIdentity($ouEmailVerificationData['emailSendAs']);
+            $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
         }
 
-        return $data;
+        return $ouEmailVerificationData;
     }
 
     /**
