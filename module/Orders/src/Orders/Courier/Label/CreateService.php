@@ -235,14 +235,8 @@ class CreateService extends ServiceAbstract
             'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
             'errors' => [],
         ];
-        $existingOrderLabels = $this->fetchOrderLabelsForOrders($orders);
+
         foreach ($orders as $order) {
-            // Check if there already is a label for this Order
-            $matchingLabels = $existingOrderLabels->getBy('orderId', $order->getId());
-            if ($matchingLabels->count() > 0) {
-                $orderLabelsData['errors'][$order->getId()] = (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
-                continue;
-            }
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()] ? $orderParcelsData[$order->getId()] : [];
             $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
@@ -307,6 +301,13 @@ class CreateService extends ServiceAbstract
             return $exception;
         }
 
+        // Check this label doesnt already exist before we try to create it
+        // This needs to happen inside the lock to prevent duplication
+        if ($this->doesOrderLabelExistForOrder($order)) {
+            $this->lockingService->unlock($lock);
+            return (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
+        }
+
         try {
             $savedLabel = $this->orderLabelService->save($orderLabel);
             $this->lockingService->unlock($lock);
@@ -322,9 +323,9 @@ class CreateService extends ServiceAbstract
     }
 
     /**
-     * @return OrderLabelCollection
+     * @return boolean
      */
-    protected function fetchOrderLabelsForOrders(OrderCollection $orders)
+    protected function doesOrderLabelExistForOrder(Order $order)
     {
         $notCancelled = OrderLabelStatus::getAllStatuses();
         unset($notCancelled[OrderLabelStatus::CANCELLED]);
@@ -333,12 +334,13 @@ class CreateService extends ServiceAbstract
             $filter = (new OrderLabelFilter())
                 ->setLimit('all')
                 ->setPage(1)
-                ->setOrderId($orders->getIds())
+                ->setOrderId([$order->getId()])
                 ->setStatus(array_values($notCancelled));
 
-            return $this->orderLabelService->fetchCollectionByFilter($filter);
+            $this->orderLabelService->fetchCollectionByFilter($filter);
+            return true;
         } catch (NotFound $ex) {
-            return new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
+            return false;
         }
     }
 
