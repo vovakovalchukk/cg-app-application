@@ -6,10 +6,17 @@ define([
     "use strict";
 
     var ControlBarComponent = React.createClass({
-
+        getDefaultProps: function () {
+            return {
+                template: {
+                    name: ''
+                }
+            }
+        },
         onTemplateNameChange: function (e) {
-            var newName = e.target.value;
-            this.props.onTemplateNameChange(newName);
+            var newTemplate = this.props.template;
+            newTemplate.name = e.target.value;
+            this.props.onTemplateChange(newTemplate);
         },
         render: function()
         {
@@ -24,7 +31,7 @@ define([
                             <input
                                 className="inputbox"
                                 type="text"
-                                value={this.props.templateName}
+                                value={this.props.template.name}
                                 onChange={this.onTemplateNameChange}
                             />
                         </div>

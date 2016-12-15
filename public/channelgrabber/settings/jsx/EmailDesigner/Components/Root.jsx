@@ -12,18 +12,20 @@ define([
     "use strict";
 
     var RootComponent = React.createClass({
-        getInitialState: function()
-        {
+        getInitialState: function() {
+            var emptyTemplate = {
+                name: ''
+            };
             return {
-                templateName: '',
+                template: emptyTemplate,
+                oldTemplate: emptyTemplate,
                 editMode: false
             }
         },
-        render: function()
-        {
+        render: function() {
             return (
                 <div>
-                    <ControlBar templateName={this.state.templateName} onTemplateNameChange={function(newName){this.setState({templateName:newName})}}/>
+                    <ControlBar template={this.state.template} onTemplateChange={function(newTemplate){this.setState({template:newTemplate})}}/>
                     <EmailTemplate />
                     <ElementInspector />
                 </div>
