@@ -7,9 +7,18 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode, imageBasePath, searchAvailable, isAdmin)
+    var Product = function(mountingNode, imageBasePath, searchAvailable, isAdmin, getParamSearchTerm)
     {
-        ReactDOM.render(<RootComponent productsUrl="/products/ajax" imageBasePath={imageBasePath} searchAvailable={searchAvailable} isAdmin={isAdmin}/>, mountingNode);
+        ReactDOM.render(
+            <RootComponent
+                productsUrl="/products/ajax"
+                imageBasePath={imageBasePath}
+                searchAvailable={searchAvailable}
+                initialSearchTerm={getParamSearchTerm}
+                isAdmin={isAdmin}
+            />,
+            mountingNode
+        );
     };
 
     return Product;
