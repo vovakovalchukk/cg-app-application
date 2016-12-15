@@ -5,7 +5,7 @@ define([
 ) {
     "use strict";
 
-    var EmailTemplateComponent = React.createClass({
+    var TemplateViewComponent = React.createClass({
         render: function()
         {
             return (
@@ -16,5 +16,5 @@ define([
         }
     });
 
-    return EmailTemplateComponent;
+    return TemplateViewComponent;
 });

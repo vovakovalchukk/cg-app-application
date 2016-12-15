@@ -1,12 +1,12 @@
 define([
     'react',
     'EmailDesigner/Components/ControlBar',
-    'EmailDesigner/Components/EmailTemplate',
+    'EmailDesigner/Components/TemplateView',
     'EmailDesigner/Components/ElementInspector'
 ], function(
     React,
     ControlBar,
-    EmailTemplate,
+    TemplateView,
     ElementInspector
 ) {
     "use strict";
@@ -22,11 +22,28 @@ define([
                 editMode: false
             }
         },
+        componentDidMount: function() {
+            //  Ajax request for email template if passed an id one
+
+            var thisTemplate = {
+                name: 'Template Name'
+            };
+
+            this.setState({
+                template: thisTemplate,
+                oldTemplate: thisTemplate
+            });
+        },
+        onTemplateChange: function(newTemplate) {
+            this.setState({
+                template: newTemplate
+            })
+        },
         render: function() {
             return (
                 <div>
-                    <ControlBar template={this.state.template} onTemplateChange={function(newTemplate){this.setState({template:newTemplate})}}/>
-                    <EmailTemplate />
+                    <ControlBar template={this.state.template} onTemplateChange={this.onTemplateChange}/>
+                    <TemplateView />
                     <ElementInspector />
                 </div>
             );
