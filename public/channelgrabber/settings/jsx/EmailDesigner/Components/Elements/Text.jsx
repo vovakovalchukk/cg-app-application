@@ -88,7 +88,7 @@ define([
                     onMouseUp={this.onMouseUp}
                     onMouseMove={this.onMouseMove}
                 >
-                    {this.props.text + " hey"}
+                    {this.props.text}
                 </div>
             );
         }
