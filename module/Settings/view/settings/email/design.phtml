@@ -1,6 +1,7 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require.config({
     paths: {
+        'Common': '<?= $this->basePath() ?>/cg-built/common/js',
         'EmailDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/EmailDesigner';?>"
     }
 });
