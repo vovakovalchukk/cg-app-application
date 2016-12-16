@@ -19,7 +19,7 @@ define([
         createElement: function (element) {
             switch (element.type) {
                 case 'Text':
-                    return (<Text text={element.text} initialPosition={{x: element.x, y: element.y}}/>);
+                    return (<Text id={element.id} text={element.text} initialPosition={{x: element.x, y: element.y}}/>);
                 default:
                     return
             }

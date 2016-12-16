@@ -1,10 +1,12 @@
 define([
     'react',
+    'Common/IdGenerator',
     'EmailDesigner/Components/ControlBar',
     'EmailDesigner/Components/TemplateView',
     'EmailDesigner/Components/ElementInspector'
 ], function(
     React,
+    IdGenerator,
     ControlBar,
     TemplateView,
     ElementInspector
@@ -18,6 +20,7 @@ define([
                 elements: []
             };
             return {
+                latestElementId: 0,
                 template: emptyTemplate,
                 oldTemplate: emptyTemplate,
                 editMode: false
@@ -45,6 +48,7 @@ define([
             var elementDefaults = {
                 type: element,
                 text: "Enter text...",
+                id: String(IdGenerator.generate()),
                 style: {
                     left: 0,
                     top: 0,
@@ -65,12 +69,14 @@ define([
                 template: thisTemplate
             });
         },
+        onElementSelected: function (element) {
 
+        },
         render: function() {
             return (
                 <div className="email-designer-root">
                     <ControlBar template={this.state.template} onTemplateChange={this.onTemplateChange} onElementSelected={this.onElementAdded}/>
-                    <TemplateView template={this.state.template}/>
+                    <TemplateView template={this.state.template} onElementSelected={this.onElementSelected}/>
                     <ElementInspector />
                 </div>
             );

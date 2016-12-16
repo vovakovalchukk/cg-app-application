@@ -8,6 +8,7 @@ define([
     var TextComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                id: 0,
                 text: "",
                 initialPosition: {
                     x: 0,
@@ -34,7 +35,7 @@ define([
         onClick: function (e) {
             this.setState({
                 active: true
-            });
+            }, this.fireActivatedEvent());
         },
         onMouseDown: function (e) {
             if (e.button !== 0) {
@@ -70,6 +71,9 @@ define([
             });
             e.stopPropagation();
             e.preventDefault();
+        },
+        fireActivatedEvent: function () {
+
         },
         render: function() {
             var style = {
