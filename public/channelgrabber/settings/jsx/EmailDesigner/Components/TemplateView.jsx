@@ -1,16 +1,35 @@
 define([
-    'react'
+    'react',
+    'EmailDesigner/Components/Elements/Text'
 ], function(
-    React
+    React,
+    Text
 ) {
     "use strict";
 
     var TemplateViewComponent = React.createClass({
-        render: function()
-        {
+        getDefaultProps: function () {
+            return {
+                template: {
+                    name: '',
+                    elements: []
+                }
+            }
+        },
+        createElement: function (element) {
+            switch (element.type) {
+                case 'Text':
+                    return (<Text text={element.text} initialPosition={{x: element.x, y: element.y}}/>);
+                default:
+                    return
+            }
+        },
+        render: function() {
             return (
-                <div>
-                    EmailTemplate
+                <div className="template-view">
+                    {this.props.template.elements.map(function (element) {
+                        return this.createElement(element);
+                    }.bind(this))}
                 </div>
             );
         }

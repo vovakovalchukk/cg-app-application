@@ -9,7 +9,8 @@ define([
         getDefaultProps: function () {
             return {
                 template: {
-                    name: ''
+                    name: '',
+                    elements: []
                 }
             }
         },
@@ -18,8 +19,10 @@ define([
             newTemplate.name = e.target.value;
             this.props.onTemplateChange(newTemplate);
         },
-        render: function()
-        {
+        onElementSelected: function (element) {
+            this.props.onElementSelected(element);
+        },
+        render: function() {
             return (
                 <div className="sidebar sidebar-fixed sidebar-left sidebar-email-designer">
                     <div className="template-module email-action-buttons">
@@ -38,7 +41,7 @@ define([
                     </div>
                     <div className="template-module">
                         <div className="heading-small">Add Element</div>
-                        <span className="button action">
+                        <span className="button action" onClick={this.onElementSelected.bind(this, 'Text')}>
                             <span className="icon sprite-sprite sprite-text-element-1520-black"></span>
                             <span className="title">Text</span>
                         </span>
