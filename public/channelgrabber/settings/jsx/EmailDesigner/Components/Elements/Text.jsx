@@ -18,7 +18,8 @@ define([
         getInitialState: function() {
             return {
                 position: this.props.initialPosition,
-                dragging: false
+                dragging: false,
+                offsetPosition: null
             };
         },
         componentDidUpdate: function (props, state) {
@@ -30,12 +31,22 @@ define([
                 document.removeEventListener('mouseup', this.onMouseUp);
             }
         },
+        onClick: function (e) {
+            this.setState({
+                active: true
+            });
+        },
         onMouseDown: function (e) {
             if (e.button !== 0) {
                 return;
             }
             this.setState({
-                dragging: true
+                dragging: true,
+                active: true,
+                offsetPosition: {
+                    x: e.pageX - this.refs.element.offsetLeft,
+                    y: e.pageY - this.refs.element.offsetTop
+                }
             });
             e.stopPropagation();
             e.preventDefault();
@@ -53,8 +64,8 @@ define([
             }
             this.setState({
                 position: {
-                    x: e.pageX,
-                    y: e.pageY
+                    x: e.pageX - this.state.offsetPosition.x,
+                    y: e.pageY - this.state.offsetPosition.y
                 }
             });
             e.stopPropagation();
@@ -68,7 +79,15 @@ define([
                 top: this.state.position.y + 'px'
             };
             return (
-                <div style={style} className="element-view text-element">
+                <div
+                    ref="element"
+                    className={"element text-element" + (this.state.active ? ' active' : '')}
+                    style={style}
+                    onClick={this.onClick}
+                    onMouseDown={this.onMouseDown}
+                    onMouseUp={this.onMouseUp}
+                    onMouseMove={this.onMouseMove}
+                >
                     {this.props.text + " hey"}
                 </div>
             );
