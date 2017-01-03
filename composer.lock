@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-12-13T15:57:46+00:00"
+            "time": "2016-12-13 15:57:46"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-12-13T16:34:51+00:00"
+            "time": "2016-12-13 16:34:51"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2983,6 +2983,12 @@
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
                 "reference": "49d759667694f99bcb427cc1094864e3cd54a942"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-7089-use-users-email-address-when-sending-invoices-3c27d0.zip",
+                "reference": "49d759667694f99bcb427cc1094864e3cd54a942",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.17.7",
@@ -3012,7 +3018,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-12-13T12:06:07+00:00"
+            "time": "2017-01-03 09:59:09"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3760,12 +3766,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1fa3c60c0bddcf8a69d18e6cfc5f370611405b8e"
+                "reference": "d29d3f91fea183c6df70deac053cbcd5ac376c58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7089-use-users-email-address-when-sending-invoices-fc690a.zip",
-                "reference": "1fa3c60c0bddcf8a69d18e6cfc5f370611405b8e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7089-use-users-email-address-when-sending-invoices-26fe4a.zip",
+                "reference": "d29d3f91fea183c6df70deac053cbcd5ac376c58",
                 "shasum": null
             },
             "require": {
@@ -3813,7 +3819,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-12-13T12:31:37+00:00"
+            "time": "2017-01-03 09:59:28"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5340,7 +5346,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8813,17 +8819,17 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
