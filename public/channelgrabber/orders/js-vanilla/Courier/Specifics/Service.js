@@ -453,6 +453,8 @@ define([
             $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
             $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
             self.getNotifications().ajaxError(response);
+            // Refresh the table in case some orders did process to prevent double creation
+            self.refresh();
         });
     };
 
@@ -640,6 +642,7 @@ define([
             $(button).removeClass('disabled');
             $(EventHandler.SELECTOR_CANCEL_BUTTON).removeClass('disabled');
             notifications.ajaxError(response);
+            self.refresh();
         });
     };
 

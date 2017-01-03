@@ -4,17 +4,20 @@ namespace Orders\Courier\Label;
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
+use CG\Locking\Failure as LockingFailure;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 
@@ -232,6 +235,7 @@ class CreateService extends ServiceAbstract
             'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
             'errors' => [],
         ];
+
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()] ? $orderParcelsData[$order->getId()] : [];
@@ -286,8 +290,28 @@ class CreateService extends ServiceAbstract
         }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
 
+        // Lock to prevent two people creating the same label at the same time
         try {
-            return $this->orderLabelService->save($orderLabel);
+            $lock = $this->lockingService->lock($orderLabel);
+        } catch (LockingFailure $ex) {
+            $this->logException($ex, 'error', __NAMESPACE__);
+            $exception = new ValidationMessagesException('Locking error');
+            $errorCode = StatusCode::LOCKED;
+            $exception->addErrorWithField($order->getId().':'.StatusCode::LOCKED, 'Someone else appears to be creating that label');
+            return $exception;
+        }
+
+        // Check this label doesnt already exist before we try to create it
+        // This needs to happen inside the lock to prevent duplication
+        if ($this->doesOrderLabelExistForOrder($order)) {
+            $this->lockingService->unlock($lock);
+            return (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
+        }
+
+        try {
+            $savedLabel = $this->orderLabelService->save($orderLabel);
+            $this->lockingService->unlock($lock);
+            return $savedLabel;
 
         } catch (\Exception $e) {
             $this->logException($e, 'error', __NAMESPACE__);
@@ -295,6 +319,28 @@ class CreateService extends ServiceAbstract
             $errorCode = StatusCode::INTERNAL_SERVER_ERROR;
             $exception->addError('There was a problem preparing the courier data. Please try again.', $order->getId() . ':' . $errorCode);
             return $exception;
+        }
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function doesOrderLabelExistForOrder(Order $order)
+    {
+        $notCancelled = OrderLabelStatus::getAllStatuses();
+        unset($notCancelled[OrderLabelStatus::CANCELLED]);
+
+        try {
+            $filter = (new OrderLabelFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrderId([$order->getId()])
+                ->setStatus(array_values($notCancelled));
+
+            $this->orderLabelService->fetchCollectionByFilter($filter);
+            return true;
+        } catch (NotFound $ex) {
+            return false;
         }
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "18178d5b65b926103c2b0fbc4ba2dd51",
+    "content-hash": "85ac15003640c4064eeda415a133850b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -71,16 +71,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.19.17",
+            "version": "3.20.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "089ce29c428ce330b8e9eba8bbe8f2bdbb8b8af5"
+                "reference": "8725e67cb77b057b55596b4468ce9a1a95c5fe96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/aws-aws-sdk-php-089ce29c428ce330b8e9eba8bbe8f2bdbb8b8af5-zip-9b6179.zip",
-                "reference": "089ce29c428ce330b8e9eba8bbe8f2bdbb8b8af5",
+                "url": "https://composer.build.channelgrabber.com/dist/aws-aws-sdk-php-8725e67cb77b057b55596b4468ce9a1a95c5fe96-zip-630623.zip",
+                "reference": "8725e67cb77b057b55596b4468ce9a1a95c5fe96",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-10-18T20:29:12+00:00"
+            "time": "2016-12-30T00:41:36+00:00"
         },
         {
             "name": "channelgrabber/amazon",
@@ -155,7 +155,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "c666935c1698bb2b785ada6af4f27548b15651ad"
+                "reference": "d3356be53e2717f8f71a6687ef5e35dfb7d18492"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7089-use-users-email-address-when-sending-invoices-e3a9e6.zip",
+                "reference": "d3356be53e2717f8f71a6687ef5e35dfb7d18492",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -204,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-12-13 12:01:04"
+            "time": "2016-12-13T15:57:46+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -664,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1324,16 +1330,16 @@
         },
         {
             "name": "channelgrabber/locking",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locking.git",
-                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b"
+                "reference": "0fd65d25c4e6d1bf6e88104f6a59bbdcbcfbfe00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.0-270824.zip",
-                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.2-46058f.zip",
+                "reference": "0fd65d25c4e6d1bf6e88104f6a59bbdcbcfbfe00",
                 "shasum": null
             },
             "require": {
@@ -1355,7 +1361,7 @@
                     "CG\\Locking\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-01-27T14:17:45+00:00"
+            "time": "2016-12-16T08:36:37+00:00"
         },
         {
             "name": "channelgrabber/log",
@@ -1541,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.2",
+            "version": "1.24.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18"
+                "reference": "be28c604fb639dfcbc3f7ffed81f6172d28549f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.2-9f3484.zip",
-                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.4-d68279.zip",
+                "reference": "be28c604fb639dfcbc3f7ffed81f6172d28549f2",
                 "shasum": null
             },
             "require": {
@@ -1615,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-16T09:41:25+00:00"
+            "time": "2016-12-16T08:36:52+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2175,12 +2181,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "885a641ed0065cf854e301ed24cec0085f039192"
+                "reference": "c11657cab20783eee35478ce1784a1093933c8d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7089-use-users-email-address-when-sending-invoices-1b99fe.zip",
-                "reference": "885a641ed0065cf854e301ed24cec0085f039192",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7089-use-users-email-address-when-sending-invoices-e7dfed.zip",
+                "reference": "c11657cab20783eee35478ce1784a1093933c8d0",
                 "shasum": null
             },
             "require": {
@@ -2201,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-12-05 16:54:07"
+            "time": "2016-12-13T16:34:51+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2975,7 +2981,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "def75d1d1b2d3a78c93338a34cd242a0bb47a6b4"
+                "reference": "49d759667694f99bcb427cc1094864e3cd54a942"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3006,7 +3012,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-12-13 12:06:07"
+            "time": "2016-12-13T12:06:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3807,7 +3813,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-12-13 12:31:37"
+            "time": "2016-12-13T12:31:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4412,28 +4418,28 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.2.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579"
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-promises-c10d860e2a9595f8883527fa0021c7da9e65f579-zip-6acfec.zip",
-                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579",
+                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-promises-a59da6cf61d80060647ff4d3eb2c03a2bc694646-zip-081b1f.zip",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -4459,7 +4465,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-05-18T16:56:05+00:00"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -5334,7 +5340,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5869,16 +5875,16 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.4.1",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "8025426794f1944de806618671d4fa476dc7626f"
+                "reference": "3b6fca09c7d56321057fa8867c8dbe1abf648627"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/react-promise-8025426794f1944de806618671d4fa476dc7626f-zip-e25061.zip",
-                "reference": "8025426794f1944de806618671d4fa476dc7626f",
+                "url": "https://composer.build.channelgrabber.com/dist/react-promise-3b6fca09c7d56321057fa8867c8dbe1abf648627-zip-543019.zip",
+                "reference": "3b6fca09c7d56321057fa8867c8dbe1abf648627",
                 "shasum": ""
             },
             "require": {
@@ -5909,7 +5915,7 @@
                 }
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "time": "2016-05-03T17:50:52+00:00"
+            "time": "2015-07-03T13:48:55+00:00"
         },
         {
             "name": "realityking/hash_equals",
@@ -6313,25 +6319,25 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v2.8.12",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "165bf6d1e72cd72f2fe170a070aa2a1f17f2d744"
+                "reference": "07d664a052572ccc28eb2ab7dbbe82155b1ad367"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-browser-kit-165bf6d1e72cd72f2fe170a070aa2a1f17f2d744-zip-339a76.zip",
-                "reference": "165bf6d1e72cd72f2fe170a070aa2a1f17f2d744",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-browser-kit-07d664a052572ccc28eb2ab7dbbe82155b1ad367-zip-859906.zip",
+                "reference": "07d664a052572ccc28eb2ab7dbbe82155b1ad367",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9",
-                "symfony/dom-crawler": "~2.1|~3.0.0"
+                "symfony/dom-crawler": "~2.0,>=2.0.5"
             },
             "require-dev": {
-                "symfony/css-selector": "~2.0,>=2.0.5|~3.0.0",
-                "symfony/process": "~2.3.34|~2.7,>=2.7.6|~3.0.0"
+                "symfony/css-selector": "~2.0,>=2.0.5",
+                "symfony/process": "~2.3.34|~2.7,>=2.7.6"
             },
             "suggest": {
                 "symfony/process": ""
@@ -6339,16 +6345,13 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\BrowserKit\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6366,7 +6369,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-06T10:55:00+00:00"
+            "time": "2015-10-23T14:47:27+00:00"
         },
         {
             "name": "symfony/class-loader",
@@ -6522,16 +6525,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.12",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "71c8c3a04c126300c37089b1baa7c6322dfb845f"
+                "reference": "e1b865b26be4a56d22a8dee398375044a80c865b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-css-selector-71c8c3a04c126300c37089b1baa7c6322dfb845f-zip-9ac85b.zip",
-                "reference": "71c8c3a04c126300c37089b1baa7c6322dfb845f",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-css-selector-e1b865b26be4a56d22a8dee398375044a80c865b-zip-b41fe6.zip",
+                "reference": "e1b865b26be4a56d22a8dee398375044a80c865b",
                 "shasum": ""
             },
             "require": {
@@ -6540,16 +6543,13 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\CssSelector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6571,7 +6571,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-06T10:55:00+00:00"
+            "time": "2015-10-11T09:39:48+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -6634,24 +6634,23 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.8.12",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "aac03b7ea2a7adff10a3599d614e79e6101230ab"
+                "reference": "5fef7d8b80d8f9992df99d8ee283f420484c9612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-dom-crawler-aac03b7ea2a7adff10a3599d614e79e6101230ab-zip-2349a0.zip",
-                "reference": "aac03b7ea2a7adff10a3599d614e79e6101230ab",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-dom-crawler-5fef7d8b80d8f9992df99d8ee283f420484c9612-zip-fa3ced.zip",
+                "reference": "5fef7d8b80d8f9992df99d8ee283f420484c9612",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
-                "symfony/polyfill-mbstring": "~1.0"
+                "php": ">=5.3.9"
             },
             "require-dev": {
-                "symfony/css-selector": "~2.8|~3.0.0"
+                "symfony/css-selector": "~2.3"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -6659,16 +6658,13 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\DomCrawler\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6686,7 +6682,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30T07:20:35+00:00"
+            "time": "2015-10-11T09:39:48+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -6793,16 +6789,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.12",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "bc24c8f5674c6f6841f2856b70e5d60784be5691"
+                "reference": "2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-finder-bc24c8f5674c6f6841f2856b70e5d60784be5691-zip-5438d9.zip",
-                "reference": "bc24c8f5674c6f6841f2856b70e5d60784be5691",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-finder-2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d-zip-d4b240.zip",
+                "reference": "2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d",
                 "shasum": ""
             },
             "require": {
@@ -6811,16 +6807,13 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Finder\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -6838,7 +6831,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-28T00:10:16+00:00"
+            "time": "2015-10-11T09:39:48+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -8806,31 +8799,31 @@
             "package": "channelgrabber/settings"
         },
         {
-            "alias": "1.0.17",
-            "alias_normalized": "1.0.17.0",
+            "alias": "1.0.18",
+            "alias_normalized": "1.0.18.0",
             "version": "dev-CGIV-7089-use-users-email-address-when-sending-invoices",
             "package": "channelgrabber/zf2-amazon"
         },
         {
-            "alias": "1.17.19",
-            "alias_normalized": "1.17.19.0",
+            "alias": "1.17.22",
+            "alias_normalized": "1.17.22.0",
             "version": "dev-CGIV-7089-use-users-email-address-when-sending-invoices",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
