@@ -310,7 +310,6 @@ class CreateService extends ServiceAbstract
 
         try {
             $savedLabel = $this->orderLabelService->save($orderLabel);
-            $this->lockingService->unlock($lock);
             return $savedLabel;
 
         } catch (\Exception $e) {
@@ -319,6 +318,9 @@ class CreateService extends ServiceAbstract
             $errorCode = StatusCode::INTERNAL_SERVER_ERROR;
             $exception->addError('There was a problem preparing the courier data. Please try again.', $order->getId() . ':' . $errorCode);
             return $exception;
+
+        } finally {
+            $this->lockingService->unlock($lock);
         }
     }
 
