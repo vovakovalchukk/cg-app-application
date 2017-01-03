@@ -1,7 +1,10 @@
 define([
-    'react'
+    'react',
+    'Common/Common/Components/ClickOutside'
+
 ], function(
-    React
+    React,
+    ClickOutside
 ) {
     "use strict";
 
@@ -35,6 +38,12 @@ define([
             this.setState({
                 active: true
             }, this.fireActivatedEvent());
+        },
+        onClickOutside: function (e) {
+            this.setState({
+                dragging:false,
+                active:false
+            });
         },
         onMouseDown: function (e) {
             if (e.button !== 0) {
@@ -82,6 +91,7 @@ define([
                 top: this.state.position.y + 'px'
             };
             return (
+                <ClickOutside onClickOutside={this.onClickOutside}>
                 <div ref="element"
                      className={this.props.className+" element " + (this.state.active ? 'active' : '')}
                      style={style}
@@ -92,6 +102,7 @@ define([
                 >
                     {this.props.children}
                 </div>
+                </ClickOutside>
             );
         }
     });
