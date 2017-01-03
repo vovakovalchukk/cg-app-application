@@ -17,52 +17,97 @@ define([
                     width: 100,
                     height: 100
                 },
-                maxSize: {}
+                maxSize: {},
+                directions: [
+                    'top', 'top-right', 'top-left',
+                    'left', 'right',
+                    'bottom', 'bottom-left', 'bottom-right'
+                ]
             }
         },
-        getInititalState: function () {
+        getInitialState: function () {
             return {
                 resizing: false,
-                size: {}//this.props.defaultSize
+                direction: '',
+                size: this.props.defaultSize,
+                originalMousePos: {
+                    x: 0,
+                    y: 0
+                }
             }
         },
-        onMouseDown: function (type) {
+        onMouseDown: function (e, type) {
+            console.log(type);
             this.setState({
                 resizing: true,
-                direction: type
+                direction: type,
+                originalMousePos: {
+                    x: e.clientX,
+                    y: e.clientY
+                }
             });
+            e.stopPropagation();
+            e.preventDefault();
         },
-        onMouseUp: function () {
+        onMouseUp: function (e) {
             this.setState({
-                resizing: false
+                resizing: false,
+                direction: ''
             });
+            e.stopPropagation();
+            e.preventDefault();
         },
         onMouseMove: function (e) {
             if (! this.state.resizing) {
                 return;
             }
 
+            var differenceX = e.clientX - this.state.originalMousePos.x;
+            var differenceY = e.clientY - this.state.originalMousePos.y;
+            console.log(differenceX);
+            console.log(differenceY);
             var direction = this.state.direction;
+            var newWidth = this.state.size.width;
+            var newHeight = this.state.size.height;
             if (/right/i.test(direction)) {
-
+                console.log('right movement');
+                newWidth += differenceX;
             }
+            if (/left/i.test(direction)) {
+                console.log('left movement');
+                newWidth -= differenceX;
+            }
+            if (/top/i.test(direction)) {
+                console.log('top movement');
+                newHeight -= differenceY;
+            }
+            if (/bottom/i.test(direction)) {
+                console.log('bottom movement');
+                newHeight += differenceY;
+            }
+            this.element.width = newWidth;
+            this.element.height = newHeight;
+            e.stopPropagation();
+            e.preventDefault();
         },
         render: function () {
             var active =  this.props.active ? ' active' : '';
             var style = {
-                width: 100,
-                height: 100
+                width: this.state.size.width,
+                height: this.state.size.height
             };
             return (
-                <div style={style} className={'resizable-component' + active}>
-                    {/*<div className={"resizable-anchor top" + active} onMouseDown={this.onMouseDown('top')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor top-right" + active} onMouseDown={this.onMouseDown('top-right')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor top-left" + active} onMouseDown={this.onMouseDown('top-left')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor left" + active} onMouseDown={this.onMouseDown('left')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor right" + active} onMouseDown={this.onMouseDown('right')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor bottom" + active} onMouseDown={this.onMouseDown('bottom')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor bottom-right" + active} onMouseDown={this.onMouseDown('bottom-right')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
-                    {/*<div className={"resizable-anchor bottom-left" + active} onMouseDown={this.onMouseDown('bottom-left')} onMouseUp={this.onMouseUp()} onMouseMove={this.onMouseMove}></div>*/}
+                <div ref={function (element) {this.element = element;}.bind(this)}
+                     style={style}
+                     className={'resizable-component' + active}>
+                    {this.props.directions.map(function(direction) {
+                        return (
+                            <div className={"resizable-anchor " + direction + " " + active}
+                                 onMouseDown={function(e){this.onMouseDown(e, direction)}.bind(this)}
+                                 onMouseUp={function(e){this.onMouseUp(e)}.bind(this)}
+                                 onMouseMove={function(e){this.onMouseMove(e)}.bind(this)}></div>
+                        )
+                    }.bind(this))}
                     {this.props.children}
                 </div>
             );
