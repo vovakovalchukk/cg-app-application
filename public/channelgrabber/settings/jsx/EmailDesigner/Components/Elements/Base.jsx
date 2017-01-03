@@ -16,6 +16,10 @@ define([
                 initialPosition: {
                     x: 0,
                     y: 0
+                },
+                size: {
+                    width: 100,
+                    height: 100
                 }
             }
         },
@@ -101,7 +105,7 @@ define([
                      onMouseUp={this.onMouseUp}
                      onMouseMove={this.onMouseMove}
                 >
-                    <Resizable active={this.state.active}>
+                    <Resizable defaultSize={this.props.size} active={this.state.active}>
                         {this.props.children}
                     </Resizable>
                 </div>

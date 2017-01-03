@@ -24,10 +24,10 @@ define([
                     self.props.onClickOutside(e)
                 }
             };
-            document.addEventListener('click', this.evt, false);
+            document.addEventListener('mousedown', this.evt, false);
         },
         componentWillUnmount: function () {
-            document.removeEventListener('click', this.evt, false);
+            document.removeEventListener('mousedown', this.evt, false);
         },
         render: function () {
             return (
