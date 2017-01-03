@@ -13,6 +13,7 @@ require(['EmailDesigner/EmailDesigner'], function(EmailDesigner)
     new EmailDesigner(mountingNodes);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
 <div id="email-designer">
     <div id="email-designer-mount"></div>
 </div>

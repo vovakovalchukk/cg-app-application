@@ -1,10 +1,11 @@
 define([
     'react',
-    'Common/Common/Components/ClickOutside'
-
+    'Common/Common/Components/ClickOutside',
+    'Common/Common/Components/Resizable'
 ], function(
     React,
-    ClickOutside
+    ClickOutside,
+    Resizable
 ) {
     "use strict";
 
@@ -93,14 +94,16 @@ define([
             return (
                 <ClickOutside onClickOutside={this.onClickOutside}>
                 <div ref="element"
-                     className={this.props.className+" element " + (this.state.active ? 'active' : '')}
+                     className={this.props.className+" element"}
                      style={style}
                      onClick={this.onClick}
                      onMouseDown={this.onMouseDown}
                      onMouseUp={this.onMouseUp}
                      onMouseMove={this.onMouseMove}
                 >
-                    {this.props.children}
+                    <Resizable active={this.state.active}>
+                        {this.props.children}
+                    </Resizable>
                 </div>
                 </ClickOutside>
             );

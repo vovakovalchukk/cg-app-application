@@ -70,7 +70,7 @@ define([
             });
         },
         onElementSelected: function (element) {
-
+            console.log(element);
         },
         render: function() {
             return (
