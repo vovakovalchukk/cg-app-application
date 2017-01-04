@@ -25,8 +25,7 @@ define([
         },
         getInitialState: function() {
             return {
-                position: this.props.initialPosition,
-                offsetPosition: null
+                position: this.props.initialPosition
             };
         },
         onClick: function (e) {
@@ -48,7 +47,6 @@ define([
             });
         },
         onMoveStart: function () {
-            console.log('Move Start');
             this.setState({
                 active: true
             });

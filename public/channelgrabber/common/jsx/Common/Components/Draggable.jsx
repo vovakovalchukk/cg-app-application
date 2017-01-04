@@ -8,6 +8,14 @@ define([
     "use strict";
 
     var DraggableComponent = React.createClass({
+        getDefaultProps: function () {
+            return {
+                defaultPosition: {
+                    x: 0,
+                    y: 0
+                }
+            };
+        },
         getInitialState: function() {
             return {
                 dragging: false,
@@ -27,15 +35,11 @@ define([
             if (e.button !== 0) {
                 return;
             }
-            console.log(this.refs.element.offsetLeft);
-            console.log(this.refs.element.offsetTop);
-            console.log(e.pageX);
-            console.log(e.pageY);
             this.setState({
                 dragging: true,
                 offsetPosition: {
-                    x: e.pageX - this.refs.element.offsetLeft,
-                    y: e.pageY - this.refs.element.offsetTop
+                    x: e.pageX - this.props.defaultPosition.x,
+                    y: e.pageY - this.props.defaultPosition.y
                 }
             });
             this.props.onMoveStart();
@@ -61,9 +65,7 @@ define([
         },
         render: function() {
             return (
-                <div ref="element"
-                     className="draggable-element"
-                     onClick={this.onClick}
+                <div className="draggable-element"
                      onMouseDown={this.onMouseDown}
                      onMouseUp={this.onMouseUp}
                      onMouseMove={this.onMouseMove}

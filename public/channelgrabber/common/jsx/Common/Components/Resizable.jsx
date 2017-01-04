@@ -131,7 +131,7 @@ define([
                 height: this.state.size.height
             };
             return (
-                <Draggable onMove={this.props.onMove} onMoveStart={this.props.onMoveStart}>
+                <Draggable defaultPosition={this.props.defaultPosition} onMove={this.props.onMove} onMoveStart={this.props.onMoveStart}>
                     <div ref={function (element) {this.element = element;}.bind(this)}
                          style={style}
                          className={'resizable-element' + active}
