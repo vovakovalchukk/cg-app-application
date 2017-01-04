@@ -264,11 +264,14 @@ class Service extends ClientService implements StatsAwareInterface
     {
         // Check if there is a channel specific email address we can use first (by passing invoices settings config).
         $account = $this->accountService->fetch($order->getAccountId());
-        $accountAddressGenerator = $this->accountAddressGeneratorFactory->getGeneratorForChannel($order->getChannel());
-        $sendFrom = $accountAddressGenerator($account);
-
-        if ($sendFrom) {
-            return true;
+        try {
+            $accountAddressGenerator = $this->accountAddressGeneratorFactory->getGeneratorForChannel($order->getChannel());
+            $sendFrom = $accountAddressGenerator($account);
+            if ($sendFrom) {
+                return true;
+            }
+        } catch (\InvalidArgumentException $exception) {
+            // No account address generator for this channel - skip it
         }
 
         $orderRootOuId = $order->getRootOrganisationUnitId();
