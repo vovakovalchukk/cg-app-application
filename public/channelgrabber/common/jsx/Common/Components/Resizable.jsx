@@ -1,9 +1,9 @@
 define([
     'react',
-    'react-dom'
+    'Common/Common/Components/Draggable'
 ], function(
     React,
-    ReactDOM
+    Draggable
 ) {
     "use strict";
 
@@ -31,6 +31,7 @@ define([
         },
         getInitialState: function () {
             return {
+                active: this.props.active,
                 resizing: false,
                 direction: '',
                 size: this.props.defaultSize,
@@ -39,6 +40,11 @@ define([
                     y: 0
                 }
             }
+        },
+        componentWillReceiveProps: function (newProps) {
+            this.setState({
+                active: newProps.active
+            });
         },
         componentDidMount: function () {
             window.addEventListener('mouseup', this.onMouseUp.bind(this));
@@ -77,7 +83,7 @@ define([
             e.preventDefault();
         },
         onMouseMove: function (e) {
-            if (! this.state.resizing || ! this.props.active) {
+            if (! this.state.resizing || ! this.state.active) {
                 return;
             }
 
@@ -114,29 +120,31 @@ define([
                     y: e.clientY
                 }
             });
-            this.props.onResize(newX, newY);
+            this.props.onMove(newX, newY);
             e.stopPropagation();
             e.preventDefault();
         },
         render: function () {
-            var active =  this.props.active ? ' active' : '';
+            var active =  this.state.active ? ' active' : '';
             var style = {
                 width: this.state.size.width,
                 height: this.state.size.height
             };
             return (
-                <div ref={function (element) {this.element = element;}.bind(this)}
-                     style={style}
-                     className={'resizable-component' + active}
-                     onMouseUp={function(e){this.cancelResize(e)}.bind(this)}>
-                    {this.props.directions.map(function(direction) {
-                        return (
-                            <div className={"resizable-anchor " + direction + " " + active}
-                                 onMouseDown={function(e){this.onMouseDown(e, direction)}.bind(this)}></div>
-                        )
-                    }.bind(this))}
-                    {this.props.children}
-                </div>
+                <Draggable onMove={this.props.onMove} onMoveStart={this.props.onMoveStart}>
+                    <div ref={function (element) {this.element = element;}.bind(this)}
+                         style={style}
+                         className={'resizable-element' + active}
+                         onMouseUp={function(e){this.cancelResize(e)}.bind(this)}>
+                        {this.props.directions.map(function(direction) {
+                            return (
+                                <div className={"resizable-anchor " + direction + " " + active}
+                                     onMouseDown={function(e){this.onMouseDown(e, direction)}.bind(this)}></div>
+                            )
+                        }.bind(this))}
+                        {this.props.children}
+                    </div>
+                </Draggable>
             );
         }
     });
