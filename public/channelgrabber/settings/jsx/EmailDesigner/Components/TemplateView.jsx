@@ -1,9 +1,9 @@
 define([
     'react',
-    'EmailDesigner/Components/Elements/Text'
+    'EmailDesigner/Components/ElementList'
 ], function(
     React,
-    Text
+    ElementList
 ) {
     "use strict";
 
@@ -17,12 +17,7 @@ define([
             }
         },
         createElement: function (element) {
-            switch (element.type) {
-                case 'Text':
-                    return (<Text id={element.id} text={element.text} initialPosition={{x: element.x, y: element.y}}/>);
-                default:
-                    return
-            }
+            return ElementList.createElement(element);
         },
         render: function() {
             return (
