@@ -85,6 +85,14 @@ define([
             e.stopPropagation();
             e.preventDefault();
         },
+        onResize: function (x, y) {
+            this.setState({
+                position: {
+                    x: x,
+                    y: y
+                }
+            });
+        },
         fireActivatedEvent: function () {
 
         },
@@ -105,7 +113,7 @@ define([
                      onMouseUp={this.onMouseUp}
                      onMouseMove={this.onMouseMove}
                 >
-                    <Resizable defaultSize={this.props.size} active={this.state.active}>
+                    <Resizable defaultSize={this.props.size} defaultPosition={this.state.position} active={this.state.active} onResize={this.onResize}>
                         {this.props.children}
                     </Resizable>
                 </div>

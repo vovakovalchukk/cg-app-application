@@ -17,6 +17,10 @@ define([
                     width: 100,
                     height: 100
                 },
+                defaultPosition: {
+                    x: 0,
+                    y: 0
+                },
                 maxSize: {},
                 directions: [
                     'top', 'top-right', 'top-left',
@@ -36,8 +40,15 @@ define([
                 }
             }
         },
+        componentDidMount: function () {
+            window.addEventListener('mouseup', this.onMouseUp.bind(this));
+            window.addEventListener('mousemove', this.onMouseMove.bind(this));
+        },
+        componentWillUnmount: function () {
+            window.removeEventListener('mouseup', this.onMouseUp.bind(this));
+            window.removeEventListener('mousemove', this.onMouseMove.bind(this));
+        },
         onMouseDown: function (e, type) {
-            console.log(type);
             this.setState({
                 resizing: true,
                 direction: type,
@@ -57,36 +68,53 @@ define([
             e.stopPropagation();
             e.preventDefault();
         },
+        cancelResize: function (e) {
+            this.setState({
+                resizing: false,
+                direction: ''
+            });
+            e.stopPropagation();
+            e.preventDefault();
+        },
         onMouseMove: function (e) {
-            if (! this.state.resizing) {
+            if (! this.state.resizing || ! this.props.active) {
                 return;
             }
 
             var differenceX = e.clientX - this.state.originalMousePos.x;
             var differenceY = e.clientY - this.state.originalMousePos.y;
-            console.log(differenceX);
-            console.log(differenceY);
             var direction = this.state.direction;
             var newWidth = this.state.size.width;
             var newHeight = this.state.size.height;
+            var newX = this.props.defaultPosition.x;
+            var newY = this.props.defaultPosition.y;
+
             if (/right/i.test(direction)) {
-                console.log('right movement');
                 newWidth += differenceX;
             }
             if (/left/i.test(direction)) {
-                console.log('left movement');
                 newWidth -= differenceX;
+                newX += differenceX;
             }
             if (/top/i.test(direction)) {
-                console.log('top movement');
                 newHeight -= differenceY;
+                newY += differenceY;
             }
             if (/bottom/i.test(direction)) {
-                console.log('bottom movement');
                 newHeight += differenceY;
             }
-            this.element.width = newWidth;
-            this.element.height = newHeight;
+
+            this.setState({
+                size: {
+                    width: newWidth,
+                    height: newHeight
+                },
+                originalMousePos: {
+                    x: e.clientX,
+                    y: e.clientY
+                }
+            });
+            this.props.onResize(newX, newY);
             e.stopPropagation();
             e.preventDefault();
         },
@@ -104,8 +132,7 @@ define([
                         return (
                             <div className={"resizable-anchor " + direction + " " + active}
                                  onMouseDown={function(e){this.onMouseDown(e, direction)}.bind(this)}
-                                 onMouseUp={function(e){this.onMouseUp(e)}.bind(this)}
-                                 onMouseMove={function(e){this.onMouseMove(e)}.bind(this)}></div>
+                                 onMouseUp={function(e){this.cancelResize(e)}.bind(this)}></div>
                         )
                     }.bind(this))}
                     {this.props.children}
