@@ -127,12 +127,12 @@ define([
             return (
                 <div ref={function (element) {this.element = element;}.bind(this)}
                      style={style}
-                     className={'resizable-component' + active}>
+                     className={'resizable-component' + active}
+                     onMouseUp={function(e){this.cancelResize(e)}.bind(this)}>
                     {this.props.directions.map(function(direction) {
                         return (
                             <div className={"resizable-anchor " + direction + " " + active}
-                                 onMouseDown={function(e){this.onMouseDown(e, direction)}.bind(this)}
-                                 onMouseUp={function(e){this.cancelResize(e)}.bind(this)}></div>
+                                 onMouseDown={function(e){this.onMouseDown(e, direction)}.bind(this)}></div>
                         )
                     }.bind(this))}
                     {this.props.children}
