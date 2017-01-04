@@ -6,10 +6,11 @@ define([
     "use strict";
 
     var EmailInspectorComponent = React.createClass({
+
         render: function()
         {
             return (
-                <div>
+                <div className="sidebar sidebar-fixed sidebar-right sidebar-email-designer">
                     EmailInspector
                 </div>
             );
