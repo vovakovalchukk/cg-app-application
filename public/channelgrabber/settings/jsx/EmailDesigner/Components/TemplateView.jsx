@@ -8,11 +8,15 @@ define([
     "use strict";
 
     var TemplateViewComponent = React.createClass({
+        elementSelected: function (id) {
+            console.log(id);
+        },
         renderElements: function () {
             var elements = [];
             var elementDataList = this.props.template.elements;
             for (var id in elementDataList) {
                 if (!elementDataList.hasOwnProperty(id)) continue;
+                elementDataList[id].onElementSelected = this.elementSelected;
                 elements.push(ElementList.renderElement(elementDataList[id]));
             }
             return elements;

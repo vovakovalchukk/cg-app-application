@@ -13,6 +13,7 @@ define([
         this.elements = {
             'Text': function (elementData) {
                 return (<Text id={elementData.id}
+                              onElementSelected={elementData.onElementSelected}
                               text={elementData.text}
                               initialPosition={{x: elementData.x, y: elementData.y}}
                               size={{width: elementData.width, height: elementData.height}}

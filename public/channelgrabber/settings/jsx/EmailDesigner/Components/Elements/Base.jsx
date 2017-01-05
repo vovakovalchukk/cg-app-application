@@ -28,7 +28,8 @@ define([
                 position: this.props.initialPosition
             };
         },
-        onClick: function (e) {
+        onMouseDown: function (e) {
+            this.props.onElementSelected(this.props.id);
             this.setState({
                 active: true
             });
@@ -60,7 +61,7 @@ define([
                 <ClickOutside onClickOutside={this.onClickOutside}>
                 <div className={this.props.className+" element"}
                      style={position}
-                     onClick={this.onClick}
+                     onMouseDown={this.onMouseDown}
                 >
                     <Resizable defaultSize={this.props.size}
                                defaultPosition={this.state.position}
@@ -75,6 +76,11 @@ define([
             );
         }
     });
+
+    BaseComponent.propTypes = {
+        id: React.PropTypes.number.isRequired,
+        onElementSelected: React.PropTypes.func.isRequired
+    };
 
     return BaseComponent;
 });

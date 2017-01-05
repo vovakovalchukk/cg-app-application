@@ -19,6 +19,7 @@ define([
                 <BaseElement
                     className="text-element"
                     id={this.props.id}
+                    onElementSelected={this.props.onElementSelected}
                     style={this.props.style}
                     size={this.props.size}
                 >
