@@ -19,6 +19,7 @@ define([
         getInitialState: function() {
             return {
                 editMode: false,
+                selectedElement: {},
                 template: {
                     name: 'Template Name',
                     elements: {}
@@ -28,7 +29,7 @@ define([
         componentDidMount: function() {
             //  Ajax request for email template if passed an id one
 
-            PubSub.subscribe('ELEMENT.ADD', this.elementSubscriber);
+            PubSub.subscribe('ELEMENT', this.elementSubscriber);
         },
         componentWillUnmount: function () {
             PubSub.clearAllSubscriptions();
@@ -45,6 +46,8 @@ define([
             switch (msg) {
                 case 'ELEMENT.ADD':
                     return this.addElement(data.type);
+                case 'ELEMENT.SELECTED':
+                    return this.selectElement(data);
                 case 'ELEMENT.UPDATE':
                     return this.updateElement(data);
                 case 'ELEMENT.DELETE':
@@ -61,12 +64,18 @@ define([
                 template: template
             });
         },
+        selectElement: function (element) {
+            this.setState({
+                selectedElement: this.state.template.elements[element.id]
+            });
+        },
         render: function() {
+            console.log(this.state.selectedElement);
             return (
                 <div className="email-designer-root">
                     <ControlBar template={this.state.template} onTemplateNameChange={this.onTemplateNameChange}/>
                     <TemplateView template={this.state.template}/>
-                    <ElementInspector />
+                    <ElementInspector element={this.state.selectedElement}/>
                 </div>
             );
         }

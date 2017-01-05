@@ -11,12 +11,10 @@ define([
 
     var TemplateViewComponent = React.createClass({
         componentDidMount: function() {
-            //  Ajax request for email template if passed an id one
-
-            this.pubSubToken = PubSub.subscribe('ELEMENT.UPDATED', this.elementSubscriber);
+            //PubSub.subscribe('ELEMENT.UPDATED', this.elementSubscriber);
         },
         componentWillUnmount: function () {
-            PubSub.clearAllSubscriptions();
+            //PubSub.unsubscribe(this.elementSubscriber);
         },
         elementSelected: function (id) {
             PubSub.publish('ELEMENT.SELECTED', {id: id});
