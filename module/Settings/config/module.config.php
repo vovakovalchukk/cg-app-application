@@ -109,10 +109,10 @@ return [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
                         'route' => Module::ROUTE.'/'.InvoiceController::ROUTE
-                    ], [
-                        'label' => EmailController::ROUTE_DESIGNER,
-                        'title' => EmailController::ROUTE_DESIGNER,
-                        'route' => Module::ROUTE.'/'.EmailController::ROUTE.'/'.EmailController::ROUTE_DESIGNER,
+//                    ], [
+//                        'label' => EmailController::ROUTE_DESIGNER,
+//                        'title' => EmailController::ROUTE_DESIGNER,
+//                        'route' => Module::ROUTE.'/'.EmailController::ROUTE.'/'.EmailController::ROUTE_DESIGNER,
                     ],
                 ]
             ],
