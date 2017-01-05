@@ -43,7 +43,6 @@ define([
                 }
             });
             this.props.onMoveStart();
-            e.stopPropagation();
             e.preventDefault();
         },
         onMouseUp: function (e) {
