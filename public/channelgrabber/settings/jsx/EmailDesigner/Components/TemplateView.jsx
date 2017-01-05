@@ -8,23 +8,19 @@ define([
     "use strict";
 
     var TemplateViewComponent = React.createClass({
-        getDefaultProps: function () {
-            return {
-                template: {
-                    name: '',
-                    elements: []
-                }
+        renderElements: function () {
+            var elements = [];
+            var elementDataList = this.props.template.elements;
+            for (var id in elementDataList) {
+                if (!elementDataList.hasOwnProperty(id)) continue;
+                elements.push(ElementList.renderElement(elementDataList[id]));
             }
-        },
-        createElement: function (element) {
-            return ElementList.createElement(element);
+            return elements;
         },
         render: function() {
             return (
                 <div className="template-view">
-                    {this.props.template.elements.map(function (element) {
-                        return this.createElement(element);
-                    }.bind(this))}
+                    {this.renderElements()}
                 </div>
             );
         }

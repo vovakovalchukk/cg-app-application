@@ -3,12 +3,14 @@ define([
     'EmailDesigner/Components/ControlBar',
     'EmailDesigner/Components/TemplateView',
     'EmailDesigner/Components/ElementInspector',
+    'EmailDesigner/Components/ElementList',
     'Common/PubSub'
 ], function(
     React,
     ControlBar,
     TemplateView,
     ElementInspector,
+    ElementList,
     PubSub
 ) {
     "use strict";
@@ -26,7 +28,7 @@ define([
         componentDidMount: function() {
             //  Ajax request for email template if passed an id one
 
-            //this.pubSubToken = PubSub.subscribe('ELEMENT.ADD', this.elementSubscriber);
+            this.pubSubToken = PubSub.subscribe('ELEMENT.ADD', this.elementSubscriber);
         },
         componentWillUnmount: function () {
             PubSub.clearAllSubscriptions();
@@ -34,6 +36,26 @@ define([
         onTemplateNameChange: function (e) {
             var template = this.state.template;
             template.name = e.target.value;
+
+            this.setState({
+                template: template
+            });
+        },
+        elementSubscriber: function (msg, data) {
+            switch (msg) {
+                case 'ELEMENT.ADD':
+                    return this.addElement(data.type);
+                case 'ELEMENT.UPDATE':
+                    return this.updateElement(data);
+                case 'ELEMENT.DELETE':
+                    return this.deleteElement(data);
+            }
+        },
+        addElement: function (elementType) {
+            var defaultData = ElementList.getDefaultData(elementType);
+
+            var template = this.state.template;
+            template.elements[defaultData.id] = defaultData;
 
             this.setState({
                 template: template

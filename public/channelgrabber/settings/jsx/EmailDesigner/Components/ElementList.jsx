@@ -19,7 +19,7 @@ define([
         this.defaults = {
             'Text': function () {
                 return {
-                    type: 'text',
+                    type: 'Text',
                     text: "Enter text...",
                     id: String(IdGenerator.generate()),
                     width: 200,
