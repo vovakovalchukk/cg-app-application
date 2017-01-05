@@ -1,8 +1,10 @@
 define([
     'react',
+    'Common/IdGenerator',
     'EmailDesigner/Components/Elements/Text'
 ], function(
     React,
+    IdGenerator,
     Text
 ) {
     "use strict";
@@ -34,7 +36,7 @@ define([
         }
     };
 
-    ElementList.prototype.createElement = function (elementData) {
+    ElementList.prototype.renderElement = function (elementData) {
         return this.elements[elementData.type](elementData);
     };
 

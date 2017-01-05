@@ -16,9 +16,7 @@ define([
                 }
             }
         },
-        onElementSelected: function (e, elementType) {
-            console.log(e);
-            console.log(elementType);
+        onElementSelected: function (elementType) {
             PubSub.publish('ELEMENT.ADD', {type: elementType});
         },
         render: function() {
