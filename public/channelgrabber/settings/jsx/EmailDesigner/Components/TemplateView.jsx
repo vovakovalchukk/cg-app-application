@@ -1,15 +1,25 @@
 define([
     'react',
-    'EmailDesigner/Components/ElementList'
+    'EmailDesigner/Components/ElementList',
+    'Common/PubSub'
 ], function(
     React,
-    ElementList
+    ElementList,
+    PubSub
 ) {
     "use strict";
 
     var TemplateViewComponent = React.createClass({
+        componentDidMount: function() {
+            //  Ajax request for email template if passed an id one
+
+            this.pubSubToken = PubSub.subscribe('ELEMENT.UPDATED', this.elementSubscriber);
+        },
+        componentWillUnmount: function () {
+            PubSub.clearAllSubscriptions();
+        },
         elementSelected: function (id) {
-            console.log(id);
+            PubSub.publish('ELEMENT.SELECTED', {id: id});
         },
         renderElements: function () {
             var elements = [];

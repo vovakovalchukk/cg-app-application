@@ -28,7 +28,7 @@ define([
         componentDidMount: function() {
             //  Ajax request for email template if passed an id one
 
-            this.pubSubToken = PubSub.subscribe('ELEMENT.ADD', this.elementSubscriber);
+            PubSub.subscribe('ELEMENT.ADD', this.elementSubscriber);
         },
         componentWillUnmount: function () {
             PubSub.clearAllSubscriptions();
