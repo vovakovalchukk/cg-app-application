@@ -20,7 +20,7 @@ define([
                     className="text-element"
                     id={this.props.id}
                     style={this.props.style}
-                    size={{width: this.props.width, height: this.props.height}}
+                    size={this.props.size}
                 >
                     {this.props.text}
                 </BaseElement>

@@ -12,7 +12,11 @@ define([
     var ElementList = function() {
         this.elements = {
             'Text': function (elementData) {
-                return (<Text id={elementData.id} text={elementData.text} initialPosition={{x: elementData.x, y: elementData.y}}/>);
+                return (<Text id={elementData.id}
+                              text={elementData.text}
+                              initialPosition={{x: elementData.x, y: elementData.y}}
+                              size={{width: elementData.width, height: elementData.height}}
+                />);
             }
         };
 
@@ -24,6 +28,8 @@ define([
                     id: String(IdGenerator.generate()),
                     width: 200,
                     height: 50,
+                    x: 0,
+                    y: 0,
                     style: {
                         left: 0,
                         top: 0,
