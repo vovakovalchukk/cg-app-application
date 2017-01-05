@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Common/PubSub'
 ], function(
-    React
+    React,
+    PubSub
 ) {
     "use strict";
 
@@ -14,13 +16,10 @@ define([
                 }
             }
         },
-        onTemplateNameChange: function (e) {
-            var newTemplate = this.props.template;
-            newTemplate.name = e.target.value;
-            this.props.onTemplateChange(newTemplate);
-        },
-        onElementSelected: function (element) {
-            this.props.onElementSelected(element);
+        onElementSelected: function (e, elementType) {
+            console.log(e);
+            console.log(elementType);
+            PubSub.publish('ELEMENT.ADD', {type: elementType});
         },
         render: function() {
             return (
@@ -35,7 +34,7 @@ define([
                                 className="inputbox"
                                 type="text"
                                 value={this.props.template.name}
-                                onChange={this.onTemplateNameChange}
+                                onChange={this.props.onTemplateNameChange}
                             />
                         </div>
                     </div>
