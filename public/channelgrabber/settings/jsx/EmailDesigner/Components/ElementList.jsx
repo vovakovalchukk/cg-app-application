@@ -37,7 +37,11 @@ define([
                         fontColour: "black",
                         fontFamily: "Arial",
                         fontSize: 12,
-                    }
+                    },
+                    inspectors: [
+                        'Delete',
+                        'Text'
+                    ]
                 };
             }
         }

@@ -19,7 +19,9 @@ define([
         getInitialState: function() {
             return {
                 editMode: false,
-                selectedElement: {},
+                selectedElement: {
+                    inspectors: []
+                },
                 template: {
                     name: 'Template Name',
                     elements: {}
