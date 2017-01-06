@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "86183bb6705603897fcc0065f9ce2759",
+    "content-hash": "a0b7bd3c076008721c4b0b28f62789ae",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1248,16 +1248,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "b1cc211eb564dc33ac028b4636d7269b6d86b03d"
+                "reference": "cc76d30a531485bef3bdf5da4efeda1934d5a225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-6760-zero-rated-vat-invoices-28da85.zip",
-                "reference": "b1cc211eb564dc33ac028b4636d7269b6d86b03d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.11-567b05.zip",
+                "reference": "cc76d30a531485bef3bdf5da4efeda1934d5a225",
                 "shasum": null
             },
             "require": {
@@ -1277,7 +1277,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-12-14T12:13:48+00:00"
+            "time": "2017-01-06T14:02:58+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -1547,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
+            "version": "1.24.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f548453981cfa0e6f3f4a8db943563802e52f8ab"
+                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6760-zero-rated-vat-invoices-82719c.zip",
-                "reference": "f548453981cfa0e6f3f4a8db943563802e52f8ab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.6.1-ddfc05.zip",
+                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639",
                 "shasum": null
             },
             "require": {
@@ -1621,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-06T08:47:32+00:00"
+            "time": "2017-01-06T14:26:28+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2569,11 +2569,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "4ed1e7c2693556675881ae622e0e1f4a7089b5a9"
+                "reference": "308f01f375cc45143d80d90e03a7c1f1a1190f8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.12-5728a4.zip",
+                "reference": "308f01f375cc45143d80d90e03a7c1f1a1190f8b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2616,7 +2622,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-12-14T14:06:07+00:00"
+            "time": "2017-01-06T14:03:39+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4050,7 +4056,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5340,7 +5346,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5391,7 +5397,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5484,7 +5490,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5953,7 +5959,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8785,38 +8791,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.10",
-            "alias_normalized": "1.0.10.0",
-            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.24.5",
-            "alias_normalized": "1.24.5.0",
-            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.4.12",
-            "alias_normalized": "1.4.12.0",
-            "version": "dev-CGIV-6760-zero-rated-vat-invoices",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/template": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
