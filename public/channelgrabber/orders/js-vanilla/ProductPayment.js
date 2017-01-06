@@ -25,10 +25,14 @@ define([
     ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR = 'input[name="zeroRatedVatNumber"]';
 
     ProductPayment.prototype.listenForZeroRatedVATCheckboxCheck = function () {
+        var self = this;
         $(ProductPayment.prototype.CHECKBOX_SELECTOR).change(function() {
             if($(this).is(":checked")) {
                 $(ProductPayment.prototype.FORM_SELECTOR).show();
             } else {
+                if ($(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val() && $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val()) {
+                    self.sendZeroRatedVATAjax('removed');
+                }
                 $(ProductPayment.prototype.FORM_SELECTOR).hide();
             }
         });
@@ -56,32 +60,35 @@ define([
             }
 
             $(ProductPayment.prototype.FORM_SUBMIT_SELECTOR).addClass('disabled');
-            var url = '/orders/'+self.getOrderId()+'/recipientVatNumber';
+            self.sendZeroRatedVATAjax('saved');
+        });
+    };
 
-            n.notice("Adding Zero-Rate VAT to the order.");
-            $.ajax({
-                url: url,
-                data: {
-                    order: self.getOrderId(),
-                    countryCode: $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val(),
-                    vatNumber: $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val()
-                },
-                context: this,
-                type: "POST",
-                dataType: 'json',
-                success : function(data, textStatus, request) {
-                    if (!data.success) {
-                        var itid = request.getResponseHeader('ITID-Response');
-                        var errorMessage = data.error ? data.error : "Error: Please contact support and provide the following reference code: "+itid;
-                        return n.error(errorMessage);
-                    }
-                    n.success("Successfully added Zero-Rate VAT to the order.");
-                    location.reload();
-                },
-                error: function(request, textStatus, errorThrown) {
-                    return n.ajaxError(request, textStatus, errorThrown);
+    ProductPayment.prototype.sendZeroRatedVATAjax = function (actionType) {
+        var url = '/orders/'+this.getOrderId()+'/recipientVatNumber';
+        n.notice("Zero-Rate VAT on the order is being "+actionType);
+        $.ajax({
+            url: url,
+            data: {
+                order: this.getOrderId(),
+                countryCode: actionType === 'saved' ? $(ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR).val() : '',
+                vatNumber: actionType === 'saved' ? $(ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR).val() : ''
+            },
+            context: this,
+            type: "POST",
+            dataType: 'json',
+            success : function(data, textStatus, request) {
+                if (!data.success) {
+                    var itid = request.getResponseHeader('ITID-Response');
+                    var errorMessage = data.error ? data.error : "Error: Please contact support and provide the following reference code: "+itid;
+                    return n.error(errorMessage);
                 }
-            });
+                n.success("Zero-Rate VAT on the order was successfully "+actionType);
+                location.reload();
+            },
+            error: function(request, textStatus, errorThrown) {
+                return n.ajaxError(request, textStatus, errorThrown);
+            }
         });
     };
 

@@ -335,7 +335,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getRecipientVatNumberSelectbox($order, $recipientVatNumber = null)
     {
         $initialValue = $order->getCalculatedShippingAddressCountryCode();
-        if ($recipientVatNumber !== null) {
+        if ($recipientVatNumber !== null && $recipientVatNumber !== '') {
             $initialValue = substr($recipientVatNumber, 0, 2);
         }
         return EUCountryNameByVATCode::getVatCodeSelectbox($this->viewModelFactory, $initialValue, 'zero-rated-vat-code-select', 'zeroRatedVatCode');

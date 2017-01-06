@@ -11,7 +11,6 @@ use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Shipping\CourierTrackingUrl;
 use CG\Channel\Type;
-use CG\ETag\Exception\NotModified;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -801,19 +800,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $recipientVatNumber = $countryCode.$vatNumber;
 
         try {
-            if ($this->euVatCodeChecker->checkVat($countryCode, $vatNumber)) {
+            $logMsg = empty($recipientVatNumber) ? 'remove' : 'set';
+            if (empty($recipientVatNumber) || $this->euVatCodeChecker->checkVat($countryCode, $vatNumber)) {
                 $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
-                $this->logDebug('Successfully set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+                $this->logDebug('Order %s successfully %s recipientVatNumber %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
             }
         } catch (Conflict $e) {
-            $this->logWarning('Conflict when attempting to set Order %s recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            $this->logInfo('Conflict when attempting to %s Order %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
             throw $e;
         } catch (NotFound $e) {
-            $this->logWarning('Could not find Order %s when attempting to set recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
+            $this->logAlert('Could not find Order %s when attempting to %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
             throw $e;
-        } catch (NotModified $e) {
-            $this->logWarning('Not modified Order %s when attempting to set recipientVatNumber to %s', [$order->getId(), $recipientVatNumber], static::LOG_CODE);
-            throw $e;
+        } catch (NotModifiedException $e) {
+            $this->logDebug('Not modified Order %s when attempting to %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
         }
     }
 
