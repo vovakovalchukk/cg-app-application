@@ -191,6 +191,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
+            ->setVariable('emailOnDispatch', $invoiceSettings->getAutoEmail())
             ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')

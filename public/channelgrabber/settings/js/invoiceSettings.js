@@ -1,9 +1,10 @@
 define(
     ["popup/confirm","cg-mustache"], function (Confirm, CGMustache){
-    var InvoiceSettings = function(hasAmazonAccount)
+    var InvoiceSettings = function(hasAmazonAccount, emailOnDispatch)
     {
         this.successMessage = 'Settings Saved';
         this.errorMessage = 'Error: Settings could not be saved';
+        this.emailOnDispatch = emailOnDispatch;
 
         var container = '.invoiceSettings';
         var selector = container + ' .custom-select, ' + container + ' input:checkbox';
@@ -34,6 +35,7 @@ define(
                     if (response == "Yes"){
                         $('#autoEmail').attr('checked', true);
                         ajaxSave(self);
+                        self.emailOnDispatch = true;
                     }
                     if (response == "No"){
                         $('#autoEmail').attr('checked', false);

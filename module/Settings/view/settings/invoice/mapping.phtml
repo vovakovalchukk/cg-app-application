@@ -12,7 +12,7 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings(<?= $hasAmazonAccount;?>);
+        new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= $emailOnDispatch; ?>');
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
@@ -45,9 +45,22 @@ $(document).ready(function() {
                     <?= $productImagesCheckbox ?>
                 </div>
             </label>
+            <label class="<?= ($emailOnDispatch ? '' : 'hidden'); ?>">
+                <span class="inputbox-label">Email Myself a Copy:</span>
+                <div class="email-copy-holder">
+                    <?= $productImagesCheckbox ?>
+                </div>
+            </label>
         </div>
-        <div class="invoiceTradingCompanySettings module section-separator">
-            <div class="heading-large">Trading Companies</div>
+        <div class="invoiceEmailSettings module <?= ($emailOnDispatch ? '' : 'hidden'); ?>">
+            <label>
+                <span class="inputbox-label">Email Myself a Copy:</span>
+                <div class="email-copy-holder">
+                    <?= $productImagesCheckbox ?>
+                </div>
+            </label>
+        </div>
+        <div class="invoiceTradingCompanySettings module">
             <?php if (empty($tradingCompanies)) : ?>
                 (No Trading companies exist)
             <?php else : ?>
