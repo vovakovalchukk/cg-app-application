@@ -4,6 +4,7 @@ namespace Orders\Courier\Label;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
+use CG\Locking\Service as LockingService;
 use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
@@ -54,6 +55,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $carrierProviderServiceRepo;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
+    /** @var LockingService */
+    protected $lockingService;
 
     public function __construct(
         UserOUService $userOuService,
@@ -66,7 +69,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         ProductDetailService $productDetailService,
         GearmanClient $gearmanClient,
         CarrierProviderServiceRepository $carrierProviderServiceRepo,
-        ShippingServiceFactory $shippingServiceFactory
+        ShippingServiceFactory $shippingServiceFactory,
+        LockingService $lockingService
     ) {
         $this->setUserOUService($userOuService)
             ->setOrderService($orderService)
@@ -78,7 +82,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setProductDetailService($productDetailService)
             ->setGearmanClient($gearmanClient)
             ->setCarrierProviderServiceRepo($carrierProviderServiceRepo)
-            ->setShippingServiceFactory($shippingServiceFactory);
+            ->setShippingServiceFactory($shippingServiceFactory)
+            ->setLockingService($lockingService);
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -181,6 +186,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     {
         $this->shippingServiceFactory = $shippingServiceFactory;
 
+        return $this;
+    }
+
+    protected function setLockingService(LockingService $lockingService)
+    {
+        $this->lockingService = $lockingService;
         return $this;
     }
 }

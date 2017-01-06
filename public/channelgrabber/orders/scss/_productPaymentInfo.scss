@@ -1,0 +1,56 @@
+#product-payment-table {
+    #zero-rated-vat-holder {
+        margin-bottom: 10px;
+        float: left;
+        height: 30px;
+        .inputbox-label {
+            margin-top: 7px;
+        }
+        .inputbox-value {
+            float: left;
+            #zero-rated-vat-form {
+                display: inline-block;
+                #zero-rated-vat-country {
+                    width: 60px;
+                    display: inline-block;
+                    float: left;
+                    .custom-select {
+                        min-width: 100%;
+                        &.large {
+                            width: 100%;
+                        }
+                    }
+                }
+                #zero-rated-vat-number {
+                    width: 150px;
+                    float: left;
+                    margin-left: 6px;
+                    box-sizing: border-box;
+                    .inputbox {
+                        height: 31px;
+                        width: 100%;
+                        margin: 0;
+                        float: left;
+                    }
+                }
+            }
+            .checkbox-holder {
+                float: left;
+                margin-top: 8px;
+            }
+            .button {
+                margin: 0 0 0 7px;
+                float: left;
+                height: 31px;
+            }
+        }
+    }
+    table {
+        .zero-rated-vat-label {
+            font-size: 0.9em;
+            color: $color-mgrey;
+            font-style: italic;
+            margin-right: 8px;
+        }
+    }
+}

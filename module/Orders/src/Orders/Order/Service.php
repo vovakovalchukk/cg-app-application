@@ -17,6 +17,7 @@ use CG\Image\Filter as ImageFilter;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Locale\EUVATCodeChecker;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -115,6 +116,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     /** @var  McfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
     protected $courierTrackingUrl;
+    /** @var EUVATCodeChecker */
+    protected $euVatCodeChecker;
     protected $orderLabelService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
@@ -142,6 +145,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         CourierTrackingUrl $courierTrackingUrl,
+        EUVATCodeChecker $euVatCodeChecker,
         OrderLabelService $orderLabelService
     ) {
         $this
@@ -169,6 +173,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
             ->setCourierTrackingUrl($courierTrackingUrl)
             ->setOrderLabelService($orderLabelService);
+        $this->euVatCodeChecker = $euVatCodeChecker;
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -786,6 +791,29 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->saveUserPrefItem($columnPrefKey, $columnPositions);
 
         return $this;
+    }
+
+    public function saveRecipientVatNumberToOrder(OrderEntity $order, $countryCode, $vatNumber)
+    {
+        $countryCode = str_replace(' ', '', $countryCode);
+        $vatNumber = str_replace(' ', '', $vatNumber);
+        $recipientVatNumber = $countryCode.$vatNumber;
+
+        try {
+            $logMsg = empty($recipientVatNumber) ? 'remove' : 'set';
+            if (empty($recipientVatNumber) || $this->euVatCodeChecker->checkVat($countryCode, $vatNumber)) {
+                $order = $this->saveOrder($order->setRecipientVatNumber($recipientVatNumber));
+                $this->logDebug('Order %s successfully %s recipientVatNumber %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
+            }
+        } catch (Conflict $e) {
+            $this->logInfo('Conflict when attempting to %s Order %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
+            throw $e;
+        } catch (NotFound $e) {
+            $this->logAlert('Could not find Order %s when attempting to %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
+            throw $e;
+        } catch (NotModifiedException $e) {
+            $this->logDebug('Not modified Order %s when attempting to %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
+        }
     }
 
     protected function configureOrderTable()
