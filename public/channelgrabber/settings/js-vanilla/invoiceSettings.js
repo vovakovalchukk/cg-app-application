@@ -34,6 +34,7 @@ define([
             var emailBccField = $(emailBccSelector);
 
             var emailEditorSelector = '.invoice-email-editor';
+            var emailContent = '';
 
             var init = function ()
             {
@@ -216,10 +217,10 @@ define([
                     selector: emailEditorSelector,
                     plugins: "paste",
                     theme_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/theme.js',
-                    skin_url: '/channelgrabber/common/css/default',
+                    skin_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/orderhub',
                     height: 200,
-                    menubar: false,
                     statusbar : false,
+                    menubar : false,
                     forced_root_block: false,
                     paste_as_text: true,
                     init_instance_callback: function (editor) {
