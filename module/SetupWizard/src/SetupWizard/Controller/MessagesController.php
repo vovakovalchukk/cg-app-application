@@ -6,8 +6,6 @@ use CG_Amazon\Controller\AccountController as AmazonAccountController;
 use CG_Amazon\Module as AmazonModule;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Settings\Controller\InvoiceController as InvoiceSettingsController;
-use Settings\Module as SettingsModule;
 use SetupWizard\Channels\Service as ChannelService;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Messages\Service as MessagesService;
@@ -45,14 +43,6 @@ class MessagesController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/messages/index');
 
-        $invoiceSettings = $this->messagesService->fetchInvoiceSettings();
-        $view->setVariable('emailInvoiceDispatchToggleValue', $invoiceSettings->getAutoEmail());
-        $view->setVariable('emailInvoiceDispatchToggleETag', $invoiceSettings->getStoredETag());
-
-        $saveEmailInvoicesUrl = $this->url()->fromRoute(
-            SettingsModule::ROUTE . '/' . InvoiceSettingsController::ROUTE . '/' . InvoiceSettingsController::ROUTE_MAPPING . '/' . InvoiceSettingsController::ROUTE_SAVE
-        );
-        $view->setVariable('saveEmailInvoicesUrl', $saveEmailInvoicesUrl);
         $saveAmazonOriginalEmailUrl = $this->url()->fromRoute(AmazonModule::ROUTE . '/' . AmazonAccountController::ROUTE . '/' . AmazonAccountController::ROUTE_SAVE_ORIG_EMAIL);
         $view->setVariable('saveAmazonOriginalEmailUrl', $saveAmazonOriginalEmailUrl);
 

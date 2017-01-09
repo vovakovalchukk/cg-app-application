@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use ArrayObject;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
@@ -277,6 +278,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'afterActions'
         );
 
+        $productPaymentInfo = $this->getProductAndPaymentDetails($order);
         $labelDetails = $this->getShippingLabelDetails($order);
         $accountDetails = $this->getAccountDetails($order);
         $orderDetails = $this->getOrderDetails($order);
@@ -286,6 +288,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderAlert = $this->getOrderAlert($order);
         $addressInformation = $this->getAddressInformation($order);
 
+        $view->addChild($productPaymentInfo, 'productPaymentInfo');
         $view->addChild($labelDetails, 'labelDetails');
         $view->addChild($accountDetails, 'accountDetails');
         $view->addChild($orderDetails, 'orderDetails');
@@ -295,16 +298,58 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
-        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('existingNotes', $this->getNotes($order));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
-        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+
         $this->addLabelPrintButtonToView($view, $order);
         return $view;
+    }
+
+    protected function getProductAndPaymentDetails(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/productPaymentInfo');
+
+
+        $view->setVariable('order', $order);
+        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+
+        if ($order->isEligibleForZeroRateVat()) {
+            $recipientVatNumber = $order->getRecipientVatNumber();
+            $view->setVariable('isOrderZeroRated', (isset($recipientVatNumber) && strlen($recipientVatNumber)));
+            $view->setVariable('vatNumber', substr($recipientVatNumber, 2));
+
+            $view->addChild($this->getZeroRatedCheckbox($recipientVatNumber), 'zeroRatedCheckbox');
+            $view->addChild($this->getRecipientVatNumberSelectbox($order, $recipientVatNumber), 'zeroRatedSelectBox');
+        }
+
+        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
+
+        return $view;
+    }
+
+    protected function getRecipientVatNumberSelectbox($order, $recipientVatNumber = null)
+    {
+        $initialValue = $order->getCalculatedShippingAddressCountryCode();
+        if ($recipientVatNumber !== null && $recipientVatNumber !== '') {
+            $initialValue = substr($recipientVatNumber, 0, 2);
+        }
+        return EUCountryNameByVATCode::getVatCodeSelectbox($this->viewModelFactory, $initialValue, 'zero-rated-vat-code-select', 'zeroRatedVatCode');
+    }
+
+    protected function getZeroRatedCheckbox($isOrderZeroRated)
+    {
+        $zeroRatedCheckbox = $this->viewModelFactory->newInstance([
+            'id' => 'zero-rated-vat-checkbox',
+            'name' => 'zeroRatedVatCheckbox',
+            'selected' => (boolean) $isOrderZeroRated
+        ]);
+        $zeroRatedCheckbox->setTemplate('elements/checkbox.mustache');
+        return $zeroRatedCheckbox;
     }
 
     protected function getShippingLabelDetails(OrderEntity $order)
@@ -772,6 +817,25 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderIds = $this->params()->fromPost('orders');
         $imagesForOrders = $this->orderService->getImagesForOrders($orderIds);
         return $this->getJsonModelFactory()->newInstance($imagesForOrders);
+    }
+
+    public function setRecipientVatNumberAction()
+    {
+        $orderId = $this->params()->fromPost('order');
+        $countryCode = $this->params()->fromPost('countryCode');
+        $vatNumber = $this->params()->fromPost('vatNumber');
+
+        $order = $this->orderService->getOrder($orderId);
+
+        $response = $this->getJsonModelFactory()->newInstance(['success' => false]);
+        try {
+            $this->getOrderService()->saveRecipientVatNumberToOrder($order, $countryCode, $vatNumber);
+            $response->setVariable('success', true);
+        } catch(Exception $e) {
+            $response->setVariable('error', $e->getMessage());
+        }
+
+        return $response;
     }
 
     /**

@@ -57,6 +57,8 @@ use Orders\Controller\CourierJsonController;
 use Orders\Courier\Service as CourierService;
 use Settings\Factory\SidebarNavFactory;
 
+use CG\Locale\EUVATCodeChecker;
+
 return [
     'service_manager' => [
         'factories' => [
@@ -349,6 +351,17 @@ return [
                                     'defaults' => [
                                         'controller' => 'Orders\Controller\Address',
                                         'action' => 'update'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            'recipientVatNumber' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/recipientVatNumber',
+                                    'defaults' => [
+                                        'controller' => Controller\OrdersController::class,
+                                        'action' => 'setRecipientVatNumber'
                                     ]
                                 ],
                                 'may_terminate' => true
@@ -1782,7 +1795,11 @@ return [
             OrderService::class => [
                 'parameters' => [
                     'orderClient' => OrderClientService::class,
-                    'orderRpcClient' => 'OrderRpcClient'
+                ],
+            ],
+            EUVATCodeChecker::class => [
+                'parameters' => [
+                    'soapClient' => 'EUVATCodeCheckerSoapClient',
                 ],
             ],
             'OrderRpcClient' => [

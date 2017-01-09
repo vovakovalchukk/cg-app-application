@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Order\Invoice;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Communication\Message\AccountAddressGeneratorFactory;
 use CG\Gearman\Client as GearmanClient;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
@@ -47,6 +49,10 @@ class Service extends ClientService implements StatsAwareInterface
     protected $printedDateGenerator;
     /** @var TaxService */
     protected $taxService;
+    /** @var AccountService */
+    protected $accountService;
+    /** @var AccountAddressGeneratorFactory */
+    protected $accountAddressGeneratorFactory;
 
     /** @var string $key */
     protected $key;
@@ -64,7 +70,9 @@ class Service extends ClientService implements StatsAwareInterface
         ActiveUserContainer $activeUserContainer,
         GearmanClient $gearmanClient,
         PrintedDateGenerator $printedDateGenerator,
-        TaxService $taxService
+        TaxService $taxService,
+        AccountService $accountService,
+        AccountAddressGeneratorFactory $accountAddressGeneratorFactory
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
         $this
@@ -76,6 +84,8 @@ class Service extends ClientService implements StatsAwareInterface
             ->setGearmanClient($gearmanClient)
             ->setPrintedDateGenerator($printedDateGenerator)
             ->setTaxService($taxService);
+        $this->accountService = $accountService;
+        $this->accountAddressGeneratorFactory = $accountAddressGeneratorFactory;
     }
 
     public function createTemplate(array $config)
@@ -174,15 +184,19 @@ class Service extends ClientService implements StatsAwareInterface
 
     public function getInvoiceStats(Collection $orders)
     {
-        $stats = ['printed' => 0, 'emailed' => 0, 'total' => 0];
+        $stats = ['printed' => 0, 'emailed' => 0, 'total' => 0, 'emailingAllowed' => false];
+
         /** @var Order $order */
         foreach ($orders as $order) {
+            $stats['emailingAllowed'] = $this->isEmailingAllowedForOrder($order);
+
             if ($order->getInvoiceDate()) {
                 $stats['printed']++;
             }
             if ($order->getEmailDate()) {
                 $stats['emailed']++;
             }
+
             $stats['total']++;
         }
         return $stats;
@@ -244,6 +258,30 @@ class Service extends ClientService implements StatsAwareInterface
     public function checkInvoiceGenerationProgress($key)
     {
         return (int) $this->progressStorage->getProgress($key);
+    }
+
+    public function isEmailingAllowedForOrder(Order $order)
+    {
+        // Check if there is a channel specific email address we can use first (by passing invoices settings config).
+        $account = $this->accountService->fetch($order->getAccountId());
+        try {
+            $accountAddressGenerator = $this->accountAddressGeneratorFactory->getGeneratorForChannel($order->getChannel());
+            $sendFrom = $accountAddressGenerator($account);
+            if ($sendFrom) {
+                return true;
+            }
+        } catch (\InvalidArgumentException $exception) {
+            // No account address generator for this channel - skip it
+        }
+
+        $orderRootOuId = $order->getRootOrganisationUnitId();
+        $invoiceSettings = $this->invoiceSettingsService->fetch($orderRootOuId);
+
+        if ($invoiceSettings->isAutoEmailAllowed()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

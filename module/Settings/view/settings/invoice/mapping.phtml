@@ -12,7 +12,7 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= $emailOnDispatch; ?>');
+        new InvoiceSettings(<?= $hasAmazonAccount;?>);
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
@@ -42,20 +42,44 @@ $(document).ready(function() {
             <label>
                 <span class="inputbox-label">Email Invoice on Dispatch:</span>
                 <div class="email-invoice-holder">
-                    <?= $emailCheckbox ?>
+                    <?= $autoEmailToggle ?>
                 </div>
             </label>
-            <label class="emailSettings <?= ($emailOnDispatch ? '' : 'hidden'); ?>">
+            <div class="emailInvoiceFields <?php if (! $autoEmail) { echo 'hidden'; } ?>">
+
+                <div id="emailInvoiceNotification" class="relative-notifications <?php if ($emailSendAs && $emailVerified) { echo 'hidden'; } ?>">
+                    <div class="notifications">
+                        <div class="clearfix error">
+                            <span class="icon"><span>&amp;tick;</span></span><span class="content">Invoices won’t be emailed until you’ve successfully verified an email address to send from</span>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="email-send-as-label">
+                    <span class="inputbox-label">Send From Email:</span>
+                    <div class="email-send-as-holder">
+                        <?= $emailSendAsInput ?>
+
+                        <?php if (isset($emailVerificationStatus)): ?>
+                            <?= $emailVerificationStatus ?>
+                        <?php endif; ?>
+
+                        <button id="emailVerifyButton" data-id="<?= $invoiceSettings->getId() ?>" class="button inline email-verify-button <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
+                    </div>
+                </label>
+                <label class="email-bcc-label">
                 <span class="inputbox-label">Email Myself a Copy:</span>
-                <div class="email-invoice-holder">
-                    <?= $emailCopySelfCheckbox ?>
-                </div>
-            </label>
-            <div class="emailSettings <?= ($emailOnDispatch ? '' : 'hidden'); ?>">
-                Email Editor
+                    <div class="copy-required-holder">
+                        <?= $copyRequiredCheckbox ?>
+                    </div>
+                    <div class="email-bcc-holder">
+                        <?= $emailBccInput ?>
+                    </div>
+                </label>
             </div>
         </div>
-        <div class="invoiceTradingCompanySettings module">
+        <div class="invoiceTradingCompanySettings module section-separator">
+            <div class="heading-large">Trading Companies</div>
             <?php if (empty($tradingCompanies)) : ?>
                 (No Trading companies exist)
             <?php else : ?>

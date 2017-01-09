@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dd678e6aed923b1ea60b79c0d40ee9d",
+    "content-hash": "57c5ed51057dc2c73b6ed55dca83024d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -70,20 +70,101 @@
             "time": "2016-10-07T05:18:57+00:00"
         },
         {
-            "name": "channelgrabber/amazon",
-            "version": "1.19.10",
+            "name": "aws/aws-sdk-php",
+            "version": "3.20.12",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d673edfa77664230c3112b38855414a4d550bc67"
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "8725e67cb77b057b55596b4468ce9a1a95c5fe96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.10-7a1842.zip",
-                "reference": "d673edfa77664230c3112b38855414a4d550bc67",
+                "url": "https://composer.build.channelgrabber.com/dist/aws-aws-sdk-php-8725e67cb77b057b55596b4468ce9a1a95c5fe96-zip-630623.zip",
+                "reference": "8725e67cb77b057b55596b4468ce9a1a95c5fe96",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
+                "guzzlehttp/promises": "~1.0",
+                "guzzlehttp/psr7": "~1.3.1",
+                "mtdowling/jmespath.php": "~2.2",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "andrewsville/php-token-reflection": "^1.4",
+                "aws/aws-php-sns-message-validator": "~1.0",
+                "behat/behat": "~3.0",
+                "doctrine/cache": "~1.4",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "ext-simplexml": "*",
+                "ext-spl": "*",
+                "nette/neon": "^2.3",
+                "phpunit/phpunit": "~4.0|~5.0",
+                "psr/cache": "^1.0"
+            },
+            "suggest": {
+                "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
+                "doctrine/cache": "To use the DoctrineCacheAdapter",
+                "ext-curl": "To send requests using cURL",
+                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aws\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Amazon Web Services",
+                    "homepage": "http://aws.amazon.com"
+                }
+            ],
+            "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
+            "homepage": "http://aws.amazon.com/sdkforphp",
+            "keywords": [
+                "amazon",
+                "aws",
+                "cloud",
+                "dynamodb",
+                "ec2",
+                "glacier",
+                "s3",
+                "sdk"
+            ],
+            "time": "2016-12-30T00:41:36+00:00"
+        },
+        {
+            "name": "channelgrabber/amazon",
+            "version": "1.19.12",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
+                "reference": "8c5e48a0863ce66aec3f36915649ca8f36613773"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.12-b12aab.zip",
+                "reference": "8c5e48a0863ce66aec3f36915649ca8f36613773",
                 "shasum": null
             },
             "require": {
+                "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
                 "channelgrabber/channel": "^1.27.6",
@@ -129,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-29T15:33:36+00:00"
+            "time": "2017-01-04T16:13:59+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -589,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1167,16 +1248,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.9",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "82d22470c62a81f3a62e4f5cf6700b8488ee0b9d"
+                "reference": "cc76d30a531485bef3bdf5da4efeda1934d5a225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.9-5eab0c.zip",
-                "reference": "82d22470c62a81f3a62e4f5cf6700b8488ee0b9d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.11-567b05.zip",
+                "reference": "cc76d30a531485bef3bdf5da4efeda1934d5a225",
                 "shasum": null
             },
             "require": {
@@ -1196,7 +1277,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-09-23T14:10:32+00:00"
+            "time": "2017-01-06T14:02:58+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -1249,16 +1330,16 @@
         },
         {
             "name": "channelgrabber/locking",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locking.git",
-                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b"
+                "reference": "0fd65d25c4e6d1bf6e88104f6a59bbdcbcfbfe00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.0-270824.zip",
-                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.2-46058f.zip",
+                "reference": "0fd65d25c4e6d1bf6e88104f6a59bbdcbcfbfe00",
                 "shasum": null
             },
             "require": {
@@ -1280,7 +1361,7 @@
                     "CG\\Locking\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-01-27T14:17:45+00:00"
+            "time": "2016-12-16T08:36:37+00:00"
         },
         {
             "name": "channelgrabber/log",
@@ -1466,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.2",
+            "version": "1.24.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18"
+                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.2-9f3484.zip",
-                "reference": "3661385a88280c0ec4c14d7ad86b472150110a18",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.6.1-ddfc05.zip",
+                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639",
                 "shasum": null
             },
             "require": {
@@ -1502,7 +1583,7 @@
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.3.14",
+                "channelgrabber/settings": "^1.4.0",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.25",
@@ -1540,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-11-16T09:41:25+00:00"
+            "time": "2017-01-06T14:26:28+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2096,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.14",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e3093210177dacb113208f75ad6a7881f83148c4"
+                "reference": "495bf43dab24ce19135e396fe6e453639557686d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.14-30a4d2.zip",
-                "reference": "e3093210177dacb113208f75ad6a7881f83148c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0-cdd740.zip",
+                "reference": "495bf43dab24ce19135e396fe6e453639557686d",
                 "shasum": null
             },
             "require": {
@@ -2126,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-08-24T08:45:00+00:00"
+            "time": "2017-01-04T16:14:47+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2488,16 +2569,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.11",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "0cef4b844fb91e013a079265bcce7e4af396c41e"
+                "reference": "308f01f375cc45143d80d90e03a7c1f1a1190f8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.11-fed2cb.zip",
-                "reference": "0cef4b844fb91e013a079265bcce7e4af396c41e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.12-5728a4.zip",
+                "reference": "308f01f375cc45143d80d90e03a7c1f1a1190f8b",
                 "shasum": null
             },
             "require": {
@@ -2541,7 +2622,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-12-05T11:55:06+00:00"
+            "time": "2017-01-06T14:03:39+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2896,16 +2977,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.17",
+            "version": "1.0.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "705df012e17e06e3df66dfedd3b0aa3930fa7e23"
+                "reference": "2e4cd8b6bda0dcafa61cb14d65753463fac92403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.17-243fef.zip",
-                "reference": "705df012e17e06e3df66dfedd3b0aa3930fa7e23",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.18-96ba5e.zip",
+                "reference": "2e4cd8b6bda0dcafa61cb14d65753463fac92403",
                 "shasum": null
             },
             "require": {
@@ -2937,7 +3018,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-12-13T14:57:47+00:00"
+            "time": "2017-01-04T16:13:45+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3687,6 +3768,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "f36c82daa5e1aaa71e3f5ddc4f1b76e4bcf540fc"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7768-invoice-email-template-frontend-386b9f.zip",
+                "reference": "f36c82daa5e1aaa71e3f5ddc4f1b76e4bcf540fc",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3732,7 +3819,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-12-13T16:41:19+00:00"
+            "time": "2017-01-05 16:37:34"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3969,7 +4056,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -4334,6 +4421,115 @@
                 "web service"
             ],
             "time": "2016-07-15T19:28:39+00:00"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-promises-a59da6cf61d80060647ff4d3eb2c03a2bc694646-zip-081b1f.zip",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "time": "2016-12-20T10:07:11+00:00"
+        },
+        {
+            "name": "guzzlehttp/psr7",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-psr7-5c6447c9df362e8f8093bda8f5d8873fe5c7f65b-zip-6df47d.zip",
+                "reference": "5c6447c9df362e8f8093bda8f5d8873fe5c7f65b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/http-message": "~1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "PSR-7 message implementation",
+            "keywords": [
+                "http",
+                "message",
+                "stream",
+                "uri"
+            ],
+            "time": "2016-06-24T23:00:38+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -4952,6 +5148,61 @@
             "time": "2016-09-23T19:38:29+00:00"
         },
         {
+            "name": "mtdowling/jmespath.php",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jmespath/jmespath.php.git",
+                "reference": "adcc9531682cf87dfda21e1fd5d0e7a41d292fac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/mtdowling-jmespath-php-adcc9531682cf87dfda21e1fd5d0e7a41d292fac-zip-77cc66.zip",
+                "reference": "adcc9531682cf87dfda21e1fd5d0e7a41d292fac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "bin": [
+                "bin/jp.php"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JmesPath\\": "src/"
+                },
+                "files": [
+                    "src/JmesPath.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Declaratively specify how to extract elements from a JSON document",
+            "keywords": [
+                "json",
+                "jsonpath"
+            ],
+            "time": "2016-12-03T22:08:25+00:00"
+        },
+        {
             "name": "mustache/mustache",
             "version": "v2.9.0",
             "source": {
@@ -5095,7 +5346,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5146,7 +5397,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5239,7 +5490,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5498,6 +5749,56 @@
             "time": "2013-03-08T08:21:40+00:00"
         },
         {
+            "name": "psr/http-message",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/psr-http-message-f6561bf28d520154e4b0ec72be95418abe6d9363-zip-7ab320.zip",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -5658,7 +5959,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8492,22 +8793,22 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.22",
-            "alias_normalized": "1.17.22.0",
+            "alias": "1.17.23",
+            "alias_normalized": "1.17.23.0",
             "version": "dev-CGIV-7768-invoice-email-template-frontend",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

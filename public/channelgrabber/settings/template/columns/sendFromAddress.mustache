@@ -1,0 +1,9 @@
+<div class="center email-send-as-holder">
+    <input class="inputbox {{sendFromAddress.class}}" data-id="{{sendFromAddress.id}}" type="email" name="{{sendFromAddress.name}}" id="{{sendFromAddress.name}}" value="{{sendFromAddress.value}}" />
+
+    {{#sendFromAddress.value}}
+            <span class="status {{sendFromAddress.emailVerificationStatusClass}} email-verify-status">{{sendFromAddress.emailVerificationStatus}}</span>
+    {{/sendFromAddress.value}}
+
+    <button id="{{sendFromAddress.buttonId}}" data-id="{{sendFromAddress.id}}" class="button inline {{sendFromAddress.buttonClass}} {{#sendFromAddress.value}}hidden{{/sendFromAddress.value}}">Verify</button>
+</div>
