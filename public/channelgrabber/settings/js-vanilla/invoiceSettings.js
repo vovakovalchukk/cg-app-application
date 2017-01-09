@@ -20,6 +20,7 @@ define(
                     showConfirmationMessageForAmazonAccount(self);
                 } else {
                     ajaxSave(self);
+                    toggleEmailEditor(self);
                 }
             });
         };
@@ -35,16 +36,18 @@ define(
                     if (response == "Yes"){
                         $('#autoEmail').attr('checked', true);
                         ajaxSave(self);
-                        $('.invoiceEmailSettings').removeClass('hidden');
-                        self.emailOnDispatch = true;
+                        toggleEmailEditor(self);
                     }
                     if (response == "No"){
                         $('#autoEmail').attr('checked', false);
-                        $('.invoiceEmailSettings').addClass('hidden');
-                        self.emailOnDispatch = false;
                     }
                 });
             });
+        }
+
+        function toggleEmailEditor(self) {
+            $('.emailSettings').toggleClass('hidden');
+            self.emailOnDispatch = !self.emailOnDispatch;
         }
 
         function ajaxSave(object) {

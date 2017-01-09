@@ -162,6 +162,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 $invoiceSettings
             );
         }
+
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
@@ -195,6 +196,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
+            ->addChild($this->getInvoiceSettingsAutoEmailCopySelfCheckboxView($invoiceSettings), 'emailCopySelfCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
@@ -215,6 +217,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $settings->setTemplateUrlMap([
             'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
             'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . '/templates/elements/custom-select.mustache',
+            'sendFromAddress' => '/channelgrabber/common/template/emailVerify.mustache',
         ]);
         return $datatables;
     }
@@ -270,6 +273,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'autoEmail',
                     'name' => 'autoEmail',
                     'selected' => (boolean) $invoiceSettings->getAutoEmail(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsAutoEmailCopySelfCheckboxView($invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'autoEmailCopySelf',
+                    'name' => 'autoEmailCopySelf',
+                    'selected' => (boolean) true,//$invoiceSettings->getAutoEmailCopySelf(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');

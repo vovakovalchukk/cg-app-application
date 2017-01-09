@@ -34,31 +34,26 @@ $(document).ready(function() {
                 </div>
             </label>
             <label>
-                <span class="inputbox-label">Email Invoice on Dispatch:</span>
-                <div class="email-invoice-holder">
-                    <?= $emailCheckbox ?>
-                </div>
-            </label>
-            <label>
                 <span class="inputbox-label">Include Product Images:</span>
                 <div class="product-images-invoice-holder">
                     <?= $productImagesCheckbox ?>
                 </div>
             </label>
-            <label class="<?= ($emailOnDispatch ? '' : 'hidden'); ?>">
-                <span class="inputbox-label">Email Myself a Copy:</span>
-                <div class="email-copy-holder">
-                    <?= $productImagesCheckbox ?>
-                </div>
-            </label>
-        </div>
-        <div class="invoiceEmailSettings module <?= ($emailOnDispatch ? '' : 'hidden'); ?>">
             <label>
-                <span class="inputbox-label">Email Myself a Copy:</span>
-                <div class="email-copy-holder">
-                    <?= $productImagesCheckbox ?>
+                <span class="inputbox-label">Email Invoice on Dispatch:</span>
+                <div class="email-invoice-holder">
+                    <?= $emailCheckbox ?>
                 </div>
             </label>
+            <label class="emailSettings <?= ($emailOnDispatch ? '' : 'hidden'); ?>">
+                <span class="inputbox-label">Email Myself a Copy:</span>
+                <div class="email-invoice-holder">
+                    <?= $emailCopySelfCheckbox ?>
+                </div>
+            </label>
+            <div class="emailSettings <?= ($emailOnDispatch ? '' : 'hidden'); ?>">
+                Email Editor
+            </div>
         </div>
         <div class="invoiceTradingCompanySettings module">
             <?php if (empty($tradingCompanies)) : ?>
