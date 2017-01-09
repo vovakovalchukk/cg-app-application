@@ -63,6 +63,7 @@ class Mapper
     {
         $tradingCompanySettings = $settings->getTradingCompanies();
         $tradingCompanySettings = array_filter($tradingCompanySettings, function($record) use ($tradingCompany) {
+
             return ($record['id'] == $tradingCompany->getId());
         });
 

@@ -1,5 +1,12 @@
-define(
-    ["popup/confirm","cg-mustache"], function (Confirm, CGMustache){
+define([
+        "popup/confirm",
+        "cg-mustache",
+        'tinyMCE',
+    ], function (
+        Confirm,
+        CGMustache,
+        tinyMCE
+){
         var InvoiceSettings = function(hasAmazonAccount) {
 
             var container = '.invoiceSettings';
@@ -26,6 +33,8 @@ define(
 
             var emailBccField = $(emailBccSelector);
 
+            var emailEditorSelector = '.invoice-email-editor';
+
             var init = function ()
             {
                 var attempt, timer;
@@ -34,6 +43,9 @@ define(
                 // Set field states
                 setAutoEmail();
                 setCopyRequired();
+
+                // Setup emailEditor
+                setupEmailEditor();
 
                 // Set event listeners
                 $(document).on('change', selector, function() {
@@ -197,6 +209,27 @@ define(
             function setEmailVerifyButtonVerifying(emailVerifyButton)
             {
                 emailVerifyButton.prop('disabled', true).addClass('verifying').text('Verifying...');
+            }
+
+            function setupEmailEditor() {
+                tinyMCE.init({
+                    selector: emailEditorSelector,
+                    plugins: "paste",
+                    theme_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/theme.js',
+                    skin_url: '/channelgrabber/common/css/default',
+                    height: 200,
+                    menubar: false,
+                    statusbar : false,
+                    forced_root_block: false,
+                    paste_as_text: true,
+                    init_instance_callback: function (editor) {
+                        editor.on('keyup change paste SetContent', function (e) {
+                            self.value = editor.getContent();
+                            $(self).trigger('change', [self.value]);
+                        });
+                    },
+                    toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagDropdown | cancel',
+                });
             }
 
             function handleEmailBccKeyup(self)
