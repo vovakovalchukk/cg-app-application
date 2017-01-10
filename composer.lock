@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0b7bd3c076008721c4b0b28f62789ae",
+    "content-hash": "b123061136f654def7b4b55c97386b50",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1547,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.6.1",
+            "version": "1.24.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639"
+                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.6.1-ddfc05.zip",
-                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.7-45f1c2.zip",
+                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca",
                 "shasum": null
             },
             "require": {
@@ -1621,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-06T14:26:28+00:00"
+            "time": "2017-01-09T12:01:47+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2896,24 +2896,24 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.3",
+            "version": "dev-CGIV-7773-prevent-woocommerce-backlogs",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "585c3ccc4dc2604e69d7f0f13f55d8fd768ff959"
+                "reference": "be4d7b48deed6ffd59df01aae402adaa5708f7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.3-5c92f0.zip",
-                "reference": "585c3ccc4dc2604e69d7f0f13f55d8fd768ff959",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-7773-prevent-woocommerce-backlogs-570719.zip",
+                "reference": "be4d7b48deed6ffd59df01aae402adaa5708f7dc",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.18.5",
+                "channelgrabber/channel": "^1.21.9",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
-                "channelgrabber/stdlib": "^2.12.0",
+                "channelgrabber/stdlib": "^2.12.29",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
@@ -2938,7 +2938,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-03-02T13:51:42+00:00"
+            "time": "2017-01-10 10:26:25"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -4056,7 +4056,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5397,7 +5397,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5490,7 +5490,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5959,7 +5959,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8791,10 +8791,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.11",
+            "alias_normalized": "1.2.11.0",
+            "version": "dev-CGIV-7773-prevent-woocommerce-backlogs",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
