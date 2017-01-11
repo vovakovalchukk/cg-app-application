@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-01-10 16:00:41"
+            "time": "2017-01-10T16:00:41+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2900,13 +2900,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "889c155078e6be2acc4e40087191dc6cf5726bff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-7773-prevent-woocommerce-backlogs-bc2613.zip",
-                "reference": "889c155078e6be2acc4e40087191dc6cf5726bff",
-                "shasum": null
+                "reference": "90440a71751536efaf29485a1725710b9dcc6068"
             },
             "require": {
                 "channelgrabber/channel": "^1.21.9",
@@ -2938,7 +2932,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-01-11 12:42:34"
+            "time": "2017-01-11T14:16:26+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -5346,7 +5340,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8807,15 +8801,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/woocommerce": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
