@@ -244,11 +244,17 @@ define([
                             $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailContent', editor.getContent(), false]);
                         });
                     },
-                    toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagSelect | cancel',
+                    toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagSelect | resetDefault',
                     setup: function(editor) {
                         function addToEditor(e){
                             tinymce.activeEditor.insertContent(e.target.textContent);
                         }
+                        editor.addButton('resetDefault', {
+                            text: 'Reset to Default',
+                            onclick: function () {
+                                tinymce.execCommand('mceCancel');
+                            }
+                        });
                         editor.addButton('tagSelect', {
                             type: 'menubutton',
                             text: 'Insert Tag',
