@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b123061136f654def7b4b55c97386b50",
+    "content-hash": "5cc3ab567c8e31a87b30c44eeb64e630",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -491,16 +491,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.7",
+            "version": "dev-CGIV-7773-prevent-woocommerce-backlogs",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "dfc702515ce51bd9b0e56083138e9f10783e2c11"
+                "reference": "4cfe6b0bf229e74fdad98c69e66a7a2d326a6358"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.7-87604a.zip",
-                "reference": "dfc702515ce51bd9b0e56083138e9f10783e2c11",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7773-prevent-woocommerce-backlogs-cf95a6.zip",
+                "reference": "4cfe6b0bf229e74fdad98c69e66a7a2d326a6358",
                 "shasum": null
             },
             "require": {
@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-12-01T09:10:40+00:00"
+            "time": "2017-01-10 16:00:41"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2900,12 +2900,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "be4d7b48deed6ffd59df01aae402adaa5708f7dc"
+                "reference": "889c155078e6be2acc4e40087191dc6cf5726bff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-7773-prevent-woocommerce-backlogs-570719.zip",
-                "reference": "be4d7b48deed6ffd59df01aae402adaa5708f7dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-7773-prevent-woocommerce-backlogs-bc2613.zip",
+                "reference": "889c155078e6be2acc4e40087191dc6cf5726bff",
                 "shasum": null
             },
             "require": {
@@ -2938,7 +2938,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-01-10 10:26:25"
+            "time": "2017-01-11 12:42:34"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -8793,6 +8793,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.27.8",
+            "alias_normalized": "1.27.8.0",
+            "version": "dev-CGIV-7773-prevent-woocommerce-backlogs",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.2.11",
             "alias_normalized": "1.2.11.0",
             "version": "dev-CGIV-7773-prevent-woocommerce-backlogs",
@@ -8801,6 +8807,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
