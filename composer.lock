@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aab6c4cc73c9f5848c7095f344227a31",
+    "content-hash": "cc5399877beb0470a9b3258a2d9e31e5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.0",
+            "version": "dev-CGIV-7769-invoice-email-template-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "495bf43dab24ce19135e396fe6e453639557686d"
+                "reference": "8e0b0654619984f27fb5b44e09f48c17952dd432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0-cdd740.zip",
-                "reference": "495bf43dab24ce19135e396fe6e453639557686d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7769-invoice-email-template-backend-a4ba5e.zip",
+                "reference": "8e0b0654619984f27fb5b44e09f48c17952dd432",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-04T16:14:47+00:00"
+            "time": "2017-01-11 16:19:35"
         },
         {
             "name": "channelgrabber/shopify",
@@ -8793,6 +8793,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-CGIV-7769-invoice-email-template-backend",
+            "package": "channelgrabber/settings"
+        },
+        {
             "alias": "1.17.23",
             "alias_normalized": "1.17.23.0",
             "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
@@ -8802,6 +8808,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
