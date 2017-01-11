@@ -1,0 +1,57 @@
+.resizable-element {
+    position: relative;
+    padding: 2px;
+    border: 2px solid transparent;
+    &.active {
+        border-color: $color-lblue;
+    }
+    .resizable-anchor {
+        position: absolute;
+        &.active {
+            width: 4px;
+            height: 4px;
+            background-color: $color-white;
+            border: 2px solid $color-lblue;
+        }
+        &.top {
+            cursor: ns-resize;
+            top: -6px;
+            left: calc(50% - 3px);
+        }
+        &.top-right {
+            cursor: ne-resize;
+            top: -6px;
+            right: -6px;
+        }
+        &.top-left {
+            cursor: nw-resize;
+            top: -6px;
+            left: -6px;
+        }
+        &.right {
+            cursor: ew-resize;
+            top: calc(50% - 3px);
+            right: -6px;
+        }
+        &.left {
+            cursor: ew-resize;
+            top: calc(50% - 3px);
+            left: -6px;
+        }
+        &.bottom {
+            cursor: ns-resize;
+            bottom: -6px;
+            left: calc(50% - 3px);
+        }
+        &.bottom-right {
+            cursor: se-resize;
+            bottom: -6px;
+            right: -6px;
+        }
+        &.bottom-left {
+            cursor: sw-resize;
+            bottom: -6px;
+            left: -6px;
+        }
+    }
+}

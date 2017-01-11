@@ -12,7 +12,7 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings(<?= $hasAmazonAccount;?>);
+        new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= json_encode($tagOptions); ?>');
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
@@ -76,6 +76,11 @@ $(document).ready(function() {
                         <?= $emailBccInput ?>
                     </div>
                 </label>
+                <div class="invoice-email-editor-section">
+                    <div id="invoice-email-editor">
+                        <?= $emailContent ?? '' ?>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="invoiceTradingCompanySettings module section-separator">
