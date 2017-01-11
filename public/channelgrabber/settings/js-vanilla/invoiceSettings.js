@@ -2,10 +2,12 @@ define([
         "popup/confirm",
         "cg-mustache",
         'tinyMCE',
+        'EventCollator'
     ], function (
         Confirm,
         CGMustache,
-        tinyMCE
+        tinyMCE,
+        EventCollator
 ){
         var InvoiceSettings = function(hasAmazonAccount) {
 
@@ -33,8 +35,8 @@ define([
 
             var emailBccField = $(emailBccSelector);
 
-            var emailEditorSelector = '.invoice-email-editor';
-            var emailContent = '';
+            var emailEditorSelector = '#invoice-email-editor';
+            var existingEmailContent = $(emailEditorSelector).html();
 
             var init = function ()
             {
@@ -119,6 +121,17 @@ define([
                     if (! $('#autoEmail').prop('checked')) {
                         hideSendFromAddressColumn();
                     }
+                });
+
+                $(document).on(EventCollator.getQueueTimeoutEventPrefix() + 'invoiceEmailContent', function(event, data) {
+                    var newContent = $.trim(data.pop());
+                    var oldContent = $.trim(existingEmailContent);
+
+                    if (newContent === oldContent) {
+                        return;
+                    }
+                    existingEmailContent = newContent;
+                    ajaxSave(self);
                 });
             };
 
@@ -215,7 +228,6 @@ define([
             function setupEmailEditor() {
                 tinyMCE.init({
                     selector: emailEditorSelector,
-                    plugins: "paste",
                     theme_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/theme.js',
                     skin_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/orderhub',
                     height: 200,
@@ -225,8 +237,7 @@ define([
                     paste_as_text: true,
                     init_instance_callback: function (editor) {
                         editor.on('keyup change paste SetContent', function (e) {
-                            self.value = editor.getContent();
-                            $(self).trigger('change', [self.value]);
+                            $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailContent', editor.getContent(), false]);
                         });
                     },
                     toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagDropdown | cancel',
@@ -317,6 +328,7 @@ define([
                     'emailSendAs': getEmailSendAs(),
                     'copyRequired': getCopyRequired(),
                     'emailBcc': getEmailBcc(),
+                    'emailContent': getEmailContent(),
                     'productImages': getProductImages(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
@@ -346,6 +358,11 @@ define([
             var getEmailBcc = function()
             {
                 return $(emailBccSelector).val();
+            };
+
+            var getEmailContent = function()
+            {
+                return existingEmailContent;
             };
 
             var getProductImages = function()
