@@ -9,7 +9,7 @@ define([
         tinyMCE,
         EventCollator
 ){
-        var InvoiceSettings = function(hasAmazonAccount) {
+        var InvoiceSettings = function(hasAmazonAccount, tagOptions) {
 
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #productImages';
@@ -37,6 +37,7 @@ define([
 
             var emailEditorSelector = '#invoice-email-editor';
             var existingEmailContent = $(emailEditorSelector).html();
+            EventCollator.setTimeout(3000);
 
             var init = function ()
             {
@@ -226,10 +227,13 @@ define([
             }
 
             function setupEmailEditor() {
+                var tags = JSON.parse(tagOptions);
+
                 tinyMCE.init({
                     selector: emailEditorSelector,
                     theme_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/theme.js',
                     skin_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/orderhub',
+                    plugins: ['save', 'textcolor'],
                     height: 200,
                     statusbar : false,
                     menubar : false,
@@ -240,7 +244,21 @@ define([
                             $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailContent', editor.getContent(), false]);
                         });
                     },
-                    toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagDropdown | cancel',
+                    toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagSelect | cancel',
+                    setup: function(editor) {
+                        function addToEditor(e){
+                            tinymce.activeEditor.insertContent(e.target.textContent);
+                        }
+                        editor.addButton('tagSelect', {
+                            type: 'menubutton',
+                            text: 'Insert Tag',
+                            icon: false,
+                            menu: tags.map(function (tag) {
+                                return {text: tag, onclick: addToEditor};
+                            })
+                        });
+
+                    }
                 });
             }
 
