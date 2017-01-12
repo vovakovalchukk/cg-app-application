@@ -23,7 +23,6 @@ use Settings\Module;
 class Service
 {
     const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
-    const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
     const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
 
     protected $invoiceService;
@@ -308,13 +307,6 @@ class Service
         }
 
         return false;
-    }
-
-    protected function notifyOfSave()
-    {
-        $activeUser = $this->userOrganisationUnitService->getActiveUser();
-        $event = new IntercomEvent(static::EVENT_SAVED_INVOICE_CHANGES, $activeUser->getId());
-        $this->intercomEventService->save($event);
     }
 
     protected function notifyOfAutoEmailChange($enabled)
