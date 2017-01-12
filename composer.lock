@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0b7bd3c076008721c4b0b28f62789ae",
+    "content-hash": "47cc9ce898435eaa323da44b5ba95511",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.12",
+            "version": "1.19.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8c5e48a0863ce66aec3f36915649ca8f36613773"
+                "reference": "3a03484273d4a41f6043c7427f4b9c44d495921c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.12-b12aab.zip",
-                "reference": "8c5e48a0863ce66aec3f36915649ca8f36613773",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.13-5254f5.zip",
+                "reference": "3a03484273d4a41f6043c7427f4b9c44d495921c",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-04T16:13:59+00:00"
+            "time": "2017-01-12T13:03:53+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.0",
+            "version": "1.4.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "495bf43dab24ce19135e396fe6e453639557686d"
+                "reference": "88870d2c09f493bb58d408f2ed37e3eea49ae9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0-cdd740.zip",
-                "reference": "495bf43dab24ce19135e396fe6e453639557686d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0.1-d3ca7d.zip",
+                "reference": "88870d2c09f493bb58d408f2ed37e3eea49ae9aa",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-04T16:14:47+00:00"
+            "time": "2017-01-05T12:08:42+00:00"
         },
         {
             "name": "channelgrabber/shopify",
