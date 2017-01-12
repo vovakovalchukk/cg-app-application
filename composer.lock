@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc5399877beb0470a9b3258a2d9e31e5",
+    "content-hash": "b88352a43f59d08e8424da61913f46b9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.12",
+            "version": "1.19.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8c5e48a0863ce66aec3f36915649ca8f36613773"
+                "reference": "3a03484273d4a41f6043c7427f4b9c44d495921c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.12-b12aab.zip",
-                "reference": "8c5e48a0863ce66aec3f36915649ca8f36613773",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.13-5254f5.zip",
+                "reference": "3a03484273d4a41f6043c7427f4b9c44d495921c",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-04T16:13:59+00:00"
+            "time": "2017-01-12T13:03:53+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
