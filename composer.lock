@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff97381bac016f1bd6019bb5282c26f8",
+    "content-hash": "b2532ccd2e8e48d05438758c3e5b259e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.0",
+            "version": "1.4.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "495bf43dab24ce19135e396fe6e453639557686d"
+                "reference": "88870d2c09f493bb58d408f2ed37e3eea49ae9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0-cdd740.zip",
-                "reference": "495bf43dab24ce19135e396fe6e453639557686d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0.1-d3ca7d.zip",
+                "reference": "88870d2c09f493bb58d408f2ed37e3eea49ae9aa",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-04T16:14:47+00:00"
+            "time": "2017-01-05T12:08:42+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2215,12 +2215,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "303758117a2fef7d7549537fcdec0f2e529f548c"
+                "reference": "683a2e9b7db005779a983240d6354957cadfa85b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7700-add-courier-button-to-order-detail-6b5e22.zip",
-                "reference": "303758117a2fef7d7549537fcdec0f2e529f548c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7700-add-courier-button-to-order-detail-21ce3a.zip",
+                "reference": "683a2e9b7db005779a983240d6354957cadfa85b",
                 "shasum": null
             },
             "require": {
@@ -2251,7 +2251,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-12-05 10:27:00"
+            "time": "2017-01-06 15:06:53"
         },
         {
             "name": "channelgrabber/slim",
@@ -8793,8 +8793,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.13",
-            "alias_normalized": "1.19.13.0",
+            "alias": "1.19.14",
+            "alias_normalized": "1.19.14.0",
             "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
             "package": "channelgrabber/amazon"
         },
