@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2532ccd2e8e48d05438758c3e5b259e",
+    "content-hash": "37f9ed89b619a7b791a2a356cc5e61a0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.19.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "0447026bd5b893f761656216748250c68d4139f9"
+                "reference": "ee6e1147b8687bd4f36257fc7d67c7d16a279cd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7700-add-courier-button-to-order-detail-1e0ca3.zip",
-                "reference": "0447026bd5b893f761656216748250c68d4139f9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.14-97fa7f.zip",
+                "reference": "ee6e1147b8687bd4f36257fc7d67c7d16a279cd2",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-06 15:02:38"
+            "time": "2017-01-12T14:18:51+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -257,16 +257,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "729a77d0d28a3becf754b2d39be7e1ff346c3113"
+                "reference": "154738326abbfa421b4d5fae89c4897b0d2880d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7700-add-courier-button-to-order-detail-2b4f17.zip",
-                "reference": "729a77d0d28a3becf754b2d39be7e1ff346c3113",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.3-43e82f.zip",
+                "reference": "154738326abbfa421b4d5fae89c4897b0d2880d5",
                 "shasum": null
             },
             "require": {
@@ -293,7 +293,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-12-05 10:27:00"
+            "time": "2017-01-12T14:21:39+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -491,16 +491,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.27.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8a3b0f464df126a698aef48b65c252807b7e716a"
+                "reference": "47a9ecf5052f81b60476987f7cc91d36ca9de72f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7700-add-courier-button-to-order-detail-0998b9.zip",
-                "reference": "8a3b0f464df126a698aef48b65c252807b7e716a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.8-ecc657.zip",
+                "reference": "47a9ecf5052f81b60476987f7cc91d36ca9de72f",
                 "shasum": null
             },
             "require": {
@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-12-05 09:57:09"
+            "time": "2017-01-12T14:20:36+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -811,16 +811,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "97fdabc44c2334e329e72117ba4d355cbe506957"
+                "reference": "37b266d3aa81e121d2ea940529c1cae4e1d1bbba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-7700-add-courier-button-to-order-detail-fd9de9.zip",
-                "reference": "97fdabc44c2334e329e72117ba4d355cbe506957",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.10.2-4844d6.zip",
+                "reference": "37b266d3aa81e121d2ea940529c1cae4e1d1bbba",
                 "shasum": null
             },
             "require": {
@@ -865,20 +865,20 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2017-01-06 15:02:38"
+            "time": "2017-01-12T14:19:53+00:00"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.8.43",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "07d4378bc67ade271f20e1bf412d63d77030cfbd"
+                "reference": "c263f9b7bb81a41ea2477fab4e1b721c6ef0d401"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-7700-add-courier-button-to-order-detail-463360.zip",
-                "reference": "07d4378bc67ade271f20e1bf412d63d77030cfbd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.43-fbcb06.zip",
+                "reference": "c263f9b7bb81a41ea2477fab4e1b721c6ef0d401",
                 "shasum": null
             },
             "require": {
@@ -922,7 +922,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2016-12-05 10:29:44"
+            "time": "2017-01-12T14:19:37+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -2211,16 +2211,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "683a2e9b7db005779a983240d6354957cadfa85b"
+                "reference": "08125cd649f12aa9ddc2df63882a62652cbfa16e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7700-add-courier-button-to-order-detail-21ce3a.zip",
-                "reference": "683a2e9b7db005779a983240d6354957cadfa85b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.6-b8ee61.zip",
+                "reference": "08125cd649f12aa9ddc2df63882a62652cbfa16e",
                 "shasum": null
             },
             "require": {
@@ -2251,7 +2251,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-06 15:06:53"
+            "time": "2017-01-12T14:19:18+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3762,16 +3762,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
+            "version": "1.17.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6e0f962319caeabbcd33aabbefaa081de1fae11e"
+                "reference": "a6d55f9c9b0c4cd60bc33046fdce4f3f7e0d4fd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7700-add-courier-button-to-order-detail-9b71fb.zip",
-                "reference": "6e0f962319caeabbcd33aabbefaa081de1fae11e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.23-a2b73e.zip",
+                "reference": "a6d55f9c9b0c4cd60bc33046fdce4f3f7e0d4fd0",
                 "shasum": null
             },
             "require": {
@@ -3819,7 +3819,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-01-06 15:02:38"
+            "time": "2017-01-12T14:21:00+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8791,60 +8791,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.14",
-            "alias_normalized": "1.19.14.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.27.8",
-            "alias_normalized": "1.27.8.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.9.70",
-            "alias_normalized": "1.9.70.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.8.38",
-            "alias_normalized": "1.8.38.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/ekm"
-        },
-        {
-            "alias": "1.0.5",
-            "alias_normalized": "1.0.5.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/shopify"
-        },
-        {
-            "alias": "1.17.22",
-            "alias_normalized": "1.17.22.0",
-            "version": "dev-CGIV-7700-add-courier-button-to-order-detail",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/bigcommerce": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/ekm": 20,
-        "channelgrabber/shopify": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
