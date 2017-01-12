@@ -20,6 +20,9 @@ use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Client\Filter;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Intercom\Company\Service as IntercomCompanyService;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -40,6 +43,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
 
+    const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
+
     protected $viewModelFactory;
     protected $jsonModelFactory;
     protected $templateService;
@@ -51,6 +56,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $config;
     protected $accountService;
     protected $filter;
+    protected $intercomEventService;
+    protected $intercomCompanyService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -62,7 +69,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         InvoiceMapper $invoiceMapper,
         Translator $translator,
         Config $config,
-        AccountService $accountService
+        AccountService $accountService,
+        IntercomEventService $intercomEventService,
+        IntercomCompanyService $intercomCompanyService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -73,7 +82,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setInvoiceMapper($invoiceMapper)
             ->setTranslator($translator)
             ->setConfig($config)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setIntercomEventService($intercomEventService)
+            ->setIntercomCompanyService($intercomCompanyService);
     }
 
     public function indexAction()
@@ -224,6 +235,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             return false;
         }
         return false;
+    }
+
+    protected function notifyOfSave()
+    {
+        $activeUser = $this->userOrganisationUnitService->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_SAVED_INVOICE_CHANGES, $activeUser->getId());
+        $this->intercomEventService->save($event);
     }
 
     protected function getInvoiceEmailVerificationStatusView(InvoiceSettingsEntity $invoiceSettings)
@@ -515,6 +533,18 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    protected function setIntercomCompanyService(IntercomCompanyService $intercomCompanyService)
+    {
+        $this->intercomCompanyService = $intercomCompanyService;
         return $this;
     }
 }
