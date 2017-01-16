@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2950d994ad4ef1b5111e0549a7c3960",
+    "content-hash": "afe9807f3ceada58322f1f0c9c2466e0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -491,16 +491,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.8",
+            "version": "1.27.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "47a9ecf5052f81b60476987f7cc91d36ca9de72f"
+                "reference": "5004de5bd00b6b8ef7ee88e7d381ad0e6038ec59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.8-ecc657.zip",
-                "reference": "47a9ecf5052f81b60476987f7cc91d36ca9de72f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.9-dde8af.zip",
+                "reference": "5004de5bd00b6b8ef7ee88e7d381ad0e6038ec59",
                 "shasum": null
             },
             "require": {
@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-01-12T14:20:36+00:00"
+            "time": "2017-01-16T13:29:33+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1547,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.6.1",
+            "version": "1.24.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639"
+                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.6.1-ddfc05.zip",
-                "reference": "d603e19f220e05d9d8732ffbae7357f0d263a639",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.7-45f1c2.zip",
+                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca",
                 "shasum": null
             },
             "require": {
@@ -1621,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-06T14:26:28+00:00"
+            "time": "2017-01-09T12:01:47+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2896,24 +2896,24 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.3",
+            "version": "1.2.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "585c3ccc4dc2604e69d7f0f13f55d8fd768ff959"
+                "reference": "a7984741bbfa31b313b817c7fd5eeb561d8ad1e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.3-5c92f0.zip",
-                "reference": "585c3ccc4dc2604e69d7f0f13f55d8fd768ff959",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.11-2035a7.zip",
+                "reference": "a7984741bbfa31b313b817c7fd5eeb561d8ad1e4",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.18.5",
+                "channelgrabber/channel": "^1.21.9",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
-                "channelgrabber/stdlib": "^2.12.0",
+                "channelgrabber/stdlib": "^2.12.29",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
@@ -2938,7 +2938,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2016-03-02T13:51:42+00:00"
+            "time": "2017-01-16T13:33:27+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
