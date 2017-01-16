@@ -36,7 +36,7 @@ define([
             var emailBccField = $(emailBccSelector);
 
             var emailEditorSelector = '#invoice-email-editor';
-            var existingEmailContent = $(emailEditorSelector).html();
+            var existingEmailTemplate = $(emailEditorSelector).html();
             EventCollator.setTimeout(3000);
 
             var init = function ()
@@ -124,14 +124,14 @@ define([
                     }
                 });
 
-                $(document).on(EventCollator.getQueueTimeoutEventPrefix() + 'invoiceEmailContent', function(event, data) {
+                $(document).on(EventCollator.getQueueTimeoutEventPrefix() + 'invoiceEmailTemplate', function(event, data) {
                     var newContent = $.trim(data.pop());
-                    var oldContent = $.trim(existingEmailContent);
+                    var oldContent = $.trim(existingEmailTemplate);
 
                     if (newContent === oldContent) {
                         return;
                     }
-                    existingEmailContent = newContent;
+                    existingEmailTemplate = newContent;
                     ajaxSave(self);
                 });
             };
@@ -241,7 +241,7 @@ define([
                     paste_as_text: true,
                     init_instance_callback: function (editor) {
                         editor.on('keyup change paste SetContent', function (e) {
-                            $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailContent', editor.getContent(), false]);
+                            $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailTemplate', editor.getContent(), false]);
                         });
                     },
                     toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagSelect | resetDefault',
@@ -352,7 +352,7 @@ define([
                     'emailSendAs': getEmailSendAs(),
                     'copyRequired': getCopyRequired(),
                     'emailBcc': getEmailBcc(),
-                    'emailContent': getEmailContent(),
+                    'emailTemplate': getEmailTemplate(),
                     'productImages': getProductImages(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
@@ -384,9 +384,9 @@ define([
                 return $(emailBccSelector).val();
             };
 
-            var getEmailContent = function()
+            var getEmailTemplate = function()
             {
-                return existingEmailContent;
+                return existingEmailTemplate;
             };
 
             var getProductImages = function()

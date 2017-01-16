@@ -2181,12 +2181,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "3c56bf9bfcc644ec60d1fda344960572697e152f"
+                "reference": "158f9b792b5f6dfec61b258e722dd86be04b32fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7769-invoice-email-template-backend-dec3b0.zip",
-                "reference": "3c56bf9bfcc644ec60d1fda344960572697e152f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7769-invoice-email-template-backend-db9fd5.zip",
+                "reference": "158f9b792b5f6dfec61b258e722dd86be04b32fd",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-11 16:32:03"
+            "time": "2017-01-16 15:34:52"
         },
         {
             "name": "channelgrabber/shopify",
