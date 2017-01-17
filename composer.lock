@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b88352a43f59d08e8424da61913f46b9",
+    "content-hash": "ec2a80e8fd94bb8601f883d5ddc8000a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2177,7 +2177,7 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-7769-invoice-email-template-backend",
+            "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
@@ -2185,7 +2185,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7769-invoice-email-template-backend-8e1f6d.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template-8e1f6d.zip",
                 "reference": "bb44ee506159d3e5c4d11e07eae0651c8978bc32",
                 "shasum": null
             },
@@ -8795,7 +8795,7 @@
         {
             "alias": "1.4.1",
             "alias_normalized": "1.4.1.0",
-            "version": "dev-CGIV-7769-invoice-email-template-backend",
+            "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
             "package": "channelgrabber/settings"
         },
         {
