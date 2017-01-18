@@ -4,6 +4,8 @@ namespace Orders\Order\PickList;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Image\Filter as ImageFilter;
+use CG\Image\Service as ImageService;
 use CG\PickList\Service as PickListService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
@@ -34,6 +36,7 @@ class Service implements LoggerAwareInterface
     protected $progressStorage;
     protected $activeUserContainer;
     protected $intercomEventService;
+    protected $imageService;
 
     public function __construct(
         ProductService $productService,
@@ -43,7 +46,8 @@ class Service implements LoggerAwareInterface
         Mapper $mapper,
         ProgressStorage $progressStorage,
         ActiveUserContainer $activeUserContainer,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        ImageService $imageService
     ) {
         $this->setProductService($productService)
             ->setPickListService($pickListService)
@@ -53,6 +57,7 @@ class Service implements LoggerAwareInterface
             ->setProgressStorage($progressStorage)
             ->setActiveUserContainer($activeUserContainer)
             ->setIntercomEventService($intercomEventService);
+        $this->imageService = $imageService;
     }
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
@@ -88,7 +93,7 @@ class Service implements LoggerAwareInterface
                 $aggregator->getItemsIndexedBySku(),
                 $products,
                 $parentProducts,
-                ($pickListSettings->getShowPictures()) ? $this->fetchImagesForProducts($products) : null
+                ($pickListSettings->getShowPictures()) ? $this->fetchImagesForItems($aggregator->getItemsIndexedBySku()) : null
             ),
             $this->getMapper()->fromItemsByTitle(
                 $aggregator->getItemsIndexedByTitle()
@@ -163,17 +168,30 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function fetchImagesForProducts(ProductCollection $products)
+    protected function fetchImagesForItems(array $itemsBySku)
     {
-        $imageMap = new ImageMap();
-        foreach($products as $product) {
-            if($product->getImages() === null || $product->getImages()->count() === 0) {
-                continue;
+        $imageIds = [];
+        foreach($itemsBySku as $sku => $items) {
+            foreach($items as $item) {
+                foreach ($item->getImageIds() as $imageId) {
+                    $imageIds[$imageId] = $sku;
+                }
             }
+        }
+        try {
+            $filter = (new ImageFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setId(array_keys($imageIds));
 
-            $product->getImages()->rewind();
-            $image = $product->getImages()->current();
-            $imageMap->setUrlForSku($product->getSku(), $image->getUrl());
+            $images = $this->imageService->fetchCollectionByPaginationAndFilters($filter);
+        } catch (NotFound $e) {
+            $images = [];
+        }
+
+        $imageMap = new ImageMap();
+        foreach($images as $image) {
+            $imageMap->setUrlForSku($imageIds[$image->getId()], $image->getUrl());
         }
 
         $this->getImageClient()->fetchImages($imageMap);
