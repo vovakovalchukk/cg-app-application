@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "afe9807f3ceada58322f1f0c9c2466e0",
+    "content-hash": "76c3c2f1e79dc4ea5dbaf2ffc266e230",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1444,16 +1444,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7455-NetDespatchTimeZones",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "3d3baca793c7d7c31293ccee5ff05297f0f1de30"
+                "reference": "ca4b67e770cd0ca84449b2b8363aa1823d4fc298"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7455-NetDespatchTimeZones-ee5126.zip",
-                "reference": "3d3baca793c7d7c31293ccee5ff05297f0f1de30",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.4-bb7382.zip",
+                "reference": "ca4b67e770cd0ca84449b2b8363aa1823d4fc298",
                 "shasum": null
             },
             "require": {
@@ -1493,7 +1493,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-01-12 16:33:41"
+            "time": "2017-01-18T15:00:28+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -8791,18 +8791,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.4",
-            "alias_normalized": "1.2.4.0",
-            "version": "dev-CGIV-7455-NetDespatchTimeZones",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

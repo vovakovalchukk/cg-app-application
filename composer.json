@@ -55,7 +55,7 @@
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.0.28",
         "channelgrabber/manual-order": "~1.0.0",
-        "channelgrabber/netdespatch": "dev-CGIV-7455-NetDespatchTimeZones as 1.2.4",
+        "channelgrabber/netdespatch": "~1.2.4",
         "channelgrabber/order": "~1.24.6",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.8",
