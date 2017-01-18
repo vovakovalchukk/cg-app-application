@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "76c3c2f1e79dc4ea5dbaf2ffc266e230",
+    "content-hash": "e76cf791c9879df85c42450f738a4eb3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2896,16 +2896,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.11",
+            "version": "dev-CGIV-7890-handle-woocommerce-auth-errors",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "a7984741bbfa31b313b817c7fd5eeb561d8ad1e4"
+                "reference": "51f72013aa107590b2ed51dc6f7534ec6bd58cf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.11-2035a7.zip",
-                "reference": "a7984741bbfa31b313b817c7fd5eeb561d8ad1e4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-7890-handle-woocommerce-auth-errors-7cc260.zip",
+                "reference": "51f72013aa107590b2ed51dc6f7534ec6bd58cf4",
                 "shasum": null
             },
             "require": {
@@ -2938,7 +2938,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-01-16T13:33:27+00:00"
+            "time": "2017-01-18 15:37:44"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -4056,7 +4056,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -8791,10 +8791,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.12",
+            "alias_normalized": "1.2.12.0",
+            "version": "dev-CGIV-7890-handle-woocommerce-auth-errors",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
