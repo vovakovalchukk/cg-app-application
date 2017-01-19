@@ -87,13 +87,14 @@ class Service implements LoggerAwareInterface
 
         $products = $this->fetchProductsForSkus($aggregator->getSkus());
         $parentProducts = $this->fetchParentProductsForProducts($products);
+        $itemsBySku = $aggregator->getItemsIndexedBySku();
 
         $pickListEntries = array_merge(
             $this->getMapper()->fromItemsAndProductsBySku(
-                $aggregator->getItemsIndexedBySku(),
+                $itemsBySku,
                 $products,
                 $parentProducts,
-                ($pickListSettings->getShowPictures()) ? $this->fetchImagesForItems($aggregator->getItemsIndexedBySku()) : null
+                ($pickListSettings->getShowPictures()) ? $this->fetchImagesForItems($itemsBySku) : null
             ),
             $this->getMapper()->fromItemsByTitle(
                 $aggregator->getItemsIndexedByTitle()
