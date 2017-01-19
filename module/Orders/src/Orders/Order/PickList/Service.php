@@ -171,29 +171,17 @@ class Service implements LoggerAwareInterface
 
     protected function fetchImagesForItems(array $itemsBySku)
     {
-        $imageIds = [];
+        $imageIdToSkuMap = [];
         foreach($itemsBySku as $sku => $items) {
             foreach($items as $item) {
                 foreach ($item->getImageIds() as $imageId) {
-                    $imageIds[$imageId] = $sku;
+                    $imageIdToSkuMap[$imageId] = $sku;
                 }
             }
         }
-        try {
-            $filter = (new ImageFilter())
-                ->setLimit('all')
-                ->setPage(1)
-                ->setId(array_keys($imageIds));
-
-            $images = $this->imageService->fetchCollectionByPaginationAndFilters($filter);
-        } catch (NotFound $e) {
-            $images = [];
-        }
 
         $imageMap = new ImageMap();
-        foreach($images as $image) {
-            $imageMap->setUrlForSku($imageIds[$image->getId()], $image->getUrl());
-        }
+        $imageMap = $this->imageService->populateImageMap($imageMap, $imageIdToSkuMap);
 
         $this->getImageClient()->fetchImages($imageMap);
         return $imageMap;

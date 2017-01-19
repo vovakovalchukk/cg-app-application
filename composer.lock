@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f96cf816e8adf6efcf46e52cf439f5d",
+    "content-hash": "9f4457c0ffdcccb0f770da1c60aaf9b0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1130,17 +1130,11 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.2",
+            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "71f867a18a197590916b3babd44d88966d517a11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.2-0bf76f.zip",
-                "reference": "71f867a18a197590916b3babd44d88966d517a11",
-                "shasum": null
+                "reference": "2323be8c7b933d385eb159e98530bb3954973e03"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2573,7 +2567,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1556209c195d45db69eb02f1f9789fa3ba5a77a4"
+                "reference": "f877a9cf7082ffaffe4a01ada8c4ba6f4fb04cbc"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -8787,6 +8781,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.3",
+            "alias_normalized": "1.2.3.0",
+            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
+            "package": "channelgrabber/image"
+        },
+        {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
             "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
@@ -8797,6 +8797,7 @@
     "stability-flags": {
         "composer/composer": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/image": 20,
         "channelgrabber/template": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
