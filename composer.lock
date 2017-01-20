@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "54bd3674460bfc6010f2742245f60770",
+    "content-hash": "c0ca6ac3bf95440506ec48a7fa5e92e9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2896,16 +2896,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.12.2",
+            "version": "1.2.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "66aec93a3743f7b02db3c51244db3ae54afd0bae"
+                "reference": "766250ac6f8a431551446434b5d9eb9210b4cc91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.12.2-b83826.zip",
-                "reference": "66aec93a3743f7b02db3c51244db3ae54afd0bae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.13-7985df.zip",
+                "reference": "766250ac6f8a431551446434b5d9eb9210b4cc91",
                 "shasum": null
             },
             "require": {
@@ -2938,7 +2938,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-01-19T16:32:03+00:00"
+            "time": "2017-01-20T11:03:19+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
