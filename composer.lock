@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0ca6ac3bf95440506ec48a7fa5e92e9",
+    "content-hash": "a84e8442d8a97a066238059e34bae1a2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1248,16 +1248,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "cc76d30a531485bef3bdf5da4efeda1934d5a225"
+                "reference": "65c3bd8c1ecf7c403177717a474dbf427ab28f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.11-567b05.zip",
-                "reference": "cc76d30a531485bef3bdf5da4efeda1934d5a225",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.12-24f477.zip",
+                "reference": "65c3bd8c1ecf7c403177717a474dbf427ab28f19",
                 "shasum": null
             },
             "require": {
@@ -1277,7 +1277,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-01-06T14:02:58+00:00"
+            "time": "2017-01-23T11:05:41+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4056,7 +4056,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
