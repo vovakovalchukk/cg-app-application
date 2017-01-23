@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0ca6ac3bf95440506ec48a7fa5e92e9",
+    "content-hash": "a49347b52030ed94e0e59e3781cc9d99",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2569,17 +2569,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.12",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "308f01f375cc45143d80d90e03a7c1f1a1190f8b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.12-5728a4.zip",
-                "reference": "308f01f375cc45143d80d90e03a7c1f1a1190f8b",
-                "shasum": null
+                "reference": "72fbc6c7ffc65850fd1ee486fe756c91cea9e526"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2727,16 +2721,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.4",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a462bb177cc91dcf7060e9bc6c45471f54113356"
+                "reference": "c479351574b73c1468278bc149bbd120d88167fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.4-5f1fa4.zip",
-                "reference": "a462bb177cc91dcf7060e9bc6c45471f54113356",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7905-tax-calculations-for-trading-companies-685fe4.zip",
+                "reference": "c479351574b73c1468278bc149bbd120d88167fc",
                 "shasum": null
             },
             "require": {
@@ -2774,7 +2768,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-18T13:43:53+00:00"
+            "time": "2017-01-23T09:30:41+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -5346,7 +5340,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8791,16 +8785,31 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.13",
+            "alias_normalized": "1.4.13.0",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.22.6",
+            "alias_normalized": "1.22.6.0",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "package": "channelgrabber/user"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
+        "channelgrabber/user": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
