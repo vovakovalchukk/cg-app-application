@@ -22,7 +22,7 @@ $(document).ready(function()
         <?= $this->translate('Review Orders') ?>
         <div class="heading-buttons">
             <div class="backorders_btn button-holder">
-                <a href="/orders" class="button"><?=$this->translate('Back To Orders');?></a>
+                <a href="<?= $this->goBackUrl ?>" class="button"><?=$this->translate('Back To Orders');?></a>
             </div>
             <?= $this->continueButton; ?>
         </div>

@@ -92,6 +92,9 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
 
     OrdersBulkActionAbstract.prototype.getOrders = function()
     {
+        if (this.getElement().parent().parent().hasClass('disabled')) {
+            return [];
+        }
         var orders = this.getElement().data('orders');
         if (!orders) {
             orders = this.getDataTableElement().cgDataTable("selected", ".checkbox-id");

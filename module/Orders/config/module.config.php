@@ -1797,11 +1797,6 @@ return [
                     'orderClient' => OrderClientService::class,
                 ],
             ],
-            EUVATCodeChecker::class => [
-                'parameters' => [
-                    'soapClient' => 'EUVATCodeCheckerSoapClient',
-                ],
-            ],
             'OrderRpcClient' => [
                 'parameters' => [
                     'guzzle' => 'cg_app_rpc_guzzle'

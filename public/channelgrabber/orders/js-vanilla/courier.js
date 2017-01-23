@@ -19,7 +19,11 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
         // Can't save the filter as part of the main call as we're opening an iframe so can't get the ID back
         this.saveFilterOnly();
 
-        $('<a href="' + url + '" />').cgPjax('post', this.getDataToSubmit());
+        var postData = this.getDataToSubmit();
+        if (postData.orders.length) {
+            postData['referrer'] = window.location.pathname;
+            $('<a href="' + url + '" />').cgPjax('post', postData);
+        }
     };
 
     return Courier;

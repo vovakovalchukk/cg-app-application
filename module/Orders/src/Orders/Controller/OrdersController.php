@@ -272,7 +272,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 'order' => $order
             ]
         );
-        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
+        $bulkActions = $this->getBulkActionsForOrder($order);
         $bulkActions->addChild(
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
             'afterActions'
@@ -307,6 +307,21 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $this->addLabelPrintButtonToView($view, $order);
         return $view;
+    }
+
+    protected function getBulkActionsForOrder(OrderEntity $order)
+    {
+        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
+        if ($this->hasCourierAccounts()) {
+            return $bulkActions;
+        }
+        foreach ($bulkActions->getActions() as $action) {
+            if (!($action instanceof CourierBulkAction)) {
+                continue;
+            }
+            $bulkActions->getActions()->detach($action);
+        }
+        return $bulkActions;
     }
 
     protected function getProductAndPaymentDetails(OrderEntity $order)

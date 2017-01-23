@@ -69,11 +69,16 @@ require(["tooltip"], function(Tooltip) {
             orderIds[record.id] = record;
         });
 
+        var orderIdsArray = Object.keys(orderIds);
+        if (! orderIdsArray.length) {
+            return;
+        }
+
         $.ajax({
             "url": '/orders/getDeferredColumnData',
             "type": 'POST',
             "data": {
-                orderIds: Object.keys(orderIds)
+                orderIds: orderIdsArray
             },
             "dataType": 'json',
             "success": function(response) {
