@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a49347b52030ed94e0e59e3781cc9d99",
+    "content-hash": "ccedf6531b8e15248983fe026a94206f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1547,17 +1547,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.7",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.7-45f1c2.zip",
-                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca",
-                "shasum": null
+                "reference": "fb02e0c77d35e035b818c5fac999a0c4c44e577d"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1625,17 +1619,11 @@
         },
         {
             "name": "channelgrabber/permission",
-            "version": "1.0.1.2",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-permission.git",
-                "reference": "03801214a3cc4cfddf9cb2f3255f59d8cbda4e10"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-permission-1.0.1.2-974612.zip",
-                "reference": "03801214a3cc4cfddf9cb2f3255f59d8cbda4e10",
-                "shasum": null
+                "reference": "bf639992f3d5964c476b80020274468ebe932f0a"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -4050,7 +4038,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -8787,6 +8775,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.24.7",
+            "alias_normalized": "1.24.7.0",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "package": "channelgrabber/permission"
+        },
+        {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
             "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
@@ -8803,6 +8803,8 @@
     "stability-flags": {
         "composer/composer": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/permission": 20,
         "channelgrabber/template": 20,
         "channelgrabber/user": 20,
         "php-jsonpatch/php-jsonpatch": 20,
