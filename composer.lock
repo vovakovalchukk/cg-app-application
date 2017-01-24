@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2fe8633bdd48940570514dbece847e2",
+    "content-hash": "20744c4ee3dfe207bdf3c154d5ce16f2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.1",
+            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd"
+                "reference": "e05c4a1695055c9758c6e7c5e43afe01e0a4d36b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.1-342da5.zip",
-                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7599-item-images-default-to-unimported-images-f89dec.zip",
+                "reference": "e05c4a1695055c9758c6e7c5e43afe01e0a4d36b",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-24T09:55:53+00:00"
+            "time": "2017-01-24 11:15:08"
         },
         {
             "name": "channelgrabber/shopify",
@@ -8800,6 +8800,12 @@
             "package": "channelgrabber/image"
         },
         {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
+            "package": "channelgrabber/settings"
+        },
+        {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
             "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
@@ -8810,6 +8816,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/image": 20,
+        "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
