@@ -1,0 +1,43 @@
+.sidebar-email-designer {
+    height: 100%;
+    .email-action-buttons {
+        .button {
+            width: 115px !important;
+            float: left;
+        }
+    }
+}
+
+.template-module {
+    display: block;
+    .action {
+        width: 95px;
+        display: block;
+        float: left;
+        margin: 5px 0;
+        padding: 6px 5px 6px 5px;
+        box-sizing: border-box;
+        &.button {
+            .title {
+                width: 50%;
+                margin-top: 1px;
+            }
+        }
+    }
+}
+
+.template-view {
+    left: 248px;
+    position: absolute;
+    border: 1px solid $color-lgrey;
+    width: 204mm;
+    height: 297mm;
+    margin: 20px 10px;
+    .element {
+        cursor: pointer;
+        position: absolute;
+    }
+    .text-element {
+        user-select: none;
+    }
+}

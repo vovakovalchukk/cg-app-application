@@ -154,6 +154,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('subHeaderHide', true)
             ->setVariable('emailVerified', $invoiceSettings->isEmailVerified())
             ->setVariable('emailSendAs', $invoiceSettings->getEmailSendAs())
+            ->setVariable('emailTemplate', $invoiceSettings->getEmailTemplate())
+            ->setVariable('tagOptions', $this->getOrderTagManager()->getAvailableTags())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
