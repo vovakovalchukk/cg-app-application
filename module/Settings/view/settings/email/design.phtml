@@ -1,0 +1,19 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'Common': '<?= $this->basePath() ?>/cg-built/common/js',
+        'EmailDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/EmailDesigner';?>"
+    }
+});
+require(['EmailDesigner/EmailDesigner'], function(EmailDesigner)
+{
+    var mountingNodes = {
+        emailDesignerRoot: document.getElementById('email-designer-mount')
+    };
+    new EmailDesigner(mountingNodes);
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+<div id="email-designer">
+    <div id="email-designer-mount"></div>
+</div>

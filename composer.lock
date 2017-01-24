@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2165,16 +2165,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.0.1",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "88870d2c09f493bb58d408f2ed37e3eea49ae9aa"
+                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.0.1-d3ca7d.zip",
-                "reference": "88870d2c09f493bb58d408f2ed37e3eea49ae9aa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.1-342da5.zip",
+                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd",
                 "shasum": null
             },
             "require": {
@@ -2195,7 +2195,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-05T12:08:42+00:00"
+            "time": "2017-01-24T09:55:53+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2604,7 +2604,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-06T14:03:39+00:00"
+            "time": "2017-01-24T09:55:40+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3744,16 +3744,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.23",
+            "version": "1.17.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a6d55f9c9b0c4cd60bc33046fdce4f3f7e0d4fd0"
+                "reference": "d3a72469148ec57471a531db89d6da25d51051ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.23-a2b73e.zip",
-                "reference": "a6d55f9c9b0c4cd60bc33046fdce4f3f7e0d4fd0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.24-afbff2.zip",
+                "reference": "d3a72469148ec57471a531db89d6da25d51051ee",
                 "shasum": null
             },
             "require": {
@@ -3801,7 +3801,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-01-12T14:21:00+00:00"
+            "time": "2017-01-24T10:02:32+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5379,7 +5379,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5472,7 +5472,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5941,7 +5941,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
