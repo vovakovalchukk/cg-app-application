@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8ef20ca92a569a83b23275536c3c221",
+    "content-hash": "1b1869b682920cc73f15739ad4cf7b00",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "bb44ee506159d3e5c4d11e07eae0651c8978bc32"
+                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template-8e1f6d.zip",
-                "reference": "bb44ee506159d3e5c4d11e07eae0651c8978bc32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.1-342da5.zip",
+                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-16 16:37:34"
+            "time": "2017-01-24T09:55:53+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2569,16 +2569,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.13",
+            "version": "1.4.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b876f92edd28891d85b43c22a3dd21925239ae6f"
+                "reference": "a320898d6c29d95d8b8207218154a32e1062a3be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.13-15c799.zip",
-                "reference": "b876f92edd28891d85b43c22a3dd21925239ae6f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.14-a506f3.zip",
+                "reference": "a320898d6c29d95d8b8207218154a32e1062a3be",
                 "shasum": null
             },
             "require": {
@@ -2622,7 +2622,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-09T12:06:15+00:00"
+            "time": "2017-01-24T09:55:40+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3762,16 +3762,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
+            "version": "1.17.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "17e461a779a24b87439f1b68bb68ebc082b20613"
+                "reference": "d3a72469148ec57471a531db89d6da25d51051ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template-beb652.zip",
-                "reference": "17e461a779a24b87439f1b68bb68ebc082b20613",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.24-afbff2.zip",
+                "reference": "d3a72469148ec57471a531db89d6da25d51051ee",
                 "shasum": null
             },
             "require": {
@@ -3819,7 +3819,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-01-23 14:26:29"
+            "time": "2017-01-24T10:02:32+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8791,25 +8791,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.1",
-            "alias_normalized": "1.4.1.0",
-            "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.17.23",
-            "alias_normalized": "1.17.23.0",
-            "version": "dev-EPIC-CGIV-7752-allow-users-to-edit-the-invoice-email-template",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
