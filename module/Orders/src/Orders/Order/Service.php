@@ -1172,10 +1172,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function getVatOrganisationUnitForOrder(OrderEntity $order)
     {
         $ou = $this->getOrganisationUnitService()->fetch($order->getOrganisationUnitId());
-        if ($ou->isRoot() || !$ou->isVatUseRoot()) {
-            return $ou;
-        }
-        return $this->getOrganisationUnitService()->fetch($ou->getRoot());
+        return $ou->getVatEntity();
     }
 
     protected function notifyOfCancel()

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba03e5227f7a0a9b60deafe1853bbec6",
+    "content-hash": "888112a95c3028377a18b8c3d9a1b7cc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1551,7 +1551,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8dababd222c542b2cbe939904460dd8087bb897c"
+                "reference": "9d5932d67d87b6cd5c5137c39b78579714e98be6"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1615,7 +1615,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-09T12:01:47+00:00"
+            "time": "2017-01-24T11:20:58+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -1635,7 +1635,7 @@
                     "CG\\Permission\\": "src"
                 }
             },
-            "time": "2014-09-03T11:31:13+00:00"
+            "time": "2017-01-23T12:14:30+00:00"
         },
         {
             "name": "channelgrabber/phinx",
@@ -2561,7 +2561,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b7e45f0a1128c3c19b42357f0beb46128a0d2cfa"
+                "reference": "a7175533af02a2f0a3177cd10aaa6ecc85c299b3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2604,7 +2604,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-24T09:55:40+00:00"
+            "time": "2017-01-24T11:23:02+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2713,12 +2713,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "c479351574b73c1468278bc149bbd120d88167fc"
+                "reference": "f6ef7f95d8bcbd5bd48f99ae5fb995fe56f872d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7905-tax-calculations-for-trading-companies-685fe4.zip",
-                "reference": "c479351574b73c1468278bc149bbd120d88167fc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7905-tax-calculations-for-trading-companies-5b0501.zip",
+                "reference": "f6ef7f95d8bcbd5bd48f99ae5fb995fe56f872d1",
                 "shasum": null
             },
             "require": {
@@ -2756,7 +2756,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-01-23T09:30:41+00:00"
+            "time": "2017-01-24T14:04:06+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -5379,7 +5379,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5472,7 +5472,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5941,7 +5941,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
