@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "74083cab3850286b184ffe4451582495",
+    "content-hash": "542d70ee739879b0f84b926b174caa68",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1547,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.7",
+            "version": "dev-CGIV-7601-relate-orders-to-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca"
+                "reference": "4fb9e2f325f2c9cc483dde836a8941da008a523b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.7-45f1c2.zip",
-                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7601-relate-orders-to-listings-858bd2.zip",
+                "reference": "4fb9e2f325f2c9cc483dde836a8941da008a523b",
                 "shasum": null
             },
             "require": {
@@ -1621,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-09T12:01:47+00:00"
+            "time": "2017-01-25 14:31:47"
         },
         {
             "name": "channelgrabber/permission",
@@ -8800,6 +8800,12 @@
             "package": "channelgrabber/image"
         },
         {
+            "alias": "1.24.6",
+            "alias_normalized": "1.24.6.0",
+            "version": "dev-CGIV-7601-relate-orders-to-listings",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
             "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
@@ -8810,6 +8816,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/image": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
