@@ -1252,7 +1252,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "55807ad74b01cce0d78284a8fce2716f7cac5ba2"
+                "reference": "bffaa8fc2bb84316aa5eef879eed74fbbe9367e8"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -2380,17 +2380,11 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.37",
+            "version": "dev-CGIV-7922-eu-vat-code-checker-third-party-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "683d0e7dcce7f5be13cd82dda431535cc3480360"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.37-39d033.zip",
-                "reference": "683d0e7dcce7f5be13cd82dda431535cc3480360",
-                "shasum": null
+                "reference": "9268e1b378374345caa3b1064a03766d6feb35d0"
             },
             "require": {
                 "phpseclib/mcrypt_compat": "~1.0.1",
@@ -8791,6 +8785,12 @@
             "alias_normalized": "1.0.13.0",
             "version": "dev-CGIV-7922-eu-vat-code-checker-third-party-error",
             "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "2.12.37",
+            "alias_normalized": "2.12.37.0",
+            "version": "dev-CGIV-7922-eu-vat-code-checker-third-party-error",
+            "package": "channelgrabber/stdlib"
         }
     ],
     "minimum-stability": "stable",
@@ -8798,6 +8798,7 @@
         "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
+        "channelgrabber/stdlib": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,

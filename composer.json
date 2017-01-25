@@ -70,7 +70,7 @@
         "channelgrabber/shopify": "~1.0.6",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
-        "channelgrabber/stdlib": "~2.12.36",
+        "channelgrabber/stdlib": "dev-CGIV-7922-eu-vat-code-checker-third-party-error as 2.12.37",
         "channelgrabber/stock": "~1.8.2",
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.4.12",
