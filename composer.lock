@@ -1248,16 +1248,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "65c3bd8c1ecf7c403177717a474dbf427ab28f19"
+                "reference": "ff04e055286fc6083149be54744d612530fd0178"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.12-24f477.zip",
-                "reference": "65c3bd8c1ecf7c403177717a474dbf427ab28f19",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.13-11c99c.zip",
+                "reference": "ff04e055286fc6083149be54744d612530fd0178",
                 "shasum": null
             },
             "require": {
@@ -1277,7 +1277,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-01-23T11:05:41+00:00"
+            "time": "2017-01-25T12:04:43+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2386,16 +2386,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.37",
+            "version": "2.12.39",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "683d0e7dcce7f5be13cd82dda431535cc3480360"
+                "reference": "ab881afa7cda8a4cb9253b95c0109416526dc2d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.37-39d033.zip",
-                "reference": "683d0e7dcce7f5be13cd82dda431535cc3480360",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.39-809bad.zip",
+                "reference": "ab881afa7cda8a4cb9253b95c0109416526dc2d0",
                 "shasum": null
             },
             "require": {
@@ -2431,7 +2431,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-11-23T15:50:21+00:00"
+            "time": "2017-01-25T12:04:30+00:00"
         },
         {
             "name": "channelgrabber/stock",
