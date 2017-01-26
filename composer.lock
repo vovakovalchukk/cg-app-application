@@ -1547,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.24.7",
+            "version": "1.25.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca"
+                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.24.7-45f1c2.zip",
-                "reference": "8d896f5b3ceb2a66e86762ac76baf441f9004dca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.2-c8a7b2.zip",
+                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7",
                 "shasum": null
             },
             "require": {
@@ -1591,7 +1591,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.4.3",
                 "channelgrabber/transaction": "^1.2.1",
-                "channelgrabber/user": "^1.22.0",
+                "channelgrabber/user": "^1.22.6",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
@@ -1621,20 +1621,20 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-09T12:01:47+00:00"
+            "time": "2017-01-26T11:24:20+00:00"
         },
         {
             "name": "channelgrabber/permission",
-            "version": "1.0.1.2",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-permission.git",
-                "reference": "03801214a3cc4cfddf9cb2f3255f59d8cbda4e10"
+                "reference": "fd59111533c97fedda802b5d8510567a7020d955"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-permission-1.0.1.2-974612.zip",
-                "reference": "03801214a3cc4cfddf9cb2f3255f59d8cbda4e10",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-permission-1.0.2-c7606d.zip",
+                "reference": "fd59111533c97fedda802b5d8510567a7020d955",
                 "shasum": null
             },
             "require": {
@@ -1647,7 +1647,7 @@
                     "CG\\Permission\\": "src"
                 }
             },
-            "time": "2014-09-03T11:31:13+00:00"
+            "time": "2017-01-26T11:17:47+00:00"
         },
         {
             "name": "channelgrabber/phinx",
@@ -2569,17 +2569,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.14",
+            "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a320898d6c29d95d8b8207218154a32e1062a3be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.14-a506f3.zip",
-                "reference": "a320898d6c29d95d8b8207218154a32e1062a3be",
-                "shasum": null
+                "reference": "2896b70b7417adf15c56f578a6e33ec44e62a0fe"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2622,7 +2616,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-24T09:55:40+00:00"
+            "time": "2017-01-26 11:44:18"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2727,16 +2721,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.4",
+            "version": "1.22.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a462bb177cc91dcf7060e9bc6c45471f54113356"
+                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.4-5f1fa4.zip",
-                "reference": "a462bb177cc91dcf7060e9bc6c45471f54113356",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.6-36d826.zip",
+                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f",
                 "shasum": null
             },
             "require": {
@@ -2774,7 +2768,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-11-18T13:43:53+00:00"
+            "time": "2017-01-26T11:15:57+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -8797,12 +8791,18 @@
             "alias_normalized": "1.4.2.0",
             "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "package": "channelgrabber/settings"
+},{
+            "alias": "1.4.16",
+            "alias_normalized": "1.4.16.0",
+            "version": "dev-CGIV-7895-invoice-sku-barcodes",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
