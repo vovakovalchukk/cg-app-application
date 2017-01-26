@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "888112a95c3028377a18b8c3d9a1b7cc",
+    "content-hash": "24a14b0d70e5802989d636712d4e663c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1547,11 +1547,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "version": "1.25.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9d5932d67d87b6cd5c5137c39b78579714e98be6"
+                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.2-c8a7b2.zip",
+                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1585,7 +1591,7 @@
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.4.3",
                 "channelgrabber/transaction": "^1.2.1",
-                "channelgrabber/user": "^1.22.0",
+                "channelgrabber/user": "^1.22.6",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
@@ -1615,15 +1621,21 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-24 14:25:53"
+            "time": "2017-01-26T11:24:20+00:00"
         },
         {
             "name": "channelgrabber/permission",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-permission.git",
-                "reference": "bf639992f3d5964c476b80020274468ebe932f0a"
+                "reference": "fd59111533c97fedda802b5d8510567a7020d955"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-permission-1.0.2-c7606d.zip",
+                "reference": "fd59111533c97fedda802b5d8510567a7020d955",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1635,7 +1647,7 @@
                     "CG\\Permission\\": "src"
                 }
             },
-            "time": "2017-01-23 12:14:30"
+            "time": "2017-01-26T11:17:47+00:00"
         },
         {
             "name": "channelgrabber/phinx",
@@ -2557,11 +2569,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "a7175533af02a2f0a3177cd10aaa6ecc85c299b3"
+                "reference": "2896b70b7417adf15c56f578a6e33ec44e62a0fe"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2604,7 +2616,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-24 14:33:38"
+            "time": "2017-01-26 11:44:18"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2709,16 +2721,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "version": "1.22.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "ae37edbd10ba9443e72ef3e7aa8141640c8355af"
+                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7905-tax-calculations-for-trading-companies-f43da1.zip",
-                "reference": "ae37edbd10ba9443e72ef3e7aa8141640c8355af",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.6-36d826.zip",
+                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f",
                 "shasum": null
             },
             "require": {
@@ -2756,7 +2768,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-01-24 15:58:13"
+            "time": "2017-01-26T11:15:57+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -8775,37 +8787,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.24.7",
-            "alias_normalized": "1.24.7.0",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
-            "package": "channelgrabber/permission"
-        },
-        {
-            "alias": "1.4.13",
-            "alias_normalized": "1.4.13.0",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
+            "alias": "1.4.16",
+            "alias_normalized": "1.4.16.0",
+            "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.22.6",
-            "alias_normalized": "1.22.6.0",
-            "version": "dev-CGIV-7905-tax-calculations-for-trading-companies",
-            "package": "channelgrabber/user"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/permission": 20,
         "channelgrabber/template": 20,
-        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
