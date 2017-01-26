@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f161a47222b89d69b473a44ddf9cb24",
+    "content-hash": "24ba87808328d607e079ede75745604c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-25 16:06:22"
+            "time": "2017-01-25T16:06:22+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2569,17 +2569,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.15",
+            "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8e2d2b0ad594d4b792b28c5cb3102e3a9f6a739a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.15-6d6ea5.zip",
-                "reference": "8e2d2b0ad594d4b792b28c5cb3102e3a9f6a739a",
-                "shasum": null
+                "reference": "eef2c571b4ced31b05244eda5e0d806e743ff176"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2592,7 +2586,7 @@
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.3.8",
                 "channelgrabber/stdlib": "^2.10.4",
-                "channelgrabber/user": "^1.22.6",
+                "channelgrabber/user": "^1.22.0",
                 "ext-gd": "*",
                 "guzzle/guzzle": "~3.7",
                 "picqer/php-barcode-generator": "~0.2.1",
@@ -2622,7 +2616,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-26T11:28:20+00:00"
+            "time": "2017-01-26T11:44:18+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5346,7 +5340,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8797,7 +8791,8 @@
             "alias_normalized": "1.4.2.0",
             "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "package": "channelgrabber/settings"
-},{
+        },
+        {
             "alias": "1.4.16",
             "alias_normalized": "1.4.16.0",
             "version": "dev-CGIV-7895-invoice-sku-barcodes",
@@ -8806,14 +8801,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
-        "composer/composer": 20,
+        "channelgrabber/template": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
