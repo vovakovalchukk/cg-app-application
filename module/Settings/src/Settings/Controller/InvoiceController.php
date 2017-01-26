@@ -159,6 +159,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
+            ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
             ->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
@@ -304,6 +305,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'productImages',
                     'name' => 'productImages',
                     'selected' => $invoiceSettings->getProductImages(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsItemBarcodesCheckboxView(InvoiceSettingsEntity $invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'itemBarcodes',
+                    'name' => 'itemBarcodes',
+                    'selected' => $invoiceSettings->getItemBarcodes(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');

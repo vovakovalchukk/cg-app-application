@@ -12,10 +12,11 @@ define([
         var InvoiceSettings = function(hasAmazonAccount, tagOptions) {
 
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #productImages';
+            var selector = container + ' .custom-select, #productImages, #itemBarcodes';
             var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
             var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
+            var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
             var copyRequiredSelector = container + ' .invoiceDefaultSettings #copyRequired';
@@ -354,6 +355,7 @@ define([
                     'emailBcc': getEmailBcc(),
                     'emailTemplate': getEmailTemplate(),
                     'productImages': getProductImages(),
+                    'itemBarcodes': getItemBarcodes(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
                 };
@@ -392,6 +394,11 @@ define([
             var getProductImages = function()
             {
                 return $(productImagesSettingsSelector).is(':checked');
+            };
+
+            var getItemBarcodes = function()
+            {
+                return $(itemBarcodesSettingsSelector).is(':checked');
             };
 
             var getTradingCompanies = function()
