@@ -331,7 +331,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
 
         $view->setVariable('order', $order);
-        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+        $view->setVariable('vatOu', $this->getOrderService()->getVatOrganisationUnitForOrder($order));
 
         if ($order->isEligibleForZeroRateVat()) {
             $recipientVatNumber = $order->getRecipientVatNumber();
