@@ -1131,16 +1131,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.3",
+            "version": "1.2.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "5b478eb1035493e120d424395c376e409dcadffe"
+                "reference": "80568d441d9bdf90c76c07e53dbb3d08560d1435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.3-4a1fcd.zip",
-                "reference": "5b478eb1035493e120d424395c376e409dcadffe",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.3.1-f5313e.zip",
+                "reference": "80568d441d9bdf90c76c07e53dbb3d08560d1435",
                 "shasum": null
             },
             "require": {
@@ -1162,7 +1162,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2017-01-27T09:43:16+00:00"
+            "time": "2017-01-27T11:05:44+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -1548,16 +1548,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.25.2",
+            "version": "1.25.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7"
+                "reference": "3b6c3866dc427591d4c0918b15f90e4f528b781b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.2-c8a7b2.zip",
-                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.3-8528c6.zip",
+                "reference": "3b6c3866dc427591d4c0918b15f90e4f528b781b",
                 "shasum": null
             },
             "require": {
@@ -1622,7 +1622,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-26T11:24:20+00:00"
+            "time": "2017-01-27T09:44:26+00:00"
         },
         {
             "name": "channelgrabber/permission",
