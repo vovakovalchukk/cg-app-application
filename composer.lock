@@ -2567,7 +2567,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "727204b84b787b987ccfdd6fa79c85f793ecf623"
+                "reference": "f3c81e25beddf39990fe6f4cf0badfbe800b3228"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -8788,8 +8788,8 @@
             "package": "channelgrabber/settings"
         },
         {
-            "alias": "1.4.16",
-            "alias_normalized": "1.4.16.0",
+            "alias": "1.4.17",
+            "alias_normalized": "1.4.17.0",
             "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "package": "channelgrabber/template"
         }
