@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1130,16 +1130,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.2",
+            "version": "1.2.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "71f867a18a197590916b3babd44d88966d517a11"
+                "reference": "80568d441d9bdf90c76c07e53dbb3d08560d1435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.2-0bf76f.zip",
-                "reference": "71f867a18a197590916b3babd44d88966d517a11",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.3.1-f5313e.zip",
+                "reference": "80568d441d9bdf90c76c07e53dbb3d08560d1435",
                 "shasum": null
             },
             "require": {
@@ -1161,7 +1161,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2016-10-18T10:36:01+00:00"
+            "time": "2017-01-27T11:05:44+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-25T16:06:22+00:00"
+            "time": "2017-01-25 16:06:22"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2573,7 +2573,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "eef2c571b4ced31b05244eda5e0d806e743ff176"
+                "reference": "727204b84b787b987ccfdd6fa79c85f793ecf623"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2616,7 +2616,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-26T11:44:18+00:00"
+            "time": "2017-01-27 11:24:12"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5340,7 +5340,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8801,15 +8801,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
