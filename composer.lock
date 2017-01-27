@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d987e6270625c38fa484eb672ba1d771",
+    "content-hash": "a85ba4f5652a82c72d0589f082c89e86",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -674,20 +674,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-7770-TestGeopostManifest",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "cd403d1a9a805a825c29fabce2fda8fa9e414761"
+                "reference": "c8c85c0a498841b49f6e6c3f1bac13e5050c74ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-7770-TestGeopostManifest-c9a05b.zip",
-                "reference": "cd403d1a9a805a825c29fabce2fda8fa9e414761",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.10-12646c.zip",
+                "reference": "c8c85c0a498841b49f6e6c3f1bac13e5050c74ea",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-CGIV-7770-TestGeopostManifest as 1.1.1",
+                "channelgrabber/courieradapter": "^1.1.1",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
                 "maennchen/zipstream-php": "~0.3.1",
@@ -710,20 +710,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-01-27 09:34:11"
+            "time": "2017-01-27T11:56:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-CGIV-7770-TestGeopostManifest",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "f96f993accc2115350fa838e107a0e9deceab7a3"
+                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-7770-TestGeopostManifest-882826.zip",
-                "reference": "f96f993accc2115350fa838e107a0e9deceab7a3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.1-83d7ad.zip",
+                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32",
                 "shasum": null
             },
             "require": {
@@ -743,7 +743,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2017-01-27 09:28:01"
+            "time": "2017-01-27T11:47:38+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -8845,25 +8845,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.10",
-            "alias_normalized": "1.0.10.0",
-            "version": "dev-CGIV-7770-TestGeopostManifest",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
-            "version": "dev-CGIV-7770-TestGeopostManifest",
-            "package": "channelgrabber/courieradapter"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
