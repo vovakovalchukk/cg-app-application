@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f00a8863c03b46818a7497ae9e8147d",
+    "content-hash": "3c0d81d5ab2acb0783f81aaf1b502f8c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1130,16 +1130,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "2323be8c7b933d385eb159e98530bb3954973e03"
+                "reference": "5b478eb1035493e120d424395c376e409dcadffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-dev-CGIV-7599-item-images-default-to-unimported-images-bd69be.zip",
-                "reference": "2323be8c7b933d385eb159e98530bb3954973e03",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.3-4a1fcd.zip",
+                "reference": "5b478eb1035493e120d424395c376e409dcadffe",
                 "shasum": null
             },
             "require": {
@@ -1161,7 +1161,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2017-01-19 09:38:39"
+            "time": "2017-01-27T09:43:16+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e05c4a1695055c9758c6e7c5e43afe01e0a4d36b"
+                "reference": "7e44ef12ca5c5846708ed64c26d578c770ca9d06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7599-item-images-default-to-unimported-images-f89dec.zip",
-                "reference": "e05c4a1695055c9758c6e7c5e43afe01e0a4d36b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.2-fb37c8.zip",
+                "reference": "7e44ef12ca5c5846708ed64c26d578c770ca9d06",
                 "shasum": null
             },
             "require": {
@@ -2207,7 +2207,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-24 11:15:08"
+            "time": "2017-01-27T09:44:45+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2569,16 +2569,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
+            "version": "1.4.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "35948e3af7ecd8e30012f91eb5d5e8d47d32d727"
+                "reference": "149d1d22e7f684aef9b57e04d6be8d5903c60bef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-7599-item-images-default-to-unimported-images-b7883a.zip",
-                "reference": "35948e3af7ecd8e30012f91eb5d5e8d47d32d727",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.16-9645c4.zip",
+                "reference": "149d1d22e7f684aef9b57e04d6be8d5903c60bef",
                 "shasum": null
             },
             "require": {
@@ -2623,7 +2623,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-26 16:40:21"
+            "time": "2017-01-27T09:43:40+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8792,32 +8792,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.3",
-            "alias_normalized": "1.2.3.0",
-            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
-            "package": "channelgrabber/image"
-        },
-        {
-            "alias": "1.4.1",
-            "alias_normalized": "1.4.1.0",
-            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.4.16",
-            "alias_normalized": "1.4.16.0",
-            "version": "dev-CGIV-7599-item-images-default-to-unimported-images",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/image": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
