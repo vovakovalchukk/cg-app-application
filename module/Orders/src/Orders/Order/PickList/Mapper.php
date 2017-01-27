@@ -33,8 +33,8 @@ class Mapper
             } else {
                 $title = $this->searchProductTitle($matchingProduct, $parentProducts);
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
-                $image = ($imageMap != null && $imageMap->contentExists($sku)) ? $this->convertImageToTemplateElement($imageMap->getContentsForSku($sku)) : null;
             }
+            $image = ($imageMap != null && $imageMap->contentExists($sku)) ? $this->convertImageToTemplateElement($imageMap->getContentsForSku($sku)) : null;
 
             $pickListEntries[] = new PickList(
                 $title,

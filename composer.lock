@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b5bbcbab0a8afcd1074cf0e5891ac7c",
+    "content-hash": "d987e6270625c38fa484eb672ba1d771",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1131,16 +1131,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "71f867a18a197590916b3babd44d88966d517a11"
+                "reference": "5b478eb1035493e120d424395c376e409dcadffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.2-0bf76f.zip",
-                "reference": "71f867a18a197590916b3babd44d88966d517a11",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.3-4a1fcd.zip",
+                "reference": "5b478eb1035493e120d424395c376e409dcadffe",
                 "shasum": null
             },
             "require": {
@@ -1162,7 +1162,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2016-10-18T10:36:01+00:00"
+            "time": "2017-01-27T09:43:16+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -2178,16 +2178,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd"
+                "reference": "7e44ef12ca5c5846708ed64c26d578c770ca9d06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.1-342da5.zip",
-                "reference": "e8038e61ec50462889409e04d1995ae6d25500cd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.2-fb37c8.zip",
+                "reference": "7e44ef12ca5c5846708ed64c26d578c770ca9d06",
                 "shasum": null
             },
             "require": {
@@ -2208,7 +2208,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-24T09:55:53+00:00"
+            "time": "2017-01-27T09:44:45+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2570,16 +2570,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.15",
+            "version": "1.4.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8e2d2b0ad594d4b792b28c5cb3102e3a9f6a739a"
+                "reference": "149d1d22e7f684aef9b57e04d6be8d5903c60bef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.15-6d6ea5.zip",
-                "reference": "8e2d2b0ad594d4b792b28c5cb3102e3a9f6a739a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.16-9645c4.zip",
+                "reference": "149d1d22e7f684aef9b57e04d6be8d5903c60bef",
                 "shasum": null
             },
             "require": {
@@ -2587,6 +2587,7 @@
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.23.26",
@@ -2623,7 +2624,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-26T11:28:20+00:00"
+            "time": "2017-01-27T09:43:40+00:00"
         },
         {
             "name": "channelgrabber/transaction",
