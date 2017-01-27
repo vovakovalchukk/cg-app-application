@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'EmailDesigner/Components/ControlBar',
     'EmailDesigner/Components/TemplateView',
     'EmailDesigner/Components/ElementInspector',

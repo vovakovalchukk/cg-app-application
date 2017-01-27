@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'EmailDesigner/Components/Elements/Base'
 ], function(
     React,

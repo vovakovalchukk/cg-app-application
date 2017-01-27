@@ -1,4 +1,8 @@
 module.exports = function (grunt) {
+    var packageConfig = grunt.file.readJSON('package.json');
+    generateSymlinkTasks(packageConfig);
+    return;
+
     console.log('grunt-dynamic.js - Started generating dynamic tasks');
     var modulesNames = grunt.file.expand('public/channelgrabber/*').map(removePath).filter(removeNonCss);
     console.log('grunt-dynamic.js - Found modules: '+modulesNames.join(', '));
@@ -47,6 +51,21 @@ module.exports = function (grunt) {
             tasks.push("shell:copy" + replaceAll(module, '-', '') + "Css");
         });
         grunt.registerTask('compileCss-gen', tasks);
+    }
+
+    function generateSymlinkTasks(packageConfig) {
+        var shellTasks = grunt.config('shell');
+        for (var dependency in packageConfig['dependencies']){
+            if (!packageConfig['dependencies'].hasOwnProperty(dependency)) continue;
+
+            var path = dependency + "/dist";
+
+            shellTasks["symLink" + replaceAll(dependency, '-', '')] = {
+                command: "ln -s $PROJECT_BASE_PATH/" + packageConfig['name'] + "/node_modules/" +path+" public/channelgrabber/vendor/"+dependency
+            };
+        }
+        console.log(shellTasks);
+        grunt.config.set('shell', shellTasks);
     }
 
     generateWatchSubTasks();

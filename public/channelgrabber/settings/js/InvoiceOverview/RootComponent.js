@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'InvoiceOverview/SectionComponent'
 ], function(
     React,

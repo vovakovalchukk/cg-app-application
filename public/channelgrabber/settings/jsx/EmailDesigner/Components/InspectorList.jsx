@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'EmailDesigner/Components/Inspectors/Delete',
     'Common/PubSub'
 ], function(

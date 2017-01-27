@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'Common/Components/IncrementorInput'
 ], function(
     React,

@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'Common/Common/Components/Draggable'
 ], function(
     React,

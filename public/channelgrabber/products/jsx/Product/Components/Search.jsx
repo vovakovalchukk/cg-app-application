@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'Product/Components/Button'
 ], function(
     React,

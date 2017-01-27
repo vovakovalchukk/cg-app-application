@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'EmailDesigner/Components/ElementList',
     'Common/PubSub'
 ], function(

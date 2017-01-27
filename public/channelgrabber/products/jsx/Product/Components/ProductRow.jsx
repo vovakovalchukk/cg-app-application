@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'thenBy',
     'Product/Components/Checkbox',
     'Product/Components/Status',

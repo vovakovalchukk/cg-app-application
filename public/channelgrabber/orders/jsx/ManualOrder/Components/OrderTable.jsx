@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'ManualOrder/Components/ItemRow',
     'Common/Components/SearchBox',
     'Common/Components/CurrencyInput'

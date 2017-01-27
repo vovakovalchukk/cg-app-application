@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'Common/PubSub'
 ], function(
     React,

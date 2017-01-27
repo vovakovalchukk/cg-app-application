@@ -1,5 +1,5 @@
 define([
-    'react',
+    'React',
     'jquery',
     'InvoiceOverview/TemplateComponent'
 ], function(
