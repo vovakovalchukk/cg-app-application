@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "24ba87808328d607e079ede75745604c",
+    "content-hash": "e5542aca2021454b65c17161cc67e0ae",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1547,16 +1547,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.25.2",
+            "version": "1.25.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7"
+                "reference": "3b6c3866dc427591d4c0918b15f90e4f528b781b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.2-c8a7b2.zip",
-                "reference": "faeada423ae26e90bf0a8d7361d628e6c578f1b7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.3-8528c6.zip",
+                "reference": "3b6c3866dc427591d4c0918b15f90e4f528b781b",
                 "shasum": null
             },
             "require": {
@@ -1621,7 +1621,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-26T11:24:20+00:00"
+            "time": "2017-01-27T09:44:26+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2181,13 +2181,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "4f67dc8e621bb0f11ff0f6fa06bd86ff3c23a630"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7895-invoice-sku-barcodes-373a45.zip",
-                "reference": "4f67dc8e621bb0f11ff0f6fa06bd86ff3c23a630",
-                "shasum": null
+                "reference": "72156df3ef01d12fa57c6a711d77f683e88ac90f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2207,7 +2201,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-25 16:06:22"
+            "time": "2017-01-25T16:06:22+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2580,6 +2574,7 @@
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.23.26",
@@ -2616,7 +2611,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-27 11:24:12"
+            "time": "2017-01-27T11:24:12+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5340,7 +5335,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8787,8 +8782,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.2",
-            "alias_normalized": "1.4.2.0",
+            "alias": "1.4.3",
+            "alias_normalized": "1.4.3.0",
             "version": "dev-CGIV-7895-invoice-sku-barcodes",
             "package": "channelgrabber/settings"
         },
@@ -8801,15 +8796,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
