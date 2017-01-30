@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a85ba4f5652a82c72d0589f082c89e86",
+    "content-hash": "29aea2c1b364d6ca1c868edb7c89c119",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -257,17 +257,11 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.0.3",
+            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "154738326abbfa421b4d5fae89c4897b0d2880d5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.3-43e82f.zip",
-                "reference": "154738326abbfa421b4d5fae89c4897b0d2880d5",
-                "shasum": null
+                "reference": "ba4e05180cedee7a45509703dfd560bad33add0f"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.6",
@@ -491,17 +485,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.9",
+            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5004de5bd00b6b8ef7ee88e7d381ad0e6038ec59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.9-dde8af.zip",
-                "reference": "5004de5bd00b6b8ef7ee88e7d381ad0e6038ec59",
-                "shasum": null
+                "reference": "c2a343957a77a71c6b2e41029e919aa8a83fd711"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -4058,7 +4046,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5400,7 +5388,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8833,31 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.4",
+            "alias_normalized": "1.0.4.0",
+            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.27.10",
+            "alias_normalized": "1.27.10.0",
+            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/bigcommerce": 20,
+        "channelgrabber/channel": 20,
+        "channelgrabber/constants": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
