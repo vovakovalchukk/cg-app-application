@@ -674,22 +674,23 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "63efd756ef6cc5ce306a569b4cb6a2cead0298d3"
+                "reference": "c8c85c0a498841b49f6e6c3f1bac13e5050c74ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.9-34c3de.zip",
-                "reference": "63efd756ef6cc5ce306a569b4cb6a2cead0298d3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.10-12646c.zip",
+                "reference": "c8c85c0a498841b49f6e6c3f1bac13e5050c74ea",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "^1.0.0",
+                "channelgrabber/courieradapter": "^1.1.1",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
+                "maennchen/zipstream-php": "~0.3.1",
                 "zendframework/zend-servicemanager": "^2.3"
             },
             "require-dev": {
@@ -709,20 +710,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2016-12-07T10:43:30+00:00"
+            "time": "2017-01-27T11:56:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e"
+                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.0-9aeaa1.zip",
-                "reference": "063b98b5a61a1073f04b80036d427e8152e7b13e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.1-83d7ad.zip",
+                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32",
                 "shasum": null
             },
             "require": {
@@ -742,7 +743,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2016-11-15T16:33:33+00:00"
+            "time": "2017-01-27T11:47:38+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -5080,6 +5081,58 @@
                 "statsd"
             ],
             "time": "2015-07-23T23:12:45+00:00"
+        },
+        {
+            "name": "maennchen/zipstream-php",
+            "version": "0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maennchen/ZipStream-PHP.git",
+                "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">= 5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZipStream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Duncan",
+                    "email": "pabs@pablotron.org"
+                },
+                {
+                    "name": "Jesse Donat",
+                    "email": "donatj@gmail.com"
+                },
+                {
+                    "name": "Jonatan Männchen",
+                    "email": "jonatan@maennchen.ch"
+                }
+            ],
+            "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
+            "keywords": [
+                "stream",
+                "zip"
+            ],
+            "time": "2016-02-27T22:32:42+00:00"
         },
         {
             "name": "mongodb/mongodb",
