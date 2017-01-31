@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d92ea245c8ae1d88800a266eed2b0be",
+    "content-hash": "ab0fd328ac8fa8079486d2c6d272f49d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2178,16 +2178,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-7895-invoice-sku-barcodes",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "bb3c5d1e808f069e6ae30f5a1ede362b222c7904"
+                "reference": "4dc94037413a1e91d464d146617cea44bfb01252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7895-invoice-sku-barcodes-6c17f9.zip",
-                "reference": "bb3c5d1e808f069e6ae30f5a1ede362b222c7904",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.3-687137.zip",
+                "reference": "4dc94037413a1e91d464d146617cea44bfb01252",
                 "shasum": null
             },
             "require": {
@@ -2208,7 +2208,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-30 15:54:46"
+            "time": "2017-01-31T09:03:39+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2570,16 +2570,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-7895-invoice-sku-barcodes",
+            "version": "1.4.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f3c81e25beddf39990fe6f4cf0badfbe800b3228"
+                "reference": "e2aba1d411d5fc0e45373b21cc93254bddb73151"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-7895-invoice-sku-barcodes-68677f.zip",
-                "reference": "f3c81e25beddf39990fe6f4cf0badfbe800b3228",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.17-742220.zip",
+                "reference": "e2aba1d411d5fc0e45373b21cc93254bddb73151",
                 "shasum": null
             },
             "require": {
@@ -2592,7 +2592,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.24.6",
                 "channelgrabber/product": "^1.2.0",
-                "channelgrabber/settings": "dev-CGIV-7895-invoice-sku-barcodes as 1.4.3",
+                "channelgrabber/settings": "^1.4.3",
                 "channelgrabber/stdlib": "^2.10.4",
                 "channelgrabber/user": "^1.22.6",
                 "ext-gd": "*",
@@ -2624,7 +2624,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-01-30 11:05:36"
+            "time": "2017-01-31T09:20:48+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8845,25 +8845,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.3",
-            "alias_normalized": "1.4.3.0",
-            "version": "dev-CGIV-7895-invoice-sku-barcodes",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.4.17",
-            "alias_normalized": "1.4.17.0",
-            "version": "dev-CGIV-7895-invoice-sku-barcodes",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
