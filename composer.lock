@@ -1552,12 +1552,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9691b96ecdd9fe056d3fc09290ab297678945857"
+                "reference": "64e9f3a5f838b8e8ccb51cbc525c5c0d3f19750c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7601-relate-orders-to-listings-ceaf74.zip",
-                "reference": "9691b96ecdd9fe056d3fc09290ab297678945857",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7601-relate-orders-to-listings-6758f3.zip",
+                "reference": "64e9f3a5f838b8e8ccb51cbc525c5c0d3f19750c",
                 "shasum": null
             },
             "require": {
@@ -1622,7 +1622,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-27 13:01:00"
+            "time": "2017-01-31 10:10:02"
         },
         {
             "name": "channelgrabber/permission",
