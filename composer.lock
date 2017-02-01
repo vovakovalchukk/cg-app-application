@@ -1439,16 +1439,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.5",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "0b325a97ef0c5befadd3316bdec7e9cd34527395"
+                "reference": "feb2f472b1f4019dd71964b9ab807f750c7166cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.5-1f0e5e.zip",
-                "reference": "0b325a97ef0c5befadd3316bdec7e9cd34527395",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.6-00e900.zip",
+                "reference": "feb2f472b1f4019dd71964b9ab807f750c7166cf",
                 "shasum": null
             },
             "require": {
@@ -1488,7 +1488,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-01-19T09:20:54+00:00"
+            "time": "2017-02-01T10:41:44+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4052,7 +4052,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5098,7 +5098,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
