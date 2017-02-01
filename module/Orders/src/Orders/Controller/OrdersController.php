@@ -282,7 +282,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $labelDetails = $this->getShippingLabelDetails($order);
         $accountDetails = $this->getAccountDetails($order);
         $orderDetails = $this->getOrderDetails($order);
-        $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId()));
+        $statusTemplate = $this->getStatus($order->getStatus(), $this->getOrderService()->getStatusMessageForOrder($order->getId(), $order->getStatus()));
 
         $buyerMessage = $this->getBuyerMessage($order);
         $orderAlert = $this->getOrderAlert($order);
