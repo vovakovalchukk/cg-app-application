@@ -3,13 +3,15 @@ define([
     'cg-mustache',
     'popup/generic',
     'popup/confirm',
-    'AjaxRequester'
+    'AjaxRequester',
+    './Channels/PreCheck.js'
 ], function(
     setupWizard,
     CGMustache,
     Popup,
     Confirm,
-    ajaxRequester
+    ajaxRequester,
+    PreCheck
 ) {
     function Channels(
         notifications,
@@ -93,16 +95,30 @@ define([
 
     Channels.prototype.registerNextValidation = function()
     {
+        var self = this;
         this.getSetupWizard().registerNextCallback(function()
         {
             if ($(Channels.SELECTOR_CHANNEL).length == 0) {
                 n.error('You must add at least one channel');
                 return false;
             }
+            self.sendSessionDataToServer();
             return true;
         });
 
         return this;
+    };
+
+    Channels.prototype.sendSessionDataToServer = function () {
+        if (! sessionStorage.length) {
+            return;
+        }
+        var preCheck = new PreCheck();
+        var channels = $(Channels.SELECTOR_CHANNEL);
+        channels.map(function (channel) {
+            var accountId = channel.data('account');
+            preCheck.sendPreCheckDataToServer(accountId);
+        });
     };
 
     Channels.prototype.listenForAddClick = function()
