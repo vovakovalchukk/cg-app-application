@@ -2,6 +2,8 @@
 namespace Orders\Order;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Filter as AccountFilter;
+use CG\Amazon\Mcf\FulfillmentStatus\Filter as McfFulfillmentStatusFilter;
 use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
 use CG\Amazon\Mcf\FulfillmentStatus\Status as McfFulfillmentStatus;
 use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
@@ -255,8 +257,42 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $orders;
     }
 
-    public function getStatusMessageForOrder($orderId)
+    /**
+     * @return string
+     */
+    public function getStatusMessageForOrder($orderId, $status)
     {
+        $statuses = $this->getStatusMessageForOrders([$orderId => $status]);
+        return $statuses[$orderId];
+    }
+
+    /**
+     * @return array Order ID => Status Message
+     */
+    public function getStatusMessageForOrders(array $orderStatuses)
+    {
+        $statusMessages = array_fill_keys(array_keys($orderStatuses), '');
+        // We only need to do this for 'dispatch failed' orders
+        $dispatchFailedOrderIds = [];
+        foreach ($orderStatuses as $orderId => $status) {
+            if ($status == OrderStatus::DISPATCH_FAILED) {
+                $dispatchFailedOrderIds[] = $orderId;
+            }
+        }
+        if (empty($dispatchFailedOrderIds)) {
+            return $statusMessages;
+        }
+
+        $mcfFulfillmentStatuses = $this->getMcfFulfillmentStatusMessagesForOrders($dispatchFailedOrderIds);
+        return array_merge($statusMessages, $mcfFulfillmentStatuses);
+    }
+
+    protected function getMcfFulfillmentStatusMessagesForOrders(array $orderIds)
+    {
+        $statusMessages = [];
+        if (!$this->isAmazonMcfEnabled()) {
+            return $statusMessages;
+        }
         /**
          *  NOTE:
          *      If we ever want to retrieve fulfillment status information from
@@ -266,23 +302,55 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
          *       -- DO NOT ADD ANOTHER CHANNEL DEPENDENCY IN HERE --
          */
         try {
-            $mcfFulfillmentStatusEntity = $this->mcfFulfillmentStatusStorage->fetch($orderId);
+            $filter = (new McfFulfillmentStatusFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrderId($orderIds);
+            $mcfFulfillmentStatuses = $this->mcfFulfillmentStatusStorage->fetchCollectionByFilter($filter);
 
-            if (in_array($mcfFulfillmentStatusEntity->getStatus(), McfFulfillmentStatus::getErrorStatuses())) {
-                return $mcfFulfillmentStatusEntity->getError();
+            foreach ($mcfFulfillmentStatuses as $mcfFulfillmentStatusEntity) {
+                if (in_array($mcfFulfillmentStatusEntity->getStatus(), McfFulfillmentStatus::getErrorStatuses())) {
+                    $statusMessages[$mcfFulfillmentStatusEntity->getOrderId()] = $mcfFulfillmentStatusEntity->getError();
+                }
             }
-            return "";
         } catch (NotFound $e) {
-            return "";
+            // No-op
+        }
+        return $statusMessages;
+    }
+
+    protected function isAmazonMcfEnabled()
+    {
+        try {
+            $filter = (new AccountFilter())
+                ->setActive(true)
+                ->setDeleted(false)
+                ->setChannel(['amazon'])
+                ->setOrganisationUnitId($this->getActiveUser()->getOuList());
+            $amazonAccounts = $this->accountService->fetchByFilter($filter);
+            foreach ($amazonAccounts as $account) {
+                if ($account->getExternalData()['mcfEnabled']) {
+                    return true;
+                }
+            }
+            return false;
+
+        } catch (NotFound $ex) {
+            return false;
         }
     }
 
     protected function getOrdersArrayWithSanitisedStatus(array $orders)
     {
+        $statuses = [];
+        foreach ($orders as $orderArray) {
+            $statuses[$orderArray['id']] = $orderArray['status'];
+        }
+        $statusMessages = $this->getStatusMessageForOrders($statuses);
         foreach ($orders as $index => $order) {
             $orders[$index]['status'] = str_replace(['_', '-'], ' ', $orders[$index]['status']);
             $orders[$index]['statusClass'] = str_replace(' ', '-', $orders[$index]['status']);
-            $orders[$index]['message'] = $this->getStatusMessageForOrder($orders[$index]['id']);
+            $orders[$index]['message'] = $statusMessages[$orders[$index]['id']];
         }
         return $orders;
     }

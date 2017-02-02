@@ -34,18 +34,24 @@ $(document).ready(function() {
                 </div>
             </label>
             <label>
+                <span class="inputbox-label">Show Item Barcodes:</span>
+                <div class="checkbox-holder">
+                    <?= $itemBarcodesCheckbox ?>
+                </div>
+            </label>
+            <label>
                 <span class="inputbox-label">Include Product Images:</span>
-                <div class="product-images-invoice-holder">
+                <div class="checkbox-holder">
                     <?= $productImagesCheckbox ?>
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Email Invoice on Dispatch:</span>
-                <div class="email-invoice-holder">
+                <div class="checkbox-holder">
                     <?= $autoEmailToggle ?>
                 </div>
             </label>
-            <div class="emailInvoiceFields <?php if (! $autoEmail) { echo 'hidden'; } ?>">
+            <div class="emailInvoiceFields">
 
                 <div id="emailInvoiceNotification" class="relative-notifications <?php if ($emailSendAs && $emailVerified) { echo 'hidden'; } ?>">
                     <div class="notifications">
@@ -75,6 +81,9 @@ $(document).ready(function() {
                     <div class="email-bcc-holder">
                         <?= $emailBccInput ?>
                     </div>
+                </label>
+                <label class="email-send-as-label">
+                    <span class="inputbox-label">Invoice Email Template:</span>
                 </label>
                 <div class="invoice-email-editor-section">
                     <div id="invoice-email-editor">
