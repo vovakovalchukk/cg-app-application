@@ -28,12 +28,13 @@ define([
         };
 
         this.getPreCheckSaveFunction = function () {
+            var self = this;
             return {
                 'amazon': function (accountId) {
                     var saveAccountUri = '/amazon/account/save';
                     var sessionData = JSON.parse(sessionStorage.getItem('amazon'));
                     sessionData['accountId'] = accountId;
-                    this.getAjaxRequester().sendRequest(saveAccountUri, sessionData);
+                    self.getAjaxRequester().sendRequest(saveAccountUri, sessionData);
                 }
             }
         }
