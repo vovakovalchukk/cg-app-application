@@ -2979,17 +2979,11 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.18",
+            "version": "dev-CGIV-7880-add-import-fba-option-to-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "2e4cd8b6bda0dcafa61cb14d65753463fac92403"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.18-96ba5e.zip",
-                "reference": "2e4cd8b6bda0dcafa61cb14d65753463fac92403",
-                "shasum": null
+                "reference": "2de24e514290312a8de0c5b5245dbeb992104bc0"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -4058,7 +4052,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5400,7 +5394,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8839,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.19",
+            "alias_normalized": "1.0.19.0",
+            "version": "dev-CGIV-7880-add-import-fba-option-to-setup-wizard",
+            "package": "channelgrabber/zf2-amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/zf2-amazon": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
