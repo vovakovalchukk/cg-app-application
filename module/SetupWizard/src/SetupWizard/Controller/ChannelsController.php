@@ -97,6 +97,7 @@ class ChannelsController extends AbstractActionController
             'image' => $img,
             'id' => $account->getId(),
             'name' => $account->getDisplayName(),
+            'channel' => $account->getChannel(),
             'controls' => [[
                 'name' => 'edit',
                 'icon' => Module::PUBLIC_FOLDER . 'img/icons/edit.png',
