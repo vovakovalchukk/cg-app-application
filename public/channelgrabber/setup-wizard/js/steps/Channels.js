@@ -114,10 +114,9 @@ define([
             return;
         }
         var preCheck = new PreCheck();
-        var channels = $(Channels.SELECTOR_CHANNEL);
-        channels.map(function (channel) {
-            var accountId = channel.data('account');
-            var channelName = channel.data('channel');
+        $(Channels.SELECTOR_CHANNEL).each(function (index, channel) {
+            var accountId = $(channel).data('account');
+            var channelName = $(channel).data('channel');
             preCheck.sendPreCheckDataToServer(channelName, accountId);
         });
     };
