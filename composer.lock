@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5342f7be59f9c071b6d5924b1e4abee",
+    "content-hash": "d0cca684950b27670926c51c899d96d7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -257,16 +257,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "ba4e05180cedee7a45509703dfd560bad33add0f"
+                "reference": "1b79da8e07bf98ff6c42852813cf49d005fc9201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-CGIV-7901-bigcommerce-weight-units-kgs-fix-2e256f.zip",
-                "reference": "ba4e05180cedee7a45509703dfd560bad33add0f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.4-740a24.zip",
+                "reference": "1b79da8e07bf98ff6c42852813cf49d005fc9201",
                 "shasum": null
             },
             "require": {
@@ -293,7 +293,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-01-30 15:08:58"
+            "time": "2017-02-02T08:49:27+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -491,16 +491,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
+            "version": "1.27.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c2a343957a77a71c6b2e41029e919aa8a83fd711"
+                "reference": "3183c6b89e8ced8d21912938ee1e97f6180031b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7901-bigcommerce-weight-units-kgs-fix-77e001.zip",
-                "reference": "c2a343957a77a71c6b2e41029e919aa8a83fd711",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.10-3bd49d.zip",
+                "reference": "3183c6b89e8ced8d21912938ee1e97f6180031b8",
                 "shasum": null
             },
             "require": {
@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-01-30 15:10:30"
+            "time": "2017-02-02T08:48:22+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8845,24 +8845,9 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.27.10",
-            "alias_normalized": "1.27.10.0",
-            "version": "dev-CGIV-7901-bigcommerce-weight-units-kgs-fix",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/bigcommerce": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
