@@ -257,16 +257,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "154738326abbfa421b4d5fae89c4897b0d2880d5"
+                "reference": "1b79da8e07bf98ff6c42852813cf49d005fc9201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.3-43e82f.zip",
-                "reference": "154738326abbfa421b4d5fae89c4897b0d2880d5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.4-740a24.zip",
+                "reference": "1b79da8e07bf98ff6c42852813cf49d005fc9201",
                 "shasum": null
             },
             "require": {
@@ -293,7 +293,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-01-12T14:21:39+00:00"
+            "time": "2017-02-02T08:49:27+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -491,16 +491,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.9",
+            "version": "1.27.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5004de5bd00b6b8ef7ee88e7d381ad0e6038ec59"
+                "reference": "3183c6b89e8ced8d21912938ee1e97f6180031b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.9-dde8af.zip",
-                "reference": "5004de5bd00b6b8ef7ee88e7d381ad0e6038ec59",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.10-3bd49d.zip",
+                "reference": "3183c6b89e8ced8d21912938ee1e97f6180031b8",
                 "shasum": null
             },
             "require": {
@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-01-16T13:29:33+00:00"
+            "time": "2017-02-02T08:48:22+00:00"
         },
         {
             "name": "channelgrabber/cilex",
