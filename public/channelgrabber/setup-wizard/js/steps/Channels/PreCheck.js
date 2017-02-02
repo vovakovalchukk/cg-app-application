@@ -43,10 +43,8 @@ define([
         this.getPreCheckActionFunction()[channel](region, callback);
     };
 
-    PreCheck.prototype.sendPreCheckDataToServer = function (accountId) {
-        if (sessionStorage.getItem('amazon')) {
-            this.getPreCheckSaveFunction()['amazon'](accountId);
-        }
+    PreCheck.prototype.sendPreCheckDataToServer = function (channelName, accountId) {
+        this.getPreCheckSaveFunction()[channelName](accountId);
     };
 
     return PreCheck;

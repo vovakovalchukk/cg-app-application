@@ -117,7 +117,8 @@ define([
         var channels = $(Channels.SELECTOR_CHANNEL);
         channels.map(function (channel) {
             var accountId = channel.data('account');
-            preCheck.sendPreCheckDataToServer(accountId);
+            var channelName = channel.data('channel');
+            preCheck.sendPreCheckDataToServer(channelName, accountId);
         });
     };
 
