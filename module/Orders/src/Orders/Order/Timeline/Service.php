@@ -2,6 +2,7 @@
 namespace Orders\Order\Timeline;
 
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Timings;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 
@@ -59,6 +60,16 @@ class Service
             "timelineTotal" => $this->getTimelineTotal($orderedTimelineBoxes)
         ];
         return $timeline;
+    }
+
+    public function getTimelines(OrderCollection $orders)
+    {
+        $timelines = [];
+        foreach ($orders as $order) {
+            $timeline = $this->getTimelineService()->getTimeline($order);
+            $timelines[$order->getId()] = $timeline;
+        }
+        return $timelines;
     }
 
     protected function getOrderedTimelineBoxes(OrderEntity $order)

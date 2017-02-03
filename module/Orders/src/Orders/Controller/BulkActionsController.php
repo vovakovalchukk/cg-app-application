@@ -21,6 +21,7 @@ use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
 use Orders\Order\Csv\Service as CsvService;
+use Orders\Order\Timeline\Service as TimelineService;
 use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -49,6 +50,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $usageService;
     /** @var OrdersToOperateOn $ordersToOperatorOn */
     protected $ordersToOperatorOn;
+    /** @var TimelineService $timelineService */
+    protected $timelineService;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromInput',
@@ -63,7 +66,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         CsvService $csvService,
         BatchService $batchService,
         UsageService $usageService,
-        OrdersToOperateOn $ordersToOperatorOn
+        OrdersToOperateOn $ordersToOperatorOn,
+        TimelineService $timelineService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -73,7 +77,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setCsvService($csvService)
             ->setBatchService($batchService)
             ->setUsageService($usageService)
-            ->setOrdersToOperatorOn($ordersToOperatorOn);
+            ->setOrdersToOperatorOn($ordersToOperatorOn)
+            ->setTimelineService($timelineService);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -255,6 +260,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             } else {
                 $response->setVariable($action, (is_bool($outcome) ? $outcome : true));
             }
+            $timelines = $this->timelineService->getTimelines($orders);
+            $response->setVariable('timelines', $timelines);
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -766,4 +773,23 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->ordersToOperatorOn = $ordersToOperatorOn;
         return $this;
     }
+
+    /**
+     * @return TimelineService
+     */
+    public function getTimelineService(): TimelineService
+    {
+        return $this->timelineService;
+    }
+
+    /**
+     * @param TimelineService $timelineService
+     * @return BulkActionsController
+     */
+    public function setTimelineService(TimelineService $timelineService): BulkActionsController
+    {
+        $this->timelineService = $timelineService;
+        return $this;
+    }
+
 }
