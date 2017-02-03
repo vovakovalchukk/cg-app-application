@@ -20,7 +20,10 @@ define([
                         if(! answer) {
                             return;
                         }
-                        var sessionData = { fbaOrderImport: (answer === 'Yes' ? 'on' : null) };
+                        var sessionData = {};
+                        if (answer === 'Yes') {
+                            sessionData['fbaOrderImport'] = 'on';
+                        }
                         callback('amazon', region, { 'amazon': JSON.stringify(sessionData) });
                     });
                 }
@@ -34,18 +37,31 @@ define([
                     var saveAccountUri = '/amazon/account/save';
                     var sessionData = JSON.parse(sessionStorage.getItem('amazon'));
                     sessionData['accountId'] = accountId;
-                    self.getAjaxRequester().sendRequest(saveAccountUri, sessionData);
+                    console.log(sessionData);
+                    self.getAjaxRequester().sendRequest(saveAccountUri, sessionData, function () {}, function () {});
                 }
             }
         }
     }
 
-    PreCheck.prototype.performPreCheck = function (channel, region, callback) {
-        this.getPreCheckActionFunction()[channel](region, callback);
+    PreCheck.prototype.checkAndSaveData = function (channel, accountId) {
+        var sessionData = sessionStorage.getItem(channel);
+        if (!sessionData) {
+            return;
+        }
+        var alreadySaved = sessionStorage.getItem(channel+accountId);
+        if (alreadySaved) {
+            return;
+        }
+
+        this.getPreCheckSaveFunction()[channel](accountId);
+
+        sessionStorage.setItem(channel+accountId, true);
+        sessionStorage.removeItem(channel);
     };
 
-    PreCheck.prototype.sendPreCheckDataToServer = function (channelName, accountId) {
-        this.getPreCheckSaveFunction()[channelName](accountId);
+    PreCheck.prototype.performPreCheck = function (channel, region, callback) {
+        this.getPreCheckActionFunction()[channel](region, callback);
     };
 
     return PreCheck;

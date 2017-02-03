@@ -79,7 +79,8 @@ define([
             this.registerNextValidation()
                 .listenForAddClick()
                 .listenForEditClick()
-                .listenForDeleteClick();
+                .listenForDeleteClick()
+                .checkForNewSessionData();
         };
         init.call(this);
     }
@@ -102,22 +103,18 @@ define([
                 n.error('You must add at least one channel');
                 return false;
             }
-            self.sendSessionDataToServer();
             return true;
         });
 
         return this;
     };
 
-    Channels.prototype.sendSessionDataToServer = function () {
-        if (! sessionStorage.length) {
-            return;
-        }
+    Channels.prototype.checkForNewSessionData = function () {
         var preCheck = new PreCheck();
         $(Channels.SELECTOR_CHANNEL).each(function (index, channel) {
             var accountId = $(channel).data('account');
             var channelName = $(channel).data('channel');
-            preCheck.sendPreCheckDataToServer(channelName, accountId);
+            preCheck.checkAndSaveData(channelName, accountId);
         });
     };
 
