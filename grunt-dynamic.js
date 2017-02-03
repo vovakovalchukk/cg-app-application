@@ -1,11 +1,15 @@
 module.exports = function (grunt) {
+    console.log('grunt-dynamic.js - Started grunt dynamic');
     var packageConfig = grunt.file.readJSON('package.json');
     generateSymlinkTasks(packageConfig);
-    return;
 
-    console.log('grunt-dynamic.js - Started generating dynamic tasks');
     var modulesNames = grunt.file.expand('public/channelgrabber/*').map(removePath).filter(removeNonCss);
     console.log('grunt-dynamic.js - Found modules: '+modulesNames.join(', '));
+
+    generateWatchSubTasks();
+    generateShellSubTasks();
+    generateInstallCommand();
+    console.log('grunt-dynamic.js - Finished generating dynamic tasks');
 
     function generateWatchSubTasks() {
         var watchTasks = grunt.config('watch');
@@ -55,23 +59,21 @@ module.exports = function (grunt) {
 
     function generateSymlinkTasks(packageConfig) {
         var shellTasks = grunt.config('shell');
+        var tasks = [];
+
         for (var dependency in packageConfig['dependencies']){
             if (!packageConfig['dependencies'].hasOwnProperty(dependency)) continue;
-
-            var path = dependency + "/dist";
+            console.log('grunt-dynamic.js - Found dependency: '+dependency);
 
             shellTasks["symLink" + replaceAll(dependency, '-', '')] = {
-                command: "ln -s $PROJECT_BASE_PATH/" + packageConfig['name'] + "/node_modules/" +path+" public/channelgrabber/vendor/"+dependency
+                command: getSymlinkCommand(dependency)
             };
+            tasks.push("shell:symLink" + replaceAll(dependency, '-', ''));
         }
-        console.log(shellTasks);
-        grunt.config.set('shell', shellTasks);
-    }
 
-    generateWatchSubTasks();
-    generateShellSubTasks();
-    generateInstallCommand();
-    console.log('grunt-dynamic.js - Finished generating dynamic tasks');
+        grunt.config.set('shell', shellTasks);
+        grunt.registerTask('symLinkVendorJs-gen', tasks);
+    }
 
     function removePath(element) {
         return element.split('/').pop();
@@ -81,5 +83,12 @@ module.exports = function (grunt) {
     }
     function replaceAll(string, search, replace) {
         return string.replace(new RegExp(search, 'g'), replace);
+    }
+    function getSymlinkCommand(dependency) {
+        var path = dependency + "/dist";
+        return 'if [ -d public/channelgrabber/vendor/' + dependency + ' ] ; ' +
+        'then echo "Symlink already exists for ' + dependency + '" ; ' +
+        'else ln -s $PROJECT_BASE_PATH/' + packageConfig['name'] + '/node_modules/' + path + ' public/channelgrabber/vendor/' + dependency +
+        '; echo "Symlink created for ' + dependency + '";fi'
     }
 };
