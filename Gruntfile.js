@@ -106,7 +106,7 @@ module.exports = function(grunt) {
     grunt.registerTask('compileJsx', ['babel']);
 
     grunt.registerTask('install:css', ['compileCss-gen']);
-    grunt.registerTask('install:js', ['compileJsx', 'copyVanillaJs', 'requirejs --force']);
+    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'compileJsx', 'copyVanillaJs', 'requirejs:compile']);
 
     grunt.registerTask('install', ['install:css', 'install:js']);
 };
