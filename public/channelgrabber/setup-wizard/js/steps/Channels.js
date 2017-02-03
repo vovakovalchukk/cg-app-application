@@ -111,7 +111,15 @@ define([
 
     Channels.prototype.checkForNewSessionData = function () {
         var preCheck = new PreCheck();
-        $(Channels.SELECTOR_CHANNEL).each(function (index, channel) {
+        var badges = $(Channels.SELECTOR_CHANNEL);
+
+        badges.sort(function (a, b) {
+            var accountIdA = $(a).data('account');
+            var accountIdB = $(b).data('account');
+            return accountIdB - accountIdA;
+        });
+
+        badges.each(function (index, channel) {
             var accountId = $(channel).data('account');
             var channelName = $(channel).data('channel');
             preCheck.checkAndSaveData(channelName, accountId);
