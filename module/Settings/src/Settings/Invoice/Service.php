@@ -82,8 +82,9 @@ class Service
 
         try {
             $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
-            $data['autoEmail'] = $this->validateAutoEmail($data['autoEmail']);
-            $data['productImages'] = $this->validateProductImages($data['productImages']);
+            $data['autoEmail'] = $this->validateBoolean($data['autoEmail']);
+            $data['productImages'] = $this->validateBoolean($data['productImages']);
+            $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
             $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
 
             if ($data['emailSendAs']) {
@@ -168,21 +169,11 @@ class Service
     }
 
     /**
-     * @param $autoEmail
      * @return boolean
      */
-    protected function validateAutoEmail($autoEmail)
+    protected function validateBoolean($value)
     {
-        return filter_var($autoEmail, FILTER_VALIDATE_BOOLEAN);
-    }
-
-    /**
-     * @param $productImages
-     * @return boolean
-     */
-    protected function validateProductImages($productImages)
-    {
-        return filter_var($productImages, FILTER_VALIDATE_BOOLEAN);
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**

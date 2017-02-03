@@ -154,6 +154,9 @@ class Service implements LoggerAwareInterface
                 $parentIds[] = $product->getParentProductId();
             }
         }
+        if (empty($parentIds)) {
+            return new ProductCollection(Product::class, __FUNCTION__, ['id' => $parentIds]);
+        }
 
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();

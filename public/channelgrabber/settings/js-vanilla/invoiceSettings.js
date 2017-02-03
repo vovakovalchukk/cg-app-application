@@ -12,10 +12,11 @@ define([
         var InvoiceSettings = function(hasAmazonAccount, tagOptions) {
 
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #productImages';
+            var selector = container + ' .custom-select, #productImages, #itemBarcodes';
             var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
             var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
+            var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
             var copyRequiredSelector = container + ' .invoiceDefaultSettings #copyRequired';
@@ -45,7 +46,6 @@ define([
                 var self = this;
 
                 // Set field states
-                setAutoEmail();
                 setCopyRequired();
 
                 // Setup emailEditor
@@ -91,10 +91,6 @@ define([
                     var emailVerifyInputFields = $(emailVerifyInputSelector);
                     var emailVerifyInputFieldsEmpty = true;
 
-                    $(emailInvoiceFieldsSelector).toggleClass('hidden');
-                    $(invoiceSendFromAddressColumnHeadSelector).toggle();
-                    $(invoiceSendFromAddressColumnSelector).toggle();
-
                     $.each(emailVerifyInputFields, function(index, el) {
                         if (el.value !== '') {
                             emailVerifyInputFieldsEmpty = false;
@@ -116,12 +112,6 @@ define([
                     timer = setTimeout(function() {
                         attempt = handleEmailBccKeyup(self);
                     }, 1000)
-                });
-
-                $(document).on('fnDrawCallback', function() {
-                    if (! $('#autoEmail').prop('checked')) {
-                        hideSendFromAddressColumn();
-                    }
                 });
 
                 $(document).on(EventCollator.getQueueTimeoutEventPrefix() + 'invoiceEmailTemplate', function(event, data) {
@@ -203,15 +193,6 @@ define([
             function ajaxVerify(object)
             {
                 object.save(handleVerifyResponse);
-            }
-
-            function setAutoEmail()
-            {
-                if ($('#autoEmail').prop('checked')) {
-                    $(emailInvoiceFieldsSelector).removeClass('hidden');
-                } else {
-                    hideSendFromAddressColumn();
-                }
             }
 
             function setCopyRequired()
@@ -338,12 +319,6 @@ define([
                 }
             }
 
-            function hideSendFromAddressColumn()
-            {
-                $(invoiceSendFromAddressColumnHeadSelector).hide();
-                $(invoiceSendFromAddressColumnSelector).hide();
-            }
-
             this.getInvoiceSettingsEntity = function ()
             {
                 return {
@@ -354,6 +329,7 @@ define([
                     'emailBcc': getEmailBcc(),
                     'emailTemplate': getEmailTemplate(),
                     'productImages': getProductImages(),
+                    'itemBarcodes': getItemBarcodes(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
                 };
@@ -392,6 +368,11 @@ define([
             var getProductImages = function()
             {
                 return $(productImagesSettingsSelector).is(':checked');
+            };
+
+            var getItemBarcodes = function()
+            {
+                return $(itemBarcodesSettingsSelector).is(':checked');
             };
 
             var getTradingCompanies = function()
