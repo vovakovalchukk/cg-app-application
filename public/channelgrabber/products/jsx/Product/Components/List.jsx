@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Product/Components/ProductRow',
     'Product/Filter/Entity',
     'Product/Storage/Ajax'

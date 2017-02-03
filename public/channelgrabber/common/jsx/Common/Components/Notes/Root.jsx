@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Common/Components/Notes/Note',
     'Common/Components/Notes/Compose'
 ], function(

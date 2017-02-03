@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Product/Components/DimensionsRow'
 ], function(
     React,

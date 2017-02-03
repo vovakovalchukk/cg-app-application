@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Product/Components/StockRow'
 ], function(
     React,

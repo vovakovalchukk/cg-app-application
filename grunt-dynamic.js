@@ -85,10 +85,9 @@ module.exports = function (grunt) {
         return string.replace(new RegExp(search, 'g'), replace);
     }
     function getSymlinkCommand(dependency) {
-        var path = dependency + "/dist";
         return 'if [ -d public/channelgrabber/vendor/' + dependency + ' ] ; ' +
         'then echo "Symlink already exists for ' + dependency + '" ; ' +
-        'else ln -s $PROJECT_BASE_PATH/' + packageConfig['name'] + '/node_modules/' + path + ' public/channelgrabber/vendor/' + dependency +
+        'else ln -s $PROJECT_BASE_PATH/' + packageConfig['name'] + '/node_modules/' + dependency + ' public/channelgrabber/vendor' +
         '; echo "Symlink created for ' + dependency + '";fi'
     }
 };

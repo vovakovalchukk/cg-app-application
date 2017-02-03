@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'react-dom'
 ], function(
     React,

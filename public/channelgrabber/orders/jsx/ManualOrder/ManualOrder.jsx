@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'react-dom',
     'ManualOrder/Components/Root',
     'Common/Components/Notes/Root',

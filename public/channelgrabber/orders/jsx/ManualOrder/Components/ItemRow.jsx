@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Common/Components/Select',
     'Common/Components/CurrencyInput'
 ], function(

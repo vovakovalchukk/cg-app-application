@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Common/Components/SafeInput'
 ], function(
     React,

@@ -1,5 +1,5 @@
 define([
-    'React'
+    'react'
 ], function (React) {
     var Tabs = React.createClass({
         getDefaultProps: function () {

@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'ReactDOM',
     'Product/Components/Root'
 ], function(

@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Common/Common/Components/ClickOutside',
     'Common/Common/Components/Resizable'
 ], function(

@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'ManualOrder/Components/ProductDropdown/Dropdown',
     'ManualOrder/Components/OrderTable',
     'Common/Components/Select'

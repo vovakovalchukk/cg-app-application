@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Common/IdGenerator',
     'EmailDesigner/Components/Elements/Text'
 ], function(

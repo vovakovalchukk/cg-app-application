@@ -1,5 +1,5 @@
 define([
-    'React',
+    'react',
     'Common/Components/ClickOutside',
     'Product/Filter/Entity',
     'ManualOrder/Components/ProductDropdown/DetailRow',

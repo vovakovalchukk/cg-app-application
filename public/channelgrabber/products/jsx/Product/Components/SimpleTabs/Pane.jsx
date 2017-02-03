@@ -1,5 +1,5 @@
 define([
-    'React'
+    'react'
 ], function (React) {
     var Pane = React.createClass({
         render: function () {
