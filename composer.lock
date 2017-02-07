@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffd8e8b01c06adce197624f46e1f5b6d",
+    "content-hash": "10bc585ce53478d5001ca94d513bea32",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -491,11 +491,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7919-add-parcel2go-to-tracking-carriers",
+            "version": "1.27.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8a6ed53c611aa0a0f4bd21a9a9ae4cc055903c7e"
+                "reference": "5050eea7a150272d329c2345fa41ddc01ea68abc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.11-630b12.zip",
+                "reference": "5050eea7a150272d329c2345fa41ddc01ea68abc",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -562,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-02-02T08:48:22+00:00"
+            "time": "2017-02-07T15:27:19+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -664,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -5394,7 +5400,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8839,24 +8845,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.27.11",
-            "alias_normalized": "1.27.11.0",
-            "version": "dev-CGIV-7919-add-parcel2go-to-tracking-carriers",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
