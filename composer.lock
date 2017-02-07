@@ -491,17 +491,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.10",
+            "version": "dev-CGIV-7919-add-parcel2go-to-tracking-carriers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3183c6b89e8ced8d21912938ee1e97f6180031b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.10-3bd49d.zip",
-                "reference": "3183c6b89e8ced8d21912938ee1e97f6180031b8",
-                "shasum": null
+                "reference": "8a6ed53c611aa0a0f4bd21a9a9ae4cc055903c7e"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -670,7 +664,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -5400,7 +5394,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8839,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.27.11",
+            "alias_normalized": "1.27.11.0",
+            "version": "dev-CGIV-7919-add-parcel2go-to-tracking-carriers",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/channel": 20,
+        "channelgrabber/constants": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
