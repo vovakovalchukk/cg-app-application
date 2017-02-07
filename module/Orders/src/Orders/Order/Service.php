@@ -6,6 +6,7 @@ use CG\Account\Shared\Filter as AccountFilter;
 use CG\Amazon\Mcf\FulfillmentStatus\Filter as McfFulfillmentStatusFilter;
 use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
 use CG\Amazon\Mcf\FulfillmentStatus\Status as McfFulfillmentStatus;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as AmazonFulfilmentChannelMapper;
 use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Carrier;
@@ -123,6 +124,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $orderLabelService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
+    protected $editableBillingAddressFulfilmentChannels = [
+        OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true,
+        AmazonFulfilmentChannelMapper::CG_FBA => true,
+    ];
+    protected $editableShippingAddressFulfilmentChannels = [
+        OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true,
+    ];
 
     public function __construct(
         OrderClient $orderClient,
@@ -683,6 +691,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function isOrderEditable(OrderEntity $order)
     {
         return (isset($this->editableFulfilmentChannels[$order->getFulfilmentChannel()]));
+    }
+
+    public function isBillingAddressEditable(OrderEntity $order)
+    {
+        return (isset($this->editableBillingAddressFulfilmentChannels[$order->getFulfilmentChannel()]));
+    }
+
+    public function isShippingAddressEditable(OrderEntity $order)
+    {
+        return (isset($this->editableShippingAddressFulfilmentChannels[$order->getFulfilmentChannel()]));
     }
 
     public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
