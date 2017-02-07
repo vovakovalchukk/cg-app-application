@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "103ee876a8d832c6dc83dd9ed06b2910",
+    "content-hash": "0c409ae6fecc21345b766c4a45037939",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2570,16 +2570,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-7877-RemoveBlankLines",
+            "version": "1.4.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b8637fe3594953d7959150cbaf3b744157ff25ee"
+                "reference": "26a65a536ef7e114de9f63e36f57c88474ee55bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-7877-RemoveBlankLines-97b85d.zip",
-                "reference": "b8637fe3594953d7959150cbaf3b744157ff25ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.18-8c667d.zip",
+                "reference": "26a65a536ef7e114de9f63e36f57c88474ee55bf",
                 "shasum": null
             },
             "require": {
@@ -2624,7 +2624,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-02-07 12:38:02"
+            "time": "2017-02-07T16:24:22+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8845,18 +8845,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.18",
-            "alias_normalized": "1.4.18.0",
-            "version": "dev-CGIV-7877-RemoveBlankLines",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
