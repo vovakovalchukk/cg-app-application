@@ -674,17 +674,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.11",
+            "version": "dev-CGIV-7979-dpd-interlink-test-manifest-rejected",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4799c89bd6735665bb09c5cf1f28302328626736"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.11-44da0f.zip",
-                "reference": "4799c89bd6735665bb09c5cf1f28302328626736",
-                "shasum": null
+                "reference": "1534695d5df682f173ece0c6cb17ff48adff8ba3"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -4058,7 +4052,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5400,7 +5394,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8839,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.12",
+            "alias_normalized": "1.0.12.0",
+            "version": "dev-CGIV-7979-dpd-interlink-test-manifest-rejected",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
