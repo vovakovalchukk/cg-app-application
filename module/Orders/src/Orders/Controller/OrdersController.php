@@ -471,7 +471,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setTemplate('orders/orders/order/addressInformation');
         $view->setVariable('order', $order);
         $view->setVariable('addressSaveUrl', 'Orders/order/address');
-        $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('billingAddressEditable', $this->getOrderService()->isBillingAddressEditable($order));
+        $view->setVariable('shippingAddressEditable', $this->getOrderService()->isShippingAddressEditable($order));
         $view->setVariable('requiresSaveButton', true);
         $view->setVariable('includeAddressCopy', true);
         $view->setVariable('includeUseBillingInfo', false);
