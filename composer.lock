@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a50d29517fd70ba49969b0e75e2d5f9a",
+    "content-hash": "6398a0d39806c49c62f7d7f95c1bd7d5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1445,11 +1445,17 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7983-royal-mail-parcel-weights",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "dfa38509606090e41fde3757b214c2473cff5029"
+                "reference": "731c4a324521fa23d0f6e377f3c778e434f60d1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.7-8d4c9e.zip",
+                "reference": "731c4a324521fa23d0f6e377f3c778e434f60d1b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -1488,7 +1494,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-02-01T10:41:44+00:00"
+            "time": "2017-02-09T13:54:52+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -5394,7 +5400,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8839,24 +8845,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.7",
-            "alias_normalized": "1.2.7.0",
-            "version": "dev-CGIV-7983-royal-mail-parcel-weights",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
