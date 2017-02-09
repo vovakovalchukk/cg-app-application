@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1445,17 +1445,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.6",
+            "version": "dev-CGIV-7983-royal-mail-parcel-weights",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "feb2f472b1f4019dd71964b9ab807f750c7166cf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.6-00e900.zip",
-                "reference": "feb2f472b1f4019dd71964b9ab807f750c7166cf",
-                "shasum": null
+                "reference": "dfa38509606090e41fde3757b214c2473cff5029"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -5400,7 +5394,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8839,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.7",
+            "alias_normalized": "1.2.7.0",
+            "version": "dev-CGIV-7983-royal-mail-parcel-weights",
+            "package": "channelgrabber/netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
