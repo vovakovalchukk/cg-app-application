@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c409ae6fecc21345b766c4a45037939",
+    "content-hash": "a50d29517fd70ba49969b0e75e2d5f9a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,15 +670,21 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-7979-dpd-interlink-test-manifest-rejected",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "1534695d5df682f173ece0c6cb17ff48adff8ba3"
+                "reference": "f7dff71cee321472dbd47b7db00fb3ec51105932"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.12-d92aba.zip",
+                "reference": "f7dff71cee321472dbd47b7db00fb3ec51105932",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -704,7 +710,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-03T09:42:33+00:00"
+            "time": "2017-02-09T08:46:47+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -5098,7 +5104,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -5394,7 +5400,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8839,24 +8845,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.12",
-            "alias_normalized": "1.0.12.0",
-            "version": "dev-CGIV-7979-dpd-interlink-test-manifest-rejected",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
