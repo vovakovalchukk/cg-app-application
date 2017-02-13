@@ -66,7 +66,7 @@ class Service
     {
         $timelines = [];
         foreach ($orders as $order) {
-            $timeline = $this->getTimelineService()->getTimeline($order);
+            $timeline = $this->getTimeline($order);
             $timelines[$order->getId()] = $timeline;
         }
         return $timelines;
