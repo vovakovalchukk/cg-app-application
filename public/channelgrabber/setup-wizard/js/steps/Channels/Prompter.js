@@ -1,22 +1,21 @@
 define([
-    'popup/confirm',
-    'AjaxRequester'
+    'popup/confirm'
 ], function(
-    Confirm,
-    ajaxRequester
+    Confirm
 )
 {
     function Prompter()
     {
-        this.getAjaxRequester = function () {
-            return ajaxRequester;
+        this.getNotificationHandler = function()
+        {
+            return n;
         };
     }
 
     Prompter.prototype.getPrompterActionFunction = function () {
+        var self = this;
         return {
             'amazon': function (accountId) {
-                var self = this;
                 var saveAccountUri = '/amazon/account/save';
                 var message = "Would you like to automatically import your FBA orders into OrderHub? <br/> <small>We can only send invoices to imported orders.</small>";
                 var confirm = new Confirm(message, function(answer){
@@ -28,7 +27,17 @@ define([
                         saveData['fbaOrderImport'] = 'on';
                     }
                     saveData['accountId'] = accountId;
-                    self.getAjaxRequester().sendRequest(saveAccountUri, saveData);
+                    self.getNotificationHandler().notice('Saving your FBA settings');
+                    $.ajax({
+                        url : saveAccountUri,
+                        data : saveData,
+                        method : 'POST',
+                        success: function (data) {
+                            self.getNotificationHandler().success('Your FBA settings were saved successfully');
+                            sessionStorage.setItem('amazon'+accountId, true);
+                        },
+                        error: function () {}
+                    });
                 });
             }
         }
@@ -36,6 +45,9 @@ define([
 
 
     Prompter.prototype.checkAndPromptUser = function (channel, accountId) {
+        if (typeof channel !== 'string' || typeof accountId !== 'number') {
+            return;
+        }
         var alreadySaved = sessionStorage.getItem(channel+accountId);
         if (alreadySaved) {
             return;
@@ -43,7 +55,6 @@ define([
         if (this.getPrompterActionFunction()[channel]) {
             this.getPrompterActionFunction()[channel](accountId);
         }
-        sessionStorage.setItem(channel+accountId, true);
     };
 
     return Prompter;
