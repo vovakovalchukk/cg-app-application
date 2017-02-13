@@ -160,7 +160,7 @@ return [
                                         'AD', 'AR', 'AT', 'BY', 'BE', 'BG', 'KH', 'CA', 'IC', 'KY', 'HR', 'CY', 'CZ', 'DK',
                                         'EC', 'FI', 'FR', 'DE', 'GI', 'GR', 'HK', 'HU', 'IS', 'ID', 'IE', 'IL', 'JP', 'LV',
                                         'LI', 'LT', 'LU', 'MY', 'MT', 'MD', 'NL', 'NZ', 'PL', 'PT', 'RO', 'SM', 'RS', 'SG',
-                                        'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TH', 'TT', 'TR', 'AE', 'US', 'VA'
+                                        'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TH', 'TT', 'TR', 'AE', 'US', 'VA', 'IT'
                                     ]
                                 ],
                                 ['title' => 'Compensation'],
@@ -168,7 +168,7 @@ return [
                             'countries' => [
                                 'AD', 'AU', 'AT', 'BE', 'BR', 'CA', 'IC', 'HR', 'DK', 'EE', 'FI', 'FR', 'DE', 'HK', 'HU',
                                 'IS', 'IN', 'IE', 'IM', 'IL', 'LV', 'LI', 'LT', 'LU', 'MY', 'MT', 'NL', 'NZ', 'PL', 'PT',
-                                'SM', 'SG', 'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TR', 'US', 'VA'
+                                'SM', 'SG', 'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TR', 'US', 'VA', 'IT'
                             ]
                         ],
                     ]
