@@ -1,7 +1,9 @@
 define([
-    'Orders/OrdersBulkActionAbstract'
+    'Orders/OrdersBulkActionAbstract',
+    'Orders/TimelineService'
 ], function(
-    OrdersBulkActionAbstract
+    OrdersBulkActionAbstract,
+    TimelineService
 ) {
     function Pay() {
         OrdersBulkActionAbstract.call(this);
@@ -25,13 +27,18 @@ define([
             type: "POST",
             dataType: 'json',
             success : function(data, textStatus, request) {
-                console.log(data.timelines);
                 if (data.error) {
                     var itid = request.getResponseHeader('ITID-Response');
                     return this.getNotificationHandler().error("Failed to mark order as paid. Please contact support and provide the following reference code:\n"+itid);
                 }
                 this.getNotificationHandler().success("Successfully marked order as paid");
-                location.reload();
+
+                orders.map(function (orderId) {
+                    if (data.timelines[orderId] === undefined) {
+                        return;
+                    }
+                    TimelineService.refresh(data.timelines[orderId]);
+                });
             },
             error: function(request, textStatus, errorThrown) {
                 return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
