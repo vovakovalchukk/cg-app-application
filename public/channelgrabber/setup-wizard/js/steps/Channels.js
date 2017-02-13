@@ -4,14 +4,14 @@ define([
     'popup/generic',
     'popup/confirm',
     'AjaxRequester',
-    './Channels/PreCheck.js'
+    './Channels/Prompter.js'
 ], function(
     setupWizard,
     CGMustache,
     Popup,
     Confirm,
     ajaxRequester,
-    PreCheck
+    Prompter
 ) {
     function Channels(
         notifications,
@@ -110,7 +110,7 @@ define([
     };
 
     Channels.prototype.checkForNewSessionData = function () {
-        var preCheck = new PreCheck();
+        var prompter = new Prompter();
         var badges = $(Channels.SELECTOR_CHANNEL);
 
         badges.sort(function (a, b) {
@@ -122,7 +122,7 @@ define([
         badges.each(function (index, channel) {
             var accountId = $(channel).data('account');
             var channelName = $(channel).data('channel');
-            preCheck.checkAndSaveData(channelName, accountId);
+            prompter.checkAndPromptUser(channelName, accountId);
         });
     };
 

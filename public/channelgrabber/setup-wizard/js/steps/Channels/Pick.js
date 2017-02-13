@@ -1,10 +1,4 @@
-define([
-    'AjaxRequester',
-    './PreCheck.js'
-], function(
-    ajaxRequester,
-    PreCheck
-)
+define(['AjaxRequester'], function(ajaxRequester)
 {
     function Pick(notifications, addUri)
     {
@@ -40,22 +34,17 @@ define([
             var channelBadge = this;
             var channel = $(channelBadge).data('channel');
             var region = $(channelBadge).data('region');
-            var preCheck = new PreCheck();
-            preCheck.performPreCheck(channel, region, self.addChannel.bind(self));
+            self.addChannel(channel, region);
         });
     };
 
-    Pick.prototype.addChannel = function(channel, region, sessionData)
+    Pick.prototype.addChannel = function(channel, region)
     {
         this.getNotifications().notice('Adding channel');
         var uri = this.getAddUri();
         var data = {'channel' : channel, 'region' : region};
         this.getAjaxRequester().sendRequest(uri, data, function(data)
         {
-            for(var sessionItemKey in sessionData) {
-                if (! sessionData.hasOwnProperty(sessionItemKey)) {continue;}
-                sessionStorage.setItem(sessionItemKey, sessionData[sessionItemKey]);
-            }
             window.location = data['url'];
         });
     };
