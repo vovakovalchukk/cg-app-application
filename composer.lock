@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c8dfa9423e05ec7647d0e25c106b427",
+    "content-hash": "7864b415bf53e141999fc968273b0387",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2729,16 +2729,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.6",
+            "version": "dev-CGIV-8005-UserOuList",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f"
+                "reference": "b0a6ea08a322786becaeac80061b4907168e23dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.6-36d826.zip",
-                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8005-UserOuList-7b5dc6.zip",
+                "reference": "b0a6ea08a322786becaeac80061b4907168e23dc",
                 "shasum": null
             },
             "require": {
@@ -2776,7 +2776,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-01-26T11:15:57+00:00"
+            "time": "2017-02-14 09:58:25"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3456,24 +3456,23 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.13",
+            "version": "dev-CGIV-8005-UserOuList",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "368ede9fb98b93247d72faf63f2034b8958e200d"
+                "reference": "476ef61883a511e99933dbadb1b8f955a497331b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.13-0831a0.zip",
-                "reference": "368ede9fb98b93247d72faf63f2034b8958e200d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8005-UserOuList-137f3d.zip",
+                "reference": "476ef61883a511e99933dbadb1b8f955a497331b",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.10.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/user": ">=1.16.3,<2.0.0",
-                "composer/composer": "@dev",
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/user": "dev-CGIV-8005-UserOuList as 1.22.7",
                 "zendframework/zend-config": ">=2.2.5,<3.0",
                 "zendframework/zend-di": ">=2.2.5,<3.0",
                 "zendframework/zend-eventmanager": ">=2.2.5,<3.0",
@@ -3501,7 +3500,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-29T08:53:46+00:00"
+            "time": "2017-02-14 10:55:56"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -5104,7 +5103,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -5451,7 +5450,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5544,7 +5543,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6013,7 +6012,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8845,10 +8844,25 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.22.7",
+            "alias_normalized": "1.22.7.0",
+            "version": "dev-CGIV-8005-UserOuList",
+            "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.1.14",
+            "alias_normalized": "1.1.14.0",
+            "version": "dev-CGIV-8005-UserOuList",
+            "package": "channelgrabber/zf2-permission"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
+        "channelgrabber/zf2-permission": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
