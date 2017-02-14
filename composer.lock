@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -3764,17 +3764,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.25",
+            "version": "dev-CGIV-7935-bulk-actions-only-work-when-click-text",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "698de6413059b3fda4745f140e421c748c7df6e9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.25-f070e6.zip",
-                "reference": "698de6413059b3fda4745f140e421c748c7df6e9",
-                "shasum": null
+                "reference": "988cc12b0af564d94ad66a63091b5a1e3c1432b5"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -5400,7 +5394,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8839,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.25",
+            "alias_normalized": "1.17.25.0",
+            "version": "dev-CGIV-7935-bulk-actions-only-work-when-click-text",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
