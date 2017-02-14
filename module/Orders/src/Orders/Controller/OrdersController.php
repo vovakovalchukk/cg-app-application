@@ -41,6 +41,7 @@ use Settings\Controller\ChannelController as ChannelSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\I18n\View\Helper\CurrencyFormat;
 use Messages\Module as Messages;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
@@ -89,6 +90,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $manifestService;
     /** @var CourierService */
     protected $courierService;
+    /** @var CurrencyFormat */
+    protected $currencyFormat;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -107,7 +110,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         ActiveUserInterface $activeUserContainer,
         OrderLabelService $orderLabelService,
         ManifestService $manifestService,
-        CourierService $courierService
+        CourierService $courierService,
+        CurrencyFormat $currencyFormat
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -126,7 +130,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setActiveUserContainer($activeUserContainer)
             ->setOrderLabelService($orderLabelService)
             ->setManifestService($manifestService)
-            ->setCourierService($courierService);
+            ->setCourierService($courierService)
+            ->setCurrencyFormat($currencyFormat);
     }
 
     public function indexAction()
@@ -844,7 +849,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $response = $this->getJsonModelFactory()->newInstance(['success' => false]);
         try {
+            $currencyFormatter = $this->currencyFormat;
             $this->getOrderService()->saveRecipientVatNumberToOrder($order, $countryCode, $vatNumber);
+            $response->setVariable('orderSubTotal', $currencyFormatter($order->getSubTotal(), $order->getCurrencyCode()));
+            $response->setVariable('orderTotal', $currencyFormatter($order->getTotal(), $order->getCurrencyCode()));
+            $response->setVariable('orderTax', $currencyFormatter($order->getTax(), $order->getCurrencyCode()));
             $response->setVariable('success', true);
         } catch(Exception $e) {
             $response->setVariable('error', $e->getMessage());
@@ -1092,6 +1101,15 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function setCourierService(CourierService $courierService)
     {
         $this->courierService = $courierService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setCurrencyFormat(CurrencyFormat $currencyFormat)
+    {
+        $this->currencyFormat = $currencyFormat;
         return $this;
     }
 }
