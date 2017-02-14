@@ -62,16 +62,6 @@ class Service
         return $timeline;
     }
 
-    public function getTimelines(OrderCollection $orders)
-    {
-        $timelines = [];
-        foreach ($orders as $order) {
-            $timeline = $this->getTimeline($order);
-            $timelines[$order->getId()] = $timeline;
-        }
-        return $timelines;
-    }
-
     protected function getOrderedTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = [];

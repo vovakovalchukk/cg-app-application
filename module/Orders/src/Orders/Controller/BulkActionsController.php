@@ -77,8 +77,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setCsvService($csvService)
             ->setBatchService($batchService)
             ->setUsageService($usageService)
-            ->setOrdersToOperatorOn($ordersToOperatorOn)
-            ->setTimelineService($timelineService);
+            ->setOrdersToOperatorOn($ordersToOperatorOn);
+        $this->timelineService = $timelineService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -260,10 +260,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             } else {
                 $response->setVariable($action, (is_bool($outcome) ? $outcome : true));
             }
-            $timelines = $this->timelineService->getTimelines($orders);
-            $response->setVariable('timelines', $timelines);
-            $statuses = $this->getStatuses($orders);
-            $response->setVariable('statuses', $statuses);
+            $this->appendUpdatedOrderDataToResponse($response, $orders);
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -468,14 +465,17 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $actionMap[$action];
     }
 
-    protected function getStatuses(OrderCollection $orders)
+    protected function appendUpdatedOrderDataToResponse($response, OrderCollection $orders)
     {
         $statuses = [];
+        $timelines = [];
         foreach ($orders as $order) {
-            $status = str_replace(' ', '-', $order->getStatus());
-            $statuses[$order->getId()] = $status;
+            $statuses[$order->getId()] = str_replace(' ', '-', $order->getStatus());
+            $timelines[$order->getId()] = $this->timelineService->getTimeline($order);
         }
-        return $statuses;
+
+        $response->setVariable('statuses', $statuses);
+        $response->setVariable('timelines', $timelines);
     }
 
     public function batchesAction()
@@ -785,23 +785,4 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->ordersToOperatorOn = $ordersToOperatorOn;
         return $this;
     }
-
-    /**
-     * @return TimelineService
-     */
-    public function getTimelineService(): TimelineService
-    {
-        return $this->timelineService;
-    }
-
-    /**
-     * @param TimelineService $timelineService
-     * @return BulkActionsController
-     */
-    public function setTimelineService(TimelineService $timelineService): BulkActionsController
-    {
-        $this->timelineService = $timelineService;
-        return $this;
-    }
-
 }
