@@ -11,7 +11,6 @@ define([
 
 
     StatusService.prototype.refresh = function (newStatus) {
-        console.log(newStatus);
         $(StatusService.STATUS_ELEMENT_SELECTOR).removeClass();
         $(StatusService.STATUS_ELEMENT_SELECTOR).addClass('status '+newStatus);
         $(StatusService.STATUS_ELEMENT_SELECTOR).text(newStatus.ucfirst());
