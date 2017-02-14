@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "810c4756cccf0f287c4eee89c24bbd6a",
+    "content-hash": "5e7bc083d1d2b2064300f19c99ac6040",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,15 +670,21 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-8003-dpd-interlink-test-manifest-rejected",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "de033584d6747cdd1034cd8ab2b397e521b10df3"
+                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.13-001786.zip",
+                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -704,7 +710,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-09T08:46:47+00:00"
+            "time": "2017-02-14T15:45:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -5394,7 +5400,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8839,24 +8845,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.13",
-            "alias_normalized": "1.0.13.0",
-            "version": "dev-CGIV-8003-dpd-interlink-test-manifest-rejected",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
