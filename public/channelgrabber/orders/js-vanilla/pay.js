@@ -29,7 +29,6 @@ define([
             type: "POST",
             dataType: 'json',
             success : function(data, textStatus, request) {
-                console.log(data.statuses);
                 if (data.error) {
                     var itid = request.getResponseHeader('ITID-Response');
                     return this.getNotificationHandler().error("Failed to mark order as paid. Please contact support and provide the following reference code:\n"+itid);
