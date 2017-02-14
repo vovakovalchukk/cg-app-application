@@ -3,13 +3,15 @@ define([
     'cg-mustache',
     'popup/generic',
     'popup/confirm',
-    'AjaxRequester'
+    'AjaxRequester',
+    './Channels/Prompter.js'
 ], function(
     setupWizard,
     CGMustache,
     Popup,
     Confirm,
-    ajaxRequester
+    ajaxRequester,
+    Prompter
 ) {
     function Channels(
         notifications,
@@ -77,7 +79,8 @@ define([
             this.registerNextValidation()
                 .listenForAddClick()
                 .listenForEditClick()
-                .listenForDeleteClick();
+                .listenForDeleteClick()
+                .checkForNewSessionData();
         };
         init.call(this);
     }
@@ -93,6 +96,7 @@ define([
 
     Channels.prototype.registerNextValidation = function()
     {
+        var self = this;
         this.getSetupWizard().registerNextCallback(function()
         {
             if ($(Channels.SELECTOR_CHANNEL).length == 0) {
@@ -103,6 +107,23 @@ define([
         });
 
         return this;
+    };
+
+    Channels.prototype.checkForNewSessionData = function () {
+        var prompter = new Prompter();
+        var badges = $(Channels.SELECTOR_CHANNEL);
+
+        badges.sort(function (a, b) {
+            var accountIdA = $(a).data('account');
+            var accountIdB = $(b).data('account');
+            return accountIdB - accountIdA;
+        });
+
+        badges.each(function (index, channel) {
+            var accountId = $(channel).data('account');
+            var channelName = $(channel).data('channel');
+            prompter.checkAndPromptUser(channelName, accountId);
+        });
     };
 
     Channels.prototype.listenForAddClick = function()
