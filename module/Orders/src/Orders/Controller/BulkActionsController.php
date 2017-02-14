@@ -262,6 +262,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             }
             $timelines = $this->timelineService->getTimelines($orders);
             $response->setVariable('timelines', $timelines);
+            $statuses = $this->getStatuses($orders);
+            $response->setVariable('statuses', $statuses);
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -464,6 +466,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
 
         return $actionMap[$action];
+    }
+
+    protected function getStatuses(OrderCollection $orders)
+    {
+        $statuses = [];
+        foreach ($orders as $order) {
+            $status = str_replace(' ', '-', $order->getStatus());
+            $statuses[$order->getId()] = $status;
+        }
+        return $statuses;
     }
 
     public function batchesAction()

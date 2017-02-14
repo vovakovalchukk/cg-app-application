@@ -1,4 +1,10 @@
-define(['popup/mustache'], function(Popup) {
+define([
+    'popup/mustache',
+    'Orders/StatusService'
+], function(
+    Popup,
+    StatusService
+) {
     var Cancel = function(notifications, reasons, type) {
         var selector;
         var popup;
@@ -103,6 +109,10 @@ define(['popup/mustache'], function(Popup) {
                     'type': that.getType().toLowerCase()
                 },
                 success : function(data) {
+                    var orders = $(that.getSelector()).data("orders");
+                    orders.map(function (orderId) {
+                        StatusService.refresh(data.statuses[orderId]);
+                    });
                     return that.getNotifications().success(that.getSuccessMessage());
                 },
                 error: function(error, textStatus, errorThrown) {
