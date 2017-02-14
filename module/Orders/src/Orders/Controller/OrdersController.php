@@ -130,8 +130,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setActiveUserContainer($activeUserContainer)
             ->setOrderLabelService($orderLabelService)
             ->setManifestService($manifestService)
-            ->setCourierService($courierService)
-            ->setCurrencyFormat($currencyFormat);
+            ->setCourierService($courierService);
+
+        $this->currencyFormat = $currencyFormat;
     }
 
     public function indexAction()
@@ -1101,15 +1102,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function setCourierService(CourierService $courierService)
     {
         $this->courierService = $courierService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setCurrencyFormat(CurrencyFormat $currencyFormat)
-    {
-        $this->currencyFormat = $currencyFormat;
         return $this;
     }
 }
