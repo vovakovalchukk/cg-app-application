@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6398a0d39806c49c62f7d7f95c1bd7d5",
+    "content-hash": "8c8dfa9423e05ec7647d0e25c106b427",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2973,16 +2973,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "2e4cd8b6bda0dcafa61cb14d65753463fac92403"
+                "reference": "9c0b57eb736ffebad97307a583a4e2af0b388337"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.18-96ba5e.zip",
-                "reference": "2e4cd8b6bda0dcafa61cb14d65753463fac92403",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.19-10ab33.zip",
+                "reference": "9c0b57eb736ffebad97307a583a4e2af0b388337",
                 "shasum": null
             },
             "require": {
@@ -3014,7 +3014,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-01-04T16:13:45+00:00"
+            "time": "2017-02-13T16:23:05+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -4052,7 +4052,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5098,7 +5098,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -5445,7 +5445,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5538,7 +5538,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6007,7 +6007,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
