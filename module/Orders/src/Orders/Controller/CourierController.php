@@ -221,7 +221,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
             ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
             ->setVariable('isHeaderBarVisible', false)
-            ->setVariable('isSidebarPresent', false)
+            ->setVariable('isSidebarPresent', (count($courierOrders) > 1))
             ->setVariable('subHeaderHide', true);
 
         return $view;
