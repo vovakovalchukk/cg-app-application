@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e7bc083d1d2b2064300f19c99ac6040",
+    "content-hash": "42167bb479575647d9713de92a9382f1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1366,16 +1366,16 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.0.28",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "d59212869ea1cb2c2b5b9d796d5d636015d9637b"
+                "reference": "399e9e2460352f52e491eee0ef9920ad9a1c550d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.28-3f2178.zip",
-                "reference": "d59212869ea1cb2c2b5b9d796d5d636015d9637b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.1.0-f4a61d.zip",
+                "reference": "399e9e2460352f52e491eee0ef9920ad9a1c550d",
                 "shasum": null
             },
             "require": {
@@ -1405,7 +1405,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2016-07-26T07:50:37+00:00"
+            "time": "2017-02-02T12:29:43+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -1548,16 +1548,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.25.3",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3b6c3866dc427591d4c0918b15f90e4f528b781b"
+                "reference": "21b283ce33d8cd85a1393682a8a2d647fcd66911"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.25.3-8528c6.zip",
-                "reference": "3b6c3866dc427591d4c0918b15f90e4f528b781b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7417-vat-support-for-fulfilment-centres-73a207.zip",
+                "reference": "21b283ce33d8cd85a1393682a8a2d647fcd66911",
                 "shasum": null
             },
             "require": {
@@ -1584,15 +1584,15 @@
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.4.0",
+                "channelgrabber/settings": "^1.5.0",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.25",
+                "channelgrabber/stdlib": "^2.12.41",
                 "channelgrabber/stock": "^1.8.2",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.3",
+                "channelgrabber/template": "^1.4.19",
                 "channelgrabber/transaction": "^1.2.1",
-                "channelgrabber/user": "^1.22.6",
+                "channelgrabber/user": "dev-CGIV-7417-vat-support-for-fulfilment-centres as 1.22.7",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
@@ -1622,7 +1622,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-01-27T09:44:26+00:00"
+            "time": "2017-02-15T12:37:26+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2178,16 +2178,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.4.3",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "4dc94037413a1e91d464d146617cea44bfb01252"
+                "reference": "472b9869c6253b0094f11097d7ec633abf61b474"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.4.3-687137.zip",
-                "reference": "4dc94037413a1e91d464d146617cea44bfb01252",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.0-3cca4c.zip",
+                "reference": "472b9869c6253b0094f11097d7ec633abf61b474",
                 "shasum": null
             },
             "require": {
@@ -2208,7 +2208,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-01-31T09:03:39+00:00"
+            "time": "2017-02-08T09:44:29+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2387,16 +2387,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.39",
+            "version": "2.12.41",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "ab881afa7cda8a4cb9253b95c0109416526dc2d0"
+                "reference": "56e0208a48e8d81ecb29b782f741bce1d3754049"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.39-809bad.zip",
-                "reference": "ab881afa7cda8a4cb9253b95c0109416526dc2d0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.41-c2d34b.zip",
+                "reference": "56e0208a48e8d81ecb29b782f741bce1d3754049",
                 "shasum": null
             },
             "require": {
@@ -2404,7 +2404,7 @@
                 "zendframework/zend-db": ">=2.2,<3.0"
             },
             "conflict": {
-                "channelgrabber/log": "<2.0.14"
+                "channelgrabber/log": "<2.1.0"
             },
             "provide": {
                 "ext-mcrypt": "*"
@@ -2432,7 +2432,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2017-01-25T12:04:30+00:00"
+            "time": "2017-02-10T11:53:19+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -2570,17 +2570,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.18",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "26a65a536ef7e114de9f63e36f57c88474ee55bf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.18-8c667d.zip",
-                "reference": "26a65a536ef7e114de9f63e36f57c88474ee55bf",
-                "shasum": null
+                "reference": "1bb22023df32827c77eee1f5f793a50fd4a9b14e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2624,7 +2618,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-02-07T16:24:22+00:00"
+            "time": "2017-02-08T09:48:01+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2729,16 +2723,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.6",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f"
+                "reference": "c9391e4cbcb0362586b7b21ef7f0c139cf8f8797"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.6-36d826.zip",
-                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7417-vat-support-for-fulfilment-centres-937824.zip",
+                "reference": "c9391e4cbcb0362586b7b21ef7f0c139cf8f8797",
                 "shasum": null
             },
             "require": {
@@ -2776,7 +2770,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-01-26T11:15:57+00:00"
+            "time": "2017-02-15T12:21:26+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -5400,7 +5394,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8845,16 +8839,38 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.26.2",
+            "alias_normalized": "1.26.2.0",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.4.19",
+            "alias_normalized": "1.4.19.0",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.22.7",
+            "alias_normalized": "1.22.7.0",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
+            "package": "channelgrabber/user"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/template": 20,
+        "channelgrabber/user": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
