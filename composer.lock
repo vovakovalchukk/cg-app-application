@@ -2733,12 +2733,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b0a6ea08a322786becaeac80061b4907168e23dc"
+                "reference": "28c10547e016fb53d25144d52ba9ec9d46be263f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8005-UserOuList-7b5dc6.zip",
-                "reference": "b0a6ea08a322786becaeac80061b4907168e23dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8005-UserOuList-876aa8.zip",
+                "reference": "28c10547e016fb53d25144d52ba9ec9d46be263f",
                 "shasum": null
             },
             "require": {
@@ -2776,7 +2776,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-02-14 09:58:25"
+            "time": "2017-02-15 10:10:22"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3460,12 +3460,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "476ef61883a511e99933dbadb1b8f955a497331b"
+                "reference": "0fd32dab2aac726cc92f0fc91d5ceeb0ff2d3d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8005-UserOuList-137f3d.zip",
-                "reference": "476ef61883a511e99933dbadb1b8f955a497331b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8005-UserOuList-5e7946.zip",
+                "reference": "0fd32dab2aac726cc92f0fc91d5ceeb0ff2d3d19",
                 "shasum": null
             },
             "require": {
@@ -3500,7 +3500,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-14 10:55:56"
+            "time": "2017-02-15 11:14:55"
         },
         {
             "name": "channelgrabber/zf2-register",
