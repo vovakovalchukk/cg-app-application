@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7864b415bf53e141999fc968273b0387",
+    "content-hash": "28ce636307a14a6a0fcefafc547ea4e6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -674,16 +674,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "f7dff71cee321472dbd47b7db00fb3ec51105932"
+                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.12-d92aba.zip",
-                "reference": "f7dff71cee321472dbd47b7db00fb3ec51105932",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.13-001786.zip",
+                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb",
                 "shasum": null
             },
             "require": {
@@ -710,7 +710,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-09T08:46:47+00:00"
+            "time": "2017-02-14T15:45:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1445,16 +1445,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.7",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "731c4a324521fa23d0f6e377f3c778e434f60d1b"
+                "reference": "ec9f6bbd0a79f528ebd0f98fe26c0d72758d30dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.7-8d4c9e.zip",
-                "reference": "731c4a324521fa23d0f6e377f3c778e434f60d1b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.8-87faba.zip",
+                "reference": "ec9f6bbd0a79f528ebd0f98fe26c0d72758d30dc",
                 "shasum": null
             },
             "require": {
@@ -1494,7 +1494,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-02-09T13:54:52+00:00"
+            "time": "2017-02-14T15:16:48+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -3763,16 +3763,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.24",
+            "version": "1.17.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d3a72469148ec57471a531db89d6da25d51051ee"
+                "reference": "698de6413059b3fda4745f140e421c748c7df6e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.24-afbff2.zip",
-                "reference": "d3a72469148ec57471a531db89d6da25d51051ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.25-f070e6.zip",
+                "reference": "698de6413059b3fda4745f140e421c748c7df6e9",
                 "shasum": null
             },
             "require": {
@@ -3820,7 +3820,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-01-24T10:02:32+00:00"
+            "time": "2017-01-26T11:37:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
