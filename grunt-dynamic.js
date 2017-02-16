@@ -21,13 +21,7 @@ module.exports = function (grunt) {
                 command: "rm -rf public/channelgrabber/"+ module +"/css/*"
             };
             shellTasks["compile" + replaceAll(module, '-', '') + "Css"] = {
-                command: "compass compile --force public/channelgrabber/" + module
-            };
-            shellTasks["cleanDest" + replaceAll(module, '-', '') + "Css"] = {
-                command: "rm -rf public/cg-built/"+ module +"/css/*"
-            };
-            shellTasks["makeDir" + replaceAll(module, '-', '') + "Css"] = {
-                command: "mkdir -p public/cg-built/"+ module +"/css"
+                command: "compass compile public/channelgrabber/" + module
             };
             shellTasks["copy" + replaceAll(module, '-', '') + "Css"] = {
                 command: "cp -r public/channelgrabber/"+ module +"/css/* public/cg-built/"+ module +"/css/ 2>/dev/null || :"
@@ -42,8 +36,6 @@ module.exports = function (grunt) {
         modulesNames.forEach(function(module){
             tasks.push("shell:cleanSrc" + replaceAll(module, '-', '') + "Css");
             tasks.push("shell:compile" + replaceAll(module,'-',  '') + "Css");
-            tasks.push("shell:cleanDest" + replaceAll(module, '-', '') + "Css");
-            tasks.push("shell:makeDir" + replaceAll(module, '-', '') + "Css");
             tasks.push("shell:copy" + replaceAll(module, '-', '') + "Css");
         });
         grunt.registerTask('compileCss-gen', tasks);
