@@ -237,9 +237,31 @@
   clear: both;
   padding: 10px 15px 10px 15px;
   font-size: 12px;
-  @include box-sizing(border);
+  box-sizing: border-box;
+  position: relative;
   @include print() {
     font-size: 20px;
+  }
+  .message-section-collapser {
+    background-color: $color-xlgrey;
+    border: 1px solid $color-lgrey;
+    color: $color-mgrey;
+    font-size: 16pt;
+    line-height: 0;
+    outline: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px;
+    height: 12px;
+    text-align: center;
+    margin: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: $color-lgrey;
+      border: 1px solid $color-mgrey;
+      color: $color-dgrey;
+    }
   }
   .message-print {
     float: right;
@@ -249,6 +271,10 @@
   .message-content {
     width: 606px;
     margin: 0 auto;
+    .collapsible-section {
+      display: none;
+      color: $color-mgrey;
+    }
     table {
       float: none;
       clear: none;

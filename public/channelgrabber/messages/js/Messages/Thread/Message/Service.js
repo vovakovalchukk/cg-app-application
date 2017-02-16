@@ -11,6 +11,8 @@ define([
         };
     };
 
+    Service.COLLAPSIBLE_SECTION_CLASS = 'collapsible-section';
+
     Service.prototype.sendMessage = function(thread, messageBody, callback)
     {
         var data = {threadId: thread.getId(), body: messageBody};
@@ -20,9 +22,13 @@ define([
     Service.prototype.wrapCollapsibleSections = function (messageBody) {
 
         var regex = /((?:^\>.*?$[\r\n]*)+)/gm;
-        var replace = '<span class="collapsible-section">$&</span>';
+        var replace = '<span class="' + Service.COLLAPSIBLE_SECTION_CLASS + '">$&</span>';
 
         return messageBody.replace(regex, replace);
+    };
+
+    Service.prototype.checkForCollapsibleSections = function (messageBody) {
+        return messageBody.includes(Service.COLLAPSIBLE_SECTION_CLASS);
     };
 
     return new Service();

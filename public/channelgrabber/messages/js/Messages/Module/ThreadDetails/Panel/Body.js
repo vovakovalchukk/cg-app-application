@@ -14,6 +14,7 @@ define([
     var Body = function(module, thread)
     {
         PanelAbstract.call(this, module, thread);
+        this.collapsibleSectionListenerSetup = false;
 
         this.getThreadService = function()
         {
@@ -48,13 +49,20 @@ define([
         {
             var iconClass = (message.getPersonType() == 'staff' ? 'sprite-message-staff-21-blue' : 'sprite-message-customer-21-red');
             var messageBody = self.getMessageService().wrapCollapsibleSections(message.getBody());
+            var hasCollapsibleSection = self.getMessageService().checkForCollapsibleSections(messageBody);
+
+            if (hasCollapsibleSection) {
+                self.setupCollapsibleSectionListener();
+            }
+
             messagesData.push({
                 'name': message.getName(),
                 'externalUsername': message.getExternalUsername(),
                 'created': message.getCreated(),
                 'createdFuzzy': message.getCreatedFuzzy(),
                 'body': messageBody.nl2br(),
-                'iconClass': iconClass
+                'iconClass': iconClass,
+                'hasCollapsibleSection': hasCollapsibleSection
             });
         });
         CGMustache.get().fetchTemplate(Body.TEMPLATE, function(template, cgmustache) {
@@ -64,6 +72,19 @@ define([
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
             self.updateCounts(thread);
         });
+    };
+
+    Body.prototype.setupCollapsibleSectionListener = function () {
+        if (this.collapsibleSectionListenerSetup) {
+            return;
+        }
+
+        // $('.message-section-collapser').click(function () {
+        //     console.log('click');
+        //     $(this).find('.message-content > .collapsible-section').toggle();
+        // });
+
+        this.collapsibleSectionListenerSetup = true;
     };
 
     Body.prototype.updateCounts = function(thread)

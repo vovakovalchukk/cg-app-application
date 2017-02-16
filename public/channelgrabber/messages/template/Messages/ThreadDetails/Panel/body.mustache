@@ -12,6 +12,7 @@
                 </div>
             </div>
             <div class="message-body">
+                {{#hasCollapsibleSection}}<div class="message-section-collapser" title="Expand Hidden Lines">...</div>{{/hasCollapsibleSection}}
                 <div class="message-print"><a href="#">Print Message</a></div>
                 <div class="message-content">{{{body}}}</div>
             </div>
