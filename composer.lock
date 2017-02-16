@@ -3464,12 +3464,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "0fd32dab2aac726cc92f0fc91d5ceeb0ff2d3d19"
+                "reference": "430bb59b71a69453c6e158074ef02b03d52a3439"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8005-UserOuList-5e7946.zip",
-                "reference": "0fd32dab2aac726cc92f0fc91d5ceeb0ff2d3d19",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8005-UserOuList-bbf894.zip",
+                "reference": "430bb59b71a69453c6e158074ef02b03d52a3439",
                 "shasum": null
             },
             "require": {
@@ -3504,7 +3504,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-15 11:14:55"
+            "time": "2017-02-16 12:21:15"
         },
         {
             "name": "channelgrabber/zf2-register",
