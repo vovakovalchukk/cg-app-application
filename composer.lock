@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "42167bb479575647d9713de92a9382f1",
+    "content-hash": "669b25f7aa2e500002ec9c74f028bf9c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1552,13 +1552,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "21b283ce33d8cd85a1393682a8a2d647fcd66911"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7417-vat-support-for-fulfilment-centres-73a207.zip",
-                "reference": "21b283ce33d8cd85a1393682a8a2d647fcd66911",
-                "shasum": null
+                "reference": "69c586187f8fb17de8c4fddd333399ed6d0af749"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -8841,8 +8835,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.26.2",
-            "alias_normalized": "1.26.2.0",
+            "alias": "1.27.0",
+            "alias_normalized": "1.27.0.0",
             "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "package": "channelgrabber/order"
         },
