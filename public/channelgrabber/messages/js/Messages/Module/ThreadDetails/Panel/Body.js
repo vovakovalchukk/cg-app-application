@@ -79,10 +79,9 @@ define([
             return;
         }
 
-        // $('.message-section-collapser').click(function () {
-        //     console.log('click');
-        //     $(this).find('.message-content > .collapsible-section').toggle();
-        // });
+        $(document, '.message-section-collapser').on('click', function () {
+            $(this).find('.message-content > .collapsible-section').toggle();
+        });
 
         this.collapsibleSectionListenerSetup = true;
     };
