@@ -2,11 +2,13 @@ define([
     'Messages/Module/ThreadDetails/PanelAbstract',
     'Messages/Module/ThreadDetails/Panel/Body/EventHandler',
     'Messages/Thread/Service',
+    'Messages/Thread/Message/Service',
     'cg-mustache'
 ], function(
     PanelAbstract,
     EventHandler,
     threadService,
+    messageService,
     CGMustache
 ) {
     var Body = function(module, thread)
@@ -18,6 +20,11 @@ define([
             return threadService;
         };
 
+        this.getMessageService = function ()
+        {
+            return messageService;
+        };
+
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
@@ -27,7 +34,7 @@ define([
     };
 
     Body.SELECTOR = '.message-section';
-    Body.COUNT_SELECTOR = '.message-:type .count'
+    Body.COUNT_SELECTOR = '.message-:type .count';
     Body.PRINT_CLASS = 'print-message';
     Body.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/body.mustache';
 
@@ -40,12 +47,13 @@ define([
         thread.getMessages().each(function(message)
         {
             var iconClass = (message.getPersonType() == 'staff' ? 'sprite-message-staff-21-blue' : 'sprite-message-customer-21-red');
+            var messageBody = self.getMessageService().wrapCollapsibleSections(message.getBody());
             messagesData.push({
                 'name': message.getName(),
                 'externalUsername': message.getExternalUsername(),
                 'created': message.getCreated(),
                 'createdFuzzy': message.getCreatedFuzzy(),
-                'body': message.getBody().nl2br(),
+                'body': messageBody.nl2br(),
                 'iconClass': iconClass
             });
         });
