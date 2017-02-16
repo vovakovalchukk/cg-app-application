@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "155b713d7a06f51fd7e2e2c3bb9e87a6",
+    "content-hash": "30fa7268e331fb8844ab2e25333a29b9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2733,16 +2733,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.6",
+            "version": "1.22.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f"
+                "reference": "43a833e2b671fb1b4ba45177f4c4d1b28f51437f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.6-36d826.zip",
-                "reference": "89d47ebc97219117a69d57c360cdd538e72ab24f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.7-8fbf77.zip",
+                "reference": "43a833e2b671fb1b4ba45177f4c4d1b28f51437f",
                 "shasum": null
             },
             "require": {
@@ -2780,7 +2780,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-01-26T11:15:57+00:00"
+            "time": "2017-02-16T13:25:55+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3460,24 +3460,23 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.13",
+            "version": "1.1.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "368ede9fb98b93247d72faf63f2034b8958e200d"
+                "reference": "941363124dc20e9e472ed4c9f8dcba4b5d321864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.13-0831a0.zip",
-                "reference": "368ede9fb98b93247d72faf63f2034b8958e200d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.14-d0947f.zip",
+                "reference": "941363124dc20e9e472ed4c9f8dcba4b5d321864",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.10.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/user": ">=1.16.3,<2.0.0",
-                "composer/composer": "@dev",
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/user": "^1.22.7",
                 "zendframework/zend-config": ">=2.2.5,<3.0",
                 "zendframework/zend-di": ">=2.2.5,<3.0",
                 "zendframework/zend-eventmanager": ">=2.2.5,<3.0",
@@ -3505,7 +3504,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-29T08:53:46+00:00"
+            "time": "2017-02-16T13:35:15+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
