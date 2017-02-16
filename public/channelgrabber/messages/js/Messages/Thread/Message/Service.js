@@ -17,5 +17,13 @@ define([
         this.getStorage().saveData(data, callback);
     };
 
+    Service.prototype.wrapCollapsibleSections = function (messageBody) {
+
+        var regex = /((?:^\>.*?$[\r\n]*)+)/gm;
+        var replace = '<span class="collapsible-section">$&</span>';
+
+        return messageBody.replace(regex, replace);
+    };
+
     return new Service();
 });
