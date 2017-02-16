@@ -79,7 +79,7 @@ define([
         }
 
         $(document).on('click', '.message-section-collapser', function (e) {
-            $(e.target).next('.collapsible-section').toggle();
+            $(e.target).closest('.message-collapser-wrap').find('.collapsible-section').toggle();
         });
 
         this.collapsibleSectionListenerSetup = true;

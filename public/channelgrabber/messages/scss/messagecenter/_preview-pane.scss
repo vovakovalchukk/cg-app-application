@@ -243,21 +243,32 @@
     font-size: 20px;
   }
   .message-section-collapser {
-    background-color: $color-xlgrey;
-    border: 1px solid $color-lgrey;
-    color: $color-mgrey;
-    font-size: 16pt;
-    line-height: 0;
-    outline: none;
-    width: 25px;
-    height: 12px;
-    text-align: center;
-    margin: 10px 15px;
     cursor: pointer;
-    &:hover {
-      background-color: $color-lgrey;
-      border: 1px solid $color-mgrey;
-      color: $color-dgrey;
+    outline: none;
+    padding: 10px 0;
+    width: 22px;
+    .message-collapser-img-wrap {
+      background-color: $color-xlgrey;
+      border: 1px solid $color-lgrey;
+      clear: both;
+      line-height: 6px;
+      outline: none;
+      position: relative;
+      width: 20px;
+      img {
+        background: url(/channelgrabber/zf2-v4-ui/img/ellipsis.png) no-repeat;
+        height: 8px;
+        opacity: .3;
+        width: 20px;
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+      &:hover {
+        background-color: $color-lgrey;
+        border: 1px solid $color-mgrey;
+        color: $color-dgrey;
+      }
     }
   }
   .message-print {

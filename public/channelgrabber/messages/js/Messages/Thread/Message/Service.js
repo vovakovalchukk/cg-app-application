@@ -22,8 +22,13 @@ define([
     Service.prototype.wrapCollapsibleSections = function (messageBody) {
 
         var regex = /((?:^\>.*?$[\r\n]*)+)/gm;
-        var replace = '<div class="message-section-collapser" title="Toggle Hidden Lines">...</div>' +
-            '<span class="' + Service.COLLAPSIBLE_SECTION_CLASS + '">$&</span>';
+        var replace =
+            '<div class="message-collapser-wrap">' +
+                '<div class="message-section-collapser" title="Toggle Hidden Lines">' +
+                    '<div class="message-collapser-img-wrap"><img src="/channelgrabber/zf2-v4-ui/img/transparent-square.gif"></div>' +
+                '</div>' +
+                '<span class="' + Service.COLLAPSIBLE_SECTION_CLASS + '">$&</span>' +
+            '</div>';
 
         return messageBody.replace(regex, replace);
     };
