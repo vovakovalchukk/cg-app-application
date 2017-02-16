@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "669b25f7aa2e500002ec9c74f028bf9c",
+    "content-hash": "ca93082383e3a1737f94bee7371e4df9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1552,7 +1552,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "69c586187f8fb17de8c4fddd333399ed6d0af749"
+                "reference": "e421a7eeb5883cb9d39bc5413ba3290890a25b6b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -3752,17 +3752,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.26",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "76f24fcdae75824101c8ad9f3f1224c20fa7a6da"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.26-f741fa.zip",
-                "reference": "76f24fcdae75824101c8ad9f3f1224c20fa7a6da",
-                "shasum": null
+                "reference": "c95b882f8fb0712337877c9d6c518201894ad40b"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8851,6 +8845,12 @@
             "alias_normalized": "1.22.7.0",
             "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.17.27",
+            "alias_normalized": "1.17.27.0",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8860,6 +8860,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "channelgrabber/user": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
