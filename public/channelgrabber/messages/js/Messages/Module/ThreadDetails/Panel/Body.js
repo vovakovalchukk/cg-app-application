@@ -79,8 +79,8 @@ define([
             return;
         }
 
-        $(document, '.message-section-collapser').on('click', function () {
-            $(this).find('.message-content > .collapsible-section').toggle();
+        $(document).on('click', '.message-section-collapser', function (e) {
+            $(e.target).parent().find('.message-content > .collapsible-section').toggle();
         });
 
         this.collapsibleSectionListenerSetup = true;
