@@ -61,8 +61,7 @@ define([
                 'created': message.getCreated(),
                 'createdFuzzy': message.getCreatedFuzzy(),
                 'body': messageBody.nl2br(),
-                'iconClass': iconClass,
-                'hasCollapsibleSection': hasCollapsibleSection
+                'iconClass': iconClass
             });
         });
         CGMustache.get().fetchTemplate(Body.TEMPLATE, function(template, cgmustache) {
@@ -80,7 +79,7 @@ define([
         }
 
         $(document).on('click', '.message-section-collapser', function (e) {
-            $(e.target).parent().find('.message-content > .collapsible-section').toggle();
+            $(e.target).next('.collapsible-section').toggle();
         });
 
         this.collapsibleSectionListenerSetup = true;

@@ -22,7 +22,8 @@ define([
     Service.prototype.wrapCollapsibleSections = function (messageBody) {
 
         var regex = /((?:^\>.*?$[\r\n]*)+)/gm;
-        var replace = '<span class="' + Service.COLLAPSIBLE_SECTION_CLASS + '">$&</span>';
+        var replace = '<div class="message-section-collapser" title="Toggle Hidden Lines">...</div>' +
+            '<span class="' + Service.COLLAPSIBLE_SECTION_CLASS + '">$&</span>';
 
         return messageBody.replace(regex, replace);
     };
