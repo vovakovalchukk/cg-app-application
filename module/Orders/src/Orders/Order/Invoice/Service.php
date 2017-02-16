@@ -75,15 +75,14 @@ class Service extends ClientService implements StatsAwareInterface
         AccountAddressGeneratorFactory $accountAddressGeneratorFactory
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
-        $this
-            ->setOrderService($orderService)
-            ->setElementFactory($elementFactory)
-            ->setProgressStorage($progressStorage)
-            ->setIntercomEventService($intercomEventService)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setGearmanClient($gearmanClient)
-            ->setPrintedDateGenerator($printedDateGenerator)
-            ->setTaxService($taxService);
+        $this->orderService = $orderService;
+        $this->elementFactory = $elementFactory;
+        $this->progressStorage = $progressStorage;
+        $this->intercomEventService = $intercomEventService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->gearmanClient = $gearmanClient;
+        $this->printedDateGenerator = $printedDateGenerator;
+        $this->taxService = $taxService;
         $this->accountService = $accountService;
         $this->accountAddressGeneratorFactory = $accountAddressGeneratorFactory;
     }
@@ -282,74 +281,5 @@ class Service extends ClientService implements StatsAwareInterface
         }
 
         return false;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setElementFactory(ElementFactory $elementFactory)
-    {
-        $this->elementFactory = $elementFactory;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProgressStorage(ProgressStorage $progressStorage)
-    {
-        $this->progressStorage = $progressStorage;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setPrintedDateGenerator(PrintedDateGenerator $printedDateGenerator)
-    {
-        $this->printedDateGenerator = $printedDateGenerator;
-        return $this;
-    }
-
-    protected function setTaxService(TaxService $taxService)
-    {
-        $this->taxService = $taxService;
-        return $this;
     }
 }
