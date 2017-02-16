@@ -55,7 +55,7 @@
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.0.28",
         "channelgrabber/manual-order": "~1.0.0",
-        "channelgrabber/netdespatch": "dev-CGIV-7942-netdespatch-reference-use-external-id as 1.2.9",
+        "channelgrabber/netdespatch": "~1.2.9",
         "channelgrabber/order": "~1.25.2",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
