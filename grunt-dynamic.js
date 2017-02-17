@@ -1,15 +1,15 @@
 module.exports = function (grunt) {
-    console.log('grunt-dynamic.js - Started grunt dynamic');
+    printMessage('Started grunt dynamic');
     var packageConfig = grunt.file.readJSON('package.json');
     generateSymlinkTasks(packageConfig);
 
     var modulesNames = grunt.file.expand('public/channelgrabber/*').map(removePath).filter(removeNonCss);
-    console.log('grunt-dynamic.js - Found modules: '+modulesNames.join(', '));
+    printMessage('Found modules: '+modulesNames.join(', '));
 
     generateWatchSubTasks();
     generateShellSubTasks();
     generateInstallCommand();
-    console.log('grunt-dynamic.js - Finished generating dynamic tasks');
+    printMessage('Finished grunt dynamic');
 
     function generateWatchSubTasks() {
         var watchTasks = grunt.config('watch');
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 
         for (var dependency in packageConfig['dependencies']){
             if (!packageConfig['dependencies'].hasOwnProperty(dependency)) continue;
-            console.log('grunt-dynamic.js - Found dependency: '+dependency);
+            printMessage('Found dependency: '+dependency);
 
             shellTasks["symLink" + replaceAll(dependency, '-', '')] = {
                 command: getSymlinkCommand(dependency)
@@ -89,5 +89,8 @@ module.exports = function (grunt) {
         'then echo "Symlink already exists for ' + dependency + '" ; ' +
         'else ln -s $PROJECT_BASE_PATH/' + packageConfig['name'] + '/node_modules/' + dependency + ' public/channelgrabber/vendor' +
         '; echo "Symlink created for ' + dependency + '";fi'
+    }
+    function printMessage(message) {
+        console.log('grunt-dynamic.js - '+message);
     }
 };
