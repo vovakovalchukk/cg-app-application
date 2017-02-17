@@ -1,6 +1,6 @@
 define([
     'react',
-    'ReactDOM',
+    'react-dom',
     'Product/Components/Root'
 ], function(
     React,

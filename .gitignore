@@ -34,6 +34,7 @@
 node_modules/
 phinx/migrations/channelgrabber/zf2-sessions
 public/cg-built
+public/channelgrabber/vendor/
 public/channelgrabber/zf2-amazon
 public/channelgrabber/zf2-api
 public/channelgrabber/zf2-channel
@@ -44,6 +45,5 @@ public/channelgrabber/zf2-register
 public/channelgrabber/zf2-royalmail
 public/channelgrabber/zf2-usage
 public/channelgrabber/zf2-v4-ui
-public/channelgrabber/vendor/
 vendor/channelgrabber/zf2-v4-ui/public/js/whichbrowser
 vendor/channelgrabber/zf2-v4-ui/public/js/zeroclipboard
