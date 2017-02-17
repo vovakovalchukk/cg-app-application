@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b08e09abe0a60e51f9c813256aab788a",
+    "content-hash": "b606986f5681fb6c5407e9544c490afd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3460,16 +3460,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "dev-CGIV-8005-PermissionFixes",
+            "version": "1.1.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "3d87a016d5b920376c4f4f1a84dad46bc1fe6137"
+                "reference": "cabb600ffb43630c92cb78780300c91f28152707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8005-PermissionFixes-acaab4.zip",
-                "reference": "3d87a016d5b920376c4f4f1a84dad46bc1fe6137",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.15-87a2e8.zip",
+                "reference": "cabb600ffb43630c92cb78780300c91f28152707",
                 "shasum": null
             },
             "require": {
@@ -3504,7 +3504,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-17 14:12:58"
+            "time": "2017-02-17T14:36:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -8848,18 +8848,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.15",
-            "alias_normalized": "1.1.15.0",
-            "version": "dev-CGIV-8005-PermissionFixes",
-            "package": "channelgrabber/zf2-permission"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-permission": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
