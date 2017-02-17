@@ -1,4 +1,4 @@
-function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices, templateMap)
+function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices, templateMap, courier)
 {
     CourierDataTableAbstract.call(this, dataTable, orderIds, templateMap);
 
@@ -26,6 +26,7 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
+                .hideColumnsForCourier()
                 .disableInputsForNonRequiredOptions();
         });
         dataTable.on('fnServerData', function()
@@ -68,6 +69,10 @@ CourierSpecificsDataTable.columnRenderers = {
     itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
     packageType: "addCustomSelectToPackageTypeColumn",
     addOns: "addCustomSelectToAddOnsColumn"
+};
+
+CourierSpecificsDataTable.hiddenColumnsForCourier = {
+    'royal-mail-nd': ['itemParcelAssignment']
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -277,6 +282,24 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
             return;
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
+    });
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.hideColumnsForCourier = function(courier)
+{
+    if (! CourierSpecificsDataTable.hiddenColumnsForCourier[courier]) {
+        return;
+    }
+
+    this.getDataTable().on('fnColumnCallback', function (event, nCol, aData) {
+        console.log(event);
+        console.log(nCol);
+        console.log(aData);
+        if (CourierSpecificsDataTable.hiddenColumnsForCourier[courier].indexOf(nCol) > 0) {
+            //  hide col.
+            console.log('Is for Hidingz');
+        }
     });
     return this;
 };
