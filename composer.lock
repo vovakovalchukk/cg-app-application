@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "30fa7268e331fb8844ab2e25333a29b9",
+    "content-hash": "b6fe3bcd8cb682df7458aa4d52b0cc87",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1082,16 +1082,16 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "dev-CGIV-8015-ReduceLogs",
+            "version": "1.3.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "c6fc326373a6f37a404ad22002d6c5a04ab3a1ef"
+                "reference": "89f02387cba94d32c8b4f69168cf0df2b92d63b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-CGIV-8015-ReduceLogs-2f8215.zip",
-                "reference": "c6fc326373a6f37a404ad22002d6c5a04ab3a1ef",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.29-2c9af9.zip",
+                "reference": "89f02387cba94d32c8b4f69168cf0df2b92d63b8",
                 "shasum": null
             },
             "require": {
@@ -1131,7 +1131,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-02-15 14:00:05"
+            "time": "2017-02-17T11:37:52+00:00"
         },
         {
             "name": "channelgrabber/image",
@@ -3460,16 +3460,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.14",
+            "version": "1.1.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "941363124dc20e9e472ed4c9f8dcba4b5d321864"
+                "reference": "cabb600ffb43630c92cb78780300c91f28152707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.14-d0947f.zip",
-                "reference": "941363124dc20e9e472ed4c9f8dcba4b5d321864",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.15-87a2e8.zip",
+                "reference": "cabb600ffb43630c92cb78780300c91f28152707",
                 "shasum": null
             },
             "require": {
@@ -3504,7 +3504,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-16T13:35:15+00:00"
+            "time": "2017-02-17T14:36:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -3600,16 +3600,16 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "dev-CGIV-8015-ReduceLogs",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "856dc942b50e9c6a1992e9684c402499dd760ebb"
+                "reference": "4067bf8f8fc35b63403341dc11d7d13475993b1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-8015-ReduceLogs-990469.zip",
-                "reference": "856dc942b50e9c6a1992e9684c402499dd760ebb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.7-6ad15c.zip",
+                "reference": "4067bf8f8fc35b63403341dc11d7d13475993b1f",
                 "shasum": null
             },
             "require": {
@@ -3634,7 +3634,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2017-02-15 12:41:15"
+            "time": "2017-02-17T11:34:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -8848,25 +8848,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.29",
-            "alias_normalized": "1.3.29.0",
-            "version": "dev-CGIV-8015-ReduceLogs",
-            "package": "channelgrabber/http"
-        },
-        {
-            "alias": "1.1.7",
-            "alias_normalized": "1.1.7.0",
-            "version": "dev-CGIV-8015-ReduceLogs",
-            "package": "channelgrabber/zf2-sessions"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/http": 20,
-        "channelgrabber/zf2-sessions": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
