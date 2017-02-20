@@ -87,7 +87,7 @@ module.exports = function (grunt) {
     function getSymlinkCommand(dependency) {
         return 'if [ -d public/channelgrabber/vendor/' + dependency + ' ] ; ' +
         'then echo "Symlink already exists for ' + dependency + '" ; ' +
-        'else ln -s $PROJECT_BASE_PATH/' + packageConfig['name'] + '/node_modules/' + dependency + ' public/channelgrabber/vendor' +
+        'else ln -s ' + __dirname + '/node_modules/' + dependency + ' public/channelgrabber/vendor' +
         '; echo "Symlink created for ' + dependency + '";fi'
     }
     function printMessage(message) {
