@@ -127,7 +127,8 @@
             "@composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "./optimized_npm_install.sh",
-            "grunt install"
+            "grunt install:css",
+            "grunt install:js"
         ]
     }
 }
