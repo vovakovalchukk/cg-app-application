@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d418aafddff6d5549957aa072aa029b4",
+    "content-hash": "bb43535316167904461d0ab6bad42751",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,17 +151,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.24",
+            "version": "dev-CGIV-8013-courier-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "17f2b57ba42f818f7b5d6ded6ba62584c4a0de91"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.24-aa4a91.zip",
-                "reference": "17f2b57ba42f818f7b5d6ded6ba62584c4a0de91",
-                "shasum": null
+                "reference": "ab4e56d7327b67ff62d6a1347d85abd92c8dfc47"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -492,17 +486,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.27.11",
+            "version": "dev-CGIV-8013-courier-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5050eea7a150272d329c2345fa41ddc01ea68abc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.27.11-630b12.zip",
-                "reference": "5050eea7a150272d329c2345fa41ddc01ea68abc",
-                "shasum": null
+                "reference": "a2bae8920e4c65d8150d74d1b010b99fa74fd5ba"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1458,7 +1446,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "5f19d50e2bbcb78c9823a7079c6a32bbbc2f1fb0"
+                "reference": "a0798540fc1c2ed30271884f6a6393232b825baf"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -8848,6 +8836,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.19.25",
+            "alias_normalized": "1.19.25.0",
+            "version": "dev-CGIV-8013-courier-fixes",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.27.12",
+            "alias_normalized": "1.27.12.0",
+            "version": "dev-CGIV-8013-courier-fixes",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.2.10",
             "alias_normalized": "1.2.10.0",
             "version": "dev-CGIV-8013-courier-fixes",
@@ -8857,6 +8857,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "composer/composer": 20,
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "php-jsonpatch/php-jsonpatch": 20,
