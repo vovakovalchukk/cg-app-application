@@ -26,7 +26,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
-                .disableInputsForNonRequiredOptions();
+                .disableInputsForNonRequiredOptions()
+                .disableInputsForNoService();
         });
         dataTable.on('fnServerData', function()
         {
@@ -306,6 +307,25 @@ CourierSpecificsDataTable.prototype.hideColumnsForCourier = function(courier)
     });
     $('#datatable').cgDataTable('adjustTable');
 
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.disableInputsForNoService = function () {
+    this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
+    {
+        if (aData.service !== '-') {
+            return;
+        }
+
+        var inputsDisabledIfNoService = [
+            'packageType',
+            'addOn'
+        ];
+
+        inputsDisabledIfNoService.forEach(function (selector) {
+            $(nRow).find('[data-element-name="orderData[' + aData.orderId + ']['+selector+']"]').addClass('disabled');
+        });
+    });
     return this;
 };
 
