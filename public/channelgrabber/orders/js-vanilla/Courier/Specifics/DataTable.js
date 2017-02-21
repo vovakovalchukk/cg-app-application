@@ -26,7 +26,6 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
-                .hideColumnsForCourier()
                 .disableInputsForNonRequiredOptions();
         });
         dataTable.on('fnServerData', function()
@@ -36,6 +35,7 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         dataTable.on('fnDrawCallback', function()
         {
             self.setBulkActionButtons()
+                .hideColumnsForCourier(courier)
                 .triggerInitialItemWeightKeypress();
         });
     };
@@ -289,18 +289,23 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
 CourierSpecificsDataTable.prototype.hideColumnsForCourier = function(courier)
 {
     if (! CourierSpecificsDataTable.hiddenColumnsForCourier[courier]) {
-        return;
+        return this;
     }
 
-    this.getDataTable().on('fnColumnCallback', function (event, nCol, aData) {
-        console.log(event);
-        console.log(nCol);
-        console.log(aData);
-        if (CourierSpecificsDataTable.hiddenColumnsForCourier[courier].indexOf(nCol) > 0) {
-            //  hide col.
-            console.log('Is for Hidingz');
-        }
+    var hiddenColumns = 0;
+    $('#datatable').dataTable().fnSettings().aoColumns.forEach(function (column) {
+         if(CourierSpecificsDataTable.hiddenColumnsForCourier[courier].indexOf(column.mData) > -1) {
+             var columnId = column.aDataSort[0];
+             $('#datatable').dataTable().fnSetColumnVis(columnId, false, false);
+             hiddenColumns++;
+         }
     });
+    $('.courier-group-row td').each(function(){
+        var newColspan = parseInt($(this).attr('colspan')) - hiddenColumns;
+        $(this).attr('colspan', newColspan);
+    });
+    $('#datatable').cgDataTable('adjustTable');
+
     return this;
 };
 
