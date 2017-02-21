@@ -155,7 +155,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "c8a3da6f593e9fe9ef6e2d8aea403c65cadcd88a"
+                "reference": "ec650ae64f0f365a99f3e0183b70d416ae0b21b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-7417-vat-support-for-fulfilment-centres-c96cb1.zip",
+                "reference": "ec650ae64f0f365a99f3e0183b70d416ae0b21b7",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -205,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-20T12:27:09+00:00"
+            "time": "2017-02-21T11:17:17+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1551,7 +1557,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e421a7eeb5883cb9d39bc5413ba3290890a25b6b"
+                "reference": "c46b83cb6948a9daf5d2e4fd43303eec2b9f20a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7417-vat-support-for-fulfilment-centres-e7fcee.zip",
+                "reference": "c46b83cb6948a9daf5d2e4fd43303eec2b9f20a5",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1615,7 +1627,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-16T14:25:41+00:00"
+            "time": "2017-02-20T10:18:27+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2569,6 +2581,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
                 "reference": "1bb22023df32827c77eee1f5f793a50fd4a9b14e"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-7417-vat-support-for-fulfilment-centres-e836b9.zip",
+                "reference": "1bb22023df32827c77eee1f5f793a50fd4a9b14e",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -2577,11 +2595,11 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.24.6",
+                "channelgrabber/order": "dev-CGIV-7417-vat-support-for-fulfilment-centres as 1.25.7",
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.4.3",
                 "channelgrabber/stdlib": "^2.10.4",
-                "channelgrabber/user": "^1.22.6",
+                "channelgrabber/user": "dev-CGIV-7417-vat-support-for-fulfilment-centres as 1.22.7",
                 "ext-gd": "*",
                 "guzzle/guzzle": "~3.7",
                 "picqer/php-barcode-generator": "~0.2.1",
@@ -2757,7 +2775,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-02-15T12:21:26+00:00"
+            "time": "2017-02-21T11:25:43+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2960,17 +2978,11 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.19",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "9c0b57eb736ffebad97307a583a4e2af0b388337"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.19-10ab33.zip",
-                "reference": "9c0b57eb736ffebad97307a583a4e2af0b388337",
-                "shasum": null
+                "reference": "be1d9abd80f3e70bcba611b83be9ad5a0db57ab9"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3795,7 +3807,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-02-16T13:50:28+00:00"
+            "time": "2017-02-21T11:26:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5078,7 +5090,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -8845,6 +8857,12 @@
             "package": "channelgrabber/user"
         },
         {
+            "alias": "1.0.20",
+            "alias_normalized": "1.0.20.0",
+            "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
+            "package": "channelgrabber/zf2-amazon"
+        },
+        {
             "alias": "1.17.28",
             "alias_normalized": "1.17.28.0",
             "version": "dev-CGIV-7417-vat-support-for-fulfilment-centres",
@@ -8859,6 +8877,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "channelgrabber/user": 20,
+        "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
