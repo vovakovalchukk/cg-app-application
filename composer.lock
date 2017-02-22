@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "647e33ea3a730391661b7a98eb6138b3",
+    "content-hash": "60847ea89528d6382bdbed2edaa33bc7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -433,16 +433,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-7886-TrialistZoho",
+            "version": "1.11.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "358e8738389ed598a11b37e5c8e403a94c08d32d"
+                "reference": "83f067362c21f98f7867c88aed36eaaf92da866c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-7886-TrialistZoho-dde503.zip",
-                "reference": "358e8738389ed598a11b37e5c8e403a94c08d32d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.11.6-42f557.zip",
+                "reference": "83f067362c21f98f7867c88aed36eaaf92da866c",
                 "shasum": null
             },
             "require": {
@@ -488,7 +488,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-22 10:46:40"
+            "time": "2017-02-22T12:33:35+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -3509,20 +3509,20 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7886-TrialistZoho",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "20b4e1122b8e48eb4f7c58eb2d99d2f247ed0f42"
+                "reference": "6fa93a2cd6f36615a0d332861415cf5648bb4b4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7886-TrialistZoho-851cf8.zip",
-                "reference": "20b4e1122b8e48eb4f7c58eb2d99d2f247ed0f42",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.6-140631.zip",
+                "reference": "6fa93a2cd6f36615a0d332861415cf5648bb4b4e",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/cglib": "dev-CGIV-7886-TrialistZoho as 1.11.6",
+                "channelgrabber/cglib": "^1.11.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
                 "channelgrabber/locale": "^1.0.7",
@@ -3557,7 +3557,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-02-22 09:05:44"
+            "time": "2017-02-22T12:41:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8848,25 +8848,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.6",
-            "alias_normalized": "1.11.6.0",
-            "version": "dev-CGIV-7886-TrialistZoho",
-            "package": "channelgrabber/cglib"
-        },
-        {
-            "alias": "1.5.6",
-            "alias_normalized": "1.5.6.0",
-            "version": "dev-CGIV-7886-TrialistZoho",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
