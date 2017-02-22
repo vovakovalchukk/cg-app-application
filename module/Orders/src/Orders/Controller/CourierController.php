@@ -62,15 +62,15 @@ class CourierController extends AbstractActionController
         ShippingAccountsService $shippingAccountsService,
         OrderService $orderService
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setReviewTable($reviewTable)
-            ->setSpecificsTable($specificsTable)
-            ->setService($service)
-            ->setLabelPrintService($labelPrintService)
-            ->setManifestService($manifestService)
-            ->setOrdersToOperatorOn($ordersToOperatorOn)
-            ->setShippingAccountsService($shippingAccountsService)
-            ->setOrderService($orderService);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->reviewTable = $reviewTable;
+        $this->specificsTable = $specificsTable;
+        $this->service = $service;
+        $this->labelPrintService = $labelPrintService;
+        $this->manifestService = $manifestService;
+        $this->ordersToOperatorOn = $ordersToOperatorOn;
+        $this->shippingAccountsService = $shippingAccountsService;
+        $this->orderService = $orderService;
     }
 
     public function indexAction()
@@ -394,59 +394,5 @@ class CourierController extends AbstractActionController
         $manifestId = $this->params()->fromRoute('manifestId');
         $pdfData = $this->manifestService->getManifestPdfForAccountManifest($manifestId);
         return new FileResponse(static::MANIFEST_MIME_TYPE, 'Manifest.pdf', $pdfData);
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setReviewTable(DataTable $reviewTable)
-    {
-        $this->reviewTable = $reviewTable;
-        return $this;
-    }
-
-    public function setSpecificsTable(DataTable $specificsTable)
-    {
-        $this->specificsTable = $specificsTable;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setLabelPrintService(LabelPrintService $labelPrintService)
-    {
-        $this->labelPrintService = $labelPrintService;
-        return $this;
-    }
-
-    protected function setManifestService(ManifestService $manifestService)
-    {
-        $this->manifestService = $manifestService;
-        return $this;
-    }
-
-    protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
-    {
-        $this->ordersToOperatorOn = $ordersToOperatorOn;
-        return $this;
-    }
-
-    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
-    {
-        $this->shippingAccountsService = $shippingAccountsService;
-        return $this;
-    }
-
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
     }
 }
