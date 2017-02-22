@@ -124,22 +124,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     }
 
     /**
-     * @param OrderCollection $orders
-     *
-     * @return array shippingAccounts
-     */
-    public function getShippingAccountsForOrders(OrderCollection $orders)
-    {
-        $shippingAccounts = [];
-        foreach ($orders as $order) {
-            $shippingAccountsForOrder = $this->getShippingAccounts($order);
-            $shippingAccounts = array_merge($shippingAccounts, $shippingAccountsForOrder->toArray());
-        }
-
-        return array_unique($shippingAccounts, SORT_REGULAR);
-    }
-
-    /**
      * @param $courierAccountId
      * @return \CG\Channel\Shipping\ServicesInterface
      */
