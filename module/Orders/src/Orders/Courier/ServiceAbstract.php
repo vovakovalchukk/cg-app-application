@@ -41,7 +41,7 @@ use DateTimeZone;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
-class Service implements LoggerAwareInterface
+abstract class ServiceAbstract implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
