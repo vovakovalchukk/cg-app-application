@@ -1,16 +1,15 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\Shipping\Provider\BookingOptions\ActionDescriptionsInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\Repository as CarrierBookingOptionsRepository;
 use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
+use CG\Channel\Shipping\ServicesInterface;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -27,8 +26,8 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Collection as ProductDetailCollection;
-use CG\Product\Detail\Service as ProductDetailService;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\Product\Detail\Service as ProductDetailService;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\DateTime;
@@ -36,22 +35,17 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use CG_UI\View\DataTable;
 use DateTimeZone;
 use Zend\Di\Di;
-use Zend\Di\Exception\ClassNotFoundException;
 
 abstract class ServiceAbstract implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
 
-    const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
     const DEFAULT_PARCELS = 1;
     const MIN_PARCELS = 1;
     const MAX_PARCELS = 10;
-    const LOG_CODE = 'OrderCourierService';
-    const LOG_OPTION_COLUMN_NOT_FOUND = 'No column alias called %s found for Account %d, channel %s';
 
     /** @var OrderService */
     protected $orderService;
@@ -125,7 +119,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     /**
      * @param $courierAccountId
-     * @return \CG\Channel\Shipping\ServicesInterface
+     * @return ServicesInterface
      */
     public function getShippingServiceForCourier($courierAccountId)
     {
@@ -382,32 +376,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         return $imageUrl;
     }
 
-    public function fetchAccountsById($accountIds)
-    {
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setId($accountIds);
-        return $this->accountService->fetchByFilter($filter);
-    }
-
-    public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
-    {
-        $options = $this->getCarrierOptions($selectedCourier);
-        // We always need the actions column but it must go last
-        array_push($options, 'actions');
-        foreach ($options as $option) {
-            $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
-            try {
-                $column = $this->di->get($columnAlias);
-                $specificsTable->addColumn($column);
-            } catch (ClassNotFoundException $e) {
-                $this->logNotice(static::LOG_OPTION_COLUMN_NOT_FOUND, [$columnAlias, $selectedCourier->getId(), $selectedCourier->getChannel()], static::LOG_CODE);
-                // No-op, allow for options with no matching column
-            }
-        }
-    }
-
     protected function getShippingChannelsProvider(Account $account)
     {
         return $this->shippingChannelsProviderRepo->getProviderForAccount($account);
@@ -426,64 +394,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function getCarrierServiceProvider(Account $account)
     {
         return $this->carrierServiceProviderRepository->getProviderForAccount($account);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreateActionDescription(Account $account)
-    {
-        return $this->getActionDescription('Create', 'Create label', $account);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCancelActionDescription(Account $account)
-    {
-        return $this->getActionDescription('Cancel', 'Cancel', $account);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrintActionDescription(Account $account)
-    {
-        return $this->getActionDescription('Print', 'Print label', $account);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreateAllActionDescription(Account $account)
-    {
-        return $this->getActionDescription('CreateAll', 'Create all labels', $account);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCancelAllActionDescription(Account $account)
-    {
-        return $this->getActionDescription('CancelAll', 'Cancel all', $account);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrintAllActionDescription(Account $account)
-    {
-        return $this->getActionDescription('PrintAll', 'Print all labels', $account);
-    }
-
-    protected function getActionDescription($action, $defaultDescription, Account $account)
-    {
-        $provider = $this->getCarrierOptionsProvider($account);
-        if (!$provider instanceof ActionDescriptionsInterface) {
-            return $defaultDescription;
-        }
-        $method = 'get' . $action . 'ActionDescription';
-        return $provider->$method();
     }
 
     /**
