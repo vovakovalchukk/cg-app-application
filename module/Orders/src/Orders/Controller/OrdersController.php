@@ -278,11 +278,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 'order' => $order
             ]
         );
-        $bulkActions = $this->getBulkActionsForOrder($order);
-        $bulkActions->addChild(
-            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
-            'afterActions'
-        );
+        $bulkActions = $this->bulkActionsService->getBulkActionsForOrder($order);
+        $backButton = $this->getBackButton();
 
         $productPaymentInfo = $this->getProductAndPaymentDetails($order);
         $labelDetails = $this->getShippingLabelDetails($order);
@@ -300,6 +297,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
+        $view->addChild($backButton, 'backButton');
         $view->addChild($buyerMessage, 'buyerMessage');
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
@@ -313,21 +311,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $this->addLabelPrintButtonToView($view, $order);
         return $view;
-    }
-
-    protected function getBulkActionsForOrder(OrderEntity $order)
-    {
-        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
-        if ($this->hasCourierAccounts()) {
-            return $bulkActions;
-        }
-        foreach ($bulkActions->getActions() as $action) {
-            if (!($action instanceof CourierBulkAction)) {
-                continue;
-            }
-            $bulkActions->getActions()->detach($action);
-        }
-        return $bulkActions;
     }
 
     protected function getProductAndPaymentDetails(OrderEntity $order)
@@ -514,6 +497,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             )
         );
         return $view;
+    }
+
+    protected function getBackButton()
+    {
+        $backButton = $this->getViewModelFactory()->newInstance();
+        $backButton->setTemplate('orders/orders/bulk-actions/order');
+        return $backButton;
     }
 
     protected function getStatus($statusText, $messageText)

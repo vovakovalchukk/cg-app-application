@@ -22,6 +22,7 @@ use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
 use Orders\Order\Csv\Service as CsvService;
 use Orders\Order\Timeline\Service as TimelineService;
+use Orders\Order\BulkActions\Service as BulkActionsService;
 use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -52,6 +53,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $ordersToOperatorOn;
     /** @var TimelineService $timelineService */
     protected $timelineService;
+    /** @var BulkActionsService $bulkActionService */
+    protected $bulkActionService;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromInput',
@@ -67,7 +70,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         BatchService $batchService,
         UsageService $usageService,
         OrdersToOperateOn $ordersToOperatorOn,
-        TimelineService $timelineService
+        TimelineService $timelineService,
+        BulkActionsService $bulkActionService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -79,6 +83,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setUsageService($usageService)
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
+        $this->bulkActionService = $bulkActionService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -469,13 +474,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         $statuses = [];
         $timelines = [];
+        $bulkActions = [];
         foreach ($orders as $order) {
             $statuses[$order->getId()] = str_replace(' ', '-', $order->getStatus());
             $timelines[$order->getId()] = $this->timelineService->getTimeline($order);
+            $bulkActions[$order->getId()] = $this->bulkActionService->getBulkActionsForOrder($order);
         }
 
         $response->setVariable('statuses', $statuses);
         $response->setVariable('timelines', $timelines);
+        $response->setVariable('bulkActions', $bulkActions);
     }
 
     public function batchesAction()
