@@ -375,16 +375,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getShippingLabelDetails(OrderEntity $order)
     {
-        $filter = (new OrderLabelFilter())
-            ->setOrderId([$order->getId()]);
-
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('orders/orders/order/shippingLabelDetails');
         $view->setVariable('shippingMethod', $order->getShippingMethod());
         $view->setVariable('order', $order);
 
         try {
-            $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
+            $labels = $this->getNonCancelledOrderLabelsForOrders([$order->getId()]);
 
             $labelData = [];
             foreach ($labels as $label) {
@@ -480,7 +477,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setTemplate('orders/orders/order/addressInformation');
         $view->setVariable('order', $order);
         $view->setVariable('addressSaveUrl', 'Orders/order/address');
-        $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('billingAddressEditable', $this->getOrderService()->isBillingAddressEditable($order));
+        $view->setVariable('shippingAddressEditable', $this->getOrderService()->isShippingAddressEditable($order));
         $view->setVariable('requiresSaveButton', true);
         $view->setVariable('includeAddressCopy', true);
         $view->setVariable('includeUseBillingInfo', false);
@@ -579,6 +577,18 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
         $orderLabels->rewind();
         return $orderLabels->current();
+    }
+
+    protected function getNonCancelledOrderLabelsForOrders(array $orderIds)
+    {
+        $labelStatuses = OrderLabelStatus::getAllStatuses();
+        $labelStatusesNotCancelled = array_diff($labelStatuses, [OrderLabelStatus::CANCELLED]);
+        $filter = (new OrderLabelFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderId($orderIds)
+            ->setStatus($labelStatusesNotCancelled);
+        return $this->orderLabelService->fetchCollectionByFilter($filter);
     }
 
     protected function getBatches()
@@ -784,9 +794,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderIds = $this->params()->fromPost('orderIds');
         $ordersById = [];
         try {
-            $filter = (new OrderLabelFilter())
-                ->setOrderId($orderIds);
-            $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
+            $labels = $this->getNonCancelledOrderLabelsForOrders($orderIds);
 
             foreach ($labels as $label) {
                 $ordersById[$label->getOrderId()]['labelCreatedDate'] = $label->getCreated();

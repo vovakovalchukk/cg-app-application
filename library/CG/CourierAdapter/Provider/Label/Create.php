@@ -291,9 +291,8 @@ class Create implements LoggerAwareInterface
             $orderLabel->setLabel($this->mergeEncodedPdfLabels($pdfLabels));
         }
 
-        if ($orderLabel->getLabel() && !$orderLabel->getImage()) {
-            $this->setOrderLabelImageFromPDF($orderLabel);
-        } elseif ($orderLabel->getImage() && !$orderLabel->getLabel()) {
+        // If we've got an image but no PDF then convert it as we need the PDF now
+        if ($orderLabel->getImage() && !$orderLabel->getLabel()) {
             $this->setOrderLabelPDFFromImage($orderLabel);
         }
 
@@ -303,6 +302,11 @@ class Create implements LoggerAwareInterface
 
         try {
             $this->orderLabelService->save($orderLabel);
+
+            if ($orderLabel->getLabel() && !$orderLabel->getImage()) {
+                $this->requestOrderLabelImageFromPDF($orderLabel);
+            }
+
             return true;
         } catch (SaveFailedRetryRequested $e) {
             return false;
@@ -331,7 +335,7 @@ class Create implements LoggerAwareInterface
         return base64_encode(\CG\Stdlib\mergePdfData($rawLabels));
     }
 
-    protected function setOrderLabelImageFromPDF(OrderLabel $orderLabel)
+    protected function requestOrderLabelImageFromPDF(OrderLabel $orderLabel)
     {
         // Do this as a background job as we don't need the image until invoices are generated
         $workload = new OrderLabelPdfToPngWorkload($orderLabel->getId());
