@@ -102,22 +102,15 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     /**
      * @return array
      */
-    public function getCourierOptionsForOrder(Order $order, $selectedAccountId = null)
+    protected function getCourierOptionsForOrder(Order $order, $selectedAccountId = null)
     {
         $shippingAccounts = $this->getShippingAccounts($order);
         return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
     /**
-     * @param $courierAccountId
-     * @return ServicesInterface
+     * @return AccountCollection
      */
-    public function getShippingServiceForCourier($courierAccountId)
-    {
-        $courierAccount = $this->accountService->fetch($courierAccountId);
-        return $this->shippingServiceFactory->createShippingService($courierAccount);
-    }
-
     public function getShippingAccounts(Order $order = null)
     {
         $accounts = $this->shippingAccountsService->getProvidedShippingAccounts();
