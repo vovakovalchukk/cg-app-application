@@ -44,9 +44,9 @@ define([
                 active: active
             });
         },
-        onOptionSelected: function (e) {
+        onOptionSelected: function (value) {
             var selectedOption = this.props.options.find(function (option) {
-                return option.value === e.target.value;
+                return option.value === value;
             });
             this.setState({
                 selectedOption: selectedOption,
@@ -94,7 +94,7 @@ define([
                 var optionName = this.getOptionName(opt.name, opt.value);
 
                 return (
-                    <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected}>
+                    <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected.bind(this, opt.value)}>
                         <a value={opt.value}>{optionName}</a>
                     </li>
                 )
