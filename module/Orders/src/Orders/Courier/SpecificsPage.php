@@ -26,13 +26,13 @@ class SpecificsPage implements LoggerAwareInterface
     /** @var AccountService */
     protected $accountService;
     /** @var Service */
-    protected $service;
+    protected $courierService;
 
-    public function __construct(Di $di, AccountService $accountService, Service $service)
+    public function __construct(Di $di, AccountService $accountService, Service $courierService)
     {
         $this->di = $di;
         $this->accountService = $accountService;
-        $this->service = $service;
+        $this->courierService = $courierService;
     }
 
     /**
@@ -49,7 +49,7 @@ class SpecificsPage implements LoggerAwareInterface
 
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
     {
-        $options = $this->service->getCarrierOptions($selectedCourier);
+        $options = $this->courierService->getCarrierOptions($selectedCourier);
         // We always need the actions column but it must go last
         array_push($options, 'actions');
         foreach ($options as $option) {
@@ -114,7 +114,7 @@ class SpecificsPage implements LoggerAwareInterface
 
     protected function getActionDescription($action, $defaultDescription, Account $account)
     {
-        $provider = $this->service->getCarrierOptionsProvider($account);
+        $provider = $this->courierService->getCarrierOptionsProvider($account);
         if (!$provider instanceof ActionDescriptionsInterface) {
             return $defaultDescription;
         }

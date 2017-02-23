@@ -21,7 +21,7 @@ class ReviewAjax
     /** @var UserOUService */
     protected $userOuService;
     /** @var Service */
-    protected $service;
+    protected $courierService;
 
     protected $reviewListRequiredFields = ['courier', 'service'];
 
@@ -30,13 +30,13 @@ class ReviewAjax
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
         UserOUService $userOuService,
-        Service $service
+        Service $courierService
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
         $this->shippingServiceFactory = $shippingServiceFactory;
         $this->userOuService = $userOuService;
-        $this->service = $service;
+        $this->courierService = $courierService;
     }
 
     /**
@@ -69,8 +69,8 @@ class ReviewAjax
      */
     public function getReviewListData(array $orderIds)
     {
-        $orders = $this->service->fetchOrdersById($orderIds);
-        $this->service->removeZeroQuantityItemsFromOrders($orders);
+        $orders = $this->courierService->fetchOrdersById($orderIds);
+        $this->courierService->removeZeroQuantityItemsFromOrders($orders);
         $data = $this->formatOrdersAsReviewListData($orders);
         return $this->sortReviewListData($data);
     }
@@ -79,9 +79,9 @@ class ReviewAjax
     {
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
-        $products = $this->service->getProductsForOrders($orders, $rootOu);
+        $products = $this->courierService->getProductsForOrders($orders, $rootOu);
         foreach ($orders as $order) {
-            $orderData = $this->service->getCommonOrderListData($order, $rootOu);
+            $orderData = $this->courierService->getCommonOrderListData($order, $rootOu);
             $itemData = $this->formatOrderItemsAsReviewListData($order->getItems(), $orderData, $products);
             $data = array_merge($data, $itemData);
         }
@@ -90,7 +90,7 @@ class ReviewAjax
 
     protected function sortReviewListData(array $data)
     {
-        return $this->service->sortOrderListData($data, $this->reviewListRequiredFields);
+        return $this->courierService->sortOrderListData($data, $this->reviewListRequiredFields);
     }
 
     protected function formatOrderItemsAsReviewListData(
@@ -105,7 +105,7 @@ class ReviewAjax
             if ($itemCount == 0) {
                 $rowData = $orderData;
             }
-            $itemData[] = $this->service->getCommonItemListData($item, $products, $rowData);
+            $itemData[] = $this->courierService->getCommonItemListData($item, $products, $rowData);
             $itemCount++;
         }
         return $itemData;

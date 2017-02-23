@@ -51,7 +51,7 @@ class SpecificsAjax
     /** @var ProductDetailService */
     protected $productDetailService;
     /** @var Service */
-    protected $service;
+    protected $courierService;
 
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
@@ -64,7 +64,7 @@ class SpecificsAjax
         OrderLabelStorage $orderLabelStorage,
         CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ProductDetailService $productDetailService,
-        Service $service
+        Service $courierService
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
@@ -73,7 +73,7 @@ class SpecificsAjax
         $this->orderLabelStorage = $orderLabelStorage;
         $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
         $this->productDetailService = $productDetailService;
-        $this->service = $service;
+        $this->courierService = $courierService;
     }
 
     /**
@@ -81,8 +81,8 @@ class SpecificsAjax
      */
     public function getSpecificsListData(array $orderIds, $courierAccountId, array $ordersData, array $ordersParcelsData)
     {
-        $orders = $this->service->fetchOrdersById($orderIds);
-        $this->service->removeZeroQuantityItemsFromOrders($orders);
+        $orders = $this->courierService->fetchOrdersById($orderIds);
+        $this->courierService->removeZeroQuantityItemsFromOrders($orders);
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);
@@ -96,12 +96,12 @@ class SpecificsAjax
     ) {
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
-        $products = $this->service->getProductsForOrders($orders, $rootOu);
+        $products = $this->courierService->getProductsForOrders($orders, $rootOu);
         $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         $labels = $this->getOrderLabelsForOrders($orders);
-        $carrierOptions = $this->service->getCarrierOptions($courierAccount);
+        $carrierOptions = $this->courierService->getCarrierOptions($courierAccount);
         foreach ($orders as $order) {
-            $orderData = $this->service->getCommonOrderListData($order, $rootOu);
+            $orderData = $this->courierService->getCommonOrderListData($order, $rootOu);
             unset($orderData['courier']);
             $orderLabel = null;
             $orderLabels = $labels->getBy('orderId', $order->getId());
@@ -110,7 +110,7 @@ class SpecificsAjax
                 $orderLabel = $orderLabels->current();
             }
             $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
-            $options = $this->service->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
+            $options = $this->courierService->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
             $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
             if (isset($inputData['service']) && $inputData['service'] === "") {
@@ -131,7 +131,7 @@ class SpecificsAjax
             $row['timezone'] = $now->getTimezone()->getName();
         }
         $data = $this->performSumsOnSpecificsListData($data, $options);
-        $data = $this->service->getCarrierOptionsProvider($courierAccount)
+        $data = $this->courierService->getCarrierOptionsProvider($courierAccount)
             ->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
@@ -227,7 +227,7 @@ class SpecificsAjax
             if ($itemCount == 0) {
                 $rowData = $orderData;
             }
-            $itemData = $this->service->getCommonItemListData($item, $products, $rowData);
+            $itemData = $this->courierService->getCommonItemListData($item, $products, $rowData);
             $specificsItemData = $this->getSpecificsItemListData($item, $productDetails, $options, $rowData);
             $specificsItemData['itemRow'] = true;
             $specificsItemData['showWeight'] = true;
@@ -322,7 +322,7 @@ class SpecificsAjax
 
         $parcelsData = [];
         for ($parcel = 1; $parcel <= $parcels; $parcel++) {
-            $parcelData = $this->service->getChildRowListData($order->getId(), $parcel);
+            $parcelData = $this->courierService->getChildRowListData($order->getId(), $parcel);
             $parcelData['parcelNumber'] = $parcel;
             $parcelData['parcelRow'] = true;
             $parcelData['showWeight'] = true;
@@ -356,7 +356,7 @@ class SpecificsAjax
 
     protected function sumParcelWeightsOnSpecificsListData(array $data)
     {
-        $orderRows = $this->service->groupListDataByOrder($data);
+        $orderRows = $this->courierService->groupListDataByOrder($data);
         foreach ($orderRows as &$rows) {
             $itemCount = 0;
             $parcelCount = 0;
@@ -389,7 +389,7 @@ class SpecificsAjax
 
     protected function sortSpecificsListData(array $data, Account $courierAccount)
     {
-        return $this->service->sortOrderListData(
+        return $this->courierService->sortOrderListData(
             $data, $this->specificsListRequiredOrderFields, $this->specificsListRequiredParcelFields, true, $courierAccount
        );
     }
@@ -428,8 +428,8 @@ class SpecificsAjax
     public function getCarrierOptionsForService($orderId, $accountId, $service)
     {
         $account = $this->accountService->fetch($accountId);
-        $carrierOptions = $this->service->getCarrierOptions($account);
-        $serviceOptions = $this->service->getCarrierOptions($account, $service);
+        $carrierOptions = $this->courierService->getCarrierOptions($account);
+        $serviceOptions = $this->courierService->getCarrierOptions($account, $service);
         return $this->getFieldsRequirementStatus($serviceOptions, $carrierOptions);
     }
 
@@ -442,7 +442,7 @@ class SpecificsAjax
         $order = $this->orderService->fetch($orderId);
         $account = $this->accountService->fetch($accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
-        return $this->service->getCarrierOptionsProvider($account)
+        return $this->courierService->getCarrierOptionsProvider($account)
             ->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
     }
 
