@@ -6,36 +6,26 @@ use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\BookingOptions\Repository as CarrierBookingOptionsRepository;
 use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
-use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
-use CG\Channel\Shipping\ServicesInterface;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
-use CG\Order\Shared\Label\Collection as OrderLabelCollection;
-use CG\Order\Shared\Label\Entity as OrderLabel;
-use CG\Order\Shared\Label\Filter as OrderLabelFilter;
-use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
-use CG\Product\Detail\Collection as ProductDetailCollection;
-use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
-use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use DateTimeZone;
 use Zend\Di\Di;
 
 abstract class ServiceAbstract implements LoggerAwareInterface
@@ -84,19 +74,19 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ShippingAccountsService $shippingAccountsService
     ) {
-        $this->setOrderService($orderService)
-            ->setUserOuService($userOuService)
-            ->setShippingConversionService($shippingConversionService)
-            ->setProductService($productService)
-            ->setAccountService($accountService)
-            ->setShippingServiceFactory($shippingServiceFactory)
-            ->setOrderLabelStorage($orderLabelStorage)
-            ->setProductDetailService($productDetailService)
-            ->setDi($di)
-            ->setShippingChannelsProviderRepo($shippingChannelsProviderRepo)
-            ->setCarrierBookingOptionsRepo($carrierBookingOptionsRepo)
-            ->setCarrierServiceProviderRepository($carrierServiceProviderRepository)
-            ->setShippingAccountsService($shippingAccountsService);
+        $this->orderService = $orderService;
+        $this->userOuService = $userOuService;
+        $this->shippingConversionService = $shippingConversionService;
+        $this->productService = $productService;
+        $this->accountService = $accountService;
+        $this->shippingServiceFactory = $shippingServiceFactory;
+        $this->orderLabelStorage = $orderLabelStorage;
+        $this->productDetailService = $productDetailService;
+        $this->di = $di;
+        $this->shippingChannelsProviderRepo = $shippingChannelsProviderRepo;
+        $this->carrierBookingOptionsRepo = $carrierBookingOptionsRepo;
+        $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
+        $this->shippingAccountsService = $shippingAccountsService;
     }
     
     /**
@@ -386,83 +376,5 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             }
             $order->setItems($nonZeroItems);
         }
-    }
-
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    protected function setUserOuService(UserOUService $userOuService)
-    {
-        $this->userOuService = $userOuService;
-        return $this;
-    }
-
-    protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
-    {
-        $this->shippingConversionService = $shippingConversionService;
-        return $this;
-    }
-
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    protected function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    protected function setShippingServiceFactory(ShippingServiceFactory $shippingServiceFactory)
-    {
-        $this->shippingServiceFactory = $shippingServiceFactory;
-        return $this;
-    }
-
-    protected function setOrderLabelStorage(OrderLabelStorage $orderLabelStorage)
-    {
-        $this->orderLabelStorage = $orderLabelStorage;
-        return $this;
-    }
-
-    protected function setProductDetailService(ProductDetailService $productDetailService)
-    {
-        $this->productDetailService = $productDetailService;
-        return $this;
-    }
-
-    protected function setDi(Di $di)
-    {
-        $this->di = $di;
-        return $this;
-    }
-
-    protected function setShippingChannelsProviderRepo(ShippingChannelsProviderRepository $shippingChannelsProviderRepo)
-    {
-        $this->shippingChannelsProviderRepo = $shippingChannelsProviderRepo;
-        return $this;
-    }
-
-    protected function setCarrierBookingOptionsRepo(CarrierBookingOptionsRepository $carrierBookingOptionsRepo)
-    {
-        $this->carrierBookingOptionsRepo = $carrierBookingOptionsRepo;
-        return $this;
-    }
-
-    protected function setCarrierServiceProviderRepository(CarrierServiceProviderRepository $carrierServiceProviderRepository)
-    {
-        $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
-        return $this;
-    }
-
-    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
-    {
-        $this->shippingAccountsService = $shippingAccountsService;
-        return $this;
     }
 }
