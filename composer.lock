@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6b3f6e89446fa7c2b239c3948d56a64",
+    "content-hash": "d418aafddff6d5549957aa072aa029b4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1458,7 +1458,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "f42afb57e18ad940b84df77c8fe10ba9b9f94bf2"
+                "reference": "5f19d50e2bbcb78c9823a7079c6a32bbbc2f1fb0"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
