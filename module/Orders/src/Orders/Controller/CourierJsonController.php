@@ -65,13 +65,13 @@ class CourierJsonController extends AbstractActionController
         LabelReadyService $labelReadyService,
         ManifestService $manifestService
     ) {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory)
-            ->setService($service)
-            ->setLabelCreateService($labelCreateService)
-            ->setLabelCancelService($labelCancelService)
-            ->setLabelReadyService($labelReadyService)
-            ->setManifestService($manifestService);
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->viewModelFactory = $viewModelFactory;
+        $this->service = $service;
+        $this->labelCreateService = $labelCreateService;
+        $this->labelCancelService = $labelCancelService;
+        $this->labelReadyService = $labelReadyService;
+        $this->manifestService = $manifestService;
     }
 
     public function servicesOptionsAction()
@@ -454,47 +454,5 @@ class CourierJsonController extends AbstractActionController
                 'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         }
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setLabelCreateService(LabelCreateService $labelCreateService)
-    {
-        $this->labelCreateService = $labelCreateService;
-        return $this;
-    }
-
-    protected function setLabelCancelService(LabelCancelService $labelCancelService)
-    {
-        $this->labelCancelService = $labelCancelService;
-        return $this;
-    }
-
-    protected function setLabelReadyService(LabelReadyService $labelReadyService)
-    {
-        $this->labelReadyService = $labelReadyService;
-        return $this;
-    }
-
-    protected function setManifestService(ManifestService $manifestService)
-    {
-        $this->manifestService = $manifestService;
-        return $this;
     }
 }
