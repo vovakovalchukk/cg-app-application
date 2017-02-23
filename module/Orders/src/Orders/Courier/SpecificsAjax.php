@@ -322,7 +322,7 @@ class SpecificsAjax
 
         $parcelsData = [];
         for ($parcel = 1; $parcel <= $parcels; $parcel++) {
-            $parcelData = $this->getChildRowListData($order->getId(), $parcel);
+            $parcelData = $this->service->getChildRowListData($order->getId(), $parcel);
             $parcelData['parcelNumber'] = $parcel;
             $parcelData['parcelRow'] = true;
             $parcelData['showWeight'] = true;
