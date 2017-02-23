@@ -1561,12 +1561,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d701dd2d1e1aa7ca309ce646f6286421ad28b07f"
+                "reference": "d74c0fcee74009534ba3d883d496f05d8a07d7f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8006-ShippingConversionOptimisations-63fb74.zip",
-                "reference": "d701dd2d1e1aa7ca309ce646f6286421ad28b07f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8006-ShippingConversionOptimisations-c5560f.zip",
+                "reference": "d74c0fcee74009534ba3d883d496f05d8a07d7f7",
                 "shasum": null
             },
             "require": {
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-23 11:56:12"
+            "time": "2017-02-23 14:10:39"
         },
         {
             "name": "channelgrabber/permission",
