@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bcbe3c342069cf994870bd83b7429bc",
+    "content-hash": "856110a9049d78d853505caf2f822adf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.17",
+            "version": "1.19.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2320a98a16150a69f9205b79737111ebca36f0d7"
+                "reference": "17f2b57ba42f818f7b5d6ded6ba62584c4a0de91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.17-297a66.zip",
-                "reference": "2320a98a16150a69f9205b79737111ebca36f0d7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.24-aa4a91.zip",
+                "reference": "17f2b57ba42f818f7b5d6ded6ba62584c4a0de91",
                 "shasum": null
             },
             "require": {
@@ -178,14 +178,14 @@
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.23.27",
+                "channelgrabber/log": "^2.1.0",
+                "channelgrabber/order": "^1.25.3",
                 "channelgrabber/predis": "~1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
-                "channelgrabber/stdlib": "^2.12.27",
+                "channelgrabber/stdlib": "^2.12.40",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "contextio/php-contextio": "~2.1",
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-01T10:16:40+00:00"
+            "time": "2017-02-23T09:03:28+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -675,16 +675,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb"
+                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.13-001786.zip",
-                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.14-3a5931.zip",
+                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55",
                 "shasum": null
             },
             "require": {
@@ -700,8 +700,12 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CG\\Courier\\": "src",
-                    "CG\\Courier\\Test\\": "test"
+                    "CG\\Courier\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Courier\\Test\\": "tests"
                 }
             },
             "authors": [
@@ -711,7 +715,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-14T15:45:04+00:00"
+            "time": "2017-02-23T10:57:16+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
