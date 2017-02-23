@@ -11,6 +11,7 @@ use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\SpecificsPage as SpecificsPageService;
 use Orders\Courier\Service;
+use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Orders\Courier\ShippingAccountsService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -351,8 +352,8 @@ class CourierController extends AbstractActionController
             'value' => 1,
             'id' => 'courier-parcels-input',
             'class' => 'courier-parcels-input number required',
-            'min' => Service::MIN_PARCELS,
-            'max' => Service::MAX_PARCELS,
+            'min' => SpecificsAjaxService::MIN_PARCELS,
+            'max' => SpecificsAjaxService::MAX_PARCELS,
         ]);
         $view->setTemplate('elements/inline-text.mustache');
         return $view;

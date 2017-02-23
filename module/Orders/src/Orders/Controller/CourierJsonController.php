@@ -12,7 +12,7 @@ use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\ReviewAjax as ReviewAjaxService;
-use Orders\Courier\Service;
+use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CourierJsonController extends AbstractActionController
@@ -43,10 +43,10 @@ class CourierJsonController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var Service */
-    protected $service;
     /** @var ReviewAjaxService */
     protected $reviewAjaxService;
+    /** @var SpecificsAjaxService */
+    protected $specificsAjaxService;
     /** @var LabelCreateService */
     protected $labelCreateService;
     /** @var LabelCancelService */
@@ -62,8 +62,8 @@ class CourierJsonController extends AbstractActionController
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
-        Service $service,
         ReviewAjaxService $reviewAjaxService,
+        SpecificsAjaxService $specificsAjaxService,
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
@@ -71,8 +71,8 @@ class CourierJsonController extends AbstractActionController
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
-        $this->service = $service;
         $this->reviewAjaxService = $reviewAjaxService;
+        $this->specificsAjaxService = $specificsAjaxService;
         $this->labelCreateService = $labelCreateService;
         $this->labelCancelService = $labelCancelService;
         $this->labelReadyService = $labelReadyService;
@@ -118,8 +118,8 @@ class CourierJsonController extends AbstractActionController
 
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
-            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
-            $data['metadata'] = $this->service->getSpecificsMetaDataFromRecords($data['Records']);
+            $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
+            $data['metadata'] = $this->specificsAjaxService->getSpecificsMetaDataFromRecords($data['Records']);
         }
 
         return $this->jsonModelFactory->newInstance($data);
@@ -338,7 +338,7 @@ class CourierJsonController extends AbstractActionController
         $orderId = $this->params()->fromPost('order');
         $service = $this->params()->fromPost('service');
 
-        $options = $this->service->getCarrierOptionsForService($orderId, $courierId, $service);
+        $options = $this->specificsAjaxService->getCarrierOptionsForService($orderId, $courierId, $service);
         return $this->jsonModelFactory->newInstance(['requiredFields' => $options]);
     }
 
@@ -349,7 +349,7 @@ class CourierJsonController extends AbstractActionController
         $option = $this->params()->fromPost('option');
         $service = $this->params()->fromPost('service');
 
-        $optionData = $this->service->getDataForCarrierOption($option, $orderId, $courierId, $service);
+        $optionData = $this->specificsAjaxService->getDataForCarrierOption($option, $orderId, $courierId, $service);
         return $this->jsonModelFactory->newInstance([$option => $optionData]);
     }
 
