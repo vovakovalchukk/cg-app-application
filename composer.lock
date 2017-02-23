@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "31cb4502eca713602f6044b4a5bcda84",
+    "content-hash": "e6b3f6e89446fa7c2b239c3948d56a64",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -675,16 +675,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb"
+                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.13-001786.zip",
-                "reference": "b5937f998c4b7d5e9787df851b3bdffbe3f3d9cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.14-3a5931.zip",
+                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55",
                 "shasum": null
             },
             "require": {
@@ -700,8 +700,12 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CG\\Courier\\": "src",
-                    "CG\\Courier\\Test\\": "test"
+                    "CG\\Courier\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Courier\\Test\\": "tests"
                 }
             },
             "authors": [
@@ -711,7 +715,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-14T15:45:04+00:00"
+            "time": "2017-02-23T10:57:16+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
