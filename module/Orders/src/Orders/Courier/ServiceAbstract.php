@@ -74,7 +74,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     /** @var ShippingAccountsService */
     protected $shippingAccountsService;
 
-    protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
 
@@ -148,77 +147,15 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     }
 
     /**
-     * @return array
+     * @return OrderCollection
      */
-    public function getCourierServiceOptions()
-    {
-        $shippingServicesByAccount = [];
-        $shippingAccounts = $this->getShippingAccounts();
-        foreach ($shippingAccounts as $account) {
-            $shippingServicesByAccount[$account->getId()] = [];
-            $shippingService = $this->shippingServiceFactory->createShippingService($account);
-            $shippingServices = $shippingService->getShippingServices();
-            $shippingServicesByAccount[$account->getId()] = $this->shippingServicesToOptions($shippingServices);
-        }
-        return $shippingServicesByAccount;
-    }
-
-    /**
-     * @return array
-     */
-    public function getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId)
-    {
-        $order = $this->orderService->fetch($orderId);
-        $shippingAccount = $this->accountService->fetch($shippingAccountId);
-
-        $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
-        $shippingServices = $shippingService->getShippingServicesForOrder($order);
-        return $this->shippingServicesToOptions($shippingServices);
-    }
-
-    protected function shippingServicesToOptions(array $shippingServices)
-    {
-        $options = [];
-        foreach ($shippingServices as $value => $name) {
-            $options[] = [
-                'value' => $value,
-                'title' => $name,
-            ];
-        }
-        return $options;
-    }
-
-    /**
-     * @return array
-     */
-    public function getReviewListData(array $orderIds)
+    protected function fetchOrdersById(array $orderIds)
     {
         $filter = new OrderFilter();
         $filter->setLimit('all')
             ->setPage(1)
             ->setOrderIds($orderIds);
-        $orders = $this->orderService->fetchCollectionByFilter($filter);
-        $this->removeZeroQuantityItemsFromOrders($orders);
-        $data = $this->formatOrdersAsReviewListData($orders);
-        return $this->sortReviewListData($data);
-    }
-
-    protected function formatOrdersAsReviewListData(OrderCollection $orders)
-    {
-        $data = [];
-        $rootOu = $this->userOuService->getRootOuByActiveUser();
-        $products = $this->getProductsForOrders($orders, $rootOu);
-        foreach ($orders as $order) {
-            $orderData = $this->getCommonOrderListData($order, $rootOu);
-            $itemData = $this->formatOrderItemsAsReviewListData($order->getItems(), $orderData, $products);
-            $data = array_merge($data, $itemData);
-        }
-        return $data;
-    }
-
-    protected function sortReviewListData(array $data)
-    {
-        return $this->sortOrderListData($data, $this->reviewListRequiredFields);
+        return $this->orderService->fetchCollectionByFilter($filter);
     }
 
     protected function getCommonOrderListData($order, $rootOu)
@@ -282,24 +219,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             'serviceOptions' => $serviceOptions,
         ];
         return $orderData;
-    }
-
-    protected function formatOrderItemsAsReviewListData(
-        ItemCollection $items,
-        array $orderData,
-        ProductCollection $products
-    ) {
-        $itemData = [];
-        $itemCount = 0;
-        foreach ($items as $item) {
-            $rowData = null;
-            if ($itemCount == 0) {
-                $rowData = $orderData;
-            }
-            $itemData[] = $this->getCommonItemListData($item, $products, $rowData);
-            $itemCount++;
-        }
-        return $itemData;
     }
 
     protected function getCommonItemListData(Item $item, ProductCollection $products, array $rowData = null)
@@ -401,11 +320,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
      */
     public function getSpecificsListData(array $orderIds, $courierAccountId, array $ordersData, array $ordersParcelsData)
     {
-        $filter = new OrderFilter();
-        $filter->setLimit('all')
-            ->setPage(1)
-            ->setOrderIds($orderIds);
-        $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $orders = $this->fetchOrdersById($orderIds);
         $this->removeZeroQuantityItemsFromOrders($orders);
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);

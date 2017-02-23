@@ -11,6 +11,7 @@ use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Manifest\Service as ManifestService;
+use Orders\Courier\ReviewAjax as ReviewAjaxService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -44,6 +45,8 @@ class CourierJsonController extends AbstractActionController
     protected $viewModelFactory;
     /** @var Service */
     protected $service;
+    /** @var ReviewAjaxService */
+    protected $reviewAjaxService;
     /** @var LabelCreateService */
     protected $labelCreateService;
     /** @var LabelCancelService */
@@ -60,6 +63,7 @@ class CourierJsonController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         Service $service,
+        ReviewAjaxService $reviewAjaxService,
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
@@ -68,6 +72,7 @@ class CourierJsonController extends AbstractActionController
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
         $this->service = $service;
+        $this->reviewAjaxService = $reviewAjaxService;
         $this->labelCreateService = $labelCreateService;
         $this->labelCancelService = $labelCancelService;
         $this->labelReadyService = $labelReadyService;
@@ -79,7 +84,7 @@ class CourierJsonController extends AbstractActionController
         $orderId = $this->params()->fromPost('order');
         $shippingAccountId = $this->params()->fromPost('account');
 
-        $servicesOptions = $this->service->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
+        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
         return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
     }
 
@@ -92,7 +97,7 @@ class CourierJsonController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order', []);
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
-            $data['Records'] = $this->service->getReviewListData($orderIds);
+            $data['Records'] = $this->reviewAjaxService->getReviewListData($orderIds);
         }
 
         return $this->jsonModelFactory->newInstance($data);
