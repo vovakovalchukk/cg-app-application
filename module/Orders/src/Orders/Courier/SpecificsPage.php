@@ -1,18 +1,39 @@
 <?php
 namespace Orders\Courier;
 
+use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Shipping\Provider\BookingOptions\ActionDescriptionsInterface;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\DataTable;
+use Orders\Courier\Service;
+use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
-class SpecificsPage extends ServiceAbstract
+class SpecificsPage implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
     const LOG_CODE = 'OrderCourierSpecificsPage';
     const LOG_OPTION_COLUMN_NOT_FOUND = 'No column alias called %s found for Account %d, channel %s';
+
+    /** @var Di */
+    protected $di;
+    /** @var AccountService */
+    protected $accountService;
+    /** @var Service */
+    protected $service;
+
+    public function __construct(Di $di, AccountService $accountService, Service $service)
+    {
+        $this->di = $di;
+        $this->accountService = $accountService;
+        $this->service = $service;
+    }
 
     /**
      * @return AccountCollection
@@ -28,7 +49,7 @@ class SpecificsPage extends ServiceAbstract
 
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
     {
-        $options = $this->getCarrierOptions($selectedCourier);
+        $options = $this->service->getCarrierOptions($selectedCourier);
         // We always need the actions column but it must go last
         array_push($options, 'actions');
         foreach ($options as $option) {
@@ -93,7 +114,7 @@ class SpecificsPage extends ServiceAbstract
 
     protected function getActionDescription($action, $defaultDescription, Account $account)
     {
-        $provider = $this->getCarrierOptionsProvider($account);
+        $provider = $this->service->getCarrierOptionsProvider($account);
         if (!$provider instanceof ActionDescriptionsInterface) {
             return $defaultDescription;
         }

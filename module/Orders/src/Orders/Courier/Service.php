@@ -6,7 +6,7 @@ use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\BookingOptions\Repository as CarrierBookingOptionsRepository;
 use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
-use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
+use CG\Channel\Shipping\ProviderInterface;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
@@ -14,19 +14,15 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
-use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
-use CG\Product\Detail\Service as ProductDetailService;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\User\OrganisationUnit\Service as UserOUService;
-use Zend\Di\Di;
 
 class Service implements LoggerAwareInterface
 {
@@ -34,8 +30,6 @@ class Service implements LoggerAwareInterface
 
     /** @var OrderService */
     protected $orderService;
-    /** @var UserOUService */
-    protected $userOuService;
     /** @var ShippingConversionService */
     protected $shippingConversionService;
     /** @var ProductService */
@@ -44,48 +38,30 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
-    /** @var OrderLabelStorage */
-    protected $orderLabelStorage;
-    /** @var ProductDetailService */
-    protected $productDetailService;
-    /** @var Di */
-    protected $di;
     /** @var ShippingChannelsProviderRepository */
     protected $shippingChannelsProviderRepo;
     /** @var CarrierBookingOptionsRepository */
     protected $carrierBookingOptionsRepo;
-    /** @var CarrierServiceProviderRepository */
-    protected $carrierServiceProviderRepository;
     /** @var ShippingAccountsService */
     protected $shippingAccountsService;
 
     public function __construct(
         OrderService $orderService,
-        UserOUService $userOuService,
         ShippingConversionService $shippingConversionService,
         ProductService $productService,
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
-        OrderLabelStorage $orderLabelStorage,
-        ProductDetailService $productDetailService,
-        Di $di,
         ShippingChannelsProviderRepository $shippingChannelsProviderRepo,
         CarrierBookingOptionsRepository $carrierBookingOptionsRepo,
-        CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ShippingAccountsService $shippingAccountsService
     ) {
         $this->orderService = $orderService;
-        $this->userOuService = $userOuService;
         $this->shippingConversionService = $shippingConversionService;
         $this->productService = $productService;
         $this->accountService = $accountService;
         $this->shippingServiceFactory = $shippingServiceFactory;
-        $this->orderLabelStorage = $orderLabelStorage;
-        $this->productDetailService = $productDetailService;
-        $this->di = $di;
         $this->shippingChannelsProviderRepo = $shippingChannelsProviderRepo;
         $this->carrierBookingOptionsRepo = $carrierBookingOptionsRepo;
-        $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
         $this->shippingAccountsService = $shippingAccountsService;
     }
     
@@ -138,7 +114,7 @@ class Service implements LoggerAwareInterface
     /**
      * @return OrderCollection
      */
-    protected function fetchOrdersById(array $orderIds)
+    public function fetchOrdersById(array $orderIds)
     {
         $filter = new OrderFilter();
         $filter->setLimit('all')
@@ -147,7 +123,10 @@ class Service implements LoggerAwareInterface
         return $this->orderService->fetchCollectionByFilter($filter);
     }
 
-    protected function getCommonOrderListData($order, $rootOu)
+    /**
+     * @return array
+     */
+    public function getCommonOrderListData($order, $rootOu)
     {
         $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
         $shippingDescription = $order->getShippingMethod();
@@ -210,7 +189,10 @@ class Service implements LoggerAwareInterface
         return $orderData;
     }
 
-    protected function getCommonItemListData(Item $item, ProductCollection $products, array $rowData = null)
+    /**
+     * @return array
+     */
+    public function getCommonItemListData(Item $item, ProductCollection $products, array $rowData = null)
     {
         if (!$rowData) {
             $rowData = $this->getChildRowListData($item->getOrderId());
@@ -231,7 +213,10 @@ class Service implements LoggerAwareInterface
         return explode(PHP_EOL, $item->getItemName())[0];
     }
 
-    protected function getChildRowListData($orderId)
+    /**
+     * @return array
+     */
+    public function getChildRowListData($orderId)
     {
         return [
             'orderRow' => false,
@@ -245,7 +230,10 @@ class Service implements LoggerAwareInterface
         ];
     }
 
-    protected function getProductsForOrders(OrderCollection $orders, OrganisationUnit $rootOu)
+    /**
+     * @return ProductCollection
+     */
+    public function getProductsForOrders(OrderCollection $orders, OrganisationUnit $rootOu)
     {
         $productSkus = [];
         $ouIds = [$rootOu->getId() => true];
@@ -289,17 +277,26 @@ class Service implements LoggerAwareInterface
         return $this->shippingChannelsProviderRepo->getProviderForAccount($account);
     }
 
-    protected function getCarrierOptionsProvider(Account $account)
+    /**
+     * @return ProviderInterface
+     */
+    public function getCarrierOptionsProvider(Account $account)
     {
         return $this->carrierBookingOptionsRepo->getProviderForAccount($account);
     }
 
-    protected function getCarrierOptions(Account $account, $serviceCode = null)
+    /**
+     * @return array
+     */
+    public function getCarrierOptions(Account $account, $serviceCode = null)
     {
         return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
-    protected function sortOrderListData(
+    /**
+     * @return array
+     */
+    public function sortOrderListData(
         array $data,
         array $orderRequiredFields,
         array $parcelRequiredFields = [],
@@ -361,7 +358,10 @@ class Service implements LoggerAwareInterface
         return true;
     }
 
-    protected function groupListDataByOrder(array $data)
+    /**
+     * @return array
+     */
+    public function groupListDataByOrder(array $data)
     {
         $orderRows = [];
         foreach ($data as $row) {
@@ -373,7 +373,7 @@ class Service implements LoggerAwareInterface
         return $orderRows;
     }
 
-    protected function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
+    public function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
     {
         foreach ($orders as $order) {
             $items = $order->getItems();

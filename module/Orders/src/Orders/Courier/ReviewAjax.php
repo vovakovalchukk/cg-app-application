@@ -1,13 +1,43 @@
 <?php
 namespace Orders\Courier;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
+use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Product\Collection as ProductCollection;
+use CG\User\OrganisationUnit\Service as UserOUService;
+use Orders\Courier\Service;
 
-class ReviewAjax extends ServiceAbstract
+class ReviewAjax
 {
+    /** @var OrderService */
+    protected $orderService;
+    /** @var AccountService */
+    protected $accountService;
+    /** @var ShippingServiceFactory */
+    protected $shippingServiceFactory;
+    /** @var UserOUService */
+    protected $userOuService;
+    /** @var Service */
+    protected $service;
+
     protected $reviewListRequiredFields = ['courier', 'service'];
+
+    public function __construct(
+        OrderService $orderService,
+        AccountService $accountService,
+        ShippingServiceFactory $shippingServiceFactory,
+        UserOUService $userOuService,
+        Service $service
+    ) {
+        $this->orderService = $orderService;
+        $this->accountService = $accountService;
+        $this->shippingServiceFactory = $shippingServiceFactory;
+        $this->userOuService = $userOuService;
+        $this->service = $service;
+    }
 
     /**
      * @return array
@@ -39,8 +69,8 @@ class ReviewAjax extends ServiceAbstract
      */
     public function getReviewListData(array $orderIds)
     {
-        $orders = $this->fetchOrdersById($orderIds);
-        $this->removeZeroQuantityItemsFromOrders($orders);
+        $orders = $this->service->fetchOrdersById($orderIds);
+        $this->service->removeZeroQuantityItemsFromOrders($orders);
         $data = $this->formatOrdersAsReviewListData($orders);
         return $this->sortReviewListData($data);
     }
@@ -49,9 +79,9 @@ class ReviewAjax extends ServiceAbstract
     {
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
-        $products = $this->getProductsForOrders($orders, $rootOu);
+        $products = $this->service->getProductsForOrders($orders, $rootOu);
         foreach ($orders as $order) {
-            $orderData = $this->getCommonOrderListData($order, $rootOu);
+            $orderData = $this->service->getCommonOrderListData($order, $rootOu);
             $itemData = $this->formatOrderItemsAsReviewListData($order->getItems(), $orderData, $products);
             $data = array_merge($data, $itemData);
         }
@@ -60,7 +90,7 @@ class ReviewAjax extends ServiceAbstract
 
     protected function sortReviewListData(array $data)
     {
-        return $this->sortOrderListData($data, $this->reviewListRequiredFields);
+        return $this->service->sortOrderListData($data, $this->reviewListRequiredFields);
     }
 
     protected function formatOrderItemsAsReviewListData(
@@ -75,7 +105,7 @@ class ReviewAjax extends ServiceAbstract
             if ($itemCount == 0) {
                 $rowData = $orderData;
             }
-            $itemData[] = $this->getCommonItemListData($item, $products, $rowData);
+            $itemData[] = $this->service->getCommonItemListData($item, $products, $rowData);
             $itemCount++;
         }
         return $itemData;
