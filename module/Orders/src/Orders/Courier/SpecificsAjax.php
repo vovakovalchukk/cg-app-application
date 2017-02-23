@@ -400,6 +400,11 @@ class SpecificsAjax extends ServiceAbstract
         return $this->getCarrierOptionsProvider($account)->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
     }
 
+    protected function getCarrierServiceProvider(Account $account)
+    {
+        return $this->carrierServiceProviderRepository->getProviderForAccount($account);
+    }
+
     // Required by GetProductDetailsForOrdersTrait
     protected function getProductDetailService()
     {

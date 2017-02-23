@@ -295,11 +295,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         return $this->getCarrierOptionsProvider($account)->getCarrierBookingOptionsForAccount($account, $serviceCode);
     }
 
-    protected function getCarrierServiceProvider(Account $account)
-    {
-        return $this->carrierServiceProviderRepository->getProviderForAccount($account);
-    }
-
     protected function sortOrderListData(
         array $data,
         array $orderRequiredFields,
