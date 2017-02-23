@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "91358c435c4daa286d2330af5d3a38fc",
+    "content-hash": "e6b3f6e89446fa7c2b239c3948d56a64",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -675,11 +675,17 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-8034-geopost-manifest-label-no-and-barcode-mismatch",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "546906dfc5fd2cf29e4015cd99d650c270c88bf3"
+                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.14-3a5931.zip",
+                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -694,8 +700,12 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CG\\Courier\\": "src",
-                    "CG\\Courier\\Test\\": "test"
+                    "CG\\Courier\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Courier\\Test\\": "tests"
                 }
             },
             "authors": [
@@ -705,7 +715,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-14T15:45:04+00:00"
+            "time": "2017-02-23T10:57:16+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -5397,7 +5407,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8842,24 +8852,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.14",
-            "alias_normalized": "1.0.14.0",
-            "version": "dev-CGIV-8034-geopost-manifest-label-no-and-barcode-mismatch",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
