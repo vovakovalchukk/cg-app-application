@@ -66,18 +66,26 @@ class Service
 
     public function getBulkActionsForOrder(OrderEntity $order)
     {
-        $bulkActions = $this->getOrderBulkActions($order);
+        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
+        if ($this->hasCourierAccounts()) {
+            return $bulkActions;
+        }
+        foreach ($bulkActions->getActions() as $action) {
+            if (!($action instanceof CourierBulkAction)) {
+                continue;
+            }
+            $bulkActions->getActions()->detach($action);
+        }
+        return $bulkActions;
+    }
+
+    protected function hasCourierAccounts()
+    {
         try {
             $courierAccounts = $this->courierService->getShippingAccounts();
-            foreach ($bulkActions->getActions() as $action) {
-                if (!($action instanceof CourierBulkAction)) {
-                    continue;
-                }
-                $bulkActions->getActions()->detach($action);
-            }
-            return $bulkActions;
+            return (count($courierAccounts) > 0);
         } catch (NotFound $e) {
-            return $bulkActions;
+            return false;
         }
     }
 
