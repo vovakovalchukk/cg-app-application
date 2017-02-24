@@ -1,11 +1,13 @@
 define([
     'Orders/OrdersBulkActionAbstract',
     'Orders/SaveCheckboxes',
-    'Orders/StatusService'
+    'Orders/StatusService',
+    'Orders/BulkActionService'
 ], function(
     OrdersBulkActionAbstract,
     saveCheckboxes,
-    StatusService
+    StatusService,
+    BulkActionService
 ) {
     function Dispatch()
     {
@@ -52,6 +54,7 @@ define([
                         .setSavedCheckAll(this.isAllSelected());
                     orders.map(function (orderId) {
                         StatusService.refresh(data.statuses[orderId]);
+                        BulkActionService.refresh(data.bulkActions[orderId]);
                     });
                     return self.getNotificationHandler().success("Orders Marked for Dispatch");
                 } else if (!data.error) {
