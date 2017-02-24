@@ -66,7 +66,7 @@ class Service
 
     public function getBulkActionsForOrder(OrderEntity $order)
     {
-        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
+        $bulkActions = $this->getOrderBulkActions($order);
         if ($this->hasCourierAccounts()) {
             return $bulkActions;
         }
