@@ -164,6 +164,11 @@ class Service implements LoggerAwareInterface
                 $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
             }
         }
+        // If there's only one courier service pre-select it
+        if (count($services) == 1) {
+            reset($services);
+            $service = key($services);
+        }
 
         $orderData = [
             'orderRow' => true,
