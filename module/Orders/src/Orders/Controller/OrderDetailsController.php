@@ -108,7 +108,7 @@ class OrderDetailsController extends AbstractActionController
     protected function getCarrierSelect(Order $order)
     {
         $priorityOptions = $this->orderService->getCarrierPriorityOptions();
-        $carriers = $this->orderService->getCarriersData();
+        $carriers = $this->courierHelper->getCarriersData();
         $tracking = $order->getFirstTracking();
         $options = [];
         foreach ($carriers as $carrier) {

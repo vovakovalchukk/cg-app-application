@@ -9,7 +9,6 @@ use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStor
 use CG\Amazon\Order\FulfilmentChannel\Mapper as AmazonFulfilmentChannelMapper;
 use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
-use CG\Channel\Carrier;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Shipping\CourierTrackingUrl;
@@ -111,8 +110,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $orderCanceller;
     /** @var ShippingConversionService $shippingConversionService */
     protected $shippingConversionService;
-    /** @var Carrier $carriers */
-    protected $carriers;
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
     /** @var ActionService $actionService */
@@ -157,7 +154,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
         ShippingConversionService $shippingConversionService,
-        Carrier $carriers,
         OrganisationUnitService $organisationUnitService,
         ActionService $actionService,
         IntercomEventService $intercomEventService,
@@ -181,7 +177,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->orderDispatcher = $orderDispatcher;
         $this->orderCanceller = $orderCanceller;
         $this->shippingConversionService = $shippingConversionService;
-        $this->carriers = $carriers;
         $this->organisationUnitService = $organisationUnitService;
         $this->actionService = $actionService;
         $this->intercomEventService = $intercomEventService;
@@ -1105,10 +1100,5 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $event = new IntercomEvent($eventName, $this->getActiveUser()->getId());
         $this->intercomEventService->save($event);
-    }
-
-    public function getCarriersData()
-    {
-        return $this->carriers->getAllCarriers();
     }
 }

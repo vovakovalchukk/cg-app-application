@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller\Helpers;
 
+use CG\Channel\Carrier;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
@@ -17,15 +18,19 @@ class Courier
     protected $manifestService;
     /** @var OrderLabelService */
     protected $orderLabelService;
+    /** @var Carrier $carriers */
+    protected $carriers;
 
     public function __construct(
         CourierService $courierService,
         ManifestService $manifestService,
-        OrderLabelService $orderLabelService
+        OrderLabelService $orderLabelService,
+        Carrier $carriers
     ) {
         $this->courierService = $courierService;
         $this->manifestService = $manifestService;
         $this->orderLabelService = $orderLabelService;
+        $this->carriers = $carriers;
     }
 
     public function hasCourierAccounts()
@@ -71,5 +76,10 @@ class Courier
         $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
         $orderLabels->rewind();
         return $orderLabels->current();
+    }
+
+    public function getCarriersData()
+    {
+        return $this->carriers->getAllCarriers();
     }
 }
