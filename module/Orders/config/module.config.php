@@ -47,6 +47,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
+use Orders\Controller\OrderDetailsController;
 
 // Manual Orders
 use Orders\Controller\ManualOrderController;
@@ -264,6 +265,7 @@ return [
                                 'order' => '[0-9]*\-[a-zA-Z0-9_-]*'
                             ],
                             'defaults' => [
+                                'controller' => OrderDetailsController::class,
                                 'action' => 'order',
                             ]
                         ],
