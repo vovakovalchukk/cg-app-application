@@ -4,13 +4,17 @@ define([
     function BulkActionService() {
     }
 
-    BulkActionService.BULK_ACTION_CONTAINER_SELECTOR = '.bulk-actions-holder';
+    BulkActionService.BULK_ACTION_CONTAINER_SELECTOR = '#bulk-actions';
 
 
     BulkActionService.prototype.refresh = function (bulkActions) {
-        console.log(bulkActions);
-        $(BulkActionService.BULK_ACTION_CONTAINER_SELECTOR).html(bulkActions);
+        $(bulkActions).find('.bulk-action').each(function (index, element) {
+            var isDisabled = $(element).hasClass('disabled');
+            var existingBulkActions = $(BulkActionService.BULK_ACTION_CONTAINER_SELECTOR).find('.bulk-action');
+            $(existingBulkActions[index]).toggleClass('disabled', isDisabled);
+        });
     };
+
 
     return new BulkActionService;
 });
