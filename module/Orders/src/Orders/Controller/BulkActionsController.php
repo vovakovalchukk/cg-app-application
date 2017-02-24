@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -478,12 +479,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         foreach ($orders as $order) {
             $statuses[$order->getId()] = str_replace(' ', '-', $order->getStatus());
             $timelines[$order->getId()] = $this->timelineService->getTimeline($order);
-            $bulkActions[$order->getId()] = $this->bulkActionService->getBulkActionsForOrder($order);
+            $bulkActions[$order->getId()] = $this->getRenderedBulkActions($order);
         }
 
         $response->setVariable('statuses', $statuses);
         $response->setVariable('timelines', $timelines);
         $response->setVariable('bulkActions', $bulkActions);
+    }
+
+    protected function getRenderedBulkActions(Order $order)
+    {
+        /** @var \Zend\View\Renderer\RendererInterface $viewRenderer */
+        $viewRenderer = $this->getServiceLocator()->get('ViewRenderer');
+
+        return $viewRenderer->render($this->bulkActionService->getBulkActionsForOrder($order));
     }
 
     public function batchesAction()
