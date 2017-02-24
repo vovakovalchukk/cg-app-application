@@ -1239,6 +1239,7 @@ return [
                         ['orderTableModifier' => TableService\OrdersTableUpdateColumnOrder::class],
                         ['orderTableModifier' => TableService\OrdersTableMustacheFormatters::class],
                         ['orderTableModifier' => TableService\OrdersTableTagColumns::class],
+                        ['orderTableModifier' => TableService\OrdersTableUserPreferences::class],
                     ],
                 ],
             ],

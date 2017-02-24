@@ -1,5 +1,5 @@
 <div class="hide-filters double-arrow vertical up" data-target="body" data-toggle-class="headerbar-hidden"
-data-preference-key="<?= Orders\Order\Service::ORDER_FILTER_BAR_STATE_KEY; ?>"
+data-preference-key="<?= Orders\Order\TableService\OrdersTableUserPreferences::FILTER_BAR_STATE_KEY; ?>"
 data-preference-show="<?= $this->translate('Show Filters'); ?>"
 data-preference-hide="<?= $this->translate('Hide Filters'); ?>">
     <?= $isHeaderBarVisible ? $this->translate('Hide Filters') : $this->translate('Show Filters'); ?>

@@ -4,8 +4,8 @@ namespace Orders\Order;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Amazon\Mcf\FulfillmentStatus\Filter as McfFulfillmentStatusFilter;
-use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
 use CG\Amazon\Mcf\FulfillmentStatus\Status as McfFulfillmentStatus;
+use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
 use CG\Amazon\Order\FulfilmentChannel\Mapper as AmazonFulfilmentChannelMapper;
 use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
@@ -23,8 +23,8 @@ use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Locale\EUVATCodeChecker;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
-use CG\Order\Service\Filter\StorageInterface as FilterClient;
 use CG\Order\Service\Filter;
+use CG\Order\Service\Filter\StorageInterface as FilterClient;
 use CG\Order\Shared\Cancel\Item as CancelItem;
 use CG\Order\Shared\Cancel\Value as Cancel;
 use CG\Order\Shared\Cancel\Value as CancelValue;
@@ -34,9 +34,7 @@ use CG\Order\Shared\Item\Entity as ItemEntity;
 use CG\Order\Shared\Item\GiftWrap\Collection as GiftWrapCollection;
 use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrapEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
-use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
-use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
@@ -50,17 +48,18 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
 use CG\User\Service as UserService;
-use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG_UI\View\Filters\Service as FilterService;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
-use CG_UI\View\Table\Column\Collection as TableColumnCollection;
-use CG_UI\View\Table\Column as TableColumn;
-use CG_UI\View\Table\Row\Collection as TableRowCollection;
 use CG_UI\View\Table;
+use CG_UI\View\Table\Column as TableColumn;
+use CG_UI\View\Table\Column\Collection as TableColumnCollection;
+use CG_UI\View\Table\Row\Collection as TableRowCollection;
 use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
+use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Di\Di;
@@ -72,10 +71,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     use StatsTrait;
     use SaveCollectionHandleErrorsTrait;
 
-    const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
-    const ORDER_TABLE_COL_POS_PREF_KEY = 'order-column-positions';
-    const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
-    const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
     const LOG_CODE = 'OrderModuleService';
@@ -94,34 +89,52 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_ORDER_CANCELLED = 'Refunded / Cancelled Orders';
     const MAX_SHIPPING_METHOD_LENGTH = 15;
 
+    /** @var OrderClient $orderClient */
     protected $orderClient;
+    /** @var OrderItemClient $orderItemClient */
     protected $orderItemClient;
+    /** @var FilterClient $filterClient */
     protected $filterClient;
-    protected $tableService;
+    /** @var FilterService $filterService */
     protected $filterService;
+    /** @var UserService $userService */
     protected $userService;
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var Di $di */
     protected $di;
-    protected $activeUserPreference;
-    protected $userPreferenceService;
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var OrderDispatcher $orderDispatcher */
     protected $orderDispatcher;
+    /** @var OrderCanceller $orderCanceller */
     protected $orderCanceller;
+    /** @var ShippingConversionService $shippingConversionService */
     protected $shippingConversionService;
+    /** @var Carrier $carriers */
     protected $carriers;
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var ActionService $actionService */
     protected $actionService;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
+    /** @var RowMapper $rowMapper */
     protected $rowMapper;
+    /** @var DateFormatHelper $dateFormatHelper */
     protected $dateFormatHelper;
-    /** @var ImageService */
+    /** @var ImageService $imageService */
     protected $imageService;
-    /** @var  McfFulfillmentStatusStorage */
+    /** @var McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
+    /** @var CourierTrackingUrl $courierTrackingUrl */
     protected $courierTrackingUrl;
-    /** @var EUVATCodeChecker */
+    /** @var EUVATCodeChecker $euVatCodeChecker */
     protected $euVatCodeChecker;
+    /** @var OrderLabelService $orderLabelService */
     protected $orderLabelService;
+    /** @var OrdersTableUserPreferences $orderTableUserPreferences */
+    protected $orderTableUserPreferences;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -136,12 +149,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrderClient $orderClient,
         OrderItemClient $orderItemClient,
         FilterClient $filterClient,
-        TableService $tableService,
         FilterService $filterService,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di,
-        UserPreferenceService $userPreferenceService,
         AccountService $accountService,
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
@@ -156,34 +167,32 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         CourierTrackingUrl $courierTrackingUrl,
         EUVATCodeChecker $euVatCodeChecker,
-        OrderLabelService $orderLabelService
+        OrderLabelService $orderLabelService,
+        OrdersTableUserPreferences $orderTableUserPreferences
     ) {
-        $this
-            ->setOrderClient($orderClient)
-            ->setOrderItemClient($orderItemClient)
-            ->setFilterClient($filterClient)
-            ->setTableService($tableService)
-            ->setFilterService($filterService)
-            ->setUserService($userService)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setDi($di)
-            ->setUserPreferenceService($userPreferenceService)
-            ->configureOrderTable()
-            ->setAccountService($accountService)
-            ->setOrderDispatcher($orderDispatcher)
-            ->setOrderCanceller($orderCanceller)
-            ->setShippingConversionService($shippingConversionService)
-            ->setCarriers($carriers)
-            ->setOrganisationUnitService($organisationUnitService)
-            ->setActionService($actionService)
-            ->setIntercomEventService($intercomEventService)
-            ->setRowMapper($rowMapper)
-            ->setDateFormatHelper($dateFormatHelper)
-            ->setImageService($imageService)
-            ->setMcfFulfillmentStatusStorage($mcfFulfillmentStatusStorage)
-            ->setCourierTrackingUrl($courierTrackingUrl)
-            ->setOrderLabelService($orderLabelService);
+        $this->orderClient = $orderClient;
+        $this->orderItemClient = $orderItemClient;
+        $this->filterClient = $filterClient;
+        $this->filterService = $filterService;
+        $this->userService = $userService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->di = $di;
+        $this->accountService = $accountService;
+        $this->orderDispatcher = $orderDispatcher;
+        $this->orderCanceller = $orderCanceller;
+        $this->shippingConversionService = $shippingConversionService;
+        $this->carriers = $carriers;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->actionService = $actionService;
+        $this->intercomEventService = $intercomEventService;
+        $this->rowMapper = $rowMapper;
+        $this->dateFormatHelper = $dateFormatHelper;
+        $this->imageService = $imageService;
+        $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
+        $this->courierTrackingUrl = $courierTrackingUrl;
         $this->euVatCodeChecker = $euVatCodeChecker;
+        $this->orderLabelService = $orderLabelService;
+        $this->orderTableUserPreferences = $orderTableUserPreferences;
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -222,13 +231,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrdersArrayWithShippingAliases(array $orders)
     {
-        $organisationUnit = $this->getOrganisationUnitService()
-                                 ->fetch($this->getActiveUserContainer()
+        $organisationUnit = $this->organisationUnitService
+                                 ->fetch($this->activeUserContainer
                                               ->getActiveUserRootOrganisationUnitId()
             );
 
         foreach($orders as $index => $order) {
-            $shippingAlias = $this->getShippingConversionService()
+            $shippingAlias = $this->shippingConversionService
                                   ->fromMethodToAlias($order['shippingMethod'],
                                                       $organisationUnit
                 );
@@ -239,7 +248,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrdersArrayWithAccountDetails(array $orders, MvcEvent $event)
     {
-        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+        $accounts = $this->accountService->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
             null,
             null,
@@ -425,7 +434,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     protected function getOrdersArrayWithProductImage(array $orders)
     {
-        $columns = $this->fetchUserPrefOrderColumns();
+        $columns = $this->orderTableUserPreferences->fetchUserPrefOrderColumns();
         if (!isset($columns['image']) || filter_var($columns['image'], FILTER_VALIDATE_BOOLEAN) == false) {
             return $orders;
         }
@@ -524,98 +533,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $imagesForOrders;
     }
 
-    public function setDi(Di $di)
-    {
-        $this->di = $di;
-        return $this;
-    }
-
     /**
-     * @return Di
+     * @return User
      */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    public function setTableService(TableService $tableService)
-    {
-        $this->tableService = $tableService;
-        return $this;
-    }
-
-    /**
-     * @return TableService
-     */
-    public function getTableService()
-    {
-        return $this->tableService;
-    }
-
-    public function getOrdersTable()
-    {
-        return $this->getTableService()->getOrdersTable();
-    }
-
-    public function setFilterService(FilterService $filterService)
-    {
-        $this->filterService = $filterService;
-        return $this;
-    }
-
-    /**
-     * @return FilterService
-     */
-    public function getFilterService()
-    {
-        return $this->filterService;
-    }
-
-    public function setOrderClient(OrderClient $orderClient)
-    {
-        $this->orderClient = $orderClient;
-        return $this;
-    }
-
-    /**
-     * @return OrderClient
-     */
-    public function getOrderClient()
-    {
-        return $this->orderClient;
-    }
-
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    public function setUserService(UserService $userService)
-    {
-        $this->userService = $userService;
-        return $this;
-    }
-
-    /**
-     * UserService
-     */
-    public function getUserService()
-    {
-        return $this->userService;
-    }
-
-    /**
-     * @return ActiveUserInterface
-     */
-    public function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
     public function getActiveUser()
     {
-        return $this->getActiveUserContainer()->getActiveUser();
+        return $this->activeUserContainer->getActiveUser();
     }
 
     /**
@@ -624,7 +547,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
      */
     public function getOrders(Filter $filter)
     {
-        return $this->getOrderClient()->fetchCollectionByFilter($filter);
+        return $this->orderClient->fetchCollectionByFilter($filter);
     }
 
     /**
@@ -638,7 +561,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             throw new NotFound();
         }
 
-        $filter = $this->getDi()->newInstance(
+        $filter = $this->di->newInstance(
             Filter::class,
             [
                 'orderIds' => $orderIds,
@@ -650,7 +573,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ]
         );
 
-        $filter = $this->getFilterClient()->save($filter);
+        $filter = $this->filterClient->save($filter);
         return $this->getOrdersFromFilterId($filter->getId(), $limit, $page, $orderBy, $orderDirection);
     }
 
@@ -659,7 +582,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
      */
     public function getPreviewOrder()
     {
-        $filter = $this->getDi()->newInstance(
+        $filter = $this->di->newInstance(
             Filter::class,
             [
                 'organisationUnitId' => $this->getActiveUser()->getOuList(),
@@ -674,7 +597,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrdersFromFilterId($filterId, $limit = 'all', $page = 1, $orderBy = null, $orderDirection = null)
     {
-        return $this->getOrderClient()->fetchCollectionByFilterId(
+        return $this->orderClient->fetchCollectionByFilterId(
             $filterId,
             $limit,
             $page,
@@ -685,7 +608,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrder($orderId)
     {
-        return $this->getOrderClient()->fetch($orderId);
+        return $this->orderClient->fetch($orderId);
     }
 
     public function isOrderEditable(OrderEntity $order)
@@ -701,44 +624,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function isShippingAddressEditable(OrderEntity $order)
     {
         return (isset($this->editableShippingAddressFulfilmentChannels[$order->getFulfilmentChannel()]));
-    }
-
-    public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
-    {
-        $this->userPreferenceService = $userPreferenceService;
-        return $this;
-    }
-
-    /**
-     * @return UserPreferenceService
-     */
-    public function getUserPreferenceService()
-    {
-        return $this->userPreferenceService;
-    }
-
-    public function getActiveUserPreference()
-    {
-        if (!isset($this->activeUserPreference)) {
-            $activeUserId = $this->getActiveUser()->getId();
-            $this->activeUserPreference = $this->getUserPreferenceService()->fetch($activeUserId);
-        }
-
-        return $this->activeUserPreference;
-    }
-
-    public function isSidebarVisible()
-    {
-        $preference = $this->getActiveUserPreference()->getPreference();
-        $visible = isset($preference[static::ORDER_SIDEBAR_STATE_KEY]) ? $preference[static::ORDER_SIDEBAR_STATE_KEY] : true;
-        return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
-    }
-
-    public function isFilterBarVisible()
-    {
-        $preference = $this->getActiveUserPreference()->getPreference();
-        $visible = isset($preference[static::ORDER_FILTER_BAR_STATE_KEY]) ? $preference[static::ORDER_FILTER_BAR_STATE_KEY] : true;
-        return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     public function getOrderItemTable(OrderEntity $order)
@@ -836,7 +721,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $userIds = array_unique($userIds);
         try {
-            $users = $this->getUserService()->fetchCollection("all", null, null, null, $userIds);
+            $users = $this->userService->fetchCollection("all", null, null, null, $userIds);
             foreach ($itemNotes as &$note) {
                 $user = $users->getById($note["userId"]);
                 $note["author"] = $user->getFirstName() . " " . $user->getLastName();
@@ -850,33 +735,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function saveOrder(OrderEntity $entity)
     {
-        return $this->getOrderClient()->save($entity);
+        return $this->orderClient->save($entity);
     }
 
     public function patchOrders(OrderCollection $collection, $fields)
     {
-        $this->getOrderClient()->patchCollection('orderIds', $collection->getIds(), $fields);
-    }
-
-    public function updateUserPrefOrderColumns(array $updatedColumns)
-    {
-        $storedColumns = $this->fetchUserPrefOrderColumns();
-        foreach ($updatedColumns as $name => $on) {
-            $storedColumns[$name] = $on;
-        }
-
-        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
-        $this->saveUserPrefItem($columnPrefKey, $storedColumns);
-
-        return $this;
-    }
-
-    public function updateUserPrefOrderColumnPositions(array $columnPositions)
-    {
-        $columnPrefKey = static::ORDER_TABLE_COL_POS_PREF_KEY;
-        $this->saveUserPrefItem($columnPrefKey, $columnPositions);
-
-        return $this;
+        $this->orderClient->patchCollection('orderIds', $collection->getIds(), $fields);
     }
 
     public function saveRecipientVatNumberToOrder(OrderEntity $order, $countryCode, $vatNumber)
@@ -900,66 +764,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         } catch (NotModifiedException $e) {
             $this->logDebug('Not modified Order %s when attempting to %s recipientVatNumber to %s', [$order->getId(), $logMsg, $recipientVatNumber], static::LOG_CODE);
         }
-    }
-
-    protected function configureOrderTable()
-    {
-        $columns = $this->getOrdersTable()->getColumns();
-
-        $associativeColumns = [];
-        foreach ($columns as $column) {
-            $associativeColumns[$column->getColumn()] = $column;
-        }
-
-        $columnPrefs = $this->fetchUserPrefOrderColumns();
-        foreach ($columnPrefs as $name => $on) {
-            if (!isset($associativeColumns[$name])) {
-                continue;
-            }
-            $associativeColumns[$name]->setVisible(
-                filter_var($on, FILTER_VALIDATE_BOOLEAN)
-            );
-        }
-
-        $columnPosPrefs = $this->fetchUserPrefOrderColumnPositions();
-        foreach ($columnPosPrefs as $name => $pos) {
-            if (!isset($associativeColumns[$name])) {
-                continue;
-            }
-            $associativeColumns[$name]->setOrder($pos);
-        }
-        $this->getOrdersTable()->reorderColumns();
-
-        return $this;
-    }
-
-    protected function fetchUserPrefOrderColumns()
-    {
-        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
-        return $this->fetchUserPrefItem($columnPrefKey);
-    }
-
-    protected function fetchUserPrefOrderColumnPositions()
-    {
-        $columnPrefKey = static::ORDER_TABLE_COL_POS_PREF_KEY;
-        return $this->fetchUserPrefItem($columnPrefKey);
-    }
-
-    protected function fetchUserPrefItem($key)
-    {
-        $userPrefsPref = $this->getActiveUserPreference()->getPreference();
-        $storedItem = (isset($userPrefsPref[$key]) ? $userPrefsPref[$key] : []);
-        return $storedItem;
-    }
-
-    protected function saveUserPrefItem($key, $value)
-    {
-        $userPrefs = $this->getActiveUserPreference();
-        $userPrefsPref = $userPrefs->getPreference();
-        $userPrefsPref[$key] = $value;
-        $userPrefs->setPreference($userPrefsPref);
-
-        $this->getUserPreferenceService()->save($userPrefs);
     }
 
     public function tagOrdersByFilter($tag, Filter $filter)
@@ -1004,8 +808,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_TAGGED, [
                 $order->getChannel(),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                $this->getActiveUserContainer()->getActiveUser()->getId()
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                $this->activeUserContainer->getActiveUser()->getId()
             ]
         );
     }
@@ -1063,23 +867,23 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function dispatchOrder(OrderEntity $order)
     {
-        $actions = $this->getActionService()->getAvailableActionsForOrder($order);
+        $actions = $this->actionService->getAvailableActionsForOrder($order);
         if (!array_key_exists(ActionMapInterface::DISPATCH, array_flip($actions))) {
             $this->logWarning(static::LOG_UNDISPATCHABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
             return;
         }
         $this->logInfo(static::LOG_DISPATCHING, [$order->getId()], static::LOG_CODE);
 
-        $account = $this->getAccountService()->fetch($order->getAccountId());
+        $account = $this->accountService->fetch($order->getAccountId());
 
         $order = $this->setOrderToDispatching($order);
 
-        $this->getOrderDispatcher()->generateJob($account, $order);
+        $this->orderDispatcher->generateJob($account, $order);
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_DISPATCHED, [
                 $order->getChannel(),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                $this->getActiveUserContainer()->getActiveUser()->getId()
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                $this->activeUserContainer->getActiveUser()->getId()
             ]
         );
     }
@@ -1104,7 +908,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function markOrderAsPaid(OrderEntity $order)
     {
-        $actions = $this->getActionService()->getAvailableActionsForOrder($order);
+        $actions = $this->actionService->getAvailableActionsForOrder($order);
         if (!array_key_exists(ActionMapInterface::PAY, array_flip($actions))) {
             $this->logWarning(static::LOG_UNPAYABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
             return;
@@ -1118,8 +922,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_PAID, [
                 $order->getChannel(),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                $this->getActiveUserContainer()->getActiveUser()->getId()
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                $this->activeUserContainer->getActiveUser()->getId()
             ]
         );
     }
@@ -1188,14 +992,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function archiveOrder(OrderEntity $order, $archive = true)
     {
-        $this->getOrderClient()->archive(
+        $this->orderClient->archive(
             $order->setArchived($archive)
         );
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_ARCHIVED, [
                 $order->getChannel(),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                $this->getActiveUserContainer()->getActiveUser()->getId(),
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                $this->activeUserContainer->getActiveUser()->getId(),
             ]
         );
     }
@@ -1221,7 +1025,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function cancelOrder(OrderEntity $order, $type, $reason)
     {
-        $account = $this->getAccountService()->fetch($order->getAccountId());
+        $account = $this->accountService->fetch($order->getAccountId());
         $status = OrderMapper::calculateOrderStatusFromCancelType($type);
         if ($order->getStatus() == OrderStatus::getInActionWithCompletedStatuses()[$status]) {
             $this->logDebug(static::LOG_ALREADY_CANCELLED, [ucwords($type), $order->getId(), $order->getStatus()]);
@@ -1235,21 +1039,21 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         foreach ($order->getItems() as $item) {
             $item->setStatus($status);
         }
-        $this->getOrderItemClient()->saveCollection($order->getItems());
+        $this->orderItemClient->saveCollection($order->getItems());
 
-        $this->getOrderCanceller()->generateJob($account, $order, $cancel);
+        $this->orderCanceller->generateJob($account, $order, $cancel);
         $this->statsIncrement(
             ($type == Cancel::CANCEL_TYPE) ? static::STAT_ORDER_ACTION_CANCELLED : static::STAT_ORDER_ACTION_REFUNDED, [
                 $order->getChannel(),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                $this->getActiveUserContainer()->getActiveUser()->getId()
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                $this->activeUserContainer->getActiveUser()->getId()
             ]
         );
     }
 
     public function getRootOrganisationUnitForOrder(OrderEntity $order)
     {
-        return $this->getOrganisationUnitService()->getRootOuFromOuId($order->getOrganisationUnitId());
+        return $this->organisationUnitService->getRootOuFromOuId($order->getOrganisationUnitId());
     }
 
     /**
@@ -1257,7 +1061,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
      */
     public function getVatOrganisationUnitForOrder(OrderEntity $order)
     {
-        $ou = $this->getOrganisationUnitService()->fetch($order->getOrganisationUnitId());
+        $ou = $this->organisationUnitService->fetch($order->getOrganisationUnitId());
         return $ou->getVatEntity();
     }
 
@@ -1276,7 +1080,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $items = [];
         foreach ($order->getItems() as $item) {
-            $items[] = $this->getDi()->newInstance(CancelItem::class, [
+            $items[] = $this->di->newInstance(CancelItem::class, [
                 'orderItemId' => $item->getId(),
                 'sku' => $item->getItemSku(),
                 'quantity' => $item->getItemQuantity(),
@@ -1285,7 +1089,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ]);
         }
 
-        return $this->getDi()->newInstance(
+        return $this->di->newInstance(
             CancelValue::class,
             [
                 'type' => $type,
@@ -1300,170 +1104,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function notifyIntercom($eventName)
     {
         $event = new IntercomEvent($eventName, $this->getActiveUser()->getId());
-        $this->getIntercomEventService()->save($event);
+        $this->intercomEventService->save($event);
     }
 
     public function getCarriersData()
     {
-        return $this->getCarriers()->getAllCarriers();
-    }
-
-    public function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    /**
-     * @return AccountService
-     */
-    public function getAccountService()
-    {
-        return $this->accountService;
-    }
-
-    public function setOrderDispatcher(OrderDispatcher $orderDispatcher)
-    {
-        $this->orderDispatcher = $orderDispatcher;
-        return $this;
-    }
-
-    /**
-     * @return OrderDispatcher
-     */
-    public function getOrderDispatcher()
-    {
-        return $this->orderDispatcher;
-    }
-
-    public function setOrderCanceller(OrderCanceller $orderCanceller)
-    {
-        $this->orderCanceller = $orderCanceller;
-        return $this;
-    }
-
-    /**
-     * @return OrderCanceller
-     */
-    public function getOrderCanceller()
-    {
-        return $this->orderCanceller;
-    }
-
-    protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
-    {
-        $this->shippingConversionService = $shippingConversionService;
-        return $this;
-    }
-
-    protected function getShippingConversionService()
-    {
-        return $this->shippingConversionService;
-    }
-
-    protected function getCarriers() {
-        return $this->carriers;
-    }
-
-    protected function setCarriers(Carrier $carriers) {
-        $this->carriers = $carriers;
-        return $this;
-    }
-
-    protected function getOrganisationUnitService()
-    {
-        return $this->organisationUnitService;
-    }
-
-    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
-    }
-
-    protected function setOrderItemClient(OrderItemClient $orderItemClient)
-    {
-        $this->orderItemClient = $orderItemClient;
-        return $this;
-    }
-
-    protected function getOrderItemClient()
-    {
-        return $this->orderItemClient;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setFilterClient(FilterClient $filterClient)
-    {
-        $this->filterClient = $filterClient;
-        return $this;
-    }
-
-    /**
-     * @return FilterClient
-     */
-    protected function getFilterClient()
-    {
-        return $this->filterClient;
-    }
-
-    protected function getActionService()
-    {
-        return $this->actionService;
-    }
-
-    protected function setActionService(ActionService $actionService)
-    {
-        $this->actionService = $actionService;
-        return $this;
-    }
-
-    protected function getIntercomEventService()
-    {
-        return $this->intercomEventService;
-    }
-
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    protected function setRowMapper(RowMapper $rowMapper)
-    {
-        $this->rowMapper = $rowMapper;
-        return $this;
-    }
-
-    protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
-    {
-        $this->dateFormatHelper = $dateFormatHelper;
-        return $this;
-    }
-
-    protected function setImageService(ImageService $imageService)
-    {
-        $this->imageService = $imageService;
-        return $this;
-    }
-
-    protected function setMcfFulfillmentStatusStorage(McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage)
-    {
-        $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
-        return $this;
-    }
-
-    protected function setCourierTrackingUrl(CourierTrackingUrl $courierTrackingUrl)
-    {
-        $this->courierTrackingUrl = $courierTrackingUrl;
-        return $this;
-    }
-
-    protected function setOrderLabelService(OrderLabelService $orderLabelService)
-    {
-        $this->orderLabelService = $orderLabelService;
-        return $this;
+        return $this->carriers->getAllCarriers();
     }
 }

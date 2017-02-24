@@ -27,6 +27,8 @@ use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
 use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
+use Orders\Order\TableService;
+use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
@@ -66,6 +68,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderCountsApi;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var TableService $tableService */
+    protected $tableService;
+    /** @var OrdersTableUserPreferences $orderTableUserPreferences */
+    protected $orderTableUserPreferences;
 
     public function __construct(
         UsageHelper $usageHelper,
@@ -80,7 +86,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         StoredFiltersService $storedFiltersService,
         ShippingConversionService $shippingConversionService,
         OrderCountsApi $orderCountsApi,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        TableService $tableService,
+        OrdersTableUserPreferences $orderTableUserPreferences
     ) {
         $this->usageHelper = $usageHelper;
         $this->courierHelper = $courierHelper;
@@ -95,12 +103,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->shippingConversionService = $shippingConversionService;
         $this->orderCountsApi = $orderCountsApi;
         $this->activeUserContainer = $activeUserContainer;
+        $this->tableService = $tableService;
+        $this->orderTableUserPreferences = $orderTableUserPreferences;
     }
 
     public function indexAction()
     {
         $view = $this->viewModelFactory->newInstance();
-        $ordersTable = $this->orderService->getOrdersTable();
+        $ordersTable = $this->tableService->getOrdersTable();
 
         if ($searchTerm = $this->params()->fromQuery('search')) {
             $filterValues = [
@@ -125,7 +135,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($ordersTable, 'ordersTable');
         $bulkActions = $this->getBulkActionsViewModel();
         $bulkAction = $this->viewModelFactory->newInstance()->setTemplate('orders/orders/bulk-actions/index');
-        $bulkAction->setVariable('isHeaderBarVisible', $this->orderService->isFilterBarVisible());
+        $bulkAction->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
@@ -136,13 +146,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
             $this->storedFiltersService->getStoredFiltersSidebarView(
-                $this->orderService->getActiveUserPreference()
+                $this->orderTableUserPreferences->getUserPreference()
             ),
             'storedFiltersSidebar'
         );
         $view->addChild($this->getBatches(), 'batches');
-        $view->setVariable('isSidebarVisible', $this->orderService->isSidebarVisible());
-        $view->setVariable('isHeaderBarVisible', $this->orderService->isFilterBarVisible());
+        $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
+        $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
         return $view;
     }
@@ -411,7 +421,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 $columnPositions[$value] = substr($key, strlen($keyPrefix));
             }
         }
-        $this->orderService->updateUserPrefOrderColumnPositions($columnPositions);
+        $this->orderTableUserPreferences->updateUserPrefOrderColumnPositions($columnPositions);
     }
 
     public function imagesForOrdersAction()
