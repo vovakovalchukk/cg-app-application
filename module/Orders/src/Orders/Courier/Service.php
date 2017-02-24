@@ -153,11 +153,12 @@ class Service implements LoggerAwareInterface
             $shippingCountry = '';
         }
 
-        $options = $this->getCourierOptionsForOrder($order, $courierId);
-        if (count($options) == 1) {
-            $index = key($options);
-            $options[$index]['selected'] = true;
-            $courierId = $options[$index]['value'];
+        $couriers = $this->getCourierOptionsForOrder($order, $courierId);
+        // If there's only one courier pre-select it
+        if (count($couriers) == 1) {
+            $index = key($couriers);
+            $couriers[$index]['selected'] = true;
+            $courierId = $couriers[$index]['value'];
             if (!$services) {
                 $courierAccount = $this->accountService->fetch($courierId);
                 $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
@@ -177,10 +178,10 @@ class Service implements LoggerAwareInterface
             'courierOptions' => [
                 'name' => 'courier_' . $order->getId(),
                 'class' => 'courier-courier-custom-select',
-                'disabled' => (count($options) == 1),
+                'disabled' => (count($couriers) == 1),
                 'blankOption' => false,
                 'searchField' => false,
-                'options' => $options,
+                'options' => $couriers,
             ],
             'services' => $services,
             'service' => $service,
