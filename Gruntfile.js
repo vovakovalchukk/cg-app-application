@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'public/channelgrabber/',
                         src: ['**/jsx/**/*.jsx'],
-                        dest: 'public/channelgrabber/',
+                        dest: 'public/cg-built/',
                         ext: '.js',
                         rename: function (dest, src) {
                             return dest + src.replace('jsx', 'js');
@@ -54,6 +54,22 @@ module.exports = function(grunt) {
                         }
                     }
                 ]
+            }
+        },
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'public/cg-built/**/*.js',
+                        'public/cg-built/**/*.css'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    proxy: {
+                        target: "https://app.dev.orderhub.io",
+                    }
+                }
             }
         },
         requirejs: {
@@ -100,7 +116,7 @@ module.exports = function(grunt) {
     });
     require('./grunt-dynamic.js')(grunt);
 
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
