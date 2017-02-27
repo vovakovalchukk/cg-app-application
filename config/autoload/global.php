@@ -35,6 +35,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use CG_UI\View\DataTable;
 use Zend\View\Model\ViewModel;
 use CG\Channel\AccountDisabler;
+use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailerService;
 
 use CG\Location\Service as LocationService;
 use CG\Location\Storage\Api as LocationApi;
@@ -563,6 +564,11 @@ $config = array(
             CustomerCountCacheStorage::class => [
                 'parameters' => [
                     'client' => 'reliable_redis',
+                ],
+            ],
+            InvoiceEmailerService::class => [
+                'parameters' => [
+                    'predisClient' => 'reliable_redis',
                 ],
             ],
         ),
