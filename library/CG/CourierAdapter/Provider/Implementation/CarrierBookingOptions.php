@@ -14,6 +14,7 @@ use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Detail\Collection as ProductDetailCollection;
 
 class CarrierBookingOptions implements CarrierBookingOptionsInterface
 {
@@ -192,7 +193,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         OrderEntity $order,
         AccountEntity $account,
         $service,
-        OrganisationUnit $rootOu
+        OrganisationUnit $rootOu,
+        ProductDetailCollection $productDetails
     ) {
         return $this->getDataForDeliveryServiceOption($account, $service, $option);
     }
