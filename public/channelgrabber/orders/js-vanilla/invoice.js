@@ -39,5 +39,10 @@ function(ProgressCheckAbstract)
         return InvoiceBulkAction.NOTIFICATION_FREQ_MS;
     };
 
+    InvoiceBulkAction.prototype.getCheckData = function()
+    {
+        return this.getDataToSubmit();
+    };
+
     return InvoiceBulkAction;
 });

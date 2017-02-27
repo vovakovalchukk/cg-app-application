@@ -238,7 +238,7 @@ class CreateService extends ServiceAbstract
 
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
-            $parcelsData = $orderParcelsData[$order->getId()] ? $orderParcelsData[$order->getId()] : [];
+            $parcelsData = $orderParcelsData[$order->getId()] ?? [];
             $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
             if ($orderLabel instanceof ValidationMessagesException) {
                 $orderLabelsData['errors'][$order->getId()] = $orderLabel;

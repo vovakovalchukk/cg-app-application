@@ -299,16 +299,25 @@ class ChannelController extends AbstractActionController
 
     protected function addAccountsChannelSpecificVariablesToChannelSpecificView(AccountEntity $account, ViewModel $view)
     {
-        $channelControllerClass = __NAMESPACE__ . '\\' . $this->getNamespacePartForAccount($account) . 'Controller';
-        if (!class_exists($channelControllerClass)) {
+        $channelController = $this->getChannelSpecificController($account);
+        if (!$channelController) {
             return;
         }
-        $channelController = $this->di->get($channelControllerClass);
         // Don't use is_callable() as there's a magic __get() method that fools that
         if (!method_exists($channelController, 'addAccountsChannelSpecificVariablesToChannelSpecificView')) {
             return;
         }
         $channelController->addAccountsChannelSpecificVariablesToChannelSpecificView($account, $view);
+    }
+
+    protected function getChannelSpecificController(AccountEntity $account)
+    {
+        $channelControllerClass = __NAMESPACE__ . '\\' . $this->getNamespacePartForAccount($account) . 'Controller';
+        if (!class_exists($channelControllerClass)) {
+            return null;
+        }
+        $channelController = $this->di->get($channelControllerClass);
+        return $channelController;
     }
 
     protected function addAccountDetailsForm($accountEntity, $view)
@@ -438,12 +447,19 @@ class ChannelController extends AbstractActionController
                 return $response;
             }
 
+            $wasActive = $account->getActive();
             $accountService->save($account->setActive($active)->setPending(!$clearPending));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
             $response->setVariable(
                 'account',
                 $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
             );
+            if ($wasActive != $active) {
+                $channelController = $this->getChannelSpecificController($account);
+                if ($channelController && $channelController instanceof AccountActiveToggledInterface) {
+                    $channelController->accountActiveToggled($account, $response);
+                }
+            }
         } catch (NotFound $exception) {
             return $response->setVariable(
                 'error',

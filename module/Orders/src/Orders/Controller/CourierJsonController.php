@@ -11,7 +11,8 @@ use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Manifest\Service as ManifestService;
-use Orders\Courier\Service;
+use Orders\Courier\ReviewAjax as ReviewAjaxService;
+use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CourierJsonController extends AbstractActionController
@@ -42,8 +43,10 @@ class CourierJsonController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var Service */
-    protected $service;
+    /** @var ReviewAjaxService */
+    protected $reviewAjaxService;
+    /** @var SpecificsAjaxService */
+    protected $specificsAjaxService;
     /** @var LabelCreateService */
     protected $labelCreateService;
     /** @var LabelCancelService */
@@ -59,19 +62,21 @@ class CourierJsonController extends AbstractActionController
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
-        Service $service,
+        ReviewAjaxService $reviewAjaxService,
+        SpecificsAjaxService $specificsAjaxService,
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
         ManifestService $manifestService
     ) {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory)
-            ->setService($service)
-            ->setLabelCreateService($labelCreateService)
-            ->setLabelCancelService($labelCancelService)
-            ->setLabelReadyService($labelReadyService)
-            ->setManifestService($manifestService);
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->viewModelFactory = $viewModelFactory;
+        $this->reviewAjaxService = $reviewAjaxService;
+        $this->specificsAjaxService = $specificsAjaxService;
+        $this->labelCreateService = $labelCreateService;
+        $this->labelCancelService = $labelCancelService;
+        $this->labelReadyService = $labelReadyService;
+        $this->manifestService = $manifestService;
     }
 
     public function servicesOptionsAction()
@@ -79,7 +84,7 @@ class CourierJsonController extends AbstractActionController
         $orderId = $this->params()->fromPost('order');
         $shippingAccountId = $this->params()->fromPost('account');
 
-        $servicesOptions = $this->service->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
+        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
         return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
     }
 
@@ -92,7 +97,7 @@ class CourierJsonController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order', []);
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
-            $data['Records'] = $this->service->getReviewListData($orderIds);
+            $data['Records'] = $this->reviewAjaxService->getReviewListData($orderIds);
         }
 
         return $this->jsonModelFactory->newInstance($data);
@@ -113,8 +118,8 @@ class CourierJsonController extends AbstractActionController
 
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
-            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
-            $data['metadata'] = $this->service->getSpecificsMetaDataFromRecords($data['Records']);
+            $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
+            $data['metadata'] = $this->specificsAjaxService->getSpecificsMetaDataFromRecords($data['Records']);
         }
 
         return $this->jsonModelFactory->newInstance($data);
@@ -333,7 +338,7 @@ class CourierJsonController extends AbstractActionController
         $orderId = $this->params()->fromPost('order');
         $service = $this->params()->fromPost('service');
 
-        $options = $this->service->getCarrierOptionsForService($orderId, $courierId, $service);
+        $options = $this->specificsAjaxService->getCarrierOptionsForService($orderId, $courierId, $service);
         return $this->jsonModelFactory->newInstance(['requiredFields' => $options]);
     }
 
@@ -344,7 +349,7 @@ class CourierJsonController extends AbstractActionController
         $option = $this->params()->fromPost('option');
         $service = $this->params()->fromPost('service');
 
-        $optionData = $this->service->getDataForCarrierOption($option, $orderId, $courierId, $service);
+        $optionData = $this->specificsAjaxService->getDataForCarrierOption($option, $orderId, $courierId, $service);
         return $this->jsonModelFactory->newInstance([$option => $optionData]);
     }
 
@@ -454,47 +459,5 @@ class CourierJsonController extends AbstractActionController
                 'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         }
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setLabelCreateService(LabelCreateService $labelCreateService)
-    {
-        $this->labelCreateService = $labelCreateService;
-        return $this;
-    }
-
-    protected function setLabelCancelService(LabelCancelService $labelCancelService)
-    {
-        $this->labelCancelService = $labelCancelService;
-        return $this;
-    }
-
-    protected function setLabelReadyService(LabelReadyService $labelReadyService)
-    {
-        $this->labelReadyService = $labelReadyService;
-        return $this;
-    }
-
-    protected function setManifestService(ManifestService $manifestService)
-    {
-        $this->manifestService = $manifestService;
-        return $this;
     }
 }
