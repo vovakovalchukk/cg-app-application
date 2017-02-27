@@ -11,8 +11,6 @@ use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
-use CG\Channel\Shipping\CourierTrackingUrl;
-use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -20,7 +18,6 @@ use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Locale\EUVATCodeChecker;
-use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -29,13 +26,8 @@ use CG\Order\Shared\Cancel\Value as Cancel;
 use CG\Order\Shared\Cancel\Value as CancelValue;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as OrderEntity;
-use CG\Order\Shared\Item\Entity as ItemEntity;
-use CG\Order\Shared\Item\GiftWrap\Collection as GiftWrapCollection;
-use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrapEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
-use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Mapper as OrderMapper;
-use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
@@ -47,8 +39,6 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
-use CG_UI\View\Filters\Service as FilterService;
-use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
 use CG_UI\View\Table\Column\Collection as TableColumnCollection;
@@ -56,11 +46,7 @@ use CG_UI\View\Table\Row\Collection as TableRowCollection;
 use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
-use Orders\Order\TableService\OrdersTableUserPreferences;
-use Settings\Controller\ChannelController;
-use Settings\Module as SettingsModule;
 use Zend\Di\Di;
-use Zend\Mvc\MvcEvent;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -68,8 +54,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     use StatsTrait;
     use SaveCollectionHandleErrorsTrait;
 
-    const ACCOUNTS_PAGE = 1;
-    const ACCOUNTS_LIMIT = 'all';
     const LOG_CODE = 'OrderModuleService';
     const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
     const LOG_DISPATCHING = 'Dispatching Order %s';
@@ -84,7 +68,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const STAT_ORDER_ACTION_PAID = 'orderAction.paid.%s.%d.%d';
     const EVENT_ORDERS_DISPATCHED = 'Dispatched Orders';
     const EVENT_ORDER_CANCELLED = 'Refunded / Cancelled Orders';
-    const MAX_SHIPPING_METHOD_LENGTH = 15;
 
     /** @var OrderClient $orderClient */
     protected $orderClient;
@@ -92,8 +75,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $orderItemClient;
     /** @var FilterClient $filterClient */
     protected $filterClient;
-    /** @var FilterService $filterService */
-    protected $filterService;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
     /** @var Di $di */
@@ -104,8 +85,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $orderDispatcher;
     /** @var OrderCanceller $orderCanceller */
     protected $orderCanceller;
-    /** @var ShippingConversionService $shippingConversionService */
-    protected $shippingConversionService;
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
     /** @var ActionService $actionService */
@@ -114,20 +93,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $intercomEventService;
     /** @var RowMapper $rowMapper */
     protected $rowMapper;
-    /** @var DateFormatHelper $dateFormatHelper */
-    protected $dateFormatHelper;
     /** @var ImageService $imageService */
     protected $imageService;
     /** @var McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage */
     protected $mcfFulfillmentStatusStorage;
-    /** @var CourierTrackingUrl $courierTrackingUrl */
-    protected $courierTrackingUrl;
     /** @var EUVATCodeChecker $euVatCodeChecker */
     protected $euVatCodeChecker;
-    /** @var OrderLabelService $orderLabelService */
-    protected $orderLabelService;
-    /** @var OrdersTableUserPreferences $orderTableUserPreferences */
-    protected $orderTableUserPreferences;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -142,125 +113,34 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrderClient $orderClient,
         OrderItemClient $orderItemClient,
         FilterClient $filterClient,
-        FilterService $filterService,
         ActiveUserInterface $activeUserContainer,
         Di $di,
         AccountService $accountService,
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
-        ShippingConversionService $shippingConversionService,
         OrganisationUnitService $organisationUnitService,
         ActionService $actionService,
         IntercomEventService $intercomEventService,
         RowMapper $rowMapper,
-        DateFormatHelper $dateFormatHelper,
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
-        CourierTrackingUrl $courierTrackingUrl,
-        EUVATCodeChecker $euVatCodeChecker,
-        OrderLabelService $orderLabelService,
-        OrdersTableUserPreferences $orderTableUserPreferences
+        EUVATCodeChecker $euVatCodeChecker
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
         $this->filterClient = $filterClient;
-        $this->filterService = $filterService;
         $this->activeUserContainer = $activeUserContainer;
         $this->di = $di;
         $this->accountService = $accountService;
         $this->orderDispatcher = $orderDispatcher;
         $this->orderCanceller = $orderCanceller;
-        $this->shippingConversionService = $shippingConversionService;
         $this->organisationUnitService = $organisationUnitService;
         $this->actionService = $actionService;
         $this->intercomEventService = $intercomEventService;
         $this->rowMapper = $rowMapper;
-        $this->dateFormatHelper = $dateFormatHelper;
         $this->imageService = $imageService;
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
-        $this->courierTrackingUrl = $courierTrackingUrl;
         $this->euVatCodeChecker = $euVatCodeChecker;
-        $this->orderLabelService = $orderLabelService;
-        $this->orderTableUserPreferences = $orderTableUserPreferences;
-    }
-
-    public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
-    {
-        $orders = $orderCollection->toArray();
-
-        try {
-            $orders = $this->getOrdersArrayWithShippingAliases($orders);
-        } catch (NotFound $e) {
-            // do nothing
-        }
-        try {
-            $orders = $this->getOrdersArrayWithAccountDetails($orders, $event);
-        } catch (NotFound $e) {
-            // do nothing
-        }
-        $orders = $this->getOrdersArrayWithSanitisedStatus($orders);
-        $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
-        $orders = $this->getOrdersArrayWithFormattedDates($orders);
-        $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
-        $orders = $this->getOrdersArrayWithProductImage($orders);
-        $orders = $this->getOrdersArrayWithTrackingUrl($orders);
-        $orders = $this->getOrdersArrayWithLabelData($orders);
-
-        $filterId = null;
-        if ($orderCollection instanceof FilteredCollection) {
-            $filterId = $orderCollection->getFilterId();
-        }
-
-        return [
-            'orders' => $orders,
-            'orderTotal' => (int) $orderCollection->getTotal(),
-            'filterId' => $filterId,
-        ];
-    }
-
-    public function getOrdersArrayWithShippingAliases(array $orders)
-    {
-        $organisationUnit = $this->organisationUnitService
-                                 ->fetch($this->activeUserContainer
-                                              ->getActiveUserRootOrganisationUnitId()
-            );
-
-        foreach($orders as $index => $order) {
-            $shippingAlias = $this->shippingConversionService
-                                  ->fromMethodToAlias($order['shippingMethod'],
-                                                      $organisationUnit
-                );
-            $orders[$index]['shippingMethod'] = $shippingAlias ? $shippingAlias->getName() : $orders[$index]['shippingMethod'];
-        }
-        return $orders;
-    }
-
-    public function getOrdersArrayWithAccountDetails(array $orders, MvcEvent $event)
-    {
-        $accounts = $this->accountService->fetchByOUAndStatus(
-            $this->getActiveUser()->getOuList(),
-            null,
-            null,
-            static::ACCOUNTS_LIMIT,
-            static::ACCOUNTS_PAGE,
-            Type::SALES
-        );
-
-        foreach($orders as $index => $order) {
-            $accountEntity = $accounts->getById($order['accountId']);
-            if ($accountEntity) {
-                $order['accountName'] = $accountEntity->getDisplayName();
-                $order['channelImgUrl'] = $accountEntity->getImageUrl();
-            }
-
-            $order['accountLink'] = $event->getRouter()->assemble(
-                ['account' => $order['accountId'], 'type' => Type::SALES],
-                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
-            );
-
-            $orders[$index] = $order;
-        }
-        return $orders;
     }
 
     /**
@@ -340,141 +220,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 }
             }
             return false;
-
         } catch (NotFound $ex) {
             return false;
         }
     }
 
-    protected function getOrdersArrayWithSanitisedStatus(array $orders)
-    {
-        $statuses = [];
-        foreach ($orders as $orderArray) {
-            $statuses[$orderArray['id']] = $orderArray['status'];
-        }
-        $statusMessages = $this->getStatusMessageForOrders($statuses);
-        foreach ($orders as $index => $order) {
-            $orders[$index]['status'] = str_replace(['_', '-'], ' ', $orders[$index]['status']);
-            $orders[$index]['statusClass'] = str_replace(' ', '-', $orders[$index]['status']);
-            $orders[$index]['message'] = $statusMessages[$orders[$index]['id']];
-        }
-        return $orders;
-    }
-
-    protected function getOrdersArrayWithTruncatedShipping(array $orders)
-    {
-        $ellipsis = '...';
-        $ellipsisLen = strlen($ellipsis);
-        foreach ($orders as $index => $order) {
-            if (strlen($order['shippingMethod']) <= (static::MAX_SHIPPING_METHOD_LENGTH + $ellipsisLen)) {
-                continue;
-            }
-            $orders[$index]['shippingMethod'] = substr($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH) . $ellipsis;
-        }
-        return $orders;
-    }
-
-    protected function getOrdersArrayWithFormattedDates(array $orders)
-    {
-        $dateFormatter = $this->dateFormatHelper;
-        foreach ($orders as $index => $order) {
-            // Keep the dates in Y-m-d H:i:s, the Mustache template will change them to a human-friendly format
-            $orders[$index]['purchaseDate'] = $dateFormatter($orders[$index]['purchaseDate'], StdlibDateTime::FORMAT);
-            $orders[$index]['paymentDate'] = $dateFormatter($orders[$index]['paymentDate'], StdlibDateTime::FORMAT);
-            $orders[$index]['printedDate'] = $dateFormatter($orders[$index]['printedDate'], StdlibDateTime::FORMAT);
-            $orders[$index]['dispatchDate'] = $dateFormatter($orders[$index]['dispatchDate'], StdlibDateTime::FORMAT);
-            $orders[$index]['emailDate'] = $dateFormatter($orders[$index]['emailDate'], StdlibDateTime::FORMAT);
-        }
-        return $orders;
-    }
-
-    protected function getOrdersArrayWithGiftMessages(OrderCollection $orderCollection, array $orders)
-    {
-        foreach ($orders as $index => $order) {
-            $giftMessages = [];
-
-            /** @var OrderEntity|null $orderEntity */
-            $orderEntity = $orderCollection->getById($order['id']);
-            if (!$orderEntity) {
-                continue;
-            }
-
-            /** @var ItemEntity $orderItemEntity */
-            foreach ($orderEntity->getItems() as $orderItemEntity) {
-                /** @var GiftWrapCollection $giftWraps */
-                $giftWraps = $orderItemEntity->getGiftWraps();
-                $giftWraps->rewind();
-
-                /** @var GiftWrapEntity $giftWrap */
-                foreach ($giftWraps as $giftWrap) {
-                    $giftMessages[] = [
-                        'type' => $giftWrap->getGiftWrapType(),
-                        'message' => $giftWrap->getGiftWrapMessage(),
-                    ];
-                }
-            }
-
-            $orders[$index]['giftMessageCount'] = count($giftMessages);
-            $orders[$index]['giftMessages'] = json_encode($giftMessages);
-        }
-
-        return $orders;
-    }
-
-    protected function getOrdersArrayWithProductImage(array $orders)
-    {
-        $columns = $this->orderTableUserPreferences->fetchUserPrefOrderColumns();
-        if (!isset($columns['image']) || filter_var($columns['image'], FILTER_VALIDATE_BOOLEAN) == false) {
-            return $orders;
-        }
-
-        $imagesToFetch = [];
-        foreach ($orders as $index => $order) {
-            $orders[$index]['image'] = '';
-            if (empty($order['items']) || empty($order['items'][0]['imageIds'])) {
-                continue;
-            }
-            $imagesToFetch[$index] = $order['items'][0]['imageIds'][0];
-        }
-        if (empty($imagesToFetch)) {
-            return $orders;
-        }
-        try {
-            $images = $this->fetchImagesById(array_values($imagesToFetch));
-        } catch (NotFound $e) {
-            return $orders;
-        }
-        foreach ($imagesToFetch as $orderIndex => $imageId) {
-            $image = $images->getById($imageId);
-            if (!$image) {
-                continue;
-            }
-            $orders[$orderIndex]['image'] = $image->getUrl();
-        }
-
-        return $orders;
-    }
-
-    protected function getOrdersArrayWithTrackingUrl(array $orders)
-    {
-        foreach ($orders as $index => $order) {
-            foreach ($order['trackings'] as $i => $tracking) {
-                $orders[$index]['trackings'][$i]['trackingUrl'] = $this->courierTrackingUrl->getTrackingUrl($tracking['carrier'], $tracking['number']);
-            }
-        }
-
-        return $orders;
-    }
-
-    protected function getOrdersArrayWithLabelData(array $orders)
-    {
-        foreach ($orders as $index => $order) {
-            $orders[$index]['labelCreatedDate'] = "";
-        }
-        return $orders;
-    }
-
-    protected function fetchImagesById(array $imageIds)
+    public function fetchImagesById(array $imageIds)
     {
         $filter = (new ImageFilter())
             ->setLimit('all')

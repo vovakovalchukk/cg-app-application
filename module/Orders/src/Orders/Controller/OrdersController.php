@@ -18,6 +18,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use Orders\Controller\Helpers\Courier as CourierHelper;
+use Orders\Controller\Helpers\OrdersTable as OrdersTableHelper;
 use Orders\Controller\Helpers\Usage as UsageHelper;
 use Orders\Filter\DisplayFilter;
 use Orders\Filter\Service as FilterService;
@@ -72,6 +73,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $tableService;
     /** @var OrdersTableUserPreferences $orderTableUserPreferences */
     protected $orderTableUserPreferences;
+    /** @var OrdersTableHelper $orderTableHelper */
+    protected $orderTableHelper;
 
     public function __construct(
         UsageHelper $usageHelper,
@@ -88,7 +91,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         OrderCountsApi $orderCountsApi,
         ActiveUserInterface $activeUserContainer,
         TableService $tableService,
-        OrdersTableUserPreferences $orderTableUserPreferences
+        OrdersTableUserPreferences $orderTableUserPreferences,
+        OrdersTableHelper $orderTableHelper
     ) {
         $this->usageHelper = $usageHelper;
         $this->courierHelper = $courierHelper;
@@ -105,6 +109,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->activeUserContainer = $activeUserContainer;
         $this->tableService = $tableService;
         $this->orderTableUserPreferences = $orderTableUserPreferences;
+        $this->orderTableHelper = $orderTableHelper;
     }
 
     public function indexAction()
@@ -327,7 +332,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,
-                $this->orderService->alterOrderTable($orders, $this->getEvent())
+                $this->orderTableHelper->mapOrdersCollectionToArray($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
@@ -357,7 +362,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,
-                $this->orderService->alterOrderTable($orders, $this->getEvent())
+                $this->orderTableHelper->mapOrdersCollectionToArray($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
@@ -400,7 +405,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             return $response->setVariable('error', 'No columns provided');
         }
 
-        $this->orderService->updateUserPrefOrderColumns($updatedColumns);
+        $this->orderTableUserPreferences->updateUserPrefOrderColumns($updatedColumns);
         return $response->setVariable('updated', true);
     }
 
