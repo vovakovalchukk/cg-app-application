@@ -19,7 +19,6 @@
 /config/storage.local.php
 /data/certificates
 /data/di/definitions/
-data/di/php_internal-definition.php
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
@@ -34,9 +33,10 @@ data/di/php_internal-definition.php
 /tools/capistrano/log/
 /tools/post_deploy.sh
 /vendor
+data/di/php_internal-definition.php
 node_modules/
-phinx/migrations/channelgrabber/zf2-sessions
 phinx.yml
+phinx/migrations/channelgrabber/zf2-sessions
 public/cg-built
 public/channelgrabber/vendor/
 public/channelgrabber/zf2-amazon
