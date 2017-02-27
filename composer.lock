@@ -672,7 +672,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1455,17 +1455,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.9",
+            "version": "dev-CGIV-8055-remove-item-parcel-assignment-royal-mail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "bc23d14e01924dc16d8fad6e5725327eef5deae2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.9-348800.zip",
-                "reference": "bc23d14e01924dc16d8fad6e5725327eef5deae2",
-                "shasum": null
+                "reference": "9a88570e04a15ff4b664f59269faea18bac83b3c"
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
@@ -4066,7 +4060,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5408,7 +5402,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5459,7 +5453,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5552,7 +5546,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6021,7 +6015,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8853,16 +8847,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.10",
+            "alias_normalized": "1.2.10.0",
+            "version": "dev-CGIV-8055-remove-item-parcel-assignment-royal-mail",
+            "package": "channelgrabber/netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
