@@ -82,4 +82,23 @@ class Courier
     {
         return $this->carriers->getAllCarriers();
     }
+
+    public function getCarrierPriorityOptions()
+    {
+        $frequentCarrierList = [
+            'DPD',
+            'Interlink',
+            'MyHermes',
+            'Royal Mail',
+        ];
+
+        $carrierDropdownOptions = [];
+        foreach ($frequentCarrierList as $carrier) {
+            $carrierDropdownOptions[] = [
+                'title' => $carrier,
+                'value' => $carrier,
+            ];
+        }
+        return $carrierDropdownOptions;
+    }
 }
