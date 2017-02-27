@@ -297,8 +297,10 @@ CourierSpecificsDataTable.prototype.hideColumnsForCourier = function(courier)
     $('#datatable').dataTable().fnSettings().aoColumns.forEach(function (column) {
          if(CourierSpecificsDataTable.hiddenColumnsForCourier[courier].indexOf(column.mData) > -1) {
              var columnId = column.aDataSort[0];
-             $('#datatable').dataTable().fnSetColumnVis(columnId, false, false);
-             hiddenColumns++;
+             if (column.bVisible) {
+                 $('#datatable').dataTable().fnSetColumnVis(columnId, false, false);
+                 hiddenColumns++;
+             }
          }
     });
     $('.courier-group-row td').each(function(){
