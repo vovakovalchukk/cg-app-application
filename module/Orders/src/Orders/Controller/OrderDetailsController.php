@@ -7,9 +7,9 @@ use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG_Usage\Service as UsageService;
 use Messages\Module as Messages;
 use Orders\Controller\Helpers\Courier as CourierHelper;
-use Orders\Controller\Helpers\Usage as UsageHelper;
 use Orders\Controller\Helpers\OrderNotes as OrderNotesHelper;
 use Orders\Module;
 use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
@@ -23,8 +23,8 @@ use Zend\View\Model\ViewModel;
 
 class OrderDetailsController extends AbstractActionController
 {
-    /** @var UsageHelper $usageHelper */
-    protected $usageHelper;
+    /** @var UsageService $usageService */
+    protected $usageService;
     /** @var CourierHelper $courierHelper */
     protected $courierHelper;
     /** @var OrderService $orderService */
@@ -41,7 +41,7 @@ class OrderDetailsController extends AbstractActionController
     protected $orderNotesHelper;
 
     public function __construct(
-        UsageHelper $usageHelper,
+        UsageService $usageService,
         CourierHelper $courierHelper,
         OrderService $orderService,
         ViewModelFactory $viewModelFactory,
@@ -50,7 +50,7 @@ class OrderDetailsController extends AbstractActionController
         TimelineService $timelineService,
         OrderNotesHelper $orderNotesHelper
     ) {
-        $this->usageHelper = $usageHelper;
+        $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
         $this->orderService = $orderService;
         $this->viewModelFactory = $viewModelFactory;
@@ -62,7 +62,7 @@ class OrderDetailsController extends AbstractActionController
 
     public function orderAction()
     {
-        $this->usageHelper->checkUsage();
+        $this->usageService->checkUsage();
 
         /** @var Order $order */
         $order = $this->orderService->getOrder($this->params('order'));

@@ -17,9 +17,9 @@ use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
+use CG_Usage\Service as UsageService;
 use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Controller\Helpers\OrdersTable as OrdersTableHelper;
-use Orders\Controller\Helpers\Usage as UsageHelper;
 use Orders\Filter\DisplayFilter;
 use Orders\Filter\Service as FilterService;
 use Orders\Order\Batch\Service as BatchService;
@@ -43,8 +43,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
     const FILTER_TYPE = "orders";
 
-    /** @var UsageHelper $usageHelper */
-    protected $usageHelper;
+    /** @var UsageService $usageService */
+    protected $usageService;
     /** @var CourierHelper $courierHelper */
     protected $courierHelper;
     /** @var OrderService $orderService */
@@ -77,7 +77,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderTableHelper;
 
     public function __construct(
-        UsageHelper $usageHelper,
+        UsageService $usageService,
         CourierHelper $courierHelper,
         OrderService $orderService,
         FilterService $filterService,
@@ -94,7 +94,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         OrdersTableUserPreferences $orderTableUserPreferences,
         OrdersTableHelper $orderTableHelper
     ) {
-        $this->usageHelper = $usageHelper;
+        $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
         $this->orderService = $orderService;
         $this->filterService = $filterService;
@@ -212,7 +212,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function amendBulkActionsForUsage(BulkActionsViewModel $bulkActionsViewModel)
     {
         try {
-            $this->usageHelper->checkUsage();
+            $this->usageService->checkUsage();
         } catch (UsageExceeded $exception) {
             $actions = $bulkActionsViewModel->getActions();
             foreach ($actions as $action) {

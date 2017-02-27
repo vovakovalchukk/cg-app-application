@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "26622ff497c9cbe40a4a8ad90a512c67",
+    "content-hash": "5433556658c6a457442eeb845337268f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -672,7 +672,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -3729,16 +3729,16 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.11",
+            "version": "dev-CGIV-8007-SplitOrderDetails",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "7a667ec2e8d78b9a5d2d643c84a168037bf7cc57"
+                "reference": "fb3f4c66b3055bd00eb371e3d9bcb1d6c401e8a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.11-0f83ae.zip",
-                "reference": "7a667ec2e8d78b9a5d2d643c84a168037bf7cc57",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-8007-SplitOrderDetails-2f7ed7.zip",
+                "reference": "fb3f4c66b3055bd00eb371e3d9bcb1d6c401e8a6",
                 "shasum": null
             },
             "require": {
@@ -3768,7 +3768,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2016-11-01T16:14:13+00:00"
+            "time": "2017-02-27 13:45:39"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -4066,7 +4066,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -8853,10 +8853,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.12",
+            "alias_normalized": "1.0.12.0",
+            "version": "dev-CGIV-8007-SplitOrderDetails",
+            "package": "channelgrabber/zf2-usage"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-usage": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
