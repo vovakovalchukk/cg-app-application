@@ -10,6 +10,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Messages\Module as Messages;
 use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Controller\Helpers\Usage as UsageHelper;
+use Orders\Controller\Helpers\OrderNotes as OrderNotesHelper;
 use Orders\Module;
 use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\Service as BulkActionsService;
@@ -36,6 +37,8 @@ class OrderDetailsController extends AbstractActionController
     protected $accountService;
     /** @var TimelineService $timelineService */
     protected $timelineService;
+    /** @var OrderNotesHelper $orderNotesHelper */
+    protected $orderNotesHelper;
 
     public function __construct(
         UsageHelper $usageHelper,
@@ -44,7 +47,8 @@ class OrderDetailsController extends AbstractActionController
         ViewModelFactory $viewModelFactory,
         BulkActionsService $bulkActionsService,
         AccountService $accountService,
-        TimelineService $timelineService
+        TimelineService $timelineService,
+        OrderNotesHelper $orderNotesHelper
     ) {
         $this->usageHelper = $usageHelper;
         $this->courierHelper = $courierHelper;
@@ -53,6 +57,7 @@ class OrderDetailsController extends AbstractActionController
         $this->bulkActionsService = $bulkActionsService;
         $this->accountService = $accountService;
         $this->timelineService = $timelineService;
+        $this->orderNotesHelper = $orderNotesHelper;
     }
 
     public function orderAction()
@@ -373,12 +378,10 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getNotes(Order $order)
     {
-        $existingNotes = $this->orderService->getNamesFromOrderNotes($order->getNotes());
-
+        $existingNotes = $this->orderNotesHelper->getNamesFromOrderNotes($order->getNotes());
         usort($existingNotes, function ($a, $b) {
             return strtotime($a['timestamp']) > strtotime($b['timestamp']);
         });
-
         return json_encode($existingNotes);
     }
 

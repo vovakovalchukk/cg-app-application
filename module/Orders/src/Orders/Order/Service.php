@@ -35,7 +35,6 @@ use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrapEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Mapper as OrderMapper;
-use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -48,7 +47,6 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
-use CG\User\Service as UserService;
 use CG_UI\View\Filters\Service as FilterService;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 use CG_UI\View\Table;
@@ -96,8 +94,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $filterClient;
     /** @var FilterService $filterService */
     protected $filterService;
-    /** @var UserService $userService */
-    protected $userService;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
     /** @var Di $di */
@@ -147,7 +143,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrderItemClient $orderItemClient,
         FilterClient $filterClient,
         FilterService $filterService,
-        UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di,
         AccountService $accountService,
@@ -170,7 +165,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->orderItemClient = $orderItemClient;
         $this->filterClient = $filterClient;
         $this->filterService = $filterService;
-        $this->userService = $userService;
         $this->activeUserContainer = $activeUserContainer;
         $this->di = $di;
         $this->accountService = $accountService;
@@ -676,37 +670,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ];
         $row = $table->createCustomRow($cells, 'discount');
         $table->setPostCustomRows([$row]);
-    }
-
-    public function getNamesFromOrderNotes(OrderNoteCollection $notes)
-    {
-        $dateFormatter = $this->dateFormatHelper;
-        $itemNotes = array();
-        foreach ($notes as $note) {
-            $itemNote = $note->toArray();
-            $itemNote["eTag"] = $note->getStoredETag();
-            $itemNote["timestamp"] = $dateFormatter($itemNote["timestamp"]);
-            $itemNotes[] = $itemNote;
-        }
-        $userIds = array();
-        foreach ($itemNotes as $itemNote) {
-            $userIds[] = $itemNote["userId"];
-        }
-        if (empty($userIds)) {
-            return $itemNotes;
-        }
-        $userIds = array_unique($userIds);
-        try {
-            $users = $this->userService->fetchCollection("all", null, null, null, $userIds);
-            foreach ($itemNotes as &$note) {
-                $user = $users->getById($note["userId"]);
-                $note["author"] = $user->getFirstName() . " " . $user->getLastName();
-            }
-        } catch (NotFound $e) {
-            //no users found for notes, don't return any authors
-        }
-
-        return $itemNotes;
     }
 
     public function saveOrder(OrderEntity $entity)
