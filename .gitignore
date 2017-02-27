@@ -13,10 +13,13 @@
 /config/autoload/orders.global.php
 /config/di/modules_classmap.php
 /config/di/vendor_components.php
+/config/failover.local.php
 /config/host.php
 /config/module/*
+/config/storage.local.php
 /data/certificates
 /data/di/definitions/
+data/di/php_internal-definition.php
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
@@ -33,6 +36,7 @@
 /vendor
 node_modules/
 phinx/migrations/channelgrabber/zf2-sessions
+phinx.yml
 public/cg-built
 public/channelgrabber/vendor/
 public/channelgrabber/zf2-amazon
