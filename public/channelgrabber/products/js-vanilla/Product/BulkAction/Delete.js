@@ -32,15 +32,17 @@ define([
         this.sendAjaxRequest(
             Delete.URL,
             data,
-            this.handleSuccess,
+            this.handleSuccess.bind(this, data),
             null,
             this
         );
     };
 
-    Delete.prototype.handleSuccess = function()
+    Delete.prototype.handleSuccess = function(data)
     {
         this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
+        var event = new CustomEvent('productDeleted', { 'detail': data });
+        document.dispatchEvent(event);
     };
 
     return new Delete();

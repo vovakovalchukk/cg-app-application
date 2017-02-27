@@ -42,10 +42,12 @@ define([
         componentDidMount: function()
         {
             this.performProductsRequest();
+            document.addEventListener('productDeleted', this.onDeleteProduct, false);
         },
         componentWillUnmount: function()
         {
             this.productsRequest.abort();
+            document.removeEventListener('productDeleted', this.onDeleteProduct, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -84,6 +86,21 @@ define([
         },
         onPageChange: function(pageNumber) {
             this.performProductsRequest(pageNumber);
+        },
+        onDeleteProduct: function (event) {
+            var deletedProductIds = event.detail.productIds;
+
+            var products = this.state.products;
+            var productsAfterDelete = [];
+            products.forEach(function (product) {
+                if (deletedProductIds.indexOf(product.id) < 0) {
+                    productsAfterDelete.push(product);
+                }
+            });
+
+            this.setState({
+                products: productsAfterDelete
+            });
         },
         render: function()
         {

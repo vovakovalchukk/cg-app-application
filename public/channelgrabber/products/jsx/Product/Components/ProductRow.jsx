@@ -4,7 +4,7 @@ define([
     'Product/Components/Checkbox',
     'Product/Components/Status',
     'Product/Components/VariationView',
-    'Product/Components/Button',
+    'Common/Components/Button',
     'Common/Components/Select',
     'Common/Components/SafeInput',
     'Common/Components/EditableField',
