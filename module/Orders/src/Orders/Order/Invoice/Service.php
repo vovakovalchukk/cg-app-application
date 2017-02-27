@@ -3,17 +3,16 @@ namespace Orders\Order\Invoice;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Communication\Message\AccountAddressGeneratorFactory;
-use CG\Gearman\Client as GearmanClient;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Gearman\Generator\SetPrintedDate as PrintedDateGenerator;
-use CG\Order\Client\Gearman\Workload\EmailInvoice;
 use CG\Order\Client\Invoice\Renderer\ServiceInterface as RendererService;
 use CG\Order\Client\Invoice\Service as ClientService;
 use CG\Order\Client\Invoice\Template\Factory as TemplateFactory;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailer;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stats\StatsAwareInterface;
@@ -43,8 +42,6 @@ class Service extends ClientService implements StatsAwareInterface
     protected $intercomEventService;
     /** @var ActiveUserContainer $activeUserContainer */
     protected $activeUserContainer;
-    /** @var GearmanClient $gearmanClient */
-    protected $gearmanClient;
     /** @var PrintedDateGenerator $printedDateGenerator */
     protected $printedDateGenerator;
     /** @var TaxService */
@@ -53,6 +50,8 @@ class Service extends ClientService implements StatsAwareInterface
     protected $accountService;
     /** @var AccountAddressGeneratorFactory */
     protected $accountAddressGeneratorFactory;
+    /** @var InvoiceEmailer */
+    protected $invoiceEmailer;
 
     /** @var string $key */
     protected $key;
@@ -68,24 +67,23 @@ class Service extends ClientService implements StatsAwareInterface
         ProgressStorage $progressStorage,
         IntercomEventService $intercomEventService,
         ActiveUserContainer $activeUserContainer,
-        GearmanClient $gearmanClient,
         PrintedDateGenerator $printedDateGenerator,
         TaxService $taxService,
         AccountService $accountService,
-        AccountAddressGeneratorFactory $accountAddressGeneratorFactory
+        AccountAddressGeneratorFactory $accountAddressGeneratorFactory,
+        InvoiceEmailer $invoiceEmailer
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
-        $this
-            ->setOrderService($orderService)
-            ->setElementFactory($elementFactory)
-            ->setProgressStorage($progressStorage)
-            ->setIntercomEventService($intercomEventService)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setGearmanClient($gearmanClient)
-            ->setPrintedDateGenerator($printedDateGenerator)
-            ->setTaxService($taxService);
+        $this->orderService = $orderService;
+        $this->elementFactory = $elementFactory;
+        $this->progressStorage = $progressStorage;
+        $this->intercomEventService = $intercomEventService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->printedDateGenerator = $printedDateGenerator;
+        $this->taxService = $taxService;
         $this->accountService = $accountService;
         $this->accountAddressGeneratorFactory = $accountAddressGeneratorFactory;
+        $this->invoiceEmailer = $invoiceEmailer;
     }
 
     public function createTemplate(array $config)
@@ -212,13 +210,7 @@ class Service extends ClientService implements StatsAwareInterface
                 // Skip any orders we have previously emailed
                 continue;
             }
-
-            $workload = new EmailInvoice($order->getId());
-            $this->gearmanClient->doBackground(
-                $workload->getWorkerFunctionName(),
-                serialize($workload),
-                implode('-', [$workload->getWorkerFunctionName(), $order->getId()])
-            );
+            $this->invoiceEmailer->userRequestedSendForOrder($order);
         }
     }
 
@@ -282,74 +274,5 @@ class Service extends ClientService implements StatsAwareInterface
         }
 
         return false;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setElementFactory(ElementFactory $elementFactory)
-    {
-        $this->elementFactory = $elementFactory;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProgressStorage(ProgressStorage $progressStorage)
-    {
-        $this->progressStorage = $progressStorage;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setPrintedDateGenerator(PrintedDateGenerator $printedDateGenerator)
-    {
-        $this->printedDateGenerator = $printedDateGenerator;
-        return $this;
-    }
-
-    protected function setTaxService(TaxService $taxService)
-    {
-        $this->taxService = $taxService;
-        return $this;
     }
 }
