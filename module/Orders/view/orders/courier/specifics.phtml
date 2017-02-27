@@ -11,9 +11,8 @@ $(document).ready(function()
         "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache",
         "multiselect": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select-group.mustache"
     };
-    var courier = '<?=$this->selectedCourier->getChannel();?>';
     var specificsDataTable = new CourierSpecificsDataTable(
-        $('#datatable'), courierOrderIds, courierAccountId, orderServices, templateMap, courier
+        $('#datatable'), courierOrderIds, courierAccountId, orderServices, templateMap
     );
 
     require([
