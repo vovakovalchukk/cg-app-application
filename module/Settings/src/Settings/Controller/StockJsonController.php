@@ -42,7 +42,8 @@ class StockJsonController extends AbstractActionController
             throw new \InvalidArgumentException('Default stock level must be a number >= 0');
         }
         $rootOu = $this->userOUService->getRootOuByActiveUser();
-        $this->service->saveDefaults($rootOu, $defaultStockMode, $defaultStockLevel);
+        $ouList = $this->userOUService->getAncestorOrganisationUnitIdsByActiveUser();
+        $this->service->saveDefaults($rootOu, $ouList, $defaultStockMode, $defaultStockLevel);
 
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);
     }
@@ -50,8 +51,8 @@ class StockJsonController extends AbstractActionController
     public function accountsListAction()
     {
         $data = $this->getDefaultJsonData();
-        $rootOu = $this->userOUService->getRootOuByActiveUser();
-        $accountsData = $this->service->getAccountListData($rootOu);
+        $ouList = $this->userOUService->getAncestorOrganisationUnitIdsByActiveUser();
+        $accountsData = $this->service->getAccountListData($ouList);
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($accountsData);
         $data['Records'] = $accountsData;
 
