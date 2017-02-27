@@ -86,14 +86,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
                 $(this).attr('colspan', newColspan);
             });
 
-            var columnIndex = 0;
-            $('#datatable').dataTable().fnSettings().aoColumns.forEach(function (column) {
-                if(column.mData === 'deliveryInstructions') {
-                    columnIndex = column.aDataSort[0];
-                    $('#datatable').dataTable().fnSetColumnVis(columnIndex, false, false);
-                    return false;
-                }
-            });
+            var columnIndex = $(AddOns.SELECTOR_DEL_INSTR_TH).index();
             if (! $('#'+AddOns.SELECTOR_HIDDEN_FIELD_INDEX).length && columnIndex > 0) {
                 $('<input>').attr({
                     type: 'hidden',
@@ -102,6 +95,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
                     value: columnIndex
                 }).appendTo(AddOns.SELECTOR_ADD_ONS_CONTAINER);
             }
+            this.getDataTable().fnSetColumnVis(columnIndex, false, false);
             $(AddOns.SELECTOR_TABLE).cgDataTable('adjustTable');
         }
         return this;
