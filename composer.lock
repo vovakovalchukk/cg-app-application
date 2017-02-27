@@ -155,7 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ab4e56d7327b67ff62d6a1347d85abd92c8dfc47"
+                "reference": "c9a5244cdb28fb1c4d5f8da549aaf73109f3d36e"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -8837,8 +8837,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.25",
-            "alias_normalized": "1.19.25.0",
+            "alias": "1.19.26",
+            "alias_normalized": "1.19.26.0",
             "version": "dev-CGIV-8013-courier-fixes",
             "package": "channelgrabber/amazon"
         },
