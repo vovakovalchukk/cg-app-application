@@ -1,4 +1,4 @@
-function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices, templateMap)
+function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices, templateMap, courier)
 {
     CourierDataTableAbstract.call(this, dataTable, orderIds, templateMap);
 
@@ -26,7 +26,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
-                .disableInputsForNonRequiredOptions();
+                .disableInputsForNonRequiredOptions()
+                .disableInputsForNoService();
         });
         dataTable.on('fnServerData', function()
         {
@@ -35,6 +36,7 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         dataTable.on('fnDrawCallback', function()
         {
             self.setBulkActionButtons()
+                .hideColumnsForCourier(courier)
                 .triggerInitialItemWeightKeypress();
         });
     };
@@ -68,6 +70,10 @@ CourierSpecificsDataTable.columnRenderers = {
     itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
     packageType: "addCustomSelectToPackageTypeColumn",
     addOns: "addCustomSelectToAddOnsColumn"
+};
+
+CourierSpecificsDataTable.hiddenColumnsForCourier = {
+    'royal-mail-nd': ['itemParcelAssignment']
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -277,6 +283,50 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
             return;
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
+    });
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.hideColumnsForCourier = function(courier)
+{
+    if (! CourierSpecificsDataTable.hiddenColumnsForCourier[courier]) {
+        return this;
+    }
+
+    var hiddenColumns = 0;
+    $('#datatable').dataTable().fnSettings().aoColumns.forEach(function (column) {
+         if(CourierSpecificsDataTable.hiddenColumnsForCourier[courier].indexOf(column.mData) > -1) {
+             var columnId = column.aDataSort[0];
+             if (column.bVisible) {
+                 $('#datatable').dataTable().fnSetColumnVis(columnId, false, false);
+                 hiddenColumns++;
+             }
+         }
+    });
+    $('.courier-group-row td').each(function(){
+        var newColspan = parseInt($(this).attr('colspan')) - hiddenColumns;
+        $(this).attr('colspan', newColspan);
+    });
+    $('#datatable').cgDataTable('adjustTable');
+
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.disableInputsForNoService = function () {
+    this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
+    {
+        if (aData.service !== '-') {
+            return;
+        }
+
+        var inputsDisabledIfNoService = [
+            'packageType',
+            'addOn'
+        ];
+
+        inputsDisabledIfNoService.forEach(function (selector) {
+            $(nRow).find('[data-element-name="orderData[' + aData.orderId + ']['+selector+']"]').addClass('disabled');
+        });
     });
     return this;
 };
