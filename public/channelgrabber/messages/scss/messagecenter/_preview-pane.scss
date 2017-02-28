@@ -237,9 +237,39 @@
   clear: both;
   padding: 10px 15px 10px 15px;
   font-size: 12px;
-  @include box-sizing(border);
+  box-sizing: border-box;
+  position: relative;
   @include print() {
     font-size: 20px;
+  }
+  .message-section-collapser {
+    cursor: pointer;
+    outline: none;
+    padding: 10px 0;
+    width: 22px;
+    .message-collapser-img-wrap {
+      background-color: $color-xlgrey;
+      border: 1px solid $color-lgrey;
+      clear: both;
+      line-height: 6px;
+      outline: none;
+      position: relative;
+      width: 20px;
+      img {
+        background: url(/channelgrabber/zf2-v4-ui/img/ellipsis.png) no-repeat;
+        height: 8px;
+        opacity: .3;
+        width: 20px;
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+      &:hover {
+        background-color: $color-lgrey;
+        border: 1px solid $color-mgrey;
+        color: $color-dgrey;
+      }
+    }
   }
   .message-print {
     float: right;
@@ -249,6 +279,10 @@
   .message-content {
     width: 606px;
     margin: 0 auto;
+    .collapsible-section {
+      display: none;
+      color: $color-mgrey;
+    }
     table {
       float: none;
       clear: none;
