@@ -242,8 +242,8 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
         };
         for (var index in templateData.packageTypes) {
             data.options.push({
-                title: templateData.packageTypes[index],
-                selected: (templateData.packageTypes[index] == templateData.packageType)
+                title: templateData.packageTypes[index].title,
+                selected: templateData.packageTypes[index].selected
             });
         }
         templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
