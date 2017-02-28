@@ -24,7 +24,6 @@ return [
                         'insuranceMonetary' => false,
                         'signature' => false,
                         'deliveryInstructions' => true,
-                        'itemParcelAssignment' => true,
                     ],
                     'shippingServices' => [
                         // These codes are prefixes, more characters will be added based on chosen options
