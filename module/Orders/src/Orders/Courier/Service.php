@@ -4,12 +4,10 @@ namespace Orders\Courier;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Shipping\Provider\BookingOptions\Repository as CarrierBookingOptionsRepository;
 use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
 use CG\Channel\Shipping\ProviderInterface;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
-use CG\Channel\Shipping\Services\PreFetchInterface as PreFetchShippingServicesInterface;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -123,37 +121,6 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         return $this->orderService->fetchCollectionByFilter($filter);
-    }
-
-    public function preFetchShippingServicesForOrders(OrderCollection $orders, array $orderCourierIds)
-    {
-        if (empty($orderCourierIds)) {
-            return;
-        }
-        $ordersByCourier = [];
-        foreach ($orderCourierIds as $orderId => $courierAccountId) {
-            if (!isset($ordersByCourier[$courierAccountId])) {
-                $ordersByCourier[$courierAccountId] = [];
-            }
-            $ordersByCourier[$courierAccountId][] = $orders->getById($orderId);
-        }
-        $courierAccounts = $this->fetchAccountsById(array_keys($ordersByCourier));
-        foreach ($courierAccounts as $courierAccount) {
-            $shippingService = $this->shippingServiceFactory->createShippingService($courierAccount);
-            if (!$shippingService instanceof PreFetchShippingServicesInterface) {
-                continue;
-            }
-            $shippingService->preFetchShippingServices($ordersByCourier[$courierAccount->getId()], $courierAccount);
-        }
-    }
-
-    protected function fetchAccountsById(array $ids)
-    {
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setId($ids);
-        return $this->accountService->fetchByFilter($filter);
     }
 
     /**

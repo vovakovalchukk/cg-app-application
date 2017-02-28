@@ -83,7 +83,6 @@ class SpecificsAjax
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
-        $this->courierService->preFetchShippingServicesForOrders($orders, array_fill_keys($orderIds, $courierAccountId));
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);

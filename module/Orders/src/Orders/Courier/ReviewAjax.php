@@ -6,7 +6,6 @@ use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
-use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Product\Collection as ProductCollection;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Orders\Courier\Service;
@@ -19,8 +18,6 @@ class ReviewAjax
     protected $accountService;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
-    /** @var ShippingConversionService */
-    protected $shippingConversionService;
     /** @var UserOUService */
     protected $userOuService;
     /** @var Service */
@@ -32,14 +29,12 @@ class ReviewAjax
         OrderService $orderService,
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
-        ShippingConversionService $shippingConversionService,
         UserOUService $userOuService,
         Service $courierService
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
         $this->shippingServiceFactory = $shippingServiceFactory;
-        $this->shippingConversionService = $shippingConversionService;
         $this->userOuService = $userOuService;
         $this->courierService = $courierService;
     }
@@ -76,7 +71,6 @@ class ReviewAjax
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
-        $this->courierService->preFetchShippingServicesForOrders($orders, $this->getShippingAliasCouriersForOrders($orders));
         $data = $this->formatOrdersAsReviewListData($orders);
         return $this->sortReviewListData($data);
     }
@@ -92,20 +86,6 @@ class ReviewAjax
             $data = array_merge($data, $itemData);
         }
         return $data;
-    }
-
-    protected function getShippingAliasCouriersForOrders(OrderCollection $orders)
-    {
-        $rootOu = $this->userOuService->getRootOuByActiveUser();
-        $orderCourierIds = [];
-        foreach ($orders as $order) {
-            $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
-            if (!$shippingAlias || !$shippingAlias->getAccountId()) {
-                continue;
-            }
-            $orderCourierIds[$order->getId()] = $shippingAlias->getAccountId();
-        }
-        return $orderCourierIds;
     }
 
     protected function sortReviewListData(array $data)
