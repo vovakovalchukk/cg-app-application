@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8f5696752a82e3de86c778f65142944",
+    "content-hash": "ae13ece82e0ee1688a2930e16386658c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1456,11 +1456,17 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-8055-remove-item-parcel-assignment-royal-mail",
+            "version": "1.2.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "ae4fa50b7c7097e5eca0807d643b0eed219a0369"
+                "reference": "db4d6cd1e6e2f6542313da8d764907438521d467"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.11-a30387.zip",
+                "reference": "db4d6cd1e6e2f6542313da8d764907438521d467",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.28.0",
@@ -1499,7 +1505,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-02-28T10:50:06+00:00"
+            "time": "2017-02-28T08:35:26+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4061,7 +4067,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5403,7 +5409,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5454,7 +5460,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5547,7 +5553,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6016,7 +6022,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8848,24 +8854,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.11",
-            "alias_normalized": "1.2.11.0",
-            "version": "dev-CGIV-8055-remove-item-parcel-assignment-royal-mail",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
