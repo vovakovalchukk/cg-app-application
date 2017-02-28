@@ -1627,7 +1627,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-24T11:35:54+00:00"
+            "time": "2017-02-28T10:01:27+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3724,16 +3724,16 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "7a667ec2e8d78b9a5d2d643c84a168037bf7cc57"
+                "reference": "a2693848de1ad2d6a67bcbd3b92baac8940be2bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.11-0f83ae.zip",
-                "reference": "7a667ec2e8d78b9a5d2d643c84a168037bf7cc57",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.12-2c0361.zip",
+                "reference": "a2693848de1ad2d6a67bcbd3b92baac8940be2bc",
                 "shasum": null
             },
             "require": {
@@ -3763,7 +3763,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2016-11-01T16:14:13+00:00"
+            "time": "2017-02-28T10:06:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -4061,7 +4061,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
