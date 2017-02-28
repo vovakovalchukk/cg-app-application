@@ -13,8 +13,10 @@
 /config/autoload/orders.global.php
 /config/di/modules_classmap.php
 /config/di/vendor_components.php
+/config/failover.local.php
 /config/host.php
 /config/module/*
+/config/storage.local.php
 /data/certificates
 /data/di/definitions/
 /data/mustache
@@ -31,7 +33,9 @@
 /tools/capistrano/log/
 /tools/post_deploy.sh
 /vendor
+data/di/php_internal-definition.php
 node_modules/
+phinx.yml
 phinx/migrations/channelgrabber/zf2-sessions
 public/cg-built
 public/channelgrabber/vendor/
