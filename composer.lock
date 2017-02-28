@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d8c1be5d2d9fe211f70bd6d27a37bdc",
+    "content-hash": "f970c5671912b72ab36ec66fc31d8bdb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1559,17 +1559,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.27.0",
+            "version": "dev-CGIV-8051-order-labels-created-only-when-ready",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "68a219a498912b10a9b3d9179a90b38cb2d285c7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.27.0-2ede2a.zip",
-                "reference": "68a219a498912b10a9b3d9179a90b38cb2d285c7",
-                "shasum": null
+                "reference": "77121f8b97e0d131f1dc926a8a663feca467c598"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -5409,7 +5403,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8854,16 +8848,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.27.1",
+            "alias_normalized": "1.27.1.0",
+            "version": "dev-CGIV-8051-order-labels-created-only-when-ready",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
