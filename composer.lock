@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4216bc9a7043e8629c4990e2f838229",
+    "content-hash": "b4316573424364a44aaefdf24d71b691",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1559,16 +1559,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-8006-ShippingConversionOptimisations",
+            "version": "1.27.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "815a632f82e5a38102678f61ed0c084c0a1f6f1e"
+                "reference": "96e8e76b07a2fc201bc6fb5724a97bb58f6bf4ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8006-ShippingConversionOptimisations-b80e69.zip",
-                "reference": "815a632f82e5a38102678f61ed0c084c0a1f6f1e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.27.1-0c6828.zip",
+                "reference": "96e8e76b07a2fc201bc6fb5724a97bb58f6bf4ba",
                 "shasum": null
             },
             "require": {
@@ -1633,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-28 09:04:39"
+            "time": "2017-02-28T10:01:27+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3730,16 +3730,16 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "dev-CGIV-8007-SplitOrderDetails",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "fb3f4c66b3055bd00eb371e3d9bcb1d6c401e8a6"
+                "reference": "a2693848de1ad2d6a67bcbd3b92baac8940be2bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-8007-SplitOrderDetails-2f7ed7.zip",
-                "reference": "fb3f4c66b3055bd00eb371e3d9bcb1d6c401e8a6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.12-2c0361.zip",
+                "reference": "a2693848de1ad2d6a67bcbd3b92baac8940be2bc",
                 "shasum": null
             },
             "require": {
@@ -3769,7 +3769,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2017-02-27 13:45:39"
+            "time": "2017-02-28T10:06:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -8854,25 +8854,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.27.1",
-            "alias_normalized": "1.27.1.0",
-            "version": "dev-CGIV-8006-ShippingConversionOptimisations",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.0.12",
-            "alias_normalized": "1.0.12.0",
-            "version": "dev-CGIV-8007-SplitOrderDetails",
-            "package": "channelgrabber/zf2-usage"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-usage": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
