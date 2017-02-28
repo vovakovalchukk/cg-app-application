@@ -770,7 +770,10 @@ return [
                             'route' => CourierController::ROUTE_URI,
                             'defaults' => [
                                 'controller' => CourierController::class,
-                                'action' => 'index'
+                                'action' => 'index',
+                                'breadcrumbs' => false,
+                                'sidebar' => false,
+                                'subHeader' => false,
                             ]
                         ],
                         'may_terminate' => true,
@@ -792,9 +795,6 @@ return [
                                     'route' => CourierController::ROUTE_REVIEW_URI,
                                     'defaults' => [
                                         'action' => 'review',
-                                        'breadcrumbs' => false,
-                                        'sidebar' => false,
-                                        'subHeader' => false,
                                     ]
                                 ],
                                 'may_terminate' => true,
