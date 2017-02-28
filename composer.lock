@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4316573424364a44aaefdf24d71b691",
+    "content-hash": "510b13fdc3466f69019a3fcb6b6128eb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,17 +151,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.26",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "6b447f30e5dc04ed424b74c31919975067b567dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.26-468e45.zip",
-                "reference": "6b447f30e5dc04ed424b74c31919975067b567dc",
-                "shasum": null
+                "reference": "50415d93118efb0cb3ca9ddbcf6e5e49fff710fd"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -493,17 +487,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.28.0",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9740f455110812e5dafc0529cdfbd61c7f42b8d3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.0-31ce68.zip",
-                "reference": "9740f455110812e5dafc0529cdfbd61c7f42b8d3",
-                "shasum": null
+                "reference": "954da3c9b06de6a4801f2907799bc15626194be8"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -4067,7 +4055,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5409,7 +5397,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8854,16 +8842,31 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.27",
+            "alias_normalized": "1.19.27.0",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.28.1",
+            "alias_normalized": "1.28.1.0",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
+        "channelgrabber/constants": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
