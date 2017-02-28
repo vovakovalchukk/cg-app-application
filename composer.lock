@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae13ece82e0ee1688a2930e16386658c",
+    "content-hash": "fc22cf93e50574823d0b3ae309d64f56",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1456,16 +1456,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.11",
+            "version": "1.2.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "db4d6cd1e6e2f6542313da8d764907438521d467"
+                "reference": "c7b4749f5d1bdca39680b8550010535774cf71ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.11-a30387.zip",
-                "reference": "db4d6cd1e6e2f6542313da8d764907438521d467",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.12-0e5bcf.zip",
+                "reference": "c7b4749f5d1bdca39680b8550010535774cf71ef",
                 "shasum": null
             },
             "require": {
@@ -1505,7 +1505,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-02-28T08:35:26+00:00"
+            "time": "2017-02-28T11:44:54+00:00"
         },
         {
             "name": "channelgrabber/notification",
