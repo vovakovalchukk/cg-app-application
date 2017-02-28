@@ -5,6 +5,8 @@ use CG\Account\CreationServiceAbstract as AccountCreationService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Credentials;
+use CG\Amazon\Gearman\WorkerFunction\GetHistoricalFulfilledShipmentsData;
+use CG\Amazon\Gearman\Workload\GetHistoricalFulfilledShipmentsData as GetHistoricalFulfilledShipmentsDataWorkload;
 use CG\Amazon\Message\AccountAddressGenerator;
 use CG\Amazon\RegionAbstract as Region;
 use CG\Amazon\RegionFactory;
@@ -13,10 +15,12 @@ use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Exception;
+use GearmanClient;
 use Settings\Module;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class AmazonController extends ChannelControllerAbstract
+class AmazonController extends ChannelControllerAbstract implements AccountActiveToggledInterface
 {
     /** @var AccountAddressGenerator $accountAddressGenerator */
     protected $accountAddressGenerator;
@@ -24,6 +28,8 @@ class AmazonController extends ChannelControllerAbstract
     protected $cryptor;
     /** @var RegionFactory $regionFactory */
     protected $regionFactory;
+    /** @var GearmanClient */
+    protected $gearmanClient;
 
     const AMAZON_LOGISTICS_TERMS_AND_CONDITIONS_LINK = 'https://sellercentral.%s/gp/shipping-manager/terms-and-conditions.html';
 
@@ -34,13 +40,15 @@ class AmazonController extends ChannelControllerAbstract
         ViewModelFactory $viewModelFactory,
         AccountAddressGenerator $accountAddressGenerator,
         Cryptor $cryptor,
-        RegionFactory $regionFactory
+        RegionFactory $regionFactory,
+        GearmanClient $gearmanClient
     ) {
         parent::__construct($accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory);
         $this
             ->setAccountAddressGenerator($accountAddressGenerator)
             ->setCryptor($cryptor)
             ->setRegionFactory($regionFactory);
+        $this->gearmanClient = $gearmanClient;
     }
 
     public function saveAction()
@@ -89,6 +97,21 @@ class AmazonController extends ChannelControllerAbstract
     {
         $addressGenerator = $this->accountAddressGenerator;
         return $addressGenerator($account);
+    }
+
+    public function accountActiveToggled(Account $account, JsonModel $response)
+    {
+        if (!$account->getActive()) {
+            return;
+        }
+        if ($account->getExternalData()['fbaOrderImport']) {
+            $historicalFulfilledShipmentsWorkload = new GetHistoricalFulfilledShipmentsDataWorkload($account->getId());
+            $this->gearmanClient->doBackground(
+                GetHistoricalFulfilledShipmentsData::FUNCTION_NAME,
+                serialize($historicalFulfilledShipmentsWorkload),
+                GetHistoricalFulfilledShipmentsData::FUNCTION_NAME . '-' . $account->getId()
+            );
+        }
     }
 
     /**

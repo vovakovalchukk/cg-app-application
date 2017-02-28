@@ -9,7 +9,9 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use Orders\Module;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
+use Orders\Courier\SpecificsPage as SpecificsPageService;
 use Orders\Courier\Service;
+use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Orders\Courier\ShippingAccountsService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -40,6 +42,8 @@ class CourierController extends AbstractActionController
     protected $specificsTable;
     /** @var Service */
     protected $service;
+    /** @var SpecificsPageService */
+    protected $specificsPageService;
     /** @var LabelPrintService */
     protected $labelPrintService;
     /** @var ManifestService */
@@ -56,21 +60,23 @@ class CourierController extends AbstractActionController
         DataTable $reviewTable,
         DataTable $specificsTable,
         Service $service,
+        SpecificsPageService $specificsPageService,
         LabelPrintService $labelPrintService,
         ManifestService $manifestService,
         OrdersToOperateOn $ordersToOperatorOn,
         ShippingAccountsService $shippingAccountsService,
         OrderService $orderService
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setReviewTable($reviewTable)
-            ->setSpecificsTable($specificsTable)
-            ->setService($service)
-            ->setLabelPrintService($labelPrintService)
-            ->setManifestService($manifestService)
-            ->setOrdersToOperatorOn($ordersToOperatorOn)
-            ->setShippingAccountsService($shippingAccountsService)
-            ->setOrderService($orderService);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->reviewTable = $reviewTable;
+        $this->specificsTable = $specificsTable;
+        $this->service = $service;
+        $this->specificsPageService = $specificsPageService;
+        $this->labelPrintService = $labelPrintService;
+        $this->manifestService = $manifestService;
+        $this->ordersToOperatorOn = $ordersToOperatorOn;
+        $this->shippingAccountsService = $shippingAccountsService;
+        $this->orderService = $orderService;
     }
 
     public function indexAction()
@@ -105,6 +111,7 @@ class CourierController extends AbstractActionController
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');
         $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('isSidebarPresent', false);
         $view->setVariable('subHeaderHide', true);
 
         return $view;
@@ -192,7 +199,7 @@ class CourierController extends AbstractActionController
             $orderServices[$orderId] = $serviceId;
         }
 
-        $courierAccounts = $this->service->fetchAccountsById($courierIds);
+        $courierAccounts = $this->specificsPageService->fetchAccountsById($courierIds);
         if ($selectedCourierId) {
             $selectedCourier = $courierAccounts->getById($selectedCourierId);
         } else {
@@ -203,7 +210,7 @@ class CourierController extends AbstractActionController
         $this->prepSpecificsTable($selectedCourierId);
         $navLinks = $this->getSidebarNavLinksForSelectedAccounts($courierAccounts);
 
-        $this->service->alterSpecificsTableForSelectedCourier($this->specificsTable, $selectedCourier);
+        $this->specificsPageService->alterSpecificsTableForSelectedCourier($this->specificsTable, $selectedCourier);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('orderIds', $orderIds)
@@ -220,6 +227,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
             ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
             ->setVariable('isHeaderBarVisible', false)
+            ->setVariable('isSidebarPresent', (count($courierOrders) > 1))
             ->setVariable('subHeaderHide', true);
 
         return $view;
@@ -260,19 +268,19 @@ class CourierController extends AbstractActionController
         $viewConfig = [
             'buttons' => [
                 [
-                    'value' => $this->service->getCreateAllActionDescription($selectedAccount),
+                    'value' => $this->specificsPageService->getCreateAllActionDescription($selectedAccount),
                     'id' => 'create-all-labels-button',
                     'class' => 'courier-create-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => $this->service->getPrintAllActionDescription($selectedAccount),
+                    'value' => $this->specificsPageService->getPrintAllActionDescription($selectedAccount),
                     'id' => 'print-all-labels-button',
                     'class' => 'courier-print-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => $this->service->getCancelAllActionDescription($selectedAccount),
+                    'value' => $this->specificsPageService->getCancelAllActionDescription($selectedAccount),
                     'id' => 'cancel-all-labels-button',
                     'class' => 'courier-cancel-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
@@ -316,19 +324,19 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [
                 [
-                    'value' => $this->service->getCreateActionDescription($selectedAccount),
+                    'value' => $this->specificsPageService->getCreateActionDescription($selectedAccount),
                     'id' => 'create-label-button',
                     'class' => 'courier-create-label-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => $this->service->getPrintActionDescription($selectedAccount),
+                    'value' => $this->specificsPageService->getPrintActionDescription($selectedAccount),
                     'id' => 'print-label-button',
                     'class' => 'courier-print-label-button',
                     'disabled' => false,
                 ],
                 [
-                    'value' => $this->service->getCancelActionDescription($selectedAccount),
+                    'value' => $this->specificsPageService->getCancelActionDescription($selectedAccount),
                     'id' => 'cancel-label-button',
                     'class' => 'courier-cancel-label-button',
                     'disabled' => false,
@@ -346,8 +354,8 @@ class CourierController extends AbstractActionController
             'value' => 1,
             'id' => 'courier-parcels-input',
             'class' => 'courier-parcels-input number required',
-            'min' => Service::MIN_PARCELS,
-            'max' => Service::MAX_PARCELS,
+            'min' => SpecificsAjaxService::MIN_PARCELS,
+            'max' => SpecificsAjaxService::MAX_PARCELS,
         ]);
         $view->setTemplate('elements/inline-text.mustache');
         return $view;
@@ -394,59 +402,5 @@ class CourierController extends AbstractActionController
         $manifestId = $this->params()->fromRoute('manifestId');
         $pdfData = $this->manifestService->getManifestPdfForAccountManifest($manifestId);
         return new FileResponse(static::MANIFEST_MIME_TYPE, 'Manifest.pdf', $pdfData);
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setReviewTable(DataTable $reviewTable)
-    {
-        $this->reviewTable = $reviewTable;
-        return $this;
-    }
-
-    public function setSpecificsTable(DataTable $specificsTable)
-    {
-        $this->specificsTable = $specificsTable;
-        return $this;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setLabelPrintService(LabelPrintService $labelPrintService)
-    {
-        $this->labelPrintService = $labelPrintService;
-        return $this;
-    }
-
-    protected function setManifestService(ManifestService $manifestService)
-    {
-        $this->manifestService = $manifestService;
-        return $this;
-    }
-
-    protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
-    {
-        $this->ordersToOperatorOn = $ordersToOperatorOn;
-        return $this;
-    }
-
-    protected function setShippingAccountsService(ShippingAccountsService $shippingAccountsService)
-    {
-        $this->shippingAccountsService = $shippingAccountsService;
-        return $this;
-    }
-
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
     }
 }
