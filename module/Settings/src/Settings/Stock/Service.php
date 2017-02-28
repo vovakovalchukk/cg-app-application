@@ -44,7 +44,7 @@ class Service implements LoggerAwareInterface
             ->setGearmanClient($gearmanClient);
     }
 
-    public function saveDefaults(OrganisationUnit $rootOu, $defaultStockMode, $defaultStockLevel)
+    public function saveDefaults(OrganisationUnit $rootOu, array $ouList, $defaultStockMode, $defaultStockLevel)
     {
         $this->addGlobalLogEventParam('ou', $rootOu->getId());
         $defaultsString = 'stock mode "' . $defaultStockMode . '", stock level "' . $defaultStockLevel . '"';
@@ -54,7 +54,7 @@ class Service implements LoggerAwareInterface
             ->setDefaultStockLevel($defaultStockLevel);
         $this->productSettingsService->save($productSettings);
         $this->triggerStockPushForAccounts(
-            $this->getSalesAccountsForOU($rootOu)
+            $this->getSalesAccountsForOU($ouList)
         );
         $this->removeGlobalLogEventParam('ou');
     }
@@ -81,18 +81,18 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    public function getAccountListData(OrganisationUnit $rootOu)
+    public function getAccountListData(array $ouList)
     {
-        $accounts = $this->getSalesAccountsForOU($rootOu);
+        $accounts = $this->getSalesAccountsForOU($ouList);
         return $this->formatAccountsAsListData($accounts);
     }
 
-    protected function getSalesAccountsForOU(OrganisationUnit $rootOu)
+    protected function getSalesAccountsForOU(array $ouList)
     {
         $filter = (new AccountFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setOrganisationUnitId([$rootOu->getId()])
+            ->setOrganisationUnitId($ouList)
             ->setType(ChannelType::SALES)
             ->setDeleted(false);
         try {

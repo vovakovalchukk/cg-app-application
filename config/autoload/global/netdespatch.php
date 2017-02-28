@@ -198,6 +198,7 @@ return [
                                 // Standard only allows for Compensation when its with Signature
                                 ['title' => 'Compensation', 'requires' => 'Signature', 'excludes' => 'Priority'],
                                 ['title' => 'Priority', 'default' => true, 'excludes' => 'Signature,Compensation'],
+                                ['title' => 'Max Sort', 'requires' => 'Priority'],
                             ],
                         ],
                         'MT' => [
