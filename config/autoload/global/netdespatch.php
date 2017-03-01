@@ -24,7 +24,6 @@ return [
                         'insuranceMonetary' => false,
                         'signature' => false,
                         'deliveryInstructions' => true,
-                        'itemParcelAssignment' => true,
                     ],
                     'shippingServices' => [
                         // These codes are prefixes, more characters will be added based on chosen options
@@ -160,7 +159,7 @@ return [
                                         'AD', 'AR', 'AT', 'BY', 'BE', 'BG', 'KH', 'CA', 'IC', 'KY', 'HR', 'CY', 'CZ', 'DK',
                                         'EC', 'FI', 'FR', 'DE', 'GI', 'GR', 'HK', 'HU', 'IS', 'ID', 'IE', 'IL', 'JP', 'LV',
                                         'LI', 'LT', 'LU', 'MY', 'MT', 'MD', 'NL', 'NZ', 'PL', 'PT', 'RO', 'SM', 'RS', 'SG',
-                                        'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TH', 'TT', 'TR', 'AE', 'US', 'VA'
+                                        'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TH', 'TT', 'TR', 'AE', 'US', 'VA', 'IT'
                                     ]
                                 ],
                                 ['title' => 'Compensation'],
@@ -168,7 +167,60 @@ return [
                             'countries' => [
                                 'AD', 'AU', 'AT', 'BE', 'BR', 'CA', 'IC', 'HR', 'DK', 'EE', 'FI', 'FR', 'DE', 'HK', 'HU',
                                 'IS', 'IN', 'IE', 'IM', 'IL', 'LV', 'LI', 'LT', 'LU', 'MY', 'MT', 'NL', 'NZ', 'PL', 'PT',
-                                'SM', 'SG', 'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TR', 'US', 'VA'
+                                'SM', 'SG', 'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TR', 'US', 'VA', 'IT'
+                            ]
+                        ],
+                        'MP' => [
+                            'name' => 'International Business',
+                            'domestic' => false,
+                            'packageTypes' => ['Letter', 'Large Letter', 'Parcel'],
+                            'addOns' => [
+                                [
+                                    'title' => 'Signature',
+                                    'default' => true,
+                                    'excludes' => 'Priority',
+                                    'countries' => [
+                                        'AF', 'AX', 'AL', 'DZ', 'AO', 'AI', 'AG', 'AM', 'AW', 'AC', 'AU', 'AZ', 'BS', 'BH',
+                                        'BD', 'BB', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BR', 'IO', 'BN', 'BF',
+                                        'BI', 'CM', 'CV', 'CF', 'EA', 'TD', 'CL', 'CN', 'CX', 'CO', 'KM', 'CG', 'CD', 'CK',
+                                        'CR', 'CU', 'CW', 'DJ', 'DM', 'DO', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO',
+                                        'FJ', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'GH', 'GL', 'GD', 'GP', 'GT', 'GN', 'GW',
+                                        'GY', 'HT', 'HN', 'IN', 'IR', 'IQ', 'IM', 'IT', 'JM', 'JO', 'KZ', 'KE', 'KI', 'KO',
+                                        'KW', 'KG', 'LA', 'LB', 'LS', 'LR', 'LY', 'MO', 'MK', 'MG', 'MW', 'MV', 'ML', 'MQ',
+                                        'MR', 'MU', 'MX', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NC', 'NI',
+                                        'NE', 'NG', 'NU', 'KP', 'NO', 'OM', 'PK', 'PW', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN',
+                                        'PR', 'QA', 'RE', 'RU', 'RW', 'ST', 'SA', 'SN', 'SC', 'SL', 'SB', 'ZA', 'SS', 'LK',
+                                        'XE', 'SH', 'SD', 'SR', 'SZ', 'SY', 'TW', 'TJ', 'TZ', 'TL', 'TG', 'TK', 'TO', 'TA',
+                                        'TN', 'TM', 'TC', 'TV', 'UG', 'UA', 'UY', 'UZ', 'VU', 'VE', 'VN', 'WF', 'EH', 'YE',
+                                        'ZM', 'ZW'
+                                    ]
+                                ],
+                                // Standard only allows for Compensation when its with Signature
+                                ['title' => 'Compensation', 'requires' => 'Signature', 'excludes' => 'Priority'],
+                                ['title' => 'Priority', 'default' => true, 'excludes' => 'Signature,Compensation'],
+                                ['title' => 'Max Sort', 'requires' => 'Priority'],
+                            ],
+                        ],
+                        'MT' => [
+                            'name' => 'International Business Tracked',
+                            'domestic' => false,
+                            'packageTypes' => ['Letter', 'Large Letter', 'Parcel'],
+                            'addOns' => [
+                                [
+                                    'title' => 'Signature',
+                                    'countries' => [
+                                        'AD', 'AR', 'AT', 'BY', 'BE', 'BG', 'KH', 'CA', 'IC', 'KY', 'HR', 'CY', 'CZ', 'DK',
+                                        'EC', 'FI', 'FR', 'DE', 'GI', 'GR', 'HK', 'HU', 'IS', 'ID', 'IE', 'IL', 'JP', 'LV',
+                                        'LI', 'LT', 'LU', 'MY', 'MT', 'MD', 'NL', 'NZ', 'PL', 'PT', 'RO', 'SM', 'RS', 'SG',
+                                        'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TH', 'TT', 'TR', 'AE', 'US', 'VA', 'IT'
+                                    ]
+                                ],
+                                ['title' => 'Compensation'],
+                            ],
+                            'countries' => [
+                                'AD', 'AU', 'AT', 'BE', 'BR', 'CA', 'IC', 'HR', 'DK', 'EE', 'FI', 'FR', 'DE', 'HK', 'HU',
+                                'IS', 'IN', 'IE', 'IM', 'IL', 'LV', 'LI', 'LT', 'LU', 'MY', 'MT', 'NL', 'NZ', 'PL', 'PT',
+                                'SM', 'SG', 'SK', 'SI', 'KR', 'ES', 'SE', 'CH', 'TR', 'US', 'VA', 'IT'
                             ]
                         ],
                     ]

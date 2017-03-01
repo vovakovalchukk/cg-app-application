@@ -1,10 +1,11 @@
 <?php
 namespace Orders\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Orders\Order\StoredFilters\Service;
-use Orders\Order\Service as OrderService;
+use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Orders\Order\StoredFilters\Service;
+use Orders\Order\TableService\OrdersTableUserPreferences;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
 class StoredFiltersController extends AbstractActionController
@@ -12,55 +13,25 @@ class StoredFiltersController extends AbstractActionController
     const ROUTE_SAVE = 'save';
     const ROUTE_REMOVE = 'remove';
 
+    /** @var Service $service */
     protected $service;
-    protected $orderService;
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var OrdersTableUserPreferences $ordersTableUserPreferences */
+    protected $ordersTableUserPreferences;
+    /** @var UserPreferenceService $userPreferenceService */
+    protected $userPreferenceService;
 
-    public function __construct(Service $service, OrderService $orderService, JsonModelFactory $jsonModelFactory)
-    {
-        $this->setService($service)->setOrderService($orderService)->setJsonModelFactory($jsonModelFactory);
-    }
-
-    public function setService(Service $service)
-    {
+    public function __construct(
+        Service $service,
+        JsonModelFactory $jsonModelFactory,
+        OrdersTableUserPreferences $ordersTableUserPreferences,
+        UserPreferenceService $userPreferenceService
+    ) {
         $this->service = $service;
-        return $this;
-    }
-
-    /**
-     * @return Service
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    public function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return OrderService
-     */
-    public function getOrderService()
-    {
-        return $this->orderService;
-    }
-
-    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
         $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return JsonModelFactory
-     */
-    public function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
+        $this->ordersTableUserPreferences = $ordersTableUserPreferences;
+        $this->userPreferenceService = $userPreferenceService;
     }
 
     /**
@@ -70,7 +41,7 @@ class StoredFiltersController extends AbstractActionController
      */
     protected function newJsonModel($variables = null, $options = null)
     {
-        return $this->getJsonModelFactory()->newInstance($variables, $options);
+        return $this->jsonModelFactory->newInstance($variables, $options);
     }
 
     public function saveFilterAction()
@@ -92,15 +63,14 @@ class StoredFiltersController extends AbstractActionController
             return $jsonModel->setVariable('error', 'Invalid Filter');
         }
 
-        $userPreference = $this->getOrderService()->getActiveUserPreference();
-
+        $userPreference = $this->ordersTableUserPreferences->getUserPreference();
         if ($action == 'removed') {
-            $this->getService()->removeStoredFilter($userPreference, $name);
+            $this->service->removeStoredFilter($userPreference, $name);
         } else {
             $filter = json_decode($this->params()->fromPost('filter', []), true);
-            $this->getService()->addStoredFilter($userPreference, $name, $filter);
+            $this->service->addStoredFilter($userPreference, $name, $filter);
         }
-        $this->getOrderService()->getUserPreferenceService()->save($userPreference);
+        $this->userPreferenceService->save($userPreference);
 
         return $jsonModel->setVariable($action, true);
     }

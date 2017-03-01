@@ -1,7 +1,15 @@
 module.exports = function (grunt) {
-    console.log('grunt-dynamic.js - Started generating dynamic tasks');
+    printMessage('Started grunt dynamic');
+    var packageConfig = grunt.file.readJSON('package.json');
+    generateSymlinkTasks(packageConfig);
+
     var modulesNames = grunt.file.expand('public/channelgrabber/*').map(removePath).filter(removeNonCss);
-    console.log('grunt-dynamic.js - Found modules: '+modulesNames.join(', '));
+    printMessage('Found modules: '+modulesNames.join(', '));
+
+    generateWatchSubTasks();
+    generateShellSubTasks();
+    generateInstallCommand();
+    printMessage('Finished grunt dynamic');
 
     function generateWatchSubTasks() {
         var watchTasks = grunt.config('watch');
@@ -21,13 +29,7 @@ module.exports = function (grunt) {
                 command: "rm -rf public/channelgrabber/"+ module +"/css/*"
             };
             shellTasks["compile" + replaceAll(module, '-', '') + "Css"] = {
-                command: "compass compile --force public/channelgrabber/" + module
-            };
-            shellTasks["cleanDest" + replaceAll(module, '-', '') + "Css"] = {
-                command: "rm -rf public/cg-built/"+ module +"/css/*"
-            };
-            shellTasks["makeDir" + replaceAll(module, '-', '') + "Css"] = {
-                command: "mkdir -p public/cg-built/"+ module +"/css"
+                command: "compass compile public/channelgrabber/" + module
             };
             shellTasks["copy" + replaceAll(module, '-', '') + "Css"] = {
                 command: "cp -r public/channelgrabber/"+ module +"/css/* public/cg-built/"+ module +"/css/ 2>/dev/null || :"
@@ -42,17 +44,28 @@ module.exports = function (grunt) {
         modulesNames.forEach(function(module){
             tasks.push("shell:cleanSrc" + replaceAll(module, '-', '') + "Css");
             tasks.push("shell:compile" + replaceAll(module,'-',  '') + "Css");
-            tasks.push("shell:cleanDest" + replaceAll(module, '-', '') + "Css");
-            tasks.push("shell:makeDir" + replaceAll(module, '-', '') + "Css");
             tasks.push("shell:copy" + replaceAll(module, '-', '') + "Css");
         });
         grunt.registerTask('compileCss-gen', tasks);
     }
 
-    generateWatchSubTasks();
-    generateShellSubTasks();
-    generateInstallCommand();
-    console.log('grunt-dynamic.js - Finished generating dynamic tasks');
+    function generateSymlinkTasks(packageConfig) {
+        var shellTasks = grunt.config('shell');
+        var tasks = [];
+
+        for (var dependency in packageConfig['dependencies']){
+            if (!packageConfig['dependencies'].hasOwnProperty(dependency)) continue;
+            printMessage('Found dependency: '+dependency);
+
+            shellTasks["symLink" + replaceAll(dependency, '-', '')] = {
+                command: getSymlinkCommand(dependency)
+            };
+            tasks.push("shell:symLink" + replaceAll(dependency, '-', ''));
+        }
+
+        grunt.config.set('shell', shellTasks);
+        grunt.registerTask('symLinkVendorJs-gen', tasks);
+    }
 
     function removePath(element) {
         return element.split('/').pop();
@@ -62,5 +75,14 @@ module.exports = function (grunt) {
     }
     function replaceAll(string, search, replace) {
         return string.replace(new RegExp(search, 'g'), replace);
+    }
+    function getSymlinkCommand(dependency) {
+        return 'if [ -d public/channelgrabber/vendor/' + dependency + ' ] ; ' +
+        'then echo "Symlink already exists for ' + dependency + '" ; ' +
+        'else ln -s ' + __dirname + '/node_modules/' + dependency + ' public/channelgrabber/vendor' +
+        '; echo "Symlink created for ' + dependency + '";fi'
+    }
+    function printMessage(message) {
+        console.log('grunt-dynamic.js - '+message);
     }
 };

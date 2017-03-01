@@ -11,6 +11,7 @@ return [
             ],
             'NonBlockingLockingService' => [
                 'parameters' => [
+                    'expireAfter' => 30,
                     'maxRetries' => 0,
                     'waitTime' => 0,
                 ]
