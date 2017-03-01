@@ -321,6 +321,7 @@ define([
             }.bind(this));
         },
         onVariationDetailChanged: function(updatedVariation) {
+            this.triggerProductRefresh(updatedVariation);
             if (this.props.product.variationCount <= 1) {
                 this.setState({
                     variations: [updatedVariation]
@@ -338,6 +339,10 @@ define([
             this.setState({
                 variations: updatedVariations
             });
+        },
+        triggerProductRefresh: function (updatedVariation) {
+            var event = new CustomEvent('productRefresh', { 'detail': {product: updatedVariation} });
+            document.dispatchEvent(event);
         },
         getInitialState: function () {
             return {
