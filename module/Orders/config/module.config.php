@@ -1219,6 +1219,8 @@ return [
                 'CourierSpecificsAddOnsColumn' => DataTable\Column::class,
                 'CourierSpecificsDeliveryExperienceColumnView' => ViewModel::class,
                 'CourierSpecificsDeliveryExperienceColumn' => DataTable\Column::class,
+                'CourierSpecificsCourierPickupColumnView' => ViewModel::class,
+                'CourierSpecificsCourierPickupColumn' => DataTable\Column::class,
                 'CourierSpecificsSaturdayColumnView' => ViewModel::class,
                 'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
             ],
@@ -2438,6 +2440,22 @@ return [
                     'class' => 'experience-col',
                     'sortable' => false,
                     'order' => 35,
+                ],
+            ],
+            'CourierSpecificsCourierPickupColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Courier will<br />pick up?'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/courierPickup.phtml',
+                ],
+            ],
+            'CourierSpecificsCourierPickupColumn' => [
+                'parameters' => [
+                    'column' => 'courierPickup',
+                    'viewModel' => 'CourierSpecificsCourierPickupColumnView',
+                    'class' => 'courier-pickup-col',
+                    'sortable' => false,
+                    'order' => 37,
                 ],
             ],
             'CourierSpecificsSaturdayColumnView' => [
