@@ -42,14 +42,14 @@ define([
         componentDidMount: function()
         {
             this.performProductsRequest();
-            document.addEventListener('productDeleted', this.onDeleteProduct, false);
-            document.addEventListener('productRefresh', this.onRefreshProduct, false);
+            window.addEventListener('productDeleted', this.onDeleteProduct, false);
+            window.addEventListener('productRefresh', this.onRefreshProduct, false);
         },
         componentWillUnmount: function()
         {
             this.productsRequest.abort();
-            document.removeEventListener('productDeleted', this.onDeleteProduct, false);
-            document.removeEventListener('productRefresh', this.onRefreshProduct, false);
+            window.removeEventListener('productDeleted', this.onDeleteProduct, false);
+            window.removeEventListener('productRefresh', this.onRefreshProduct, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({

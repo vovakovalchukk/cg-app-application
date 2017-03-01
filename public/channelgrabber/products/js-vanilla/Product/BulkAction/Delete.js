@@ -41,8 +41,7 @@ define([
     Delete.prototype.handleSuccess = function(data)
     {
         this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
-        var event = new CustomEvent('productDeleted', { 'detail': data });
-        document.dispatchEvent(event);
+        window.triggerEvent('productDeleted', data);
     };
 
     return new Delete();

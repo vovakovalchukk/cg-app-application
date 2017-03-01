@@ -341,8 +341,7 @@ define([
             });
         },
         triggerProductRefresh: function (updatedVariation) {
-            var event = new CustomEvent('productRefresh', { 'detail': {product: updatedVariation} });
-            document.dispatchEvent(event);
+            window.triggerEvent('productRefresh', {product: updatedVariation});
         },
         getInitialState: function () {
             return {
