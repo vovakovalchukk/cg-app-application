@@ -1563,12 +1563,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b218e523764c5feb5e3083df0ac4d88a62c91a96"
+                "reference": "83987fe90257dafc84380d2a5af0779d281a5eec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7601-relate-orders-to-listings-43263f.zip",
-                "reference": "b218e523764c5feb5e3083df0ac4d88a62c91a96",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7601-relate-orders-to-listings-f33b7e.zip",
+                "reference": "83987fe90257dafc84380d2a5af0779d281a5eec",
                 "shasum": null
             },
             "require": {
@@ -1588,22 +1588,22 @@
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/locking": "^1.1.0",
-                "channelgrabber/log": "^2.0.21",
+                "channelgrabber/log": "^2.1.1",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.4.0",
+                "channelgrabber/settings": "^1.5.0",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.25",
+                "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/stock": "^1.8.2",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.3",
+                "channelgrabber/template": "^1.4.19",
                 "channelgrabber/transaction": "^1.2.1",
-                "channelgrabber/user": "^1.22.6",
+                "channelgrabber/user": "^1.22.9",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
@@ -1633,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-02 10:26:58"
+            "time": "2017-03-01 14:49:10"
         },
         {
             "name": "channelgrabber/permission",
