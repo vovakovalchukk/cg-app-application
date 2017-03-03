@@ -6,6 +6,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Zend\Stdlib\Http\FileResponse;
@@ -663,9 +664,24 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->orderService->archiveOrdersByFilter($filter, false);
     }
 
+    /**
+     * @return JsonModel
+     */
     public function checkInvoicePrintingAllowedAction()
     {
-        return $this->getUsageViewModel();
+        $viewModel = $this->getUsageViewModel();
+        try {
+            $orders = $this->getOrdersFromInput();
+        } catch (NotFound $e) {
+            return $viewModel;
+        }
+        foreach ($orders as $order) {
+            if (!$order->isReadyForInvoicing()) {
+                $error = $this->translate(sprintf('Order %s is not ready for invoicing, try again later', $order->getExternalId()));
+                throw new ValidationException($error);
+            }
+        }
+        return $viewModel;
     }
 
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')

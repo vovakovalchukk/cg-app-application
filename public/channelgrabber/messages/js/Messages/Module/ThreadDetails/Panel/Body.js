@@ -2,20 +2,28 @@ define([
     'Messages/Module/ThreadDetails/PanelAbstract',
     'Messages/Module/ThreadDetails/Panel/Body/EventHandler',
     'Messages/Thread/Service',
+    'Messages/Thread/Message/Service',
     'cg-mustache'
 ], function(
     PanelAbstract,
     EventHandler,
     threadService,
+    messageService,
     CGMustache
 ) {
     var Body = function(module, thread)
     {
         PanelAbstract.call(this, module, thread);
+        this.collapsibleSectionListenerSetup = false;
 
         this.getThreadService = function()
         {
             return threadService;
+        };
+
+        this.getMessageService = function ()
+        {
+            return messageService;
         };
 
         var init = function()
@@ -27,7 +35,7 @@ define([
     };
 
     Body.SELECTOR = '.message-section';
-    Body.COUNT_SELECTOR = '.message-:type .count'
+    Body.COUNT_SELECTOR = '.message-:type .count';
     Body.PRINT_CLASS = 'print-message';
     Body.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/body.mustache';
 
@@ -40,12 +48,19 @@ define([
         thread.getMessages().each(function(message)
         {
             var iconClass = (message.getPersonType() == 'staff' ? 'sprite-message-staff-21-blue' : 'sprite-message-customer-21-red');
+            var messageBody = self.getMessageService().wrapCollapsibleSections(message.getBody());
+            var hasCollapsibleSection = self.getMessageService().checkForCollapsibleSections(messageBody);
+
+            if (hasCollapsibleSection) {
+                self.setupCollapsibleSectionListener();
+            }
+
             messagesData.push({
                 'name': message.getName(),
                 'externalUsername': message.getExternalUsername(),
                 'created': message.getCreated(),
                 'createdFuzzy': message.getCreatedFuzzy(),
-                'body': message.getBody().nl2br(),
+                'body': messageBody.nl2br(),
                 'iconClass': iconClass
             });
         });
@@ -56,6 +71,18 @@ define([
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
             self.updateCounts(thread);
         });
+    };
+
+    Body.prototype.setupCollapsibleSectionListener = function () {
+        if (this.collapsibleSectionListenerSetup) {
+            return;
+        }
+
+        $(document).on('click', '.message-section-collapser', function (e) {
+            $(e.target).closest('.message-collapser-wrap').find('.collapsible-section').toggle();
+        });
+
+        this.collapsibleSectionListenerSetup = true;
     };
 
     Body.prototype.updateCounts = function(thread)

@@ -24,7 +24,6 @@ return [
                         'insuranceMonetary' => false,
                         'signature' => false,
                         'deliveryInstructions' => true,
-                        'itemParcelAssignment' => true,
                     ],
                     'shippingServices' => [
                         // These codes are prefixes, more characters will be added based on chosen options
@@ -199,6 +198,7 @@ return [
                                 // Standard only allows for Compensation when its with Signature
                                 ['title' => 'Compensation', 'requires' => 'Signature', 'excludes' => 'Priority'],
                                 ['title' => 'Priority', 'default' => true, 'excludes' => 'Signature,Compensation'],
+                                ['title' => 'Max Sort', 'requires' => 'Priority'],
                             ],
                         ],
                         'MT' => [
