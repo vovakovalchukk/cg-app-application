@@ -66,8 +66,18 @@ module.exports = function(grunt) {
                 },
                 options: {
                     watchTask: true,
+                    logLevel: "debug",
+                    logConnections: true,
+                    logFileChanges: true,
+                    host: "app.dev.orderhub.io",
+                    port: 443,
                     proxy: {
-                        target: "https://app.dev.orderhub.io",
+                        target: "https://192.168.33.53",
+                        proxyReq: [
+                            function(proxyReq) {
+                                proxyReq.setHeader('Host', 'app.dev.orderhub.io');
+                            }
+                        ]
                     }
                 }
             }
@@ -116,7 +126,8 @@ module.exports = function(grunt) {
     });
     require('./grunt-dynamic.js')(grunt);
 
-    grunt.registerTask('default', ['browserSync', 'watch']);
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('syncWatch', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
