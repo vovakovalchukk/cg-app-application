@@ -277,7 +277,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToDeliveryExperienceColumn = 
         var data = {
             id: 'courier-delivery-experience_' + templateData.orderId,
             name: 'orderData[' + templateData.orderId + '][deliveryExperience]',
-            class: 'required',
+            class: 'required courier-delivery-experience-select',
             options: templateData.deliveryExperiences
         };
         templateData.deliveryExperienceOptions = cgMustache.renderTemplate(template, data);
