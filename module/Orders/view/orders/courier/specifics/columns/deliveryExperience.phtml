@@ -1,6 +1,0 @@
-<?= $this->partial('value.phtml', compact('value')) ?>
-<?php $this->inlineScript()->captureStart() ?>
-    require(['<?= Orders\Module::PUBLIC_FOLDER ?>js/Courier/Specifics/Columns/DeliveryExperience.js'], function(DeliveryExperience) {
-        new DeliveryExperience();
-    });
-<?php $this->inlineScript()->captureEnd() ?>

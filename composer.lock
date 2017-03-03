@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbb49ba49a54e95afb74a51178507d41",
+    "content-hash": "c5f926d8767c2ddcf2f2c391905cc927",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -667,7 +667,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -3767,17 +3767,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.31",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ab1a05d22dfc0fa4541bd7697b87cdb8e7692cd6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.31-6ce257.zip",
-                "reference": "ab1a05d22dfc0fa4541bd7697b87cdb8e7692cd6",
-                "shasum": null
+                "reference": "eac188cf4c45d1a163a8b11864000ddb49e24ac1"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -5454,7 +5448,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5547,7 +5541,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6016,7 +6010,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8854,6 +8848,12 @@
             "alias_normalized": "1.19.27.0",
             "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
             "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.17.32",
+            "alias_normalized": "1.17.32.0",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8861,6 +8861,7 @@
         "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,

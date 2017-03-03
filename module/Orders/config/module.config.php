@@ -2428,9 +2428,8 @@ return [
             ],
             'CourierSpecificsDeliveryExperienceColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Delivery Experience'],
-                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
-                    'template' => 'orders/courier/specifics/columns/deliveryExperience.phtml',
+                    'variables' => ['value' => 'Delivery<br />Experience'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'CourierSpecificsDeliveryExperienceColumn' => [
@@ -2445,8 +2444,7 @@ return [
             'CourierSpecificsCourierPickupColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Courier will<br />pick up?'],
-                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
-                    'template' => 'orders/courier/specifics/columns/courierPickup.phtml',
+                    'template' => 'value.phtml',
                 ],
             ],
             'CourierSpecificsCourierPickupColumn' => [

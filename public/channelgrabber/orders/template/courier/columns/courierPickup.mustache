@@ -1,6 +1,11 @@
 {{#parcelRow}}
-<div class="courier-pickup-options">
-    {{{courierPickupOptions}}}
+<div class="checkbox-holder courier-pickup">
+    <a class="std-checkbox">
+        <input type="checkbox" id="courier-pickup-{{orderId}}" name="orderData[{{orderId}}][courierPickup]"{{#courierPickup}} checked="checked"{{/courierPickup}}/>
+        <label for="courier-pickup-{{orderId}}">
+            <span class="checkbox_label"></span>
+        </label>
+    </a>
 </div>
 {{/parcelRow}}
 {{^parcelRow}}&nbsp;{{/parcelRow}}
