@@ -40,30 +40,46 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         selected,
         container
     ) {
+        var optionsObject = {};
         if (options instanceof Array) {
-            var optionsObject = {};
-            for (var index in options) {
-                optionsObject[options[index]] = options[index];
-            }
-            options = optionsObject;
+            options.forEach(function (value) {
+                optionsObject[value] = {title: value};
+            });
+        } else {
+            optionsObject = options;
         }
-        if (!options[selected]) {
-            for (var value in options) {
-                selected = value;
-                break;
+
+        var firstValue = '';
+        var selectedValue = '';
+
+        for (var value in optionsObject) {
+            var option = optionsObject[value];
+            if (typeof(option) !== 'object') {
+                optionsObject[value] = {'title': option};
+            } else if (!option.hasOwnProperty('title')) {
+                optionsObject[value].title = value;
+            }
+            firstValue = firstValue || value;
+            if (option.hasOwnProperty('selected') && options[value].selected) {
+                selectedValue = value;
             }
         }
+
+        if (!optionsObject[selected]) {
+            selected = selectedValue || firstValue;
+        }
+
         var data = {
             id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('#', '') + orderId,
             name: 'orderData[' + orderId + '][packageType]',
             class: 'required',
             options: []
         };
-        for (var value in options) {
+        for (var value in optionsObject) {
             data.options.push({
-                title: options[value],
+                title: optionsObject[value].title,
                 value: value,
-                selected: (options[value] == selected)
+                selected: (value == selected)
             });
         }
         var html = cgMustache.renderTemplate(template, data);
