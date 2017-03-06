@@ -2,8 +2,11 @@
 <?php $this->inlineScript()->captureStart() ?>
     require(['<?= Orders\Module::PUBLIC_FOLDER ?>js/Courier/Specifics/Columns/DeliveryExperience.js'], function(DeliveryExperience)
     {
-        var templatePath = "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/buttons.mustache";
+        var templatePaths = {
+            "buttons": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/buttons.mustache",
+            "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
+        };
         var disabledMessage = '<?=$this->translate('Please choose Delivery Experience, Courier Will Pick Up and Insurance options');?>';
-        new DeliveryExperience(templatePath, disabledMessage);
+        new DeliveryExperience(templatePaths, disabledMessage);
     });
 <?php $this->inlineScript()->captureEnd() ?>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9f21601183094d95455b85fd9f0ae4b",
+    "content-hash": "0a24a2de87dbb58e77f98a626825ec7e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,7 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "c122aa8ebb0ac3a5cf6a36aab2ca915e876a89c8"
+                "reference": "bbcdc9d0f03a162ead8d39c77ce490b2de8ea339"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -487,17 +487,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.28.0",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9740f455110812e5dafc0529cdfbd61c7f42b8d3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.0-31ce68.zip",
-                "reference": "9740f455110812e5dafc0529cdfbd61c7f42b8d3",
-                "shasum": null
+                "reference": "41773d923350004d10f954a8a221613ae5714987"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -8850,6 +8844,12 @@
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.28.1",
+            "alias_normalized": "1.28.1.0",
+            "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.17.32",
             "alias_normalized": "1.17.32.0",
             "version": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order",
@@ -8860,6 +8860,7 @@
     "stability-flags": {
         "composer/composer": 20,
         "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
