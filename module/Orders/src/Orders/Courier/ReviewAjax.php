@@ -2,6 +2,7 @@
 namespace Orders\Courier;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Channel\Shipping\Services\ForOrderDataInterface as ShippingServicesForOrderData;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -42,13 +43,17 @@ class ReviewAjax
     /**
      * @return array
      */
-    public function getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId)
+    public function getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId, array $orderData = [])
     {
         $order = $this->orderService->fetch($orderId);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
 
         $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
-        $shippingServices = $shippingService->getShippingServicesForOrder($order);
+        if ($orderData && $shippingService instanceof ShippingServicesForOrderData) {
+            $shippingServices = $shippingService->getShippingServicesForOrderAndData($order, $orderData);
+        } else {
+            $shippingServices = $shippingService->getShippingServicesForOrder($order);
+        }
         return $this->shippingServicesToOptions($shippingServices);
     }
 

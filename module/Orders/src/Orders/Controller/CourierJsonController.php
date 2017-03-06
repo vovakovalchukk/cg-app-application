@@ -83,8 +83,9 @@ class CourierJsonController extends AbstractActionController
     {
         $orderId = $this->params()->fromPost('order');
         $shippingAccountId = $this->params()->fromPost('account');
+        $orderData = $this->params()->fromPost('orderData', []);
 
-        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
+        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId, $orderData);
         return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
     }
 
