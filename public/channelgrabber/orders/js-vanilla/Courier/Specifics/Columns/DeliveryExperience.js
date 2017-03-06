@@ -81,7 +81,8 @@ define(['cg-mustache'], function(CGMustache)
                     "disabled": deliveryExperienceInput.val() == ''
                 }]
             });
-            serviceContainer.html(buttonHtml);
+            var inputHtml = '<input type="hidden" name="orderData['+orderId+'][service]" class="required" value="" />';
+            serviceContainer.html(buttonHtml + inputHtml);
         });
     };
 
