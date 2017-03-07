@@ -1,8 +1,13 @@
-define(['cg-mustache'], function(CGMustache)
+define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService)
 {
     function DeliveryExperience(templatePaths, disabledMessage)
     {
         var templates;
+
+        this.getInputDataService = function()
+        {
+            return inputDataService;
+        };
 
         this.getTemplatePaths = function()
         {
@@ -218,7 +223,7 @@ define(['cg-mustache'], function(CGMustache)
     DeliveryExperience.prototype.fetchShippingServices = function(serviceContainer)
     {
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
-        var orderData = this.getOrderInputData(orderId);
+        var orderData = this.getInputDataForOrder(orderId);
 
         return $.ajax({
             "url": "/orders/courier/services",
@@ -235,25 +240,16 @@ define(['cg-mustache'], function(CGMustache)
         return nameParts[1];
     };
 
-    DeliveryExperience.prototype.getOrderInputData = function(orderId)
+    DeliveryExperience.prototype.getInputDataForOrder = function(orderId)
     {
-        var inputData = {};
-        var orderDataSelector = DeliveryExperience.SELECTOR_ORDER_INPUT.replace('##orderId##', orderId);
-        var parcelDataSelector = DeliveryExperience.SELECTOR_PARCEL_INPUT.replace('##orderId##', orderId);
-        $(DeliveryExperience.SELECTOR_TABLE + ' td ' + orderDataSelector + ', ' +
-          DeliveryExperience.SELECTOR_TABLE + ' td ' + parcelDataSelector).each(function()
-        {
-            var input = this;
-            var name = $(input).attr('name');
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId, true);
+        var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
+        var formattedData = {};
+        for (var name in data) {
             var nameParts = name.match(/Data\[.+?\](\[.?\])?\[(.+?)\]/);
-            var value = $(input).val();
-            if ($(input).attr('type') == 'checkbox') {
-                value = ($(input).is(':checked') ? 1 : 0);
-            }
-
-            inputData[nameParts[2]] = value;
-        });
-        return inputData;
+            formattedData[nameParts[2]] = data[name];
+        }
+        return formattedData;
     };
 
     return DeliveryExperience;
