@@ -2,11 +2,13 @@ define([
     'Orders/OrdersBulkActionAbstract',
     'Orders/SaveCheckboxes',
     'Orders/StatusService',
+    'Orders/TimelineService',
     'Orders/BulkActionService'
 ], function(
     OrdersBulkActionAbstract,
     saveCheckboxes,
     StatusService,
+    TimelineService,
     BulkActionService
 ) {
     function Dispatch()
@@ -53,6 +55,7 @@ define([
                     self.getSaveCheckboxes().setSavedCheckboxes(orders)
                         .setSavedCheckAll(this.isAllSelected());
                     orders.map(function (orderId) {
+                        TimelineService.refresh(data.timelines[orderId]);
                         StatusService.refresh(data.statuses[orderId]);
                         BulkActionService.refresh(data.bulkActions[orderId]);
                     });
