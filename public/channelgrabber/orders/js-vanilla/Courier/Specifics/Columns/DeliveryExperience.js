@@ -46,6 +46,7 @@ define(['cg-mustache'], function(CGMustache)
     DeliveryExperience.SELECTOR_COURIER_PICKUP_INPUT = '.courier-pickup input[type=checkbox]';
     DeliveryExperience.SELECTOR_INSURANCE_INPUT = '.courier-insurance input[type=checkbox]';
     DeliveryExperience.SELECTOR_ORDER_INPUT = 'input[name^="orderData[##orderId##]"]';
+    DeliveryExperience.SELECTOR_PARCEL_INPUT = 'input[name^="parcelData[##orderId##]"]';
     DeliveryExperience.BLANK_SERVICE = '-';
     DeliveryExperience.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
 
@@ -135,6 +136,7 @@ define(['cg-mustache'], function(CGMustache)
         {
             if ($(this).hasClass('disabled')) {
                 n.notice(self.getDisabledMessage(), true);
+                return;
             }
             var serviceContainer = $(this).closest(DeliveryExperience.SELECTOR_SERVICE_CONTAINER);
             self.replaceRequestButtonWithServices(serviceContainer);
@@ -219,17 +221,19 @@ define(['cg-mustache'], function(CGMustache)
     {
         var inputData = {};
         var orderDataSelector = DeliveryExperience.SELECTOR_ORDER_INPUT.replace('##orderId##', orderId);
-        $(DeliveryExperience.SELECTOR_TABLE + ' td ' + orderDataSelector).each(function()
+        var parcelDataSelector = DeliveryExperience.SELECTOR_PARCEL_INPUT.replace('##orderId##', orderId);
+        $(DeliveryExperience.SELECTOR_TABLE + ' td ' + orderDataSelector + ', ' +
+          DeliveryExperience.SELECTOR_TABLE + ' td ' + parcelDataSelector).each(function()
         {
             var input = this;
             var name = $(input).attr('name');
-            var nameParts = name.match(/orderData\[.+?\]\[(.+?)\]/);
+            var nameParts = name.match(/Data\[.+?\](\[.?\])?\[(.+?)\]/);
             var value = $(input).val();
             if ($(input).attr('type') == 'checkbox') {
                 value = ($(input).is(':checked') ? 1 : 0);
             }
 
-            inputData[nameParts[1]] = value;
+            inputData[nameParts[2]] = value;
         });
         return inputData;
     };
