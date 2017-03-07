@@ -69,9 +69,9 @@ define(['cg-mustache'], function(CGMustache)
 
     DeliveryExperience.prototype.replaceServicesWithRequestButton = function(serviceContainer)
     {
+        var self = this;
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
         var className = DeliveryExperience.SELECTOR_SERVICE_BUTTON.replace(/^\./, '');
-        var deliveryExperienceInput = serviceContainer.closest('tr').find(DeliveryExperience.SELECTOR_DEL_EXP_SELECT + ' input');
         this.fetchButtonTemplate().then(function(result)
         {
             var buttonHtml = result.cgMustache.renderTemplate(result.template, {
@@ -80,7 +80,7 @@ define(['cg-mustache'], function(CGMustache)
                     "type": "button",
                     "id": className + '_' + orderId,
                     "class": className,
-                    "disabled": deliveryExperienceInput.val() == ''
+                    "disabled": !self.isServiceRequestAvailable(serviceContainer)
                 }]
             });
             var inputHtml = '<input type="hidden" name="orderData['+orderId+'][service]" class="required" value="" />';
@@ -150,17 +150,18 @@ define(['cg-mustache'], function(CGMustache)
         var self = this;
         $(document).on(
             'change',
-            DeliveryExperience.SELECTOR_DEL_EXP_SELECT+', '+DeliveryExperience.SELECTOR_COURIER_PICKUP_INPUT+','+DeliveryExperience.SELECTOR_INSURANCE_INPUT,
+            DeliveryExperience.SELECTOR_DEL_EXP_SELECT+', '+DeliveryExperience.SELECTOR_COURIER_PICKUP_INPUT+','+DeliveryExperience.SELECTOR_INSURANCE_INPUT+', '+DeliveryExperience.SELECTOR_TABLE + ' tr input.required',
             function()
         {
             var serviceContainer = $(this).closest('tr').find(DeliveryExperience.SELECTOR_SERVICE_CONTAINER);
-            var serviceRequestButton = serviceContainer.find(DeliveryExperience.SELECTOR_SERVICE_BUTTON);
-            var className = DeliveryExperience.SELECTOR_DEL_EXP_SELECT.replace(/^\./, '');
-            if ($(this).hasClass(className) && serviceRequestButton.length && serviceRequestButton.hasClass('disabled')) {
-                serviceRequestButton.removeClass('disabled');
+            if (serviceContainer.length == 0) {
                 return;
             }
+            var serviceRequestButton = serviceContainer.find(DeliveryExperience.SELECTOR_SERVICE_BUTTON);
             if (serviceRequestButton.length) {
+                if (serviceRequestButton.hasClass('disabled') && self.isServiceRequestAvailable(serviceContainer)) {
+                    serviceRequestButton.removeClass('disabled');
+                }
                 return;
             }
 
@@ -168,6 +169,23 @@ define(['cg-mustache'], function(CGMustache)
         });
 
         return this;
+    };
+
+    DeliveryExperience.prototype.isServiceRequestAvailable = function(serviceContainer)
+    {
+        var available = true;
+        serviceContainer.closest('tr').find('input.required').each(function()
+        {
+            var input = this;
+            if ($(input).attr('name') && $(input).attr('name').match(/orderData\[.+?\]\[service\]/)) {
+                return true; // continue
+            }
+            if ($(input).val() == '') {
+                available = false;
+                return false; // break
+            }
+        });
+        return available;
     };
 
     DeliveryExperience.prototype.replaceRequestButtonWithServices = function(serviceContainer)
