@@ -39,6 +39,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
                     .listenForRequestButtonClicks()
                     .listenForOptionChanges();
             });
+            this.addRequestAllServicesButton();
         };
         init.call(this);
     }
@@ -52,6 +53,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.SELECTOR_INSURANCE_INPUT = '.courier-insurance input[type=checkbox]';
     DeliveryExperience.SELECTOR_ORDER_INPUT = 'input[name^="orderData[##orderId##]"]';
     DeliveryExperience.SELECTOR_PARCEL_INPUT = 'input[name^="parcelData[##orderId##]"]';
+    DeliveryExperience.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions';
     DeliveryExperience.BLANK_SERVICE = '-';
     DeliveryExperience.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
 
@@ -250,6 +252,46 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             formattedData[nameParts[2]] = data[name];
         }
         return formattedData;
+    };
+
+    DeliveryExperience.prototype.addRequestAllServicesButton = function()
+    {
+        var self = this;
+        this.fetchButtonTemplate().then(function(result)
+        {
+            var buttonHtml = result.cgMustache.renderTemplate(result.template, {
+                "buttons": [{
+                    "title": "Request all services",
+                    "type": "button",
+                    "id": "request-all-services-button",
+                    "class": "courier-request-all-services-button"
+                }]
+            });
+            $(DeliveryExperience.SELECTOR_BULK_ACTIONS).append(buttonHtml);
+            self.listenForRequestAllButtonClick();
+        });
+    };
+
+    DeliveryExperience.prototype.listenForRequestAllButtonClick = function()
+    {
+        var self = this;
+        $('#request-all-services-button').click(function()
+        {
+            self.replaceAllRequestButtonsWithServices(this);
+        });
+    };
+
+    DeliveryExperience.prototype.replaceAllRequestButtonsWithServices = function(button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var data = this.getInputDataService().getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        if (!data) {
+            return;
+        }
+        $(button).addClass('disabled');
+// TODO: replace all suitable request buttons with spinners then make the ajax call
     };
 
     return DeliveryExperience;
