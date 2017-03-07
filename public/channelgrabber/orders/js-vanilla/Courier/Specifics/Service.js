@@ -284,7 +284,16 @@ define([
         var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], ';
         inputDataSelector +=    '#datatable td input[name^="parcelData['+orderId+']"], ';
         inputDataSelector +=    '#datatable td input[name^="itemData['+orderId+']"]';
-        return this.getInputData(inputDataSelector);
+        var inputData = this.getInputData(inputDataSelector);
+        // Add the service name as well as its code to save us looking it up again later
+        var serviceName = $('#courier-service-options-select-' + orderId + ' li.active').text();
+        if (serviceName) {
+            inputData.push({
+                name: 'orderData[' + orderId + '][serviceName]',
+                value: serviceName.trim()
+            });
+        }
+        return inputData;
     };
 
     Service.prototype.getInputDataForOrdersOfLabelStatuses = function(labelStatuses, idsOnly, cancellableOnly)
