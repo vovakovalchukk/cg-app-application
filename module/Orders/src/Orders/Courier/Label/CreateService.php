@@ -266,7 +266,7 @@ class CreateService extends ServiceAbstract
             'created' => $date->stdFormat(),
             'channelName' => $shippingAccount->getChannel(),
             'courierName' => $shippingAccount->getDisplayName(),
-            'courierService' => $services ? $services[$orderData['service']] : '' ,
+            'courierService' => $services[$orderData['service']] ?? $orderData['service'],
             'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
             'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
             'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
