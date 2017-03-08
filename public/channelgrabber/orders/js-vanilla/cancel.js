@@ -1,9 +1,11 @@
 define([
     'popup/mustache',
-    'Orders/StatusService'
+    'Orders/StatusService',
+    'Orders/BulkActionService'
 ], function(
     Popup,
-    StatusService
+    StatusService,
+    BulkActionService
 ) {
     var Cancel = function(notifications, reasons, type) {
         var selector;
@@ -112,6 +114,7 @@ define([
                     var orders = $(that.getSelector()).data("orders");
                     orders.map(function (orderId) {
                         StatusService.refresh(data.statuses[orderId]);
+                        BulkActionService.refresh(data.bulkActions[orderId]);
                     });
                     return that.getNotifications().success(that.getSuccessMessage());
                 },

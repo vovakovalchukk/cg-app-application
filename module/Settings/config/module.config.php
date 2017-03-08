@@ -13,7 +13,8 @@ use CG\Ebay\Client\TradingApi;
 use CG\Ekm\Account as EkmAccount;
 use CG\Ekm\Account\CreationService as EkmAccountCreationService;
 use CG\Log\Logger;
-use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
+use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
+use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\OrganisationUnit\Storage\Api as OUApiStorage;
 use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
@@ -1185,10 +1186,15 @@ return [
             ],
             ShippingMethodService::class => [
                 'parameters' => [
-                    'repository' => ShippingMethodStorage::class
+                    'repository' => ShippingMethodCacheStorage::class
                 ]
             ],
-            ShippingMethodStorage::class => [
+            ShippingMethodCacheStorage::class => [
+                'parameters'=> [
+                    'storage' => ShippingMethodApiStorage::class,
+                ],
+            ],
+            ShippingMethodApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle',
                 ]

@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -23,6 +24,7 @@ use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
 use Orders\Order\Csv\Service as CsvService;
 use Orders\Order\Timeline\Service as TimelineService;
+use Orders\Order\BulkActions\Service as BulkActionsService;
 use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -53,6 +55,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $ordersToOperatorOn;
     /** @var TimelineService $timelineService */
     protected $timelineService;
+    /** @var BulkActionsService $bulkActionService */
+    protected $bulkActionService;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromInput',
@@ -68,7 +72,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         BatchService $batchService,
         UsageService $usageService,
         OrdersToOperateOn $ordersToOperatorOn,
-        TimelineService $timelineService
+        TimelineService $timelineService,
+        BulkActionsService $bulkActionService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -80,6 +85,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setUsageService($usageService)
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
+        $this->bulkActionService = $bulkActionService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -470,13 +476,24 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         $statuses = [];
         $timelines = [];
+        $bulkActions = [];
         foreach ($orders as $order) {
             $statuses[$order->getId()] = str_replace(' ', '-', $order->getStatus());
             $timelines[$order->getId()] = $this->timelineService->getTimeline($order);
+            $bulkActions[$order->getId()] = $this->getRenderedBulkActions($order);
         }
 
         $response->setVariable('statuses', $statuses);
         $response->setVariable('timelines', $timelines);
+        $response->setVariable('bulkActions', $bulkActions);
+    }
+
+    protected function getRenderedBulkActions(Order $order)
+    {
+        /** @var \Zend\View\Renderer\RendererInterface $viewRenderer */
+        $viewRenderer = $this->getServiceLocator()->get('ViewRenderer');
+
+        return $viewRenderer->render($this->bulkActionService->getBulkActionsForOrder($order));
     }
 
     public function batchesAction()

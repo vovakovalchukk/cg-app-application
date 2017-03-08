@@ -1,11 +1,13 @@
 define([
     'Orders/OrdersBulkActionAbstract',
     'Orders/TimelineService',
-    'Orders/StatusService'
+    'Orders/StatusService',
+    'Orders/BulkActionService'
 ], function(
     OrdersBulkActionAbstract,
     TimelineService,
-    StatusService
+    StatusService,
+    BulkActionService
 ) {
     function Pay() {
         OrdersBulkActionAbstract.call(this);
@@ -38,6 +40,7 @@ define([
                 orders.map(function (orderId) {
                     TimelineService.refresh(data.timelines[orderId]);
                     StatusService.refresh(data.statuses[orderId]);
+                    BulkActionService.refresh(data.bulkActions[orderId]);
                 });
             },
             error: function(request, textStatus, errorThrown) {

@@ -46,6 +46,7 @@ class CreateService extends ServiceAbstract
     const LOG_CREATE_ORDER_LABEL = 'Creating OrderLabel for Order %s';
     const LOG_UPDATE_ORDER_LABEL = 'Updating OrderLabel with PDF data for Order %s (attempt %d)';
 
+    protected $orderLabelLocks = [];
     protected $productDetailFields = [
         'weight' => 'processWeightForProductDetails',
         'width'  => 'processDimensionForProductDetails',
@@ -94,7 +95,7 @@ class CreateService extends ServiceAbstract
                 $shippingAccount,
                 $user
             );
-            $this->deleteOrderLabelsForFailedCreateAttempts($labelReadyStatuses, $orderLabels);
+            $this->unlockOrderLabels();
             $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
 
@@ -103,8 +104,8 @@ class CreateService extends ServiceAbstract
             }
             return $labelReadyStatuses;
         } catch (\Exception $e) {
-            // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
-            $this->removeOrderLabels($orderLabels);
+            // Unlock the labels so the user can try again
+            $this->unlockOrderLabels();
             throw $e;
         }
     }
@@ -293,6 +294,7 @@ class CreateService extends ServiceAbstract
         // Lock to prevent two people creating the same label at the same time
         try {
             $lock = $this->lockingService->lock($orderLabel);
+            $this->orderLabelLocks[$orderLabel->getOrderId()] = $lock;
         } catch (LockingFailure $ex) {
             $this->logException($ex, 'error', __NAMESPACE__);
             $exception = new ValidationMessagesException('Locking error');
@@ -308,18 +310,13 @@ class CreateService extends ServiceAbstract
             return (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
         }
 
-        try {
-            $savedLabel = $this->orderLabelService->save($orderLabel);
-            return $savedLabel;
+        // DO NOT save the OrderLabel at this stage. We only want to save them if the courier call is successful
+        return $orderLabel;
+    }
 
-        } catch (\Exception $e) {
-            $this->logException($e, 'error', __NAMESPACE__);
-            $exception = new ValidationMessagesException('Unknown error');
-            $errorCode = StatusCode::INTERNAL_SERVER_ERROR;
-            $exception->addError('There was a problem preparing the courier data. Please try again.', $order->getId() . ':' . $errorCode);
-            return $exception;
-
-        } finally {
+    protected function unlockOrderLabels()
+    {
+        foreach ($this->orderLabelLocks as $lock) {
             $this->lockingService->unlock($lock);
         }
     }
@@ -356,29 +353,6 @@ class CreateService extends ServiceAbstract
             $ordersWithLabels->attach($order);
         }
         return $ordersWithLabels;
-    }
-
-    protected function deleteOrderLabelsForFailedCreateAttempts(
-        array $labelReadyStatuses,
-        OrderLabelCollection $orderLabels
-    ) {
-        foreach ($labelReadyStatuses as $orderId => $status) {
-            if (!($status instanceof ValidationMessagesException)) {
-                continue;
-            }
-            $labelsByOrderId = $orderLabels->getBy('orderId', $orderId);
-            $labelsByOrderId->rewind();
-            $orderLabel = $labelsByOrderId->current();
-            $this->orderLabelService->remove($orderLabel);
-        }
-        return $this;
-    }
-
-    protected function removeOrderLabels(OrderLabelCollection $orderLabels)
-    {
-        foreach ($orderLabels as $orderLabel) {
-            $this->orderLabelService->remove($orderLabel);
-        }
     }
 
     protected function removeZeroQuantityItemsFromOrders(OrderCollection $orders)
