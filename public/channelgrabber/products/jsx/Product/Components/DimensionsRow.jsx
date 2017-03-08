@@ -42,8 +42,7 @@ define([
                     },
                     success: function() {
                         n.success('Successfully updated '+detail+'.');
-                        var dimensionUpdatedEvent = new CustomEvent('dimension-'+this.props.variation.sku, {'detail': {'value': value, 'dimension': detail}});
-                        window.dispatchEvent(dimensionUpdatedEvent);
+                        window.triggerEvent('dimension-'+this.props.variation.sku, {'value': value, 'dimension': detail});
                         resolve({ savedValue: value });
                     }.bind(this),
                     error: function(error) {

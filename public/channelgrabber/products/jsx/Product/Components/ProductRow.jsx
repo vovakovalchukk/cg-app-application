@@ -4,7 +4,7 @@ define([
     'Product/Components/Checkbox',
     'Product/Components/Status',
     'Product/Components/VariationView',
-    'Product/Components/Button',
+    'Common/Components/Button',
     'Common/Components/Select',
     'Common/Components/SafeInput',
     'Common/Components/EditableField',
@@ -321,6 +321,7 @@ define([
             }.bind(this));
         },
         onVariationDetailChanged: function(updatedVariation) {
+            this.triggerProductRefresh(updatedVariation);
             if (this.props.product.variationCount <= 1) {
                 this.setState({
                     variations: [updatedVariation]
@@ -338,6 +339,9 @@ define([
             this.setState({
                 variations: updatedVariations
             });
+        },
+        triggerProductRefresh: function (updatedVariation) {
+            window.triggerEvent('productRefresh', {product: updatedVariation});
         },
         getInitialState: function () {
             return {
