@@ -155,7 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "27eec7cc7f4b75c0229de69aae8db80971650a61"
+                "reference": "841cb356fa8e6c8e60ff13bea596b6084b9ce550"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -491,7 +491,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "97c1de1a633fa9891efa54a93c167a75680977df"
+                "reference": "aa02c59cde6aef947d513a32abfd6f703bab3c18"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",

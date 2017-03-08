@@ -55,8 +55,10 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.SELECTOR_ORDER_INPUT = 'input[name^="orderData[##orderId##]"]';
     DeliveryExperience.SELECTOR_PARCEL_INPUT = 'input[name^="parcelData[##orderId##]"]';
     DeliveryExperience.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions';
+    DeliveryExperience.SELECTOR_ALL_SERVICES_BUTTON = '#request-all-services-button';
     DeliveryExperience.BLANK_SERVICE = '-';
     DeliveryExperience.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
+    DeliveryExperience.POLL_TIMEOUT_MS = 2000;
 
     DeliveryExperience.prototype.replaceBlankServicesWithRequestButtons = function()
     {
@@ -69,13 +71,13 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             }
 
             var serviceContainer = $(input).closest(DeliveryExperience.SELECTOR_SERVICE_CONTAINER);
-            self.replaceServicesWithRequestButton(serviceContainer);
+            self.renderRequestButton(serviceContainer);
         });
 
         return this;
     };
 
-    DeliveryExperience.prototype.replaceServicesWithRequestButton = function(serviceContainer)
+    DeliveryExperience.prototype.renderRequestButton = function(serviceContainer)
     {
         var self = this;
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
@@ -147,7 +149,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
                 return;
             }
             var serviceContainer = $(this).closest(DeliveryExperience.SELECTOR_SERVICE_CONTAINER);
-            self.replaceRequestButtonWithServices(serviceContainer);
+            self.fetchAndRenderServices(serviceContainer);
         });
 
         return this;
@@ -173,7 +175,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
                 return;
             }
 
-            self.replaceServicesWithRequestButton(serviceContainer);
+            self.renderRequestButton(serviceContainer);
         });
 
         return this;
@@ -196,7 +198,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         return available;
     };
 
-    DeliveryExperience.prototype.replaceRequestButtonWithServices = function(serviceContainer)
+    DeliveryExperience.prototype.fetchAndRenderServices = function(serviceContainer)
     {
         serviceContainer.empty().html(DeliveryExperience.LOADER);
         var self = this;
@@ -209,17 +211,11 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             var template = results[1].template;
             var cgMustache = results[1].cgMustache;
 
-            var selectHtml = cgMustache.renderTemplate(template, {
-                "id": "courier-service-options-select-" + orderId,
-                "name": "orderData[" + orderId + "][service]",
-                "class": "required courier-service-select courier-service-custom-select",
-                "options": shippingServices
-            });
-            serviceContainer.html(selectHtml);
+            self.renderServiceSelect(template, orderId, shippingServices, cgMustache, serviceContainer);
         }, function()
         {
             n.error('There was a problem fetching the shipping services');
-            self.replaceServicesWithRequestButton(serviceContainer);
+            self.renderRequestButton(serviceContainer);
         });
     };
 
@@ -234,6 +230,17 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             // courierAccountId from global scope
             "data": {"order": orderId, "account": courierAccountId, "orderData": orderData}
         });
+    };
+
+    DeliveryExperience.prototype.renderServiceSelect = function(template, orderId, shippingServices, cgMustache, serviceContainer)
+    {
+        var selectHtml = cgMustache.renderTemplate(template, {
+            "id": "courier-service-options-select-" + orderId,
+            "name": "orderData[" + orderId + "][service]",
+            "class": "required courier-service-select courier-service-custom-select",
+            "options": shippingServices
+        });
+        serviceContainer.html(selectHtml);
     };
 
     DeliveryExperience.prototype.getOrderIdFromServiceContainer = function(serviceContainer)
@@ -276,17 +283,18 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.prototype.listenForRequestAllButtonClick = function()
     {
         var self = this;
-        $('#request-all-services-button').click(function()
+        $(DeliveryExperience.SELECTOR_ALL_SERVICES_BUTTON).click(function()
         {
-            self.replaceAllRequestButtonsWithServices($(this).siblings('div.button'));
+            self.fetchAndRenderServicesForAll($(this).siblings('div.button'));
         });
     };
 
-    DeliveryExperience.prototype.replaceAllRequestButtonsWithServices = function(button)
+    DeliveryExperience.prototype.fetchAndRenderServicesForAll = function(button)
     {
         if ($(button).hasClass('disabled')) {
             return;
         }
+        var self = this;
         var labelStatuses = ['', 'cancelled'];
         // We want to validate the form but we have to temporarily mark services as not required to get past that
         var count = this.toggleServiceButtonsRequired(false, labelStatuses);
@@ -301,13 +309,13 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         $(button).addClass('disabled');
 
         // Replace the buttons with spinners
-        for (var key in data.orders) {
-            var orderId = data.orders[key];
+        for (var key in data.order) {
+            var orderId = data.order[key];
             var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace('##orderId##', orderId));
             if (serviceContainer.find(DeliveryExperience.SELECTOR_SERVICE_BUTTON).length == 0) {
                 continue;
             }
-            serviceContainer.empty().html(DeliveryExperience.LOADER);
+            this.toggleServiceLoading(true, orderId);
         }
 
         var servicesPromise = this.fetchShippingServicesForOrders(data);
@@ -317,22 +325,15 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             var template = results[1].template;
             var cgMustache = results[1].cgMustache;
 
-            for (var orderId in shippingServicesPerOrder) {
-                var shippingServices = shippingServicesPerOrder[orderId];
-                var selectHtml = cgMustache.renderTemplate(template, {
-                    "id": "courier-service-options-select-" + orderId,
-                    "name": "orderData[" + orderId + "][service]",
-                    "class": "required courier-service-select courier-service-custom-select",
-                    "options": shippingServices
-                });
-                var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace(/##orderId##/, orderId));
-                serviceContainer.html(selectHtml);
-            }
-            $(button).removeClass('disabled');
+            self.processShippingServicesResponse(shippingServicesPerOrder, template, cgMustache);
         }, function()
         {
             n.error('There was a problem fetching the shipping services');
             $(button).removeClass('disabled');
+            for (var key in data.order) {
+                var orderId = data.order[key];
+                this.toggleServiceLoading(false, orderId);
+            }
         });
     };
 
@@ -360,7 +361,20 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             }
         });
         return count;
-    }
+    };
+
+    DeliveryExperience.prototype.toggleServiceLoading = function(toggle, orderId)
+    {
+        var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace('##orderId##', orderId));
+        if (serviceContainer.find('.custom-select').length > 0) {
+            return;
+        }
+        if (toggle) {
+            serviceContainer.empty().html(DeliveryExperience.LOADER);
+        } else {
+            this.renderRequestButton(serviceContainer);
+        }
+    };
 
     DeliveryExperience.prototype.fetchShippingServicesForOrders = function(data)
     {
@@ -381,6 +395,60 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             "method": "POST",
             "data": mergedData
         });
+    };
+
+    DeliveryExperience.prototype.processShippingServicesResponse = function(shippingServicesPerOrder, template, cgMustache)
+    {
+        var pollOrders = [];
+        var errorOrders = [];
+        for (var orderId in shippingServicesPerOrder) {
+            var shippingServices = shippingServicesPerOrder[orderId];
+            if (shippingServices === true) {
+                pollOrders.push(orderId);
+                continue;
+            } else if (shippingServices === false) {
+                errorOrders.push(orderId);
+                continue;
+            }
+            var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace(/##orderId##/, orderId));
+            this.renderServiceSelect(template, orderId, shippingServices, cgMustache, serviceContainer);
+        }
+        if (errorOrders.length > 0) {
+            n.error('There was a problem retrieving services for one or more orders');
+            for (var key in errorOrders) {
+                var orderId = errorOrders[key];
+                this.toggleServiceLoading(false, orderId);
+            }
+        }
+        if (pollOrders.length > 0) {
+            return this.pollForOrderServices(pollOrders, template, cgMustache);
+        }
+        $(DeliveryExperience.SELECTOR_ALL_SERVICES_BUTTON).siblings('div.button').removeClass('disabled');
+    };
+
+    DeliveryExperience.prototype.pollForOrderServices = function(orderIds, template, cgMustache)
+    {
+        var self = this;
+        var button = $(DeliveryExperience.SELECTOR_ALL_SERVICES_BUTTON).siblings('div.button');
+        setTimeout(function()
+        {
+            $.ajax({
+                "url": "/orders/courier/checkServicesForOrders",
+                "method": "POST",
+                // courierAccountId from global scope
+                "data": {"order": orderIds, "account": courierAccountId}
+            }).then(function (response)
+            {
+                self.processShippingServicesResponse(response.serviceOptions, template, cgMustache);
+            }, function () {
+                n.error('There was a problem fetching the remaining shipping services');
+                $(button).removeClass('disabled');
+                for (var key in orderIds) {
+                    var orderId = orderIds[key];
+                    self.toggleServiceLoading(false, orderId);
+                }
+            });
+        }, DeliveryExperience.POLL_TIMEOUT_MS);
     };
 
     return DeliveryExperience;
