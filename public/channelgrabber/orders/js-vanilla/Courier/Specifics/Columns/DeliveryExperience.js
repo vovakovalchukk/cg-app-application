@@ -30,6 +30,12 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             return this;
         };
 
+        this.getCourierAccountId = function()
+        {
+            // courierAccountId from global scope
+            return courierAccountId;
+        }
+
         var init = function()
         {
             var self = this;
@@ -227,8 +233,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         return $.ajax({
             "url": "/orders/courier/services",
             "method": "POST",
-            // courierAccountId from global scope
-            "data": {"order": orderId, "account": courierAccountId, "orderData": orderData}
+            "data": {"order": orderId, "account": this.getCourierAccountId(), "orderData": orderData}
         });
     };
 
@@ -388,8 +393,8 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             }
             mergedData['orderData['+matches[1]+']['+matches[2]+']'] = data[name];
         }
-        // courierAccountId from global scope
-        mergedData.account = courierAccountId;
+
+        mergedData.account = this.getCourierAccountId();
         return $.ajax({
             "url": "/orders/courier/servicesForOrders",
             "method": "POST",
@@ -435,8 +440,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             $.ajax({
                 "url": "/orders/courier/checkServicesForOrders",
                 "method": "POST",
-                // courierAccountId from global scope
-                "data": {"order": orderIds, "account": courierAccountId}
+                "data": {"order": orderIds, "account": self.getCourierAccountId()}
             }).then(function (response)
             {
                 self.processShippingServicesResponse(response.serviceOptions, template, cgMustache);
