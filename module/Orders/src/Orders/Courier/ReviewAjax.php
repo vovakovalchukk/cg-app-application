@@ -3,8 +3,10 @@ namespace Orders\Courier;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\Shipping\Services\ForOrderDataInterface as ShippingServicesForOrderData;
+use CG\Channel\Shipping\Services\ForOrdersInterface as ShippingServicesForOrders;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Product\Collection as ProductCollection;
@@ -47,7 +49,6 @@ class ReviewAjax
     {
         $order = $this->orderService->fetch($orderId);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
-
         $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
         if ($orderData && $shippingService instanceof ShippingServicesForOrderData) {
             $shippingServices = $shippingService->getShippingServicesForOrderAndData($order, $orderData);
@@ -55,6 +56,29 @@ class ReviewAjax
             $shippingServices = $shippingService->getShippingServicesForOrder($order);
         }
         return $this->shippingServicesToOptions($shippingServices);
+    }
+
+    /**
+     * @return array
+     */
+    public function getServicesOptionsForOrdersAndAccount(array $orderIds, $shippingAccountId, array $orderData = [])
+    {
+        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
+        if (!$shippingService instanceof ShippingServicesForOrders) {
+            throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
+        }
+        $orders = $this->fetchOrdersById($orderIds);
+        $shippingServices = $shippingService->getShippingServicesForOrders($orders, $orderData);
+        $shippingServiceOptions = [];
+        foreach ($shippingServices as $orderId => $services) {
+            if (!is_array($services)) {
+                $shippingServiceOptions[$orderId] = $services;
+                continue;
+            }
+            $shippingServiceOptions[$orderId] = $this->shippingServicesToOptions($services);
+        }
+        return $shippingServiceOptions;
     }
 
     protected function shippingServicesToOptions(array $shippingServices)
@@ -114,5 +138,14 @@ class ReviewAjax
             $itemCount++;
         }
         return $itemData;
+    }
+
+    protected function fetchOrdersById($orderIds)
+    {
+        $filter = (new OrderFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderIds($orderIds);
+        return $this->orderService->fetchCollectionByFilter($filter);
     }
 }

@@ -16,8 +16,7 @@ define(function()
         {
             var element = this;
             var orderId = $(element).val();
-            var labelStatusSelector = InputData.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
-            var labelStatus = $(labelStatusSelector).val();
+            var labelStatus = self.getOrderLabelStatus(orderId);
             if (!labelStatuses[labelStatus] && labelStatuses.indexOf(labelStatus) == -1) {
                 return true; // continue
             }
@@ -42,6 +41,12 @@ define(function()
             }
         });
         return data;
+    };
+
+    InputData.prototype.getOrderLabelStatus = function(orderId)
+    {
+        var labelStatusSelector = InputData.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
+        return $(labelStatusSelector).val();
     };
 
     InputData.prototype.getInputDataForOrder = function(orderId)

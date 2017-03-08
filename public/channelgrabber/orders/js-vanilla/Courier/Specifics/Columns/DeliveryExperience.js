@@ -46,6 +46,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.SELECTOR_TABLE = '#datatable';
     DeliveryExperience.SELECTOR_SERVICE_CONTAINER = '.courier-service-options';
+    DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID = '#courier-service-options-##orderId##';
     DeliveryExperience.SELECTOR_SERVICE_INPUT = 'input.courier-service-select';
     DeliveryExperience.SELECTOR_SERVICE_BUTTON = '.courier-service-options-request-button';
     DeliveryExperience.SELECTOR_DEL_EXP_SELECT = '.courier-delivery-experience-select';
@@ -90,7 +91,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
                     "disabled": !self.isServiceRequestAvailable(serviceContainer)
                 }]
             });
-            var inputHtml = '<input type="hidden" name="orderData['+orderId+'][service]" class="required" value="" />';
+            var inputHtml = '<input type="hidden" name="orderData['+orderId+'][service]" class="required courier-service-select" value="" />';
             serviceContainer.html(buttonHtml + inputHtml);
         });
     };
@@ -277,7 +278,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         var self = this;
         $('#request-all-services-button').click(function()
         {
-            self.replaceAllRequestButtonsWithServices(this);
+            self.replaceAllRequestButtonsWithServices($(this).siblings('div.button'));
         });
     };
 
@@ -286,12 +287,100 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         if ($(button).hasClass('disabled')) {
             return;
         }
-        var data = this.getInputDataService().getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        var labelStatuses = ['', 'cancelled'];
+        // We want to validate the form but we have to temporarily mark services as not required to get past that
+        var count = this.toggleServiceButtonsRequired(false, labelStatuses);
+        if (count == 0) {
+            return;
+        }
+        var data = this.getInputDataService().getInputDataForOrdersOfLabelStatuses(labelStatuses);
         if (!data) {
+            this.toggleServiceButtonsRequired(true, labelStatuses);
             return;
         }
         $(button).addClass('disabled');
-// TODO: replace all suitable request buttons with spinners then make the ajax call
+
+        // Replace the buttons with spinners
+        for (var key in data.orders) {
+            var orderId = data.orders[key];
+            var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace('##orderId##', orderId));
+            if (serviceContainer.find(DeliveryExperience.SELECTOR_SERVICE_BUTTON).length == 0) {
+                continue;
+            }
+            serviceContainer.empty().html(DeliveryExperience.LOADER);
+        }
+
+        var servicesPromise = this.fetchShippingServicesForOrders(data);
+        var templatePromise = this.fetchSelectTemplate();
+        Promise.all([servicesPromise, templatePromise]).then(function(results) {
+            var shippingServicesPerOrder = results[0].serviceOptions;
+            var template = results[1].template;
+            var cgMustache = results[1].cgMustache;
+
+            for (var orderId in shippingServicesPerOrder) {
+                var shippingServices = shippingServicesPerOrder[orderId];
+                var selectHtml = cgMustache.renderTemplate(template, {
+                    "id": "courier-service-options-select-" + orderId,
+                    "name": "orderData[" + orderId + "][service]",
+                    "class": "required courier-service-select courier-service-custom-select",
+                    "options": shippingServices
+                });
+                var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace(/##orderId##/, orderId));
+                serviceContainer.html(selectHtml);
+            }
+            $(button).removeClass('disabled');
+        }, function()
+        {
+            n.error('There was a problem fetching the shipping services');
+            $(button).removeClass('disabled');
+        });
+    };
+
+    DeliveryExperience.prototype.toggleServiceButtonsRequired = function(toggle, labelStatuses)
+    {
+        var self = this;
+        var count = 0;
+        $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER).each(function()
+        {
+            var serviceContainer = $(this);
+            var orderId = self.getOrderIdFromServiceContainer(serviceContainer);
+            var labelStatus = self.getInputDataService().getOrderLabelStatus(orderId);
+            if (!labelStatuses[labelStatus] && labelStatuses.indexOf(labelStatus) == -1) {
+                return true; // continue
+            }
+            if ($(serviceContainer).find(DeliveryExperience.SELECTOR_SERVICE_BUTTON).length == 0) {
+                return true; // continue
+            }
+            count++;
+            var input = serviceContainer.find(DeliveryExperience.SELECTOR_SERVICE_INPUT);
+            if (toggle) {
+                input.addClass('required');
+            } else {
+                input.removeClass('required');
+            }
+        });
+        return count;
+    }
+
+    DeliveryExperience.prototype.fetchShippingServicesForOrders = function(data)
+    {
+        // Merge parcel data into order data
+        var mergedData = {};
+        for (var name in data) {
+            var matches = name.match(/^parcelData\[(.+?)\]\[.+?\]\[(.+?)\]/);
+            if (!matches) {
+                mergedData[name] = data[name];
+                continue;
+            }
+            mergedData['orderData['+matches[1]+']['+matches[2]+']'] = data[name];
+        }
+        // courierAccountId from global scope
+        mergedData.account = courierAccountId;
+        return $.ajax({
+            "url": "/orders/courier/servicesForOrders",
+            "method": "POST",
+            "data": mergedData
+        });
     };
 
     return DeliveryExperience;

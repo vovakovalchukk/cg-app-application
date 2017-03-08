@@ -789,6 +789,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            CourierJsonController::ROUTE_SERVICES_FOR_ORDERS => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/servicesForOrders',
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                        'action' => 'servicesOptionsForOrders',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                             CourierController::ROUTE_REVIEW => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
