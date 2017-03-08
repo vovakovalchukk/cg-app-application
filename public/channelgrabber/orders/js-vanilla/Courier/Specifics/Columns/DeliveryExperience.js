@@ -1,6 +1,6 @@
 define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService)
 {
-    function DeliveryExperience(templatePaths, disabledMessage)
+    function DeliveryExperience(templatePaths, disabledMessage, noServicesMessage)
     {
         var templates;
 
@@ -17,6 +17,11 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         this.getDisabledMessage = function()
         {
             return disabledMessage;
+        };
+
+        this.getNoServicesMessage = function()
+        {
+            return noServicesMessage;
         };
 
         this.getTemplates = function()
@@ -239,6 +244,10 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.prototype.renderServiceSelect = function(template, orderId, shippingServices, cgMustache, serviceContainer)
     {
+        if (!shippingServices || shippingServices.length == 0) {
+            serviceContainer.text(this.getNoServicesMessage());
+            return;
+        }
         var selectHtml = cgMustache.renderTemplate(template, {
             "id": "courier-service-options-select-" + orderId,
             "name": "orderData[" + orderId + "][service]",
