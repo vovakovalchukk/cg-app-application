@@ -11,6 +11,6 @@ function(Preference, SlideableSidebar) {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="sidebar" class="slideable clearfix fixed-scroll">
-    <span class="slideable-toggle" data-preference-key="<?= Orders\Order\Service::ORDER_SIDEBAR_STATE_KEY; ?>">&raquo;</span>
+    <span class="slideable-toggle" data-preference-key="<?= Orders\Order\TableService\OrdersTableUserPreferences::SIDEBAR_STATE_KEY; ?>">&raquo;</span>
     <?= $this->placeholder('#sidebar') ?>
 </div>

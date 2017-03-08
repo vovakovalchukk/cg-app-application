@@ -442,8 +442,11 @@ class SpecificsAjax
         $order = $this->orderService->fetch($orderId);
         $account = $this->accountService->fetch($accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
+        $orders = new OrderCollection(Order::class, 'fetch', ['id' => $orderId]);
+        $orders->attach($order);
+        $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         return $this->courierService->getCarrierOptionsProvider($account)
-            ->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
+            ->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu, $productDetails);
     }
 
     protected function getCarrierServiceProvider(Account $account)
