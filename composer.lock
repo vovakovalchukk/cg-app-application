@@ -2585,7 +2585,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f53d2a6ff35e0e2b7780d7243556bf76682830c5"
+                "reference": "c16db177c01b78309ed22f6fb81079396b1752aa"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
