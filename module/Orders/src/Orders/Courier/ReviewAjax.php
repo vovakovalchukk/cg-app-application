@@ -2,6 +2,7 @@
 namespace Orders\Courier;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Channel\Shipping\Services\CheckForOrdersInterface as CheckShippingServicesForOrders;
 use CG\Channel\Shipping\Services\ForOrderDataInterface as ShippingServicesForOrderData;
 use CG\Channel\Shipping\Services\ForOrdersInterface as ShippingServicesForOrders;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
@@ -70,15 +71,22 @@ class ReviewAjax
         }
         $orders = $this->fetchOrdersById($orderIds);
         $shippingServices = $shippingService->getShippingServicesForOrders($orders, $orderData);
-        $shippingServiceOptions = [];
-        foreach ($shippingServices as $orderId => $services) {
-            if (!is_array($services)) {
-                $shippingServiceOptions[$orderId] = $services;
-                continue;
-            }
-            $shippingServiceOptions[$orderId] = $this->shippingServicesToOptions($services);
+        return $this->shippingServicesPerOrderToOptions($shippingServices);
+    }
+
+    /**
+     * @return array
+     */
+    public function checkServicesOptionsForOrdersAndAccount(array $orderIds, $shippingAccountId)
+    {
+        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
+        if (!$shippingService instanceof CheckForOrdersInterface) {
+            throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
         }
-        return $shippingServiceOptions;
+        $orders = $this->fetchOrdersById($orderIds);
+        $shippingServices = $shippingService->checkShippingServicesForOrders($orders);
+        return $this->shippingServicesPerOrderToOptions($shippingServices);
     }
 
     protected function shippingServicesToOptions(array $shippingServices)
@@ -91,6 +99,19 @@ class ReviewAjax
             ];
         }
         return $options;
+    }
+
+    protected function shippingServicesPerOrderToOptions(array $shippingServicesPerOrder)
+    {
+        $shippingServiceOptions = [];
+        foreach ($shippingServicesPerOrder as $orderId => $shippingServices) {
+            if (!is_array($shippingServices)) {
+                $shippingServiceOptions[$orderId] = $shippingServices;
+                continue;
+            }
+            $shippingServiceOptions[$orderId] = $this->shippingServicesToOptions($shippingServices);
+        }
+        return $shippingServiceOptions;
     }
 
     /**

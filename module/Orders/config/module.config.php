@@ -800,6 +800,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            CourierJsonController::ROUTE_CHECK_SERVICES_FOR_ORDERS => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/checkServicesForOrders',
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                        'action' => 'checkServicesOptionsForOrders',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                             CourierController::ROUTE_REVIEW => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
