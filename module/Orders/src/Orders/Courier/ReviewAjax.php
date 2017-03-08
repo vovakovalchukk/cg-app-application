@@ -81,7 +81,7 @@ class ReviewAjax
     {
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
         $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
-        if (!$shippingService instanceof CheckForOrdersInterface) {
+        if (!$shippingService instanceof CheckShippingServicesForOrders) {
             throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
         }
         $orders = $this->fetchOrdersById($orderIds);
