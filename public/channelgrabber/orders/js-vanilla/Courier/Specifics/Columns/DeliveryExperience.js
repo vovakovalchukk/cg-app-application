@@ -104,9 +104,14 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
                     "disabled": !self.isServiceRequestAvailable(serviceContainer)
                 }]
             });
-            var inputHtml = '<input type="hidden" name="orderData['+orderId+'][service]" class="required courier-service-select" value="" />';
+            var inputHtml = self.getBlankServiceInput(orderId);
             serviceContainer.html(buttonHtml + inputHtml);
         });
+    };
+
+    DeliveryExperience.prototype.getBlankServiceInput = function(orderId)
+    {
+        return '<input type="hidden" name="orderData['+orderId+'][service]" class="required courier-service-select" value="" />';
     };
 
     DeliveryExperience.prototype.fetchButtonTemplate = function()
@@ -245,7 +250,8 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.prototype.renderServiceSelect = function(template, orderId, shippingServices, cgMustache, serviceContainer)
     {
         if (!shippingServices || shippingServices.length == 0) {
-            serviceContainer.text(this.getNoServicesMessage());
+            var inputHtml = this.getBlankServiceInput(orderId);
+            serviceContainer.html(this.getNoServicesMessage() + inputHtml);
             return;
         }
         var selectHtml = cgMustache.renderTemplate(template, {
