@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad22b318c04bf64092170f495b31901d",
+    "content-hash": "69c59af012c4d5ced5a6fbbd9893f814",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -682,6 +682,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "48bf328756023e45fbd9a8c9279f23abc404cf71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-8071-dpd-tracking-num-not-working-759689.zip",
+                "reference": "48bf328756023e45fbd9a8c9279f23abc404cf71",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -711,7 +717,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-23T10:57:16+00:00"
+            "time": "2017-03-08 16:28:24"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1553,16 +1559,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.27.3",
+            "version": "1.27.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3932ae4b2b739550b83f0d9cd2cb7da7328f5de6"
+                "reference": "7614e25e89190df5caecb1a552ca1482c9c51003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.27.3-012ec2.zip",
-                "reference": "3932ae4b2b739550b83f0d9cd2cb7da7328f5de6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.27.5-d05cd2.zip",
+                "reference": "7614e25e89190df5caecb1a552ca1482c9c51003",
                 "shasum": null
             },
             "require": {
@@ -1627,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-02T09:55:43+00:00"
+            "time": "2017-03-09T12:49:54+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2575,16 +2581,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.20",
+            "version": "1.4.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3712c1147b734cd7a72184ff4020727b560c4e2b"
+                "reference": "16c48cd73ff074a3f97c869696c8a76eaac67e24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.20-fa5848.zip",
-                "reference": "3712c1147b734cd7a72184ff4020727b560c4e2b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.21-967c42.zip",
+                "reference": "16c48cd73ff074a3f97c869696c8a76eaac67e24",
                 "shasum": null
             },
             "require": {
@@ -2595,7 +2601,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.27.0",
+                "channelgrabber/order": "^1.27.5",
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.4.3",
                 "channelgrabber/stdlib": "^2.10.4",
@@ -2629,7 +2635,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-02-24T11:53:23+00:00"
+            "time": "2017-03-09T12:58:14+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4061,7 +4067,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5403,7 +5409,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5454,7 +5460,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5547,7 +5553,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6016,7 +6022,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8858,14 +8864,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
