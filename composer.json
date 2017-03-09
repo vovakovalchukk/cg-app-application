@@ -80,7 +80,7 @@
         "channelgrabber/validation": "~1.2.7",
         "channelgrabber/woocommerce": "~1.2.13",
         "channelgrabber/zendesk": "~1.0.0",
-        "channelgrabber/zf2-amazon": "~1.0.20",
+        "channelgrabber/zf2-amazon": "dev-CGIV-8057-amazon-logistics-services-fetched-per-order as 1.0.21",
         "channelgrabber/zf2-api": "~1.0.0",
         "channelgrabber/zf2-channel": "~1.0.6",
         "channelgrabber/zf2-ebay": "~1.0.4",
