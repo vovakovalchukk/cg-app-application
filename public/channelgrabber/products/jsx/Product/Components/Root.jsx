@@ -42,10 +42,14 @@ define([
         componentDidMount: function()
         {
             this.performProductsRequest();
+            window.addEventListener('productDeleted', this.onDeleteProduct, false);
+            window.addEventListener('productRefresh', this.onRefreshProduct, false);
         },
         componentWillUnmount: function()
         {
             this.productsRequest.abort();
+            window.removeEventListener('productDeleted', this.onDeleteProduct, false);
+            window.removeEventListener('productRefresh', this.onRefreshProduct, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -61,21 +65,16 @@ define([
             var filter = new ProductFilter(this.state.searchTerm, null);
             filter.setPage(pageNumber);
 
-            this.productsRequest = $.ajax({
-                'url' : this.props.productsUrl,
-                'data' : {'filter': filter.toObject()},
-                'method' : 'POST',
-                'dataType' : 'json',
-                'success' : function(result) {
-                    this.setState({
-                        products: result.products,
-                        pagination: result.pagination
-                    }, function(){$('#products-loading-message').hide()});
-                }.bind(this),
-                'error' : function () {
-                    throw 'Unable to load products';
-                }
-            });
+            function successCallback(result) {
+                this.setState({
+                    products: result.products,
+                    pagination: result.pagination
+                }, function(){$('#products-loading-message').hide()});
+            }
+            function errorCallback() {
+                throw 'Unable to load products';
+            }
+            this.getProducts(filter, successCallback, errorCallback);
         },
         getSearchBox: function() {
             if (this.props.searchAvailable) {
@@ -84,6 +83,46 @@ define([
         },
         onPageChange: function(pageNumber) {
             this.performProductsRequest(pageNumber);
+        },
+        getProducts: function (filter, successCallback, errorCallback) {
+            this.productsRequest = $.ajax({
+                'url' : this.props.productsUrl,
+                'data' : {'filter': filter.toObject()},
+                'method' : 'POST',
+                'dataType' : 'json',
+                'success' : successCallback.bind(this),
+                'error' : errorCallback.bind(this)
+            });
+        },
+        onDeleteProduct: function (event) {
+            var deletedProductIds = event.detail.productIds;
+
+            var products = this.state.products;
+            var productsAfterDelete = [];
+            products.forEach(function (product) {
+                if (deletedProductIds.indexOf(product.id) < 0) {
+                    productsAfterDelete.push(product);
+                }
+            });
+
+            this.setState({
+                products: productsAfterDelete
+            });
+        },
+        onRefreshProduct: function (event) {
+            var refreshedProduct = event.detail.product;
+            var refreshedProductId = (refreshedProduct.parentProductId === 0 ? refreshedProduct.id : refreshedProduct.parentProductId);
+            var products = this.state.products.map(function (product) {
+                if (product.id === refreshedProductId) {
+                    product.listings[0].status = 'pending';
+                    return product;
+                }
+                return product;
+            });
+
+            this.setState({
+                products: products
+            });
         },
         render: function()
         {

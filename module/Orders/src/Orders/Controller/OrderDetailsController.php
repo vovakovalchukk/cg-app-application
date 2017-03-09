@@ -73,11 +73,8 @@ class OrderDetailsController extends AbstractActionController
             ]
         );
         $view->setTemplate('orders/orders/order');
-        $bulkActions = $this->getBulkActionsForOrder($order);
-        $bulkActions->addChild(
-            $this->viewModelFactory->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
-            'afterActions'
-        );
+        $bulkActions = $this->bulkActionsService->getBulkActionsForOrder($order);
+        $backButton = $this->getBackButton();
 
         $productPaymentInfo = $this->getProductAndPaymentDetails($order);
         $labelDetails = $this->getShippingLabelDetails($order);
@@ -95,6 +92,7 @@ class OrderDetailsController extends AbstractActionController
         $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
+        $view->addChild($backButton, 'backButton');
         $view->addChild($buyerMessage, 'buyerMessage');
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
@@ -137,19 +135,11 @@ class OrderDetailsController extends AbstractActionController
         return $carrierSelect;
     }
 
-    protected function getBulkActionsForOrder(Order $order)
+    protected function getBackButton()
     {
-        $bulkActions = $this->bulkActionsService->getOrderBulkActions($order);
-        if ($this->courierHelper->hasCourierAccounts()) {
-            return $bulkActions;
-        }
-        foreach ($bulkActions->getActions() as $action) {
-            if (!($action instanceof CourierBulkAction)) {
-                continue;
-            }
-            $bulkActions->getActions()->detach($action);
-        }
-        return $bulkActions;
+        $backButton = $this->viewModelFactory->newInstance();
+        $backButton->setTemplate('orders/orders/bulk-actions/order');
+        return $backButton;
     }
 
     protected function getProductAndPaymentDetails(Order $order)
