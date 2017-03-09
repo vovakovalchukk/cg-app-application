@@ -1563,12 +1563,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "63e242ccb1da238a3eeb2b3a9bb7e7b9542fc76d"
+                "reference": "5be967281b0aa395e4af330e640e02b51da96c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8096-SkipFBAVATCheckIfOneVAT-ade55a.zip",
-                "reference": "63e242ccb1da238a3eeb2b3a9bb7e7b9542fc76d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8096-SkipFBAVATCheckIfOneVAT-a7adf1.zip",
+                "reference": "5be967281b0aa395e4af330e640e02b51da96c4d",
                 "shasum": null
             },
             "require": {
@@ -1633,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-09 13:39:30"
+            "time": "2017-03-09 14:50:15"
         },
         {
             "name": "channelgrabber/permission",
