@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "883d8344d5fe5e44deb43f2ae6c156a2",
+    "content-hash": "d92150b5715ec8a69dc9c3faf8cd70a4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1559,16 +1559,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7947-invoice-template-tags-for-courier-data",
+            "version": "1.27.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8eb57bded5e2c8222957e6226d9fa211b59fc6f5"
+                "reference": "7614e25e89190df5caecb1a552ca1482c9c51003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7947-invoice-template-tags-for-courier-data-fd789b.zip",
-                "reference": "8eb57bded5e2c8222957e6226d9fa211b59fc6f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.27.5-d05cd2.zip",
+                "reference": "7614e25e89190df5caecb1a552ca1482c9c51003",
                 "shasum": null
             },
             "require": {
@@ -1633,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-07 15:04:20"
+            "time": "2017-03-09T12:49:54+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2581,16 +2581,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-7947-invoice-template-tags-for-courier-data",
+            "version": "1.4.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c16db177c01b78309ed22f6fb81079396b1752aa"
+                "reference": "16c48cd73ff074a3f97c869696c8a76eaac67e24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-7947-invoice-template-tags-for-courier-data-6e7a4b.zip",
-                "reference": "c16db177c01b78309ed22f6fb81079396b1752aa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.21-967c42.zip",
+                "reference": "16c48cd73ff074a3f97c869696c8a76eaac67e24",
                 "shasum": null
             },
             "require": {
@@ -2601,7 +2601,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-7947-invoice-template-tags-for-courier-data as 1.27.5",
+                "channelgrabber/order": "^1.27.5",
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.4.3",
                 "channelgrabber/stdlib": "^2.10.4",
@@ -2635,7 +2635,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-03-08 10:02:43"
+            "time": "2017-03-09T12:58:14+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8854,25 +8854,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.27.5",
-            "alias_normalized": "1.27.5.0",
-            "version": "dev-CGIV-7947-invoice-template-tags-for-courier-data",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.4.21",
-            "alias_normalized": "1.4.21.0",
-            "version": "dev-CGIV-7947-invoice-template-tags-for-courier-data",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
