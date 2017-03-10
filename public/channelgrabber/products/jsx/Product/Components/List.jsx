@@ -34,6 +34,9 @@ define([
             AjaxHandler.fetchByFilter(filter, variations.bind(this));
         },
         componentWillReceiveProps: function (nextProps) {
+            if (! this.initialRequest) {
+                return;
+            }
             var maxVariationAttributes = 1;
             var allDefaultVariationIds = [];
             nextProps.products.forEach(function(product) {
@@ -58,9 +61,17 @@ define([
         },
         componentDidMount: function () {
             this.initialRequest = true;
+            window.addEventListener('variationsReceived', this.onVariationsReceived, false);
         },
         componentWillUnmount: function () {
             this.variationsRequest.abort();
+            window.removeEventListener('variationsReceived', this.onVariationsReceived, false);
+        },
+        onVariationsReceived: function (event) {
+            var variationsByProductId = this.state.variations;
+            variationsByProductId[event.detail.productId] = event.detail.variations;
+
+            this.setState({variations: variationsByProductId});
         },
         getProducts: function () {
             if ((this.props.products.length === 0) && (this.initialRequest !== undefined)) {
