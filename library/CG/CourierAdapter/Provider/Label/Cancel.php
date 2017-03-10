@@ -67,7 +67,7 @@ class Cancel
         }
 
         try {
-            $orderLabel = $this->fetchOrderLabelForOrder($order);
+            $orderLabel = $this->orderLabelService->fetchOrderLabelForOrder($order);
         } catch (NotFound $e) {
             return false;
         }
@@ -98,17 +98,6 @@ class Cancel
         $shipment->setCourierReference($orderLabel->getExternalId());
 
         return $shipment;
-    }
-
-    protected function fetchOrderLabelForOrder(Order $order)
-    {
-        $filter = (new OrderLabelFilter())
-            ->setLimit(1)
-            ->setPage(1)
-            ->setOrderId([$order->getId()]);
-        $labels = $this->orderLabelService->fetchCollectionByFilter($filter);
-        $labels->rewind();
-        return $labels->current();
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)

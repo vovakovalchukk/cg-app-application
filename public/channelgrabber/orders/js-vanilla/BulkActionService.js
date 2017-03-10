@@ -4,7 +4,7 @@ define([
     function BulkActionService() {
     }
 
-    BulkActionService.BULK_ACTION_CONTAINER_SELECTOR = '#bulk-actions';
+    BulkActionService.BULK_ACTION_CONTAINER_SELECTOR = '.bulk-actions-holder.order-detail > #bulk-actions';
 
 
     BulkActionService.prototype.refresh = function (bulkActions) {
