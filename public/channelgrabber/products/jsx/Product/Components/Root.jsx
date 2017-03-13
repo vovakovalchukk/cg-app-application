@@ -66,11 +66,13 @@ define([
             filter.setPage(pageNumber);
 
             function successCallback(result) {
-                window.triggerEvent('productsReceived');
                 this.setState({
                     products: result.products,
                     pagination: result.pagination
-                }, function(){$('#products-loading-message').hide()});
+                }, function(){
+                    window.triggerEvent('productsReceived');
+                    $('#products-loading-message').hide()
+                });
             }
             function errorCallback() {
                 throw 'Unable to load products';
