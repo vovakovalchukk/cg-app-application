@@ -61,14 +61,14 @@ define([
         },
         componentDidMount: function () {
             this.requireVariationRequest = true;
-            window.addEventListener('newProductSearch', this.onNewProductSearch, false);
+            window.addEventListener('productsReceived', this.onProductsReceived, false);
             window.addEventListener('variationsReceived', this.onVariationsReceived, false);
         },
         componentWillUnmount: function () {
-            window.removeEventListener('newProductSearch', this.onNewProductSearch, false);
+            window.removeEventListener('productsReceived', this.onProductsReceived, false);
             window.removeEventListener('variationsReceived', this.onVariationsReceived, false);
         },
-        onNewProductSearch: function (event) {
+        onProductsReceived: function (event) {
             this.requireVariationRequest = true;
         },
         onVariationsReceived: function (event) {

@@ -52,7 +52,6 @@ define([
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
         },
         filterBySearch: function(searchTerm) {
-            window.triggerEvent('newProductSearch');
             this.setState({
                 searchTerm: searchTerm
             },
@@ -67,6 +66,7 @@ define([
             filter.setPage(pageNumber);
 
             function successCallback(result) {
+                window.triggerEvent('productsReceived');
                 this.setState({
                     products: result.products,
                     pagination: result.pagination
