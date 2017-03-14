@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c2ac162aac92f4620b133c3572883ea",
+    "content-hash": "23b97b75fc76edfac793ec58109119a2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.27",
+            "version": "1.19.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4c7e01f6f9cafae23fa46e31d7df2d787e1e3bd9"
+                "reference": "621140a86c413b4dceb0d9ebe1dd18a6cd519799"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.27-e3d39c.zip",
-                "reference": "4c7e01f6f9cafae23fa46e31d7df2d787e1e3bd9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.28-6d5843.zip",
+                "reference": "621140a86c413b4dceb0d9ebe1dd18a6cd519799",
                 "shasum": null
             },
             "require": {
@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-02-28T11:29:11+00:00"
+            "time": "2017-03-02T09:56:34+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
+            "version": "1.28.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9dda1a46f6c985a1f124ed5412b492a0f0d70b2c"
+                "reference": "aa21d91853b3add007f5ab2916921f3d919dfe87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8094-amazon-fulfilled-shipment-data-missing-2ed316.zip",
-                "reference": "9dda1a46f6c985a1f124ed5412b492a0f0d70b2c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.1-f2fa8d.zip",
+                "reference": "aa21d91853b3add007f5ab2916921f3d919dfe87",
                 "shasum": null
             },
             "require": {
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-03-14 10:29:26"
+            "time": "2017-03-14T14:08:12+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1563,7 +1563,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ab909cda404494816c7a445965872c28930ed120"
+                "reference": "0833aec2f339bb1ff59685eacb1446e6fc8ff40b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1627,7 +1627,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-14 14:01:05"
+            "time": "2017-03-15T15:33:57+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -5403,7 +5403,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8853,26 +8853,19 @@
             "alias": "1.28.1",
             "alias_normalized": "1.28.1.0",
             "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.28.1",
-            "alias_normalized": "1.28.1.0",
-            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
             "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
