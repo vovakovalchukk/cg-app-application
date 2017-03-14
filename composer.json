@@ -41,7 +41,7 @@
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.10.2",
-        "channelgrabber/ekm": "~1.8.43",
+        "channelgrabber/ekm": "dev-CGIV-7212-renewing-ekm-accounts-new-setting-as-active as 1.8.44",
         "channelgrabber/email": "~1.0.8",
         "channelgrabber/etag": "~1.6.0",
         "channelgrabber/exchangerate": "~1.1.0",
