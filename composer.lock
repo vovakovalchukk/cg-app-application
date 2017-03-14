@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b97c478b1ddac8df454b985bc2ba234",
+    "content-hash": "4c2ac162aac92f4620b133c3572883ea",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.28.0",
+            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9740f455110812e5dafc0529cdfbd61c7f42b8d3"
+                "reference": "9dda1a46f6c985a1f124ed5412b492a0f0d70b2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.0-31ce68.zip",
-                "reference": "9740f455110812e5dafc0529cdfbd61c7f42b8d3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8094-amazon-fulfilled-shipment-data-missing-2ed316.zip",
+                "reference": "9dda1a46f6c985a1f124ed5412b492a0f0d70b2c",
                 "shasum": null
             },
             "require": {
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-02-27T16:02:03+00:00"
+            "time": "2017-03-14 10:29:26"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1559,17 +1559,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.0",
+            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2d19f1b46af83727c49c0f85ac630ba63f531cea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.0-981512.zip",
-                "reference": "2d19f1b46af83727c49c0f85ac630ba63f531cea",
-                "shasum": null
+                "reference": "ab909cda404494816c7a445965872c28930ed120"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1633,7 +1627,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-09T15:26:27+00:00"
+            "time": "2017-03-14 14:01:05"
         },
         {
             "name": "channelgrabber/permission",
@@ -4067,7 +4061,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5113,7 +5107,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -5460,7 +5454,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5553,7 +5547,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6022,7 +6016,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8854,10 +8848,25 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.1",
+            "alias_normalized": "1.28.1.0",
+            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.28.1",
+            "alias_normalized": "1.28.1.0",
+            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
