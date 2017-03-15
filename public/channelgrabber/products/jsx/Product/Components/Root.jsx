@@ -90,31 +90,6 @@ define([
             }
             this.getProducts(filter, successCallback, errorCallback);
         },
-        onNewProductsReceived: function () {
-            var maxVariationAttributes = 1;
-            var allDefaultVariationIds = [];
-            this.state.products.forEach(function(product) {
-                if (product.attributeNames.length > maxVariationAttributes) {
-                    maxVariationAttributes = product.attributeNames.length;
-                }
-                var defaultVariationIds = product.variationIds.slice(0, 2);
-                allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
-            });
-            if (maxVariationAttributes > MAX_VARIATION_ATTRIBUTE_COLUMNS) {
-                maxVariationAttributes = MAX_VARIATION_ATTRIBUTE_COLUMNS;
-            }
-            this.setState({maxVariationAttributes: maxVariationAttributes});
-
-            if (allDefaultVariationIds.length == 0) {
-                return;
-            }
-
-            var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
-            this.fetchVariations(productFilter);
-        },
-        onPageChange: function(pageNumber) {
-            this.performProductsRequest(pageNumber);
-        },
         getProducts: function (filter, successCallback, errorCallback) {
             this.productsRequest = $.ajax({
                 'url' : this.props.productsUrl,
@@ -188,6 +163,31 @@ define([
             this.setState({
                 products: products
             });
+        },
+        onNewProductsReceived: function () {
+            var maxVariationAttributes = 1;
+            var allDefaultVariationIds = [];
+            this.state.products.forEach(function(product) {
+                if (product.attributeNames.length > maxVariationAttributes) {
+                    maxVariationAttributes = product.attributeNames.length;
+                }
+                var defaultVariationIds = product.variationIds.slice(0, 2);
+                allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
+            });
+            if (maxVariationAttributes > MAX_VARIATION_ATTRIBUTE_COLUMNS) {
+                maxVariationAttributes = MAX_VARIATION_ATTRIBUTE_COLUMNS;
+            }
+            this.setState({maxVariationAttributes: maxVariationAttributes});
+
+            if (allDefaultVariationIds.length == 0) {
+                return;
+            }
+
+            var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
+            this.fetchVariations(productFilter);
+        },
+        onPageChange: function(pageNumber) {
+            this.performProductsRequest(pageNumber);
         },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
