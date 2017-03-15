@@ -36,6 +36,25 @@ define([
     "use strict";
 
     var ProductRowComponent = React.createClass({
+        getInitialState: function () {
+            return {
+                expanded: false,
+                variations: [],
+                bulkStockMode: {
+                    name: '',
+                    value: ''
+                },
+                variationsSort: [
+                    {
+                        attribute: this.props.product.attributeNames[0],
+                        ascending: true
+                    }
+                ]
+            };
+        },
+        componentWillReceiveProps: function (newProps) {
+            this.sortVariations(this.state.variationsSort, newProps.variations);
+        },
         isParentProduct: function() {
             return this.props.product.variationCount !== undefined && this.props.product.variationCount >= 1
         },
@@ -172,6 +191,7 @@ define([
                 var filter = new ProductFilter(null, this.props.product.id);
                 AjaxHandler.fetchByFilter(filter, function(data) {
                     this.sortVariations(this.state.variationsSort, data.products);
+                    this.triggerVariationsReceived(data.products);
                     $('#products-loading-message').hide();
                 }.bind(this));
 
@@ -343,24 +363,8 @@ define([
         triggerProductRefresh: function (updatedVariation) {
             window.triggerEvent('productRefresh', {product: updatedVariation});
         },
-        getInitialState: function () {
-            return {
-                expanded: false,
-                variations: [],
-                bulkStockMode: {
-                    name: '',
-                    value: ''
-                },
-                variationsSort: [
-                    {
-                        attribute: this.props.product.attributeNames[0],
-                        ascending: true
-                    }
-                ]
-            };
-        },
-        componentWillReceiveProps: function (newProps) {
-            this.sortVariations(this.state.variationsSort, newProps.variations);
+        triggerVariationsReceived: function (newVariations) {
+            window.triggerEvent('variationsReceived', {variations: newVariations, productId: this.props.product.id});
         },
         render: function()
         {

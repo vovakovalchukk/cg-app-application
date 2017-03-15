@@ -34,6 +34,9 @@ define([
             AjaxHandler.fetchByFilter(filter, variations.bind(this));
         },
         componentWillReceiveProps: function (nextProps) {
+            if (! this.requireVariationRequest) {
+                return;
+            }
             var maxVariationAttributes = 1;
             var allDefaultVariationIds = [];
             nextProps.products.forEach(function(product) {
@@ -54,16 +57,28 @@ define([
 
             var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
             this.fetchVariations(productFilter);
-            this.initialRequest = false;
+            this.requireVariationRequest = false;
         },
         componentDidMount: function () {
-            this.initialRequest = true;
+            this.requireVariationRequest = true;
+            window.addEventListener('newProductSearch', this.onNewProductSearch, false);
+            window.addEventListener('variationsReceived', this.onVariationsReceived, false);
         },
         componentWillUnmount: function () {
-            this.variationsRequest.abort();
+            window.removeEventListener('newProductSearch', this.onNewProductSearch, false);
+            window.removeEventListener('variationsReceived', this.onVariationsReceived, false);
+        },
+        onNewProductSearch: function (event) {
+            this.requireVariationRequest = true;
+        },
+        onVariationsReceived: function (event) {
+            var variationsByProductId = this.state.variations;
+            variationsByProductId[event.detail.productId] = event.detail.variations;
+
+            this.setState({variations: variationsByProductId});
         },
         getProducts: function () {
-            if ((this.props.products.length === 0) && (this.initialRequest !== undefined)) {
+            if ((this.props.products.length === 0) && (this.requireVariationRequest !== undefined)) {
                  return (
                      <div className="no-products-message-holder">
                          <span className="sprite-noproducts"></span>

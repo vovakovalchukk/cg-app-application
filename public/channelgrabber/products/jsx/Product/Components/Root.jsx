@@ -52,6 +52,7 @@ define([
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
         },
         filterBySearch: function(searchTerm) {
+            window.triggerEvent('newProductSearch');
             this.setState({
                 searchTerm: searchTerm
             },

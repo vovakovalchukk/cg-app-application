@@ -11,16 +11,16 @@ define([
         getValues: function(variation) {
             return [
                 <td key="weight" className="detail">
-                    <Input name='weight' initialValue={variation.details ?variation.details.weight.toFixed(3): ''} step="0.1" submitCallback={this.update}/>
+                    <Input name='weight' initialValue={(variation.details && variation.details.weight) ? variation.details.weight.toFixed(3): ''} step="0.1" submitCallback={this.update}/>
                 </td>,
                 <td key="height" className="detail">
-                    <Input name='height' initialValue={variation.details ?variation.details.height: ''} step="0.1" submitCallback={this.update}/>
+                    <Input name='height' initialValue={(variation.details && variation.details.height) ? variation.details.height: ''} step="0.1" submitCallback={this.update}/>
                 </td>,
                 <td key="width" className="detail">
-                    <Input name='width' initialValue={variation.details ?variation.details.width: ''} step="0.1" submitCallback={this.update}/>
+                    <Input name='width' initialValue={(variation.details && variation.details.width) ? variation.details.width: ''} step="0.1" submitCallback={this.update}/>
                 </td>,
                 <td key="length" className="detail">
-                    <Input name='length' initialValue={variation.details ?variation.details.length: ''} step="0.1" submitCallback={this.update}/>
+                    <Input name='length' initialValue={(variation.details && variation.details.length) ? variation.details.length: ''} step="0.1" submitCallback={this.update}/>
                 </td>,
             ];
         },

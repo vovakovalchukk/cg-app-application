@@ -394,13 +394,13 @@ class CourierController extends AbstractActionController
     {
         $orderIds = $this->params()->fromPost('order', []);
         $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
-        return new FileResponse(static::LABEL_MIME_TYPE, 'Labels.pdf', $pdfData);
+        return new FileResponse(static::LABEL_MIME_TYPE, date('Y-m-d hi').' Labels.pdf', $pdfData);
     }
 
     public function printManifestAction()
     {
         $manifestId = $this->params()->fromRoute('manifestId');
         $pdfData = $this->manifestService->getManifestPdfForAccountManifest($manifestId);
-        return new FileResponse(static::MANIFEST_MIME_TYPE, 'Manifest.pdf', $pdfData);
+        return new FileResponse(static::MANIFEST_MIME_TYPE, date('Y-m-d hi').' Manifest.pdf', $pdfData);
     }
 }
