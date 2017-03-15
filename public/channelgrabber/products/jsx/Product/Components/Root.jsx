@@ -79,11 +79,6 @@ define([
             }
             this.getProducts(filter, successCallback, errorCallback);
         },
-        getSearchBox: function() {
-            if (this.props.searchAvailable) {
-                return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
-            }
-        },
         onPageChange: function(pageNumber) {
             this.performProductsRequest(pageNumber);
         },
@@ -127,11 +122,16 @@ define([
                 products: products
             });
         },
+        renderSearchBox: function() {
+            if (this.props.searchAvailable) {
+                return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
+            }
+        },
         render: function()
         {
             return (
                 <div>
-                    {this.getSearchBox()}
+                    {this.renderSearchBox()}
                     <ProductList products={this.state.products} />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
