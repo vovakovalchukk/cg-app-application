@@ -2,7 +2,6 @@ define([
     'react',
     'Product/Components/Search',
     'Product/Filter/Entity',
-    'Product/Components/List',
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Storage/Ajax'
