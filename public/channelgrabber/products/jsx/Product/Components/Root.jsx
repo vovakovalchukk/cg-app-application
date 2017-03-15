@@ -88,9 +88,9 @@ define([
             function errorCallback() {
                 throw 'Unable to load products';
             }
-            this.getProducts(filter, successCallback, errorCallback);
+            this.fetchProducts(filter, successCallback, errorCallback);
         },
-        getProducts: function (filter, successCallback, errorCallback) {
+        fetchProducts: function (filter, successCallback, errorCallback) {
             this.productsRequest = $.ajax({
                 'url' : this.props.productsUrl,
                 'data' : {'filter': filter.toObject()},
