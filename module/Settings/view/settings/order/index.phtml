@@ -24,19 +24,13 @@ $(document).ready(function() {
 </div>
 <div class="module clearfix">
     <form>
-        <div class="order-management-form">
+        <div class="order-form">
             <input type='hidden' value="<?= $eTag ?>" id="order-eTag">
             <div class="half">
                 <label>
                     <span class="inputbox-label">Auto archive after:</span>
                     <div class="order-inputbox-holder">
                         <?= $autoArchiveTimeframeSelect; ?>
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label">Show warning when dispatching orders:</span>
-                    <div class="order-inputbox-holder checkbox">
-                        <?= $dispatchOrderWarningCheckbox; ?>
                     </div>
                 </label>
             </div>

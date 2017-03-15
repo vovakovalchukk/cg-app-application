@@ -10,11 +10,6 @@ define([
             var self = this;
 
             $(document).on('change', Order.SELECTOR, function(event, data){
-                if (data === undefined) {
-                    self.save();
-                    return;
-                }
-
                 var selection = data[0].innerText.trim();
 
                 if (selection !== 'Do not auto archive') {
@@ -36,9 +31,8 @@ define([
         init.call(this);
     };
 
-    Order.SELECTOR = '.order-management-form';
+    Order.SELECTOR = '.order-form';
     Order.ARCHIVE_TIME_SELECTOR = '#autoArchiveTimeframe-custom-select input';
-    Order.DISPATCH_ORDER_CHECKBOX_SELECTOR = '#dispatch-order-warning-checkbox';
     Order.ETAG_SELECTOR = '#order-eTag';
 
     Order.prototype.save = function()
@@ -46,8 +40,7 @@ define([
         n.notice('Saving order management settings');
         var orderSettings = {
             "eTag": $(Order.ETAG_SELECTOR).val(),
-            "autoArchiveTimeframe": $(Order.ARCHIVE_TIME_SELECTOR).val(),
-            "dispatchOrderWarning": $(Order.DISPATCH_ORDER_CHECKBOX_SELECTOR).prop('checked')  ? '1' : '0'
+            "autoArchiveTimeframe": $(Order.ARCHIVE_TIME_SELECTOR).val()
         };
 
         var self = this;
