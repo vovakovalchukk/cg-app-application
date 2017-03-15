@@ -46,10 +46,21 @@ class OrderController extends AbstractActionController
         ]);
 
         $view->addChild($this->getAutoArchiveTimeframeSelect($settings->getAutoArchiveTimeframe()), 'autoArchiveTimeframeSelect');
+        $view->addChild($this->getDispatchOrderWarningCheckbox($settings->getDispatchOrderWarning()), 'dispatchOrderWarningCheckbox');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
 
         return $view;
+    }
+
+    protected function getDispatchOrderWarningCheckbox($selected)
+    {
+        $checkbox = $this->viewModelFactory->newInstance([
+            'id' => 'dispatch-order-warning-checkbox',
+            'selected' => $selected
+        ]);
+        $checkbox->setTemplate('elements/checkbox.mustache');
+        return $checkbox;
     }
 
     protected function getOrderSettings()
@@ -82,9 +93,11 @@ class OrderController extends AbstractActionController
     {
         $eTag = $this->params()->fromPost('eTag');
         $autoArchiveTimeframe = $this->params()->fromPost('autoArchiveTimeframe');
+        $dispatchOrderWarning = $this->params()->fromPost('dispatchOrderWarning');
 
         $settings = $this->getOrderSettings();
         $settings->setAutoArchiveTimeframe($autoArchiveTimeframe)
+            ->setDispatchOrderWarning($dispatchOrderWarning)
             ->setStoredETag($eTag);
 
         try {

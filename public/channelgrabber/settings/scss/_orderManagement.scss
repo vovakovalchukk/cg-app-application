@@ -1,0 +1,11 @@
+.order-management-form {
+    .inputbox-label {
+        min-width: 230px;
+    }
+    .order-inputbox-holder {
+        width: 200px;
+        &.checkbox {
+            margin-left: -10px;
+        }
+    }
+}
