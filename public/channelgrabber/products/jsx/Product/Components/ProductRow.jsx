@@ -12,9 +12,7 @@ define([
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
-    'Product/Components/VatView',
-    'Product/Filter/Entity',
-    'Product/Storage/Ajax'
+    'Product/Components/VatView'
 ], function(
     React,
     ThenBySort,
@@ -29,17 +27,21 @@ define([
     Pane,
     DimensionsView,
     StockView,
-    VatView,
-    ProductFilter,
-    AjaxHandler
+    VatView
 ) {
     "use strict";
 
     var ProductRowComponent = React.createClass({
+        getDefaultProps: function () {
+            return {
+                product: [],
+                variations: [],
+                maxVariationAttributes: 0
+            }
+        },
         getInitialState: function () {
             return {
                 expanded: false,
-                variations: [],
                 bulkStockMode: {
                     name: '',
                     value: ''
@@ -66,7 +68,7 @@ define([
                     onColumnSortClick={this.onColumnSortClick}
                     variationsSort={this.state.variationsSort}
                     attributeNames={this.props.product.attributeNames}
-                    variations={this.state.variations}
+                    variations={this.props.variations}
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
                 />;
@@ -78,7 +80,7 @@ define([
         {
             var products = [this.props.product];
             if (this.isParentProduct()) {
-                products = this.state.variations;
+                products = this.props.variations;
             }
             return (
                 <div className="details-layout-column">
@@ -90,7 +92,7 @@ define([
                             <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
                         </Pane>
                         <Pane label="VAT">
-                            <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
+                            <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.props.variations.length}/>
                         </Pane>
                     </Tabs>
                 </div>
@@ -150,12 +152,12 @@ define([
             );
         },
         getBulkStockModeDropdown: function () {
-            if (this.state.variations.length > 0) {
+            if (this.props.variations.length > 0) {
                 return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onOptionChange={this.bulkUpdateStockMode}/>
             }
         },
         getBulkStockLevelInput: function () {
-            if (this.state.variations.length > 0) {
+            if (this.props.variations.length > 0) {
                 return <Input name='bulk-level' submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
             }
         },
@@ -186,15 +188,8 @@ define([
                 expanded: !this.state.expanded
             });
 
-            if (this.state.variations.length <= 2)  {
-                $('#products-loading-message').show();
-                var filter = new ProductFilter(null, this.props.product.id);
-                AjaxHandler.fetchByFilter(filter, function(data) {
-                    this.sortVariations(this.state.variationsSort, data.products);
-                    this.triggerVariationsReceived(data.products);
-                    $('#products-loading-message').hide();
-                }.bind(this));
-
+            if (this.props.variations.length <= 2)  {
+                window.triggerEvent('variationsRequest', {productId: this.props.product.id});
             }
         },
         onColumnSortClick: function(attributeName) {
@@ -228,7 +223,7 @@ define([
             if (newVariationSort.length < 1) {
                 return;
             }
-            var newVariations = variations || this.state.variations.slice();
+            var newVariations = variations || this.props.variations.slice();
             var sortFunction = firstBy();
             newVariationSort.forEach(function (nextSort) {
                 sortFunction = sortFunction.thenBy(function(v){
@@ -241,23 +236,23 @@ define([
             });
         },
         getStockModeOptions: function() {
-            if (this.state.variations.length < 1) {
+            if (this.props.variations.length < 1) {
                 return [];
             }
             var options = [];
-            this.state.variations[0].stockModeOptions.map(function(option) {
+            this.props.variations[0].stockModeOptions.map(function(option) {
                 options.push({value: option.value, name: option.title});
             });
             return options;
         },
         getStockModeLevel: function () {
-            if (this.state.variations.length < 1) {
+            if (this.props.variations.length < 1) {
                 return;
             }
-            return this.state.variations[0].stock.stockLevel;
+            return this.props.variations[0].stock.stockLevel;
         },
         bulkUpdateStockLevel: function(name, value) {
-            if (this.state.variations.length < 1) {
+            if (this.props.variations.length < 1) {
                 return;
             }
             n.notice('Bulk updating stock level for all variations.');
@@ -302,7 +297,7 @@ define([
             });
         },
         updateVariationsStockMode: function(stockModes) {
-            var updatedVariations = this.state.variations.slice();
+            var updatedVariations = this.props.variations.slice();
             updatedVariations.forEach(function(variation) {
                 var stockMode = stockModes[variation.sku];
                 var stockModeOption;
@@ -348,7 +343,7 @@ define([
                 });
                 return;
             }
-            var updatedVariations = this.state.variations.slice();
+            var updatedVariations = this.props.variations.slice();
 
             updatedVariations.forEach(function (variation) {
                 if (updatedVariation.sku === variation.sku) {
@@ -362,9 +357,6 @@ define([
         },
         triggerProductRefresh: function (updatedVariation) {
             window.triggerEvent('productRefresh', {product: updatedVariation});
-        },
-        triggerVariationsReceived: function (newVariations) {
-            window.triggerEvent('variationsReceived', {variations: newVariations, productId: this.props.product.id});
         },
         render: function()
         {

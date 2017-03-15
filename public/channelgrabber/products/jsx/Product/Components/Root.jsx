@@ -3,15 +3,21 @@ define([
     'Product/Components/Search',
     'Product/Filter/Entity',
     'Product/Components/List',
-    'Product/Components/Footer'
+    'Product/Components/Footer',
+    'Product/Components/ProductRow',
+    'Product/Storage/Ajax'
 ], function(
     React,
     SearchBox,
     ProductFilter,
     ProductList,
-    ProductFooter
+    ProductFooter,
+    ProductRow,
+    AjaxHandler
 ) {
     "use strict";
+
+    const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
 
     var RootComponent = React.createClass({
         getChildContext: function() {
@@ -31,7 +37,9 @@ define([
         {
             return {
                 products: [],
+                variations: [],
                 searchTerm: this.props.initialSearchTerm,
+                maxVariationAttributes: 0,
                 pagination: {
                     total: 0,
                     limit: 0,
@@ -44,12 +52,14 @@ define([
             this.performProductsRequest();
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
+            window.addEventListener('variationsRequest', this.onVariationsRequest, false);
         },
         componentWillUnmount: function()
         {
             this.productsRequest.abort();
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
+            window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -66,18 +76,41 @@ define([
             filter.setPage(pageNumber);
 
             function successCallback(result) {
-                window.triggerEvent('productsReceived');
+                var self = this;
                 this.setState({
                     products: result.products,
                     pagination: result.pagination
                 }, function(){
-                    $('#products-loading-message').hide()
+                    $('#products-loading-message').hide();
+                    self.onNewProductsReceived();
                 });
             }
             function errorCallback() {
                 throw 'Unable to load products';
             }
             this.getProducts(filter, successCallback, errorCallback);
+        },
+        onNewProductsReceived: function () {
+            var maxVariationAttributes = 1;
+            var allDefaultVariationIds = [];
+            this.state.products.forEach(function(product) {
+                if (product.attributeNames.length > maxVariationAttributes) {
+                    maxVariationAttributes = product.attributeNames.length;
+                }
+                var defaultVariationIds = product.variationIds.slice(0, 2);
+                allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
+            });
+            if (maxVariationAttributes > MAX_VARIATION_ATTRIBUTE_COLUMNS) {
+                maxVariationAttributes = MAX_VARIATION_ATTRIBUTE_COLUMNS;
+            }
+            this.setState({maxVariationAttributes: maxVariationAttributes});
+
+            if (allDefaultVariationIds.length == 0) {
+                return;
+            }
+
+            var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
+            this.fetchVariations(productFilter);
         },
         onPageChange: function(pageNumber) {
             this.performProductsRequest(pageNumber);
@@ -91,6 +124,40 @@ define([
                 'success' : successCallback.bind(this),
                 'error' : errorCallback.bind(this)
             });
+        },
+        fetchVariations: function (filter) {
+            $('#products-loading-message').show();
+            function onSuccess(data) {
+                var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
+                this.setState({
+                    variations: variationsByParent
+                }, function() {
+                    $('#products-loading-message').hide()
+                });
+            }
+            AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
+        },
+        sortVariationsByParentId: function (newVariations, parentProductId) {
+            var variationsByParent = {};
+
+            if (parentProductId) {
+                variationsByParent = this.state.variations;
+                variationsByParent[parentProductId] = newVariations;
+                return variationsByParent;
+            }
+
+            for (var index in newVariations) {
+                var variation = newVariations[index];
+                if (!variationsByParent[variation.parentProductId]) {
+                    variationsByParent[variation.parentProductId] = [];
+                }
+                variationsByParent[variation.parentProductId].push(variation);
+            }
+            return variationsByParent;
+        },
+        onVariationsRequest: function (event) {
+            var filter = new ProductFilter(null, event.detail.productId);
+            this.fetchVariations(filter);
         },
         onDeleteProduct: function (event) {
             var deletedProductIds = event.detail.productIds;
@@ -127,12 +194,31 @@ define([
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
             }
         },
+        renderProducts: function () {
+            if (this.state.products.length === 0) {
+                return (
+                    <div className="no-products-message-holder">
+                        <span className="sprite-noproducts"></span>
+                        <div className="message-holder">
+                            <span className="heading-large">No Products to Display</span>
+                            <span className="message">Please Search or Filter</span>
+                        </div>
+                    </div>
+                );
+            }
+
+            return this.state.products.map(function(object) {
+                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]} maxVariationAttributes={this.state.maxVariationAttributes}/>;
+            }.bind(this))
+        },
         render: function()
         {
             return (
                 <div>
                     {this.renderSearchBox()}
-                    <ProductList products={this.state.products} />
+                    <div id="products-list">
+                        {this.renderProducts()}
+                    </div>
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );
