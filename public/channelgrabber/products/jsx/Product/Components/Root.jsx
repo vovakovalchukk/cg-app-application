@@ -40,6 +40,7 @@ define([
                 variations: [],
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
+                initialLoadOccurred: false,
                 pagination: {
                     total: 0,
                     limit: 0,
@@ -79,7 +80,8 @@ define([
                 var self = this;
                 this.setState({
                     products: result.products,
-                    pagination: result.pagination
+                    pagination: result.pagination,
+                    initialLoadOccurred: true,
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -195,7 +197,7 @@ define([
             }
         },
         renderProducts: function () {
-            if (this.state.products.length === 0) {
+            if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
                 return (
                     <div className="no-products-message-holder">
                         <span className="sprite-noproducts"></span>
