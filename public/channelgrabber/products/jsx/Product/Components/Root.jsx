@@ -9,7 +9,6 @@ define([
     React,
     SearchBox,
     ProductFilter,
-    ProductList,
     ProductFooter,
     ProductRow,
     AjaxHandler
