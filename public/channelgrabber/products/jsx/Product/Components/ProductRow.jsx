@@ -56,6 +56,11 @@ define([
             };
         },
         componentWillReceiveProps: function (newProps) {
+            if (newProps.variations.length === 2) {
+                this.setState({
+                    expanded: false// Reset expanded
+                });
+            }
             this.sortVariations(this.state.variationsSort, newProps.variations);
         },
         isParentProduct: function() {
