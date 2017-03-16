@@ -69,7 +69,8 @@ define([
                     id: 'shipping-account-custom-select-'+aliasNo,
                     name: 'shipping-account-custom-select-'+aliasNo,
                     class: 'shipping-account-select',
-                    options: accountCustomSelectOptions
+                    options: accountCustomSelectOptions,
+                    initialValue: accountCustomSelectOptions[0]['title']
                 }, "customSelect");
                 hasAccounts = true;
             }
