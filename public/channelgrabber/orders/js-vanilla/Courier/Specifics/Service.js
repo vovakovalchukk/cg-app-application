@@ -225,6 +225,40 @@ define([
         this.getDataTable().cgDataTable('redraw');
     };
 
+    Service.prototype.refreshRowsWithData = function(records)
+    {
+        this.getDataTable().trigger('fnPreRowsUpdatedCallback');
+        for (var count in records) {
+            var record = records[count];
+            var rowId = this.getRowIdFromRecord(record);
+            if (!rowId) {
+                continue;
+            }
+            var tr = $('#'+rowId).get(0);
+            var dataTable = this.getDataTable().dataTable();
+            var position = dataTable.fnGetPosition(tr);
+            dataTable.fnUpdate(record, position, undefined, false, false);
+            // fnUpdate() doesnt automatically trigger fnRowCallback which some of our other code depends on
+            this.getDataTable().trigger('fnRowCallback', [tr, record]);
+        }
+        this.getDataTable().trigger('fnRowsUpdatedCallback');
+    };
+
+    Service.prototype.getRowIdFromRecord = function(record)
+    {
+        if (record.orderRow) {
+            return 'courier-order-row_'+record.orderId;
+        }
+        if (record.itemRow) {
+            return 'courier-item-row_'+record.itemId;
+        }
+        if (record.parcelRow) {
+            return 'courier-parcel-row_'+record.orderId+'_'+record.parcelNumber;
+        }
+        // Unexpected
+        return null;
+    };
+
     Service.prototype.getInputDataForOrdersOfLabelStatuses = function(labelStatuses, idsOnly, cancellableOnly)
     {
         var data = this.getInputDataService().getInputDataForOrdersOfLabelStatuses(labelStatuses, idsOnly, cancellableOnly);
@@ -301,10 +335,10 @@ define([
         notifications.notice('Cancelling');
 
         var data = {"account": this.getCourierAccountId(), "order": [orderId]};
-        this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
+        this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function(response)
         {
             notifications.success('Shipping order cancelled successfully');
-            self.refresh();
+            self.refreshRowsWithData(response.Records);
         }, function(response)
         {
             $(button).removeClass('disabled');
@@ -332,12 +366,10 @@ define([
         var self = this;
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            // Process the response after the table has refreshed
-            self.getDataTable().one('fnDrawCallback', function()
-            {
-                self.processCreateLabelsResponse(response);
-            });
-            self.refresh();
+            if (response.Records) {
+                self.refreshRowsWithData(response.Records);
+            }
+            self.processCreateLabelsResponse(response);
         }, function(response)
         {
             $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
@@ -522,10 +554,10 @@ define([
         var notifications = this.getNotifications();
         notifications.notice('Cancelling all');
 
-        this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
+        this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function(response)
         {
             notifications.success('Shipping orders cancelled successfully');
-            self.refresh();
+            self.refreshRowsWithData(response.Records);
             $(button).removeClass('disabled');
         }, function(response)
         {

@@ -107,11 +107,13 @@ CourierDataTableAbstract.prototype.alternateOrderRowColours = function()
         }
         var orderParity = self.getOrderParity();
         if (aData.orderRow) {
-            $(nRow).addClass('courier-order-row');
+            $(nRow).addClass('courier-order-row').attr('id', 'courier-order-row_'+aData.orderId);
             orderParity = (orderParity == 'even' ? 'odd' : 'even');
             self.setOrderParity(orderParity);
         } else if (aData.parcelRow) {
-            $(nRow).addClass('courier-parcel-row');
+            $(nRow).addClass('courier-parcel-row').attr('id', 'courier-parcel-row_'+aData.orderId+'_'+aData.parcelNumber);
+        } else if (aData.itemRow) {
+            $(nRow).addClass('courier-item-row').attr('id', 'courier-item-row_'+aData.itemId);
         }
         var className = orderParity+'-order-row';
         $(nRow).addClass(className);

@@ -184,7 +184,9 @@ class CourierJsonController extends AbstractActionController
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
             );
-            return $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
+            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
+            return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
@@ -381,7 +383,9 @@ class CourierJsonController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order');
         try {
             $this->labelCancelService->cancelForOrders($orderIds, $accountId);
-            return $this->jsonModelFactory->newInstance([]);
+            $jsonView = $this->jsonModelFactory->newInstance([]);
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
+            return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to cancel shipping order(s), please try again', $e->getCode(), $e

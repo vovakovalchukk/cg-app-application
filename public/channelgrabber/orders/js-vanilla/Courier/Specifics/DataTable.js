@@ -28,11 +28,11 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .disableInputsForCreatedLabels()
                 .disableInputsForNonRequiredOptions();
         });
-        dataTable.on('fnServerData', function()
+        dataTable.on('fnServerData fnPreRowsUpdatedCallback', function()
         {
             self.distinctStatusActions = {};
         });
-        dataTable.on('fnDrawCallback', function()
+        dataTable.on('fnDrawCallback fnRowsUpdatedCallback', function()
         {
             self.setBulkActionButtons()
                 .triggerInitialItemWeightKeypress();
