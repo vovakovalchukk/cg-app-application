@@ -69,7 +69,7 @@ class ReviewAjax
         if (!$shippingService instanceof ShippingServicesForOrders) {
             throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
         }
-        $orders = $this->fetchOrdersById($orderIds);
+        $orders = $this->courierService->fetchOrdersById($orderIds);
         $shippingServices = $shippingService->getShippingServicesForOrders($orders, $orderData);
         return $this->shippingServicesPerOrderToOptions($shippingServices);
     }
@@ -84,7 +84,7 @@ class ReviewAjax
         if (!$shippingService instanceof CheckShippingServicesForOrders) {
             throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
         }
-        $orders = $this->fetchOrdersById($orderIds);
+        $orders = $this->courierService->fetchOrdersById($orderIds);
         $shippingServices = $shippingService->checkShippingServicesForOrders($orders);
         return $this->shippingServicesPerOrderToOptions($shippingServices);
     }
@@ -159,14 +159,5 @@ class ReviewAjax
             $itemCount++;
         }
         return $itemData;
-    }
-
-    protected function fetchOrdersById($orderIds)
-    {
-        $filter = (new OrderFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrderIds($orderIds);
-        return $this->orderService->fetchCollectionByFilter($filter);
     }
 }
