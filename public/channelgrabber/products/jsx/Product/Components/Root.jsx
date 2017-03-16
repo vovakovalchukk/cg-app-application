@@ -15,13 +15,15 @@ define([
 ) {
     "use strict";
 
+    const INITIAL_VARIATION_COUNT = 2;
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
 
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
                 imageBasePath: this.props.imageBasePath,
-                isAdmin: this.props.isAdmin
+                isAdmin: this.props.isAdmin,
+                initialVariationCount: INITIAL_VARIATION_COUNT
             };
         },
         getDefaultProps: function () {
@@ -171,7 +173,7 @@ define([
                 if (product.attributeNames.length > maxVariationAttributes) {
                     maxVariationAttributes = product.attributeNames.length;
                 }
-                var defaultVariationIds = product.variationIds.slice(0, 2);
+                var defaultVariationIds = product.variationIds.slice(0, INITIAL_VARIATION_COUNT);
                 allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
             });
             if (maxVariationAttributes > MAX_VARIATION_ATTRIBUTE_COLUMNS) {
@@ -227,7 +229,8 @@ define([
 
     RootComponent.childContextTypes = {
         imageBasePath: React.PropTypes.string,
-        isAdmin: React.PropTypes.bool
+        isAdmin: React.PropTypes.bool,
+        initialVariationCount: React.PropTypes.number
     };
 
     return RootComponent;

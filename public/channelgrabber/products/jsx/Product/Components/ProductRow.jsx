@@ -56,7 +56,7 @@ define([
             };
         },
         componentWillReceiveProps: function (newProps) {
-            if (newProps.variations.length === 2) {
+            if (newProps.variations.length === this.context.initialVariationCount) {
                 this.setState({
                     expanded: false// Reset expanded
                 });
@@ -106,7 +106,7 @@ define([
         },
         getExpandVariationsButton: function()
         {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 2) {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > this.context.initialVariationCount) {
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
@@ -194,7 +194,7 @@ define([
                 expanded: !this.state.expanded
             });
 
-            if (this.state.variations.length <= 2)  {
+            if (this.state.variations.length <= this.context.initialVariationCount)  {
                 window.triggerEvent('variationsRequest', {productId: this.props.product.id});
             }
         },
@@ -395,7 +395,8 @@ define([
 
     ProductRowComponent.contextTypes = {
         imageBasePath: React.PropTypes.string,
-        isAdmin: React.PropTypes.bool
+        isAdmin: React.PropTypes.bool,
+        initialVariationCount: React.PropTypes.number
     };
 
     return ProductRowComponent;
