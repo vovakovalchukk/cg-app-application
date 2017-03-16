@@ -44,7 +44,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
         var init = function()
         {
             var self = this;
-            $(DeliveryExperience.SELECTOR_TABLE).on('fnDrawCallback', function()
+            $(DeliveryExperience.SELECTOR_TABLE).on('fnDrawCallback fnRowsUpdatedCallback', function()
             {
                 self.replaceBlankServicesWithRequestButtons()
                     .listenForRequestButtonClicks()
