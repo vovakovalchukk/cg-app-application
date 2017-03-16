@@ -670,16 +670,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.15",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ab3c71e374676c530a51bcab30e3bc60bb33fea0"
+                "reference": "4610d8e184f5dee6fdcd22d3d1d6969deed83c5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.15-f205fe.zip",
-                "reference": "ab3c71e374676c530a51bcab30e3bc60bb33fea0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.16-6251d0.zip",
+                "reference": "4610d8e184f5dee6fdcd22d3d1d6969deed83c5e",
                 "shasum": null
             },
             "require": {
@@ -710,7 +710,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-03-10T09:08:17+00:00"
+            "time": "2017-03-16T12:04:55+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -870,16 +870,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.8.43",
+            "version": "1.8.44",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "c263f9b7bb81a41ea2477fab4e1b721c6ef0d401"
+                "reference": "0956f14f911dd8a38dd21126165ae2bd086a0cd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.43-fbcb06.zip",
-                "reference": "c263f9b7bb81a41ea2477fab4e1b721c6ef0d401",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.44-2ce9fd.zip",
+                "reference": "0956f14f911dd8a38dd21126165ae2bd086a0cd5",
                 "shasum": null
             },
             "require": {
@@ -923,7 +923,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-01-12T14:19:37+00:00"
+            "time": "2017-03-02T09:55:57+00:00"
         },
         {
             "name": "channelgrabber/email",
