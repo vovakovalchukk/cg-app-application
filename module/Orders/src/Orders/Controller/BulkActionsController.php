@@ -305,7 +305,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
-            throw new \RuntimeException('No orders were found to generate invoices for');
+            throw new \RuntimeException('No orders were found to generate invoices for', $exception->getCode(), $exception);
         }
     }
 
