@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f694933958b355031bd19f4a1ef86124",
+    "content-hash": "c86e883001b42281fa128d48261c301a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "32ae088e422097a875ab4009337d91c4a1d7db08"
+                "reference": "5280d8829a3cf3b28d8d3e40e8d500fe7dd1c422"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8057-amazon-logistics-services-fetched-per-order-60b598.zip",
-                "reference": "32ae088e422097a875ab4009337d91c4a1d7db08",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8057-amazon-logistics-services-fetched-per-order-562866.zip",
+                "reference": "5280d8829a3cf3b28d8d3e40e8d500fe7dd1c422",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-09T12:26:23+00:00"
+            "time": "2017-03-16 08:57:21"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -496,7 +496,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "aa02c59cde6aef947d513a32abfd6f703bab3c18"
+                "reference": "9ce365f645951dcc944f9e15c55bff923d6e1b6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8057-amazon-logistics-services-fetched-per-order-890610.zip",
+                "reference": "9ce365f645951dcc944f9e15c55bff923d6e1b6f",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -564,7 +570,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-03-08T12:43:15+00:00"
+            "time": "2017-03-15 16:29:42"
         },
         {
             "name": "channelgrabber/cilex",
@@ -666,7 +672,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2990,6 +2996,12 @@
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
                 "reference": "5c36eb91afd1a3bcd2e9b5ac6b58d3d88b5f9d99"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8057-amazon-logistics-services-fetched-per-order-c69dd8.zip",
+                "reference": "5c36eb91afd1a3bcd2e9b5ac6b58d3d88b5f9d99",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.19.25",
@@ -3019,7 +3031,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-02-24T12:00:52+00:00"
+            "time": "2017-03-09 14:26:46"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3765,7 +3777,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "eac188cf4c45d1a163a8b11864000ddb49e24ac1"
+                "reference": "0fa0b6dd1928dff68899f8e3a0d9579c6faab4cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8057-amazon-logistics-services-fetched-per-order-399653.zip",
+                "reference": "0fa0b6dd1928dff68899f8e3a0d9579c6faab4cd",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3812,7 +3830,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-03-03T11:43:10+00:00"
+            "time": "2017-03-16 09:53:54"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5391,7 +5409,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8864,17 +8882,17 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
