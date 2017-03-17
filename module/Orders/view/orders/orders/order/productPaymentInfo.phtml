@@ -33,7 +33,7 @@
     <tr>
         <td class="leftcell"></td>
         <td class="midcell"><strong><?= $this->translate('Subtotal'); ?>:</strong></td>
-        <td class="rightcell"><?= $this->currencyFormat($order->getSubtotal(), $order->getCurrencyCode()); ?></strong></td>
+        <td class="rightcell" id="order-table-sub-total-value"><?= $this->currencyFormat($order->getSubtotal(), $order->getCurrencyCode()); ?></strong></td>
     </tr>
     <?php if ($vatOu->isVatRegistered()): ?>
         <tr>
@@ -42,14 +42,19 @@
                     <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
                 <?php endif; ?>
             </td>
-            <td class="midcell"><?= isset($isOrderZeroRated) && $isOrderZeroRated ? '<span class="zero-rated-vat-label">(Zero-Rate EU VAT)</span>' : '' ?><strong><?= $this->translate('VAT'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
+            <td class="midcell">
+                <span class="zero-rated-vat-label">
+                    <?= isset($isOrderZeroRated) && $isOrderZeroRated ? '(Zero-Rate EU VAT)' : '' ?>
+                </span>
+                <strong><?= $this->translate('VAT'); ?>:</strong>
+            </td>
+            <td class="rightcell" id="order-table-tax-value"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></td>
         </tr>
     <?php endif; ?>
     <tr>
         <td class="leftcell"></td>
         <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>
-        <td class="rightcell"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
+        <td class="rightcell" id="order-table-total-value"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></td>
     </tr>
 </table>
 <?php else: ?>

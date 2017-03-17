@@ -1,19 +1,29 @@
 <?php
 namespace Orders\Order\BulkActions;
 
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\BulkActions;
 use CG_UI\View\BulkActions\SubAction;
 use CG_UI\View\BulkActions\Action;
 use CG\Order\Shared\Entity as OrderEntity;
+use Orders\Courier\Service as CourierService;
+use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 
 class Service
 {
     protected $bulkActions;
     protected $orderBulkActions;
+    /** @var CourierService */
+    protected $courierService;
 
-    public function __construct(BulkActions $bulkActions, BulkActions $orderBulkActions)
+    public function __construct(
+        BulkActions $bulkActions,
+        BulkActions $orderBulkActions,
+        CourierService $courierService
+    )
     {
         $this->setBulkActions($bulkActions)->setOrderBulkActions($orderBulkActions);
+        $this->courierService = $courierService;
     }
 
     /**
@@ -52,6 +62,31 @@ class Service
         }
 
         return $this->orderBulkActions;
+    }
+
+    public function getBulkActionsForOrder(OrderEntity $order)
+    {
+        $bulkActions = $this->getOrderBulkActions($order);
+        if ($this->hasCourierAccounts()) {
+            return $bulkActions;
+        }
+        foreach ($bulkActions->getActions() as $action) {
+            if (!($action instanceof CourierBulkAction)) {
+                continue;
+            }
+            $bulkActions->getActions()->detach($action);
+        }
+        return $bulkActions;
+    }
+
+    protected function hasCourierAccounts()
+    {
+        try {
+            $courierAccounts = $this->courierService->getShippingAccounts();
+            return (count($courierAccounts) > 0);
+        } catch (NotFound $e) {
+            return false;
+        }
     }
 
     protected function appendOrderToAction(SubAction $action, OrderEntity $orderEntity)

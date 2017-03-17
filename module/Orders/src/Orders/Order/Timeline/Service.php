@@ -2,6 +2,7 @@
 namespace Orders\Order\Timeline;
 
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Timings;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 
