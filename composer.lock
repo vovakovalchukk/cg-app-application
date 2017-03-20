@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e077114b9e8d7288dc7d2caf1b98e6be",
+    "content-hash": "3a9713bda3a49b50c2ec117b8b0893d8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3767,17 +3767,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.34",
+            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "665474f9361c0dcd713b3fd0c91d2bd76fb9d298"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.34-a37fa5.zip",
-                "reference": "665474f9361c0dcd713b3fd0c91d2bd76fb9d298",
-                "shasum": null
+                "reference": "e4b7fe6954262a247149bb48ce72b137bf15c52e"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8854,6 +8848,12 @@
             "alias_normalized": "1.0.17.0",
             "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
             "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.17.35",
+            "alias_normalized": "1.17.35.0",
+            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -8861,6 +8861,7 @@
         "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
