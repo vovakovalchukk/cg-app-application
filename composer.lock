@@ -672,21 +672,15 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.16",
+            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4610d8e184f5dee6fdcd22d3d1d6969deed83c5e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.16-6251d0.zip",
-                "reference": "4610d8e184f5dee6fdcd22d3d1d6969deed83c5e",
-                "shasum": null
+                "reference": "7930f1cff845ace7cc386fc16b4b9756934b1fdb"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -5409,7 +5403,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8854,16 +8848,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.17",
+            "alias_normalized": "1.0.17.0",
+            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
