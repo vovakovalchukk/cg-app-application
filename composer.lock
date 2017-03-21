@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e077114b9e8d7288dc7d2caf1b98e6be",
+    "content-hash": "4460dd1a94293afeef6a1e7a3cf000c1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,17 +151,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.32",
+            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ebc34337e3459f5a81d155b87c099fa57e9e3f59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.32-2e648d.zip",
-                "reference": "ebc34337e3459f5a81d155b87c099fa57e9e3f59",
-                "shasum": null
+                "reference": "88c621bd08ae769d0f85b3971680a69eacfebdee"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -492,17 +486,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.28.2",
+            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a86bc3b4be71be4544357674636643c65ef9efe2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.2-50eb85.zip",
-                "reference": "a86bc3b4be71be4544357674636643c65ef9efe2",
-                "shasum": null
+                "reference": "6edba58993a93cc81e3dfcc0589d1f78316cea13"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -672,7 +660,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -5409,7 +5397,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8854,16 +8842,31 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.33",
+            "alias_normalized": "1.19.33.0",
+            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.28.3",
+            "alias_normalized": "1.28.3.0",
+            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
+        "channelgrabber/constants": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
