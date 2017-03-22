@@ -1,15 +1,9 @@
 define([
     'Orders/OrdersBulkActionAbstract',
-    'Orders/SaveCheckboxes',
-    'Orders/StatusService',
-    'Orders/TimelineService',
-    'Orders/BulkActionService'
+    'Orders/SaveCheckboxes'
 ], function(
     OrdersBulkActionAbstract,
-    saveCheckboxes,
-    StatusService,
-    TimelineService,
-    BulkActionService
+    saveCheckboxes
 ) {
     function Dispatch()
     {
@@ -50,15 +44,9 @@ define([
             success : function(data)
             {
                 if (data.dispatching) {
-                    var orders = self.getOrders();
                     this.setFilterId(data.filterId);
-                    self.getSaveCheckboxes().setSavedCheckboxes(orders)
+                    self.getSaveCheckboxes().setSavedCheckboxes(self.getOrders())
                         .setSavedCheckAll(this.isAllSelected());
-                    orders.map(function (orderId) {
-                        TimelineService.refresh(data.timelines[orderId]);
-                        StatusService.refresh(data.statuses[orderId]);
-                        BulkActionService.refresh(data.bulkActions[orderId]);
-                    });
                     return self.getNotificationHandler().success("Orders Marked for Dispatch");
                 } else if (!data.error) {
                     return self.getNotificationHandler().error("Failed to marked Orders for Dispatch");

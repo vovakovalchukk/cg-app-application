@@ -23,11 +23,6 @@ define([
     ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_SELECTOR = '.zero-rated-vat-code-select';
     ProductPayment.prototype.FORM_VAT_CODE_DROPDOWN_INPUT_SELECTOR = 'input[name="zeroRatedVatCode"]';
     ProductPayment.prototype.FORM_VAT_NUMBER_INPUT_SELECTOR = 'input[name="zeroRatedVatNumber"]';
-    ProductPayment.prototype.ORDER_TABLE_TAX_SELECTOR = '#order-table-tax-value';
-    ProductPayment.prototype.ORDER_TABLE_TOTAL_SELECTOR = '#order-table-total-value';
-    ProductPayment.prototype.ORDER_TABLE_SUB_TOTAL_SELECTOR = '#order-table-sub-total-value';
-    ProductPayment.prototype.FORM_VAT_ZERO_RATE_SELECTOR = '.zero-rated-vat-label';
-    ProductPayment.prototype.FORM_VAT_ZERO_RATE_TEXT = '(Zero-Rate EU VAT)';
 
     ProductPayment.prototype.listenForZeroRatedVATCheckboxCheck = function () {
         var self = this;
@@ -72,7 +67,6 @@ define([
     ProductPayment.prototype.sendZeroRatedVATAjax = function (actionType) {
         var url = '/orders/'+this.getOrderId()+'/recipientVatNumber';
         n.notice("Zero-Rate VAT on the order is being "+actionType);
-        var self = this;
         $.ajax({
             url: url,
             data: {
@@ -90,21 +84,12 @@ define([
                     return n.error(errorMessage);
                 }
                 n.success("Zero-Rate VAT on the order was successfully "+actionType);
-                self.refreshTable(actionType, data);
+                location.reload();
             },
             error: function(request, textStatus, errorThrown) {
                 return n.ajaxError(request, textStatus, errorThrown);
             }
         });
-    };
-
-    ProductPayment.prototype.refreshTable = function (actionType, data) {
-        var zeroRateVatReplacementText = (actionType === 'saved' ? ProductPayment.prototype.FORM_VAT_ZERO_RATE_TEXT : '');
-        $(ProductPayment.prototype.FORM_VAT_ZERO_RATE_SELECTOR).html(zeroRateVatReplacementText);
-        $(ProductPayment.prototype.ORDER_TABLE_SUB_TOTAL_SELECTOR).html(data.orderSubTotal);
-        $(ProductPayment.prototype.ORDER_TABLE_TOTAL_SELECTOR).html(data.orderTotal);
-        $(ProductPayment.prototype.ORDER_TABLE_TAX_SELECTOR).html(data.orderTax);
-
     };
 
     return ProductPayment;

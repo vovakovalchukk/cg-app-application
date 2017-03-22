@@ -1,6 +1,10 @@
-{{#parcelRow}}
-<div class="courier-delivery-experience">
-    {{{deliveryExperienceOptions}}}
+{{#orderRow}}
+<div class="deliveryExperience">
+    <span>
+        {{#deliveryExperienceText}}{{deliveryExperienceText}}{{/deliveryExperienceText}}
+        {{^deliveryExperienceText}}{{deliveryExperience}}{{/deliveryExperienceText}}
+    </span>
+    <input type="hidden" name="orderData[{{orderId}}][deliveryExperience]" value="{{deliveryExperience}}" data-delivery-experiences="{{deliveryExperiences}}">
 </div>
-{{/parcelRow}}
-{{^parcelRow}}&nbsp;{{/parcelRow}}
+{{/orderRow}}
+{{^orderRow}}&nbsp;{{/orderRow}}

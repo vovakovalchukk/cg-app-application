@@ -4,28 +4,26 @@ namespace Orders\Controller;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Template\Entity as Template;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG\Template\Entity as Template;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
+use Orders\Order\Service as OrderService;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
-use Orders\Order\BulkActions\Service as BulkActionsService;
-use Orders\Order\Csv\Service as CsvService;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
-use Orders\Order\Service as OrderService;
-use Orders\Order\Timeline\Service as TimelineService;
-use Settings\Controller\InvoiceController as InvoiceSettings;
+use Orders\Order\Csv\Service as CsvService;
 use Settings\Module as Settings;
+use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -52,10 +50,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $usageService;
     /** @var OrdersToOperateOn $ordersToOperatorOn */
     protected $ordersToOperatorOn;
-    /** @var TimelineService $timelineService */
-    protected $timelineService;
-    /** @var BulkActionsService $bulkActionService */
-    protected $bulkActionService;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromInput',
@@ -70,9 +64,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         CsvService $csvService,
         BatchService $batchService,
         UsageService $usageService,
-        OrdersToOperateOn $ordersToOperatorOn,
-        TimelineService $timelineService,
-        BulkActionsService $bulkActionService
+        OrdersToOperateOn $ordersToOperatorOn
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -83,8 +75,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setBatchService($batchService)
             ->setUsageService($usageService)
             ->setOrdersToOperatorOn($ordersToOperatorOn);
-        $this->timelineService = $timelineService;
-        $this->bulkActionService = $bulkActionService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -266,7 +256,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             } else {
                 $response->setVariable($action, (is_bool($outcome) ? $outcome : true));
             }
-            $this->appendUpdatedOrderDataToResponse($response, $orders);
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -305,7 +294,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
-            throw new \RuntimeException('No orders were found to generate invoices for', $exception->getCode(), $exception);
+            throw new \RuntimeException('No orders were found to generate invoices for');
         }
     }
 
@@ -469,30 +458,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
 
         return $actionMap[$action];
-    }
-
-    protected function appendUpdatedOrderDataToResponse($response, OrderCollection $orders)
-    {
-        $statuses = [];
-        $timelines = [];
-        $bulkActions = [];
-        foreach ($orders as $order) {
-            $statuses[$order->getId()] = str_replace(' ', '-', $order->getStatus());
-            $timelines[$order->getId()] = $this->timelineService->getTimeline($order);
-            $bulkActions[$order->getId()] = $this->getRenderedBulkActions($order);
-        }
-
-        $response->setVariable('statuses', $statuses);
-        $response->setVariable('timelines', $timelines);
-        $response->setVariable('bulkActions', $bulkActions);
-    }
-
-    protected function getRenderedBulkActions(Order $order)
-    {
-        /** @var \Zend\View\Renderer\RendererInterface $viewRenderer */
-        $viewRenderer = $this->getServiceLocator()->get('ViewRenderer');
-
-        return $viewRenderer->render($this->bulkActionService->getBulkActionsForOrder($order));
     }
 
     public function batchesAction()
@@ -675,7 +640,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             return $viewModel;
         }
         foreach ($orders as $order) {
-            $this->invoiceService->canInvoiceOrder($order);
+            if (!$order->isReadyForInvoicing()) {
+                $error = $this->translate(sprintf('Order %s is not ready for invoicing, try again later', $order->getExternalId()));
+                throw new ValidationException($error);
+            }
         }
         return $viewModel;
     }

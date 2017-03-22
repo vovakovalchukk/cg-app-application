@@ -54,7 +54,7 @@ class SpecificsAjax
     protected $courierService;
 
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
-    protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment', 'deliveryExperience'];
+    protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
 
     public function __construct(
         OrderService $orderService,

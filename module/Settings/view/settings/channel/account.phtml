@@ -19,9 +19,6 @@ $(document).ready(function()
     {
         n.notice('Updating channel account');
     });
-    $(document).on('ajaxFormSubmitSuccess', function() {
-        $('.heading-display-name').html($('input[name="displayName"]').val());
-    });
 });
 
 require.config({
@@ -67,11 +64,7 @@ require(
 );
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs" class="floatLeftClear">
-    <span class="heading-large">
-        <span class="heading-display-name"><?= $account['displayName'] ?></span>
-
-        <?= $this->channel ;?>
-    </span>
+    <span class="heading-large"><?= $account['displayName'] ?><?= $this->channel ;?></span>
 </div>
 <div class="module clearfix">
     <form class="account-status">

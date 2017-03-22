@@ -93,7 +93,8 @@ define([
                 dataType : 'json',
                 success : function(response) {
                     n.success('Stock mode updated successfully..');
-                    window.triggerEvent('mode-'+this.props.variation.sku, response);
+                    var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': response});
+                    window.dispatchEvent(modeUpdatedEvent);
                 }.bind(this),
                 error : function(error) {
                     n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
@@ -117,7 +118,8 @@ define([
                     },
                     success: function() {
                         n.success('Stock total updated successfully..');
-                        window.triggerEvent('total-'+this.props.variation.sku, {'value': value});
+                        var totalUpdatedEvent = new CustomEvent('total-'+this.props.variation.sku, {'detail': {'value': value}});
+                        window.dispatchEvent(totalUpdatedEvent);
                         resolve({ savedValue: value });
                     }.bind(this),
                     error: function(error) {
@@ -143,7 +145,8 @@ define([
                     },
                     success: function(response) {
                         n.success('Stock level updated successfully..');
-                        window.triggerEvent('mode-'+this.props.variation.sku, response);
+                        var modeUpdatedEvent = new CustomEvent('mode-'+this.props.variation.sku, {'detail': response});
+                        window.dispatchEvent(modeUpdatedEvent);
                         resolve({ savedValue: response[this.props.variation.sku].level || 0 });
                     }.bind(this),
                     error: function(error) {

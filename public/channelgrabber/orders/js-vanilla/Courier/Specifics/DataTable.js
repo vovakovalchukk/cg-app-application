@@ -28,11 +28,11 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .disableInputsForCreatedLabels()
                 .disableInputsForNonRequiredOptions();
         });
-        dataTable.on('fnServerData fnPreRowsUpdatedCallback', function()
+        dataTable.on('fnServerData', function()
         {
             self.distinctStatusActions = {};
         });
-        dataTable.on('fnDrawCallback fnRowsUpdatedCallback', function()
+        dataTable.on('fnDrawCallback', function()
         {
             self.setBulkActionButtons()
                 .triggerInitialItemWeightKeypress();
@@ -67,8 +67,7 @@ CourierSpecificsDataTable.columnRenderers = {
     actions: "addButtonsToActionsColumn",
     itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
     packageType: "addCustomSelectToPackageTypeColumn",
-    addOns: "addCustomSelectToAddOnsColumn",
-    deliveryExperience: "addCustomSelectToDeliveryExperienceColumn"
+    addOns: "addCustomSelectToAddOnsColumn"
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -267,20 +266,6 @@ CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(tem
             data.options.push(templateData.addOns[index]);
         }
         templateData.addOnsOptions = cgMustache.renderTemplate(template, data);
-    }, true);
-};
-
-CourierSpecificsDataTable.prototype.addCustomSelectToDeliveryExperienceColumn = function(templateData, cgMustache)
-{
-    this.fetchTemplate('select', cgMustache, function(template)
-    {
-        var data = {
-            id: 'courier-delivery-experience_' + templateData.orderId,
-            name: 'orderData[' + templateData.orderId + '][deliveryExperience]',
-            class: 'required courier-delivery-experience-select',
-            options: templateData.deliveryExperiences
-        };
-        templateData.deliveryExperienceOptions = cgMustache.renderTemplate(template, data);
     }, true);
 };
 

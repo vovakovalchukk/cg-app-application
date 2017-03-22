@@ -18,8 +18,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 class CourierJsonController extends AbstractActionController
 {
     const ROUTE_SERVICES = 'Services';
-    const ROUTE_SERVICES_FOR_ORDERS = 'Services For Orders';
-    const ROUTE_CHECK_SERVICES_FOR_ORDERS = 'Check Services For Orders';
     const ROUTE_REVIEW_LIST = 'Review List';
     const ROUTE_REVIEW_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_LIST = 'Specifics List';
@@ -85,28 +83,8 @@ class CourierJsonController extends AbstractActionController
     {
         $orderId = $this->params()->fromPost('order');
         $shippingAccountId = $this->params()->fromPost('account');
-        $orderData = $this->params()->fromPost('orderData', []);
 
-        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId, $orderData);
-        return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
-    }
-
-    public function servicesOptionsForOrdersAction()
-    {
-        $orderIds = $this->params()->fromPost('order');
-        $shippingAccountId = $this->params()->fromPost('account');
-        $orderData = $this->params()->fromPost('orderData', []);
-
-        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrdersAndAccount($orderIds, $shippingAccountId, $orderData);
-        return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
-    }
-
-    public function checkServicesOptionsForOrdersAction()
-    {
-        $orderIds = $this->params()->fromPost('order');
-        $shippingAccountId = $this->params()->fromPost('account');
-
-        $servicesOptions = $this->reviewAjaxService->checkServicesOptionsForOrdersAndAccount($orderIds, $shippingAccountId);
+        $servicesOptions = $this->reviewAjaxService->getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId);
         return $this->jsonModelFactory->newInstance(['serviceOptions' => $servicesOptions]);
     }
 
@@ -184,9 +162,7 @@ class CourierJsonController extends AbstractActionController
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
             );
-            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
-            return $jsonView;
+            return $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
@@ -383,9 +359,7 @@ class CourierJsonController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order');
         try {
             $this->labelCancelService->cancelForOrders($orderIds, $accountId);
-            $jsonView = $this->jsonModelFactory->newInstance([]);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
-            return $jsonView;
+            return $this->jsonModelFactory->newInstance([]);
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to cancel shipping order(s), please try again', $e->getCode(), $e

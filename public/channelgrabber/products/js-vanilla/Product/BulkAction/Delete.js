@@ -28,20 +28,19 @@ define([
         });
 
         this.getNotificationHandler().notice(Delete.MESSAGE_PENDING);
-        var requestData = {productIds: productIds};
+        var data = {productIds: productIds};
         this.sendAjaxRequest(
             Delete.URL,
-            requestData,
-            this.handleSuccess.bind(this, requestData),
+            data,
+            this.handleSuccess,
             null,
             this
         );
     };
 
-    Delete.prototype.handleSuccess = function(productIds)
+    Delete.prototype.handleSuccess = function()
     {
         this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
-        window.triggerEvent('productDeleted', productIds);
     };
 
     return new Delete();

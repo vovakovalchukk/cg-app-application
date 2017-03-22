@@ -116,9 +116,6 @@ class Service implements LoggerAwareInterface
      */
     public function fetchOrdersById(array $orderIds)
     {
-        if (empty($orderIds)) {
-            return new OrderCollection(Order::class, __FUNCTION__, ['orderIds' => $orderIds]);
-        }
         $filter = new OrderFilter();
         $filter->setLimit('all')
             ->setPage(1)
