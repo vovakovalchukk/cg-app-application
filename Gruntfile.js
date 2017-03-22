@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'public/channelgrabber/',
                         src: ['**/jsx/**/*.jsx'],
-                        dest: 'public/cg-built/',
+                        dest: 'public/channelgrabber/',
                         ext: '.js',
                         rename: function (dest, src) {
                             return dest + src.replace('jsx', 'js');
