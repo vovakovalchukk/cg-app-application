@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "070ad35791858c28b93f465ff7de72cb",
+    "content-hash": "2ff1daf01d4d43379b24b16cc6ba2b5d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1558,16 +1558,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
+            "version": "1.28.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "0833aec2f339bb1ff59685eacb1446e6fc8ff40b"
+                "reference": "dc6c06f26fcc34a566188ed96f9a01c901b98aee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8094-amazon-fulfilled-shipment-data-missing-3de9a0.zip",
-                "reference": "0833aec2f339bb1ff59685eacb1446e6fc8ff40b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.2-862541.zip",
+                "reference": "dc6c06f26fcc34a566188ed96f9a01c901b98aee",
                 "shasum": null
             },
             "require": {
@@ -1632,7 +1632,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-16 10:59:44"
+            "time": "2017-03-22T15:46:40+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8854,18 +8854,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.28.1",
-            "alias_normalized": "1.28.1.0",
-            "version": "dev-CGIV-8094-amazon-fulfilled-shipment-data-missing",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
