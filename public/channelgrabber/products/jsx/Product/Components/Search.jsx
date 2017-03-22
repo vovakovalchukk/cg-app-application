@@ -1,6 +1,6 @@
 define([
     'react',
-    'Common/Components/Button'
+    'Product/Components/Button'
 ], function(
     React,
     Button

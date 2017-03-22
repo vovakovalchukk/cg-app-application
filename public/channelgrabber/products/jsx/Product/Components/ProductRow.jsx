@@ -4,7 +4,7 @@ define([
     'Product/Components/Checkbox',
     'Product/Components/Status',
     'Product/Components/VariationView',
-    'Common/Components/Button',
+    'Product/Components/Button',
     'Common/Components/Select',
     'Common/Components/SafeInput',
     'Common/Components/EditableField',
@@ -12,7 +12,9 @@ define([
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
-    'Product/Components/VatView'
+    'Product/Components/VatView',
+    'Product/Filter/Entity',
+    'Product/Storage/Ajax'
 ], function(
     React,
     ThenBySort,
@@ -27,42 +29,13 @@ define([
     Pane,
     DimensionsView,
     StockView,
-    VatView
+    VatView,
+    ProductFilter,
+    AjaxHandler
 ) {
     "use strict";
 
     var ProductRowComponent = React.createClass({
-        getDefaultProps: function () {
-            return {
-                product: [],
-                variations: [],
-                maxVariationAttributes: 0
-            }
-        },
-        getInitialState: function () {
-            return {
-                expanded: false,
-                bulkStockMode: {
-                    name: '',
-                    value: ''
-                },
-                variations: this.props.variations,
-                variationsSort: [
-                    {
-                        attribute: this.props.product.attributeNames[0],
-                        ascending: true
-                    }
-                ]
-            };
-        },
-        componentWillReceiveProps: function (newProps) {
-            if (newProps.variations.length === this.context.initialVariationCount) {
-                this.setState({
-                    expanded: false// Reset expanded
-                });
-            }
-            this.sortVariations(this.state.variationsSort, newProps.variations);
-        },
         isParentProduct: function() {
             return this.props.product.variationCount !== undefined && this.props.product.variationCount >= 1
         },
@@ -106,7 +79,7 @@ define([
         },
         getExpandVariationsButton: function()
         {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > this.context.initialVariationCount) {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 2) {
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
@@ -194,8 +167,14 @@ define([
                 expanded: !this.state.expanded
             });
 
-            if (this.state.variations.length <= this.context.initialVariationCount)  {
-                window.triggerEvent('variationsRequest', {productId: this.props.product.id});
+            if (this.state.variations.length <= 2)  {
+                $('#products-loading-message').show();
+                var filter = new ProductFilter(null, this.props.product.id);
+                AjaxHandler.fetchByFilter(filter, function(data) {
+                    this.sortVariations(this.state.variationsSort, data.products);
+                    $('#products-loading-message').hide();
+                }.bind(this));
+
             }
         },
         onColumnSortClick: function(attributeName) {
@@ -342,7 +321,6 @@ define([
             }.bind(this));
         },
         onVariationDetailChanged: function(updatedVariation) {
-            this.triggerProductRefresh(updatedVariation);
             if (this.props.product.variationCount <= 1) {
                 this.setState({
                     variations: [updatedVariation]
@@ -361,8 +339,24 @@ define([
                 variations: updatedVariations
             });
         },
-        triggerProductRefresh: function (updatedVariation) {
-            window.triggerEvent('productRefresh', {product: updatedVariation});
+        getInitialState: function () {
+            return {
+                expanded: false,
+                variations: [],
+                bulkStockMode: {
+                    name: '',
+                    value: ''
+                },
+                variationsSort: [
+                    {
+                        attribute: this.props.product.attributeNames[0],
+                        ascending: true
+                    }
+                ]
+            };
+        },
+        componentWillReceiveProps: function (newProps) {
+            this.sortVariations(this.state.variationsSort, newProps.variations);
         },
         render: function()
         {
@@ -395,8 +389,7 @@ define([
 
     ProductRowComponent.contextTypes = {
         imageBasePath: React.PropTypes.string,
-        isAdmin: React.PropTypes.bool,
-        initialVariationCount: React.PropTypes.number
+        isAdmin: React.PropTypes.bool
     };
 
     return ProductRowComponent;

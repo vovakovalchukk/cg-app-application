@@ -1,12 +1,4 @@
-define([
-    'popup/mustache',
-    'Orders/StatusService',
-    'Orders/BulkActionService'
-], function(
-    Popup,
-    StatusService,
-    BulkActionService
-) {
+define(['popup/mustache'], function(Popup) {
     var Cancel = function(notifications, reasons, type) {
         var selector;
         var popup;
@@ -111,11 +103,6 @@ define([
                     'type': that.getType().toLowerCase()
                 },
                 success : function(data) {
-                    var orders = $(that.getSelector()).data("orders");
-                    orders.map(function (orderId) {
-                        StatusService.refresh(data.statuses[orderId]);
-                        BulkActionService.refresh(data.bulkActions[orderId]);
-                    });
                     return that.getNotifications().success(that.getSuccessMessage());
                 },
                 error: function(error, textStatus, errorThrown) {

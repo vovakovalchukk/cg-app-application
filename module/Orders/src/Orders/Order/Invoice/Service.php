@@ -9,7 +9,6 @@ use CG\Order\Client\Gearman\Generator\SetPrintedDate as PrintedDateGenerator;
 use CG\Order\Client\Invoice\Renderer\ServiceInterface as RendererService;
 use CG\Order\Client\Invoice\Service as ClientService;
 use CG\Order\Client\Invoice\Template\Factory as TemplateFactory;
-use CG\Order\Client\Invoice\Validator as InvoiceValidator;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as Order;
@@ -53,8 +52,6 @@ class Service extends ClientService implements StatsAwareInterface
     protected $accountAddressGeneratorFactory;
     /** @var InvoiceEmailer */
     protected $invoiceEmailer;
-    /** @var InvoiceValidator  */
-    protected $invoiceValidator;
 
     /** @var string $key */
     protected $key;
@@ -74,8 +71,7 @@ class Service extends ClientService implements StatsAwareInterface
         TaxService $taxService,
         AccountService $accountService,
         AccountAddressGeneratorFactory $accountAddressGeneratorFactory,
-        InvoiceEmailer $invoiceEmailer,
-        InvoiceValidator $invoiceValidator
+        InvoiceEmailer $invoiceEmailer
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
         $this->orderService = $orderService;
@@ -88,7 +84,6 @@ class Service extends ClientService implements StatsAwareInterface
         $this->accountService = $accountService;
         $this->accountAddressGeneratorFactory = $accountAddressGeneratorFactory;
         $this->invoiceEmailer = $invoiceEmailer;
-        $this->invoiceValidator = $invoiceValidator;
     }
 
     public function createTemplate(array $config)
@@ -279,11 +274,5 @@ class Service extends ClientService implements StatsAwareInterface
         }
 
         return false;
-    }
-
-    public function canInvoiceOrder(Order $order)
-    {
-        $invoiceValidator = $this->invoiceValidator;
-        $invoiceValidator($order);
     }
 }

@@ -789,28 +789,6 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
-                            CourierJsonController::ROUTE_SERVICES_FOR_ORDERS => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/servicesForOrders',
-                                    'defaults' => [
-                                        'controller' => CourierJsonController::class,
-                                        'action' => 'servicesOptionsForOrders',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
-                            CourierJsonController::ROUTE_CHECK_SERVICES_FOR_ORDERS => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/checkServicesForOrders',
-                                    'defaults' => [
-                                        'controller' => CourierJsonController::class,
-                                        'action' => 'checkServicesOptionsForOrders',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
                             CourierController::ROUTE_REVIEW => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
@@ -1241,8 +1219,6 @@ return [
                 'CourierSpecificsAddOnsColumn' => DataTable\Column::class,
                 'CourierSpecificsDeliveryExperienceColumnView' => ViewModel::class,
                 'CourierSpecificsDeliveryExperienceColumn' => DataTable\Column::class,
-                'CourierSpecificsCourierPickupColumnView' => ViewModel::class,
-                'CourierSpecificsCourierPickupColumn' => DataTable\Column::class,
                 'CourierSpecificsSaturdayColumnView' => ViewModel::class,
                 'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
             ],
@@ -2450,7 +2426,7 @@ return [
             ],
             'CourierSpecificsDeliveryExperienceColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Delivery<br />Experience'],
+                    'variables' => ['value' => 'Delivery Experience'],
                     // Note: this is NOT using the standard template but a bespoke one that loads up some JS
                     'template' => 'orders/courier/specifics/columns/deliveryExperience.phtml',
                 ],
@@ -2462,21 +2438,6 @@ return [
                     'class' => 'experience-col',
                     'sortable' => false,
                     'order' => 35,
-                ],
-            ],
-            'CourierSpecificsCourierPickupColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Courier will<br />pick up?'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'CourierSpecificsCourierPickupColumn' => [
-                'parameters' => [
-                    'column' => 'courierPickup',
-                    'viewModel' => 'CourierSpecificsCourierPickupColumnView',
-                    'class' => 'courier-pickup-col',
-                    'sortable' => false,
-                    'order' => 37,
                 ],
             ],
             'CourierSpecificsSaturdayColumnView' => [
