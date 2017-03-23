@@ -106,8 +106,7 @@ define([
         },
         onOptionSelected: function (product, sku, quantity) {
             var data = {'quantity': quantity, 'sku': sku, 'product': product};
-            var optionSelectedEvent = new CustomEvent('productSelection', {'detail': data});
-            window.dispatchEvent(optionSelectedEvent);
+            window.triggerEvent('productSelection', data);
         },
         getDropdown: function () {
             var productsList = null;

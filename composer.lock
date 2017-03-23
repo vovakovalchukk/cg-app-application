@@ -676,16 +676,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.14",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55"
+                "reference": "4610d8e184f5dee6fdcd22d3d1d6969deed83c5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.14-3a5931.zip",
-                "reference": "15ef5455fd766fc6a7ea3ec9b1ce87ddad995a55",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.16-6251d0.zip",
+                "reference": "4610d8e184f5dee6fdcd22d3d1d6969deed83c5e",
                 "shasum": null
             },
             "require": {
@@ -716,7 +716,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-02-23T10:57:16+00:00"
+            "time": "2017-03-16T12:04:55+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -876,16 +876,16 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.8.43",
+            "version": "1.8.44",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "c263f9b7bb81a41ea2477fab4e1b721c6ef0d401"
+                "reference": "0956f14f911dd8a38dd21126165ae2bd086a0cd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.43-fbcb06.zip",
-                "reference": "c263f9b7bb81a41ea2477fab4e1b721c6ef0d401",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.44-2ce9fd.zip",
+                "reference": "0956f14f911dd8a38dd21126165ae2bd086a0cd5",
                 "shasum": null
             },
             "require": {
@@ -929,7 +929,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-01-12T14:19:37+00:00"
+            "time": "2017-03-02T09:55:57+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -2581,16 +2581,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.20",
+            "version": "1.4.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3712c1147b734cd7a72184ff4020727b560c4e2b"
+                "reference": "16c48cd73ff074a3f97c869696c8a76eaac67e24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.20-fa5848.zip",
-                "reference": "3712c1147b734cd7a72184ff4020727b560c4e2b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.21-967c42.zip",
+                "reference": "16c48cd73ff074a3f97c869696c8a76eaac67e24",
                 "shasum": null
             },
             "require": {
@@ -2601,7 +2601,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.27.0",
+                "channelgrabber/order": "^1.27.5",
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.4.3",
                 "channelgrabber/stdlib": "^2.10.4",
@@ -2635,7 +2635,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-02-24T11:53:23+00:00"
+            "time": "2017-03-09T12:58:14+00:00"
         },
         {
             "name": "channelgrabber/transaction",

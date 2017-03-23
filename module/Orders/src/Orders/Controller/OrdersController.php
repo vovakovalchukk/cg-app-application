@@ -3,6 +3,7 @@ namespace Orders\Controller;
 
 use ArrayObject;
 use CG\Order\Service\Filter;
+use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -31,6 +32,7 @@ use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\I18n\View\Helper\CurrencyFormat;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -69,6 +71,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderCountsApi;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var OrderLabelService */
+    protected $orderLabelService;
+    /** @var CurrencyFormat */
+    protected $currencyFormat;
     /** @var TableService $tableService */
     protected $tableService;
     /** @var OrdersTableUserPreferences $orderTableUserPreferences */
@@ -90,10 +96,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         ShippingConversionService $shippingConversionService,
         OrderCountsApi $orderCountsApi,
         ActiveUserInterface $activeUserContainer,
+        OrderLabelService $orderLabelService,
+        CurrencyFormat $currencyFormat,
         TableService $tableService,
         OrdersTableUserPreferences $orderTableUserPreferences,
         OrdersTableHelper $orderTableHelper
     ) {
+        $this->currencyFormat = $currencyFormat;
         $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
         $this->orderService = $orderService;
@@ -446,7 +455,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $response = $this->jsonModelFactory->newInstance(['success' => false]);
         try {
+
+            $currencyFormatter = $this->currencyFormat;
             $this->orderService->saveRecipientVatNumberToOrder($order, $countryCode, $vatNumber);
+            $response->setVariable('orderSubTotal', $currencyFormatter($order->getSubTotal(), $order->getCurrencyCode()));
+            $response->setVariable('orderTotal', $currencyFormatter($order->getTotal(), $order->getCurrencyCode()));
+            $response->setVariable('orderTax', $currencyFormatter($order->getTax(), $order->getCurrencyCode()));
             $response->setVariable('success', true);
         } catch (\Exception $e) {
             $response->setVariable('error', $e->getMessage());
