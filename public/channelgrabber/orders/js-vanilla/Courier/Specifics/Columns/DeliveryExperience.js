@@ -216,11 +216,14 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.prototype.fetchAndRenderServices = function(serviceContainer)
     {
-        serviceContainer.empty().html(DeliveryExperience.LOADER);
         var self = this;
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
         var servicesPromise = this.fetchShippingServices(serviceContainer);
         var templatePromise = this.fetchSelectTemplate();
+        if (!servicesPromise || !templatePromise) {
+            return;
+        }
+        serviceContainer.empty().html(DeliveryExperience.LOADER);
         Promise.all([servicesPromise, templatePromise]).then(function(results)
         {
             var shippingServices = results[0].serviceOptions;
@@ -239,6 +242,9 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     {
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
         var orderData = this.getInputDataForOrder(orderId);
+        if (!orderData) {
+            return;
+        }
 
         return $.ajax({
             "url": "/orders/courier/services",
@@ -272,7 +278,10 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.prototype.getInputDataForOrder = function(orderId)
     {
-        var inputData = this.getInputDataService().getInputDataForOrder(orderId, true);
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId);
+        if (!inputData) {
+            return false;
+        }
         var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
         var formattedData = {};
         for (var name in data) {

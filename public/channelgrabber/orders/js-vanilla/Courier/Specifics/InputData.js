@@ -55,6 +55,9 @@ define(function()
         inputDataSelector +=    '#datatable td input[name^="parcelData['+orderId+']"], ';
         inputDataSelector +=    '#datatable td input[name^="itemData['+orderId+']"]';
         var inputData = this.getInputData(inputDataSelector);
+        if (!inputData) {
+            return inputData;
+        }
         // Add the service name as well as its code to save us looking it up again later
         var serviceName = $('#courier-service-options-select-' + orderId + ' li.active').text();
         if (serviceName) {
