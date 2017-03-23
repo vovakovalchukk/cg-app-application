@@ -576,6 +576,11 @@ $config = array(
                     'predisClient' => 'reliable_redis',
                 ],
             ],
+            ShipmentMetadataApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
         ),
     ),
     'view_manager' => [
