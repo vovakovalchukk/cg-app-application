@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ff1daf01d4d43379b24b16cc6ba2b5d",
+    "content-hash": "88d5f65561fce1a24239da1dd52c8b41",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,17 +151,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.19.32",
+            "version": "dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ebc34337e3459f5a81d155b87c099fa57e9e3f59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.32-2e648d.zip",
-                "reference": "ebc34337e3459f5a81d155b87c099fa57e9e3f59",
-                "shasum": null
+                "reference": "0c09a7febd9a49786fa40ac0f9d3e5a74472b189"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -672,7 +666,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -5409,7 +5403,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8854,16 +8848,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.33",
+            "alias_normalized": "1.19.33.0",
+            "version": "dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug",
+            "package": "channelgrabber/amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/amazon": 20,
+        "channelgrabber/constants": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
