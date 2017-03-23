@@ -154,6 +154,10 @@ use CG\Account\Client\Storage\Api as AccountApiStorage;
 
 use CG\Stdlib\SoapClient as CGSoapClient;
 
+// ShipmentMetadata
+use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
+use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -188,6 +192,7 @@ $config = array(
                 LockingStorage::class => LockingRedisStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
+                ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -570,6 +575,11 @@ $config = array(
                 'parameters' => [
                     'predisClient' => 'reliable_redis',
                 ],
+            ],
+            ShipmentMetadataApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
             ],
         ),
     ),
