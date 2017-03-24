@@ -186,10 +186,13 @@ class ShippingController extends AbstractActionController
 
     protected function getIndividualAliasView(AliasEntity $alias, AccountEntity $account = null)
     {
+        $shippingAccounts = $this->getShippingAccounts();
+
         $view = $this->getViewModelFactory()->newInstance([
             'id' => 'shipping-alias-' . $alias->getId(),
             'aliasId' => $alias->getId(),
-            'aliasEtag' => $alias->getStoredETag()
+            'aliasEtag' => $alias->getStoredETag(),
+            'hasAccounts' => count($shippingAccounts),
         ]);
         $view->setTemplate('ShippingAlias/alias.mustache');
 
@@ -197,7 +200,6 @@ class ShippingController extends AbstractActionController
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
 
-        $shippingAccounts = $this->getShippingAccounts();
         if (count($shippingAccounts)) {
             $view->addChild($this->getAccountCustomSelectView($alias, $shippingAccounts), 'accountCustomSelect');
             $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
