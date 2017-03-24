@@ -230,6 +230,9 @@ class ShippingController extends AbstractActionController
     protected function getShippingAccountOptions($shippingAccounts, $alias = null)
     {
         $options = [];
+        if (! $shippingAccounts instanceof AccountCollection) {
+            return $options;
+        }
         $noneOption = [
             'title' => 'None',
             'value' => '0',
