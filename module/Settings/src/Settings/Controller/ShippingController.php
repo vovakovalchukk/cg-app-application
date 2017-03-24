@@ -17,6 +17,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as AccountEntity;
+use CG\Account\Shared\Collection as AccountCollection;
 use Orders\Courier\ShippingAccountsService;
 
 class ShippingController extends AbstractActionController
