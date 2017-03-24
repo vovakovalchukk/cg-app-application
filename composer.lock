@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "164cd8ee0ec0d35d1b5e408f851957bf",
+    "content-hash": "ad738fab75d6f19982c734eb3ba14235",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.28.2",
+            "version": "1.28.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a86bc3b4be71be4544357674636643c65ef9efe2"
+                "reference": "e0ca01f582d2b9615a18f12533cbcc853bfeb9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.2-50eb85.zip",
-                "reference": "a86bc3b4be71be4544357674636643c65ef9efe2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.3-3abcfe.zip",
+                "reference": "e0ca01f582d2b9615a18f12533cbcc853bfeb9aa",
                 "shasum": null
             },
             "require": {
@@ -570,7 +570,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-03-17T08:48:31+00:00"
+            "time": "2017-03-24T14:37:45+00:00"
         },
         {
             "name": "channelgrabber/cilex",
