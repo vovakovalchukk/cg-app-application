@@ -6,27 +6,26 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Zend\Stdlib\Http\FileResponse;
 use CG\Template\Entity as Template;
+use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
-use Orders\Order\Service as OrderService;
+use CG_Usage\Service as UsageService;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\BulkActions\OrdersToOperateOn;
+use Orders\Order\BulkActions\Service as BulkActionsService;
+use Orders\Order\Csv\Service as CsvService;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
-use Orders\Order\Csv\Service as CsvService;
+use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
-use Orders\Order\BulkActions\Service as BulkActionsService;
-use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
+use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -306,7 +305,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
-            throw new \RuntimeException('No orders were found to generate invoices for');
+            throw new \RuntimeException('No orders were found to generate invoices for', $exception->getCode(), $exception);
         }
     }
 
@@ -676,10 +675,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             return $viewModel;
         }
         foreach ($orders as $order) {
-            if (!$order->isReadyForInvoicing()) {
-                $error = $this->translate(sprintf('Order %s is not ready for invoicing, try again later', $order->getExternalId()));
-                throw new ValidationException($error);
-            }
+            $this->invoiceService->canInvoiceOrder($order);
         }
         return $viewModel;
     }
