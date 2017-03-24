@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fad2eeee11cf1a91673cea9e4d927d69",
+    "content-hash": "ad738fab75d6f19982c734eb3ba14235",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8100-add-ipost-to-courier-tracking-dropdow",
+            "version": "1.28.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "51f358d9d44b858716b17c84713ea321038a1263"
+                "reference": "e0ca01f582d2b9615a18f12533cbcc853bfeb9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8100-add-ipost-to-courier-tracking-dropdow-9447e9.zip",
-                "reference": "51f358d9d44b858716b17c84713ea321038a1263",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.3-3abcfe.zip",
+                "reference": "e0ca01f582d2b9615a18f12533cbcc853bfeb9aa",
                 "shasum": null
             },
             "require": {
@@ -570,7 +570,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-03-24 11:56:43"
+            "time": "2017-03-24T14:37:45+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8854,17 +8854,9 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.28.3",
-            "alias_normalized": "1.28.3.0",
-            "version": "dev-CGIV-8100-add-ipost-to-courier-tracking-dropdow",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

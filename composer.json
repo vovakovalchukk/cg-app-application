@@ -33,7 +33,7 @@
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.11.6",
-        "channelgrabber/channel": "dev-CGIV-8100-add-ipost-to-courier-tracking-dropdow as 1.28.3",
+        "channelgrabber/channel": "~1.28.3",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
