@@ -179,7 +179,8 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             DeliveryExperience.SELECTOR_DEL_EXP_SELECT+', '+DeliveryExperience.SELECTOR_COURIER_PICKUP_INPUT+','+DeliveryExperience.SELECTOR_INSURANCE_INPUT+', '+DeliveryExperience.SELECTOR_TABLE + ' tr input.required',
             function()
         {
-            var serviceContainer = $(this).closest('tr').find(DeliveryExperience.SELECTOR_SERVICE_CONTAINER);
+            var orderId = $(this).closest('tr').attr('id').split('_')[1];
+            var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace('##orderId##', orderId));
             if (serviceContainer.length == 0) {
                 return;
             }
@@ -200,9 +201,17 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.prototype.isServiceRequestAvailable = function(serviceContainer)
     {
         var available = true;
-        serviceContainer.closest('tr').find('input.required').each(function()
+        var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
+        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], ';
+        inputDataSelector +=    '#datatable td input[name^="parcelData['+orderId+']"], ';
+        inputDataSelector +=    '#datatable td input[name^="itemData['+orderId+']"]';
+        $(inputDataSelector).each(function()
         {
             var input = this;
+            if (!$(input).hasClass('required')) {
+                return true; // continue
+            }
+            // Obviously service is allowed to be blank at this stage
             if ($(input).attr('name') && $(input).attr('name').match(/orderData\[.+?\]\[service\]/)) {
                 return true; // continue
             }
@@ -278,7 +287,7 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.prototype.getInputDataForOrder = function(orderId)
     {
-        var inputData = this.getInputDataService().getInputDataForOrder(orderId);
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId, false);
         if (!inputData) {
             return false;
         }
