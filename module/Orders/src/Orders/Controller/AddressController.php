@@ -34,9 +34,10 @@ class AddressController extends AbstractActionController
         $order = $this->fetchOrder();
         $userChanges = $this->params()->fromPost();
         unset($userChanges['eTag']);
-        $this->ensureCountryCodeSetIfCountryChanged($userChanges);
 
         $userChange = $this->fetchUserChange($order, $userChanges);
+        $this->ensureCountryCodeSetIfCountryChanged($userChange);
+
         $this->getService()->save($userChange);
 
         $view = $this->getJsonModelFactory()->newInstance();
@@ -44,8 +45,9 @@ class AddressController extends AbstractActionController
         return $view;
     }
 
-    protected function ensureCountryCodeSetIfCountryChanged(array &$userChanges)
+    protected function ensureCountryCodeSetIfCountryChanged(UserChangeEntity $userChange)
     {
+        $userChanges = $userChange->getChanges();
         if (isset($userChanges['billingAddressCountry']) &&
             $userChanges['billingAddressCountry'] != '' &&
             !isset($userChanges['billingAddressCountryCode'])
@@ -58,6 +60,7 @@ class AddressController extends AbstractActionController
         ) {
             $userChanges['shippingAddressCountryCode'] = CountryNameByCode::getCountryCodeFromName($userChanges['shippingAddressCountry']);
         }
+        $userChange->setChanges($userChanges);
     }
 
     protected function fetchUserChange(OrderEntity $order, array $userChanges)
