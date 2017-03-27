@@ -17,6 +17,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as AccountEntity;
+use CG\Account\Shared\Collection as AccountCollection;
 use Orders\Courier\ShippingAccountsService;
 
 class ShippingController extends AbstractActionController
@@ -81,7 +82,7 @@ class ShippingController extends AbstractActionController
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
-        $view->setVariable('shippingAccounts', is_array($this->getShippingAccounts()) ? [] : $this->getShippingAccounts()->toArray());
+        $view->setVariable('shippingAccountOptions', $this->getShippingAccountOptions($this->getShippingAccounts()));
         $view->setVariable('rootOuId', $this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view->addChild($this->getAliasView(), 'aliases');
         $view->addChild($this->getAddButtonView(), 'addButton');
@@ -185,10 +186,13 @@ class ShippingController extends AbstractActionController
 
     protected function getIndividualAliasView(AliasEntity $alias, AccountEntity $account = null)
     {
+        $shippingAccounts = $this->getShippingAccounts();
+
         $view = $this->getViewModelFactory()->newInstance([
             'id' => 'shipping-alias-' . $alias->getId(),
             'aliasId' => $alias->getId(),
-            'aliasEtag' => $alias->getStoredETag()
+            'aliasEtag' => $alias->getStoredETag(),
+            'hasAccounts' => count($shippingAccounts),
         ]);
         $view->setTemplate('ShippingAlias/alias.mustache');
 
@@ -196,7 +200,6 @@ class ShippingController extends AbstractActionController
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
 
-        $shippingAccounts = $this->getShippingAccounts();
         if (count($shippingAccounts)) {
             $view->addChild($this->getAccountCustomSelectView($alias, $shippingAccounts), 'accountCustomSelect');
             $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
@@ -215,16 +218,7 @@ class ShippingController extends AbstractActionController
 
     protected function getAccountCustomSelectView(AliasEntity $alias, $shippingAccounts)
     {
-        $options = [];
-        $noneOption = [
-            'title' => 'None',
-            'value' => '0',
-            'selected' => (!$alias->getAccountId())
-        ];
-        $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
-            $shippingAccounts, $alias->getAccountId()
-        );
-        array_unshift($options, $noneOption);
+        $options = $this->getShippingAccountOptions($shippingAccounts, $alias);
         
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
@@ -234,6 +228,24 @@ class ShippingController extends AbstractActionController
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');
         return $customSelect;
+    }
+
+    protected function getShippingAccountOptions($shippingAccounts, $alias = null)
+    {
+        $options = [];
+        if (! $shippingAccounts instanceof AccountCollection) {
+            return $options;
+        }
+        $noneOption = [
+            'title' => 'None',
+            'value' => '0',
+            'selected' => ($alias ? !$alias->getAccountId() : 'false')
+        ];
+        $options = $this->shippingAccountsService->convertShippingAccountsToOptions(
+            $shippingAccounts, ($alias ? $alias->getAccountId() : null)
+        );
+        array_unshift($options, $noneOption);
+        return $options;
     }
 
     protected function getServiceCustomSelectView(AliasEntity $alias)
