@@ -158,6 +158,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('tagOptions', $this->getOrderTagManager()->getAvailableTags())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
+            ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
@@ -295,6 +296,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 ]
             )
             ->setTemplate('elements/toggle.mustache');
+    }
+
+    protected function getInvoiceSettingsItemSkuCheckboxView(InvoiceSettingsEntity $invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'itemSku',
+                    'name' => 'itemSku',
+                    'selected' => (bool) $invoiceSettings->getItemSku(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
     }
 
     protected function getInvoiceSettingsProductImagesCheckboxView(InvoiceSettingsEntity $invoiceSettings)

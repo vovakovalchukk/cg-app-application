@@ -12,9 +12,10 @@ define([
         var InvoiceSettings = function(hasAmazonAccount, tagOptions) {
 
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #productImages, #itemBarcodes';
+            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
             var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
             var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
+            var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
@@ -328,6 +329,7 @@ define([
                     'copyRequired': getCopyRequired(),
                     'emailBcc': getEmailBcc(),
                     'emailTemplate': getEmailTemplate(),
+                    'itemSku': getItemSku(),
                     'productImages': getProductImages(),
                     'itemBarcodes': getItemBarcodes(),
                     'tradingCompanies': getTradingCompanies(),
@@ -363,6 +365,11 @@ define([
             var getEmailTemplate = function()
             {
                 return existingEmailTemplate;
+            };
+
+            var getItemSku = function()
+            {
+                return $(itemSkuSettingsSelector).is(':checked');
             };
 
             var getProductImages = function()

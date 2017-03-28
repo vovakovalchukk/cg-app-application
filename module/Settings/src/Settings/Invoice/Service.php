@@ -83,6 +83,7 @@ class Service
         try {
             $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
             $data['autoEmail'] = $this->validateBoolean($data['autoEmail']);
+            $data['itemSku'] = $this->validateBoolean($data['itemSku']);
             $data['productImages'] = $this->validateBoolean($data['productImages']);
             $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
             $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
