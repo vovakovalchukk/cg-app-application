@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "70449b7dfcf967e83fb29d58a6861279",
+    "content-hash": "c35d4c7499671b9052193dff6f905e74",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug",
+            "version": "dev-CGIV-8120-AmazonLogisticsShippingAliasSupport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "aa6ba69c862ec2418f0de5f4bd7e9db0ce4fe238"
+                "reference": "b9b8749882867703fdd6f91a6a9f6f0246a42d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug-ff43fb.zip",
-                "reference": "aa6ba69c862ec2418f0de5f4bd7e9db0ce4fe238",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8120-AmazonLogisticsShippingAliasSupport-732984.zip",
+                "reference": "b9b8749882867703fdd6f91a6a9f6f0246a42d2d",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-23T15:39:19+00:00"
+            "time": "2017-03-27 15:40:16"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -8856,9 +8856,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.33",
-            "alias_normalized": "1.19.33.0",
-            "version": "dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug",
+            "alias": "1.19.35",
+            "alias_normalized": "1.19.35.0",
+            "version": "dev-CGIV-8120-AmazonLogisticsShippingAliasSupport",
             "package": "channelgrabber/amazon"
         }
     ],
