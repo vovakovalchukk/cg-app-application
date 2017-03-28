@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc54a90556b7dfc32c6387f8324fb3ef",
+    "content-hash": "264e8b65b26bb4b029808a9b2c7e36bf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
+            "version": "1.19.35",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8de73d0d26ee0fcb0967bcaa054ebedf1145ec8d"
+                "reference": "e7bee982d49eff8964ea3b478c028f36f71184c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8099-amazon-account-disabled-after-renew-f69652.zip",
-                "reference": "8de73d0d26ee0fcb0967bcaa054ebedf1145ec8d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.35-deb3ff.zip",
+                "reference": "e7bee982d49eff8964ea3b478c028f36f71184c2",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "dev-CGIV-8099-amazon-account-disabled-after-renew as 1.28.3",
+                "channelgrabber/channel": "^1.28.5",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-27 13:49:17"
+            "time": "2017-03-28T12:38:35+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
+            "version": "1.28.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9b4958accfa5a178d469a3a82ed99668258c2fb9"
+                "reference": "cfc7a1fbc573dd3b523ba86c62979a63fbd78084"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8099-amazon-account-disabled-after-renew-9043b6.zip",
-                "reference": "9b4958accfa5a178d469a3a82ed99668258c2fb9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.28.5-5c6a19.zip",
+                "reference": "cfc7a1fbc573dd3b523ba86c62979a63fbd78084",
                 "shasum": null
             },
             "require": {
@@ -570,7 +570,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-03-27 13:48:13"
+            "time": "2017-03-28T12:33:03+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8854,24 +8854,9 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.35",
-            "alias_normalized": "1.19.35.0",
-            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.28.5",
-            "alias_normalized": "1.28.5.0",
-            "version": "dev-CGIV-8099-amazon-account-disabled-after-renew",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
