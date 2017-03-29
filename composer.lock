@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b408ac135f5324f7d82cf7479954b9a",
+    "content-hash": "7e448cee6fd78d06119e24d43cbb7b8d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug",
+            "version": "1.19.36",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "5e319a415ad5d1f60901bb9965befac98bb3ae5a"
+                "reference": "f6a883eafadd97c207cd59d85e3f6bc81f2c92af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug-95f72b.zip",
-                "reference": "5e319a415ad5d1f60901bb9965befac98bb3ae5a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.36-a20ff1.zip",
+                "reference": "f6a883eafadd97c207cd59d85e3f6bc81f2c92af",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-28 13:01:49"
+            "time": "2017-03-29T13:07:36+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -8854,17 +8854,9 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.36",
-            "alias_normalized": "1.19.36.0",
-            "version": "dev-CGIV-8153-amazon-logistics-request-services-multiple-items-bug",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
