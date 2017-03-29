@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5829d14ecff4dcca1a3e28ab741ad1d8",
+    "content-hash": "554e2ef00ac7b10247554668e559e4dc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2188,16 +2188,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-8166-HideSkuOnInvoice",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "70c9b43e3ceffe5d9d375e7c6cae5419fc381d9b"
+                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-8166-HideSkuOnInvoice-bde57d.zip",
-                "reference": "70c9b43e3ceffe5d9d375e7c6cae5419fc381d9b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.1-73450e.zip",
+                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192",
                 "shasum": null
             },
             "require": {
@@ -2218,7 +2218,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-03-28 10:52:53"
+            "time": "2017-03-29T13:54:00+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2581,16 +2581,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-8166-HideSkuOnInvoice",
+            "version": "1.4.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "5c42032b3f0a44c6ccac874949084b8e49c0cba3"
+                "reference": "c3d48baf96f93d3dc5c4ee8733ec94d44add535d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-8166-HideSkuOnInvoice-277308.zip",
-                "reference": "5c42032b3f0a44c6ccac874949084b8e49c0cba3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.22-f276ed.zip",
+                "reference": "c3d48baf96f93d3dc5c4ee8733ec94d44add535d",
                 "shasum": null
             },
             "require": {
@@ -2603,7 +2603,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.27.5",
                 "channelgrabber/product": "^1.2.0",
-                "channelgrabber/settings": "dev-CGIV-8166-HideSkuOnInvoice as 1.5.1",
+                "channelgrabber/settings": "^1.5.1",
                 "channelgrabber/stdlib": "^2.10.4",
                 "channelgrabber/user": "^1.22.9",
                 "ext-gd": "*",
@@ -2635,7 +2635,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-03-28 09:47:23"
+            "time": "2017-03-29T13:59:20+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8854,25 +8854,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.1",
-            "alias_normalized": "1.5.1.0",
-            "version": "dev-CGIV-8166-HideSkuOnInvoice",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.4.22",
-            "alias_normalized": "1.4.22.0",
-            "version": "dev-CGIV-8166-HideSkuOnInvoice",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
