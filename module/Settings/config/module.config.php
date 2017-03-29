@@ -68,7 +68,7 @@ return [
             'white_listed_routes' => [
                 Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . EkmAccount::ROUTE . '/' . EkmController::ROUTE_AJAX => true,
                 Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . WooCommerceAccount::ROUTE . '/' . WooCommerceController::ROUTE_AJAX => true,
-                Module::ROUTE . '/' . InvoiceController::ROUTE . '/' . InvoiceController::ROUTE_MAPPING . '/' . InvoiceController::ROUTE_SAVE,
+                Module::ROUTE . '/' . InvoiceController::ROUTE . '/' . InvoiceController::ROUTE_SETTINGS . '/' . InvoiceController::ROUTE_SAVE,
             ]
         ]
     ],
@@ -103,9 +103,9 @@ return [
                 'class' => 'heading-medium',
                 'pages' => [
                     [
-                        'label' => InvoiceController::ROUTE_MAPPING,
-                        'title' => InvoiceController::ROUTE_MAPPING,
-                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
+                        'label' => InvoiceController::ROUTE_SETTINGS,
+                        'title' => InvoiceController::ROUTE_SETTINGS,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_SETTINGS
                     ], [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
@@ -385,13 +385,13 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            InvoiceController::ROUTE_MAPPING => [
+                            InvoiceController::ROUTE_SETTINGS => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/mapping',
+                                    'route' => '/settings',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
-                                        'action' => 'mapping',
+                                        'action' => 'settings',
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -402,7 +402,7 @@ return [
                                             'route' => '/save',
                                             'defaults' => [
                                                 'controller' => InvoiceController::class,
-                                                'action' => 'saveMapping',
+                                                'action' => 'saveSettings',
                                             ]
                                         ]
                                     ],
@@ -412,7 +412,7 @@ return [
                                             'route' => '/ajax',
                                             'defaults' => [
                                                 'controller' => InvoiceController::class,
-                                                'action' => 'ajaxMapping',
+                                                'action' => 'ajaxSettings',
                                             ]
                                         ]
                                     ],

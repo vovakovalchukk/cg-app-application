@@ -26,7 +26,7 @@ $(document).ready(function() {
     <form>
         <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
         <div class="invoiceDefaultSettings module half">
-            <div class="heading-large">Invoice Mapping</div>
+            <div class="heading-large">Invoice Settings</div>
             <label>
                 <span class="inputbox-label">Default Invoice:</span>
                 <div class="order-inputbox-holder half-input">
@@ -93,12 +93,16 @@ $(document).ready(function() {
             </div>
         </div>
         <div class="invoiceTradingCompanySettings module section-separator">
-            <div class="heading-large">Trading Companies</div>
+            <div class="heading-large">Trading Company Email Settings</div>
             <?php if (empty($tradingCompanies)) : ?>
                 (No Trading companies exist)
             <?php else : ?>
                 <?= $this->invoiceSettingsDataTable ?>
             <?php endif; ?>
+        </div>
+        <div class="invoiceMappingTable module section-separator">
+            <div class="heading-large">Invoice Mapping</div>
+
         </div>
     </form>
 </div>

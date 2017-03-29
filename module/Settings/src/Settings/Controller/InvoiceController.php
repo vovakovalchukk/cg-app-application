@@ -30,7 +30,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     use LogTrait;
 
     const ROUTE = 'Invoice';
-    const ROUTE_MAPPING = 'Invoice Mapping';
+    const ROUTE_SETTINGS = 'Invoice Settings';
     const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_DESIGNER_ID = 'Invoice Designer View';
     const ROUTE_TEMPLATES = 'Invoice Templates';
@@ -100,7 +100,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('subHeaderHide', true);
     }
 
-    public function saveMappingAction()
+    public function saveSettingsAction()
     {
         $entity = $this->invoiceService->saveSettingsFromPostData($this->params()->fromPost());
         $emailVerificationStatus = $this->invoiceService->getEmailVerificationStatusFromEntity($entity);
@@ -112,7 +112,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         ]);
     }
 
-    public function ajaxMappingAction()
+    public function ajaxSettingsAction()
     {
         $invoiceSettings = $this->invoiceService->getSettings();
         $tradingCompanies = $this->invoiceService->getTradingCompanies();
@@ -137,7 +137,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
-    public function mappingAction()
+    public function settingsAction()
     {
         $invoiceSettings = $this->invoiceService->getSettings();
         $tradingCompanies = $this->invoiceService->getTradingCompanies();
@@ -258,7 +258,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
         $settings->setSource(
             $this->url()->fromRoute(
-                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SETTINGS.'/'.static::ROUTE_AJAX
             )
         );
         $settings->setTemplateUrlMap([

@@ -409,7 +409,7 @@ define([
         {
             var self = this;
             $.ajax({
-                url: "mapping/save",
+                url: "settings/save",
                 type: "POST",
                 dataType: 'json',
                 data: self.getInvoiceSettingsEntity()
