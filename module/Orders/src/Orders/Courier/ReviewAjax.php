@@ -98,6 +98,9 @@ class ReviewAjax
                 'title' => $name,
             ];
         }
+        if (count($options) == 1) {
+            $options[0]['selected'] = true;
+        }
         return $options;
     }
 
