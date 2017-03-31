@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d6771c1f3df8ae8badaa7da2588011b",
+    "content-hash": "0939485431280dd66b1a197f9b326969",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-8209-AmazonLogisticAliasFixes",
+            "version": "1.19.37",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "3ec80b648fc9cf03f1e6fd9ef659dcfb2f1f42dc"
+                "reference": "d5a6894ccc6bb58b2f2d1e4f59762c2b41635d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8209-AmazonLogisticAliasFixes-ab8d75.zip",
-                "reference": "3ec80b648fc9cf03f1e6fd9ef659dcfb2f1f42dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.19.37-aa42f1.zip",
+                "reference": "d5a6894ccc6bb58b2f2d1e4f59762c2b41635d45",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-30 15:17:45"
+            "time": "2017-03-31T10:05:04+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -8854,17 +8854,9 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.37",
-            "alias_normalized": "1.19.37.0",
-            "version": "dev-CGIV-8209-AmazonLogisticAliasFixes",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
