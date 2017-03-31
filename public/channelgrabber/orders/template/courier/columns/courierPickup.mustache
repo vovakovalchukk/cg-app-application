@@ -1,4 +1,4 @@
-{{#parcelRow}}
+{{#orderRow}}
 <div class="checkbox-holder courier-pickup">
     <a class="std-checkbox">
         <input type="checkbox" id="courier-pickup-{{orderId}}" name="orderData[{{orderId}}][courierPickup]"{{#courierPickup}} checked="checked"{{/courierPickup}}/>
@@ -7,5 +7,5 @@
         </label>
     </a>
 </div>
-{{/parcelRow}}
-{{^parcelRow}}&nbsp;{{/parcelRow}}
+{{/orderRow}}
+{{^orderRow}}&nbsp;{{/orderRow}}
