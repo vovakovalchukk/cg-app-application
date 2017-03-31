@@ -275,6 +275,14 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             "class": "required courier-service-select courier-service-custom-select",
             "options": shippingServices
         });
+        if (shippingServices.length == 1) {
+            // Keep the input, copy it to the new element
+            var input = $('input[type=hidden]', selectHtml);
+            input.val(shippingServices[0]['value']);
+            selectHtml = $('<div><span>'+shippingServices[0]['title']+'</span></div>')
+                .append(input)
+                .html()
+        }
         serviceContainer.html(selectHtml);
     };
 
