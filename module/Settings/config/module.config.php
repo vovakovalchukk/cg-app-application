@@ -409,10 +409,20 @@ return [
                                     InvoiceController::ROUTE_AJAX => [
                                         'type' => Literal::class,
                                         'options' => [
-                                            'route' => '/ajax',
+                                            'route' => '/ajaxSettings',
                                             'defaults' => [
                                                 'controller' => InvoiceController::class,
                                                 'action' => 'ajaxSettings',
+                                            ]
+                                        ]
+                                    ],
+                                    InvoiceController::ROUTE_AJAX_MAPPING => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/ajaxMapping',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'ajaxMapping',
                                             ]
                                         ]
                                     ],
@@ -800,6 +810,8 @@ return [
                 'salesAccountList' => DataTable::class,
                 'shippingAccountList' => DataTable::class,
                 'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
+                'InvoiceMappingSettingsDatatable' => DataTable::class,
+                'InvoiceMappingSettingsDatatableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
                 'ChannelStatusJS' => ViewModel::class,
@@ -859,6 +871,7 @@ return [
             InvoiceService::class => [
                 'parameters' => [
                     'datatable' => 'InvoiceSettingsDataTable',
+                    'invoiceMappingDatatable' => 'InvoiceMappingSettingsDatatable'
                 ],
             ],
             'InvoiceSettingsDataTable' => [
@@ -882,6 +895,19 @@ return [
                 ]
             ],
             'InvoiceSettingsDataTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
+                ]
+            ],
+            'InvoiceMappingSettingsDatatable' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'invoiceMapping'
+                    ],
+                ]
+            ],
+            'InvoiceMappingSettingsDatatableSettings' => [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => false,

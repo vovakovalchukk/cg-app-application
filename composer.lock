@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0939485431280dd66b1a197f9b326969",
+    "content-hash": "90f39f420afda4b77133df08cac86286",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -672,7 +672,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2188,16 +2188,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.1",
+            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192"
+                "reference": "e4ae30c4e6a978f92865a4103b7dda6020ea4e0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.1-73450e.zip",
-                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-70fd9e.zip",
+                "reference": "e4ae30c4e6a978f92865a4103b7dda6020ea4e0b",
                 "shasum": null
             },
             "require": {
@@ -2218,7 +2218,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-03-29T13:54:00+00:00"
+            "time": "2017-03-31 10:07:38"
         },
         {
             "name": "channelgrabber/shopify",
@@ -5113,7 +5113,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -5460,7 +5460,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5553,7 +5553,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6022,7 +6022,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8854,10 +8854,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.5.2",
+            "alias_normalized": "1.5.2.0",
+            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
+            "package": "channelgrabber/settings"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

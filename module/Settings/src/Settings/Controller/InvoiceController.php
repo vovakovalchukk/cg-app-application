@@ -37,6 +37,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_TEMPLATES_NEW = 'Invoice Templates New';
     const ROUTE_TEMPLATES_EXISTING = 'Invoice Templates Existing';
     const ROUTE_AJAX = 'Ajax';
+    const ROUTE_AJAX_MAPPING = 'Ajax Mapping';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const ROUTE_VERIFY = 'Verify';
@@ -137,6 +138,23 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
+    public function ajaxMappingAction()
+    {
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
+
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) 2;
+
+        foreach ([1, 2] as $i) {
+            $data['Records'][] = $this->getInvoiceMapper()->toMappingDataTableArray();
+        }
+        return $this->getJsonModelFactory()->newInstance($data);
+    }
+
     public function settingsAction()
     {
         $invoiceSettings = $this->invoiceService->getSettings();
@@ -164,7 +182,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
             ->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
-            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
+            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable')
+            ->addChild($this->getInvoiceMappingTable(), 'invoiceMappingTable');
 
         if ($invoiceSettings->getEmailSendAs()) {
             $view->addChild($this->getInvoiceEmailVerificationStatusView($invoiceSettings), 'emailVerificationStatus');
@@ -267,6 +286,24 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
             'sendFromAddress' => '/channelgrabber/settings/template/columns/sendFromAddress.mustache',
         ]);
+        return $datatables;
+    }
+
+    protected function getInvoiceMappingTable()
+    {
+        $datatables = $this->invoiceService->getInvoiceMappingDatatable();
+        $settings = $datatables->getVariable('settings');
+
+        $settings->setSource(
+            $this->url()->fromRoute(
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SETTINGS.'/'.static::ROUTE_AJAX_MAPPING
+            )
+        );
+//        $settings->setTemplateUrlMap([
+//            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
+//            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+//            'sendFromAddress' => '/channelgrabber/settings/template/columns/sendFromAddress.mustache',
+//        ]);
         return $datatables;
     }
 

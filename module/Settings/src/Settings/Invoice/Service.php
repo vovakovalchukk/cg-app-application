@@ -31,6 +31,7 @@ class Service
     protected $activeUserContainer;
     protected $invoiceSettingsMapper;
     protected $datatable;
+    protected $invoiceMappingDatatable;
     protected $userOrganisationUnitService;
     protected $templateImagesMap = [
         'FPS-3'  => 'Form-FPS3.png',
@@ -41,8 +42,8 @@ class Service
     ];
     protected $templatePurchaseLinksMap = [
         'FPS-3'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
-        'FPS-15'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-15/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPS-15%20CG',
-        'FPS-16'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-16/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-16%20CG%20Link',
+        'FPS-15' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-15/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPS-15%20CG',
+        'FPS-16' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-16/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-16%20CG%20Link',
         'FPD-1'  => 'https://www.formsplus.co.uk/online-shop/integrated/double-integrated-labels/fpd-1/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPD-1%20CG',
     ];
 
@@ -56,7 +57,8 @@ class Service
         AmazonSesService $amazonSesService,
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
-        UserOrganisationUnitService $userOrganisationUnitService
+        UserOrganisationUnitService $userOrganisationUnitService,
+        DataTable $invoiceMappingDatatable
     ) {
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->templateService = $templateService;
@@ -68,6 +70,7 @@ class Service
         $this->intercomEventService = $intercomEventService;
         $this->intercomCompanyService = $intercomCompanyService;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
+        $this->invoiceMappingDatatable = $invoiceMappingDatatable;
     }
 
     public function saveSettingsFromPostData($data)
@@ -412,6 +415,20 @@ class Service
     public function setDatatable(Datatable $datatable)
     {
         $this->datatable = $datatable;
+        return $this;
+    }
+
+    /**
+     * @return Datatable
+     */
+    public function getInvoiceMappingDatatable()
+    {
+        return $this->invoiceMappingDatatable;
+    }
+
+    public function setInvoiceMappingDatatable(Datatable $invoiceMappingDatatable)
+    {
+        $this->invoiceMappingDatatable = $invoiceMappingDatatable;
         return $this;
     }
 }
