@@ -159,7 +159,7 @@ define([
                     new Confirm(messageHTML, function (response) {
                         if (response == InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON) {
                             setEmailVerifyButtonVerifying(emailVerifyButton);
-                            ajaxVerify(self);
+                            ajaxVerify(self, {'confirmationAmazon': true});
                         }
                     }, ["Cancel", InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON]);
                 });
@@ -191,9 +191,9 @@ define([
                 object.save(handleSaveResponse);
             }
 
-            function ajaxVerify(object)
+            function ajaxVerify(object, additionalData)
             {
-                object.save(handleVerifyResponse);
+                object.save(handleVerifyResponse, additionalData || {});
             }
 
             function setCopyRequired()
@@ -413,14 +413,14 @@ define([
         InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';
         InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Email address approved for all Amazon accounts';
 
-        InvoiceSettings.prototype.save = function(callback)
+        InvoiceSettings.prototype.save = function(callback, additionalData)
         {
             var self = this;
             $.ajax({
                 url: "mapping/save",
                 type: "POST",
                 dataType: 'json',
-                data: self.getInvoiceSettingsEntity()
+                data: $.extend({}, self.getInvoiceSettingsEntity(), additionalData || {})
             }).success(function(data) {
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {

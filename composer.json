@@ -66,7 +66,7 @@
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.7",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "~1.5.1",
+        "channelgrabber/settings": "dev-CGIV-8178-AmazonInvoiceSendFromVerifiedEmail as 1.5.2",
         "channelgrabber/shopify": "~1.0.6",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",

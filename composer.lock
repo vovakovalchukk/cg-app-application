@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0939485431280dd66b1a197f9b326969",
+    "content-hash": "6a693b1a8a323b79f2a8d9e1041d360c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2188,16 +2188,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.1",
+            "version": "dev-CGIV-8178-AmazonInvoiceSendFromVerifiedEmail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192"
+                "reference": "8fe44f6b226359188b3e3fb90f5ff8f57a14daee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.1-73450e.zip",
-                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-8178-AmazonInvoiceSendFromVerifiedEmail-e6a16f.zip",
+                "reference": "8fe44f6b226359188b3e3fb90f5ff8f57a14daee",
                 "shasum": null
             },
             "require": {
@@ -2218,7 +2218,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-03-29T13:54:00+00:00"
+            "time": "2017-04-03 08:04:22"
         },
         {
             "name": "channelgrabber/shopify",
@@ -8854,10 +8854,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.5.2",
+            "alias_normalized": "1.5.2.0",
+            "version": "dev-CGIV-8178-AmazonInvoiceSendFromVerifiedEmail",
+            "package": "channelgrabber/settings"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
