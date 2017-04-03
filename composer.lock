@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0939485431280dd66b1a197f9b326969",
+    "content-hash": "883640b4a83fb7f9b273617895057ffe",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2581,17 +2581,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.22",
+            "version": "dev-CGIV-8193-rotate-labels-to-match-invoice-template",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c3d48baf96f93d3dc5c4ee8733ec94d44add535d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.22-f276ed.zip",
-                "reference": "c3d48baf96f93d3dc5c4ee8733ec94d44add535d",
-                "shasum": null
+                "reference": "61904cefb67ba18c5a42b204d0ffa502ea20437f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4067,7 +4061,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5409,7 +5403,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8854,16 +8848,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.23",
+            "alias_normalized": "1.4.23.0",
+            "version": "dev-CGIV-8193-rotate-labels-to-match-invoice-template",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
