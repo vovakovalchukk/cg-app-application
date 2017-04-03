@@ -49,19 +49,6 @@ class Mapper
         return $data;
     }
 
-    public function toMappingDataTableArray() {
-        $data = [
-            'displayName' => 'Wilki Ltd',
-            'channel' => 'Amazon',
-            'site' => 'UK',
-            'tradingCompanyId' => 1,
-            'assignedInvoiceId' => 1,
-            'sendViaEmail' => 'default',
-            'sentToFba' => 'default',
-        ];
-        return $data;
-    }
-
     protected function getEmailVerificationStatusMessage($emailVerifiedStatus)
     {
         $message = '';
