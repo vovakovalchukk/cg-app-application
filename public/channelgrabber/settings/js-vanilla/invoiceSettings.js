@@ -9,7 +9,7 @@ define([
         tinyMCE,
         EventCollator
 ){
-        var InvoiceSettings = function(hasAmazonAccount, tagOptions) {
+        var InvoiceSettings = function(basePath, hasAmazonAccount, tagOptions) {
 
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
@@ -70,7 +70,7 @@ define([
                         return;
                     }
 
-                    if (getElementOnClickCheckedStatus('autoEmail') && hasAmazonAccount == true) {
+                    if (hasAmazonAccount == true) {
                         showConfirmationMessageForAmazonAccount(self, $(this));
                     } else {
                         ajaxVerify(self);
@@ -155,13 +155,13 @@ define([
                 };
 
                 CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                    var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+                    var messageHTML = cgmustache.renderTemplate(templates, {'basePath': basePath}, "message");
                     new Confirm(messageHTML, function (response) {
-                        if (response == "Yes") {
+                        if (response == InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON) {
                             setEmailVerifyButtonVerifying(emailVerifyButton);
                             ajaxVerify(self);
                         }
-                    });
+                    }, ["Cancel", InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON]);
                 });
             }
 
@@ -411,6 +411,7 @@ define([
         InvoiceSettings.EMAIL_STATUS_VERIFIED = 'success';
         InvoiceSettings.EMAIL_STATUS_PENDING = 'pending';
         InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';
+        InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Email address approved for all Amazon accounts';
 
         InvoiceSettings.prototype.save = function(callback)
         {

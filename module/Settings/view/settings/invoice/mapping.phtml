@@ -12,7 +12,11 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= json_encode($tagOptions); ?>');
+        new InvoiceSettings(
+            '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER ?>',
+            '<?= $hasAmazonAccount;?>',
+            '<?= json_encode($tagOptions); ?>'
+        );
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
