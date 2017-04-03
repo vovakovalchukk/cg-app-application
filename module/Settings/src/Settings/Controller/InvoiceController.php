@@ -1,7 +1,17 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Account\Client\Filter;
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Credentials\Cryptor;
+use CG\Account\Shared\Entity as Account;
+use CG\Amazon\Credentials as AmazonCredentials;
+use CG\Amazon\RegionAbstract as AmazonRegion;
+use CG\Amazon\RegionFactory as AmazonRegionFactory;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Company\Service as IntercomCompanyService;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -18,11 +28,6 @@ use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Account\Client\Service as AccountService;
-use CG\Account\Client\Filter;
-use CG\Intercom\Event\Request as IntercomEvent;
-use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Intercom\Company\Service as IntercomCompanyService;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -45,19 +50,34 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
 
+    /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var TemplateService $templateService */
     protected $templateService;
+    /** @var UserOrganisationUnitService $userOrganisationUnitService */
     protected $userOrganisationUnitService;
+    /** @var OrderTagManager $orderTagManager */
     protected $orderTagManager;
+    /** @var InvoiceService $invoiceService */
     protected $invoiceService;
+    /** @var InvoiceMapper $invoiceMapper */
     protected $invoiceMapper;
+    /** @var Translator $translator */
     protected $translator;
+    /** @var Config $config */
     protected $config;
+    /** @var AccountService $accountService */
     protected $accountService;
-    protected $filter;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
+    /** @var IntercomCompanyService $intercomCompanyService */
     protected $intercomCompanyService;
+    /** @var Cryptor $amazonCryptor */
+    protected $amazonCryptor;
+    /** @var AmazonRegionFactory $amazonRegionFactory */
+    protected $amazonRegionFactory;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -71,20 +91,24 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Config $config,
         AccountService $accountService,
         IntercomEventService $intercomEventService,
-        IntercomCompanyService $intercomCompanyService
+        IntercomCompanyService $intercomCompanyService,
+        Cryptor $amazonCryptor,
+        AmazonRegionFactory $amazonRegionFactory
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setTemplateService($templateService)
-            ->setUserOrganisationUnitService($userOrganisationUnitService)
-            ->setOrderTagManager($orderTagManager)
-            ->setInvoiceService($invoiceService)
-            ->setInvoiceMapper($invoiceMapper)
-            ->setTranslator($translator)
-            ->setConfig($config)
-            ->setAccountService($accountService)
-            ->setIntercomEventService($intercomEventService)
-            ->setIntercomCompanyService($intercomCompanyService);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->templateService = $templateService;
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
+        $this->orderTagManager = $orderTagManager;
+        $this->invoiceService = $invoiceService;
+        $this->invoiceMapper = $invoiceMapper;
+        $this->translator = $translator;
+        $this->config = $config;
+        $this->accountService = $accountService;
+        $this->intercomEventService = $intercomEventService;
+        $this->intercomCompanyService = $intercomCompanyService;
+        $this->amazonCryptor = $amazonCryptor;
+        $this->amazonRegionFactory = $amazonRegionFactory;
     }
 
     public function indexAction()
@@ -92,7 +116,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $invoiceSettings = $this->invoiceService->getSettings();
         $existingInvoices = $this->invoiceService->getExistingInvoicesForView();
 
-        return $this->getViewModelFactory()->newInstance()
+        return $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('invoiceData', json_encode($existingInvoices))
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
@@ -105,7 +129,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $entity = $this->invoiceService->saveSettingsFromPostData($this->params()->fromPost());
         $emailVerificationStatus = $this->invoiceService->getEmailVerificationStatusFromEntity($entity);
 
-        return $this->getJsonModelFactory()->newInstance([
+        return $this->jsonModelFactory->newInstance([
             'invoiceSettings' => json_encode($entity),
             'emailVerifiedStatus' => $emailVerificationStatus,
             'eTag' => $entity->getStoredETag()
@@ -128,13 +152,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
 
         foreach ($tradingCompanies as $tradingCompany) {
-            $data['Records'][] = $this->getInvoiceMapper()->toDataTableArray(
+            $data['Records'][] = $this->invoiceMapper->toDataTableArray(
                 $tradingCompany,
                 $invoices,
                 $invoiceSettings
             );
         }
-        return $this->getJsonModelFactory()->newInstance($data);
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     public function mappingAction()
@@ -143,19 +167,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $tradingCompanies = $this->invoiceService->getTradingCompanies();
         $invoices = $this->invoiceService->getInvoices();
 
-        $view = $this->getViewModelFactory()->newInstance()
+        $view = $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
-            ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
+            ->setVariable('amazonSite', $this->getUserAmazonAccountSite())
             ->setVariable('autoEmail', $invoiceSettings->getAutoEmail())
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true)
             ->setVariable('emailVerified', $invoiceSettings->isEmailVerified())
             ->setVariable('emailSendAs', $invoiceSettings->getEmailSendAs())
             ->setVariable('emailTemplate', $invoiceSettings->getEmailTemplate())
-            ->setVariable('tagOptions', $this->getOrderTagManager()->getAvailableTags())
+            ->setVariable('tagOptions', $this->orderTagManager->getAvailableTags())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
@@ -177,7 +201,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         $showToPdfButton = $this->config->get('CG')->get('Settings')->get('show_to_pdf_button');
 
-        $view = $this->getViewModelFactory()->newInstance();
+        $view = $this->viewModelFactory->newInstance();
 
         $template = $this->params()->fromRoute('templateId');
         $view->setVariable("templateId", $template);
@@ -188,7 +212,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
 
-        $rootOu = $this->getUserOrganisationUnitService()->getRootOuByActiveUser();
+        $rootOu = $this->userOrganisationUnitService->getRootOuByActiveUser();
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
@@ -196,47 +220,59 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
 
-        $view->setVariable('dataFieldOptions', $this->getOrderTagManager()->getAvailableTags());
+        $view->setVariable('dataFieldOptions', $this->orderTagManager->getAvailableTags());
 
         return $view;
     }
 
     public function fetchAction()
     {
-        $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
-        $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
+        $template = $this->templateService->fetchAsJson($this->params()->fromPost('id'));
+        $view = $this->jsonModelFactory->newInstance(["template" => $template]);
         return $view;
     }
 
     public function saveAction()
     {
         try{
-            $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
+            $template = $this->templateService->saveFromJson($this->params()->fromPost('template'));
             $this->notifyOfSave();
-            $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
+            $view = $this->jsonModelFactory->newInstance(["template" => json_encode($template)]);
             return $view;
         } catch (NotModified $e) {
             throw $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
             $this->logException($e, 'log:error', __NAMESPACE__);
         }
         return false;
     }
 
-    public function checkIfUserHasAmazonAccount(){
+    public function getUserAmazonAccountSite(){
         try {
             $filter = (new Filter())
                 ->setOrganisationUnitId($this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser())
                 ->setChannel(["amazon"])
                 ->setLimit("all");
-            if(!empty($this->accountService->fetchByFilter($filter))) {
-                return true;
+
+            $accounts = $this->accountService->fetchByFilter($filter);
+
+            /** @var Account $account */
+            foreach ($accounts as $account) {
+                /** @var AmazonCredentials $credentials */
+                $credentials = $this->amazonCryptor->decrypt($account->getCredentials());
+                /** @var AmazonRegion $region */
+                $region = $this->amazonRegionFactory->getByRegionCode($credentials->getRegionCode());
+
+                $domains = $region->getDomains();
+                if (!empty($domains)) {
+                    return reset($domains);
+                }
             }
         } catch (NotFound $exception) {
-            return false;
+            // NoOp
         }
-        return false;
+        return '';
     }
 
     protected function notifyOfSave()
@@ -249,7 +285,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function getInvoiceEmailVerificationStatusView(InvoiceSettingsEntity $invoiceSettings)
     {
         $config = $this->invoiceService->getEmailVerificationStatusForDisplay($invoiceSettings->getEmailVerificationStatus());
-        return $this->getViewModelFactory()->newInstance($config)->setTemplate('elements/status.mustache');
+        return $this->viewModelFactory->newInstance($config)->setTemplate('elements/status.mustache');
     }
 
     protected function getTradingCompanyInvoiceSettingsDataTable()
@@ -281,13 +317,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 'selected' => ($invoice->getId() == $invoiceSettings->getDefault())
             ];
         };
-        return $this->getViewModelFactory()->newInstance($customSelectConfig)
+        return $this->viewModelFactory->newInstance($customSelectConfig)
             ->setTemplate('elements/custom-select.mustache');
     }
 
     protected function getInvoiceSettingsAutoEmailToggleView(InvoiceSettingsEntity $invoiceSettings)
     {
-        return $this->getViewModelFactory()
+        return $this->viewModelFactory
             ->newInstance(
                 [
                     'id' => 'autoEmail',
@@ -300,7 +336,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceSettingsItemSkuCheckboxView(InvoiceSettingsEntity $invoiceSettings)
     {
-        return $this->getViewModelFactory()
+        return $this->viewModelFactory
             ->newInstance(
                 [
                     'id' => 'itemSku',
@@ -313,7 +349,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceSettingsProductImagesCheckboxView(InvoiceSettingsEntity $invoiceSettings)
     {
-        return $this->getViewModelFactory()
+        return $this->viewModelFactory
             ->newInstance(
                 [
                     'id' => 'productImages',
@@ -326,7 +362,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceSettingsItemBarcodesCheckboxView(InvoiceSettingsEntity $invoiceSettings)
     {
-        return $this->getViewModelFactory()
+        return $this->viewModelFactory
             ->newInstance(
                 [
                     'id' => 'itemBarcodes',
@@ -339,7 +375,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceSettingsEmailSendAsView(InvoiceSettingsEntity $invoiceSettings)
     {
-        return $this->getViewModelFactory()
+        return $this->viewModelFactory
             ->newInstance(
                 [
                     'id' => 'emailSendAs',
@@ -354,7 +390,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
 	protected function getInvoiceSettingsCopyRequiredView(InvoiceSettingsEntity $invoiceSettings)
 	{
-		return $this->getViewModelFactory()
+		return $this->viewModelFactory
 			->newInstance(
 				[
 					'id' => 'copyRequired',
@@ -367,7 +403,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
 	protected function getInvoiceSettingsEmailBccView(InvoiceSettingsEntity $invoiceSettings)
 	{
-		return $this->getViewModelFactory()
+		return $this->viewModelFactory
 			->newInstance(
 				[
 					'id' => 'emailBcc',
@@ -382,8 +418,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getTemplateSelectView()
     {
-        $organisationUnitIds = $this->getUserOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
-        $templates = $this->getTemplateService()->fetchInvoiceCollectionByOrganisationUnitWithHardCoded($organisationUnitIds);
+        $organisationUnitIds = $this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser();
+        $templates = $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded($organisationUnitIds);
         $options = [];
         foreach ($templates as $template) {
             $options[] = [
@@ -391,7 +427,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 "value" => $template->getId(),
             ];
         }
-        $templateView = $this->getViewModelFactory()->newInstance(["options" => $options]);
+        $templateView = $this->viewModelFactory->newInstance(["options" => $options]);
         $templateView->setTemplate('elements/custom-select.mustache');
         $templateView->setVariable('name', 'template');
         $templateView->setVariable('initialTitle', $this->translate('Select Template'));
@@ -422,7 +458,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getButtonFromNameAndId($name, $id, $disabled)
     {
-        $button = $this->getViewModelFactory()->newInstance([
+        $button = $this->viewModelFactory->newInstance([
             'buttons' => true,
             'value' => $name,
             'id' => $id,
@@ -434,67 +470,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getTemplateNameInputView()
     {
-        $input = $this->getViewModelFactory()->newInstance([
+        $input = $this->viewModelFactory->newInstance([
             'name' => 'template-name',
             'id' => 'template-name'
         ]);
         $input->setTemplate('elements/text.mustache');
         return $input;
-    }
-
-	public function getViewModelFactory()
-    {
-        return $this->viewModelFactory;
-    }
-
-    public function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    public function setTemplateService(TemplateService $templateService)
-    {
-        $this->templateService = $templateService;
-        return $this;
-    }
-
-    public function getTemplateService()
-    {
-        return $this->templateService;
-    }
-
-    public function setUserOrganisationUnitService(UserOrganisationUnitService $userOrganisationUnitService)
-    {
-        $this->userOrganisationUnitService = $userOrganisationUnitService;
-        return $this;
-    }
-
-    public function getUserOrganisationUnitService()
-    {
-        return $this->userOrganisationUnitService;
-    }
-
-    public function getOrderTagManager()
-    {
-        return $this->orderTagManager;
-    }
-
-    public function setOrderTagManager(OrderTagManager $orderTagManager)
-    {
-        $this->orderTagManager = $orderTagManager;
-        return $this;
-    }
-
-    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    public function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
     }
 
     protected function getPaperTypeModule()
@@ -507,8 +488,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             "options" => []
         ];
 
-        $paperTypeModule = $this->getViewModelFactory()->newInstance();
-        $select = $this->getViewModelFactory()->newInstance($dropDownConfig);
+        $paperTypeModule = $this->viewModelFactory->newInstance();
+        $select = $this->viewModelFactory->newInstance($dropDownConfig);
         $select->setTemplate('elements/custom-select.mustache');
         $paperTypeModule->addChild($select, 'select');
         $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
@@ -516,63 +497,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $paperTypeModule;
     }
 
-    protected function getTranslator()
+    /**
+     * @return JsonModelFactory
+     */
+    protected function getJsonModelFactory()
     {
-        return $this->translator;
+        return $this->jsonModelFactory;
     }
 
     /**
-     * @return InvoiceMapper
+     * @return Translator
      */
-    public function getInvoiceMapper()
+    protected function getTranslator()
     {
-        return $this->invoiceMapper;
-    }
-
-    public function getAccountService()
-    {
-        return $this->accountService;
-    }
-
-    public function setInvoiceService(InvoiceService $invoiceService)
-    {
-        $this->invoiceService = $invoiceService;
-        return $this;
-    }
-
-    public function setInvoiceMapper(InvoiceMapper $invoiceMapper)
-    {
-        $this->invoiceMapper = $invoiceMapper;
-        return $this;
-    }
-
-    protected function setTranslator(Translator $translator)
-    {
-        $this->translator = $translator;
-        return $this;
-    }
-
-    protected function setConfig(Config $config)
-    {
-        $this->config = $config;
-        return $this;
-    }
-
-    protected function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    protected function setIntercomCompanyService(IntercomCompanyService $intercomCompanyService)
-    {
-        $this->intercomCompanyService = $intercomCompanyService;
-        return $this;
+        return $this->translator;
     }
 }

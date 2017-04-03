@@ -14,7 +14,7 @@ $(document).ready(function() {
     ) {
         new InvoiceSettings(
             '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER ?>',
-            '<?= $hasAmazonAccount;?>',
+            '<?= $amazonSite ;?>',
             '<?= json_encode($tagOptions); ?>'
         );
 

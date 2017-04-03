@@ -9,7 +9,7 @@ define([
         tinyMCE,
         EventCollator
 ){
-        var InvoiceSettings = function(basePath, hasAmazonAccount, tagOptions) {
+        var InvoiceSettings = function(basePath, amazonSite, tagOptions) {
 
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
@@ -70,8 +70,8 @@ define([
                         return;
                     }
 
-                    if (hasAmazonAccount == true) {
-                        showConfirmationMessageForAmazonAccount(self, $(this));
+                    if (amazonSite !== '') {
+                        showConfirmationMessageForAmazonAccount(self, amazonSite, $(this));
                     } else {
                         ajaxVerify(self);
                     }
@@ -148,14 +148,14 @@ define([
                 return valid;
             }
 
-            function showConfirmationMessageForAmazonAccount(self, emailVerifyButton)
+            function showConfirmationMessageForAmazonAccount(self, amazonSite, emailVerifyButton)
             {
                 var templateUrlMap = {
                     message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
                 };
 
                 CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                    var messageHTML = cgmustache.renderTemplate(templates, {'basePath': basePath}, "message");
+                    var messageHTML = cgmustache.renderTemplate(templates, {'basePath': basePath, 'amazonSite': amazonSite}, "message");
                     new Confirm(messageHTML, function (response) {
                         if (response == InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON) {
                             setEmailVerifyButtonVerifying(emailVerifyButton);
