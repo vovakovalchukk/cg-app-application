@@ -823,6 +823,20 @@ return [
                 'InvoiceTradingCompanyColumnView' => ViewModel::class,
                 'InvoiceAssignedInvoiceColumnView' => ViewModel::class,
                 'InvoiceSendFromAddressColumnView' => ViewModel::class,
+                'InvoiceMappingChannelColumn' => DataTable\Column::class,
+                'InvoiceMappingDisplayNameColumn' => DataTable\Column::class,
+                'InvoiceMappingSiteColumn' => DataTable\Column::class,
+                'InvoiceMappingTradingCompanyColumn' => DataTable\Column::class,
+                'InvoiceMappingAssignedInvoiceColumn' => DataTable\Column::class,
+                'InvoiceMappingSendViaEmailColumn' => DataTable\Column::class,
+                'InvoiceMappingSendToFbaColumn' => DataTable\Column::class,
+                'InvoiceMappingChannelColumnView' => ViewModel::class,
+                'InvoiceMappingDisplayNameColumnView' => ViewModel::class,
+                'InvoiceMappingSiteColumnView' => ViewModel::class,
+                'InvoiceMappingTradingCompanyColumnView' => ViewModel::class,
+                'InvoiceMappingAssignedInvoiceColumnView' => ViewModel::class,
+                'InvoiceMappingSendViaEmailColumnView' => ViewModel::class,
+                'InvoiceMappingSendToFbaColumnView' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -904,6 +918,20 @@ return [
                 'parameters' => [
                     'variables' => [
                         'id' => 'invoiceMapping'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'InvoiceMappingChannelColumn'],
+                        ['column' => 'InvoiceMappingDisplayNameColumn'],
+                        ['column' => 'InvoiceMappingTradingCompanyColumn'],
+                        ['column' => 'InvoiceMappingSiteColumn'],
+                        ['column' => 'InvoiceMappingAssignedInvoiceColumn'],
+                        ['column' => 'InvoiceMappingSendViaEmailColumn'],
+                        ['column' => 'InvoiceMappingSendToFbaColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'InvoiceMappingSettingsDatatableSettings']
                     ],
                 ]
             ],
@@ -1064,6 +1092,112 @@ return [
             'InvoiceSendFromAddressColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Send From Email'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+
+            'InvoiceMappingChannelColumn' => [
+                'parameters' => [
+                    'templateId' => 'channel',
+                    'viewModel' => 'InvoiceMappingChannelColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingDisplayNameColumn' => [
+                'parameters' => [
+                    'templateId' => 'displayName',
+                    'viewModel' => 'InvoiceMappingDisplayNameColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingSiteColumn' => [
+                'parameters' => [
+                    'templateId' => 'site',
+                    'viewModel' => 'InvoiceMappingSiteColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingTradingCompanyColumn' => [
+                'parameters' => [
+                    'templateId' => 'tradingCompany',
+                    'viewModel' => 'InvoiceMappingTradingCompanyColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingAssignedInvoiceColumn' => [
+                'parameters' => [
+                    'templateId' => 'assignedInvoice',
+                    'viewModel' => 'InvoiceMappingAssignedInvoiceColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingSendViaEmailColumn' => [
+                'parameters' => [
+                    'templateId' => 'sendViaEmail',
+                    'viewModel' => 'InvoiceMappingSendViaEmailColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingSendToFbaColumn' => [
+                'parameters' => [
+                    'templateId' => 'sendToFba',
+                    'viewModel' => 'InvoiceMappingSendToFbaColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingChannelColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Channel'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingDisplayNameColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Display Name'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingSiteColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Site'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingTradingCompanyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Trading Company'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingAssignedInvoiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Assigned Invoice'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingSendViaEmailColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'SendViaEmail'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingSendToFbaColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'SendToFba'],
                     'template' => 'value.phtml',
                 ],
             ],
