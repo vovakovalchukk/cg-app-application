@@ -19,6 +19,8 @@ use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
+use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
+use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
 use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
 use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
 use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
@@ -37,6 +39,8 @@ class Service
     protected $invoiceMappingDatatable;
     protected $userOrganisationUnitService;
     protected $marketplaceService;
+    protected $invoiceMappingService;
+    protected $invoiceMappingMapper;
     protected $templateImagesMap = [
         'FPS-3'  => 'Form-FPS3.png',
         'FPS-15'  => 'Form-FPS15.png',
@@ -63,7 +67,9 @@ class Service
         IntercomCompanyService $intercomCompanyService,
         UserOrganisationUnitService $userOrganisationUnitService,
         DataTable $invoiceMappingDatatable,
-        MarketplaceService $marketplaceService
+        MarketplaceService $marketplaceService,
+        InvoiceMappingService $invoiceMappingService,
+        InvoiceMappingMapper $invoiceMappingMapper
     ) {
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->templateService = $templateService;
@@ -77,6 +83,8 @@ class Service
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->invoiceMappingDatatable = $invoiceMappingDatatable;
         $this->marketplaceService = $marketplaceService;
+        $this->invoiceMappingService = $invoiceMappingService;
+        $this->invoiceMappingMapper = $invoiceMappingMapper;
     }
 
     public function saveSettingsFromPostData($data)
@@ -126,6 +134,10 @@ class Service
         $filter = (new MarketplaceFilter())
             ->setAccountId($accountIds);
         $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
+
+        $filter = (new InvoiceMappingFilter())
+            ->setAccountId($accountIds);
+        $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
 
         $dataTablesData = [];
         foreach ($accounts as $account) {

@@ -23,8 +23,6 @@ use CG\Account\Client\Filter;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Intercom\Company\Service as IntercomCompanyService;
-use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
-use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
 use CG\Channel\Type as ChannelType;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
@@ -62,8 +60,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $filter;
     protected $intercomEventService;
     protected $intercomCompanyService;
-    protected $invoiceMappingService;
-    protected $invoiceMappingMapper;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -77,9 +73,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Config $config,
         AccountService $accountService,
         IntercomEventService $intercomEventService,
-        IntercomCompanyService $intercomCompanyService,
-        InvoiceMappingService $invoiceMappingService,
-        InvoiceMappingMapper $invoiceMappingMapper
+        IntercomCompanyService $intercomCompanyService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -93,9 +87,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setAccountService($accountService)
             ->setIntercomEventService($intercomEventService)
             ->setIntercomCompanyService($intercomCompanyService);
-
-        $this->invoiceMappingService = $invoiceMappingService;
-        $this->invoiceMappingMapper = $invoiceMappingMapper;
     }
 
     public function indexAction()
