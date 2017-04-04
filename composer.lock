@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90f39f420afda4b77133df08cac86286",
+    "content-hash": "890b13ac8fa85c660f4ec3aaea59c0c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1215,7 +1215,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "8a02a2fa9726f765bd2d2b19b561b9741c9d4a6b"
+                "reference": "f1b9de206467e33ed0a131543a9c48d6da3871af"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
