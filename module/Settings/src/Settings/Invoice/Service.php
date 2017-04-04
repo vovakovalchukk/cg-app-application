@@ -19,6 +19,9 @@ use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
+use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
+use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
+use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
 
 class Service
 {
@@ -33,6 +36,7 @@ class Service
     protected $datatable;
     protected $invoiceMappingDatatable;
     protected $userOrganisationUnitService;
+    protected $marketplaceService;
     protected $templateImagesMap = [
         'FPS-3'  => 'Form-FPS3.png',
         'FPS-15'  => 'Form-FPS15.png',
@@ -58,7 +62,8 @@ class Service
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
         UserOrganisationUnitService $userOrganisationUnitService,
-        DataTable $invoiceMappingDatatable
+        DataTable $invoiceMappingDatatable,
+        MarketplaceService $marketplaceService
     ) {
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->templateService = $templateService;
@@ -71,6 +76,7 @@ class Service
         $this->intercomCompanyService = $intercomCompanyService;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->invoiceMappingDatatable = $invoiceMappingDatatable;
+        $this->marketplaceService = $marketplaceService;
     }
 
     public function saveSettingsFromPostData($data)
@@ -108,6 +114,38 @@ class Service
         }
 
         return $entity;
+    }
+
+    public function getInvoiceMappingDataTablesData($accounts)
+    {
+        $accountIds = [];
+        foreach ($accounts as $account) {
+            $accountIds[] = $account->getId();
+        }
+
+        $filter = (new MarketplaceFilter())
+            ->setAccountId($accountIds);
+        $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
+
+        $dataTablesData = [];
+        foreach ($accounts as $account) {
+            $matchingMarketplace = null;
+            foreach ($marketplaces as $marketplace) {
+                if ($account->getId() === $marketplace->getAccountId()) {
+                    $matchingMarketplace = $marketplace;
+                }
+            }
+            $dataTablesData[] = [
+                'channel' => $account->getChannel(),
+                'displayName' => $account->getDisplayName(),
+                'site' => $matchingMarketplace ? $matchingMarketplace->getMarketplace() : 'UK',
+                'tradingCompany' => 1,
+                'assignedInvoice' => 1,
+                'sendViaEmail' => 'off',
+                'sendToFba' => 'on',
+            ];
+        }
+        return $dataTablesData;
     }
 
     /**

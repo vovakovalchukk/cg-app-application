@@ -23,6 +23,9 @@ use CG\Account\Client\Filter;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Intercom\Company\Service as IntercomCompanyService;
+use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
+use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
+use CG\Channel\Type as ChannelType;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -59,6 +62,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $filter;
     protected $intercomEventService;
     protected $intercomCompanyService;
+    protected $invoiceMappingService;
+    protected $invoiceMappingMapper;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -72,7 +77,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Config $config,
         AccountService $accountService,
         IntercomEventService $intercomEventService,
-        IntercomCompanyService $intercomCompanyService
+        IntercomCompanyService $intercomCompanyService,
+        InvoiceMappingService $invoiceMappingService,
+        InvoiceMappingMapper $invoiceMappingMapper
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -86,6 +93,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setAccountService($accountService)
             ->setIntercomEventService($intercomEventService)
             ->setIntercomCompanyService($intercomCompanyService);
+
+        $this->invoiceMappingService = $invoiceMappingService;
+        $this->invoiceMappingMapper = $invoiceMappingMapper;
     }
 
     public function indexAction()
@@ -140,18 +150,23 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function ajaxMappingAction()
     {
+        $ous = $this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser();
+        $filter = (new Filter())
+            ->setOrganisationUnitId($ous)
+            ->setDeleted(0)
+            ->setType(ChannelType::SALES)
+            ->setLimit("all");
+        $accounts = $this->accountService->fetchByFilter($filter);
+        $dataTablesData = $this->invoiceService->getInvoiceMappingDataTablesData($accounts);
+
         $data = [
             'iTotalRecords' => 0,
             'iTotalDisplayRecords' => 0,
             'sEcho' => (int) $this->params()->fromPost('sEcho'),
-            'Records' => [],
+            'Records' => $dataTablesData,
         ];
 
-        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) 2;
-
-        foreach ([1, 2] as $i) {
-            $data['Records'][] = $this->getInvoiceMapper()->toMappingDataTableArray();
-        }
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) count($dataTablesData);
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
@@ -299,11 +314,15 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SETTINGS.'/'.static::ROUTE_AJAX_MAPPING
             )
         );
-//        $settings->setTemplateUrlMap([
-//            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
-//            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
-//            'sendFromAddress' => '/channelgrabber/settings/template/columns/sendFromAddress.mustache',
-//        ]);
+        $settings->setTemplateUrlMap([
+            'channel' => '/channelgrabber/settings/template/columns/channel.mustache',
+            'displayName' => '/channelgrabber/settings/template/columns/account.mustache',
+            'site' => '/channelgrabber/settings/template/columns/site.mustache',
+            'tradingCompany' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+            'sendViaEmail' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+            'sendToFba' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+        ]);
         return $datatables;
     }
 
