@@ -2188,16 +2188,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192"
+                "reference": "790828260937d184de557133dd9626596a7d136d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.1-73450e.zip",
-                "reference": "9842399dcff2b1f4bef05d32345ba75fd5c4f192",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.2-5d2f78.zip",
+                "reference": "790828260937d184de557133dd9626596a7d136d",
                 "shasum": null
             },
             "require": {
@@ -2218,7 +2218,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-03-29T13:54:00+00:00"
+            "time": "2017-04-04T13:50:26+00:00"
         },
         {
             "name": "channelgrabber/shopify",
