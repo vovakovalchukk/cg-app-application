@@ -2,6 +2,7 @@
 namespace Settings\Invoice;
 
 use CG\Amazon\Aws\Ses\Service as AmazonSesService;
+use CG\Constant\Log\Role\Permission\OrganisationUnit;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
@@ -124,7 +125,7 @@ class Service
         return $entity;
     }
 
-    public function getInvoiceMappingDataTablesData($accounts)
+    public function getInvoiceMappingDataTablesData($accounts, $invoices)
     {
         $accountIds = [];
         foreach ($accounts as $account) {
@@ -132,41 +133,76 @@ class Service
         }
 
         try {
-            $filter = (new MarketplaceFilter())
-                ->setAccountId($accountIds);
-            $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
-
             $filter = (new InvoiceMappingFilter())
                 ->setAccountId($accountIds);
             $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
+
+            $tradingCompanies = $this->getTradingCompanies();
+            $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
+            $tradingCompanies->attach($rootOu);
         } catch (\Exception $e) {
             return [];
         }
 
         $dataTablesData = [];
         foreach ($accounts as $account) {
-            $matchingMarketplace = null;
-            foreach ($marketplaces as $marketplace) {
-                if ($account->getId() === $marketplace->getAccountId()) {
-                    $matchingMarketplace = $marketplace;
-                }
-            }
             foreach ($invoiceMappings as $invoiceMapping) {
                 if ($invoiceMapping->getAccountId() !== $account->getId()) {
                     continue;
                 }
-                $dataTablesData[] = [
-                    'channel' => $account->getChannel(),
-                    'displayName' => $account->getDisplayName(),
-                    'site' => $invoiceMapping->getSite(),
-                    'tradingCompany' => $invoiceMapping->getOrganisationUnitId(),
-                    'assignedInvoice' => $invoiceMapping->getInvoiceId(),
-                    'sendViaEmail' => $invoiceMapping->getSendViaEmail(),
-                    'sendToFba' => $invoiceMapping->getSendToFba(),
-                ];
+                $dataTablesData[] = $this->getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies);
             }
         }
         return $dataTablesData;
+    }
+
+    public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies)
+    {
+        $invoiceOptions = [];
+        foreach ($invoices as $invoice) {
+            $invoiceOptions['options'][] = [
+                'title' => $invoice->getName(),
+                'value' => $invoice->getId(),
+                'selected' => $invoice->getId() === $invoiceMapping->getInvoiceId()
+            ];
+        }
+
+        $tradingCompanyOptions = [];
+        foreach ($tradingCompanies as $tradingCompany) {
+            $tradingCompanyOptions['options'][] = [
+                'title' => $tradingCompany->getAddressCompanyName(),
+                'value' => $tradingCompany->getId(),
+                'selected' => $tradingCompany->getId() === $invoiceMapping->getOrganisationUnitId()
+            ];
+        }
+
+        $sendViaEmailOptions = [];
+        foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
+            $sendViaEmailOptions['options'][] = [
+                'title' => $sendOption,
+                'value' => $sendOption,
+                'selected' => $sendOption === $invoiceMapping->getSendViaEmail()
+            ];
+        }
+
+        $sendToFbaOptions = [];
+        foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
+            $sendToFbaOptions['options'][] = [
+                'title' => $sendOption,
+                'value' => $sendOption,
+                'selected' => $sendOption === $invoiceMapping->getSendToFba()
+            ];
+        }
+
+        return [
+            'channel' => $account->getChannel(),
+            'displayName' => $account->getDisplayName(),
+            'site' => $invoiceMapping->getSite(),
+            'tradingCompany' => $tradingCompanyOptions,
+            'assignedInvoice' => $invoiceOptions,
+            'sendViaEmail' => $sendViaEmailOptions,
+            'sendToFba' => $sendToFbaOptions,
+        ];
     }
 
     /**

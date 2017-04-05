@@ -141,14 +141,16 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function ajaxMappingAction()
     {
-        $ous = $this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser();
+        $invoices = $this->invoiceService->getInvoices();
+        $ouIds = $this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser();
+
         $filter = (new Filter())
-            ->setOrganisationUnitId($ous)
+            ->setOrganisationUnitId($ouIds)
             ->setDeleted(0)
             ->setType(ChannelType::SALES)
             ->setLimit("all");
         $accounts = $this->accountService->fetchByFilter($filter);
-        $dataTablesData = $this->invoiceService->getInvoiceMappingDataTablesData($accounts);
+        $dataTablesData = $this->invoiceService->getInvoiceMappingDataTablesData($accounts, $invoices);
 
         $data = [
             'iTotalRecords' => 0,
@@ -309,10 +311,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'channel' => '/channelgrabber/settings/template/columns/channel.mustache',
             'displayName' => '/channelgrabber/settings/template/columns/account.mustache',
             'site' => '/channelgrabber/settings/template/columns/site.mustache',
-            'tradingCompany' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
-            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
-            'sendViaEmail' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
-            'sendToFba' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
+            'assignedInvoice' => '/channelgrabber/settings/template/columns/assignedInvoice.mustache',
+            'sendViaEmail' => '/channelgrabber/settings/template/columns/sendViaEmail.mustache',
+            'sendToFba' => '/channelgrabber/settings/template/columns/sendToFba.mustache',
+            'customSelect' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
         ]);
         return $datatables;
     }
