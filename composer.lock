@@ -2192,12 +2192,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "5f06f4480bd0f082b88650b676b941dac48b1bb9"
+                "reference": "19da66b7fbf07e08ff5ac1f465e425e746f1f717"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-e3087f.zip",
-                "reference": "5f06f4480bd0f082b88650b676b941dac48b1bb9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-de6126.zip",
+                "reference": "19da66b7fbf07e08ff5ac1f465e425e746f1f717",
                 "shasum": null
             },
             "require": {
@@ -2218,7 +2218,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-04-04 15:15:02"
+            "time": "2017-04-05 09:03:24"
         },
         {
             "name": "channelgrabber/shopify",

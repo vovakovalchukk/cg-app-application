@@ -131,13 +131,17 @@ class Service
             $accountIds[] = $account->getId();
         }
 
-        $filter = (new MarketplaceFilter())
-            ->setAccountId($accountIds);
-        $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
+        try {
+            $filter = (new MarketplaceFilter())
+                ->setAccountId($accountIds);
+            $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
 
-        $filter = (new InvoiceMappingFilter())
-            ->setAccountId($accountIds);
-        $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
+            $filter = (new InvoiceMappingFilter())
+                ->setAccountId($accountIds);
+            $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
+        } catch (\Exception $e) {
+            return [];
+        }
 
         $dataTablesData = [];
         foreach ($accounts as $account) {
@@ -147,15 +151,20 @@ class Service
                     $matchingMarketplace = $marketplace;
                 }
             }
-            $dataTablesData[] = [
-                'channel' => $account->getChannel(),
-                'displayName' => $account->getDisplayName(),
-                'site' => $matchingMarketplace ? $matchingMarketplace->getMarketplace() : 'UK',
-                'tradingCompany' => 1,
-                'assignedInvoice' => 1,
-                'sendViaEmail' => 'off',
-                'sendToFba' => 'on',
-            ];
+            foreach ($invoiceMappings as $invoiceMapping) {
+                if ($invoiceMapping->getAccountId() !== $account->getId()) {
+                    continue;
+                }
+                $dataTablesData[] = [
+                    'channel' => $account->getChannel(),
+                    'displayName' => $account->getDisplayName(),
+                    'site' => $invoiceMapping->getSite(),
+                    'tradingCompany' => $invoiceMapping->getOrganisationUnitId(),
+                    'assignedInvoice' => $invoiceMapping->getInvoiceId(),
+                    'sendViaEmail' => $invoiceMapping->getSendViaEmail(),
+                    'sendToFba' => $invoiceMapping->getSendToFba(),
+                ];
+            }
         }
         return $dataTablesData;
     }
