@@ -195,6 +195,7 @@ class Service
         }
 
         return [
+            'rowId' => $invoiceMapping->getId(),
             'channel' => $account->getChannel(),
             'displayName' => $account->getDisplayName(),
             'site' => $invoiceMapping->getSite(),
