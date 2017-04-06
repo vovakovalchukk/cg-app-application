@@ -416,6 +416,16 @@ return [
                                             ]
                                         ]
                                     ],
+                                    InvoiceController::ROUTE_SAVE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/saveMapping',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'saveMapping',
+                                            ]
+                                        ]
+                                    ],
                                     InvoiceController::ROUTE_AJAX_MAPPING => [
                                         'type' => Literal::class,
                                         'options' => [
