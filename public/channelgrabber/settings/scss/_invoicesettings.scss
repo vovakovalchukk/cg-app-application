@@ -1,4 +1,4 @@
-.invoiceSettings {
+.invoiceSettings, .invoiceMapping {
     width: 100%;
     float: left;
     clear:both;
@@ -53,6 +53,17 @@
 
     td:nth-child(3) {
         text-align: left;
+    }
+}
+.invoiceMapping {
+    .med-element {
+        width: 120px;
+        min-width: 120px;
+        float: none !important;
+        margin: 0 auto;
+        .custom-select {
+            width: 120px;
+        }
     }
 }
 .invoiceDefaultSettings {
