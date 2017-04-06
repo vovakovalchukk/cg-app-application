@@ -1,5 +1,6 @@
 <div class="trading-company-column">
     {{#tradingCompany}}
+        {{#rowId}}<input type="hidden" data-element-row-id="{{rowId}}">{{/rowId}}
         {{>customSelect}}
     {{/tradingCompany}}
 </div>

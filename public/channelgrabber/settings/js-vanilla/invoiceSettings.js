@@ -26,6 +26,12 @@ define([
             var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
 
+            var mappingSelector = '.invoiceMapping .invoiceMappingTable';
+            var mappingTradingCompanySelector = '.invoiceMapping .trading-company-column';
+            var mappingAssignedInvoiceSelector = '.invoiceMapping .assigned-invoice-column';
+            var mappingSendViaEmailSelector = '.invoiceMapping .send-via-email-column';
+            var mappingSendToFbaSelector = '.invoiceMapping .send-to-fba-column';
+
             var emailVerifyInputSelector = '.email-verify-input';
             var emailVerifyButtonSelector = '.email-verify-button';
             var emailVerifyStatusSelector = '.email-verify-status';
@@ -55,6 +61,10 @@ define([
                 // Set event listeners
                 $(document).on('change', selector, function() {
                     ajaxSave(self);
+                });
+
+                $(document).on('change', mappingSelector, function(e, b, c) {
+                    self.saveMapping(handleSaveResponse);
                 });
 
                 $(document).on('change keyup', emailVerifyInputSelector, function () {
@@ -337,6 +347,32 @@ define([
                 };
             };
 
+            this.getInvoiceMappingEntity = function () {
+                var invoiceMappings = {};
+
+                $(mappingTradingCompanySelector).each(function() {
+                    var tradingCompany = $(this).find('.custom-select input').val();
+                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
+                    invoiceMappings[invoiceMappingId] = {'tradingCompany': tradingCompany};
+                });
+                $(mappingAssignedInvoiceSelector).each(function() {
+                    var assignedInvoice = $(this).find('.custom-select input').val();
+                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
+                    invoiceMappings[invoiceMappingId]['assignedInvoice'] = assignedInvoice;
+                });
+                $(mappingSendViaEmailSelector).each(function() {
+                    var sendViaEmail = $(this).find('.custom-select input').val();
+                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
+                    invoiceMappings[invoiceMappingId]['sendViaEmail'] = sendViaEmail;
+                });
+                $(mappingSendToFbaSelector).each(function() {
+                    var emailSendAs = $(this).find('.custom-select input').val();
+                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
+                    invoiceMappings[invoiceMappingId]['emailSendAs'] = emailSendAs;
+                });
+                return invoiceMappings;
+            };
+
             var getDefault = function()
             {
                 return $(defaultSettingsSelector).val();
@@ -420,6 +456,23 @@ define([
                 type: "POST",
                 dataType: 'json',
                 data: self.getInvoiceSettingsEntity()
+            }).success(function(data) {
+                callback(data);
+            }).error(function(error, textStatus, errorThrown) {
+                if (n) {
+                    n.ajaxError(error, textStatus, errorThrown);
+                }
+            });
+        };
+
+        InvoiceSettings.prototype.saveMapping = function(callback)
+        {
+            var self = this;
+            $.ajax({
+                url: "settings/saveMapping",
+                type: "POST",
+                dataType: 'json',
+                data: self.getInvoiceMappingEntity()
             }).success(function(data) {
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {

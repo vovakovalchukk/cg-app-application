@@ -1,5 +1,6 @@
 <div class="assigned-invoice-column">
     {{#assignedInvoice}}
+        {{#rowId}}<input type="hidden" data-element-row-id="{{rowId}}">{{/rowId}}
         {{>customSelect}}
     {{/assignedInvoice}}
 </div>
