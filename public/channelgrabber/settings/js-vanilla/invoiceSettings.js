@@ -353,7 +353,7 @@ define([
                 $(mappingTradingCompanySelector).each(function() {
                     var tradingCompany = $(this).find('.custom-select input').val();
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    invoiceMappings[invoiceMappingId] = {'tradingCompany': tradingCompany};
+                    invoiceMappings[invoiceMappingId] = {'organisationUnitId': tradingCompany};
                 });
                 $(mappingAssignedInvoiceSelector).each(function() {
                     var assignedInvoice = $(this).find('.custom-select input').val();
@@ -366,9 +366,9 @@ define([
                     invoiceMappings[invoiceMappingId]['sendViaEmail'] = sendViaEmail;
                 });
                 $(mappingSendToFbaSelector).each(function() {
-                    var emailSendAs = $(this).find('.custom-select input').val();
+                    var sendToFba = $(this).find('.custom-select input').val();
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    invoiceMappings[invoiceMappingId]['emailSendAs'] = emailSendAs;
+                    invoiceMappings[invoiceMappingId]['sendToFba'] = sendToFba;
                 });
                 return invoiceMappings;
             };
