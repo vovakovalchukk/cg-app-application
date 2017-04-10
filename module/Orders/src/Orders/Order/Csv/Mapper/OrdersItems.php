@@ -73,22 +73,21 @@ class OrdersItems implements MapperInterface
         ActiveUserInterface $activeUserContainer,
         OrganisationUnitService $organisationUnitService
     ) {
-        $this
-            ->setOrderService($orderService)
-            ->setOrderFilterStorage($orderFilterStorage)
-            ->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
-            ->setGiftWrapPriceFormatter($giftWrapPriceFormatter)
-            ->setGiftWrapTypeFormatter($giftWrapTypeFormatter)
-            ->setShippingPriceFormatter($shippingPriceFormatter)
-            ->setShippingMethodFormatter($shippingMethodFormatter)
-            ->setSalesChannelNameFormatter($salesChannelNameFormatter)
-            ->setVatRateFormatter($vatRateFormatter)
-            ->setStandardFormatter($standardFormatter)
-            ->setDateFormatter($dateFormatter)
-            ->setInvoiceDateFormatter($invoiceDateFormatter)
-            ->setVatNumberFormatter($vatNumberFormatter)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setOrganisationUnitService($organisationUnitService);
+        $this->orderService = $orderService;
+        $this->orderFilterStorage = $orderFilterStorage;
+        $this->giftWrapMessageFormatter = $giftWrapMessageFormatter;
+        $this->giftWrapPriceFormatter = $giftWrapPriceFormatter;
+        $this->giftWrapTypeFormatter = $giftWrapTypeFormatter;
+        $this->shippingPriceFormatter = $shippingPriceFormatter;
+        $this->shippingMethodFormatter = $shippingMethodFormatter;
+        $this->salesChannelNameFormatter = $salesChannelNameFormatter;
+        $this->vatRateFormatter = $vatRateFormatter;
+        $this->standardFormatter = $standardFormatter;
+        $this->dateFormatter = $dateFormatter;
+        $this->invoiceDateFormatter = $invoiceDateFormatter;
+        $this->vatNumberFormatter = $vatNumberFormatter;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     protected function getFormatters()
@@ -213,140 +212,5 @@ class OrdersItems implements MapperInterface
             }
             yield Stdlib\transposeArray($columns);
         }
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderFilterStorage(OrderFilterStorage $orderFilterStorage)
-    {
-        $this->orderFilterStorage = $orderFilterStorage;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setGiftWrapMessageFormatter(GiftWrapMessageFormatter $giftWrapMessageFormatter)
-    {
-        $this->giftWrapMessageFormatter = $giftWrapMessageFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setGiftWrapPriceFormatter(GiftWrapPriceFormatter $giftWrapPriceFormatter)
-    {
-        $this->giftWrapPriceFormatter = $giftWrapPriceFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setGiftWrapTypeFormatter(GiftWrapTypeFormatter $giftWrapTypeFormatter)
-    {
-        $this->giftWrapTypeFormatter = $giftWrapTypeFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setShippingPriceFormatter(ShippingPriceFormatter $shippingPriceFormatter)
-    {
-        $this->shippingPriceFormatter = $shippingPriceFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
-    {
-        $this->shippingMethodFormatter = $shippingMethodFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
-    {
-        $this->salesChannelNameFormatter = $salesChannelNameFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setVatRateFormatter(VatRateFormatter $vatRateFormatter)
-    {
-        $this->vatRateFormatter = $vatRateFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setStandardFormatter(StandardFormatter $standardFormatter)
-    {
-        $this->standardFormatter = $standardFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setDateFormatter(DateFormatter $dateFormatter)
-    {
-        $this->dateFormatter = $dateFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
-    {
-        $this->invoiceDateFormatter = $invoiceDateFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setVatNumberFormatter(VatNumberFormatter $vatNumberFormatter)
-    {
-        $this->vatNumberFormatter = $vatNumberFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
     }
 }
