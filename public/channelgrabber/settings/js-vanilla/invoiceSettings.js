@@ -361,7 +361,7 @@ define([
                 $(mappingAssignedInvoiceSelector).each(function() {
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
                     if (rowId === invoiceMappingId) {
-                        invoiceMappings[invoiceMappingId]['assignedInvoice'] = $(this).find('.custom-select input').val();
+                        invoiceMappings[invoiceMappingId]['invoiceId'] = $(this).find('.custom-select input').val();
                     }
                 });
                 $(mappingSendViaEmailSelector).each(function() {
