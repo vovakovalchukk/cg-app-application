@@ -910,7 +910,6 @@ return [
                     ],
                     'addColumn' => [
                         ['column' => 'InvoiceTradingCompanyColumn'],
-                        ['column' => 'InvoiceAssignedInvoiceColumn'],
                         ['column' => 'InvoiceSendFromAddressColumn'],
                     ],
                     'setVariable' => [
