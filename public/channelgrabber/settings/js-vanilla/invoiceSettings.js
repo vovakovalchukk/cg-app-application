@@ -63,8 +63,10 @@ define([
                     ajaxSave(self);
                 });
 
-                $(document).on('change', mappingSelector, function(e, b, c) {
-                    self.saveMapping(handleSaveResponse);
+                $(document).on('change', mappingSelector, function(event, element) {
+                    var invoiceMappingInput = $(element).closest('.assigned-invoice-column').find('input')[0];
+                    var invoiceMappingId = $(invoiceMappingInput).attr('data-element-row-id');
+                    self.saveMapping(invoiceMappingId, handleSaveResponse);
                 });
 
                 $(document).on('change keyup', emailVerifyInputSelector, function () {
@@ -347,29 +349,34 @@ define([
                 };
             };
 
-            this.getInvoiceMappingEntity = function () {
+            this.getInvoiceMappingEntity = function (rowId) {
                 var invoiceMappings = {};
 
                 $(mappingTradingCompanySelector).each(function() {
-                    var tradingCompany = $(this).find('.custom-select input').val();
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    invoiceMappings[invoiceMappingId] = {'organisationUnitId': tradingCompany};
+                    if (rowId === invoiceMappingId) {
+                        invoiceMappings[invoiceMappingId] = {'organisationUnitId': $(this).find('.custom-select input').val()};
+                    }
                 });
                 $(mappingAssignedInvoiceSelector).each(function() {
-                    var assignedInvoice = $(this).find('.custom-select input').val();
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    invoiceMappings[invoiceMappingId]['assignedInvoice'] = assignedInvoice;
+                    if (rowId === invoiceMappingId) {
+                        invoiceMappings[invoiceMappingId]['assignedInvoice'] = $(this).find('.custom-select input').val();
+                    }
                 });
                 $(mappingSendViaEmailSelector).each(function() {
-                    var sendViaEmail = $(this).find('.custom-select input').val();
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    invoiceMappings[invoiceMappingId]['sendViaEmail'] = sendViaEmail;
+                    if (rowId === invoiceMappingId) {
+                        invoiceMappings[invoiceMappingId]['sendViaEmail'] = $(this).find('.custom-select input').val();
+                    }
                 });
                 $(mappingSendToFbaSelector).each(function() {
-                    var sendToFba = $(this).find('.custom-select input').val();
                     var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    invoiceMappings[invoiceMappingId]['sendToFba'] = sendToFba;
+                    if (rowId === invoiceMappingId) {
+                        invoiceMappings[invoiceMappingId]['sendToFba'] = $(this).find('.custom-select input').val();
+                    }
                 });
+                console.log(invoiceMappings);
                 return invoiceMappings;
             };
 
@@ -465,14 +472,14 @@ define([
             });
         };
 
-        InvoiceSettings.prototype.saveMapping = function(callback)
+        InvoiceSettings.prototype.saveMapping = function(rowId, callback)
         {
             var self = this;
             $.ajax({
                 url: "settings/saveMapping",
                 type: "POST",
                 dataType: 'json',
-                data: self.getInvoiceMappingEntity()
+                data: self.getInvoiceMappingEntity(rowId)
             }).success(function(data) {
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {
