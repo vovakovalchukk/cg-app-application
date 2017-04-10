@@ -7,6 +7,7 @@ use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\User\ActiveUserInterface;
+use Orders\Order\Csv\Mapper\Formatter\AlertSingle as AlertFormatter;
 use Orders\Order\Csv\Mapper\Formatter\DateSingle as DateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
@@ -35,6 +36,8 @@ class Orders implements MapperInterface
     protected $invoiceDateFormatter;
     /** @var VatNumberFormatter */
     protected $vatNumberFormatter;
+    /** @var AlertFormatter */
+    protected $alertFormatter;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
     /** @var OrganisationUnitService $organisationUnitService */
@@ -49,6 +52,7 @@ class Orders implements MapperInterface
         DateFormatter $dateFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
         VatNumberFormatter $vatNumberFormatter,
+        AlertFormatter $alertFormatter,
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer
     ) {
@@ -60,6 +64,7 @@ class Orders implements MapperInterface
         $this->dateFormatter = $dateFormatter;
         $this->invoiceDateFormatter = $invoiceDateFormatter;
         $this->vatNumberFormatter = $vatNumberFormatter;
+        $this->alertFormatter = $alertFormatter;
         $this->organisationUnitService = $organisationUnitService;
         $this->activeUserContainer = $activeUserContainer;
     }
@@ -112,6 +117,7 @@ class Orders implements MapperInterface
             'VAT Number' => $this->vatNumberFormatter,
             'Billing Username' => 'externalUsername',
             'Shipping VAT' => 'shippingTaxString',
+            'Order Alert' => $this->alertFormatter,
         ];
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);

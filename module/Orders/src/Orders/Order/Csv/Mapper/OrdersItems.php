@@ -8,6 +8,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib;
 use CG\User\ActiveUserInterface;
+use Orders\Order\Csv\Mapper\Formatter\Alert as AlertFormatter;
 use Orders\Order\Csv\Mapper\Formatter\Date as DateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapMessage as GiftWrapMessageFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapPrice as GiftWrapPriceFormatter;
@@ -54,6 +55,8 @@ class OrdersItems implements MapperInterface
     protected $invoiceDateFormatter;
     /** @var VatNumberFormatter */
     protected $vatNumberFormatter;
+    /** @var AlertFormatter */
+    protected $alertFormatter;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
     /** @var OrganisationUnitService $organisationUnitService */
@@ -74,6 +77,7 @@ class OrdersItems implements MapperInterface
         DateFormatter $dateFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
         VatNumberFormatter $vatNumberFormatter,
+        AlertFormatter $alertFormatter,
         ActiveUserInterface $activeUserContainer,
         OrganisationUnitService $organisationUnitService
     ) {
@@ -91,6 +95,7 @@ class OrdersItems implements MapperInterface
         $this->dateFormatter = $dateFormatter;
         $this->invoiceDateFormatter = $invoiceDateFormatter;
         $this->vatNumberFormatter = $vatNumberFormatter;
+        $this->alertFormatter = $alertFormatter;
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
     }
@@ -152,6 +157,7 @@ class OrdersItems implements MapperInterface
             'VAT Number' => $this->vatNumberFormatter,
             'Billing Username' => 'externalUsername',
             'Shipping VAT' => $this->shippingVatFormatter,
+            'Order Alert' => $this->alertFormatter,
         ];
 
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
