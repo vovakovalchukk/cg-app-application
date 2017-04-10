@@ -217,7 +217,7 @@ class Service
             'tradingCompany' => $mainAccountRow ? $tradingCompanyOptions : '',
             'assignedInvoice' => $invoiceOptions,
             'sendViaEmail' => $sendViaEmailOptions,
-            'sendToFba' => $sendToFbaOptions,
+            'sendToFba' => $account->getChannel() === 'amazon' ? $sendToFbaOptions : '',
         ];
     }
 
