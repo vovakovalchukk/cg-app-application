@@ -112,6 +112,7 @@ class Orders implements MapperInterface
             'Invoice Number' => 'invoiceNumber',
             'VAT Number' => $this->vatNumberFormatter,
             'Billing Username' => 'externalUsername',
+            'Shipping VAT' => 'shippingTaxString',
         ];
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);

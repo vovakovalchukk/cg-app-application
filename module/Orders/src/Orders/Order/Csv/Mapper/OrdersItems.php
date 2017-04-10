@@ -16,6 +16,7 @@ use Orders\Order\Csv\Mapper\Formatter\InvoiceDate as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelName as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethod as ShippingMethodFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingPrice as ShippingPriceFormatter;
+use Orders\Order\Csv\Mapper\Formatter\ShippingVat as ShippingVatFormatter;
 use Orders\Order\Csv\Mapper\Formatter\Standard as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\VatRate as VatRateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\VatNumber as VatNumberFormatter;
@@ -37,6 +38,8 @@ class OrdersItems implements MapperInterface
     protected $giftWrapTypeFormatter;
     /** @var ShippingPriceFormatter $shippingPriceFormatter */
     protected $shippingPriceFormatter;
+    /** @var ShippingVatFormatter $shippingVatFormatter */
+    protected $shippingVatFormatter;
     /** @var ShippingMethodFormatter $shippingMethodFormatter */
     protected $shippingMethodFormatter;
     /** @var SalesChannelNameFormatter $salesChannelNameFormatter */
@@ -63,6 +66,7 @@ class OrdersItems implements MapperInterface
         GiftWrapPriceFormatter $giftWrapPriceFormatter,
         GiftWrapTypeFormatter $giftWrapTypeFormatter,
         ShippingPriceFormatter $shippingPriceFormatter,
+        ShippingVatFormatter $shippingVatFormatter,
         ShippingMethodFormatter $shippingMethodFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         VatRateFormatter $vatRateFormatter,
@@ -79,6 +83,7 @@ class OrdersItems implements MapperInterface
         $this->giftWrapPriceFormatter = $giftWrapPriceFormatter;
         $this->giftWrapTypeFormatter = $giftWrapTypeFormatter;
         $this->shippingPriceFormatter = $shippingPriceFormatter;
+        $this->shippingVatFormatter = $shippingVatFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->salesChannelNameFormatter = $salesChannelNameFormatter;
         $this->vatRateFormatter = $vatRateFormatter;
@@ -145,7 +150,8 @@ class OrdersItems implements MapperInterface
             'Gift Wrap Price' => $this->giftWrapPriceFormatter,
             'Invoice Number' => 'invoiceNumber',
             'VAT Number' => $this->vatNumberFormatter,
-            'Billing Username' => 'externalUsername', 
+            'Billing Username' => 'externalUsername',
+            'Shipping VAT' => $this->shippingVatFormatter,
         ];
 
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
