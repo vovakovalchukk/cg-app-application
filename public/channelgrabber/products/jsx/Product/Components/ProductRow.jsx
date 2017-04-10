@@ -12,9 +12,7 @@ define([
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
-    'Product/Components/VatView',
-    'Product/Filter/Entity',
-    'Product/Storage/Ajax'
+    'Product/Components/VatView'
 ], function(
     React,
     ThenBySort,
@@ -29,21 +27,26 @@ define([
     Pane,
     DimensionsView,
     StockView,
-    VatView,
-    ProductFilter,
-    AjaxHandler
+    VatView
 ) {
     "use strict";
 
     var ProductRowComponent = React.createClass({
+        getDefaultProps: function () {
+            return {
+                product: [],
+                variations: [],
+                maxVariationAttributes: 0
+            }
+        },
         getInitialState: function () {
             return {
                 expanded: false,
-                variations: [],
                 bulkStockMode: {
                     name: '',
                     value: ''
                 },
+                variations: this.props.variations,
                 variationsSort: [
                     {
                         attribute: this.props.product.attributeNames[0],
@@ -53,6 +56,11 @@ define([
             };
         },
         componentWillReceiveProps: function (newProps) {
+            if (newProps.variations.length === this.context.initialVariationCount) {
+                this.setState({
+                    expanded: false// Reset expanded
+                });
+            }
             this.sortVariations(this.state.variationsSort, newProps.variations);
         },
         isParentProduct: function() {
@@ -98,7 +106,7 @@ define([
         },
         getExpandVariationsButton: function()
         {
-            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > 2) {
+            if (this.props.product.variationCount !== undefined && this.props.product.variationCount > this.context.initialVariationCount) {
                 return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
             }
         },
@@ -186,15 +194,8 @@ define([
                 expanded: !this.state.expanded
             });
 
-            if (this.state.variations.length <= 2)  {
-                $('#products-loading-message').show();
-                var filter = new ProductFilter(null, this.props.product.id);
-                AjaxHandler.fetchByFilter(filter, function(data) {
-                    this.sortVariations(this.state.variationsSort, data.products);
-                    this.triggerVariationsReceived(data.products);
-                    $('#products-loading-message').hide();
-                }.bind(this));
-
+            if (this.state.variations.length <= this.context.initialVariationCount)  {
+                window.triggerEvent('variationsRequest', {productId: this.props.product.id});
             }
         },
         onColumnSortClick: function(attributeName) {
@@ -235,6 +236,10 @@ define([
                     return v.attributeValues[nextSort.attribute] ? v.attributeValues[nextSort.attribute] : "";
                 }, {ignoreCase: true, direction: (nextSort.ascending ? 1 : -1)});
             });
+
+            sortFunction = sortFunction.thenBy(function(v){
+                return v.sku ? v.sku : "";
+            }, {ignoreCase: true, direction: 1});
 
             this.setState({
                 variations: newVariations.sort(sortFunction)
@@ -363,9 +368,6 @@ define([
         triggerProductRefresh: function (updatedVariation) {
             window.triggerEvent('productRefresh', {product: updatedVariation});
         },
-        triggerVariationsReceived: function (newVariations) {
-            window.triggerEvent('variationsReceived', {variations: newVariations, productId: this.props.product.id});
-        },
         render: function()
         {
             return (
@@ -397,7 +399,8 @@ define([
 
     ProductRowComponent.contextTypes = {
         imageBasePath: React.PropTypes.string,
-        isAdmin: React.PropTypes.bool
+        isAdmin: React.PropTypes.bool,
+        initialVariationCount: React.PropTypes.number
     };
 
     return ProductRowComponent;

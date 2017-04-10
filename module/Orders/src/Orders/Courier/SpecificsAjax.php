@@ -54,7 +54,7 @@ class SpecificsAjax
     protected $courierService;
 
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
-    protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
+    protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment', 'deliveryExperience'];
 
     public function __construct(
         OrderService $orderService,
@@ -328,6 +328,7 @@ class SpecificsAjax
             $parcelData['showWeight'] = true;
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
+            $parcelData['serviceOptions'] = $orderData['serviceOptions'];
             $parcelData['cancellable'] = $orderData['cancellable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;

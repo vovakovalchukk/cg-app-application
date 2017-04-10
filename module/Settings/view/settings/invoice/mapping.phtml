@@ -12,7 +12,11 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= json_encode($tagOptions); ?>');
+        new InvoiceSettings(
+            '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER ?>',
+            '<?= $amazonSite ;?>',
+            '<?= json_encode($tagOptions); ?>'
+        );
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
@@ -37,6 +41,12 @@ $(document).ready(function() {
                 <span class="inputbox-label">Show Item Barcodes:</span>
                 <div class="checkbox-holder">
                     <?= $itemBarcodesCheckbox ?>
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Include Item Sku:</span>
+                <div class="checkbox-holder">
+                    <?= $itemSkuCheckbox ?>
                 </div>
             </label>
             <label>

@@ -9,12 +9,13 @@ define([
         tinyMCE,
         EventCollator
 ){
-        var InvoiceSettings = function(hasAmazonAccount, tagOptions) {
+        var InvoiceSettings = function(basePath, amazonSite, tagOptions) {
 
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #productImages, #itemBarcodes';
+            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
             var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
             var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
+            var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
@@ -69,8 +70,8 @@ define([
                         return;
                     }
 
-                    if (getElementOnClickCheckedStatus('autoEmail') && hasAmazonAccount == true) {
-                        showConfirmationMessageForAmazonAccount(self, $(this));
+                    if (amazonSite !== '') {
+                        showConfirmationMessageForAmazonAccount(self, amazonSite, $(this));
                     } else {
                         ajaxVerify(self);
                     }
@@ -147,20 +148,20 @@ define([
                 return valid;
             }
 
-            function showConfirmationMessageForAmazonAccount(self, emailVerifyButton)
+            function showConfirmationMessageForAmazonAccount(self, amazonSite, emailVerifyButton)
             {
                 var templateUrlMap = {
                     message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
                 };
 
                 CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                    var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+                    var messageHTML = cgmustache.renderTemplate(templates, {'basePath': basePath, 'amazonSite': amazonSite}, "message");
                     new Confirm(messageHTML, function (response) {
-                        if (response == "Yes") {
+                        if (response == InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON) {
                             setEmailVerifyButtonVerifying(emailVerifyButton);
-                            ajaxVerify(self);
+                            ajaxVerify(self, {'confirmationAmazon': true});
                         }
-                    });
+                    }, ["Cancel", InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON]);
                 });
             }
 
@@ -190,9 +191,9 @@ define([
                 object.save(handleSaveResponse);
             }
 
-            function ajaxVerify(object)
+            function ajaxVerify(object, additionalData)
             {
-                object.save(handleVerifyResponse);
+                object.save(handleVerifyResponse, additionalData || {});
             }
 
             function setCopyRequired()
@@ -328,6 +329,7 @@ define([
                     'copyRequired': getCopyRequired(),
                     'emailBcc': getEmailBcc(),
                     'emailTemplate': getEmailTemplate(),
+                    'itemSku': getItemSku(),
                     'productImages': getProductImages(),
                     'itemBarcodes': getItemBarcodes(),
                     'tradingCompanies': getTradingCompanies(),
@@ -363,6 +365,11 @@ define([
             var getEmailTemplate = function()
             {
                 return existingEmailTemplate;
+            };
+
+            var getItemSku = function()
+            {
+                return $(itemSkuSettingsSelector).is(':checked');
             };
 
             var getProductImages = function()
@@ -404,15 +411,16 @@ define([
         InvoiceSettings.EMAIL_STATUS_VERIFIED = 'success';
         InvoiceSettings.EMAIL_STATUS_PENDING = 'pending';
         InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';
+        InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Email address approved for all Amazon accounts';
 
-        InvoiceSettings.prototype.save = function(callback)
+        InvoiceSettings.prototype.save = function(callback, additionalData)
         {
             var self = this;
             $.ajax({
                 url: "mapping/save",
                 type: "POST",
                 dataType: 'json',
-                data: self.getInvoiceSettingsEntity()
+                data: $.extend({}, self.getInvoiceSettingsEntity(), additionalData || {})
             }).success(function(data) {
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {
