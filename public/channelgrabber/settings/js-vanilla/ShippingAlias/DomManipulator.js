@@ -60,6 +60,7 @@ define([
                 'deleteButton' : deleteButton,
                 'text' : text
             };
+            var hasAccounts = false;
 
             var accountCustomSelectOptions = accountCollection.getItems();
             if (accountCustomSelectOptions.length > 1) {
@@ -68,12 +69,13 @@ define([
                     id: 'shipping-account-custom-select-'+aliasNo,
                     name: 'shipping-account-custom-select-'+aliasNo,
                     class: 'shipping-account-select',
-                    options: accountCustomSelectOptions
+                    options: accountCustomSelectOptions,
+                    initialValue: accountCustomSelectOptions[0]['title']
                 }, "customSelect");
-
+                hasAccounts = true;
             }
 
-            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo}, "alias", aliasTemplateParameters);
+            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo, hasAccounts: hasAccounts}, "alias", aliasTemplateParameters);
 
             if ($(DomManipulator.DOM_SELECTOR_ALIAS_NONE).is(':visible')) {
                 $(DomManipulator.DOM_SELECTOR_ALIAS_NONE).hide();

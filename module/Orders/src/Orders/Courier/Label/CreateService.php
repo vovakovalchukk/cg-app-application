@@ -254,7 +254,11 @@ class CreateService extends ServiceAbstract
     {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
 
-        $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
+        $serviceName = (isset($orderData['serviceName']) && $orderData['serviceName'] ? $orderData['serviceName'] : '');
+        if (!$serviceName) {
+            $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
+            $serviceName = $services[$orderData['service']] ?? $orderData['service'];
+        }
 
         $date = new StdlibDateTime();
         $orderLabelData = [
@@ -266,7 +270,7 @@ class CreateService extends ServiceAbstract
             'created' => $date->stdFormat(),
             'channelName' => $shippingAccount->getChannel(),
             'courierName' => $shippingAccount->getDisplayName(),
-            'courierService' => $services ? $services[$orderData['service']] : '' ,
+            'courierService' => (string)$serviceName,
             'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
             'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
             'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',

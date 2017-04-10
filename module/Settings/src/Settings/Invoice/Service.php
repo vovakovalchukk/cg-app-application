@@ -83,6 +83,7 @@ class Service
         try {
             $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
             $data['autoEmail'] = $this->validateBoolean($data['autoEmail']);
+            $data['itemSku'] = $this->validateBoolean($data['itemSku']);
             $data['productImages'] = $this->validateBoolean($data['productImages']);
             $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
             $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
@@ -94,6 +95,10 @@ class Service
             if (! empty($data['tradingCompanies'])) {
                 $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
                 $data['tradingCompanies'] = $this->reformatTradingCompanies($data['tradingCompanies']);
+            }
+
+            if (isset($data['confirmationAmazon']) && $this->validateBoolean($data['confirmationAmazon'])) {
+                $data['useVerifiedEmailAddressForAmazonInvoices'] = true;
             }
 
             $settings = array_merge($invoiceSettings->toArray(), $data);
