@@ -52,17 +52,16 @@ class Orders implements MapperInterface
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer
     ) {
-        $this
-            ->setOrderService($orderService)
-            ->setOrderFilterStorage($orderFilterStorage)
-            ->setStandardFormatter($standardFormatter)
-            ->setSalesChannelNameFormatter($salesChannelNameFormatter)
-            ->setShippingMethodFormatter($shippingMethodFormatter)
-            ->setDateFormatter($dateFormatter)
-            ->setInvoiceDateFormatter($invoiceDateFormatter)
-            ->setVatNumberFormatter($vatNumberFormatter)
-            ->setOrganisationUnitService($organisationUnitService)
-            ->setActiveUserContainer($activeUserContainer);
+        $this->orderService = $orderService;
+        $this->orderFilterStorage = $orderFilterStorage;
+        $this->standardFormatter = $standardFormatter;
+        $this->salesChannelNameFormatter = $salesChannelNameFormatter;
+        $this->shippingMethodFormatter = $shippingMethodFormatter;
+        $this->dateFormatter = $dateFormatter;
+        $this->invoiceDateFormatter = $invoiceDateFormatter;
+        $this->vatNumberFormatter = $vatNumberFormatter;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     protected function getFormatters()
@@ -179,95 +178,5 @@ class Orders implements MapperInterface
             }
             yield [$row];
         }
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderFilterStorage(OrderFilterStorage $orderFilterStorage)
-    {
-        $this->orderFilterStorage = $orderFilterStorage;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setStandardFormatter(StandardFormatter $standardFormatter)
-    {
-        $this->standardFormatter = $standardFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
-    {
-        $this->salesChannelNameFormatter = $salesChannelNameFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
-    {
-        $this->shippingMethodFormatter = $shippingMethodFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setDateFormatter(DateFormatter $dateFormatter)
-    {
-        $this->dateFormatter = $dateFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
-    {
-        $this->invoiceDateFormatter = $invoiceDateFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setVatNumberFormatter(VatNumberFormatter $vatNumberFormatter)
-    {
-        $this->vatNumberFormatter = $vatNumberFormatter;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
     }
 }
