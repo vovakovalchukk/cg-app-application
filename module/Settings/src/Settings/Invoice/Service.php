@@ -125,17 +125,12 @@ class Service
         return $entity;
     }
 
-    public function saveInvoiceMappingFromPostData($data)
+    public function saveInvoiceMappingFromPostData($postData)
     {
         try {
-            $filter = (new InvoiceMappingFilter())
-                ->setId(array_keys($data));
-            $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
-            foreach ($invoiceMappings as $invoiceMapping) {
-                $newData = $data[$invoiceMapping->getId()];
-                $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $newData);
-                $this->invoiceMappingService->save($entity);
-            }
+            $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
+            $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
+            $this->invoiceMappingService->save($entity);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -164,17 +159,19 @@ class Service
 
         $dataTablesData = [];
         foreach ($accounts as $account) {
+            $mainAccountRow = true;
             foreach ($invoiceMappings as $invoiceMapping) {
                 if ($invoiceMapping->getAccountId() !== $account->getId()) {
                     continue;
                 }
-                $dataTablesData[] = $this->getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies);
+                $dataTablesData[] = $this->getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow);
+                $mainAccountRow = false;
             }
         }
         return $dataTablesData;
     }
 
-    public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies)
+    public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow)
     {
         $invoiceOptions = [];
         foreach ($invoices as $invoice) {
@@ -214,10 +211,10 @@ class Service
 
         return [
             'rowId' => $invoiceMapping->getId(),
-            'channel' => $account->getChannel(),
-            'displayName' => $account->getDisplayName(),
+            'channel' => $mainAccountRow ? $account->getChannel() : '',
+            'displayName' => $mainAccountRow ? $account->getDisplayName() : '',
             'site' => $invoiceMapping->getSite(),
-            'tradingCompany' => $tradingCompanyOptions,
+            'tradingCompany' => $mainAccountRow ? $tradingCompanyOptions : '',
             'assignedInvoice' => $invoiceOptions,
             'sendViaEmail' => $sendViaEmailOptions,
             'sendToFba' => $sendToFbaOptions,

@@ -63,10 +63,24 @@ define([
                     ajaxSave(self);
                 });
 
-                $(document).on('change', mappingSelector, function(event, element) {
-                    var invoiceMappingInput = $(element).closest('.assigned-invoice-column').find('input')[0];
-                    var invoiceMappingId = $(invoiceMappingInput).attr('data-element-row-id');
-                    self.saveMapping(invoiceMappingId, handleSaveResponse);
+                $(document).on('change', mappingTradingCompanySelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'organisationUnitId');
+                    self.saveMapping(saveData, handleSaveResponse);
+                });
+
+                $(document).on('change', mappingAssignedInvoiceSelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'invoiceId');
+                    self.saveMapping(saveData, handleSaveResponse);
+                });
+
+                $(document).on('change', mappingSendViaEmailSelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'sendViaEmail');
+                    self.saveMapping(saveData, handleSaveResponse);
+                });
+
+                $(document).on('change', mappingSendToFbaSelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'sendToFba');
+                    self.saveMapping(saveData, handleSaveResponse);
                 });
 
                 $(document).on('change keyup', emailVerifyInputSelector, function () {
@@ -349,34 +363,15 @@ define([
                 };
             };
 
-            this.getInvoiceMappingEntity = function (rowId) {
-                var invoiceMappings = {};
+            this.getMappingSaveData = function (element, property) {
 
-                $(mappingTradingCompanySelector).each(function() {
-                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    if (rowId === invoiceMappingId) {
-                        invoiceMappings[invoiceMappingId] = {'organisationUnitId': $(this).find('.custom-select input').val()};
-                    }
-                });
-                $(mappingAssignedInvoiceSelector).each(function() {
-                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    if (rowId === invoiceMappingId) {
-                        invoiceMappings[invoiceMappingId]['invoiceId'] = $(this).find('.custom-select input').val();
-                    }
-                });
-                $(mappingSendViaEmailSelector).each(function() {
-                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    if (rowId === invoiceMappingId) {
-                        invoiceMappings[invoiceMappingId]['sendViaEmail'] = $(this).find('.custom-select input').val();
-                    }
-                });
-                $(mappingSendToFbaSelector).each(function() {
-                    var invoiceMappingId = $(this).find('input').attr('data-element-row-id');
-                    if (rowId === invoiceMappingId) {
-                        invoiceMappings[invoiceMappingId]['sendToFba'] = $(this).find('.custom-select input').val();
-                    }
-                });
-                return invoiceMappings;
+                var invoiceMappingInput = $(element).closest('td').find('input')[0];
+                var invoiceMappingId = $(invoiceMappingInput).attr('data-element-row-id');
+                var newValue = $(element.closest('td').find('.custom-select input')[0]).val();
+
+                var saveData = { id: invoiceMappingId};
+                saveData[property] = newValue;
+                return saveData;
             };
 
             var getDefault = function()
@@ -471,14 +466,14 @@ define([
             });
         };
 
-        InvoiceSettings.prototype.saveMapping = function(rowId, callback)
+        InvoiceSettings.prototype.saveMapping = function(saveData, callback)
         {
             var self = this;
             $.ajax({
                 url: "settings/saveMapping",
                 type: "POST",
                 dataType: 'json',
-                data: self.getInvoiceMappingEntity(rowId)
+                data: saveData
             }).success(function(data) {
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {
