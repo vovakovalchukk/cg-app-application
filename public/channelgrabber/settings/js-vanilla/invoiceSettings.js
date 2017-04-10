@@ -376,7 +376,6 @@ define([
                         invoiceMappings[invoiceMappingId]['sendToFba'] = $(this).find('.custom-select input').val();
                     }
                 });
-                console.log(invoiceMappings);
                 return invoiceMappings;
             };
 

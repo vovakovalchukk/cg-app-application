@@ -125,6 +125,24 @@ class Service
         return $entity;
     }
 
+    public function saveInvoiceMappingFromPostData($data)
+    {
+        try {
+            $filter = (new InvoiceMappingFilter())
+                ->setId(array_keys($data));
+            $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
+            foreach ($invoiceMappings as $invoiceMapping) {
+                $newData = $data[$invoiceMapping->getId()];
+                $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $newData);
+                $this->invoiceMappingService->save($entity);
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
+        return $entity;
+    }
+
     public function getInvoiceMappingDataTablesData($accounts, $invoices)
     {
         $accountIds = [];
