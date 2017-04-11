@@ -926,6 +926,8 @@ return [
             'InvoiceMappingSettingsDatatable' => [
                 'parameters' => [
                     'variables' => [
+                        'sortable' => false,
+                        'class' => 'fixed-header fixed-footer',
                         'id' => 'invoiceMapping'
                     ],
                 ],
