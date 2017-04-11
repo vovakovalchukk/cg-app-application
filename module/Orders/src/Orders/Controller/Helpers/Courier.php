@@ -87,7 +87,7 @@ class Courier
     {
         $frequentCarrierList = [
             'DPD',
-            'Interlink',
+            'DPD Local',
             'MyHermes',
             'Royal Mail',
         ];
