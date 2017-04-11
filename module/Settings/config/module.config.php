@@ -416,7 +416,7 @@ return [
                                             ]
                                         ]
                                     ],
-                                    InvoiceController::ROUTE_SAVE => [
+                                    InvoiceController::ROUTE_SAVE_MAPPING => [
                                         'type' => Literal::class,
                                         'options' => [
                                             'route' => '/saveMapping',

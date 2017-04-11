@@ -13,7 +13,7 @@ define([
 
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
-            var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
+            var defaultSettingsSelector = '#defaultInvoiceCustomSelect input';
             var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
@@ -27,10 +27,12 @@ define([
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
 
             var mappingSelector = '.invoiceMapping .invoiceMappingTable';
-            var mappingTradingCompanySelector = '.invoiceMapping .trading-company-column';
-            var mappingAssignedInvoiceSelector = '.invoiceMapping .assigned-invoice-column';
-            var mappingSendViaEmailSelector = '.invoiceMapping .send-via-email-column';
-            var mappingSendToFbaSelector = '.invoiceMapping .send-to-fba-column';
+            var mappingTradingCompanySelector = '.trading-company-column';
+            var mappingAssignedInvoiceSelector = '.assigned-invoice-column';
+            var mappingSendViaEmailSelector = '.send-via-email-column';
+            var mappingSendToFbaSelector = '.send-to-fba-column';
+
+            var invoiceSettingsField = '.invoice-settings-field';
 
             var emailVerifyInputSelector = '.email-verify-input';
             var emailVerifyButtonSelector = '.email-verify-button';
@@ -61,6 +63,10 @@ define([
                 // Set event listeners
                 $(document).on('change', selector, function() {
                     ajaxSave(self);
+                });
+
+                $(document).on('change', invoiceSettingsField, function() {
+                    self.save(handleSaveResponse);
                 });
 
                 $(document).on('change', mappingTradingCompanySelector, function(event, element) {
@@ -423,16 +429,10 @@ define([
             {
                 var tradingCompanies = {};
 
-                $(tradingCompaniesAssignedInvoiceSelector).each(function() {
-                    var assignedInvoice = $(this).val();
-                    var tradingCompanyId = $(this).attr('name').replace('invoiceTradingCompaniesCustomSelect_', '');
-                    tradingCompanies[tradingCompanyId] = {'assignedInvoice': assignedInvoice};
-                });
-
                 $(tradingCompaniesSendFromAddressSelector).each(function() {
                     var emailSendAs = $(this).val();
                     var tradingCompanyId = $(this).attr('name').replace('invoiceSendFromAddressInput_', '');
-                    tradingCompanies[tradingCompanyId]['emailSendAs'] = emailSendAs;
+                    tradingCompanies[tradingCompanyId] = {'emailSendAs': emailSendAs};
                 });
 
                 return tradingCompanies;

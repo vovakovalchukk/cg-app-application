@@ -41,6 +41,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_AJAX_MAPPING = 'Ajax Mapping';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
+    const ROUTE_SAVE_MAPPING = 'Save Mapping';
     const ROUTE_VERIFY = 'Verify';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
