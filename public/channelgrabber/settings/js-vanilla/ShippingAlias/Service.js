@@ -19,17 +19,12 @@ define([
     serviceChangeListener,
     mapper
 ) {
-    function Service(shippingMethods, shippingAccounts, rootOuId, templatePath)
+    function Service(shippingMethods, shippingAccountOptions, rootOuId, templatePath)
     {
         var init = function()
         {
             methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
-            var accountOptions = mapper.fromCollectionToOptions(shippingAccounts);
-            accountOptions.unshift({
-                title: 'None',
-                value: '0'
-            });
-            accountCollection.setItems(accountOptions);
+            accountCollection.setItems(shippingAccountOptions);
 
             addButtonListener.init();
             deleteButtonListener.init(rootOuId);

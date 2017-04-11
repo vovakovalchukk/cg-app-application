@@ -56,6 +56,32 @@ module.exports = function(grunt) {
                 ]
             }
         },
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'public/cg-built/**/*.js',
+                        'public/cg-built/**/*.css'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    logLevel: "debug",
+                    logConnections: true,
+                    logFileChanges: true,
+                    host: "app.dev.orderhub.io",
+                    port: 443,
+                    proxy: {
+                        target: "https://192.168.33.53",
+                        proxyReq: [
+                            function(proxyReq) {
+                                proxyReq.setHeader('Host', 'app.dev.orderhub.io');
+                            }
+                        ]
+                    }
+                }
+            }
+        },
         requirejs: {
             compile: {
                 options: {
@@ -101,6 +127,7 @@ module.exports = function(grunt) {
     require('./grunt-dynamic.js')(grunt);
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('syncWatch', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);
