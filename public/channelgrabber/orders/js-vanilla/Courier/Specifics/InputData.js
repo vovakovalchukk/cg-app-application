@@ -49,12 +49,15 @@ define(function()
         return $(labelStatusSelector).val();
     };
 
-    InputData.prototype.getInputDataForOrder = function(orderId)
+    InputData.prototype.getInputDataForOrder = function(orderId, validate)
     {
         var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], ';
         inputDataSelector +=    '#datatable td input[name^="parcelData['+orderId+']"], ';
         inputDataSelector +=    '#datatable td input[name^="itemData['+orderId+']"]';
-        var inputData = this.getInputData(inputDataSelector);
+        var inputData = this.getInputData(inputDataSelector, validate);
+        if (!inputData) {
+            return inputData;
+        }
         // Add the service name as well as its code to save us looking it up again later
         var serviceName = $('#courier-service-options-select-' + orderId + ' li.active').text();
         if (serviceName) {

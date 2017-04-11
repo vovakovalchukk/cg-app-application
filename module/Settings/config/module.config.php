@@ -830,7 +830,8 @@ return [
             ],
             InvoiceController::class => [
                 'parameters' => [
-                    'config' => 'app_config'
+                    'config' => 'app_config',
+                    'amazonCryptor' => 'amazon_cryptor',
                 ]
             ],
             EmailController::class => [

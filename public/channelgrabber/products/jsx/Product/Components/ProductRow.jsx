@@ -237,6 +237,10 @@ define([
                 }, {ignoreCase: true, direction: (nextSort.ascending ? 1 : -1)});
             });
 
+            sortFunction = sortFunction.thenBy(function(v){
+                return v.sku ? v.sku : "";
+            }, {ignoreCase: true, direction: 1});
+
             this.setState({
                 variations: newVariations.sort(sortFunction)
             });

@@ -179,7 +179,8 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             DeliveryExperience.SELECTOR_DEL_EXP_SELECT+', '+DeliveryExperience.SELECTOR_COURIER_PICKUP_INPUT+','+DeliveryExperience.SELECTOR_INSURANCE_INPUT+', '+DeliveryExperience.SELECTOR_TABLE + ' tr input.required',
             function()
         {
-            var serviceContainer = $(this).closest('tr').find(DeliveryExperience.SELECTOR_SERVICE_CONTAINER);
+            var orderId = $(this).closest('tr').attr('id').split('_')[1];
+            var serviceContainer = $(DeliveryExperience.SELECTOR_SERVICE_CONTAINER_ID.replace('##orderId##', orderId));
             if (serviceContainer.length == 0) {
                 return;
             }
@@ -200,9 +201,17 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.prototype.isServiceRequestAvailable = function(serviceContainer)
     {
         var available = true;
-        serviceContainer.closest('tr').find('input.required').each(function()
+        var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
+        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], ';
+        inputDataSelector +=    '#datatable td input[name^="parcelData['+orderId+']"], ';
+        inputDataSelector +=    '#datatable td input[name^="itemData['+orderId+']"]';
+        $(inputDataSelector).each(function()
         {
             var input = this;
+            if (!$(input).hasClass('required')) {
+                return true; // continue
+            }
+            // Obviously service is allowed to be blank at this stage
             if ($(input).attr('name') && $(input).attr('name').match(/orderData\[.+?\]\[service\]/)) {
                 return true; // continue
             }
@@ -216,11 +225,14 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.prototype.fetchAndRenderServices = function(serviceContainer)
     {
-        serviceContainer.empty().html(DeliveryExperience.LOADER);
         var self = this;
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
         var servicesPromise = this.fetchShippingServices(serviceContainer);
         var templatePromise = this.fetchSelectTemplate();
+        if (!servicesPromise || !templatePromise) {
+            return;
+        }
+        serviceContainer.empty().html(DeliveryExperience.LOADER);
         Promise.all([servicesPromise, templatePromise]).then(function(results)
         {
             var shippingServices = results[0].serviceOptions;
@@ -239,6 +251,9 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     {
         var orderId = this.getOrderIdFromServiceContainer(serviceContainer);
         var orderData = this.getInputDataForOrder(orderId);
+        if (!orderData) {
+            return;
+        }
 
         return $.ajax({
             "url": "/orders/courier/services",
@@ -260,6 +275,14 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
             "class": "required courier-service-select courier-service-custom-select",
             "options": shippingServices
         });
+        if (shippingServices.length == 1) {
+            // Keep the input, copy it to the new element
+            var input = $('input[type=hidden]', selectHtml);
+            input.val(shippingServices[0]['value']);
+            selectHtml = $('<div><span>'+shippingServices[0]['title']+'</span></div>')
+                .append(input)
+                .html()
+        }
         serviceContainer.html(selectHtml);
     };
 
@@ -272,7 +295,10 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
 
     DeliveryExperience.prototype.getInputDataForOrder = function(orderId)
     {
-        var inputData = this.getInputDataService().getInputDataForOrder(orderId, true);
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId, false);
+        if (!inputData) {
+            return false;
+        }
         var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
         var formattedData = {};
         for (var name in data) {
