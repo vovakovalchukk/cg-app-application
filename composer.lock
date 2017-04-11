@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0d4ad9cb3b8d8b4f891fd76c88e9270",
+    "content-hash": "5693205f5890767a5995c67923fd3b8c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -676,16 +676,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "7930f1cff845ace7cc386fc16b4b9756934b1fdb"
+                "reference": "87fa4e2057fa688e6a9f8dd9bf201abccb01c77d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-7980-interlink-rebrand-to-dpd-local-71eb50.zip",
-                "reference": "7930f1cff845ace7cc386fc16b4b9756934b1fdb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.17-69646a.zip",
+                "reference": "87fa4e2057fa688e6a9f8dd9bf201abccb01c77d",
                 "shasum": null
             },
             "require": {
@@ -716,7 +716,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-03-20 13:51:04"
+            "time": "2017-04-11T13:29:59+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3773,16 +3773,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
+            "version": "1.17.35",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e4b7fe6954262a247149bb48ce72b137bf15c52e"
+                "reference": "a1fd5b00060b47c2514eb854caedcd1724ca5ae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7980-interlink-rebrand-to-dpd-local-033c3a.zip",
-                "reference": "e4b7fe6954262a247149bb48ce72b137bf15c52e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.35-22b3c1.zip",
+                "reference": "a1fd5b00060b47c2514eb854caedcd1724ca5ae9",
                 "shasum": null
             },
             "require": {
@@ -3830,7 +3830,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-03-20 14:24:09"
+            "time": "2017-04-11T13:33:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8854,25 +8854,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.17",
-            "alias_normalized": "1.0.17.0",
-            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.17.35",
-            "alias_normalized": "1.17.35.0",
-            "version": "dev-CGIV-7980-interlink-rebrand-to-dpd-local",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
