@@ -150,12 +150,23 @@ class Service
             $filter = (new InvoiceMappingFilter())
                 ->setAccountId($accountIds);
             $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
-
-            $tradingCompanies = $this->getTradingCompanies();
-            $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
-            $tradingCompanies->attach($rootOu);
         } catch (\Exception $e) {
-            return [];
+            foreach ($accounts as $account) {
+                $invoiceMappings[] = $this->invoiceMappingMapper->fromArray([
+                    'organisationUnitId' => $account->getOrganisationUnitId(),
+                    'accountId' => $account->getId(),
+                    'site' => $this->getSiteFromAccount($account),
+                ]);
+            }
+        }
+        try {
+            $tradingCompanies = $this->getTradingCompanies();
+            if (count($tradingCompanies)) {
+                $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
+                $tradingCompanies->attach($rootOu);
+            }
+        } catch (\Exception $e) {
+            $tradingCompanies = [];
         }
 
         $dataTablesData = [];
@@ -170,6 +181,20 @@ class Service
             }
         }
         return $dataTablesData;
+    }
+
+    public function getSiteFromAccount($account)
+    {
+        try {
+            $filter = (new MarketplaceFilter())
+                ->setAccountId([$account->getId()]);
+            $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
+        } catch (\Exception $e) {
+            return 'UK';
+        }
+        $marketplace = array_pop($marketplaces);
+
+        return $marketplace->getMarketplace();
     }
 
     public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow)
@@ -211,7 +236,7 @@ class Service
         }
 
         return [
-            'rowId' => $invoiceMapping->getId(),
+q            'rowId' => $invoiceMapping->getId(),
             'channel' => $mainAccountRow ? $account->getChannel() : '',
             'displayName' => $mainAccountRow ? $account->getDisplayName() : '',
             'site' => $invoiceMapping->getSite(),
