@@ -83,6 +83,18 @@
         float: none;
     }
 }
+.invoiceMappingSettings {
+    float: left;
+    margin-bottom: 20px !important;
+    &.half {
+        label {
+            width: 100%;
+        }
+    }
+    .settings-save {
+        float: none;
+    }
+}
 .default-invoice-holder {
     @include calc(width, "100% - 60px");
     float: left;

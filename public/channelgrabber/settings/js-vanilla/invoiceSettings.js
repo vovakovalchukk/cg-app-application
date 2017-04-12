@@ -25,8 +25,8 @@ define([
             var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
 
-            var copyRequiredSelector = '.invoiceDefaultSettings #copyRequired';
-            var emailBccSelector = '.invoiceDefaultSettings #emailBcc';
+            var copyRequiredSelector = '.invoiceMappingSettings #copyRequired';
+            var emailBccSelector = '.invoiceMappingSettings #emailBcc';
 
             var mappingSelector = '.invoiceMapping .invoiceMappingTable';
             var mappingTradingCompanySelector = '.trading-company-column';
