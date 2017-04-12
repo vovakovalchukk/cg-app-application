@@ -109,7 +109,7 @@
     }
 }
 .invoiceTradingCompanySettings #accounts_wrapper {
-    width: 60% !important;
+    width: 65% !important;
 }
 .invoiceTradingCompanySettings, .invoiceMappingTable {
     @include calc(width, "100% - 60px");
