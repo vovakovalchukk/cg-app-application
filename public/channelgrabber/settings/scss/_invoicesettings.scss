@@ -113,17 +113,14 @@
     float: left;
     clear:both;
 }
-.invoiceSettings .checkbox-holder {
+.checkbox-holder {
     width: 300px;
     float: left;
 }
 
-.email-invoice-holder {
-    .enable_switch {
-        top: -10px;
-        left: -20px;
-        position: relative;
-    }
+.enable_switch {
+    top: -10px;
+    position: relative;
 }
 
 .product-images-invoice-holder {

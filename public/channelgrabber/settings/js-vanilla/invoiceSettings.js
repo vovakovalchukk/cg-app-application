@@ -13,8 +13,6 @@ define([
 
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
-            var defaultSettingsSelector = '#defaultInvoiceCustomSelect input';
-            var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
@@ -24,6 +22,8 @@ define([
             var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
 
+            var defaultSettingsSelector = '#defaultInvoiceCustomSelect input';
+            var autoEmailSettingsSelector = '.invoiceMappingSettings #autoEmail';
             var emailSendAsSelector = '.invoiceMappingSettings #emailSendAs';
             var copyRequiredSelector = '.invoiceMappingSettings #copyRequired';
             var emailBccSelector = '.invoiceMappingSettings #emailBcc';
