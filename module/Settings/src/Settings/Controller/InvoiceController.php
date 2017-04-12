@@ -193,6 +193,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('emailTemplate', $invoiceSettings->getEmailTemplate())
             ->setVariable('tagOptions', $this->getOrderTagManager()->getAvailableTags())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
+            ->addChild($this->getInvoiceSettingsSendToFbaToggleView($invoiceSettings), 'sendToFbaToggle')
             ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
@@ -353,6 +354,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'autoEmail',
                     'name' => 'autoEmail',
                     'selected' => (boolean) $invoiceSettings->getAutoEmail(),
+                ]
+            )
+            ->setTemplate('elements/toggle.mustache');
+    }
+
+    protected function getInvoiceSettingsSendToFbaToggleView(InvoiceSettingsEntity $invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'sendToFbaDefault',
+                    'name' => 'sendToFbaDefault',
+                    'selected' => (boolean) $invoiceSettings->getSendToFba(),
                 ]
             )
             ->setTemplate('elements/toggle.mustache');

@@ -24,6 +24,7 @@ define([
 
             var defaultSettingsSelector = '#defaultInvoiceCustomSelect input';
             var autoEmailSettingsSelector = '.invoiceMappingSettings #autoEmail';
+            var sendToFbaDefaultSelector = '.invoiceMappingSettings #sendToFbaDefault';
             var emailSendAsSelector = '.invoiceMappingSettings #emailSendAs';
             var copyRequiredSelector = '.invoiceMappingSettings #copyRequired';
             var emailBccSelector = '.invoiceMappingSettings #emailBcc';
@@ -359,6 +360,7 @@ define([
                 return {
                     'default': getDefault(),
                     'autoEmail': getAutoEmail(),
+                    'sendToFba': getSendToFba(),
                     'emailSendAs': getEmailSendAs(),
                     'copyRequired': getCopyRequired(),
                     'emailBcc': getEmailBcc(),
@@ -390,6 +392,11 @@ define([
             var getAutoEmail = function()
             {
                 return $(autoEmailSettingsSelector).is(':checked');
+            };
+
+            var getSendToFba = function ()
+            {
+                return $(sendToFbaDefaultSelector).is(':checked');
             };
 
             var getEmailSendAs = function()

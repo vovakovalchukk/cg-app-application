@@ -105,6 +105,7 @@ class Service
             $data['productImages'] = $this->validateBoolean($data['productImages']);
             $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
             $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
+            $data['sendToFba'] = $this->validateBoolean($data['sendToFba']);
 
             if ($data['emailSendAs']) {
                 $data = $this->handleEmailVerification($data);
