@@ -21,10 +21,10 @@ define([
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
 
-            var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
             var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
 
+            var emailSendAsSelector = '.invoiceMappingSettings #emailSendAs';
             var copyRequiredSelector = '.invoiceMappingSettings #copyRequired';
             var emailBccSelector = '.invoiceMappingSettings #emailBcc';
 

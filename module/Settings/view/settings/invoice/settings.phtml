@@ -62,18 +62,6 @@ $(document).ready(function() {
                 </div>
 
                 <label class="email-send-as-label">
-                    <span class="inputbox-label">Send From Email:</span>
-                    <div class="email-send-as-holder">
-                        <?= $emailSendAsInput ?>
-
-                        <?php if (isset($emailVerificationStatus)): ?>
-                            <?= $emailVerificationStatus ?>
-                        <?php endif; ?>
-
-                        <button id="emailVerifyButton" data-id="<?= $invoiceSettings->getId() ?>" class="button inline email-verify-button <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
-                    </div>
-                </label>
-                <label class="email-send-as-label">
                     <span class="inputbox-label">Invoice Email Template:</span>
                 </label>
                 <div class="invoice-email-editor-section">
@@ -106,9 +94,21 @@ $(document).ready(function() {
                 </label>
             </div>
             <div class="invoiceMappingSettings half">
+                <label class="email-send-as-label">
+                    <span class="inputbox-label">Send From Email:</span>
+                    <div class="email-send-as-holder">
+                        <?= $emailSendAsInput ?>
+
+                        <?php if (isset($emailVerificationStatus)): ?>
+                            <?= $emailVerificationStatus ?>
+                        <?php endif; ?>
+
+                        <button id="emailVerifyButton" data-id="<?= $invoiceSettings->getId() ?>" class="button inline email-verify-button <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
+                    </div>
+                </label>
                 <label class="email-bcc-label">
                     <span class="inputbox-label">Email Myself a Copy:</span>
-                    <div class="copy-required-holder">
+                    <div class="invoice-settings-field copy-required-holder">
                         <?= $copyRequiredCheckbox ?>
                     </div>
                     <div class="invoice-settings-field email-bcc-holder">
