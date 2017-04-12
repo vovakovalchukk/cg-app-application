@@ -322,7 +322,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'channel' => '/channelgrabber/settings/template/columns/channel.mustache',
             'displayName' => '/channelgrabber/settings/template/columns/account.mustache',
             'site' => '/channelgrabber/settings/template/columns/site.mustache',
-            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompanySelect.mustache',
             'assignedInvoice' => '/channelgrabber/settings/template/columns/assignedInvoice.mustache',
             'sendViaEmail' => '/channelgrabber/settings/template/columns/sendViaEmail.mustache',
             'sendToFba' => '/channelgrabber/settings/template/columns/sendToFba.mustache',
