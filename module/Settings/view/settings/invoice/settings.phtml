@@ -73,15 +73,6 @@ $(document).ready(function() {
                         <button id="emailVerifyButton" data-id="<?= $invoiceSettings->getId() ?>" class="button inline email-verify-button <?php if ($emailSendAs) { echo 'hidden'; } ?>">Verify</button>
                     </div>
                 </label>
-                <label class="email-bcc-label">
-                <span class="inputbox-label">Email Myself a Copy:</span>
-                    <div class="copy-required-holder">
-                        <?= $copyRequiredCheckbox ?>
-                    </div>
-                    <div class="email-bcc-holder">
-                        <?= $emailBccInput ?>
-                    </div>
-                </label>
                 <label class="email-send-as-label">
                     <span class="inputbox-label">Invoice Email Template:</span>
                 </label>
@@ -111,6 +102,15 @@ $(document).ready(function() {
                     <span class="inputbox-label">Default Invoice:</span>
                     <div class="invoice-settings-field order-inputbox-holder half-input">
                         <?= $defaultCustomSelect; ?>
+                    </div>
+                </label>
+                <label class="email-bcc-label">
+                    <span class="inputbox-label">Email Myself a Copy:</span>
+                    <div class="copy-required-holder">
+                        <?= $copyRequiredCheckbox ?>
+                    </div>
+                    <div class="invoice-settings-field email-bcc-holder">
+                        <?= $emailBccInput ?>
                     </div>
                 </label>
             </div>

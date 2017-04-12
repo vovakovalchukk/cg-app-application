@@ -20,11 +20,13 @@ define([
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
-            var copyRequiredSelector = container + ' .invoiceDefaultSettings #copyRequired';
+
             var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
-            var emailBccSelector = container + ' .invoiceDefaultSettings #emailBcc';
             var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
+
+            var copyRequiredSelector = '.invoiceDefaultSettings #copyRequired';
+            var emailBccSelector = '.invoiceDefaultSettings #emailBcc';
 
             var mappingSelector = '.invoiceMapping .invoiceMappingTable';
             var mappingTradingCompanySelector = '.trading-company-column';
