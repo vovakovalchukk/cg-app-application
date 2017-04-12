@@ -236,7 +236,7 @@ class Service
         }
 
         return [
-q            'rowId' => $invoiceMapping->getId(),
+            'rowId' => $invoiceMapping->getId(),
             'channel' => $mainAccountRow ? $account->getChannel() : '',
             'displayName' => $mainAccountRow ? $account->getDisplayName() : '',
             'site' => $invoiceMapping->getSite(),
