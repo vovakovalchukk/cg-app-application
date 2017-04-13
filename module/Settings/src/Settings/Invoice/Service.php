@@ -25,6 +25,7 @@ use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
 use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
 use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
 use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
+use CG\Account\Client\Service as AccountService;
 
 class Service
 {
@@ -42,6 +43,7 @@ class Service
     protected $marketplaceService;
     protected $invoiceMappingService;
     protected $invoiceMappingMapper;
+    protected $accountService;
     protected $templateImagesMap = [
         'FPS-3'  => 'Form-FPS3.png',
         'FPS-15'  => 'Form-FPS15.png',
@@ -70,7 +72,8 @@ class Service
         DataTable $invoiceMappingDatatable,
         MarketplaceService $marketplaceService,
         InvoiceMappingService $invoiceMappingService,
-        InvoiceMappingMapper $invoiceMappingMapper
+        InvoiceMappingMapper $invoiceMappingMapper,
+        AccountService $accountService
     ) {
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->templateService = $templateService;
@@ -86,6 +89,7 @@ class Service
         $this->marketplaceService = $marketplaceService;
         $this->invoiceMappingService = $invoiceMappingService;
         $this->invoiceMappingMapper = $invoiceMappingMapper;
+        $this->accountService = $accountService;
     }
 
     public function saveSettingsFromPostData($data)
@@ -129,14 +133,18 @@ class Service
     public function saveInvoiceMappingFromPostData($postData)
     {
         try {
-            $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
-            $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
-            $this->invoiceMappingService->save($entity);
+            if (isset($postData['id'])) {
+                $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
+                $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
+            } else {
+                $postData['organisationUnitId'] = $this->accountService->getOuIdFromAccountId($postData['accountId']);
+                $entity = $this->invoiceMappingMapper->fromArray($postData);
+            }
         } catch (\Exception $e) {
-            throw $e;
+            $entity = $this->invoiceMappingMapper->fromArray($postData);
         }
 
-        return $entity;
+        return $this->invoiceMappingService->save($entity);
     }
 
     public function getInvoiceMappingDataTablesData($accounts, $invoices)
@@ -192,7 +200,8 @@ class Service
         } catch (\Exception $e) {
             return 'UK';
         }
-        $marketplace = array_pop($marketplaces);
+        $marketplaces->rewind();
+        $marketplace = $marketplaces->current();
 
         return $marketplace->getMarketplace();
     }
@@ -236,6 +245,7 @@ class Service
         }
 
         return [
+            'accountId' => $account->getId(),
             'rowId' => $invoiceMapping->getId(),
             'channel' => $mainAccountRow ? $account->getChannel() : '',
             'displayName' => $mainAccountRow ? $account->getDisplayName() : '',

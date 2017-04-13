@@ -375,14 +375,23 @@ define([
 
             this.getMappingSaveData = function (element, property) {
 
-                var invoiceMappingInput = $(element).closest('td').find('input')[0];
+                var row = element.closest('tr');
                 var saveData = {
-                    id: $(invoiceMappingInput).attr('data-element-row-id'),
-                    site: $.trim($(element.closest('tr').find('.site-column')).text()),
-                    accountId: $(element.closest('tr').find('.account-column input')).val(),
+                    id: $(row).attr('data-element-row-id'),
+                    site: $.trim($(row.find('.site-column')).text()),
+                    accountId: $(row.find('.account-column input')).val(),
                 };
                 saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
                 return saveData;
+            };
+
+            this.initialiseInvoiceMappingEntity = function (entity) {
+                $('#invoiceMapping tbody tr').each(function (index, row) {
+                    var rowId = $(row).attr('data-element-row-id');
+                    if(typeof rowId === typeof undefined || rowId === false) {
+                        $(row).attr('data-element-row-id', entity.id);
+                    }
+                });
             };
 
             var getDefault = function()
@@ -485,6 +494,7 @@ define([
                 dataType: 'json',
                 data: saveData
             }).success(function(data) {
+                self.initialiseInvoiceMappingEntity(JSON.parse(data.invoiceMapping));
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {
                 if (n) {

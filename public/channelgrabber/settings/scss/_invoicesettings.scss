@@ -61,6 +61,14 @@
             width: 120px;
         }
     }
+    tr {
+        &.odd-row {
+            background-color: white;
+        }
+        &.even-row {
+            background-color: #edf7fc;
+        }
+    }
 }
 .invoiceDefaultSettings {
     @include calc(width, "100% - 60px");

@@ -14,6 +14,8 @@ $(document).ready(function() {
     ) {
         var tradingCompanyColumnIndex = 2;
         var hasTradingCompanies = '<?php (empty($tradingCompanies) ? 'false' : 'true') ?>';
+        var lastAccountId = 0;
+        var evenRow = true;
         new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= json_encode($tagOptions); ?>');
 
         $(document).on('fnInitComplete', function(event, oSettings) {
@@ -25,6 +27,25 @@ $(document).ready(function() {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
                 select.init($(this).attr('name'));
             });
+        });
+
+        $(document).on('fnRowCallback', function(event, nRow, aData)
+        {
+            if ($(nRow).hasClass('even-row') || $(nRow).hasClass('odd-row')) {
+                return;
+            }
+
+            $(nRow).addClass('invoice-mapping-row').attr('data-element-row-id', aData.rowId);
+
+            sameAccount = (lastAccountId === aData.accountId);
+            if(! sameAccount) {
+                evenRow = (!evenRow);
+            }
+            rowType = (evenRow ? 'even' : 'odd');
+
+            var className = rowType+'-row';
+            $(nRow).addClass(className);
+            lastAccountId = aData.accountId;
         });
     });
 });
