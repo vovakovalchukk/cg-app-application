@@ -201,28 +201,28 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function isSidebarVisible()
     {
-        $preference = $this->activeUserPreference->getPreference();
+        $preference = $this->getActiveUserPreference()->getPreference();
         $visible = isset($preference[static::PRODUCT_SIDEBAR_STATE_KEY]) ? $preference[static::PRODUCT_SIDEBAR_STATE_KEY] : true;
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     public function isFilterBarVisible()
     {
-        $preference = $this->activeUserPreference->getPreference();
+        $preference = $this->getActiveUserPreference()->getPreference();
         $visible = isset($preference[static::PRODUCT_FILTER_BAR_STATE_KEY]) ? $preference[static::PRODUCT_FILTER_BAR_STATE_KEY] : true;
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     protected function fetchUserPrefItem($key)
     {
-        $userPrefsPref = $this->activeUserPreference->getPreference();
+        $userPrefsPref = $this->getActiveUserPreference()->getPreference();
         $storedItem = (isset($userPrefsPref[$key]) ? $userPrefsPref[$key] : []);
         return $storedItem;
     }
 
     protected function saveUserPrefItem($key, $value)
     {
-        $userPrefs = $this->activeUserPreference;
+        $userPrefs = $this->getActiveUserPreference();
         $userPrefsPref = $userPrefs->getPreference();
         $userPrefsPref[$key] = $value;
         $userPrefs->setPreference($userPrefsPref);
