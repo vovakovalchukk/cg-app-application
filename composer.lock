@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "61cf42e9921ed02a116069a633e15eb7",
+    "content-hash": "8d683ffadb5db75a0e55b230ece8b582",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1903,16 +1903,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.9.0",
+            "version": "dev-CGIV-8260-move-product-deletion-to-jobs",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "2ac32bf11e6034ca7e6d822761155e948d8861f4"
+                "reference": "3e912ad2a440f953c92cd657a734054f238ece4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.0-78861b.zip",
-                "reference": "2ac32bf11e6034ca7e6d822761155e948d8861f4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-8260-move-product-deletion-to-jobs-027280.zip",
+                "reference": "3e912ad2a440f953c92cd657a734054f238ece4e",
                 "shasum": null
             },
             "require": {
@@ -1956,7 +1956,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-10-18T10:50:12+00:00"
+            "time": "2017-04-13 13:47:56"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -8854,10 +8854,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.9.2",
+            "alias_normalized": "1.9.2.0",
+            "version": "dev-CGIV-8260-move-product-deletion-to-jobs",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

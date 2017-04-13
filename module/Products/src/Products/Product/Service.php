@@ -5,6 +5,7 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
 use CG\ETag\Exception\NotModified;
+use CG\Gearman\Exception\Gearman;
 use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
@@ -15,6 +16,7 @@ use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
+use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -31,6 +33,7 @@ use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG_UI\View\Table;
+use GearmanClient;
 use Zend\Di\Di;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
@@ -46,6 +49,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const ACCOUNTS_LIMIT = 'all';
     const LIMIT = 50;
     const PAGE = 1;
+    const MAX_FOREGROUND_DELETES = 5;
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
     const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
@@ -74,6 +78,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $detailService;
     /** @var DetailMapper $detailMapper */
     protected $detailMapper;
+    /** @var GearmanClient */
+    protected $gearmanClient;
 
     public function __construct(
         UserService $userService,
@@ -90,7 +96,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         IntercomEventService $intercomEventService,
         StockAdjustmentService $stockAdjustmentService,
         DetailService $detailService,
-        DetailMapper $detailMapper
+        DetailMapper $detailMapper,
+        GearmanClient $gearmanClient
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -107,6 +114,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->stockAdjustmentService = $stockAdjustmentService;
         $this->detailService = $detailService;
         $this->detailMapper = $detailMapper;
+        $this->gearmanClient = $gearmanClient;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -148,10 +156,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function deleteProductsById(array $productIds)
     {
-        $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
-        $products = $this->productService->fetchCollectionByFilter($filter);
-        foreach ($products as $product) {
-            $this->productService->hardRemove($product);
+        if (count($productIds) <= static::MAX_FOREGROUND_DELETES) {
+            $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
+            $products = $this->productService->fetchCollectionByFilter($filter);
+            foreach ($products as $product) {
+                $this->productService->hardRemove($product);
+            }
+            return;
+        }
+        // Deleting lots of products is resource intensive, background it
+        foreach ($productIds as $productId) {
+            $workload = new ProductRemoveWorkload($productId);
+            $handle = ProductRemoveWorkload::FUNCTION_NAME . '-' . $productId;
+            $this->gearmanClient->doBackground(ProductRemoveWorkload::FUNCTION_NAME, serialize($workload), $handle);
         }
     }
 
