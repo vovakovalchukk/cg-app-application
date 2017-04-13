@@ -37,7 +37,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.0.17",
+        "channelgrabber/courier": "dev-CGIV-8258-dpd-manifest-issues as 1.0.18",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.10.2",
