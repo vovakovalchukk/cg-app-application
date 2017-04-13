@@ -1552,16 +1552,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.3",
+            "version": "1.28.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9c0254da6785f6f9275cce60963d19dbacfbc366"
+                "reference": "e41e4164b57957dac35eac712bcca55d78801c93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.3-12a4d6.zip",
-                "reference": "9c0254da6785f6f9275cce60963d19dbacfbc366",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.6-7d75bc.zip",
+                "reference": "e41e4164b57957dac35eac712bcca55d78801c93",
                 "shasum": null
             },
             "require": {
@@ -1588,7 +1588,7 @@
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.5.0",
+                "channelgrabber/settings": "^1.5.2",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.42",
@@ -1626,7 +1626,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-24T11:38:07+00:00"
+            "time": "2017-04-13T11:31:54+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -5107,7 +5107,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
