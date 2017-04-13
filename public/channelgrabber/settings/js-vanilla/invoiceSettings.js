@@ -376,11 +376,12 @@ define([
             this.getMappingSaveData = function (element, property) {
 
                 var invoiceMappingInput = $(element).closest('td').find('input')[0];
-                var invoiceMappingId = $(invoiceMappingInput).attr('data-element-row-id');
-                var newValue = $(element.closest('td').find('.custom-select input')[0]).val();
-
-                var saveData = { id: invoiceMappingId};
-                saveData[property] = newValue;
+                var saveData = {
+                    id: $(invoiceMappingInput).attr('data-element-row-id'),
+                    site: $.trim($(element.closest('tr').find('.site-column')).text()),
+                    accountId: $(element.closest('tr').find('.account-column input')).val(),
+                };
+                saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
                 return saveData;
             };
 
