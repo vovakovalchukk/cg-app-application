@@ -47,7 +47,7 @@ return [
                         ],
                         [
                             'channelName' => 'interlink-ca',
-                            'displayName' => 'Interlink',
+                            'displayName' => 'DPD Local',
                             'courierFactory' => function()
                             {
                                 $courier = new InterlinkCourier();

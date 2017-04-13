@@ -328,6 +328,7 @@ class SpecificsAjax
             $parcelData['showWeight'] = true;
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
+            $parcelData['serviceOptions'] = $orderData['serviceOptions'];
             $parcelData['cancellable'] = $orderData['cancellable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
