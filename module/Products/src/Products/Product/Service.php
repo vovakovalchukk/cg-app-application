@@ -92,22 +92,21 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         DetailService $detailService,
         DetailMapper $detailMapper
     ) {
-        $this
-            ->setProductService($productService)
-            ->setUserService($userService)
-            ->setProductFilterMapper($productFilterMapper)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setDi($di)
-            ->setUserPreferenceService($userPreferenceService)
-            ->setAccountService($accountService)
-            ->setOrganisationUnitService($organisationUnitService)
-            ->setStockService($stockService)
-            ->setStockLocationService($stockLocationService)
-            ->setStockAuditor($stockAuditor)
-            ->setIntercomEventService($intercomEventService)
-            ->setStockAdjustmentService($stockAdjustmentService)
-            ->setDetailService($detailService)
-            ->setDetailMapper($detailMapper);
+        $this->productService = $productService;
+        $this->userService = $userService;
+        $this->productFilterMapper = $productFilterMapper;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->di = $di;
+        $this->userPreferenceService = $userPreferenceService;
+        $this->accountService = $accountService;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->stockService = $stockService;
+        $this->stockLocationService = $stockLocationService;
+        $this->stockAuditor = $stockAuditor;
+        $this->intercomEventService = $intercomEventService;
+        $this->stockAdjustmentService = $stockAdjustmentService;
+        $this->detailService = $detailService;
+        $this->detailMapper = $detailMapper;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -115,23 +114,23 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $productFilter
             ->setLimit($limit)
             ->setPage($page)
-            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList());
-        $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
+            ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
+        $products = $this->productService->fetchCollectionByFilter($productFilter);
         return $products;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
+            $stockLocationEntity = $this->stockLocationService->fetch($stockLocationId);
 
             $adjustment = $this->createAndAuditStockAdjustment($stockLocationEntity, $totalQuantity);
             $stockLocationEntity->setStoredEtag($eTag);
             $this->stockAdjustmentService->applyAdjustmentAndSave($adjustment, $stockLocationEntity);
             $this->statsIncrement(
                 static::STAT_STOCK_UPDATE_MANUAL, [
-                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                    $this->activeUserContainer->getActiveUser()->getId()
                 ]
             );
             $this->notifyOfStockUpdate();
@@ -144,27 +143,27 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function notifyOfStockUpdate()
     {
         $event = new IntercomEvent(static::EVENT_MANUAL_STOCK_CHANGE, $this->getActiveUser()->getId());
-        $this->getIntercomEventService()->save($event);
+        $this->intercomEventService->save($event);
     }
 
     public function deleteProductsById(array $productIds)
     {
         $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
-        $products = $this->getProductService()->fetchCollectionByFilter($filter);
+        $products = $this->productService->fetchCollectionByFilter($filter);
         foreach ($products as $product) {
-            $this->getProductService()->hardRemove($product);
+            $this->productService->hardRemove($product);
         }
     }
 
     public function saveProductTaxRateId($productId, $taxRateId, $memberState)
     {
         try {
-            $product = $this->getProductService()->fetch($productId);
+            $product = $this->productService->fetch($productId);
 
             $oldTaxRates = $product->getTaxRateIds();
             $newTaxRates = array_merge($oldTaxRates, [$memberState => $taxRateId]);
 
-            $this->getProductService()->save($product->setTaxRateIds($newTaxRates));
+            $this->productService->save($product->setTaxRateIds($newTaxRates));
         } catch (NotFound $e) {
             $this->logWarning(static::LOG_PRODUCT_NOT_FOUND, [$productId, $taxRateId], static::LOG_CODE);
         }  catch (HttpNotModified $e) {
@@ -175,9 +174,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function saveProductName($productId, $newName)
     {
         try {
-            $product = $this->getProductService()->fetch($productId);
+            $product = $this->productService->fetch($productId);
 
-            $this->getProductService()->save($product->setName($newName));
+            $this->productService->save($product->setName($newName));
         } catch (NotFound $e) {
             $this->logWarning(static::LOG_PRODUCT_NAME_ERROR, [$productId, $newName], static::LOG_CODE);
         }
@@ -185,33 +184,33 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function isSidebarVisible()
     {
-        $preference = $this->getActiveUserPreference()->getPreference();
+        $preference = $this->activeUserPreference->getPreference();
         $visible = isset($preference[static::PRODUCT_SIDEBAR_STATE_KEY]) ? $preference[static::PRODUCT_SIDEBAR_STATE_KEY] : true;
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     public function isFilterBarVisible()
     {
-        $preference = $this->getActiveUserPreference()->getPreference();
+        $preference = $this->activeUserPreference->getPreference();
         $visible = isset($preference[static::PRODUCT_FILTER_BAR_STATE_KEY]) ? $preference[static::PRODUCT_FILTER_BAR_STATE_KEY] : true;
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     protected function fetchUserPrefItem($key)
     {
-        $userPrefsPref = $this->getActiveUserPreference()->getPreference();
+        $userPrefsPref = $this->activeUserPreference->getPreference();
         $storedItem = (isset($userPrefsPref[$key]) ? $userPrefsPref[$key] : []);
         return $storedItem;
     }
 
     protected function saveUserPrefItem($key, $value)
     {
-        $userPrefs = $this->getActiveUserPreference();
+        $userPrefs = $this->activeUserPreference;
         $userPrefsPref = $userPrefs->getPreference();
         $userPrefsPref[$key] = $value;
         $userPrefs->setPreference($userPrefsPref);
 
-        $this->getUserPreferenceService()->save($userPrefs);
+        $this->userPreferenceService->save($userPrefs);
     }
 
     protected function createAndAuditStockAdjustment($stockLocationEntity, $newTotal)
@@ -226,7 +225,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $adjustment = $this->stockAdjustmentService->createAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
         $stock = $this->stockService->fetch($stockLocationEntity->getStockId());
-        $this->getStockAuditor()->userAdjustment(
+        $this->stockAuditor->userAdjustment(
             $adjustment,
             $stock->getSku(),
             $stock->getOrganisationUnitId()
@@ -297,82 +296,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $id;
     }
 
-    /**
-     * @return self
-     */
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    /**
-     * @return ProductService
-     */
-    protected function getProductService()
-    {
-        return $this->productService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setDi(Di $di)
-    {
-        $this->di = $di;
-        return $this;
-    }
-
-    /**
-     * @return Di
-     */
-    protected function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
     protected function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {
             $activeUserId = $this->getActiveUser()->getId();
-            $this->activeUserPreference = $this->getUserPreferenceService()->fetch($activeUserId);
+            $this->activeUserPreference = $this->userPreferenceService->fetch($activeUserId);
         }
 
         return $this->activeUserPreference;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUserService(UserService $userService)
-    {
-        $this->userService = $userService;
-        return $this;
-    }
-
-    /**
-     * UserService
-     */
-    protected function getUserService()
-    {
-        return $this->userService;
-    }
-
-    /**
-     * @return ActiveUserInterface
-     */
-    protected function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
     }
 
     /**
@@ -380,164 +311,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
      */
     protected function getActiveUser()
     {
-        return $this->getActiveUserContainer()->getActiveUser();
+        return $this->activeUserContainer->getActiveUser();
     }
 
     protected function getActiveUserRootOu()
     {
-        return $this->getOrganisationUnitService()->getRootOuIdFromOuId(
+        return $this->organisationUnitService->getRootOuIdFromOuId(
             $this->getActiveUser()->getOrganisationUnitId()
         );
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUserPreferenceService(UserPreferenceService $userPreferenceService)
-    {
-        $this->userPreferenceService = $userPreferenceService;
-        return $this;
-    }
-
-    /**
-     * @return UserPreferenceService
-     */
-    protected function getUserPreferenceService()
-    {
-        return $this->userPreferenceService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    /**
-     * @return AccountService
-     */
-    protected function getAccountService()
-    {
-        return $this->accountService;
-    }
-
-    /**
-     * @return OrganisationUnitService
-     */
-    protected function getOrganisationUnitService()
-    {
-        return $this->organisationUnitService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setStockLocationService(StockLocationService $stockLocationService)
-    {
-        $this->stockLocationService = $stockLocationService;
-        return $this;
-    }
-
-    protected function getStockLocationService()
-    {
-        return $this->stockLocationService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setStockService(StockService $stockService)
-    {
-        $this->stockService = $stockService;
-        return $this;
-    }
-
-    protected function getStockService()
-    {
-        return $this->stockService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProductFilterMapper(ProductFilterMapper $productFilterMapper)
-    {
-        $this->productFilterMapper = $productFilterMapper;
-        return $this;
-    }
-
-    protected function getProductFilterMapper()
-    {
-        return $this->productFilterMapper;
-    }
-
-    /**
-     * @return self
-     */
-    public function setStockAuditor(StockAuditor $stockAuditor)
-    {
-        $this->stockAuditor = $stockAuditor;
-        return $this;
-    }
-
-    /**
-     * @return StockAuditor
-     */
-    protected function getStockAuditor()
-    {
-        return $this->stockAuditor;
-    }
-
-    protected function getIntercomEventService()
-    {
-        return $this->intercomEventService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setStockAdjustmentService(StockAdjustmentService $stockAdjustmentService)
-    {
-        $this->stockAdjustmentService = $stockAdjustmentService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setDetailService(DetailService $detailService)
-    {
-        $this->detailService = $detailService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setDetailMapper(DetailMapper $detailMapper)
-    {
-        $this->detailMapper = $detailMapper;
-        return $this;
     }
 }
