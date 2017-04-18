@@ -254,7 +254,7 @@ class ProductsJsonController extends AbstractActionController
     {
         $this->checkUsage();
         return $this->getJsonModelFactory()->newInstance(
-            ["allowed" => true, "guid" => uniqid('', true)]
+            ["allowed" => true, "guid" => uniqid('', true), "total" => count($this->params()->fromPost('productIds'))]
         );
     }
 

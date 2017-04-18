@@ -61,6 +61,11 @@ define([
         return 'progressKey';
     };
 
+    Delete.prototype.getCheckData = function()
+    {
+        return this.getDataToSubmit();
+    };
+
     Delete.prototype.getDataToSubmit = function()
     {
         var self = this;
@@ -73,7 +78,6 @@ define([
         {
             productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
-        this.setTotal(productIds.length);
         return {"productIds": productIds};
     };
 
@@ -84,9 +88,22 @@ define([
         this.sendAjaxRequest(
             Delete.URL,
             requestData,
-            // do nothing on success, the progress check will handle it
-            function() {}
+            function(response) {
+                if (requestData.productIds.length >= this.getMinRecordsForProgress()) {
+                    // do nothing, the progress check will handle it
+                    return;
+                }
+                this.getNotificationHandler().success(this.getEndMessage());
+                this.progressFinished();
+            },
+            null,
+            this
         );
+    };
+
+    Delete.prototype.getMinRecordsForProgress = function()
+    {
+        return 6;
     };
 
     Delete.prototype.progressFinished = function()
