@@ -190,6 +190,12 @@
     }
 }
 
+.copy-required-holder {
+    .checkbox-holder {
+        width: 50px;
+    }
+}
+
 .email-verify-button {
     &.hidden {
         display: none;
