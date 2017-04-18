@@ -17,6 +17,7 @@ use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
+use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -80,6 +81,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $detailMapper;
     /** @var GearmanClient */
     protected $gearmanClient;
+    /** @var RemoveProgressStorage */
+    protected $removeProgressStorage;
 
     public function __construct(
         UserService $userService,
@@ -97,7 +100,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         StockAdjustmentService $stockAdjustmentService,
         DetailService $detailService,
         DetailMapper $detailMapper,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        RemoveProgressStorage $removeProgressStorage
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -115,6 +119,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->detailService = $detailService;
         $this->detailMapper = $detailMapper;
         $this->gearmanClient = $gearmanClient;
+        $this->removeProgressStorage = $removeProgressStorage;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -154,7 +159,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->intercomEventService->save($event);
     }
 
-    public function deleteProductsById(array $productIds)
+    public function deleteProductsById(array $productIds, $progressKey)
     {
         if (count($productIds) <= static::MAX_FOREGROUND_DELETES) {
             $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
@@ -162,14 +167,20 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             foreach ($products as $product) {
                 $this->productService->hardRemove($product);
             }
+            $this->removeProgressStorage->setProgress($progressKey, count($productIds));
             return;
         }
         // Deleting lots of products is resource intensive, background it
         foreach ($productIds as $productId) {
-            $workload = new ProductRemoveWorkload($productId);
+            $workload = new ProductRemoveWorkload($productId, $progressKey);
             $handle = ProductRemoveWorkload::FUNCTION_NAME . '-' . $productId;
             $this->gearmanClient->doBackground(ProductRemoveWorkload::FUNCTION_NAME, serialize($workload), $handle);
         }
+    }
+
+    public function checkProgressOfDeleteProducts($progressKey)
+    {
+        return (int)$this->removeProgressStorage->getProgress($progressKey);
     }
 
     public function saveProductTaxRateId($productId, $taxRateId, $memberState)

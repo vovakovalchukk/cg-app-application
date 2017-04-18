@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d683ffadb5db75a0e55b230ece8b582",
+    "content-hash": "1d57ac65cad521950b183e387e8a2f6e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -672,7 +672,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1907,12 +1907,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "3e912ad2a440f953c92cd657a734054f238ece4e"
+                "reference": "316e20cadfa30f37961569d1ebb78c092f8c82a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-8260-move-product-deletion-to-jobs-027280.zip",
-                "reference": "3e912ad2a440f953c92cd657a734054f238ece4e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-8260-move-product-deletion-to-jobs-8fa27b.zip",
+                "reference": "316e20cadfa30f37961569d1ebb78c092f8c82a1",
                 "shasum": null
             },
             "require": {
@@ -1956,7 +1956,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-04-13 13:47:56"
+            "time": "2017-04-18T08:42:16+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3773,17 +3773,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.36",
+            "version": "dev-CGIV-8260-move-product-deletion-to-jobs",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d198b099327290ab6cdc0b398310b4b338c921e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.36-61f7f9.zip",
-                "reference": "d198b099327290ab6cdc0b398310b4b338c921e6",
-                "shasum": null
+                "reference": "3c8b72501f4eafaec4ea252d9ed7bea2c693603e"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -5409,7 +5403,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8860,18 +8854,25 @@
             "alias_normalized": "1.9.2.0",
             "version": "dev-CGIV-8260-move-product-deletion-to-jobs",
             "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.17.37",
+            "alias_normalized": "1.17.37.0",
+            "version": "dev-CGIV-8260-move-product-deletion-to-jobs",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
-        "composer/composer": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

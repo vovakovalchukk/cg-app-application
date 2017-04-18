@@ -1,20 +1,67 @@
 define([
-    'BulkActionAbstract'
+    'BulkActionAbstract',
+    'BulkAction/ProgressCheckAbstract'
 ], function(
-    BulkActionAbstract
+    BulkActionAbstract,
+    ProgressCheckAbstract
 ) {
-    var Delete = function()
-    {
+    var Delete = function(
+        startMessage,
+        progressMessage,
+        endMessage,
+        countMessage
+    ) {
+        var progressKey;
+        var productIds = [];
+
+        this.setProgressKey = function(newProgressKey)
+        {
+            progressKey = newProgressKey;
+            return this;
+        };
+
+        this.getProgressKey = function()
+        {
+            return progressKey;
+        };
+
+        this.setProductIds = function(newProductIds)
+        {
+            productIds = newProductIds;
+            return this;
+        };
+
+        this.getProductIds = function()
+        {
+            return productIds;
+        };
+
         BulkActionAbstract.call(this);
+        ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage, countMessage);
     };
 
+    // Multiple inheritance. Note: the ordering of these is important - BulkAction before ProgressCheck
     Delete.prototype = Object.create(BulkActionAbstract.prototype);
+    for (var method in ProgressCheckAbstract.prototype) {
+        if (!ProgressCheckAbstract.prototype.hasOwnProperty(method)) {
+            continue;
+        }
+        Delete.prototype[method] = ProgressCheckAbstract.prototype[method];
+    }
 
     Delete.URL = '/products/delete';
-    Delete.MESSAGE_SUCCESS = 'Products deleted successfully';
-    Delete.MESSAGE_PENDING = 'Deleting products';
 
-    Delete.prototype.invoke = function()
+    Delete.prototype.getUrl = function()
+    {
+        return Delete.URL;
+    };
+
+    Delete.prototype.getProgressKeyName = function()
+    {
+        return 'progressKey';
+    };
+
+    Delete.prototype.getDataToSubmit = function()
     {
         var self = this;
         var productIds = [];
@@ -26,23 +73,27 @@ define([
         {
             productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
+        this.setTotal(productIds.length);
+        return {"productIds": productIds};
+    };
 
-        this.getNotificationHandler().notice(Delete.MESSAGE_PENDING);
-        var requestData = {productIds: productIds};
+    Delete.prototype.submitData = function(guid)
+    {
+        var requestData = this.getDataToSubmit();
+        requestData[this.getProgressKeyName()] = guid;
         this.sendAjaxRequest(
             Delete.URL,
             requestData,
-            this.handleSuccess.bind(this, requestData),
-            null,
-            this
+            // do nothing on success, the progress check will handle it
+            function() {}
         );
     };
 
-    Delete.prototype.handleSuccess = function(productIds)
+    Delete.prototype.progressFinished = function()
     {
-        this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
-        window.triggerEvent('productDeleted', productIds);
+        var data = this.getDataToSubmit();
+        window.triggerEvent('productDeleted', data);
     };
 
-    return new Delete();
+    return Delete;
 });
