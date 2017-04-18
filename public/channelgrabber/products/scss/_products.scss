@@ -137,6 +137,8 @@
                     white-space: nowrap;
                     overflow: hidden;
                     box-sizing: border-box;
+                    text-overflow: ellipsis;
+                    padding: 5px;
                     &.stock-mode-header-col {
                         width: 300px;
                     }
