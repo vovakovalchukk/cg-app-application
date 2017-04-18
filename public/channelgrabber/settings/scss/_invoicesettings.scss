@@ -51,6 +51,13 @@
         text-align: center;
     }
 }
+#invoiceMapping_wrapper {
+    .dataTables_scroll {
+        .dataTables_scrollBody {
+            padding-bottom: 150px;
+        }
+    }
+}
 .invoiceMapping {
     .med-element {
         width: 120px;
