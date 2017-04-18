@@ -16,7 +16,11 @@ $(document).ready(function() {
         var hasTradingCompanies = '<?php (empty($tradingCompanies) ? 'false' : 'true') ?>';
         var lastAccountId = 0;
         var evenRow = true;
-        new InvoiceSettings('<?= $hasAmazonAccount;?>', '<?= json_encode($tagOptions); ?>');
+        new InvoiceSettings(
+            '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER ?>',
+            '<?= $amazonSite ;?>',
+            '<?= json_encode($tagOptions); ?>'
+        );
 
         $(document).on('fnInitComplete', function(event, oSettings) {
             var table = $('#invoiceMapping').dataTable();

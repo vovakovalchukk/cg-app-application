@@ -120,6 +120,10 @@ class Service
                 $data['tradingCompanies'] = $this->reformatTradingCompanies($data['tradingCompanies']);
             }
 
+            if (isset($data['confirmationAmazon']) && $this->validateBoolean($data['confirmationAmazon'])) {
+                $data['useVerifiedEmailAddressForAmazonInvoices'] = true;
+            }
+
             $settings = array_merge($invoiceSettings->toArray(), $data);
             $settings['autoEmailAllowed'] = $this->isAutoEmailAllowed($settings);
             $entity = $this->saveSettings($settings);
