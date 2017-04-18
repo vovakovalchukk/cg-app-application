@@ -1215,13 +1215,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "e28d51cf84f459fbc170b602da18fa71086d03e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-abac56.zip",
-                "reference": "e28d51cf84f459fbc170b602da18fa71086d03e6",
-                "shasum": null
+                "reference": "1c49e21ccc9b3f3c7a131f03726806dfd1ec24d4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
