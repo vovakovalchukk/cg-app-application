@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f23c9ed0bf448f61137d3b18b8a4d3a3",
+    "content-hash": "b67526ec030f28c2660899cb54cf53c0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -348,36 +348,37 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.1.1.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "3c31fdd3ead91c0fb532c1145757ed0e707d948e"
+                "reference": "82b892388a720d52b4070d0491b61949764d2362"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.1.1.1-5238b9.zip",
-                "reference": "3c31fdd3ead91c0fb532c1145757ed0e707d948e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.3.2-ff68db.zip",
+                "reference": "82b892388a720d52b4070d0491b61949764d2362",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/di": ">=2.0.0,<3.0.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/predis": ">=1.0.3,<2.0.0",
-                "channelgrabber/stdlib": "^2.10.4",
+                "channelgrabber/queue": "^1.0.0",
+                "channelgrabber/stdlib": "^2.12.44",
                 "composer/composer": "@dev",
-                "predis/predis": "~0.8.3"
+                "predis/predis": "~0.8.8"
             },
             "require-dev": {
                 "phpspec/phpspec": "2.0.*@dev",
                 "phpunit/phpunit": "3.7.*"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Cache\\": "src"
                 }
             },
-            "time": "2015-10-05T11:15:11+00:00"
+            "time": "2017-04-06T12:48:03+00:00"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -672,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1376,26 +1377,24 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.1.1",
+            "version": "2.1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "28c14b2cd162669ab816403f40173a7c7d059fdc"
+                "reference": "f93d45869e3b8e7f3835030a22dd344a9db05917"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.1.1-4dac34.zip",
-                "reference": "28c14b2cd162669ab816403f40173a7c7d059fdc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.1.1.1-d2ed78.zip",
+                "reference": "f93d45869e3b8e7f3835030a22dd344a9db05917",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
                 "channelgrabber/etag": ">=1.3.1",
-                "channelgrabber/redis": "~0.1.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/validation": ">=1.1.0",
-                "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
                 "psr/log": "^1.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
@@ -1415,7 +1414,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2017-02-17T11:43:17+00:00"
+            "time": "2017-03-07T10:33:56+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -2034,6 +2033,35 @@
             "time": "2016-11-23T12:30:28+00:00"
         },
         {
+            "name": "channelgrabber/queue",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-queue.git",
+                "reference": "f188f9d6e8db93db9f780bb59c0496f90cc53482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-queue-1.0.1-92c0a5.zip",
+                "reference": "f188f9d6e8db93db9f780bb59c0496f90cc53482",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.12.38",
+                "php": ">=7.1"
+            },
+            "suggest": {
+                "channelgrabber/redis": "Provides a queue backed by redis cache - Pros: Very fast Cons: Not persistant by default"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Queue\\": "src"
+                }
+            },
+            "time": "2017-03-23T09:36:01+00:00"
+        },
+        {
             "name": "channelgrabber/redis",
             "version": "0.1.2",
             "source": {
@@ -2397,16 +2425,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.43",
+            "version": "2.12.45",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c4b2132af3ff4e0688787a13e43e5e82852f290b"
+                "reference": "b5b3f8c4a98affc31279ad006fc5ff95bec4a6c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.43-848b2d.zip",
-                "reference": "c4b2132af3ff4e0688787a13e43e5e82852f290b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.45-78a045.zip",
+                "reference": "b5b3f8c4a98affc31279ad006fc5ff95bec4a6c6",
                 "shasum": null
             },
             "require": {
@@ -2443,7 +2471,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-02T15:53:21+00:00"
+            "time": "2017-03-24T11:45:37+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -4067,7 +4095,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
