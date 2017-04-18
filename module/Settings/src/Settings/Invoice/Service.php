@@ -147,8 +147,9 @@ class Service
         return $this->invoiceMappingService->save($entity);
     }
 
-    public function getInvoiceMappingDataTablesData($accounts, $invoices)
+    public function getInvoiceMappingsForAccounts($accounts)
     {
+        $invoiceMappings = [];
         $accountIds = [];
         foreach ($accounts as $account) {
             $accountIds[] = $account->getId();
@@ -157,16 +158,41 @@ class Service
         try {
             $filter = (new InvoiceMappingFilter())
                 ->setAccountId($accountIds);
-            $invoiceMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
+            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
         } catch (\Exception $e) {
             foreach ($accounts as $account) {
-                $invoiceMappings[] = $this->invoiceMappingMapper->fromArray([
-                    'organisationUnitId' => $account->getOrganisationUnitId(),
-                    'accountId' => $account->getId(),
-                    'site' => $this->getSiteFromAccount($account),
-                ]);
+                foreach ($this->getSitesForAccount($account) as $site) {
+                    $invoiceMappings[$account->getId()] = $this->invoiceMappingMapper->fromArray([
+                        'organisationUnitId' => $account->getOrganisationUnitId(),
+                        'accountId' => $account->getId(),
+                        'site' => $site,
+                    ]);
+                }
             }
         }
+
+        foreach ($accounts as $account) {
+            if (! isset($invoiceMappings[$account->getId()])) {
+                foreach ($this->getSitesForAccount($account) as $site) {
+                    $invoiceMappings[$account->getId()] = $this->invoiceMappingMapper->fromArray([
+                        'organisationUnitId' => $account->getOrganisationUnitId(),
+                        'accountId' => $account->getId(),
+                        'site' => $site,
+                    ]);
+                }
+            }
+        }
+
+        foreach ($existingMappings as $existingMapping) {
+            $invoiceMappings[$existingMapping->getAccountId()] = $existingMapping;
+        }
+
+        return $invoiceMappings;
+    }
+
+    public function getInvoiceMappingDataTablesData($accounts, $invoices)
+    {
+        $invoiceMappings = $this->getInvoiceMappingsForAccounts($accounts);
         try {
             $tradingCompanies = $this->getTradingCompanies();
             if (count($tradingCompanies)) {
@@ -191,19 +217,21 @@ class Service
         return $dataTablesData;
     }
 
-    public function getSiteFromAccount($account)
+    public function getSitesForAccount($account)
     {
         try {
             $filter = (new MarketplaceFilter())
                 ->setAccountId([$account->getId()]);
             $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
         } catch (\Exception $e) {
-            return 'UK';
+            return ['UK'];
         }
-        $marketplaces->rewind();
-        $marketplace = $marketplaces->current();
+        $sites = [];
+        foreach($marketplaces as $marketplace) {
+            $sites[] = $marketplace->getMarketplace();
+        }
 
-        return $marketplace->getMarketplace();
+        return $sites;
     }
 
     public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow)
