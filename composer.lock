@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5693205f5890767a5995c67923fd3b8c",
+    "content-hash": "809af1c8e1dd3c41cf6fe0ff126f23aa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1558,16 +1558,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.3",
+            "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9c0254da6785f6f9275cce60963d19dbacfbc366"
+                "reference": "38d5d94daad0d8f8c4074f6d8622ff22d0e9a736"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.3-12a4d6.zip",
-                "reference": "9c0254da6785f6f9275cce60963d19dbacfbc366",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8177-OrderInterfaceAndWrapper-cc8ae5.zip",
+                "reference": "38d5d94daad0d8f8c4074f6d8622ff22d0e9a736",
                 "shasum": null
             },
             "require": {
@@ -1594,7 +1594,7 @@
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.5.0",
+                "channelgrabber/settings": "^1.5.2",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.42",
@@ -1632,7 +1632,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-24T11:38:07+00:00"
+            "time": "2017-04-19 13:25:27"
         },
         {
             "name": "channelgrabber/permission",
@@ -5113,7 +5113,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -8854,10 +8854,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.4",
+            "alias_normalized": "1.28.4.0",
+            "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
