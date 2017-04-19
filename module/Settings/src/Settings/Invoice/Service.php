@@ -288,7 +288,7 @@ class Service
         $sendViaEmailOptions = [];
         foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
             $sendViaEmailOptions['options'][] = [
-                'title' => $sendOption,
+                'title' => ucfirst($sendOption),
                 'value' => $sendOption,
                 'selected' => $sendOption === $invoiceMapping->getSendViaEmail()
             ];
@@ -297,7 +297,7 @@ class Service
         $sendToFbaOptions = [];
         foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
             $sendToFbaOptions['options'][] = [
-                'title' => $sendOption,
+                'title' => ucfirst($sendOption),
                 'value' => $sendOption,
                 'selected' => $sendOption === $invoiceMapping->getSendToFba()
             ];
