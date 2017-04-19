@@ -9,6 +9,7 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
 use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
@@ -173,10 +174,19 @@ class Service
             // No previous invoice mappings
         }
 
+        $accountSiteMap = $this->getAccountSiteMap($accounts);
+
         /** @var Account $account */
         foreach ($accounts as $account) {
-            foreach ($this->getSitesForAccount($account) as $site) {
-                $key = implode('-', [$account->getId(), $site]);
+            $accountId = $account->getId();
+
+            $accountSites = [static::SITE_DEFAULT];
+            if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
+                $accountSites = $accountSiteMap[$accountId];
+            }
+
+            foreach ($accountSites as $site) {
+                $key = implode('-', [$accountId, $site]);
                 if (isset($invoiceMappings[$key])) {
                     continue;
                 }
@@ -219,17 +229,32 @@ class Service
         return $dataTablesData;
     }
 
-    public function getSitesForAccount(Account $account)
+    protected function getAccountSiteMap(Accounts $accounts)
     {
+        $accountSiteMap = [];
+        if ($accounts->count() == 0) {
+            return $accountSiteMap;
+        }
+
         try {
             /** @var Marketplaces $marketplaces */
             $marketplaces = $this->marketplaceService->fetchCollectionByFilter(
-                (new MarketplaceFilter())->setAccountId([$account->getId()])
+                (new MarketplaceFilter())->setAccountId($accounts->getIds())
             );
-            return $marketplaces->getArrayOf('marketplace');
+
+            /** @var Marketplace $marketplace */
+            foreach ($marketplaces as $marketplace) {
+                $accountId = $marketplace->getAccountId();
+                if (!isset($accountSiteMap[$accountId])) {
+                    $accountSiteMap[$accountId] = [];
+                }
+                $accountSiteMap[$accountId][] = $marketplace->getMarketplace();
+            }
         } catch (NotFound $exception) {
-            return [static::SITE_DEFAULT];
+            // No marketplaces attached to requested accounts
         }
+
+        return $accountSiteMap;
     }
 
     public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow)
