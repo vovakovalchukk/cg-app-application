@@ -1,36 +1,40 @@
 <?php
 namespace Settings\Invoice;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as Accounts;
+use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Aws\Ses\Service as AmazonSesService;
-use CG\Constant\Log\Role\Permission\OrganisationUnit;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Intercom\Company\Service as IntercomCompanyService;
+use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
+use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
+use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
+use CG\Settings\InvoiceMapping\Entity as InvoiceMapping;
+use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
+use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
+use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Template\Service as TemplateService;
 use CG\Template\Entity as Template;
+use CG\Template\Service as TemplateService;
 use CG\Template\SystemTemplateEntity as SystemTemplate;
 use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
-use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
-use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
-use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
-use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
-use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
-use CG\Account\Client\Service as AccountService;
 
 class Service
 {
     const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
     const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
+    const SITE_DEFAULT = 'UK';
 
     protected $invoiceService;
     protected $templateService;
@@ -151,47 +155,41 @@ class Service
         return $this->invoiceMappingService->save($entity);
     }
 
-    public function getInvoiceMappingsForAccounts($accounts)
+    public function getInvoiceMappingsForAccounts(Accounts $accounts)
     {
         $invoiceMappings = [];
-        $accountIds = [];
-        foreach ($accounts as $account) {
-            $accountIds[] = $account->getId();
-        }
 
         try {
-            $filter = (new InvoiceMappingFilter())
-                ->setAccountId($accountIds);
-            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter($filter);
-        } catch (\Exception $e) {
-            foreach ($accounts as $account) {
-                foreach ($this->getSitesForAccount($account) as $site) {
-                    $invoiceMappings[$account->getId()] = $this->invoiceMappingMapper->fromArray([
-                        'organisationUnitId' => $account->getOrganisationUnitId(),
-                        'accountId' => $account->getId(),
-                        'site' => $site,
-                    ]);
-                }
+            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
+                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())
+            );
+
+            /** @var InvoiceMapping $existingMapping */
+            foreach ($existingMappings as $existingMapping) {
+                $key = implode('-', [$existingMapping->getAccountId(), $existingMapping->getSite() ?: static::SITE_DEFAULT]);
+                $invoiceMappings[$key] = $existingMapping;
             }
+        } catch (NotFound $exception) {
+            // No previous invoice mappings
         }
 
+        /** @var Account $account */
         foreach ($accounts as $account) {
-            if (! isset($invoiceMappings[$account->getId()])) {
-                foreach ($this->getSitesForAccount($account) as $site) {
-                    $invoiceMappings[$account->getId()] = $this->invoiceMappingMapper->fromArray([
-                        'organisationUnitId' => $account->getOrganisationUnitId(),
-                        'accountId' => $account->getId(),
-                        'site' => $site,
-                    ]);
+            foreach ($this->getSitesForAccount($account) as $site) {
+                $key = implode('-', [$account->getId(), $site]);
+                if (isset($invoiceMappings[$key])) {
+                    continue;
                 }
+
+                $invoiceMappings[$key] = $this->invoiceMappingMapper->fromArray([
+                    'organisationUnitId' => $account->getOrganisationUnitId(),
+                    'accountId' => $account->getId(),
+                    'site' => $site,
+                ]);
             }
         }
 
-        foreach ($existingMappings as $existingMapping) {
-            $invoiceMappings[$existingMapping->getAccountId()] = $existingMapping;
-        }
-
-        return $invoiceMappings;
+        return array_values($invoiceMappings);
     }
 
     public function getInvoiceMappingDataTablesData($accounts, $invoices)
@@ -221,21 +219,17 @@ class Service
         return $dataTablesData;
     }
 
-    public function getSitesForAccount($account)
+    public function getSitesForAccount(Account $account)
     {
         try {
-            $filter = (new MarketplaceFilter())
-                ->setAccountId([$account->getId()]);
-            $marketplaces = $this->marketplaceService->fetchCollectionByFilter($filter);
-        } catch (\Exception $e) {
-            return ['UK'];
+            /** @var Marketplaces $marketplaces */
+            $marketplaces = $this->marketplaceService->fetchCollectionByFilter(
+                (new MarketplaceFilter())->setAccountId([$account->getId()])
+            );
+            return $marketplaces->getArrayOf('marketplace');
+        } catch (NotFound $exception) {
+            return [static::SITE_DEFAULT];
         }
-        $sites = [];
-        foreach($marketplaces as $marketplace) {
-            $sites[] = $marketplace->getMarketplace();
-        }
-
-        return $sites;
     }
 
     public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow)
