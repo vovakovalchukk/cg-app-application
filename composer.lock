@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b67526ec030f28c2660899cb54cf53c0",
+    "content-hash": "0cfad28bfd71aa05b8931a67acd45e53",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -348,16 +348,16 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.3.2",
+            "version": "dev-CGIV-8128-CollectionCacheValidation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "82b892388a720d52b4070d0491b61949764d2362"
+                "reference": "09956c331d748415e46d775cff2956d631c57b1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.3.2-ff68db.zip",
-                "reference": "82b892388a720d52b4070d0491b61949764d2362",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-dev-CGIV-8128-CollectionCacheValidation-f3692e.zip",
+                "reference": "09956c331d748415e46d775cff2956d631c57b1f",
                 "shasum": null
             },
             "require": {
@@ -378,7 +378,7 @@
                     "CG\\Cache\\": "src"
                 }
             },
-            "time": "2017-04-06T12:48:03+00:00"
+            "time": "2017-04-19 08:22:45"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -8882,9 +8882,17 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "2.3.3",
+            "alias_normalized": "2.3.3.0",
+            "version": "dev-CGIV-8128-CollectionCacheValidation",
+            "package": "channelgrabber/cache"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/cache": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

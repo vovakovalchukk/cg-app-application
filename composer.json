@@ -31,7 +31,7 @@
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.4",
         "channelgrabber/billing": "~1.11.4",
-        "channelgrabber/cache": "~2.3.2",
+        "channelgrabber/cache": "dev-CGIV-8128-CollectionCacheValidation as 2.3.3",
         "channelgrabber/cglib": "~1.11.6",
         "channelgrabber/channel": "~1.29.0",
         "channelgrabber/cilex": "~1.1.2",
