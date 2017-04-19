@@ -31,9 +31,9 @@ define([
 
                 if (this.props.listings[accountId]) {
                     var status = $.trim(this.props.listings[accountId].status);
-                    values.push(<td title={this.getHoverText(status)}><span className={"status " + status}>{status}</span></td>);
+                    values.push(<td title={this.getHoverText(status)}><span className={"listing-status " + status}></span></td>);
                 } else {
-                    values.push(<td title={this.getHoverText('unimported')}><span className={"status not_started"}>Unimported</span></td>);
+                    values.push(<td title={this.getHoverText('unimported')}><span className={"listing-status unknown"}></span></td>);
                 }
             }
 

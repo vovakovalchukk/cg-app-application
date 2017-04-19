@@ -7,6 +7,8 @@ define([
 ) {
     "use strict";
 
+    const listingColumnWidth = 100;// pixels
+
     var ListingsViewComponent = React.createClass({
         getHeaders: function() {
             var headers = [];
@@ -16,7 +18,7 @@ define([
 
                 var channel = $.trim(this.props.accounts[accountId].channel);
                 var displayName = $.trim(this.props.accounts[accountId].displayName);
-                headers.push(<th title={displayName}>{channel}</th>);
+                headers.push(<th title={displayName} style={{width: listingColumnWidth}}>{channel}</th>);
             }
 
             return headers;
