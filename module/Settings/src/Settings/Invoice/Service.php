@@ -14,6 +14,7 @@ use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
 use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
@@ -156,6 +157,9 @@ class Service
         return $this->invoiceMappingService->save($entity);
     }
 
+    /**
+     * @return InvoiceMapping[]
+     */
     public function getInvoiceMappingsForAccounts(Accounts $accounts)
     {
         $invoiceMappings = [];
@@ -202,20 +206,17 @@ class Service
         return array_values($invoiceMappings);
     }
 
-    public function getInvoiceMappingDataTablesData($accounts, $invoices)
+    public function getInvoiceMappingDataTablesData(Accounts $accounts, $invoices)
     {
         $invoiceMappings = $this->getInvoiceMappingsForAccounts($accounts);
-        try {
-            $tradingCompanies = $this->getTradingCompanies();
-            if (count($tradingCompanies)) {
-                $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
-                $tradingCompanies->attach($rootOu);
-            }
-        } catch (\Exception $e) {
-            $tradingCompanies = [];
+        $tradingCompanies = $this->getTradingCompanies();
+        if (count($tradingCompanies)) {
+            $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
+            $tradingCompanies->attach($rootOu);
         }
 
         $dataTablesData = [];
+        /** @var Account $account */
         foreach ($accounts as $account) {
             $mainAccountRow = true;
             foreach ($invoiceMappings as $invoiceMapping) {
@@ -257,9 +258,15 @@ class Service
         return $accountSiteMap;
     }
 
-    public function getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow)
-    {
+    protected function getInvoiceMappingDataTablesRow(
+        Account $account,
+        InvoiceMapping $invoiceMapping,
+        $invoices,
+        $tradingCompanies,
+        $mainAccountRow
+    ) {
         $invoiceOptions = [];
+        /** @var Entity $invoice */
         foreach ($invoices as $invoice) {
             $invoiceOptions['options'][] = [
                 'title' => $invoice->getName(),
@@ -269,6 +276,7 @@ class Service
         }
 
         $tradingCompanyOptions = [];
+        /** @var OrganisationUnit $tradingCompany */
         foreach ($tradingCompanies as $tradingCompany) {
             $tradingCompanyOptions['options'][] = [
                 'title' => $tradingCompany->getAddressCompanyName(),
