@@ -161,6 +161,9 @@
     }
     .details-layout-column {
         width: 50%;
+        th {
+            text-transform: capitalize;
+        }
         tr:last-child {
             td {
                 border-bottom: 1px solid $color-lgrey;

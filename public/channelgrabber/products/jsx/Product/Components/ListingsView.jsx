@@ -13,8 +13,10 @@ define([
 
             for (var accountId in this.props.accounts) {
                 if (!this.props.accounts.hasOwnProperty(accountId)) continue;
+
+                var channel = $.trim(this.props.accounts[accountId].channel);
                 var displayName = $.trim(this.props.accounts[accountId].displayName);
-                headers.push(<th title={displayName}>{displayName}</th>);
+                headers.push(<th title={displayName}>{channel}</th>);
             }
 
             return headers;
