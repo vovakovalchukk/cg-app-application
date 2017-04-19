@@ -672,7 +672,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1215,7 +1215,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "1c49e21ccc9b3f3c7a131f03726806dfd1ec24d4"
+                "reference": "8d3735128f0e73da5c3a80e4e42e32523153a1d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-f800ce.zip",
+                "reference": "8d3735128f0e73da5c3a80e4e42e32523153a1d3",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1249,7 +1255,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-04-18 10:04:38"
+            "time": "2017-04-19 11:27:22"
         },
         {
             "name": "channelgrabber/locale",
@@ -5107,7 +5113,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -5454,7 +5460,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5547,7 +5553,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6016,7 +6022,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
