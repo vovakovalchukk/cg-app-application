@@ -43,6 +43,7 @@ $(document).ready(function() {
 
             sameAccount = (lastAccountId === aData.accountId);
             if(! sameAccount) {
+                $(nRow).addClass('account-row')
                 evenRow = (!evenRow);
             }
             rowType = (evenRow ? 'even' : 'odd');
