@@ -83,7 +83,7 @@ class Courier
         return $this->carriers->getAllCarriers();
     }
 
-    public function getCarrierPriorityOptions($tracking)
+    public function getCarrierPriorityOptions()
     {
         $frequentCarrierList = [
             'DPD',
@@ -94,14 +94,9 @@ class Courier
 
         $carrierDropdownOptions = [];
         foreach ($frequentCarrierList as $carrier) {
-            $selected = false;
-            if(!is_null($tracking)) {
-                $selected = ($tracking->getCarrier() == $carrier);
-            }
             $carrierDropdownOptions[] = [
                 'title' => $carrier,
                 'value' => $carrier,
-                'selected' => $selected
             ];
         }
         return $carrierDropdownOptions;
