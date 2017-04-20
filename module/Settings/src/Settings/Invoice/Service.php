@@ -142,15 +142,18 @@ class Service
 
     public function saveInvoiceMappingFromPostData($postData)
     {
+        if (!isset($postData['organisationUnitId'])) {
+            $postData['organisationUnitId'] = $this->accountService->getOuIdFromAccountId($postData['accountId']);
+        }
+
         try {
-            if (isset($postData['id'])) {
-                $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
-                $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
-            } else {
-                $postData['organisationUnitId'] = $this->accountService->getOuIdFromAccountId($postData['accountId']);
-                $entity = $this->invoiceMappingMapper->fromArray($postData);
+            if (!isset($postData['id'])) {
+                throw new NotFound('No id - nothing to lookup');
             }
-        } catch (\Exception $e) {
+
+            $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
+            $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
+        } catch (NotFound $exception) {
             $entity = $this->invoiceMappingMapper->fromArray($postData);
         }
 
