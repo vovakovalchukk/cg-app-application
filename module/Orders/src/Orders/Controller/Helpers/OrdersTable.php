@@ -24,6 +24,7 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\MvcEvent;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 
 class OrdersTable
 {
@@ -144,6 +145,9 @@ class OrdersTable
             if ($accountEntity instanceof Account) {
                 $order['accountName'] = $accountEntity->getDisplayName();
                 $order['channelImgUrl'] = $accountEntity->getImageUrl();
+                if ($accountEntity->getChannel() === 'amazon' && $order['fulfilmentChannel'] === FulfilmentChannelMapper::CG_FBA) {
+                    $order['channel'] .= '-fba';
+                }
             }
 
             $order['accountLink'] = $event->getRouter()->assemble(
