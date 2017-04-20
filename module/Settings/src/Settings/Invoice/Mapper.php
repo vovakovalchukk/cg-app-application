@@ -11,7 +11,7 @@ class Mapper
 {
     public function toDataTableArray(
         OrganisationUnitEntity $tradingCompany,
-        TemplateCollection $invoices,
+        array $invoices,
         InvoiceSettingsEntity $settings
     ) {
         $tradingCompanySettings = $this->getTradingCompanySettings($settings, $tradingCompany);

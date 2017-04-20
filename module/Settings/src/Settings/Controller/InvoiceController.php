@@ -8,6 +8,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Credentials as AmazonCredentials;
 use CG\Amazon\RegionAbstract as AmazonRegion;
 use CG\Amazon\RegionFactory as AmazonRegionFactory;
+use CG\Channel\Type as ChannelType;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -22,13 +23,14 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Invoice\Helper as InvoiceHelper;
 use Settings\Invoice\Mapper as InvoiceMapper;
-use Settings\Invoice\Service as InvoiceService;
+use Settings\Invoice\Settings as InvoiceSettings;
+use Settings\Invoice\Mappings as InvoiceMappings;
 use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Channel\Type as ChannelType;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -63,8 +65,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $userOrganisationUnitService;
     /** @var OrderTagManager $orderTagManager */
     protected $orderTagManager;
-    /** @var InvoiceService $invoiceService */
-    protected $invoiceService;
+    /** @var InvoiceHelper $invoiceHelper */
+    protected $invoiceHelper;
+    /** @var InvoiceSettings $invoiceSettings */
+    protected $invoiceSettings;
+    /** @var InvoiceMappings $invoiceMappings */
+    protected $invoiceMappings;
     /** @var InvoiceMapper $invoiceMapper */
     protected $invoiceMapper;
     /** @var Translator $translator */
@@ -88,7 +94,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         TemplateService $templateService,
         UserOrganisationUnitService $userOrganisationUnitService,
         OrderTagManager $orderTagManager,
-        InvoiceService $invoiceService,
+        InvoiceHelper $invoiceHelper,
+        InvoiceSettings $invoiceSettings,
+        InvoiceMappings $invoiceMappings,
         InvoiceMapper $invoiceMapper,
         Translator $translator,
         Config $config,
@@ -103,7 +111,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $this->templateService = $templateService;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->orderTagManager = $orderTagManager;
-        $this->invoiceService = $invoiceService;
+        $this->invoiceHelper = $invoiceHelper;
+        $this->invoiceSettings = $invoiceSettings;
+        $this->invoiceMappings = $invoiceMappings;
         $this->invoiceMapper = $invoiceMapper;
         $this->translator = $translator;
         $this->config = $config;
@@ -116,8 +126,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function indexAction()
     {
-        $invoiceSettings = $this->invoiceService->getSettings();
-        $existingInvoices = $this->invoiceService->getExistingInvoicesForView();
+        $invoiceSettings = $this->invoiceSettings->getSettings();
+        $existingInvoices = $this->invoiceSettings->getExistingInvoicesForView();
 
         return $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
@@ -129,8 +139,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveSettingsAction()
     {
-        $entity = $this->invoiceService->saveSettingsFromPostData($this->params()->fromPost());
-        $emailVerificationStatus = $this->invoiceService->getEmailVerificationStatusFromEntity($entity);
+        $entity = $this->invoiceSettings->saveSettingsFromPostData($this->params()->fromPost());
+        $emailVerificationStatus = $this->invoiceSettings->getEmailVerificationStatusFromEntity($entity);
 
         return $this->jsonModelFactory->newInstance([
             'invoiceSettings' => json_encode($entity),
@@ -141,9 +151,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function ajaxSettingsAction()
     {
-        $invoiceSettings = $this->invoiceService->getSettings();
-        $tradingCompanies = $this->invoiceService->getTradingCompanies();
-        $invoices = $this->invoiceService->getInvoices();
+        $invoiceSettings = $this->invoiceSettings->getSettings();
+        $tradingCompanies = $this->invoiceHelper->getTradingCompanies();
+        $invoices = $this->invoiceSettings->getInvoices();
 
         $data = [
             'iTotalRecords' => 0,
@@ -152,8 +162,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'Records' => [],
         ];
 
-        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
-
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($tradingCompanies);
         foreach ($tradingCompanies as $tradingCompany) {
             $data['Records'][] = $this->invoiceMapper->toDataTableArray(
                 $tradingCompany,
@@ -166,8 +175,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveMappingAction()
     {
-        $entity = $this->invoiceService->saveInvoiceMappingFromPostData($this->params()->fromPost());
-
+        $entity = $this->invoiceMappings->saveInvoiceMappingFromPostData($this->params()->fromPost());
         return $this->getJsonModelFactory()->newInstance([
             'invoiceMapping' => json_encode($entity)
         ]);
@@ -175,7 +183,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function ajaxMappingAction()
     {
-        $invoices = $this->invoiceService->getInvoices();
+        $invoices = $this->invoiceSettings->getInvoices();
         $ouIds = $this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser();
 
         $filter = (new Filter())
@@ -184,7 +192,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setType(ChannelType::SALES)
             ->setLimit("all");
         $accounts = $this->accountService->fetchByFilter($filter);
-        $dataTablesData = $this->invoiceService->getInvoiceMappingDataTablesData($accounts, $invoices);
+        $dataTablesData = $this->invoiceMappings->getInvoiceMappingDataTablesData($accounts, $invoices);
 
         $data = [
             'iTotalRecords' => 0,
@@ -199,9 +207,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function settingsAction()
     {
-        $invoiceSettings = $this->invoiceService->getSettings();
-        $tradingCompanies = $this->invoiceService->getTradingCompanies();
-        $invoices = $this->invoiceService->getInvoices();
+        $invoiceSettings = $this->invoiceSettings->getSettings();
+        $tradingCompanies = $this->invoiceHelper->getTradingCompanies();
+        $invoices = $this->invoiceSettings->getInvoices();
 
         $view = $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
@@ -322,13 +330,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceEmailVerificationStatusView(InvoiceSettingsEntity $invoiceSettings)
     {
-        $config = $this->invoiceService->getEmailVerificationStatusForDisplay($invoiceSettings->getEmailVerificationStatus());
+        $config = $this->invoiceSettings->getEmailVerificationStatusForDisplay($invoiceSettings->getEmailVerificationStatus());
         return $this->viewModelFactory->newInstance($config)->setTemplate('elements/status.mustache');
     }
 
     protected function getTradingCompanyInvoiceSettingsDataTable()
     {
-        $datatables = $this->invoiceService->getDatatable();
+        $datatables = $this->invoiceSettings->getDatatable();
         $settings = $datatables->getVariable('settings');
 
         $settings->setSource(
@@ -346,7 +354,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceMappingTable()
     {
-        $datatables = $this->invoiceService->getInvoiceMappingDatatable();
+        $datatables = $this->invoiceMappings->getDatatable();
         $settings = $datatables->getVariable('settings');
 
         $settings->setSource(

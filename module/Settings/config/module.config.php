@@ -1,7 +1,7 @@
 <?php
 use CG\Account\Client\Service as AccountService;
-use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
+use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\StorageInterface as AccountStorageInterface;
 use CG\Amazon\Account as AmazonAccount;
 use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
@@ -30,8 +30,8 @@ use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
 use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
-use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
 use Settings\Controller\AdvancedController;
@@ -40,10 +40,10 @@ use Settings\Controller\ApiController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
+use Settings\Controller\EmailController;
 use Settings\Controller\ExportController;
 use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
-use Settings\Controller\EmailController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
@@ -51,7 +51,8 @@ use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
 use Settings\Controller\WooCommerceController;
 use Settings\Factory\SidebarNavFactory;
-use Settings\Invoice\Service as InvoiceService;
+use Settings\Invoice\Mappings as InvoiceMappings;
+use Settings\Invoice\Settings as InvoiceSettings;
 use Settings\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
@@ -820,8 +821,8 @@ return [
                 'salesAccountList' => DataTable::class,
                 'shippingAccountList' => DataTable::class,
                 'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
-                'InvoiceMappingSettingsDatatable' => DataTable::class,
-                'InvoiceMappingSettingsDatatableSettings' => DataTable\Settings::class,
+                'InvoiceMappingDatatable' => DataTable::class,
+                'InvoiceMappingDatatableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
                 'ChannelStatusJS' => ViewModel::class,
@@ -893,10 +894,14 @@ return [
                     'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
                 ]
             ],
-            InvoiceService::class => [
+            InvoiceSettings::class => [
                 'parameters' => [
                     'datatable' => 'InvoiceSettingsDataTable',
-                    'invoiceMappingDatatable' => 'InvoiceMappingSettingsDatatable'
+                ],
+            ],
+            InvoiceMappings::class => [
+                'parameters' => [
+                    'datatable' => 'InvoiceMappingDatatable',
                 ],
             ],
             'InvoiceSettingsDataTable' => [
@@ -924,7 +929,7 @@ return [
                     'footer' => false,
                 ]
             ],
-            'InvoiceMappingSettingsDatatable' => [
+            'InvoiceMappingDatatable' => [
                 'parameters' => [
                     'variables' => [
                         'sortable' => false,
@@ -943,11 +948,11 @@ return [
                         ['column' => 'InvoiceMappingSendToFbaColumn'],
                     ],
                     'setVariable' => [
-                        ['name' => 'settings', 'value' => 'InvoiceMappingSettingsDatatableSettings']
+                        ['name' => 'settings', 'value' => 'InvoiceMappingDatatableSettings']
                     ],
                 ]
             ],
-            'InvoiceMappingSettingsDatatableSettings' => [
+            'InvoiceMappingDatatableSettings' => [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => false,

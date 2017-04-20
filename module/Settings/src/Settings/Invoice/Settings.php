@@ -1,27 +1,14 @@
 <?php
 namespace Settings\Invoice;
 
-use CG\Account\Client\Service as AccountService;
-use CG\Account\Shared\Collection as Accounts;
-use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Aws\Ses\Service as AmazonSesService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
-use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
-use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
-use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
-use CG\Settings\InvoiceMapping\Entity as InvoiceMapping;
-use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
-use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
-use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\Entity as Template;
@@ -32,58 +19,64 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
 
-class Service
+class Settings
 {
     const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
     const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
     const SITE_DEFAULT = 'UK';
 
-    protected $invoiceService;
+    /** @var Helper $helper */
+    protected $helper;
+    /** @var InvoiceSettingsService $invoiceSettingsService */
+    protected $invoiceSettingsService;
+    /** @var TemplateService $templateService */
     protected $templateService;
-    protected $organisationUnitService;
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var InvoiceSettingsMapper $invoiceSettingsMapper */
     protected $invoiceSettingsMapper;
+    /** @var DataTable $datatable */
     protected $datatable;
-    protected $invoiceMappingDatatable;
+    /** @var AmazonSesService $amazonSesService */
+    protected $amazonSesService;
+    /** @var IntercomEventService $intercomEventService */
+    protected $intercomEventService;
+    /** @var IntercomCompanyService $intercomCompanyService */
+    protected $intercomCompanyService;
+    /** @var UserOrganisationUnitService $userOrganisationUnitService */
     protected $userOrganisationUnitService;
-    protected $marketplaceService;
-    protected $invoiceMappingService;
-    protected $invoiceMappingMapper;
-    protected $accountService;
+
+    /** @var array $templateImagesMap */
     protected $templateImagesMap = [
-        'FPS-3'  => 'Form-FPS3.png',
-        'FPS-15'  => 'Form-FPS15.png',
-        'FPS-16'  => 'Form-FPS16.png',
-        'FPD-1'  => 'Form-FPD1.png',
+        'FPS-3' => 'Form-FPS3.png',
+        'FPS-15' => 'Form-FPS15.png',
+        'FPS-16' => 'Form-FPS16.png',
+        'FPD-1' => 'Form-FPD1.png',
         Template::DEFAULT_TEMPLATE_ID => 'blank.png',
     ];
+    /** @var array $templatePurchaseLinksMap */
     protected $templatePurchaseLinksMap = [
-        'FPS-3'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
+        'FPS-3' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
         'FPS-15' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-15/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPS-15%20CG',
         'FPS-16' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-16/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-16%20CG%20Link',
-        'FPD-1'  => 'https://www.formsplus.co.uk/online-shop/integrated/double-integrated-labels/fpd-1/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPD-1%20CG',
+        'FPD-1' => 'https://www.formsplus.co.uk/online-shop/integrated/double-integrated-labels/fpd-1/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPD-1%20CG',
     ];
 
     public function __construct(
+        Helper $helper,
         InvoiceSettingsService $invoiceSettingsService,
         TemplateService $templateService,
-        OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer,
         InvoiceSettingsMapper $invoiceSettingsMapper,
         DataTable $datatable,
         AmazonSesService $amazonSesService,
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
-        UserOrganisationUnitService $userOrganisationUnitService,
-        DataTable $invoiceMappingDatatable,
-        MarketplaceService $marketplaceService,
-        InvoiceMappingService $invoiceMappingService,
-        InvoiceMappingMapper $invoiceMappingMapper,
-        AccountService $accountService
+        UserOrganisationUnitService $userOrganisationUnitService
     ) {
+        $this->helper = $helper;
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->templateService = $templateService;
-        $this->organisationUnitService = $organisationUnitService;
         $this->activeUserContainer = $activeUserContainer;
         $this->invoiceSettingsMapper = $invoiceSettingsMapper;
         $this->datatable = $datatable;
@@ -91,11 +84,6 @@ class Service
         $this->intercomEventService = $intercomEventService;
         $this->intercomCompanyService = $intercomCompanyService;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
-        $this->invoiceMappingDatatable = $invoiceMappingDatatable;
-        $this->marketplaceService = $marketplaceService;
-        $this->invoiceMappingService = $invoiceMappingService;
-        $this->invoiceMappingMapper = $invoiceMappingMapper;
-        $this->accountService = $accountService;
     }
 
     public function saveSettingsFromPostData($data)
@@ -138,185 +126,6 @@ class Service
         }
 
         return $entity;
-    }
-
-    public function saveInvoiceMappingFromPostData($postData)
-    {
-        if (!isset($postData['organisationUnitId'])) {
-            $postData['organisationUnitId'] = $this->accountService->getOuIdFromAccountId($postData['accountId']);
-        }
-
-        try {
-            if (!isset($postData['id'])) {
-                throw new NotFound('No id - nothing to lookup');
-            }
-
-            $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
-            $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
-        } catch (NotFound $exception) {
-            $entity = $this->invoiceMappingMapper->fromArray($postData);
-        }
-
-        return $this->invoiceMappingService->save($entity);
-    }
-
-    /**
-     * @return InvoiceMapping[]
-     */
-    public function getInvoiceMappingsForAccounts(Accounts $accounts)
-    {
-        $invoiceMappings = [];
-
-        try {
-            $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
-                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())
-            );
-
-            /** @var InvoiceMapping $existingMapping */
-            foreach ($existingMappings as $existingMapping) {
-                $key = implode('-', [$existingMapping->getAccountId(), $existingMapping->getSite() ?: static::SITE_DEFAULT]);
-                $invoiceMappings[$key] = $existingMapping;
-            }
-        } catch (NotFound $exception) {
-            // No previous invoice mappings
-        }
-
-        $accountSiteMap = $this->getAccountSiteMap($accounts);
-
-        /** @var Account $account */
-        foreach ($accounts as $account) {
-            $accountId = $account->getId();
-
-            $accountSites = [static::SITE_DEFAULT];
-            if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
-                $accountSites = $accountSiteMap[$accountId];
-            }
-
-            foreach ($accountSites as $site) {
-                $key = implode('-', [$accountId, $site]);
-                if (isset($invoiceMappings[$key])) {
-                    continue;
-                }
-
-                $invoiceMappings[$key] = $this->invoiceMappingMapper->fromArray([
-                    'organisationUnitId' => $account->getOrganisationUnitId(),
-                    'accountId' => $account->getId(),
-                    'site' => $site,
-                ]);
-            }
-        }
-
-        return array_values($invoiceMappings);
-    }
-
-    public function getInvoiceMappingDataTablesData(Accounts $accounts, $invoices)
-    {
-        $invoiceMappings = $this->getInvoiceMappingsForAccounts($accounts);
-        $tradingCompanies = $this->getTradingCompanies();
-        if (count($tradingCompanies)) {
-            $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUser()->getOrganisationUnitId());
-            $tradingCompanies->attach($rootOu);
-        }
-
-        $dataTablesData = [];
-        /** @var Account $account */
-        foreach ($accounts as $account) {
-            $mainAccountRow = true;
-            foreach ($invoiceMappings as $invoiceMapping) {
-                if ($invoiceMapping->getAccountId() !== $account->getId()) {
-                    continue;
-                }
-                $dataTablesData[] = $this->getInvoiceMappingDataTablesRow($account, $invoiceMapping, $invoices, $tradingCompanies, $mainAccountRow);
-                $mainAccountRow = false;
-            }
-        }
-        return $dataTablesData;
-    }
-
-    protected function getAccountSiteMap(Accounts $accounts)
-    {
-        $accountSiteMap = [];
-        if ($accounts->count() == 0) {
-            return $accountSiteMap;
-        }
-
-        try {
-            /** @var Marketplaces $marketplaces */
-            $marketplaces = $this->marketplaceService->fetchCollectionByFilter(
-                (new MarketplaceFilter())->setAccountId($accounts->getIds())
-            );
-
-            /** @var Marketplace $marketplace */
-            foreach ($marketplaces as $marketplace) {
-                $accountId = $marketplace->getAccountId();
-                if (!isset($accountSiteMap[$accountId])) {
-                    $accountSiteMap[$accountId] = [];
-                }
-                $accountSiteMap[$accountId][] = $marketplace->getMarketplace();
-            }
-        } catch (NotFound $exception) {
-            // No marketplaces attached to requested accounts
-        }
-
-        return $accountSiteMap;
-    }
-
-    protected function getInvoiceMappingDataTablesRow(
-        Account $account,
-        InvoiceMapping $invoiceMapping,
-        $invoices,
-        $tradingCompanies,
-        $mainAccountRow
-    ) {
-        $invoiceOptions = [];
-        /** @var Entity $invoice */
-        foreach ($invoices as $invoice) {
-            $invoiceOptions['options'][] = [
-                'title' => $invoice->getName(),
-                'value' => $invoice->getId(),
-                'selected' => $invoice->getId() === $invoiceMapping->getInvoiceId()
-            ];
-        }
-
-        $tradingCompanyOptions = [];
-        /** @var OrganisationUnit $tradingCompany */
-        foreach ($tradingCompanies as $tradingCompany) {
-            $tradingCompanyOptions['options'][] = [
-                'title' => $tradingCompany->getAddressCompanyName(),
-                'value' => $tradingCompany->getId(),
-                'selected' => $tradingCompany->getId() === $invoiceMapping->getOrganisationUnitId()
-            ];
-        }
-
-        $sendViaEmailOptions = [];
-        foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
-            $sendViaEmailOptions['options'][] = [
-                'title' => ucfirst($sendOption),
-                'value' => $sendOption,
-                'selected' => $sendOption === $invoiceMapping->getSendViaEmail()
-            ];
-        }
-
-        $sendToFbaOptions = [];
-        foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
-            $sendToFbaOptions['options'][] = [
-                'title' => ucfirst($sendOption),
-                'value' => $sendOption,
-                'selected' => $sendOption === $invoiceMapping->getSendToFba()
-            ];
-        }
-
-        return [
-            'accountId' => $account->getId(),
-            'rowId' => $invoiceMapping->getId(),
-            'channel' => $mainAccountRow ? $account->getChannel() : '',
-            'displayName' => $mainAccountRow ? $account->getDisplayName() : '',
-            'site' => $invoiceMapping->getSite(),
-            'tradingCompany' => $mainAccountRow ? $tradingCompanyOptions : '',
-            'assignedInvoice' => $invoiceOptions,
-            'sendViaEmail' => $sendViaEmailOptions,
-            'sendToFba' => $account->getChannel() === 'amazon' ? $sendToFbaOptions : '',
-        ];
     }
 
     /**
@@ -540,9 +349,9 @@ class Service
         ];
 
         try {
-            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
+            return iterator_to_array($this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
                 $organisationUnits
-            );
+            ));
         } catch (NotFound $e) {
             return [];
         }
@@ -566,7 +375,7 @@ class Service
         return ['system' => $systemInvoices, 'user' => $userInvoices];
     }
 
-    private function getBlankTemplate()
+    protected function getBlankTemplate()
     {
         return [
             'name' => 'Blank',
@@ -585,31 +394,13 @@ class Service
         ];
     }
 
-    public function getTradingCompanies()
-    {
-        $limit = 'all';
-        $page = 1;
-        $ancestor = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
-
-        try {
-            return $this->organisationUnitService->fetchFiltered(
-                $limit,
-                $page,
-                $ancestor
-            );
-        } catch (NotFound $e) {
-            return [];
-        }
-    }
-
-    private function getTemplateViewData($template)
+    protected function getTemplateViewData($template)
     {
         $templateViewDataElement['name'] = $template->getName();
         $templateViewDataElement['key'] = $template->getId();
         $templateViewDataElement['invoiceId'] = $template->getId();
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
         $templateViewDataElement['links'] = $template->getViewLinks();
-
         return $templateViewDataElement;
     }
 
@@ -619,25 +410,5 @@ class Service
     public function getDatatable()
     {
         return $this->datatable;
-    }
-
-    public function setDatatable(Datatable $datatable)
-    {
-        $this->datatable = $datatable;
-        return $this;
-    }
-
-    /**
-     * @return Datatable
-     */
-    public function getInvoiceMappingDatatable()
-    {
-        return $this->invoiceMappingDatatable;
-    }
-
-    public function setInvoiceMappingDatatable(Datatable $invoiceMappingDatatable)
-    {
-        $this->invoiceMappingDatatable = $invoiceMappingDatatable;
-        return $this;
     }
 }
