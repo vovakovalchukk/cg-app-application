@@ -11,7 +11,7 @@ use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\OrderInterface as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;

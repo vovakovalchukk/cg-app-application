@@ -12,7 +12,7 @@ use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\Provider\Label\Create as LabelCreateService;
 use CG\CourierAdapter\Provider\Manifest\Service as ManifestService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\OrderInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\User\Entity as User;

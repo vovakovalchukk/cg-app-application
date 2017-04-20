@@ -19,7 +19,7 @@ use CG\Order\Client\Label\Exception\SaveFailedRetryRequested;
 use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\OrderInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\PngToPdfConverter;

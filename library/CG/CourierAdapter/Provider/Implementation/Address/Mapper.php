@@ -2,7 +2,7 @@
 namespace CG\CourierAdapter\Provider\Implementation\Address;
 
 use CG\CourierAdapter\Provider\Implementation\Address as CAAddress;
-use CG\Order\Shared\Entity as OHOrder;
+use CG\Order\Shared\OrderInterface as OHOrder;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Mapper

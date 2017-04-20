@@ -8,7 +8,7 @@ use CG\CourierAdapter\Provider\Label\Mapper as CALabelMapper;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\OrderInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;

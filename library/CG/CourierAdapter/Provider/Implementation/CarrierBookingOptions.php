@@ -12,7 +12,7 @@ use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField as PackageField;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
-use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\OrderInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
 
