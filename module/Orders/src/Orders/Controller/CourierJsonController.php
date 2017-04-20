@@ -117,6 +117,7 @@ class CourierJsonController extends AbstractActionController
     {
         $data = $this->getDefaultJsonData();
         $orderIds = $this->params()->fromPost('order', []);
+        // todo: fix this count to account for linked orders
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
             $data['Records'] = $this->reviewAjaxService->getReviewListData($orderIds);

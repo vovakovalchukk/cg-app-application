@@ -10,6 +10,7 @@ use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
+use CG\Order\Shared\OrderLinker;
 use CG\Product\Collection as ProductCollection;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Orders\Courier\Service;
@@ -26,6 +27,8 @@ class ReviewAjax
     protected $userOuService;
     /** @var Service */
     protected $courierService;
+    /** @var OrderLinker */
+    protected $orderLinker;
 
     protected $reviewListRequiredFields = ['courier', 'service'];
 
@@ -34,13 +37,15 @@ class ReviewAjax
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
         UserOUService $userOuService,
-        Service $courierService
+        Service $courierService,
+        OrderLinker $orderLinker
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
         $this->shippingServiceFactory = $shippingServiceFactory;
         $this->userOuService = $userOuService;
         $this->courierService = $courierService;
+        $this->orderLinker = $orderLinker;
     }
 
     /**
@@ -120,6 +125,7 @@ class ReviewAjax
     public function getReviewListData(array $orderIds)
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
+        $orders = ($this->orderLinker)($orders);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
         $data = $this->formatOrdersAsReviewListData($orders);
         return $this->sortReviewListData($data);
