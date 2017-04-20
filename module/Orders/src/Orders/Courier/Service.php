@@ -129,7 +129,7 @@ class Service implements LoggerAwareInterface
     /**
      * @return array
      */
-    public function getCommonOrderListData($order, $rootOu)
+    public function getCommonOrderListData(Order $order, OrganisationUnit $rootOu)
     {
         $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
         $shippingDescription = $order->getShippingMethod();
