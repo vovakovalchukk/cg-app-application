@@ -20,6 +20,7 @@ use Settings\Controller\ChannelController as ChannelSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 
 class OrderDetailsController extends AbstractActionController
 {
@@ -236,7 +237,7 @@ class OrderDetailsController extends AbstractActionController
         $account = $this->accountService->fetch($order->getAccountId());
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/accountDetails');
-        $view->addChild($this->getChannelLogo($account), 'channelLogo');
+        $view->addChild($this->getChannelLogo($account, $order), 'channelLogo');
         $view->setVariable(
             'accountUrl',
             $this->url()->fromRoute(
@@ -248,12 +249,16 @@ class OrderDetailsController extends AbstractActionController
         return $view;
     }
 
-    protected function getChannelLogo(Account $account)
+    protected function getChannelLogo(Account $account, Order $order)
     {
+        $channel = $account->getChannel();
+        if ($account->getChannel() === 'amazon' && $order->getFulfilmentChannel() === FulfilmentChannelMapper::CG_FBA) {
+            $channel .= '-fba';
+        }
         $externalData = $account->getExternalData();
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate("elements/channel-large.mustache");
-        $view->setVariable('channel', $account->getChannel());
+        $view->setVariable('channel', $channel);
         if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
             $view->setVariable('channelImgUrl', $externalData['imageUrl']);
         }
