@@ -72,6 +72,11 @@ require([
     <?= $this->timelineBoxes; ?>
 </div>
 
+<?php if($this->linkedOrdersSection): ?>
+<div class="module clearfix section-separator" id="linked-orders">
+    <?= $this->linkedOrdersSection; ?>
+</div>
+<?php endif ?>
 <div class="module clearfix section-separator" id="order-alert">
     <?= $this->orderAlert; ?>
 </div>

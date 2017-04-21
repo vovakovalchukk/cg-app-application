@@ -5,6 +5,9 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
+use CG\Order\Shared\OrderLink\Filter as OrderLinkFilter;
+use CG\Order\Shared\OrderLink\Service as OrderLinkService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Service as UsageService;
@@ -39,6 +42,8 @@ class OrderDetailsController extends AbstractActionController
     protected $timelineService;
     /** @var OrderNotesHelper $orderNotesHelper */
     protected $orderNotesHelper;
+    /** @var OrderLinkService $orderLinkService */
+    protected $orderLinkService;
 
     public function __construct(
         UsageService $usageService,
@@ -48,7 +53,8 @@ class OrderDetailsController extends AbstractActionController
         BulkActionsService $bulkActionsService,
         AccountService $accountService,
         TimelineService $timelineService,
-        OrderNotesHelper $orderNotesHelper
+        OrderNotesHelper $orderNotesHelper,
+        OrderLinkService $orderLinkService
     ) {
         $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
@@ -58,6 +64,7 @@ class OrderDetailsController extends AbstractActionController
         $this->accountService = $accountService;
         $this->timelineService = $timelineService;
         $this->orderNotesHelper = $orderNotesHelper;
+        $this->orderLinkService = $orderLinkService;
     }
 
     public function orderAction()
@@ -96,6 +103,7 @@ class OrderDetailsController extends AbstractActionController
         $view->addChild($buyerMessage, 'buyerMessage');
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
+        $view->addChild($this->getLinkedOrdersSection($order), 'linkedOrdersSection');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('existingNotes', $this->getNotes($order));
@@ -299,6 +307,27 @@ class OrderDetailsController extends AbstractActionController
         $status->setVariable('message', $messageText);
         $status->setVariable('statusClass', str_replace(' ', '-', $statusText));
         return $status;
+    }
+
+    protected function getLinkedOrdersSection(Order $order)
+    {
+        try {
+            $filter = (new OrderLinkFilter())
+                ->setOrderId([$order->getId()]);
+            $linkedOrdersCollection = $this->orderLinkService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            $linkedOrdersCollection = [];
+        }
+
+        $linkedOrders = [];
+        foreach ($linkedOrdersCollection as $linkedOrder) {
+            array_merge($linkedOrders, $linkedOrder->getOrderIds());
+        }
+
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('orders/orders/order/linkedOrders');
+        $view->setVariable('linkedOrders', $linkedOrders);
+        return $view;
     }
 
     protected function getBuyerMessage(Order $order)
