@@ -1562,12 +1562,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "80aa635781d6a54bd981f4f53212a2e01d8804e8"
+                "reference": "e756c13cd9fa8a10286ac344d7507654ce5dba8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8282-Linked-Orders-Shipping-Changes-bd13f1.zip",
-                "reference": "80aa635781d6a54bd981f4f53212a2e01d8804e8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8282-Linked-Orders-Shipping-Changes-8324a0.zip",
+                "reference": "e756c13cd9fa8a10286ac344d7507654ce5dba8f",
                 "shasum": null
             },
             "require": {
@@ -1633,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-21 11:20:35"
+            "time": "2017-04-21 11:51:13"
         },
         {
             "name": "channelgrabber/permission",
