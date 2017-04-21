@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4fcc2edecd58ebca9e460c465222c56c",
+    "content-hash": "3aeb831150fca0c93c7472f3318cc7f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1558,16 +1558,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "278f2a49b1878a9ae5870a7dd1e91eec249a7d0e"
+                "reference": "80aa635781d6a54bd981f4f53212a2e01d8804e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8177-OrderInterfaceAndWrapper-70509a.zip",
-                "reference": "278f2a49b1878a9ae5870a7dd1e91eec249a7d0e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8282-Linked-Orders-Shipping-Changes-bd13f1.zip",
+                "reference": "80aa635781d6a54bd981f4f53212a2e01d8804e8",
                 "shasum": null
             },
             "require": {
@@ -1618,7 +1618,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-develop": "1.x-dev",
+                    "dev-CGIV-8282-Linked-Orders-Shipping-Changes": "1.28.5-dev"
                 }
             },
             "autoload": {
@@ -1632,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-21 09:46:29"
+            "time": "2017-04-21 11:20:35"
         },
         {
             "name": "channelgrabber/permission",
@@ -4068,7 +4069,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5461,7 +5462,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5554,7 +5555,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6023,7 +6024,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8875,9 +8876,9 @@
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.28.7",
-            "alias_normalized": "1.28.7.0",
-            "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "alias": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "alias_normalized": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
             "package": "channelgrabber/order"
         },
         {
