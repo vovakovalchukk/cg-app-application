@@ -1562,7 +1562,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c2cd4e170aba57ecd3422ff2d930ba2ed4116743"
+                "reference": "40f46f3c80983e490959e71ce1d11e4bf66a6558"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
