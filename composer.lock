@@ -1556,7 +1556,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c0d32999bf42e90166a7f6c47754046334b477a1"
+                "reference": "98f1ba659def1ae411837652384352a4d8cc864b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8177-OrderInterfaceAndWrapper-349c99.zip",
+                "reference": "98f1ba659def1ae411837652384352a4d8cc864b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1620,7 +1626,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-20 13:40:22"
+            "time": "2017-04-20 15:37:37"
         },
         {
             "name": "channelgrabber/permission",
