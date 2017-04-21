@@ -204,7 +204,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-03-31T10:05:04+00:00"
+            "time": "2017-04-20 13:39:31"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -490,7 +490,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "48dbeea16dc2314629ef470e0880d493adb6b2d7"
+                "reference": "1777434c10208c1f2fc599cb6d26b95d0ffee7a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8177-OrderInterfaceAndWrapper-0c278e.zip",
+                "reference": "1777434c10208c1f2fc599cb6d26b95d0ffee7a9",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -506,7 +512,7 @@
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
-                "channelgrabber/order": "^1.18.1",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.18.5",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
                 "channelgrabber/product": "^1.9.0",
@@ -558,7 +564,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-04T11:28:26+00:00"
+            "time": "2017-04-21 07:59:14"
         },
         {
             "name": "channelgrabber/cilex",
@@ -660,7 +666,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1447,7 +1453,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "7c726a5100e6e9af5ad2e87b7c451145e22b136d"
+                "reference": "e0eaf3ac72311acd01625fb8ce57872ba66fec06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8177-OrderInterfaceAndWrapper-749b32.zip",
+                "reference": "e0eaf3ac72311acd01625fb8ce57872ba66fec06",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.28.0",
@@ -1455,7 +1467,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/order": "^1.23.27",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.28.5",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "channelgrabber/user": "^1.20.3",
@@ -1486,7 +1498,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-02-28T11:44:54+00:00"
+            "time": "2017-04-21 08:10:47"
         },
         {
             "name": "channelgrabber/notification",
@@ -1608,7 +1620,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-19T13:25:27+00:00"
+            "time": "2017-04-20 13:40:22"
         },
         {
             "name": "channelgrabber/permission",
@@ -2075,12 +2087,19 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "0dcbb1262521a3f23c9607da44ac096f7190ed14"
+                "reference": "a9151385f2d2d6e4a51c169814411dad38e3715d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-dev-CGIV-8177-OrderInterfaceAndWrapper-ee65b7.zip",
+                "reference": "a9151385f2d2d6e4a51c169814411dad38e3715d",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": "^2.2.0"
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.28.5"
             },
             "type": "library",
             "autoload": {
@@ -2088,7 +2107,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2016-10-26T15:09:24+00:00"
+            "time": "2017-04-21 08:10:08"
         },
         {
             "name": "channelgrabber/scraper",
@@ -4037,7 +4056,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5379,7 +5398,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5430,7 +5449,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5523,7 +5542,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -5992,7 +6011,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8858,18 +8877,18 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
