@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c9e182c62b162c615366efb479f57ed",
+    "content-hash": "3aeb831150fca0c93c7472f3318cc7f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,13 +155,19 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "41fe622938406dfd2caa2ce9e771b4ad37c50403"
+                "reference": "6fff5a0caf56198f1d592823c0a8cf3d310c477a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8177-OrderInterfaceAndWrapper-be4b11.zip",
+                "reference": "6fff5a0caf56198f1d592823c0a8cf3d310c477a",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "^1.9.3",
-                "channelgrabber/channel": "^1.28.5",
+                "channelgrabber/cglib": "^1.12.0",
+                "channelgrabber/channel": "^1.29.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -173,7 +179,7 @@
                 "channelgrabber/listing": "~1.11.8",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/order": "^1.28.2",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.28.5",
                 "channelgrabber/predis": "~1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
@@ -204,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-20 08:13:57"
+            "time": "2017-04-21 10:11:14"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -427,16 +433,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.11.6",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "83f067362c21f98f7867c88aed36eaaf92da866c"
+                "reference": "3322e0b11445c97ce9905286f6de291341d80a7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.11.6-42f557.zip",
-                "reference": "83f067362c21f98f7867c88aed36eaaf92da866c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.12.0-e39584.zip",
+                "reference": "3322e0b11445c97ce9905286f6de291341d80a7d",
                 "shasum": null
             },
             "require": {
@@ -482,7 +488,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-22T12:33:35+00:00"
+            "time": "2017-04-07T12:40:49+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -490,7 +496,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "48dbeea16dc2314629ef470e0880d493adb6b2d7"
+                "reference": "1777434c10208c1f2fc599cb6d26b95d0ffee7a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8177-OrderInterfaceAndWrapper-0c278e.zip",
+                "reference": "1777434c10208c1f2fc599cb6d26b95d0ffee7a9",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -506,7 +518,7 @@
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
-                "channelgrabber/order": "^1.18.1",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.18.5",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
                 "channelgrabber/product": "^1.9.0",
@@ -558,7 +570,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-20 08:00:43"
+            "time": "2017-04-21 07:59:14"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1447,7 +1459,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "7c726a5100e6e9af5ad2e87b7c451145e22b136d"
+                "reference": "e0eaf3ac72311acd01625fb8ce57872ba66fec06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8177-OrderInterfaceAndWrapper-749b32.zip",
+                "reference": "e0eaf3ac72311acd01625fb8ce57872ba66fec06",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.28.0",
@@ -1455,7 +1473,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/order": "^1.23.27",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.28.5",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "channelgrabber/user": "^1.20.3",
@@ -1486,7 +1504,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-20 08:15:20"
+            "time": "2017-04-21 08:10:47"
         },
         {
             "name": "channelgrabber/notification",
@@ -1544,12 +1562,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8c9734bf1a79b6253308a26ae2c285c68899ca8f"
+                "reference": "80aa635781d6a54bd981f4f53212a2e01d8804e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8282-Linked-Orders-Shipping-Changes-3d3bc7.zip",
-                "reference": "8c9734bf1a79b6253308a26ae2c285c68899ca8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8282-Linked-Orders-Shipping-Changes-bd13f1.zip",
+                "reference": "80aa635781d6a54bd981f4f53212a2e01d8804e8",
                 "shasum": null
             },
             "require": {
@@ -1600,7 +1618,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-develop": "1.x-dev",
+                    "dev-CGIV-8282-Linked-Orders-Shipping-Changes": "1.28.5-dev"
                 }
             },
             "autoload": {
@@ -1614,7 +1633,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-20 10:02:03"
+            "time": "2017-04-21 11:20:35"
         },
         {
             "name": "channelgrabber/permission",
@@ -2081,12 +2100,19 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "0dcbb1262521a3f23c9607da44ac096f7190ed14"
+                "reference": "a9151385f2d2d6e4a51c169814411dad38e3715d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-dev-CGIV-8177-OrderInterfaceAndWrapper-ee65b7.zip",
+                "reference": "a9151385f2d2d6e4a51c169814411dad38e3715d",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.27.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": "^2.2.0"
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/order": "dev-CGIV-8177-OrderInterfaceAndWrapper as 1.28.5"
             },
             "type": "library",
             "autoload": {
@@ -2094,7 +2120,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2017-04-20 08:15:56"
+            "time": "2017-04-21 08:10:08"
         },
         {
             "name": "channelgrabber/scraper",
@@ -8832,8 +8858,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.38",
-            "alias_normalized": "1.19.38.0",
+            "alias": "1.19.41",
+            "alias_normalized": "1.19.41.0",
             "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
             "package": "channelgrabber/amazon"
         },
@@ -8850,8 +8876,8 @@
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.28.4",
-            "alias_normalized": "1.28.4.0",
+            "alias": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "alias_normalized": "dev-CGIV-8177-OrderInterfaceAndWrapper",
             "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
             "package": "channelgrabber/order"
         },

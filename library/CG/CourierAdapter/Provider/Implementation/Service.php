@@ -12,7 +12,7 @@ use CG\CourierAdapter\Provider\Implementation\Entity;
 use CG\CourierAdapter\Provider\Implementation\Mapper;
 use CG\CourierAdapter\StorageAwareInterface;
 use CG\CourierAdapter\StorageInterface;
-use CG\Order\Shared\OrderInterface as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
