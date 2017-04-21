@@ -146,6 +146,10 @@ class OrdersTable
                 $order['accountName'] = $accountEntity->getDisplayName();
                 $order['channelImgUrl'] = $accountEntity->getImageUrl();
                 if ($accountEntity->getChannel() === 'amazon' && $order['fulfilmentChannel'] === FulfilmentChannelMapper::CG_FBA) {
+                    /**
+                     * Any change to this code should be reflected in:
+                     *  /module/Orders/src/Orders/Controller/OrderDetailsController.php (getChannelLogo)
+                     */
                     $order['channel'] .= '-fba';
                 }
             }

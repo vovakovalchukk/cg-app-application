@@ -253,6 +253,10 @@ class OrderDetailsController extends AbstractActionController
     {
         $channel = $account->getChannel();
         if ($account->getChannel() === 'amazon' && $order->getFulfilmentChannel() === FulfilmentChannelMapper::CG_FBA) {
+            /**
+             * Any change to this code should be reflected in:
+             *  /module/Orders/src/Orders/Controller/Helpers/OrdersTable.php (mapAccountIdToAccount)
+             */
             $channel .= '-fba';
         }
         $externalData = $account->getExternalData();
