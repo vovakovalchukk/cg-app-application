@@ -1,4 +1,10 @@
-require(['Product/BulkAction/Delete'], function(deleteAction)
+require(['Product/BulkAction/Delete'], function(DeleteAction)
 {
+    var deleteAction = new DeleteAction(
+        "<?= $this->translate('Preparing to delete products') ?>",
+        "<?= $this->translate('Deleting products') ?>",
+        "<?= $this->translate('Finished deleting products') ?>",
+        "<?= $this->translate('Deleted ##count##') ?>"
+    );
     deleteAction.init('<?=$selector;?>');
 });
