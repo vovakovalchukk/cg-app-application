@@ -72,18 +72,18 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         ShippingServiceFactory $shippingServiceFactory,
         LockingService $lockingService
     ) {
-        $this->setUserOUService($userOuService)
-            ->setOrderService($orderService)
-            ->setAccountService($accountService)
-            ->setOrderLabelMapper($orderLabelMapper)
-            ->setOrderLabelService($orderLabelService)
-            ->setOrderTrackingService($orderTrackingService)
-            ->setProductDetailMapper($productDetailMapper)
-            ->setProductDetailService($productDetailService)
-            ->setGearmanClient($gearmanClient)
-            ->setCarrierProviderServiceRepo($carrierProviderServiceRepo)
-            ->setShippingServiceFactory($shippingServiceFactory)
-            ->setLockingService($lockingService);
+        $this->userOUService = $userOuService;
+        $this->orderService = $orderService;
+        $this->accountService = $accountService;
+        $this->orderLabelMapper = $orderLabelMapper;
+        $this->orderLabelService = $orderLabelService;
+        $this->orderTrackingService = $orderTrackingService;
+        $this->productDetailMapper = $productDetailMapper;
+        $this->productDetailService = $productDetailService;
+        $this->gearmanClient = $gearmanClient;
+        $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
+        $this->shippingServiceFactory = $shippingServiceFactory;
+        $this->lockingService = $lockingService;
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -120,78 +120,5 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function getCarrierProviderService(Account $account)
     {
         return $this->carrierProviderServiceRepo->getProviderForAccount($account);
-    }
-
-    protected function setUserOUService(UserOUService $userOUService)
-    {
-        $this->userOUService = $userOUService;
-        return $this;
-    }
-
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    protected function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    protected function setOrderLabelMapper(OrderLabelMapper $orderLabelMapper)
-    {
-        $this->orderLabelMapper = $orderLabelMapper;
-        return $this;
-    }
-
-    protected function setOrderLabelService(OrderLabelService $orderLabelService)
-    {
-        $this->orderLabelService = $orderLabelService;
-        return $this;
-    }
-
-    protected function setOrderTrackingService(OrderTrackingService $orderTrackingService)
-    {
-        $this->orderTrackingService = $orderTrackingService;
-        return $this;
-    }
-
-    protected function setProductDetailMapper(ProductDetailMapper $productDetailMapper)
-    {
-        $this->productDetailMapper = $productDetailMapper;
-        return $this;
-    }
-
-    protected function setProductDetailService(ProductDetailService $productDetailService)
-    {
-        $this->productDetailService = $productDetailService;
-        return $this;
-    }
-
-    protected function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-        return $this;
-    }
-
-    protected function setCarrierProviderServiceRepo(CarrierProviderServiceRepository $carrierProviderServiceRepo)
-    {
-        $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
-        return $this;
-    }
-
-    protected function setShippingServiceFactory(ShippingServiceFactory $shippingServiceFactory)
-    {
-        $this->shippingServiceFactory = $shippingServiceFactory;
-
-        return $this;
-    }
-
-    protected function setLockingService(LockingService $lockingService)
-    {
-        $this->lockingService = $lockingService;
-        return $this;
     }
 }
