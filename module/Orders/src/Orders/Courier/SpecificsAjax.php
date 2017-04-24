@@ -8,7 +8,6 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -16,6 +15,8 @@ use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
+use CG\Order\Shared\OrderLinker;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Collection as ProductDetailCollection;
@@ -52,6 +53,8 @@ class SpecificsAjax
     protected $productDetailService;
     /** @var Service */
     protected $courierService;
+    /** @var OrderLinker */
+    protected $orderLinker;
 
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment', 'deliveryExperience'];
@@ -64,7 +67,8 @@ class SpecificsAjax
         OrderLabelStorage $orderLabelStorage,
         CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ProductDetailService $productDetailService,
-        Service $courierService
+        Service $courierService,
+        OrderLinker $orderLinker
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
@@ -74,6 +78,7 @@ class SpecificsAjax
         $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
         $this->productDetailService = $productDetailService;
         $this->courierService = $courierService;
+        $this->orderLinker = $orderLinker;
     }
 
     /**
@@ -82,6 +87,7 @@ class SpecificsAjax
     public function getSpecificsListData(array $orderIds, $courierAccountId, array $ordersData, array $ordersParcelsData)
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
+        $orders = ($this->orderLinker)($orders);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
