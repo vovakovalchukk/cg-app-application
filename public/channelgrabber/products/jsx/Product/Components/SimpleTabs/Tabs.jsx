@@ -12,6 +12,19 @@ define([
                 selected: this.props.selected
             };
         },
+        componentDidMount: function()
+        {
+            window.addEventListener('simpleTabChanged', this.onTabChanged, false);
+        },
+        componentWillUnmount: function()
+        {
+            window.removeEventListener('simpleTabChanged', this.onTabChanged, false);
+        },
+        onTabChanged: function (event) {
+            this.setState({
+                selected: event.detail.tabIndex
+            });
+        },
         getTabContent: function () {
             return (
                 <div className="tabs-content">
@@ -40,6 +53,7 @@ define([
             this.setState({
                 selected: index
             });
+            window.triggerEvent('simpleTabChanged', {tabIndex: index});
         },
         render: function () {
             return (

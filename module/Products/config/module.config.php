@@ -277,6 +277,29 @@ return [
                                 'action' => 'delete'
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ProductsJsonController::ROUTE_DELETE_CHECK => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'controller' => ProductsJsonController::class,
+                                        'action' => 'deleteCheck'
+                                    ]
+                                ]
+                            ],
+                            ProductsJsonController::ROUTE_DELETE_PROGRESS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'controller' => ProductsJsonController::class,
+                                        'action' => 'deleteProgress'
+                                    ]
+                                ]
+                            ],
+                        ]
                     ],
                 ]
             ]
