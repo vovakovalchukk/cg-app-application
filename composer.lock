@@ -155,13 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "6fff5a0caf56198f1d592823c0a8cf3d310c477a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8177-OrderInterfaceAndWrapper-be4b11.zip",
-                "reference": "6fff5a0caf56198f1d592823c0a8cf3d310c477a",
-                "shasum": null
+                "reference": "1b8f070fd732082696449a1d3db3b33a04ec9bed"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -1562,7 +1556,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "40f46f3c80983e490959e71ce1d11e4bf66a6558"
+                "reference": "356fd6d7d6436345c7bc30ea559b56493073b002"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
