@@ -1,7 +1,7 @@
 <?php
 namespace Orders\Courier\Label;
 
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
