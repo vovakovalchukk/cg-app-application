@@ -370,24 +370,28 @@ class Create implements LoggerAwareInterface
         }
 
         // Update the sales channels
-        $this->orderTrackingService->createGearmanJob($order);
+        foreach ($order->getChannelUpdatableOrders() as $updatableOrder) {
+            $this->orderTrackingService->createGearmanJob($updatableOrder);
+        }
     }
 
-    protected function saveOrderTracking($order, $user, $shippingAccount, $trackingReference, $packageNumber = null)
+    protected function saveOrderTracking(Order $order, $user, $shippingAccount, $trackingReference, $packageNumber = null)
     {
-        $date = new StdlibDateTime();
-        $trackingData = [
-            'organisationUnitId' => $order->getOrganisationUnitId(),
-            'orderId' => $order->getId(),
-            'userId' => $user->getId(),
-            'timestamp' => $date->stdFormat(),
-            'carrier' => $shippingAccount->getDisplayChannel(),
-            'packageNumber' => $packageNumber,
-            'number' => $trackingReference,
-        ];
-        $orderTracking = $this->orderTrackingMapper->fromArray($trackingData);
-        $this->logDebug(static::LOG_TRACKING, [$order->getId(), $order->getOrganisationUnitId(), $trackingReference], [static::LOG_CODE, 'Tracking']);
-        $this->orderTrackingService->save($orderTracking);
+        foreach ($order->getChannelUpdatableOrders() as $updatableOrder) {
+            $date = new StdlibDateTime();
+            $trackingData = [
+                'organisationUnitId' => $updatableOrder->getOrganisationUnitId(),
+                'orderId' => $updatableOrder->getId(),
+                'userId' => $user->getId(),
+                'timestamp' => $date->stdFormat(),
+                'carrier' => $shippingAccount->getDisplayChannel(),
+                'packageNumber' => $packageNumber,
+                'number' => $trackingReference,
+            ];
+            $orderTracking = $this->orderTrackingMapper->fromArray($trackingData);
+            $this->logDebug(static::LOG_TRACKING, [$updatableOrder->getId(), $updatableOrder->getOrganisationUnitId(), $trackingReference], [static::LOG_CODE, 'Tracking']);
+            $this->orderTrackingService->save($orderTracking);
+        }
     }
 
     protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)

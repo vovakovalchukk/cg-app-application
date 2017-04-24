@@ -45,13 +45,15 @@ class CancelService extends ServiceAbstract
     protected function removeOrderTracking(Order $order)
     {
         $this->logDebug(static::LOG_REMOVE_TRACKING, [$order->getId()], static::LOG_CODE, ['order' => $order->getId()]);
-        try {
-            $this->orderTrackingService->removeByOrderId($order->getId());
-            $orderTrackings = $order->getTrackings();
-            $orderTrackings->removeAll($orderTrackings);
-            $this->orderTrackingService->createGearmanJob($order);
-        } catch (NotFound $e) {
-            // No-op
+        foreach ($order->getChannelUpdatableOrders() as $updatableOrder) {
+            try {
+                $this->orderTrackingService->removeByOrderId($updatableOrder->getId());
+                $orderTrackings = $updatableOrder->getTrackings();
+                $orderTrackings->removeAll($orderTrackings);
+                $this->orderTrackingService->createGearmanJob($updatableOrder);
+            } catch (NotFound $e) {
+                // No-op
+            }
         }
     }
 }

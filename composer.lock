@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3aeb831150fca0c93c7472f3318cc7f9",
+    "content-hash": "aa7c4a0e864a43e3e839b46dcef57d1e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-21 10:11:14"
+            "time": "2017-04-21T10:11:14+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-21 07:59:14"
+            "time": "2017-04-21T07:59:14+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1454,17 +1454,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
+            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "e0eaf3ac72311acd01625fb8ce57872ba66fec06"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8177-OrderInterfaceAndWrapper-749b32.zip",
-                "reference": "e0eaf3ac72311acd01625fb8ce57872ba66fec06",
-                "shasum": null
+                "reference": "170eb9f2d467daaf0169fdb1a734c81d5ea9aef8"
             },
             "require": {
                 "channelgrabber/channel": "^1.28.0",
@@ -1503,7 +1497,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-21 08:10:47"
+            "time": "2017-04-21T08:10:47+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -1632,7 +1626,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-21 11:51:13"
+            "time": "2017-04-21T11:51:13+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2148,7 +2142,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2017-04-21 08:10:08"
+            "time": "2017-04-21T08:10:08+00:00"
         },
         {
             "name": "channelgrabber/scraper",
@@ -5439,7 +5433,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8904,6 +8898,12 @@
             "package": "channelgrabber/netdespatch"
         },
         {
+            "alias": "1.2.13",
+            "alias_normalized": "1.2.13.0",
+            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "dev-CGIV-8177-OrderInterfaceAndWrapper",
             "alias_normalized": "dev-CGIV-8177-OrderInterfaceAndWrapper",
             "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
@@ -8918,18 +8918,18 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
