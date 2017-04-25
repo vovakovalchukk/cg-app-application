@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa7c4a0e864a43e3e839b46dcef57d1e",
+    "content-hash": "84dedc06705f9b1f4f5ce26e65f0a8cb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -677,17 +677,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.18",
+            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.18-d2bbe7.zip",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac",
-                "shasum": null
+                "reference": "7b3aa38d9f4a2a7f81b1c98b00ae8f340b15d2bb"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -8892,6 +8886,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.0.19",
+            "alias_normalized": "1.0.19.0",
+            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "package": "channelgrabber/courier"
+        },
+        {
             "alias": "1.2.13",
             "alias_normalized": "1.2.13.0",
             "version": "dev-CGIV-8177-OrderInterfaceAndWrapper",
@@ -8922,6 +8922,7 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
