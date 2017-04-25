@@ -195,54 +195,82 @@ class Mappings
         array $tradingCompanies,
         $mainAccountRow
     ) {
-        $invoiceOptions = [];
-        /** @var Entity $invoice */
-        foreach ($invoices as $invoice) {
-            $invoiceOptions['options'][] = [
-                'title' => $invoice->getName(),
-                'value' => $invoice->getId(),
-                'selected' => $invoice->getId() === $invoiceMapping->getInvoiceId()
-            ];
-        }
-
-        $tradingCompanyOptions = [];
-        /** @var OrganisationUnit $tradingCompany */
-        foreach ($tradingCompanies as $tradingCompany) {
-            $tradingCompanyOptions['options'][] = [
-                'title' => $tradingCompany->getAddressCompanyName(),
-                'value' => $tradingCompany->getId(),
-                'selected' => $tradingCompany->getId() === $invoiceMapping->getOrganisationUnitId()
-            ];
-        }
-
-        $sendViaEmailOptions = [];
-        foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
-            $sendViaEmailOptions['options'][] = [
-                'title' => ucfirst($sendOption),
-                'value' => $sendOption,
-                'selected' => $sendOption === $invoiceMapping->getSendViaEmail()
-            ];
-        }
-
-        $sendToFbaOptions = [];
-        foreach (InvoiceMappingMapper::getSendOptions() as $sendOption) {
-            $sendToFbaOptions['options'][] = [
-                'title' => ucfirst($sendOption),
-                'value' => $sendOption,
-                'selected' => $sendOption === $invoiceMapping->getSendToFba()
-            ];
-        }
-
         return [
             'accountId' => $account->getId(),
             'rowId' => $invoiceMapping->getId(),
             'channel' => $mainAccountRow ? $account->getChannel() : '',
             'displayName' => $mainAccountRow ? $account->getDisplayName() : '',
             'site' => $invoiceMapping->getSite(),
-            'tradingCompany' => $mainAccountRow ? $tradingCompanyOptions : '',
-            'assignedInvoice' => $invoiceOptions,
-            'sendViaEmail' => $sendViaEmailOptions,
-            'sendToFba' => $account->getChannel() === 'amazon' ? $sendToFbaOptions : '',
+            'tradingCompany' => $mainAccountRow ? $this->getTradingCompanyOptions($account, $tradingCompanies) : '',
+            'assignedInvoice' => $this->getInvoiceOptions($invoiceMapping, $invoices),
+            'sendViaEmail' => $this->getSendOptions($invoiceMapping->getSendViaEmail()),
+            'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getSendToFba()) : '',
+        ];
+    }
+
+    /**
+     * @param Entity[] $invoices
+     */
+    protected function getInvoiceOptions(InvoiceMapping $invoiceMapping, array $invoices)
+    {
+        $invoiceId = $invoiceMapping->getInvoiceId();
+        $invoiceOptions = [
+            'options' => [
+                [
+                    'title' => 'Default Invoice',
+                    'value' => '',
+                    'selected' => $invoiceId === null,
+                ],
+            ],
+        ];
+
+        foreach ($invoices as $invoice) {
+            $invoiceOptions['options'][] = [
+                'title' => $invoice->getName(),
+                'value' => $invoice->getId(),
+                'selected' => $invoice->getId() === $invoiceId,
+            ];
+        }
+
+        return $invoiceOptions;
+    }
+
+    /**
+     * @param OrganisationUnit[] $tradingCompanies
+     */
+    protected function getTradingCompanyOptions(Account $account, array $tradingCompanies)
+    {
+        $tradingCompanyOptions = ['options' => []];
+        foreach ($tradingCompanies as $tradingCompany) {
+            $tradingCompanyOptions['options'][] = [
+                'title' => $tradingCompany->getAddressCompanyName(),
+                'value' => $tradingCompany->getId(),
+                'selected' => $tradingCompany->getId() === $account->getOrganisationUnitId()
+            ];
+        }
+        return $tradingCompanyOptions;
+    }
+
+    protected function getSendOptions($option)
+    {
+        return [
+            'options' => [
+                [
+                    'title' => 'Default',
+                    'value' => '',
+                    'selected' => $option === null
+                ],
+                [
+                    'title' => 'On',
+                    'value' => 'on',
+                    'selected' => $option === true
+                ],
+                [
+                    'title' => 'Off',
+                    'value' => 'off',
+                    'selected' => $option === false
+                ],
+            ],
         ];
     }
 
