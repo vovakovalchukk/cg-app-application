@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7b0edfa3bb5147f2d1e0cff195cf26c",
+    "content-hash": "3fdaac39a8f57f872897bcdc43964769",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1557,16 +1557,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.6",
+            "version": "dev-CGIV-8252-MarketplaceInvoiceGeneration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e41e4164b57957dac35eac712bcca55d78801c93"
+                "reference": "cf6331ae008fc2d2abe9dbf8101db16f845a5a4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.6-7d75bc.zip",
-                "reference": "e41e4164b57957dac35eac712bcca55d78801c93",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8252-MarketplaceInvoiceGeneration-612bdf.zip",
+                "reference": "cf6331ae008fc2d2abe9dbf8101db16f845a5a4f",
                 "shasum": null
             },
             "require": {
@@ -1593,7 +1593,7 @@
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.5.2",
+                "channelgrabber/settings": "dev-CGIV-8252-MarketplaceInvoiceGeneration as 1.5.3",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.42",
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-13T11:31:54+00:00"
+            "time": "2017-04-25 14:28:54"
         },
         {
             "name": "channelgrabber/permission",
@@ -2216,16 +2216,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
+            "version": "dev-CGIV-8252-MarketplaceInvoiceGeneration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "3561e0880b50fc63bf5c4656130bf78e249fb85b"
+                "reference": "221227a10c9e438ffee48012e8a87e32c6258c65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-5310e0.zip",
-                "reference": "3561e0880b50fc63bf5c4656130bf78e249fb85b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-8252-MarketplaceInvoiceGeneration-88b344.zip",
+                "reference": "221227a10c9e438ffee48012e8a87e32c6258c65",
                 "shasum": null
             },
             "require": {
@@ -2237,8 +2237,10 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.0",
-                "channelgrabber/validation": ">=1.2.6",
-                "composer/composer": "@dev"
+                "channelgrabber/validation": ">=1.2.6"
+            },
+            "conflict": {
+                "channelgrabber/order": "<1.28.8"
             },
             "type": "library",
             "autoload": {
@@ -2246,7 +2248,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-04-13 08:33:23"
+            "time": "2017-04-25 13:57:44"
         },
         {
             "name": "channelgrabber/shopify",
@@ -8890,9 +8892,15 @@
             "package": "channelgrabber/listing"
         },
         {
+            "alias": "1.28.8",
+            "alias_normalized": "1.28.8.0",
+            "version": "dev-CGIV-8252-MarketplaceInvoiceGeneration",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.5.3",
             "alias_normalized": "1.5.3.0",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
+            "version": "dev-CGIV-8252-MarketplaceInvoiceGeneration",
             "package": "channelgrabber/settings"
         }
     ],
@@ -8900,6 +8908,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/settings": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
