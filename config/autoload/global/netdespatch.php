@@ -129,19 +129,19 @@ return [
                                 [
                                     'title' => 'Signature',
                                     'countries' => [
-                                        'AF', 'AX', 'AL', 'DZ', 'AO', 'AI', 'AG', 'AM', 'AW', 'AC', 'AU', 'AZ', 'BS', 'BH',
-                                        'BD', 'BB', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BR', 'IO', 'BN', 'BF',
-                                        'BI', 'CM', 'CV', 'CF', 'EA', 'TD', 'CL', 'CN', 'CX', 'CO', 'KM', 'CG', 'CD', 'CK',
-                                        'CR', 'CU', 'CW', 'DJ', 'DM', 'DO', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO',
-                                        'FJ', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'GH', 'GL', 'GD', 'GP', 'GT', 'GN', 'GW',
-                                        'GY', 'HT', 'HN', 'IN', 'IR', 'IQ', 'IM', 'IT', 'JM', 'JO', 'KZ', 'KE', 'KI', 'KO',
-                                        'KW', 'KG', 'LA', 'LB', 'LS', 'LR', 'LY', 'MO', 'MK', 'MG', 'MW', 'MV', 'ML', 'MQ',
-                                        'MR', 'MU', 'MX', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NC', 'NI',
-                                        'NE', 'NG', 'NU', 'KP', 'NO', 'OM', 'PK', 'PW', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN',
-                                        'PR', 'QA', 'RE', 'RU', 'RW', 'ST', 'SA', 'SN', 'SC', 'SL', 'SB', 'ZA', 'SS', 'LK',
-                                        'XE', 'SH', 'SD', 'SR', 'SZ', 'SY', 'TW', 'TJ', 'TZ', 'TL', 'TG', 'TK', 'TO', 'TA',
-                                        'TN', 'TM', 'TC', 'TV', 'UG', 'UA', 'UY', 'UZ', 'VU', 'VE', 'VN', 'WF', 'EH', 'YE',
-                                        'ZM', 'ZW'
+                                        'AF','AG','AI','AL','AM','AO','AU','AW','AX','AZ','BA','BB','BD','BF',
+                                        'BH','BI','BJ','BM','BN','BO','BR','BS','BT','BW','BZ','CD','CF','CG',
+                                        'CI','CK','CL','CM','CN','CO','CR','CU','CV','CX','DJ','DM','DO','DZ',
+                                        'EE','EG','EH','ER','ET','FJ','FK','FO','GA','GD','GE','GF','GH','GL',
+                                        'GM','GN','GP','GQ','GT','GW','GY','HN','HT','IL','IN','IO','IQ','IR',
+                                        'JM','JO','KE','KG','KI','KM','KN','KP','KW','KZ','LA','LB','LC','LK',
+                                        'LR','LS','LY','MA','ME','MF','MG','MK','ML','MM','MN','MO','MQ','MR',
+                                        'MS','MU','MV','MW','MX','MZ','NA','NC','NE','NG','NI','NO','NP','NR',
+                                        'NU','OM','PA','PE','PF','PG','PH','PK','PN','PR','PW','PY','QA','RE',
+                                        'RU','RW','SA','SB','SC','SD','SH','SL','SN','SR','ST','SV','SY','SZ',
+                                        'TC','TD','TF','TG','TJ','TK','TL','TM','TN','TO','TV','TW','TZ','UA',
+                                        'UG','UY','UZ','VC','VE','VG','VN','VU','WF','WS','YE','YT','ZA','ZM',
+                                        'ZW'
                                     ]
                                 ],
                                 // Standard only allows for Compensation when its with Signature
@@ -180,19 +180,19 @@ return [
                                     'default' => true,
                                     'excludes' => 'Priority',
                                     'countries' => [
-                                        'AF', 'AX', 'AL', 'DZ', 'AO', 'AI', 'AG', 'AM', 'AW', 'AC', 'AU', 'AZ', 'BS', 'BH',
-                                        'BD', 'BB', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BR', 'IO', 'BN', 'BF',
-                                        'BI', 'CM', 'CV', 'CF', 'EA', 'TD', 'CL', 'CN', 'CX', 'CO', 'KM', 'CG', 'CD', 'CK',
-                                        'CR', 'CU', 'CW', 'DJ', 'DM', 'DO', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO',
-                                        'FJ', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'GH', 'GL', 'GD', 'GP', 'GT', 'GN', 'GW',
-                                        'GY', 'HT', 'HN', 'IN', 'IR', 'IQ', 'IM', 'IT', 'JM', 'JO', 'KZ', 'KE', 'KI', 'KO',
-                                        'KW', 'KG', 'LA', 'LB', 'LS', 'LR', 'LY', 'MO', 'MK', 'MG', 'MW', 'MV', 'ML', 'MQ',
-                                        'MR', 'MU', 'MX', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NC', 'NI',
-                                        'NE', 'NG', 'NU', 'KP', 'NO', 'OM', 'PK', 'PW', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN',
-                                        'PR', 'QA', 'RE', 'RU', 'RW', 'ST', 'SA', 'SN', 'SC', 'SL', 'SB', 'ZA', 'SS', 'LK',
-                                        'XE', 'SH', 'SD', 'SR', 'SZ', 'SY', 'TW', 'TJ', 'TZ', 'TL', 'TG', 'TK', 'TO', 'TA',
-                                        'TN', 'TM', 'TC', 'TV', 'UG', 'UA', 'UY', 'UZ', 'VU', 'VE', 'VN', 'WF', 'EH', 'YE',
-                                        'ZM', 'ZW'
+                                        'AF','AG','AI','AL','AM','AO','AU','AW','AX','AZ','BA','BB','BD','BF',
+                                        'BH','BI','BJ','BM','BN','BO','BR','BS','BT','BW','BZ','CD','CF','CG',
+                                        'CI','CK','CL','CM','CN','CO','CR','CU','CV','CX','DJ','DM','DO','DZ',
+                                        'EE','EG','EH','ER','ET','FJ','FK','FO','GA','GD','GE','GF','GH','GL',
+                                        'GM','GN','GP','GQ','GT','GW','GY','HN','HT','IL','IN','IO','IQ','IR',
+                                        'JM','JO','KE','KG','KI','KM','KN','KP','KW','KZ','LA','LB','LC','LK',
+                                        'LR','LS','LY','MA','ME','MF','MG','MK','ML','MM','MN','MO','MQ','MR',
+                                        'MS','MU','MV','MW','MX','MZ','NA','NC','NE','NG','NI','NO','NP','NR',
+                                        'NU','OM','PA','PE','PF','PG','PH','PK','PN','PR','PW','PY','QA','RE',
+                                        'RU','RW','SA','SB','SC','SD','SH','SL','SN','SR','ST','SV','SY','SZ',
+                                        'TC','TD','TF','TG','TJ','TK','TL','TM','TN','TO','TV','TW','TZ','UA',
+                                        'UG','UY','UZ','VC','VE','VG','VN','VU','WF','WS','YE','YT','ZA','ZM',
+                                        'ZW'
                                     ]
                                 ],
                                 // Standard only allows for Compensation when its with Signature
