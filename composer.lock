@@ -155,7 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "857016dfb4a32ba3a833127f7db104b709613ba7"
+                "reference": "2958b7c590481ef0a9ace4f2791d367c342a8eaf"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -675,7 +675,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "7b3aa38d9f4a2a7f81b1c98b00ae8f340b15d2bb"
+                "reference": "b68563eddd672054c08abbbb250d9b1a73b1590d"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -1446,7 +1446,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "170eb9f2d467daaf0169fdb1a734c81d5ea9aef8"
+                "reference": "e4c19fdbd5bd7524edc39c36c1eb8c727c632836"
             },
             "require": {
                 "channelgrabber/channel": "^1.28.0",
