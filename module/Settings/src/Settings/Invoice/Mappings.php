@@ -4,6 +4,7 @@ namespace Settings\Invoice;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
 use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
@@ -21,7 +22,8 @@ use CG_UI\View\DataTable;
 
 class Mappings
 {
-    const SITE_DEFAULT = 'UK';
+    const DEFAULT_VALUE_INVOICE = '-';
+    const DEFAULT_VALUE_SEND_TO = '-';
 
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
@@ -62,8 +64,18 @@ class Mappings
 
     public function saveInvoiceMappingFromPostData($postData)
     {
-        if (!isset($postData['organisationUnitId'])) {
-            $postData['organisationUnitId'] = $this->accountService->getOuIdFromAccountId($postData['accountId']);
+        $postData['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+
+        $defaultToNull = [
+            'invoiceId' => static::DEFAULT_VALUE_INVOICE,
+            'sendViaEmail' => static::DEFAULT_VALUE_SEND_TO,
+            'sendToFba' => static::DEFAULT_VALUE_SEND_TO,
+        ];
+
+        foreach ($defaultToNull as $key => $default) {
+            if (isset($postData[$key]) && $postData[$key] == $default) {
+                $postData[$key] = null;
+            }
         }
 
         try {
@@ -77,7 +89,11 @@ class Mappings
             $entity = $this->invoiceMappingMapper->fromArray($postData);
         }
 
-        return $this->invoiceMappingService->save($entity);
+        try {
+            return $this->invoiceMappingService->save($entity);
+        } catch (NotModified $exception) {
+            return $entity;
+        }
     }
 
     public function getInvoiceMappingDataTablesData(Accounts $accounts, $invoices)
@@ -125,8 +141,7 @@ class Mappings
 
             /** @var InvoiceMapping $existingMapping */
             foreach ($existingMappings as $existingMapping) {
-                $key = implode('-', [$existingMapping->getAccountId(), $existingMapping->getSite() ?: static::SITE_DEFAULT]);
-                $invoiceMappings[$key] = $existingMapping;
+                $invoiceMappings[$existingMapping->getId()] = $existingMapping;
             }
         } catch (NotFound $exception) {
             // No previous invoice mappings
@@ -138,22 +153,21 @@ class Mappings
         foreach ($accounts as $account) {
             $accountId = $account->getId();
 
-            $accountSites = [static::SITE_DEFAULT];
+            $accountSites = [null];
             if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
                 $accountSites = $accountSiteMap[$accountId];
             }
 
             foreach ($accountSites as $site) {
-                $key = implode('-', [$accountId, $site]);
-                if (isset($invoiceMappings[$key])) {
-                    continue;
-                }
-
-                $invoiceMappings[$key] = $this->invoiceMappingMapper->fromArray([
-                    'organisationUnitId' => $account->getOrganisationUnitId(),
+                $invoiceMapping = $this->invoiceMappingMapper->fromArray([
+                    'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
                     'accountId' => $account->getId(),
                     'site' => $site,
                 ]);
+
+                if (!isset($invoiceMappings[$invoiceMapping->getId()])) {
+                    $invoiceMappings[$invoiceMapping->getId()] = $invoiceMapping;
+                }
             }
         }
 
@@ -218,7 +232,7 @@ class Mappings
             'options' => [
                 [
                     'title' => 'Default Invoice',
-                    'value' => '',
+                    'value' => static::DEFAULT_VALUE_INVOICE,
                     'selected' => $invoiceId === null,
                 ],
             ],
@@ -257,7 +271,7 @@ class Mappings
             'options' => [
                 [
                     'title' => 'Default',
-                    'value' => '',
+                    'value' => static::DEFAULT_VALUE_SEND_TO,
                     'selected' => $option === null
                 ],
                 [
