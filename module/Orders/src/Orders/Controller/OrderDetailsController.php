@@ -5,9 +5,6 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
-use CG\Order\Shared\OrderLink\Filter as OrderLinkFilter;
-use CG\Order\Shared\OrderLink\Service as OrderLinkService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Service as UsageService;
@@ -42,8 +39,6 @@ class OrderDetailsController extends AbstractActionController
     protected $timelineService;
     /** @var OrderNotesHelper $orderNotesHelper */
     protected $orderNotesHelper;
-    /** @var OrderLinkService $orderLinkService */
-    protected $orderLinkService;
 
     public function __construct(
         UsageService $usageService,
@@ -53,8 +48,7 @@ class OrderDetailsController extends AbstractActionController
         BulkActionsService $bulkActionsService,
         AccountService $accountService,
         TimelineService $timelineService,
-        OrderNotesHelper $orderNotesHelper,
-        OrderLinkService $orderLinkService
+        OrderNotesHelper $orderNotesHelper
     ) {
         $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
@@ -64,7 +58,6 @@ class OrderDetailsController extends AbstractActionController
         $this->accountService = $accountService;
         $this->timelineService = $timelineService;
         $this->orderNotesHelper = $orderNotesHelper;
-        $this->orderLinkService = $orderLinkService;
     }
 
     public function orderAction()
@@ -311,22 +304,7 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getLinkedOrdersSection(Order $order)
     {
-        try {
-            $filter = (new OrderLinkFilter())
-                ->setOrderId([$order->getId()]);
-            $linkedOrdersCollection = $this->orderLinkService->fetchCollectionByFilter($filter);
-        } catch (NotFound $e) {
-            $linkedOrdersCollection = [];
-        }
-
-        $linkedOrders = [];
-        foreach ($linkedOrdersCollection as $linkedOrder) {
-            if (count($linkedOrders)) {
-                array_merge($linkedOrders, $linkedOrder->getOrderIds());
-            } else {
-                $linkedOrders = $linkedOrder->getOrderIds();
-            }
-        }
+        $linkedOrders = $this->orderService->getLinkedOrders($order->getId());
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/linkedOrders');
