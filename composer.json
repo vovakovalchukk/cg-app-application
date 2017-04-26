@@ -42,7 +42,7 @@
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.10.2",
         "channelgrabber/ekm": "~1.8.47",
-        "channelgrabber/email": "~1.0.8",
+        "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
         "channelgrabber/exchangerate": "~1.1.0",
         "channelgrabber/gearman": "~1.2.26",
