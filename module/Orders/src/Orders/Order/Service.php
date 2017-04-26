@@ -284,18 +284,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         try {
             $filter = (new OrderLinkFilter())
-                ->setOrderId($orderIds);
+                ->setOrderId($orderIds)
+                ->setLimit('all');
             $linkedOrdersCollection = $this->orderLinkService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             $linkedOrdersCollection = [];
         }
 
         $linkedOrders = [];
-        foreach ($linkedOrdersCollection as $linkedOrder) {
-            if (count($linkedOrders)) {
-                array_merge($linkedOrders, $linkedOrder->getOrderIds());
-            } else {
-                $linkedOrders = $linkedOrder->getOrderIds();
+        foreach ($orderIds as $orderId) {
+            foreach ($linkedOrdersCollection as $linkedOrder) {
+                if (in_array($orderId, $linkedOrder->getOrderIds())) {
+                    $linkedOrders[$orderId] = $linkedOrder->getOrderIds();
+                }
             }
         }
 
