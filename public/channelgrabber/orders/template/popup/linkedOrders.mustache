@@ -1,0 +1,12 @@
+<div class="hover-popup">
+    <div class="hover-popup-header">
+        <span class="hover-popup-title">{{title}}</span>
+        <span class="sprite sprite-question-16-white">&nbsp;</span>
+        <div class="hover-popup-help-text">{{helpText}}</div>
+    </div>
+    <div class="hover-content">
+        {{#linkedOrders}}
+            <a href="/orders/{{.}}">{{.}}</a>
+        {{/linkedOrders}}
+    </div>
+</div>

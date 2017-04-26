@@ -516,3 +516,29 @@
         margin-bottom: 15px;
     }
 }
+.orderid {
+    float: left;
+}
+.linked-orders-icon {
+    position: relative;
+    float: left;
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.hover-popup {
+    position: absolute;
+    .hover-popup-header {
+        .hover-popup-title {
+
+        }
+        .hover-popup-help-text {
+
+        }
+    }
+    .hover-content {
+        a {
+            display: block;
+        }
+    }
+}
