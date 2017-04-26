@@ -506,3 +506,13 @@
         right: 16px;
     }
 }
+
+.linked-orders-list {
+    padding-left: 54px;
+    float: left;
+    width: 100%;
+    margin-top: 13px;
+    .linked-order-link {
+        margin-bottom: 15px;
+    }
+}
