@@ -137,6 +137,8 @@
                     white-space: nowrap;
                     overflow: hidden;
                     box-sizing: border-box;
+                    text-overflow: ellipsis;
+                    padding: 5px;
                     &.stock-mode-header-col {
                         width: 300px;
                     }
@@ -159,9 +161,42 @@
     }
     .details-layout-column {
         width: 50%;
+        th {
+            text-transform: capitalize;
+        }
         tr:last-child {
             td {
                 border-bottom: 1px solid $color-lgrey;
+            }
+        }
+        .listings-table {
+            box-sizing: border-box;
+            overflow: auto;
+            table {
+                clear: none;
+            }
+            span.listing-status {
+                width: 38px;
+                height: 38px;
+                display: inline-block;
+                overflow: hidden;
+                margin: -5px auto;
+                vertical-align: middle;
+                &.active {
+                    background-image: url('../img/listing-active.png');
+                }
+                &.pending {
+                    background-image: url('../img/listing-pending.png');
+                }
+                &.paused {
+                    background-image: url('../img/listing-paused.png');
+                }
+                &.error {
+                    background-image: url('../img/listing-error.png');
+                }
+                &.inactive, &.unimported, &.unknown {
+                    background-image: url('../img/listing-unknown.png');
+                }
             }
         }
         .vat-table{
