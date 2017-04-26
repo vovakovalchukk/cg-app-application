@@ -280,11 +280,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $imagesForOrders;
     }
 
-    public function getLinkedOrders($orderId)
+    public function getLinkedOrders(array $orderIds)
     {
         try {
             $filter = (new OrderLinkFilter())
-                ->setOrderId([$orderId]);
+                ->setOrderId($orderIds);
             $linkedOrdersCollection = $this->orderLinkService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             $linkedOrdersCollection = [];

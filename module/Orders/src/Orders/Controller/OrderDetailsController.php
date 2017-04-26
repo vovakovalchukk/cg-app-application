@@ -304,7 +304,7 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getLinkedOrdersSection(Order $order)
     {
-        $linkedOrders = $this->orderService->getLinkedOrders($order->getId());
+        $linkedOrders = $this->orderService->getLinkedOrders([$order->getId()]);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/linkedOrders');
