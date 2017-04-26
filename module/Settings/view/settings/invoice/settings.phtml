@@ -13,7 +13,7 @@ $(document).ready(function() {
         select
     ) {
         var tradingCompanyColumnIndex = 2;
-        var hasTradingCompanies = '<?php (empty($tradingCompanies) ? 'false' : 'true') ?>';
+        var hasTradingCompanies = <?= empty($tradingCompanies) ? 'false' : 'true' ?>;
         var lastAccountId = 0;
         var evenRow = true;
         new InvoiceSettings(
