@@ -321,7 +321,11 @@ class OrderDetailsController extends AbstractActionController
 
         $linkedOrders = [];
         foreach ($linkedOrdersCollection as $linkedOrder) {
-            array_merge($linkedOrders, $linkedOrder->getOrderIds());
+            if (count($linkedOrders)) {
+                array_merge($linkedOrders, $linkedOrder->getOrderIds());
+            } else {
+                $linkedOrders = $linkedOrder->getOrderIds();
+            }
         }
 
         $view = $this->viewModelFactory->newInstance();
