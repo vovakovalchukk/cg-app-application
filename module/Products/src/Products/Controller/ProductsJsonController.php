@@ -36,6 +36,8 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
+    const ROUTE_DELETE_CHECK = 'Delete Check';
+    const ROUTE_DELETE_PROGRESS = 'Delete Progress';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
 
@@ -282,21 +284,35 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
-    public function deleteAction()
+    public function deleteCheckAction()
     {
         $this->checkUsage();
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true, "guid" => uniqid('', true), "total" => count($this->params()->fromPost('productIds'))]
+        );
+    }
 
+    public function deleteAction()
+    {
         $view = $this->getJsonModelFactory()->newInstance();
 
         $productIds = $this->params()->fromPost('productIds');
         if (empty($productIds)){
-            $view->setVariable('deleted', false);
             return $view;
         }
 
-        $this->getProductService()->deleteProductsById($productIds);
-        $view->setVariable('deleted', true);
+        $progressKey = $this->params()->fromPost('progressKey');
+        $this->getProductService()->deleteProductsById($productIds, $progressKey);
         return $view;
+    }
+
+    public function deleteProgressAction()
+    {
+        $progressKey = $this->params()->fromPost('progressKey');
+        $progressCount = $this->getProductService()->checkProgressOfDeleteProducts($progressKey);
+        return $this->getJsonModelFactory()->newInstance([
+            'progressCount' => $progressCount
+        ]);
     }
 
     public function saveProductTaxRateAction()
