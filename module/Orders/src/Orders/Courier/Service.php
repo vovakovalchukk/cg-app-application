@@ -123,7 +123,7 @@ class Service implements LoggerAwareInterface
         $filter->setLimit('all')
             ->setPage(1)
             ->setOrderIds($orderIds);
-        return $this->orderService->fetchCollectionByFilter($filter);
+        return $this->orderService->fetchLinkedCollectionByFilter($filter);
     }
 
     /**

@@ -14,7 +14,6 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
-use CG\Order\Shared\OrderLinker;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Product\Detail\Mapper as ProductDetailMapper;
 use CG\Product\Detail\Service as ProductDetailService;
@@ -58,8 +57,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $shippingServiceFactory;
     /** @var LockingService */
     protected $lockingService;
-    /** @var OrderLinker */
-    protected $orderLinker;
 
     public function __construct(
         UserOUService $userOuService,
@@ -73,8 +70,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         GearmanClient $gearmanClient,
         CarrierProviderServiceRepository $carrierProviderServiceRepo,
         ShippingServiceFactory $shippingServiceFactory,
-        LockingService $lockingService,
-        OrderLinker $orderLinker
+        LockingService $lockingService
     ) {
         $this->userOUService = $userOuService;
         $this->orderService = $orderService;
@@ -88,7 +84,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         $this->carrierProviderServiceRepo = $carrierProviderServiceRepo;
         $this->shippingServiceFactory = $shippingServiceFactory;
         $this->lockingService = $lockingService;
-        $this->orderLinker = $orderLinker;
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -97,8 +92,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setLimit('all')
             ->setPage(1)
             ->setOrderIds($orderIds);
-        $orders = $this->orderService->fetchCollectionByFilter($filter);
-        return ($this->orderLinker)($orders);
+        return $this->orderService->fetchLinkedCollectionByFilter($filter);
     }
 
     protected function getOrderLabelForOrder(Order $order)
