@@ -5,7 +5,9 @@
             <span class="large-heading-left">Linked Orders:</span>
             <div class="linked-orders-list">
                 <?php foreach ($linkedOrders as $orderId): ?>
-                    <a href="/orders/<?= $orderId ?>" ><?= $orderId ?></a>
+                   <div class="linked-order-link">
+                       <a href="/orders/<?= $orderId ?>" ><?= $orderId ?></a>
+                   </div>
                 <?php endforeach; ?>
             </div>
         </label>
