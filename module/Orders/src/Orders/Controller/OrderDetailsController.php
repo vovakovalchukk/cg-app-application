@@ -308,7 +308,7 @@ class OrderDetailsController extends AbstractActionController
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/linkedOrders');
-        $view->setVariable('linkedOrders', $linkedOrders);
+        $view->setVariable('linkedOrders', $linkedOrders[$order->getId()]);
         return $view;
     }
 
