@@ -137,10 +137,14 @@ class ProductsJsonController extends AbstractActionController
     {
         $product = $productEntity->toArray();
 
+        $activeSalesAccounts = $this->getActiveSalesAccounts($accounts);
+
         $product = array_merge($product, [
             'eTag' => $productEntity->getStoredETag(),
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
+            'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
+            'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
         ]);
@@ -199,6 +203,36 @@ class ProductsJsonController extends AbstractActionController
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
         return $product;
+    }
+
+    protected function getActiveSalesAccounts($accounts)
+    {
+        $activeSalesAccounts = [];
+        foreach ($accounts as $account) {
+            if ($account['deleted'] || (! $account['active']) || (! in_array('sales', $account['type']))) {
+                continue;
+            }
+            $activeSalesAccounts[$account['id']] = $account;
+        }
+        return $activeSalesAccounts;
+    }
+
+    protected function getProductListingsPerAccountArray(ProductEntity $productEntity, $accounts)
+    {
+        $listingsPerSku = [];
+        $listingsByAccountId = [];
+
+        foreach ($productEntity->getListings() as $listing) {
+            $listingsByAccountId[$listing->getAccountId()] = $listing;
+        }
+
+        foreach ($accounts as $account) {
+            if (isset($listingsByAccountId[$account['id']])) {
+                $listingsPerSku[$account['id']] = $listingsByAccountId[$account['id']]->toArray();
+            }
+        }
+
+        return $listingsPerSku;
     }
 
     protected function getProductListingsArray(ProductEntity $productEntity)
