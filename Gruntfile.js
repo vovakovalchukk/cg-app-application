@@ -54,7 +54,17 @@ module.exports = function(grunt) {
                         }
                     }
                 ]
-            }
+            },
+            mustacheToCgBuilt: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'vendor/channelgrabber/',
+                        src: [ '**/template/**/*.mustache'],
+                        dest: 'public/cg-built/'
+                    }
+                ]
+            },
         },
         browserSync: {
             dev: {
@@ -121,6 +131,10 @@ module.exports = function(grunt) {
             copyLegacyJs: {
                 files: 'public/channelgrabber/**/js/**/*.js',
                 tasks: ['newer:copy:appJsToCgBuilt']
+            },
+            copyMustache: {
+                files: 'public/channelgrabber/**/template/**/*.mustache',
+                tasks: ['newer:copy:mustacheToCgBuilt']
             }
         }
     });
