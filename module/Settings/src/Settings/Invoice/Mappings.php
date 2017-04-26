@@ -19,6 +19,7 @@ use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
+use CG\Stdlib\DateTime;
 
 class Mappings
 {
@@ -95,6 +96,20 @@ class Mappings
         foreach ($defaultToNull as $key => $default) {
             if (isset($invoiceMapping[$key]) && $invoiceMapping[$key] == $default) {
                 $invoiceMapping[$key] = null;
+            }
+        }
+
+        $booleanDateTime = ['sendViaEmail', 'sendToFba'];
+        foreach ($booleanDateTime as $key) {
+            if (!isset($invoiceMapping[$key])) {
+                continue;
+            }
+
+            $booleanValue = filter_var($invoiceMapping[$key], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($booleanValue === true) {
+                $invoiceMapping[$key] = (new DateTime())->convertToSystemTimezone()->stdFormat();
+            } else {
+                $invoiceMapping[$key] = $booleanValue;
             }
         }
 
@@ -297,7 +312,7 @@ class Mappings
                 [
                     'title' => 'On',
                     'value' => 'on',
-                    'selected' => $option === true
+                    'selected' => ($option !== null && $option !== false)
                 ],
                 [
                     'title' => 'Off',
