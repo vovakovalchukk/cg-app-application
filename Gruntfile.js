@@ -59,7 +59,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'vendor/channelgrabber/',
+                        cwd: 'public/channelgrabber/',
                         src: [ '**/template/**/*.mustache'],
                         dest: 'public/cg-built/'
                     }
