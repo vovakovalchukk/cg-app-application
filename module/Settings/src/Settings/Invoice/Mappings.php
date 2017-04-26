@@ -1,9 +1,9 @@
 <?php
 namespace Settings\Invoice;
 
+use CG\Account\Client\Entity as Account;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
-use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
@@ -62,9 +62,29 @@ class Mappings
         $this->organisationUnitService = $organisationUnitService;
     }
 
-    public function saveInvoiceMappingFromPostData($postData)
+    public function saveInvoiceMappingFromPostData(array $postData)
     {
-        $postData['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        if (isset($postData['organisationUnitId'])) {
+            $this->saveAccountOu($postData['accountId'], $postData['organisationUnitId']);
+        } else {
+            $this->saveInvoiceMapping($postData);
+        }
+    }
+
+    protected function saveAccountOu($accountId, $organisationUnitId)
+    {
+        /** @var Account $account */
+        $account = $this->accountService->fetch($accountId);
+        try {
+            return $this->accountService->save($account->setOrganisationUnitId($organisationUnitId));
+        } catch (NotModified $exception) {
+            return $account;
+        }
+    }
+
+    protected function saveInvoiceMapping(array $invoiceMapping)
+    {
+        $invoiceMapping['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
 
         $defaultToNull = [
             'invoiceId' => static::DEFAULT_VALUE_INVOICE,
@@ -73,20 +93,20 @@ class Mappings
         ];
 
         foreach ($defaultToNull as $key => $default) {
-            if (isset($postData[$key]) && $postData[$key] == $default) {
-                $postData[$key] = null;
+            if (isset($invoiceMapping[$key]) && $invoiceMapping[$key] == $default) {
+                $invoiceMapping[$key] = null;
             }
         }
 
         try {
-            if (!isset($postData['id'])) {
+            if (!isset($invoiceMapping['id'])) {
                 throw new NotFound('No id - nothing to lookup');
             }
 
-            $invoiceMapping = $this->invoiceMappingService->fetch($postData['id']);
-            $entity = $this->invoiceMappingMapper->modifyEntityFromArray($invoiceMapping, $postData);
+            $entity = $this->invoiceMappingService->fetch($invoiceMapping['id']);
+            $entity = $this->invoiceMappingMapper->modifyEntityFromArray($entity, $invoiceMapping);
         } catch (NotFound $exception) {
-            $entity = $this->invoiceMappingMapper->fromArray($postData);
+            $entity = $this->invoiceMappingMapper->fromArray($invoiceMapping);
         }
 
         try {

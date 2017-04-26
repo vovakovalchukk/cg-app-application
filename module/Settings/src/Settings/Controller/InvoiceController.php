@@ -175,9 +175,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveMappingAction()
     {
-        $entity = $this->invoiceMappings->saveInvoiceMappingFromPostData($this->params()->fromPost());
+        $this->invoiceMappings->saveInvoiceMappingFromPostData($this->params()->fromPost());
         return $this->getJsonModelFactory()->newInstance([
-            'invoiceMapping' => json_encode($entity)
+            'invoiceMapping' => true
         ]);
     }
 

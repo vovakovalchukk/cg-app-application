@@ -74,22 +74,22 @@ define([
 
                 $(document).on('change', mappingTradingCompanySelector, function(event, element) {
                     var saveData = self.getMappingSaveData(element, 'organisationUnitId');
-                    self.saveMapping(saveData, handleSaveResponse);
+                    self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
                 $(document).on('change', mappingAssignedInvoiceSelector, function(event, element) {
                     var saveData = self.getMappingSaveData(element, 'invoiceId');
-                    self.saveMapping(saveData, handleSaveResponse);
+                    self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
                 $(document).on('change', mappingSendViaEmailSelector, function(event, element) {
                     var saveData = self.getMappingSaveData(element, 'sendViaEmail');
-                    self.saveMapping(saveData, handleSaveResponse);
+                    self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
                 $(document).on('change', mappingSendToFbaSelector, function(event, element) {
                     var saveData = self.getMappingSaveData(element, 'sendToFba');
-                    self.saveMapping(saveData, handleSaveResponse);
+                    self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
                 $(document).on('change keyup', emailVerifyInputSelector, function () {
@@ -317,6 +317,13 @@ define([
             function handleSaveResponse(data)
             {
                 $('#setting-etag').val(data.eTag);
+                if (n) {
+                    n.success(InvoiceSettings.SUCCESS_MESSAGE);
+                }
+            }
+
+            function handleSaveMappingResponse(data)
+            {
                 if (n) {
                     n.success(InvoiceSettings.SUCCESS_MESSAGE);
                 }
