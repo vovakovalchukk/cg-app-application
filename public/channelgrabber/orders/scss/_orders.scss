@@ -516,28 +516,82 @@
         margin-bottom: 15px;
     }
 }
+#datatable {
+    td {
+        overflow: visible;
+        .orderid-cell {
+            position: relative;
+            overflow: visible;
+        }
+    }
+}
 .orderid {
     float: left;
 }
 .linked-orders-icon {
-    position: relative;
-    float: left;
-    display: inline-block;
-    margin-left: 6px;
-}
-
-.hover-popup {
+    width: 130px;
     position: absolute;
-    .hover-popup-header {
-        .hover-popup-title {
+    display: inline-block;
+    .hover-popup {
+        display: none;
+        position: absolute;
+        width: 200px;
+        z-index: 100;
+        .hover-popup-header {
+            border-radius: 10px 10px 0 0;
+            padding: 9px 18px;
+            background-color: $color-lblue;
+            display: flex;
+            justify-content: space-between;
+            .hover-popup-title {
+                font-size: 14px;
+                color: $color-white;
+            }
+            .hover-popup-help {
+                .hover-popup-help-bubble {
+                    display: none;
+                    padding: 14px;
+                    position: absolute;
+                    right: -270px;
+                    width: 250px;
+                    top: 0px;
+                    background-color: white;
+                    border-radius: 10px;
 
+                    .hover-popup-help-bubble-triangle {
+                        width: 0;
+                        height: 0;
+                        border-top: 11px solid transparent;
+                        border-right: 11px solid $color-white;
+                        border-bottom: 11px solid transparent;
+                        position: absolute;
+                        left: -8px;
+                        top: 7px;
+                    }
+                    .hover-popup-help-text {
+                    }
+                }
+                &:hover {
+                    .hover-popup-help-bubble {
+                        display: block;
+                    }
+                }
+            }
         }
-        .hover-popup-help-text {
-
+        .hover-content {
+            background-color: $color-white;
+            border-radius: 0 0 10px 10px;
+            padding: 9px 18px;
+            a {
+                float: none;
+                text-align: left;
+                display: block;
+                margin-bottom: 6px;
+            }
         }
     }
-    .hover-content {
-        a {
+    &:hover {
+        .hover-popup {
             display: block;
         }
     }
