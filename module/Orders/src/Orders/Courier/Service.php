@@ -204,7 +204,7 @@ class Service implements LoggerAwareInterface
     public function getCommonItemListData(Item $item, ProductCollection $products, array $rowData = null)
     {
         if (!$rowData) {
-            $rowData = $this->getChildRowListData($item->getOrderId());
+            $rowData = $this->getChildRowListData($item->getLinkedOrderId());
         }
         $itemSpecifics = [
             'itemId' => $item->getId(),
