@@ -537,6 +537,7 @@
         position: absolute;
         width: 200px;
         z-index: 100;
+        border-radius: 10px;
         .hover-popup-header {
             border-radius: 10px 10px 0 0;
             padding: 9px 18px;
@@ -574,6 +575,7 @@
                 &:hover {
                     .hover-popup-help-bubble {
                         display: block;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24);
                     }
                 }
             }
@@ -593,6 +595,7 @@
     &:hover {
         .hover-popup {
             display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09), 0 4px 40px rgba(0, 0, 0, 0.24);
         }
     }
 }
