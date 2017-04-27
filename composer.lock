@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f84cd8a5992883b6bc11b18423797a42",
+    "content-hash": "22efdd51e531d9b0d27836bc099f04c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,11 +151,17 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
                 "reference": "202d5300232a090da6c08afdc758af435eb5113d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8175-linked-orders-ca986d.zip",
+                "reference": "202d5300232a090da6c08afdc758af435eb5113d",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -204,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24T13:33:48+00:00"
+            "time": "2017-04-26 15:46:21"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -565,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-24T13:34:23+00:00"
+            "time": "2017-04-24 13:34:23"
         },
         {
             "name": "channelgrabber/cilex",
@@ -667,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1448,11 +1454,17 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
                 "reference": "e4c19fdbd5bd7524edc39c36c1eb8c727c632836"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-EPIC-CGIV-8175-linked-orders-2f65af.zip",
+                "reference": "e4c19fdbd5bd7524edc39c36c1eb8c727c632836",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.28.0",
@@ -1491,7 +1503,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-24T13:34:52+00:00"
+            "time": "2017-04-25 15:02:09"
         },
         {
             "name": "channelgrabber/notification",
@@ -1545,16 +1557,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e756c13cd9fa8a10286ac344d7507654ce5dba8f"
+                "reference": "3fbc1b27811bb4fe79518779734a1e02a5827a57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8282-Linked-Orders-Shipping-Changes-8324a0.zip",
-                "reference": "e756c13cd9fa8a10286ac344d7507654ce5dba8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-8175-linked-orders-c87301.zip",
+                "reference": "3fbc1b27811bb4fe79518779734a1e02a5827a57",
                 "shasum": null
             },
             "require": {
@@ -1605,8 +1617,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev",
-                    "dev-CGIV-8282-Linked-Orders-Shipping-Changes": "1.28.5-dev"
+                    "dev-develop": "1.x-dev"
                 }
             },
             "autoload": {
@@ -1620,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-21T11:51:13+00:00"
+            "time": "2017-04-27 09:19:38"
         },
         {
             "name": "channelgrabber/permission",
@@ -2136,7 +2147,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2017-04-24T13:35:15+00:00"
+            "time": "2017-04-24 13:35:15"
         },
         {
             "name": "channelgrabber/scraper",
@@ -5427,7 +5438,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8880,27 +8891,15 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.19.41",
-            "alias_normalized": "1.19.41.0",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
-            "package": "channelgrabber/amazon"
-        },
-        {
             "alias": "1.29.1",
             "alias_normalized": "1.29.1.0",
             "version": "dev-EPIC-CGIV-8175-linked-orders",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.0.19",
-            "alias_normalized": "1.0.19.0",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
-            "package": "channelgrabber/courier"
-        },
-        {
             "alias": "1.2.13",
             "alias_normalized": "1.2.13.0",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "package": "channelgrabber/netdespatch"
         },
         {
@@ -8918,19 +8917,18 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
