@@ -291,11 +291,31 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $linkedOrdersCollection = [];
         }
 
+        $orderIdsWithLinks = [];
+        foreach ($linkedOrdersCollection as $linkedOrder) {
+            foreach ($linkedOrder->getOrderIds() as $linkedOrderId) {
+                $orderIdsWithLinks[$linkedOrderId] = $linkedOrderId;
+            }
+        }
+
+        try {
+            $filter = (new Filter())
+                ->setOrderIds($orderIdsWithLinks)
+                ->setLimit('all');
+            $ordersWithLinks = $this->orderClient->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            $ordersWithLinks = [];
+        }
+
         $linkedOrders = [];
-        foreach ($orderIds as $orderId) {
-            foreach ($linkedOrdersCollection as $linkedOrder) {
-                if (in_array($orderId, $linkedOrder->getOrderIds())) {
-                    $linkedOrders[$orderId] = $linkedOrder->getOrderIds();
+        foreach ($linkedOrdersCollection as $linkedOrder) {
+            foreach ($ordersWithLinks as $orderWithLink) {
+                foreach ($linkedOrder->getOrderIds() as $linkedOrderId) {
+                    $thisOrder = $ordersWithLinks->getById($linkedOrderId);
+                    $linkedOrders[$orderWithLink->getId()][] = [
+                        'orderId' => $linkedOrderId,
+                        'externalId' => $thisOrder->getExternalId(),
+                    ];
                 }
             }
         }
