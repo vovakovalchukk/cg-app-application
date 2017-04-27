@@ -671,11 +671,17 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-8282-Linked-Orders-Shipping-Changes",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "0c1979b86fbcc9db527a8cfbbbbaf2fb722ab869"
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -705,7 +711,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-13T14:24:00+00:00"
+            "time": "2017-04-27T10:57:28+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
