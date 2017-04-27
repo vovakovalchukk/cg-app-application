@@ -119,6 +119,7 @@ class ProductsJsonController extends AbstractActionController
             //noop
         }
         $view->setVariable('products', $productsArray)
+            ->setVariable('maxListingsPerAccount', $this->calculateMaxListingsPerAccount($productsArray))
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
@@ -133,6 +134,31 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
+    protected function calculateMaxListingsPerAccount(array $products)
+    {
+        $maxPerProductPerAccount = [];
+        foreach ($products as $product) {
+            $maxPerProduct = [];
+            foreach ($product['listings'] as $listing) {
+                $maxPerProduct[$listing['channel']]++;
+            }
+            $maxPerProductPerAccount[] = $maxPerProduct;
+        }
+        $maxPerAccount = [];
+        foreach ($maxPerProductPerAccount as $maxListing) {
+            foreach ($maxListing as $channel => $numListings) {
+                if (! isset($maxPerAccount[$channel])) {
+                    $maxPerAccount[$channel] = $numListings;
+                    continue;
+                }
+                if ($maxPerAccount[$channel] < $numListings) {
+                    $maxPerAccount[$channel] = $numListings;
+                }
+            }
+        }
+        return $maxPerAccount;
+    }
+
     protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $rootOrganisationUnit)
     {
         $product = $productEntity->toArray();
@@ -144,6 +170,7 @@ class ProductsJsonController extends AbstractActionController
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
             'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
+            'listingsBySku' => $this->getProductListingsBySku($productEntity),
             'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
@@ -233,6 +260,17 @@ class ProductsJsonController extends AbstractActionController
         }
 
         return $listingsPerSku;
+    }
+
+    protected function getProductListingsBySku(ProductEntity $productEntity)
+    {
+        $listingsBySku = [];
+        foreach ($productEntity->getListings() as $listing) {
+            foreach ($listing->getProductSkus() as $productSku) {
+                $listingsBySku[$productSku] = $listing->toArray();
+            }
+        }
+        return $listingsBySku;
     }
 
     protected function getProductListingsArray(ProductEntity $productEntity)
