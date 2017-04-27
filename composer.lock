@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5833cef8c339cab98df38a284b69da4",
+    "content-hash": "c71d7a4059ed609797c9bf4c30b2301c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.29.0",
+            "version": "1.29.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e6f04c2f9a51607cb7314ed6dfd9c6f365b91480"
+                "reference": "ea05d016c111d1491a66c6031ea9ad309a802905"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.29.0-52e7d7.zip",
-                "reference": "e6f04c2f9a51607cb7314ed6dfd9c6f365b91480",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.29.1-c339c4.zip",
+                "reference": "ea05d016c111d1491a66c6031ea9ad309a802905",
                 "shasum": null
             },
             "require": {
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-04T11:28:26+00:00"
+            "time": "2017-04-21T09:45:42+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -673,20 +673,20 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac"
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.18-d2bbe7.zip",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
                 "shasum": null
             },
             "require": {
@@ -717,7 +717,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-13T14:24:00+00:00"
+            "time": "2017-04-27T10:57:28+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1557,16 +1557,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.6",
+            "version": "1.28.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e41e4164b57957dac35eac712bcca55d78801c93"
+                "reference": "8cf976567ca0db991671e5be8e30d07d430b7aa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.6-7d75bc.zip",
-                "reference": "e41e4164b57957dac35eac712bcca55d78801c93",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.7-70b9fc.zip",
+                "reference": "8cf976567ca0db991671e5be8e30d07d430b7aa0",
                 "shasum": null
             },
             "require": {
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-13T11:31:54+00:00"
+            "time": "2017-04-25T12:58:05+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4095,7 +4095,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
