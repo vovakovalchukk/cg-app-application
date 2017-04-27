@@ -677,16 +677,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac"
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.18-d2bbe7.zip",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
                 "shasum": null
             },
             "require": {
@@ -717,7 +717,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-13T14:24:00+00:00"
+            "time": "2017-04-27T10:57:28+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -4096,7 +4096,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
