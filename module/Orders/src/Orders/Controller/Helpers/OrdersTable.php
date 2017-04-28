@@ -318,13 +318,11 @@ class OrdersTable
             $orderIds[] = $order['id'];
         }
 
-        $linkedOrders = $this->orderService->getLinkedOrders($orderCollection);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orderCollection);
 
         foreach ($orders as &$order) {
             if (isset($linkedOrders[$order['id']])) {
                 $order['linkedOrdersData'] = [
-                    'title' => 'Linked Orders:',
-                    'helpText' => 'OrderHub links orders together when we find multiple orders with identical shipping addresses. This allows you to process them together as a single order, combining the postage and saving you shipping fees.',
                     'linkedOrders' => $linkedOrders[$order['id']],
                 ];
             }

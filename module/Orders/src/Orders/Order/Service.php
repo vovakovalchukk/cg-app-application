@@ -280,7 +280,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $imagesForOrders;
     }
 
-    public function getLinkedOrders(OrderCollection $orders)
+    public function getLinkedOrdersData(OrderCollection $orders)
     {
         $expandedOrders = $this->orderLinker->expandOrderCollectionToIncludeLinkedOrders($orders);
 

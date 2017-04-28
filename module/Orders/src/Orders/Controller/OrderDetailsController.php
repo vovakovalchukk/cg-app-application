@@ -307,7 +307,7 @@ class OrderDetailsController extends AbstractActionController
     {
         $orders = new OrderCollection(Order::class, 'fetch', ['id' => $order->getId()]);
         $orders->attach($order);
-        $linkedOrders = $this->orderService->getLinkedOrders($orders);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orders);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/linkedOrders');
