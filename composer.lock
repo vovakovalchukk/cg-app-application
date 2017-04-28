@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "da10cea6707f22ce656b3323ae7f6354",
+    "content-hash": "9f644026a4dd3d325fe3d898a558b2d1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1212,16 +1212,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
+            "version": "1.11.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "8e3aa8d8fbb87f95be6740af0572d807e00362b0"
+                "reference": "5e241c5207d9a3457751962a80550807da3128dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-7b9d97.zip",
-                "reference": "8e3aa8d8fbb87f95be6740af0572d807e00362b0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.10-ceea98.zip",
+                "reference": "5e241c5207d9a3457751962a80550807da3128dc",
                 "shasum": null
             },
             "require": {
@@ -1256,7 +1256,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-04-25T07:51:36+00:00"
+            "time": "2017-04-28T13:21:43+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -1557,16 +1557,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
+            "version": "1.28.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "497c5119129574102d54bb2df4862f7bb85c4bba"
+                "reference": "35edc0cd289dc4168d8038c6fa4660cad46d1bbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-2b4a9c.zip",
-                "reference": "497c5119129574102d54bb2df4862f7bb85c4bba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.8-32ed94.zip",
+                "reference": "35edc0cd289dc4168d8038c6fa4660cad46d1bbd",
                 "shasum": null
             },
             "require": {
@@ -1593,7 +1593,7 @@
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site as 1.5.3",
+                "channelgrabber/settings": "^1.5.3",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.42",
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-27 08:10:59"
+            "time": "2017-04-28T13:31:42+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2216,16 +2216,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "48a9e5016da6fcf02d9121adbddcf6a8f15da43a"
+                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-008372.zip",
-                "reference": "48a9e5016da6fcf02d9121adbddcf6a8f15da43a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.3-fc8fdb.zip",
+                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e",
                 "shasum": null
             },
             "require": {
@@ -2248,7 +2248,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-04-27 07:56:54"
+            "time": "2017-04-28T13:25:46+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -8884,32 +8884,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.9",
-            "alias_normalized": "1.11.9.0",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.28.8",
-            "alias_normalized": "1.28.8.0",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.5.3",
-            "alias_normalized": "1.5.3.0",
-            "version": "dev-CGIV-7903-map-invoice-template-to-trading-company-and-site",
-            "package": "channelgrabber/settings"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/settings": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
