@@ -140,11 +140,10 @@ class ProductsJsonController extends AbstractActionController
         foreach ($products as $product) {
             $maxPerProduct = [];
             foreach ($product['listings'] as $listing) {
-                if (isset($maxPerProduct[$listing['channel']])) {
-                    $maxPerProduct[$listing['channel']]++;
-                } else {
-                    $maxPerProduct[$listing['channel']] = 1;
+                if (!isset($maxPerProduct[$listing['channel']])) {
+                    $maxPerProduct[$listing['channel']] = 0;
                 }
+                $maxPerProduct[$listing['channel']]++;
             }
             $maxPerProductPerAccount[] = $maxPerProduct;
         }
