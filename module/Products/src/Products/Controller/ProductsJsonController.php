@@ -172,7 +172,7 @@ class ProductsJsonController extends AbstractActionController
             'eTag' => $productEntity->getStoredETag(),
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
-            'listingsPerChannel' => $this->getProductListingsPerChannelArray($productEntity, $activeSalesAccounts),
+            'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
             'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
@@ -246,7 +246,7 @@ class ProductsJsonController extends AbstractActionController
         return $activeSalesAccounts;
     }
 
-    protected function getProductListingsPerChannelArray(ProductEntity $productEntity, $accounts)
+    protected function getProductListingsPerAccountArray(ProductEntity $productEntity, $accounts)
     {
 
         $listingsByAccountId = [];
@@ -254,18 +254,18 @@ class ProductsJsonController extends AbstractActionController
             $listingsByAccountId[$listing->getAccountId()][] = $listing;
         }
 
-        $listingsPerChannel = [];
+        $listingsPerAccount= [];
         foreach ($accounts as $account) {
             if (isset($listingsByAccountId[$account['id']])) {
                 foreach ($listingsByAccountId[$account['id']] as $listing) {
-                    $listingsPerChannel[$account['channel']][] = $listing->toArray();
+                    $listingsPerAccount[$account['id']][] = $listing->toArray();
                 }
             } else {
-                $listingsPerChannel[$account['channel']] = [];
+                $listingsPerAccount[$account['id']] = [];
             }
         }
 
-        return $listingsPerChannel;
+        return $listingsPerAccount;
     }
 
     protected function getProductListingsArray(ProductEntity $productEntity)
