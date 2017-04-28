@@ -169,8 +169,7 @@ class ProductsJsonController extends AbstractActionController
             'eTag' => $productEntity->getStoredETag(),
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
-            'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
-            'listingsBySku' => $this->getProductListingsBySku($productEntity),
+            'listingsPerChannel' => $this->getProductListingsPerChannelArray($productEntity, $activeSalesAccounts),
             'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
@@ -244,33 +243,26 @@ class ProductsJsonController extends AbstractActionController
         return $activeSalesAccounts;
     }
 
-    protected function getProductListingsPerAccountArray(ProductEntity $productEntity, $accounts)
+    protected function getProductListingsPerChannelArray(ProductEntity $productEntity, $accounts)
     {
-        $listingsPerSku = [];
+
         $listingsByAccountId = [];
-
         foreach ($productEntity->getListings() as $listing) {
-            $listingsByAccountId[$listing->getAccountId()] = $listing;
+            $listingsByAccountId[$listing->getAccountId()][] = $listing;
         }
 
+        $listingsPerChannel = [];
         foreach ($accounts as $account) {
-            if (isset($listingsByAccountId[$account['id']])) {
-                $listingsPerSku[$account['id']] = $listingsByAccountId[$account['id']]->toArray();
+            if (count($listingsByAccountId[$account['id']])) {
+                foreach ($listingsByAccountId[$account['id']] as $listing) {
+                    $listingsPerChannel[$account['channel']][] = $listing->toArray();
+                }
+            } else {
+                $listingsPerChannel[$account['channel']] = [];
             }
         }
 
-        return $listingsPerSku;
-    }
-
-    protected function getProductListingsBySku(ProductEntity $productEntity)
-    {
-        $listingsBySku = [];
-        foreach ($productEntity->getListings() as $listing) {
-            foreach ($listing->getProductSkus() as $productSku) {
-                $listingsBySku[$productSku] = $listing->toArray();
-            }
-        }
-        return $listingsBySku;
+        return $listingsPerChannel;
     }
 
     protected function getProductListingsArray(ProductEntity $productEntity)
