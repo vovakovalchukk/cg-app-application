@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8fc3c206e0532d8d564729ff662b861f",
+    "content-hash": "da10cea6707f22ce656b3323ae7f6354",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.29.0",
+            "version": "1.29.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e6f04c2f9a51607cb7314ed6dfd9c6f365b91480"
+                "reference": "ea05d016c111d1491a66c6031ea9ad309a802905"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.29.0-52e7d7.zip",
-                "reference": "e6f04c2f9a51607cb7314ed6dfd9c6f365b91480",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.29.1-c339c4.zip",
+                "reference": "ea05d016c111d1491a66c6031ea9ad309a802905",
                 "shasum": null
             },
             "require": {
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-04T11:28:26+00:00"
+            "time": "2017-04-21T09:45:42+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -677,16 +677,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac"
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.18-d2bbe7.zip",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
                 "shasum": null
             },
             "require": {
@@ -717,7 +717,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-13T14:24:00+00:00"
+            "time": "2017-04-27T10:57:28+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1216,12 +1216,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "8d3735128f0e73da5c3a80e4e42e32523153a1d3"
+                "reference": "8e3aa8d8fbb87f95be6740af0572d807e00362b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-f800ce.zip",
-                "reference": "8d3735128f0e73da5c3a80e4e42e32523153a1d3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-7903-map-invoice-template-to-trading-company-and-site-7b9d97.zip",
+                "reference": "8e3aa8d8fbb87f95be6740af0572d807e00362b0",
                 "shasum": null
             },
             "require": {
@@ -1256,7 +1256,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-04-19T11:27:22+00:00"
+            "time": "2017-04-25T07:51:36+00:00"
         },
         {
             "name": "channelgrabber/locale",
