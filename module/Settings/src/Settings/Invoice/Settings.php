@@ -88,22 +88,30 @@ class Settings
 
     public function saveSettingsFromPostData($data)
     {
+        /** @var Entity $invoiceSettings */
         $invoiceSettings = $this->getSettings();
-
         try {
             $currentAutoEmail = $invoiceSettings->getAutoEmail();
+            $currentSendToFBA = $invoiceSettings->getSendToFba();
         } catch (NotFound $e) {
             $currentAutoEmail = false;
+            $currentSendToFBA = false;
         }
 
         try {
             $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
-            $data['autoEmail'] = $this->validateBoolean($data['autoEmail']);
             $data['itemSku'] = $this->validateBoolean($data['itemSku']);
             $data['productImages'] = $this->validateBoolean($data['productImages']);
             $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
-            $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
-            $data['sendToFba'] = $this->validateBoolean($data['sendToFba']);
+            $data['autoEmail'] = $this->handleDateTimeValue(
+                $currentAutoEmail,
+                $this->validateBoolean($data['autoEmail']),
+                'notifyOfAutoEmailChange'
+            );
+            $data['sendToFba'] = $this->handleDateTimeValue(
+                $currentSendToFBA,
+                $this->validateBoolean($data['sendToFba'])
+            );
 
             if ($data['emailSendAs']) {
                 $data = $this->handleEmailVerification($data);
@@ -208,25 +216,23 @@ class Settings
         return $emailSendAs !== $invoiceSettingsEmailSendAs;
     }
 
-    /**
-     * @param $currentAutoEmail
-     * @param $autoEmail
-     * @return mixed
-     */
-    protected function handleAutoEmailChange($currentAutoEmail, $autoEmail)
+    protected function handleDateTimeValue($currentValue, $newValue, $notify = false)
     {
-        if ($currentAutoEmail && $autoEmail) {
-            $autoEmail = $currentAutoEmail;
+        if (((bool) $currentValue) && $newValue) {
+            $newValue = $currentValue;
             // Value unchanged so don't tell intercom
-        } else if ($autoEmail) {
-            $autoEmail = (new DateTime())->stdFormat();
-            $this->notifyOfAutoEmailChange(true);
+        } else if ($newValue) {
+            $newValue = (new DateTime())->stdFormat();
+            if ($notify) {
+                $this->{$notify}(true);
+            }
         } else {
-            $autoEmail = null;
-            $this->notifyOfAutoEmailChange(false);
+            $newValue = null;
+            if ($notify) {
+                $this->{$notify}(false);
+            }
         }
-
-        return $autoEmail;
+        return $newValue;
     }
 
     /**
