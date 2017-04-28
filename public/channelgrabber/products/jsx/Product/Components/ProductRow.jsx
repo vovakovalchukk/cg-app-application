@@ -103,7 +103,7 @@ define([
                             <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
                         </Pane>
                         <Pane label="Listings">
-                            <ListingsView listings={this.props.product.listingsPerChannel} maxListingsPerAccount={this.props.maxListingsPerAccount} variations={products} fullView={this.state.expanded} />
+                            <ListingsView listings={this.props.product.listingsPerAccount} maxListingsPerAccount={this.props.maxListingsPerAccount} variations={products} fullView={this.state.expanded} />
                         </Pane>
                     </Tabs>
                 </div>

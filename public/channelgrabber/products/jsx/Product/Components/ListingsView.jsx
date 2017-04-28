@@ -12,12 +12,13 @@ define([
     var ListingsViewComponent = React.createClass({
         getHeaders: function() {
             var headers = [];
-            for (var channel in this.props.maxListingsPerAccount) {
-                if (!this.props.maxListingsPerAccount.hasOwnProperty(channel)) continue;
+            for (var accountId in this.props.maxListingsPerAccount) {
+                if (!this.props.maxListingsPerAccount.hasOwnProperty(accountId)) continue;
 
-                var maxListings = this.props.maxListingsPerAccount[channel];
+                var maxListings = this.props.maxListingsPerAccount[accountId];
+                var account = this.props.variations[0].accounts[accountId];
                 for (var i = 0; i < maxListings; i++) {
-                    headers.push(<th title={channel} style={{width: listingColumnWidth}}>{channel}</th>);
+                    headers.push(<th title={account.displayName} style={{width: listingColumnWidth}}>{account.channel}</th>);
                 }
             }
             return headers;
@@ -44,7 +45,7 @@ define([
                                 return;
                             }
                             count++;
-                            return <ListingsRow key={variation.id} listings={variation.listingsPerChannel} maxListingsPerAccount={this.props.maxListingsPerAccount}/>;
+                            return <ListingsRow key={variation.id} listings={variation.listingsPerAccount} maxListingsPerAccount={this.props.maxListingsPerAccount}/>;
                         }.bind(this))}
                         </tbody>
                     </table>
