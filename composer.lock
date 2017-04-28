@@ -1561,12 +1561,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3fbc1b27811bb4fe79518779734a1e02a5827a57"
+                "reference": "7f694a2b24f7149230f81cd8e05f941f62747920"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-8175-linked-orders-c87301.zip",
-                "reference": "3fbc1b27811bb4fe79518779734a1e02a5827a57",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-8175-linked-orders-7c0e59.zip",
+                "reference": "7f694a2b24f7149230f81cd8e05f941f62747920",
                 "shasum": null
             },
             "require": {
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-27 09:19:38"
+            "time": "2017-04-28 12:35:28"
         },
         {
             "name": "channelgrabber/permission",
