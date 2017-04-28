@@ -40,6 +40,7 @@ define([
                 variations: [],
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
+                maxListingsPerAccount: [],
                 initialLoadOccurred: false,
                 pagination: {
                     total: 0,
@@ -80,6 +81,7 @@ define([
                 var self = this;
                 this.setState({
                     products: result.products,
+                    maxListingsPerAccount: result.maxListingsPerAccount,
                     pagination: result.pagination,
                     initialLoadOccurred: true,
                 }, function(){
@@ -210,7 +212,7 @@ define([
             }
 
             return this.state.products.map(function(object) {
-                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]} maxVariationAttributes={this.state.maxVariationAttributes}/>;
+                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]} maxVariationAttributes={this.state.maxVariationAttributes} maxListingsPerAccount={this.state.maxListingsPerAccount}/>;
             }.bind(this))
         },
         render: function()

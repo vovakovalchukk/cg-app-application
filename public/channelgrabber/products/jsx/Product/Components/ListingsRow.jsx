@@ -26,17 +26,20 @@ define([
         getValues: function() {
             var values = [];
 
-            for (var accountId in this.props.accounts) {
-                if (!this.props.accounts.hasOwnProperty(accountId)) continue;
+            for (var channel in this.props.maxListingsPerAccount) {
+                if (!this.props.maxListingsPerAccount.hasOwnProperty(channel)) continue;
 
-                if (this.props.listings[accountId]) {
-                    var status = $.trim(this.props.listings[accountId].status);
-                    values.push(<td title={this.getHoverText(status)}><span className={"listing-status " + status}></span></td>);
-                } else {
-                    values.push(<td title={this.getHoverText('unimported')}><span className={"listing-status unknown"}></span></td>);
+                var maxListings = this.props.maxListingsPerAccount[channel];
+                for (var i = 0; i < maxListings; i++) {
+                    if (this.props.listings[channel][i]) {
+                        var status = $.trim(this.props.listings[channel][i].status);
+                        var listingUrl = $.trim(this.props.listings[channel][i].url);
+                        values.push(<td title={this.getHoverText(status)}><a href={listingUrl}><span className={"listing-status " + status}></span></a></td>);
+                    } else {
+                        values.push(<td title={this.getHoverText('unimported')}><span className={"listing-status unknown"}></span></td>);
+                    }
                 }
             }
-
             return values;
         },
         render: function () {
