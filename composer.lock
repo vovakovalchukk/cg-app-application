@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d773ec4e93655ae59faa2b7d65fd9c54",
+    "content-hash": "d7e80cf7fba480f7e05c6bb7e325e6fe",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-26 15:46:21"
+            "time": "2017-04-26T15:46:21+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1503,7 +1503,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-25 15:02:09"
+            "time": "2017-04-25T15:02:09+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -1561,13 +1561,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7f694a2b24f7149230f81cd8e05f941f62747920"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-8175-linked-orders-7c0e59.zip",
-                "reference": "7f694a2b24f7149230f81cd8e05f941f62747920",
-                "shasum": null
+                "reference": "5089ce150d97acc3c2560aa3d3bfeeeff4be35c5"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1631,7 +1625,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-28 12:35:28"
+            "time": "2017-04-28T12:35:28+00:00"
         },
         {
             "name": "channelgrabber/permission",
