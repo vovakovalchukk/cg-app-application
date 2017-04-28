@@ -318,7 +318,7 @@ class OrdersTable
             $orderIds[] = $order['id'];
         }
 
-        $linkedOrders = $this->orderService->getLinkedOrders($orderIds);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orderIds);
 
         foreach ($orders as &$order) {
             if (isset($linkedOrders[$order['id']])) {

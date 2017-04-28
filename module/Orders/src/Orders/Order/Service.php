@@ -280,7 +280,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $imagesForOrders;
     }
 
-    public function getLinkedOrders(array $orderIds)
+    public function getLinkedOrdersData(array $orderIds)
     {
         try {
             $filter = (new OrderLinkFilter())
