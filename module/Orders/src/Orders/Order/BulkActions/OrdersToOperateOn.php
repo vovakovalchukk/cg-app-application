@@ -38,8 +38,7 @@ class OrdersToOperateOn
      */
     public function __invoke(array $params, $orderBy = null, $orderDir = null)
     {
-        $filter = $this->buildFilterFromInput($params, $orderBy, $orderDir);
-
+        $filter = $this->buildFilterFromInput($params, $orderBy, $orderDir, true);
         /** @var OrderCollection $collection */
         $collection = $this->orderService->fetchCollectionByFilter($filter);
         $collection->setFilterId($filter->getId());
@@ -49,7 +48,7 @@ class OrdersToOperateOn
     /**
      * @return Filter
      */
-    public function buildFilterFromInput(array $params, $orderBy = null, $orderDir = null)
+    public function buildFilterFromInput(array $params, $orderBy = null, $orderDir = null, $resolveAssociatedLinkedOrders = false)
     {
         $filter = $this->getBaseFilter()
             ->setOrderBy($orderBy)
