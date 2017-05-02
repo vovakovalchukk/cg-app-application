@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e12a2d50d9e2b7aedaf9e9be549e5fde",
+    "content-hash": "fa5938afcbda56164311a072f55ca200",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-           "time": "2017-04-24T12:57:18+00:00"
+            "time": "2017-04-24T12:57:18+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2610,11 +2610,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-8175-linked-order-invoices",
+            "version": "dev-CGIV-8179-linked-order-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b3f6ac5bbec60376b2a69e96bf5ff9aadc6104fd"
+                "reference": "95092239364054773803dec765c8f9c0402a0ebf"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -8912,6 +8912,12 @@
             "alias": "1.4.24",
             "alias_normalized": "1.4.24.0",
             "version": "dev-CGIV-8175-linked-order-invoices",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.4.24",
+            "alias_normalized": "1.4.24.0",
+            "version": "dev-CGIV-8179-linked-order-invoices",
             "package": "channelgrabber/template"
         }
     ],
