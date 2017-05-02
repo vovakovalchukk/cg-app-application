@@ -4,6 +4,7 @@ namespace Orders\Order\BulkActions;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorage;
 use CG\Order\Service\Filter;
+use CG\Order\Shared\OrderLinker;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -19,18 +20,22 @@ class OrdersToOperateOn
     protected $activeUserContainer;
     /** @var FilterStorage */
     protected $filterStorage;
+    /** @var OrderLinker */
+    protected $orderLinker;
 
     public function __construct(
         OrderService $orderService,
         FilterService $filterService,
         ActiveUserInterface $activeUserContainer,
-        FilterStorage $filterStorage
+        FilterStorage $filterStorage,
+        OrderLinker $orderLinker
     ) {
         $this
             ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setActiveUserContainer($activeUserContainer)
-            ->setFilterStorage($filterStorage);
+            ->setFilterStorage($filterStorage)
+            ->setOrderLinker($orderLinker);
     }
 
     /**
@@ -43,7 +48,10 @@ class OrdersToOperateOn
         /** @var OrderCollection $collection */
         $collection = $this->orderService->fetchCollectionByFilter($filter);
         $collection->setFilterId($filter->getId());
-        return $collection;
+
+        return $this->orderLinker->expandOrderCollectionToIncludeLinkedOrders(
+            $collection
+        );
     }
 
     /**
@@ -132,6 +140,15 @@ class OrdersToOperateOn
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOrderLinker(OrderLinker $orderLinker)
+    {
+        $this->orderLinker = $orderLinker;
         return $this;
     }
 
