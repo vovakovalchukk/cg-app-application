@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "22efdd51e531d9b0d27836bc099f04c8",
+    "content-hash": "0d6ca768a800a781c3549df426ac6acd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-	"time": "2017-04-28 12:35:28"
+            "time": "2017-04-28 12:35:28"
         },
         {
             "name": "channelgrabber/permission",
@@ -2614,12 +2614,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "fd8c65b31001df03e846613cfcf2d4f42a1722b3"
+                "reference": "769f28093c97fc280791b8c17855d1f77b162ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.23-a83368.zip",
-                "reference": "9d6c07e1244a1bd8e83c1a5506b395febb8ee1a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-8179-linked-order-invoices-1fc3e4.zip",
+                "reference": "769f28093c97fc280791b8c17855d1f77b162ead",
                 "shasum": null
             },
             "require": {
@@ -2630,7 +2630,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.27.5",
+                "channelgrabber/order": "dev-EPIC-CGIV-8175-linked-orders as 1.28.7",
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.5.1",
                 "channelgrabber/stdlib": "^2.10.4",
@@ -2664,7 +2664,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-04-06T12:38:11+00:00"
+            "time": "2017-05-02 10:28:09"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4096,7 +4096,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5489,7 +5489,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5582,7 +5582,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6051,7 +6051,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8929,6 +8929,7 @@
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
