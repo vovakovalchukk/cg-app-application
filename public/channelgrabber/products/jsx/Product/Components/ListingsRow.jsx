@@ -31,6 +31,7 @@ define([
 
             for (var accountId in this.props.maxListingsPerAccount) {
                 if (!this.props.maxListingsPerAccount.hasOwnProperty(accountId)) continue;
+                if (this.props.listings[accountId] === undefined) continue;
 
                 var maxListings = this.props.maxListingsPerAccount[accountId];
                 for (var i = 0; i < maxListings; i++) {
