@@ -5,7 +5,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\BulkActions;
 use CG_UI\View\BulkActions\SubAction;
 use CG_UI\View\BulkActions\Action;
-use CG\Order\Shared\ShippableInterface as OrderEntity;
+use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Courier\Service as CourierService;
 use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 

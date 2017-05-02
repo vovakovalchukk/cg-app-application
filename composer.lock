@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d6ca768a800a781c3549df426ac6acd",
+    "content-hash": "22efdd51e531d9b0d27836bc099f04c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24T13:33:48+00:00"
+            "time": "2017-04-26 15:46:21"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-24T13:34:23+00:00"
+            "time": "2017-04-24 13:34:23"
         },
         {
             "name": "channelgrabber/cilex",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1503,7 +1503,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-24T13:34:52+00:00"
+            "time": "2017-04-25 15:02:09"
         },
         {
             "name": "channelgrabber/notification",
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24T12:57:18+00:00"
+	"time": "2017-04-28 12:35:28"
         },
         {
             "name": "channelgrabber/permission",
@@ -2147,7 +2147,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2017-04-24T13:35:15+00:00"
+            "time": "2017-04-24 13:35:15"
         },
         {
             "name": "channelgrabber/scraper",
@@ -2615,6 +2615,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
                 "reference": "fd8c65b31001df03e846613cfcf2d4f42a1722b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.23-a83368.zip",
+                "reference": "9d6c07e1244a1bd8e83c1a5506b395febb8ee1a5",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -5432,7 +5438,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8911,31 +8917,24 @@
         {
             "alias": "1.4.24",
             "alias_normalized": "1.4.24.0",
-            "version": "dev-CGIV-8175-linked-order-invoices",
-            "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.4.24",
-            "alias_normalized": "1.4.24.0",
             "version": "dev-CGIV-8179-linked-order-invoices",
             "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
-        "channelgrabber/template": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
