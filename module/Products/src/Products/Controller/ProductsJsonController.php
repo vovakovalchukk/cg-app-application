@@ -119,7 +119,7 @@ class ProductsJsonController extends AbstractActionController
             //noop
         }
         $view->setVariable('products', $productsArray)
-            ->setVariable('maxListingsPerAccount', $this->calculateMaxListingsPerAccount($productsArray))
+            ->setVariable('maxListingsPerAccount', $this->calculateMaxListingsPerAccount($productsArray, $accounts))
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
@@ -134,12 +134,17 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
-    protected function calculateMaxListingsPerAccount(array $products)
+    protected function calculateMaxListingsPerAccount(array $products, $accounts)
     {
+        $activeSalesAccounts = $this->getActiveSalesAccounts($accounts);
+
         $maxPerAccount = [];
         foreach ($products as $product) {
             $maxPerProduct = [];
             foreach ($product['listings'] as $listing) {
+                if (!in_array($listing['accountId'], $activeSalesAccounts)) {
+                    continue;
+                }
                 if (!isset($maxPerProduct[$listing['accountId']])) {
                     $maxPerProduct[$listing['accountId']] = 0;
                 }
