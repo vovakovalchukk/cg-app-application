@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d6ca768a800a781c3549df426ac6acd",
+    "content-hash": "c7d492386b879b2ab2f2f7914db67c8f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2610,7 +2610,7 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-8179-linked-order-invoices",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
@@ -2618,7 +2618,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-8179-linked-order-invoices-1fc3e4.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-8175-linked-orders-1fc3e4.zip",
                 "reference": "769f28093c97fc280791b8c17855d1f77b162ead",
                 "shasum": null
             },
@@ -8917,7 +8917,7 @@
         {
             "alias": "1.4.24",
             "alias_normalized": "1.4.24.0",
-            "version": "dev-CGIV-8179-linked-order-invoices",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "package": "channelgrabber/template"
         }
     ],
