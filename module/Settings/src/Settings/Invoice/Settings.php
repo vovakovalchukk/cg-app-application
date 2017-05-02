@@ -3,53 +3,69 @@ namespace Settings\Invoice;
 
 use CG\Amazon\Aws\Ses\Service as AmazonSesService;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Intercom\Company\Service as IntercomCompanyService;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Template\Service as TemplateService;
 use CG\Template\Entity as Template;
+use CG\Template\Service as TemplateService;
 use CG\Template\SystemTemplateEntity as SystemTemplate;
 use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
 use Settings\Module;
 
-class Service
+class Settings
 {
     const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
     const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
+    const SITE_DEFAULT = 'UK';
 
-    protected $invoiceService;
+    /** @var Helper $helper */
+    protected $helper;
+    /** @var InvoiceSettingsService $invoiceSettingsService */
+    protected $invoiceSettingsService;
+    /** @var TemplateService $templateService */
     protected $templateService;
-    protected $organisationUnitService;
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var InvoiceSettingsMapper $invoiceSettingsMapper */
     protected $invoiceSettingsMapper;
+    /** @var DataTable $datatable */
     protected $datatable;
+    /** @var AmazonSesService $amazonSesService */
+    protected $amazonSesService;
+    /** @var IntercomEventService $intercomEventService */
+    protected $intercomEventService;
+    /** @var IntercomCompanyService $intercomCompanyService */
+    protected $intercomCompanyService;
+    /** @var UserOrganisationUnitService $userOrganisationUnitService */
     protected $userOrganisationUnitService;
+
+    /** @var array $templateImagesMap */
     protected $templateImagesMap = [
-        'FPS-3'  => 'Form-FPS3.png',
-        'FPS-15'  => 'Form-FPS15.png',
-        'FPS-16'  => 'Form-FPS16.png',
-        'FPD-1'  => 'Form-FPD1.png',
+        'FPS-3' => 'Form-FPS3.png',
+        'FPS-15' => 'Form-FPS15.png',
+        'FPS-16' => 'Form-FPS16.png',
+        'FPD-1' => 'Form-FPD1.png',
         Template::DEFAULT_TEMPLATE_ID => 'blank.png',
     ];
+    /** @var array $templatePurchaseLinksMap */
     protected $templatePurchaseLinksMap = [
-        'FPS-3'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
-        'FPS-15'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-15/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPS-15%20CG',
-        'FPS-16'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-16/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-16%20CG%20Link',
-        'FPD-1'  => 'https://www.formsplus.co.uk/online-shop/integrated/double-integrated-labels/fpd-1/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPD-1%20CG',
+        'FPS-3' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
+        'FPS-15' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-15/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPS-15%20CG',
+        'FPS-16' => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-16/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-16%20CG%20Link',
+        'FPD-1' => 'https://www.formsplus.co.uk/online-shop/integrated/double-integrated-labels/fpd-1/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPD-1%20CG',
     ];
 
     public function __construct(
+        Helper $helper,
         InvoiceSettingsService $invoiceSettingsService,
         TemplateService $templateService,
-        OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer,
         InvoiceSettingsMapper $invoiceSettingsMapper,
         DataTable $datatable,
@@ -58,9 +74,9 @@ class Service
         IntercomCompanyService $intercomCompanyService,
         UserOrganisationUnitService $userOrganisationUnitService
     ) {
+        $this->helper = $helper;
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->templateService = $templateService;
-        $this->organisationUnitService = $organisationUnitService;
         $this->activeUserContainer = $activeUserContainer;
         $this->invoiceSettingsMapper = $invoiceSettingsMapper;
         $this->datatable = $datatable;
@@ -72,21 +88,30 @@ class Service
 
     public function saveSettingsFromPostData($data)
     {
+        /** @var Entity $invoiceSettings */
         $invoiceSettings = $this->getSettings();
-
         try {
             $currentAutoEmail = $invoiceSettings->getAutoEmail();
+            $currentSendToFBA = $invoiceSettings->getSendToFba();
         } catch (NotFound $e) {
             $currentAutoEmail = false;
+            $currentSendToFBA = false;
         }
 
         try {
             $data['emailSendAs'] = $this->validateEmailSendAs($data['emailSendAs']);
-            $data['autoEmail'] = $this->validateBoolean($data['autoEmail']);
             $data['itemSku'] = $this->validateBoolean($data['itemSku']);
             $data['productImages'] = $this->validateBoolean($data['productImages']);
             $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
-            $data['autoEmail'] = $this->handleAutoEmailChange($currentAutoEmail, $data['autoEmail']);
+            $data['autoEmail'] = $this->handleDateTimeValue(
+                $currentAutoEmail,
+                $this->validateBoolean($data['autoEmail']),
+                'notifyOfAutoEmailChange'
+            );
+            $data['sendToFba'] = $this->handleDateTimeValue(
+                $currentSendToFBA,
+                $this->validateBoolean($data['sendToFba'])
+            );
 
             if ($data['emailSendAs']) {
                 $data = $this->handleEmailVerification($data);
@@ -191,25 +216,23 @@ class Service
         return $emailSendAs !== $invoiceSettingsEmailSendAs;
     }
 
-    /**
-     * @param $currentAutoEmail
-     * @param $autoEmail
-     * @return mixed
-     */
-    protected function handleAutoEmailChange($currentAutoEmail, $autoEmail)
+    protected function handleDateTimeValue($currentValue, $newValue, $notify = false)
     {
-        if ($currentAutoEmail && $autoEmail) {
-            $autoEmail = $currentAutoEmail;
+        if (((bool) $currentValue) && $newValue) {
+            $newValue = $currentValue;
             // Value unchanged so don't tell intercom
-        } else if ($autoEmail) {
-            $autoEmail = (new DateTime())->stdFormat();
-            $this->notifyOfAutoEmailChange(true);
+        } else if ($newValue) {
+            $newValue = (new DateTime())->stdFormat();
+            if ($notify) {
+                $this->{$notify}(true);
+            }
         } else {
-            $autoEmail = null;
-            $this->notifyOfAutoEmailChange(false);
+            $newValue = null;
+            if ($notify) {
+                $this->{$notify}(false);
+            }
         }
-
-        return $autoEmail;
+        return $newValue;
     }
 
     /**
@@ -332,9 +355,9 @@ class Service
         ];
 
         try {
-            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
+            return iterator_to_array($this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
                 $organisationUnits
-            );
+            ));
         } catch (NotFound $e) {
             return [];
         }
@@ -358,7 +381,7 @@ class Service
         return ['system' => $systemInvoices, 'user' => $userInvoices];
     }
 
-    private function getBlankTemplate()
+    protected function getBlankTemplate()
     {
         return [
             'name' => 'Blank',
@@ -377,31 +400,13 @@ class Service
         ];
     }
 
-    public function getTradingCompanies()
-    {
-        $limit = 'all';
-        $page = 1;
-        $ancestor = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
-
-        try {
-            return $this->organisationUnitService->fetchFiltered(
-                $limit,
-                $page,
-                $ancestor
-            );
-        } catch (NotFound $e) {
-            return [];
-        }
-    }
-
-    private function getTemplateViewData($template)
+    protected function getTemplateViewData($template)
     {
         $templateViewDataElement['name'] = $template->getName();
         $templateViewDataElement['key'] = $template->getId();
         $templateViewDataElement['invoiceId'] = $template->getId();
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
         $templateViewDataElement['links'] = $template->getViewLinks();
-
         return $templateViewDataElement;
     }
 
@@ -411,11 +416,5 @@ class Service
     public function getDatatable()
     {
         return $this->datatable;
-    }
-
-    public function setDatatable(Datatable $datatable)
-    {
-        $this->datatable = $datatable;
-        return $this;
     }
 }

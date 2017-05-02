@@ -16,6 +16,7 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailer;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
@@ -62,11 +63,12 @@ class Service extends ClientService implements StatsAwareInterface
     protected $count = 0;
 
     public function __construct(
-        OrderService $orderService,
         RendererService $rendererService,
         TemplateFactory $templateFactory,
-        ElementFactory $elementFactory,
         InvoiceSettingsService $invoiceSettingsService,
+        InvoiceMappingService $invoiceMappingService,
+        OrderService $orderService,
+        ElementFactory $elementFactory,
         ProgressStorage $progressStorage,
         IntercomEventService $intercomEventService,
         ActiveUserContainer $activeUserContainer,
@@ -77,7 +79,7 @@ class Service extends ClientService implements StatsAwareInterface
         InvoiceEmailer $invoiceEmailer,
         InvoiceValidator $invoiceValidator
     ) {
-        parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
+        parent::__construct($rendererService, $templateFactory, $invoiceSettingsService, $invoiceMappingService);
         $this->orderService = $orderService;
         $this->elementFactory = $elementFactory;
         $this->progressStorage = $progressStorage;

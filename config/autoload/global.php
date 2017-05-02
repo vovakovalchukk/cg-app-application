@@ -71,6 +71,9 @@ use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Client\Storage\Api as InvoiceSettingsApiStorage;
 use CG\Settings\Product\StorageInterface as ProductSettingsStorage;
 use CG\Settings\Product\Storage\Api as ProductSettingsStorageApi;
+use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
+use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
+use CG\Settings\InvoiceMapping\Storage\Api as InvoiceMappingStorageApi;
 
 // Discount
 use CG\Billing\Discount\StorageInterface as DiscountStorage;
@@ -293,6 +296,18 @@ $config = array(
                     'repository' => InvoiceSettingsApiStorage::class
                 )
             ),
+            InvoiceMappingStorageApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                    'mapper' => InvoiceMappingMapper::class
+                ]
+            ],
+            InvoiceMappingService::class => [
+                'parameters' => [
+                    'repository' => InvoiceMappingStorageApi::class,
+                    'mapper' => InvoiceMappingMapper::class
+                ]
+            ],
             LocationService::class => [
                 'parameters' => [
                     'repository' => LocationApi::class,

@@ -13,18 +13,29 @@ define([
 
             var container = '.invoiceSettings';
             var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
-            var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
-            var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
-            var copyRequiredSelector = container + ' .invoiceDefaultSettings #copyRequired';
-            var emailSendAsSelector = container + ' .invoiceDefaultSettings #emailSendAs';
-            var emailBccSelector = container + ' .invoiceDefaultSettings #emailBcc';
+
             var invoiceSendFromAddressColumnHeadSelector = '#accounts_wrapper .dataTable thead tr th:nth-child(3)';
             var invoiceSendFromAddressColumnSelector = '#accounts_wrapper #accounts tbody tr td:nth-child(3)';
+
+            var defaultSettingsSelector = '#defaultInvoiceCustomSelect input';
+            var autoEmailSettingsSelector = '.invoiceMappingSettings #autoEmail';
+            var sendToFbaDefaultSelector = '.invoiceMappingSettings #sendToFbaDefault';
+            var emailSendAsSelector = '.invoiceMappingSettings #emailSendAs';
+            var copyRequiredSelector = '.invoiceMappingSettings #copyRequired';
+            var emailBccSelector = '.invoiceMappingSettings #emailBcc';
+
+            var mappingSelector = '.invoiceMapping .invoiceMappingTable';
+            var mappingTradingCompanySelector = '.trading-company-column';
+            var mappingAssignedInvoiceSelector = '.assigned-invoice-column';
+            var mappingSendViaEmailSelector = '.send-via-email-column';
+            var mappingSendToFbaSelector = '.send-to-fba-column';
+
+            var invoiceSettingsField = '.invoice-settings-field';
 
             var emailVerifyInputSelector = '.email-verify-input';
             var emailVerifyButtonSelector = '.email-verify-button';
@@ -55,6 +66,30 @@ define([
                 // Set event listeners
                 $(document).on('change', selector, function() {
                     ajaxSave(self);
+                });
+
+                $(document).on('change', invoiceSettingsField, function() {
+                    self.save(handleSaveResponse);
+                });
+
+                $(document).on('change', mappingTradingCompanySelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'organisationUnitId');
+                    self.saveMapping(saveData, handleSaveMappingResponse);
+                });
+
+                $(document).on('change', mappingAssignedInvoiceSelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'invoiceId');
+                    self.saveMapping(saveData, handleSaveMappingResponse);
+                });
+
+                $(document).on('change', mappingSendViaEmailSelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'sendViaEmail');
+                    self.saveMapping(saveData, handleSaveMappingResponse);
+                });
+
+                $(document).on('change', mappingSendToFbaSelector, function(event, element) {
+                    var saveData = self.getMappingSaveData(element, 'sendToFba');
+                    self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
                 $(document).on('change keyup', emailVerifyInputSelector, function () {
@@ -287,6 +322,13 @@ define([
                 }
             }
 
+            function handleSaveMappingResponse(data)
+            {
+                if (n) {
+                    n.success(InvoiceSettings.SUCCESS_MESSAGE);
+                }
+            }
+
             function handleVerifyResponse(data)
             {
                 $('#setting-etag').val(data.eTag);
@@ -325,6 +367,7 @@ define([
                 return {
                     'default': getDefault(),
                     'autoEmail': getAutoEmail(),
+                    'sendToFba': getSendToFba(),
                     'emailSendAs': getEmailSendAs(),
                     'copyRequired': getCopyRequired(),
                     'emailBcc': getEmailBcc(),
@@ -337,6 +380,27 @@ define([
                 };
             };
 
+            this.getMappingSaveData = function (element, property) {
+
+                var row = element.closest('tr');
+                var saveData = {
+                    id: $(row).attr('data-element-row-id'),
+                    site: $.trim($(row.find('.site-column')).text()),
+                    accountId: $(row.find('.account-column input')).val(),
+                };
+                saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
+                return saveData;
+            };
+
+            this.initialiseInvoiceMappingEntity = function (entity) {
+                $('#invoiceMapping tbody tr').each(function (index, row) {
+                    var rowId = $(row).attr('data-element-row-id');
+                    if(typeof rowId === typeof undefined || rowId === false) {
+                        $(row).attr('data-element-row-id', entity.id);
+                    }
+                });
+            };
+
             var getDefault = function()
             {
                 return $(defaultSettingsSelector).val();
@@ -345,6 +409,11 @@ define([
             var getAutoEmail = function()
             {
                 return $(autoEmailSettingsSelector).is(':checked');
+            };
+
+            var getSendToFba = function ()
+            {
+                return $(sendToFbaDefaultSelector).is(':checked');
             };
 
             var getEmailSendAs = function()
@@ -386,16 +455,10 @@ define([
             {
                 var tradingCompanies = {};
 
-                $(tradingCompaniesAssignedInvoiceSelector).each(function() {
-                    var assignedInvoice = $(this).val();
-                    var tradingCompanyId = $(this).attr('name').replace('invoiceTradingCompaniesCustomSelect_', '');
-                    tradingCompanies[tradingCompanyId] = {'assignedInvoice': assignedInvoice};
-                });
-
                 $(tradingCompaniesSendFromAddressSelector).each(function() {
                     var emailSendAs = $(this).val();
                     var tradingCompanyId = $(this).attr('name').replace('invoiceSendFromAddressInput_', '');
-                    tradingCompanies[tradingCompanyId]['emailSendAs'] = emailSendAs;
+                    tradingCompanies[tradingCompanyId] = {'emailSendAs': emailSendAs};
                 });
 
                 return tradingCompanies;
@@ -417,11 +480,29 @@ define([
         {
             var self = this;
             $.ajax({
-                url: "mapping/save",
+                url: "settings/save",
                 type: "POST",
                 dataType: 'json',
                 data: $.extend({}, self.getInvoiceSettingsEntity(), additionalData || {})
             }).success(function(data) {
+                callback(data);
+            }).error(function(error, textStatus, errorThrown) {
+                if (n) {
+                    n.ajaxError(error, textStatus, errorThrown);
+                }
+            });
+        };
+
+        InvoiceSettings.prototype.saveMapping = function(saveData, callback)
+        {
+            var self = this;
+            $.ajax({
+                url: "settings/saveMapping",
+                type: "POST",
+                dataType: 'json',
+                data: saveData
+            }).success(function(data) {
+                self.initialiseInvoiceMappingEntity(JSON.parse(data.invoiceMapping));
                 callback(data);
             }).error(function(error, textStatus, errorThrown) {
                 if (n) {
