@@ -12,7 +12,8 @@ define([
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
-    'Product/Components/VatView'
+    'Product/Components/VatView',
+    'Product/Components/ListingsView'
 ], function(
     React,
     ThenBySort,
@@ -27,7 +28,8 @@ define([
     Pane,
     DimensionsView,
     StockView,
-    VatView
+    VatView,
+    ListingsView
 ) {
     "use strict";
 
@@ -99,6 +101,9 @@ define([
                         </Pane>
                         <Pane label="VAT">
                             <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
+                        </Pane>
+                        <Pane label="Listings">
+                            <ListingsView listings={this.props.product.listingsPerAccount} maxListingsPerAccount={this.props.maxListingsPerAccount} variations={products} fullView={this.state.expanded} />
                         </Pane>
                     </Tabs>
                 </div>

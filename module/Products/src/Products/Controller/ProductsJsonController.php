@@ -36,6 +36,8 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
+    const ROUTE_DELETE_CHECK = 'Delete Check';
+    const ROUTE_DELETE_PROGRESS = 'Delete Progress';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
 
@@ -103,6 +105,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
+        $accounts = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
@@ -117,6 +120,7 @@ class ProductsJsonController extends AbstractActionController
             //noop
         }
         $view->setVariable('products', $productsArray)
+            ->setVariable('maxListingsPerAccount', $this->calculateMaxListingsPerAccount($productsArray, $accounts))
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
@@ -131,14 +135,47 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
+    protected function calculateMaxListingsPerAccount(array $products, $accounts)
+    {
+        $activeSalesAccountIds = array_keys($this->getActiveSalesAccounts($accounts));
+
+        $maxPerAccount = [];
+        foreach ($products as $product) {
+            $maxPerProduct = [];
+            foreach ($product['listings'] as $listing) {
+                if (!in_array($listing['accountId'], $activeSalesAccountIds)) {
+                    continue;
+                }
+                if (!isset($maxPerProduct[$listing['accountId']])) {
+                    $maxPerProduct[$listing['accountId']] = 0;
+                }
+                $maxPerProduct[$listing['accountId']]++;
+            }
+            foreach ($maxPerProduct as $accountId => $numListings) {
+                if (! isset($maxPerAccount[$accountId])) {
+                    $maxPerAccount[$accountId] = $numListings;
+                    continue;
+                }
+                if ($maxPerAccount[$accountId] < $numListings) {
+                    $maxPerAccount[$accountId] = $numListings;
+                }
+            }
+        }
+        return $maxPerAccount;
+    }
+
     protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $rootOrganisationUnit)
     {
         $product = $productEntity->toArray();
+
+        $activeSalesAccounts = $this->getActiveSalesAccounts($accounts);
 
         $product = array_merge($product, [
             'eTag' => $productEntity->getStoredETag(),
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
+            'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
+            'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
         ]);
@@ -199,6 +236,40 @@ class ProductsJsonController extends AbstractActionController
         return $product;
     }
 
+    protected function getActiveSalesAccounts($accounts)
+    {
+        $activeSalesAccounts = [];
+        foreach ($accounts as $account) {
+            if ($account['deleted'] || (! $account['active']) || (! in_array('sales', $account['type']))) {
+                continue;
+            }
+            $activeSalesAccounts[$account['id']] = $account;
+        }
+        return $activeSalesAccounts;
+    }
+
+    protected function getProductListingsPerAccountArray(ProductEntity $productEntity, $accounts)
+    {
+
+        $listingsByAccountId = [];
+        foreach ($productEntity->getListings() as $listing) {
+            $listingsByAccountId[$listing->getAccountId()][] = $listing;
+        }
+
+        $listingsPerAccount= [];
+        foreach ($accounts as $account) {
+            if (isset($listingsByAccountId[$account['id']])) {
+                foreach ($listingsByAccountId[$account['id']] as $listing) {
+                    $listingsPerAccount[$account['id']][] = $listing->toArray();
+                }
+            } else {
+                $listingsPerAccount[$account['id']] = [];
+            }
+        }
+
+        return $listingsPerAccount;
+    }
+
     protected function getProductListingsArray(ProductEntity $productEntity)
     {
         $listings = [];
@@ -248,21 +319,35 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
-    public function deleteAction()
+    public function deleteCheckAction()
     {
         $this->checkUsage();
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true, "guid" => uniqid('', true), "total" => count($this->params()->fromPost('productIds'))]
+        );
+    }
 
+    public function deleteAction()
+    {
         $view = $this->getJsonModelFactory()->newInstance();
 
         $productIds = $this->params()->fromPost('productIds');
         if (empty($productIds)){
-            $view->setVariable('deleted', false);
             return $view;
         }
 
-        $this->getProductService()->deleteProductsById($productIds);
-        $view->setVariable('deleted', true);
+        $progressKey = $this->params()->fromPost('progressKey');
+        $this->getProductService()->deleteProductsById($productIds, $progressKey);
         return $view;
+    }
+
+    public function deleteProgressAction()
+    {
+        $progressKey = $this->params()->fromPost('progressKey');
+        $progressCount = $this->getProductService()->checkProgressOfDeleteProducts($progressKey);
+        return $this->getJsonModelFactory()->newInstance([
+            'progressCount' => $progressCount
+        ]);
     }
 
     public function saveProductTaxRateAction()
