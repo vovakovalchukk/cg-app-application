@@ -105,6 +105,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
+        $accounts = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
@@ -136,13 +137,13 @@ class ProductsJsonController extends AbstractActionController
 
     protected function calculateMaxListingsPerAccount(array $products, $accounts)
     {
-        $activeSalesAccounts = $this->getActiveSalesAccounts($accounts);
+        $activeSalesAccountIds = array_keys($this->getActiveSalesAccounts($accounts));
 
         $maxPerAccount = [];
         foreach ($products as $product) {
             $maxPerProduct = [];
             foreach ($product['listings'] as $listing) {
-                if (!in_array($listing['accountId'], $activeSalesAccounts)) {
+                if (!in_array($listing['accountId'], $activeSalesAccountIds)) {
                     continue;
                 }
                 if (!isset($maxPerProduct[$listing['accountId']])) {
