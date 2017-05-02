@@ -1,7 +1,7 @@
 <?php
 use CG\Account\Client\Service as AccountService;
-use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
+use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\StorageInterface as AccountStorageInterface;
 use CG\Amazon\Account as AmazonAccount;
 use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
@@ -30,8 +30,8 @@ use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
 use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
-use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
 use Settings\Controller\AdvancedController;
@@ -40,10 +40,10 @@ use Settings\Controller\ApiController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
+use Settings\Controller\EmailController;
 use Settings\Controller\ExportController;
 use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
-use Settings\Controller\EmailController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
@@ -51,7 +51,8 @@ use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
 use Settings\Controller\WooCommerceController;
 use Settings\Factory\SidebarNavFactory;
-use Settings\Invoice\Service as InvoiceService;
+use Settings\Invoice\Mappings as InvoiceMappings;
+use Settings\Invoice\Settings as InvoiceSettings;
 use Settings\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
@@ -68,7 +69,7 @@ return [
             'white_listed_routes' => [
                 Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . EkmAccount::ROUTE . '/' . EkmController::ROUTE_AJAX => true,
                 Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . WooCommerceAccount::ROUTE . '/' . WooCommerceController::ROUTE_AJAX => true,
-                Module::ROUTE . '/' . InvoiceController::ROUTE . '/' . InvoiceController::ROUTE_MAPPING . '/' . InvoiceController::ROUTE_SAVE,
+                Module::ROUTE . '/' . InvoiceController::ROUTE . '/' . InvoiceController::ROUTE_SETTINGS . '/' . InvoiceController::ROUTE_SAVE,
             ]
         ]
     ],
@@ -103,9 +104,9 @@ return [
                 'class' => 'heading-medium',
                 'pages' => [
                     [
-                        'label' => InvoiceController::ROUTE_MAPPING,
-                        'title' => InvoiceController::ROUTE_MAPPING,
-                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
+                        'label' => InvoiceController::ROUTE_SETTINGS,
+                        'title' => InvoiceController::ROUTE_SETTINGS,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_SETTINGS
                     ], [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
@@ -385,13 +386,13 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            InvoiceController::ROUTE_MAPPING => [
+                            InvoiceController::ROUTE_SETTINGS => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/mapping',
+                                    'route' => '/settings',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
-                                        'action' => 'mapping',
+                                        'action' => 'settings',
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -402,14 +403,34 @@ return [
                                             'route' => '/save',
                                             'defaults' => [
                                                 'controller' => InvoiceController::class,
-                                                'action' => 'saveMapping',
+                                                'action' => 'saveSettings',
                                             ]
                                         ]
                                     ],
                                     InvoiceController::ROUTE_AJAX => [
                                         'type' => Literal::class,
                                         'options' => [
-                                            'route' => '/ajax',
+                                            'route' => '/ajaxSettings',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'ajaxSettings',
+                                            ]
+                                        ]
+                                    ],
+                                    InvoiceController::ROUTE_SAVE_MAPPING => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/saveMapping',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'saveMapping',
+                                            ]
+                                        ]
+                                    ],
+                                    InvoiceController::ROUTE_AJAX_MAPPING => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/ajaxMapping',
                                             'defaults' => [
                                                 'controller' => InvoiceController::class,
                                                 'action' => 'ajaxMapping',
@@ -800,6 +821,8 @@ return [
                 'salesAccountList' => DataTable::class,
                 'shippingAccountList' => DataTable::class,
                 'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
+                'InvoiceMappingDatatable' => DataTable::class,
+                'InvoiceMappingDatatableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
                 'ChannelStatusJS' => ViewModel::class,
@@ -811,6 +834,20 @@ return [
                 'InvoiceTradingCompanyColumnView' => ViewModel::class,
                 'InvoiceAssignedInvoiceColumnView' => ViewModel::class,
                 'InvoiceSendFromAddressColumnView' => ViewModel::class,
+                'InvoiceMappingChannelColumn' => DataTable\Column::class,
+                'InvoiceMappingDisplayNameColumn' => DataTable\Column::class,
+                'InvoiceMappingSiteColumn' => DataTable\Column::class,
+                'InvoiceMappingTradingCompanyColumn' => DataTable\Column::class,
+                'InvoiceMappingAssignedInvoiceColumn' => DataTable\Column::class,
+                'InvoiceMappingSendViaEmailColumn' => DataTable\Column::class,
+                'InvoiceMappingSendToFbaColumn' => DataTable\Column::class,
+                'InvoiceMappingChannelColumnView' => ViewModel::class,
+                'InvoiceMappingDisplayNameColumnView' => ViewModel::class,
+                'InvoiceMappingSiteColumnView' => ViewModel::class,
+                'InvoiceMappingTradingCompanyColumnView' => ViewModel::class,
+                'InvoiceMappingAssignedInvoiceColumnView' => ViewModel::class,
+                'InvoiceMappingSendViaEmailColumnView' => ViewModel::class,
+                'InvoiceMappingSendToFbaColumnView' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -857,9 +894,14 @@ return [
                     'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
                 ]
             ],
-            InvoiceService::class => [
+            InvoiceSettings::class => [
                 'parameters' => [
                     'datatable' => 'InvoiceSettingsDataTable',
+                ],
+            ],
+            InvoiceMappings::class => [
+                'parameters' => [
+                    'datatable' => 'InvoiceMappingDatatable',
                 ],
             ],
             'InvoiceSettingsDataTable' => [
@@ -874,7 +916,6 @@ return [
                     ],
                     'addColumn' => [
                         ['column' => 'InvoiceTradingCompanyColumn'],
-                        ['column' => 'InvoiceAssignedInvoiceColumn'],
                         ['column' => 'InvoiceSendFromAddressColumn'],
                     ],
                     'setVariable' => [
@@ -883,6 +924,35 @@ return [
                 ]
             ],
             'InvoiceSettingsDataTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
+                ]
+            ],
+            'InvoiceMappingDatatable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => false,
+                        'class' => 'fixed-header fixed-footer',
+                        'id' => 'invoiceMapping'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'InvoiceMappingChannelColumn'],
+                        ['column' => 'InvoiceMappingDisplayNameColumn'],
+                        ['column' => 'InvoiceMappingTradingCompanyColumn'],
+                        ['column' => 'InvoiceMappingSiteColumn'],
+                        ['column' => 'InvoiceMappingAssignedInvoiceColumn'],
+                        ['column' => 'InvoiceMappingSendViaEmailColumn'],
+                        ['column' => 'InvoiceMappingSendToFbaColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'InvoiceMappingDatatableSettings']
+                    ],
+                ]
+            ],
+            'InvoiceMappingDatatableSettings' => [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => false,
@@ -1039,6 +1109,112 @@ return [
             'InvoiceSendFromAddressColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Send From Email'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+
+            'InvoiceMappingChannelColumn' => [
+                'parameters' => [
+                    'templateId' => 'channel',
+                    'viewModel' => 'InvoiceMappingChannelColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingDisplayNameColumn' => [
+                'parameters' => [
+                    'templateId' => 'displayName',
+                    'viewModel' => 'InvoiceMappingDisplayNameColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingSiteColumn' => [
+                'parameters' => [
+                    'templateId' => 'site',
+                    'viewModel' => 'InvoiceMappingSiteColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingTradingCompanyColumn' => [
+                'parameters' => [
+                    'templateId' => 'tradingCompany',
+                    'viewModel' => 'InvoiceMappingTradingCompanyColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingAssignedInvoiceColumn' => [
+                'parameters' => [
+                    'templateId' => 'assignedInvoice',
+                    'viewModel' => 'InvoiceMappingAssignedInvoiceColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingSendViaEmailColumn' => [
+                'parameters' => [
+                    'templateId' => 'sendViaEmail',
+                    'viewModel' => 'InvoiceMappingSendViaEmailColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingSendToFbaColumn' => [
+                'parameters' => [
+                    'templateId' => 'sendToFba',
+                    'viewModel' => 'InvoiceMappingSendToFbaColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceMappingChannelColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Channel'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingDisplayNameColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Display Name'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingSiteColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Site'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingTradingCompanyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Trading Company'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingAssignedInvoiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Assigned Invoice'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingSendViaEmailColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'SendViaEmail'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceMappingSendToFbaColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'SendToFba'],
                     'template' => 'value.phtml',
                 ],
             ],

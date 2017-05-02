@@ -1,4 +1,4 @@
-.invoiceSettings {
+.invoiceSettings, .invoiceMapping {
     width: 100%;
     float: left;
     clear:both;
@@ -17,7 +17,6 @@
         .dataTables_scrollBody {
             min-width: 100%!important;
             width: 100%!important;
-            padding-bottom: 250px;
         }
         .dataTables_scrollHead {
             min-width: 100%!important;
@@ -51,9 +50,39 @@
         overflow: visible;
         text-align: center;
     }
-
-    td:nth-child(3) {
-        text-align: left;
+}
+#invoiceMapping_wrapper {
+    .dataTables_scroll {
+        .dataTables_scrollBody {
+            padding-bottom: 150px;
+        }
+    }
+}
+.invoiceMapping {
+    .med-element {
+        width: 120px;
+        min-width: 120px;
+        float: none !important;
+        margin: 0 auto;
+        .custom-select {
+            width: 120px;
+        }
+    }
+    tr {
+        td {
+            border-bottom: none;
+        }
+        &.account-row:not(:first-child) {
+            td {
+                border-top: 1px solid $color-lgrey !important;
+            }
+        }
+        &.odd-row {
+            background-color: white;
+        }
+        &.even-row {
+            background-color: #edf7fc;
+        }
     }
 }
 .invoiceDefaultSettings {
@@ -73,6 +102,18 @@
         float: none;
     }
 }
+.invoiceMappingSettings {
+    float: left;
+    margin-bottom: 20px !important;
+    &.half {
+        label {
+            width: 100%;
+        }
+    }
+    .settings-save {
+        float: none;
+    }
+}
 .default-invoice-holder {
     @include calc(width, "100% - 60px");
     float: left;
@@ -86,22 +127,22 @@
         width: 200px!important;
     }
 }
-.invoiceTradingCompanySettings {
+.invoiceTradingCompanySettings #accounts_wrapper {
+    width: 65% !important;
+}
+.invoiceTradingCompanySettings, .invoiceMappingTable {
     @include calc(width, "100% - 60px");
     float: left;
     clear:both;
 }
-.invoiceSettings .checkbox-holder {
+.checkbox-holder {
     width: 300px;
     float: left;
 }
 
-.email-invoice-holder {
-    .enable_switch {
-        top: -10px;
-        left: -20px;
-        position: relative;
-    }
+.enable_switch {
+    top: -10px;
+    position: relative;
 }
 
 .product-images-invoice-holder {
@@ -154,6 +195,12 @@
     .inputbox {
         max-width: 200px;
         box-sizing: border-box;
+    }
+}
+
+.copy-required-holder {
+    .checkbox-holder {
+        width: 50px;
     }
 }
 
