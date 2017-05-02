@@ -5,6 +5,7 @@ use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter\StorageInterface as OrderFilterStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\OrderLinker;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib;
 use CG\User\ActiveUserInterface;
@@ -61,6 +62,8 @@ class OrdersItems implements MapperInterface
     protected $activeUserContainer;
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var  OrderLinker */
+    protected $orderLinker;
 
     public function __construct(
         OrderService $orderService,
@@ -79,7 +82,8 @@ class OrdersItems implements MapperInterface
         VatNumberFormatter $vatNumberFormatter,
         AlertFormatter $alertFormatter,
         ActiveUserInterface $activeUserContainer,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        OrderLinker $orderLinker
     ) {
         $this->orderService = $orderService;
         $this->orderFilterStorage = $orderFilterStorage;
@@ -98,6 +102,7 @@ class OrdersItems implements MapperInterface
         $this->alertFormatter = $alertFormatter;
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
+        $this->orderLinker = $orderLinker;
     }
 
     protected function getFormatters()
@@ -187,7 +192,7 @@ class OrdersItems implements MapperInterface
         $page = 1;
         do {
             /** @var OrderCollection $orderCollection */
-            $orderCollection = $this->orderService->fetchCollectionByFilter(
+            $orderCollection = $this->orderService->fetchCollectionIncludingLinkedOrdersByFilter(
                 $orderFilter->setLimit(static::ORDERS_PER_PAGE)->setPage($page)
             );
 
