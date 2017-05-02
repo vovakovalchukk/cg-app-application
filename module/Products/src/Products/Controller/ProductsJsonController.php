@@ -136,7 +136,7 @@ class ProductsJsonController extends AbstractActionController
 
     protected function calculateMaxListingsPerAccount(array $products)
     {
-        $maxPerProductPerAccount = [];
+        $maxPerAccount = [];
         foreach ($products as $product) {
             $maxPerProduct = [];
             foreach ($product['listings'] as $listing) {
@@ -145,11 +145,7 @@ class ProductsJsonController extends AbstractActionController
                 }
                 $maxPerProduct[$listing['accountId']]++;
             }
-            $maxPerProductPerAccount[] = $maxPerProduct;
-        }
-        $maxPerAccount = [];
-        foreach ($maxPerProductPerAccount as $maxListing) {
-            foreach ($maxListing as $accountId => $numListings) {
+            foreach ($maxPerProduct as $accountId => $numListings) {
                 if (! isset($maxPerAccount[$accountId])) {
                     $maxPerAccount[$accountId] = $numListings;
                     continue;
