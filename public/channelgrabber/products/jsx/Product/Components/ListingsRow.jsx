@@ -25,16 +25,19 @@ define([
         },
         getValues: function() {
             var values = [];
+            if (this.props.listings.length === 0) {
+                return values;
+            }
 
             for (var accountId in this.props.maxListingsPerAccount) {
                 if (!this.props.maxListingsPerAccount.hasOwnProperty(accountId)) continue;
 
                 var maxListings = this.props.maxListingsPerAccount[accountId];
                 for (var i = 0; i < maxListings; i++) {
-                    if (this.props.listings[accountId][i]) {
+                    if (this.props.listings[accountId][i] !== undefined) {
                         var status = $.trim(this.props.listings[accountId][i].status);
                         var listingUrl = $.trim(this.props.listings[accountId][i].url);
-                        values.push(<td title={this.getHoverText(status)}><a href={listingUrl}><span className={"listing-status " + status}></span></a></td>);
+                        values.push(<td title={this.getHoverText(status)}><a target="_blank" href={listingUrl}><span className={"listing-status " + status}></span></a></td>);
                     } else {
                         values.push(<td title={this.getHoverText('unimported')}><span className={"listing-status unknown"}></span></td>);
                     }
