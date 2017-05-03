@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d773ec4e93655ae59faa2b7d65fd9c54",
+    "content-hash": "47f483b464b983493a0469a8f3ad3bcd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24T13:33:48+00:00"
+            "time": "2017-04-24 13:33:48"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -571,7 +571,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-24T13:34:23+00:00"
+            "time": "2017-04-24 13:34:23"
         },
         {
             "name": "channelgrabber/cilex",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1503,7 +1503,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-24T13:34:52+00:00"
+            "time": "2017-04-24 13:34:52"
         },
         {
             "name": "channelgrabber/notification",
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24T12:57:18+00:00"
+            "time": "2017-04-24 12:57:18"
         },
         {
             "name": "channelgrabber/permission",
@@ -2147,7 +2147,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2017-04-24T13:35:15+00:00"
+            "time": "2017-04-24 13:35:15"
         },
         {
             "name": "channelgrabber/scraper",
@@ -3802,11 +3802,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-8224-linked-orders-ui-changes",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f2744d61d6f4dab98881ad58fb5cd14cd33a6d6c"
+                "reference": "cd23cf3c09d52d21daf24c5763b79d9bfb4830df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-8175-linked-orders-5281db.zip",
+                "reference": "cd23cf3c09d52d21daf24c5763b79d9bfb4830df",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3853,7 +3859,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-04-21T10:06:25+00:00"
+            "time": "2017-05-03T12:32:11+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4090,7 +4096,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5432,7 +5438,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5483,7 +5489,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5576,7 +5582,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6045,7 +6051,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8909,15 +8915,14 @@
             "package": "channelgrabber/royalmail"
         },
         {
-            "alias": "1.17.38",
-            "alias_normalized": "1.17.38.0",
-            "version": "dev-CGIV-8224-linked-orders-ui-changes",
+            "alias": "1.17.39",
+            "alias_normalized": "1.17.39.0",
+            "version": "dev-EPIC-CGIV-8175-linked-orders",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
@@ -8925,11 +8930,12 @@
         "channelgrabber/order": 20,
         "channelgrabber/royalmail": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
