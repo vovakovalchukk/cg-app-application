@@ -70,8 +70,8 @@ define([
                             <img src={this.context.imageUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
                         </div>
                         <div className="order-row-description">
-                            <div className="order-row-name">{this.props.row.product.name}</div>
-                            <div className="order-row-sku">{this.props.row.sku}</div>
+                            <div className="order-row-name" title={this.props.row.product.name}>{this.props.row.product.name}</div>
+                            <div className="order-row-sku" title={this.props.row.sku}>{this.props.row.sku}</div>
                         </div>
                         <div className="order-row-attributes">
                             {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
