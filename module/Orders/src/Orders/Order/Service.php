@@ -30,8 +30,8 @@ use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
-use CG\Order\Shared\OrderLink\Filter as OrderLinkFilter;
-use CG\Order\Shared\OrderLink\Service as OrderLinkService;
+use CG\Order\Shared\OrderLink\Collection as OrderLinkCollection;
+use CG\Order\Shared\OrderLinker;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -102,8 +102,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $mcfFulfillmentStatusStorage;
     /** @var EUVATCodeChecker $euVatCodeChecker */
     protected $euVatCodeChecker;
-    /** @var OrderLinkService $orderLinkService */
-    protected $orderLinkService;
+    /** @var OrderLinker */
+    protected $orderLinker;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -130,7 +130,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         EUVATCodeChecker $euVatCodeChecker,
-        OrderLinkService $orderLinkService
+        OrderLinker $orderLinker
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
@@ -147,7 +147,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->imageService = $imageService;
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
         $this->euVatCodeChecker = $euVatCodeChecker;
-        $this->orderLinkService = $orderLinkService;
+        $this->orderLinker = $orderLinker;
     }
 
     /**
@@ -280,41 +280,18 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $imagesForOrders;
     }
 
-    public function getLinkedOrdersData(array $orderIds)
+    public function getLinkedOrdersData(OrderCollection $orders)
     {
-        try {
-            $filter = (new OrderLinkFilter())
-                ->setOrderId($orderIds)
-                ->setLimit('all');
-            $linkedOrdersCollection = $this->orderLinkService->fetchCollectionByFilter($filter);
-        } catch (NotFound $e) {
-            $linkedOrdersCollection = [];
-        }
-
-        $orderIdsWithLinks = [];
-        foreach ($linkedOrdersCollection as $linkedOrder) {
-            foreach ($linkedOrder->getOrderIds() as $linkedOrderId) {
-                $orderIdsWithLinks[$linkedOrderId] = $linkedOrderId;
-            }
-        }
-
-        try {
-            $filter = (new Filter())
-                ->setOrderIds($orderIdsWithLinks)
-                ->setLimit('all');
-            $ordersWithLinks = $this->orderClient->fetchCollectionByFilter($filter);
-        } catch (NotFound $e) {
-            $ordersWithLinks = [];
-        }
+        $expandedOrders = $this->orderLinker->expandOrderCollectionToIncludeLinkedOrders($orders);
 
         $linkedOrders = [];
-        foreach ($linkedOrdersCollection as $linkedOrder) {
-            foreach ($ordersWithLinks as $orderWithLink) {
-                foreach ($linkedOrder->getOrderIds() as $linkedOrderId) {
-                    $thisOrder = $ordersWithLinks->getById($linkedOrderId);
-                    $linkedOrders[$orderWithLink->getId()][] = [
+        foreach ($orders as $order) {
+            foreach ($order->getOrderLinks() as $orderLink) {
+                foreach ($orderLink->getOrderIds() as $linkedOrderId) {
+                    $linkedOrder = $expandedOrders->getById($linkedOrderId);
+                    $linkedOrders[$order->getId()][] = [
                         'orderId' => $linkedOrderId,
-                        'externalId' => $thisOrder->getExternalId(),
+                        'externalId' => $linkedOrder->getExternalId(),
                     ];
                 }
             }

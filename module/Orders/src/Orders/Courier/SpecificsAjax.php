@@ -8,7 +8,6 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -16,6 +15,7 @@ use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Collection as ProductDetailCollection;

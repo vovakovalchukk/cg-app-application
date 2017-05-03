@@ -81,7 +81,7 @@ class OrdersTable
             ->mapImageIdsToImages($orders)
             ->mapTrackingUrls($orders)
             ->mapLabelData($orders)
-            ->mapLinkedOrdersData($orders);
+            ->mapLinkedOrdersData($orderCollection, $orders);
 
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -311,14 +311,14 @@ class OrdersTable
         return $this;
     }
 
-    protected function mapLinkedOrdersData(array &$orders)
+    protected function mapLinkedOrdersData(Orders $orderCollection, &$orders)
     {
         $orderIds = [];
         foreach ($orders as $order) {
             $orderIds[] = $order['id'];
         }
 
-        $linkedOrders = $this->orderService->getLinkedOrdersData($orderIds);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orderCollection);
 
         foreach ($orders as &$order) {
             if (isset($linkedOrders[$order['id']])) {

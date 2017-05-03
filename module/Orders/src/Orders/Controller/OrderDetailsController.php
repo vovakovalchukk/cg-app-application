@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -304,11 +305,13 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getLinkedOrdersSection(Order $order)
     {
-        $linkedOrders = $this->orderService->getLinkedOrdersData([$order->getId()]);
+        $orders = new OrderCollection(Order::class, 'fetch', ['id' => $order->getId()]);
+        $orders->attach($order);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orders);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/linkedOrders');
-        $view->setVariable('linkedOrders', $linkedOrders[$order->getId()]);
+        $view->setVariable('linkedOrders', ($linkedOrders[$order->getId()] ?? null));
         return $view;
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "47f483b464b983493a0469a8f3ad3bcd",
+    "content-hash": "67717434fe9a2bbd9225f63fc3b25b11",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2c69c31fba2d24cf58701f19c96a6532a3e78d7b"
+                "reference": "202d5300232a090da6c08afdc758af435eb5113d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8175-linked-orders-794295.zip",
-                "reference": "2c69c31fba2d24cf58701f19c96a6532a3e78d7b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8175-linked-orders-ca986d.zip",
+                "reference": "202d5300232a090da6c08afdc758af435eb5113d",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24 13:33:48"
+            "time": "2017-04-26 15:46:21"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -677,16 +677,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac"
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.18-d2bbe7.zip",
-                "reference": "4bad052a1867e56cbc9e321441e0243f223944ac",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
+                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
                 "shasum": null
             },
             "require": {
@@ -717,7 +717,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-13T14:24:00+00:00"
+            "time": "2017-04-27T10:57:28+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1458,12 +1458,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "645744d79381ba1128d6a95e14b543596641fbed"
+                "reference": "e4c19fdbd5bd7524edc39c36c1eb8c727c632836"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-EPIC-CGIV-8175-linked-orders-9f5c68.zip",
-                "reference": "645744d79381ba1128d6a95e14b543596641fbed",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-EPIC-CGIV-8175-linked-orders-2f65af.zip",
+                "reference": "e4c19fdbd5bd7524edc39c36c1eb8c727c632836",
                 "shasum": null
             },
             "require": {
@@ -1503,7 +1503,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-04-24 13:34:52"
+            "time": "2017-04-25 15:02:09"
         },
         {
             "name": "channelgrabber/notification",
@@ -1561,13 +1561,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "356fd6d7d6436345c7bc30ea559b56493073b002"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-8175-linked-orders-a37ee5.zip",
-                "reference": "356fd6d7d6436345c7bc30ea559b56493073b002",
-                "shasum": null
+                "reference": "5089ce150d97acc3c2560aa3d3bfeeeff4be35c5"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1631,7 +1625,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-24 12:57:18"
+            "time": "2017-04-28 14:59:13"
         },
         {
             "name": "channelgrabber/permission",
