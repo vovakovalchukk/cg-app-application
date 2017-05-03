@@ -80,7 +80,8 @@ class OrdersTable
             ->mapGiftMessages($orderCollection, $orders)
             ->mapImageIdsToImages($orders)
             ->mapTrackingUrls($orders)
-            ->mapLabelData($orders);
+            ->mapLabelData($orders)
+            ->mapLinkedOrdersData($orderCollection, $orders);
 
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -306,6 +307,25 @@ class OrdersTable
     {
         foreach ($orders as &$order) {
             $order['labelCreatedDate'] = '';
+        }
+        return $this;
+    }
+
+    protected function mapLinkedOrdersData(Orders $orderCollection, &$orders)
+    {
+        $orderIds = [];
+        foreach ($orders as $order) {
+            $orderIds[] = $order['id'];
+        }
+
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orderCollection);
+
+        foreach ($orders as &$order) {
+            if (isset($linkedOrders[$order['id']])) {
+                $order['linkedOrdersData'] = [
+                    'linkedOrders' => $linkedOrders[$order['id']],
+                ];
+            }
         }
         return $this;
     }

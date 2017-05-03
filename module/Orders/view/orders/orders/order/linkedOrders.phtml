@@ -1,0 +1,15 @@
+<?php if(count($linkedOrders)): ?>
+    <form class="single-row">
+        <label>
+            <span class="sprite-linked-29-black"></span>
+            <span class="large-heading-left">Linked Orders:</span>
+            <div class="linked-orders-list">
+                <?php foreach ($linkedOrders as $linkedOrder): ?>
+                   <div class="linked-order-link">
+                       <a href="/orders/<?= $linkedOrder['orderId'] ?>" ><?= $linkedOrder['externalId'] ?></a>
+                   </div>
+                <?php endforeach; ?>
+            </div>
+        </label>
+    </form>
+<?php endif; ?>

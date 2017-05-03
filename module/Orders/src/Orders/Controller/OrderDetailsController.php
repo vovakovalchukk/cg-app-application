@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -96,6 +97,7 @@ class OrderDetailsController extends AbstractActionController
         $view->addChild($buyerMessage, 'buyerMessage');
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
+        $view->addChild($this->getLinkedOrdersSection($order), 'linkedOrdersSection');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('existingNotes', $this->getNotes($order));
@@ -299,6 +301,18 @@ class OrderDetailsController extends AbstractActionController
         $status->setVariable('message', $messageText);
         $status->setVariable('statusClass', str_replace(' ', '-', $statusText));
         return $status;
+    }
+
+    protected function getLinkedOrdersSection(Order $order)
+    {
+        $orders = new OrderCollection(Order::class, 'fetch', ['id' => $order->getId()]);
+        $orders->attach($order);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orders);
+
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('orders/orders/order/linkedOrders');
+        $view->setVariable('linkedOrders', ($linkedOrders[$order->getId()] ?? null));
+        return $view;
     }
 
     protected function getBuyerMessage(Order $order)
