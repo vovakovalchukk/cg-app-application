@@ -27,7 +27,8 @@ define([
         },
         getStatusRows: function () {
             var self = this;
-            return this.props.listings.map(function(listing) {
+            return Object.keys(this.props.listings).map(function(listingId) {
+                var listing = self.props.listings[listingId];
                 var account = self.props.accounts[listing.accountId];
                 if (account === undefined) {
                     return;

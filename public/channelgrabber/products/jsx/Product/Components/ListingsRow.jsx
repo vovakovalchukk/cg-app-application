@@ -25,24 +25,17 @@ define([
         },
         getValues: function() {
             var values = [];
-            if (this.props.listings.length === 0) {
-                return values;
-            }
-
-            for (var accountId in this.props.maxListingsPerAccount) {
-                if (!this.props.maxListingsPerAccount.hasOwnProperty(accountId)) continue;
-                if (this.props.listings[accountId] === undefined) continue;
-
-                var maxListings = this.props.maxListingsPerAccount[accountId];
-                for (var i = 0; i < maxListings; i++) {
-                    if (this.props.listings[accountId][i] !== undefined) {
-                        var status = $.trim(this.props.listings[accountId][i].status);
-                        var listingUrl = $.trim(this.props.listings[accountId][i].url);
+            for (var accountId in this.props.listingsPerAccount) {
+                this.props.listingsPerAccount[accountId].map(function(listingId) {
+                    if (this.props.listings.hasOwnProperty(listingId)) {
+                        var listing = this.props.listings[listingId];
+                        var status = $.trim(listing.status);
+                        var listingUrl = $.trim(listing.url);
                         values.push(<td title={this.getHoverText(status)}><a target="_blank" href={listingUrl}><span className={"listing-status " + status}></span></a></td>);
                     } else {
                         values.push(<td title={this.getHoverText('unimported')}><span className={"listing-status unknown"}></span></td>);
                     }
-                }
+                }.bind(this));
             }
             return values;
         },

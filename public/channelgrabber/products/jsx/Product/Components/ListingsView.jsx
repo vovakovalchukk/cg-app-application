@@ -12,21 +12,16 @@ define([
     var ListingsViewComponent = React.createClass({
         getHeaders: function() {
             var headers = [];
-            for (var accountId in this.props.maxListingsPerAccount) {
-                if (!this.props.maxListingsPerAccount.hasOwnProperty(accountId)) continue;
-
-                var maxListings = this.props.maxListingsPerAccount[accountId];
-                var account = this.props.variations[0].accounts[accountId];
-                for (var i = 0; i < maxListings; i++) {
-                    headers.push(<th title={account.displayName} style={{width: listingColumnWidth}}>{account.channel}</th>);
-                }
+            for (var accountId in this.props.listingsPerAccount) {
+                var account = this.props.accounts[accountId];
+                var listings = this.props.listingsPerAccount[accountId];
+                headers.push(<th title={account.displayName} style={{width: listingColumnWidth}} colSpan={listings.length}>{account.channel}</th>);
             }
             return headers;
         },
         getDefaultProps: function() {
             return {
-                variations: [],
-                fullView: false
+                variations: []
             };
         },
         render: function () {
@@ -40,12 +35,8 @@ define([
                         </tr>
                         </thead>
                         <tbody>
-                        {this.props.variations.map(function (variation) {
-                            if ((! this.props.fullView) && count > 1) {
-                                return;
-                            }
-                            count++;
-                            return <ListingsRow key={variation.id} listings={variation.listingsPerAccount} maxListingsPerAccount={this.props.maxListingsPerAccount}/>;
+                        {this.props.variations.map(function(variation) {
+                            return <ListingsRow key={variation.id} listings={variation.listings} listingsPerAccount={this.props.listingsPerAccount} />
                         }.bind(this))}
                         </tbody>
                     </table>
