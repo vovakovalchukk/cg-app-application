@@ -41,7 +41,7 @@ class OrdersToOperateOn
     /**
      * @return OrderCollection
      */
-    public function __invoke(array $params, $orderBy = null, $orderDir = null)
+    public function __invoke(array $params, $orderBy = null, $orderDir = null, $includeLinked = true)
     {
         $filter = $this->buildFilterFromInput($params, $orderBy, $orderDir);
 
@@ -49,6 +49,9 @@ class OrdersToOperateOn
         $collection = $this->orderService->fetchCollectionByFilter($filter);
         $collection->setFilterId($filter->getId());
 
+        if (!$includeLinked) {
+            return $collection;
+        }
         return $this->orderLinker->expandOrderCollectionToIncludeLinkedOrders(
             $collection
         );
