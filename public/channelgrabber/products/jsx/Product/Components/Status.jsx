@@ -17,23 +17,23 @@ define([
             };
 
             var status = 'inactive';
-            for (var listing in this.props.listings) {
-                var listingStatus = this.props.listings[listing]['status'];
-                if(statusPrecedence[listingStatus] > statusPrecedence[status]) {
+            for (var listingId in this.props.listings) {
+                var listingStatus = this.props.listings[listingId].status;
+                if (statusPrecedence[listingStatus] > statusPrecedence[status]) {
                     status = listingStatus;
                 }
             }
             return status;
         },
         getStatusRows: function () {
-            var self = this;
-            return Object.keys(this.props.listings).map(function(listingId) {
-                var listing = self.props.listings[listingId];
-                var account = self.props.accounts[listing.accountId];
-                if (account === undefined) {
-                    return;
+            var values = [];
+            for (var listingId in this.props.listings) {
+                var listing = this.props.listings[listingId];
+                if (!this.props.accounts.hasOwnProperty(listing.accountId)) {
+                    continue;
                 }
-                return (
+                var account = this.props.accounts[listing.accountId];
+                values.push(
                     <tr key={listing.id}>
                         <td>
                             <span className={"product-listing-status-row status " + listing.status}>
@@ -44,7 +44,8 @@ define([
                         <td><a href={listing.url} target="_blank">{account ? account.displayName : ' '}</a></td>
                     </tr>
                 );
-            });
+            }
+            return values;
         },
         render: function() {
             var productStatus = this.productStatusDecider();
