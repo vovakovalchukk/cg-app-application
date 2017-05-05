@@ -4,6 +4,7 @@ namespace Settings\Invoice;
 use CG\Account\Client\Entity as Account;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
+use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
@@ -16,10 +17,10 @@ use CG\Settings\InvoiceMapping\Entity as InvoiceMapping;
 use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
 use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
 use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
-use CG\Stdlib\DateTime;
 
 class Mappings
 {
@@ -191,6 +192,12 @@ class Mappings
             $accountSites = [null];
             if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
                 $accountSites = $accountSiteMap[$accountId];
+            }
+            if ($account->getChannel() == 'ebay' && $account->getExternalData()['globalShippingProgram']) {
+                $accountSites = array_unique(array_merge(
+                    array_filter($accountSites),
+                    array_values(EbaySiteMap::getCountryCodeByMarketplaceIds())
+                ));
             }
 
             foreach ($accountSites as $site) {
