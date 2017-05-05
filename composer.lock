@@ -823,12 +823,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "146e0cd073eb9f9f0f22e58be474eef0d9bceece"
+                "reference": "58e06debf5129805cfb35924e372a56b9130866a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-8323-EbayGlobalShippingInvocieMapping-e35980.zip",
-                "reference": "146e0cd073eb9f9f0f22e58be474eef0d9bceece",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-8323-EbayGlobalShippingInvocieMapping-d4a38d.zip",
+                "reference": "58e06debf5129805cfb35924e372a56b9130866a",
                 "shasum": null
             },
             "require": {
@@ -872,7 +872,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2017-05-05 13:32:30"
+            "time": "2017-05-05 14:00:54"
         },
         {
             "name": "channelgrabber/ekm",

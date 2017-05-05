@@ -199,6 +199,7 @@ class Mappings
                     array_values(EbaySiteMap::getCountryCodeByMarketplaceIds())
                 ));
             }
+            sort($accountSites);
 
             foreach ($accountSites as $site) {
                 $invoiceMapping = $this->invoiceMappingMapper->fromArray([
