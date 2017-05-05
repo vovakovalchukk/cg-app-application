@@ -105,6 +105,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
+        $accounts = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
@@ -118,7 +119,8 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
-        $view->setVariable('products', $productsArray)
+        $view
+            ->setVariable('products', $productsArray)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
@@ -219,20 +221,16 @@ class ProductsJsonController extends AbstractActionController
 
     protected function getProductListingsPerAccountArray(ProductEntity $productEntity, $accounts)
     {
-        $listingsPerSku = [];
-        $listingsByAccountId = [];
-
+        $listingIdsByAccountId = [];
+        /** @var ListingEntity $listing */
         foreach ($productEntity->getListings() as $listing) {
-            $listingsByAccountId[$listing->getAccountId()] = $listing;
-        }
-
-        foreach ($accounts as $account) {
-            if (isset($listingsByAccountId[$account['id']])) {
-                $listingsPerSku[$account['id']] = $listingsByAccountId[$account['id']]->toArray();
+            $accountId = $listing->getAccountId();
+            if (!isset($listingIdsByAccountId[$accountId])) {
+                $listingIdsByAccountId[$accountId] = [];
             }
+            $listingIdsByAccountId[$accountId][] = $listing->getId();
         }
-
-        return $listingsPerSku;
+        return $listingIdsByAccountId;
     }
 
     protected function getProductListingsArray(ProductEntity $productEntity)
@@ -240,6 +238,7 @@ class ProductsJsonController extends AbstractActionController
         $listings = [];
         /** @var ListingEntity $listing */
         foreach ($productEntity->getListings() as $listing) {
+            $id = $listing->getId();
             $listingData = $listing->toArray();
             $listingData['message'] = '';
 
@@ -247,19 +246,19 @@ class ProductsJsonController extends AbstractActionController
             $statusHistory->rewind();
 
             if ($statusHistory->count() == 0) {
-                $listings[] = $listingData;
+                $listings[$id] = $listingData;
                 continue;
             }
 
             /** @var ListingStatusHistory $currentStatus */
             $currentStatus = $statusHistory->current();
             if ($currentStatus->getStatus() != $listing->getStatus()) {
-                $listings[] = $listingData;
+                $listings[$id] = $listingData;
                 continue;
             }
 
             $listingData['message'] = $currentStatus->getMessage();
-            $listings[] = $listingData;
+            $listings[$id] = $listingData;
         }
         return $listings;
     }

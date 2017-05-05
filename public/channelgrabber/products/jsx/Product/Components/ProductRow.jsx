@@ -103,7 +103,7 @@ define([
                             <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
                         </Pane>
                         <Pane label="Listings">
-                            <ListingsView accounts={this.props.product.activeSalesAccounts} variations={products} fullView={this.state.expanded} />
+                            <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />
                         </Pane>
                     </Tabs>
                 </div>
