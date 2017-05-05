@@ -14,8 +14,8 @@ define([
             var headers = [];
             for (var accountId in this.props.listingsPerAccount) {
                 var account = this.props.accounts[accountId];
-                var listings = this.props.listingsPerAccount[accountId];
-                headers.push(<th title={account.displayName} style={{width: listingColumnWidth}} colSpan={listings.length}>{account.channel}</th>);
+                var listings = this.props.listingsPerAccount[accountId].length;
+                headers.push(<th title={account.displayName} style={{width: listings * listingColumnWidth}} colSpan={listings}>{account.channel}</th>);
             }
             return headers;
         },
