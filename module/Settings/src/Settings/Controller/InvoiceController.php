@@ -8,6 +8,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Credentials as AmazonCredentials;
 use CG\Amazon\RegionAbstract as AmazonRegion;
 use CG\Amazon\RegionFactory as AmazonRegionFactory;
+use CG\Channel\Type as ChannelType;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -22,8 +23,10 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Invoice\Helper as InvoiceHelper;
 use Settings\Invoice\Mapper as InvoiceMapper;
-use Settings\Invoice\Service as InvoiceService;
+use Settings\Invoice\Settings as InvoiceSettings;
+use Settings\Invoice\Mappings as InvoiceMappings;
 use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
@@ -35,15 +38,17 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     use LogTrait;
 
     const ROUTE = 'Invoice';
-    const ROUTE_MAPPING = 'Invoice Mapping';
+    const ROUTE_SETTINGS = 'Invoice Settings';
     const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_DESIGNER_ID = 'Invoice Designer View';
     const ROUTE_TEMPLATES = 'Invoice Templates';
     const ROUTE_TEMPLATES_NEW = 'Invoice Templates New';
     const ROUTE_TEMPLATES_EXISTING = 'Invoice Templates Existing';
     const ROUTE_AJAX = 'Ajax';
+    const ROUTE_AJAX_MAPPING = 'Ajax Mapping';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
+    const ROUTE_SAVE_MAPPING = 'Save Mapping';
     const ROUTE_VERIFY = 'Verify';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
@@ -60,8 +65,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $userOrganisationUnitService;
     /** @var OrderTagManager $orderTagManager */
     protected $orderTagManager;
-    /** @var InvoiceService $invoiceService */
-    protected $invoiceService;
+    /** @var InvoiceHelper $invoiceHelper */
+    protected $invoiceHelper;
+    /** @var InvoiceSettings $invoiceSettings */
+    protected $invoiceSettings;
+    /** @var InvoiceMappings $invoiceMappings */
+    protected $invoiceMappings;
     /** @var InvoiceMapper $invoiceMapper */
     protected $invoiceMapper;
     /** @var Translator $translator */
@@ -85,7 +94,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         TemplateService $templateService,
         UserOrganisationUnitService $userOrganisationUnitService,
         OrderTagManager $orderTagManager,
-        InvoiceService $invoiceService,
+        InvoiceHelper $invoiceHelper,
+        InvoiceSettings $invoiceSettings,
+        InvoiceMappings $invoiceMappings,
         InvoiceMapper $invoiceMapper,
         Translator $translator,
         Config $config,
@@ -100,7 +111,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $this->templateService = $templateService;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->orderTagManager = $orderTagManager;
-        $this->invoiceService = $invoiceService;
+        $this->invoiceHelper = $invoiceHelper;
+        $this->invoiceSettings = $invoiceSettings;
+        $this->invoiceMappings = $invoiceMappings;
         $this->invoiceMapper = $invoiceMapper;
         $this->translator = $translator;
         $this->config = $config;
@@ -113,8 +126,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function indexAction()
     {
-        $invoiceSettings = $this->invoiceService->getSettings();
-        $existingInvoices = $this->invoiceService->getExistingInvoicesForView();
+        $invoiceSettings = $this->invoiceSettings->getSettings();
+        $existingInvoices = $this->invoiceSettings->getExistingInvoicesForView();
 
         return $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
@@ -124,10 +137,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('subHeaderHide', true);
     }
 
-    public function saveMappingAction()
+    public function saveSettingsAction()
     {
-        $entity = $this->invoiceService->saveSettingsFromPostData($this->params()->fromPost());
-        $emailVerificationStatus = $this->invoiceService->getEmailVerificationStatusFromEntity($entity);
+        $entity = $this->invoiceSettings->saveSettingsFromPostData($this->params()->fromPost());
+        $emailVerificationStatus = $this->invoiceSettings->getEmailVerificationStatusFromEntity($entity);
 
         return $this->jsonModelFactory->newInstance([
             'invoiceSettings' => json_encode($entity),
@@ -136,11 +149,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         ]);
     }
 
-    public function ajaxMappingAction()
+    public function ajaxSettingsAction()
     {
-        $invoiceSettings = $this->invoiceService->getSettings();
-        $tradingCompanies = $this->invoiceService->getTradingCompanies();
-        $invoices = $this->invoiceService->getInvoices();
+        $invoiceSettings = $this->invoiceSettings->getSettings();
+        $tradingCompanies = $this->invoiceHelper->getTradingCompanies();
+        $invoices = $this->invoiceSettings->getInvoices();
 
         $data = [
             'iTotalRecords' => 0,
@@ -149,8 +162,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'Records' => [],
         ];
 
-        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
-
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($tradingCompanies);
         foreach ($tradingCompanies as $tradingCompany) {
             $data['Records'][] = $this->invoiceMapper->toDataTableArray(
                 $tradingCompany,
@@ -161,11 +173,43 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->jsonModelFactory->newInstance($data);
     }
 
-    public function mappingAction()
+    public function saveMappingAction()
     {
-        $invoiceSettings = $this->invoiceService->getSettings();
-        $tradingCompanies = $this->invoiceService->getTradingCompanies();
-        $invoices = $this->invoiceService->getInvoices();
+        $this->invoiceMappings->saveInvoiceMappingFromPostData($this->params()->fromPost());
+        return $this->getJsonModelFactory()->newInstance([
+            'invoiceMapping' => true
+        ]);
+    }
+
+    public function ajaxMappingAction()
+    {
+        $invoices = $this->invoiceSettings->getInvoices();
+        $ouIds = $this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser();
+
+        $filter = (new Filter())
+            ->setOrganisationUnitId($ouIds)
+            ->setDeleted(0)
+            ->setType(ChannelType::SALES)
+            ->setLimit("all");
+        $accounts = $this->accountService->fetchByFilter($filter);
+        $dataTablesData = $this->invoiceMappings->getInvoiceMappingDataTablesData($accounts, $invoices);
+
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => $dataTablesData,
+        ];
+
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) count($dataTablesData);
+        return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function settingsAction()
+    {
+        $invoiceSettings = $this->invoiceSettings->getSettings();
+        $tradingCompanies = $this->invoiceHelper->getTradingCompanies();
+        $invoices = $this->invoiceSettings->getInvoices();
 
         $view = $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
@@ -181,6 +225,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('emailTemplate', $invoiceSettings->getEmailTemplate())
             ->setVariable('tagOptions', $this->orderTagManager->getAvailableTags())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
+            ->addChild($this->getInvoiceSettingsSendToFbaToggleView($invoiceSettings), 'sendToFbaToggle')
             ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
@@ -188,7 +233,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
             ->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
-            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
+            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable')
+            ->addChild($this->getInvoiceMappingTable(), 'invoiceMappingTable');
 
         if ($invoiceSettings->getEmailSendAs()) {
             $view->addChild($this->getInvoiceEmailVerificationStatusView($invoiceSettings), 'emailVerificationStatus');
@@ -284,24 +330,47 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getInvoiceEmailVerificationStatusView(InvoiceSettingsEntity $invoiceSettings)
     {
-        $config = $this->invoiceService->getEmailVerificationStatusForDisplay($invoiceSettings->getEmailVerificationStatus());
+        $config = $this->invoiceSettings->getEmailVerificationStatusForDisplay($invoiceSettings->getEmailVerificationStatus());
         return $this->viewModelFactory->newInstance($config)->setTemplate('elements/status.mustache');
     }
 
     protected function getTradingCompanyInvoiceSettingsDataTable()
     {
-        $datatables = $this->invoiceService->getDatatable();
+        $datatables = $this->invoiceSettings->getDatatable();
         $settings = $datatables->getVariable('settings');
 
         $settings->setSource(
             $this->url()->fromRoute(
-                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SETTINGS.'/'.static::ROUTE_AJAX
             )
         );
         $settings->setTemplateUrlMap([
             'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
             'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
             'sendFromAddress' => '/channelgrabber/settings/template/columns/sendFromAddress.mustache',
+        ]);
+        return $datatables;
+    }
+
+    protected function getInvoiceMappingTable()
+    {
+        $datatables = $this->invoiceMappings->getDatatable();
+        $settings = $datatables->getVariable('settings');
+
+        $settings->setSource(
+            $this->url()->fromRoute(
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SETTINGS.'/'.static::ROUTE_AJAX_MAPPING
+            )
+        );
+        $settings->setTemplateUrlMap([
+            'channel' => '/channelgrabber/settings/template/columns/channel.mustache',
+            'displayName' => '/channelgrabber/settings/template/columns/account.mustache',
+            'site' => '/channelgrabber/settings/template/columns/site.mustache',
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompanySelect.mustache',
+            'assignedInvoice' => '/channelgrabber/settings/template/columns/assignedInvoice.mustache',
+            'sendViaEmail' => '/channelgrabber/settings/template/columns/sendViaEmail.mustache',
+            'sendToFba' => '/channelgrabber/settings/template/columns/sendToFba.mustache',
+            'customSelect' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
         ]);
         return $datatables;
     }
@@ -329,6 +398,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'autoEmail',
                     'name' => 'autoEmail',
                     'selected' => (boolean) $invoiceSettings->getAutoEmail(),
+                ]
+            )
+            ->setTemplate('elements/toggle.mustache');
+    }
+
+    protected function getInvoiceSettingsSendToFbaToggleView(InvoiceSettingsEntity $invoiceSettings)
+    {
+        return $this->viewModelFactory
+            ->newInstance(
+                [
+                    'id' => 'sendToFbaDefault',
+                    'name' => 'sendToFbaDefault',
+                    'selected' => (boolean) $invoiceSettings->getSendToFba(),
                 ]
             )
             ->setTemplate('elements/toggle.mustache');
