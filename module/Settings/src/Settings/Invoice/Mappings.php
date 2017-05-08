@@ -196,7 +196,7 @@ class Mappings
             if ($account->getChannel() == 'ebay' && $account->getExternalData()['globalShippingProgram']) {
                 $accountSites = array_unique(array_merge(
                     array_filter($accountSites),
-                    array_values(EbaySiteMap::getCountryCodeByMarketplaceIds())
+                    array_keys(EbaySiteMap::getSiteIdByCountryCode())
                 ));
             }
             sort($accountSites);
