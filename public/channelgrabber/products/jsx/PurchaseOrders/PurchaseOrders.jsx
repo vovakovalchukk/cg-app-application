@@ -1,17 +1,17 @@
 define([
     'react',
     'react-dom',
-    'PurchaseOrders/Components/Root'
+    'PurchaseOrders/Containers/Root'
 ], function(
     React,
     ReactDOM,
-    RootComponent
+    RootContainer
 ) {
-    var Product = function(mountingNode, imageBasePath)
+    var PurchaseOrders = function(mountingNode, imageBasePath)
     {
 
         ReactDOM.render(
-            <RootComponent
+            <RootContainer
                 productsUrl="/purchaseOrders/list"
                 imageBasePath={imageBasePath}
             />,
@@ -19,5 +19,5 @@ define([
         );
     };
 
-    return Product;
+    return PurchaseOrders;
 });

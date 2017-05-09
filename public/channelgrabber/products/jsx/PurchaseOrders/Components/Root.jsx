@@ -6,9 +6,9 @@ define([
     "use strict";
 
     var RootComponent = React.createClass({
-        getInitialState: function () {
-            return {
-                purchaseOrders: [{status: 'hey'}, {status: 'you'}]
+        filterPurchaseOrders: function (purchaseOrder) {
+            if (purchaseOrder.status === this.props.filterStatus) {
+                return purchaseOrder;
             }
         },
         render: function()
@@ -18,8 +18,12 @@ define([
                 <div className="actions"></div>
                 <div className="purchase-orders-container">
                     <div className="purchase-orders-list">
-                        {this.state.purchaseOrders.map(function (purchaseOrder) {
-                            return <div>{purchaseOrder.status}</div>;
+                        {this.props.purchaseOrders.filter(this.filterPurchaseOrders).map(function (purchaseOrder) {
+                            return (
+                                <div className="purchase-order-row">
+                                    {purchaseOrder.status}
+                                </div>
+                            );
 
                         })}
                     </div>
