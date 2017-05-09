@@ -1,0 +1,30 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'PurchaseOrders': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/PurchaseOrders'
+    }
+});
+require([
+    ],
+    function(
+    ) {
+
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->placeholder('#main.class')->append('full-width'); ?>
+<div id="main" class="transition-preload module no-sidebar clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
+    <div id="actions-bar">
+        <div class="action filter-dropdown">
+
+        </div>
+        <div class="action create-purchase-order">
+
+        </div>
+    </div>
+    <div id="datatable-container" class="purchase-orders-datatable">
+        <?= $this->purchaseOrdersList; ?>
+    </div>
+    <div id="purchase-orders-editor">
+
+    </div>
+</div>

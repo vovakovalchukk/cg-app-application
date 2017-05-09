@@ -21,6 +21,8 @@ use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Controller\PurchaseOrdersController;
+use Products\Controller\PurchaseOrdersJsonController;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
@@ -301,6 +303,29 @@ return [
                             ],
                         ]
                     ],
+                    PurchaseOrdersController::ROUTE_INDEX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/purchaseOrders',
+                            'defaults' => [
+                                'controller' => PurchaseOrdersController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            PurchaseOrdersJsonController::ROUTE_DATATABLE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/datatable',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'datatable'
+                                    ]
+                                ]
+                            ],
+                        ],
+                    ],
                 ]
             ]
         ]
@@ -377,6 +402,15 @@ return [
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
+
+                'PurchaseOrderTable' => DataTable::class,
+                'PurchaseOrderTableSettings' => DataTable\Settings::class,
+                'PurchaseOrderStatusColumnView' => ViewModel::class,
+                'PurchaseOrderStatusColumn' => DataTable\Column::class,
+                'PurchaseOrderNumberColumnView' => ViewModel::class,
+                'PurchaseOrderNumberColumn' => DataTable\Column::class,
+                'PurchaseOrderDateColumnView' => ViewModel::class,
+                'PurchaseOrderDateColumn' => DataTable\Column::class,
             ],
             ListingsController::class => [
                 'parameters' => [
@@ -966,7 +1000,67 @@ return [
                 'parameters' => [
                     'predis' => 'reliable_redis'
                 ]
-            ]
+            ],
+
+            'PurchaseOrdersTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'datatable',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'PurchaseOrdersStatusColumn'],
+                        ['column' => 'PurchaseOrdersDateColumn'],
+                        ['column' => 'PurchaseOrdersNumberColumn'],
+                    ],
+                ],
+            ],
+            'PurchaseOrdersStatusColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Status'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'PurchaseOrdersStatusColumn' => [
+                'parameters' => [
+                    'column' => 'status',
+                    'viewModel' => 'PurchaseOrdersStatusColumnView',
+                    'class' => 'status-col',
+                    'sortable' => false,
+                ],
+            ],
+            'PurchaseOrdersDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Date'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'PurchaseOrdersDateColumn' => [
+                'parameters' => [
+                    'column' => 'date',
+                    'viewModel' => 'PurchaseOrdersDateColumnView',
+                    'class' => 'date-col',
+                    'sortable' => false,
+                ],
+            ],
+            'PurchaseOrdersNumberColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Number'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'PurchaseOrdersNumberColumn' => [
+                'parameters' => [
+                    'column' => 'number',
+                    'viewModel' => 'PurchaseOrdersNumberColumnView',
+                    'class' => 'number-col',
+                    'sortable' => false,
+                ],
+            ],
         ],
     ],
     'navigation' => array(
@@ -987,7 +1081,18 @@ return [
                                 ListingsController::ROUTE_INDEX_URL
                             ]
                         )
-                    ]
+                    ],
+                    'purchaseOrders' => [
+                        'id'    => 'purchaseOrders',
+                        'label' => 'Purchase Orders',
+                        'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
+                                '',
+                                [
+                                    ProductsController::ROUTE_INDEX_URL,
+                                    PurchaseOrdersController::ROUTE_INDEX_URL
+                                ]
+                            )
+                    ],
                 ]
             ]
         ]
