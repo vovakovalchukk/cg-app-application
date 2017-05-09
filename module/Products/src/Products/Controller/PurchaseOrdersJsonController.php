@@ -11,7 +11,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 {
     use LogTrait;
 
-    const ROUTE_DATATABLE = 'AJAX Datatable';
+    const ROUTE_LIST = 'AJAX List';
 
     protected $jsonModelFactory;
 
@@ -21,14 +21,29 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $this->jsonModelFactory = $jsonModelFactory;
     }
 
-    public function datatableAction()
+    public function listAction()
     {
-        return
+        $records = [
             [
-                'iTotalRecords' => 0,
-                'iTotalDisplayRecords' => 0,
-                'sEcho' => (int) $this->params()->fromPost('sEcho'),
-                'Records' => [],
-            ];
+                'status' => 'In Progress',
+                'date' => '2017-04-28 13:35:07',
+                'number' => 'More Jeans',
+            ],[
+                'status' => 'In Progress',
+                'date' => '2017-04-08 11:35:07',
+                'number' => 'More Jeans',
+            ],[
+                'status' => 'Complete',
+                'date' => '2017-03-28 13:35:07',
+                'number' => 'More Jeans',
+            ],[
+                'status' => 'Complete',
+                'date' => '2017-03-21 13:35:07',
+                'number' => 'More Jeans',
+            ]
+        ];
+        return $this->jsonModelFactory->newInstance([
+            'list' => $records,
+        ]);
     }
 }

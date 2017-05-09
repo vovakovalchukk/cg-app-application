@@ -314,13 +314,13 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            PurchaseOrdersJsonController::ROUTE_DATATABLE => [
+                            PurchaseOrdersJsonController::ROUTE_LIST => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/datatable',
+                                    'route' => '/list',
                                     'defaults' => [
                                         'controller' => PurchaseOrdersJsonController::class,
-                                        'action' => 'datatable'
+                                        'action' => 'list'
                                     ]
                                 ]
                             ],
@@ -402,15 +402,6 @@ return [
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
-
-                'PurchaseOrderTable' => DataTable::class,
-                'PurchaseOrderTableSettings' => DataTable\Settings::class,
-                'PurchaseOrderStatusColumnView' => ViewModel::class,
-                'PurchaseOrderStatusColumn' => DataTable\Column::class,
-                'PurchaseOrderNumberColumnView' => ViewModel::class,
-                'PurchaseOrderNumberColumn' => DataTable\Column::class,
-                'PurchaseOrderDateColumnView' => ViewModel::class,
-                'PurchaseOrderDateColumn' => DataTable\Column::class,
             ],
             ListingsController::class => [
                 'parameters' => [
@@ -1000,66 +991,6 @@ return [
                 'parameters' => [
                     'predis' => 'reliable_redis'
                 ]
-            ],
-
-            'PurchaseOrdersTable' => [
-                'parameters' => [
-                    'variables' => [
-                        'sortable' => 'false',
-                        'id' => 'datatable',
-                        'class' => 'fixed-header fixed-footer',
-                        'width' => '100%'
-                    ],
-                ],
-                'injections' => [
-                    'addColumn' => [
-                        ['column' => 'PurchaseOrdersStatusColumn'],
-                        ['column' => 'PurchaseOrdersDateColumn'],
-                        ['column' => 'PurchaseOrdersNumberColumn'],
-                    ],
-                ],
-            ],
-            'PurchaseOrdersStatusColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Status'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'PurchaseOrdersStatusColumn' => [
-                'parameters' => [
-                    'column' => 'status',
-                    'viewModel' => 'PurchaseOrdersStatusColumnView',
-                    'class' => 'status-col',
-                    'sortable' => false,
-                ],
-            ],
-            'PurchaseOrdersDateColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Date'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'PurchaseOrdersDateColumn' => [
-                'parameters' => [
-                    'column' => 'date',
-                    'viewModel' => 'PurchaseOrdersDateColumnView',
-                    'class' => 'date-col',
-                    'sortable' => false,
-                ],
-            ],
-            'PurchaseOrdersNumberColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Number'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'PurchaseOrdersNumberColumn' => [
-                'parameters' => [
-                    'column' => 'number',
-                    'viewModel' => 'PurchaseOrdersNumberColumnView',
-                    'class' => 'number-col',
-                    'sortable' => false,
-                ],
             ],
         ],
     ],

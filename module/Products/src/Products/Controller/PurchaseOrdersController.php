@@ -17,33 +17,19 @@ class PurchaseOrdersController extends AbstractActionController implements Logge
     const ROUTE_INDEX_URL = '/purchaseOrders';
 
     protected $viewModelFactory;
-    protected $purchaseOrdersList;
 
     public function __construct(
-        ViewModelFactory $viewModelFactory,
-        DataTable $purchaseOrdersList
+        ViewModelFactory $viewModelFactory
     ) {
         $this->viewModelFactory = $viewModelFactory;
-        $this->purchaseOrdersList = $purchaseOrdersList;
     }
 
     public function indexAction()
     {
         $view = $this->viewModelFactory->newInstance();
+        $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
-
-        $view->addChild($this->getPurchaseOrdersList(), 'purchaseOrdersList');
+        $view->setVariable('subHeaderHide', true);
         return $view;
-    }
-
-    protected function getPurchaseOrdersList()
-    {
-        $purchaseOrdersList = $this->purchaseOrdersList;
-        $settings = $purchaseOrdersList->getVariable('settings');
-        $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_INDEX . '/' . PurchaseOrdersJsonController::ROUTE_DATATABLE)
-        );
-        $settings->setTemplateUrlMap($this->mustacheTemplateMap('listingList'));
-        return $purchaseOrdersList;
     }
 }

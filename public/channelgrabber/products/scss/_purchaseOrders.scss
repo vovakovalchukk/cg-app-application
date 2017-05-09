@@ -1,0 +1,17 @@
+.purchase-orders {
+    #actions-bar {
+        display: flex;
+        justify-content: space-between;
+    }
+    #purchase-orders-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 25px;
+        #purchase-orders-list {
+            width: 50%;
+        }
+        #purchase-orders-editor {
+            width: 50%;
+        }
+    }
+}
