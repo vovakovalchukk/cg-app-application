@@ -29,7 +29,7 @@
     }
     .detail-dropdown-popup {
         position: absolute;
-        width: 688px;
+        width: 100%;
         display: none;
         max-height: 270px;
         overflow: auto;
@@ -76,28 +76,25 @@
                         }
                     }
                     .variation-row-sku {
-                        width: 110px;
-                        margin-right: 24px;
+                        width: 140px;
+                        margin-right: 20px;
                         overflow: hidden;
                     }
                     .variation-row-attributes {
-                        width: 240px;
+                        width: 220px;
                         display: flex;
                         justify-content: space-between;
-                        margin-right: 24px;
                         overflow: auto;
                         .variation-attribute {
                             min-width: 60px;
                         }
                     }
                     .variation-row-stock {
-                        width: 90px;
-                        margin-right: 14px;
+                        width: 105px;
                         text-align: center;
                     }
                     .variation-row-qty-input {
-                        width: 70px;
-                        margin-right: 14px;
+                        width: 100px;
                         .safe-input-box .submit-input .submit-cancel {
                             left: 0;
                             z-index: 10;

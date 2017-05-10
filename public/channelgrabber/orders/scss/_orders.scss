@@ -111,6 +111,9 @@
     .detail-dropdown-searchbox {
         width: 690px !important;
     }
+    .detail-dropdown-popup {
+        width: 688px !important;
+    }
     .order-table-wrapper {
         width: 1050px;
         margin-bottom: 25px;
@@ -313,34 +316,6 @@
 
 .inputbox-label {
     min-height: 18px;
-}
-
-.incrementor-input-box {
-    .incrementor-button {
-        width: 25%;
-        display: inline-block;
-        cursor: pointer;
-        box-sizing: border-box;
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none;   /* Chrome/Safari/Opera */
-        -moz-user-select: none;      /* Firefox */
-        -ms-user-select: none;       /* Internet Explorer/Edge */
-        user-select: none;
-        .increment {
-            margin-left: 1px;
-        }
-    }
-    input[type=number] {
-        width: 20px;
-        padding: 2px;
-        text-align: center;
-        -moz-appearance:textfield;
-        &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    }
 }
 
 #billing-address-search-toggle-shadow, #shipping-address-search-toggle-shadow {
