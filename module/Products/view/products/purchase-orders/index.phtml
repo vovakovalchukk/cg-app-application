@@ -8,11 +8,17 @@ require.config({
 });
 require([
         'PurchaseOrders/PurchaseOrders',
+        'Common/Utils/Image'
     ],
     function(
-        PurchaseOrders
+        PurchaseOrders,
+        ImageUtils
     ) {
-    var purchaseOrders = new PurchaseOrders(document.getElementById('purchase-orders-mount-node'), '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+
+    var utilities = {
+        image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
+    };
+    var purchaseOrders = new PurchaseOrders(document.getElementById('purchase-orders-mount-node'), utilities);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>

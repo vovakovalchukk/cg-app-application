@@ -14,6 +14,11 @@ define([
                 purchaseOrders: []
             }
         },
+        getChildContext: function() {
+            return {
+                imageUtils: this.props.utilities.image
+            };
+        },
         componentDidMount: function () {
             var self = this;
             this.purchaseOrderRequest = $.ajax({
@@ -43,6 +48,10 @@ define([
             );
         }
     });
+
+    RootContainer.childContextTypes = {
+        imageUtils: React.PropTypes.object
+    };
 
     return RootContainer;
 });

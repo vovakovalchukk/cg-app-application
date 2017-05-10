@@ -7,13 +7,13 @@ define([
     ReactDOM,
     RootContainer
 ) {
-    var PurchaseOrders = function(mountingNode, imageBasePath)
+    var PurchaseOrders = function(mountingNode, utilities)
     {
 
         ReactDOM.render(
             <RootContainer
                 productsUrl="/purchaseOrders/list"
-                imageBasePath={imageBasePath}
+                utilities={utilities}
             />,
             mountingNode
         );
