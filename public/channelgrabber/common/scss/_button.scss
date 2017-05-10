@@ -1,0 +1,9 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 60px;
+    .button-text {
+        padding: 0 3px 0 8px;
+    }
+}

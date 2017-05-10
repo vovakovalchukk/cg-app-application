@@ -9,7 +9,8 @@ define([
         render: function () {
             return (
                 <div className="button" onClick={this.props.onClick}>
-                    {this.props.text}
+                    {this.props.sprite ? <span className={"sprite-sprite "+this.props.sprite}>&nbsp;</span> : ''}
+                    <span className="button-text">{this.props.text}</span>
                 </div>
             );
         }
