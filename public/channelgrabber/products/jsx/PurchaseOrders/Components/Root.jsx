@@ -1,9 +1,24 @@
 define([
-    'react'
+    'react',
+    'Common/Components/Select'
 ], function(
-    React
+    React,
+    Select
 ) {
     "use strict";
+
+    const FILTER_OPTIONS = [
+        {
+            name: 'All',
+            value: 'All'
+        }, {
+            name: 'Complete',
+            value: 'Complete',
+        }, {
+            name: 'In Progress',
+            value: 'In Progress'
+        }
+    ];
 
     var RootComponent = React.createClass({
         filterPurchaseOrders: function (purchaseOrder) {
@@ -18,7 +33,11 @@ define([
         {
             return (
             <div className="purchase-orders-root">
-                <div className="actions"></div>
+                <div className="purchase-orders-actions">
+                    <div className="purchase-orders-action">
+                        <Select prefix="Show" options={FILTER_OPTIONS} onOptionChange={this.props.onFilterSelected}/>
+                    </div>
+                </div>
                 <div className="purchase-orders-container">
                     <div className="purchase-orders-list">
                         <div className="grid-table">

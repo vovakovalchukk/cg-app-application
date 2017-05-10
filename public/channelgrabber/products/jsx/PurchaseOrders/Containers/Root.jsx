@@ -35,7 +35,11 @@ define([
         render: function()
         {
             return (
-                <RootComponent filterStatus={this.state.filterStatus} purchaseOrders={this.state.purchaseOrders}/>
+                <RootComponent
+                    filterStatus={this.state.filterStatus}
+                    purchaseOrders={this.state.purchaseOrders}
+                    onFilterSelected={function(selection){this.setState({filterStatus: selection.value})}.bind(this)}
+                />
             );
         }
     });

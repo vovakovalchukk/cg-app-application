@@ -1,13 +1,16 @@
 #purchase-orders-mount-node{
     padding: 25px;
-    #actions-bar {
+    .purchase-orders-actions {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 20px;
+        .custom-select {
+            width: 160px;
+        }
     }
     .purchase-orders-container {
         display: flex;
         justify-content: space-between;
-        padding: 25px;
         .purchase-orders-list {
             width: 50%;
             .status {

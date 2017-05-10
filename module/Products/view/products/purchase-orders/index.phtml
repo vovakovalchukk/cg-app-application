@@ -1,7 +1,8 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require.config({
     paths: {
-        'PurchaseOrders': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/PurchaseOrders'
+        'PurchaseOrders': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/PurchaseOrders',
+        'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
     }
 });
 require([
