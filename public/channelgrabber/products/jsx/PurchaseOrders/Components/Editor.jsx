@@ -1,11 +1,13 @@
 define([
     'react',
     'Common/Components/EditableField',
-    'Common/Components/Button'
+    'Common/Components/Button',
+    'Common/Components/ProductDropdown/Dropdown'
 ], function(
     React,
     EditableField,
-    Button
+    Button,
+    ProductDropdown
 ) {
     "use strict";
 
@@ -23,6 +25,7 @@ define([
                         <Button onClick={this.props.onDeleteClicked} sprite="sprite-delete-20-black" text="Delete"/>
                         <Button onClick={this.props.onSaveClicked} sprite="sprite-dispatch-22-black" text="Save"/>
                     </div>
+                    <ProductDropdown />
                 </div>
             );
         }
