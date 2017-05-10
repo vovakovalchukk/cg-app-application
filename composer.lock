@@ -1028,6 +1028,32 @@
             "time": "2016-11-29T15:35:49+00:00"
         },
         {
+            "name": "channelgrabber/feature-flags",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
+                "reference": "fcb8ec21f2b66826101c04524c8286d22fa59c13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-1.0.0-466ccb.zip",
+                "reference": "fcb8ec21f2b66826101c04524c8286d22fa59c13",
+                "shasum": null
+            },
+            "require": {
+                "opensoft/rollout": "^2.2",
+                "predis/predis": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\FeatureFlags\\": "src"
+                }
+            },
+            "time": "2017-05-10T13:20:55+00:00"
+        },
+        {
             "name": "channelgrabber/gearman",
             "version": "1.2.28.1",
             "source": {
@@ -1557,16 +1583,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.9",
+            "version": "1.28.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2dc10e440d395e757b618aae6a6f2c1d2fa0f4c3"
+                "reference": "57953b42b7df50cae0de77a4d688a3ec78199c19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.9-57fcca.zip",
-                "reference": "2dc10e440d395e757b618aae6a6f2c1d2fa0f4c3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.9.1-4687eb.zip",
+                "reference": "57953b42b7df50cae0de77a4d688a3ec78199c19",
                 "shasum": null
             },
             "require": {
@@ -1581,6 +1607,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/etag": "^1.6.0",
+                "channelgrabber/feature-flags": "^1.0.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
@@ -1631,7 +1658,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-10T12:59:07+00:00"
+            "time": "2017-05-10T15:21:22+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -5389,6 +5416,58 @@
                 "xml"
             ],
             "time": "2015-07-01T09:57:11+00:00"
+        },
+        {
+            "name": "opensoft/rollout",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opensoft/rollout.git",
+                "reference": "41083bc1f010898f6b48296764fd1c4207615623"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/opensoft-rollout-41083bc1f010898f6b48296764fd1c4207615623-zip-ff028f.zip",
+                "reference": "41083bc1f010898f6b48296764fd1c4207615623",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/cache": "*",
+                "phpunit/phpunit": "*"
+            },
+            "suggest": {
+                "doctrine/cache": "For use with the DoctrineCacheStorageAdapter",
+                "predis/predis": "For use with the RedisStorageAdapter"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Opensoft\\Rollout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Fullmer",
+                    "email": "richard.fullmer@opensoftdev.com"
+                }
+            ],
+            "description": "Feature switches or flags for PHP",
+            "keywords": [
+                "feature",
+                "flag",
+                "flipper",
+                "rollout",
+                "switches",
+                "toggle"
+            ],
+            "time": "2016-11-08T03:54:16+00:00"
         },
         {
             "name": "php-jsonpatch/php-jsonpatch",
