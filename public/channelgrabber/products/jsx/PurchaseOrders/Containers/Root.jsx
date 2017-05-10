@@ -10,7 +10,7 @@ define([
     var RootContainer = React.createClass({
         getInitialState: function () {
             return {
-                filterStatus: 'Complete',
+                filterStatus: 'All',
                 purchaseOrders: []
             }
         },
