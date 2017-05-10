@@ -11,8 +11,26 @@ define([
         getInitialState: function () {
             return {
                 filterStatus: 'Complete',
-                purchaseOrders: [{status: 'In Progress'}, {status: 'Complete'}, {status: 'Complete'}]
+                purchaseOrders: []
             }
+        },
+        componentDidMount: function () {
+            var self = this;
+            this.purchaseOrderRequest = $.ajax({
+                method: 'POST',
+                url: '/products/purchaseOrders/list',
+                success: function (response) {
+                    if (response.list === undefined || response.list.length === 0) {
+                        return;
+                    }
+                    self.setState({
+                        purchaseOrders: response.list
+                    });
+                }
+            });
+        },
+        componentWillUnmount: function () {
+            this.purchaseOrderRequest.abort();
         },
         render: function()
         {

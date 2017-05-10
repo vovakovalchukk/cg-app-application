@@ -4,14 +4,23 @@
         display: flex;
         justify-content: space-between;
     }
-    #purchase-orders-container {
+    .purchase-orders-container {
         display: flex;
         justify-content: space-between;
         padding: 25px;
-        #purchase-orders-list {
+        .purchase-orders-list {
             width: 50%;
+            .status {
+                width: 55%;
+                &.complete {
+                    background-color: $color-green;
+                }
+                &.in_progress {
+                    background-color: $color-orange;
+                }
+            }
         }
-        #purchase-orders-editor {
+        .purchase-orders-editor {
             width: 50%;
         }
     }

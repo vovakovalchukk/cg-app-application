@@ -27,19 +27,23 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             [
                 'status' => 'In Progress',
                 'date' => '2017-04-28 13:35:07',
-                'number' => 'More Jeans',
+                'number' => '1 Jeans',
             ],[
                 'status' => 'In Progress',
                 'date' => '2017-04-08 11:35:07',
-                'number' => 'More Jeans',
+                'number' => '2 Jeans',
             ],[
                 'status' => 'Complete',
                 'date' => '2017-03-28 13:35:07',
-                'number' => 'More Jeans',
+                'number' => 'Some Jeans',
             ],[
                 'status' => 'Complete',
                 'date' => '2017-03-21 13:35:07',
                 'number' => 'More Jeans',
+            ],[
+                'status' => 'Complete',
+                'date' => '2017-03-21 13:35:07',
+                'number' => 'Even More Jeans',
             ]
         ];
         return $this->jsonModelFactory->newInstance([
