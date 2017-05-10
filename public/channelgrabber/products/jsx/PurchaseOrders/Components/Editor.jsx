@@ -2,12 +2,14 @@ define([
     'react',
     'Common/Components/EditableField',
     'Common/Components/Button',
-    'Common/Components/ProductDropdown/Dropdown'
+    'Common/Components/ProductDropdown/Dropdown',
+    'Common/Components/ItemRow'
 ], function(
     React,
     EditableField,
     Button,
-    ProductDropdown
+    ProductDropdown,
+    ItemRow
 ) {
     "use strict";
 
@@ -26,6 +28,17 @@ define([
                         <Button onClick={this.props.onSaveClicked} sprite="sprite-save-22-black" text="Save"/>
                     </div>
                     <ProductDropdown />
+                    <div className="product-list">
+                        {this.props.productList.map(function (row) {
+                            return (
+                                <ItemRow row={row}
+                                    onSkuChange={this.props.onSkuChanged}
+                                    onStockQuantityUpdate={this.props.onStockQuantityUpdated}
+                                    onRowRemove={this.props.onRowRemove}
+                                />
+                            )
+                        }.bind(this))}
+                        </div>
                 </div>
             );
         }

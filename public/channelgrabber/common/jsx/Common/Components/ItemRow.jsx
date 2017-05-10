@@ -62,32 +62,46 @@ define([
         onRowRemove: function (e) {
             this.props.onRowRemove(this.props.row.sku);
         },
+        renderPriceInput: function () {
+            if (this.props.currency !== undefined) {
+                return (
+                    <div className="item-row-price">
+                        <CurrencyInput value={this.state.price} currency={this.props.currency.value} onChange={this.onPriceChange}/>
+                    </div>
+                );
+            }
+        },
+        renderPriceTotal: function () {
+            if (this.props.currency !== undefined) {
+                return (
+                    <div className="item-row-total">
+                        {this.props.currency.value + " " + (this.props.row.price * this.props.row.quantity).toFixed(2)}
+                    </div>
+                );
+            }
+        },
         render: function () {
             return (
-                <div className="order-row">
-                    <div className="order-row-details">
-                        <div className="order-row-img">
+                <div className="item-row">
+                    <div className="item-row-details">
+                        <div className="item-row-img">
                             <img src={this.context.imageUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
                         </div>
-                        <div className="order-row-description">
-                            <div className="order-row-name" title={this.props.row.product.name}>{this.props.row.product.name}</div>
-                            <div className="order-row-sku" title={this.props.row.sku}>{this.props.row.sku}</div>
+                        <div className="item-row-description">
+                            <div className="item-row-name" title={this.props.row.product.name}>{this.props.row.product.name}</div>
+                            <div className="item-row-sku" title={this.props.row.sku}>{this.props.row.sku}</div>
                         </div>
-                        <div className="order-row-attributes">
+                        <div className="item-row-attributes">
                             {this.getVariationSwitcherDropdown(this.props.row.product, this.props.row.sku)}
                         </div>
-                        <div className="order-row-price">
-                            <CurrencyInput value={this.state.price} currency={this.props.currency.value} onChange={this.onPriceChange}/>
-                        </div>
-                        <div className="order-row-qty-input">
+                        {this.renderPriceInput()}
+                        <div className="item-row-qty-input">
                             <span className="multiplier">x</span>
                             <input type="number" name='quantity' placeholder="0.00" value={this.props.row.quantity ? this.props.row.quantity : ''} onChange={this.onStockQuantityUpdate} />
                         </div>
                     </div>
-                    <div className="order-row-total">
-                        {this.props.currency.value + " " + (this.props.row.price * this.props.row.quantity).toFixed(2)}
-                    </div>
-                    <div className="order-row-actions">
+                    {this.renderPriceTotal()}
+                    <div className="item-row-actions">
                         <a className="action remove" onClick={this.onRowRemove}>Remove</a>
                     </div>
                 </div>
