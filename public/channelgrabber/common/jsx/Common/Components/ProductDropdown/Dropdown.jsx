@@ -2,7 +2,7 @@ define([
     'react',
     'Common/Components/ClickOutside',
     'Product/Filter/Entity',
-    'ManualOrder/Components/ProductDropdown/DetailRow',
+    'Common/Components/ProductDropdown/DetailRow',
     'Product/Storage/Ajax'
 ], function(
     React,
