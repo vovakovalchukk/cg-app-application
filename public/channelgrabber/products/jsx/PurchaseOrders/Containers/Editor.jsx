@@ -106,10 +106,8 @@ define([
                 productList: productList
             });
         },
-        onStockQuantityUpdated: function () {
-            /**
-             * update productList
-             */
+        onStockQuantityUpdated: function (sku, quantity) {
+            this.updateItemRow(sku, 'quantity', quantity);
         },
         onRowRemove: function (sku) {
             var productList = this.state.productList.filter(function (row) {
