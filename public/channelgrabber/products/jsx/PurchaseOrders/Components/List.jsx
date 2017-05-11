@@ -16,6 +16,9 @@ define([
                 return purchaseOrder;
             }
         },
+        onRowClick: function (purchaseOrder) {
+            window.triggerEvent('purchaseOrderSelected', purchaseOrder);
+        },
         render: function()
         {
             return (
@@ -31,14 +34,14 @@ define([
                         {this.props.purchaseOrders.filter(this.filterPurchaseOrders).map(function (purchaseOrder) {
                             var statusClass = purchaseOrder.status.replace(" ", "_").toLowerCase();
                             return (
-                                <div className="row hoverable">
+                                <div className="row hoverable" onClick={this.onRowClick.bind(this, purchaseOrder)}>
                                     <div className="cell"><span className={"status " + statusClass}>{purchaseOrder.status}</span></div>
                                     <div className="cell">{purchaseOrder.date}</div>
                                     <div className="cell">{purchaseOrder.number}</div>
                                 </div>
                             );
 
-                        })}
+                        }.bind(this))}
                     </div>
                 </div>
             );

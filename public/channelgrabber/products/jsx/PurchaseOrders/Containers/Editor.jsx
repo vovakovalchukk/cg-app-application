@@ -18,11 +18,23 @@ define([
         },
         componentDidMount: function () {
             window.addEventListener('createNewPurchaseOrder', this.resetEditor);
+            window.addEventListener('purchaseOrderSelected', this.populateEditor);
             window.addEventListener('productSelection', this.onProductSelected);
         },
         componentWillUnmount: function () {
             window.removeEventListener('createNewPurchaseOrder', this.resetEditor);
+            window.removeEventListener('purchaseOrderSelected', this.populateEditor);
             window.removeEventListener('productSelection', this.onProductSelected);
+        },
+        populateEditor: function (event) {
+            if (! event.detail) {
+                return;
+            }
+            var purchaseOrder = event.detail;
+            this.setState({
+                purchaseOrderNumber: purchaseOrder.number,
+                productList: purchaseOrder.list ? purchaseOrder.list : []
+            });
         },
         resetEditor: function () {
             this.setState({

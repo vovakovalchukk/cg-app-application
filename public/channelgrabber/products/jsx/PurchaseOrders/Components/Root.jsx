@@ -51,6 +51,7 @@ define([
                     <PurchaseOrdersList
                         filterStatus={this.props.filterStatus}
                         purchaseOrders={this.props.purchaseOrders}
+                        onPurchaseOrderSelected={this.props.onPurchaseOrderSelected}
                     />
                     <PurchaseOrdersEditor />
                 </div>
