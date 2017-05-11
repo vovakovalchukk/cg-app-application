@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c63c0748064fddaa4684939c6592a28b",
+    "content-hash": "966e22ead47b28e24243d4d81c09db2c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1557,7 +1557,7 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-CGIV-8175-linked-orders",
+            "version": "1.28.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
@@ -1565,7 +1565,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-8175-linked-orders-5ab141.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.9.2-5ab141.zip",
                 "reference": "48916cc12f963340b923b9da8847129503eebde5",
                 "shasum": null
             },
@@ -1631,7 +1631,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-11 11:50:05"
+            "time": "2017-05-11T11:45:21+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8885,18 +8885,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.28.9",
-            "alias_normalized": "1.28.9.0",
-            "version": "dev-EPIC-CGIV-8175-linked-orders",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
