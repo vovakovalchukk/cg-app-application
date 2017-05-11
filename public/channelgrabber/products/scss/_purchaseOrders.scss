@@ -1,5 +1,7 @@
 #purchase-orders-mount-node{
     padding: 25px;
+    background-color: $color-grey;
+    height: 100vh;
     .purchase-orders-actions {
         display: flex;
         justify-content: space-between;
@@ -43,7 +45,31 @@
             .editor-row {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 20px;
+                margin-bottom: 30px;
+            }
+            .detail-dropdown-wrapper {
+                margin-bottom: 25px;
+                .incrementor-input-box {
+                    input {
+                        border-radius: 5px;
+                        border: 1px solid $color-lgrey;
+                    }
+                }
+            }
+            .item-row {
+                .item-row-details {
+                    margin-right: 40px;
+                    .item-row-attributes {
+                        margin-right: 40px;
+                    }
+                    .item-row-qty-input {
+                        input {
+                            width: 40px;
+                            border-radius: 5px;
+                            border: 1px solid $color-lgrey;
+                        }
+                    }
+                }
             }
         }
     }
