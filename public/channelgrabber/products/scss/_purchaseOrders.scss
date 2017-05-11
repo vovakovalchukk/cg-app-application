@@ -1,7 +1,8 @@
 #purchase-orders-mount-node{
     padding: 25px;
     background-color: $color-grey;
-    height: 100vh;
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
     .purchase-orders-actions {
         display: flex;
         justify-content: space-between;
@@ -15,6 +16,8 @@
         justify-content: space-between;
         .purchase-orders-list {
             width: 49%;
+            max-height: 78vh;
+            overflow: auto;
             .status {
                 width: 55%;
                 &.complete {
@@ -27,6 +30,7 @@
         }
         .purchase-orders-editor {
             width: 49%;
+            max-height: 78vh;
             padding: 20px;
             background-color: white;
             box-sizing: border-box;
@@ -46,6 +50,10 @@
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 30px;
+            }
+            .product-list {
+                overflow: auto;
+                max-height: 46vh;
             }
             .detail-dropdown-wrapper {
                 margin-bottom: 25px;
