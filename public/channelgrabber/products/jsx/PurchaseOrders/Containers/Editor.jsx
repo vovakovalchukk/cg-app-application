@@ -82,7 +82,7 @@ define([
             var productList = this.state.productList.slice();
             productList.forEach(function (row) {
                 if (row.sku === oldSku) {
-                    oldSkuQuantity = row.quantity;
+                    oldSkuQuantity = parseInt(row.quantity);
                 }
             });
 
@@ -110,7 +110,7 @@ define([
             });
         },
         onStockQuantityUpdated: function (sku, quantity) {
-            this.updateItemRow(sku, 'quantity', quantity);
+            this.updateItemRow(sku, 'quantity', parseInt(quantity));
         },
         onRowRemove: function (sku) {
             var productList = this.state.productList.filter(function (row) {
