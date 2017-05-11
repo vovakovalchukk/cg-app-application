@@ -2388,6 +2388,10 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-data-grid@^2.0.41:
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/react-data-grid/-/react-data-grid-2.0.41.tgz#8e1e1f988a8873687659cae20801c2918c1732e8"
+
 react-dom@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"

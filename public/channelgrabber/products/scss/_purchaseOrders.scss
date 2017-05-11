@@ -1,7 +1,7 @@
 #purchase-orders-mount-node{
     padding: 25px;
-    //background-color: $color-grey;
-    //height: calc(100vh - 50px);
+    background-color: $color-grey;
+    height: calc(100vh - 50px);
     box-sizing: border-box;
     .purchase-orders-actions {
         display: flex;
@@ -16,13 +16,80 @@
         justify-content: space-between;
         .purchase-orders-list {
             width: 49%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border-bottom: 1px solid $color-lgrey;
+            border-left: 1px solid $color-lgrey;
+            border-right: 1px solid $color-lgrey;
             .status {
                 width: 55%;
+                margin: 0 auto;
                 &.complete {
                     background-color: $color-green;
                 }
                 &.in_progress {
                     background-color: $color-yellow;
+                }
+            }
+            .row {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                box-sizing: border-box;
+                text-align: center;
+            }
+            .head {
+                width: 100%;
+                .row {
+                    border-radius: 5px 5px 0 0;
+                    .cell {
+                        width: 34%;
+                        background: $color-lblue;
+                        color: $color-white;
+                        padding: 5px 0 5px 0;
+                        font-size: 13px;
+                        font-weight: 700;
+                        overflow-wrap: break-word;
+                        &:first-child {
+                            border-top-left-radius: 5px;
+                        }
+                        &:last-child {
+                            border-top-right-radius: 5px;
+                        }
+                    }
+                }
+            }
+            .body {
+                width: 100%;
+                overflow: auto;
+                max-height: 74vh;
+                .row {
+                    background-color: $color-white;
+                    &:nth-child(odd) {
+                        background-color: $color-xlblue;
+                    }
+                    &.hoverable {
+                        &:hover {
+                            cursor: pointer;
+                            background-color: $color-vlblue;
+                        }
+                    }
+                    &:last-child {
+                        border-radius: 0 0 5px 5px;
+                        border-bottom: none;
+                        .grid-table-col {
+                            border-bottom: none;
+                        }
+                    }
+                    .cell {
+                        width: 34%;
+                        padding: 5px 0 5px 0;
+                        border-bottom: 1px solid $color-lgrey;
+                        border-right: 1px solid $color-lgrey;
+                        &:last-child {
+                            border-right: none;
+                        }
+                    }
                 }
             }
         }
