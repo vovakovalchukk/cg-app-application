@@ -7,18 +7,28 @@ define([
 ) {
     "use strict";
 
+    var DEFAULT_PO_NUMBER = "Enter Purchase Order Number";
+
     var EditorContainer = React.createClass({
         getInitialState: function () {
             return {
-                purchaseOrderNumber: "",
+                purchaseOrderNumber: DEFAULT_PO_NUMBER,
                 productList: []
             };
         },
         componentDidMount: function () {
+            window.addEventListener('createNewPurchaseOrder', this.resetEditor);
             window.addEventListener('productSelection', this.onProductSelected);
         },
         componentWillUnmount: function () {
+            window.removeEventListener('createNewPurchaseOrder', this.resetEditor);
             window.removeEventListener('productSelection', this.onProductSelected);
+        },
+        resetEditor: function () {
+            this.setState({
+                purchaseOrderNumber: DEFAULT_PO_NUMBER,
+                productList: []
+            });
         },
         onProductSelected: function (e) {
             var data = e.detail;

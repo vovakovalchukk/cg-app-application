@@ -20,6 +20,13 @@ define([
                 editable: false
             }
         },
+        componentWillReceiveProps: function (newProps) {
+            this.setState({
+                fieldText: newProps.initialFieldText,
+                oldFieldText: newProps.initialFieldText,
+                editable: false
+            });
+        },
         onClick: function () {
             var editable = this.refs.input.focus ? true : !this.state.editable;
             this.setState({

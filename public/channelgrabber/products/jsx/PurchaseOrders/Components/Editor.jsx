@@ -19,7 +19,7 @@ define([
             return (
                 <div className="purchase-orders-editor">
                     <div className="editor-row">
-                        <EditableField initialFieldText="Enter Purchase Order Number" onSubmit={this.props.onNameChange}/>
+                        <EditableField initialFieldText={this.props.purchaseOrderNumber} onSubmit={this.props.onNameChange}/>
                     </div>
                     <div className="editor-row">
                         <Button onClick={this.props.onCompleteClicked} sprite="sprite-complete-22-black" text="Complete"/>
@@ -36,7 +36,7 @@ define([
                                     onStockQuantityUpdate={this.props.onStockQuantityUpdated}
                                     onRowRemove={this.props.onRowRemove}
                                 />
-                            )
+                            );
                         }.bind(this))}
                         </div>
                 </div>

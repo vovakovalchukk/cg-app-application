@@ -2,12 +2,14 @@ define([
     'react',
     'Common/Components/Select',
     'PurchaseOrders/Components/List',
-    'PurchaseOrders/Containers/Editor'
+    'PurchaseOrders/Containers/Editor',
+    'Common/Components/Button'
 ], function(
     React,
     Select,
     PurchaseOrdersList,
-    PurchaseOrdersEditor
+    PurchaseOrdersEditor,
+    Button
 ) {
     "use strict";
 
@@ -40,6 +42,9 @@ define([
                 <div className="purchase-orders-actions">
                     <div className="purchase-orders-action">
                         <Select prefix="Show" options={FILTER_OPTIONS} onOptionChange={this.props.onFilterSelected}/>
+                    </div>
+                    <div className="purchase-orders-action">
+                        <Button onClick={this.props.onCreateNewPurchaseOrder} sprite="sprite-plus-18-black" text="Create Purchase Order"/>
                     </div>
                 </div>
                 <div className="purchase-orders-container">
