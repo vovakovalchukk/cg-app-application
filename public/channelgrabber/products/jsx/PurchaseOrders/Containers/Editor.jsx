@@ -79,10 +79,14 @@ define([
              * update productList
              */
         },
-        onRowRemove: function () {
-            /**
-             * update productList
-             */
+        onRowRemove: function (sku) {
+            var productList = this.state.productList.filter(function (row) {
+                return row.sku !== sku;
+            });
+
+            this.setState({
+                productList: productList
+            });
         },
         render: function()
         {
