@@ -69,10 +69,42 @@ define([
              * trigger purchase order list refresh
              */
         },
-        onSkuChanged: function () {
-            /**
-             * update productList
-             */
+        onSkuChanged: function (oldSku, selection) {
+            var newSku = selection.value;
+            if (selection === undefined || oldSku === newSku) {
+                return;
+            }
+
+            var oldSkuQuantity = 0;
+            var productList = this.state.productList.slice();
+            productList.forEach(function (row) {
+                if (row.sku === oldSku) {
+                    oldSkuQuantity = row.quantity;
+                }
+            });
+
+            var alreadyAddedToForm = productList.find(function (row) {
+                if (row.sku === newSku) {
+                    row.quantity += parseInt(oldSkuQuantity);
+                    return true;
+                }
+            });
+            if (alreadyAddedToForm) {
+                this.onRowRemove(oldSku);
+                return;
+            }
+            this.updateItemRow(oldSku, 'sku', selection.value);
+        },
+        updateItemRow: function (sku, key, value) {
+            var productList = this.state.productList.slice();
+            productList.forEach(function (row) {
+                if (row.sku === sku) {
+                    row[key] = value;
+                }
+            });
+            this.setState({
+                productList: productList
+            });
         },
         onStockQuantityUpdated: function () {
             /**
