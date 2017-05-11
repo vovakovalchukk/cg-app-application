@@ -42,6 +42,9 @@ define([
             });
         },
         onUpdatePurchaseOrderNumber: function(newName) {
+            this.setState({
+                purchaseOrderNumber: newName
+            });
             return new Promise(function(resolve, reject) {
                 resolve({ newFieldText: newName });
             }.bind(this));
