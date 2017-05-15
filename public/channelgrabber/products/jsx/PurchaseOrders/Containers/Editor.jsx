@@ -144,7 +144,7 @@ define([
                 data: {
                     id: this.state.purchaseOrderId,
                     number: this.state.purchaseOrderNumber,
-                    products: this.state.productList
+                    products: JSON.stringify(this.state.productList)
                 },
                 url: url,
                 success: function (response) {

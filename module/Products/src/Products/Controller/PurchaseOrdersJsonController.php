@@ -43,7 +43,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     {
         $id = $this->params()->fromPost('id');
         $number = $this->params()->fromPost('number');
-        $products = $this->params()->fromPost('products');
+        $products = json_decode($this->params()->fromPost('products'));
 
         $success = true;
         return $this->jsonModelFactory->newInstance([
