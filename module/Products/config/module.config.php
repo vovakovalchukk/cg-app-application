@@ -324,6 +324,46 @@ return [
                                     ]
                                 ]
                             ],
+                            PurchaseOrdersJsonController::ROUTE_COMPLETE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/complete',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'complete'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'download'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_DELETE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/delete',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'delete'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ]
+                            ],
                         ],
                     ],
                 ]

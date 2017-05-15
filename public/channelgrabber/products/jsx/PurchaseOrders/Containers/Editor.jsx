@@ -25,6 +25,10 @@ define([
             window.removeEventListener('createNewPurchaseOrder', this.resetEditor);
             window.removeEventListener('purchaseOrderSelected', this.populateEditor);
             window.removeEventListener('productSelection', this.onProductSelected);
+            this.completePurchaseOrderRequest.abort();
+            this.downloadPurchaseOrderRequest.abort();
+            this.deletePurchaseOrderRequest.abort();
+            this.savePurchaseOrderRequest.abort();
         },
         populateEditor: function (event) {
             if (! event.detail) {
@@ -76,23 +80,67 @@ define([
              * initiate complete PO ajax request
              * trigger purchase order list refresh
              */
+            this.completePurchaseOrderRequest = $.ajax({
+                method: 'POST',
+                url: '/products/purchaseOrders/complete',
+                success: function (response) {
+                    if (! response.success) {
+                        n.error(response.error);
+                        return;
+                    }
+                    n.success('Set the status of this purchase order to complete.');
+                }
+            });
         },
         onDownloadPurchaseOrder: function () {
             /**
              * initiate download PO ajax request
              */
+            this.downloadPurchaseOrderRequest = $.ajax({
+                method: 'POST',
+                url: '/products/purchaseOrders/download',
+                success: function (response) {
+                    if (! response.success) {
+                        n.error(response.error);
+                        return;
+                    }
+                    n.success('Initiated download request for this purchase order.');
+                }
+            });
         },
         onDeletePurchaseOrder: function () {
             /**
              * initiate delete PO ajax request
              * trigger purchase order list refresh
              */
+            this.deletePurchaseOrderRequest = $.ajax({
+                method: 'POST',
+                url: '/products/purchaseOrders/delete',
+                success: function (response) {
+                    if (! response.success) {
+                        n.error(response.error);
+                        return;
+                    }
+                    n.success('Successfully deleted the purchase order.');
+                }
+            });
         },
         onSavePurchaseOrder: function () {
             /**
              * initiate save PO ajax request
              * trigger purchase order list refresh
              */
+            this.savePurchaseOrderRequest = $.ajax({
+                method: 'POST',
+                url: '/products/purchaseOrders/save',
+                success: function (response) {
+                    if (! response.success) {
+                        n.error(response.error);
+                        return;
+                    }
+                    n.success('Successfully saved the purchase order.');
+                }
+            });
         },
         onSkuChanged: function (oldSku, selection) {
             var newSku = selection.value;

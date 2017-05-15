@@ -12,6 +12,10 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     use LogTrait;
 
     const ROUTE_LIST = 'AJAX List';
+    const ROUTE_COMPLETE = 'AJAX Complete';
+    const ROUTE_DOWNLOAD = 'AJAX Download';
+    const ROUTE_DELETE = 'AJAX Delete';
+    const ROUTE_SAVE = 'AJAX Save';
 
     protected $jsonModelFactory;
 
@@ -19,6 +23,38 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         JsonModelFactory $jsonModelFactory
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
+    }
+
+    public function saveAction()
+    {
+        $success = true;
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success,
+        ]);
+    }
+
+    public function deleteAction()
+    {
+        $success = true;
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success
+        ]);
+    }
+
+    public function downloadAction()
+    {
+        $success = true;
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success
+        ]);
+    }
+
+    public function completeAction()
+    {
+        $success = true;
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success
+        ]);
     }
 
     public function listAction()
