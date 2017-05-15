@@ -16,6 +16,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     const ROUTE_DOWNLOAD = 'AJAX Download';
     const ROUTE_DELETE = 'AJAX Delete';
     const ROUTE_SAVE = 'AJAX Save';
+    const ROUTE_CREATE = 'AJAX Create';
 
     protected $jsonModelFactory;
 
@@ -25,8 +26,25 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $this->jsonModelFactory = $jsonModelFactory;
     }
 
+    public function createAction()
+    {
+        $number = $this->params()->fromPost('number');
+        $products = $this->params()->fromPost('products');
+
+        $id = 2123;
+        $success = true;
+        return $this->jsonModelFactory->newInstance([
+            'success' => $success,
+            'id' => $id,
+        ]);
+    }
+
     public function saveAction()
     {
+        $id = $this->params()->fromPost('id');
+        $number = $this->params()->fromPost('number');
+        $products = $this->params()->fromPost('products');
+
         $success = true;
         return $this->jsonModelFactory->newInstance([
             'success' => $success,
@@ -35,6 +53,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     public function deleteAction()
     {
+        $id = $this->params()->fromPost('id');
         $success = true;
         return $this->jsonModelFactory->newInstance([
             'success' => $success
@@ -43,6 +62,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     public function downloadAction()
     {
+        $id = $this->params()->fromPost('id');
         $success = true;
         return $this->jsonModelFactory->newInstance([
             'success' => $success
@@ -51,6 +71,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     public function completeAction()
     {
+        $id = $this->params()->fromPost('id');
         $success = true;
         return $this->jsonModelFactory->newInstance([
             'success' => $success

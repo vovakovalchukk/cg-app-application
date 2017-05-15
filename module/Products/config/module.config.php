@@ -364,6 +364,16 @@ return [
                                     ]
                                 ]
                             ],
+                            PurchaseOrdersJsonController::ROUTE_CREATE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/create',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'create'
+                                    ]
+                                ]
+                            ],
                         ],
                     ],
                 ]

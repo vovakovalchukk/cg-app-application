@@ -84,6 +84,7 @@ define([
              */
             this.completePurchaseOrderRequest = $.ajax({
                 method: 'POST',
+                data: {id: this.state.purchaseOrderId},
                 url: '/products/purchaseOrders/complete',
                 success: function (response) {
                     if (! response.success) {
@@ -100,6 +101,7 @@ define([
              */
             this.downloadPurchaseOrderRequest = $.ajax({
                 method: 'POST',
+                data: {id: this.state.purchaseOrderId},
                 url: '/products/purchaseOrders/download',
                 success: function (response) {
                     if (! response.success) {
@@ -117,6 +119,7 @@ define([
              */
             this.deletePurchaseOrderRequest = $.ajax({
                 method: 'POST',
+                data: {id: this.state.purchaseOrderId},
                 url: '/products/purchaseOrders/delete',
                 success: function (response) {
                     if (! response.success) {
@@ -132,9 +135,18 @@ define([
              * initiate save PO ajax request
              * trigger purchase order list refresh
              */
+            var url = '/products/purchaseOrders/create';
+            if (this.state.purchaseOrderId > 0) {
+                url = '/products/purchaseOrders/save';
+            }
             this.savePurchaseOrderRequest = $.ajax({
                 method: 'POST',
-                url: '/products/purchaseOrders/save',
+                data: {
+                    id: this.state.purchaseOrderId,
+                    number: this.state.purchaseOrderNumber,
+                    products: this.state.productList
+                },
+                url: url,
                 success: function (response) {
                     if (! response.success) {
                         n.error(response.error);
