@@ -29,6 +29,9 @@ use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Status as OrderStatus;
+use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
+use CG\Order\Shared\OrderLink\Collection as OrderLinkCollection;
+use CG\Order\Shared\OrderLinker;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -99,6 +102,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $mcfFulfillmentStatusStorage;
     /** @var EUVATCodeChecker $euVatCodeChecker */
     protected $euVatCodeChecker;
+    /** @var OrderLinker */
+    protected $orderLinker;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -124,7 +129,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         RowMapper $rowMapper,
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
-        EUVATCodeChecker $euVatCodeChecker
+        EUVATCodeChecker $euVatCodeChecker,
+        OrderLinker $orderLinker
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
@@ -141,6 +147,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->imageService = $imageService;
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
         $this->euVatCodeChecker = $euVatCodeChecker;
+        $this->orderLinker = $orderLinker;
     }
 
     /**
@@ -271,6 +278,26 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $imagesForOrders[$orderId] = $image->getUrl();
         }
         return $imagesForOrders;
+    }
+
+    public function getLinkedOrdersData(OrderCollection $orders)
+    {
+        $expandedOrders = $this->orderLinker->expandOrderCollectionToIncludeLinkedOrders($orders);
+
+        $linkedOrders = [];
+        foreach ($orders as $order) {
+            foreach ($order->getOrderLinks() as $orderLink) {
+                foreach ($orderLink->getOrderIds() as $linkedOrderId) {
+                    $linkedOrder = $expandedOrders->getById($linkedOrderId);
+                    $linkedOrders[$order->getId()][] = [
+                        'orderId' => $linkedOrderId,
+                        'externalId' => $linkedOrder->getExternalId(),
+                    ];
+                }
+            }
+        }
+
+        return $linkedOrders;
     }
 
     /**

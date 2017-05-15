@@ -8,7 +8,7 @@ use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
