@@ -12,6 +12,7 @@ define([
     var EditorContainer = React.createClass({
         getInitialState: function () {
             return {
+                purchaseOrderId: 0,
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
                 productList: []
             };
@@ -36,6 +37,7 @@ define([
             }
             var purchaseOrder = event.detail;
             this.setState({
+                purchaseOrderId: purchaseOrder.id,
                 purchaseOrderNumber: purchaseOrder.number,
                 productList: purchaseOrder.list ? purchaseOrder.list : []
             });
