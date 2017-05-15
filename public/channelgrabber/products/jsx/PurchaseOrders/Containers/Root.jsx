@@ -37,6 +37,9 @@ define([
         componentWillUnmount: function () {
             this.purchaseOrderRequest.abort();
         },
+        onCreateNewPurchaseOrderButtonPressed: function () {
+            window.triggerEvent('triggerPopup');
+        },
         onCreateNewPurchaseOrder: function () {
             window.triggerEvent('createNewPurchaseOrder');
         },
@@ -48,6 +51,7 @@ define([
                     purchaseOrders={this.state.purchaseOrders}
                     onFilterSelected={function(selection){this.setState({filterStatus: selection.value})}.bind(this)}
                     onCreateNewPurchaseOrder={this.onCreateNewPurchaseOrder}
+                    onCreateNewPurchaseOrderButtonPressed={this.onCreateNewPurchaseOrderButtonPressed}
                 />
             );
         }
