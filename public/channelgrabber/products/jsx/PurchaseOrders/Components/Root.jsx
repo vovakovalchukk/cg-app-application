@@ -29,14 +29,6 @@ define([
     ];
 
     var RootComponent = React.createClass({
-        filterPurchaseOrders: function (purchaseOrder) {
-            if (this.props.filterStatus === 'All') {
-                return purchaseOrder;
-            }
-            if (purchaseOrder.status === this.props.filterStatus) {
-                return purchaseOrder;
-            }
-        },
         render: function()
         {
             return (
@@ -56,8 +48,10 @@ define([
                 <div className="purchase-orders-container">
                     <PurchaseOrdersList
                         filterStatus={this.props.filterStatus}
+                        sortAsc={this.props.sortAsc}
                         purchaseOrders={this.props.purchaseOrders}
                         onPurchaseOrderSelected={this.props.onPurchaseOrderSelected}
+                        onDateColumnClicked={this.props.onDateColumnClicked}
                     />
                     <PurchaseOrdersEditor />
                 </div>

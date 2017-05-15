@@ -11,6 +11,7 @@ define([
         getInitialState: function () {
             return {
                 filterStatus: 'All',
+                sortAsc: true,
                 purchaseOrders: []
             }
         },
@@ -43,15 +44,22 @@ define([
         onCreateNewPurchaseOrder: function () {
             window.triggerEvent('createNewPurchaseOrder');
         },
+        onDateColumnClicked: function () {
+            this.setState({
+                sortAsc: !this.state.sortAsc
+            });
+        },
         render: function()
         {
             return (
                 <RootComponent
                     filterStatus={this.state.filterStatus}
+                    sortAsc={this.state.sortAsc}
                     purchaseOrders={this.state.purchaseOrders}
                     onFilterSelected={function(selection){this.setState({filterStatus: selection.value})}.bind(this)}
                     onCreateNewPurchaseOrder={this.onCreateNewPurchaseOrder}
                     onCreateNewPurchaseOrderButtonPressed={this.onCreateNewPurchaseOrderButtonPressed}
+                    onDateColumnClicked={this.onDateColumnClicked}
                 />
             );
         }

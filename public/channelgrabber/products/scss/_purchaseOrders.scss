@@ -18,6 +18,9 @@
             width: 49%;
             box-sizing: border-box;
             border-radius: 5px;
+            .sort-dir {
+                cursor: pointer;
+            }
             .status {
                 width: 55%;
                 margin: 0 auto;
