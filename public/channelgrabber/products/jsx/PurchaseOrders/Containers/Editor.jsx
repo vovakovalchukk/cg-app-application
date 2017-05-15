@@ -60,7 +60,7 @@ define([
                 }
             });
             if (! alreadyAddedToForm) {
-                productList.push({product: product, sku: sku, quantity: quantity, price: 0});
+                productList.push({product: product, sku: sku, quantity: quantity});
             }
 
             this.setState({
