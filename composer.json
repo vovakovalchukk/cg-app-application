@@ -73,7 +73,7 @@
         "channelgrabber/stdlib": "~2.12.39",
         "channelgrabber/stock": "~1.8.2",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "~1.4.24",
+        "channelgrabber/template": "dev-CGIV-8372-gift-messages-missing-from-invoices as 1.4.25",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.22.9",
         "channelgrabber/userpreference": "~1.2.4",

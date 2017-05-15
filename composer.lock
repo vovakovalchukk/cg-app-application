@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "89cfb9158c63a453ee4ee262b6314f7b",
+    "content-hash": "6dfad27fcfc56ed1a27e9302f930d2db",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2612,16 +2612,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.24",
+            "version": "dev-CGIV-8372-gift-messages-missing-from-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "577f54d9e232b6b7f24bab39a397178d9cc07219"
+                "reference": "5a67aee11a4cdd38ea09f588d500346f05b79341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.24-d36992.zip",
-                "reference": "577f54d9e232b6b7f24bab39a397178d9cc07219",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-8372-gift-messages-missing-from-invoices-9da454.zip",
+                "reference": "5a67aee11a4cdd38ea09f588d500346f05b79341",
                 "shasum": null
             },
             "require": {
@@ -2666,7 +2666,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-05-10T13:49:03+00:00"
+            "time": "2017-05-15 11:33:12"
         },
         {
             "name": "channelgrabber/transaction",
@@ -8885,10 +8885,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.25",
+            "alias_normalized": "1.4.25.0",
+            "version": "dev-CGIV-8372-gift-messages-missing-from-invoices",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
