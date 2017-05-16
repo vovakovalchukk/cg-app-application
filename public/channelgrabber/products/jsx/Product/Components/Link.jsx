@@ -23,7 +23,10 @@ define([
             }
 
             this.fetchLinkedProducts();
-            this.setState({hover: true});
+            this.setState({
+                hover: true,
+                retrievedProducts: true
+            });
         },
         onMouseOut: function () {
             this.setState({ hover: false });
@@ -39,8 +42,7 @@ define([
                         products = response.linkedProducts;
                     }
                     this.setState({
-                        linkedProducts: products,
-                        retrievedProducts: true
+                        linkedProducts: products
                     });
                 },
                 error: function(error) {

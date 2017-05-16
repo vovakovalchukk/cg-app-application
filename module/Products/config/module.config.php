@@ -21,6 +21,7 @@ use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Controller\LinksJsonController;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
@@ -203,6 +204,18 @@ return [
                                 ],
                             ],
                         ]
+                    ],
+
+                    LinksJsonController::ROUTE_AJAX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/ajax',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'ajax'
+                            ]
+                        ],
+                        'may_terminate' => true,
                     ],
 
                     ListingsController::ROUTE_INDEX => [
