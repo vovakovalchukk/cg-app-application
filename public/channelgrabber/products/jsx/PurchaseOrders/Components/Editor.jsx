@@ -29,7 +29,7 @@ define([
                     </div>
                     <ProductDropdown />
                     <div className="product-list">
-                        {this.props.productList.map(function (row) {
+                        {this.props.purchaseOrderItems.map(function (row) {
                             return (
                                 <ItemRow row={row}
                                     onSkuChange={this.props.onSkuChanged}

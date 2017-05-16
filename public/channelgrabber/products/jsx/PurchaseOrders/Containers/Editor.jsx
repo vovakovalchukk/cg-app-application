@@ -14,7 +14,7 @@ define([
             return {
                 purchaseOrderId: 0,
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
-                productList: []
+                purchaseOrderItems: []
             };
         },
         componentDidMount: function () {
@@ -39,13 +39,13 @@ define([
             this.setState({
                 purchaseOrderId: purchaseOrder.id,
                 purchaseOrderNumber: purchaseOrder.number,
-                productList: purchaseOrder.list ? purchaseOrder.list : []
+                purchaseOrderItems: purchaseOrder.items ? purchaseOrder.items : []
             });
         },
         resetEditor: function () {
             this.setState({
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
-                productList: []
+                purchaseOrderItems: []
             });
         },
         onProductSelected: function (e) {
@@ -53,20 +53,20 @@ define([
             this.addItemRow(data.product, data.sku, data.quantity);
         },
         addItemRow: function (product, sku, quantity) {
-            var productList = this.state.productList.slice();
+            var purchaseOrderItems = this.state.purchaseOrderItems.slice();
 
-            var alreadyAddedToForm = productList.find(function (row) {
+            var alreadyAddedToForm = purchaseOrderItems.find(function (row) {
                 if (row.sku === sku) {
                     row.quantity += parseInt(quantity);
                     return true;
                 }
             });
             if (! alreadyAddedToForm) {
-                productList.push({product: product, sku: sku, quantity: quantity});
+                purchaseOrderItems.push({product: product, sku: sku, quantity: quantity});
             }
 
             this.setState({
-                productList: productList
+                purchaseOrderItems: purchaseOrderItems
             });
         },
         onUpdatePurchaseOrderNumber: function(newName) {
@@ -133,7 +133,7 @@ define([
                 data: {
                     id: this.state.purchaseOrderId,
                     number: this.state.purchaseOrderNumber,
-                    products: JSON.stringify(this.state.productList)
+                    products: JSON.stringify(this.state.purchaseOrderItems)
                 },
                 url: url,
                 success: function (response) {
@@ -157,14 +157,14 @@ define([
             }
 
             var oldSkuQuantity = 0;
-            var productList = this.state.productList.slice();
-            productList.forEach(function (row) {
+            var purchaseOrderItems = this.state.purchaseOrderItems.slice();
+            purchaseOrderItems.forEach(function (row) {
                 if (row.sku === oldSku) {
                     oldSkuQuantity = parseInt(row.quantity);
                 }
             });
 
-            var alreadyAddedToForm = productList.find(function (row) {
+            var alreadyAddedToForm = purchaseOrderItems.find(function (row) {
                 if (row.sku === newSku) {
                     row.quantity += parseInt(oldSkuQuantity);
                     return true;
@@ -177,26 +177,26 @@ define([
             this.updateItemRow(oldSku, 'sku', selection.value);
         },
         updateItemRow: function (sku, key, value) {
-            var productList = this.state.productList.slice();
-            productList.forEach(function (row) {
+            var purchaseOrderItems = this.state.purchaseOrderItems.slice();
+            purchaseOrderItems.forEach(function (row) {
                 if (row.sku === sku) {
                     row[key] = value;
                 }
             });
             this.setState({
-                productList: productList
+                purchaseOrderItems: purchaseOrderItems
             });
         },
         onStockQuantityUpdated: function (sku, quantity) {
             this.updateItemRow(sku, 'quantity', parseInt(quantity));
         },
         onRowRemove: function (sku) {
-            var productList = this.state.productList.filter(function (row) {
+            var purchaseOrderItems = this.state.purchaseOrderItems.filter(function (row) {
                 return row.sku !== sku;
             });
 
             this.setState({
-                productList: productList
+                purchaseOrderItems: purchaseOrderItems
             });
         },
         render: function()
@@ -205,7 +205,7 @@ define([
                 <EditorComponent
                     onNameChange={this.onUpdatePurchaseOrderNumber}
                     purchaseOrderNumber={this.state.purchaseOrderNumber}
-                    productList={this.state.productList}
+                    purchaseOrderItems={this.state.purchaseOrderItems}
                     onCompleteClicked={this.onCompletePurchaseOrder}
                     onDownloadClicked={this.onDownloadPurchaseOrder}
                     onDeleteClicked={this.onDeletePurchaseOrder}
