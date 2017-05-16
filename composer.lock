@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e552cfa963a49c8979eba35f9a1ad37",
+    "content-hash": "6893d75665034855d91e158d3d004bb1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8323-EbayGlobalShippingInvocieMapping",
+            "version": "1.29.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cc0103018020af27cb5148dd5f394f49286df4fb"
+                "reference": "7f2602ee422a607e6543b6fb59bf8b06a2f22d6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8323-EbayGlobalShippingInvocieMapping-0686f9.zip",
-                "reference": "cc0103018020af27cb5148dd5f394f49286df4fb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.29.3-383986.zip",
+                "reference": "7f2602ee422a607e6543b6fb59bf8b06a2f22d6e",
                 "shasum": null
             },
             "require": {
@@ -572,7 +572,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-05-15 07:55:15"
+            "time": "2017-05-16T12:49:49+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -820,16 +820,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-8323-EbayGlobalShippingInvocieMapping",
+            "version": "1.10.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "3a4c4e2a0c4e2a822d0e9234a1620740492fbe23"
+                "reference": "467c2ee1d00eabf4b442c48cda75f9c2eb4aa0bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-8323-EbayGlobalShippingInvocieMapping-1984f6.zip",
-                "reference": "3a4c4e2a0c4e2a822d0e9234a1620740492fbe23",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.10.12-d910fd.zip",
+                "reference": "467c2ee1d00eabf4b442c48cda75f9c2eb4aa0bb",
                 "shasum": null
             },
             "require": {
@@ -873,7 +873,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2017-05-15 07:56:51"
+            "time": "2017-05-16T12:56:17+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -8885,25 +8885,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.29.3",
-            "alias_normalized": "1.29.3.0",
-            "version": "dev-CGIV-8323-EbayGlobalShippingInvocieMapping",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.10.12",
-            "alias_normalized": "1.10.12.0",
-            "version": "dev-CGIV-8323-EbayGlobalShippingInvocieMapping",
-            "package": "channelgrabber/ebay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
