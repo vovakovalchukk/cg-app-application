@@ -175,6 +175,9 @@ class ManualOrderController extends AbstractActionController
             $view->setVariable('success', true)
                 ->setVariable('url', $this->url()->fromRoute(Module::ROUTE . '/order', ['order' => $order->getId()]));
 
+        } catch (\BadFunctionCallException $e) {
+            $view->setVariable('success', false)
+                ->setVariable('message', $e->getMessage());
         } catch (\Exception $e) {
             $view->setVariable('success', false)
                 ->setVariable('message', 'There was a problem creating the order');

@@ -111,6 +111,9 @@ class Service implements LoggerAwareInterface
      */
     public function createOrderFromPostData(array $orderData)
     {
+        if (empty($orderData['item'])) {
+            throw new \BadFunctionCallException("Please add at least one product to the order");
+        }
         $organisationUnitId = $this->getOrganisationUnitIdForOrderCreation($orderData);
         $organisationUnit = $this->organisationUnitService->fetch($organisationUnitId);
         $account = $this->manualOrderAccountService->getAccountForOrganisationUnit($organisationUnit);
