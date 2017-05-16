@@ -24,8 +24,7 @@ define([
 
             this.fetchLinkedProducts();
             this.setState({
-                hover: true,
-                retrievedProducts: true
+                hover: true
             });
         },
         onMouseOut: function () {
@@ -42,9 +41,10 @@ define([
                         products = response.linkedProducts;
                     }
                     this.setState({
-                        linkedProducts: products
+                        linkedProducts: products,
+                        retrievedProducts: true
                     });
-                },
+                }.bind(this),
                 error: function(error) {
                     console.warn(error);
                 }
@@ -54,6 +54,13 @@ define([
             if (this.state.linkedProducts.length === 0 && this.state.retrievedProducts === false) {
                 return (
                     <img src="/channelgrabber/zf2-v4-ui/img/loading.gif" className="b-loader" />
+                );
+            }
+            if (this.state.linkedProducts.length === 0 && this.state.retrievedProducts) {
+                return (
+                    <div className="hover-link-none-msg">
+                        <span>No linked products</span>
+                    </div>
                 );
             }
 
@@ -67,7 +74,7 @@ define([
         },
         render: function() {
             var hoverImageStyle = {
-                display: (this.state.hover && this.state.linkedProducts.length === 0 && this.state.retrievedProducts ? "block" : "none")
+                display: (this.state.hover ? "block" : "none")
             };
             var spriteClass = (this.state.linkedProducts.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
             return (
