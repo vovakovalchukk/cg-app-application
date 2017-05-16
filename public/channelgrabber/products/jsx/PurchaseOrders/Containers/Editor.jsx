@@ -78,10 +78,7 @@ define([
             }.bind(this));
         },
         onCompletePurchaseOrder: function () {
-            /**
-             * initiate complete PO ajax request
-             * trigger purchase order list refresh
-             */
+
             this.completePurchaseOrderRequest = $.ajax({
                 method: 'POST',
                 data: {id: this.state.purchaseOrderId},
@@ -96,9 +93,7 @@ define([
             });
         },
         onDownloadPurchaseOrder: function () {
-            /**
-             * initiate download PO ajax request
-             */
+
             this.downloadPurchaseOrderRequest = $.ajax({
                 method: 'POST',
                 data: {id: this.state.purchaseOrderId},
@@ -113,10 +108,7 @@ define([
             });
         },
         onDeletePurchaseOrder: function () {
-            /**
-             * initiate delete PO ajax request
-             * trigger purchase order list refresh
-             */
+
             this.deletePurchaseOrderRequest = $.ajax({
                 method: 'POST',
                 data: {id: this.state.purchaseOrderId},
@@ -131,10 +123,7 @@ define([
             });
         },
         onSavePurchaseOrder: function () {
-            /**
-             * initiate save PO ajax request
-             * trigger purchase order list refresh
-             */
+
             var url = '/products/purchaseOrders/create';
             if (this.state.purchaseOrderId > 0) {
                 url = '/products/purchaseOrders/save';
@@ -152,8 +141,13 @@ define([
                         n.error(response.error);
                         return;
                     }
+                    if (response.id) {
+                        this.setState({
+                            id: response.id
+                        });
+                    }
                     n.success('Successfully saved the purchase order.');
-                }
+                }.bind(this)
             });
         },
         onSkuChanged: function (oldSku, selection) {
