@@ -566,3 +566,24 @@ div.tether-element div.hover-link {
     background-color: white;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16);
 }
+
+.hover-link-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 4px;
+    .thumbnail {
+        max-height: 44px;
+        margin-right: 4px;
+        width: 50px;
+        img {
+            width: 100%;
+        }
+    }
+    .sku {
+        width: 100px;
+    }
+    .stock {
+        width: 20px;
+    }
+}
