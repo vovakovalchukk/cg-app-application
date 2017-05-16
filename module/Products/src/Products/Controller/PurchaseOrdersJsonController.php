@@ -76,8 +76,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $this->purchaseOrderService->save($purchaseOrder);
         } catch (NotModified $e) {
             return $this->jsonModelFactory->newInstance([
-                'error' => true,
-                'message' => "The purchase order was not modified."
+                'error' => "The purchase order was not modified."
             ]);
         }
 
@@ -95,8 +94,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $this->purchaseOrderService->remove($purchaseOrder);
         } catch (\Exception $e) {
             return $this->jsonModelFactory->newInstance([
-                'error' => true,
-                'message' => "A problem occurred when attempting to delete the purchase order. ".$e->getMessage()
+                'error' => "A problem occurred when attempting to delete the purchase order. ".$e->getMessage()
             ]);
         }
 
@@ -124,8 +122,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $this->purchaseOrderService->save($purchaseOrder);
         } catch (NotModified $e) {
             return $this->jsonModelFactory->newInstance([
-                'error' => true,
-                'message' => "The purchase order was not modified."
+                'error' => "The purchase order was not modified."
             ]);
         }
         return $this->jsonModelFactory->newInstance([
