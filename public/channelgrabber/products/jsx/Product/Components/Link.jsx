@@ -64,13 +64,15 @@ define([
                 );
             }
 
-            return this.state.linkedProducts.map(function (linkedProduct) {
+            return this.state.linkedProducts.map(function(linkedProduct) {
                 return (
-                    <div className="hover-link-row">
-                        <span></span>
+                    <div key={linkedProduct.sku} className="hover-link-row">
+                        <span className="thumbnail"><img src={linkedProduct.imageUrl}/></span>
+                        <span className="sku">{linkedProduct.sku}</span>
+                        <span className="stock">{linkedProduct.quantity}</span>
                     </div>
                 );
-            })
+            });
         },
         render: function() {
             var hoverImageStyle = {
