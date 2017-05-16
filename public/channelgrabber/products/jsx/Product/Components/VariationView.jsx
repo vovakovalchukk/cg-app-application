@@ -1,9 +1,11 @@
 define([
     'react',
     'Product/Components/Image',
+    'Product/Components/Link'
 ], function(
     React,
-    Image
+    Image,
+    Link
 ) {
     "use strict";
 
@@ -75,7 +77,8 @@ define([
                             <thead>
                                 <tr>
                                     <th key="image" className="image-col"></th>
-                                    <th key="sky" className="sku-col">SKU</th>
+                                    <th key="sku" className="sku-col">SKU</th>
+                                    <th key="link" className="link-col">Link</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,6 +91,7 @@ define([
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
                                             <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
+                                            <td key="link" className="link-cell"><Link linkedProducts={[]}/></td>
                                         </tr>
                                     );
                                 }.bind(this))}

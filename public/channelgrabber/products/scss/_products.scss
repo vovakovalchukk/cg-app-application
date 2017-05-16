@@ -152,6 +152,11 @@
                         padding-top: 0;
                         padding-bottom: 0;
                     }
+                    &.link-cell {
+                        .sprite {
+                            margin: 0 auto;
+                        }
+                    }
                     img {
                         max-height: 44px;
                     }
