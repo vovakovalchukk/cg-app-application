@@ -45,7 +45,7 @@ define([
             var spriteClass = (this.props.linkedProducts.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
             return (
                 <TetherComponent
-                    attachment="middle left"
+                    attachment="top left"
                     targetAttachment="middle right"
                     constraints={[{
                         to: 'scrollParent',
