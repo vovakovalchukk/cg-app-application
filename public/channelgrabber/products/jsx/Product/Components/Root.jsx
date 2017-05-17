@@ -121,7 +121,7 @@ define([
         fetchLinkedProducts: function (variationsByParent) {
             $.ajax({
                 url: '/products/links/ajax',
-                data: {variations: variationsByParent},
+                data: {products: JSON.stringify(variationsByParent)},
                 type: 'POST',
                 success: function (response) {
                     var products = [];
