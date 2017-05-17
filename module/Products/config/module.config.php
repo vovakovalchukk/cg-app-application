@@ -27,6 +27,8 @@ use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
+use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
 
 return [
     'router' => [
@@ -486,6 +488,14 @@ return [
                 'parameter' => [
                     'cryptor' => 'amazon_cryptor'
                 ]
+            ],
+            'preference' => [
+                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
+            ],
+            ProductLinkApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ],
             ],
 
             'ListingList' => [
