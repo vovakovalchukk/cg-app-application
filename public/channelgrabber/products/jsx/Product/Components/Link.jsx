@@ -10,53 +10,17 @@ define([
     var LinkComponent = React.createClass({
         getInitialState: function() {
             return {
-                sku: "",
-                hover: false,
-                retrievedProducts: false,
-                linkedProducts: []
+                hover: false
             }
         },
         onMouseOver: function () {
-            if (this.state.retrievedProducts) {
-                this.setState({hover: true});
-                return;
-            }
-
-            this.fetchLinkedProducts();
-            this.setState({
-                hover: true
-            });
+            this.setState({ hover: true });
         },
         onMouseOut: function () {
             this.setState({ hover: false });
         },
-        fetchLinkedProducts: function () {
-            $.ajax({
-                url: '/products/links/ajax',
-                type: 'POST',
-                data: { sku: this.props.sku },
-                success: function (response) {
-                    var products = [];
-                    if (response.linkedProducts) {
-                        products = response.linkedProducts;
-                    }
-                    this.setState({
-                        linkedProducts: products,
-                        retrievedProducts: true
-                    });
-                }.bind(this),
-                error: function(error) {
-                    console.warn(error);
-                }
-            });
-        },
         getHoverContent: function () {
-            if (this.state.linkedProducts.length === 0 && this.state.retrievedProducts === false) {
-                return (
-                    <img src="/channelgrabber/zf2-v4-ui/img/loading.gif" className="b-loader" />
-                );
-            }
-            if (this.state.linkedProducts.length === 0 && this.state.retrievedProducts) {
+            if (this.props.linkedProducts.length === 0) {
                 return (
                     <div className="hover-link-none-msg">
                         <span>No linked products</span>
@@ -64,7 +28,7 @@ define([
                 );
             }
 
-            return this.state.linkedProducts.map(function(linkedProduct) {
+            return this.props.linkedProducts.map(function(linkedProduct) {
                 return (
                     <div key={linkedProduct.sku} className="hover-link-row">
                         <span className="thumbnail"><img src={linkedProduct.imageUrl}/></span>
@@ -78,7 +42,7 @@ define([
             var hoverImageStyle = {
                 display: (this.state.hover ? "block" : "none")
             };
-            var spriteClass = (this.state.linkedProducts.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
+            var spriteClass = (this.props.linkedProducts.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
             return (
                 <TetherComponent
                     attachment="middle left"

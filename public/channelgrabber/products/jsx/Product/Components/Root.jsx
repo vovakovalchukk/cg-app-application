@@ -38,6 +38,7 @@ define([
             return {
                 products: [],
                 variations: [],
+                linkedProducts: [],
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
@@ -111,10 +112,30 @@ define([
                 this.setState({
                     variations: variationsByParent
                 }, function() {
+                    this.fetchLinkedProducts(variationsByParent);
                     $('#products-loading-message').hide()
-                });
+                }.bind(this));
             }
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
+        },
+        fetchLinkedProducts: function (variationsByParent) {
+            $.ajax({
+                url: '/products/links/ajax',
+                data: {variations: variationsByParent},
+                type: 'POST',
+                success: function (response) {
+                    var products = [];
+                    if (response.linkedProducts) {
+                        products = response.linkedProducts;
+                    }
+                    this.setState({
+                        linkedProducts: products
+                    });
+                }.bind(this),
+                error: function(error) {
+                    console.warn(error);
+                }
+            });
         },
         sortVariationsByParentId: function (newVariations, parentProductId) {
             var variationsByParent = {};
@@ -212,7 +233,14 @@ define([
             }
 
             return this.state.products.map(function(object) {
-                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]} maxVariationAttributes={this.state.maxVariationAttributes} maxListingsPerAccount={this.state.maxListingsPerAccount}/>;
+                return <ProductRow
+                    key={object.id}
+                    product={object}
+                    variations={this.state.variations[object.id]}
+                    linkedProducts={this.state.linkedProducts[object.id]}
+                    maxVariationAttributes={this.state.maxVariationAttributes}
+                    maxListingsPerAccount={this.state.maxListingsPerAccount}
+                />;
             }.bind(this))
         },
         render: function()
