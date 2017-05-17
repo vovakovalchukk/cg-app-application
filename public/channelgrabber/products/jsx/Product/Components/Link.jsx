@@ -19,6 +19,9 @@ define([
         onMouseOut: function () {
             this.setState({ hover: false });
         },
+        onLinkRowClick: function (sku) {
+            window.triggerEvent('productLinkSkuClicked', {sku: sku});
+        },
         getHoverContent: function () {
             if (this.props.linkedProducts.length === 0) {
                 return (
@@ -30,13 +33,17 @@ define([
 
             return this.props.linkedProducts.map(function(linkedProduct) {
                 return (
-                    <div key={linkedProduct.sku} className="hover-link-row">
+                    <div key={linkedProduct.sku}
+                         className="hover-link-row"
+                         onClick={this.onLinkRowClick.bind(this, linkedProduct.sku)}
+                         title="Click to search for this product."
+                    >
                         <span className="thumbnail"><img src={linkedProduct.imageUrl}/></span>
                         <span className="sku">{linkedProduct.sku}</span>
                         <span className="stock">{linkedProduct.quantity}</span>
                     </div>
                 );
-            });
+            }.bind(this));
         },
         render: function() {
             var hoverImageStyle = {

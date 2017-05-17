@@ -56,6 +56,7 @@ define([
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
+            window.addEventListener('productLinkSkuClicked', this.onSkuRequest, false);
         },
         componentWillUnmount: function()
         {
@@ -63,6 +64,7 @@ define([
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
+            window.removeEventListener('productLinkSkuClicked', this.onSkuRequest, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -154,6 +156,9 @@ define([
                 variationsByParent[variation.parentProductId].push(variation);
             }
             return variationsByParent;
+        },
+        onSkuRequest: function (event) {
+            this.filterBySearch(event.detail.sku);
         },
         onVariationsRequest: function (event) {
             var filter = new ProductFilter(null, event.detail.productId);
