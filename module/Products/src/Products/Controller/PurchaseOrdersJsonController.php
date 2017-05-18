@@ -136,7 +136,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $filter = (new PurchaseOrderFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setOrganisationUnitId($ouId);
+            ->setOrganisationUnitId([$ouId]);
         $records = $this->purchaseOrderService->fetchCollectionByFilter($filter);
 
         return $this->jsonModelFactory->newInstance([

@@ -161,6 +161,10 @@ use CG\Stdlib\SoapClient as CGSoapClient;
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 
+//  Purchase Order
+use CG\PurchaseOrder\StorageInterface as PurchaseOrderStorage;
+use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -196,6 +200,7 @@ $config = array(
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
+                PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
