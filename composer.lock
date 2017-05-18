@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb75b817fc219c186eb6c875faae0362",
+    "content-hash": "028ad26398e9eb327aff7ca94aa2fc88",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1994,6 +1994,35 @@
             "time": "2016-01-22T17:26:46+00:00"
         },
         {
+            "name": "channelgrabber/purchase-order",
+            "version": "dev-CGIV-8310-PurchaseOrdersLibrary",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
+                "reference": "0fc20db07451f78950e4fa88f7f2ffb07752bcf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-CGIV-8310-PurchaseOrdersLibrary-91728d.zip",
+                "reference": "0fc20db07451f78950e4fa88f7f2ffb07752bcf1",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.12.42"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\PurchaseOrder\\": "src"
+                }
+            },
+            "license": [
+                "commercial"
+            ],
+            "description": "Composer library for supporting purchase order code",
+            "time": "2017-05-18T08:21:12+00:00"
+        },
+        {
             "name": "channelgrabber/purge",
             "version": "1.0.4.1",
             "source": {
@@ -3860,7 +3889,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-05-10T14:20:18+00:00"
+            "time": "2017-05-10 14:20:18"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8886,6 +8915,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-8310-PurchaseOrdersLibrary",
+            "package": "channelgrabber/purchase-order"
+        },
+        {
             "alias": "1.17.41",
             "alias_normalized": "1.17.41.0",
             "version": "dev-CGIV-8312-purchase-orders-ui-phase-1",
@@ -8895,6 +8930,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/purchase-order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
