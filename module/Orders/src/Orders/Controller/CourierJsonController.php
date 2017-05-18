@@ -117,10 +117,10 @@ class CourierJsonController extends AbstractActionController
     {
         $data = $this->getDefaultJsonData();
         $orderIds = $this->params()->fromPost('order', []);
-        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
             $data['Records'] = $this->reviewAjaxService->getReviewListData($orderIds);
         }
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $this->countOrderRecords($data['Records']);
 
         return $this->jsonModelFactory->newInstance($data);
     }
@@ -138,11 +138,11 @@ class CourierJsonController extends AbstractActionController
         $this->sanitiseInputArray($ordersData);
         $this->sanitiseInputArray($ordersParcelsData);
 
-        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
             $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
             $data['metadata'] = $this->specificsAjaxService->getSpecificsMetaDataFromRecords($data['Records']);
         }
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $this->countOrderRecords($data['Records']);
 
         return $this->jsonModelFactory->newInstance($data);
     }
@@ -167,6 +167,17 @@ class CourierJsonController extends AbstractActionController
             }
         }
         return $this;
+    }
+
+    protected function countOrderRecords($records)
+    {
+        $resultCount = 0;
+        foreach ($records as $row) {
+            if (isset($row['orderRow']) && $row['orderRow']) {
+                $resultCount++;
+            }
+        }
+        return $resultCount;
     }
 
     public function createLabelAction()
