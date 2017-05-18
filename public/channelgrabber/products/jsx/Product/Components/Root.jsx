@@ -4,6 +4,7 @@ define([
     'Product/Filter/Entity',
     'Product/Components/Footer',
     'Product/Components/ProductRow',
+    'Product/Components/ProductLinkEditor',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -11,6 +12,7 @@ define([
     ProductFilter,
     ProductFooter,
     ProductRow,
+    ProductLinkEditor,
     AjaxHandler
 ) {
     "use strict";
@@ -39,6 +41,7 @@ define([
                 products: [],
                 variations: [],
                 linkedProducts: [],
+                productLinkEdit: "",
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
@@ -57,6 +60,7 @@ define([
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
             window.addEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
         },
         componentWillUnmount: function()
         {
@@ -65,6 +69,7 @@ define([
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
             window.removeEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -156,6 +161,13 @@ define([
                 variationsByParent[variation.parentProductId].push(variation);
             }
             return variationsByParent;
+        },
+        onEditProductLink: function (event) {
+            var productSku = event.detail.sku;
+            console.log(productSku);
+            this.setState({
+                productLinkEdit: productSku
+            });
         },
         onSkuRequest: function (event) {
             this.filterBySearch(event.detail.sku);
@@ -256,6 +268,7 @@ define([
                     <div id="products-list">
                         {this.renderProducts()}
                     </div>
+                    <ProductLinkEditor productName={this.state.productLinkEdit}/>
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );

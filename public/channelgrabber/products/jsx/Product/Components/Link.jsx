@@ -8,6 +8,12 @@ define([
     "use strict";
 
     var LinkComponent = React.createClass({
+        getDefaultProps: function () {
+            return {
+                sku: "",
+                linkedProducts: []
+            }
+        },
         getInitialState: function() {
             return {
                 hover: false
@@ -18,6 +24,9 @@ define([
         },
         onMouseOut: function () {
             this.setState({ hover: false });
+        },
+        onClick: function () {
+            window.triggerEvent('productLinkEditClicked', {sku: this.props.sku});
         },
         onLinkRowClick: function (sku) {
             window.triggerEvent('productLinkSkuClicked', {sku: sku});
@@ -60,8 +69,10 @@ define([
                     }]}
                 >
                     <span className={"sprite "+ spriteClass}
-                            onMouseOver={this.onMouseOver}
-                            onMouseOut={this.onMouseOut}
+                          title="Click to edit the linked products."
+                          onClick={this.onClick}
+                          onMouseOver={this.onMouseOver}
+                          onMouseOut={this.onMouseOut}
                     ></span>
                     <div className="hover-link"
                          style={hoverImageStyle}

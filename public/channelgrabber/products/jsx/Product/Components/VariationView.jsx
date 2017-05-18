@@ -93,7 +93,10 @@ define([
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
                                             <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                             <td key="link" className="link-cell">
-                                                <Link linkedProducts={this.props.linkedProducts[variation.id] ? this.props.linkedProducts[variation.id] : []}/>
+                                                <Link
+                                                    sku={variation.sku}
+                                                    linkedProducts={this.props.linkedProducts[variation.id] ? this.props.linkedProducts[variation.id] : []}
+                                                />
                                             </td>
                                         </tr>
                                     );
