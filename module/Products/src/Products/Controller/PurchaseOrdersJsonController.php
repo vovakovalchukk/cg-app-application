@@ -173,7 +173,11 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
                 $productsBySku = $products->getBy('sku', $purchaseOrderItem->getSku());
                 if (count($productsBySku) !== 0) {
                     $productsBySku->rewind();
-                    $item['product'] = $productsBySku->current()->toArray();
+                    $product = $productsBySku->current();
+                    $item['product'] = $product->toArray();
+                    foreach ($product->getImages() as $image) {
+                        $item['product']['images'][] = $image->toArray();
+                    }
                 }
                 $purchaseOrderWithProduct['items'][] = $item;
             }
