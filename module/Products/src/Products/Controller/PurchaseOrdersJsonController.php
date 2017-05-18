@@ -14,6 +14,7 @@ use CG\PurchaseOrder\Filter as PurchaseOrderFilter;
 use CG\PurchaseOrder\Collection as PurchaseOrderCollection;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Filter as ProductFilter;
+use CG\User\ActiveUserInterface;
 
 class PurchaseOrdersJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -30,17 +31,21 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     protected $purchaseOrderService;
     protected $purchaseOrderMapper;
     protected $productService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         PurchaseOrderService $purchaseOrderService,
         PurchaseOrderMapper $purchaseOrderMapper,
-        ProductService $productService
+        ProductService $productService,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->purchaseOrderService = $purchaseOrderService;
         $this->purchaseOrderMapper = $purchaseOrderMapper;
         $this->productService = $productService;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function createAction()
@@ -132,7 +137,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     public function listAction()
     {
-        $ouId = 1;
+        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $filter = (new PurchaseOrderFilter())
             ->setLimit('all')
             ->setPage(1)
@@ -140,30 +145,37 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $records = $this->purchaseOrderService->fetchCollectionByFilter($filter);
 
         return $this->jsonModelFactory->newInstance([
-            'list' => $this->hydratePurchaseOrdersWithProducts($records),
+            'list' => $this->hydratePurchaseOrdersWithProducts($records, $ouId),
         ]);
     }
 
-    protected function hydratePurchaseOrdersWithProducts(PurchaseOrderCollection $purchaseOrders)
+    protected function hydratePurchaseOrdersWithProducts(PurchaseOrderCollection $purchaseOrders, $ouId)
     {
         $allProductSkus = [];
         foreach ($purchaseOrders as $purchaseOrder) {
             foreach ($purchaseOrder->getItems() as $purchaseOrderItem) {
-                $allProductSkus[$purchaseOrder->getId()] = $purchaseOrderItem->getSku();
+                $allProductSkus[$purchaseOrderItem->getSku()] = $purchaseOrder->getId();
             }
         }
 
         $filter = (new ProductFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setSku(array_values($allProductSkus));
+            ->setOrganisationUnitId([$ouId])
+            ->setSku(array_keys($allProductSkus));
         $products = $this->productService->fetchCollectionByFilter($filter);
 
         $purchaseOrderWithProducts = [];
         foreach ($purchaseOrders as $purchaseOrder) {
             $purchaseOrderWithProduct = $purchaseOrder->toArray();
-            foreach ($purchaseOrderWithProduct['items'] as &$item) {
-                $item['product'] = $products->getBy('sku', $item['sku']);
+            foreach ($purchaseOrder->getItems() as $purchaseOrderItem) {
+                $item = $purchaseOrderItem->toArray();
+                $productsBySku = $products->getBy('sku', $purchaseOrderItem->getSku());
+                if (count($productsBySku) !== 0) {
+                    $productsBySku->rewind();
+                    $item['product'] = $productsBySku->current()->toArray();
+                }
+                $purchaseOrderWithProduct['items'][] = $item;
             }
             $purchaseOrderWithProducts[] = $purchaseOrderWithProduct;
         }

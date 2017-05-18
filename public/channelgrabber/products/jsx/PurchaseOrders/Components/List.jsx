@@ -41,8 +41,8 @@ define([
                             return (
                                 <div className="row hoverable" onClick={this.onRowClick.bind(this, purchaseOrder)}>
                                     <div className="cell"><span className={"status " + statusClass}>{purchaseOrder.status}</span></div>
-                                    <div className="cell">{purchaseOrder.date}</div>
-                                    <div className="cell">{purchaseOrder.number}</div>
+                                    <div className="cell">{purchaseOrder.created}</div>
+                                    <div className="cell">{purchaseOrder.externalId}</div>
                                 </div>
                             );
 
