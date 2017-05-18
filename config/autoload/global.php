@@ -227,6 +227,11 @@ $config = array(
                     'adapter' => 'amazonWrite'
                 ]
             ],
+            PurchaseOrderApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
             AccountCleanupService::class => [
                 'listingService' => ListingService::class,
                 'unimportedListingService' => UnimportedListingService::class
