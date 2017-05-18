@@ -36,9 +36,14 @@ define([
                 return;
             }
             var purchaseOrder = event.detail;
+            if (purchaseOrder.items.length) {
+                purchaseOrder.items.forEach(function (item) {
+                    this.addItemRow(item.product, item.sku, item.quantity);
+                }.bind(this));
+            }
             this.setState({
                 purchaseOrderId: purchaseOrder.id,
-                purchaseOrderNumber: purchaseOrder.number,
+                purchaseOrderNumber: purchaseOrder.externalId,
                 purchaseOrderItems: purchaseOrder.items ? purchaseOrder.items : []
             });
         },
