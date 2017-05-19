@@ -35,27 +35,45 @@ define([
             if (! event.detail) {
                 return;
             }
-            var purchaseOrder = event.detail;
-            if (purchaseOrder.items.length) {
-                purchaseOrder.items.forEach(function (item) {
-                    this.addItemRow(item.product, item.sku, item.quantity);
-                }.bind(this));
-            }
-            this.setState({
-                purchaseOrderId: purchaseOrder.id,
-                purchaseOrderNumber: purchaseOrder.externalId,
-                purchaseOrderItems: purchaseOrder.items ? purchaseOrder.items : []
-            });
+            this.resetEditor(function() {
+                var purchaseOrder = event.detail;
+                if (purchaseOrder.items.length) {
+                    this.addItemRowMulti(purchaseOrder.items);
+                }
+                this.setState({
+                    purchaseOrderId: purchaseOrder.id,
+                    purchaseOrderNumber: purchaseOrder.externalId
+                });
+            }.bind(this));
         },
-        resetEditor: function () {
+        resetEditor: function (afterResetCallback) {
             this.setState({
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
                 purchaseOrderItems: []
-            });
+            }, afterResetCallback);
         },
         onProductSelected: function (e) {
             var data = e.detail;
             this.addItemRow(data.product, data.sku, data.quantity);
+        },
+        addItemRowMulti: function (items) {
+            var purchaseOrderItems = this.state.purchaseOrderItems.slice();
+
+            items.forEach(function (item) {
+                var alreadyAddedToForm = purchaseOrderItems.find(function (row) {
+                    if (row.sku === item.sku) {
+                        row.quantity += parseInt(item.quantity);
+                        return true;
+                    }
+                });
+                if (! alreadyAddedToForm) {
+                    purchaseOrderItems.push({product: item.product, sku: item.sku, quantity: item.quantity});
+                }
+            });
+
+            this.setState({
+                purchaseOrderItems: purchaseOrderItems
+            });
         },
         addItemRow: function (product, sku, quantity) {
             var purchaseOrderItems = this.state.purchaseOrderItems.slice();
