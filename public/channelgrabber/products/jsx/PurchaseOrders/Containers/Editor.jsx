@@ -67,7 +67,7 @@ define([
                     }
                 });
                 if (! alreadyAddedToForm) {
-                    purchaseOrderItems.push({product: item.product, sku: item.sku, quantity: item.quantity});
+                    purchaseOrderItems.push({id: item.id, product: item.product, sku: item.sku, quantity: item.quantity});
                 }
             });
 
@@ -142,12 +142,14 @@ define([
                         n.error(response.error);
                         return;
                     }
+                    window.triggerEvent('purchaseOrderListRefresh');
+                    this.resetEditor();
                     n.success('Successfully deleted the purchase order.');
                 }
             });
         },
         onSavePurchaseOrder: function () {
-
+            n.notice('Saving the purchase order.');
             var url = '/products/purchaseOrders/create';
             if (this.state.purchaseOrderId > 0) {
                 url = '/products/purchaseOrders/save';
@@ -161,6 +163,7 @@ define([
                 },
                 url: url,
                 success: function (response) {
+                    console.log(response);
                     if (! response.success) {
                         n.error(response.error);
                         return;
@@ -170,6 +173,7 @@ define([
                             id: response.id
                         });
                     }
+                    window.triggerEvent('purchaseOrderListRefresh');
                     n.success('Successfully saved the purchase order.');
                 }.bind(this)
             });
