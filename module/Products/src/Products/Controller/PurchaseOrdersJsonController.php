@@ -1,19 +1,21 @@
 <?php
 namespace Products\Controller;
 
-use CG\ETag\Exception\NotModified;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG\PurchaseOrder\Entity as PurchaseOrderEntity;
 use CG\PurchaseOrder\Service as PurchaseOrderService;
 use CG\PurchaseOrder\Mapper as PurchaseOrderMapper;
 use CG\PurchaseOrder\Filter as PurchaseOrderFilter;
 use CG\PurchaseOrder\Collection as PurchaseOrderCollection;
-use CG\PurchaseOrder\Item\Entity as PurchaseOrderItemEntity;
+use CG\PurchaseOrder\Item\Service as PurchaseOrderItemService;
 use CG\PurchaseOrder\Item\Mapper as PurchaseOrderItemMapper;
+use CG\PurchaseOrder\Item\Filter as PurchaseOrderItemFilter;
+use CG\PurchaseOrder\Item\Entity as PurchaseOrderItemEntity;
 use CG\PurchaseOrder\Item\Collection as PurchaseOrderItemCollection;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Filter as ProductFilter;
@@ -37,6 +39,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     protected $productService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    protected $purchaseOrderItemService;
     protected $purchaseOrderItemMapper;
 
     public function __construct(
@@ -45,6 +48,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         PurchaseOrderMapper $purchaseOrderMapper,
         ProductService $productService,
         ActiveUserInterface $activeUserContainer,
+        PurchaseOrderItemService $purchaseOrderItemService,
         PurchaseOrderItemMapper $purchaseOrderItemMapper
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -52,6 +56,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $this->purchaseOrderMapper = $purchaseOrderMapper;
         $this->productService = $productService;
         $this->activeUserContainer = $activeUserContainer;
+        $this->purchaseOrderItemService = $purchaseOrderItemService;
         $this->purchaseOrderItemMapper = $purchaseOrderItemMapper;
     }
 
@@ -79,16 +84,31 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     {
         $id = $this->params()->fromPost('id');
         $number = $this->params()->fromPost('number');
-        $products = json_decode($this->params()->fromPost('products'), true);
+        $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('products'), true);
+        $purchaseOrder = null;
+        $error = false;
 
         try {
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
             $purchaseOrder->setExternalId($number);
-            $items = $this->buildPurchaseOrderItemsCollection($products, $purchaseOrder);
-            $purchaseOrder->setItems($items);
-
+            $purchaseOrder->setItems(new PurchaseOrderItemCollection(PurchaseOrderItemEntity::class, __FUNCTION__));
             $this->purchaseOrderService->save($purchaseOrder);
         } catch (NotModified $e) {
+            $error = true;
+        }
+
+        try {
+            foreach ($updatedPurchaseOrderItems as $updatedPurchaseOrderItem) {
+                $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
+                $item->setPurchaseOrderId($purchaseOrder['id']);
+                $item->setOrganisationUnitId($purchaseOrder['organisationUnitId']);
+                $this->purchaseOrderItemService->save($item);
+            }
+        } catch (NotModified $e) {
+            $error = true;
+        }
+
+        if ($error) {
             return $this->jsonModelFactory->newInstance([
                 'error' => "The purchase order was not modified."
             ]);
@@ -156,19 +176,6 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         return $this->jsonModelFactory->newInstance([
             'list' => $this->hydratePurchaseOrdersWithProducts($records, $ouId),
         ]);
-    }
-
-    protected function buildPurchaseOrderItemsCollection($products, $purchaseOrder = null)
-    {
-        $items = new PurchaseOrderItemCollection(PurchaseOrderItemEntity::class, __FUNCTION__);
-        foreach ($products as $product) {
-            $product['purchaseOrderId'] = $purchaseOrder ? $purchaseOrder->getId() : null;
-            $product['id'] = $product['id'] ?? null;
-            $product['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-            $item = $this->purchaseOrderItemMapper->fromArray($product);
-            $items->attach($item);
-        }
-        return $items;
     }
 
     protected function hydratePurchaseOrdersWithProducts(PurchaseOrderCollection $purchaseOrders, $ouId)
