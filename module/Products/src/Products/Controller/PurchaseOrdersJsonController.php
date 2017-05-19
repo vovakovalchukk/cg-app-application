@@ -202,6 +202,9 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
                 foreach ($variation->getImages() as $image) {
                     $variationArray['images'][] = $image->toArray();
                 }
+                foreach ($variation->getStock()->getLocations() as $location) {
+                    $variationArray['stock']['locations'][] = $location->toArray();
+                }
                 $purchaseOrderItemArray['product']['variations'][] = $variationArray;
             }
         }
