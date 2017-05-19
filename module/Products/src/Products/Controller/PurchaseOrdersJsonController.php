@@ -196,6 +196,15 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $item = $productsBySku->current();
         }
         $purchaseOrderItemArray['product'] = $product->toArray();
+        if ($product->getVariations()) {
+            foreach ($product->getVariations() as $variation) {
+                $variationArray = $variation->toArray();
+                foreach ($variation->getImages() as $image) {
+                    $variationArray['images'][] = $image->toArray();
+                }
+                $purchaseOrderItemArray['product']['variations'][] = $variationArray;
+            }
+        }
         foreach ($product->getImages() as $image) {
             $purchaseOrderItemArray['product']['images'][] = $image->toArray();
         }
