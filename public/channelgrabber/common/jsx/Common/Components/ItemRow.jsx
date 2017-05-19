@@ -15,9 +15,6 @@ define([
             }
         },
         getVariationSwitcherOptions: function (attributes, variation) {
-            if (variation.stock === undefined) {
-                return;
-            }
             var optionComponents = [];
             attributes.forEach(function (attributeName) {
                 if (variation.attributeValues[attributeName] === undefined) {
@@ -26,6 +23,10 @@ define([
                 }
                 optionComponents.push(variation.attributeValues[attributeName]);
             });
+
+            if (variation.stock === undefined) {
+                return optionComponents;
+            }
             optionComponents.push("("+variation.stock.locations[0].onHand+")");
             return optionComponents;
         },
