@@ -123,7 +123,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $id = $this->params()->fromPost('id');
         try {
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
-            $purchaseOrder->setStatus(PurchaseOrderEntity::COMPLETE);
+            $purchaseOrder->setStatus('Complete');
 
             $this->purchaseOrderService->save($purchaseOrder);
         } catch (NotModified $e) {
