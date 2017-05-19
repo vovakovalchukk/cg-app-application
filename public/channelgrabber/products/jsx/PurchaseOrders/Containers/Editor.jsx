@@ -111,6 +111,7 @@ define([
                         n.error(response.error);
                         return;
                     }
+                    window.triggerEvent('purchaseOrderListRefresh');
                     n.success('Set the status of this purchase order to complete.');
                 }
             });

@@ -21,22 +21,26 @@ define([
             };
         },
         componentDidMount: function () {
-            var self = this;
-            this.purchaseOrderRequest = $.ajax({
+            this.purchaseOrderRequest = this.doPurchaseOrderRequest();
+            window.addEventListener('purchaseOrderListRefresh', this.doPurchaseOrderRequest);
+        },
+        componentWillUnmount: function () {
+            this.purchaseOrderRequest.abort();
+            window.removeEventListener('purchaseOrderListRefresh', this.doPurchaseOrderRequest);
+        },
+        doPurchaseOrderRequest: function () {
+            $.ajax({
                 method: 'POST',
                 url: '/products/purchaseOrders/list',
                 success: function (response) {
                     if (response.list === undefined || response.list.length === 0) {
                         return;
                     }
-                    self.setState({
+                    this.setState({
                         purchaseOrders: response.list
                     });
-                }
+                }.bind(this)
             });
-        },
-        componentWillUnmount: function () {
-            this.purchaseOrderRequest.abort();
         },
         onCreateNewPurchaseOrderButtonPressed: function () {
             window.triggerEvent('triggerPopup');
