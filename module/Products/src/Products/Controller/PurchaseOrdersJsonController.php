@@ -14,6 +14,7 @@ use CG\PurchaseOrder\Filter as PurchaseOrderFilter;
 use CG\PurchaseOrder\Collection as PurchaseOrderCollection;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Filter as ProductFilter;
+use CG\Product\Collection as ProductCollection;
 use CG\User\ActiveUserInterface;
 
 class PurchaseOrdersJsonController extends AbstractActionController implements LoggerAwareInterface
@@ -162,6 +163,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             ->setLimit('all')
             ->setPage(1)
             ->setOrganisationUnitId([$ouId])
+            ->setReplaceVariationWithParent(true)
             ->setSku(array_keys($allProductSkus));
         $products = $this->productService->fetchCollectionByFilter($filter);
 
@@ -169,20 +171,34 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         foreach ($purchaseOrders as $purchaseOrder) {
             $purchaseOrderWithProduct = $purchaseOrder->toArray();
             foreach ($purchaseOrder->getItems() as $purchaseOrderItem) {
-                $item = $purchaseOrderItem->toArray();
-                $productsBySku = $products->getBy('sku', $purchaseOrderItem->getSku());
-                if (count($productsBySku) !== 0) {
-                    $productsBySku->rewind();
-                    $product = $productsBySku->current();
-                    $item['product'] = $product->toArray();
-                    foreach ($product->getImages() as $image) {
-                        $item['product']['images'][] = $image->toArray();
-                    }
-                }
-                $purchaseOrderWithProduct['items'][] = $item;
+                $purchaseOrderWithProduct['items'][] = $this->getItemData($products, $purchaseOrderItem);
             }
             $purchaseOrderWithProducts[] = $purchaseOrderWithProduct;
         }
         return $purchaseOrderWithProducts;
+    }
+
+    protected function getItemData($products, $purchaseOrderItem)  {
+        $purchaseOrderItemArray = $purchaseOrderItem->toArray();
+        $item = null;
+
+        $productsBySku = $products->getBy('sku', $purchaseOrderItem->getSku());
+        if (count($productsBySku) === 0) {
+            foreach ($products as $product) {
+                $variations = $product->getVariations();
+                $variationsBySku = $variations->getBy('sku', $purchaseOrderItem->getSku());
+                if ($variationsBySku) {
+                    $item = $product;
+                }
+            }
+        } else {
+            $productsBySku->rewind();
+            $item = $productsBySku->current();
+        }
+        $purchaseOrderItemArray['product'] = $product->toArray();
+        foreach ($product->getImages() as $image) {
+            $purchaseOrderItemArray['product']['images'][] = $image->toArray();
+        }
+        return $purchaseOrderItemArray;
     }
 }
