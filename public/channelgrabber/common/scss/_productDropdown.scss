@@ -23,7 +23,7 @@
             width: 15% !important;
             &.disabled {
                 color: $color-lgrey;
-                cursor: default;
+                cursor: not-allowed;
             }
         }
     }
