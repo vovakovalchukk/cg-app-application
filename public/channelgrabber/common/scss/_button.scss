@@ -6,4 +6,7 @@
     .button-text {
         padding: 0 3px 0 8px;
     }
+    &.disabled {
+        cursor: not-allowed;
+    }
 }
