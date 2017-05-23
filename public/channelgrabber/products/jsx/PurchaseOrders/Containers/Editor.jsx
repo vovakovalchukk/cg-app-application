@@ -163,7 +163,6 @@ define([
                 },
                 url: url,
                 success: function (response) {
-                    console.log(response);
                     if (! response.success) {
                         n.error(response.error);
                         return;
@@ -175,7 +174,10 @@ define([
                     }
                     window.triggerEvent('purchaseOrderListRefresh');
                     n.success('Successfully saved the purchase order.');
-                }.bind(this)
+                }.bind(this),
+                error: function (response) {
+                    n.error("An error occurred when attempting to save the purchase order.");
+                }
             });
         },
         onSkuChanged: function (oldSku, selection) {
