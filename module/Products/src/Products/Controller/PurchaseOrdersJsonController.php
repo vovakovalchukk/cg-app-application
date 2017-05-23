@@ -1,6 +1,7 @@
 <?php
 namespace Products\Controller;
 
+use CG\ETag\Exception\Conflict;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -86,29 +87,39 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $number = $this->params()->fromPost('number');
         $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('products'), true);
         $purchaseOrder = null;
-        $error = false;
+        $poError = false;
+        $poiError = false;
 
         try {
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
             $purchaseOrder->setExternalId($number);
-            $purchaseOrder->setItems(new PurchaseOrderItemCollection(PurchaseOrderItemEntity::class, __FUNCTION__));
             $this->purchaseOrderService->save($purchaseOrder);
         } catch (NotModified $e) {
-            $error = true;
+            $poError = true;
         }
 
         try {
-            foreach ($updatedPurchaseOrderItems as $updatedPurchaseOrderItem) {
-                $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
-                $item->setPurchaseOrderId($purchaseOrder['id']);
-                $item->setOrganisationUnitId($purchaseOrder['organisationUnitId']);
+            $purchaseOrderItems = $purchaseOrder->getItems();
+            foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
+                $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
+
+                if (isset($item)) {
+                    $item->setSku($updatedPurchaseOrderItem['sku']);
+                    $item->setQuantity($updatedPurchaseOrderItem['quantity']);
+                } else {
+                    $updatedPurchaseOrderItem['purchaseOrderId'] = $purchaseOrder->getId();
+                    $updatedPurchaseOrderItem['organisationUnitId'] = $purchaseOrder->getOrganisationUnitId();
+                    $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
+                }
                 $this->purchaseOrderItemService->save($item);
             }
         } catch (NotModified $e) {
-            $error = true;
+            $poiError = true;
+        } catch (Conflict $e) {
+            $poiError = true;
         }
 
-        if ($error) {
+        if ($poError && $poiError) {
             return $this->jsonModelFactory->newInstance([
                 'error' => "The purchase order was not modified."
             ]);
