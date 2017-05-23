@@ -10,6 +10,7 @@ define([
     var EditableFieldComponent = React.createClass({
         getDefaultProps: function () {
             return {
+                disabled: false,
                 initialFieldText: ""
             };
         },
@@ -28,6 +29,9 @@ define([
             });
         },
         onClick: function () {
+            if (this.props.disabled) {
+                return;
+            }
             var editable = this.refs.input.focus ? true : !this.state.editable;
             this.setState({
                 editable: editable
@@ -45,7 +49,7 @@ define([
             }
         },
         onSubmitInput: function () {
-            if (! this.state.editable) {
+            if (! this.state.editable || this.props.disabled) {
                 return;
             }
 
@@ -66,13 +70,13 @@ define([
                 <ClickOutside className="editable-field-wrap" onClickOutside={this.onCancelInput}>
                     <input
                         ref="input"
-                        title="Click to edit"
-                        className={"editable-field " + (this.state.editable ? "active" : "")}
+                        title={this.props.disabled ? "Input disabled" : "Click to edit"}
+                        className={"editable-field " + (this.state.editable ? "active" : "") + (this.props.disabled ? ' disabled ' : '')}
                         value={this.state.fieldText}
                         onKeyPress={this.onKeyPress}
                         onClick={this.onClick}
                         onChange={function(e){this.setState({fieldText:e.target.value});}.bind(this)}
-                        onFocus={function(){this.refs.input.select()}.bind(this)}
+                        onFocus={function(){if (this.props.disabled) {return;} this.refs.input.select()}.bind(this)}
                     />
                     <div className="submit-input">
                         <div className={"submit-cancel " + (this.state.editable ? "active" : "")}>
