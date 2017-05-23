@@ -239,10 +239,16 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     protected function savePurchaseOrderItems($updatedPurchaseOrderItems, $purchaseOrder)
     {
-        $purchaseOrderItems = $purchaseOrder->getItems();
+
+        $filter = (new PurchaseOrderItemFilter())
+            ->setPage(1)
+            ->setLimit('all')
+            ->setPurchaseOrderId([$purchaseOrder->getId()]);
+        $purchaseOrderItems = $this->purchaseOrderItemService->fetchCollectionByFilter($filter);
         $error = false;
         foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
             try {
+                $item = null;
                 if (isset($updatedPurchaseOrderItem['id'])) {
                     $this->updatedPurchaseOrderItemIds[] = $updatedPurchaseOrderItem['id'];
                     $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
@@ -263,7 +269,6 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             } catch (Conflict $e) {
                 $error = true;
             }
-            $item = null;
         }
         return $error;
     }
