@@ -12,6 +12,7 @@ define([
     var EditorContainer = React.createClass({
         getInitialState: function () {
             return {
+                editable: false,
                 purchaseOrderId: 0,
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
                 purchaseOrderItems: []
@@ -108,7 +109,7 @@ define([
                 url: '/products/purchaseOrders/complete',
                 success: function (response) {
                     if (! response.success) {
-                        n.error("A problem occurred when attempting to complete the purchase order.<br>Reference: "+response.itid);
+                        n.error("A problem occurred when attempting to complete the purchase order.");
                         return;
                     }
                     window.triggerEvent('purchaseOrderListRefresh');
@@ -143,7 +144,7 @@ define([
                 url: '/products/purchaseOrders/delete',
                 success: function (response) {
                     if (! response.success) {
-                        n.error("A problem occurred when attempting to delete the purchase order.<br>Reference: "+response.itid);
+                        n.error("A problem occurred when attempting to delete the purchase order.");
                         return;
                     }
                     window.triggerEvent('purchaseOrderListRefresh');
@@ -168,7 +169,7 @@ define([
                 url: url,
                 success: function (response) {
                     if (! response.success) {
-                        n.error("A problem occurred when attempting to save the purchase order.<br>Reference: "+response.itid);
+                        n.error("A problem occurred when attempting to save the purchase order.");
                         return;
                     }
                     if (response.id) {
@@ -237,6 +238,7 @@ define([
         {
             return (
                 <EditorComponent
+                    editable={this.state.editable}
                     onNameChange={this.onUpdatePurchaseOrderNumber}
                     purchaseOrderNumber={this.state.purchaseOrderNumber}
                     purchaseOrderItems={this.state.purchaseOrderItems}
