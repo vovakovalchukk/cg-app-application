@@ -62,7 +62,7 @@
         "channelgrabber/picklist": "~1.0.2",
         "channelgrabber/predis": "~1.0.12",
         "channelgrabber/product": "~1.9.2",
-        "channelgrabber/purchase-order": "dev-CGIV-8310-PurchaseOrdersLibrary as 1.0.0",
+        "channelgrabber/purchase-order": "dev-CGIV-8318-download-po-as-csv as 1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.7",
