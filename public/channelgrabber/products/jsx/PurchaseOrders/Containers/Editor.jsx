@@ -123,8 +123,15 @@ define([
                 data: {id: this.state.purchaseOrderId},
                 url: '/products/purchaseOrders/download',
                 success: function (response) {
-                    var uri = 'data:application/csv;charset=UTF-8,' + encodeURIComponent(response);
-                    window.open(uri, 'purchase_order.csv')
+                    var uri = 'data:text/csv;charset=utf-8,' + response;
+
+                    var downloadLink = document.createElement("a");
+                    downloadLink.href = uri;
+                    downloadLink.download = "purchase_order.csv";
+
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
                 }
             });
         },
