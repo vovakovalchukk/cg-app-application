@@ -32,6 +32,7 @@ define([
                         {this.props.purchaseOrderItems.map(function (row) {
                             return (
                                 <ItemRow row={row}
+                                    disabled={!this.props.editable}
                                     onSkuChange={this.props.onSkuChanged}
                                     onStockQuantityUpdate={this.props.onStockQuantityUpdated}
                                     onRowRemove={this.props.onRowRemove}

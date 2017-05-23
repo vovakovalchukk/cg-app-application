@@ -43,7 +43,7 @@ define([
                 }
                 return {value: variation.sku, name: optionName};
             }.bind(this));
-            return <Select options={options} onOptionChange={this.props.onSkuChange.bind(this, thisSku)} selectedOption={selectedOption}/>
+            return <Select disabled={this.props.disabled} options={options} onOptionChange={this.props.onSkuChange.bind(this, thisSku)} selectedOption={selectedOption}/>
         },
         onPriceChange: function (e) {
             var price = e.target.value;
@@ -84,6 +84,7 @@ define([
         render: function () {
             return (
                 <div className="item-row">
+                    {this.props.disabled ? <div className="disable-mask"></div> : ''}
                     <div className="item-row-details">
                         <div className="item-row-img">
                             <img src={this.context.imageUtils.getProductImage(this.props.row.product, this.props.row.sku)} />
@@ -98,7 +99,7 @@ define([
                         {this.renderPriceInput()}
                         <div className="item-row-qty-input">
                             <span className="multiplier">x</span>
-                            <input type="number" name='quantity' placeholder="0.00" value={this.props.row.quantity ? this.props.row.quantity : ''} onChange={this.onStockQuantityUpdate} />
+                            <input disabled={this.props.disabled} type="number" name='quantity' placeholder="0.00" value={this.props.row.quantity ? this.props.row.quantity : ''} onChange={this.onStockQuantityUpdate} />
                         </div>
                     </div>
                     {this.renderPriceTotal()}
