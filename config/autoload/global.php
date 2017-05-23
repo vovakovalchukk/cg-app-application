@@ -164,6 +164,8 @@ use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 //  Purchase Order
 use CG\PurchaseOrder\StorageInterface as PurchaseOrderStorage;
 use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
+use CG\PurchaseOrder\Item\StorageInterface as PurchaseOrderItemStorage;
+use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
 
 $config = array(
     'di' => array(
@@ -201,6 +203,7 @@ $config = array(
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
+                PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -228,6 +231,11 @@ $config = array(
                 ]
             ],
             PurchaseOrderApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            PurchaseOrderItemApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
