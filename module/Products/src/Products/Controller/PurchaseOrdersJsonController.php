@@ -42,6 +42,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     protected $activeUserContainer;
     protected $purchaseOrderItemService;
     protected $purchaseOrderItemMapper;
+    protected $updatedPurchaseOrderItemIds;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -88,7 +89,6 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('products'), true);
         $purchaseOrder = null;
         $poError = false;
-        $poiError = false;
 
         try {
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
@@ -98,43 +98,11 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $poError = true;
         }
 
-        $purchaseOrderItems = $purchaseOrder->getItems();
-        try {
-            $updatedPurchaseOrderItemIds = [];
-            foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
-                if (isset($updatedPurchaseOrderItem['id'])) {
-                    $updatedPurchaseOrderItemIds[] = $updatedPurchaseOrderItem['id'];
-                    $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
-                }
+        $poiError = $this->savePurchaseOrderItems($updatedPurchaseOrderItems, $purchaseOrder);
 
-                if (isset($item)) {
-                    $item->setSku($updatedPurchaseOrderItem['sku']);
-                    $item->setQuantity($updatedPurchaseOrderItem['quantity']);
-                } else {
-                    $updatedPurchaseOrderItem['purchaseOrderId'] = $purchaseOrder->getId();
-                    $updatedPurchaseOrderItem['organisationUnitId'] = $purchaseOrder->getOrganisationUnitId();
-                    $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
-                }
-                $this->purchaseOrderItemService->save($item);
-                $item = null;
-            }
-        } catch (NotModified $e) {
-            $poiError = true;
-        } catch (Conflict $e) {
-            $poiError = true;
-        }
+        $removalError = $this->removePurchaseOrderItems($purchaseOrder);
 
-        foreach ($purchaseOrderItems as $purchaseOrderItem) {
-            try {
-                if (! in_array($purchaseOrderItem->getId(), $updatedPurchaseOrderItemIds)) {
-                    $this->purchaseOrderItemService->remove($purchaseOrderItem);
-                }
-            } catch (NotModified $e) {
-                $poiError = true;
-            }
-        }
-
-        if ($poError && $poiError) {
+        if ($poError && $poiError && $removalError) {
             return $this->jsonModelFactory->newInstance([
                 'error' => "The purchase order was not modified."
             ]);
@@ -267,5 +235,50 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $purchaseOrderItemArray['product']['images'][] = $image->toArray();
         }
         return $purchaseOrderItemArray;
+    }
+
+    protected function savePurchaseOrderItems($updatedPurchaseOrderItems, $purchaseOrder)
+    {
+        $purchaseOrderItems = $purchaseOrder->getItems();
+        $error = false;
+        foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
+            try {
+                if (isset($updatedPurchaseOrderItem['id'])) {
+                    $this->updatedPurchaseOrderItemIds[] = $updatedPurchaseOrderItem['id'];
+                    $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
+                }
+
+                if (isset($item)) {
+                    $item->setSku($updatedPurchaseOrderItem['sku']);
+                    $item->setQuantity($updatedPurchaseOrderItem['quantity']);
+                } else {
+                    $updatedPurchaseOrderItem['purchaseOrderId'] = $purchaseOrder->getId();
+                    $updatedPurchaseOrderItem['organisationUnitId'] = $purchaseOrder->getOrganisationUnitId();
+                    $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
+                }
+                $this->purchaseOrderItemService->save($item);
+                $error = false;
+            } catch (NotModified $e) {
+                $error = true;
+            } catch (Conflict $e) {
+                $error = true;
+            }
+            $item = null;
+        }
+        return $error;
+    }
+
+    protected function removePurchaseOrderItems($purchaseOrder)
+    {
+        $purchaseOrderItems = $purchaseOrder->getItems();
+        foreach ($purchaseOrderItems as $purchaseOrderItem) {
+            try {
+                if (! in_array($purchaseOrderItem->getId(), $this->updatedPurchaseOrderItemIds)) {
+                    $this->purchaseOrderItemService->remove($purchaseOrderItem);
+                }
+            } catch (NotModified $e) {
+                $removalError = true;
+            }
+        }
     }
 }
