@@ -254,12 +254,16 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             ->setPage(1)
             ->setLimit('all')
             ->setPurchaseOrderId([$purchaseOrder->getId()]);
-        $purchaseOrderItems = $this->purchaseOrderItemService->fetchCollectionByFilter($filter);
+        try {
+            $purchaseOrderItems = $this->purchaseOrderItemService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            $purchaseOrderItems = [];
+        }
         $error = false;
         foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
             try {
                 $item = null;
-                if (isset($updatedPurchaseOrderItem['id'])) {
+                if (isset($updatedPurchaseOrderItem['id']) && count($purchaseOrderItems)) {
                     $this->updatedPurchaseOrderItemIds[] = $updatedPurchaseOrderItem['id'];
                     $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
                 }
