@@ -108,7 +108,7 @@ define([
                 url: '/products/purchaseOrders/complete',
                 success: function (response) {
                     if (! response.success) {
-                        n.error(response.error);
+                        n.error("A problem occurred when attempting to complete the purchase order.<br>Reference: "+response.itid);
                         return;
                     }
                     window.triggerEvent('purchaseOrderListRefresh');
@@ -123,11 +123,8 @@ define([
                 data: {id: this.state.purchaseOrderId},
                 url: '/products/purchaseOrders/download',
                 success: function (response) {
-                    if (! response.success) {
-                        n.error(response.error);
-                        return;
-                    }
-                    n.success('Initiated download request for this purchase order.');
+                    var uri = 'data:application/csv;charset=UTF-8,' + encodeURIComponent(response);
+                    window.open(uri, 'purchase_order.csv')
                 }
             });
         },
@@ -139,7 +136,7 @@ define([
                 url: '/products/purchaseOrders/delete',
                 success: function (response) {
                     if (! response.success) {
-                        n.error(response.error);
+                        n.error("A problem occurred when attempting to delete the purchase order.<br>Reference: "+response.itid);
                         return;
                     }
                     window.triggerEvent('purchaseOrderListRefresh');
@@ -164,7 +161,7 @@ define([
                 url: url,
                 success: function (response) {
                     if (! response.success) {
-                        n.error(response.error);
+                        n.error("A problem occurred when attempting to save the purchase order.<br>Reference: "+response.itid);
                         return;
                     }
                     if (response.id) {
