@@ -19,8 +19,8 @@ class StockImportAdditionalFields extends AbstractMigration
         $table = $this->table('stockImportFiles');
 
         $table
-            ->addColumn('organisationUnitId', 'string')
-            ->addColumn('userId', 'string')
+            ->addColumn('organisationUnitId', 'integer')
+            ->addColumn('userId', 'integer')
             ->update();
     }
 
