@@ -19,16 +19,16 @@ define([
             return (
                 <div className="purchase-orders-editor">
                     <div className="editor-row">
-                        <EditableField initialFieldText={this.props.purchaseOrderNumber} onSubmit={this.props.onNameChange}/>
+                        <EditableField disabled={!this.props.editable} initialFieldText={this.props.purchaseOrderNumber} onSubmit={this.props.onNameChange}/>
                     </div>
                     <div className="editor-row">
-                        <Button onClick={this.props.onCompleteClicked} sprite="sprite-complete-22-black" text="Complete"/>
+                        <Button disabled={!this.props.editable} onClick={this.props.onCompleteClicked} sprite="sprite-complete-22-black" text="Complete"/>
                         <Button onClick={this.props.onDownloadClicked} sprite="sprite-download-22-black" text="Download"/>
                         <Button onClick={this.props.onDeleteClicked} sprite="sprite-cancel-22-black" text="Delete"/>
-                        <Button onClick={this.props.onSaveClicked} sprite="sprite-save-22-black" text="Save"/>
+                        <Button disabled={!this.props.editable} onClick={this.props.onSaveClicked} sprite="sprite-save-22-black" text="Save"/>
                     </div>
-                    <ProductDropdown />
-                    <div className="product-list">
+                    <ProductDropdown disabled={!this.props.editable} />
+                    <div className="product-list" disabled={!this.props.editable}>
                         {this.props.purchaseOrderItems.map(function (row) {
                             return (
                                 <ItemRow row={row}

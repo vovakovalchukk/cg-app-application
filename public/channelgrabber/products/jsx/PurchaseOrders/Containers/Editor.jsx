@@ -7,13 +7,15 @@ define([
 ) {
     "use strict";
 
+    var COMPLETE_STATUS = "Complete";
+    var DEFAULT_PO_STATUS = "In Progress";
     var DEFAULT_PO_NUMBER = "Enter Purchase Order Number";
 
     var EditorContainer = React.createClass({
         getInitialState: function () {
             return {
-                editable: false,
                 purchaseOrderId: 0,
+                purchaseOrderStatus: DEFAULT_PO_STATUS,
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
                 purchaseOrderItems: []
             };
@@ -43,6 +45,7 @@ define([
                 }
                 this.setState({
                     purchaseOrderId: purchaseOrder.id,
+                    purchaseOrderStatus: purchaseOrder.status,
                     purchaseOrderNumber: purchaseOrder.externalId
                 });
             }.bind(this));
@@ -50,6 +53,7 @@ define([
         resetEditor: function (afterResetCallback) {
             this.setState({
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
+                purchaseOrderStatus: DEFAULT_PO_STATUS,
                 purchaseOrderItems: []
             }, afterResetCallback);
         },
@@ -112,6 +116,9 @@ define([
                         n.error("A problem occurred when attempting to complete the purchase order.");
                         return;
                     }
+                    this.setState({
+                        purchaseOrderStatus: COMPLETE_STATUS
+                    });
                     window.triggerEvent('purchaseOrderListRefresh');
                     n.success('Set the status of this purchase order to complete.');
                 }
@@ -238,7 +245,7 @@ define([
         {
             return (
                 <EditorComponent
-                    editable={this.state.editable}
+                    editable={this.state.purchaseOrderStatus !== COMPLETE_STATUS}
                     onNameChange={this.onUpdatePurchaseOrderNumber}
                     purchaseOrderNumber={this.state.purchaseOrderNumber}
                     purchaseOrderItems={this.state.purchaseOrderItems}
