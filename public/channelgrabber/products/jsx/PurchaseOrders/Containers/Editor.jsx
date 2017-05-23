@@ -37,7 +37,7 @@ define([
             }
             this.resetEditor(function() {
                 var purchaseOrder = event.detail;
-                if (purchaseOrder.items.length) {
+                if (purchaseOrder.items && purchaseOrder.items.length) {
                     this.addItemRowMulti(purchaseOrder.items);
                 }
                 this.setState({
