@@ -98,10 +98,14 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $poError = true;
         }
 
+        $purchaseOrderItems = $purchaseOrder->getItems();
         try {
-            $purchaseOrderItems = $purchaseOrder->getItems();
+            $updatedPurchaseOrderItemIds = [];
             foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
-                $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
+                if (isset($updatedPurchaseOrderItem['id'])) {
+                    $updatedPurchaseOrderItemIds[] = $updatedPurchaseOrderItem['id'];
+                    $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
+                }
 
                 if (isset($item)) {
                     $item->setSku($updatedPurchaseOrderItem['sku']);
@@ -112,11 +116,22 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
                     $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
                 }
                 $this->purchaseOrderItemService->save($item);
+                $item = null;
             }
         } catch (NotModified $e) {
             $poiError = true;
         } catch (Conflict $e) {
             $poiError = true;
+        }
+
+        foreach ($purchaseOrderItems as $purchaseOrderItem) {
+            try {
+                if (! in_array($purchaseOrderItem->getId(), $updatedPurchaseOrderItemIds)) {
+                    $this->purchaseOrderItemService->remove($purchaseOrderItem);
+                }
+            } catch (NotModified $e) {
+                $poiError = true;
+            }
         }
 
         if ($poError && $poiError) {
@@ -228,6 +243,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
                 $variationsBySku = $variations->getBy('sku', $purchaseOrderItem->getSku());
                 if ($variationsBySku) {
                     $item = $product;
+                    break;
                 }
             }
         } else {
