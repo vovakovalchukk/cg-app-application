@@ -1,7 +1,7 @@
 #purchase-orders-mount-node{
     padding: 25px;
     background-color: $color-grey;
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
     box-sizing: border-box;
     .purchase-orders-actions {
         display: flex;
