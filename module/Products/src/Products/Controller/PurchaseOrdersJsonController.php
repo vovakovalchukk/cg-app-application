@@ -22,6 +22,7 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Collection as ProductCollection;
 use CG\User\ActiveUserInterface;
+use CG\Zend\Stdlib\Http\FileResponse;
 
 class PurchaseOrdersJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -135,9 +136,18 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     {
         $id = $this->params()->fromPost('id');
 
-        return $this->jsonModelFactory->newInstance([
-            'success' => true
-        ]);
+        try {
+            $purchaseOrder = $this->purchaseOrderService->fetch($id);
+
+            $purchaseOrderCsv = $this->purchaseOrderService->convertToCsv($purchaseOrder);
+            $fileName = date(DATE_ISO8601) . " purchase_order.csv";
+
+            return new FileResponse('text/csv', $fileName, (string) $purchaseOrderCsv);
+        } catch (\Exception $e) {
+            return $this->jsonModelFactory->newInstance([
+                'error' => "A problem occurred when attempting to download the purchase order. ".$e->getMessage()
+            ]);
+        }
     }
 
     public function completeAction()
