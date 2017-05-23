@@ -106,7 +106,7 @@ define([
             }.bind(this));
         },
         onCompletePurchaseOrder: function () {
-
+            n.notice("Marking the purchase order as complete.");
             this.completePurchaseOrderRequest = $.ajax({
                 method: 'POST',
                 data: {id: this.state.purchaseOrderId},
@@ -116,12 +116,12 @@ define([
                         n.error("A problem occurred when attempting to complete the purchase order.");
                         return;
                     }
+                    window.triggerEvent('purchaseOrderListRefresh');
                     this.setState({
                         purchaseOrderStatus: COMPLETE_STATUS
                     });
-                    window.triggerEvent('purchaseOrderListRefresh');
                     n.success('Set the status of this purchase order to complete.');
-                }
+                }.bind(this)
             });
         },
         onDownloadPurchaseOrder: function () {
