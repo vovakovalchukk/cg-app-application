@@ -705,7 +705,7 @@
                 "psr-4": {
                     "CG\\Courier\\": "src"
                 }
-            },
+            },<
             "autoload-dev": {
                 "psr-4": {
                     "CG\\Courier\\Test\\": "tests"
@@ -2935,16 +2935,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.14",
+            "version": "1.2.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "71ba827263c2700a4f390babc38ffb8328718eca"
+                "reference": "40ac1aa840aed2aae633f93b70f939cff807a4c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.14-4311ce.zip",
-                "reference": "71ba827263c2700a4f390babc38ffb8328718eca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.16-574ff6.zip",
+                "reference": "40ac1aa840aed2aae633f93b70f939cff807a4c9",
                 "shasum": null
             },
             "require": {
@@ -2952,7 +2952,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
-                "channelgrabber/stdlib": "^2.12.29",
+                "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
@@ -2977,7 +2977,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-04-11T09:35:25+00:00"
+            "time": "2017-05-23T12:43:49+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
