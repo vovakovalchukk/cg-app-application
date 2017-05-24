@@ -5,6 +5,7 @@
     justify-content: flex-start;
     border: 1px solid white;
     margin-bottom: 5px;
+    position: relative;
     &:hover {
         border-radius: 5px;
         border: 1px solid $color-lgrey;
