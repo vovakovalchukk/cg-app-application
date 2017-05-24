@@ -1,9 +1,7 @@
 <?php
 namespace Products\Controller;
 
-use CG\ETag\Exception\Conflict;
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -12,15 +10,6 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\PurchaseOrder\Service as PurchaseOrderService;
 use CG\PurchaseOrder\Mapper as PurchaseOrderMapper;
 use CG\PurchaseOrder\Filter as PurchaseOrderFilter;
-use CG\PurchaseOrder\Collection as PurchaseOrderCollection;
-use CG\PurchaseOrder\Item\Service as PurchaseOrderItemService;
-use CG\PurchaseOrder\Item\Mapper as PurchaseOrderItemMapper;
-use CG\PurchaseOrder\Item\Filter as PurchaseOrderItemFilter;
-use CG\PurchaseOrder\Item\Entity as PurchaseOrderItemEntity;
-use CG\PurchaseOrder\Item\Collection as PurchaseOrderItemCollection;
-use CG\Product\Client\Service as ProductService;
-use CG\Product\Filter as ProductFilter;
-use CG\Product\Collection as ProductCollection;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 
@@ -39,29 +28,19 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     protected $jsonModelFactory;
     protected $purchaseOrderService;
     protected $purchaseOrderMapper;
-    protected $productService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
-    protected $purchaseOrderItemService;
-    protected $purchaseOrderItemMapper;
-    protected $updatedPurchaseOrderItemIds;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         PurchaseOrderService $purchaseOrderService,
         PurchaseOrderMapper $purchaseOrderMapper,
-        ProductService $productService,
-        ActiveUserInterface $activeUserContainer,
-        PurchaseOrderItemService $purchaseOrderItemService,
-        PurchaseOrderItemMapper $purchaseOrderItemMapper
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->purchaseOrderService = $purchaseOrderService;
         $this->purchaseOrderMapper = $purchaseOrderMapper;
-        $this->productService = $productService;
         $this->activeUserContainer = $activeUserContainer;
-        $this->purchaseOrderItemService = $purchaseOrderItemService;
-        $this->purchaseOrderItemMapper = $purchaseOrderItemMapper;
     }
 
     public function createAction()
@@ -75,7 +54,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             'status' => static::DEFAULT_PO_STATUS,
             'created' => date('Y-m-d H:i:s'),
         ]);
-        $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder);
+        $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder, $purchaseOrderItems);
 
         $id = $purchaseOrder->getId();
 
@@ -91,21 +70,12 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $externalId = $this->params()->fromPost('externalId');
         $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('purchaseOrderItems'), true);
         $purchaseOrder = null;
-        $poError = false;
 
         try {
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
             $purchaseOrder->setExternalId($externalId);
-            $this->purchaseOrderService->save($purchaseOrder);
-        } catch (NotModified $e) {
-            $poError = true;
-        }
-
-        $poiError = $this->savePurchaseOrderItems($updatedPurchaseOrderItems, $purchaseOrder);
-
-        $removalError = $this->removePurchaseOrderItems($purchaseOrder);
-
-        if ($poError && $poiError && $removalError) {
+            $this->purchaseOrderService->save($purchaseOrder, $updatedPurchaseOrderItems);
+        } catch (\Exception $e) {
             return $this->jsonModelFactory->newInstance([
                 'error' => "The purchase order was not modified."
             ]);
@@ -180,126 +150,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $records = $this->purchaseOrderService->fetchCollectionByFilter($filter);
 
         return $this->jsonModelFactory->newInstance([
-            'list' => $this->hydratePurchaseOrdersWithProducts($records, $ouId),
+            'list' => $this->purchaseOrderMapper->hydratePurchaseOrdersWithProducts($records, $ouId),
         ]);
-    }
-
-    protected function hydratePurchaseOrdersWithProducts(PurchaseOrderCollection $purchaseOrders, $ouId)
-    {
-        $allProductSkus = [];
-        foreach ($purchaseOrders as $purchaseOrder) {
-            foreach ($purchaseOrder->getItems() as $purchaseOrderItem) {
-                $allProductSkus[$purchaseOrderItem->getSku()] = $purchaseOrder->getId();
-            }
-        }
-
-        $filter = (new ProductFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId([$ouId])
-            ->setReplaceVariationWithParent(true)
-            ->setSku(array_keys($allProductSkus));
-        $products = $this->productService->fetchCollectionByFilter($filter);
-
-        $purchaseOrderWithProducts = [];
-        foreach ($purchaseOrders as $purchaseOrder) {
-            $purchaseOrderWithProduct = $purchaseOrder->toArray();
-            foreach ($purchaseOrder->getItems() as $purchaseOrderItem) {
-                $purchaseOrderWithProduct['items'][] = $this->getItemData($products, $purchaseOrderItem);
-            }
-            $purchaseOrderWithProducts[] = $purchaseOrderWithProduct;
-        }
-        return $purchaseOrderWithProducts;
-    }
-
-    protected function getItemData($products, $purchaseOrderItem)  {
-        $purchaseOrderItemArray = $purchaseOrderItem->toArray();
-        $item = null;
-
-        $productsBySku = $products->getBy('sku', $purchaseOrderItem->getSku());
-        if (count($productsBySku) === 0) {
-            foreach ($products as $product) {
-                $variations = $product->getVariations();
-                $variationsBySku = $variations->getBy('sku', $purchaseOrderItem->getSku());
-                if (count($variationsBySku)) {
-                    $item = $product;
-                    break;
-                }
-            }
-        } else {
-            $productsBySku->rewind();
-            $item = $productsBySku->current();
-        }
-        $purchaseOrderItemArray['product'] = $item->toArray();
-        if ($item->getVariations()) {
-            foreach ($item->getVariations() as $variation) {
-                $variationArray = $variation->toArray();
-                foreach ($variation->getImages() as $image) {
-                    $variationArray['images'][] = $image->toArray();
-                }
-                foreach ($variation->getStock()->getLocations() as $location) {
-                    $variationArray['stock']['locations'][] = $location->toArray();
-                }
-                $purchaseOrderItemArray['product']['variations'][] = $variationArray;
-            }
-        }
-        foreach ($item->getImages() as $image) {
-            $purchaseOrderItemArray['product']['images'][] = $image->toArray();
-        }
-        return $purchaseOrderItemArray;
-    }
-
-    protected function savePurchaseOrderItems($updatedPurchaseOrderItems, $purchaseOrder)
-    {
-
-        $filter = (new PurchaseOrderItemFilter())
-            ->setPage(1)
-            ->setLimit('all')
-            ->setPurchaseOrderId([$purchaseOrder->getId()]);
-        try {
-            $purchaseOrderItems = $this->purchaseOrderItemService->fetchCollectionByFilter($filter);
-        } catch (NotFound $e) {
-            $purchaseOrderItems = [];
-        }
-        $error = false;
-        foreach ($updatedPurchaseOrderItems as &$updatedPurchaseOrderItem) {
-            try {
-                $item = null;
-                if (isset($updatedPurchaseOrderItem['id']) && count($purchaseOrderItems)) {
-                    $this->updatedPurchaseOrderItemIds[] = $updatedPurchaseOrderItem['id'];
-                    $item = $purchaseOrderItems->getById($updatedPurchaseOrderItem['id']);
-                }
-
-                if (isset($item)) {
-                    $item->setSku($updatedPurchaseOrderItem['sku']);
-                    $item->setQuantity($updatedPurchaseOrderItem['quantity']);
-                } else {
-                    $updatedPurchaseOrderItem['purchaseOrderId'] = $purchaseOrder->getId();
-                    $updatedPurchaseOrderItem['organisationUnitId'] = $purchaseOrder->getOrganisationUnitId();
-                    $item = $this->purchaseOrderItemMapper->fromArray($updatedPurchaseOrderItem);
-                }
-                $this->purchaseOrderItemService->save($item);
-                $error = false;
-            } catch (NotModified $e) {
-                $error = true;
-            } catch (Conflict $e) {
-                $error = true;
-            }
-        }
-        return $error;
-    }
-
-    protected function removePurchaseOrderItems($purchaseOrder)
-    {
-        $purchaseOrderItems = $purchaseOrder->getItems();
-        foreach ($purchaseOrderItems as $purchaseOrderItem) {
-            try {
-                if (! in_array($purchaseOrderItem->getId(), $this->updatedPurchaseOrderItemIds)) {
-                    $this->purchaseOrderItemService->remove($purchaseOrderItem);
-                }
-            } catch (NotModified $e) {
-                $removalError = true;
-            }
-        }
     }
 }

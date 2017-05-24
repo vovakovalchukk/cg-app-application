@@ -1995,11 +1995,11 @@
         },
         {
             "name": "channelgrabber/purchase-order",
-            "version": "dev-CGIV-8318-download-po-as-csv",
+            "version": "dev-CGIV-8312-purchase-orders-ui-phase-1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "83a20851b071145f80f10610f9affc52fcf09e61"
+                "reference": "17a5d7a2194148692f5b2da8868a219cf65c4901"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.12.42"
@@ -8912,6 +8912,12 @@
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-8318-download-po-as-csv",
+            "package": "channelgrabber/purchase-order"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-8312-purchase-orders-ui-phase-1",
             "package": "channelgrabber/purchase-order"
         },
         {
