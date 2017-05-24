@@ -85,7 +85,8 @@ class Service
     ) {
         $this->notifyOfUpload($userId);
         $fileEntity = $this->saveFile($updateOption, $fileContents);
-        $this->createJob($fileEntity, $organisationUnitId, $userId);
+
+        $this->createJob($fileEntity);
     }
 
     protected function saveFile($updateOption, $fileContents)
@@ -95,12 +96,14 @@ class Service
         );
     }
 
-    protected function createJob(ImportFile $fileEntity, $organisationUnitId, $userId)
+    protected function createJob(ImportFile $fileEntity)
     {
         $fileId = $fileEntity->getId();
+        $organisationUnitId = $fileEntity->getOrganisationUnitId();
+
         $this->gearmanClient->doBackground(
             "stockImportFile",
-            serialize(new ImportWorkload($userId, $organisationUnitId, $fileId)),
+            serialize(new ImportWorkload($fileId)),
             $fileId . "-" . $organisationUnitId
         );
     }
