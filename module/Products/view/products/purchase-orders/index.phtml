@@ -1,0 +1,37 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'PurchaseOrders': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/PurchaseOrders',
+        'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/Product',
+        'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
+    }
+});
+require([
+        'PurchaseOrders/PurchaseOrders',
+        'Common/Utils/Image'
+    ],
+    function(
+        PurchaseOrders,
+        ImageUtils
+    ) {
+
+    var utilities = {
+        image: new ImageUtils({ imageBasePath: '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img' })
+    };
+    var purchaseOrders = new PurchaseOrders(document.getElementById('purchase-orders-mount-node'), utilities);
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->placeholder('#main.class')->append('full-width'); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+<div id="purchase-orders-mount-node">
+</div>
+<style>
+    /**
+      This is a hack to hide the sidebar away for now TODO: Remove this
+      When introducing filters (ie Saved Filters)
+    **/
+    .sidebar-hidden #main-wrapper {
+        margin-left: 0 !important;
+        width:100%;
+    }
+</style>

@@ -30,6 +30,15 @@
         display:table-row;
         max-height: 60px;
         background-color: $color-white;
+        &:nth-child(odd) {
+            background-color: $color-xlblue;
+        }
+        &.hoverable {
+            &:hover {
+                cursor: pointer;
+                background-color: $color-vlblue;
+            }
+        }
         .grid-table-col {
             vertical-align: middle;
             padding: 5px;

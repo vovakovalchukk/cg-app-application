@@ -1,6 +1,6 @@
 define([
     'react',
-    'ManualOrder/Components/ItemRow',
+    'Common/Components/ItemRow',
     'Common/Components/SearchBox',
     'Common/Components/CurrencyInput'
 ], function(
