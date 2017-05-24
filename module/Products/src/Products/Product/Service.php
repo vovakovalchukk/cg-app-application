@@ -5,6 +5,8 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
 use CG\ETag\Exception\NotModified;
+use CG\FeatureFlags\Feature;
+use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Gearman\Exception\Gearman;
 use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -36,6 +38,8 @@ use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG_UI\View\Table;
 use GearmanClient;
 use Zend\Di\Di;
+use Zend\Navigation\Page\AbstractPage as NavPage;
+use CG\User\OrganisationUnit\Service as UserOuService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -83,6 +87,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $gearmanClient;
     /** @var RemoveProgressStorage */
     protected $removeProgressStorage;
+    /** @var  FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var UserOuService */
+    protected $userOuService;
 
     public function __construct(
         UserService $userService,
@@ -101,7 +109,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         DetailService $detailService,
         DetailMapper $detailMapper,
         GearmanClient $gearmanClient,
-        RemoveProgressStorage $removeProgressStorage
+        RemoveProgressStorage $removeProgressStorage,
+        FeatureFlagsService $featureFlagsService,
+        UserOuService $userOuService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -120,6 +130,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->detailMapper = $detailMapper;
         $this->gearmanClient = $gearmanClient;
         $this->removeProgressStorage = $removeProgressStorage;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->userOuService = $userOuService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -347,5 +359,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->organisationUnitService->getRootOuIdFromOuId(
             $this->getActiveUser()->getOrganisationUnitId()
         );
+    }
+
+    public function checkPageEnabled(NavPage $page)
+    {
+        try {
+            $ou = $this->userOuService->getRootOuByActiveUser();
+            if (! $this->featureFlagsService->isActive($page->getId(), $ou)) {
+                $page->setClass('disabled');
+            }
+        } catch (\Exception $e) {
+            // No-op, don't stop rendering the nav just for this
+        }
     }
 }
