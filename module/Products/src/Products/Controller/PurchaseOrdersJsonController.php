@@ -112,7 +112,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
 
             $purchaseOrderCsv = $this->purchaseOrderService->convertToCsv($purchaseOrder);
-            $fileName = date(DATE_ISO8601) . " purchase_order.csv";
+            $fileName = date('Y-m-d hi') . " purchase_order.csv";
 
             return new FileResponse('text/csv', $fileName, (string) $purchaseOrderCsv);
         } catch (\Exception $e) {
@@ -126,10 +126,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     {
         $id = $this->params()->fromPost('id');
         try {
-            $purchaseOrder = $this->purchaseOrderService->fetch($id);
-            $purchaseOrder->setStatus('Complete');
-
-            $this->purchaseOrderService->save($purchaseOrder);
+            $this->purchaseOrderService->markAsComplete($id);
         } catch (NotModified $e) {
             return $this->jsonModelFactory->newInstance([
                 'error' => "The purchase order was not modified."
