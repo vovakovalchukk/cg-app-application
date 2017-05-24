@@ -219,7 +219,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
             foreach ($products as $product) {
                 $variations = $product->getVariations();
                 $variationsBySku = $variations->getBy('sku', $purchaseOrderItem->getSku());
-                if ($variationsBySku) {
+                if (count($variationsBySku)) {
                     $item = $product;
                     break;
                 }
