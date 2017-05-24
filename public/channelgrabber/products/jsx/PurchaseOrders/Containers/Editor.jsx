@@ -131,7 +131,7 @@ define([
                 data: {id: this.state.purchaseOrderId},
                 url: '/products/purchaseOrders/download',
                 success: function (response) {
-                    var uri = 'data:text/csv;charset=utf-8,' + response;
+                    var uri = 'data:text/csv;charset=utf-8;base64,' + btoa(response);
 
                     var downloadLink = document.createElement("a");
                     downloadLink.href = uri;
