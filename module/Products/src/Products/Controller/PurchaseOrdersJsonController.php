@@ -34,6 +34,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     const ROUTE_DELETE = 'AJAX Delete';
     const ROUTE_SAVE = 'AJAX Save';
     const ROUTE_CREATE = 'AJAX Create';
+    const DEFAULT_PO_STATUS = 'In Progress';
 
     protected $jsonModelFactory;
     protected $purchaseOrderService;
@@ -70,9 +71,10 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
         $purchaseOrder = $this->purchaseOrderMapper->fromArray([
             'externalId' => $externalId,
-            'items' => $this->buildPurchaseOrderItemsCollection($products),
+            'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+            'status' => static::DEFAULT_PO_STATUS,
+            'created' => date('Y-m-d H:i:s'),
         ]);
-        $purchaseOrder->setCreated(date('Y-m-d H:i:s'));
         $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder);
 
         $id = $purchaseOrder->getId();
