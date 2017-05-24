@@ -54,6 +54,7 @@ define([
             this.setState({
                 purchaseOrderNumber: DEFAULT_PO_NUMBER,
                 purchaseOrderStatus: DEFAULT_PO_STATUS,
+                purchaseOrderId: 0,
                 purchaseOrderItems: []
             }, afterResetCallback);
         },
@@ -170,7 +171,7 @@ define([
                 method: 'POST',
                 data: {
                     id: this.state.purchaseOrderId,
-                    number: this.state.purchaseOrderNumber,
+                    externalId: this.state.purchaseOrderNumber,
                     products: JSON.stringify(this.state.purchaseOrderItems)
                 },
                 url: url,

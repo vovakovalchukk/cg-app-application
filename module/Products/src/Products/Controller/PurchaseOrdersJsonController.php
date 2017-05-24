@@ -65,11 +65,11 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     public function createAction()
     {
-        $number = $this->params()->fromPost('number');
+        $externalId = $this->params()->fromPost('externalId');
         $products = $this->params()->fromPost('products');
 
         $purchaseOrder = $this->purchaseOrderMapper->fromArray([
-            'number' => $number,
+            'externalId' => $externalId,
             'items' => $this->buildPurchaseOrderItemsCollection($products),
         ]);
         $purchaseOrder->setCreated(date('Y-m-d H:i:s'));
@@ -86,14 +86,14 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     public function saveAction()
     {
         $id = $this->params()->fromPost('id');
-        $number = $this->params()->fromPost('number');
+        $externalId = $this->params()->fromPost('externalId');
         $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('products'), true);
         $purchaseOrder = null;
         $poError = false;
 
         try {
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
-            $purchaseOrder->setExternalId($number);
+            $purchaseOrder->setExternalId($externalId);
             $this->purchaseOrderService->save($purchaseOrder);
         } catch (NotModified $e) {
             $poError = true;
