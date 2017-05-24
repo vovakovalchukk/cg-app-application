@@ -1999,7 +1999,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "c32a6e5c04b8443a4e52d77182a72b92df94b05b"
+                "reference": "4d2afe73e2c72c1ea60bd58bb76f26540290c928"
             },
             "require": {
                 "channelgrabber/stdlib": "^2.12.42"
