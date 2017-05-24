@@ -84,7 +84,11 @@ class Service
         $fileContents
     ) {
         $this->notifyOfUpload($userId);
+
+        /*** @var ImportFile $fileEntity */
         $fileEntity = $this->saveFile($updateOption, $fileContents);
+        $fileEntity->setOrganisationUnitId($organisationUnitId);
+        $fileEntity->setUserId($userId);
 
         $this->createJob($fileEntity);
     }
