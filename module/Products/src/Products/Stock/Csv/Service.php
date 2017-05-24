@@ -86,17 +86,15 @@ class Service
         $this->notifyOfUpload($userId);
 
         /*** @var ImportFile $fileEntity */
-        $fileEntity = $this->saveFile($updateOption, $fileContents);
-        $fileEntity->setOrganisationUnitId($organisationUnitId);
-        $fileEntity->setUserId($userId);
+        $fileEntity = $this->saveFile($updateOption, $fileContents, $userId, $organisationUnitId);
 
         $this->createJob($fileEntity);
     }
 
-    protected function saveFile($updateOption, $fileContents)
+    protected function saveFile($updateOption, $fileContents, $userId, $organisationUnitId)
     {
         return $this->importFileStorage->save(
-            $this->importFileMapper->fromUpload($updateOption, $fileContents)
+            $this->importFileMapper->fromUpload($updateOption, $fileContents, $userId, $organisationUnitId)
         );
     }
 
