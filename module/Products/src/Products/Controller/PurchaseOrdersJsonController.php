@@ -140,11 +140,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     public function listAction()
     {
         $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $filter = (new PurchaseOrderFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId([$ouId]);
-        $records = $this->purchaseOrderService->fetchCollectionByFilter($filter);
+        $records = $this->purchaseOrderService->fetchAllForOu($ouId);
 
         return $this->jsonModelFactory->newInstance([
             'list' => $this->purchaseOrderMapper->hydratePurchaseOrdersWithProducts($records, $ouId),
