@@ -172,7 +172,7 @@ define([
                 data: {
                     id: this.state.purchaseOrderId,
                     externalId: this.state.purchaseOrderNumber,
-                    products: JSON.stringify(this.state.purchaseOrderItems)
+                    purchaseOrderItems: JSON.stringify(this.state.purchaseOrderItems)
                 },
                 url: url,
                 success: function (response) {

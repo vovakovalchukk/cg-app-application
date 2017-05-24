@@ -66,7 +66,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     public function createAction()
     {
         $externalId = $this->params()->fromPost('externalId');
-        $products = $this->params()->fromPost('products');
+        $purchaseOrderItems = json_decode($this->params()->fromPost('purchaseOrderItems'), true);
 
         $purchaseOrder = $this->purchaseOrderMapper->fromArray([
             'externalId' => $externalId,
@@ -87,7 +87,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
     {
         $id = $this->params()->fromPost('id');
         $externalId = $this->params()->fromPost('externalId');
-        $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('products'), true);
+        $updatedPurchaseOrderItems = json_decode($this->params()->fromPost('purchaseOrderItems'), true);
         $purchaseOrder = null;
         $poError = false;
 
