@@ -182,7 +182,7 @@ define([
                     }
                     if (response.id) {
                         this.setState({
-                            id: response.id
+                            purchaseOrderId: response.id
                         });
                     }
                     window.triggerEvent('purchaseOrderListRefresh');

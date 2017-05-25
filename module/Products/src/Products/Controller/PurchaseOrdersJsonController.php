@@ -56,11 +56,9 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         ]);
         $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder, $purchaseOrderItems);
 
-        $id = $purchaseOrder->getId();
-
         return $this->jsonModelFactory->newInstance([
             'success' => true,
-            'id' => $id,
+            'id' => $purchaseOrder->getId(),
         ]);
     }
 
