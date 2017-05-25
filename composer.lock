@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d019a527fcb2eda5ed04ec9161aa2e51",
+    "content-hash": "0c4071d63b3bb9ad1399a88eef5e753a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1558,17 +1558,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.10",
+            "version": "dev-CGIV-8431-linked-orders-international-ship-fatal",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "50b3e8875986a78534c657a754751250a04b12c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.10-aa21d3.zip",
-                "reference": "50b3e8875986a78534c657a754751250a04b12c5",
-                "shasum": null
+                "reference": "0626113c9fe2a631b698d5db3ebb26620e914b0c"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -4099,7 +4093,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5441,7 +5435,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8886,16 +8880,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.11",
+            "alias_normalized": "1.28.11.0",
+            "version": "dev-CGIV-8431-linked-orders-international-ship-fatal",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
