@@ -19,6 +19,11 @@ define([
                 active: this.props.initiallyActive
             };
         },
+        componentWillReceiveProps: function (nextProps) {
+            this.setState({
+                active: nextProps.initiallyActive
+            });
+        },
         getPopupMarkup: function () {
             if (! this.state.active) {
                 return;

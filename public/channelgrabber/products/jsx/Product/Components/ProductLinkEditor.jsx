@@ -15,7 +15,6 @@ define([
         },
         render: function()
         {
-            console.log(!!this.props.productName.length);
             return (
                 <Popup
                     initiallyActive={!!this.props.productName.length}
