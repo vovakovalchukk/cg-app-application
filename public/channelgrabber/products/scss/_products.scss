@@ -588,3 +588,12 @@ div.tether-element div.hover-link {
         text-align: right;
     }
 }
+
+.react-popup {
+    max-width: 60%;
+    left: 20%;
+    top: 20%;
+    .react-popup-buttons {
+        justify-content: space-around;
+    }
+}
