@@ -26,7 +26,7 @@ define([
             this.setState({ hover: false });
         },
         onClick: function () {
-            window.triggerEvent('productLinkEditClicked', {sku: this.props.sku});
+            window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, linkedProducts: this.props.linkedProducts});
         },
         onLinkRowClick: function (sku) {
             window.triggerEvent('productLinkSkuClicked', {sku: sku});
