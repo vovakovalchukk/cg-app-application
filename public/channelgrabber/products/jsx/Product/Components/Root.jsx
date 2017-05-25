@@ -164,9 +164,10 @@ define([
         },
         onEditProductLink: function (event) {
             var productSku = event.detail.sku;
-            console.log(productSku);
+            var linkedProducts = event.detail.linkedProducts;
             this.setState({
-                productLinkEdit: productSku
+                productLinkEdit: productSku,
+                linkedProductsEdit: linkedProducts
             });
         },
         onSkuRequest: function (event) {

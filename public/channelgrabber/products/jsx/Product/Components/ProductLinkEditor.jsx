@@ -1,9 +1,13 @@
 define([
     'react',
     'Common/Components/Popup',
+    'Common/Components/ProductDropdown/Dropdown',
+    'Common/Components/ItemRow'
 ], function(
     React,
-    Popup
+    Popup,
+    ProductDropdown,
+    ItemRow
 ) {
     "use strict";
 
@@ -12,6 +16,54 @@ define([
             return {
                 productName: ""
             }
+        },
+        componentDidMount: function()
+        {
+            window.addEventListener('productSelection', this.onProductSelected);
+        },
+        componentWillUnmount: function()
+        {
+            window.removeEventListener('productSelection', this.onProductSelected);
+        },
+        addProductLinkMulti: function (items) {
+            var linkedProducts = this.state.linkedProducts.slice();
+
+            items.forEach(function (item) {
+                var alreadyAddedToForm = linkedProducts.find(function (row) {
+                    if (row.sku === item.sku) {
+                        row.quantity += parseInt(item.quantity);
+                        return true;
+                    }
+                });
+                if (! alreadyAddedToForm) {
+                    linkedProducts[].push({product: item.product, sku: item.sku, quantity: item.quantity});
+                }
+            });
+
+            this.setState({
+                linkedProducts: linkedProducts
+            });
+        },
+        addProductLink: function (product, sku, quantity) {
+            var linkedProducts = this.state.linkedProducts.slice();
+
+            var alreadyAddedToForm = linkedProducts.find(function (row) {
+                if (row.sku === sku) {
+                    row.quantity += parseInt(quantity);
+                    return true;
+                }
+            });
+            if (! alreadyAddedToForm) {
+                linkedProducts.push({product: product, sku: sku, quantity: quantity});
+            }
+
+            this.setState({
+                linkedProducts: linkedProducts
+            });
+        },
+        onProductSelected: function (event) {
+            var data = event.detail;
+            this.addProductLink(data.product, data.sku, data.quantity);
         },
         render: function()
         {
@@ -29,19 +81,7 @@ define([
                             Once the products are linked this item will no longer have its own stock.
                             Instead its stock level will be calculated based on the available stock of the product it is linked to.
                         </p>
-                        <ProductDropdown disabled={!this.props.editable} />
-                        <div className="product-list" disabled={!this.props.editable}>
-                            {this.props.purchaseOrderItems.map(function (row) {
-                                return (
-                                    <ItemRow row={row}
-                                        disabled={!this.props.editable}
-                                        onSkuChange={this.props.onSkuChanged}
-                                        onStockQuantityUpdate={this.props.onStockQuantityUpdated}
-                                        onRowRemove={this.props.onRowRemove}
-                                    />
-                                );
-                            }.bind(this))}
-                        </div>
+                        <ProductDropdown />
                     </div>
                 </Popup>
             );
