@@ -19,6 +19,11 @@ define([
                 active: this.props.initiallyActive
             };
         },
+        componentWillReceiveProps: function (nextProps) {
+            this.setState({
+                active: nextProps.initiallyActive
+            });
+        },
         componentDidMount: function () {
             window.addEventListener('triggerPopup', this.triggerPopup);
         },
