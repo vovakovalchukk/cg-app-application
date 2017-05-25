@@ -705,7 +705,7 @@
                 "psr-4": {
                     "CG\\Courier\\": "src"
                 }
-            },<
+            },
             "autoload-dev": {
                 "psr-4": {
                     "CG\\Courier\\Test\\": "tests"
