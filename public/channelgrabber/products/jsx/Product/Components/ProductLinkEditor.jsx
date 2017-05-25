@@ -69,7 +69,7 @@ define([
         {
             return (
                 <Popup
-                    initiallyActive={!!this.props.productLink.sku.length}
+                    initiallyActive={!!this.props.productLink.sku}
                     onYesButtonPressed={this.props.onYesButtonPressed}
                     onNoButtonPressed={this.props.onNoButtonPressed}
                     headerText={"Select products to link to "+this.props.productLink.sku}
