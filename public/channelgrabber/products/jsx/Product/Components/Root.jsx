@@ -23,7 +23,7 @@ define([
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
-                imageBasePath: this.props.imageBasePath,
+                imageUtils: this.props.utilities.image,
                 isAdmin: this.props.isAdmin,
                 initialVariationCount: INITIAL_VARIATION_COUNT
             };
@@ -276,7 +276,7 @@ define([
     });
 
     RootComponent.childContextTypes = {
-        imageBasePath: React.PropTypes.string,
+        imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };

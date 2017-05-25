@@ -405,7 +405,7 @@ define([
     });
 
     ProductRowComponent.contextTypes = {
-        imageBasePath: React.PropTypes.string,
+        imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };

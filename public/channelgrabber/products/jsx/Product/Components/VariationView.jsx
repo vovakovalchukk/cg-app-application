@@ -62,10 +62,7 @@ define([
                 return variation.images[0]['url'];
             }
 
-            if (this.props.parentProduct.images && this.props.parentProduct.images.length > 0) {
-                return this.props.parentProduct.images[0]['url'];
-            }
-            return this.context.imageBasePath + '/noproductsimage.png';
+            return this.context.imageUtils.getImageSource(this.props.parentProduct);
         },
         render: function () {
             var imageRow = 0;
@@ -128,7 +125,7 @@ define([
     });
 
     VariationViewComponent.contextTypes = {
-        imageBasePath: React.PropTypes.string
+        imageUtils: React.PropTypes.object
     };
 
     return VariationViewComponent;
