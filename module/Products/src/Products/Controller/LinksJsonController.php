@@ -5,32 +5,41 @@ namespace Products\Controller;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG\User\ActiveUserInterface;
 
 use CG\Product\Link\Filter as ProductLinkFilter;
 use CG\Product\Link\Service as ProductLinkService;
 use CG\Product\Link\Mapper as ProductLinkMapper;
+use CG\Product\Filter as ProductFilter;
+use CG\Product\Service\Service as ProductService;
 
 class LinksJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'Links AJAX';
 
     protected $jsonModelFactory;
+    protected $activeUserContainer;
     protected $productLinkService;
+    protected $productService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        ProductLinkService $productLinkService
+        ActiveUserInterface $activeUserContainer,
+        ProductLinkService $productLinkService,
+        ProductService $productService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->activeUserContainer = $activeUserContainer;
         $this->productLinkService = $productLinkService;
+        $this->productService = $productService;
     }
 
     public function ajaxAction()
     {
-        $products = json_decode($this->params()->fromPost('products'), true);
+        $productIds = json_decode($this->params()->fromPost('products'), true);
 
         $allVariationsBySkus = [];
-        foreach ($products as $parentProductId => $variations) {
+        foreach ($productIds as $parentProductId => $variations) {
             foreach ($variations as $variation) {
                 $allVariationsBySkus[$variation['sku']] = $variation;
             }
@@ -42,6 +51,13 @@ class LinksJsonController extends AbstractActionController
             $productLinks = $this->productLinkService->fetchCollectionByFilter($filter);
         } catch(NotFound $e) {
             $productLinks = [];
+        }
+
+        try {
+            $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            $products = $this->productService->fetchCollectionByOUAndId([$ouId], array_keys($productIds));
+        } catch(NotFound $e) {
+            $products = [];
         }
 
         $productLinksByProductId = [];
@@ -57,6 +73,7 @@ class LinksJsonController extends AbstractActionController
                         'sku' => $stockSku,
                         'quantity' => $stockQty,
                         'imageUrl' => $imageUrl,
+                        'product' => $products->getById($variation['parentProductId'])->toArray()
                     ];
                 }
             }
