@@ -591,9 +591,9 @@ div.tether-element div.hover-link {
 
 .react-popup {
     max-width: 60%;
-    left: 20%;
-    top: 20%;
+    left: 20% !important;
+    top: 20% !important;
     .react-popup-buttons {
-        justify-content: space-around;
+        justify-content: space-around !important;
     }
 }
