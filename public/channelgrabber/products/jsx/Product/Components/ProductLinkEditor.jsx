@@ -1,6 +1,6 @@
 define([
     'react',
-    'Common/Components/Popup'
+    'Common/Components/Popup',
 ], function(
     React,
     Popup
@@ -25,7 +25,23 @@ define([
                     noButtonText="Cancel"
                 >
                     <div id="product-link-editor">
-                        Hello World
+                        <p>
+                            Once the products are linked this item will no longer have its own stock.
+                            Instead its stock level will be calculated based on the available stock of the product it is linked to.
+                        </p>
+                        <ProductDropdown disabled={!this.props.editable} />
+                        <div className="product-list" disabled={!this.props.editable}>
+                            {this.props.purchaseOrderItems.map(function (row) {
+                                return (
+                                    <ItemRow row={row}
+                                        disabled={!this.props.editable}
+                                        onSkuChange={this.props.onSkuChanged}
+                                        onStockQuantityUpdate={this.props.onStockQuantityUpdated}
+                                        onRowRemove={this.props.onRowRemove}
+                                    />
+                                );
+                            }.bind(this))}
+                        </div>
                     </div>
                 </Popup>
             );
