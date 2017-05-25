@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "56d5db6a7425e7f6846a7631496c78f8",
+    "content-hash": "9bb1461c4c871fa75138e79042aacc8f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2479,11 +2479,11 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-8414-additional-csv-file-fields",
+            "version": "dev-CGIV-8399-stock-import-interface",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "6934109435a2344d7aa14c64a4691587b108b510"
+                "reference": "5f4717ca4593044cf437dd892a042811c79228de"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -8885,6 +8885,18 @@
             "alias": "1.8.7",
             "alias_normalized": "1.8.7.0",
             "version": "dev-CGIV-8414-additional-csv-file-fields",
+            "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.8.7",
+            "alias_normalized": "1.8.7.0",
+            "version": "dev-CGIV-8405-frontend-save-csv-to-s3",
+            "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.8.7",
+            "alias_normalized": "1.8.7.0",
+            "version": "dev-CGIV-8399-stock-import-interface",
             "package": "channelgrabber/stock"
         }
     ],
