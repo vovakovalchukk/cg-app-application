@@ -6,7 +6,7 @@ define([
     };
     Image.prototype.getImageSource = function(product) {
         var noProductImage = this.imageBasePath+'/noproductsimage.png';
-        return product.images.length > 0 ? product.images[0]['url'] : noProductImage;
+        return product.images && product.images.length > 0 ? product.images[0]['url'] : noProductImage;
     };
 
     Image.prototype.getProductImage = function(product, sku) {
