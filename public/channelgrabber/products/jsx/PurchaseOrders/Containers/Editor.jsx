@@ -145,7 +145,7 @@ define([
             });
         },
         onDeletePurchaseOrder: function () {
-
+            n.notice('Deleting the purchase order.');
             this.deletePurchaseOrderRequest = $.ajax({
                 method: 'POST',
                 data: {id: this.state.purchaseOrderId},
@@ -158,7 +158,7 @@ define([
                     window.triggerEvent('purchaseOrderListRefresh');
                     this.resetEditor();
                     n.success('Successfully deleted the purchase order.');
-                }
+                }.bind(this)
             });
         },
         onSavePurchaseOrder: function () {
