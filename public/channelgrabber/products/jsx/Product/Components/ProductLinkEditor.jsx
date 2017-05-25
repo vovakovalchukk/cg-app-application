@@ -14,7 +14,7 @@ define([
     var ProductLinkEditorComponent = React.createClass({
         getDefaultProps: function () {
             return {
-                productName: ""
+                productLink: {}
             }
         },
         componentDidMount: function()
@@ -26,39 +26,39 @@ define([
             window.removeEventListener('productSelection', this.onProductSelected);
         },
         addProductLinkMulti: function (items) {
-            var linkedProducts = this.state.linkedProducts.slice();
+            var productLinks = this.state.productLinks.slice();
 
             items.forEach(function (item) {
-                var alreadyAddedToForm = linkedProducts.find(function (row) {
+                var alreadyAddedToForm = productLinks.find(function (row) {
                     if (row.sku === item.sku) {
                         row.quantity += parseInt(item.quantity);
                         return true;
                     }
                 });
                 if (! alreadyAddedToForm) {
-                    linkedProducts[].push({product: item.product, sku: item.sku, quantity: item.quantity});
+                    //productLinks[].push({product: item.product, sku: item.sku, quantity: item.quantity});
                 }
             });
 
             this.setState({
-                linkedProducts: linkedProducts
+                productLinks: productLinks
             });
         },
         addProductLink: function (product, sku, quantity) {
-            var linkedProducts = this.state.linkedProducts.slice();
+            var productLinks = this.state.productLinks.slice();
 
-            var alreadyAddedToForm = linkedProducts.find(function (row) {
+            var alreadyAddedToForm = productLinks.find(function (row) {
                 if (row.sku === sku) {
                     row.quantity += parseInt(quantity);
                     return true;
                 }
             });
             if (! alreadyAddedToForm) {
-                linkedProducts.push({product: product, sku: sku, quantity: quantity});
+                productLinks.push({product: product, sku: sku, quantity: quantity});
             }
 
             this.setState({
-                linkedProducts: linkedProducts
+                productLinks: productLinks
             });
         },
         onProductSelected: function (event) {
@@ -69,10 +69,10 @@ define([
         {
             return (
                 <Popup
-                    initiallyActive={!!this.props.productName.length}
+                    initiallyActive={!!this.props.productLink.sku.length}
                     onYesButtonPressed={this.props.onYesButtonPressed}
                     onNoButtonPressed={this.props.onNoButtonPressed}
-                    headerText={"Select products to link to "+this.props.productName}
+                    headerText={"Select products to link to "+this.props.productLink.sku}
                     yesButtonText="Save"
                     noButtonText="Cancel"
                 >

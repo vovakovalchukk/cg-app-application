@@ -11,7 +11,7 @@ define([
         getDefaultProps: function () {
             return {
                 sku: "",
-                linkedProducts: []
+                productLinks: []
             }
         },
         getInitialState: function() {
@@ -26,13 +26,13 @@ define([
             this.setState({ hover: false });
         },
         onClick: function () {
-            window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, linkedProducts: this.props.linkedProducts});
+            window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
         },
         onLinkRowClick: function (sku) {
             window.triggerEvent('productLinkSkuClicked', {sku: sku});
         },
         getHoverContent: function () {
-            if (this.props.linkedProducts.length === 0) {
+            if (this.props.productLinks.length === 0) {
                 return (
                     <div className="hover-link-none-msg">
                         <span>No linked products</span>
@@ -40,7 +40,7 @@ define([
                 );
             }
 
-            return this.props.linkedProducts.map(function(linkedProduct) {
+            return this.props.productLinks.map(function(linkedProduct) {
                 return (
                     <div key={linkedProduct.sku}
                          className="hover-link-row"
@@ -58,7 +58,7 @@ define([
             var hoverImageStyle = {
                 display: (this.state.hover ? "block" : "none")
             };
-            var spriteClass = (this.props.linkedProducts.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
+            var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
             return (
                 <TetherComponent
                     attachment="top left"

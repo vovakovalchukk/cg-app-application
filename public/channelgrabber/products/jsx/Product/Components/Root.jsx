@@ -40,8 +40,8 @@ define([
             return {
                 products: [],
                 variations: [],
-                linkedProducts: [],
-                productLinkEdit: "",
+                allProductLinks: [],
+                editingProductLink: {},
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
@@ -132,11 +132,11 @@ define([
                 type: 'POST',
                 success: function (response) {
                     var products = [];
-                    if (response.linkedProducts) {
-                        products = response.linkedProducts;
+                    if (response.productLinks) {
+                        products = response.productLinks;
                     }
                     this.setState({
-                        linkedProducts: products
+                        allProductLinks: products
                     });
                 }.bind(this),
                 error: function(error) {
@@ -164,10 +164,12 @@ define([
         },
         onEditProductLink: function (event) {
             var productSku = event.detail.sku;
-            var linkedProducts = event.detail.linkedProducts;
+            var productLinks = event.detail.productLinks;
             this.setState({
-                productLinkEdit: productSku,
-                linkedProductsEdit: linkedProducts
+                editingProductLink: {
+                    sku: productSku,
+                    productLinks: productLinks
+                }
             });
         },
         onSkuRequest: function (event) {
@@ -255,7 +257,7 @@ define([
                     key={object.id}
                     product={object}
                     variations={this.state.variations[object.id]}
-                    linkedProducts={this.state.linkedProducts[object.id]}
+                    productLinks={this.state.allProductLinks[object.id]}
                     maxVariationAttributes={this.state.maxVariationAttributes}
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                 />;
@@ -269,7 +271,7 @@ define([
                     <div id="products-list">
                         {this.renderProducts()}
                     </div>
-                    <ProductLinkEditor productName={this.state.productLinkEdit}/>
+                    <ProductLinkEditor productLink={this.state.editingProductLink}/>
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );

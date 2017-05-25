@@ -38,7 +38,7 @@ define([
             return {
                 product: [],
                 variations: [],
-                linkedProducts: {},
+                productLinks: {},
                 maxVariationAttributes: 0
             }
         },
@@ -78,7 +78,7 @@ define([
                     variationsSort={this.state.variationsSort}
                     attributeNames={this.props.product.attributeNames}
                     variations={this.state.variations}
-                    linkedProducts={this.props.linkedProducts}
+                    productLinks={this.props.productLinks}
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
                 />;

@@ -13,7 +13,7 @@ define([
         getDefaultProps: function() {
             return {
                 variations: [],
-                linkedProducts: {},
+                productLinks: {},
                 attributeNames: [],
                 parentProduct: {},
                 fullView: false
@@ -92,7 +92,7 @@ define([
                                             <td key="link" className="link-cell">
                                                 <Link
                                                     sku={variation.sku}
-                                                    linkedProducts={this.props.linkedProducts[variation.id] ? this.props.linkedProducts[variation.id] : []}
+                                                    productLinks={this.props.productLinks[variation.id] ? this.props.productLinks[variation.id] : []}
                                                 />
                                             </td>
                                         </tr>

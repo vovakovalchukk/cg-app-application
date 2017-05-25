@@ -39,21 +39,21 @@ class LinksJsonController extends AbstractActionController
         try {
             $filter = (new ProductLinkFilter('all', 1))
                 ->setProductSku(array_keys($allVariationsBySkus));
-            $linkedProducts = $this->productLinkService->fetchCollectionByFilter($filter);
+            $productLinks = $this->productLinkService->fetchCollectionByFilter($filter);
         } catch(NotFound $e) {
-            $linkedProducts = [];
+            $productLinks = [];
         }
 
-        $linkedProductsByProductId = [];
+        $productLinksByProductId = [];
         foreach ($allVariationsBySkus as $sku => $variation) {
-            $linkedProduct = $linkedProducts->getById($variation['organisationUnitId'].'-'.$sku);
+            $linkedProduct = $productLinks->getById($variation['organisationUnitId'].'-'.$sku);
             if ($linkedProduct) {
                 foreach ($linkedProduct->getStockSkuMap() as $stockSku => $stockQty) {
                     $imageUrl = "";
                     if (isset($allVariationsBySkus[$stockSku]) && isset($allVariationsBySkus[$stockSku]['images'][0])) {
                         $imageUrl = $allVariationsBySkus[$stockSku]['images'][0]['url'];
                     }
-                    $linkedProductsByProductId[$variation['parentProductId']][$variation['id']][] = [
+                    $productLinksByProductId[$variation['parentProductId']][$variation['id']][] = [
                         'sku' => $stockSku,
                         'quantity' => $stockQty,
                         'imageUrl' => $imageUrl,
@@ -63,7 +63,7 @@ class LinksJsonController extends AbstractActionController
         }
 
         return $this->jsonModelFactory->newInstance([
-            'linkedProducts' => $linkedProductsByProductId
+            'productLinks' => $productLinksByProductId
         ]);
     }
 }
