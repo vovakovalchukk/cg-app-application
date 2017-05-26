@@ -237,6 +237,14 @@ define([
         onPageChange: function(pageNumber) {
             this.performProductsRequest(pageNumber);
         },
+        onProductLinksEditorClose: function () {
+            this.setState({
+                editingProductLink: {
+                    sku: "",
+                    links: []
+                }
+            });
+        },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
@@ -274,7 +282,7 @@ define([
                     <div id="products-list">
                         {this.renderProducts()}
                     </div>
-                    <ProductLinkEditor productLink={this.state.editingProductLink}/>
+                    <ProductLinkEditor productLink={this.state.editingProductLink} onEditorClose={this.onProductLinksEditorClose} />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );

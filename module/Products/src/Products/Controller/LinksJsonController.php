@@ -22,6 +22,7 @@ class LinksJsonController extends AbstractActionController
     protected $jsonModelFactory;
     protected $activeUserContainer;
     protected $productLinkService;
+    protected $productLinkMapper;
     protected $productService;
     protected $productMapper;
 
@@ -29,12 +30,14 @@ class LinksJsonController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ActiveUserInterface $activeUserContainer,
         ProductLinkService $productLinkService,
+        ProductLinkMapper $productLinkMapper,
         ProductService $productService,
         ProductMapper $productMapper
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->activeUserContainer = $activeUserContainer;
         $this->productLinkService = $productLinkService;
+        $this->productLinkMapper = $productLinkMapper;
         $this->productService = $productService;
         $this->productMapper = $productMapper;
     }
@@ -92,8 +95,21 @@ class LinksJsonController extends AbstractActionController
 
     public function saveAction()
     {
+        $ou = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $sku = $this->params()->fromPost('sku');
         $links = json_decode($this->params()->fromPost('links'), true);
+
+        try {
+            $productLink = $this->productLinkService->fetch($ou . '-' . $sku);
+            $productLink->setStockSkuMap($this->productLinkMapper->convertToStockSkuMap($links));
+        } catch (NotFound $e) {
+            $productLink = $this->productLinkMapper->fromArray([
+                'organisationUnitId' => $ou,
+                'sku' => $sku,
+                'stock' => $this->productLinkMapper->convertToStockSkuMap($links)
+            ]);
+        }
+        $this->productLinkService->save($productLink);
 
         return $this->jsonModelFactory->newInstance([
             'success' => true

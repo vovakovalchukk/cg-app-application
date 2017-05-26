@@ -27,12 +27,10 @@ define([
             };
         },
         componentWillReceiveProps: function (newProps) {
-            if (newProps.productLink.links && newProps.productLink.links.length) {
-                this.setState({
-                    sku: newProps.productLink.sku,
-                    links: newProps.productLink.links
-                });
-            }
+            this.setState({
+                sku: newProps.productLink.sku,
+                links: newProps.productLink.links
+            });
         },
         componentDidMount: function() {
             window.addEventListener('productSelection', this.onProductSelected);
@@ -128,12 +126,20 @@ define([
                 }.bind(this)
             });
         },
+        onEditorReset: function () {
+            this.setState({
+                sku: "",
+                links: []
+            });
+            this.props.onEditorClose();
+        },
         render: function()
         {
             return (
                 <Popup
                     initiallyActive={!!this.state.sku}
                     onYesButtonPressed={this.onSaveProductLinks}
+                    onNoButtonPressed={this.onEditorReset}
                     headerText={"Select products to link to "+this.props.productLink.sku}
                     yesButtonText="Save"
                     noButtonText="Cancel"
