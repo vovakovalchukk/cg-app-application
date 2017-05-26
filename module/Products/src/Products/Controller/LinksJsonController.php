@@ -12,6 +12,7 @@ use CG\Product\Link\Service as ProductLinkService;
 use CG\Product\Link\Mapper as ProductLinkMapper;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Service\Service as ProductService;
+use CG\Product\Mapper as ProductMapper;
 
 class LinksJsonController extends AbstractActionController
 {
@@ -22,17 +23,20 @@ class LinksJsonController extends AbstractActionController
     protected $activeUserContainer;
     protected $productLinkService;
     protected $productService;
+    protected $productMapper;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ActiveUserInterface $activeUserContainer,
         ProductLinkService $productLinkService,
-        ProductService $productService
+        ProductService $productService,
+        ProductMapper $productMapper
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->activeUserContainer = $activeUserContainer;
         $this->productLinkService = $productLinkService;
         $this->productService = $productService;
+        $this->productMapper = $productMapper;
     }
 
     public function ajaxAction()
@@ -70,11 +74,12 @@ class LinksJsonController extends AbstractActionController
                     if (isset($allVariationsBySkus[$stockSku]) && isset($allVariationsBySkus[$stockSku]['images'][0])) {
                         $imageUrl = $allVariationsBySkus[$stockSku]['images'][0]['url'];
                     }
+                    $product = $products->getById($variation['parentProductId']);
                     $productLinksByProductId[$variation['parentProductId']][$variation['id']][] = [
                         'sku' => $stockSku,
                         'quantity' => $stockQty,
                         'imageUrl' => $imageUrl,
-                        'product' => $products->getById($variation['parentProductId'])->toArray()
+                        'product' => $this->productMapper->getFullProductDataArray($product)
                     ];
                 }
             }
