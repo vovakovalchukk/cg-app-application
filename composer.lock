@@ -705,7 +705,7 @@
                 "psr-4": {
                     "CG\\Courier\\": "src"
                 }
-            },
+            },<
             "autoload-dev": {
                 "psr-4": {
                     "CG\\Courier\\Test\\": "tests"
@@ -2479,17 +2479,11 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.8.2",
+            "version": "dev-CGIV-8414-additional-csv-file-fields",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "4378ea9ae661f78865ad11a76a32167d2ba64101"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.2-299227.zip",
-                "reference": "4378ea9ae661f78865ad11a76a32167d2ba64101",
-                "shasum": null
+                "reference": "6934109435a2344d7aa14c64a4691587b108b510"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -5441,7 +5435,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8886,16 +8880,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.8.7",
+            "alias_normalized": "1.8.7.0",
+            "version": "dev-CGIV-8414-additional-csv-file-fields",
+            "package": "channelgrabber/stock"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/stock": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
