@@ -41,7 +41,10 @@ define([
                 products: [],
                 variations: [],
                 allProductLinks: [],
-                editingProductLink: {},
+                editingProductLink: {
+                    sku: "",
+                    links: []
+                },
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
@@ -168,7 +171,7 @@ define([
             this.setState({
                 editingProductLink: {
                     sku: productSku,
-                    productLinks: productLinks
+                    links: productLinks
                 }
             });
         },
