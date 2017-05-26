@@ -221,6 +221,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    LinksJsonController::ROUTE_SAVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/save',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'save'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
 
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,

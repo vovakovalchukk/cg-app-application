@@ -16,6 +16,7 @@ use CG\Product\Service\Service as ProductService;
 class LinksJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'Links AJAX';
+    const ROUTE_SAVE = 'Links Save';
 
     protected $jsonModelFactory;
     protected $activeUserContainer;
@@ -81,6 +82,16 @@ class LinksJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance([
             'productLinks' => $productLinksByProductId
+        ]);
+    }
+
+    public function saveAction()
+    {
+        $sku = $this->params()->fromPost('sku');
+        $links = json_decode($this->params()->fromPost('links'), true);
+
+        return $this->jsonModelFactory->newInstance([
+            'success' => true
         ]);
     }
 }

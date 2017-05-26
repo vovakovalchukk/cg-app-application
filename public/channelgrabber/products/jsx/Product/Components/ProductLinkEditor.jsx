@@ -27,10 +27,9 @@ define([
             };
         },
         componentWillReceiveProps: function (newProps) {
-            console.log('Components received new props', newProps);
-
             if (newProps.productLink.links && newProps.productLink.links.length) {
                 this.setState({
+                    sku: newProps.productLink.sku,
                     links: newProps.productLink.links
                 });
             }
@@ -40,25 +39,7 @@ define([
         },
         componentWillUnmount: function() {
             window.removeEventListener('productSelection', this.onProductSelected);
-        },
-        addProductLinkMulti: function (items) {
-            var links = this.state.links.slice();
-
-            items.forEach(function (item) {
-                var alreadyAddedToForm = links.find(function (row) {
-                    if (row.sku === item.sku) {
-                        row.quantity += parseInt(item.quantity);
-                        return true;
-                    }
-                });
-                if (! alreadyAddedToForm) {
-                    //links.push({product: item.product, sku: item.sku, quantity: item.quantity});
-                }
-            });
-
-            this.setState({
-                links: links
-            });
+            this.saveProductLinksRequest.abort();
         },
         addProductLink: function (product, sku, quantity) {
             var links = this.state.links.slice();
@@ -131,15 +112,27 @@ define([
             });
         },
         onSaveProductLinks: function () {
-            /**
-             * fire off ajax request to save product links
-             */
+            this.saveProductLinksRequest = $.ajax({
+                'url' : "/products/links/save",
+                'data' : {
+                    sku: this.state.sku,
+                    links: JSON.stringify(this.state.links)
+                },
+                'method' : 'POST',
+                'dataType' : 'json',
+                'success' : function (response) {
+
+                }.bind(this),
+                'error' : function (response) {
+
+                }.bind(this)
+            });
         },
         render: function()
         {
             return (
                 <Popup
-                    initiallyActive={!!this.props.productLink.sku}
+                    initiallyActive={!!this.state.sku}
                     onYesButtonPressed={this.onSaveProductLinks}
                     headerText={"Select products to link to "+this.props.productLink.sku}
                     yesButtonText="Save"
