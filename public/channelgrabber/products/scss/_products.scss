@@ -601,3 +601,18 @@ div.tether-element div.hover-link {
         justify-content: space-around !important;
     }
 }
+.product-dropdown {
+    margin-bottom: 7px;
+}
+.item-row {
+    margin-top: 5px;
+    .item-row-attributes {
+        margin-right: 10px;
+    }
+    .item-row-qty-input {
+        max-width: 80px;
+        input {
+            width: 50px;
+        }
+    }
+}
