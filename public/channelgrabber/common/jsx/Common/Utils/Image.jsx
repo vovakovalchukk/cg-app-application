@@ -6,13 +6,13 @@ define([
     };
     Image.prototype.getImageSource = function(product) {
         var noProductImage = this.imageBasePath+'/noproductsimage.png';
-        return product.images && product.images.length > 0 ? product.images[0]['url'] : noProductImage;
+        return product && product.images && product.images.length > 0 ? product.images[0]['url'] : noProductImage;
     };
 
     Image.prototype.getProductImage = function(product, sku) {
         var sku = sku || null;
 
-        if (! product.variations || sku === null) {
+        if (! product || ! product.variations || sku === null) {
             return this.getImageSource(product);
         }
 
