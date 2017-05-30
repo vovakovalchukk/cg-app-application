@@ -63,9 +63,21 @@ class LinksJsonController extends AbstractActionController
 
         try {
             $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-            $products = $this->productService->fetchCollectionByOUAndId([$ouId], array_keys($productIds));
+
+            $productLinkProductSkus = [];
+            foreach ($allVariationsBySkus as $sku => $variation) {
+                $linkedProduct = $productLinks->getById($variation['organisationUnitId'] . '-' . $sku);
+                if ($linkedProduct) {
+                    foreach ($linkedProduct->getStockSkuMap() as $stockSku => $stockQty) {
+                        $productLinkProductSkus[] = $stockSku;
+                    }
+                }
+            }
+            $productLinkProducts = $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus);
+            $parentProducts = $this->productService->fetchCollectionByOUAndId([$ouId], array_keys($productIds));
         } catch(NotFound $e) {
-            $products = [];
+            $productLinkProducts = [];
+            $parentProducts = [];
         }
 
         $productLinksByProductId = [];
@@ -77,12 +89,22 @@ class LinksJsonController extends AbstractActionController
                     if (isset($allVariationsBySkus[$stockSku]) && isset($allVariationsBySkus[$stockSku]['images'][0])) {
                         $imageUrl = $allVariationsBySkus[$stockSku]['images'][0]['url'];
                     }
-                    $product = $products->getById($variation['parentProductId']);
+                    $matchingProductLinkProducts = $productLinkProducts->getBy('sku', $stockSku);
+                    if (count($matchingProductLinkProducts)) {
+                        $matchingProductLinkProducts->rewind();
+                        $productLinkProduct = $matchingProductLinkProducts->current();
+                    }
+                    if ($productLinkProduct) {
+                        $parentProduct = $parentProducts->getById($productLinkProduct->getParentProductId());
+                    }
+                    /**
+                     * instead of getting parent product of variation, need to get parent product of $stockSku
+                     */
                     $productLinksByProductId[$variation['parentProductId']][$variation['id']][] = [
                         'sku' => $stockSku,
                         'quantity' => $stockQty,
                         'imageUrl' => $imageUrl,
-                        'product' => $this->productMapper->getFullProductDataArray($product)
+                        'product' => $parentProduct ? $this->productMapper->getFullProductDataArray($parentProduct) : null,
                     ];
                 }
             }
