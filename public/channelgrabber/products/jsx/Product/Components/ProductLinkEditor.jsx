@@ -114,6 +114,7 @@ define([
             });
         },
         onSaveProductLinks: function () {
+            n.notice('Saving product links.');
             this.saveProductLinksRequest = $.ajax({
                 'url' : "/products/links/save",
                 'data' : {
@@ -132,7 +133,8 @@ define([
                     n.success('Product links saved successfully.');
                 }.bind(this),
                 'error' : function (response) {
-
+                    var error = JSON.parse(response.responseText);
+                    n.error(error.message);
                 }.bind(this)
             });
         },
@@ -142,6 +144,7 @@ define([
             });
         },
         unlinkProducts: function () {
+            n.notice('Removing product links.');
             this.unlinkProductLinksRequest = $.ajax({
                 'url' : "/products/links/remove",
                 'data' : {
@@ -156,9 +159,11 @@ define([
                     },
                         this.onEditorReset()
                     );
+                    n.success('Product links removed successfully.');
                 }.bind(this),
                 'error' : function (response) {
-
+                    var error = JSON.parse(response.responseText);
+                    n.error(error.message);
                 }.bind(this)
             });
         },
