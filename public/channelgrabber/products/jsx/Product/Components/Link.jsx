@@ -64,7 +64,9 @@ define([
                          onClick={this.onLinkRowClick.bind(this, linkedProduct.sku)}
                          title="Click to search for this product."
                     >
-                        <span className="thumbnail"><img src={linkedProduct.imageUrl}/></span>
+                        <span className="thumbnail">
+                            <img src={linkedProduct.product ? this.context.imageUtils.getProductImage(linkedProduct.product, linkedProduct.sku) : ''} />
+                        </span>
                         <span className="sku">{linkedProduct.sku}</span>
                         <span className="stock">{linkedProduct.quantity}</span>
                     </div>
@@ -117,6 +119,10 @@ define([
             );
         }
     });
+
+    LinkComponent.contextTypes = {
+        imageUtils: React.PropTypes.object
+    };
 
     return LinkComponent;
 });

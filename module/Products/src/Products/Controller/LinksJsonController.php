@@ -85,10 +85,6 @@ class LinksJsonController extends AbstractActionController
             $linkedProduct = $productLinks->getById($variation['organisationUnitId'].'-'.$sku);
             if ($linkedProduct) {
                 foreach ($linkedProduct->getStockSkuMap() as $stockSku => $stockQty) {
-                    $imageUrl = "";
-                    if (isset($allVariationsBySkus[$stockSku]) && isset($allVariationsBySkus[$stockSku]['images'][0])) {
-                        $imageUrl = $allVariationsBySkus[$stockSku]['images'][0]['url'];
-                    }
                     $matchingProductLinkProducts = $productLinkProducts->getBy('sku', $stockSku);
                     if (count($matchingProductLinkProducts)) {
                         $matchingProductLinkProducts->rewind();
@@ -103,7 +99,6 @@ class LinksJsonController extends AbstractActionController
                     $productLinksByProductId[$variation['parentProductId']][$variation['id']][] = [
                         'sku' => $stockSku,
                         'quantity' => $stockQty,
-                        'imageUrl' => $imageUrl,
                         'product' => $parentProduct ? $this->productMapper->getFullProductDataArray($parentProduct) : null,
                     ];
                 }
