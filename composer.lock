@@ -3832,13 +3832,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "47d361ec712d0012511512389ee8b663dcc28c76"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8270-linked-products-ui-changes-7e17f0.zip",
-                "reference": "47d361ec712d0012511512389ee8b663dcc28c76",
-                "shasum": null
+                "reference": "2225b16972bd362b81bdb15c60118e4512e3bff8"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",

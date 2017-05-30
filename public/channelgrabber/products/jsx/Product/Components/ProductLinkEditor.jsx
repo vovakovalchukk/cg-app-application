@@ -2,11 +2,13 @@ define([
     'react',
     'Common/Components/Popup',
     'Common/Components/ProductDropdown/Dropdown',
+    'Common/Components/Button',
     'Common/Components/ItemRow'
 ], function(
     React,
     Popup,
     ProductDropdown,
+    Button,
     ItemRow
 ) {
     "use strict";
@@ -23,7 +25,8 @@ define([
         getInitialState: function () {
             return {
                 sku: this.props.productLink.sku,
-                links: this.props.productLink.links
+                links: this.props.productLink.links,
+                availableStock: 0
             };
         },
         componentWillReceiveProps: function (newProps) {
@@ -56,6 +59,24 @@ define([
                 links: links
             });
         },
+        updateItemRow: function (sku, key, value) {
+            var links = this.state.links.slice();
+            links.forEach(function (row) {
+                if (row.sku === sku) {
+                    row[key] = value;
+                }
+            });
+            this.setState({
+                links: links
+            });
+        },
+        updateAvailableStock: function () {
+            var availableStock = 0;
+
+            this.setState({
+                availableStock: availableStock
+            });
+        },
         onProductSelected: function (event) {
             var data = event.detail;
             this.addProductLink(data.product, data.sku, data.quantity);
@@ -86,17 +107,6 @@ define([
             }
             this.updateItemRow(oldSku, 'sku', selection.value);
         },
-        updateItemRow: function (sku, key, value) {
-            var links = this.state.links.slice();
-            links.forEach(function (row) {
-                if (row.sku === sku) {
-                    row[key] = value;
-                }
-            });
-            this.setState({
-                links: links
-            });
-        },
         onStockQuantityUpdated: function (sku, quantity) {
             this.updateItemRow(sku, 'quantity', parseInt(quantity));
         },
@@ -125,6 +135,9 @@ define([
 
                 }.bind(this)
             });
+        },
+        onUnlickProductsClicked: function () {
+
         },
         onEditorReset: function () {
             this.setState({
@@ -161,6 +174,13 @@ define([
                                 />
                             );
                         }.bind(this))}
+                        <div className="product-info">
+                            <span className="available-stock-text">This product will have an available stock of</span>
+                            <span className="available-stock-value">{this.state.availableStock}</span>
+                        </div>
+                        <div className="product-unlink-button">
+                            <Button text="Unlink Products" onClick={this.onUnlickProductsClicked} sprite="sprite-linked-22-black"/>
+                        </div>
                     </div>
                 </Popup>
             );

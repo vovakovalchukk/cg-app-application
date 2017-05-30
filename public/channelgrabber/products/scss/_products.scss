@@ -591,6 +591,22 @@ div.tether-element div.hover-link {
 
 #product-link-editor {
     font-size: 14px;
+    .product-info {
+        width: 100%;
+        padding: 10px 0;
+        margin-bottom: 35px;
+        border-radius: 0 0 5px 5px;
+        background-color: $color-lblue;
+        color: white;
+        text-align: right;
+        .available-stock-text {
+            margin-right: 5%;
+        }
+        .available-stock-value {
+            font-weight: bold;
+            margin-right: 23%;
+        }
+    }
 }
 
 .react-popup {
@@ -599,6 +615,23 @@ div.tether-element div.hover-link {
     top: 20% !important;
     .react-popup-buttons {
         justify-content: space-around !important;
+        width: 30%;
+        margin: 0 auto;
+        .button {
+            width: 44% !important;
+        }
+    }
+}
+.product-unlink-button {
+    width: 30%;
+    margin: 0 auto;
+    .button {
+        .sprite-sprite {
+            margin-left: 40px !important;
+        }
+        .button-text {
+            padding: 0 45px 0 8px !important;
+        }
     }
 }
 .product-dropdown {
