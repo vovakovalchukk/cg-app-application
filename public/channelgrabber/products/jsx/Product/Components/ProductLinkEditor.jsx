@@ -197,6 +197,7 @@ define([
                         <div className="product-unlink-button">
                             <Popup initiallyActive={this.state.unlinkConfirmPopup}
                                    className="unlink-popup"
+                                   onNoButtonPressed={function(){ this.setState({ unlinkConfirmPopup: false }); }}
                                    onYesButtonPressed={this.unlinkProducts}
                             >
                                 {"Please confirm you would like remove all product links from "+this.props.productLink.sku}
