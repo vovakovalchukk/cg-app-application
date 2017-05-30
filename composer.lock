@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bb1461c4c871fa75138e79042aacc8f",
+    "content-hash": "69a5ba6fb276b457d819b8aa81502e60",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2479,11 +2479,11 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-8399-stock-import-interface",
+            "version": "dev-CGIV-8405-frontend-save-csv-to-s3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "5f4717ca4593044cf437dd892a042811c79228de"
+                "reference": "d5997b80b2a0e3b6163bb9ea013eccdc4926b18f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
