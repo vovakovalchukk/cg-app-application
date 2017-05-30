@@ -175,6 +175,23 @@ define([
             });
             this.props.onEditorClose();
         },
+        renderUnlinkButton: function () {
+            if (this.state.links === undefined || this.state.links.length === 0) {
+                return;
+            }
+            return (
+                <div className="product-unlink-button">
+                    <Popup initiallyActive={this.state.unlinkConfirmPopup}
+                           className="unlink-popup"
+                           onNoButtonPressed={function(){ this.setState({ unlinkConfirmPopup: false }); }.bind(this)}
+                           onYesButtonPressed={this.unlinkProducts}
+                    >
+                        {"Please confirm you would like remove all product links from "+this.props.productLink.sku}
+                    </Popup>
+                    <Button text="Unlink Products" onClick={this.onUnlinkProductsClicked} sprite="sprite-linked-22-black"/>
+                </div>
+            );
+        },
         render: function()
         {
             return (
@@ -204,16 +221,7 @@ define([
                                 />
                             );
                         }.bind(this))}
-                        <div className="product-unlink-button">
-                            <Popup initiallyActive={this.state.unlinkConfirmPopup}
-                                   className="unlink-popup"
-                                   onNoButtonPressed={function(){ this.setState({ unlinkConfirmPopup: false }); }.bind(this)}
-                                   onYesButtonPressed={this.unlinkProducts}
-                            >
-                                {"Please confirm you would like remove all product links from "+this.props.productLink.sku}
-                            </Popup>
-                            <Button text="Unlink Products" onClick={this.onUnlinkProductsClicked} sprite="sprite-linked-22-black"/>
-                        </div>
+                        {this.renderUnlinkButton()}
                     </div>
                 </Popup>
             );
