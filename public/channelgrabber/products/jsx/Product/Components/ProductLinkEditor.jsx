@@ -212,15 +212,17 @@ define([
                         <div className="product-dropdown">
                             <ProductDropdown />
                         </div>
-                        {this.state.links.map(function (productLink) {
-                            return (
-                                <ItemRow row={productLink}
-                                         onSkuChange={this.onSkuChanged}
-                                         onStockQuantityUpdate={this.onStockQuantityUpdated}
-                                         onRowRemove={this.onRowRemove}
-                                />
-                            );
-                        }.bind(this))}
+                        <div className="product-rows">
+                            {this.state.links.map(function (productLink) {
+                                return (
+                                    <ItemRow row={productLink}
+                                             onSkuChange={this.onSkuChanged}
+                                             onStockQuantityUpdate={this.onStockQuantityUpdated}
+                                             onRowRemove={this.onRowRemove}
+                                    />
+                                );
+                            }.bind(this))}
+                        </div>
                         {this.renderUnlinkButton()}
                     </div>
                 </Popup>

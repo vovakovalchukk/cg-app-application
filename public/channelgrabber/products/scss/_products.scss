@@ -612,7 +612,7 @@ div.tether-element div.hover-link {
 .react-popup.editor-popup {
     max-width: 60%;
     left: 20% !important;
-    top: 20% !important;
+    top: 15% !important;
     .react-popup-buttons {
         justify-content: space-around !important;
         width: 30%;
@@ -641,15 +641,19 @@ div.tether-element div.hover-link {
 .product-dropdown {
     margin-bottom: 20px;
 }
-.item-row {
-    margin-top: 5px;
-    .item-row-attributes {
-        margin-right: 10px;
-    }
-    .item-row-qty-input {
-        max-width: 80px;
-        input {
-            width: 50px;
+.product-rows {
+    max-height: 270px;
+    overflow-y: auto;
+    .item-row {
+        margin-top: 5px;
+        .item-row-attributes {
+            margin-right: 10px;
+        }
+        .item-row-qty-input {
+            max-width: 80px;
+            input {
+                width: 50px;
+            }
         }
     }
 }
