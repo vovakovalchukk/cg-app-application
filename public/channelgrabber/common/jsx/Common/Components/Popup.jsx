@@ -47,9 +47,6 @@ define([
             if (this.props.onYesButtonPressed !== undefined) {
                 this.props.onYesButtonPressed();
             }
-            this.setState({
-                active: false
-            });
         },
         getPopupMarkup: function () {
             if (! this.state.active) {
