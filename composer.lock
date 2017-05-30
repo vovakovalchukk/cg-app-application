@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "69a5ba6fb276b457d819b8aa81502e60",
+    "content-hash": "63ad5df76b3cac174d1877647727452b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -674,7 +674,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1558,16 +1558,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.10",
+            "version": "1.28.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "50b3e8875986a78534c657a754751250a04b12c5"
+                "reference": "7879723c118214bedc754e160e98bc68409adfba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.10-aa21d3.zip",
-                "reference": "50b3e8875986a78534c657a754751250a04b12c5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.14-a9159a.zip",
+                "reference": "7879723c118214bedc754e160e98bc68409adfba",
                 "shasum": null
             },
             "require": {
@@ -1597,7 +1597,7 @@
                 "channelgrabber/settings": "^1.5.3",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.42",
+                "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/stock": "^1.8.2",
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.4.19",
@@ -1632,7 +1632,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-12T08:27:23+00:00"
+            "time": "2017-05-25T14:58:21+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2429,16 +2429,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.46",
+            "version": "2.12.47",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "83d675fb146eb5d177756ad952e402efc04a2414"
+                "reference": "06c614e0b1581e70be940aff195f0cd8f60b162a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.46-9634a9.zip",
-                "reference": "83d675fb146eb5d177756ad952e402efc04a2414",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.47-cd78e7.zip",
+                "reference": "06c614e0b1581e70be940aff195f0cd8f60b162a",
                 "shasum": null
             },
             "require": {
@@ -2475,7 +2475,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-04-18T12:58:42+00:00"
+            "time": "2017-05-25T12:36:14+00:00"
         },
         {
             "name": "channelgrabber/stock",
