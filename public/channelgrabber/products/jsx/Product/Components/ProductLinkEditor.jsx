@@ -124,6 +124,9 @@ define([
                 'dataType' : 'json',
                 'success' : function (response) {
                     window.triggerEvent('productLinkRefresh');
+                    this.setState({
+                        unlinkConfirmPopup: false
+                    });
                 }.bind(this),
                 'error' : function (response) {
 
@@ -157,7 +160,8 @@ define([
         onEditorReset: function () {
             this.setState({
                 sku: "",
-                links: []
+                links: [],
+                unlinkConfirmPopup: false
             });
             this.props.onEditorClose();
         },
