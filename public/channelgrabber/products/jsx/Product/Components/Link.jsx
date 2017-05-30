@@ -74,11 +74,13 @@ define([
         getLinkIcon: function () {
             if (this.state.fetchingLinks) {
                 return (
-                    <img
-                        title="Loading Product Links..."
-                        src="/channelgrabber/zf2-v4-ui/img/loading.gif"
-                        className="b-loader"
-                    />
+                    <span>
+                        <img
+                            title="Loading Product Links..."
+                            src="/channelgrabber/zf2-v4-ui/img/loading.gif"
+                            className="b-loader"
+                        />
+                    </span>
                 );
             }
             var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
