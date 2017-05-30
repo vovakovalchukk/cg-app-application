@@ -2,6 +2,7 @@
 
 namespace Products\Controller;
 
+use CG\ETag\Exception\NotModified;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -18,6 +19,7 @@ class LinksJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'Links AJAX';
     const ROUTE_SAVE = 'Links Save';
+    const ROUTE_REMOVE = 'Links Remove';
 
     protected $jsonModelFactory;
     protected $activeUserContainer;
@@ -127,6 +129,25 @@ class LinksJsonController extends AbstractActionController
             ]);
         }
         $this->productLinkService->save($productLink);
+
+        return $this->jsonModelFactory->newInstance([
+            'success' => true
+        ]);
+    }
+
+    public function removeAction()
+    {
+        $ou = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $sku = $this->params()->fromPost('sku');
+
+        try {
+            $productLink = $this->productLinkService->fetch($ou . '-' . $sku);
+            $this->productLinkService->remove($productLink);
+        } catch (NotModified $e) {
+            return $this->jsonModelFactory->newInstance([
+                'error' => "The product link was not modified, please try again."
+            ]);
+        }
 
         return $this->jsonModelFactory->newInstance([
             'success' => true

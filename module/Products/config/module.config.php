@@ -232,6 +232,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    LinksJsonController::ROUTE_REMOVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/remove',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'remove'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
 
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
