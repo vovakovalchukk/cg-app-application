@@ -26,7 +26,8 @@ define([
             return {
                 sku: this.props.productLink.sku,
                 links: this.props.productLink.links,
-                availableStock: 0
+                availableStock: 0,
+                unlinkConfirmPopup: false
             };
         },
         componentWillReceiveProps: function (newProps) {
@@ -41,6 +42,7 @@ define([
         componentWillUnmount: function() {
             window.removeEventListener('productSelection', this.onProductSelected);
             this.saveProductLinksRequest.abort();
+            this.unlinkProductLinksRequest.abort();
         },
         addProductLink: function (product, sku, quantity) {
             var links = this.state.links.slice();
@@ -136,8 +138,29 @@ define([
                 }.bind(this)
             });
         },
-        onUnlickProductsClicked: function () {
+        onUnlinkProductsClicked: function () {
+            this.setState({
+                unlinkConfirmPopup: true
+            });
+        },
+        unlinkProducts: function () {
+            this.unlinkProductLinksRequest = $.ajax({
+                'url' : "/products/links/remove",
+                'data' : {
+                    sku: this.state.sku
+                },
+                'method' : 'POST',
+                'dataType' : 'json',
+                'success' : function (response) {
+                    window.triggerEvent('productLinkRefresh');
+                    this.setState({
+                        unlinkConfirmPopup: false
+                    });
+                }.bind(this),
+                'error' : function (response) {
 
+                }.bind(this)
+            });
         },
         onEditorReset: function () {
             this.setState({
@@ -151,6 +174,7 @@ define([
             return (
                 <Popup
                     initiallyActive={!!this.state.sku}
+                    className="editor-popup"
                     onYesButtonPressed={this.onSaveProductLinks}
                     onNoButtonPressed={this.onEditorReset}
                     headerText={"Select products to link to "+this.props.productLink.sku}
@@ -179,7 +203,13 @@ define([
                             <span className="available-stock-value">{this.state.availableStock}</span>
                         </div>
                         <div className="product-unlink-button">
-                            <Button text="Unlink Products" onClick={this.onUnlickProductsClicked} sprite="sprite-linked-22-black"/>
+                            <Popup initiallyActive={this.state.unlinkConfirmPopup}
+                                   className="unlink-popup"
+                                   onYesButtonPressed={this.unlinkProducts}
+                            >
+                                {"Please confirm you would like remove all product links from "+this.props.productLink.sku}
+                            </Popup>
+                            <Button text="Unlink Products" onClick={this.onUnlinkProductsClicked} sprite="sprite-linked-22-black"/>
                         </div>
                     </div>
                 </Popup>
