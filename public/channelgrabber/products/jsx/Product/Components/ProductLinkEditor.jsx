@@ -198,10 +198,6 @@ define([
                                 />
                             );
                         }.bind(this))}
-                        <div className="product-info">
-                            <span className="available-stock-text">This product will have an available stock of</span>
-                            <span className="available-stock-value">{this.state.availableStock}</span>
-                        </div>
                         <div className="product-unlink-button">
                             <Popup initiallyActive={this.state.unlinkConfirmPopup}
                                    className="unlink-popup"
