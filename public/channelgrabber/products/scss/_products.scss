@@ -609,7 +609,7 @@ div.tether-element div.hover-link {
     }
 }
 
-.react-popup {
+.react-popup.editor-popup {
     max-width: 60%;
     left: 20% !important;
     top: 20% !important;
@@ -621,6 +621,9 @@ div.tether-element div.hover-link {
             width: 44% !important;
         }
     }
+}
+.react-popup.editor-popup {
+    left: 30% !important;
 }
 .product-unlink-button {
     width: 30%;
@@ -635,7 +638,7 @@ div.tether-element div.hover-link {
     }
 }
 .product-dropdown {
-    margin-bottom: 7px;
+    margin-bottom: 20px;
 }
 .item-row {
     margin-top: 5px;
