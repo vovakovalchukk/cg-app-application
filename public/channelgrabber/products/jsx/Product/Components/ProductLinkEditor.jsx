@@ -126,7 +126,10 @@ define([
                     window.triggerEvent('productLinkRefresh');
                     this.setState({
                         unlinkConfirmPopup: false
-                    });
+                    },
+                        this.onEditorReset()
+                    );
+                    n.success('Product links saved successfully.');
                 }.bind(this),
                 'error' : function (response) {
 
@@ -150,7 +153,9 @@ define([
                     window.triggerEvent('productLinkRefresh');
                     this.setState({
                         unlinkConfirmPopup: false
-                    });
+                    },
+                        this.onEditorReset()
+                    );
                 }.bind(this),
                 'error' : function (response) {
 
