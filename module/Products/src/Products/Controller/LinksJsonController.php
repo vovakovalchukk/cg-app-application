@@ -77,6 +77,11 @@ class LinksJsonController extends AbstractActionController
             }
             $productLinkProducts = $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus);
             $parentProducts = $this->productService->fetchCollectionByOUAndId([$ouId], array_keys($productIds));
+            foreach ($productLinkProducts as $product) {
+                if ($product->getParentProductId() === 0) {
+                    $parentProducts->attach($product);
+                }
+            }
         } catch(NotFound $e) {
             $productLinkProducts = [];
             $parentProducts = [];
@@ -93,7 +98,8 @@ class LinksJsonController extends AbstractActionController
                         $productLinkProduct = $matchingProductLinkProducts->current();
                     }
                     if ($productLinkProduct) {
-                        $parentProduct = $parentProducts->getById($productLinkProduct->getParentProductId());
+                        $id = $productLinkProduct->getParentProductId() > 0 ? $productLinkProduct->getParentProductId() : $productLinkProduct->getId();
+                        $parentProduct = $parentProducts->getById($id);
                     }
                     /**
                      * instead of getting parent product of variation, need to get parent product of $stockSku
