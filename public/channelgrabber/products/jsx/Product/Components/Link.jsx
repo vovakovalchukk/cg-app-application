@@ -16,8 +16,25 @@ define([
         },
         getInitialState: function() {
             return {
-                hover: false
+                hover: false,
+                fetchingLinks: true,
             }
+        },
+        componentDidMount: function()
+        {
+            window.addEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
+            window.addEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
+        },
+        componentWillUnmount: function()
+        {
+            window.removeEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
+            window.removeEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
+        },
+        onStartFetchingLinks: function () {
+            this.setState({ fetchingLinks: true });
+        },
+        onStopFetchingLinks: function () {
+            this.setState({ fetchingLinks: false });
         },
         onMouseOver: function () {
             this.setState({ hover: true });
@@ -54,11 +71,30 @@ define([
                 );
             }.bind(this));
         },
+        getLinkIcon: function () {
+            if (this.state.fetchingLinks) {
+                return (
+                    <img
+                        title="Loading Product Links..."
+                        src="/channelgrabber/zf2-v4-ui/img/loading.gif"
+                        className="b-loader"
+                    />
+                );
+            }
+            var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
+            return (
+                <span className={"sprite "+ spriteClass}
+                      title="Click to edit the linked products."
+                      onClick={this.onClick}
+                      onMouseOver={this.onMouseOver}
+                      onMouseOut={this.onMouseOut}
+                ></span>
+            );
+        },
         render: function() {
             var hoverImageStyle = {
                 display: (this.state.hover ? "block" : "none")
             };
-            var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
             return (
                 <TetherComponent
                     attachment="top left"
@@ -68,12 +104,7 @@ define([
                         attachment: 'together'
                     }]}
                 >
-                    <span className={"sprite "+ spriteClass}
-                          title="Click to edit the linked products."
-                          onClick={this.onClick}
-                          onMouseOver={this.onMouseOver}
-                          onMouseOut={this.onMouseOut}
-                    ></span>
+                    {this.getLinkIcon()}
                     <div className="hover-link"
                          style={hoverImageStyle}
                          onMouseOver={this.onMouseOver}

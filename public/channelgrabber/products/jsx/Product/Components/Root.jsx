@@ -64,6 +64,7 @@ define([
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
             window.addEventListener('productLinkSkuClicked', this.onSkuRequest, false);
             window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillUnmount: function()
         {
@@ -73,6 +74,7 @@ define([
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
             window.removeEventListener('productLinkSkuClicked', this.onSkuRequest, false);
             window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -129,6 +131,7 @@ define([
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function (variationsByParent) {
+            window.triggerEvent('fetchingProductLinksStart');
             $.ajax({
                 url: '/products/links/ajax',
                 data: {products: JSON.stringify(variationsByParent)},
@@ -140,7 +143,9 @@ define([
                     }
                     this.setState({
                         allProductLinks: products
-                    });
+                    },
+                        window.triggerEvent('fetchingProductLinksStop')
+                    );
                 }.bind(this),
                 error: function(error) {
                     console.warn(error);
@@ -164,6 +169,9 @@ define([
                 variationsByParent[variation.parentProductId].push(variation);
             }
             return variationsByParent;
+        },
+        onProductLinkRefresh: function (event) {
+            this.fetchLinkedProducts(this.state.variations);
         },
         onEditProductLink: function (event) {
             var productSku = event.detail.sku;

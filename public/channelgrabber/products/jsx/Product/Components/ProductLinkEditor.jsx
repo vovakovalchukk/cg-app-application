@@ -119,7 +119,7 @@ define([
                 'method' : 'POST',
                 'dataType' : 'json',
                 'success' : function (response) {
-
+                    window.triggerEvent('productLinkRefresh');
                 }.bind(this),
                 'error' : function (response) {
 
