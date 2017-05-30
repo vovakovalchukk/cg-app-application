@@ -26,7 +26,6 @@ define([
             return {
                 sku: this.props.productLink.sku,
                 links: this.props.productLink.links,
-                availableStock: 0,
                 unlinkConfirmPopup: false
             };
         },
@@ -70,13 +69,6 @@ define([
             });
             this.setState({
                 links: links
-            });
-        },
-        updateAvailableStock: function () {
-            var availableStock = 0;
-
-            this.setState({
-                availableStock: availableStock
             });
         },
         onProductSelected: function (event) {
