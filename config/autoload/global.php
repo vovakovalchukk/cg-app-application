@@ -410,9 +410,6 @@ $config = array(
             ],
             StockImportFileS3::class => [
                 'parameter' => [
-                    'readSql' => 'appReadSql',
-                    'fastReadSql' => 'appFastReadSql',
-                    'writeSql' => 'appWriteSql',
                     'mapper' => StockImportFileMapper::class
                 ]
             ],
