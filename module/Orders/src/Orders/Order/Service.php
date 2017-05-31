@@ -457,7 +457,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
                 $tableRows->attach($tableRow);
             }
-            if ($productLinks[$item->getItemSku()]) {
+            if (isset($productLinks[$item->getItemSku()])) {
                 foreach ($productLinks[$item->getItemSku()]->getStockSkuMap() as $sku => $quantity) {
                     $tableRow = $this->rowMapper->fromProductLink($sku, $quantity, $order, $tableColumns, 'product-link-tr ' . $toggleClass);
                     $tableRows->attach($tableRow);
