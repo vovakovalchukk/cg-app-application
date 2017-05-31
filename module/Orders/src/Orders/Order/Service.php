@@ -404,14 +404,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $ou = $this->getRootOrganisationUnitForOrder($order);
         $orderItemSkus = [];
         foreach ($order->getItems() as $orderItem) {
-            $orderItemSkus[] = $orderItem->getItemSku();
+            if (! empty($orderItem->getItemSku())) {
+                $orderItemSkus[] = $orderItem->getItemSku();
+            }
         }
 
-        try {
-            $filter = (new ProductLinkFilter('all', 1))
-                ->setProductSku($orderItemSkus);
-            $productLinks = $this->productLinkService->fetchCollectionByFilter($filter);
-        } catch (NotFound $e) {
+        $productLinks = $this->productLinkService->fetchLinksForSkus($ou->getId(), $orderItemSkus);
+        if (empty($productLinks)) {
             return [];
         }
 

@@ -46,6 +46,7 @@ class LinksJsonController extends AbstractActionController
 
     public function ajaxAction()
     {
+        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $productIds = json_decode($this->params()->fromPost('products'), true);
 
         $allVariationsBySkus = [];
@@ -55,16 +56,11 @@ class LinksJsonController extends AbstractActionController
             }
         }
 
-        try {
-            $filter = (new ProductLinkFilter('all', 1))
-                ->setProductSku(array_keys($allVariationsBySkus));
-            $productLinks = $this->productLinkService->fetchCollectionByFilter($filter);
-        } catch(NotFound $e) {
-            $productLinks = [];
+        if (! empty($allVariationsBySkus)) {
+            $productLinks = $this->productLinkService->fetchLinksForSkus($ouId, array_keys($allVariationsBySkus));
         }
 
         try {
-            $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
 
             $productLinkProductSkus = [];
             foreach ($allVariationsBySkus as $sku => $variation) {
