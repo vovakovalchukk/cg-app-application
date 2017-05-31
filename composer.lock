@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "63ad5df76b3cac174d1877647727452b",
+    "content-hash": "2e9624999f2229c05fd3f765f9549bf2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3364,17 +3364,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.4",
+            "version": "dev-CGIV-8470-rebrand-register-page-to-cg",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "fe78bea650421b55c64f25fd7a28fcd833c4f659"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.4-e26712.zip",
-                "reference": "fe78bea650421b55c64f25fd7a28fcd833c4f659",
-                "shasum": null
+                "reference": "6a5034cb0fb51e4a7651580173eab3e630108ee8"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -3551,7 +3545,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "732a7fc1cf0c0014824999f707f5418421095208"
+                "reference": "7fa9fc4c89b44c5fe479545c920b5f945a8cfcf3"
             },
             "require": {
                 "channelgrabber/cglib": "^1.11.6",
@@ -3799,17 +3793,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.40",
+            "version": "dev-CGIV-8470-rebrand-register-page-to-cg",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7fd9f6814749ae9de406394b7aa2e2f7eeabf6d0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.40-289b0a.zip",
-                "reference": "7fd9f6814749ae9de406394b7aa2e2f7eeabf6d0",
-                "shasum": null
+                "reference": "a4391ffad31736b09ab07ea1509be0a0dfdf718e"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -8882,17 +8870,31 @@
     ],
     "aliases": [
         {
+            "alias": "1.5.5",
+            "alias_normalized": "1.5.5.0",
+            "version": "dev-CGIV-8470-rebrand-register-page-to-cg",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.5.7",
             "alias_normalized": "1.5.7.0",
             "version": "dev-CGIV-8470-rebrand-register-page-to-cg",
             "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.17.40",
+            "alias_normalized": "1.17.40.0",
+            "version": "dev-CGIV-8470-rebrand-register-page-to-cg",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "composer/composer": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
