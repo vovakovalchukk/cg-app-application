@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e88316aff749f3cb0a14451267c6032a",
+    "content-hash": "3ebea98395de19b6972b2d97a24766a5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1904,16 +1904,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.9.2",
+            "version": "dev-CGIV-8270-linked-products-ui-changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "7a5bee40e0e1b433976cc21df26c4ea0dae55ede"
+                "reference": "66437c0448351207a0a85a43a382ccecb70fae50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.2-4a25a5.zip",
-                "reference": "7a5bee40e0e1b433976cc21df26c4ea0dae55ede",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-8270-linked-products-ui-changes-e812ca.zip",
+                "reference": "66437c0448351207a0a85a43a382ccecb70fae50",
                 "shasum": null
             },
             "require": {
@@ -1957,7 +1957,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-04-20T13:31:28+00:00"
+            "time": "2017-05-31 10:07:25"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3835,16 +3835,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-7460-purchase-orders",
+            "version": "dev-CGIV-8270-linked-products-ui-changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7fd9f6814749ae9de406394b7aa2e2f7eeabf6d0"
+                "reference": "57bcb1945770cb20a22acd3a8dcb16a70d2436c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7460-purchase-orders-289b0a.zip",
-                "reference": "7fd9f6814749ae9de406394b7aa2e2f7eeabf6d0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8270-linked-products-ui-changes-8eaa19.zip",
+                "reference": "57bcb1945770cb20a22acd3a8dcb16a70d2436c8",
                 "shasum": null
             },
             "require": {
@@ -3892,7 +3892,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-05-10 13:26:02"
+            "time": "2017-05-31 08:27:48"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8918,21 +8918,28 @@
     ],
     "aliases": [
         {
+            "alias": "1.9.3",
+            "alias_normalized": "1.9.3.0",
+            "version": "dev-CGIV-8270-linked-products-ui-changes",
+            "package": "channelgrabber/product"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-EPIC-CGIV-7460-purchase-orders-1",
             "package": "channelgrabber/purchase-order"
         },
         {
-            "alias": "1.17.41",
-            "alias_normalized": "1.17.41.0",
-            "version": "dev-EPIC-CGIV-7460-purchase-orders",
+            "alias": "1.17.40",
+            "alias_normalized": "1.17.40.0",
+            "version": "dev-CGIV-8270-linked-products-ui-changes",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/purchase-order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
