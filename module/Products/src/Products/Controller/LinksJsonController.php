@@ -49,12 +49,7 @@ class LinksJsonController extends AbstractActionController
         $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $productIds = json_decode($this->params()->fromPost('products'), true);
 
-        $allVariationsBySkus = [];
-        foreach ($productIds as $parentProductId => $variations) {
-            foreach ($variations as $variation) {
-                $allVariationsBySkus[$variation['sku']] = $variation;
-            }
-        }
+        $allVariationsBySkus = $this->productLinkMapper->getVariationsBySkus($productIds);
 
         if (! empty($allVariationsBySkus)) {
             $productLinks = $this->productLinkService->fetchLinksForSkus($ouId, array_keys($allVariationsBySkus));
