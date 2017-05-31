@@ -4,6 +4,7 @@ namespace Orders\Order\Table\Row;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrap;
+use CG\Product\Link\Entity as ProductLink;
 use CG_UI\View\Table\Column\Collection as Columns;
 use CG_UI\View\Table\Row\Mapper as UIMapper;
 use Zend\I18n\View\Helper\CurrencyFormat;
@@ -67,6 +68,37 @@ class Mapper extends UIMapper
         $this->setOrder($order);
         $map = $this->mapGiftWrap;
         return $this->fromEntity($giftWrap, $map, $columns, $className);
+    }
+
+    public function fromProductLink($sku, $quantity, Order $order, Columns $columns, $className = null)
+    {
+        $rowData = [];
+        $rowData[] = [
+            'content' => $sku,
+            'class' => 'product-link-td'
+        ];
+        $rowData[] = [
+            'content' => "",
+            'class' => 'product-link-td'
+        ];
+        $rowData[] = [
+            'content' => $quantity,
+            'class' => 'product-link-td'
+        ];
+        $rowData[] = [
+            'content' => "",
+            'class' => 'product-link-td'
+        ];
+        $rowData[] = [
+            'content' => "",
+            'class' => 'product-link-td'
+        ];
+        $rowData[] = [
+            'content' => "",
+            'class' => 'product-link-td'
+        ];
+
+        return $this->fromArray($rowData, $className);
     }
 
     protected function fromEntity($entity, $map, Columns $columns, $className = null)
