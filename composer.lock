@@ -2483,7 +2483,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "098b5ed8c4495797097fea3f5ad92dfe99b7931e"
+                "reference": "5a93e4175864b5d28e2472808667bd187b465095"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",

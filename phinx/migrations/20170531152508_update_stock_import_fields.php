@@ -18,7 +18,7 @@ class UpdateStockImportFields extends AbstractMigration
 
         $table
             ->removeColumn('status')
-            ->removeColumn('type')
+            ->renameColumn('type', 'updateOptions')
             ->update();
     }
 
