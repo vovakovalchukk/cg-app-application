@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "17ad8027aff37304b14d48c0f09ba99a",
+    "content-hash": "67270464ca46fa80aae79a7d5bd16029",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2479,16 +2479,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-8414-additional-csv-file-fields",
+            "version": "1.8.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "bb8036c586902513793c7b753f979683ef8d9281"
+                "reference": "ef7dc6f0d6c1bef4e2b7fb44ac762e4b9087ce8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8414-additional-csv-file-fields-355a42.zip",
-                "reference": "bb8036c586902513793c7b753f979683ef8d9281",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.7-e3b1d2.zip",
+                "reference": "ef7dc6f0d6c1bef4e2b7fb44ac762e4b9087ce8e",
                 "shasum": null
             },
             "require": {
@@ -2533,7 +2533,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-02 09:26:03"
+            "time": "2017-06-05T08:49:12+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -8886,18 +8886,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.7",
-            "alias_normalized": "1.8.7.0",
-            "version": "dev-CGIV-8414-additional-csv-file-fields",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
