@@ -1212,12 +1212,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "da91ab8a823c9aac5ac8c0b20adf78bc9c148386"
+                "reference": "9a878ce1bc74277b60f22071f495ee259b642fde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-8519-PrioritiseFirstProductImports-857700.zip",
-                "reference": "da91ab8a823c9aac5ac8c0b20adf78bc9c148386",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-8519-PrioritiseFirstProductImports-56dee3.zip",
+                "reference": "9a878ce1bc74277b60f22071f495ee259b642fde",
                 "shasum": null
             },
             "require": {
@@ -1252,7 +1252,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-13 11:29:07"
+            "time": "2017-06-13 12:30:05"
         },
         {
             "name": "channelgrabber/locale",
