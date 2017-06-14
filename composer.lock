@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "11f9fc28707df031c94a7c14bcd31742",
+    "content-hash": "9ff38c0a54ddbc9eac4edba90b9aef2a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8519-PrioritiseFirstProductImports",
+            "version": "1.30.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "311d5f6064e9cdd1a4e8395f8bf8982f76aaa83b"
+                "reference": "2dbeea944076402e71b63a88c1268c4dfe14fe6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8519-PrioritiseFirstProductImports-b58bee.zip",
-                "reference": "311d5f6064e9cdd1a4e8395f8bf8982f76aaa83b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.30.1-39ef51.zip",
+                "reference": "2dbeea944076402e71b63a88c1268c4dfe14fe6c",
                 "shasum": null
             },
             "require": {
@@ -568,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-06-13 11:24:31"
+            "time": "2017-06-14T08:35:02+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1208,16 +1208,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-8519-PrioritiseFirstProductImports",
+            "version": "1.11.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "9a878ce1bc74277b60f22071f495ee259b642fde"
+                "reference": "ef51c1fae94107d092a5fcd1d46b08f113411a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-8519-PrioritiseFirstProductImports-56dee3.zip",
-                "reference": "9a878ce1bc74277b60f22071f495ee259b642fde",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.11-e9a76f.zip",
+                "reference": "ef51c1fae94107d092a5fcd1d46b08f113411a8d",
                 "shasum": null
             },
             "require": {
@@ -1252,7 +1252,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-13 12:30:05"
+            "time": "2017-06-14T08:47:57+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -8882,25 +8882,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.30.1",
-            "alias_normalized": "1.30.1.0",
-            "version": "dev-CGIV-8519-PrioritiseFirstProductImports",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.11.11",
-            "alias_normalized": "1.11.11.0",
-            "version": "dev-CGIV-8519-PrioritiseFirstProductImports",
-            "package": "channelgrabber/listing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
