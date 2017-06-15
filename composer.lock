@@ -3364,12 +3364,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "6a5034cb0fb51e4a7651580173eab3e630108ee8"
+                "reference": "df5fb997b920b41966e79760529d14d75539da9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8470-rebrand-register-page-to-cg-1dd5fc.zip",
-                "reference": "6a5034cb0fb51e4a7651580173eab3e630108ee8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8470-rebrand-register-page-to-cg-95ad07.zip",
+                "reference": "df5fb997b920b41966e79760529d14d75539da9d",
                 "shasum": null
             },
             "require": {
@@ -3382,7 +3382,7 @@
                 "channelgrabber/user": ">=1.19.0,<2.0.0",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": "^1.2.2",
-                "channelgrabber/zf2-v4-ui": ">=1.4.1",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-8470-rebrand-register-page-to-cg as 1.17.40",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
@@ -3410,7 +3410,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-05-31T13:38:18+00:00"
+            "time": "2017-06-15T14:56:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3547,12 +3547,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7fa9fc4c89b44c5fe479545c920b5f945a8cfcf3"
+                "reference": "1880b59a67a392053e140ed514a126059d7d8f62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8470-rebrand-register-page-to-cg-3eddc3.zip",
-                "reference": "7fa9fc4c89b44c5fe479545c920b5f945a8cfcf3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8470-rebrand-register-page-to-cg-d7f67b.zip",
+                "reference": "1880b59a67a392053e140ed514a126059d7d8f62",
                 "shasum": null
             },
             "require": {
@@ -3565,7 +3565,7 @@
                 "channelgrabber/user": "~1.22.6",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "channelgrabber/zf2-v4-ui": "~1.17.25",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-8470-rebrand-register-page-to-cg as 1.17.40",
                 "guzzle/guzzle": "~3.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "zendframework/zend-config": "2.*",
@@ -3591,7 +3591,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-05-31T13:38:37+00:00"
+            "time": "2017-06-15T14:54:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3805,12 +3805,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "08939c80dc0f54d25e144aab8faa442fc45c96ee"
+                "reference": "4eb40f61eda098095dd00eabf8e527b46fc032dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8470-rebrand-register-page-to-cg-1332e7.zip",
-                "reference": "08939c80dc0f54d25e144aab8faa442fc45c96ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8470-rebrand-register-page-to-cg-1e09e4.zip",
+                "reference": "4eb40f61eda098095dd00eabf8e527b46fc032dc",
                 "shasum": null
             },
             "require": {
@@ -3858,7 +3858,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-05-31T14:04:54+00:00"
+            "time": "2017-06-15 14:42:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
