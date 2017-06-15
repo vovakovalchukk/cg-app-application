@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e9624999f2229c05fd3f765f9549bf2",
+    "content-hash": "74690efe711aa634c61378c2626b25b8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.20.6",
+            "version": "1.20.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "6d59034eae3b6223c5fa41ef54f1364572a35c7a"
+                "reference": "f1681dffc21cf7c813e5d204351eda7167fed87b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.20.6-4db923.zip",
-                "reference": "6d59034eae3b6223c5fa41ef54f1364572a35c7a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.20.7-f8d45d.zip",
+                "reference": "f1681dffc21cf7c813e5d204351eda7167fed87b",
                 "shasum": null
             },
             "require": {
@@ -210,7 +210,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-16T15:06:09+00:00"
+            "time": "2017-05-24T12:44:36+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.29.3",
+            "version": "1.30.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7f2602ee422a607e6543b6fb59bf8b06a2f22d6e"
+                "reference": "2dbeea944076402e71b63a88c1268c4dfe14fe6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.29.3-383986.zip",
-                "reference": "7f2602ee422a607e6543b6fb59bf8b06a2f22d6e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.30.1-39ef51.zip",
+                "reference": "2dbeea944076402e71b63a88c1268c4dfe14fe6c",
                 "shasum": null
             },
             "require": {
@@ -522,13 +522,13 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.9.0",
+                "channelgrabber/product": "^1.9.3",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.36",
+                "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/stock": "^1.7.0",
                 "channelgrabber/stock-locking": "^1.0.0",
                 "channelgrabber/user": "^1.20.2",
@@ -540,9 +540,10 @@
                 "zendframework/zend-di": ">=2.2.5,<3.0"
             },
             "conflict": {
-                "channelgrabber/amazon": "<1.17.15",
+                "channelgrabber/amazon": "<1.20.3",
                 "channelgrabber/dataplug": "<1.2.8",
-                "channelgrabber/netdespatch": "<1.0.11"
+                "channelgrabber/netdespatch": "<1.2.13",
+                "channelgrabber/royalmail": "<1.0.8"
             },
             "replace": {
                 "channelgrabber/account": "*"
@@ -550,15 +551,10 @@
             "require-dev": {
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/phpunit": ">=1.0.0",
+                "php": ">=7.1",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "1.x-dev",
-                    "dev-TECH-12": "1.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -572,7 +568,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-05-16T12:49:49+00:00"
+            "time": "2017-06-14T08:35:02+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1212,16 +1208,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.11.10",
+            "version": "1.11.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "5e241c5207d9a3457751962a80550807da3128dc"
+                "reference": "ef51c1fae94107d092a5fcd1d46b08f113411a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.10-ceea98.zip",
-                "reference": "5e241c5207d9a3457751962a80550807da3128dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.11-e9a76f.zip",
+                "reference": "ef51c1fae94107d092a5fcd1d46b08f113411a8d",
                 "shasum": null
             },
             "require": {
@@ -1256,7 +1252,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-04-28T13:21:43+00:00"
+            "time": "2017-06-14T08:47:57+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -1903,16 +1899,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.9.2",
+            "version": "1.9.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "7a5bee40e0e1b433976cc21df26c4ea0dae55ede"
+                "reference": "d6538ae843a6e97649fcb28c297096d1fdf3b35d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.2-4a25a5.zip",
-                "reference": "7a5bee40e0e1b433976cc21df26c4ea0dae55ede",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.3-78e913.zip",
+                "reference": "d6538ae843a6e97649fcb28c297096d1fdf3b35d",
                 "shasum": null
             },
             "require": {
@@ -1956,7 +1952,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-04-20T13:31:28+00:00"
+            "time": "2017-05-30T09:52:47+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2479,16 +2475,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.8.2",
+            "version": "1.8.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "4378ea9ae661f78865ad11a76a32167d2ba64101"
+                "reference": "ef7dc6f0d6c1bef4e2b7fb44ac762e4b9087ce8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.2-299227.zip",
-                "reference": "4378ea9ae661f78865ad11a76a32167d2ba64101",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.7-e3b1d2.zip",
+                "reference": "ef7dc6f0d6c1bef4e2b7fb44ac762e4b9087ce8e",
                 "shasum": null
             },
             "require": {
@@ -2533,7 +2529,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-19T10:24:20+00:00"
+            "time": "2017-06-05T08:49:12+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3370,6 +3366,12 @@
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
                 "reference": "6a5034cb0fb51e4a7651580173eab3e630108ee8"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8470-rebrand-register-page-to-cg-1dd5fc.zip",
+                "reference": "6a5034cb0fb51e4a7651580173eab3e630108ee8",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -3408,7 +3410,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-11-22T14:09:38+00:00"
+            "time": "2017-05-31T13:38:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3547,6 +3549,12 @@
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "7fa9fc4c89b44c5fe479545c920b5f945a8cfcf3"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8470-rebrand-register-page-to-cg-3eddc3.zip",
+                "reference": "7fa9fc4c89b44c5fe479545c920b5f945a8cfcf3",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cglib": "^1.11.6",
                 "channelgrabber/constants": "dev-master",
@@ -3583,7 +3591,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-02-22T12:41:52+00:00"
+            "time": "2017-05-31T13:38:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3799,6 +3807,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "08939c80dc0f54d25e144aab8faa442fc45c96ee"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8470-rebrand-register-page-to-cg-1332e7.zip",
+                "reference": "08939c80dc0f54d25e144aab8faa442fc45c96ee",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3844,7 +3858,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-05-10T13:26:02+00:00"
+            "time": "2017-05-31T14:04:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4081,7 +4095,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5423,7 +5437,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8890,16 +8904,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
