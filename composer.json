@@ -92,7 +92,7 @@
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.7",
         "channelgrabber/zf2-permission": "~1.1.15",
-        "channelgrabber/zf2-register": "~1.5.7",
+        "channelgrabber/zf2-register": "~1.5.8",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.7",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
