@@ -70,7 +70,7 @@
         "channelgrabber/shopify": "~1.0.6",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
-        "channelgrabber/stdlib": "~2.12.39",
+        "channelgrabber/stdlib": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 2.12.40",
         "channelgrabber/stock": "~1.8.2",
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.4.25",
