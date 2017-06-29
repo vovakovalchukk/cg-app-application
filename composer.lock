@@ -155,13 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "a798e87e3cd44152406397823368706f2bb642bd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-8582-create-FBA-location-for-new-Amazon-Accounts-ab7e1f.zip",
-                "reference": "a798e87e3cd44152406397823368706f2bb642bd",
-                "shasum": null
+                "reference": "86bf20bfd4b3888923f22328e437d43cb886dc7f"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -211,7 +205,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-29 11:34:19"
+            "time": "2017-06-29T13:55:41+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -4099,7 +4093,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5441,7 +5435,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8908,16 +8902,16 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
