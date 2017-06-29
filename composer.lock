@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-29T11:34:19+00:00"
+            "time": "2017-06-29 11:34:19"
         },
         {
             "name": "channelgrabber/api-lib",
