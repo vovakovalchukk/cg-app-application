@@ -27,7 +27,7 @@
     },
     "require": {
         "alcaeus/mongo-php-adapter": "~1.0.6",
-        "channelgrabber/amazon": "dev-CGIV-8582-create-FBA-location-for-new-Amazon-Accounts as 1.20.8",
+        "channelgrabber/amazon": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.20.8",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.0.4",
         "channelgrabber/billing": "~1.11.4",

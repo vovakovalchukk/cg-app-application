@@ -155,7 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "86bf20bfd4b3888923f22328e437d43cb886dc7f"
+                "reference": "659461ec85e4943f94bb02e007b0459dd8ad28f0"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -2427,13 +2427,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "ec681cbe0b50bb928613bcf1733e94fee73deccd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-8210-Include-FBA-Stock-002ac5.zip",
-                "reference": "ec681cbe0b50bb928613bcf1733e94fee73deccd",
-                "shasum": null
+                "reference": "d79135bd3ccbed3f7ccb3c6aa143c9d560488e4b"
             },
             "require": {
                 "phpseclib/mcrypt_compat": "~1.0.1",
