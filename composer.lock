@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97e4d10c98f10cfd267e19e644d02341",
+    "content-hash": "9bf4d0c5b55aee77e5c8c8d01c8021eb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,11 +151,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-8582-create-FBA-location-for-new-Amazon-Accounts",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "659461ec85e4943f94bb02e007b0459dd8ad28f0"
+                "reference": "344817a8dce495ab2b5d8ba967904ad6128d7e25"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -8879,6 +8879,12 @@
             "alias": "1.20.8",
             "alias_normalized": "1.20.8.0",
             "version": "dev-CGIV-8582-create-FBA-location-for-new-Amazon-Accounts",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.20.8",
+            "alias_normalized": "1.20.8.0",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/amazon"
         },
         {
