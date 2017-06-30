@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bf4d0c5b55aee77e5c8c8d01c8021eb",
+    "content-hash": "d31b68901b2280345a6ac374010c66fa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -205,7 +205,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-29T13:55:41+00:00"
+            "time": "2017-06-30 10:38:15"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -488,16 +488,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.30.1",
+            "version": "dev-CGIV-8604-deleting-channel-sets-Amazon-FBA-location-includeStockOnAllChannels-to-false",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "2dbeea944076402e71b63a88c1268c4dfe14fe6c"
+                "reference": "7607ec883b72ab177c6b6ad64e35327343664cee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.30.1-39ef51.zip",
-                "reference": "2dbeea944076402e71b63a88c1268c4dfe14fe6c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8604-deleting-channel-sets-Amazon-FBA-location-includeStockOnAllChannels-to-false-50ea31.zip",
+                "reference": "7607ec883b72ab177c6b6ad64e35327343664cee",
                 "shasum": null
             },
             "require": {
@@ -563,7 +563,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-06-14T08:35:02+00:00"
+            "time": "2017-06-30T14:40:42+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2463,7 +2463,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-20T13:56:47+00:00"
+            "time": "2017-06-30 07:47:46"
         },
         {
             "name": "channelgrabber/stock",
@@ -4087,7 +4087,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5429,7 +5429,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8878,14 +8878,14 @@
         {
             "alias": "1.20.8",
             "alias_normalized": "1.20.8.0",
-            "version": "dev-CGIV-8582-create-FBA-location-for-new-Amazon-Accounts",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.20.8",
-            "alias_normalized": "1.20.8.0",
-            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
-            "package": "channelgrabber/amazon"
+            "alias": "1.30.1",
+            "alias_normalized": "1.30.1.0",
+            "version": "dev-CGIV-8604-deleting-channel-sets-Amazon-FBA-location-includeStockOnAllChannels-to-false",
+            "package": "channelgrabber/channel"
         },
         {
             "alias": "1.1.3.1",
@@ -8902,16 +8902,17 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
