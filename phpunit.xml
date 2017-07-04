@@ -4,7 +4,7 @@
         colors="true">
     <testsuites>
         <testsuite name="Orders Application Test Suite">
-            <directory>./tests/unit/Test</directory>
+            <directory>./tests/unit/CG/Test</directory>
         </testsuite>
     </testsuites>
     <groups>
