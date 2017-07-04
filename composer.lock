@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a1ae9c1c184e6a5355a681ebeb3ca4e",
+    "content-hash": "634e2d1f80f97988ecd2c036834c54aa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2521,7 +2521,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-08-19T10:24:20+00:00"
+            "time": "2016-08-19 10:24:20"
         },
         {
             "name": "channelgrabber/stock-locking",
