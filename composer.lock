@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-04 08:29:56"
+            "time": "2017-07-04T08:29:56+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -435,17 +435,11 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "version": "dev-CGIV-8587-update-CGLib-Stock-Service-getStockLevel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "3884441f1fd62c222c3916131ec59e0883f8c00a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-CGIV-8210-Include-FBA-Stock-8105d6.zip",
-                "reference": "3884441f1fd62c222c3916131ec59e0883f8c00a",
-                "shasum": null
+                "reference": "e67169f6be5c7926fca9c73eae548bcc947818f1"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
@@ -490,7 +484,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-27 14:50:52"
+            "time": "2017-06-27T14:50:52+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -569,7 +563,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-03 07:50:09"
+            "time": "2017-07-03T07:50:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1338,7 +1332,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-27 11:40:39"
+            "time": "2017-06-27T11:40:39+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2475,7 +2469,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30 07:47:46"
+            "time": "2017-06-30T07:47:46+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -2533,7 +2527,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-05 08:16:22"
+            "time": "2017-07-05T08:16:22+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4099,7 +4093,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5441,7 +5435,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8900,6 +8894,12 @@
             "package": "channelgrabber/cglib"
         },
         {
+            "alias": "1.12.0",
+            "alias_normalized": "1.12.0.0",
+            "version": "dev-CGIV-8587-update-CGLib-Stock-Service-getStockLevel",
+            "package": "channelgrabber/cglib"
+        },
+        {
             "alias": "1.30.1",
             "alias_normalized": "1.30.1.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
@@ -8926,6 +8926,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/cglib": 20,
         "channelgrabber/channel": 20,
@@ -8933,12 +8934,11 @@
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

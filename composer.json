@@ -32,7 +32,7 @@
         "channelgrabber/bigcommerce": "~1.0.4",
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.3.3",
-        "channelgrabber/cglib": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.12.0",
+        "channelgrabber/cglib": "dev-CGIV-8587-update-CGLib-Stock-Service-getStockLevel as 1.12.0",
         "channelgrabber/channel": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.30.1",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
