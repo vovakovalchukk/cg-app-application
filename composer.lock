@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d06aa4ee43f620735e1c09181837675",
+    "content-hash": "db20a5fc586c33d4af9123e197dfc502",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,7 +155,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "344817a8dce495ab2b5d8ba967904ad6128d7e25"
+                "reference": "0f752e7bdc4fbaebadfb4d006841f8cdb61175a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-27947c.zip",
+                "reference": "0f752e7bdc4fbaebadfb4d006841f8cdb61175a0",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -172,7 +178,7 @@
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "~1.11.8",
                 "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/location": "dev-CGIV-8579-add-includeStockOnAllSalesAccounts-to-CG-Location-Entity as 1.1.3.1",
+                "channelgrabber/location": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.1.3.1",
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/predis": "~1.0.12",
@@ -205,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30 10:38:15"
+            "time": "2017-07-04T08:29:56+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -429,16 +435,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.12.0",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "3322e0b11445c97ce9905286f6de291341d80a7d"
+                "reference": "3884441f1fd62c222c3916131ec59e0883f8c00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.12.0-e39584.zip",
-                "reference": "3322e0b11445c97ce9905286f6de291341d80a7d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-CGIV-8210-Include-FBA-Stock-8105d6.zip",
+                "reference": "3884441f1fd62c222c3916131ec59e0883f8c00a",
                 "shasum": null
             },
             "require": {
@@ -484,20 +490,20 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-04-07T12:40:49+00:00"
+            "time": "2017-06-27T14:50:52+00:00"
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8604-deleting-channel-sets-Amazon-FBA-location-includeStockOnAllChannels-to-false",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7607ec883b72ab177c6b6ad64e35327343664cee"
+                "reference": "fa85bfbe1fd275b40bda7102f6175ab2ce55a0e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8604-deleting-channel-sets-Amazon-FBA-location-includeStockOnAllChannels-to-false-50ea31.zip",
-                "reference": "7607ec883b72ab177c6b6ad64e35327343664cee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-8210-Include-FBA-Stock-0a2f32.zip",
+                "reference": "fa85bfbe1fd275b40bda7102f6175ab2ce55a0e1",
                 "shasum": null
             },
             "require": {
@@ -563,7 +569,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-06-30T14:40:42+00:00"
+            "time": "2017-07-03T07:50:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1284,7 +1290,7 @@
         },
         {
             "name": "channelgrabber/location",
-            "version": "dev-CGIV-8579-add-includeStockOnAllSalesAccounts-to-CG-Location-Entity",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
@@ -1292,7 +1298,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-dev-CGIV-8579-add-includeStockOnAllSalesAccounts-to-CG-Location-Entity-51742d.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-dev-EPIC-CGIV-8210-Include-FBA-Stock-51742d.zip",
                 "reference": "5f23341bc1abed9304b06c9579f04703054a7833",
                 "shasum": null
             },
@@ -2429,6 +2435,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
                 "reference": "d79135bd3ccbed3f7ccb3c6aa143c9d560488e4b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-8210-Include-FBA-Stock-95278c.zip",
+                "reference": "d79135bd3ccbed3f7ccb3c6aa143c9d560488e4b",
+                "shasum": null
+            },
             "require": {
                 "phpseclib/mcrypt_compat": "~1.0.1",
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -2463,7 +2475,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30 07:47:46"
+            "time": "2017-06-30T07:47:46+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -2471,7 +2483,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "de279e1c698462f1f166e6d860cace1c6ade4114"
+                "reference": "d7f203724acd10da20b3ee83f8e56d6a09289fbc"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2515,7 +2527,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-04 14:52:42"
+            "time": "2017-07-04T14:29:36+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4081,7 +4093,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5423,7 +5435,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8876,15 +8888,21 @@
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.12.0",
+            "alias_normalized": "1.12.0.0",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "package": "channelgrabber/cglib"
+        },
+        {
             "alias": "1.30.1",
             "alias_normalized": "1.30.1.0",
-            "version": "dev-CGIV-8604-deleting-channel-sets-Amazon-FBA-location-includeStockOnAllChannels-to-false",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.1.3.1",
             "alias_normalized": "1.1.3.1",
-            "version": "dev-CGIV-8579-add-includeStockOnAllSalesAccounts-to-CG-Location-Entity",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/location"
         },
         {
@@ -8896,24 +8914,31 @@
         {
             "alias": "1.8.7",
             "alias_normalized": "1.8.7.0",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.8.7",
+            "alias_normalized": "1.8.7.0",
             "version": "dev-CGIV-8586-add-optional-exclude-parameter-to-CG-Stock-Entity-total-getters",
             "package": "channelgrabber/stock"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
+        "channelgrabber/cglib": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
