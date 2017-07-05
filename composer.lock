@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-04T08:29:56+00:00"
+            "time": "2017-07-04 08:29:56"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -490,7 +490,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-27T14:50:52+00:00"
+            "time": "2017-06-27 14:50:52"
         },
         {
             "name": "channelgrabber/channel",
@@ -569,7 +569,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-03T07:50:09+00:00"
+            "time": "2017-07-03 07:50:09"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1338,7 +1338,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-27T11:40:39+00:00"
+            "time": "2017-06-27 11:40:39"
         },
         {
             "name": "channelgrabber/locking",
@@ -2475,15 +2475,21 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30T07:47:46+00:00"
+            "time": "2017-06-30 07:47:46"
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-8586-add-optional-exclude-parameter-to-CG-Stock-Entity-total-getters",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "d7f203724acd10da20b3ee83f8e56d6a09289fbc"
+                "reference": "1b95510c6519497695176949a38e0fcade1da775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-8210-Include-FBA-Stock-1f8645.zip",
+                "reference": "1b95510c6519497695176949a38e0fcade1da775",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2527,7 +2533,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-04T14:29:36+00:00"
+            "time": "2017-07-05 08:16:22"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4093,7 +4099,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5435,7 +5441,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8916,17 +8922,10 @@
             "alias_normalized": "1.8.7.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/stock"
-        },
-        {
-            "alias": "1.8.7",
-            "alias_normalized": "1.8.7.0",
-            "version": "dev-CGIV-8586-add-optional-exclude-parameter-to-CG-Stock-Entity-total-getters",
-            "package": "channelgrabber/stock"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/cglib": 20,
         "channelgrabber/channel": 20,
@@ -8934,11 +8933,12 @@
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

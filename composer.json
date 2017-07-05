@@ -71,7 +71,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 2.12.47",
-        "channelgrabber/stock": "dev-CGIV-8586-add-optional-exclude-parameter-to-CG-Stock-Entity-total-getters as 1.8.7",
+        "channelgrabber/stock": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.8.7",
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.4.25",
         "channelgrabber/usage": "~1.0.7",
