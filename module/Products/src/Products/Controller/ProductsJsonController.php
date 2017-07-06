@@ -195,7 +195,7 @@ class ProductsJsonController extends AbstractActionController
         $product['stock'] = array_merge($stockEntity->toArray(), [
             'locations' => $this->stockLocationService->getFromCollectionByLocationIds(
                 $stockEntity->getLocations(),
-                $this->locationService->fetchIdsByType($stockEntity, [LocationType::MERCHANT])
+                $this->locationService->fetchIdsByType($stockEntity->getOrganisationUnitId(), [LocationType::MERCHANT])
             )->toArray()
         ]);
 
