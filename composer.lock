@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fb73f9933aeb25eb9346f732c5e88fd",
+    "content-hash": "db20a5fc586c33d4af9123e197dfc502",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-04T08:29:56+00:00"
+            "time": "2017-07-04 08:29:56"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -439,7 +439,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "c40b12306cd7debc2e89177ecb4f51515779a487"
+                "reference": "37369934789912eab9202002a3eb1b6d371a130c"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
@@ -484,7 +484,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-27T14:50:52+00:00"
+            "time": "2017-07-06 08:48:39"
         },
         {
             "name": "channelgrabber/channel",
@@ -563,7 +563,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-03T07:50:09+00:00"
+            "time": "2017-07-03 07:50:09"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1284,11 +1284,17 @@
         },
         {
             "name": "channelgrabber/location",
-            "version": "dev-CGIV-8415-Products-Page-Should-Only-Show-Merchants-Stock-2",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "3ca452f847350dcfec993adf4290b24c9c505efa"
+                "reference": "9152c15b732d6e94f82edde3b303103e940986cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-dev-EPIC-CGIV-8210-Include-FBA-Stock-4b42a1.zip",
+                "reference": "9152c15b732d6e94f82edde3b303103e940986cf",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -1326,7 +1332,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-27T11:40:39+00:00"
+            "time": "2017-07-06 09:01:26"
         },
         {
             "name": "channelgrabber/locking",
@@ -2463,7 +2469,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30T07:47:46+00:00"
+            "time": "2017-06-30 07:47:46"
         },
         {
             "name": "channelgrabber/stock",
@@ -2521,7 +2527,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-05T08:16:22+00:00"
+            "time": "2017-07-05 08:16:22"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4087,7 +4093,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5429,7 +5435,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8888,12 +8894,6 @@
             "package": "channelgrabber/cglib"
         },
         {
-            "alias": "1.12.0",
-            "alias_normalized": "1.12.0.0",
-            "version": "dev-CGIV-8587-update-CGLib-Stock-Service-getStockLevel",
-            "package": "channelgrabber/cglib"
-        },
-        {
             "alias": "1.30.1",
             "alias_normalized": "1.30.1.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
@@ -8903,12 +8903,6 @@
             "alias": "1.1.3.1",
             "alias_normalized": "1.1.3.1",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
-            "package": "channelgrabber/location"
-        },
-        {
-            "alias": "1.1.3.1",
-            "alias_normalized": "1.1.3.1",
-            "version": "dev-CGIV-8415-Products-Page-Should-Only-Show-Merchants-Stock-2",
             "package": "channelgrabber/location"
         },
         {
@@ -8926,7 +8920,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/cglib": 20,
         "channelgrabber/channel": 20,
@@ -8934,11 +8927,12 @@
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
