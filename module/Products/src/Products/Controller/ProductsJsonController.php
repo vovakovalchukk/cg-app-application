@@ -7,14 +7,12 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Listing\Entity as ListingEntity;
 use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
-use CG\Location\Filter as LocationFilter;
 use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stock\Entity as Stock;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Zend\Stdlib\Http\FileResponse;
@@ -197,7 +195,7 @@ class ProductsJsonController extends AbstractActionController
         $product['stock'] = array_merge($stockEntity->toArray(), [
             'locations' => $this->stockLocationService->getFromCollectionByLocationIds(
                 $stockEntity->getLocations(),
-                $this->fetchLocationIdsToIncludeForStock($stockEntity)
+                $this->locationService->fetchIdsByType($stockEntity, [LocationType::MERCHANT])
             )->toArray()
         ]);
 
@@ -220,19 +218,6 @@ class ProductsJsonController extends AbstractActionController
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
         return $product;
-    }
-
-    protected function fetchLocationIdsToIncludeForStock(Stock $stock): array
-    {
-        $filter = new LocationFilter();
-        $filter
-            ->setOrganisationUnitId([$stock->getOrganisationUnitId()])
-            ->setType([LocationType::MERCHANT]);
-        try {
-            return $this->locationService->fetchCollectionByFilter($filter)->getIds();
-        } catch (NotFound $e) {
-            return [];
-        }
     }
 
     protected function getActiveSalesAccounts($accounts)

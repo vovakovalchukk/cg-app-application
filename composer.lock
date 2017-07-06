@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d0d23f90fb22b2c2ebd97442ecb2f2c",
+    "content-hash": "6fb73f9933aeb25eb9346f732c5e88fd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -435,11 +435,11 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-8587-update-CGLib-Stock-Service-getStockLevel",
+            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "3b188ff4a5489e8b87bf26f2d002b6412ebf1b70"
+                "reference": "c40b12306cd7debc2e89177ecb4f51515779a487"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
@@ -1284,17 +1284,11 @@
         },
         {
             "name": "channelgrabber/location",
-            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "version": "dev-CGIV-8415-Products-Page-Should-Only-Show-Merchants-Stock-2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "5f23341bc1abed9304b06c9579f04703054a7833"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-dev-EPIC-CGIV-8210-Include-FBA-Stock-51742d.zip",
-                "reference": "5f23341bc1abed9304b06c9579f04703054a7833",
-                "shasum": null
+                "reference": "3ca452f847350dcfec993adf4290b24c9c505efa"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -8909,6 +8903,12 @@
             "alias": "1.1.3.1",
             "alias_normalized": "1.1.3.1",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "package": "channelgrabber/location"
+        },
+        {
+            "alias": "1.1.3.1",
+            "alias_normalized": "1.1.3.1",
+            "version": "dev-CGIV-8415-Products-Page-Should-Only-Show-Merchants-Stock-2",
             "package": "channelgrabber/location"
         },
         {
