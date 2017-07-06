@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "db20a5fc586c33d4af9123e197dfc502",
+    "content-hash": "4a29d617bd3c6ec7e07042b5a34140a9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-04 08:29:56"
+            "time": "2017-07-04T08:29:56+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -484,7 +484,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-06 08:48:39"
+            "time": "2017-07-06T08:48:39+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -563,7 +563,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-03 07:50:09"
+            "time": "2017-07-03T07:50:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1332,7 +1332,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-06 09:01:26"
+            "time": "2017-07-06T09:01:26+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2469,7 +2469,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30 07:47:46"
+            "time": "2017-06-30T07:47:46+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -2527,7 +2527,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-05 08:16:22"
+            "time": "2017-07-05T08:16:22+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3016,17 +3016,11 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.0",
+            "version": "dev-CGIV-8418-add-a-toggle-switch-for-include-FBA-stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "cc2e5bbc2f1bd5788f4ddb2e1ea765af92ac1790"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.1.0-d30d58.zip",
-                "reference": "cc2e5bbc2f1bd5788f4ddb2e1ea765af92ac1790",
-                "shasum": null
+                "reference": "338e03981c993a76e2aabc080794408a017af1dd"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3799,17 +3793,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.41",
+            "version": "dev-CGIV-8418-add-a-toggle-switch-for-include-FBA-stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f338ac250096ab76752b3e761a1ab83aab7c8ee9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.41-0e74da.zip",
-                "reference": "f338ac250096ab76752b3e761a1ab83aab7c8ee9",
-                "shasum": null
+                "reference": "f66970f7ab4eadc5f6f6efe94911c70ccce88705"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4093,7 +4081,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5435,7 +5423,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8916,10 +8904,23 @@
             "alias_normalized": "1.8.7.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
+            "version": "dev-CGIV-8418-add-a-toggle-switch-for-include-FBA-stock",
+            "package": "channelgrabber/zf2-amazon"
+        },
+        {
+            "alias": "1.17.42",
+            "alias_normalized": "1.17.42.0",
+            "version": "dev-CGIV-8418-add-a-toggle-switch-for-include-FBA-stock",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/cglib": 20,
         "channelgrabber/channel": 20,
@@ -8927,12 +8928,13 @@
         "channelgrabber/location": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
-        "composer/composer": 20,
+        "channelgrabber/zf2-amazon": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
