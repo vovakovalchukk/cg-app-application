@@ -55,7 +55,7 @@
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.1.1",
         "channelgrabber/manual-order": "~1.0.0",
-        "channelgrabber/netdespatch": "~1.2.14",
+        "channelgrabber/netdespatch": "dev-CGIV-8480-linked-orders-multiple-currencies as 1.2.15",
         "channelgrabber/order": "~1.28.14",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",

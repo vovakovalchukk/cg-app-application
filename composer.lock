@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d818e680bc9765ef4d6af47cb35e498",
+    "content-hash": "1e6ae0ca78516d23340505b6af2ac440",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1450,16 +1450,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.14",
+            "version": "dev-CGIV-8480-linked-orders-multiple-currencies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "c143d8ea3743d68c97832ca159d445b3baece91b"
+                "reference": "119353f9863fe91330409c8b0eb077f6f8203d8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.14-ee44c2.zip",
-                "reference": "c143d8ea3743d68c97832ca159d445b3baece91b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8480-linked-orders-multiple-currencies-465153.zip",
+                "reference": "119353f9863fe91330409c8b0eb077f6f8203d8f",
                 "shasum": null
             },
             "require": {
@@ -1500,7 +1500,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-05-16T15:13:52+00:00"
+            "time": "2017-07-10 09:54:58"
         },
         {
             "name": "channelgrabber/notification",
@@ -5488,7 +5488,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5581,7 +5581,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6050,7 +6050,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8882,10 +8882,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.15",
+            "alias_normalized": "1.2.15.0",
+            "version": "dev-CGIV-8480-linked-orders-multiple-currencies",
+            "package": "channelgrabber/netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
