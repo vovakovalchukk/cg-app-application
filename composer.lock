@@ -1454,12 +1454,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "119353f9863fe91330409c8b0eb077f6f8203d8f"
+                "reference": "3d8935e8e38fd4e07dc47dd974ffca5877b7ccc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8480-linked-orders-multiple-currencies-465153.zip",
-                "reference": "119353f9863fe91330409c8b0eb077f6f8203d8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8480-linked-orders-multiple-currencies-7870eb.zip",
+                "reference": "3d8935e8e38fd4e07dc47dd974ffca5877b7ccc1",
                 "shasum": null
             },
             "require": {
@@ -1500,7 +1500,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-07-10 09:54:58"
+            "time": "2017-07-10 11:03:56"
         },
         {
             "name": "channelgrabber/notification",
