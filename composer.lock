@@ -439,11 +439,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "37369934789912eab9202002a3eb1b6d371a130c"
+                "reference": "6d9e9b922939e7a869aab710c64c318e5c768004"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-CGIV-8210-Include-FBA-Stock-71b808.zip",
+                "reference": "6d9e9b922939e7a869aab710c64c318e5c768004",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
-                "channelgrabber/channel": "dev-CGIV-8588-toggle-triggers-stock-push-to-all-channels as 1.30.1",
+                "channelgrabber/channel": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.30.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "~1.1.1",
@@ -484,7 +490,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-06 08:48:39"
+            "time": "2017-07-12 07:46:20"
         },
         {
             "name": "channelgrabber/channel",
@@ -1552,16 +1558,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.14",
+            "version": "1.28.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7879723c118214bedc754e160e98bc68409adfba"
+                "reference": "c1928d87bf2f8e6f9f90d71005b9ef1226f46638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.14-a9159a.zip",
-                "reference": "7879723c118214bedc754e160e98bc68409adfba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.15-7498db.zip",
+                "reference": "c1928d87bf2f8e6f9f90d71005b9ef1226f46638",
                 "shasum": null
             },
             "require": {
@@ -1626,7 +1632,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-25T14:58:21+00:00"
+            "time": "2017-06-20T09:00:24+00:00"
         },
         {
             "name": "channelgrabber/permission",
