@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "efef198ef702c8352103f7ee1f593097",
+    "content-hash": "f03835fc1348a15d0cf1e350994db457",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -435,16 +435,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "version": "dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "8d7f95be621640177ebd9c49e8790a2d30cba121"
+                "reference": "22f02b50b1520c0549a7ea3363622cc9c5117bc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-CGIV-8210-Include-FBA-Stock-d42cfc.zip",
-                "reference": "8d7f95be621640177ebd9c49e8790a2d30cba121",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-6ca4bc.zip",
+                "reference": "22f02b50b1520c0549a7ea3363622cc9c5117bc9",
                 "shasum": null
             },
             "require": {
@@ -453,6 +453,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "~1.1.1",
+                "channelgrabber/feature-flags": "dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag as 1.0.1",
                 "channelgrabber/http": "^1.3.25",
                 "channelgrabber/listing": "~1.11.11",
                 "channelgrabber/location": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.1.3.1",
@@ -490,7 +491,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-12 11:03:50"
+            "time": "2017-07-13 17:03:55"
         },
         {
             "name": "channelgrabber/channel",
@@ -1030,15 +1031,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "848021c80e2c2c951eb8d9328c59c0029d221e88"
+                "reference": "26b56b96dd0b0b9d0652a53b193415255966e97a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-aa8f43.zip",
-                "reference": "848021c80e2c2c951eb8d9328c59c0029d221e88",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-db9c5c.zip",
+                "reference": "26b56b96dd0b0b9d0652a53b193415255966e97a",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/channel": "^1.27.5",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/user": "~1.22.9",
                 "opensoft/rollout": "^2.2",
                 "predis/predis": "^1.1"
             },
@@ -1048,7 +1052,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-07-13 09:21:23"
+            "time": "2017-07-13 17:12:40"
         },
         {
             "name": "channelgrabber/gearman",
@@ -3052,7 +3056,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "94ae488f63d20f8c55e89895ea1bf59473f7bbd0"
+                "reference": "334fcf11dc4cb9edc932069b5ff5de7d27658d35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-4ce787.zip",
+                "reference": "334fcf11dc4cb9edc932069b5ff5de7d27658d35",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3084,7 +3094,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-07-13 15:20:34"
+            "time": "2017-07-13 16:04:17"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3830,7 +3840,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cb5c1fb2d0920e13b1a907627e87415af6e2d820"
+                "reference": "b45888336d0dca26b3eb8a16ace61c1dae9db1a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-4df57e.zip",
+                "reference": "b45888336d0dca26b3eb8a16ace61c1dae9db1a9",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3878,7 +3894,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-13 15:39:48"
+            "time": "2017-07-13 17:02:42"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8964,7 +8980,7 @@
         {
             "alias": "1.12.0",
             "alias_normalized": "1.12.0.0",
-            "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
+            "version": "dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag",
             "package": "channelgrabber/cglib"
         },
         {
