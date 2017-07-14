@@ -1025,13 +1025,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "5f3c6c586bb8ba78a66d19cebbf1d070ab1a7de3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-bbda48.zip",
-                "reference": "5f3c6c586bb8ba78a66d19cebbf1d070ab1a7de3",
-                "shasum": null
+                "reference": "e3cc88c75b188b0057f13b8e900322a5bbb06f55"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3827,13 +3821,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "754c0b573156b4d103971cae0c06768db19ebce7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-e59342.zip",
-                "reference": "754c0b573156b4d103971cae0c06768db19ebce7",
-                "shasum": null
+                "reference": "050b00e9ada9bf0b453eb23a2be42f68f35a4199"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
