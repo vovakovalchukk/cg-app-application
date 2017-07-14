@@ -439,13 +439,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "1aa7230e3418bdcd083fe0df1be27b55da33b88f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-1de898.zip",
-                "reference": "1aa7230e3418bdcd083fe0df1be27b55da33b88f",
-                "shasum": null
+                "reference": "7008b580517b69e1628d21bd443a2c6c79bca1f5"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.0",
@@ -491,7 +485,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-14 10:12:28"
+            "time": "2017-07-14T10:12:28+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -570,7 +564,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-10 11:56:41"
+            "time": "2017-07-10T11:56:41+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -672,7 +666,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1051,7 +1045,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-07-14 10:07:27"
+            "time": "2017-07-14T10:07:27+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -1367,7 +1361,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-11 13:48:20"
+            "time": "2017-07-11T13:48:20+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2504,7 +2498,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-30 07:47:46"
+            "time": "2017-06-30T07:47:46+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -2562,7 +2556,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-05 08:16:22"
+            "time": "2017-07-05T08:16:22+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3055,13 +3049,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "d0e56b51529a22b35d9c2c8fa4e5753cda35509d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-4dcea0.zip",
-                "reference": "d0e56b51529a22b35d9c2c8fa4e5753cda35509d",
-                "shasum": null
+                "reference": "f17930568d66bc91121dbd45319292a61442b281"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3093,7 +3081,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-07-14 10:10:25"
+            "time": "2017-07-14T10:10:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -3893,7 +3881,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-14 10:10:03"
+            "time": "2017-07-14T10:10:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4130,7 +4118,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5524,7 +5512,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5575,7 +5563,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -6137,7 +6125,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -9027,6 +9015,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/amazon": 20,
         "channelgrabber/cglib": 20,
         "channelgrabber/channel": 20,
@@ -9037,12 +9026,11 @@
         "channelgrabber/stock": 20,
         "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
