@@ -78,7 +78,7 @@
         "channelgrabber/user": "~1.22.9",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
-        "channelgrabber/woocommerce": "~1.2.17",
+        "channelgrabber/woocommerce": "dev-CGIV-8633-woocommerce-handle-errors as 1.2.18",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.1.0",
         "channelgrabber/zf2-api": "~1.0.0",

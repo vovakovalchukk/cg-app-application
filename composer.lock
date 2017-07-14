@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "37f335b65fe6020a862d5a1beaa93a0b",
+    "content-hash": "9eb95b9df986fa46bf6f90f24ed109cd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2937,16 +2937,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.17",
+            "version": "dev-CGIV-8633-woocommerce-handle-errors",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "d0d35e387da1cc519736d5da9f857aa82f85b889"
+                "reference": "7d3e1a59f0d2ecfcacb818e1f14060ce0f76e2d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.17-bdedd9.zip",
-                "reference": "d0d35e387da1cc519736d5da9f857aa82f85b889",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-8633-woocommerce-handle-errors-a7c70e.zip",
+                "reference": "7d3e1a59f0d2ecfcacb818e1f14060ce0f76e2d0",
                 "shasum": null
             },
             "require": {
@@ -2979,7 +2979,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-06-22T10:50:34+00:00"
+            "time": "2017-07-14 13:59:25"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -8882,10 +8882,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.18",
+            "alias_normalized": "1.2.18.0",
+            "version": "dev-CGIV-8633-woocommerce-handle-errors",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
