@@ -439,12 +439,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "7008b580517b69e1628d21bd443a2c6c79bca1f5"
+                "reference": "8fc3d156a80ed6167c7d33dbac21cc4773745e28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-4a7d68.zip",
-                "reference": "7008b580517b69e1628d21bd443a2c6c79bca1f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8649-Guard-FBA-Stock-feature-behind-feature-flag-22b6ee.zip",
+                "reference": "8fc3d156a80ed6167c7d33dbac21cc4773745e28",
                 "shasum": null
             },
             "require": {
@@ -491,7 +491,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-14 11:40:14"
+            "time": "2017-07-14 12:04:11"
         },
         {
             "name": "channelgrabber/channel",
