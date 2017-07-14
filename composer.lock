@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e6ae0ca78516d23340505b6af2ac440",
+    "content-hash": "37f335b65fe6020a862d5a1beaa93a0b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1450,16 +1450,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-8480-linked-orders-multiple-currencies",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "3d8935e8e38fd4e07dc47dd974ffca5877b7ccc1"
+                "reference": "1dc06594dcf36556ce8b8909a80f5aa5b003a29c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-8480-linked-orders-multiple-currencies-7870eb.zip",
-                "reference": "3d8935e8e38fd4e07dc47dd974ffca5877b7ccc1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.15-9b73a9.zip",
+                "reference": "1dc06594dcf36556ce8b8909a80f5aa5b003a29c",
                 "shasum": null
             },
             "require": {
@@ -1500,7 +1500,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-07-10 11:03:56"
+            "time": "2017-07-14T09:31:45+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -8882,18 +8882,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.15",
-            "alias_normalized": "1.2.15.0",
-            "version": "dev-CGIV-8480-linked-orders-multiple-currencies",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
