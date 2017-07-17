@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2941,12 +2941,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "5d1ecd27e2fb411f1ffc1a93aea57b583f0f809c"
+                "reference": "c1c6dc5932254dc752de29c324ce4ec8c932d3d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-8633-woocommerce-handle-errors-c69470.zip",
-                "reference": "5d1ecd27e2fb411f1ffc1a93aea57b583f0f809c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-8633-woocommerce-handle-errors-adf06b.zip",
+                "reference": "c1c6dc5932254dc752de29c324ce4ec8c932d3d6",
                 "shasum": null
             },
             "require": {
@@ -2979,7 +2979,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-07-14 15:58:14"
+            "time": "2017-07-17 13:21:52"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -5488,7 +5488,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5581,7 +5581,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6050,7 +6050,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
