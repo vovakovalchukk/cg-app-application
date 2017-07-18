@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe161f27484bcec22bfe5f67ea8e872b",
+    "content-hash": "2a3fb85172c3cd70e4952bc5ece749df",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -674,7 +674,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2479,16 +2479,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-8405-frontend-save-csv-to-s3",
+            "version": "dev-CGIV-8416-refactor-stock-import-process",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "5a93e4175864b5d28e2472808667bd187b465095"
+                "reference": "f5f07ffd6d94863e5fa100dcea5d2406e3c191fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8405-frontend-save-csv-to-s3-b58263.zip",
-                "reference": "5a93e4175864b5d28e2472808667bd187b465095",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8416-refactor-stock-import-process-cb75cf.zip",
+                "reference": "f5f07ffd6d94863e5fa100dcea5d2406e3c191fc",
                 "shasum": null
             },
             "require": {
@@ -2534,7 +2534,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-01T08:38:17+00:00"
+            "time": "2017-07-18 13:06:48"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -5493,7 +5493,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -6055,7 +6055,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8891,7 +8891,7 @@
         {
             "alias": "1.8.7",
             "alias_normalized": "1.8.7.0",
-            "version": "dev-CGIV-8405-frontend-save-csv-to-s3",
+            "version": "dev-CGIV-8416-refactor-stock-import-process",
             "package": "channelgrabber/stock"
         }
     ],
