@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "b9bcc6cd0b7198a65c6045207695694ae45ca9c7"
+                "reference": "2f5c045ffd15884dd215cad1d410c3ba180ea047"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-d735d0.zip",
-                "reference": "b9bcc6cd0b7198a65c6045207695694ae45ca9c7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-b48162.zip",
+                "reference": "2f5c045ffd15884dd215cad1d410c3ba180ea047",
                 "shasum": null
             },
             "require": {
@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-12 11:10:30"
+            "time": "2017-07-20 13:56:01"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -439,12 +439,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "d6ba79bd09a86a484393e471eeb3e8ecef6d2034"
+                "reference": "0add748a88b6b3067a63781feae67f3364ba42de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-CGIV-8210-Include-FBA-Stock-41d2ff.zip",
-                "reference": "d6ba79bd09a86a484393e471eeb3e8ecef6d2034",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-CGIV-8210-Include-FBA-Stock-aab500.zip",
+                "reference": "0add748a88b6b3067a63781feae67f3364ba42de",
                 "shasum": null
             },
             "require": {
@@ -491,7 +491,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-07-18 14:47:28"
+            "time": "2017-07-20 12:18:33"
         },
         {
             "name": "channelgrabber/channel",
@@ -1057,7 +1057,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-07-14 11:54:07"
+            "time": "2017-07-14T11:54:07+00:00"
         },
         {
             "name": "channelgrabber/gearman",
