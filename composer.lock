@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "5069ecd140e4c210ef717eaca418cf408fb4b035"
+                "reference": "254a0753551c2f99d5ba93b6caef163fec3108c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-ac5e5e.zip",
-                "reference": "5069ecd140e4c210ef717eaca418cf408fb4b035",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-b26e9f.zip",
+                "reference": "254a0753551c2f99d5ba93b6caef163fec3108c2",
                 "shasum": null
             },
             "require": {
@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-21 13:14:19"
+            "time": "2017-07-21 13:25:59"
         },
         {
             "name": "channelgrabber/api-lib",
