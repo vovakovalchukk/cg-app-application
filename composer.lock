@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0cbba6a7becb4e779368cdaafae1a7cd",
+    "content-hash": "61d23f6b5c660c9471293fe5ab2c0c65",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1085,16 +1085,16 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "dev-CGIV-8542-StatFailoverClient",
+            "version": "1.3.31",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "3b24d40e563246e79b37a9b5b6e50d86c456917d"
+                "reference": "f4e10832ee50f01ff6e7981c8aacbc350d8bd11a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-CGIV-8542-StatFailoverClient-e03e68.zip",
-                "reference": "3b24d40e563246e79b37a9b5b6e50d86c456917d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.31-2107c3.zip",
+                "reference": "f4e10832ee50f01ff6e7981c8aacbc350d8bd11a",
                 "shasum": null
             },
             "require": {
@@ -1134,7 +1134,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-20 13:03:26"
+            "time": "2017-07-21T08:39:32+00:00"
         },
         {
             "name": "channelgrabber/image",
@@ -8882,18 +8882,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.31",
-            "alias_normalized": "1.3.31.0",
-            "version": "dev-CGIV-8542-StatFailoverClient",
-            "package": "channelgrabber/http"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/http": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
