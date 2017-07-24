@@ -1489,16 +1489,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.14",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "c143d8ea3743d68c97832ca159d445b3baece91b"
+                "reference": "1dc06594dcf36556ce8b8909a80f5aa5b003a29c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.14-ee44c2.zip",
-                "reference": "c143d8ea3743d68c97832ca159d445b3baece91b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.15-9b73a9.zip",
+                "reference": "1dc06594dcf36556ce8b8909a80f5aa5b003a29c",
                 "shasum": null
             },
             "require": {
@@ -1539,7 +1539,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-05-16T15:13:52+00:00"
+            "time": "2017-07-14T09:31:45+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -5674,7 +5674,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
