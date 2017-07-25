@@ -10,6 +10,7 @@ use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
 use CG\Settings\SetupProgress\Step\Status as StepStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -20,6 +21,9 @@ use CG\User\ActiveUserInterface;
 use SetupWizard\Module;
 use Zend\Config\Config;
 use Zend\Session\SessionManager;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\User\Entity as UserEntity;
+use CG\OrganisationUnit\Entity as OrganisationUnitEntity;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -50,6 +54,8 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $config;
     /** @var SubscriptionService */
     protected $subscriptionService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     /** @var SetupProgress */
     protected $setupProgress;
@@ -61,7 +67,8 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         SetupProgressService $setupProgressService,
         SessionManager $sessionManager,
         Config $config,
-        SubscriptionService $subscriptionService
+        SubscriptionService $subscriptionService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setEventService($eventService)
             ->setActiveUserContainer($activeUserContainer)
@@ -69,7 +76,8 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
             ->setSetupProgressService($setupProgressService)
             ->setSessionManager($sessionManager)
             ->setConfig($config)
-            ->setSubscriptionService($subscriptionService);
+            ->setSubscriptionService($subscriptionService)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -96,6 +104,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 
     protected function processStep($step, $status)
     {
+        /** @var UserEntity $user */
         $user = $this->activeUserContainer->getActiveUser();
         $userId = $user->getId();
         $this->logInfo(static::LOG_STATUS, ['user' => $userId, 'ou' => $user->getOrganisationUnitId(), 'setupWizardStepStatus' => $status, 'setupWizardStep' => $step], static::LOG_CODE);
@@ -107,6 +116,8 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         // When the wizard is completed start the timer on the free trial
         if ($setupProgress->isComplete()) {
             $this->setFreeTrialEndDate();
+            // Also, save the OU with the setup complete date
+            $this->saveOrganisationUnit($user);
         }
         return $this;
     }
@@ -233,6 +244,14 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         return false;
     }
 
+    protected function saveOrganisationUnit(UserEntity $user)
+    {
+        /** @var OrganisationUnitEntity $ou */
+        $ou = $this->organisationUnitService->fetch($user->getOrganisationUnitId());
+        $ou->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
+        $this->organisationUnitService->save($ou);
+    }
+
     protected function setEventService(EventService $eventService)
     {
         $this->eventService = $eventService;
@@ -272,6 +291,12 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected function setSubscriptionService(SubscriptionService $subscriptionService)
     {
         $this->subscriptionService = $subscriptionService;
+        return $this;
+    }
+
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 }
