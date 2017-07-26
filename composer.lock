@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a233bfa2e8cad2de877fa0866d85c545",
+    "content-hash": "60545e16d272277c0edc54a36c970890",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1554,16 +1554,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.14",
+            "version": "1.28.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7879723c118214bedc754e160e98bc68409adfba"
+                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.14-a9159a.zip",
-                "reference": "7879723c118214bedc754e160e98bc68409adfba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.16-8d433d.zip",
+                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268",
                 "shasum": null
             },
             "require": {
@@ -1628,7 +1628,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-25T14:58:21+00:00"
+            "time": "2017-07-26T11:16:03+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3547,12 +3547,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f9302e972f7553c22b2239434aa243a1b9aafcf6"
+                "reference": "d6e47ca680d5e49daf9844f8c93df6e4c451a0c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-UpdateFBTrackingPixel-231f09.zip",
-                "reference": "f9302e972f7553c22b2239434aa243a1b9aafcf6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-UpdateFBTrackingPixel-2241d4.zip",
+                "reference": "d6e47ca680d5e49daf9844f8c93df6e4c451a0c0",
                 "shasum": null
             },
             "require": {
@@ -3591,7 +3591,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-07-26 10:55:23"
+            "time": "2017-07-26 11:08:29"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
