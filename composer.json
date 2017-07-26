@@ -33,7 +33,7 @@
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.3.3",
         "channelgrabber/cglib": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.12.1",
-        "channelgrabber/channel": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.31.1",
+        "channelgrabber/channel": "dev-EPIC-CGIV-8210-Include-FBA-Stock as 1.31.3",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
