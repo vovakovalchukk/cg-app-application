@@ -3547,12 +3547,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "8027f43bd7b322798892921d9565ef57a1d07b77"
+                "reference": "f9302e972f7553c22b2239434aa243a1b9aafcf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-UpdateFBTrackingPixel-781576.zip",
-                "reference": "8027f43bd7b322798892921d9565ef57a1d07b77",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-UpdateFBTrackingPixel-231f09.zip",
+                "reference": "f9302e972f7553c22b2239434aa243a1b9aafcf6",
                 "shasum": null
             },
             "require": {
@@ -3591,7 +3591,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-07-25 10:24:22"
+            "time": "2017-07-26 10:55:23"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
