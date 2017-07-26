@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "60545e16d272277c0edc54a36c970890",
+    "content-hash": "412cc7e070a083f4317ca01fa291b86b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3543,16 +3543,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-UpdateFBTrackingPixel",
+            "version": "1.5.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "d6e47ca680d5e49daf9844f8c93df6e4c451a0c0"
+                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-UpdateFBTrackingPixel-2241d4.zip",
-                "reference": "d6e47ca680d5e49daf9844f8c93df6e4c451a0c0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.9-4ff211.zip",
+                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a",
                 "shasum": null
             },
             "require": {
@@ -3591,7 +3591,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-07-26 11:08:29"
+            "time": "2017-07-26T15:25:11+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8886,7 +8886,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
