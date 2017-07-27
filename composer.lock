@@ -3061,12 +3061,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "f2ac7ff6f518ec193bf37b33b3362e5f9d205b1f"
+                "reference": "cab55a18eb4c493b396959b2e0de2ca6412f6948"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-1ef799.zip",
-                "reference": "f2ac7ff6f518ec193bf37b33b3362e5f9d205b1f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-12b3fc.zip",
+                "reference": "cab55a18eb4c493b396959b2e0de2ca6412f6948",
                 "shasum": null
             },
             "require": {
@@ -3099,7 +3099,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-07-17 08:51:38"
+            "time": "2017-07-27 14:32:27"
         },
         {
             "name": "channelgrabber/zf2-api",
