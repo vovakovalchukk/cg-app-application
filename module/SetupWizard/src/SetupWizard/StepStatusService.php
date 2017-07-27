@@ -3,27 +3,26 @@ namespace SetupWizard;
 
 use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Intercom\Event\Service as EventService;
 use CG\Intercom\Event\Request as Event;
+use CG\Intercom\Event\Service as EventService;
+use CG\OrganisationUnit\Entity as OrganisationUnitEntity;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
 use CG\Settings\SetupProgress\Step\Status as StepStatus;
-use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
+use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Stats\StatsAwareInterface;
-use CG\Stats\StatsTrait;
 use CG\User\ActiveUserInterface;
-use SetupWizard\Module;
+use CG\User\Entity as UserEntity;
 use Zend\Config\Config;
 use Zend\Session\SessionManager;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\User\Entity as UserEntity;
-use CG\OrganisationUnit\Entity as OrganisationUnitEntity;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -56,7 +55,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $subscriptionService;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
-
     /** @var SetupProgress */
     protected $setupProgress;
 
@@ -70,14 +68,14 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         SubscriptionService $subscriptionService,
         OrganisationUnitService $organisationUnitService
     ) {
-        $this->setEventService($eventService)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setSetupProgressMapper($setupProgressMapper)
-            ->setSetupProgressService($setupProgressService)
-            ->setSessionManager($sessionManager)
-            ->setConfig($config)
-            ->setSubscriptionService($subscriptionService)
-            ->setOrganisationUnitService($organisationUnitService);
+        $this->eventService = $eventService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->setupProgressMapper = $setupProgressMapper;
+        $this->setupProgressService = $setupProgressService;
+        $this->sessionManager = $sessionManager;
+        $this->config = $config;
+        $this->subscriptionService = $subscriptionService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -250,53 +248,5 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $ou = $this->organisationUnitService->fetch($user->getOrganisationUnitId());
         $ou->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
         $this->organisationUnitService->save($ou);
-    }
-
-    protected function setEventService(EventService $eventService)
-    {
-        $this->eventService = $eventService;
-        return $this;
-    }
-
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    protected function setSetupProgressMapper(SetupProgressMapper $setupProgressMapper)
-    {
-        $this->setupProgressMapper = $setupProgressMapper;
-        return $this;
-    }
-
-    protected function setSetupProgressService(SetupProgressService $setupProgressService)
-    {
-        $this->setupProgressService = $setupProgressService;
-        return $this;
-    }
-
-    protected function setSessionManager(SessionManager $sessionManager)
-    {
-        $this->sessionManager = $sessionManager;
-        return $this;
-    }
-
-    protected function setConfig(Config $config)
-    {
-        $this->config = $config;
-        return $this;
-    }
-
-    protected function setSubscriptionService(SubscriptionService $subscriptionService)
-    {
-        $this->subscriptionService = $subscriptionService;
-        return $this;
-    }
-
-    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
     }
 }
