@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b89f23cb85fc05fb93a95d8853f9950",
+    "content-hash": "87875d8a26ebd0e21aeeb7636dcfed5b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "254a0753551c2f99d5ba93b6caef163fec3108c2"
+                "reference": "0a4b7f23be0e647f7e6b409b2332a1cc7e0a93e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-b26e9f.zip",
-                "reference": "254a0753551c2f99d5ba93b6caef163fec3108c2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-8210-Include-FBA-Stock-e705b7.zip",
+                "reference": "0a4b7f23be0e647f7e6b409b2332a1cc7e0a93e4",
                 "shasum": null
             },
             "require": {
@@ -211,7 +211,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-21 13:25:59"
+            "time": "2017-07-27 11:28:39"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -349,24 +349,24 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.3.5",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "cd03b7793c2b15fb11154db6a003f3e67405da02"
+                "reference": "a469b231990bf8b968376d042ed73bfcf2d2eccd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.3.5-8b017f.zip",
-                "reference": "cd03b7793c2b15fb11154db6a003f3e67405da02",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.3.3-9e4562.zip",
+                "reference": "a469b231990bf8b968376d042ed73bfcf2d2eccd",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/predis": ">=1.0.3,<2.0.0",
                 "channelgrabber/queue": "^1.0.0",
-                "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.44",
+                "composer/composer": "@dev",
                 "predis/predis": "~0.8.8"
             },
             "require-dev": {
@@ -379,7 +379,7 @@
                     "CG\\Cache\\": "src"
                 }
             },
-            "time": "2017-06-21T13:26:52+00:00"
+            "time": "2017-04-24T08:09:23+00:00"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -499,12 +499,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ba0107bc767aa93cf036f8548bf843b11f7de796"
+                "reference": "43fd65d989af0c57d4e1b661c162129a1ca567ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-8210-Include-FBA-Stock-e19738.zip",
-                "reference": "ba0107bc767aa93cf036f8548bf843b11f7de796",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-8210-Include-FBA-Stock-829cf9.zip",
+                "reference": "43fd65d989af0c57d4e1b661c162129a1ca567ee",
                 "shasum": null
             },
             "require": {
@@ -576,7 +576,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-07-18 14:56:11"
+            "time": "2017-07-26 08:15:27"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1593,16 +1593,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.15",
+            "version": "1.28.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c1928d87bf2f8e6f9f90d71005b9ef1226f46638"
+                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.15-7498db.zip",
-                "reference": "c1928d87bf2f8e6f9f90d71005b9ef1226f46638",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.16-8d433d.zip",
+                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268",
                 "shasum": null
             },
             "require": {
@@ -1667,7 +1667,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-06-20T09:00:24+00:00"
+            "time": "2017-07-26T11:16:03+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3583,16 +3583,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.8",
+            "version": "1.5.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "ed3adccb8efda93671e0f37e605152a2a1471980"
+                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.8-432245.zip",
-                "reference": "ed3adccb8efda93671e0f37e605152a2a1471980",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.9-4ff211.zip",
+                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a",
                 "shasum": null
             },
             "require": {
@@ -3631,7 +3631,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-06-20T10:23:29+00:00"
+            "time": "2017-07-26T15:25:11+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -7078,16 +7078,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.4.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "f29dca382a6485c3cbe6379f0c61230167681937"
+                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-polyfill-mbstring-f29dca382a6485c3cbe6379f0c61230167681937-zip-413502.zip",
-                "reference": "f29dca382a6485c3cbe6379f0c61230167681937",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-polyfill-mbstring-e79d363049d1c2128f133a2667e4f4190904f7f4-zip-34592d.zip",
+                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
                 "shasum": ""
             },
             "require": {
@@ -7099,7 +7099,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -7133,7 +7133,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-09T14:24:12+00:00"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/process",
@@ -8977,8 +8977,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.20.8",
-            "alias_normalized": "1.20.8.0",
+            "alias": "1.20.12",
+            "alias_normalized": "1.20.12.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/amazon"
         },
@@ -9001,8 +9001,8 @@
             "package": "channelgrabber/feature-flags"
         },
         {
-            "alias": "1.1.3.1",
-            "alias_normalized": "1.1.3.1",
+            "alias": "1.1.4",
+            "alias_normalized": "1.1.4.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/location"
         },
