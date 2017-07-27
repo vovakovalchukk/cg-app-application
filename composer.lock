@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ea1368e2e0140641b2e5b943f462601",
+    "content-hash": "412cc7e070a083f4317ca01fa291b86b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -670,7 +670,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -1085,16 +1085,16 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.29",
+            "version": "1.3.31",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "89f02387cba94d32c8b4f69168cf0df2b92d63b8"
+                "reference": "f4e10832ee50f01ff6e7981c8aacbc350d8bd11a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.29-2c9af9.zip",
-                "reference": "89f02387cba94d32c8b4f69168cf0df2b92d63b8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.31-2107c3.zip",
+                "reference": "f4e10832ee50f01ff6e7981c8aacbc350d8bd11a",
                 "shasum": null
             },
             "require": {
@@ -1134,7 +1134,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-02-17T11:37:52+00:00"
+            "time": "2017-07-21T08:39:32+00:00"
         },
         {
             "name": "channelgrabber/image",
@@ -1548,16 +1548,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.14",
+            "version": "1.28.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7879723c118214bedc754e160e98bc68409adfba"
+                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.14-a9159a.zip",
-                "reference": "7879723c118214bedc754e160e98bc68409adfba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.16-8d433d.zip",
+                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268",
                 "shasum": null
             },
             "require": {
@@ -1622,7 +1622,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-25T14:58:21+00:00"
+            "time": "2017-07-26T11:16:03+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3537,16 +3537,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.8",
+            "version": "1.5.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "ed3adccb8efda93671e0f37e605152a2a1471980"
+                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.8-432245.zip",
-                "reference": "ed3adccb8efda93671e0f37e605152a2a1471980",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.9-4ff211.zip",
+                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a",
                 "shasum": null
             },
             "require": {
@@ -3585,7 +3585,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-06-20T10:23:29+00:00"
+            "time": "2017-07-26T15:25:11+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -5482,7 +5482,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5575,7 +5575,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6044,7 +6044,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
