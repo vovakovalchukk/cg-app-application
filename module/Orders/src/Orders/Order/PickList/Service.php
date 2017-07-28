@@ -179,6 +179,7 @@ class Service implements LoggerAwareInterface
             foreach($items as $item) {
                 foreach ($item->getImageIds() as $imageId) {
                     $imageIdToSkuMap[$imageId] = $sku;
+                    continue 2;
                 }
             }
         }
