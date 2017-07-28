@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "412cc7e070a083f4317ca01fa291b86b",
+    "content-hash": "3cf3a49c90166f1a1457fd04443982e8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3805,7 +3805,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "880e8afac0de3df8b6912aeb40f122cf96c04bab"
+                "reference": "5ccafa5b30a640921474762865045dd6e102fc86"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3852,7 +3852,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-06-15T15:17:15+00:00"
+            "time": "2017-07-28 12:58:03"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4089,7 +4089,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5431,7 +5431,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8886,14 +8886,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
