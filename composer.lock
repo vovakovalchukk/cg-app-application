@@ -3805,7 +3805,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5ccafa5b30a640921474762865045dd6e102fc86"
+                "reference": "a494aeea5bd52bbb837b51c25fe9e32e5f540dc7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8675-help-and-support-dropdown-dbf92b.zip",
+                "reference": "a494aeea5bd52bbb837b51c25fe9e32e5f540dc7",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3852,7 +3858,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-28 12:58:03"
+            "time": "2017-07-28 13:05:15"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
