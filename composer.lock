@@ -3805,13 +3805,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a494aeea5bd52bbb837b51c25fe9e32e5f540dc7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8675-help-and-support-dropdown-dbf92b.zip",
-                "reference": "a494aeea5bd52bbb837b51c25fe9e32e5f540dc7",
-                "shasum": null
+                "reference": "84bd8fad73a5d79a917640863fda4939cb813ce6"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3858,7 +3852,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-28 13:05:15"
+            "time": "2017-07-28T13:05:15+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4095,7 +4089,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5437,7 +5431,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8892,14 +8886,14 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
