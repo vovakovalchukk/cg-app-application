@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cf3a49c90166f1a1457fd04443982e8",
+    "content-hash": "7d53549d230e4f3875c2b0f25d4a5760",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3801,11 +3801,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-8675-help-and-support-dropdown",
+            "version": "1.17.42",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "84bd8fad73a5d79a917640863fda4939cb813ce6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.42-14b7a9.zip",
+                "reference": "84bd8fad73a5d79a917640863fda4939cb813ce6",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3852,7 +3858,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-28T13:05:15+00:00"
+            "time": "2017-07-31T13:09:06+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4089,7 +4095,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5431,7 +5437,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8876,24 +8882,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.42",
-            "alias_normalized": "1.17.42.0",
-            "version": "dev-CGIV-8675-help-and-support-dropdown",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
