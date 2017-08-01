@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cd1e94f4c637fd718df7dd386ef85a2",
+    "content-hash": "6472e78a08689cd46fa886d2cb5fca49",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1177,12 +1177,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "c627db842f743c841622531ef56c1ead5dea12fd"
+                "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-8686-improve-intercom-data-31c9c1.zip",
-                "reference": "c627db842f743c841622531ef56c1ead5dea12fd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-8686-improve-intercom-data-3f1317.zip",
+                "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988",
                 "shasum": null
             },
             "require": {
@@ -1204,7 +1204,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2017-07-27T08:17:38+00:00"
+            "time": "2017-07-28 09:00:58"
         },
         {
             "name": "channelgrabber/listing",
