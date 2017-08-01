@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6472e78a08689cd46fa886d2cb5fca49",
+    "content-hash": "827c54ca795c5c11b71866981015970f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2768,16 +2768,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.9",
+            "version": "dev-CGIV-8686-intercom-company-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "4a14ce6602a67e12c01452d2c553cb4ef7ad1fb2"
+                "reference": "f80d805c963a2ee2ad6959187ae3138a036ea8cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.9-657d61.zip",
-                "reference": "4a14ce6602a67e12c01452d2c553cb4ef7ad1fb2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8686-intercom-company-data-2cc072.zip",
+                "reference": "f80d805c963a2ee2ad6959187ae3138a036ea8cf",
                 "shasum": null
             },
             "require": {
@@ -2815,7 +2815,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-02-24T11:23:59+00:00"
+            "time": "2017-07-28 09:11:19"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -8888,12 +8888,19 @@
             "alias_normalized": "1.1.10.0",
             "version": "dev-CGIV-8686-improve-intercom-data",
             "package": "channelgrabber/intercom"
+        },
+        {
+            "alias": "1.22.9",
+            "alias_normalized": "1.22.9.0",
+            "version": "dev-CGIV-8686-intercom-company-data",
+            "package": "channelgrabber/user"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/intercom": 20,
+        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
