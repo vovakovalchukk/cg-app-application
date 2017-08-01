@@ -24,6 +24,7 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\MvcEvent;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 
 class OrdersTable
 {
@@ -80,7 +81,8 @@ class OrdersTable
             ->mapGiftMessages($orderCollection, $orders)
             ->mapImageIdsToImages($orders)
             ->mapTrackingUrls($orders)
-            ->mapLabelData($orders);
+            ->mapLabelData($orders)
+            ->mapLinkedOrdersData($orderCollection, $orders);
 
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -144,6 +146,13 @@ class OrdersTable
             if ($accountEntity instanceof Account) {
                 $order['accountName'] = $accountEntity->getDisplayName();
                 $order['channelImgUrl'] = $accountEntity->getImageUrl();
+                if ($accountEntity->getChannel() === 'amazon' && $order['fulfilmentChannel'] === FulfilmentChannelMapper::CG_FBA) {
+                    /**
+                     * Any change to this code should be reflected in:
+                     *  /module/Orders/src/Orders/Controller/OrderDetailsController.php (getChannelLogo)
+                     */
+                    $order['channel'] .= '-fba';
+                }
             }
 
             $order['accountLink'] = $event->getRouter()->assemble(
@@ -306,6 +315,25 @@ class OrdersTable
     {
         foreach ($orders as &$order) {
             $order['labelCreatedDate'] = '';
+        }
+        return $this;
+    }
+
+    protected function mapLinkedOrdersData(Orders $orderCollection, &$orders)
+    {
+        $orderIds = [];
+        foreach ($orders as $order) {
+            $orderIds[] = $order['id'];
+        }
+
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orderCollection);
+
+        foreach ($orders as &$order) {
+            if (isset($linkedOrders[$order['id']])) {
+                $order['linkedOrdersData'] = [
+                    'linkedOrders' => $linkedOrders[$order['id']],
+                ];
+            }
         }
         return $this;
     }

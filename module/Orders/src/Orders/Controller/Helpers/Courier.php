@@ -83,20 +83,25 @@ class Courier
         return $this->carriers->getAllCarriers();
     }
 
-    public function getCarrierPriorityOptions()
+    public function getCarrierPriorityOptions($tracking)
     {
         $frequentCarrierList = [
             'DPD',
-            'Interlink',
+            'DPD Local',
             'MyHermes',
             'Royal Mail',
         ];
 
         $carrierDropdownOptions = [];
         foreach ($frequentCarrierList as $carrier) {
+            $selected = false;
+            if(!is_null($tracking)) {
+                $selected = ($tracking->getCarrier() == $carrier);
+            }
             $carrierDropdownOptions[] = [
                 'title' => $carrier,
                 'value' => $carrier,
+                'selected' => $selected
             ];
         }
         return $carrierDropdownOptions;

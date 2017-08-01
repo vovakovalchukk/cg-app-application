@@ -31,6 +31,7 @@ return [
                     'shippingPrice' => Module::PUBLIC_FOLDER . 'template/columns/shippingPrice.mustache',
                     'trackingInfo' => Module::PUBLIC_FOLDER . 'template/columns/trackingInfo.mustache',
                     'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
+                    'linkedOrdersPopup' => Module::PUBLIC_FOLDER . 'template/popup/linkedOrders.mustache',
                 ],
                 'courierReview' => [
                     'customSelect' => UiModule::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
@@ -60,6 +61,7 @@ return [
                     'addOns' => Module::PUBLIC_FOLDER . 'template/courier/columns/addOns.mustache',
                     'actions' => Module::PUBLIC_FOLDER . 'template/courier/columns/actions.mustache',
                     'deliveryExperience' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveryExperience.mustache',
+                    'courierPickup' => Module::PUBLIC_FOLDER . 'template/courier/columns/courierPickup.mustache',
                     'collectionTime' => Module::PUBLIC_FOLDER . 'template/courier/columns/collectionTime.mustache',
                     'saturday' => Module::PUBLIC_FOLDER . 'template/courier/columns/saturday.mustache',
                 ],

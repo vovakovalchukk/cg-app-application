@@ -36,6 +36,8 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
+    const ROUTE_DELETE_CHECK = 'Delete Check';
+    const ROUTE_DELETE_PROGRESS = 'Delete Progress';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
 
@@ -103,6 +105,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
+        $accounts = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
@@ -116,7 +119,8 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
-        $view->setVariable('products', $productsArray)
+        $view
+            ->setVariable('products', $productsArray)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
@@ -135,10 +139,14 @@ class ProductsJsonController extends AbstractActionController
     {
         $product = $productEntity->toArray();
 
+        $activeSalesAccounts = $this->getActiveSalesAccounts($accounts);
+
         $product = array_merge($product, [
             'eTag' => $productEntity->getStoredETag(),
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
+            'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
+            'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
         ]);
@@ -199,11 +207,38 @@ class ProductsJsonController extends AbstractActionController
         return $product;
     }
 
+    protected function getActiveSalesAccounts($accounts)
+    {
+        $activeSalesAccounts = [];
+        foreach ($accounts as $account) {
+            if ($account['deleted'] || (! $account['active']) || (! in_array('sales', $account['type']))) {
+                continue;
+            }
+            $activeSalesAccounts[$account['id']] = $account;
+        }
+        return $activeSalesAccounts;
+    }
+
+    protected function getProductListingsPerAccountArray(ProductEntity $productEntity, $accounts)
+    {
+        $listingIdsByAccountId = [];
+        /** @var ListingEntity $listing */
+        foreach ($productEntity->getListings() as $listing) {
+            $accountId = $listing->getAccountId();
+            if (!isset($listingIdsByAccountId[$accountId])) {
+                $listingIdsByAccountId[$accountId] = [];
+            }
+            $listingIdsByAccountId[$accountId][] = $listing->getId();
+        }
+        return $listingIdsByAccountId;
+    }
+
     protected function getProductListingsArray(ProductEntity $productEntity)
     {
         $listings = [];
         /** @var ListingEntity $listing */
         foreach ($productEntity->getListings() as $listing) {
+            $id = $listing->getId();
             $listingData = $listing->toArray();
             $listingData['message'] = '';
 
@@ -211,19 +246,19 @@ class ProductsJsonController extends AbstractActionController
             $statusHistory->rewind();
 
             if ($statusHistory->count() == 0) {
-                $listings[] = $listingData;
+                $listings[$id] = $listingData;
                 continue;
             }
 
             /** @var ListingStatusHistory $currentStatus */
             $currentStatus = $statusHistory->current();
             if ($currentStatus->getStatus() != $listing->getStatus()) {
-                $listings[] = $listingData;
+                $listings[$id] = $listingData;
                 continue;
             }
 
             $listingData['message'] = $currentStatus->getMessage();
-            $listings[] = $listingData;
+            $listings[$id] = $listingData;
         }
         return $listings;
     }
@@ -248,21 +283,35 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
-    public function deleteAction()
+    public function deleteCheckAction()
     {
         $this->checkUsage();
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true, "guid" => uniqid('', true), "total" => count($this->params()->fromPost('productIds'))]
+        );
+    }
 
+    public function deleteAction()
+    {
         $view = $this->getJsonModelFactory()->newInstance();
 
         $productIds = $this->params()->fromPost('productIds');
         if (empty($productIds)){
-            $view->setVariable('deleted', false);
             return $view;
         }
 
-        $this->getProductService()->deleteProductsById($productIds);
-        $view->setVariable('deleted', true);
+        $progressKey = $this->params()->fromPost('progressKey');
+        $this->getProductService()->deleteProductsById($productIds, $progressKey);
         return $view;
+    }
+
+    public function deleteProgressAction()
+    {
+        $progressKey = $this->params()->fromPost('progressKey');
+        $progressCount = $this->getProductService()->checkProgressOfDeleteProducts($progressKey);
+        return $this->getJsonModelFactory()->newInstance([
+            'progressCount' => $progressCount
+        ]);
     }
 
     public function saveProductTaxRateAction()

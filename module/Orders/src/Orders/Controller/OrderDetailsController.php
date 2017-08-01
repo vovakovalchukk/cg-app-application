@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -20,6 +21,7 @@ use Settings\Controller\ChannelController as ChannelSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 
 class OrderDetailsController extends AbstractActionController
 {
@@ -96,6 +98,7 @@ class OrderDetailsController extends AbstractActionController
         $view->addChild($buyerMessage, 'buyerMessage');
         $view->addChild($orderAlert, 'orderAlert');
         $view->addChild($addressInformation, 'addressInformation');
+        $view->addChild($this->getLinkedOrdersSection($order), 'linkedOrdersSection');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('existingNotes', $this->getNotes($order));
@@ -110,9 +113,9 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getCarrierSelect(Order $order)
     {
-        $priorityOptions = $this->courierHelper->getCarrierPriorityOptions();
         $carriers = $this->courierHelper->getCarriersData();
         $tracking = $order->getFirstTracking();
+        $priorityOptions = $this->courierHelper->getCarrierPriorityOptions($tracking);
         $options = [];
         foreach ($carriers as $carrier) {
             $selected = false;
@@ -236,7 +239,7 @@ class OrderDetailsController extends AbstractActionController
         $account = $this->accountService->fetch($order->getAccountId());
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('orders/orders/order/accountDetails');
-        $view->addChild($this->getChannelLogo($account), 'channelLogo');
+        $view->addChild($this->getChannelLogo($account, $order), 'channelLogo');
         $view->setVariable(
             'accountUrl',
             $this->url()->fromRoute(
@@ -248,12 +251,20 @@ class OrderDetailsController extends AbstractActionController
         return $view;
     }
 
-    protected function getChannelLogo(Account $account)
+    protected function getChannelLogo(Account $account, Order $order)
     {
+        $channel = $account->getChannel();
+        if ($account->getChannel() === 'amazon' && $order->getFulfilmentChannel() === FulfilmentChannelMapper::CG_FBA) {
+            /**
+             * Any change to this code should be reflected in:
+             *  /module/Orders/src/Orders/Controller/Helpers/OrdersTable.php (mapAccountIdToAccount)
+             */
+            $channel .= '-fba';
+        }
         $externalData = $account->getExternalData();
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate("elements/channel-large.mustache");
-        $view->setVariable('channel', $account->getChannel());
+        $view->setVariable('channel', $channel);
         if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
             $view->setVariable('channelImgUrl', $externalData['imageUrl']);
         }
@@ -299,6 +310,18 @@ class OrderDetailsController extends AbstractActionController
         $status->setVariable('message', $messageText);
         $status->setVariable('statusClass', str_replace(' ', '-', $statusText));
         return $status;
+    }
+
+    protected function getLinkedOrdersSection(Order $order)
+    {
+        $orders = new OrderCollection(Order::class, 'fetch', ['id' => $order->getId()]);
+        $orders->attach($order);
+        $linkedOrders = $this->orderService->getLinkedOrdersData($orders);
+
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('orders/orders/order/linkedOrders');
+        $view->setVariable('linkedOrders', ($linkedOrders[$order->getId()] ?? null));
+        return $view;
     }
 
     protected function getBuyerMessage(Order $order)

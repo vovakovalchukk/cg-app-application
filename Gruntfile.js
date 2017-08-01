@@ -54,6 +54,42 @@ module.exports = function(grunt) {
                         }
                     }
                 ]
+            },
+            mustacheToCgBuilt: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/channelgrabber/',
+                        src: [ '**/template/**/*.mustache'],
+                        dest: 'public/cg-built/'
+                    }
+                ]
+            },
+        },
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'public/cg-built/**/*.js',
+                        'public/cg-built/**/*.css'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    logLevel: "debug",
+                    logConnections: true,
+                    logFileChanges: true,
+                    host: "app.dev.orderhub.io",
+                    port: 443,
+                    proxy: {
+                        target: "https://192.168.33.53",
+                        proxyReq: [
+                            function(proxyReq) {
+                                proxyReq.setHeader('Host', 'app.dev.orderhub.io');
+                            }
+                        ]
+                    }
+                }
             }
         },
         requirejs: {
@@ -95,12 +131,17 @@ module.exports = function(grunt) {
             copyLegacyJs: {
                 files: 'public/channelgrabber/**/js/**/*.js',
                 tasks: ['newer:copy:appJsToCgBuilt']
+            },
+            copyMustache: {
+                files: 'public/channelgrabber/**/template/**/*.mustache',
+                tasks: ['newer:copy:mustacheToCgBuilt']
             }
         }
     });
     require('./grunt-dynamic.js')(grunt);
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('syncWatch', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
     grunt.registerTask('compileJsx', ['babel']);

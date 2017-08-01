@@ -34,6 +34,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     use LogTrait;
 
     const TYPE_ORDER_IDS = 'orderIds';
+    const TYPE_ORDER_IDS_LINKED = 'orderIdsLinked';
     const TYPE_FILTER_ID = 'filterId';
 
     /** @var JsonModelFactory $jsonModelFactory */
@@ -58,8 +59,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $bulkActionService;
 
     protected $typeMap = [
-        self::TYPE_ORDER_IDS => 'getOrdersFromInput',
-        self::TYPE_FILTER_ID => 'getOrdersFromFilterId',
+        self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
+        self::TYPE_ORDER_IDS_LINKED => 'getOrdersFromInputWithLinked',
+        self::TYPE_FILTER_ID        => 'getOrdersFromFilterId',
     ];
 
     public function __construct(
@@ -212,8 +214,17 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function getOrdersFromInput($orderBy = null, $orderDir = null)
     {
         $input = $this->params()->fromPost();
+        $includeLinked = false;
         $ordersToOperatorOn = $this->ordersToOperatorOn;
-        return $ordersToOperatorOn($input, $orderBy, $orderDir);
+        return $ordersToOperatorOn($input, $orderBy, $orderDir, $includeLinked);
+    }
+
+    protected function getOrdersFromInputWithLinked($orderBy = null, $orderDir = null)
+    {
+        $input = $this->params()->fromPost();
+        $includeLinked = true;
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn($input, $orderBy, $orderDir, $includeLinked);
     }
 
     protected function getFilterFromInput($orderBy = null, $orderDir = null)
@@ -236,6 +247,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function performActionOnOrderIds($action, callable $callable)
     {
         return $this->performAction(static::TYPE_ORDER_IDS, $action, $callable);
+    }
+
+    protected function performActionOnOrderIdsWithLinked($action, callable $callable)
+    {
+        return $this->performAction(static::TYPE_ORDER_IDS_LINKED, $action, $callable);
     }
 
     /**
@@ -301,7 +317,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInputWithLinked($orderBy, $orderDir);
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
@@ -316,7 +332,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoiceAction()
     {
-        return $this->performActionOnOrderIds(
+        return $this->performActionOnOrderIdsWithLinked(
             'emailing',
             [$this, 'emailInvoices']
         );
@@ -608,7 +624,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function dispatchOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
+        return $this->performActionOnOrderIdsWithLinked(
             'dispatching',
             [$this, 'dispatchOrders']
         );
@@ -670,7 +686,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         $viewModel = $this->getUsageViewModel();
         try {
-            $orders = $this->getOrdersFromInput();
+            $orders = $this->getOrdersFromInputWithLinked();
         } catch (NotFound $e) {
             return $viewModel;
         }
@@ -683,7 +699,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInputWithLinked($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
             return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {

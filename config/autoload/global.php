@@ -71,6 +71,9 @@ use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Client\Storage\Api as InvoiceSettingsApiStorage;
 use CG\Settings\Product\StorageInterface as ProductSettingsStorage;
 use CG\Settings\Product\Storage\Api as ProductSettingsStorageApi;
+use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
+use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
+use CG\Settings\InvoiceMapping\Storage\Api as InvoiceMappingStorageApi;
 
 // Discount
 use CG\Billing\Discount\StorageInterface as DiscountStorage;
@@ -154,6 +157,10 @@ use CG\Account\Client\Storage\Api as AccountApiStorage;
 
 use CG\Stdlib\SoapClient as CGSoapClient;
 
+// ShipmentMetadata
+use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
+use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -188,6 +195,7 @@ $config = array(
                 LockingStorage::class => LockingRedisStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
+                ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -288,6 +296,18 @@ $config = array(
                     'repository' => InvoiceSettingsApiStorage::class
                 )
             ),
+            InvoiceMappingStorageApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                    'mapper' => InvoiceMappingMapper::class
+                ]
+            ],
+            InvoiceMappingService::class => [
+                'parameters' => [
+                    'repository' => InvoiceMappingStorageApi::class,
+                    'mapper' => InvoiceMappingMapper::class
+                ]
+            ],
             LocationService::class => [
                 'parameters' => [
                     'repository' => LocationApi::class,
@@ -570,6 +590,11 @@ $config = array(
                 'parameters' => [
                     'predisClient' => 'reliable_redis',
                 ],
+            ],
+            ShipmentMetadataApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
             ],
         ),
     ),
