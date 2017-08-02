@@ -1204,7 +1204,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2017-07-28 09:00:58"
+            "time": "2017-07-28T09:00:58+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -2772,12 +2772,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "f80d805c963a2ee2ad6959187ae3138a036ea8cf"
+                "reference": "3ac8f14dbff562e65e24aff3198bbc4d447fbe8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8686-intercom-company-data-2cc072.zip",
-                "reference": "f80d805c963a2ee2ad6959187ae3138a036ea8cf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8686-intercom-company-data-36225b.zip",
+                "reference": "3ac8f14dbff562e65e24aff3198bbc4d447fbe8b",
                 "shasum": null
             },
             "require": {
@@ -2815,7 +2815,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-07-28 09:11:19"
+            "time": "2017-08-02T09:13:44+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
