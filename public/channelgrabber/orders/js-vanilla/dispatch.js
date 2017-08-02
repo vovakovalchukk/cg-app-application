@@ -3,13 +3,15 @@ define([
     'Orders/SaveCheckboxes',
     'Orders/StatusService',
     'Orders/TimelineService',
-    'Orders/BulkActionService'
+    'Orders/BulkActionService',
+    'popup/confirm'
 ], function(
     OrdersBulkActionAbstract,
     saveCheckboxes,
     StatusService,
     TimelineService,
-    BulkActionService
+    BulkActionService,
+    Confirm
 ) {
     function Dispatch()
     {
@@ -30,10 +32,19 @@ define([
             return;
         }
 
-        var ajaxConfig = this.buildAjaxConfig();
+        var self = this;
+        var confirmationMessage = "Dispatching on OrderHub will dispatch on the relevant sales channel. Are you sure you want to dispatch " + orders.length + " orders?";
 
-        this.getNotificationHandler().notice("Marking Orders for Dispatch");
-        return $.ajax(ajaxConfig);
+        var confirm = new Confirm(confirmationMessage, function (response) {
+            if (response !== "Yes") {
+                return;
+            }
+
+            var ajaxConfig = self.buildAjaxConfig();
+
+            self.getNotificationHandler().notice("Marking Orders for Dispatch");
+            return $.ajax(ajaxConfig);
+        });
     };
 
     Dispatch.prototype.buildAjaxConfig = function()
