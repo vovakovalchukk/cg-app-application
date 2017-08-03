@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "85970b77937d546639b2aa5986f0cc19",
+    "content-hash": "a8aa76dabc75d3ad273194af5509ebcb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3360,16 +3360,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.5",
+            "version": "dev-CGIV-8610-turn-off-intercom-for-free-users",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "2fb96338a5b89d155efc22fd14082cb0ad118ecb"
+                "reference": "41b3054f5edaff199a39f704c5c8c461c3f79e6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.5-953acd.zip",
-                "reference": "2fb96338a5b89d155efc22fd14082cb0ad118ecb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8610-turn-off-intercom-for-free-users-62de12.zip",
+                "reference": "41b3054f5edaff199a39f704c5c8c461c3f79e6c",
                 "shasum": null
             },
             "require": {
@@ -3410,7 +3410,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-06-15T15:27:52+00:00"
+            "time": "2017-08-03 15:28:43"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3805,12 +3805,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7600580762fe268660e69503eef22e50d7be6ded"
+                "reference": "7d0640f86f13d140c44bab27831fed0d9f85add6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8610-turn-off-intercom-for-free-users-20c874.zip",
-                "reference": "7600580762fe268660e69503eef22e50d7be6ded",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8610-turn-off-intercom-for-free-users-7b14bc.zip",
+                "reference": "7d0640f86f13d140c44bab27831fed0d9f85add6",
                 "shasum": null
             },
             "require": {
@@ -3858,7 +3858,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-31 14:02:31"
+            "time": "2017-08-03 15:03:19"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8884,6 +8884,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.5.6",
+            "alias_normalized": "1.5.6.0",
+            "version": "dev-CGIV-8610-turn-off-intercom-for-free-users",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.17.99",
             "alias_normalized": "1.17.99.0",
             "version": "dev-CGIV-8610-turn-off-intercom-for-free-users",
@@ -8893,6 +8899,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
