@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "827c54ca795c5c11b71866981015970f",
+    "content-hash": "9ab3abc0be3738801f07b608a26da06e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1173,7 +1173,7 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "dev-CGIV-8686-improve-intercom-data",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
@@ -1181,7 +1181,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-8686-improve-intercom-data-3f1317.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.3.0-3f1317.zip",
                 "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988",
                 "shasum": null
             },
@@ -2768,16 +2768,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-8686-intercom-company-data",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "3ac8f14dbff562e65e24aff3198bbc4d447fbe8b"
+                "reference": "eaf4ef058697ac269ed44ae30deec0dc48046297"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8686-intercom-company-data-36225b.zip",
-                "reference": "3ac8f14dbff562e65e24aff3198bbc4d447fbe8b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.23.0-c9c6c2.zip",
+                "reference": "eaf4ef058697ac269ed44ae30deec0dc48046297",
                 "shasum": null
             },
             "require": {
@@ -2815,7 +2815,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-08-02T09:13:44+00:00"
+            "time": "2017-08-03T10:13:25+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3543,16 +3543,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.9",
+            "version": "1.5.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a"
+                "reference": "c1ff3b3038d4caba3c2fb14cbdda84c270505896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.9-4ff211.zip",
-                "reference": "7f2b1be6759a775a7e615add088ec0b722783f1a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.9.1-1d5f43.zip",
+                "reference": "c1ff3b3038d4caba3c2fb14cbdda84c270505896",
                 "shasum": null
             },
             "require": {
@@ -3562,7 +3562,7 @@
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "~1.22.6",
+                "channelgrabber/user": "^1.22.6",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -3591,7 +3591,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-07-26T15:25:11+00:00"
+            "time": "2017-08-03T10:44:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8882,25 +8882,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.10",
-            "alias_normalized": "1.1.10.0",
-            "version": "dev-CGIV-8686-improve-intercom-data",
-            "package": "channelgrabber/intercom"
-        },
-        {
-            "alias": "1.22.9",
-            "alias_normalized": "1.22.9.0",
-            "version": "dev-CGIV-8686-intercom-company-data",
-            "package": "channelgrabber/user"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/intercom": 20,
-        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
