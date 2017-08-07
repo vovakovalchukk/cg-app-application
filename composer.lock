@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ab3abc0be3738801f07b608a26da06e",
+    "content-hash": "11f9d6471668e4b2d0b274de1fa3a560",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1138,17 +1138,11 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.4",
+            "version": "dev-CGIV-8739-picking-list-image-ids",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "9eb80df0acf7b52a6208e96d452f85637a796ff5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.4-f2e7fc.zip",
-                "reference": "9eb80df0acf7b52a6208e96d452f85637a796ff5",
-                "shasum": null
+                "reference": "282b727d2756e5fd7bc1db6051eb41b5a4101e78"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4095,7 +4089,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5437,7 +5431,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8882,16 +8876,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.4",
+            "alias_normalized": "1.2.4.0",
+            "version": "dev-CGIV-8739-picking-list-image-ids",
+            "package": "channelgrabber/image"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/image": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
