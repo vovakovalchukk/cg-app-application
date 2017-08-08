@@ -1142,7 +1142,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "282b727d2756e5fd7bc1db6051eb41b5a4101e78"
+                "reference": "3848d45c98200cf6e63b53daaa35f1ae9d392150"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
