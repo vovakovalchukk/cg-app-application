@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a20ee89f449dceea658f2d094096727",
+    "content-hash": "36453a38c137eb712e928d6847ca7c83",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3640,16 +3640,16 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.1.7",
+            "version": "dev-CGIV-8757-SessionImprovements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "4067bf8f8fc35b63403341dc11d7d13475993b1f"
+                "reference": "835d9e64d7a86dc86ad5dc4abf83dd05a81f2a60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.7-6ad15c.zip",
-                "reference": "4067bf8f8fc35b63403341dc11d7d13475993b1f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-8757-SessionImprovements-8df464.zip",
+                "reference": "835d9e64d7a86dc86ad5dc4abf83dd05a81f2a60",
                 "shasum": null
             },
             "require": {
@@ -3674,7 +3674,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2017-02-17T11:34:48+00:00"
+            "time": "2017-08-11 10:10:39"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -8888,10 +8888,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.8",
+            "alias_normalized": "1.1.8.0",
+            "version": "dev-CGIV-8757-SessionImprovements",
+            "package": "channelgrabber/zf2-sessions"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-sessions": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
@@ -8902,7 +8910,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }
