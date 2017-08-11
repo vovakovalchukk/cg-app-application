@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4dd50753d00ca51a00a4b428d578861f",
+    "content-hash": "17820971a966ce797414cf3c2d87b309",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3811,12 +3811,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5f43854cf9d8deb3ac7ff9523ba8c2e51398d6bd"
+                "reference": "0854fd15c3b68d45f65d3707d1883e679f2a6aec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8607-update-password-email-d1e79b.zip",
-                "reference": "5f43854cf9d8deb3ac7ff9523ba8c2e51398d6bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8607-update-password-email-60f66a.zip",
+                "reference": "0854fd15c3b68d45f65d3707d1883e679f2a6aec",
                 "shasum": null
             },
             "require": {
@@ -3864,7 +3864,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-07-31 14:01:21"
+            "time": "2017-08-11T11:02:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
