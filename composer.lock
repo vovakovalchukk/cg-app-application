@@ -3644,12 +3644,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "835d9e64d7a86dc86ad5dc4abf83dd05a81f2a60"
+                "reference": "e7746a60105674c39e2965d5d93c8cfe0c647333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-8757-SessionImprovements-8df464.zip",
-                "reference": "835d9e64d7a86dc86ad5dc4abf83dd05a81f2a60",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-8757-SessionImprovements-4c7caa.zip",
+                "reference": "e7746a60105674c39e2965d5d93c8cfe0c647333",
                 "shasum": null
             },
             "require": {
@@ -3674,7 +3674,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2017-08-11 10:10:39"
+            "time": "2017-08-11 10:42:41"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
