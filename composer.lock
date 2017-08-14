@@ -3366,17 +3366,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.5",
+            "version": "dev-CGIV-8607-update-password-email",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "2fb96338a5b89d155efc22fd14082cb0ad118ecb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.5-953acd.zip",
-                "reference": "2fb96338a5b89d155efc22fd14082cb0ad118ecb",
-                "shasum": null
+                "reference": "c050395fe7358280b7034c0470c4cb17ca663c77"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -3811,13 +3805,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0854fd15c3b68d45f65d3707d1883e679f2a6aec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8607-update-password-email-60f66a.zip",
-                "reference": "0854fd15c3b68d45f65d3707d1883e679f2a6aec",
-                "shasum": null
+                "reference": "1c45f22edbd7e87857231b8674b8258cd58b895c"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4101,7 +4089,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5443,7 +5431,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8890,6 +8878,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.5.6",
+            "alias_normalized": "1.5.6.0",
+            "version": "dev-CGIV-8607-update-password-email",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.17.43",
             "alias_normalized": "1.17.43.0",
             "version": "dev-CGIV-8607-update-password-email",
@@ -8898,14 +8892,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
