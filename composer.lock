@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "161e991a8e427fbc774aa50402ffe09f",
+    "content-hash": "df6fc8912df4719d477916e45232d8d9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -434,16 +434,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.12.0",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "3322e0b11445c97ce9905286f6de291341d80a7d"
+                "reference": "f054249dead0ec22a1642d656db21c96aab445f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.12.0-e39584.zip",
-                "reference": "3322e0b11445c97ce9905286f6de291341d80a7d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.12.2-b3db2a.zip",
+                "reference": "f054249dead0ec22a1642d656db21c96aab445f0",
                 "shasum": null
             },
             "require": {
@@ -460,8 +460,8 @@
                 "channelgrabber/product": "^1.4.14",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": ">=1.13.0,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.42",
-                "channelgrabber/stock": "^1.6.0",
+                "channelgrabber/stdlib": "^2.12.47",
+                "channelgrabber/stock": "^1.8.1",
                 "channelgrabber/stock-locking": "^1.0.3",
                 "channelgrabber/user": "^1.22.4",
                 "channelgrabber/zf2-email-template": "^1.0.11",
@@ -489,7 +489,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-04-07T12:40:49+00:00"
+            "time": "2017-08-09T08:34:28+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1295,16 +1295,16 @@
         },
         {
             "name": "channelgrabber/location",
-            "version": "1.1.3",
+            "version": "1.1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "ccb0c999263bbc0816de52c610299f18f6fde471"
+                "reference": "c7a9640d0c6fff33a224a5860102eada74d2da89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-1.1.3-e834f0.zip",
-                "reference": "ccb0c999263bbc0816de52c610299f18f6fde471",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-1.1.3.1-735101.zip",
+                "reference": "c7a9640d0c6fff33a224a5860102eada74d2da89",
                 "shasum": null
             },
             "require": {
@@ -1321,9 +1321,7 @@
                 "channelgrabber/stdlib": "^2.10.4",
                 "channelgrabber/transaction": ">=1.1.3, <2.0.0",
                 "composer/composer": "@dev",
-                "nocarrier/hal": "~0.9.4",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev"
+                "nocarrier/hal": "~0.9.4"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2",
@@ -1340,7 +1338,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2015-06-25T08:07:55+00:00"
+            "time": "2016-01-07T15:28:23+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -1560,16 +1558,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.16",
+            "version": "dev-CGIV-8184-Missing-images-prevent-invoices-from-generating",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268"
+                "reference": "21ae09f131ec8b871483964cf124378fb357ab4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.16-8d433d.zip",
-                "reference": "056c6dd0008f50b235e46bbd427284a36d4fa268",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8184-Missing-images-prevent-invoices-from-generating-dde774.zip",
+                "reference": "21ae09f131ec8b871483964cf124378fb357ab4a",
                 "shasum": null
             },
             "require": {
@@ -1602,7 +1600,7 @@
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/stock": "^1.8.2",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.19",
+                "channelgrabber/template": "dev-CGIV-8184-Missing-images-prevent-invoices-from-generating as 1.4.27",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -1634,7 +1632,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-26T11:16:03+00:00"
+            "time": "2017-08-14 15:16:11"
         },
         {
             "name": "channelgrabber/permission",
@@ -2431,16 +2429,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.47",
+            "version": "2.12.48",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "06c614e0b1581e70be940aff195f0cd8f60b162a"
+                "reference": "35ef87c0ab47f759112b9e6472e0bb3a554abfe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.47-cd78e7.zip",
-                "reference": "06c614e0b1581e70be940aff195f0cd8f60b162a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.48-b3d8a9.zip",
+                "reference": "35ef87c0ab47f759112b9e6472e0bb3a554abfe1",
                 "shasum": null
             },
             "require": {
@@ -2477,20 +2475,20 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-05-25T12:36:14+00:00"
+            "time": "2017-07-26T10:17:29+00:00"
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.8.7",
+            "version": "1.8.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "ef7dc6f0d6c1bef4e2b7fb44ac762e4b9087ce8e"
+                "reference": "c41aabdb524d0b68664e7d5945cd73b875645e72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.7-e3b1d2.zip",
-                "reference": "ef7dc6f0d6c1bef4e2b7fb44ac762e4b9087ce8e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.8.9-4c5349.zip",
+                "reference": "c41aabdb524d0b68664e7d5945cd73b875645e72",
                 "shasum": null
             },
             "require": {
@@ -2535,20 +2533,20 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-06-05T08:49:12+00:00"
+            "time": "2017-08-07T13:52:38+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
-            "version": "1.0.3.1",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock-locking.git",
-                "reference": "d4756a16b13eba93b0613585dc7ede02afe6bc52"
+                "reference": "fc1d951df5f0c10aebb0cdf1c620c8a47dcdb77c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-1.0.3.1-f67635.zip",
-                "reference": "d4756a16b13eba93b0613585dc7ede02afe6bc52",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-1.0.4-8d7232.zip",
+                "reference": "fc1d951df5f0c10aebb0cdf1c620c8a47dcdb77c",
                 "shasum": null
             },
             "require": {
@@ -2571,7 +2569,7 @@
                     "CG\\Stock\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2016-11-02T11:42:59+00:00"
+            "time": "2017-03-27T13:22:25+00:00"
         },
         {
             "name": "channelgrabber/tax",
@@ -2615,16 +2613,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.26",
+            "version": "dev-CGIV-8184-Missing-images-prevent-invoices-from-generating",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f3e4b8085f5f5e6ff70d1bd59d745151db911b0e"
+                "reference": "184f812eed058c03552d25481916f44335b64cc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.26-747ada.zip",
-                "reference": "f3e4b8085f5f5e6ff70d1bd59d745151db911b0e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-8184-Missing-images-prevent-invoices-from-generating-e3e507.zip",
+                "reference": "184f812eed058c03552d25481916f44335b64cc8",
                 "shasum": null
             },
             "require": {
@@ -2669,7 +2667,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-07-18T10:41:40+00:00"
+            "time": "2017-08-14 15:22:30"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5587,7 +5585,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6991,16 +6989,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
+                "reference": "f29dca382a6485c3cbe6379f0c61230167681937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-polyfill-mbstring-e79d363049d1c2128f133a2667e4f4190904f7f4-zip-34592d.zip",
-                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-polyfill-mbstring-f29dca382a6485c3cbe6379f0c61230167681937-zip-413502.zip",
+                "reference": "f29dca382a6485c3cbe6379f0c61230167681937",
                 "shasum": ""
             },
             "require": {
@@ -7012,7 +7010,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -7046,7 +7044,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2017-06-09T14:24:12+00:00"
         },
         {
             "name": "symfony/process",
@@ -8888,10 +8886,25 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.17",
+            "alias_normalized": "1.28.17.0",
+            "version": "dev-CGIV-8184-Missing-images-prevent-invoices-from-generating",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.4.27",
+            "alias_normalized": "1.4.27.0",
+            "version": "dev-CGIV-8184-Missing-images-prevent-invoices-from-generating",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
