@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "161e991a8e427fbc774aa50402ffe09f",
+    "content-hash": "bffc1df155bd1eca2275a1fb3713f1a9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -676,7 +676,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1144,11 +1144,17 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "dev-CGIV-8739-picking-list-image-ids",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "3848d45c98200cf6e63b53daaa35f1ae9d392150"
+                "reference": "a54ba7f3fa429c670bc3aac032c9fa68d208d488"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.6-e5d54f.zip",
+                "reference": "a54ba7f3fa429c670bc3aac032c9fa68d208d488",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1169,7 +1175,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2017-01-30T12:17:33+00:00"
+            "time": "2017-08-14T14:42:42+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -4095,7 +4101,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5437,7 +5443,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5488,7 +5494,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5581,7 +5587,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6050,7 +6056,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8882,24 +8888,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.4",
-            "alias_normalized": "1.2.4.0",
-            "version": "dev-CGIV-8739-picking-list-image-ids",
-            "package": "channelgrabber/image"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/image": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
