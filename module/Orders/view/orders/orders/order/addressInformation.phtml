@@ -21,19 +21,19 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
             <label>
                 <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox copy-address" type="text" name="billingAddressFullName" value="<?=  $order ? $order->getCalculatedBillingAddressFullName() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                    <input class="inputbox copy-address" type="text" name="billingAddressFullName" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddressFullName()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox" type="text" name="billingEmailAddress" value="<?=  $order ? $order->getCalculatedBillingEmailAddress() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                    <input class="inputbox" type="text" name="billingEmailAddress" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingEmailAddress()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label"><?= $this->translate('Telephone'); ?></span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox" type="text" name="billingPhoneNumber" value="<?=  $order ? $order->getCalculatedBillingPhoneNumber() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                    <input class="inputbox" type="text" name="billingPhoneNumber" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingPhoneNumber()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                 </div>
             </label>
             <label>
@@ -63,7 +63,7 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCompanyName" value="<?=  $order ? $order->getCalculatedBillingAddressCompanyName() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddressCompanyName" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddressCompanyName()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
@@ -140,19 +140,19 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressFullName" value="<?=  $order ? $order->getCalculatedShippingAddressFullName() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="shippingAddressFullName" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddressFullName()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingEmailAddress" value="<?=  $order ? $order->getCalculatedShippingEmailAddress() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox" type="text" name="shippingEmailAddress" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingEmailAddress()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Telephone'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingPhoneNumber" value="<?=  $order ? $order->getCalculatedShippingPhoneNumber() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox" type="text" name="shippingPhoneNumber" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingPhoneNumber()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
 
@@ -183,7 +183,7 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                     <label>
                         <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddressCompanyName" value="<?=  $order ? $order->getCalculatedShippingAddressCompanyName() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddressCompanyName" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddressCompanyName()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
