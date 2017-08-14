@@ -69,37 +69,37 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddress1" value="<?=  $order ? $order->getCalculatedBillingAddress1() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddress1" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddress1()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddress2" value="<?=  $order ? $order->getCalculatedBillingAddress2() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddress2" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddress2()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddress3" value="<?=  $order ? $order->getCalculatedBillingAddress3() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddress3" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddress3()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('City'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCity" value="<?=  $order ? $order->getCalculatedBillingAddressCity() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddressCity" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddressCity()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('County'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCounty" value="<?=  $order ? $order->getCalculatedBillingAddressCounty() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddressCounty" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddressCounty()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressPostcode" value="<?=  $order ? $order->getCalculatedBillingAddressPostcode() : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                        <input class="inputbox copy-address" type="text" name="billingAddressPostcode" value="<?=  $order ? $this->escapeHtml($order->getCalculatedBillingAddressPostcode()) : ''; ?>"<?php if (!$this->billingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
                 <label>
@@ -112,8 +112,8 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                             'class' => 'copy-address',
                             'name' => 'billingAddressCountry',
                             'searchField' => true,
-                            'initialValue' => $order ? $order->getCalculatedBillingAddressCountry() : '',
-                            'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order ? $order->getCalculatedBillingAddressCountry() : '', false)),
+                            'initialValue' => $order ? $this->escapeHtml($order->getCalculatedBillingAddressCountry()) : '',
+                            'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order ? $this->escapeHtml($order->getCalculatedBillingAddressCountry()) : '', false)),
                             'disabled' => !$this->billingAddressEditable,
                         ]
                     )
@@ -189,37 +189,37 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                     <label>
                         <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddress1" value="<?=  $order ? $order->getCalculatedShippingAddress1() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddress1" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddress1()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
                         <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddress2" value="<?=  $order ? $order->getCalculatedShippingAddress2() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddress2" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddress2()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
                         <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddress3" value="<?=  $order ? $order->getCalculatedShippingAddress3() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddress3" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddress3()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
                         <span class="inputbox-label"><?= $this->translate('City'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddressCity" value="<?=  $order ? $order->getCalculatedShippingAddressCity() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddressCity" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddressCity()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
                         <span class="inputbox-label"><?= $this->translate('County'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddressCounty" value="<?=  $order ? $order->getCalculatedShippingAddressCounty() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddressCounty" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddressCounty()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
                         <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
                         <div class="order-inputbox-holder">
-                            <input class="inputbox copy-address" type="text" name="shippingAddressPostcode" value="<?=  $order ? $order->getCalculatedShippingAddressPostcode() : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
+                            <input class="inputbox copy-address" type="text" name="shippingAddressPostcode" value="<?=  $order ? $this->escapeHtml($order->getCalculatedShippingAddressPostcode()) : ''; ?>"<?php if (!$this->shippingAddressEditable): ?> readonly="readonly"<?php endif; ?> />
                         </div>
                     </label>
                     <label>
@@ -232,8 +232,8 @@ use CG_UI\Form\Element\Text\Country as CountrySelect;
                                 'class' => 'copy-address',
                                 'name' => 'shippingAddressCountry',
                                 'searchField' => true,
-                                'initialValue' => $order ? $order->getCalculatedShippingAddressCountry() : '',
-                                'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order ? $order->getCalculatedShippingAddressCountry() : '', false)),
+                                'initialValue' => $order ? $this->escapeHtml($order->getCalculatedShippingAddressCountry()) : '',
+                                'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order ? $this->escapeHtml($order->getCalculatedShippingAddressCountry()) : '', false)),
                                 'disabled' => !$this->shippingAddressEditable,
                             ]
                         )
