@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bffc1df155bd1eca2275a1fb3713f1a9",
+    "content-hash": "ce5b5149741411c49b903d130995413b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3372,6 +3372,12 @@
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
                 "reference": "c050395fe7358280b7034c0470c4cb17ca663c77"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8607-update-password-email-cde765.zip",
+                "reference": "c050395fe7358280b7034c0470c4cb17ca663c77",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -3410,7 +3416,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-06-15T15:27:52+00:00"
+            "time": "2017-08-14 11:13:10"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3807,6 +3813,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "a284328955cc241412c543702a19ff1d30feba26"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8607-update-password-email-a8ea94.zip",
+                "reference": "a284328955cc241412c543702a19ff1d30feba26",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -3852,7 +3864,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-08-11T11:02:03+00:00"
+            "time": "2017-08-14 11:28:13"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4089,7 +4101,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5431,7 +5443,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8892,15 +8904,15 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
