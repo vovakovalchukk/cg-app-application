@@ -3416,7 +3416,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-08-14 11:13:10"
+            "time": "2017-08-14T11:13:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3864,7 +3864,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-08-14 11:28:13"
+            "time": "2017-08-14T11:28:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
