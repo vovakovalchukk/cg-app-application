@@ -3370,12 +3370,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "c050395fe7358280b7034c0470c4cb17ca663c77"
+                "reference": "66bf775e6e5b842c79334bf46176ca4a74537557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8607-update-password-email-cde765.zip",
-                "reference": "c050395fe7358280b7034c0470c4cb17ca663c77",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8607-update-password-email-4042c4.zip",
+                "reference": "66bf775e6e5b842c79334bf46176ca4a74537557",
                 "shasum": null
             },
             "require": {
@@ -3416,7 +3416,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-08-14T11:13:10+00:00"
+            "time": "2017-08-15T12:44:26+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
