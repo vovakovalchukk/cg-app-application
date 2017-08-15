@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b37c260202344cc50ef9027e4160be5",
+    "content-hash": "bffc1df155bd1eca2275a1fb3713f1a9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1144,16 +1144,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.4",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "9eb80df0acf7b52a6208e96d452f85637a796ff5"
+                "reference": "a54ba7f3fa429c670bc3aac032c9fa68d208d488"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.4-f2e7fc.zip",
-                "reference": "9eb80df0acf7b52a6208e96d452f85637a796ff5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.6-e5d54f.zip",
+                "reference": "a54ba7f3fa429c670bc3aac032c9fa68d208d488",
                 "shasum": null
             },
             "require": {
@@ -1175,7 +1175,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2017-01-30T12:17:33+00:00"
+            "time": "2017-08-14T14:42:42+00:00"
         },
         {
             "name": "channelgrabber/intercom",
