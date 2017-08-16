@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "edf942446aa49983509e75ff5f9d20f6",
+    "content-hash": "991c487d8aeba23c71be23435e9930b2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1214,16 +1214,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-8737-uncaught_conflicts",
+            "version": "1.11.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "2e8bdc70277e48ea7500fc60e31fff08e59b8bb1"
+                "reference": "d80e50970790fce1b7ad14bc2659a5c73e37547c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-8737-uncaught_conflicts-a532ca.zip",
-                "reference": "2e8bdc70277e48ea7500fc60e31fff08e59b8bb1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.13-a309b0.zip",
+                "reference": "d80e50970790fce1b7ad14bc2659a5c73e37547c",
                 "shasum": null
             },
             "require": {
@@ -1258,7 +1258,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-08-09 12:37:54"
+            "time": "2017-08-16T12:14:12+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -8888,18 +8888,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.13",
-            "alias_normalized": "1.11.13.0",
-            "version": "dev-CGIV-8737-uncaught_conflicts",
-            "package": "channelgrabber/listing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
