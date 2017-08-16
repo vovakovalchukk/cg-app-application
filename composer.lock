@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce5b5149741411c49b903d130995413b",
+    "content-hash": "e446a26973b4d2a69e6e9b32f125a8b9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3366,16 +3366,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-8607-update-password-email",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "66bf775e6e5b842c79334bf46176ca4a74537557"
+                "reference": "d99244db8fe8a02b48f5890a7d74187182c134ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8607-update-password-email-4042c4.zip",
-                "reference": "66bf775e6e5b842c79334bf46176ca4a74537557",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.6-c86443.zip",
+                "reference": "d99244db8fe8a02b48f5890a7d74187182c134ad",
                 "shasum": null
             },
             "require": {
@@ -3416,7 +3416,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-08-15T12:44:26+00:00"
+            "time": "2017-08-15T15:14:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3807,7 +3807,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-8607-update-password-email",
+            "version": "1.17.44",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -3815,7 +3815,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8607-update-password-email-a8ea94.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.44-a8ea94.zip",
                 "reference": "a284328955cc241412c543702a19ff1d30feba26",
                 "shasum": null
             },
@@ -8888,25 +8888,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.6",
-            "alias_normalized": "1.5.6.0",
-            "version": "dev-CGIV-8607-update-password-email",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.17.43",
-            "alias_normalized": "1.17.43.0",
-            "version": "dev-CGIV-8607-update-password-email",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
