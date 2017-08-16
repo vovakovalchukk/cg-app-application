@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5b009a6d123512e62e740c10c1054e8",
+    "content-hash": "56c6a20c6a37c46eeec100f6590121f2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -676,7 +676,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -2937,16 +2937,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.18",
+            "version": "1.2.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "ac0fad87a6810fff99fb6929d807866b9cbb45f7"
+                "reference": "75e2712d525cf1306980bf92a628bf53fe7061e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.18-ae5eb4.zip",
-                "reference": "ac0fad87a6810fff99fb6929d807866b9cbb45f7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.19-e8e3d3.zip",
+                "reference": "75e2712d525cf1306980bf92a628bf53fe7061e2",
                 "shasum": null
             },
             "require": {
@@ -2979,7 +2979,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-07-18T10:39:05+00:00"
+            "time": "2017-08-16T09:45:27+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -5488,7 +5488,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5581,7 +5581,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6050,7 +6050,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
