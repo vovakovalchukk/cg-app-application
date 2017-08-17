@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "da79c7786b568ebd8504570abf14587b",
+    "content-hash": "bc980cd6c6b3bd794864cfb9aefa72e9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1560,11 +1560,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-8654-fix-order-data-export",
+            "version": "1.28.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "e17b5031f46d842e7b190c9afe3df5b202817122"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.20-c95ac2.zip",
+                "reference": "e17b5031f46d842e7b190c9afe3df5b202817122",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1628,7 +1634,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-07-26T11:16:03+00:00"
+            "time": "2017-08-16T14:19:27+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4095,7 +4101,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5437,7 +5443,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8882,24 +8888,16 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.28.17",
-            "alias_normalized": "1.28.17.0",
-            "version": "dev-CGIV-8654-fix-order-data-export",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/composer": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
+        "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
