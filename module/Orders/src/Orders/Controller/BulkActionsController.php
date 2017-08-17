@@ -399,6 +399,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
+        // Check sendFrom email address
+
         $invoiceService = $this->getInvoiceService();
         if ($this->params()->fromPost('validate', false)) {
             return $invoiceService->getInvoiceStats($orders);
