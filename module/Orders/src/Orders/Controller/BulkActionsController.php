@@ -30,6 +30,7 @@ use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+use Settings\Module as SettingsModule;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -98,9 +99,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setUsageService($usageService)
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
-        $this->bulkActionService = $bulkActionService;
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->invoiceEmailAddressReader = $invoiceEmailAddressReader;
+        $this->bulkActionService = $bulkActionService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -202,7 +203,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this;
     }
 
-        /**
+    /**
      * @param $action
      * @return JsonModel
      */
@@ -431,7 +432,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         if (!$sendFrom) {
             $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["ou" => $ou, "rootOu" => $rootOuId], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
         }
-        return ['emailingAllowed' => false];
+        $linkUrl = $this->url()->fromRoute(SettingsModule::Route);
+        throw new \Exception('Please <a href="' . $linkUrl . '">add a verified email address</a> to send emails from ChannelGrabber');
 
         $invoiceService = $this->getInvoiceService();
         if ($this->params()->fromPost('validate', false)) {
