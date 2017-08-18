@@ -28,6 +28,7 @@ use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -36,6 +37,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     const TYPE_ORDER_IDS = 'orderIds';
     const TYPE_ORDER_IDS_LINKED = 'orderIdsLinked';
     const TYPE_FILTER_ID = 'filterId';
+
+    const LOG_CODE = 'BulkActionsController';
+    const LOG_CODE_EMAIL_INVOICES = 'EmailInvoices';
+    const LOG_MSG_EMAIL_INVOICES_EMAIL_UNVERIFIED_SKIP = 'Skipping email send for account (%d), email not verified (%s)';
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
@@ -57,6 +62,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $timelineService;
     /** @var BulkActionsService $bulkActionService */
     protected $bulkActionService;
+    /** @var InvoiceSettingsService $invoiceSettingsService */
+    protected $invoiceSettingsService
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
@@ -74,7 +81,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         UsageService $usageService,
         OrdersToOperateOn $ordersToOperatorOn,
         TimelineService $timelineService,
-        BulkActionsService $bulkActionService
+        BulkActionsService $bulkActionService,
+        InvoiceSettingsService $invoiceSettingsService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -87,6 +95,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
         $this->bulkActionService = $bulkActionService;
+        $this->invoiceSettingsService = $invoiceSettingsService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -400,6 +409,17 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function emailInvoices(OrderCollection $orders)
     {
         // Check sendFrom email address
+//        $emailVerifiedSpecification->isSatisfiedBy($orders->getAccount());
+        $rootOu = $orders->getFirst()->getRootOrganisationUnitId();
+        $invoiceSettings = $this->invoiceSettingsService->fetch($rootOu);
+        $sendFrom = $this->getSendFrom($order, $invoiceSettings);
+
+        if (!$sendFrom) {
+            return false;
+        }
+        if (!$emailVerified) {
+            $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_EMAIL_UNVERIFIED_SKIP, ["rootOu" => $rootOu, "orderIds" => $orders->getIds()], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
+        }
 
         $invoiceService = $this->getInvoiceService();
         if ($this->params()->fromPost('validate', false)) {

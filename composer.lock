@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc980cd6c6b3bd794864cfb9aefa72e9",
+    "content-hash": "2ae32c00a2fc2d3731be61ea80380f7d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1560,17 +1560,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.20",
+            "version": "dev-CGIV-8035-We-need-an-error-message-if-someone-tries-sending-an-email-without-having-a-send-from-address-verified",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e17b5031f46d842e7b190c9afe3df5b202817122"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.20-c95ac2.zip",
-                "reference": "e17b5031f46d842e7b190c9afe3df5b202817122",
-                "shasum": null
+                "reference": "be125f21edf564e43f8083246e7a8dd5a3027657"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -2220,17 +2214,11 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.3",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.3-fc8fdb.zip",
-                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e",
-                "shasum": null
+                "reference": "7afd740c6be049a47fccdc5d49bc3e41bdc21e50"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4101,7 +4089,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5443,7 +5431,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8888,16 +8876,31 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.21",
+            "alias_normalized": "1.28.21.0",
+            "version": "dev-CGIV-8035-We-need-an-error-message-if-someone-tries-sending-an-email-without-having-a-send-from-address-verified",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.5.4",
+            "alias_normalized": "1.5.4.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/settings"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/settings": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
