@@ -3505,12 +3505,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "05a8f2cd9df90fc0b9e699ffe3f1ea25a0a3c16f"
+                "reference": "ab79af4f260d4fa60b43bf73a59fe544cec38bbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8524-improve-trial-conversion-process-d0050b.zip",
-                "reference": "05a8f2cd9df90fc0b9e699ffe3f1ea25a0a3c16f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8524-improve-trial-conversion-process-dd9bcc.zip",
+                "reference": "ab79af4f260d4fa60b43bf73a59fe544cec38bbb",
                 "shasum": null
             },
             "require": {
@@ -3545,7 +3545,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-08-18 11:07:38"
+            "time": "2017-08-18 08:23:39"
         },
         {
             "name": "channelgrabber/zf2-register",
