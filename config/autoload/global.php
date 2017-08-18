@@ -161,6 +161,9 @@ use CG\Stdlib\SoapClient as CGSoapClient;
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 
+use CG\Billing\Token\StorageInterface as TokenStorageInterface;
+use CG\Billing\Token\Storage\Api as TokenStorageApi;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -196,6 +199,7 @@ $config = array(
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
+                TokenStorageInterface::class => TokenStorageApi::class
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -594,6 +598,11 @@ $config = array(
             ShipmentMetadataApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TokenStorageApi::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
                 ]
             ],
         ),
