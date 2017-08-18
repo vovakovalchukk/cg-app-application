@@ -2576,12 +2576,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock-locking.git",
-                "reference": "f24cde1f01f229545d0dce388f5e227ac24a61d0"
+                "reference": "b48b3673c30d596457cb93ceb99d9b4c921a07e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-dev-EPIC-CGIV-8210-Include-FBA-Stock-fc7c6d.zip",
-                "reference": "f24cde1f01f229545d0dce388f5e227ac24a61d0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-dev-EPIC-CGIV-8210-Include-FBA-Stock-d2ede5.zip",
+                "reference": "b48b3673c30d596457cb93ceb99d9b4c921a07e2",
                 "shasum": null
             },
             "require": {
@@ -2604,7 +2604,7 @@
                     "CG\\Stock\\Locking\\Test\\": "tests/"
                 }
             },
-            "time": "2017-08-17 13:53:53"
+            "time": "2017-08-18 09:25:10"
         },
         {
             "name": "channelgrabber/tax",
