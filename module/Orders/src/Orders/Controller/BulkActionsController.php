@@ -28,9 +28,9 @@ use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as Settings;
+use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
-use Settings\Module as SettingsModule;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
