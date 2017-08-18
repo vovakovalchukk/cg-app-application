@@ -41,7 +41,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     const LOG_CODE = 'BulkActionsController';
     const LOG_CODE_EMAIL_INVOICES = 'EmailInvoices';
-    const LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP = 'Skipping email send for account (%d), email address not verified (%s)';
+    const LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP = 'Skipping email send for ou (%d), rootOu (%d)';
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
@@ -413,7 +413,13 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
+        /** @var Order $order */
         $order = $orders->getFirst();
+
+        /** @var int $ou */
+        $ou = $order->getOrganisationUnitId();
+
+        /** @var int $rootOuId */
         $rootOuId = $order->getRootOrganisationUnitId();
 
         /** @var InvoiceSettings $invoiceSettings */
@@ -423,9 +429,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $sendFrom = $this->invoiceEmailAddressReader->readSendFrom($order, $invoiceSettings);
 
         if (!$sendFrom) {
-            $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["rootOu" => $rootOuId, "orderIds" => $orders->getIds()], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
-            return ['emailingAllowed' => false];
+            $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["ou" => $ou, "rootOu" => $rootOuId], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
         }
+        return ['emailingAllowed' => false];
 
         $invoiceService = $this->getInvoiceService();
         if ($this->params()->fromPost('validate', false)) {
