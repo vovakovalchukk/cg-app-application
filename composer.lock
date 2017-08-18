@@ -1057,7 +1057,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-07-14 11:54:07"
+            "time": "2017-07-14T11:54:07+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -1329,12 +1329,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "6a784d7c18a75fa436bc93163d43ba8b6a28f735"
+                "reference": "352ecf23ff0b34e8555326f445efcc2e6ed118dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-dev-EPIC-CGIV-8210-Include-FBA-Stock-540bdf.zip",
-                "reference": "6a784d7c18a75fa436bc93163d43ba8b6a28f735",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-dev-EPIC-CGIV-8210-Include-FBA-Stock-62fdba.zip",
+                "reference": "352ecf23ff0b34e8555326f445efcc2e6ed118dc",
                 "shasum": null
             },
             "require": {
@@ -1373,7 +1373,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-08-07 14:43:58"
+            "time": "2017-08-18 15:28:34"
         },
         {
             "name": "channelgrabber/locking",
