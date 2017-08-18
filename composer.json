@@ -66,7 +66,7 @@
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "dev-develop as 1.5.4",
+        "channelgrabber/settings": "~1.5.3",
         "channelgrabber/shopify": "~1.0.6",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
