@@ -715,10 +715,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->orderService->archiveOrdersByFilter($filter, false);
     }
 
-    /**
-     * @return JsonModel
-     */
-    public function checkInvoicePrintingAllowedAction()
+    public function checkInvoicePrintingAllowedAction(): JsonModel
     {
         $viewModel = $this->getUsageViewModel();
         try {
