@@ -413,14 +413,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
-        $firstOrder = $orders->getFirst();
-        $firstOrder->getRootOrganisationUnitId();
+        $order = $orders->getFirst();
+        $rootOuId = $order->getRootOrganisationUnitId();
 
         /** @var InvoiceSettings $invoiceSettings */
         $invoiceSettings = $this->invoiceSettingsService->fetch($rootOuId);
 
         /** @var string $sendFrom */
-        $sendFrom = $this->invoiceEmailAddressReader->readSendFrom($firstOrder, $invoiceSettings);
+        $sendFrom = $this->invoiceEmailAddressReader->readSendFrom($order, $invoiceSettings);
 
         if (!$sendFrom) {
             $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["rootOu" => $rootOuId, "orderIds" => $orders->getIds()], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
