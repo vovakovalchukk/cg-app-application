@@ -5,6 +5,8 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Invoice\Email\Address\Reader as InvoiceEmailAddressReader;
+use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -28,7 +30,6 @@ use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
-use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -40,7 +41,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     const LOG_CODE = 'BulkActionsController';
     const LOG_CODE_EMAIL_INVOICES = 'EmailInvoices';
-    const LOG_MSG_EMAIL_INVOICES_EMAIL_UNVERIFIED_SKIP = 'Skipping email send for account (%d), email not verified (%s)';
+    const LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP = 'Skipping email send for account (%d), email address not verified (%s)';
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
@@ -63,7 +64,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     /** @var BulkActionsService $bulkActionService */
     protected $bulkActionService;
     /** @var InvoiceSettingsService $invoiceSettingsService */
-    protected $invoiceSettingsService
+    protected $invoiceSettingsService;
+    /** @var InvoiceEmailAddressReader $invoiceEmailAddressReader */
+    protected $invoiceEmailAddressReader;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
@@ -82,7 +85,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         OrdersToOperateOn $ordersToOperatorOn,
         TimelineService $timelineService,
         BulkActionsService $bulkActionService,
-        InvoiceSettingsService $invoiceSettingsService
+        InvoiceSettingsService $invoiceSettingsService,
+        InvoiceEmailAddressReader $invoiceEmailAddressReader
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -96,6 +100,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->timelineService = $timelineService;
         $this->bulkActionService = $bulkActionService;
         $this->invoiceSettingsService = $invoiceSettingsService;
+        $this->invoiceEmailAddressReader = $invoiceEmailAddressReader;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -408,17 +413,18 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
-        // Check sendFrom email address
-//        $emailVerifiedSpecification->isSatisfiedBy($orders->getAccount());
-        $rootOu = $orders->getFirst()->getRootOrganisationUnitId();
-        $invoiceSettings = $this->invoiceSettingsService->fetch($rootOu);
-        $sendFrom = $this->getSendFrom($order, $invoiceSettings);
+        $firstOrder = $orders->getFirst();
+        $firstOrder->getRootOrganisationUnitId();
+
+        /** @var InvoiceSettings $invoiceSettings */
+        $invoiceSettings = $this->invoiceSettingsService->fetch($rootOuId);
+
+        /** @var string $sendFrom */
+        $sendFrom = $this->invoiceEmailAddressReader->readSendFrom($firstOrder, $invoiceSettings);
 
         if (!$sendFrom) {
-            return false;
-        }
-        if (!$emailVerified) {
-            $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_EMAIL_UNVERIFIED_SKIP, ["rootOu" => $rootOu, "orderIds" => $orders->getIds()], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
+            $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["rootOu" => $rootOuId, "orderIds" => $orders->getIds()], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
+            return ['emailingAllowed' => false];
         }
 
         $invoiceService = $this->getInvoiceService();
