@@ -432,7 +432,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         if (!$sendFrom) {
             $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["ou" => $ou, "rootOu" => $rootOuId], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
         }
-        $linkUrl = $this->url()->fromRoute(SettingsModule::Route);
+        $linkUrl = $this->url()->fromRoute(SettingsModule::ROUTE);
         throw new \Exception('Please <a href="' . $linkUrl . '">add a verified email address</a> to send emails from ChannelGrabber');
 
         $invoiceService = $this->getInvoiceService();
