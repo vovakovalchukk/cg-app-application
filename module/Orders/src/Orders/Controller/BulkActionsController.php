@@ -27,7 +27,6 @@ use Orders\Order\PickList\Service as PickListService;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Settings\Controller\InvoiceController as InvoiceSettings;
-use Settings\Module as Settings;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -393,7 +392,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
                 implode(
                     '/',
                     [
-                        Settings::ROUTE,
+                        SettingsModule::ROUTE,
                         InvoiceSettings::ROUTE,
                     ]
                 )
