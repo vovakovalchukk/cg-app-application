@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae9c80823d636b547af8d3fd2f6b9acf",
+    "content-hash": "95394b38a788b6dc57c2cd59abdba46d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2481,16 +2481,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-8416-refactor-stock-import-process",
+            "version": "dev-CGIV-8406-ImportAnyStockImport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "7fc1cbad15ab978f8e8fc5a2a4ce5fa23bd42a73"
+                "reference": "8389d78ff508e3036f1af3c7db68fd7696026680"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8416-refactor-stock-import-process-7cc67f.zip",
-                "reference": "7fc1cbad15ab978f8e8fc5a2a4ce5fa23bd42a73",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8406-ImportAnyStockImport-b2c324.zip",
+                "reference": "8389d78ff508e3036f1af3c7db68fd7696026680",
                 "shasum": null
             },
             "require": {
@@ -2510,7 +2510,8 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.14",
                 "channelgrabber/transaction": ">=1.1.3, <2.0.0",
-                "nocarrier/hal": "~0.9.4"
+                "nocarrier/hal": "~0.9.4",
+                "php": ">= 7.1"
             },
             "conflict": {
                 "channelgrabber/cglib": "<1.10.2",
@@ -2536,7 +2537,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-08-21T12:48:34+00:00"
+            "time": "2017-08-21T14:43:09+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -8891,9 +8892,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.8.10",
-            "alias_normalized": "1.8.10.0",
-            "version": "dev-CGIV-8416-refactor-stock-import-process",
+            "alias": "1.9.0",
+            "alias_normalized": "1.9.0.0",
+            "version": "dev-CGIV-8406-ImportAnyStockImport",
             "package": "channelgrabber/stock"
         }
     ],
