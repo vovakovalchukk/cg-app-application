@@ -5,7 +5,7 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\Invoice\Email\Address\Reader as InvoiceEmailAddressReader;
+use CG\Order\Client\Invoice\Email\Address as InvoiceEmailAddress;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -66,8 +66,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $bulkActionService;
     /** @var InvoiceSettingsService $invoiceSettingsService */
     protected $invoiceSettingsService;
-    /** @var InvoiceEmailAddressReader $invoiceEmailAddressReader */
-    protected $invoiceEmailAddressReader;
+    /** @var InvoiceEmailAddress $invoiceEmailAddress */
+    protected $invoiceEmailAddress;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
@@ -87,7 +87,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         TimelineService $timelineService,
         BulkActionsService $bulkActionService,
         InvoiceSettingsService $invoiceSettingsService,
-        InvoiceEmailAddressReader $invoiceEmailAddressReader
+        InvoiceEmailAddress $invoiceEmailAddress
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -100,7 +100,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
         $this->invoiceSettingsService = $invoiceSettingsService;
-        $this->invoiceEmailAddressReader = $invoiceEmailAddressReader;
+        $this->invoiceEmailAddress = $invoiceEmailAddress;
         $this->bulkActionService = $bulkActionService;
     }
 
@@ -427,7 +427,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $invoiceSettings = $this->invoiceSettingsService->fetch($rootOuId);
 
         /** @var string $sendFrom */
-        $sendFrom = $this->invoiceEmailAddressReader->readSendFrom($order, $invoiceSettings);
+        $sendFrom = $this->invoiceEmailAddress->computeSendFrom($order, $invoiceSettings);
 
         if (!$sendFrom) {
             $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["ou" => $ou, "rootOu" => $rootOuId], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
