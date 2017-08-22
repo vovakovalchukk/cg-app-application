@@ -11,7 +11,7 @@ use CG\Stock\Collection as Stock;
 use CG\Stock\Gearman\Generator\StockImport as StockImportGearmanJobGenerator;
 use CG\Stock\Import\File\Entity as ImportFile;
 use CG\Stock\Import\File\Mapper as ImportFileMapper;
-use CG\Stock\Import\File\Storage\StorageInterface as ImportFileStorage;
+use CG\Stock\Import\File\StorageInterface as ImportFileStorage;
 use CG\Stock\Service as StockService;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;

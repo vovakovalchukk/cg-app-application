@@ -99,7 +99,7 @@ use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
 use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 
 // Stock Import
-use CG\Stock\Import\File\Storage\StorageInterface as StockImportInterface;
+use CG\Stock\Import\File\StorageInterface as StockImportInterface;
 use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
