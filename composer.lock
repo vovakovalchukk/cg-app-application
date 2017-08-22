@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc980cd6c6b3bd794864cfb9aefa72e9",
+    "content-hash": "7f1445df795b9a7980a3c98acae9e03e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3807,17 +3807,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.17.44",
+            "version": "dev-CGIV-8811-Install-the-Userlane-Snippet-into-our-application",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a284328955cc241412c543702a19ff1d30feba26"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.17.44-a8ea94.zip",
-                "reference": "a284328955cc241412c543702a19ff1d30feba26",
-                "shasum": null
+                "reference": "fe57cb7d46ba2b8cd3116185f4ced8ff21d62d0f"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4101,7 +4095,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5443,7 +5437,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -8888,16 +8882,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.45",
+            "alias_normalized": "1.17.45.0",
+            "version": "dev-CGIV-8811-Install-the-Userlane-Snippet-into-our-application",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
