@@ -3811,12 +3811,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "742a13dffaa4702be223ca0fc5762e39a5baa8de"
+                "reference": "4ada0019f59b86caf772e6a028976f081b38c66f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8610-turn-off-intercom-for-free-users-2e8452.zip",
-                "reference": "742a13dffaa4702be223ca0fc5762e39a5baa8de",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8610-turn-off-intercom-for-free-users-a90adf.zip",
+                "reference": "4ada0019f59b86caf772e6a028976f081b38c66f",
                 "shasum": null
             },
             "require": {
@@ -3864,7 +3864,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-08-23T10:11:33+00:00"
+            "time": "2017-08-23T13:54:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
