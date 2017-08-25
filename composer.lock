@@ -936,16 +936,16 @@
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "51e2da7f15580a0a37ed62ee58363f5cd495337c"
+                "reference": "59f539466025416b009b63c40309a282424bee51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.1.1-2aedb6.zip",
-                "reference": "51e2da7f15580a0a37ed62ee58363f5cd495337c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.1.2-700b6b.zip",
+                "reference": "59f539466025416b009b63c40309a282424bee51",
                 "shasum": null
             },
             "require": {
@@ -968,7 +968,7 @@
                     "CG\\Email\\": "src"
                 }
             },
-            "time": "2017-01-04T16:14:33+00:00"
+            "time": "2017-08-16T08:13:02+00:00"
         },
         {
             "name": "channelgrabber/etag",
@@ -2485,12 +2485,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "115252f2e7f292e9984224ea30b93d2634e1af48"
+                "reference": "fc7d77923fadb6cf0729b311240415166969f654"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8416-refactor-stock-import-process-076938.zip",
-                "reference": "115252f2e7f292e9984224ea30b93d2634e1af48",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8416-refactor-stock-import-process-3a304c.zip",
+                "reference": "fc7d77923fadb6cf0729b311240415166969f654",
                 "shasum": null
             },
             "require": {
@@ -2537,7 +2537,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-08-23T10:37:57+00:00"
+            "time": "2017-08-25T10:24:22+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
