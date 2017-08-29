@@ -2,6 +2,7 @@
 namespace Products;
 
 use Products\Controller;
+use Products\Product\Service as ModuleProductService;
 use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
@@ -1072,7 +1073,13 @@ return [
                                     ProductsController::ROUTE_INDEX_URL,
                                     PurchaseOrdersController::ROUTE_INDEX_URL
                                 ]
-                            )
+                            ),
+                        'pre-render' => [
+                            'diLoad' => [
+                                'class' => ModuleProductService::class,
+                                'method' => 'checkPageEnabled'
+                            ]
+                        ],
                     ],
                 ]
             ]

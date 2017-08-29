@@ -167,6 +167,10 @@ use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
 use CG\PurchaseOrder\Item\StorageInterface as PurchaseOrderItemStorage;
 use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
 
+//  Feature Flags
+use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
+use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -204,6 +208,7 @@ $config = array(
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
                 PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
+                RolloutStorage::class => RolloutRedisStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -218,6 +223,11 @@ $config = array(
                 'StockSettingsAccountsMaxColumnView' => ViewModel::class,
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
+            ],
+            RolloutRedisStorage::class => [
+                'parameters' => [
+                    'redis' => 'reliable_redis',
+                ]
             ],
             'EUVATCodeCheckerSoapClient' => [
                 'parameter' => [
