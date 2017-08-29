@@ -84,23 +84,28 @@ class Service
         $fileContents
     ) {
         $this->notifyOfUpload($userId);
-        $fileEntity = $this->saveFile($updateOption, $fileContents);
-        $this->createJob($fileEntity, $organisationUnitId, $userId);
+
+        /*** @var ImportFile $fileEntity */
+        $fileEntity = $this->saveFile($updateOption, $fileContents, $userId, $organisationUnitId);
+
+        $this->createJob($fileEntity);
     }
 
-    protected function saveFile($updateOption, $fileContents)
+    protected function saveFile($updateOption, $fileContents, $userId, $organisationUnitId)
     {
         return $this->importFileStorage->save(
-            $this->importFileMapper->fromUpload($updateOption, $fileContents)
+            $this->importFileMapper->fromUpload($updateOption, $fileContents, $userId, $organisationUnitId)
         );
     }
 
-    protected function createJob(ImportFile $fileEntity, $organisationUnitId, $userId)
+    protected function createJob(ImportFile $fileEntity)
     {
         $fileId = $fileEntity->getId();
+        $organisationUnitId = $fileEntity->getOrganisationUnitId();
+
         $this->gearmanClient->doBackground(
             "stockImportFile",
-            serialize(new ImportWorkload($userId, $organisationUnitId, $fileId)),
+            serialize(new ImportWorkload($fileId)),
             $fileId . "-" . $organisationUnitId
         );
     }

@@ -5,7 +5,7 @@ use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 
 class ShippingService implements ShippingServiceInterface
 {

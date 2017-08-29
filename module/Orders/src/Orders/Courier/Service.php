@@ -11,7 +11,7 @@ use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
@@ -123,13 +123,13 @@ class Service implements LoggerAwareInterface
         $filter->setLimit('all')
             ->setPage(1)
             ->setOrderIds($orderIds);
-        return $this->orderService->fetchCollectionByFilter($filter);
+        return $this->orderService->fetchLinkedCollectionByFilter($filter);
     }
 
     /**
      * @return array
      */
-    public function getCommonOrderListData($order, $rootOu)
+    public function getCommonOrderListData(Order $order, OrganisationUnit $rootOu)
     {
         $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
         $shippingDescription = $order->getShippingMethod();
@@ -204,7 +204,7 @@ class Service implements LoggerAwareInterface
     public function getCommonItemListData(Item $item, ProductCollection $products, array $rowData = null)
     {
         if (!$rowData) {
-            $rowData = $this->getChildRowListData($item->getOrderId());
+            $rowData = $this->getChildRowListData($item->getLinkedOrderId());
         }
         $itemSpecifics = [
             'itemId' => $item->getId(),

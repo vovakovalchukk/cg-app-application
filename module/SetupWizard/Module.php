@@ -2,13 +2,12 @@
 namespace SetupWizard;
 
 use CG\Http\StatusCode;
-use SetupWizard\StepStatusService;
-use Zend\Di\Di;
+use CG\PasswordResetToken\Email\Controller as LoginPasswordController;
 use Zend\Config\Factory as ConfigFactory;
+use Zend\Di\Di;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Renderer\PhpRenderer;
-use CG\PasswordResetToken\Email\Controller as LoginPasswordController;
 
 class Module implements DependencyIndicatorInterface
 {
@@ -49,6 +48,7 @@ class Module implements DependencyIndicatorInterface
             return;
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
+        /** @var StepStatusService $service */
         $service = $di->get(StepStatusService::class);
         $service->processStepStatus($previousStep, $previousStepStatus, $currentStep);
     }
@@ -60,6 +60,7 @@ class Module implements DependencyIndicatorInterface
             return;
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
+        /** @var StepStatusService $service */
         $service = $di->get(StepStatusService::class);
         $redirectRoute = $service->getRedirectRouteIfIncomplete($route);
         if (!$redirectRoute) {

@@ -31,6 +31,7 @@ return [
                     'shippingPrice' => Module::PUBLIC_FOLDER . 'template/columns/shippingPrice.mustache',
                     'trackingInfo' => Module::PUBLIC_FOLDER . 'template/columns/trackingInfo.mustache',
                     'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
+                    'linkedOrdersPopup' => Module::PUBLIC_FOLDER . 'template/popup/linkedOrders.mustache',
                 ],
                 'courierReview' => [
                     'customSelect' => UiModule::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',

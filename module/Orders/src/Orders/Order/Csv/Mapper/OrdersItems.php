@@ -187,7 +187,7 @@ class OrdersItems implements MapperInterface
         $page = 1;
         do {
             /** @var OrderCollection $orderCollection */
-            $orderCollection = $this->orderService->fetchCollectionByFilter(
+            $orderCollection = $this->orderService->fetchCollectionIncludingLinkedOrdersByFilter(
                 $orderFilter->setLimit(static::ORDERS_PER_PAGE)->setPage($page)
             );
 

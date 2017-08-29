@@ -1,5 +1,11 @@
 
 <div class="orderid-cell">
+    {{#linkedOrdersData}}
+        <div class="linked-orders-icon">
+            <span class="sprite sprite-linked-18-blue">&nbsp;</span>
+            {{> linkedOrdersPopup }}
+        </div>
+    {{/linkedOrdersData}}
     <a href="{{order_url}}" class="title">
         <div class="orderid">
             {{externalId}}

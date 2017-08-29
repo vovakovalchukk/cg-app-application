@@ -1,7 +1,7 @@
 <?php
 namespace Orders\Courier\Label;
 
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -45,13 +45,15 @@ class CancelService extends ServiceAbstract
     protected function removeOrderTracking(Order $order)
     {
         $this->logDebug(static::LOG_REMOVE_TRACKING, [$order->getId()], static::LOG_CODE, ['order' => $order->getId()]);
-        try {
-            $this->orderTrackingService->removeByOrderId($order->getId());
-            $orderTrackings = $order->getTrackings();
-            $orderTrackings->removeAll($orderTrackings);
-            $this->orderTrackingService->createGearmanJob($order);
-        } catch (NotFound $e) {
-            // No-op
+        foreach ($order->getChannelUpdatableOrders() as $updatableOrder) {
+            try {
+                $this->orderTrackingService->removeByOrderId($updatableOrder->getId());
+                $orderTrackings = $updatableOrder->getTrackings();
+                $orderTrackings->removeAll($orderTrackings);
+                $this->orderTrackingService->createGearmanJob($updatableOrder);
+            } catch (NotFound $e) {
+                // No-op
+            }
         }
     }
 }

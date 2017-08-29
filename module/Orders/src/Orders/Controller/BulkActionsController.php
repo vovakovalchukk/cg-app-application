@@ -5,6 +5,8 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Client\Invoice\Email\Address as InvoiceEmailAddress;
+use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -25,7 +27,7 @@ use Orders\Order\PickList\Service as PickListService;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Settings\Controller\InvoiceController as InvoiceSettings;
-use Settings\Module as Settings;
+use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -34,7 +36,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     use LogTrait;
 
     const TYPE_ORDER_IDS = 'orderIds';
+    const TYPE_ORDER_IDS_LINKED = 'orderIdsLinked';
     const TYPE_FILTER_ID = 'filterId';
+
+    const LOG_CODE = 'BulkActionsController';
+    const LOG_CODE_EMAIL_INVOICES = 'EmailInvoices';
+    const LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP = 'Skipping email send for ou (%d), rootOu (%d)';
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
@@ -56,10 +63,15 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $timelineService;
     /** @var BulkActionsService $bulkActionService */
     protected $bulkActionService;
+    /** @var InvoiceSettingsService $invoiceSettingsService */
+    protected $invoiceSettingsService;
+    /** @var InvoiceEmailAddress $invoiceEmailAddress */
+    protected $invoiceEmailAddress;
 
     protected $typeMap = [
-        self::TYPE_ORDER_IDS => 'getOrdersFromInput',
-        self::TYPE_FILTER_ID => 'getOrdersFromFilterId',
+        self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
+        self::TYPE_ORDER_IDS_LINKED => 'getOrdersFromInputWithLinked',
+        self::TYPE_FILTER_ID        => 'getOrdersFromFilterId',
     ];
 
     public function __construct(
@@ -72,7 +84,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         UsageService $usageService,
         OrdersToOperateOn $ordersToOperatorOn,
         TimelineService $timelineService,
-        BulkActionsService $bulkActionService
+        BulkActionsService $bulkActionService,
+        InvoiceSettingsService $invoiceSettingsService,
+        InvoiceEmailAddress $invoiceEmailAddress
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -84,6 +98,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setUsageService($usageService)
             ->setOrdersToOperatorOn($ordersToOperatorOn);
         $this->timelineService = $timelineService;
+        $this->invoiceSettingsService = $invoiceSettingsService;
+        $this->invoiceEmailAddress = $invoiceEmailAddress;
         $this->bulkActionService = $bulkActionService;
     }
 
@@ -186,7 +202,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this;
     }
 
-        /**
+    /**
      * @param $action
      * @return JsonModel
      */
@@ -212,8 +228,17 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function getOrdersFromInput($orderBy = null, $orderDir = null)
     {
         $input = $this->params()->fromPost();
+        $includeLinked = false;
         $ordersToOperatorOn = $this->ordersToOperatorOn;
-        return $ordersToOperatorOn($input, $orderBy, $orderDir);
+        return $ordersToOperatorOn($input, $orderBy, $orderDir, $includeLinked);
+    }
+
+    protected function getOrdersFromInputWithLinked($orderBy = null, $orderDir = null)
+    {
+        $input = $this->params()->fromPost();
+        $includeLinked = true;
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn($input, $orderBy, $orderDir, $includeLinked);
     }
 
     protected function getFilterFromInput($orderBy = null, $orderDir = null)
@@ -236,6 +261,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function performActionOnOrderIds($action, callable $callable)
     {
         return $this->performAction(static::TYPE_ORDER_IDS, $action, $callable);
+    }
+
+    protected function performActionOnOrderIdsWithLinked($action, callable $callable)
+    {
+        return $this->performAction(static::TYPE_ORDER_IDS_LINKED, $action, $callable);
     }
 
     /**
@@ -301,7 +331,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInputWithLinked($orderBy, $orderDir);
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
@@ -316,7 +346,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoiceAction()
     {
-        return $this->performActionOnOrderIds(
+        return $this->performActionOnOrderIdsWithLinked(
             'emailing',
             [$this, 'emailInvoices']
         );
@@ -362,7 +392,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
                 implode(
                     '/',
                     [
-                        Settings::ROUTE,
+                        SettingsModule::ROUTE,
                         InvoiceSettings::ROUTE,
                     ]
                 )
@@ -383,6 +413,26 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function emailInvoices(OrderCollection $orders)
     {
+        /** @var Order $order */
+        $order = $orders->getFirst();
+
+        /** @var int $ou */
+        $ou = $order->getOrganisationUnitId();
+
+        /** @var int $rootOuId */
+        $rootOuId = $order->getRootOrganisationUnitId();
+
+        /** @var InvoiceSettings $invoiceSettings */
+        $invoiceSettings = $this->invoiceSettingsService->fetch($rootOuId);
+
+        /** @var string $sendFrom */
+        $sendFrom = $this->invoiceEmailAddress->computeSendFrom($order, $invoiceSettings);
+
+        if (!$sendFrom) {
+            $this->logDebug(static::LOG_MSG_EMAIL_INVOICES_NO_VERIFIED_EMAIL_ADDRESS_SKIP, ["ou" => $ou, "rootOu" => $rootOuId], [static::LOG_CODE, static::LOG_CODE_EMAIL_INVOICES]);
+            throw new \Exception('Please <a href="' . $this->url()->fromRoute(SettingsModule::ROUTE) . '">add a verified email address</a> to send emails from ChannelGrabber');
+        }
+
         $invoiceService = $this->getInvoiceService();
         if ($this->params()->fromPost('validate', false)) {
             return $invoiceService->getInvoiceStats($orders);
@@ -608,7 +658,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function dispatchOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
+        return $this->performActionOnOrderIdsWithLinked(
             'dispatching',
             [$this, 'dispatchOrders']
         );
@@ -663,14 +713,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->orderService->archiveOrdersByFilter($filter, false);
     }
 
-    /**
-     * @return JsonModel
-     */
-    public function checkInvoicePrintingAllowedAction()
+    public function checkInvoicePrintingAllowedAction(): JsonModel
     {
         $viewModel = $this->getUsageViewModel();
         try {
-            $orders = $this->getOrdersFromInput();
+            $orders = $this->getOrdersFromInputWithLinked();
         } catch (NotFound $e) {
             return $viewModel;
         }
@@ -683,7 +730,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInputWithLinked($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
             return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
