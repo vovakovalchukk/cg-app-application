@@ -111,6 +111,11 @@ define([
         var rawNoteData = this.getNoteData();
         var rawCompanySelectData = this.getCompanySelectData();
 
+        if (rawOrderData.orderRows === undefined || rawOrderData.orderRows.length === 0) {
+            n.error("Please add at least one product to the order.");
+            return;
+        }
+
         this.submitFormData({
             "organisationUnitId": rawCompanySelectData ? rawCompanySelectData.selectedOption.value : '',
             "currencyCode": rawCurrencyData.name,

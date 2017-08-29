@@ -6,7 +6,7 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Locking\Failure as LockingFailure;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
