@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e08af60b7cae4b345fdcc90c2c8045ff",
+    "content-hash": "3dcff2d6c1c52ea173aee13924fc48d3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3868,12 +3868,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d8e8356a17c43d372e89b51a726ed576655137ee"
+                "reference": "5af0bc9bb7c4291299a4f9b4618e824e1ccc0ebc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7460-purchase-orders-7a6806.zip",
-                "reference": "d8e8356a17c43d372e89b51a726ed576655137ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7460-purchase-orders-21aebf.zip",
+                "reference": "5af0bc9bb7c4291299a4f9b4618e824e1ccc0ebc",
                 "shasum": null
             },
             "require": {
@@ -3921,7 +3921,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-05-25T08:44:50+00:00"
+            "time": "2017-08-29T10:38:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9005,24 +9005,24 @@
             "package": "channelgrabber/purchase-order"
         },
         {
-            "alias": "1.17.41",
-            "alias_normalized": "1.17.41.0",
-            "version": "dev-EPIC-CGIV-7460-purchase-orders",
-            "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
             "alias": "1.9.0",
             "alias_normalized": "1.9.0.0",
             "version": "dev-CGIV-8416-refactor-stock-import-process",
             "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.17.41",
+            "alias_normalized": "1.17.41.0",
+            "version": "dev-EPIC-CGIV-7460-purchase-orders",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/purchase-order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "channelgrabber/stock": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
