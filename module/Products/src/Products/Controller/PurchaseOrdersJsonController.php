@@ -11,6 +11,8 @@ use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\PurchaseOrder\Entity as PurchaseOrder;
+use CG\PurchaseOrder\Status as PurchaseOrderStatus;
 
 class PurchaseOrdersJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -50,7 +52,8 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $purchaseOrder = $this->purchaseOrderMapper->fromArray([
             'externalId' => $externalId,
             'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            'status' => static::DEFAULT_PO_STATUS,
+            'userId' => $this->activeUserContainer->getActiveUser()->getId(),
+            'status' => PurchaseOrderStatus::IN_PROGRESS,
             'created' => date('Y-m-d H:i:s'),
         ]);
         $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder, $purchaseOrderItems);
@@ -69,6 +72,7 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $purchaseOrder = null;
 
         try {
+            /** @var PurchaseOrder $purchaseOrder */
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
             $purchaseOrder->setExternalId($externalId);
             $this->purchaseOrderService->save($purchaseOrder, $updatedPurchaseOrderItems);
