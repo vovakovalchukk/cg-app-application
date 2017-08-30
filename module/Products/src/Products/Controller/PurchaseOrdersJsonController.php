@@ -49,14 +49,20 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
         $externalId = $this->params()->fromPost('externalId');
         $purchaseOrderItems = json_decode($this->params()->fromPost('purchaseOrderItems'), true);
 
-        $purchaseOrder = $this->purchaseOrderMapper->fromArray([
-            'externalId' => $externalId,
-            'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            'userId' => $this->activeUserContainer->getActiveUser()->getId(),
-            'status' => PurchaseOrderStatus::IN_PROGRESS,
-            'created' => date('Y-m-d H:i:s'),
-        ]);
-        $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder, $purchaseOrderItems);
+        try {
+            $purchaseOrder = $this->purchaseOrderMapper->fromArray([
+                'externalId' => $externalId,
+                'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                'userId' => $this->activeUserContainer->getActiveUser()->getId(),
+                'status' => PurchaseOrderStatus::IN_PROGRESS,
+                'created' => date('Y-m-d H:i:s'),
+            ]);
+            $purchaseOrder = $this->purchaseOrderService->save($purchaseOrder, $purchaseOrderItems);
+        } catch (\Exception $e) {
+            return $this->jsonModelFactory->newInstance([
+                'error' => "Could not save the Purchase Order. Please try again later."
+            ]);
+        }
 
         return $this->jsonModelFactory->newInstance([
             'success' => true,

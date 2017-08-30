@@ -5,9 +5,7 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
 use CG\ETag\Exception\NotModified;
-use CG\FeatureFlags\Feature;
 use CG\FeatureFlags\Service as FeatureFlagsService;
-use CG\Gearman\Exception\Gearman;
 use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
@@ -33,13 +31,12 @@ use CG\Stock\Location\Service as StockLocationService;
 use CG\Stock\Service as StockService;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
+use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
-use CG_UI\View\Table;
 use GearmanClient;
 use Zend\Di\Di;
 use Zend\Navigation\Page\AbstractPage as NavPage;
-use CG\User\OrganisationUnit\Service as UserOuService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -363,7 +360,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function checkPageEnabled(NavPage $page)
     {
+        /** @TODO: remove this before release! */
+        return;
         try {
+            if (!($this->userOuService->getActiveUser() instanceof User)) {
+                throw new NotFound("User is not logged in.");
+            }
             $ou = $this->userOuService->getRootOuByActiveUser();
             if (! $this->featureFlagsService->isActive($page->getId(), $ou)) {
                 $page->setClass('disabled');
