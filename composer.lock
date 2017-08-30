@@ -3865,7 +3865,6 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-<<<<<<< HEAD
             "version": "dev-EPIC-CGIV-7460-purchase-orders",
             "source": {
                 "type": "git",
@@ -3876,18 +3875,6 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7460-purchase-orders-21aebf.zip",
                 "reference": "5af0bc9bb7c4291299a4f9b4618e824e1ccc0ebc",
-=======
-            "version": "1.18.0",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "99f63c5af0973b837654df7944f058b8e387121c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.18.0-7d7a25.zip",
-                "reference": "99f63c5af0973b837654df7944f058b8e387121c",
->>>>>>> develop
                 "shasum": null
             },
             "require": {
@@ -3935,11 +3922,7 @@
                     "./Module.php"
                 ]
             },
-<<<<<<< HEAD
-            "time": "2017-08-29T10:38:36+00:00"
-=======
             "time": "2017-08-29T14:09:50+00:00"
->>>>>>> develop
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
