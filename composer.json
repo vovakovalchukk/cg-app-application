@@ -63,7 +63,7 @@
         "channelgrabber/picklist": "~1.0.2",
         "channelgrabber/predis": "~1.0.12",
         "channelgrabber/product": "~1.9.2",
-        "channelgrabber/purchase-order": "dev-EPIC-CGIV-7460-purchase-orders-1 as 1.0.0",
+        "channelgrabber/purchase-order": "dev-CGIV-8311-purchase-orders-complete-update-stock as 1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.8",

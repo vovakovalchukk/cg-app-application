@@ -8,7 +8,6 @@ use CG\Http\StatusCode;
 use CG\Listing\Entity as ListingEntity;
 use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\Entity as Product;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;

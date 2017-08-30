@@ -2,16 +2,15 @@
 namespace Products\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
-use Zend\Mvc\Controller\AbstractActionController;
+use CG\PurchaseOrder\Mapper as PurchaseOrderMapper;
+use CG\PurchaseOrder\Service as PurchaseOrderService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG\PurchaseOrder\Service as PurchaseOrderService;
-use CG\PurchaseOrder\Mapper as PurchaseOrderMapper;
-use CG\PurchaseOrder\Filter as PurchaseOrderFilter;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class PurchaseOrdersJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -137,8 +136,12 @@ class PurchaseOrdersJsonController extends AbstractActionController implements L
 
     public function listAction()
     {
-        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $records = $this->purchaseOrderService->fetchAllForOu($ouId);
+        try {
+            $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            $records = $this->purchaseOrderService->fetchAllForOu($ouId);
+        } catch (NotFound $e) {
+            return $this->jsonModelFactory->newInstance(['list' => []]);
+        }
 
         return $this->jsonModelFactory->newInstance([
             'list' => $this->purchaseOrderMapper->hydratePurchaseOrdersWithProducts($records, $ouId),
