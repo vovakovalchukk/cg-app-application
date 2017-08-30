@@ -5,9 +5,10 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\CGLib\Gearman\Workload\PushAllStockForAccount as PushAllStockForAccountWorkload;
 use CG\CGLib\Gearman\WorkerFunction\PushAllStockForAccount;
+use CG\CGLib\Gearman\Workload\PushAllStockForAccount as PushAllStockForAccountWorkload;
 use CG\Channel\Type as ChannelType;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -52,7 +53,11 @@ class Service implements LoggerAwareInterface
         $productSettings = $this->productSettingsService->fetch($rootOu->getId());
         $productSettings->setDefaultStockMode($defaultStockMode)
             ->setDefaultStockLevel($defaultStockLevel);
-        $this->productSettingsService->save($productSettings);
+        try {
+            $this->productSettingsService->save($productSettings);
+        } catch (NotModified $e) {
+            // No-op
+        }
         $this->triggerStockPushForAccounts(
             $this->getSalesAccountsForOU($ouList)
         );
