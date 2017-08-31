@@ -13,7 +13,7 @@ define([
 ) {
     "use strict";
 
-    var EditorComponent = React.createClass({
+    return React.createClass({
         render: function()
         {
             return (
@@ -44,6 +44,4 @@ define([
             );
         }
     });
-
-    return EditorComponent;
 });
