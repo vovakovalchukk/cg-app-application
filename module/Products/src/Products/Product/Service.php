@@ -361,7 +361,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function checkPageEnabled(NavPage $page)
     {
         /** @TODO: remove this before release! */
-        return;
         try {
             if (!($this->userOuService->getActiveUser() instanceof User)) {
                 throw new NotFound("User is not logged in.");
