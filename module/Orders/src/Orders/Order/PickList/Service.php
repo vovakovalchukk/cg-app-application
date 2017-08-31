@@ -1,11 +1,11 @@
 <?php
 namespace Orders\Order\PickList;
 
+use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Image\Filter as ImageFilter;
-use CG\Image\Service as ImageService;
+use CG\Order\Shared\Item\Entity as Item;
 use CG\PickList\Service as PickListService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
@@ -174,20 +174,21 @@ class Service implements LoggerAwareInterface
 
     protected function fetchImagesForItems(array $itemsBySku)
     {
-        $imageIdToSkuMap = [];
+        $map = [];
         foreach($itemsBySku as $sku => $items) {
+            /** @var Item $item */
             foreach($items as $item) {
                 foreach ($item->getImageIds() as $imageId) {
-                    $imageIdToSkuMap[$imageId] = $sku;
+                    $map[$sku] = $imageId;
                     continue 2;
                 }
             }
         }
 
         $imageMap = new ImageMap();
-        $imageMap = $this->imageService->populateImageMap($imageMap, $imageIdToSkuMap);
-
+        $this->imageService->populateImageMapBySku($imageMap, $map);
         $this->getImageClient()->fetchImages($imageMap);
+
         return $imageMap;
     }
 
