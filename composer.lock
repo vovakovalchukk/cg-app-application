@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "41f20d0f469df8dab02af6301d74a5de",
+    "content-hash": "785213b493e2774a20eded2caf94231d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2776,16 +2776,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.23.0",
+            "version": "dev-CGIV-8840-add_created_date_to_ou",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "eaf4ef058697ac269ed44ae30deec0dc48046297"
+                "reference": "eb82228f806b038b5db62adc55ef2feee9884b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.23.0-c9c6c2.zip",
-                "reference": "eaf4ef058697ac269ed44ae30deec0dc48046297",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-8840-add_created_date_to_ou-ccb9db.zip",
+                "reference": "eb82228f806b038b5db62adc55ef2feee9884b35",
                 "shasum": null
             },
             "require": {
@@ -2823,7 +2823,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2017-08-03T10:13:25+00:00"
+            "time": "2017-09-01T10:03:56+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3551,16 +3551,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.9.1",
+            "version": "dev-CGIV-8840-add_created_date_to_ou",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "c1ff3b3038d4caba3c2fb14cbdda84c270505896"
+                "reference": "cd1cef4ccd57033d3f67bac605d9861197d7e890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.9.1-1d5f43.zip",
-                "reference": "c1ff3b3038d4caba3c2fb14cbdda84c270505896",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8840-add_created_date_to_ou-c7bc28.zip",
+                "reference": "cd1cef4ccd57033d3f67bac605d9861197d7e890",
                 "shasum": null
             },
             "require": {
@@ -3570,7 +3570,7 @@
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.22.6",
+                "channelgrabber/user": "dev-CGIV-8840-add_created_date_to_ou as 1.23.2",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -3599,7 +3599,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-08-03T10:44:34+00:00"
+            "time": "2017-09-01T10:13:08+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8890,10 +8890,25 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.23.2",
+            "alias_normalized": "1.23.2.0",
+            "version": "dev-CGIV-8840-add_created_date_to_ou",
+            "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.5.12",
+            "alias_normalized": "1.5.12.0",
+            "version": "dev-CGIV-8840-add_created_date_to_ou",
+            "package": "channelgrabber/zf2-register"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
+        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
