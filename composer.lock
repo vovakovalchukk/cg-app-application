@@ -2028,12 +2028,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "b8d917399dfb5e8eb87cde48fa23544c4bf72c66"
+                "reference": "a1f47d01e02d6c991121b3aa92e140949ac47776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-CGIV-8311-purchase-orders-complete-update-stock-68e158.zip",
-                "reference": "b8d917399dfb5e8eb87cde48fa23544c4bf72c66",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-CGIV-8311-purchase-orders-complete-update-stock-38b986.zip",
+                "reference": "a1f47d01e02d6c991121b3aa92e140949ac47776",
                 "shasum": null
             },
             "require": {
@@ -2050,7 +2050,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2017-08-31T15:50:39+00:00"
+            "time": "2017-09-01T08:02:27+00:00"
         },
         {
             "name": "channelgrabber/purge",
