@@ -3556,12 +3556,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "1eafe4dbf922c561dcb3809d345a98abe041aca1"
+                "reference": "5bef418b7749711e22ecb97cbd95d15a99b46575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8840-add_created_date_to_ou-b56eb8.zip",
-                "reference": "1eafe4dbf922c561dcb3809d345a98abe041aca1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8840-add_created_date_to_ou-c1e1e7.zip",
+                "reference": "5bef418b7749711e22ecb97cbd95d15a99b46575",
                 "shasum": null
             },
             "require": {
@@ -3600,7 +3600,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-01T11:08:10+00:00"
+            "time": "2017-09-05T14:05:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
