@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e2388a408eab3f9d7b5052c27ea5589",
+    "content-hash": "274f64191f97482ad1c47ff65f4a578e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3504,16 +3504,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.15",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "cabb600ffb43630c92cb78780300c91f28152707"
+                "reference": "9de50643871521c8232a968ffc813d19ec89ac74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.15-87a2e8.zip",
-                "reference": "cabb600ffb43630c92cb78780300c91f28152707",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.2.0-b4e24e.zip",
+                "reference": "9de50643871521c8232a968ffc813d19ec89ac74",
                 "shasum": null
             },
             "require": {
@@ -3521,6 +3521,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/user": "^1.22.7",
+                "php": ">=7.1",
                 "zendframework/zend-config": ">=2.2.5,<3.0",
                 "zendframework/zend-di": ">=2.2.5,<3.0",
                 "zendframework/zend-eventmanager": ">=2.2.5,<3.0",
@@ -3548,7 +3549,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-02-17T14:36:30+00:00"
+            "time": "2017-09-05T09:01:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -8904,8 +8905,6 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.3.3"
-    },
+    "platform": [],
     "platform-dev": []
 }
