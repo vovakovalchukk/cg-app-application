@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "02926a7814749f8596b10c7bdb3cc820",
+    "content-hash": "2d27e3101df05924e6d95c9ad1aa2130",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3503,7 +3503,7 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "dev-CGIV-8862-PermissionCheck",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
@@ -3511,7 +3511,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8862-PermissionCheck-b4e24e.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.2.0-b4e24e.zip",
                 "reference": "9de50643871521c8232a968ffc813d19ec89ac74",
                 "shasum": null
             },
@@ -8891,18 +8891,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-CGIV-8862-PermissionCheck",
-            "package": "channelgrabber/zf2-permission"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-permission": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
