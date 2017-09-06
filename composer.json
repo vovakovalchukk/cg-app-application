@@ -56,7 +56,7 @@
         "channelgrabber/log": "~2.1.1",
         "channelgrabber/manual-order": "~1.0.0",
         "channelgrabber/netdespatch": "~1.2.15",
-        "channelgrabber/order": "1.28.23",
+        "channelgrabber/order": "dev-CGIV-8867-Fix-issues-with-order-counts as 1.28.24",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.0.2",

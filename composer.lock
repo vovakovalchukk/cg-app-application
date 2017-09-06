@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d27e3101df05924e6d95c9ad1aa2130",
+    "content-hash": "b0d4265d888c2836f4c71fbac148e7f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1560,17 +1560,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.28.23",
+            "version": "dev-CGIV-8867-Fix-issues-with-order-counts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c39425b42cba02282ae7e086f3a31a57f80010d7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.28.23-76aa02.zip",
-                "reference": "c39425b42cba02282ae7e086f3a31a57f80010d7",
-                "shasum": null
+                "reference": "cd9c2cad5bc24bbcc269b0feca18530017650af8"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -8891,16 +8885,24 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.24",
+            "alias_normalized": "1.28.24.0",
+            "version": "dev-CGIV-8867-Fix-issues-with-order-counts",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
         "composer/composer": 20,
+        "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
