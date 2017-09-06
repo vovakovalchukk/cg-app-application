@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "85e04418e414ca31c2f02f69505dd6f9",
+    "content-hash": "cc14acb2fab233b14c7417306112d44e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1567,6 +1567,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "8a47cbe045742c455b2692a228f8f782d1c5f8de"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8867-Fix-issues-with-order-counts-7a9933.zip",
+                "reference": "8a47cbe045742c455b2692a228f8f782d1c5f8de",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
@@ -2612,16 +2618,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.26",
+            "version": "1.4.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f3e4b8085f5f5e6ff70d1bd59d745151db911b0e"
+                "reference": "93a9483715619863da9e62bbdac9da13f5d8988b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.26-747ada.zip",
-                "reference": "f3e4b8085f5f5e6ff70d1bd59d745151db911b0e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.27-4adb3c.zip",
+                "reference": "93a9483715619863da9e62bbdac9da13f5d8988b",
                 "shasum": null
             },
             "require": {
@@ -2666,7 +2672,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-07-18T10:41:40+00:00"
+            "time": "2017-09-05T14:32:21+00:00"
         },
         {
             "name": "channelgrabber/transaction",
