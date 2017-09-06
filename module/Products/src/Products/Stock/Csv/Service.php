@@ -12,7 +12,7 @@ use CG\Stock\Gearman\Generator\StockImport as StockImportGearmanJobGenerator;
 use CG\Stock\Import\File\Entity as ImportFile;
 use CG\Stock\Import\File\Mapper as ImportFileMapper;
 use CG\Stock\Import\File\StorageInterface as ImportFileStorage;
-use CG\Stock\Service as StockService;
+use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
 
@@ -26,8 +26,8 @@ class Service
 
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
-    /** @var StockService $stockService */
-    protected $stockService;
+    /** @var StockStorage $stockStorage */
+    protected $stockStorage;
     /** @var ProductService $productService */
     protected $productService;
     /** @var Mapper $mapper */
@@ -45,7 +45,7 @@ class Service
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
-        StockService $stockService,
+        StockStorage $stockStorage,
         ProductService $productService,
         Mapper $mapper,
         ImportFileStorage $importFileStorage,
@@ -55,7 +55,7 @@ class Service
         ProgressStorage $progressStorage
     ) {
         $this->activeUserContainer = $activeUserContainer;
-        $this->stockService = $stockService;
+        $this->stockStorage = $stockStorage;
         $this->productService = $productService;
         $this->mapper = $mapper;
         $this->importFileStorage = $importFileStorage;
@@ -121,7 +121,7 @@ class Service
             $page = 1;
             while (true) {
                 /** @var Stock $stock */
-                $stock = $this->stockService->fetchCollectionByPaginationAndFilters(
+                $stock = $this->stockStorage->fetchCollectionByPaginationAndFilters(
                     static::COLLECTION_SIZE,
                     $page++,
                     [],
