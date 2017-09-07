@@ -33,7 +33,7 @@
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.3.3",
         "channelgrabber/cglib": "~1.12.0",
-        "channelgrabber/channel": "~1.31.0",
+        "channelgrabber/channel": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process as 1.31.1",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
