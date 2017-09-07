@@ -190,6 +190,14 @@ class ChannelsController extends AbstractActionController
         $region = $this->params()->fromPost('region');
         $type = ChannelType::SALES;
 
+        if ($this->channelsService->usesIntegrationType($channel, ChannelIntegrationType::CLASSIC)) {
+            throw new \Exception('classic error');
+        }
+        if ($this->channelsService->usesIntegrationType($channel, ChannelIntegrationType::MANUAL)) {
+            throw new \Exception('manual error');
+        }
+        throw new \Exception('big error');
+
         $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
         if ($this->isInternalUrl($redirectUrl)) {
             $redirectUrl = $this->constructConnectUrl($channel, $region);
