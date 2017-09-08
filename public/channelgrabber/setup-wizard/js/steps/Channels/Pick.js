@@ -58,9 +58,12 @@ define(['AjaxRequester'], function(ajaxRequester)
         // automated channel integrations
 
         // manual channel integrations
-        this.getNotifications().notice('Adding channel');
+        if (integrationType === 'automated') {
+            this.getNotifications().notice('Adding channel');
+        }
+
         var uri = this.getAddUri();
-        var data = {'channel' : channel, 'region' : region};
+        var data = {'channel' : channel, 'printName' : printName, 'region' : region};
         this.getAjaxRequester().sendRequest(uri, data, function(data)
         {
             // sent ajax request
