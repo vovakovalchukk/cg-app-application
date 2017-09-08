@@ -175,14 +175,14 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     {
         $activeUser = $this->userOrganisationUnitService->getActiveUser();
         $email = $message;
-        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId()), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         $to = array_filter($this->cgEmails);
         if (!$to || count($to) === 0) {
             $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
             throw new LogicException('No CG emails configured in the StepStatusService');
         }
         $subject = $message;
-        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId()), $channelPrintName, $email);
+        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $channelPrintName, $email);
         $this->mailer->send($to, $subject, $view);
         $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         return $this;
