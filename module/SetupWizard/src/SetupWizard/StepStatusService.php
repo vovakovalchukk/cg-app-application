@@ -8,6 +8,7 @@ use CG\Intercom\Event\Request as Event;
 use CG\Intercom\Event\Service as EventService;
 use CG\OrganisationUnit\Entity as OrganisationUnitEntity;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
@@ -64,14 +65,16 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $subscriptionService;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
-    /** @var SetupProgress */
-    protected $setupProgress;
+    /** @var UserOrganisationUnitService */
+    protected $userOrganisationUnitService;
     /** @var Mailer $mailer */
     protected $mailer;
     /** @var ViewModel $cgEmailView */
     protected $cgEmailView;
     /** @var mixed $cgEmails */
     protected $cgEmails;
+    /** @var SetupProgress */
+    protected $setupProgress;
 
     public function __construct(
         EventService $eventService,
@@ -82,6 +85,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         Config $config,
         SubscriptionService $subscriptionService,
         OrganisationUnitService $organisationUnitService,
+        UserOrganisationUnitService $userOrganisationUnitService,
         Mailer $mailer,
         ViewModel $cgEmailView,
         $cgEmails
@@ -94,6 +98,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $this->config = $config;
         $this->subscriptionService = $subscriptionService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->mailer = $mailer;
         $this->cgEmailView = $cgEmailView;
         $this->cgEmails = $cgEmails;
@@ -166,17 +171,18 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         return $setupProgress;
     }
 
-    public function sendChannelAddNotificationEmailToCG(int $userId, string $channel, string $channelPrintName, string $message)
+    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $message)
     {
+        $activeUser = $this->userOrganisationUnitService->getActiveUser();
         $email = $message;
-        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $userId, 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId()), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         $to = array_filter($this->cgEmails);
         if (!$to || count($to) === 0) {
             $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
             throw new LogicException('No CG emails configured in the StepStatusService');
         }
         $subject = $message;
-        $view = $this->setUpChannelAddNotificationEmailToCGView($userId, $channelPrintName, $email);
+        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId()), $channelPrintName, $email);
         $this->mailer->send($to, $subject, $view);
         $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         return $this;

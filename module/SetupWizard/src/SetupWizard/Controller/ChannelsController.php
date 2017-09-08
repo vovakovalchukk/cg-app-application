@@ -202,7 +202,7 @@ class ChannelsController extends AbstractActionController
         throw new \Exception('big error');
 
         if ($this->shouldEmailCGOnAdd($channel)) {
-            $this->setupService->sendChannelAddNotificationEmailToCG($userId, $channel, sprintf('User %d has attempted to connect %s webstore during his account setup', $userId, $channel));
+            $this->setupService->sendChannelAddNotificationEmailToCG($channel, sprintf('User %d has attempted to connect %s webstore during his account setup', $userId, $channel));
             return;
         }
 
