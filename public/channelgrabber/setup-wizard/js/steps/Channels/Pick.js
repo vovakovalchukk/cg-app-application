@@ -1,8 +1,10 @@
 //public version
-define(['AjaxRequester'], function(ajaxRequester)
+define(['AjaxRequester', 'popup/mustache'], function(ajaxRequester, Popup)
 {
     function Pick(notifications, addUri)
     {
+        var popup;
+
         this.getAjaxRequester = function()
         {
             return ajaxRequester;
@@ -18,6 +20,17 @@ define(['AjaxRequester'], function(ajaxRequester)
             return addUri;
         };
 
+        this.getPopup = function()
+        {
+            return popup;
+        };
+
+        this.setPopup = function(newPopup)
+        {
+            popup = newPopup;
+            return this;
+        };
+
         var init = function()
         {
             this.listenForChannelClick();
@@ -26,6 +39,8 @@ define(['AjaxRequester'], function(ajaxRequester)
     }
 
     Pick.SELECTOR_CHANNEL = '.setup-wizard-channel-badge';
+    Pick.POPUP_WIDTH_PX = 500;
+    Pick.POPUP_HEIGHT_PX = 180;
 
     Pick.prototype.listenForChannelClick = function()
     {
@@ -43,35 +58,49 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Pick.prototype.addChannel = function(channel, printName, integrationType, region)
     {
-        var templateUrlMap = {
-            message: '/cg-built/settings/template/Messages/stockManagementEnableMessage.mustache'
-        };
+        var self = this;
 
-        // alert(printName);
-
-        // classic channel integrations
-        CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache){
-            var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
-            // alert(messageHTML);
-        });
-        // return;
-        // automated channel integrations
-
-        // manual channel integrations
         if (integrationType === 'automated') {
             this.getNotifications().notice('Adding channel');
         }
 
         var uri = this.getAddUri();
-        var data = {'channel' : channel, 'printName' : printName, 'region' : region};
+        var data = {'channel' : channel, 'printName' : printName, 'integrationType' : integrationType, 'region' : region};
+
         this.getAjaxRequester().sendRequest(uri, data, function(data)
         {
-            // sent ajax request
-            alert(data['emailedCG']);
-            alert('sent request');
-            // window.location = data['url'];
+            if (data['url'] !== null) {
+                window.location = data['url'];
+                return;
+            }
+            var displayPopup = false;
+            var templateUrlMap = {};
+            if (integrationType === 'classic') {
+                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddClassicIntegrationMessage.mustache';
+                displayPopup = true;
+            } else if (integrationType === 'manual') {
+                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddManualIntegrationMessage.mustache';
+                displayPopup = true;
+            } else if (integrationType === 'unsupported') {
+                // trigger intercom message
+            }
+
+            if (displayPopup) {
+                self.setPopup(new Popup('', Pick.POPUP_WIDTH_PX, Pick.POPUP_HEIGHT_PX));
+                self.renderPopup(templateUrlMap, {name: printName});
+            }
         });
     };
+
+    Pick.prototype.renderPopup = function(templateUrlMap, data)
+    {
+        var self = this;
+        CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgMustache) {
+            var content = cgMustache.renderTemplate(templates, {name: data.name}, 'popup');
+            self.getPopup().htmlContent(content);
+            self.getPopup().show();
+        });
+    }
 
     return Pick;
 });
