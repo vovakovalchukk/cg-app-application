@@ -6,6 +6,9 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Helper\NavigationMenu;
 use CG\User\ActiveUserInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
+use CG\Email\Mailer;
+use Zend\View\Model\ViewModel;
 use Zend\View\Model\ViewModel;
 
 class Service
@@ -20,19 +23,62 @@ class Service
     protected $activeUserContainer;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var UserOrganisationUnitService */
+    protected $userOrganisationUnitService;
+    /** @var Mailer $mailer */
+    protected $mailer;
+    /** @var ViewModel $cgEmailView */
+    protected $cgEmailView;
+    /** @var mixed $cgEmails */
+    protected $cgEmails;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         NavigationMenu $navigationMenu,
         ServiceLocatorInterface $serviceLocator,
         ActiveUserInterface $activeUserContainer,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        UserOrganisationUnitService $userOrganisationUnitService,
+        Mailer $mailer,
+        ViewModel $cgEmailView,
+        $cgEmails
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setNavigationMenu($navigationMenu)
             ->setServiceLocator($serviceLocator)
             ->setActiveUserContainer($activeUserContainer)
             ->setOrganisationUnitService($organisationUnitService);
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
+        $this->mailer = $mailer;
+        $this->cgEmailView = $cgEmailView;
+        $this->cgEmails = $cgEmails;
+    }
+
+    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $message)
+    {
+        $activeUser = $this->userOrganisationUnitService->getActiveUser();
+        $email = $message;
+        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        $to = array_filter($this->cgEmails);
+        if (!$to || count($to) === 0) {
+            $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+            throw new LogicException('No CG emails configured in the StepStatusService');
+        }
+        $subject = sprintf('User %d tried to connect to $s webstore', $activeUser->getId(), $channelPrintName);
+        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $channelPrintName);
+        $to = 'eric.mugerwa@channelgrabber.com';
+        $this->mailer->send($to, $subject, $view);
+        $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        return $this;
+    }
+
+    protected function setUpChannelAddNotificationEmailToCGView(string $userId, string $channelPrintName)
+    {
+        $view = $this->cgEmailView;
+        $view->setTemplate(static::TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG);
+        $view->setVariable('userId', $userId);
+        $view->setVariable('channelPrintName', $channelPrintName);
+        return $view;
     }
 
     public function getSetupView($heading, $body, $footer = null)

@@ -2,13 +2,11 @@
 namespace SetupWizard;
 
 use CG\Billing\Subscription\Service as SubscriptionService;
-use CG\Email\Mailer;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as Event;
 use CG\Intercom\Event\Service as EventService;
 use CG\OrganisationUnit\Entity as OrganisationUnitEntity;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
@@ -25,7 +23,6 @@ use CG\User\ActiveUserInterface;
 use CG\User\Entity as UserEntity;
 use Zend\Config\Config;
 use Zend\Session\SessionManager;
-use Zend\View\Model\ViewModel;
 use LogicException;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
@@ -65,14 +62,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $subscriptionService;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
-    /** @var UserOrganisationUnitService */
-    protected $userOrganisationUnitService;
-    /** @var Mailer $mailer */
-    protected $mailer;
-    /** @var ViewModel $cgEmailView */
-    protected $cgEmailView;
-    /** @var mixed $cgEmails */
-    protected $cgEmails;
     /** @var SetupProgress */
     protected $setupProgress;
 
@@ -84,11 +73,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         SessionManager $sessionManager,
         Config $config,
         SubscriptionService $subscriptionService,
-        OrganisationUnitService $organisationUnitService,
-        UserOrganisationUnitService $userOrganisationUnitService,
-        Mailer $mailer,
-        ViewModel $cgEmailView,
-        $cgEmails
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->eventService = $eventService;
         $this->activeUserContainer = $activeUserContainer;
@@ -98,10 +83,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $this->config = $config;
         $this->subscriptionService = $subscriptionService;
         $this->organisationUnitService = $organisationUnitService;
-        $this->userOrganisationUnitService = $userOrganisationUnitService;
-        $this->mailer = $mailer;
-        $this->cgEmailView = $cgEmailView;
-        $this->cgEmails = $cgEmails;
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -169,32 +150,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         }
 
         return $setupProgress;
-    }
-
-    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $message)
-    {
-        $activeUser = $this->userOrganisationUnitService->getActiveUser();
-        $email = $message;
-        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
-        $to = array_filter($this->cgEmails);
-        if (!$to || count($to) === 0) {
-            $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
-            throw new LogicException('No CG emails configured in the StepStatusService');
-        }
-        $subject = $message;
-        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $channelPrintName, $email);
-        $this->mailer->send($to, $subject, $view);
-        $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
-        return $this;
-    }
-
-    protected function setUpChannelAddNotificationEmailToCGView(string $userId, string $channelPrintName)
-    {
-        $view = $this->cgEmailView;
-        $view->setTemplate(static::TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG);
-        $view->setVariable('userId', $userId);
-        $view->setVariable('channelPrintName', $channelPrintName);
-        return $view;
     }
 
     protected function notifyIntercom($step, $status, $userId)

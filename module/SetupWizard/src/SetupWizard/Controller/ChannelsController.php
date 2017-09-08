@@ -192,26 +192,31 @@ class ChannelsController extends AbstractActionController
         $channel = $this->params()->fromPost('channel');
         $region = $this->params()->fromPost('region');
         $type = ChannelType::SALES;
+        $result = ['url' => null, 'emailedCG' => false];
 
-        if ($this->channelsService->usesIntegrationType($channel, ChannelIntegrationType::CLASSIC)) {
-            throw new \Exception('classic error');
+        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::AUTOMATED])) {
+            $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
+            if ($this->isInternalUrl($redirectUrl)) {
+                $redirectUrl = $this->constructConnectUrl($channel, $region);
+            }
+            $result['url'] = $redirectUrl;
         }
-        if ($this->channelsService->usesIntegrationType($channel, ChannelIntegrationType::MANUAL)) {
-            throw new \Exception('manual error');
-        }
-        throw new \Exception('big error');
+
+//        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::CLASSIC])) {
+//            throw new \Exception('classic error');
+//            $result['emailedCG'] = true;
+//        }
+//        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::MANUAL])) {
+
+//            throw new \Exception('manual error');
+//        }
+//        throw new \Exception('big error');
 
         if ($this->shouldEmailCGOnAdd($channel)) {
             $this->setupService->sendChannelAddNotificationEmailToCG($channel, sprintf('User %d has attempted to connect %s webstore during his account setup', $userId, $channel));
-            return;
+            $result['emailedCG'] = true;
         }
-
-        $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
-        if ($this->isInternalUrl($redirectUrl)) {
-            $redirectUrl = $this->constructConnectUrl($channel, $region);
-        }
-
-        return $this->jsonModelFactory->newInstance(['url' => $redirectUrl]);
+        return $this->jsonModelFactory->newInstance($result);
     }
 
     protected function shouldEmailCGOnAdd(string $channel): bool

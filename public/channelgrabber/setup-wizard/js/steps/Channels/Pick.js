@@ -63,7 +63,7 @@ define(['AjaxRequester'], function(ajaxRequester)
         var data = {'channel' : channel, 'region' : region};
         this.getAjaxRequester().sendRequest(uri, data, function(data)
         {
-            window.location = data['url'];
+            // window.location = data['url'];
         });
     };
 
