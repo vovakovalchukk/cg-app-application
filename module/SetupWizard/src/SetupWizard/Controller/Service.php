@@ -66,17 +66,17 @@ class Service implements LoggerAwareInterface
         $this->cgEmails = $cgEmails;
     }
 
-    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $message)
+    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName)
     {
         $activeUser = $this->userOrganisationUnitService->getActiveUser();
-        $email = $message;
+        $email = sprintf('User %d has attempted to connect %s webstore during his account setup', $activeUser->getId(), $channel);
         $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         $to = array_filter($this->cgEmails);
         if (!$to || count($to) === 0) {
             $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
-            throw new LogicException('No CG emails configured in the StepStatusService');
+//            throw new LogicException('No CG emails configured in the StepStatusService');
         }
-        $subject = sprintf('User %d tried to connect to $s webstore', $activeUser->getId(), $channelPrintName);
+        $subject = sprintf('User %d tried to connect to %s webstore', $activeUser->getId(), $channelPrintName);
         $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $channelPrintName);
         $to = 'eric.mugerwa@channelgrabber.com';
         $this->mailer->send($to, $subject, $view);
