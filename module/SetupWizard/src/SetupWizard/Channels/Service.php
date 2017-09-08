@@ -5,9 +5,9 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor as AmazonCryptor;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\Type as ChannelType;
-use CG\Channel\Service as ChannelService;
 use CG\Channel\Integration\Type as ChannelIntegrationType;
+use CG\Channel\Service as ChannelService;
+use CG\Channel\Type as ChannelType;
 use CG\User\ActiveUserInterface;
 use SetupWizard\Module;
 
@@ -38,9 +38,9 @@ class Service
             ->setChannelService($channelService);
     }
 
-    public function usesIntegrationType(string $channel, array $channelIntegrationTypes): bool
+    public function checkForIntegrationType(string $channel, array $channelIntegrationTypes): ?string
     {
-        return $this->channelService->usesIntegrationType($channel, $channelIntegrationTypes);
+        return $this->channelService->checkForIntegrationType($channel, $channelIntegrationTypes);
     }
 
     public function fetchAccountsForActiveUser()

@@ -195,7 +195,7 @@ class ChannelsController extends AbstractActionController
         $type = ChannelType::SALES;
         $result = ['url' => null, 'emailedCG' => false];
 
-        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::AUTOMATED])) {
+        if ($this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::AUTOMATED])) {
             $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
             if ($this->isInternalUrl($redirectUrl)) {
                 $redirectUrl = $this->constructConnectUrl($channel, $region);
@@ -203,26 +203,17 @@ class ChannelsController extends AbstractActionController
             $result['url'] = $redirectUrl;
         }
 
-//        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::CLASSIC])) {
-//            throw new \Exception('classic error');
-//            $result['emailedCG'] = true;
-//        }
-//        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::MANUAL])) {
-
-//            throw new \Exception('manual error');
-//        }
-//        throw new \Exception('big error');
-
         if ($this->shouldEmailCGOnAdd($channel)) {
             $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName);
             $result['emailedCG'] = true;
         }
+
         return $this->jsonModelFactory->newInstance($result);
     }
 
     protected function shouldEmailCGOnAdd(string $channel): bool
     {
-        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::CLASSIC, ChannelIntegrationType::MANUAL, ChannelIntegrationType::UNSUPPORTED])) {
+        if ($this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::CLASSIC, ChannelIntegrationType::MANUAL, ChannelIntegrationType::UNSUPPORTED])) {
             return true;
         }
         return false;
