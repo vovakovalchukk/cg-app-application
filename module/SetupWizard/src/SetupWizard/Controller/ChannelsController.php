@@ -201,12 +201,25 @@ class ChannelsController extends AbstractActionController
         }
         throw new \Exception('big error');
 
+        if ($this->shouldEmailCGOnAdd($channel)) {
+            $this->setupService->sendChannelAddNotificationEmailToCG($userId, $channel, sprintf('User %d has attempted to connect %s webstore during his account setup', $userId, $channel));
+            return;
+        }
+
         $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
         if ($this->isInternalUrl($redirectUrl)) {
             $redirectUrl = $this->constructConnectUrl($channel, $region);
         }
 
         return $this->jsonModelFactory->newInstance(['url' => $redirectUrl]);
+    }
+
+    protected function shouldEmailCGOnAdd(string $channel): bool
+    {
+        if ($this->channelsService->usesIntegrationType($channel, [ChannelIntegrationType::CLASSIC, ChannelIntegrationType::MANUAL, ChannelIntegrationType::UNSUPPORTED])) {
+            return true;
+        }
+        return false;
     }
 
     protected function isInternalUrl($url)
