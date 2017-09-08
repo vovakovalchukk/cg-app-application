@@ -49,6 +49,7 @@ define(['AjaxRequester'], function(ajaxRequester)
             var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
             alert(messageHTML);
         });
+        return;
         // automated channel integrations
 
         // manual channel integrations
