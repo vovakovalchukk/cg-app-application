@@ -41,10 +41,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     const LOG_NO_STEPS = 'User %d (OU %d) has not been through setup yet, will redirect';
     const LOG_WHITELIST = 'User %d (OU %d) hasn\'t completed the setup wizard but the current route is whitelisted, allowing';
     const LOG_TRIAL_END_DATE = 'User %d (OU %d) has completed the Setup Wizard. Their free trial now starts proper and will end in %d days';
-    const LOG_CODE_SEND_EMAIL_TO_CG = 'SendEmailToCG';
-    const LOG_MSG_SEND_EMAIL_TO_CG = 'Sending email to CG with these details: User: %d, Channel: %s, Message: %s';
-    const LOG_MSG_SENT_EMAIL_TO_CG = 'Sent email to CG';
-    const LOG_MSG_SEND_EMAIL_ERROR_NO_TO = 'Failed to send email to CG, there was no-one specified to send the email to';
 
     /** @var EventService */
     protected $eventService;

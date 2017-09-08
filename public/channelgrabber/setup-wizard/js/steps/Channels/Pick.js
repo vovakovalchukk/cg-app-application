@@ -47,14 +47,14 @@ define(['AjaxRequester'], function(ajaxRequester)
             message: '/cg-built/settings/template/Messages/stockManagementEnableMessage.mustache'
         };
 
-        alert(printName);
+        // alert(printName);
 
         // classic channel integrations
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache){
             var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
-            alert(messageHTML);
+            // alert(messageHTML);
         });
-        return;
+        // return;
         // automated channel integrations
 
         // manual channel integrations
@@ -63,6 +63,9 @@ define(['AjaxRequester'], function(ajaxRequester)
         var data = {'channel' : channel, 'region' : region};
         this.getAjaxRequester().sendRequest(uri, data, function(data)
         {
+            // sent ajax request
+            alert(data['emailedCG']);
+            alert('sent request');
             // window.location = data['url'];
         });
     };
