@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a199a3863712c2ebccc601deff0aadf",
+    "content-hash": "79e38a609117af6981de34056e232f0a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1262,16 +1262,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.13",
+            "version": "dev-CGIV-8340-countries-update",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "ff04e055286fc6083149be54744d612530fd0178"
+                "reference": "2a203cd25ff8aac24ae110c80bc8f03e68afe338"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.13-11c99c.zip",
-                "reference": "ff04e055286fc6083149be54744d612530fd0178",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-8340-countries-update-e8772b.zip",
+                "reference": "2a203cd25ff8aac24ae110c80bc8f03e68afe338",
                 "shasum": null
             },
             "require": {
@@ -1291,7 +1291,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-01-25T12:04:43+00:00"
+            "time": "2017-09-07 16:04:38"
         },
         {
             "name": "channelgrabber/location",
@@ -8892,10 +8892,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.14",
+            "alias_normalized": "1.0.14.0",
+            "version": "dev-CGIV-8340-countries-update",
+            "package": "channelgrabber/locale"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
