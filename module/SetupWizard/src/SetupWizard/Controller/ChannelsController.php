@@ -141,15 +141,15 @@ class ChannelsController extends AbstractActionController
         foreach ($channelOptions as $description => $details)
         {
             $channel = $details['channel'];
-            $region = (isset($details['region']) ? $details['region'] : null);
             $integrationType = (isset($details['integrationType']) ? $details['integrationType'] : null);
-            $this->addChannelOptionToView($view, $channel, $description, $region, $integrationType);
+            $region = (isset($details['region']) ? $details['region'] : null);
+            $this->addChannelOptionToView($view, $channel, $description, $integrationType, $region);
         }
 
         return $this;
     }
 
-    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $region = null, $integrationType = ChannelIntegrationType::AUTOMATED)
+    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $integrationType, $region = null)
     {
         $img = $channel . '.png';
         if ($region) {
