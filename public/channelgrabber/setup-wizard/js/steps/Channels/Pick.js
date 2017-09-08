@@ -82,8 +82,10 @@ define(['AjaxRequester', 'popup/mustache'], function(ajaxRequester, Popup)
                 templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddManualIntegrationMessage.mustache';
                 displayPopup = true;
             } else if (integrationType === 'unsupported') {
-                Intercom('trackEvent', 'user attempted to add unsupported channel');
+                // No-op: No popup for unsupported
             }
+
+            Intercom('trackEvent', 'User attempted to add ' + integrationType + ' channel');
 
             if (displayPopup) {
                 self.setPopup(new Popup('', Pick.POPUP_WIDTH_PX, Pick.POPUP_HEIGHT_PX));
