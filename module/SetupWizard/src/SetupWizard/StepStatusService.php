@@ -23,7 +23,6 @@ use CG\User\ActiveUserInterface;
 use CG\User\Entity as UserEntity;
 use Zend\Config\Config;
 use Zend\Session\SessionManager;
-use LogicException;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 {

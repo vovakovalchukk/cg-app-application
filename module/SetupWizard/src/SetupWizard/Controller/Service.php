@@ -11,6 +11,7 @@ use CG\Email\Mailer;
 use Zend\View\Model\ViewModel;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use LogicException;
 
 class Service implements LoggerAwareInterface
 {
