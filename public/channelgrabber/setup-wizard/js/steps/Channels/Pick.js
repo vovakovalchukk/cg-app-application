@@ -40,6 +40,18 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Pick.prototype.addChannel = function(channel, region)
     {
+        var templateUrlMap = {
+            message: '<?= Settings\Module::PUBLIC_FOLDER ?>template/Messages/stockManagementEnableMessage.mustache'
+        };
+
+        // classic channel integrations
+        CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache){
+            var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+            alert(messageHTML);
+        });
+        // automated channel integrations
+
+        // manual channel integrations
         this.getNotifications().notice('Adding channel');
         var uri = this.getAddUri();
         var data = {'channel' : channel, 'region' : region};
