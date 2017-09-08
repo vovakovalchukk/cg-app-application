@@ -3557,12 +3557,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "5d472b88ff793515b0d9840b5d8edac4f0bc73b9"
+                "reference": "ac28cc7b93cf02e06552ada0cdf2819516020d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8868-linkedin_capterra_addons-1fc54a.zip",
-                "reference": "5d472b88ff793515b0d9840b5d8edac4f0bc73b9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8868-linkedin_capterra_addons-258d5f.zip",
+                "reference": "ac28cc7b93cf02e06552ada0cdf2819516020d36",
                 "shasum": null
             },
             "require": {
@@ -3601,7 +3601,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-08T07:51:30+00:00"
+            "time": "2017-09-08T08:10:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
