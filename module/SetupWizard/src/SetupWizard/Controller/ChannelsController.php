@@ -138,18 +138,18 @@ class ChannelsController extends AbstractActionController
     protected function addChannelOptionsToView(ViewModel $view)
     {
         $channelOptions = $this->channelsService->getSalesChannelOptions();
-        foreach ($channelOptions as $description => $details)
+        foreach ($channelOptions as $name => $details)
         {
             $channel = $details['channel'];
             $integrationType = (isset($details['integrationType']) ? $details['integrationType'] : null);
             $region = (isset($details['region']) ? $details['region'] : null);
-            $this->addChannelOptionToView($view, $channel, $description, $integrationType, $region);
+            $this->addChannelOptionToView($view, $channel, $name, $integrationType, $region);
         }
 
         return $this;
     }
 
-    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $integrationType, $region = null)
+    protected function addChannelOptionToView(ViewModel $view, $channel, $name, $integrationType, $region = null)
     {
         $img = $channel . '.png';
         if ($region) {
@@ -162,7 +162,7 @@ class ChannelsController extends AbstractActionController
             'channel' => $channel,
             'region' => $region,
             'integrationType' => $integrationType,
-            'name' => $description,
+            'name' => $name,
         ]);
         $badgeView->setTemplate('setup-wizard/channels/channel-badge.mustache');
         $view->addChild($badgeView, 'channelBadges', true);
