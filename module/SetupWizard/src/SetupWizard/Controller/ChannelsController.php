@@ -190,6 +190,7 @@ class ChannelsController extends AbstractActionController
     public function addAction()
     {
         $channel = $this->params()->fromPost('channel');
+        $printName = $this->params()->fromPost('printName');
         $region = $this->params()->fromPost('region');
         $type = ChannelType::SALES;
         $result = ['url' => null, 'emailedCG' => false];
@@ -213,7 +214,7 @@ class ChannelsController extends AbstractActionController
 //        throw new \Exception('big error');
 
         if ($this->shouldEmailCGOnAdd($channel)) {
-            $this->setupService->sendChannelAddNotificationEmailToCG($channel, sprintf('User %d has attempted to connect %s webstore during his account setup', $userId, $channel));
+            $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName, sprintf('User %d has attempted to connect %s webstore during his account setup', $userId, $channel));
             $result['emailedCG'] = true;
         }
         return $this->jsonModelFactory->newInstance($result);
