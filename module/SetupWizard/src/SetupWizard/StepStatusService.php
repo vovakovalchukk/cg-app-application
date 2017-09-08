@@ -33,7 +33,6 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_NAME_PREFIX = 'Setup ';
     const STAT_NAME = 'setup-wizard.%s.%s';
     const MAX_SAVE_ATTEMPTS = 2;
-    const TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG = 'orderhub/email_channel_add_notify_cg';
 
     const LOG_CODE = 'SetupStepStatus';
     const LOG_STATUS = 'User %d (OU %d) %s setup step \'%s\'';

@@ -16,6 +16,8 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG = 'orderhub/email_channel_add_notify_cg';
+
     const LOG_CODE_SEND_EMAIL_TO_CG = 'SendEmailToCG';
     const LOG_MSG_SEND_EMAIL_TO_CG = 'Sending email to CG with these details: User: %d, Channel: %s, Message: %s';
     const LOG_MSG_SENT_EMAIL_TO_CG = 'Sent email to CG';
