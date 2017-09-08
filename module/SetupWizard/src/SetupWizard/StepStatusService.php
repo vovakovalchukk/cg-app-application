@@ -2,6 +2,7 @@
 namespace SetupWizard;
 
 use CG\Billing\Subscription\Service as SubscriptionService;
+use CG\Email\Mailer;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as Event;
 use CG\Intercom\Event\Service as EventService;
@@ -23,6 +24,8 @@ use CG\User\ActiveUserInterface;
 use CG\User\Entity as UserEntity;
 use Zend\Config\Config;
 use Zend\Session\SessionManager;
+use Zend\View\Model\ViewModel;
+use LogicException;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -30,14 +33,20 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     use StatsTrait;
 
     const EVENT_NAME_PREFIX = 'Setup ';
+    const STAT_NAME = 'setup-wizard.%s.%s';
+    const MAX_SAVE_ATTEMPTS = 2;
+    const TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG = 'orderhub/email_channel_add_notify_cg';
+
     const LOG_CODE = 'SetupStepStatus';
     const LOG_STATUS = 'User %d (OU %d) %s setup step \'%s\'';
     const LOG_LAST_STEP = 'User %d (OU %d) was on setup step \'%s\', will redirect';
     const LOG_NO_STEPS = 'User %d (OU %d) has not been through setup yet, will redirect';
     const LOG_WHITELIST = 'User %d (OU %d) hasn\'t completed the setup wizard but the current route is whitelisted, allowing';
     const LOG_TRIAL_END_DATE = 'User %d (OU %d) has completed the Setup Wizard. Their free trial now starts proper and will end in %d days';
-    const STAT_NAME = 'setup-wizard.%s.%s';
-    const MAX_SAVE_ATTEMPTS = 2;
+    const LOG_CODE_SEND_EMAIL_TO_CG = 'SendEmailToCG';
+    const LOG_MSG_SEND_EMAIL_TO_CG = 'Sending email to CG with these details: User: %d, Channel: %s, Message: %s';
+    const LOG_MSG_SENT_EMAIL_TO_CG = 'Sent email to CG';
+    const LOG_MSG_SEND_EMAIL_ERROR_NO_TO = 'Failed to send email to CG, there was no-one specified to send the email to';
 
     /** @var EventService */
     protected $eventService;
@@ -57,6 +66,12 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $organisationUnitService;
     /** @var SetupProgress */
     protected $setupProgress;
+    /** @var Mailer $mailer */
+    protected $mailer;
+    /** @var ViewModel $cgEmailView */
+    protected $cgEmailView;
+    /** @var mixed $cgEmails */
+    protected $cgEmails;
 
     public function __construct(
         EventService $eventService,
@@ -66,7 +81,10 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         SessionManager $sessionManager,
         Config $config,
         SubscriptionService $subscriptionService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        Mailer $mailer,
+        ViewModel $cgEmailView,
+        $cgEmails
     ) {
         $this->eventService = $eventService;
         $this->activeUserContainer = $activeUserContainer;
@@ -76,6 +94,9 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $this->config = $config;
         $this->subscriptionService = $subscriptionService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->mailer = $mailer;
+        $this->cgEmailView = $cgEmailView;
+        $this->cgEmails = $cgEmails;
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -143,6 +164,31 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         }
 
         return $setupProgress;
+    }
+
+    public function sendChannelAddNotificationEmailToCG(int $userId, string $channel, string $channelPrintName, string $message)
+    {
+        $email = $message;
+        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $userId, 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        $to = array_filter($this->cgEmails);
+        if (!$to || count($to) === 0) {
+            $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+            throw new LogicException('No CG emails configured in the StepStatusService');
+        }
+        $subject = $message;
+        $view = $this->setUpChannelAddNotificationEmailToCGView($userId, $channelPrintName, $email);
+        $this->mailer->send($to, $subject, $view);
+        $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        return $this;
+    }
+
+    protected function setUpChannelAddNotificationEmailToCGView(string $userId, string $channelPrintName)
+    {
+        $view = $this->cgEmailView;
+        $view->setTemplate(static::TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG);
+        $view->setVariable('userId', $userId);
+        $view->setVariable('channelPrintName', $channelPrintName);
+        return $view;
     }
 
     protected function notifyIntercom($step, $status, $userId)
