@@ -21,7 +21,7 @@ class Service implements LoggerAwareInterface
 
     const LOG_CODE = 'SetupWizardControllerService';
     const LOG_CODE_SEND_EMAIL_TO_CG = 'SendEmailToCG';
-    const LOG_MSG_SEND_EMAIL_TO_CG = 'Sending email to CG with these details: User: %d, Channel: %s, Message: %s';
+    const LOG_MSG_SEND_EMAIL_TO_CG = 'Sending email to CG with these details: User: %d, Channel: %s, Subject: %s';
     const LOG_MSG_SENT_EMAIL_TO_CG = 'Sent email to CG';
     const LOG_MSG_SEND_EMAIL_ERROR_NO_TO = 'Failed to send email to CG, there was no-one specified to send the email to';
 
@@ -69,14 +69,13 @@ class Service implements LoggerAwareInterface
     public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName)
     {
         $activeUser = $this->userOrganisationUnitService->getActiveUser();
-        $email = sprintf('User %d has attempted to connect %s webstore during his account setup', $activeUser->getId(), $channel);
-        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channel, 'channelPrintName' => $channelPrintName, 'message' => $message], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        $subject = sprintf('User %d tried to connect to %s webstore', $activeUser->getId(), $channelPrintName);
+        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channelPrintName, 'subject' => $subject], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         $to = array_filter($this->cgEmails);
         if (!$to || count($to) === 0) {
             $this->logError(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
 //            throw new LogicException('No CG emails configured in the StepStatusService');
         }
-        $subject = sprintf('User %d tried to connect to %s webstore', $activeUser->getId(), $channelPrintName);
         $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $channelPrintName);
         $to = 'eric.mugerwa@channelgrabber.com';
         $this->mailer->send($to, $subject, $view);
