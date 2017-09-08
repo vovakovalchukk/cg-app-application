@@ -2,6 +2,7 @@
 namespace SetupWizard\Controller;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Integration\Type as ChannelIntegrationType;
 use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -141,13 +142,14 @@ class ChannelsController extends AbstractActionController
         {
             $channel = $details['channel'];
             $region = (isset($details['region']) ? $details['region'] : null);
-            $this->addChannelOptionToView($view, $channel, $description, $region);
+            $integrationType = (isset($details['integrationType']) ? $details['integrationType'] : null);
+            $this->addChannelOptionToView($view, $channel, $description, $region, $integrationType);
         }
 
         return $this;
     }
 
-    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $region = null)
+    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $region = null, $integrationType = ChannelIntegrationType::AUTOMATED)
     {
         $img = $channel . '.png';
         if ($region) {
@@ -159,6 +161,7 @@ class ChannelsController extends AbstractActionController
             'image' => $img,
             'channel' => $channel,
             'region' => $region,
+            'integrationType' => $integrationType,
             'name' => $description,
         ]);
         $badgeView->setTemplate('setup-wizard/channels/channel-badge.mustache');
