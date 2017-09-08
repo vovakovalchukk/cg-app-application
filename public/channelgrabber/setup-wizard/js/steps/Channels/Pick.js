@@ -1,3 +1,4 @@
+//public version
 define(['AjaxRequester'], function(ajaxRequester)
 {
     function Pick(notifications, addUri)
@@ -33,16 +34,20 @@ define(['AjaxRequester'], function(ajaxRequester)
         {
             var channelBadge = this;
             var channel = $(channelBadge).data('channel');
+            var printName = $(channelBadge).data('print_name');
+            var integrationType = $(channelBadge).data('integration_type');
             var region = $(channelBadge).data('region');
-            self.addChannel(channel, region);
+            self.addChannel(channel, printName, integrationType, region);
         });
     };
 
-    Pick.prototype.addChannel = function(channel, region)
+    Pick.prototype.addChannel = function(channel, printName, integrationType, region)
     {
         var templateUrlMap = {
-            message: '<?= Settings\Module::PUBLIC_FOLDER ?>template/Messages/stockManagementEnableMessage.mustache'
+            message: '/cg-built/settings/template/Messages/stockManagementEnableMessage.mustache'
         };
+
+        alert(printName);
 
         // classic channel integrations
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache){
