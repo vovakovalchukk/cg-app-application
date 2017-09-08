@@ -85,7 +85,7 @@
         "channelgrabber/zf2-channel": "~1.0.6",
         "channelgrabber/zf2-ebay": "~1.0.4",
         "channelgrabber/zf2-ekm": "~1.0.2",
-        "channelgrabber/zf2-email-template": "~1.0.13",
+        "channelgrabber/zf2-email-template": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process as 1.0.14",
         "channelgrabber/zf2-hal": "~1.0.7",
         "channelgrabber/zf2-logclient": "~1.4.2",
         "channelgrabber/zf2-login": "~1.5.7",

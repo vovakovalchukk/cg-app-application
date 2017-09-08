@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "53c06bb855b20d92a9aff23fe3a923fe",
+    "content-hash": "1eade689525e86ba113ec475cbaaeb4a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -497,7 +497,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4bb2a5d0d82c2143372a413b6afd8fe03ddf57ea"
+                "reference": "f4e656146a09634d3137f56a351acd2d6f2db543"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -3219,17 +3219,11 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.13",
+            "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.13-5a2ba7.zip",
-                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615",
-                "shasum": null
+                "reference": "e2dbdf5b5317034bb476e63aec093ec73a754851"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -8991,6 +8985,12 @@
             "alias_normalized": "1.31.1.0",
             "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.0.14",
+            "alias_normalized": "1.0.14.0",
+            "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
+            "package": "channelgrabber/zf2-email-template"
         }
     ],
     "minimum-stability": "stable",
@@ -8998,6 +8998,7 @@
         "composer/composer": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-email-template": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
