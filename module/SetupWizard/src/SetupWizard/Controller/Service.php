@@ -77,13 +77,13 @@ class Service implements LoggerAwareInterface
             $this->logWarning(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
             return;
         }
-        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $rootOu->getId(), $channelPrintName, $channelIntegrationType);
+        $view = $this->setUpChannelAddNotificationEmailToCGView($rootOu->getId(), $activeUser->getId(), $channelPrintName, $channelIntegrationType);
         $this->mailer->send($to, $subject, $view);
         $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         return $this;
     }
 
-    protected function setUpChannelAddNotificationEmailToCGView(string $userId, int $rootOuId, string $channelPrintName, string $channelIntegrationType)
+    protected function setUpChannelAddNotificationEmailToCGView(int $rootOuId, string $userId, string $channelPrintName, string $channelIntegrationType)
     {
         $view = $this->cgEmailView;
         $view->setTemplate(static::TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG);
