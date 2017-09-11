@@ -66,9 +66,10 @@ class Service implements LoggerAwareInterface
         $this->cgEmails = $cgEmails;
     }
 
-    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $integrationType)
+    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $channelIntegrationType)
     {
         $activeUser = $this->userOrganisationUnitService->getActiveUser();
+        $rootOu = $this->userOrganisationUnitService->getRootOuByActiveUser();
         $subject = sprintf('User %d tried to connect to %s webstore', $activeUser->getId(), $channelPrintName);
         $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channelPrintName, 'subject' => $subject], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         $to = array_filter($this->cgEmails);
@@ -76,18 +77,20 @@ class Service implements LoggerAwareInterface
             $this->logWarning(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
             return;
         }
-        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $channelPrintName);
+        $view = $this->setUpChannelAddNotificationEmailToCGView($activeUser->getId(), $rootOu->getId(), $channelPrintName, $channelIntegrationType);
         $this->mailer->send($to, $subject, $view);
         $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         return $this;
     }
 
-    protected function setUpChannelAddNotificationEmailToCGView(string $userId, string $channelPrintName)
+    protected function setUpChannelAddNotificationEmailToCGView(string $userId, int $rootOuId, string $channelPrintName, string $channelIntegrationType)
     {
         $view = $this->cgEmailView;
         $view->setTemplate(static::TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG);
         $view->setVariable('userId', $userId);
+        $view->setVariable('rootOuId', $rootOuId);
         $view->setVariable('channelPrintName', $channelPrintName);
+        $view->setVariable('channelIntegrationType', $channelIntegrationType);
         return $view;
     }
 
