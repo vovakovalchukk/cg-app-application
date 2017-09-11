@@ -193,7 +193,7 @@ class ChannelsController extends AbstractActionController
         $printName = $this->params()->fromPost('printName');
         $region = $this->params()->fromPost('region');
         $type = ChannelType::SALES;
-        $result = ['url' => null, 'emailedCG' => false];
+        $result = ['url' => null];
 
         if ($this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::AUTOMATED])) {
             $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
@@ -205,7 +205,6 @@ class ChannelsController extends AbstractActionController
 
         if ($this->shouldEmailCGOnAdd($channel)) {
             $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName);
-            $result['emailedCG'] = true;
         }
 
         return $this->jsonModelFactory->newInstance($result);
