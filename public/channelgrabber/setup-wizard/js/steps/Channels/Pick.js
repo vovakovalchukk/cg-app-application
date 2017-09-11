@@ -78,7 +78,7 @@ define(['AjaxRequester', 'popup/mustache'], function(ajaxRequester, Popup)
             if (integrationType === 'classic') {
                 templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddClassicIntegrationMessage.mustache';
                 displayPopup = true;
-            } else if (integrationType === 'manual') {
+            } else if (integrationType === 'third-party') {
                 templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddManualIntegrationMessage.mustache';
                 displayPopup = true;
             } else if (integrationType === 'unsupported') {
