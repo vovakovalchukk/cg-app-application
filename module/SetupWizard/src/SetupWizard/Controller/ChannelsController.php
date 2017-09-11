@@ -23,6 +23,11 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_SAVE = 'Save';
     const ROUTE_CHANNEL_DELETE = 'Delete';
     const ROUTE_CHANNEL_CONNECT = 'Connect';
+    const EMAIL_INTEGRATION_TYPES = [
+        ChannelIntegrationType::CLASSIC,
+        ChannelIntegrationType::MANUAL,
+        ChannelIntegrationType::UNSUPPORTED
+    ];
 
     /** @var SetupService */
     protected $setupService;
@@ -192,10 +197,11 @@ class ChannelsController extends AbstractActionController
         $channel = $this->params()->fromPost('channel');
         $printName = $this->params()->fromPost('printName');
         $region = $this->params()->fromPost('region');
+        $integrationType = $this->params()->fromPost('integrationType');
         $type = ChannelType::SALES;
         $result = ['url' => null];
 
-        if ($this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::AUTOMATED])) {
+        if ($integrationType == ChannelIntegrationType::AUTOMATED) {
             $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
             if ($this->isInternalUrl($redirectUrl)) {
                 $redirectUrl = $this->constructConnectUrl($channel, $region);
@@ -210,9 +216,9 @@ class ChannelsController extends AbstractActionController
         return $this->jsonModelFactory->newInstance($result);
     }
 
-    protected function shouldEmailCGOnAdd(string $channel): bool
+    protected function shouldEmailCGOnAdd($integrationType): bool
     {
-        return $this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::CLASSIC, ChannelIntegrationType::MANUAL, ChannelIntegrationType::UNSUPPORTED]);
+        return isset(static::EMAIL_INTEGRATION_TYPES[$integrationType]);
     }
 
     protected function isInternalUrl($url)
