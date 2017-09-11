@@ -104,7 +104,6 @@
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "guzzlehttp/guzzle": "^5.3.1",
-        "larapack/dd": "1.*",
         "league/csv": "~7.1.0",
         "nocarrier/hal": "~0.9.10",
         "php-jsonpatch/php-jsonpatch": "@dev",
