@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cdc34f208669e153bcf3e9cb15f8c421",
+    "content-hash": "665228901c64d9a38e0b16dd7a825147",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -676,7 +676,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2029,12 +2029,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "a1f47d01e02d6c991121b3aa92e140949ac47776"
+                "reference": "bbfbaeda63057863850deaf6526e322bc5a4f93d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-CGIV-8311-purchase-orders-complete-update-stock-38b986.zip",
-                "reference": "a1f47d01e02d6c991121b3aa92e140949ac47776",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-CGIV-8311-purchase-orders-complete-update-stock-d81096.zip",
+                "reference": "bbfbaeda63057863850deaf6526e322bc5a4f93d",
                 "shasum": null
             },
             "require": {
@@ -2051,7 +2051,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2017-09-01T08:02:27+00:00"
+            "time": "2017-09-11T11:04:54+00:00"
         },
         {
             "name": "channelgrabber/purge",
@@ -3924,7 +3924,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-08-31T15:28:41+00:00"
+            "time": "2017-08-29T10:38:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4161,7 +4161,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5555,7 +5555,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5606,7 +5606,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5699,7 +5699,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6168,7 +6168,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
