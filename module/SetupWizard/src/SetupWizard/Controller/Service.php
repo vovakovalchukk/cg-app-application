@@ -66,7 +66,7 @@ class Service implements LoggerAwareInterface
         $this->cgEmails = $cgEmails;
     }
 
-    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName)
+    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $integrationType)
     {
         $activeUser = $this->userOrganisationUnitService->getActiveUser();
         $subject = sprintf('User %d tried to connect to %s webstore', $activeUser->getId(), $channelPrintName);

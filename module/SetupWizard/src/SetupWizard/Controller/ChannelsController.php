@@ -210,7 +210,7 @@ class ChannelsController extends AbstractActionController
         }
 
         if ($this->shouldEmailCGOnAdd($channel)) {
-            $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName);
+            $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName, $integrationType);
         }
 
         return $this->jsonModelFactory->newInstance($result);
