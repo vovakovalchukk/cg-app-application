@@ -1884,7 +1884,6 @@ return [
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class,
-                    'stockStorage' => StockService::class,
                     'listingStorage' => ListingService::class,
                     'imageStorage' => ImageService::class
                 ]
