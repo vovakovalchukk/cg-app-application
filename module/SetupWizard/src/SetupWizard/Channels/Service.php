@@ -86,9 +86,9 @@ class Service
     public function getSalesChannelOptions()
     {
         return array_merge(
-            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::AUTOMATED]),
+            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::INTERNAL]),
             $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::CLASSIC]),
-            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::MANUAL]),
+            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::THIRD_PARTY]),
             $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::UNSUPPORTED])
         );
     }

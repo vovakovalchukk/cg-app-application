@@ -23,9 +23,9 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_SAVE = 'Save';
     const ROUTE_CHANNEL_DELETE = 'Delete';
     const ROUTE_CHANNEL_CONNECT = 'Connect';
-    const EMAIL_INTEGRATION_TYPES = [
+    const CG_EMAIL_NOTIFICATION_INTEGRATION_TYPES = [
         ChannelIntegrationType::CLASSIC,
-        ChannelIntegrationType::MANUAL,
+        ChannelIntegrationType::THIRD_PARTY,
         ChannelIntegrationType::UNSUPPORTED
     ];
 
@@ -201,7 +201,7 @@ class ChannelsController extends AbstractActionController
         $type = ChannelType::SALES;
         $result = ['url' => null];
 
-        if ($integrationType == ChannelIntegrationType::AUTOMATED) {
+        if ($integrationType == ChannelIntegrationType::INTERNAL) {
             $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
             if ($this->isInternalUrl($redirectUrl)) {
                 $redirectUrl = $this->constructConnectUrl($channel, $region);
@@ -218,7 +218,7 @@ class ChannelsController extends AbstractActionController
 
     protected function shouldEmailCGOnAdd($integrationType): bool
     {
-        return isset(static::EMAIL_INTEGRATION_TYPES[$integrationType]);
+        return isset(static::CG_EMAIL_NOTIFICATION_INTEGRATION_TYPES[$integrationType]);
     }
 
     protected function isInternalUrl($url)
