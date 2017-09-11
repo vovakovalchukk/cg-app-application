@@ -212,10 +212,7 @@ class ChannelsController extends AbstractActionController
 
     protected function shouldEmailCGOnAdd(string $channel): bool
     {
-        if ($this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::CLASSIC, ChannelIntegrationType::MANUAL, ChannelIntegrationType::UNSUPPORTED])) {
-            return true;
-        }
-        return false;
+        return $this->channelsService->checkForIntegrationType($channel, [ChannelIntegrationType::CLASSIC, ChannelIntegrationType::MANUAL, ChannelIntegrationType::UNSUPPORTED]);
     }
 
     protected function isInternalUrl($url)
