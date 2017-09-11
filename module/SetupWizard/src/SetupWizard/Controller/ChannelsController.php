@@ -24,9 +24,9 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_DELETE = 'Delete';
     const ROUTE_CHANNEL_CONNECT = 'Connect';
     const CG_EMAIL_NOTIFICATION_INTEGRATION_TYPES = [
-        ChannelIntegrationType::CLASSIC,
-        ChannelIntegrationType::THIRD_PARTY,
-        ChannelIntegrationType::UNSUPPORTED
+        ChannelIntegrationType::CLASSIC => true,
+        ChannelIntegrationType::THIRD_PARTY => true,
+        ChannelIntegrationType::UNSUPPORTED => true
     ];
 
     /** @var SetupService */
