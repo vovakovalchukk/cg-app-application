@@ -146,6 +146,8 @@ class PurchaseOrdersJsonController extends AbstractJsonController
             $records = $this->purchaseOrderService->fetchAllForOu($ouId);
         } catch (NotFound $e) {
             return $this->buildResponse(['list' => []]);
+        } catch (\Exception $e) {
+            return $this->buildErrorResponse("A problem occurred while retrieving purchase orders.");
         }
 
         return $this->buildResponse([
