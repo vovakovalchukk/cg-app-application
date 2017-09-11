@@ -1,13 +1,10 @@
 <?php
 namespace Products\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-
-use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Products\Module;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class PurchaseOrdersController extends AbstractActionController implements LoggerAwareInterface
 {
