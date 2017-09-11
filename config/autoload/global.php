@@ -99,7 +99,8 @@ use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
 use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 
 // Stock Import
-use CG\Stock\Import\File\Storage\Db as StockImportFileDb;
+use CG\Stock\Import\File\StorageInterface as StockImportInterface;
+use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
 // Communication
@@ -209,6 +210,7 @@ $config = array(
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
                 PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
                 RolloutStorage::class => RolloutRedisStorage::class,
+                StockImportInterface::class => StockImportFileS3::class
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -434,11 +436,8 @@ $config = array(
                     'repository' => EkmTaxRateRepository::class
                 ]
             ],
-            StockImportFileDb::class => [
+            StockImportFileS3::class => [
                 'parameter' => [
-                    'readSql' => 'appReadSql',
-                    'fastReadSql' => 'appFastReadSql',
-                    'writeSql' => 'appWriteSql',
                     'mapper' => StockImportFileMapper::class
                 ]
             ],
