@@ -242,11 +242,29 @@ define([
                 purchaseOrderItems: purchaseOrderItems
             });
         },
+        completeButtonEnabled: function() {
+            return this.state.purchaseOrderStatus !== COMPLETE_STATUS
+                && this.state.purchaseOrderId
+                && this.state.purchaseOrderId > 0
+                && this.state.purchaseOrderItems
+                && this.state.purchaseOrderItems.length > 0;
+        },
+        downloadButtonEnabled: function() {
+            return this.state.purchaseOrderId
+                && this.state.purchaseOrderId > 0;
+        },
+        deleteButtonEnabled: function() {
+            return this.state.purchaseOrderId
+                && this.state.purchaseOrderId > 0;
+        },
         render: function()
         {
             return (
                 <EditorComponent
                     editable={this.state.purchaseOrderStatus !== COMPLETE_STATUS}
+                    completeButtonEnabled={this.completeButtonEnabled()}
+                    downloadButtonEnabled={this.downloadButtonEnabled()}
+                    deleteButtonEnabled={this.deleteButtonEnabled()}
                     onNameChange={this.onUpdatePurchaseOrderNumber}
                     purchaseOrderNumber={this.state.purchaseOrderNumber}
                     purchaseOrderItems={this.state.purchaseOrderItems}
