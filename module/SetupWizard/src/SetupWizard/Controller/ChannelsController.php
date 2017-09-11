@@ -201,6 +201,7 @@ class ChannelsController extends AbstractActionController
         $type = ChannelType::SALES;
         $result = ['url' => null];
 
+
         if ($integrationType == ChannelIntegrationType::INTERNAL) {
             $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
             if ($this->isInternalUrl($redirectUrl)) {
@@ -209,7 +210,7 @@ class ChannelsController extends AbstractActionController
             $result['url'] = $redirectUrl;
         }
 
-        if ($this->shouldEmailCGOnAdd($channel)) {
+        if ($this->shouldEmailCGOnAdd($integrationType)) {
             $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName, $integrationType);
         }
 
