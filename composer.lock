@@ -3223,7 +3223,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "487a825e96704fc6e5ce641f6168ee329bc53bb5"
+                "reference": "589feec4fd60c6e3220d8184566a737b0e365632"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
