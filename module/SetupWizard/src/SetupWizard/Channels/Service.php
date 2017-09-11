@@ -38,11 +38,6 @@ class Service
             ->setChannelService($channelService);
     }
 
-    public function checkForIntegrationType(string $channel, array $channelIntegrationTypes): ?string
-    {
-        return $this->channelService->checkForIntegrationType($channel, $channelIntegrationTypes);
-    }
-
     public function fetchAccountsForActiveUser()
     {
         $activeUser = $this->activeUserContainer->getActiveUser();
