@@ -27,8 +27,8 @@ use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
-use CG\Stock\Location\Service as StockLocationService;
-use CG\Stock\Service as StockService;
+use CG\Stock\Location\StorageInterface as StockLocationStorage;
+use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
@@ -69,8 +69,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $organisationUnitService;
     protected $productService;
     protected $productFilterMapper;
-    protected $stockService;
-    protected $stockLocationService;
+    protected $stockStorage;
+    protected $stockLocationStorage;
     protected $stockAuditor;
     protected $intercomEventService;
     /** @var StockAdjustmentService */
@@ -93,8 +93,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrganisationUnitService $organisationUnitService,
         ProductFilterMapper $productFilterMapper,
         ProductService $productService,
-        StockLocationService $stockLocationService,
-        StockService $stockService,
+        StockLocationStorage $stockLocationStorage,
+        StockStorage $stockStorage,
         StockAuditor $stockAuditor,
         IntercomEventService $intercomEventService,
         StockAdjustmentService $stockAdjustmentService,
@@ -111,8 +111,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->userPreferenceService = $userPreferenceService;
         $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
-        $this->stockService = $stockService;
-        $this->stockLocationService = $stockLocationService;
+        $this->stockStorage = $stockStorage;
+        $this->stockLocationStorage = $stockLocationStorage;
         $this->stockAuditor = $stockAuditor;
         $this->intercomEventService = $intercomEventService;
         $this->stockAdjustmentService = $stockAdjustmentService;
@@ -135,7 +135,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $stockLocationEntity = $this->stockLocationService->fetch($stockLocationId);
+            $stockLocationEntity = $this->stockLocationStorage->fetch($stockLocationId);
 
             $adjustment = $this->createAndAuditStockAdjustment($stockLocationEntity, $totalQuantity);
             $stockLocationEntity->setStoredEtag($eTag);
@@ -252,7 +252,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $operator = StockAdjustment::OPERATOR_DEC;
         }
         $adjustment = $this->stockAdjustmentService->createAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
-        $stock = $this->stockService->fetch($stockLocationEntity->getStockId());
+        $stock = $this->stockStorage->fetch($stockLocationEntity->getStockId());
         $this->stockAuditor->userAdjustment(
             $adjustment,
             $stock->getSku(),
