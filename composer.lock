@@ -1565,7 +1565,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e300be019f064574df325c0a9e0d1c8cdec577bd"
+                "reference": "9accf9b44f574e9b1fcec4031633ca380f7e11ba"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -2616,7 +2616,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f4c05416716414effb0109d8581ff03242ccb59e"
+                "reference": "bbb182ef5b7bc7eeff1d21ded2c97eed70efc018"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
