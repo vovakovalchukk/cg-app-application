@@ -2029,12 +2029,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "388fe70177c1fdbbc63c6ebee4172a0e3a6ab69a"
+                "reference": "97ee242ca160674f3d77ef109c3930294f77029c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-EPIC-CGIV-7460-purchase-orders-1-612d51.zip",
-                "reference": "388fe70177c1fdbbc63c6ebee4172a0e3a6ab69a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purchase-order-dev-EPIC-CGIV-7460-purchase-orders-1-4adc4d.zip",
+                "reference": "97ee242ca160674f3d77ef109c3930294f77029c",
                 "shasum": null
             },
             "require": {
@@ -2051,7 +2051,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2017-09-12T09:25:39+00:00"
+            "time": "2017-09-12T13:46:16+00:00"
         },
         {
             "name": "channelgrabber/purge",
