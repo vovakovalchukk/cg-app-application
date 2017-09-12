@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4792e55b24eee5e2fe04a9c21712a86e",
+    "content-hash": "59d04db8d142a842fc1845d4ee3318f2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3553,16 +3553,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-8868-linkedin_capterra_addons",
+            "version": "1.5.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "ac28cc7b93cf02e06552ada0cdf2819516020d36"
+                "reference": "647c13f099699324dea798129b02f035ab361d0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8868-linkedin_capterra_addons-258d5f.zip",
-                "reference": "ac28cc7b93cf02e06552ada0cdf2819516020d36",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.13-302a83.zip",
+                "reference": "647c13f099699324dea798129b02f035ab361d0d",
                 "shasum": null
             },
             "require": {
@@ -3601,7 +3601,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-08T08:10:20+00:00"
+            "time": "2017-09-12T09:29:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8892,18 +8892,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.13",
-            "alias_normalized": "1.5.13.0",
-            "version": "dev-CGIV-8868-linkedin_capterra_addons",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
