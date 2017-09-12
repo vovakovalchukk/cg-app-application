@@ -3373,12 +3373,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "f4d40e12bd8fd46eed6fc1d37abe131f1a414614"
+                "reference": "f8699cca714644592ad1bf228588669a62144a37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8877-add_ekm_register-679610.zip",
-                "reference": "f4d40e12bd8fd46eed6fc1d37abe131f1a414614",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8877-add_ekm_register-f3b04d.zip",
+                "reference": "f8699cca714644592ad1bf228588669a62144a37",
                 "shasum": null
             },
             "require": {
@@ -3419,7 +3419,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-09-12T08:21:36+00:00"
+            "time": "2017-09-12T09:07:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3557,12 +3557,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "a1906fc0085410da0badb385de0632eb0d89905f"
+                "reference": "a86b3373cc126e123a32aca7660c4db10eead5fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8877-add_ekm_register-a14f3e.zip",
-                "reference": "a1906fc0085410da0badb385de0632eb0d89905f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8877-add_ekm_register-d4b42c.zip",
+                "reference": "a86b3373cc126e123a32aca7660c4db10eead5fb",
                 "shasum": null
             },
             "require": {
@@ -3601,7 +3601,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-12T09:07:34+00:00"
+            "time": "2017-09-12T09:45:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
