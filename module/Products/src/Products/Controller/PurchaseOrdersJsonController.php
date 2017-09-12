@@ -5,8 +5,6 @@ use Application\Controller\AbstractJsonController;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\PurchaseOrder\Collection as PurchaseOrderCollection;
 use CG\PurchaseOrder\Entity as PurchaseOrder;
-use CG\PurchaseOrder\Item\Service as ItemService;
-use CG\PurchaseOrder\Item\Entity as ItemEntity;
 use CG\PurchaseOrder\Mapper as PurchaseOrderMapper;
 use CG\PurchaseOrder\Service as PurchaseOrderService;
 use CG\PurchaseOrder\Status as PurchaseOrderStatus;
@@ -34,19 +32,15 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     protected $purchaseOrderMapper;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
-    /** @var ItemService */
-    protected $itemService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         PurchaseOrderService $purchaseOrderService,
-        ItemService $itemService,
         PurchaseOrderMapper $purchaseOrderMapper,
         ActiveUserInterface $activeUserContainer
     ) {
         parent::__construct($jsonModelFactory);
         $this->purchaseOrderService = $purchaseOrderService;
-        $this->itemService = $itemService;
         $this->purchaseOrderMapper = $purchaseOrderMapper;
         $this->activeUserContainer = $activeUserContainer;
     }
@@ -101,10 +95,6 @@ class PurchaseOrdersJsonController extends AbstractJsonController
         try {
             /** @var PurchaseOrder $purchaseOrder */
             $purchaseOrder = $this->purchaseOrderService->fetch($id);
-            /** @var ItemEntity $item */
-            foreach ($purchaseOrder->getItems() as $item) {
-                $this->itemService->remove($item);
-            }
             $this->purchaseOrderService->remove($purchaseOrder);
         } catch (\Exception $e) {
             $this->buildErrorResponse("A problem occurred when attempting to delete the purchase order.");
