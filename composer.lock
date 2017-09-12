@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "841bbc34696eb8b322b909eafa78acc6",
+    "content-hash": "87e1f35848958f067ad6fc6fc8ec1423",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3369,16 +3369,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-8877-add_ekm_register",
+            "version": "1.5.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "f8699cca714644592ad1bf228588669a62144a37"
+                "reference": "e03ed186a9f5905c816fac733931a035ef6a7f35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8877-add_ekm_register-f3b04d.zip",
-                "reference": "f8699cca714644592ad1bf228588669a62144a37",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.8-22fc93.zip",
+                "reference": "e03ed186a9f5905c816fac733931a035ef6a7f35",
                 "shasum": null
             },
             "require": {
@@ -3419,7 +3419,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-09-12T09:07:14+00:00"
+            "time": "2017-09-12T10:21:53+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3553,16 +3553,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-8877-add_ekm_register",
+            "version": "1.5.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "a86b3373cc126e123a32aca7660c4db10eead5fb"
+                "reference": "2ad81d388795ca792c42a10ae51f49a8c1c902ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8877-add_ekm_register-d4b42c.zip",
-                "reference": "a86b3373cc126e123a32aca7660c4db10eead5fb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.14-b19a7b.zip",
+                "reference": "2ad81d388795ca792c42a10ae51f49a8c1c902ba",
                 "shasum": null
             },
             "require": {
@@ -3601,7 +3601,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-12T09:45:14+00:00"
+            "time": "2017-09-12T10:19:47+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8892,25 +8892,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.8",
-            "alias_normalized": "1.5.8.0",
-            "version": "dev-CGIV-8877-add_ekm_register",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.5.14",
-            "alias_normalized": "1.5.14.0",
-            "version": "dev-CGIV-8877-add_ekm_register",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
