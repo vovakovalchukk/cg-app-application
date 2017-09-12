@@ -52,6 +52,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LIMIT = 50;
     const PAGE = 1;
     const MAX_FOREGROUND_DELETES = 5;
+    const NAV_KEY_FEATURE_FLAG = 'featureFlag';
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
     const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
@@ -360,12 +361,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function checkPageEnabled(NavPage $page)
     {
+        if (!$featureFlag = $page->get(static::NAV_KEY_FEATURE_FLAG)) {
+            return;
+        }
+
         try {
             if (!($this->userOuService->getActiveUser() instanceof User)) {
                 throw new NotFound("User is not logged in.");
             }
             $ou = $this->userOuService->getRootOuByActiveUser();
-            if (! $this->featureFlagsService->isActive($page->getId(), $ou)) {
+            if (!$this->featureFlagsService->isActive($featureFlag, $ou)) {
                 $page->setClass('disabled');
             }
         } catch (\Exception $e) {

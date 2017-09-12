@@ -1,6 +1,7 @@
 <?php
 namespace Products;
 
+use CG\FeatureFlags\Feature;
 use Products\Controller;
 use Products\Product\Service as ModuleProductService;
 use Products\Controller\ProductsController;
@@ -1066,6 +1067,7 @@ return [
                     'purchaseOrders' => [
                         'id'    => 'purchaseOrders',
                         'label' => 'Purchase Orders',
+                        ModuleProductService::NAV_KEY_FEATURE_FLAG => Feature::PURCHASE_ORDERS,
                         'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                                 '',
                                 [

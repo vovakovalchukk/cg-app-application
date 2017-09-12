@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "de2729b30f10022e0bc311c9372443fd",
+    "content-hash": "a9ceafad8b0d8b6a9af59620e8d05cd0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1031,16 +1031,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "1.0.0",
+            "version": "dev-EPIC-CGIV-7460-purchase-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "fcb8ec21f2b66826101c04524c8286d22fa59c13"
+                "reference": "0a4f9b875c5731ac16237231eda456ade77ba1c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-1.0.0-466ccb.zip",
-                "reference": "fcb8ec21f2b66826101c04524c8286d22fa59c13",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-EPIC-CGIV-7460-purchase-orders-99a7d2.zip",
+                "reference": "0a4f9b875c5731ac16237231eda456ade77ba1c4",
                 "shasum": null
             },
             "require": {
@@ -1053,7 +1053,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-05-10T13:20:55+00:00"
+            "time": "2017-09-12T10:40:04+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -9002,6 +9002,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-EPIC-CGIV-7460-purchase-orders",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-EPIC-CGIV-7460-purchase-orders-1",
@@ -9017,6 +9023,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
         "channelgrabber/purchase-order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
