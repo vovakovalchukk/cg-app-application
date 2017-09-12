@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a199a3863712c2ebccc601deff0aadf",
+    "content-hash": "841bbc34696eb8b322b909eafa78acc6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -676,7 +676,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -3369,16 +3369,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.7",
+            "version": "dev-CGIV-8877-add_ekm_register",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "dc03faafaa2fcfd457d856290a7643ff56a9ad3a"
+                "reference": "f4d40e12bd8fd46eed6fc1d37abe131f1a414614"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.7-b3b9dd.zip",
-                "reference": "dc03faafaa2fcfd457d856290a7643ff56a9ad3a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8877-add_ekm_register-679610.zip",
+                "reference": "f4d40e12bd8fd46eed6fc1d37abe131f1a414614",
                 "shasum": null
             },
             "require": {
@@ -3419,7 +3419,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-08-31T15:31:19+00:00"
+            "time": "2017-09-12T08:21:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3553,16 +3553,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.12",
+            "version": "dev-CGIV-8877-add_ekm_register",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "e42fc230aa0df3f08066eef3a56a40629902d457"
+                "reference": "cf0a5fa4199ea2f508c89ed3350705ea587b0e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.12-da6176.zip",
-                "reference": "e42fc230aa0df3f08066eef3a56a40629902d457",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8877-add_ekm_register-41ab7a.zip",
+                "reference": "cf0a5fa4199ea2f508c89ed3350705ea587b0e89",
                 "shasum": null
             },
             "require": {
@@ -3601,7 +3601,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-06T13:12:24+00:00"
+            "time": "2017-09-12T08:26:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4105,7 +4105,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28 09:38:16"
+            "time": "2015-09-28T09:38:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -5447,7 +5447,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21 07:54:03"
+            "time": "2015-08-21T07:54:03+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5498,7 +5498,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22 08:39:53"
+            "time": "2015-07-22T08:39:53+00:00"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5591,7 +5591,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6060,7 +6060,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -8892,10 +8892,25 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.5.8",
+            "alias_normalized": "1.5.8.0",
+            "version": "dev-CGIV-8877-add_ekm_register",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
+            "alias": "1.5.14",
+            "alias_normalized": "1.5.14.0",
+            "version": "dev-CGIV-8877-add_ekm_register",
+            "package": "channelgrabber/zf2-register"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
