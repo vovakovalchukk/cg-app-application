@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "adf3d394489327eef83fc1d08ff7035c",
+    "content-hash": "0220ecaa2b0040e7bce6102542b7d455",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2525,12 +2525,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "4866d80134a9d2572dcf68c77db952a66ae1ab37"
+                "reference": "e4c95785834d73e69a424a4a66c794b58454b9a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-8210-Include-FBA-Stock-7e16ed.zip",
-                "reference": "4866d80134a9d2572dcf68c77db952a66ae1ab37",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-8210-Include-FBA-Stock-ff285b.zip",
+                "reference": "e4c95785834d73e69a424a4a66c794b58454b9a5",
                 "shasum": null
             },
             "require": {
@@ -2577,7 +2577,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-12T10:29:51+00:00"
+            "time": "2017-09-13T11:29:52+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -9083,8 +9083,8 @@
             "package": "channelgrabber/stdlib"
         },
         {
-            "alias": "1.9.1",
-            "alias_normalized": "1.9.1.0",
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/stock"
         },
