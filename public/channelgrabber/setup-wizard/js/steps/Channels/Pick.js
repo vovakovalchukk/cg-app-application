@@ -80,7 +80,7 @@ define(['AjaxRequester', 'popup/mustache'], function(ajaxRequester, Popup)
             } else if (integrationType === 'third-party') {
                 templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddThirdPartyIntegrationMessage.mustache';
             } else if (integrationType === 'unsupported') {
-                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddManualIntegrationMessage.mustache';
+                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddUnsupportedIntegrationMessage.mustache';
             }
 
             self.setPopup(new Popup('', Pick.POPUP_WIDTH_PX, Pick.POPUP_HEIGHT_PX));
