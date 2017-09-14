@@ -73,24 +73,18 @@ define(['AjaxRequester', 'popup/mustache'], function(ajaxRequester, Popup)
                 window.location = data['url'];
                 return;
             }
-            var displayPopup = false;
+
             var templateUrlMap = {};
             if (integrationType === 'classic') {
                 templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddClassicIntegrationMessage.mustache';
-                displayPopup = true;
             } else if (integrationType === 'third-party') {
-                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddManualIntegrationMessage.mustache';
-                displayPopup = true;
+                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddThirdPartyIntegrationMessage.mustache';
             } else if (integrationType === 'unsupported') {
-                // No-op: No popup for unsupported
+                templateUrlMap.popup = '/cg-built/settings/template/Messages/channelAddManualIntegrationMessage.mustache';
             }
 
-            Intercom('trackEvent', 'User attempted to add ' + integrationType + ' channel');
-
-            if (displayPopup) {
-                self.setPopup(new Popup('', Pick.POPUP_WIDTH_PX, Pick.POPUP_HEIGHT_PX));
-                self.renderPopup(templateUrlMap, {name: printName});
-            }
+            self.setPopup(new Popup('', Pick.POPUP_WIDTH_PX, Pick.POPUP_HEIGHT_PX));
+            self.renderPopup(templateUrlMap, {name: printName});
         });
     };
 
