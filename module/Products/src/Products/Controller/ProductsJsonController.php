@@ -121,9 +121,18 @@ class ProductsJsonController extends AbstractActionController
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
+            $merchantLocationIds = $this->locationService->fetchIdsByType(
+                [LocationType::MERCHANT],
+                $rootOrganisationUnit->getId()
+            );
 
             foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $rootOrganisationUnit);
+                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
+                    $product,
+                    $accounts,
+                    $rootOrganisationUnit,
+                    $merchantLocationIds
+                );
             }
             $total = $products->getTotal();
         } catch(NotFound $e) {
@@ -145,8 +154,12 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
-    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $rootOrganisationUnit)
-    {
+    protected function toArrayProductEntityWithEmbeddedData(
+        ProductEntity $productEntity,
+        $accounts,
+        $rootOrganisationUnit,
+        array $merchantLocationIds
+    ) {
         $product = $productEntity->toArray();
 
         $activeSalesAccounts = $this->getActiveSalesAccounts($accounts);
@@ -193,10 +206,9 @@ class ProductsJsonController extends AbstractActionController
 
         $stockEntity = $productEntity->getStock();
         $product['stock'] = array_merge($stockEntity->toArray(), [
-            'locations' => $this->stockLocationService->getFromCollectionByLocationIds(
-                $stockEntity->getLocations(),
-                $this->locationService->fetchIdsByType([LocationType::MERCHANT], $stockEntity->getOrganisationUnitId())
-            )->toArray()
+            'locations' => $this->stockLocationService
+                ->getFromCollectionByLocationIds($stockEntity->getLocations(), $merchantLocationIds)
+                ->toArray()
         ]);
 
         $detailsEntity = $productEntity->getDetails();
