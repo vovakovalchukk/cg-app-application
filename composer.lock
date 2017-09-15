@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a00e62b8c83196372e27e3ded4ea9b92",
+    "content-hash": "b2d466687c11557a07dee74f28cb07a0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
+            "version": "1.32.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "de7399c5d53341f7989bb86b766d9a7935af2668"
+                "reference": "8b6a3075e1c4b758af3ebd80a7245931b1e493eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8729-Add-new-sales-channels-to-setup-process-2ee4e6.zip",
-                "reference": "de7399c5d53341f7989bb86b766d9a7935af2668",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.32.3-7f6983.zip",
+                "reference": "8b6a3075e1c4b758af3ebd80a7245931b1e493eb",
                 "shasum": null
             },
             "require": {
@@ -574,7 +574,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-09-11 14:48:30"
+            "time": "2017-09-15T09:56:25+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3282,16 +3282,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "589feec4fd60c6e3220d8184566a737b0e365632"
+                "reference": "41192ebbe7ae6df0fb16de846c017b694307bf0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-8729-Add-new-sales-channels-to-setup-process-2f077c.zip",
-                "reference": "589feec4fd60c6e3220d8184566a737b0e365632",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.19-db97ec.zip",
+                "reference": "41192ebbe7ae6df0fb16de846c017b694307bf0f",
                 "shasum": null
             },
             "require": {
@@ -3312,7 +3312,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2017-09-11 15:36:15"
+            "time": "2017-09-15T09:53:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -9001,25 +9001,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.31.1",
-            "alias_normalized": "1.31.1.0",
-            "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.14",
-            "alias_normalized": "1.0.14.0",
-            "version": "dev-CGIV-8729-Add-new-sales-channels-to-setup-process",
-            "package": "channelgrabber/zf2-email-template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-email-template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
