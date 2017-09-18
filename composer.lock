@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "756a7d7610ea3f532270388d60e6f031",
+    "content-hash": "90eaf625f4fd552b683a604c52546a9a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3561,16 +3561,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "dev-CGIV-8524-improve-trial-conversion-process",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "7c81092c5589598e8c970aca028120d9f4d436ea"
+                "reference": "7265c76047f74a25b9fcbef0ba3e8de8938f72a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-8524-improve-trial-conversion-process-02b8fb.zip",
-                "reference": "7c81092c5589598e8c970aca028120d9f4d436ea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.2.1-b959e1.zip",
+                "reference": "7265c76047f74a25b9fcbef0ba3e8de8938f72a3",
                 "shasum": null
             },
             "require": {
@@ -3606,7 +3606,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-12T14:57:38+00:00"
+            "time": "2017-09-18T10:06:27+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -9001,18 +9001,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.16",
-            "alias_normalized": "1.1.16.0",
-            "version": "dev-CGIV-8524-improve-trial-conversion-process",
-            "package": "channelgrabber/zf2-permission"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-permission": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

@@ -93,7 +93,7 @@
         "channelgrabber/zf2-login": "~1.5.8",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.7",
-        "channelgrabber/zf2-permission": "dev-CGIV-8524-improve-trial-conversion-process as 1.1.16",
+        "channelgrabber/zf2-permission": "~1.2.1",
         "channelgrabber/zf2-register": "~1.5.14",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.7",
