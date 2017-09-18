@@ -162,10 +162,9 @@ use CG\Stdlib\SoapClient as CGSoapClient;
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 
-<<<<<<< HEAD
 use CG\Billing\Token\StorageInterface as TokenStorageInterface;
 use CG\Billing\Token\Storage\Api as TokenStorageApi;
-=======
+
 //  Purchase Order
 use CG\PurchaseOrder\StorageInterface as PurchaseOrderStorage;
 use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
@@ -175,7 +174,6 @@ use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
 //  Feature Flags
 use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
 use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
->>>>>>> develop
 
 $config = array(
     'di' => array(
@@ -212,13 +210,10 @@ $config = array(
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
-<<<<<<< HEAD
                 TokenStorageInterface::class => TokenStorageApi::class,
-=======
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
                 PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
                 RolloutStorage::class => RolloutRedisStorage::class,
->>>>>>> develop
                 StockImportInterface::class => StockImportFileS3::class
             ),
             'aliases' => [
