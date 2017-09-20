@@ -2,6 +2,7 @@
 namespace SetupWizard\Controller;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Integration\Type as ChannelIntegrationType;
 use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -22,6 +23,11 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_SAVE = 'Save';
     const ROUTE_CHANNEL_DELETE = 'Delete';
     const ROUTE_CHANNEL_CONNECT = 'Connect';
+    const CG_EMAIL_NOTIFICATION_INTEGRATION_TYPES = [
+        ChannelIntegrationType::CLASSIC => true,
+        ChannelIntegrationType::THIRD_PARTY => true,
+        ChannelIntegrationType::UNSUPPORTED => true
+    ];
 
     /** @var SetupService */
     protected $setupService;
@@ -137,17 +143,18 @@ class ChannelsController extends AbstractActionController
     protected function addChannelOptionsToView(ViewModel $view)
     {
         $channelOptions = $this->channelsService->getSalesChannelOptions();
-        foreach ($channelOptions as $description => $details)
+        foreach ($channelOptions as $name => $details)
         {
             $channel = $details['channel'];
+            $integrationType = (isset($details['integrationType']) ? $details['integrationType'] : null);
             $region = (isset($details['region']) ? $details['region'] : null);
-            $this->addChannelOptionToView($view, $channel, $description, $region);
+            $this->addChannelOptionToView($view, $channel, $name, $integrationType, $region);
         }
 
         return $this;
     }
 
-    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $region = null)
+    protected function addChannelOptionToView(ViewModel $view, $channel, $name, $integrationType, $region = null)
     {
         $img = $channel . '.png';
         if ($region) {
@@ -159,7 +166,8 @@ class ChannelsController extends AbstractActionController
             'image' => $img,
             'channel' => $channel,
             'region' => $region,
-            'name' => $description,
+            'integrationType' => $integrationType,
+            'name' => $name,
         ]);
         $badgeView->setTemplate('setup-wizard/channels/channel-badge.mustache');
         $view->addChild($badgeView, 'channelBadges', true);
@@ -187,15 +195,31 @@ class ChannelsController extends AbstractActionController
     public function addAction()
     {
         $channel = $this->params()->fromPost('channel');
+        $printName = $this->params()->fromPost('printName');
         $region = $this->params()->fromPost('region');
+        $integrationType = $this->params()->fromPost('integrationType');
         $type = ChannelType::SALES;
+        $result = ['url' => null];
 
-        $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
-        if ($this->isInternalUrl($redirectUrl)) {
-            $redirectUrl = $this->constructConnectUrl($channel, $region);
+
+        if ($integrationType == ChannelIntegrationType::INTERNAL) {
+            $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
+            if ($this->isInternalUrl($redirectUrl)) {
+                $redirectUrl = $this->constructConnectUrl($channel, $region);
+            }
+            $result['url'] = $redirectUrl;
         }
 
-        return $this->jsonModelFactory->newInstance(['url' => $redirectUrl]);
+        if ($this->shouldEmailCGOnAdd($integrationType)) {
+            $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName, $integrationType);
+        }
+
+        return $this->jsonModelFactory->newInstance($result);
+    }
+
+    protected function shouldEmailCGOnAdd($integrationType): bool
+    {
+        return isset(static::CG_EMAIL_NOTIFICATION_INTEGRATION_TYPES[$integrationType]);
     }
 
     protected function isInternalUrl($url)

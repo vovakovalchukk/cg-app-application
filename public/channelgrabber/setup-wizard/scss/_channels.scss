@@ -67,6 +67,11 @@
     height: 200px;
     cursor: pointer;
 
+    img {
+        border-radius: 15px;
+        border: 2px solid #5FAFDA;
+    }
+
     .setup-wizard-channel-badge-footer {
         font-size: 16px;
         padding-top: 5px;

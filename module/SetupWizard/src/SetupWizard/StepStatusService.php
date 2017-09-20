@@ -30,14 +30,15 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     use StatsTrait;
 
     const EVENT_NAME_PREFIX = 'Setup ';
+    const STAT_NAME = 'setup-wizard.%s.%s';
+    const MAX_SAVE_ATTEMPTS = 2;
+
     const LOG_CODE = 'SetupStepStatus';
     const LOG_STATUS = 'User %d (OU %d) %s setup step \'%s\'';
     const LOG_LAST_STEP = 'User %d (OU %d) was on setup step \'%s\', will redirect';
     const LOG_NO_STEPS = 'User %d (OU %d) has not been through setup yet, will redirect';
     const LOG_WHITELIST = 'User %d (OU %d) hasn\'t completed the setup wizard but the current route is whitelisted, allowing';
     const LOG_TRIAL_END_DATE = 'User %d (OU %d) has completed the Setup Wizard. Their free trial now starts proper and will end in %d days';
-    const STAT_NAME = 'setup-wizard.%s.%s';
-    const MAX_SAVE_ATTEMPTS = 2;
 
     /** @var EventService */
     protected $eventService;

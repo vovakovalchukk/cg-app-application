@@ -115,7 +115,6 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
-        $accounts = [];
         try {
             $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
