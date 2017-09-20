@@ -18,7 +18,8 @@ class SalesJsonController extends AbstractJsonController
 
     public function orderCountsAction()
     {
-        $orderCounts = $this->salesService->getOrderCountsData();
+        $requestFilter = $this->params()->fromPost('filter', []);
+        $orderCounts = $this->salesService->getOrderCountsData($requestFilter);
         return $this->buildSuccessResponse(['data' => $orderCounts]);
     }
 }

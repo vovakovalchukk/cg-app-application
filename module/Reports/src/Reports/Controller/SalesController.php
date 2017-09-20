@@ -1,7 +1,6 @@
 <?php
 namespace Reports\Controller;
 
-use CG\Order\Service\Filter;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Filter\Service as FilterService;
@@ -38,12 +37,7 @@ class SalesController extends AbstractActionController
 
     protected function getFilterBar()
     {
-        /** @var Filter $filterValues */
-        if ($searchTerm = $this->params()->fromQuery('search')) {
-            $filterValues = (new Filter())->setSearchTerm($searchTerm);
-        } else {
-            $filterValues = $this->filterService->getPersistentFilter();
-        }
+        $filterValues = $this->filterService->getPersistentFilter();
         $filters = $this->uiFiltersService->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }

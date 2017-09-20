@@ -52,7 +52,7 @@ class Service
         return $this->buildChannelDetails(static::FILTER_TOTAL);
     }
 
-    public function getOrderCountsData()
+    public function getOrderCountsData($filters = [])
     {
         $filter = $this->filterService->getFilter()
             ->setOrganisationUnitId($this->orderService->getActiveUser()->getOuList())
@@ -60,6 +60,15 @@ class Service
             ->setPage(1)
             ->setOrderBy('purchaseDate')
             ->setOrderDirection('ASC');
+
+        $requestFilter = $this->filterService->addDefaultFiltersToArray($filters);
+        if (!empty($requestFilter)) {
+            $filter = $this->filterService->mergeFilters(
+                $filter,
+                $this->filterService->getFilterFromArray($requestFilter)
+            );
+        }
+
         $orders = $this->orderService->getOrders($filter);
 
         $orderCounts = [];
@@ -69,6 +78,20 @@ class Service
             $orderCounts[$orderDate] = isset($orderCounts[$orderDate]) ? $orderCounts[$orderDate]++ : 1;
             $orderCounts[$orderDate]++;
         }
+
+//        $previousDate = null;
+//        foreach ($orderCounts as $date => $count) {
+//            if (!$previousDate) {
+//                continue;
+//            }
+//
+//            $previousDate = $date;
+//            $period = new \DatePeriod(
+//                new DateTime($previousDate),
+//                new \DateInterval('P1D'),
+//                new DateTime($date)
+//            );
+//        }
 
         $dataset = [];
         foreach ($orderCounts as $date => $count) {

@@ -58,6 +58,24 @@ return [
                                     ]
                                 ]
                             ]
+                        ],
+                        [
+                            'filterType' => 'buttons',
+                            'variables' => [
+                                'name' => 'buttons',
+                                'buttons' => [
+                                    [
+                                        'name' => 'apply-filters',
+                                        'value' => 'Apply Filters',
+                                        'action' => 'apply-filters',
+                                    ],
+                                    [
+                                        'name' => 'clear-filters',
+                                        'value' => 'Clear',
+                                        'action' => 'clear-filters',
+                                    ]
+                                ],
+                            ]
                         ]
                     ]
                 ],

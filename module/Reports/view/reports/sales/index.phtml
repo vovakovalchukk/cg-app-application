@@ -1,8 +1,27 @@
 <?php
 $this->placeholder('#sub-header')->append($filters);
 $this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js');
-$this->headScript()->appendFile($this->basePath() . \Reports\Module::PUBLIC_FOLDER . 'js/salesChart.js');
 ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+<!--<script>-->
+    $(document).ready(function() {
+        require.config({
+            paths: {
+                'Reports': "<?=$this->basePath() . Reports\Module::PUBLIC_FOLDER . 'js/Reports';?>"
+            }
+        });
+        require([
+            'Reports/Application'
+        ], function(
+            ReportsApp
+        ) {
+            let app = new ReportsApp();
+            app.buildSalesChart();
+        });
+    });
+<!--</script>-->
+<?php $this->inlineScript()->captureEnd(); ?>
 
 <div class="chart-container">
     <canvas id="salesChart" width="1600" height="700"></canvas>
