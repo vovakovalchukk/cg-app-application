@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90eaf625f4fd552b683a604c52546a9a",
+    "content-hash": "812295b774d62d805a96644c710ffe8a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -680,16 +680,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.19",
+            "version": "dev-CGIV-8894-geopost_credentials",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
+                "reference": "ebbddeb896afcd4a392acfedcf89b173d8be3f77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-8894-geopost_credentials-07d860.zip",
+                "reference": "ebbddeb896afcd4a392acfedcf89b173d8be3f77",
                 "shasum": null
             },
             "require": {
@@ -720,7 +720,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-27T10:57:28+00:00"
+            "time": "2017-09-20T08:10:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -9001,10 +9001,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.20",
+            "alias_normalized": "1.0.20.0",
+            "version": "dev-CGIV-8894-geopost_credentials",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
