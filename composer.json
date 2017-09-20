@@ -37,7 +37,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-CGIV-8894-geopost_credentials as 1.0.20",
+        "channelgrabber/courier": "~1.0.20",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
         "channelgrabber/ebay": "~1.10.12",
