@@ -37,12 +37,11 @@ use Zend\View\Model\ViewModel;
 use CG\Channel\AccountDisabler;
 use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailerService;
 
-use CG\Location\Service as LocationService;
-use CG\Location\Storage\Api as LocationApi;
-use CG\Location\Mapper as LocationMapper;
+use CG\Location\StorageInterface as LocationStorage;
+use CG\Location\Storage\Api as LocationApiStorage;
 
-use CG\Stock\Location\Storage\Api as LocationApiStorage;
-use CG\Stock\Location\StorageInterface as LocationStorageInterface;
+use CG\Stock\Location\StorageInterface as StockLocationStorage;
+use CG\Stock\Location\Storage\Api as StockLocationApiStorage;
 
 use CG\Billing\Transaction\StorageInterface as TransactionStorage;
 use CG\Billing\Transaction\Storage\Api as TransactionApiStorage;
@@ -188,7 +187,7 @@ $config = array(
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class,
                 ServiceLocatorInterface::class => ServiceManager::class,
-                LocationStorageInterface::class => LocationApiStorage::class,
+                StockLocationStorage::class => StockLocationApiStorage::class,
                 TransactionStorage::class => TransactionApiStorage::class,
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
@@ -214,7 +213,8 @@ $config = array(
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
                 PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
                 RolloutStorage::class => RolloutRedisStorage::class,
-                StockImportInterface::class => StockImportFileS3::class
+                StockImportInterface::class => StockImportFileS3::class,
+                LocationStorage::class => LocationApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -342,18 +342,12 @@ $config = array(
                     'mapper' => InvoiceMappingMapper::class
                 ]
             ],
-            LocationService::class => [
-                'parameters' => [
-                    'repository' => LocationApi::class,
-                    'mapper' => LocationMapper::class
-                ]
-            ],
-            LocationApi::class => [
+            LocationApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-            LocationApiStorage::class => [
+            StockLocationApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
