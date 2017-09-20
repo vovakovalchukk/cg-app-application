@@ -1,0 +1,9 @@
+<?php
+$this->placeholder('#sub-header')->append($filters);
+$this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js');
+$this->headScript()->appendFile($this->basePath() . \Reports\Module::PUBLIC_FOLDER . 'js/salesChart.js');
+?>
+
+<div class="chart-container">
+    <canvas id="salesChart" width="1600" height="700"></canvas>
+</div>

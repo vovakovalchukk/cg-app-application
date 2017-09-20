@@ -3,6 +3,7 @@
 namespace Reports;
 
 use Reports\Controller\SalesController;
+use Reports\Controller\SalesJsonController;
 use Zend\Mvc\Router\Http\Literal;
 
 return [
@@ -11,7 +12,7 @@ return [
             'reports' => array(
                 'label'  => 'Sales',
                 'sprite' => '',
-                'order'  => 6,
+                'order'  => 8,
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . SalesController::ROUTE_INDEX
             )
         )
@@ -29,8 +30,21 @@ return [
                         'sidebar' => Module::SIDEBAR_TEMPLATE
                     ]
                 ],
+                'child_routes' => [
+                    'orderCounts' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/orderCounts',
+                            'defaults' => [
+                                'controller' => SalesJsonController::class,
+                                'action' => 'orderCounts'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                ],
                 'may_terminate' => true
-            ]
+            ],
         ]
     ],
     'view_manager' => [

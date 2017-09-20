@@ -1,0 +1,18 @@
+<div class="channel-filters">
+    {{#channels}}
+        <div class="channel-filter">
+            <span class="channel-colour">&bull;</span>
+            {{> columns/channel}}
+            {{> elements/checkbox}}
+        </div>
+    {{/channels}}
+    {{#total}}
+        <div class="channel-filter channel-filter-total">
+            <span class="channel-colour">&bull;</span>
+            <div class="total-holder">
+                <span class="filter-total-text">TOTAL</span>
+            </div>
+            {{> elements/checkbox}}
+        </div>
+    {{/total}}
+</div>
