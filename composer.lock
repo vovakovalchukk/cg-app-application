@@ -1043,12 +1043,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "e8a155c6a5c92463d82e552d830b4b998d005e9b"
+                "reference": "da58bdb94d5e289d3c10a3eb963bb6a3020211ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-EPIC-CGIV-8210-Include-FBA-Stock-4e20d6.zip",
-                "reference": "e8a155c6a5c92463d82e552d830b4b998d005e9b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-EPIC-CGIV-8210-Include-FBA-Stock-8e6953.zip",
+                "reference": "da58bdb94d5e289d3c10a3eb963bb6a3020211ba",
                 "shasum": null
             },
             "require": {
@@ -1063,7 +1063,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-08-23T11:12:35+00:00"
+            "time": "2017-09-13T08:44:50+00:00"
         },
         {
             "name": "channelgrabber/gearman",
