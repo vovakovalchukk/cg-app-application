@@ -19,7 +19,7 @@ define([
 
         init() {
             $("#filters input[data-action='apply-filters']").on("click", (function() {
-                let filters = [];
+                let filters = {};
                 $("#filters :input[name]").each(function() {
                     let value = $.trim($(this).val());
                     if (!value.length) {

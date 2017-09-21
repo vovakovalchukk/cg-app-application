@@ -7,7 +7,7 @@ define([], function() {
 
         create(data) {
             let options = this._getDefaultOptions();
-            options.data = this._buildDataSets(data);
+            options.data.datasets = this._buildDataSets(data);
             this.chart = new Chart(
                 $(this.CANVAS_SELECTOR),
                 options
@@ -19,8 +19,7 @@ define([], function() {
                 return false;
             }
 
-            this.chart.data = this._buildDataSets(data);
-            this.chart.config.data = this._buildDataSets(data);
+            this.chart.data.datasets = this._buildDataSets(data);
             this.chart.update();
         }
 
@@ -61,14 +60,12 @@ define([], function() {
         }
 
         _buildDataSets(data) {
-            return {
-                datasets: [{
+            return [{
                     label: 'ebay',
                     data: data,
                     borderColor: 'blue',
                     fill: false
-                }]
-            };
+                }];
         }
     }
 
