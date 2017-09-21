@@ -18,27 +18,38 @@ define([
 
         init() {
             $("#filters input[data-action='apply-filters']").on("click", (function() {
-                let filters = {};
-                $("#filters :input[name]").each(function() {
-                    let value = $.trim($(this).val());
-                    if (!value.length) {
-                        return;
-                    }
-                    let name = $(this).attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
-                    filters[name] = value;
-                });
-                this.ajax.fetch(filters, (function (data) {
+                this.ajax.fetch(this.buildRequestData(), (function (data) {
                     this.redrawChart(data);
                 }).bind(this));
             }).bind(this));
         }
 
         updateChart() {
-            this.ajax.fetch([], this.redrawChart);
+            this.ajax.fetch(this.buildRequestData(), this.redrawChart);
         }
 
         redrawChart(data) {
             this.chart.update(data);
+        }
+
+        buildRequestData() {
+            let requestData = this.buildFiltersRequestData();
+            requestData.strategyType = 'count';
+            requestData.strategy = ['channel', 'total'];
+            return requestData;
+        }
+
+        buildFiltersRequestData() {
+            let filters = {};
+            $("#filters :input[name]").each(function() {
+                let value = $.trim($(this).val());
+                if (!value.length) {
+                    return;
+                }
+                let name = $(this).attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
+                filters[name] = value;
+            });
+            return filters;
         }
     }
 

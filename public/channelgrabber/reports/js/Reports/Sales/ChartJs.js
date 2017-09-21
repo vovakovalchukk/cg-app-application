@@ -32,7 +32,10 @@ define([
         _getDefaultOptions() {
             return {
                 type: 'line',
-                data: {},
+                data: {
+                    labels: [],
+                    datasets: []
+                },
                 options: {
                     elements: {
                         line: {
@@ -44,25 +47,14 @@ define([
                     scales: {
                         xAxes: [{
                             type: 'time',
-                            bonds: 'data',
-                            distribution: 'linear',
-                            autoSkip: true,
-                            ticks: {
-                                source: 'data'
-                            },
                             time: {
-                                unit: 'day',
-                                unitStepSize: 100,
                                 displayFormats: {
                                     day: 'll'
                                 }
                             }
                         }],
                         yAxes: [{
-                            type: 'linear',
-                            ticks: {
-                                beginAtZero: true
-                            }
+                            type: 'linear'
                         }]
                     },
                     legend: {
@@ -80,8 +72,12 @@ define([
         }
 
         _buildDataSets(data) {
-            let datasets = [];
+            return this._buildSimpleKeysData(data).concat(this._buildObjectKeysData(data));
+        }
+
+        _buildSimpleKeysData(data) {
             let allowedKeys = Response.allowed.keys;
+            let datasets = [];
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
                     datasets.push({
@@ -92,8 +88,12 @@ define([
                     });
                 }
             }
+            return datasets;
+        }
 
-            allowedKeys = Response.allowed.objectKeys;
+        _buildObjectKeysData(data) {
+            let allowedKeys = Response.allowed.objectKeys;
+            let datasets = [];
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
                     $.each(data[allowedKeys[i]], (function (key, value) {
@@ -106,7 +106,6 @@ define([
                     }).bind(this));
                 }
             }
-
             return datasets;
         }
 
