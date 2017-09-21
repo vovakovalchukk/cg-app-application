@@ -12,9 +12,8 @@ define([
 
             this.init();
 
-            this.createChart = this.createChart.bind(this);
-            this._buildChart = this._buildChart.bind(this);
-            this._redrawChart = this._redrawChart.bind(this);
+            this.updateChart = this.updateChart.bind(this);
+            this.redrawChart = this.redrawChart.bind(this);
         }
 
         init() {
@@ -29,20 +28,16 @@ define([
                     filters[name] = value;
                 });
                 this.ajax.fetch(filters, (function (data) {
-                    this._redrawChart(data);
+                    this.redrawChart(data);
                 }).bind(this));
             }).bind(this));
         }
 
-        createChart() {
-            this.ajax.fetch([], this._buildChart);
+        updateChart() {
+            this.ajax.fetch([], this.redrawChart);
         }
 
-        _buildChart(data) {
-            this.chart.create(data);
-        }
-
-        _redrawChart(data) {
+        redrawChart(data) {
             this.chart.update(data);
         }
     }

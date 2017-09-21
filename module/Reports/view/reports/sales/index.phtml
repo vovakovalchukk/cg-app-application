@@ -4,7 +4,6 @@ $this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/d
 ?>
 
 <?php $this->inlineScript()->captureStart(); ?>
-<!--<script>-->
     $(document).ready(function() {
         require.config({
             paths: {
@@ -20,7 +19,6 @@ $this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/d
             app.buildSalesChart();
         });
     });
-<!--</script>-->
 <?php $this->inlineScript()->captureEnd(); ?>
 
 <div class="chart-container">

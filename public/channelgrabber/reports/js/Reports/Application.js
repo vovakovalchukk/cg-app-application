@@ -11,7 +11,7 @@ define([
         }
 
         buildSalesChart() {
-            this.salesService.createChart();
+            this.salesService.updateChart();
         }
     }
 

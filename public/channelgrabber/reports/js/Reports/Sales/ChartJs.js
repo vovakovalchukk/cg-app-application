@@ -1,16 +1,22 @@
-define([], function() {
-
+define([
+    'Reports/OrderCounts/Response'
+], function(
+    Response
+) {
     class ChartJs {
         constructor() {
             this.CANVAS_SELECTOR = '#salesChart';
+            this.init();
+
+            this.colours = [
+
+            ];
         }
 
-        create(data) {
-            let options = this._getDefaultOptions();
-            options.data.datasets = this._buildDataSets(data);
+        init() {
             this.chart = new Chart(
                 $(this.CANVAS_SELECTOR),
-                options
+                this._getDefaultOptions()
             );
         }
 
@@ -34,38 +40,85 @@ define([], function() {
                         }
                     },
                     responsive: false,
+                    maintainAspectRatio: false,
                     scales: {
                         xAxes: [{
                             type: 'time',
                             bonds: 'data',
                             distribution: 'linear',
+                            autoSkip: true,
                             ticks: {
                                 source: 'data'
                             },
                             time: {
                                 unit: 'day',
+                                unitStepSize: 100,
                                 displayFormats: {
                                     day: 'll'
                                 }
                             }
                         }],
                         yAxes: [{
+                            type: 'linear',
                             ticks: {
                                 beginAtZero: true
                             }
                         }]
+                    },
+                    legend: {
+                        position: 'left',
+                        labels: {
+                            usePointStyle: true
+                        }
+                    },
+                    title: {
+                        display: 'true',
+                        text: 'Orders'
                     }
                 }
             };
         }
 
         _buildDataSets(data) {
-            return [{
-                    label: 'ebay',
-                    data: data,
-                    borderColor: 'blue',
-                    fill: false
-                }];
+            let datasets = [];
+            let allowedKeys = Response.allowed.keys;
+            for (let i = 0; i < allowedKeys.length; i++) {
+                if (data[allowedKeys[i]]) {
+                    datasets.push({
+                        label: allowedKeys[i],
+                        data: this._transformDataForChart(data[allowedKeys[i]]),
+                        borderColor: 'blue',
+                        fill: false
+                    });
+                }
+            }
+
+            allowedKeys = Response.allowed.objectKeys;
+            for (let i = 0; i < allowedKeys.length; i++) {
+                if (data[allowedKeys[i]]) {
+                    $.each(data[allowedKeys[i]], (function (key, value) {
+                        datasets.push({
+                            label: key,
+                            data: this._transformDataForChart(value),
+                            borderColor: 'red',
+                            fill: false
+                        });
+                    }).bind(this));
+                }
+            }
+
+            return datasets;
+        }
+
+        _transformDataForChart(data) {
+            let result = [];
+            $.each(data, function(key, value) {
+                result.push({
+                    'x': key,
+                    'y': value,
+                });
+            });
+            return result;
         }
     }
 
