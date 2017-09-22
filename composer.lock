@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee3c89a837aa8dc3b0385bd337f87f05",
+    "content-hash": "f8d0eeaac1057602a7d6ac9546128770",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -504,12 +504,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "eebd22c5b003049d77d58c78445fa03c399f8347"
+                "reference": "072d5a4b61c43d1c33531efdd038a9eded0e792c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-8210-Include-FBA-Stock-42329d.zip",
-                "reference": "eebd22c5b003049d77d58c78445fa03c399f8347",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-8210-Include-FBA-Stock-b9caa2.zip",
+                "reference": "072d5a4b61c43d1c33531efdd038a9eded0e792c",
                 "shasum": null
             },
             "require": {
@@ -582,7 +582,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-09-19T14:24:37+00:00"
+            "time": "2017-09-22T11:08:40+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -688,16 +688,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.19",
+            "version": "1.0.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
+                "reference": "4db96a5203de216446b21a0eaf18bc9b9ae9fbb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.20-5eed6c.zip",
+                "reference": "4db96a5203de216446b21a0eaf18bc9b9ae9fbb8",
                 "shasum": null
             },
             "require": {
@@ -728,7 +728,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-27T10:57:28+00:00"
+            "time": "2017-09-20T12:18:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -9093,8 +9093,8 @@
             "package": "channelgrabber/cglib"
         },
         {
-            "alias": "1.32.4",
-            "alias_normalized": "1.32.4.0",
+            "alias": "1.32.5",
+            "alias_normalized": "1.32.5.0",
             "version": "dev-EPIC-CGIV-8210-Include-FBA-Stock",
             "package": "channelgrabber/channel"
         },
