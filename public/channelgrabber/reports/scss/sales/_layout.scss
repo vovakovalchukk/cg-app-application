@@ -1,5 +1,6 @@
 .chart-container {
   margin-top:15px;
+  margin-left: 15px;
   width: 100%;
   max-width: 1600px;
   max-height: 800px;
@@ -8,6 +9,16 @@
   .checkbox-holder {
     width: auto;
     margin-top: 15px;
+  }
+  span.logo:before {
+    content: '\2022';
+    float: left;
+    font-size: 30px;
+    line-height: 0;
+    text-indent: initial;
+    height: 10px;
+    margin-left: -11px;
+    margin-top: 7px;
   }
   .channel-filter-total {
     span.logo {
