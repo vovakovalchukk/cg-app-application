@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c418e82f8638b5097f4dcf4e5031547",
+    "content-hash": "7012c1b9d089a0173562e72c519b2b37",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -496,12 +496,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "899d940d89b9311100a7f13a0830d5671259d778"
+                "reference": "d6d571079f150e5da03537e29e0abe36714c048c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8879-Allow-searching-accounts-by-ekm-username-49f322.zip",
-                "reference": "899d940d89b9311100a7f13a0830d5671259d778",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8879-Allow-searching-accounts-by-ekm-username-a9177e.zip",
+                "reference": "d6d571079f150e5da03537e29e0abe36714c048c",
                 "shasum": null
             },
             "require": {
@@ -553,7 +553,7 @@
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/phpunit": ">=1.0.0",
                 "php": ">=7.1",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": ">=6.2"
             },
             "type": "library",
             "extra": {
@@ -574,7 +574,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-09-13 10:13:16"
+            "time": "2017-09-13 15:19:54"
         },
         {
             "name": "channelgrabber/cilex",
@@ -680,16 +680,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.19",
+            "version": "1.0.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
+                "reference": "4db96a5203de216446b21a0eaf18bc9b9ae9fbb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.20-5eed6c.zip",
+                "reference": "4db96a5203de216446b21a0eaf18bc9b9ae9fbb8",
                 "shasum": null
             },
             "require": {
@@ -720,7 +720,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-27T10:57:28+00:00"
+            "time": "2017-09-20T12:18:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3282,16 +3282,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.13",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615"
+                "reference": "41192ebbe7ae6df0fb16de846c017b694307bf0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.13-5a2ba7.zip",
-                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.19-db97ec.zip",
+                "reference": "41192ebbe7ae6df0fb16de846c017b694307bf0f",
                 "shasum": null
             },
             "require": {
@@ -3312,7 +3312,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2016-05-18T15:33:03+00:00"
+            "time": "2017-09-15T09:53:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -3561,16 +3561,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.2.0.1",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "a2028f20364a6274ba24bf4b1f10b16af9419f71"
+                "reference": "7265c76047f74a25b9fcbef0ba3e8de8938f72a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.2.0.1-449a4f.zip",
-                "reference": "a2028f20364a6274ba24bf4b1f10b16af9419f71",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.2.1-b959e1.zip",
+                "reference": "7265c76047f74a25b9fcbef0ba3e8de8938f72a3",
                 "shasum": null
             },
             "require": {
@@ -3606,7 +3606,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-06T10:45:46+00:00"
+            "time": "2017-09-18T10:06:27+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -9003,8 +9003,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.32.3",
-            "alias_normalized": "1.32.3.0",
+            "alias": "1.32.4",
+            "alias_normalized": "1.32.4.0",
             "version": "dev-CGIV-8879-Allow-searching-accounts-by-ekm-username",
             "package": "channelgrabber/channel"
         }

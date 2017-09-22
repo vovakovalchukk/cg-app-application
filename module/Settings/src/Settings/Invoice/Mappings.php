@@ -177,7 +177,7 @@ class Mappings
 
         try {
             $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
-                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())
+                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())->setLimit('all')
             );
 
             /** @var InvoiceMapping $existingMapping */

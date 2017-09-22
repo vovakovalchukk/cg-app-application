@@ -162,6 +162,9 @@ use CG\Stdlib\SoapClient as CGSoapClient;
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 
+use CG\Billing\Token\StorageInterface as TokenStorageInterface;
+use CG\Billing\Token\Storage\Api as TokenStorageApi;
+
 //  Purchase Order
 use CG\PurchaseOrder\StorageInterface as PurchaseOrderStorage;
 use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
@@ -207,6 +210,7 @@ $config = array(
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
+                TokenStorageInterface::class => TokenStorageApi::class,
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
                 PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
                 RolloutStorage::class => RolloutRedisStorage::class,
@@ -621,6 +625,11 @@ $config = array(
             ShipmentMetadataApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TokenStorageApi::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
                 ]
             ],
         ),

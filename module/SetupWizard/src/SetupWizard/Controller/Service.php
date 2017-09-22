@@ -6,10 +6,25 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Helper\NavigationMenu;
 use CG\User\ActiveUserInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
+use CG\Email\Mailer;
 use Zend\View\Model\ViewModel;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use LogicException;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    const TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG = 'orderhub/email_channel_add_notify_cg';
+
+    const LOG_CODE = 'SetupWizardControllerService';
+    const LOG_CODE_SEND_EMAIL_TO_CG = 'SendEmailToCG';
+    const LOG_MSG_SEND_EMAIL_TO_CG = 'Sending email to CG with these details: User: %d, Channel: %s, Subject: %s';
+    const LOG_MSG_SENT_EMAIL_TO_CG = 'Sent email to CG';
+    const LOG_MSG_SEND_EMAIL_ERROR_NO_TO = 'Failed to send email to CG, there was no-one specified to send the email to';
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var NavigationMenu */
@@ -20,19 +35,63 @@ class Service
     protected $activeUserContainer;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var UserOrganisationUnitService */
+    protected $userOrganisationUnitService;
+    /** @var Mailer $mailer */
+    protected $mailer;
+    /** @var ViewModel $cgEmailView */
+    protected $cgEmailView;
+    /** @var mixed $cgEmails */
+    protected $cgEmails;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         NavigationMenu $navigationMenu,
         ServiceLocatorInterface $serviceLocator,
         ActiveUserInterface $activeUserContainer,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        UserOrganisationUnitService $userOrganisationUnitService,
+        Mailer $mailer,
+        ViewModel $cgEmailView,
+        $cgEmails
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setNavigationMenu($navigationMenu)
             ->setServiceLocator($serviceLocator)
             ->setActiveUserContainer($activeUserContainer)
             ->setOrganisationUnitService($organisationUnitService);
+        $this->userOrganisationUnitService = $userOrganisationUnitService;
+        $this->mailer = $mailer;
+        $this->cgEmailView = $cgEmailView;
+        $this->cgEmails = $cgEmails;
+    }
+
+    public function sendChannelAddNotificationEmailToCG(string $channel, string $channelPrintName, string $channelIntegrationType)
+    {
+        $activeUser = $this->userOrganisationUnitService->getActiveUser();
+        $rootOu = $this->userOrganisationUnitService->getRootOuByActiveUser();
+        $subject = sprintf('User %d tried to connect to %s webstore', $activeUser->getId(), $channelPrintName);
+        $this->logDebug(static::LOG_MSG_SEND_EMAIL_TO_CG, ['user' => $activeUser->getId(), 'channel' => $channelPrintName, 'subject' => $subject], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        $to = array_filter($this->cgEmails);
+        if (!$to || count($to) === 0) {
+            $this->logWarning(static::LOG_MSG_SEND_EMAIL_ERROR_NO_TO, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+            return;
+        }
+        $view = $this->setUpChannelAddNotificationEmailToCGView($rootOu->getId(), $activeUser->getId(), $channelPrintName, $channelIntegrationType);
+        $this->mailer->send($to, $subject, $view);
+        $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
+        return $this;
+    }
+
+    protected function setUpChannelAddNotificationEmailToCGView(int $rootOuId, string $userId, string $channelPrintName, string $channelIntegrationType)
+    {
+        $view = $this->cgEmailView;
+        $view->setTemplate(static::TEMPLATE_EMAIL_CHANNEL_ADD_NOTIFY_CG);
+        $view->setVariable('userId', $userId);
+        $view->setVariable('rootOuId', $rootOuId);
+        $view->setVariable('channelPrintName', $channelPrintName);
+        $view->setVariable('channelIntegrationType', $channelIntegrationType);
+        return $view;
     }
 
     public function getSetupView($heading, $body, $footer = null)
