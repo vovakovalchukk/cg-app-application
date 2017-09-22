@@ -67,6 +67,7 @@ class Service
                 $this->buildDefaultOrderFilter(), $filters
             )
         );
+
         if (empty($orders)) {
             return [];
         }

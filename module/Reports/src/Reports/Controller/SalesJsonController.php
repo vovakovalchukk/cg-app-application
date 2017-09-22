@@ -28,6 +28,7 @@ class SalesJsonController extends AbstractJsonController
             $orderCounts = $this->salesService->getOrderCountsData($requestFilter, $strategy, $strategyType, $unitType);
             return $this->buildSuccessResponse(['data' => $orderCounts]);
         } catch (\Exception $e) {
+            $this->logError($e->getMessage());
             return $this->buildErrorResponse('An error occurred while fetching the order data.');
         }
     }

@@ -8,6 +8,7 @@ define([
             this.CANVAS_SELECTOR = '#salesChart';
             this.datasets = [];
             this._resetDatasetMap();
+            this._buildColourMap();
             this.init();
         }
 
@@ -37,6 +38,22 @@ define([
 
             this.chart.data.datasets[key].hidden = !visible;
             this.chart.update();
+        }
+
+        _buildColourMap() {
+            this.colourMap = [
+                'steelblue',
+                'darkgoldenrod',
+                'green',
+                'brown',
+                'red',
+                'black',
+                'orange'
+            ];
+        }
+
+        getColourByIndex(index) {
+            return this.colourMap[index % this.colourMap.length];
         }
 
         _resetDatasetMap() {
@@ -99,11 +116,12 @@ define([
             let allowedKeys = Response.allowed.keys;
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
-                    this.datasetsMap[allowedKeys[i]] = this.datasets.length;
+                    let currentIndex = this.datasets.length;
+                    this.datasetsMap[allowedKeys[i]] = currentIndex;
                     this.datasets.push({
                         label: allowedKeys[i],
                         data: this._transformDataForChart(data[allowedKeys[i]]),
-                        borderColor: 'blue',
+                        borderColor: this.getColourByIndex(currentIndex),
                         fill: false
                     });
                 }
@@ -115,11 +133,12 @@ define([
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
                     $.each(data[allowedKeys[i]], (function (key, value) {
-                        this.datasetsMap[key] = this.datasets.length;
+                        let currentIndex = this.datasets.length;
+                        this.datasetsMap[key] = currentIndex;
                         this.datasets.push({
                             label: key,
                             data: this._transformDataForChart(value),
-                            borderColor: 'red',
+                            borderColor: this.getColourByIndex(currentIndex),
                             fill: false
                         });
                     }).bind(this));
