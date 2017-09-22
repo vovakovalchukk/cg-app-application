@@ -5,6 +5,19 @@
   max-height: 800px;
 }
 .channel-filters {
+  .checkbox-holder {
+    width: auto;
+    margin-top: 15px;
+  }
+  .channel-filter-total {
+    span.logo {
+      width: 100px;
+      height: 23px;
+      text-align: center;
+      text-indent: initial;
+      text-transform: capitalize;
+    }
+  }
   .logo {
     margin-top: 10px;
     margin-bottom: 10px;
