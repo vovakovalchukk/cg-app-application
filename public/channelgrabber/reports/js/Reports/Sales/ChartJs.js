@@ -58,13 +58,6 @@ define([
                     datasets: []
                 },
                 options: {
-                    elements: {
-                        line: {
-                            tension: 0, // disables bezier curves
-                        }
-                    },
-                    responsive: false,
-                    maintainAspectRatio: false,
                     scales: {
                         xAxes: [{
                             type: 'time',
@@ -91,10 +84,6 @@ define([
                     },
                     legend: {
                         display: false
-                    },
-                    title: {
-                        display: 'true',
-                        text: 'Orders'
                     }
                 }
             };
