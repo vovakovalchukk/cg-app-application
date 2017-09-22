@@ -1,5 +1,7 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . '/cg-built/vendor/css-toggle-switch/dist/toggle-switch-px.css'); ?>
 <div id="sidebar" class="slideable clearfix fixed-scroll">
     <div class="filter-module clearfix navbar-content">
+        <?php echo $this->mustache('Reports/Sales/dataType') ?>
         <?php echo $this->mustache('Reports/Sales/channel', [
                 'channels' => array_values($channels),
                 'total' => $total

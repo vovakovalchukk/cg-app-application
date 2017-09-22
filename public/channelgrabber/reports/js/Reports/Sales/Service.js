@@ -10,25 +10,27 @@ define([
             this.chart = ChartJs;
             this.ajax = Ajax;
 
-            this.init();
+            this.requestData = {};
+            this.loadEventListeners();
 
             this.updateChart = this.updateChart.bind(this);
             this.redrawChart = this.redrawChart.bind(this);
         }
 
-        init() {
+        loadEventListeners() {
             $("#filters input[data-action='apply-filters']").on("click", (function () {
-                this.ajax.fetch(this.buildRequestData(), (function (data) {
-                    this.redrawChart(data);
-                }).bind(this));
+                this.updateChart();
             }).bind(this));
 
             $(".channel-filter input[type='checkbox']").on("click", (function (e) {
                 let $object = $(e.currentTarget);
                 let datasetKey = $object.attr('name');
                 let visible = $object.is(':checked');
-                console.log(visible);
                 this.changeDatasetVisibility(datasetKey, visible);
+            }).bind(this));
+
+            $("input[name='data-type']").on("change", (function() {
+                this.updateChart();
             }).bind(this));
         }
 
@@ -42,24 +44,22 @@ define([
         }
 
         buildRequestData() {
-            let requestData = this.buildFiltersRequestData();
-            requestData.strategyType = 'count';
-            requestData.strategy = ['channel', 'total'];
-            requestData.unitType = 'day';
-            return requestData;
+            this._resetRequestData();
+            this.buildFiltersRequestData();
+            this.requestData.strategyType = $("input[name='data-type']:checked").data('type');
+            return this.requestData;
         }
 
         buildFiltersRequestData() {
-            let filters = {};
-            $("#filters :input[name]").each(function() {
-                let value = $.trim($(this).val());
+            $("#filters :input[name]").each(function(index, input) {
+                let $input = $(input);
+                let value = $.trim($input.val());
                 if (!value.length) {
                     return;
                 }
-                let name = $(this).attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
-                filters[name] = value;
-            });
-            return filters;
+                let name = $input.attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
+                this.requestData[name] = value;
+            }.bind(this));
         }
 
         changeDatasetVisibility(datasetKey, visibility) {
@@ -68,6 +68,13 @@ define([
 
         resetFilters() {
             $(".channel-filter input[type='checkbox']").prop( "checked", true);
+        }
+
+        _resetRequestData() {
+            this.requestData = {
+                'strategy': ['channel', 'total'],
+                'unitType': 'day'
+            };
         }
     }
 

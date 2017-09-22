@@ -76,6 +76,17 @@ define([
                         }],
                         yAxes: [{
                             type: 'linear',
+                            afterBuildTicks: function (axis) {
+                                if (!axis.ticks) {
+                                    return;
+                                }
+
+                                $.each(axis.ticks, function(key, value) {
+                                    if (!Number.isInteger(value)) {
+                                        delete axis.ticks[key];
+                                    }
+                                });
+                            }
                         }]
                     },
                     legend: {

@@ -4,3 +4,13 @@
     margin-bottom: 10px;
   }
 }
+.data-type-filter {
+  .switch-toggle {
+    a {
+      background-color: $color-lblue;
+    }
+    font-size: 12px;
+    margin: 20px 3px;
+    outline: none;
+  }
+}
