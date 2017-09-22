@@ -6,11 +6,9 @@ define([
     class ChartJs {
         constructor() {
             this.CANVAS_SELECTOR = '#salesChart';
+            this.datasets = [];
+            this._resetDatasetMap();
             this.init();
-
-            this.colours = [
-
-            ];
         }
 
         init() {
@@ -25,8 +23,31 @@ define([
                 return false;
             }
 
-            this.chart.data.datasets = this._buildDataSets(data);
+            this._resetDatasetMap();
+            this._buildDataSets(data);
+            this.chart.data.datasets = this.datasets;
             this.chart.update();
+        }
+
+        changeDatasetVisibility(datasetKey, visible) {
+            let key = this._findDataSetByKey(datasetKey);
+            if (key === false) {
+                return false;
+            }
+
+            this.chart.data.datasets[key].hidden = !visible;
+            this.chart.update();
+        }
+
+        _resetDatasetMap() {
+            this.datasetsMap = {};
+        }
+
+        _findDataSetByKey(key) {
+            if (this.datasetsMap[key] !== undefined) {
+                return this.datasetsMap[key];
+            }
+            return false;
         }
 
         _getDefaultOptions() {
@@ -54,14 +75,11 @@ define([
                             }
                         }],
                         yAxes: [{
-                            type: 'linear'
+                            type: 'linear',
                         }]
                     },
                     legend: {
-                        position: 'left',
-                        labels: {
-                            usePointStyle: true
-                        }
+                        display: false
                     },
                     title: {
                         display: 'true',
@@ -72,15 +90,17 @@ define([
         }
 
         _buildDataSets(data) {
-            return this._buildSimpleKeysData(data).concat(this._buildObjectKeysData(data));
+            this.datasets = [];
+            this._buildSimpleKeysData(data);
+            this._buildObjectKeysData(data);
         }
 
         _buildSimpleKeysData(data) {
             let allowedKeys = Response.allowed.keys;
-            let datasets = [];
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
-                    datasets.push({
+                    this.datasetsMap[allowedKeys[i]] = this.datasets.length;
+                    this.datasets.push({
                         label: allowedKeys[i],
                         data: this._transformDataForChart(data[allowedKeys[i]]),
                         borderColor: 'blue',
@@ -88,16 +108,15 @@ define([
                     });
                 }
             }
-            return datasets;
         }
 
         _buildObjectKeysData(data) {
             let allowedKeys = Response.allowed.objectKeys;
-            let datasets = [];
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
                     $.each(data[allowedKeys[i]], (function (key, value) {
-                        datasets.push({
+                        this.datasetsMap[key] = this.datasets.length;
+                        this.datasets.push({
                             label: key,
                             data: this._transformDataForChart(value),
                             borderColor: 'red',
@@ -106,7 +125,6 @@ define([
                     }).bind(this));
                 }
             }
-            return datasets;
         }
 
         _transformDataForChart(data) {

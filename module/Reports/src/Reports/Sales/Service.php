@@ -57,9 +57,10 @@ class Service
     }
 
     public function getOrderCountsData(
+        array $filters = [],
         array $strategy = ['channel', 'total'],
         string $strategyType = 'count',
-        array $filters = []
+        string $unitType = UnitService::UNIT_DAY
     ) {
         $orders = $this->fetchOrdersByFilter(
             $this->addFiltersFromArray(
@@ -72,7 +73,7 @@ class Service
 
         return $this->orderCountService->buildOrderCounts(
             $orders,
-            UnitService::UNIT_DAY,
+            $unitType,
             $strategy,
             $strategyType
         );

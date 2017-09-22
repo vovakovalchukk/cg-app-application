@@ -17,10 +17,18 @@ define([
         }
 
         init() {
-            $("#filters input[data-action='apply-filters']").on("click", (function() {
+            $("#filters input[data-action='apply-filters']").on("click", (function () {
                 this.ajax.fetch(this.buildRequestData(), (function (data) {
                     this.redrawChart(data);
                 }).bind(this));
+            }).bind(this));
+
+            $(".channel-filter input[type='checkbox']").on("click", (function (e) {
+                let $object = $(e.currentTarget);
+                let datasetKey = $object.attr('name');
+                let visible = $object.is(':checked');
+                console.log(visible);
+                this.changeDatasetVisibility(datasetKey, visible);
             }).bind(this));
         }
 
@@ -30,12 +38,14 @@ define([
 
         redrawChart(data) {
             this.chart.update(data);
+            this.resetFilters();
         }
 
         buildRequestData() {
             let requestData = this.buildFiltersRequestData();
             requestData.strategyType = 'count';
             requestData.strategy = ['channel', 'total'];
+            requestData.unitType = 'day';
             return requestData;
         }
 
@@ -50,6 +60,14 @@ define([
                 filters[name] = value;
             });
             return filters;
+        }
+
+        changeDatasetVisibility(datasetKey, visibility) {
+            return this.chart.changeDatasetVisibility(datasetKey, visibility);
+        }
+
+        resetFilters() {
+            $(".channel-filter input[type='checkbox']").prop( "checked", true);
         }
     }
 
