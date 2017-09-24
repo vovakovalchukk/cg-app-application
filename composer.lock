@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "82ef59d1d1660b918af3d4e655b25777",
+    "content-hash": "095652edae37c81f0310677680fd4d35",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.32.4",
+            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f4dee46eace3358f28891f17fa039cf88d4ba6f7"
+                "reference": "9ef4f5ce78539e8bceb5fe2d42cc8f79116c2f86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.32.4-848e89.zip",
-                "reference": "f4dee46eace3358f28891f17fa039cf88d4ba6f7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-8903-EKMAppAccountRegistration-Job-766993.zip",
+                "reference": "9ef4f5ce78539e8bceb5fe2d42cc8f79116c2f86",
                 "shasum": null
             },
             "require": {
@@ -574,7 +574,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-09-22T10:56:34+00:00"
+            "time": "2017-09-22 14:08:01"
         },
         {
             "name": "channelgrabber/cilex",
@@ -879,42 +879,49 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.8.47",
+            "version": "dev-CGIV-8900-Register-Endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "dbe0e4a3c30909df6a5152b0c92a80645c22855c"
+                "reference": "cf3606bf7d8cded2a46b913fbe06e9cff2d8e277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.47-caf1c3.zip",
-                "reference": "dbe0e4a3c30909df6a5152b0c92a80645c22855c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-8900-Register-Endpoint-816b85.zip",
+                "reference": "cf3606bf7d8cded2a46b913fbe06e9cff2d8e277",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "^1.29.0",
+                "channelgrabber/channel": "dev-CGIV-8903-EKMAppAccountRegistration-Job as 1.32.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.4",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "^1.6.0",
-                "channelgrabber/locale": "^1.0.9",
+                "channelgrabber/locale": "dev-CGIV-8903-EKMAppAccountRegistration-Job as 1.0.14",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.23.20",
-                "channelgrabber/php-phantomjs": ">=3.1.5",
+                "channelgrabber/order": "^1.28.25",
+                "channelgrabber/php-phantomjs": "^3.1.8",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
-                "channelgrabber/stdlib": "^2.12.25",
+                "channelgrabber/stdlib": "dev-CGIV-8900-Register-Endpoint as 2.12.51",
                 "channelgrabber/tax": "^1.0.0",
+                "channelgrabber/user": "^1.23",
+                "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
+                "channelgrabber/zf2-register": "dev-CGIV-8903-EKMAppAccountRegistration-Job as 1.5.15",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-8901-WebHook-Endpoint as 1.19.2",
                 "composer/composer": "@dev",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
-                "zendframework/zend-di": ">=2.2.5",
-                "zendframework/zend-eventmanager": ">=2.2.5"
+                "php": ">=7.1",
+                "zendframework/zend-code": "~2.3.9",
+                "zendframework/zend-di": ">=2.3.0",
+                "zendframework/zend-eventmanager": "~2.3.9",
+                "zendframework/zend-stdlib": "~2.3.9"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -932,7 +939,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-04-11T09:29:57+00:00"
+            "time": "2017-09-24 18:46:40"
         },
         {
             "name": "channelgrabber/email",
@@ -1288,16 +1295,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.13",
+            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "ff04e055286fc6083149be54744d612530fd0178"
+                "reference": "607ba4aa061e228e9e603f0061ad7232ee79267c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.13-11c99c.zip",
-                "reference": "ff04e055286fc6083149be54744d612530fd0178",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-8903-EKMAppAccountRegistration-Job-6a32b5.zip",
+                "reference": "607ba4aa061e228e9e603f0061ad7232ee79267c",
                 "shasum": null
             },
             "require": {
@@ -1317,7 +1324,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-01-25T12:04:43+00:00"
+            "time": "2017-09-24 10:38:26"
         },
         {
             "name": "channelgrabber/location",
@@ -1750,16 +1757,16 @@
         },
         {
             "name": "channelgrabber/php-phantomjs",
-            "version": "3.1.7",
+            "version": "3.1.8",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/php-phantomjs.git",
-                "reference": "14bf8b3cc0984d1e6b96166701dfe3897e52b1ee"
+                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-php-phantomjs-3.1.7-9aedf6.zip",
-                "reference": "14bf8b3cc0984d1e6b96166701dfe3897e52b1ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-php-phantomjs-3.1.8-3446b6.zip",
+                "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc",
                 "shasum": null
             },
             "require": {
@@ -1768,11 +1775,12 @@
                 "symfony/config": "~2.3",
                 "symfony/dependency-injection": "~2.3",
                 "symfony/filesystem": "~2.3",
+                "symfony/process": "~2.3",
                 "symfony/yaml": "~2.3",
                 "twig/twig": "~1.16"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~4.0"
             },
             "bin": [
                 "bin/phantomloader"
@@ -1810,7 +1818,7 @@
                 "PhantomJS",
                 "Testing"
             ],
-            "time": "2014-11-20T15:17:20+00:00"
+            "time": "2017-07-03T13:27:56+00:00"
         },
         {
             "name": "channelgrabber/picklist",
@@ -2489,20 +2497,21 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.49",
+            "version": "dev-CGIV-8900-Register-Endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "8ff4f95c4c690697d7cf73be9281dd6b79a69ecd"
+                "reference": "fdce0e4caf87cda398b64e3e2f98e118cbc0fe7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.49-bb2b4e.zip",
-                "reference": "8ff4f95c4c690697d7cf73be9281dd6b79a69ecd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-8900-Register-Endpoint-f50572.zip",
+                "reference": "fdce0e4caf87cda398b64e3e2f98e118cbc0fe7b",
                 "shasum": null
             },
             "require": {
                 "phpseclib/mcrypt_compat": "~1.0.1",
+                "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-db": ">=2.2,<3.0"
             },
             "conflict": {
@@ -2535,7 +2544,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-08-31T08:08:18+00:00"
+            "time": "2017-09-24 18:23:46"
         },
         {
             "name": "channelgrabber/stock",
@@ -3610,16 +3619,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.14",
+            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "2ad81d388795ca792c42a10ae51f49a8c1c902ba"
+                "reference": "3b9545a11df00e1399b4f1a8bbf80be10d2de4ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.14-b19a7b.zip",
-                "reference": "2ad81d388795ca792c42a10ae51f49a8c1c902ba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8903-EKMAppAccountRegistration-Job-6588b7.zip",
+                "reference": "3b9545a11df00e1399b4f1a8bbf80be10d2de4ca",
                 "shasum": null
             },
             "require": {
@@ -3658,7 +3667,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-09-12T10:19:47+00:00"
+            "time": "2017-09-22 10:45:57"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3868,16 +3877,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.19.1",
+            "version": "dev-CGIV-8901-WebHook-Endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7549da92e5767ff109a4b9638f57890021360dd3"
+                "reference": "d2408e433412c4482383b527146c3b03efd8f71d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.19.1-976b41.zip",
-                "reference": "7549da92e5767ff109a4b9638f57890021360dd3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8901-WebHook-Endpoint-9b16d0.zip",
+                "reference": "d2408e433412c4482383b527146c3b03efd8f71d",
                 "shasum": null
             },
             "require": {
@@ -3888,7 +3897,9 @@
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
-                "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
+                "channelgrabber/notification": "^1.2.0",
+                "channelgrabber/stdlib": "dev-CGIV-8900-Register-Endpoint as 2.12.51",
+                "channelgrabber/stock": "^1.5.9",
                 "channelgrabber/user": "^1.20.6",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
@@ -3896,7 +3907,7 @@
                 "composer/composer": "@dev",
                 "jakeasmith/http_build_url": "~1.0",
                 "whichbrowser/whichbrowser": "~1.0.0",
-                "zendframework/zend-config": "2.*",
+                "zendframework/zend-config": "^2.3",
                 "zendframework/zend-form": ">=2.3,<3.0",
                 "zendframework/zend-i18n": "2.*",
                 "zendframework/zend-modulemanager": "2.*",
@@ -3925,7 +3936,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-09-13T08:22:44+00:00"
+            "time": "2017-09-24 18:51:18"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9001,10 +9012,53 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.32.5",
+            "alias_normalized": "1.32.5.0",
+            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.9.1",
+            "alias_normalized": "1.9.1.0",
+            "version": "dev-CGIV-8900-Register-Endpoint",
+            "package": "channelgrabber/ekm"
+        },
+        {
+            "alias": "1.0.14",
+            "alias_normalized": "1.0.14.0",
+            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
+            "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "2.12.51",
+            "alias_normalized": "2.12.51.0",
+            "version": "dev-CGIV-8900-Register-Endpoint",
+            "package": "channelgrabber/stdlib"
+        },
+        {
+            "alias": "1.5.15",
+            "alias_normalized": "1.5.15.0",
+            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.19.2",
+            "alias_normalized": "1.19.2.0",
+            "version": "dev-CGIV-8901-WebHook-Endpoint",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ekm": 20,
+        "channelgrabber/locale": 20,
+        "channelgrabber/stdlib": 20,
+        "channelgrabber/zf2-register": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
