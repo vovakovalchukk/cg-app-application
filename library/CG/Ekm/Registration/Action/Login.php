@@ -72,7 +72,7 @@ class Login implements LoggerAwareInterface
         try {
             $this->loginUser($ekmUsername, $token);
         } catch(LoginException $e) {
-            $this->redirectUserToSupportPage();
+            $this->redirectUserToFailedPage();
         }
 
         return;
@@ -164,8 +164,8 @@ class Login implements LoggerAwareInterface
         $pendingUrl = $this->registrationService->getPendingUrl();
     }
 
-    protected function redirectUserToSupportPage(): void
+    protected function redirectUserToFailedPage(): void
     {
-        $supportUrl = $this->registrationService->getSupportUrl();
+        $supportUrl = $this->registrationService->getFailedUrl();
     }
 }
