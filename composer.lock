@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff86cb895a4cc69a2207c650ef988c01",
+    "content-hash": "e540ab7cefc34c3d2b1229e6e618dec5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1289,16 +1289,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "607ba4aa061e228e9e603f0061ad7232ee79267c"
+                "reference": "ff04e055286fc6083149be54744d612530fd0178"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-8903-EKMAppAccountRegistration-Job-6a32b5.zip",
-                "reference": "607ba4aa061e228e9e603f0061ad7232ee79267c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.13-11c99c.zip",
+                "reference": "ff04e055286fc6083149be54744d612530fd0178",
                 "shasum": null
             },
             "require": {
@@ -1318,7 +1318,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-24 10:38:26"
+            "time": "2017-01-25T12:04:43+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9020,12 +9020,6 @@
             "package": "channelgrabber/ekm"
         },
         {
-            "alias": "1.0.14",
-            "alias_normalized": "1.0.14.0",
-            "version": "dev-CGIV-8903-EKMAppAccountRegistration-Job",
-            "package": "channelgrabber/locale"
-        },
-        {
             "alias": "2.12.51",
             "alias_normalized": "2.12.51.0",
             "version": "dev-CGIV-8900-Register-Endpoint",
@@ -9043,7 +9037,6 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ekm": 20,
-        "channelgrabber/locale": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
