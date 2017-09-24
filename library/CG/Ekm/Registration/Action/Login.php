@@ -14,6 +14,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
+use CG\Stdlib\Exception\Runtime\NotAuthorisedException;
 
 class Login implements LoggerAwareInterface
 {
@@ -29,6 +30,8 @@ class Login implements LoggerAwareInterface
     protected $ekmAccountService;
     /** @var  UserService $userService */
     protected $userService;
+    /** @var  LoginService $loginService */
+    protected $loginService;
     /** @var ActiveUserContainer $activeUserContainer */
     protected $activeUserContainer;
     /** @var  OrganisationUnitService $organisationUnitService */
@@ -38,12 +41,14 @@ class Login implements LoggerAwareInterface
         RegistrationService $registrationService,
         EkmAccountService $ekmAccountService,
         UserService $userService,
+        LoginService $loginService,
         ActiveUserContainer $activeUserContainer,
         OrganisationUnitService $organisationUnitService
     ) {
         $this->registrationService = $registrationService;
         $this->ekmAccountService = $ekmAccountService;
         $this->userService = $userService;
+        $this->loginService = $loginService;
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
     }
@@ -64,7 +69,12 @@ class Login implements LoggerAwareInterface
             $this->redirectUserToPendingPage();
         }
 
-        $this->loginUser($ekmUsername, $token);
+        try {
+            $this->loginUser($ekmUsername, $token);
+        } catch(LoginException $e) {
+            $this->redirectUserToSupportPage();
+        }
+
         return;
     }
 
@@ -88,6 +98,19 @@ class Login implements LoggerAwareInterface
         $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(
             $ekmAccount->getOrganisationUnitId()
         );
+        try {
+            $user = $this->userService->fetchByUsername($ekmUsername);
+        } catch(NotFound $e) {
+            // Log error exception
+            throw new LoginException('Failed to fetch user with username: '.$ekmUsername);
+        }
+        try {
+            $this->loginService->loginUser($user);
+        } catch(NotAuthorisedException $e) {
+            // Log error exception
+            throw new LoginException('Failed to authorize user with username: '.$ekmUsername);
+        }
+
         $this->redirectUserOnCompletion($rootOrganisationUnit);
         return;
     }
@@ -139,5 +162,10 @@ class Login implements LoggerAwareInterface
     protected function redirectUserToPendingPage(): void
     {
         $pendingUrl = $this->registrationService->getPendingUrl();
+    }
+
+    protected function redirectUserToSupportPage(): void
+    {
+        $supportUrl = $this->registrationService->getSupportUrl();
     }
 }
