@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "92e123aa8dd0264fad56635806660982",
+    "content-hash": "7f8448e86fda5b9bb2ca8e1d5aa1bc20",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3869,16 +3869,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.19.1",
+            "version": "dev-CGIV-8901-WebHook-Endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7549da92e5767ff109a4b9638f57890021360dd3"
+                "reference": "3174d11d7bb95237178da56b356a665db690b2c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.19.1-976b41.zip",
-                "reference": "7549da92e5767ff109a4b9638f57890021360dd3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8901-WebHook-Endpoint-ea7a1b.zip",
+                "reference": "3174d11d7bb95237178da56b356a665db690b2c9",
                 "shasum": null
             },
             "require": {
@@ -3889,7 +3889,9 @@
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
-                "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
+                "channelgrabber/notification": "^1.2.0",
+                "channelgrabber/stdlib": "dev-CGIV-8901-WebHook-Endpoint as 2.12.51",
+                "channelgrabber/stock": "^1.5.9",
                 "channelgrabber/user": "^1.20.6",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
@@ -3897,7 +3899,7 @@
                 "composer/composer": "@dev",
                 "jakeasmith/http_build_url": "~1.0",
                 "whichbrowser/whichbrowser": "~1.0.0",
-                "zendframework/zend-config": "2.*",
+                "zendframework/zend-config": "^2.3",
                 "zendframework/zend-form": ">=2.3,<3.0",
                 "zendframework/zend-i18n": "2.*",
                 "zendframework/zend-modulemanager": "2.*",
@@ -3926,7 +3928,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-09-13T08:22:44+00:00"
+            "time": "2017-09-24 21:31:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9008,12 +9010,19 @@
             "alias_normalized": "2.12.51.0",
             "version": "dev-CGIV-8901-WebHook-Endpoint",
             "package": "channelgrabber/stdlib"
+        },
+        {
+            "alias": "1.19.2",
+            "alias_normalized": "1.19.2.0",
+            "version": "dev-CGIV-8901-WebHook-Endpoint",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/stdlib": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
