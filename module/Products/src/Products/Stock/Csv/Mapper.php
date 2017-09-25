@@ -1,23 +1,52 @@
 <?php
 namespace Products\Stock\Csv;
 
+use CG\Location\Service as LocationService;
+use CG\Location\Type as LocationType;
 use CG\Product\Collection as Products;
 use CG\Stock\Collection as Stocks;
 use CG\Stock\Entity as Stock;
+use CG\Stock\Location\Collection as StockLocations;
 
 class Mapper
 {
+    protected $locationService;
+    protected $merchantLocationIds = [];
+
+    public function __construct(LocationService $locationService)
+    {
+        $this->locationService = $locationService;
+    }
+
     public function stockCollectionToCsvArray(Stocks $stocks, Products $products = null)
     {
-        $csvData = [];
-
         /** @var Stock $stock */
         foreach ($stocks as $stock) {
-            $productName = $products ? $this->getProductName($stock, $products) : '';
-            $csvData[] = [$stock->getSku(), $productName, $stock->getTotalOnHand()];
-        }
+            $merchantLocationIds = $this->getMerchantLocationIds($stock->getOrganisationUnitId());
+            if (empty($merchantLocationIds)) {
+                continue;
+            }
 
-        return $csvData;
+            /** @var StockLocations $stockLocations */
+            $stockLocations = $stock->getLocations($merchantLocationIds);
+            if ($stockLocations->count() == 0) {
+                continue;
+            }
+
+            $productName = $products ? $this->getProductName($stock, $products) : '';
+            yield [$stock->getSku(), $productName, $stockLocations->getTotalOnHand($merchantLocationIds)];
+        }
+    }
+
+    protected function getMerchantLocationIds(int $ouId)
+    {
+        if (!isset($this->merchantLocationIds[$ouId])) {
+            $this->merchantLocationIds[$ouId] = $this->locationService->fetchIdsByType(
+                [LocationType::MERCHANT],
+                $ouId
+            );
+        }
+        return $this->merchantLocationIds[$ouId];
     }
 
     protected function getProductName(Stock $stock, Products $products)
