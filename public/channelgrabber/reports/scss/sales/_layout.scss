@@ -5,11 +5,18 @@
   max-width: 1600px;
   max-height: 800px;
 }
+
 .channel-filters {
+
+  .channel-filter {
+    display: none;
+  }
+
   .checkbox-holder {
     width: auto;
     margin-top: 15px;
   }
+
   span.logo:before {
     content: '\2022';
     float: left;
@@ -20,6 +27,7 @@
     margin-left: -11px;
     margin-top: 7px;
   }
+
   .channel-filter-total {
     span.logo {
       width: 100px;
@@ -32,11 +40,13 @@
       color: black !important;
     }
   }
+
   .logo {
     margin-top: 10px;
     margin-bottom: 10px;
   }
 }
+
 .data-type-filter {
   .switch-toggle {
     a {

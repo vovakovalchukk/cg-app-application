@@ -3,10 +3,27 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
         babel: {
-            options: {
-                presets: ['react']
+            es6: {
+                options: {
+                    presets: ['es2015']
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/channelgrabber/',
+                        src: ['**/es6/**/*.es6'],
+                        dest: 'public/channelgrabber/',
+                        ext: '.js',
+                        rename: function (dest, src) {
+                            return dest + src.replace('es6', 'js');
+                        }
+                    }
+                ]
             },
-            dist: {
+            react: {
+                options: {
+                    presets: ['react']
+                },
                 files: [
                     {
                         expand: true,
@@ -144,10 +161,12 @@ module.exports = function(grunt) {
     grunt.registerTask('syncWatch', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
-    grunt.registerTask('compileJsx', ['babel']);
+    grunt.registerTask('compileJsx', ['babel:react']);
+
+    grunt.registerTask('compileEs6', ['babel:es6']);
 
     grunt.registerTask('install:css', ['compileCss-gen']);
-    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'compileJsx', 'copyVanillaJs', 'requirejs:compile']);
+    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'compileJsx', 'compileEs6', 'copyVanillaJs', 'requirejs:compile']);
 
     grunt.registerTask('install', ['install:css', 'install:js']);
 };

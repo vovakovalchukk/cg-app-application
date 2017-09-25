@@ -1,10 +1,14 @@
-define([
-    'Reports/OrderCounts/Response'
-], function(
-    Response
-) {
-    class ChartJs {
-        constructor() {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+define(['Reports/OrderCounts/Response'], function (Response) {
+    var ChartJs = function () {
+        function ChartJs() {
+            _classCallCheck(this, ChartJs);
+
             this.CANVAS_SELECTOR = '#salesChart';
             this.datasets = [];
             this._resetDatasetMap();
@@ -12,162 +16,167 @@ define([
             this.init();
         }
 
-        init() {
-            this.chart = new Chart(
-                $(this.CANVAS_SELECTOR),
-                this._getDefaultOptions()
-            );
-        }
+        _createClass(ChartJs, [{
+            key: 'init',
+            value: function init() {
+                this.chart = new Chart($(this.CANVAS_SELECTOR), this._getDefaultOptions());
+            }
+        }, {
+            key: 'update',
+            value: function update(data) {
+                if (!this.chart) {
+                    return false;
+                }
 
-        update(data) {
-            if (!this.chart) {
+                this._resetDatasetMap();
+                this._buildDataSets(data);
+                this.chart.data.datasets = this.datasets;
+                this.chart.update();
+            }
+        }, {
+            key: 'changeDatasetVisibility',
+            value: function changeDatasetVisibility(datasetKey, visible) {
+                var key = this._findDataSetByKey(datasetKey);
+                if (key === false) {
+                    return false;
+                }
+
+                this.chart.data.datasets[key].hidden = !visible;
+                this.chart.update();
+            }
+        }, {
+            key: 'getColourByIndex',
+            value: function getColourByIndex(index) {
+                return this.colourMap[index % this.colourMap.length];
+            }
+        }, {
+            key: 'getColorByDatasetKey',
+            value: function getColorByDatasetKey(datasetKey) {
+                var key = this._findDataSetByKey(datasetKey);
+                if (key === false) {
+                    return false;
+                }
+
+                return this.getColourByIndex(key);
+            }
+        }, {
+            key: '_buildColourMap',
+            value: function _buildColourMap() {
+                this.colourMap = ['steelblue', 'darkgoldenrod', 'green', 'brown', 'red', 'black', 'orange'];
+            }
+        }, {
+            key: '_resetDatasetMap',
+            value: function _resetDatasetMap() {
+                this.datasetsMap = {};
+            }
+        }, {
+            key: '_findDataSetByKey',
+            value: function _findDataSetByKey(key) {
+                if (this.datasetsMap[key] !== undefined) {
+                    return this.datasetsMap[key];
+                }
                 return false;
             }
-
-            this._resetDatasetMap();
-            this._buildDataSets(data);
-            this.chart.data.datasets = this.datasets;
-            this.chart.update();
-        }
-
-        changeDatasetVisibility(datasetKey, visible) {
-            let key = this._findDataSetByKey(datasetKey);
-            if (key === false) {
-                return false;
-            }
-
-            this.chart.data.datasets[key].hidden = !visible;
-            this.chart.update();
-        }
-
-        getColourByIndex(index) {
-            return this.colourMap[index % this.colourMap.length];
-        }
-
-        getColorByDatasetKey(datasetKey)
-        {
-            let key = this._findDataSetByKey(datasetKey);
-            if (key === false) {
-                return false;
-            }
-
-            return this.getColourByIndex(key);
-        }
-
-        _buildColourMap() {
-            this.colourMap = [
-                'steelblue',
-                'darkgoldenrod',
-                'green',
-                'brown',
-                'red',
-                'black',
-                'orange'
-            ];
-        }
-
-        _resetDatasetMap() {
-            this.datasetsMap = {};
-        }
-
-        _findDataSetByKey(key) {
-            if (this.datasetsMap[key] !== undefined) {
-                return this.datasetsMap[key];
-            }
-            return false;
-        }
-
-        _getDefaultOptions() {
-            return {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: []
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            type: 'time',
-                            time: {
-                                displayFormats: {
-                                    day: 'll'
+        }, {
+            key: '_getDefaultOptions',
+            value: function _getDefaultOptions() {
+                return {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: []
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                type: 'time',
+                                time: {
+                                    displayFormats: {
+                                        day: 'll'
+                                    }
                                 }
-                            }
-                        }],
-                        yAxes: [{
-                            type: 'linear',
-                            afterBuildTicks: function (axis) {
-                                if (!axis.ticks) {
-                                    return;
-                                }
-
-                                $.each(axis.ticks, function(key, value) {
-                                    if (Number.isInteger(value) && value >= 0) {
+                            }],
+                            yAxes: [{
+                                type: 'linear',
+                                afterBuildTicks: function afterBuildTicks(axis) {
+                                    if (!axis.ticks) {
                                         return;
                                     }
-                                    delete axis.ticks[key];
-                                });
-                            }
-                        }]
-                    },
-                    legend: {
-                        display: false
+
+                                    $.each(axis.ticks, function (key, value) {
+                                        if (Number.isInteger(value) && value >= 0) {
+                                            return;
+                                        }
+                                        delete axis.ticks[key];
+                                    });
+                                }
+                            }]
+                        },
+                        legend: {
+                            display: false
+                        }
                     }
-                }
-            };
-        }
-
-        _buildDataSets(data) {
-            this.datasets = [];
-            this._buildSimpleKeysData(data);
-            this._buildObjectKeysData(data);
-        }
-
-        _buildSimpleKeysData(data) {
-            let allowedKeys = Response.allowed.keys;
-            for (let i = 0; i < allowedKeys.length; i++) {
-                if (data[allowedKeys[i]]) {
-                    let currentIndex = this.datasets.length;
-                    this.datasetsMap[allowedKeys[i]] = currentIndex;
-                    this.datasets.push({
-                        label: allowedKeys[i],
-                        data: this._transformDataForChart(data[allowedKeys[i]]),
-                        borderColor: this.getColourByIndex(currentIndex),
-                        fill: false
-                    });
-                }
+                };
             }
-        }
-
-        _buildObjectKeysData(data) {
-            let allowedKeys = Response.allowed.objectKeys;
-            for (let i = 0; i < allowedKeys.length; i++) {
-                if (data[allowedKeys[i]]) {
-                    $.each(data[allowedKeys[i]], (function (key, value) {
-                        let currentIndex = this.datasets.length;
-                        this.datasetsMap[key] = currentIndex;
+        }, {
+            key: '_buildDataSets',
+            value: function _buildDataSets(data) {
+                this.datasets = [];
+                this._buildSimpleKeysData(data);
+                this._buildObjectKeysData(data);
+            }
+        }, {
+            key: '_buildSimpleKeysData',
+            value: function _buildSimpleKeysData(data) {
+                var allowedKeys = Response.allowed.keys;
+                for (var i = 0; i < allowedKeys.length; i++) {
+                    if (data[allowedKeys[i]]) {
+                        var currentIndex = this.datasets.length;
+                        this.datasetsMap[allowedKeys[i]] = currentIndex;
                         this.datasets.push({
-                            label: key,
-                            data: this._transformDataForChart(value),
+                            label: allowedKeys[i],
+                            data: this._transformDataForChart(data[allowedKeys[i]]),
                             borderColor: this.getColourByIndex(currentIndex),
                             fill: false
                         });
-                    }).bind(this));
+                    }
                 }
             }
-        }
-
-        _transformDataForChart(data) {
-            let result = [];
-            $.each(data, function(key, value) {
-                result.push({
-                    'x': key,
-                    'y': value,
+        }, {
+            key: '_buildObjectKeysData',
+            value: function _buildObjectKeysData(data) {
+                var allowedKeys = Response.allowed.objectKeys;
+                for (var i = 0; i < allowedKeys.length; i++) {
+                    if (data[allowedKeys[i]]) {
+                        $.each(data[allowedKeys[i]], function (key, value) {
+                            var currentIndex = this.datasets.length;
+                            this.datasetsMap[key] = currentIndex;
+                            this.datasets.push({
+                                label: key,
+                                data: this._transformDataForChart(value),
+                                borderColor: this.getColourByIndex(currentIndex),
+                                fill: false
+                            });
+                        }.bind(this));
+                    }
+                }
+            }
+        }, {
+            key: '_transformDataForChart',
+            value: function _transformDataForChart(data) {
+                var result = [];
+                $.each(data, function (key, value) {
+                    result.push({
+                        'x': key,
+                        'y': value
+                    });
                 });
-            });
-            return result;
-        }
-    }
+                return result;
+            }
+        }]);
+
+        return ChartJs;
+    }();
 
     return new ChartJs();
 });
