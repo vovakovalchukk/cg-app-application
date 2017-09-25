@@ -18,27 +18,7 @@ class Mapper
         $this->locationService = $locationService;
     }
 
-    public function stockCollectionToCsvArray(Stocks $stocks, Products $products = null)
-    {
-        /** @var Stock $stock */
-        foreach ($stocks as $stock) {
-            $merchantLocationIds = $this->getMerchantLocationIds($stock->getOrganisationUnitId());
-            if (empty($merchantLocationIds)) {
-                continue;
-            }
-
-            /** @var StockLocations $stockLocations */
-            $stockLocations = $stock->getLocations($merchantLocationIds);
-            if ($stockLocations->count() == 0) {
-                continue;
-            }
-
-            $productName = $products ? $this->getProductName($stock, $products) : '';
-            yield [$stock->getSku(), $productName, $stockLocations->getTotalOnHand($merchantLocationIds)];
-        }
-    }
-
-    protected function getMerchantLocationIds(int $ouId)
+    public function getMerchantLocationIds(int $ouId)
     {
         if (!isset($this->merchantLocationIds[$ouId])) {
             $this->merchantLocationIds[$ouId] = $this->locationService->fetchIdsByType(
@@ -47,6 +27,26 @@ class Mapper
             );
         }
         return $this->merchantLocationIds[$ouId];
+    }
+
+    public function stockCollectionToCsvArray(Stocks $stocks, Products $products = null, array $locationIds = null)
+    {
+        /** @var Stock $stock */
+        foreach ($stocks as $stock) {
+            $locationIds = $locationIds ?? $this->getMerchantLocationIds($stock->getOrganisationUnitId());
+            if (empty($locationIds)) {
+                continue;
+            }
+
+            /** @var StockLocations $stockLocations */
+            $stockLocations = $stock->getLocations($locationIds);
+            if ($stockLocations->count() == 0) {
+                continue;
+            }
+
+            $productName = $products ? $this->getProductName($stock, $products) : '';
+            yield [$stock->getSku(), $productName, $stockLocations->getTotalOnHand()];
+        }
     }
 
     protected function getProductName(Stock $stock, Products $products)
