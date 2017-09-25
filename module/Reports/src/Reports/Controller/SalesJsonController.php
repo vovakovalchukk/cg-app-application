@@ -21,8 +21,12 @@ class SalesJsonController extends AbstractJsonController
     {
         $requestFilter = $this->params()->fromPost('filter', []);
         $strategy = $this->params()->fromPost('strategy', ['channel', 'total']);
-        $strategyType = $this->params()->fromPost('strategyType', 'count');
+        $strategyType = $this->params()->fromPost('strategyType', ['count', 'orderValue']);
         $unitType = $this->params()->fromPost('unitType', UnitService::UNIT_DAY);
+
+        if (!is_array($strategy) || !is_array($strategyType)) {
+            return $this->buildErrorResponse('An error occurred while fetching the order data.');
+        }
 
         try {
             $orderCounts = $this->salesService->getOrderCountsData($requestFilter, $strategy, $strategyType, $unitType);

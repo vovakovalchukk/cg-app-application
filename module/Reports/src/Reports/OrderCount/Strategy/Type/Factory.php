@@ -20,7 +20,7 @@ class Factory
             throw new ClassNotFoundException($class);
         }
 
-        return $this->di->newInstance($class);
+        return $this->di->get($class);
     }
 
     protected function getClassNameByStrategyName(string $type)

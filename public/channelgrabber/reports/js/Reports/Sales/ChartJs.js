@@ -13,23 +13,24 @@ define(['Reports/OrderCounts/Response'], function (Response) {
             this.datasets = [];
             this._resetDatasetMap();
             this._buildColourMap();
-            this.init();
+            this._init();
         }
 
         _createClass(ChartJs, [{
-            key: 'init',
-            value: function init() {
+            key: '_init',
+            value: function _init() {
                 this.chart = new Chart($(this.CANVAS_SELECTOR), this._getDefaultOptions());
             }
         }, {
             key: 'update',
-            value: function update(data) {
+            value: function update(data, dataType) {
+                this.data = data;
                 if (!this.chart) {
                     return false;
                 }
 
                 this._resetDatasetMap();
-                this._buildDataSets(data);
+                this._buildDataSets(data, dataType);
                 this.chart.data.datasets = this.datasets;
                 this.chart.update();
             }
@@ -120,14 +121,14 @@ define(['Reports/OrderCounts/Response'], function (Response) {
             }
         }, {
             key: '_buildDataSets',
-            value: function _buildDataSets(data) {
+            value: function _buildDataSets(data, dataType) {
                 this.datasets = [];
-                this._buildSimpleKeysData(data);
-                this._buildObjectKeysData(data);
+                this._buildSimpleKeysData(data, dataType);
+                this._buildObjectKeysData(data, dataType);
             }
         }, {
             key: '_buildSimpleKeysData',
-            value: function _buildSimpleKeysData(data) {
+            value: function _buildSimpleKeysData(data, dataType) {
                 var allowedKeys = Response.allowed.keys;
                 for (var i = 0; i < allowedKeys.length; i++) {
                     if (data[allowedKeys[i]]) {
@@ -135,7 +136,7 @@ define(['Reports/OrderCounts/Response'], function (Response) {
                         this.datasetsMap[allowedKeys[i]] = currentIndex;
                         this.datasets.push({
                             label: allowedKeys[i],
-                            data: this._transformDataForChart(data[allowedKeys[i]]),
+                            data: this._transformDataForChart(data[allowedKeys[i]], dataType),
                             borderColor: this.getColourByIndex(currentIndex),
                             fill: false
                         });
@@ -144,7 +145,7 @@ define(['Reports/OrderCounts/Response'], function (Response) {
             }
         }, {
             key: '_buildObjectKeysData',
-            value: function _buildObjectKeysData(data) {
+            value: function _buildObjectKeysData(data, dataType) {
                 var allowedKeys = Response.allowed.objectKeys;
                 for (var i = 0; i < allowedKeys.length; i++) {
                     if (data[allowedKeys[i]]) {
@@ -153,7 +154,7 @@ define(['Reports/OrderCounts/Response'], function (Response) {
                             this.datasetsMap[key] = currentIndex;
                             this.datasets.push({
                                 label: key,
-                                data: this._transformDataForChart(value),
+                                data: this._transformDataForChart(value, dataType),
                                 borderColor: this.getColourByIndex(currentIndex),
                                 fill: false
                             });
@@ -163,12 +164,12 @@ define(['Reports/OrderCounts/Response'], function (Response) {
             }
         }, {
             key: '_transformDataForChart',
-            value: function _transformDataForChart(data) {
+            value: function _transformDataForChart(data, dataType) {
                 var result = [];
                 $.each(data, function (key, value) {
                     result.push({
                         'x': key,
-                        'y': value
+                        'y': value[dataType]
                     });
                 });
                 return result;

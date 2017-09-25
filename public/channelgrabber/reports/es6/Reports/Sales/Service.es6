@@ -10,6 +10,8 @@ define([
             this.chart = ChartJs;
             this.ajax = Ajax;
 
+            this.data = {};
+
             this.requestData = {};
             this.selectors = {
                 channelFilterInput: ".channel-filter input[type='checkbox']",
@@ -23,7 +25,7 @@ define([
             this.loadEventListeners();
 
             this.updateChart = this.updateChart.bind(this);
-            this.redrawChart = this.redrawChart.bind(this);
+            this.redrawChartFromAjax = this.redrawChartFromAjax.bind(this);
             this.handleAjaxError = this.handleAjaxError.bind(this);
         }
 
@@ -40,19 +42,18 @@ define([
             }).bind(this));
 
             $(this.selectors.dataTypeFilter).on("change", (function() {
-                this.updateChart();
+                this._redrawChart();
             }).bind(this));
         }
 
         updateChart() {
             this._showSpinner();
-            this.ajax.fetch(this.buildRequestData(), this.redrawChart, this.handleAjaxError);
+            this.ajax.fetch(this.buildRequestData(), this.redrawChartFromAjax, this.handleAjaxError);
         }
 
-        redrawChart(data) {
-            this.chart.update(data);
-            this.resetFilters();
-            this.updateFilters();
+        redrawChartFromAjax(data) {
+            this.data = data;
+            this._redrawChart();
             this._hideSpinner();
         }
 
@@ -63,7 +64,6 @@ define([
         buildRequestData() {
             this._resetRequestData();
             this.buildFiltersRequestData();
-            this.requestData.strategyType = $(this.selectors.dataTypeFilter + ':checked').data('type');
             return this.requestData;
         }
 
@@ -107,9 +107,20 @@ define([
             });
         }
 
+        _redrawChart() {
+            this.chart.update(this.data, this._getDataType());
+            this.resetFilters();
+            this.updateFilters();
+        }
+
+        _getDataType() {
+            return $(this.selectors.dataTypeFilter + ':checked').data('type');
+        }
+
         _resetRequestData() {
             this.requestData = {
                 'strategy': ['channel', 'total'],
+                'strategyType': ['count', 'orderValue'],
                 'unitType': 'day'
             };
         }

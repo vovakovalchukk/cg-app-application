@@ -13,7 +13,7 @@ class Service
         $this->factory = $factory;
     }
 
-    public function buildOrderCounts(Orders $orders, string $unit, array $strategies, string $strategyType)
+    public function buildOrderCounts(Orders $orders, string $unit, array $strategies, array $strategyType)
     {
         $counts = [];
         foreach ($strategies as $strategy) {

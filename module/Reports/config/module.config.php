@@ -11,7 +11,7 @@ return [
         'application-navigation' => array(
             'reports' => array(
                 'label'  => 'Sales',
-                'sprite' => '',
+                'sprite' => 'sprite-chart-18',
                 'order'  => 8,
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . SalesController::ROUTE_INDEX
             )

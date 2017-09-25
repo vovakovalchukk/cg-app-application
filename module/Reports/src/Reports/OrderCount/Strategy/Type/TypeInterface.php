@@ -6,4 +6,5 @@ use CG\Order\Shared\Entity as Order;
 interface TypeInterface
 {
     public function getIncreaseValue(Order $order);
+    public function getKey();
 }

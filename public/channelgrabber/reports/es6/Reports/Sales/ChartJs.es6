@@ -9,23 +9,24 @@ define([
             this.datasets = [];
             this._resetDatasetMap();
             this._buildColourMap();
-            this.init();
+            this._init();
         }
 
-        init() {
+        _init() {
             this.chart = new Chart(
                 $(this.CANVAS_SELECTOR),
                 this._getDefaultOptions()
             );
         }
 
-        update(data) {
+        update(data, dataType) {
+            this.data = data;
             if (!this.chart) {
                 return false;
             }
 
             this._resetDatasetMap();
-            this._buildDataSets(data);
+            this._buildDataSets(data, dataType);
             this.chart.data.datasets = this.datasets;
             this.chart.update();
         }
@@ -117,13 +118,13 @@ define([
             };
         }
 
-        _buildDataSets(data) {
+        _buildDataSets(data, dataType) {
             this.datasets = [];
-            this._buildSimpleKeysData(data);
-            this._buildObjectKeysData(data);
+            this._buildSimpleKeysData(data, dataType);
+            this._buildObjectKeysData(data, dataType);
         }
 
-        _buildSimpleKeysData(data) {
+        _buildSimpleKeysData(data, dataType) {
             let allowedKeys = Response.allowed.keys;
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
@@ -131,7 +132,7 @@ define([
                     this.datasetsMap[allowedKeys[i]] = currentIndex;
                     this.datasets.push({
                         label: allowedKeys[i],
-                        data: this._transformDataForChart(data[allowedKeys[i]]),
+                        data: this._transformDataForChart(data[allowedKeys[i]], dataType),
                         borderColor: this.getColourByIndex(currentIndex),
                         fill: false
                     });
@@ -139,7 +140,7 @@ define([
             }
         }
 
-        _buildObjectKeysData(data) {
+        _buildObjectKeysData(data, dataType) {
             let allowedKeys = Response.allowed.objectKeys;
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
@@ -148,7 +149,7 @@ define([
                         this.datasetsMap[key] = currentIndex;
                         this.datasets.push({
                             label: key,
-                            data: this._transformDataForChart(value),
+                            data: this._transformDataForChart(value, dataType),
                             borderColor: this.getColourByIndex(currentIndex),
                             fill: false
                         });
@@ -157,12 +158,12 @@ define([
             }
         }
 
-        _transformDataForChart(data) {
+        _transformDataForChart(data, dataType) {
             let result = [];
             $.each(data, function(key, value) {
                 result.push({
                     'x': key,
-                    'y': value,
+                    'y': value[dataType],
                 });
             });
             return result;

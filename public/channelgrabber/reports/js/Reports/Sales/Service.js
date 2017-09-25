@@ -12,6 +12,8 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
             this.chart = ChartJs;
             this.ajax = Ajax;
 
+            this.data = {};
+
             this.requestData = {};
             this.selectors = {
                 channelFilterInput: ".channel-filter input[type='checkbox']",
@@ -25,7 +27,7 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
             this.loadEventListeners();
 
             this.updateChart = this.updateChart.bind(this);
-            this.redrawChart = this.redrawChart.bind(this);
+            this.redrawChartFromAjax = this.redrawChartFromAjax.bind(this);
             this.handleAjaxError = this.handleAjaxError.bind(this);
         }
 
@@ -44,21 +46,20 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
                 }.bind(this));
 
                 $(this.selectors.dataTypeFilter).on("change", function () {
-                    this.updateChart();
+                    this._redrawChart();
                 }.bind(this));
             }
         }, {
             key: 'updateChart',
             value: function updateChart() {
                 this._showSpinner();
-                this.ajax.fetch(this.buildRequestData(), this.redrawChart, this.handleAjaxError);
+                this.ajax.fetch(this.buildRequestData(), this.redrawChartFromAjax, this.handleAjaxError);
             }
         }, {
-            key: 'redrawChart',
-            value: function redrawChart(data) {
-                this.chart.update(data);
-                this.resetFilters();
-                this.updateFilters();
+            key: 'redrawChartFromAjax',
+            value: function redrawChartFromAjax(data) {
+                this.data = data;
+                this._redrawChart();
                 this._hideSpinner();
             }
         }, {
@@ -71,7 +72,6 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
             value: function buildRequestData() {
                 this._resetRequestData();
                 this.buildFiltersRequestData();
-                this.requestData.strategyType = $(this.selectors.dataTypeFilter + ':checked').data('type');
                 return this.requestData;
             }
         }, {
@@ -120,10 +120,23 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
                 });
             }
         }, {
+            key: '_redrawChart',
+            value: function _redrawChart() {
+                this.chart.update(this.data, this._getDataType());
+                this.resetFilters();
+                this.updateFilters();
+            }
+        }, {
+            key: '_getDataType',
+            value: function _getDataType() {
+                return $(this.selectors.dataTypeFilter + ':checked').data('type');
+            }
+        }, {
             key: '_resetRequestData',
             value: function _resetRequestData() {
                 this.requestData = {
                     'strategy': ['channel', 'total'],
+                    'strategyType': ['count', 'orderValue'],
                     'unitType': 'day'
                 };
             }

@@ -7,18 +7,22 @@ use CG\Stdlib\DateTime;
 
 class Channel extends StrategyAbstract
 {
-    public function buildFromCollection(Orders $orders, string $unit, string $strategyType)
+    public function buildFromCollection(Orders $orders, string $unit, array $strategyType)
     {
         $counts = $this->createDefaultArrayByChannel(
             $this->getStartEndDatesByChannel($orders),
-            $unit
+            $unit,
+            $strategyType
         );
 
         /** @var Order $order */
         foreach ($orders as $order) {
-            $unitKey = $this->unitService->formatUnitForEntityFromString($order->getPurchaseDate(), $unit);
-            $current = isset($counts[$order->getChannel()][$unitKey]) ? $counts[$order->getChannel()][$unitKey] : 0;
-            $counts[$order->getChannel()][$unitKey] = $this->getNewValue($order, $strategyType, $current);
+            foreach ($strategyType as $type) {
+                $typeKey = $this->getStrategyTypeKey($type);
+                $unitKey = $this->unitService->formatUnitForEntityFromString($order->getPurchaseDate(), $unit);
+                $current = isset($counts[$order->getChannel()][$unitKey][$typeKey]) ? $counts[$order->getChannel()][$unitKey][$typeKey] : 0;
+                $counts[$order->getChannel()][$unitKey][$typeKey] = $this->getNewValue($order, $type, $current);
+            }
         }
 
         return $counts;
@@ -39,14 +43,15 @@ class Channel extends StrategyAbstract
         return $startEndDates;
     }
 
-    protected function createDefaultArrayByChannel(array $startEndDates, string $unit)
+    protected function createDefaultArrayByChannel(array $startEndDates, string $unit, array $typeKey)
     {
         $counts = [];
         foreach ($startEndDates as $channel => $dates) {
             $counts[$channel] = $this->unitService->createZeroFilledArray(
                 new DateTime($dates['start']),
                 new DateTime($dates['end']),
-                $unit
+                $unit,
+                $typeKey
             );
         }
         return $counts;

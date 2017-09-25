@@ -26,7 +26,7 @@ class Factory implements LoggerAwareInterface
             $class = NullStrategy::class;
         }
 
-        return $this->di->newInstance($class);
+        return $this->di->get($class);
     }
 
     protected function getClassNameByStrategyName(string $strategy)

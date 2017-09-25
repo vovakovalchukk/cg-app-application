@@ -18,7 +18,7 @@ class UnitService
         self::UNIT_MONTH => 'M-Y'
     ];
 
-    public function createZeroFilledArray(DateTime $start, DateTime $end, string $unit = '')
+    public function createZeroFilledArray(DateTime $start, DateTime $end, string $unit, array $subKeys)
     {
         $unit = $this->validateUnit($unit);
 
@@ -30,7 +30,9 @@ class UnitService
 
         $result = [];
         foreach ($period as $dateTime) {
-            $result[$this->formatUnitForEntity($dateTime, $unit)] = 0;
+            foreach ($subKeys as $subKey) {
+                $result[$this->formatUnitForEntity($dateTime, $unit)][$subKey] = 0;
+            }
         }
         return $result;
     }

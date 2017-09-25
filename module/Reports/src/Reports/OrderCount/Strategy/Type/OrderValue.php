@@ -7,6 +7,8 @@ use CG\Stdlib\Date;
 
 class OrderValue implements TypeInterface
 {
+    const KEY = 'orderValue';
+
     protected $exchangeService;
 
     public function __construct(ExchangeService $service)
@@ -26,5 +28,10 @@ class OrderValue implements TypeInterface
             $order->getTotal(),
             new Date(explode(' ', $order->getPurchaseDate())[0])
         );
+    }
+
+    public function getKey()
+    {
+        return static::KEY;
     }
 }
