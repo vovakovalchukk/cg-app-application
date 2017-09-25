@@ -2493,12 +2493,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "310851852043f3dd3f8b9df04b4e1ce3efdd35c1"
+                "reference": "1c83f95a03e712ea59343f9bced3c4839a10b191"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-8901-WebHook-Endpoint-12f511.zip",
-                "reference": "310851852043f3dd3f8b9df04b4e1ce3efdd35c1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-8901-WebHook-Endpoint-d2ad8c.zip",
+                "reference": "1c83f95a03e712ea59343f9bced3c4839a10b191",
                 "shasum": null
             },
             "require": {
@@ -2536,7 +2536,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-09-24 19:34:29"
+            "time": "2017-09-25 13:45:54"
         },
         {
             "name": "channelgrabber/stock",
@@ -3873,7 +3873,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4007946c559f26be7dcbed09ca0aaf2f15fcc251"
+                "reference": "052311e864100b728493acbca3cc767cfdc2f5d6"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3922,7 +3922,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-09-25 08:29:04"
+            "time": "2017-09-25 13:23:58"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
