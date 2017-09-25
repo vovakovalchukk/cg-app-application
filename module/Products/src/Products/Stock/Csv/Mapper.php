@@ -21,10 +21,10 @@ class Mapper
     public function getMerchantLocationIds(int $ouId)
     {
         if (!isset($this->merchantLocationIds[$ouId])) {
-            $this->merchantLocationIds[$ouId] = $this->locationService->fetchIdsByType(
+            $this->merchantLocationIds[$ouId] = array_values($this->locationService->fetchIdsByType(
                 [LocationType::MERCHANT],
                 $ouId
-            );
+            ));
         }
         return $this->merchantLocationIds[$ouId];
     }
