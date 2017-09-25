@@ -102,9 +102,10 @@ define([
                                 }
 
                                 $.each(axis.ticks, function(key, value) {
-                                    if (!Number.isInteger(value)) {
-                                        delete axis.ticks[key];
+                                    if (Number.isInteger(value) && value >= 0) {
+                                        return;
                                     }
+                                    delete axis.ticks[key];
                                 });
                             }
                         }]
