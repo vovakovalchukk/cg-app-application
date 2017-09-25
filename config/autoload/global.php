@@ -162,6 +162,19 @@ use CG\Stdlib\SoapClient as CGSoapClient;
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 
+use CG\Billing\Token\StorageInterface as TokenStorageInterface;
+use CG\Billing\Token\Storage\Api as TokenStorageApi;
+
+//  Purchase Order
+use CG\PurchaseOrder\StorageInterface as PurchaseOrderStorage;
+use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
+use CG\PurchaseOrder\Item\StorageInterface as PurchaseOrderItemStorage;
+use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
+
+//  Feature Flags
+use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
+use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -197,6 +210,10 @@ $config = array(
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
+                TokenStorageInterface::class => TokenStorageApi::class,
+                PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
+                PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
+                RolloutStorage::class => RolloutRedisStorage::class,
                 StockImportInterface::class => StockImportFileS3::class
             ),
             'aliases' => [
@@ -213,6 +230,11 @@ $config = array(
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
             ],
+            RolloutRedisStorage::class => [
+                'parameters' => [
+                    'redis' => 'reliable_redis',
+                ]
+            ],
             'EUVATCodeCheckerSoapClient' => [
                 'parameter' => [
                     'wsdl' => 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl',
@@ -222,6 +244,16 @@ $config = array(
             'amazonWriteCGSql' => [
                 'parameter' => [
                     'adapter' => 'amazonWrite'
+                ]
+            ],
+            PurchaseOrderApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            PurchaseOrderItemApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
                 ]
             ],
             AccountCleanupService::class => [
@@ -593,6 +625,11 @@ $config = array(
             ShipmentMetadataApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TokenStorageApi::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
                 ]
             ],
         ),
