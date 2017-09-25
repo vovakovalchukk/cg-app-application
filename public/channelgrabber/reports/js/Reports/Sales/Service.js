@@ -11,6 +11,13 @@ define([
             this.ajax = Ajax;
 
             this.requestData = {};
+            this.selectors = {
+                channelFilterInput: ".channel-filter input[type='checkbox']",
+                dataTypeFilter: "input[name='data-type']",
+                applyFiltersButton: "#filters input[data-action='apply-filters']",
+                filterInputs: "#filters :input[name]"
+            };
+
             this.loadEventListeners();
 
             this.updateChart = this.updateChart.bind(this);
@@ -18,18 +25,18 @@ define([
         }
 
         loadEventListeners() {
-            $("#filters input[data-action='apply-filters']").on("click", (function () {
+            $(this.selectors.applyFiltersButton).on("click", (function () {
                 this.updateChart();
             }).bind(this));
 
-            $(".channel-filter input[type='checkbox']").on("click", (function (e) {
+            $(this.selectors.channelFilterInput).on("click", (function (e) {
                 let $object = $(e.currentTarget);
                 let datasetKey = $object.attr('name');
                 let visible = $object.is(':checked');
                 this.changeDatasetVisibility(datasetKey, visible);
             }).bind(this));
 
-            $("input[name='data-type']").on("change", (function() {
+            $(this.selectors.dataTypeFilter).on("change", (function() {
                 this.updateChart();
             }).bind(this));
         }
@@ -41,17 +48,18 @@ define([
         redrawChart(data) {
             this.chart.update(data);
             this.resetFilters();
+            this.updateFilters();
         }
 
         buildRequestData() {
             this._resetRequestData();
             this.buildFiltersRequestData();
-            this.requestData.strategyType = $("input[name='data-type']:checked").data('type');
+            this.requestData.strategyType = $(this.selectors.dataTypeFilter + ':checked').data('type');
             return this.requestData;
         }
 
         buildFiltersRequestData() {
-            $("#filters :input[name]").each(function(index, input) {
+            $(this.selectors.filterInputs).each(function(index, input) {
                 let $input = $(input);
                 let value = $.trim($input.val());
                 if (!value.length) {
@@ -67,7 +75,15 @@ define([
         }
 
         resetFilters() {
-            $(".channel-filter input[type='checkbox']").prop( "checked", true);
+            $(this.selectors.channelFilterInput).prop( "checked", true);
+        }
+
+        updateFilters() {
+            $(this.selectors.channelFilterInput).each(function(key, element) {
+                let $element = $(element);
+                let colour = this.chart.getColorByDatasetKey($element.attr('name'));
+                $element.closest('.channel-filter').find('span.logo').css('color', colour);
+            }.bind(this));
         }
 
         _resetRequestData() {

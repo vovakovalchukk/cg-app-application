@@ -40,6 +40,20 @@ define([
             this.chart.update();
         }
 
+        getColourByIndex(index) {
+            return this.colourMap[index % this.colourMap.length];
+        }
+
+        getColorByDatasetKey(datasetKey)
+        {
+            let key = this._findDataSetByKey(datasetKey);
+            if (key === false) {
+                return false;
+            }
+
+            return this.getColourByIndex(key);
+        }
+
         _buildColourMap() {
             this.colourMap = [
                 'steelblue',
@@ -50,10 +64,6 @@ define([
                 'black',
                 'orange'
             ];
-        }
-
-        getColourByIndex(index) {
-            return this.colourMap[index % this.colourMap.length];
         }
 
         _resetDatasetMap() {
