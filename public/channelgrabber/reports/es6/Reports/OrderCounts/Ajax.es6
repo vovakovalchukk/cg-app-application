@@ -12,7 +12,7 @@ define([
             this.AJAX_ERROR = 'There was an error while fetching the order data';
         }
 
-        fetch(requestData, callback) {
+        fetch(requestData, callback, failureCallback) {
             this.requester.sendRequest(this.URL_ORDER_COUNTS, requestData, function (response) {
                 if (response.data) {
                     callback(response.data);
@@ -21,8 +21,9 @@ define([
                 } else {
                     n.error(this.AJAX_ERROR);
                 }
-            }, function () {
+            }, function (response) {
                 n.error(this.AJAX_ERROR);
+                failureCallback(response);
             });
         }
     }

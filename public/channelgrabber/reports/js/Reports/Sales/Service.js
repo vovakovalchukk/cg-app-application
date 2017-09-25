@@ -18,13 +18,15 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
                 dataTypeFilter: "input[name='data-type']",
                 applyFiltersButton: "#filters input[data-action='apply-filters']",
                 filterInputs: "#filters :input[name]",
-                channelFilterContainer: ".channel-filter"
+                channelFilterContainer: ".channel-filter",
+                spinner: ".spinner-container"
             };
 
             this.loadEventListeners();
 
             this.updateChart = this.updateChart.bind(this);
             this.redrawChart = this.redrawChart.bind(this);
+            this.handleAjaxError = this.handleAjaxError.bind(this);
         }
 
         _createClass(Service, [{
@@ -48,8 +50,8 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
         }, {
             key: 'updateChart',
             value: function updateChart() {
-                this.hideFilters();
-                this.ajax.fetch(this.buildRequestData(), this.redrawChart);
+                this._showSpinner();
+                this.ajax.fetch(this.buildRequestData(), this.redrawChart, this.handleAjaxError);
             }
         }, {
             key: 'redrawChart',
@@ -57,6 +59,12 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
                 this.chart.update(data);
                 this.resetFilters();
                 this.updateFilters();
+                this._hideSpinner();
+            }
+        }, {
+            key: 'handleAjaxError',
+            value: function handleAjaxError() {
+                this._hideSpinner();
             }
         }, {
             key: 'buildRequestData',
@@ -92,6 +100,7 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
         }, {
             key: 'updateFilters',
             value: function updateFilters() {
+                this.hideFilters();
                 $(this.selectors.channelFilterInput).each(function (key, element) {
                     var $element = $(element);
                     var $container = $element.closest('.channel-filter');
@@ -117,6 +126,16 @@ define(['Reports/Sales/ChartJs', 'Reports/OrderCounts/Ajax'], function (ChartJs,
                     'strategy': ['channel', 'total'],
                     'unitType': 'day'
                 };
+            }
+        }, {
+            key: '_showSpinner',
+            value: function _showSpinner() {
+                $(this.selectors.spinner).show();
+            }
+        }, {
+            key: '_hideSpinner',
+            value: function _hideSpinner() {
+                $(this.selectors.spinner).hide();
             }
         }]);
 

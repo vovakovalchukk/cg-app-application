@@ -16,13 +16,15 @@ define([
                 dataTypeFilter: "input[name='data-type']",
                 applyFiltersButton: "#filters input[data-action='apply-filters']",
                 filterInputs: "#filters :input[name]",
-                channelFilterContainer: ".channel-filter"
+                channelFilterContainer: ".channel-filter",
+                spinner: ".spinner-container"
             };
 
             this.loadEventListeners();
 
             this.updateChart = this.updateChart.bind(this);
             this.redrawChart = this.redrawChart.bind(this);
+            this.handleAjaxError = this.handleAjaxError.bind(this);
         }
 
         loadEventListeners() {
@@ -43,14 +45,19 @@ define([
         }
 
         updateChart() {
-            this.hideFilters();
-            this.ajax.fetch(this.buildRequestData(), this.redrawChart);
+            this._showSpinner();
+            this.ajax.fetch(this.buildRequestData(), this.redrawChart, this.handleAjaxError);
         }
 
         redrawChart(data) {
             this.chart.update(data);
             this.resetFilters();
             this.updateFilters();
+            this._hideSpinner();
+        }
+
+        handleAjaxError() {
+            this._hideSpinner();
         }
 
         buildRequestData() {
@@ -81,6 +88,7 @@ define([
         }
 
         updateFilters() {
+            this.hideFilters();
             $(this.selectors.channelFilterInput).each(function(key, element) {
                 let $element = $(element);
                 let $container = $element.closest('.channel-filter');
@@ -104,6 +112,14 @@ define([
                 'strategy': ['channel', 'total'],
                 'unitType': 'day'
             };
+        }
+
+        _showSpinner() {
+            $(this.selectors.spinner).show();
+        }
+
+        _hideSpinner() {
+            $(this.selectors.spinner).hide();
         }
     }
 
