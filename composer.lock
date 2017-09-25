@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "276ce8098c139f7e8423cc8e2699483f",
+    "content-hash": "bcfcf32dd651e854b248a3471f4b5173",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1405,16 +1405,16 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "dev-CGIV-8859-loging_issue",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "e449772860646c54ed061aec4f8a0b219b2994af"
+                "reference": "692fd47eedc4362e7d986ad78dbec941ae0f59c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-CGIV-8859-loging_issue-364c3e.zip",
-                "reference": "e449772860646c54ed061aec4f8a0b219b2994af",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.1.2-f68d99.zip",
+                "reference": "692fd47eedc4362e7d986ad78dbec941ae0f59c7",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2017-09-14 09:56:56"
+            "time": "2017-09-25T12:29:20+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -9001,18 +9001,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.1.2",
-            "alias_normalized": "2.1.2.0",
-            "version": "dev-CGIV-8859-loging_issue",
-            "package": "channelgrabber/log"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/log": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
