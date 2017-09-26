@@ -18,8 +18,16 @@ class UnitService
     const UNIT_CONVERSION_MAP = [
         self::UNIT_DAY => DateTime::FORMAT_DATE,
         self::UNIT_MONTH => 'M-Y',
-        self::UNIT_WEEK => DateTime::FORMAT_DATE
+        self::UNIT_WEEK => [UnitService::class, 'formatWeek']
     ];
+
+    public static function formatWeek(DateTime $dateTime)
+    {
+        $time = strtotime('last monday', ($dateTime->add(new \DateInterval('P1D')))->getTimestamp());
+        return  (new DateTime())
+            ->setTimestamp($time)
+            ->format(DateTime::FORMAT_DATE);
+    }
 
     public function createZeroFilledArray(DateTime $start, DateTime $end, string $unit, array $subKeys)
     {
@@ -48,7 +56,12 @@ class UnitService
     public function formatUnitForEntity(DateTime $dateTime, string $unit)
     {
         $unit = $this->validateUnit($unit);
-        return $dateTime->format(self::UNIT_CONVERSION_MAP[$unit]);
+        $unitFormat = self::UNIT_CONVERSION_MAP[$unit];
+        if (is_callable($unitFormat)) {
+            return $unitFormat($dateTime);
+        }
+
+        return $dateTime->format($unitFormat);
     }
 
     public function validateUnit(string $unit)

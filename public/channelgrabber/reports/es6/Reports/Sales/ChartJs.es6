@@ -92,7 +92,7 @@ define([
                     },
                     tooltips: {
                         mode: 'x',
-                        intersect: true
+                        intersect: false
                     },
                     scales: {
                         xAxes: [{
