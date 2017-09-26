@@ -1,23 +1,23 @@
-define([
-], function(
-) {
-    var Image = function(options) {
+define([], function() {
+    const Image = function(options) {
         this.imageBasePath = options.imageBasePath;
     };
     Image.prototype.getImageSource = function(product) {
-        var noProductImage = this.imageBasePath+'/noproductsimage.png';
-        return product && product.images && product.images.length > 0 ? product.images[0]['url'] : noProductImage;
+        if (product && product.images && product.images.length > 0 && product.images[0].url) {
+            return product.images[0].url;
+        }
+        return this.imageBasePath+'/noproductsimage.png';
     };
 
     Image.prototype.getProductImage = function(product, sku) {
-        var sku = sku || null;
+        sku = sku || null;
 
         if (! product || ! product.variations || sku === null) {
             return this.getImageSource(product);
         }
 
-        var variation = product.variations.find(function (variation) {
-            if (variation.sku === sku && variation.images.length > 0) {
+        const variation = product.variations.find(function (variation) {
+            if (variation.sku === sku && variation.images && variation.images.length > 0) {
                 return true;
             }
         });

@@ -5,8 +5,9 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor as AmazonCryptor;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\Type as ChannelType;
+use CG\Channel\Integration\Type as ChannelIntegrationType;
 use CG\Channel\Service as ChannelService;
+use CG\Channel\Type as ChannelType;
 use CG\User\ActiveUserInterface;
 use SetupWizard\Module;
 
@@ -84,8 +85,12 @@ class Service
 
     public function getSalesChannelOptions()
     {
-        $includeDarkDeploy = $this->activeUserContainer->isAdmin();
-        return $this->channelService->getChannels(ChannelType::SALES, $includeDarkDeploy);
+        return array_merge(
+            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::INTERNAL]),
+            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::CLASSIC]),
+            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::THIRD_PARTY]),
+            $this->channelService->getSalesChannelsByIntegrationType([ChannelIntegrationType::UNSUPPORTED])
+        );
     }
 
     public function getSalesChannelDisplayName($channel)

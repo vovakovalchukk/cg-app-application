@@ -1,7 +1,9 @@
 <?php
 namespace Products;
 
+use CG\FeatureFlags\Feature;
 use Products\Controller;
+use Products\Product\Service as ModuleProductService;
 use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
@@ -498,7 +500,6 @@ return [
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class,
-                    'stockStorage' => StockService::class,
                     'listingStorage' => ListingService::class,
                     'imageStorage' => ImageService::class
                 ]
@@ -1111,13 +1112,20 @@ return [
                     'purchaseOrders' => [
                         'id'    => 'purchaseOrders',
                         'label' => 'Purchase Orders',
+                        ModuleProductService::NAV_KEY_FEATURE_FLAG => Feature::PURCHASE_ORDERS,
                         'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                                 '',
                                 [
                                     ProductsController::ROUTE_INDEX_URL,
                                     PurchaseOrdersController::ROUTE_INDEX_URL
                                 ]
-                            )
+                            ),
+                        'pre-render' => [
+                            'diLoad' => [
+                                'class' => ModuleProductService::class,
+                                'method' => 'checkPageEnabled'
+                            ]
+                        ],
                     ],
                 ]
             ]

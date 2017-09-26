@@ -37,12 +37,11 @@ use Zend\View\Model\ViewModel;
 use CG\Channel\AccountDisabler;
 use CG\Order\Shared\InvoiceEmailer\Service as InvoiceEmailerService;
 
-use CG\Location\Service as LocationService;
-use CG\Location\Storage\Api as LocationApi;
-use CG\Location\Mapper as LocationMapper;
+use CG\Location\StorageInterface as LocationStorage;
+use CG\Location\Storage\Api as LocationApiStorage;
 
-use CG\Stock\Location\Storage\Api as LocationApiStorage;
-use CG\Stock\Location\StorageInterface as LocationStorageInterface;
+use CG\Stock\Location\StorageInterface as StockLocationStorage;
+use CG\Stock\Location\Storage\Api as StockLocationApiStorage;
 
 use CG\Billing\Transaction\StorageInterface as TransactionStorage;
 use CG\Billing\Transaction\Storage\Api as TransactionApiStorage;
@@ -99,7 +98,8 @@ use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
 use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 
 // Stock Import
-use CG\Stock\Import\File\Storage\Db as StockImportFileDb;
+use CG\Stock\Import\File\StorageInterface as StockImportInterface;
+use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
 // Communication
@@ -161,11 +161,18 @@ use CG\Stdlib\SoapClient as CGSoapClient;
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
 
+use CG\Billing\Token\StorageInterface as TokenStorageInterface;
+use CG\Billing\Token\Storage\Api as TokenStorageApi;
+
 //  Purchase Order
 use CG\PurchaseOrder\StorageInterface as PurchaseOrderStorage;
 use CG\PurchaseOrder\Storage\Api as PurchaseOrderApiStorage;
 use CG\PurchaseOrder\Item\StorageInterface as PurchaseOrderItemStorage;
 use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
+
+//  Feature Flags
+use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
+use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
 
 $config = array(
     'di' => array(
@@ -180,7 +187,7 @@ $config = array(
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class,
                 ServiceLocatorInterface::class => ServiceManager::class,
-                LocationStorageInterface::class => LocationApiStorage::class,
+                StockLocationStorage::class => StockLocationApiStorage::class,
                 TransactionStorage::class => TransactionApiStorage::class,
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
@@ -202,8 +209,12 @@ $config = array(
                 AccountStorage::class => AccountApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
+                TokenStorageInterface::class => TokenStorageApi::class,
                 PurchaseOrderStorage::class => PurchaseOrderApiStorage::class,
                 PurchaseOrderItemStorage::class => PurchaseOrderItemApiStorage::class,
+                RolloutStorage::class => RolloutRedisStorage::class,
+                StockImportInterface::class => StockImportFileS3::class,
+                LocationStorage::class => LocationApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -218,6 +229,11 @@ $config = array(
                 'StockSettingsAccountsMaxColumnView' => ViewModel::class,
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
+            ],
+            RolloutRedisStorage::class => [
+                'parameters' => [
+                    'redis' => 'reliable_redis',
+                ]
             ],
             'EUVATCodeCheckerSoapClient' => [
                 'parameter' => [
@@ -326,18 +342,12 @@ $config = array(
                     'mapper' => InvoiceMappingMapper::class
                 ]
             ],
-            LocationService::class => [
-                'parameters' => [
-                    'repository' => LocationApi::class,
-                    'mapper' => LocationMapper::class
-                ]
-            ],
-            LocationApi::class => [
+            LocationApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-            LocationApiStorage::class => [
+            StockLocationApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
@@ -424,11 +434,8 @@ $config = array(
                     'repository' => EkmTaxRateRepository::class
                 ]
             ],
-            StockImportFileDb::class => [
+            StockImportFileS3::class => [
                 'parameter' => [
-                    'readSql' => 'appReadSql',
-                    'fastReadSql' => 'appFastReadSql',
-                    'writeSql' => 'appWriteSql',
                     'mapper' => StockImportFileMapper::class
                 ]
             ],
@@ -612,6 +619,11 @@ $config = array(
             ShipmentMetadataApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TokenStorageApi::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
                 ]
             ],
         ),
