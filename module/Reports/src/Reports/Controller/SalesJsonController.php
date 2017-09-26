@@ -20,8 +20,8 @@ class SalesJsonController extends AbstractJsonController
     public function orderCountsAction()
     {
         $requestFilter = $this->params()->fromPost('filter', []);
-        $strategy = $this->params()->fromPost('strategy', ['channel', 'total']);
-        $strategyType = $this->params()->fromPost('strategyType', ['count', 'orderValue']);
+        $strategy = $this->params()->fromPost('strategy', []);
+        $strategyType = $this->params()->fromPost('strategyType', []);
         $unitType = $this->params()->fromPost('unitType', UnitService::UNIT_DAY);
 
         if (!is_array($strategy) || !is_array($strategyType)) {
@@ -35,5 +35,16 @@ class SalesJsonController extends AbstractJsonController
             $this->logError($e->getMessage());
             return $this->buildErrorResponse('An error occurred while fetching the order data.');
         }
+    }
+
+    public function dateUnitsAction()
+    {
+        $requestFilter = $this->params()->fromPost('filter', []);
+        if (empty($requestFilter)) {
+            return $this->buildSuccessResponse();
+        }
+
+        $result = $this->salesService->getDateUnitByFilters($requestFilter);
+        return $this->buildSuccessResponse(['data' => $result]);
     }
 }

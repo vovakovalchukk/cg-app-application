@@ -8,6 +8,7 @@ define([
             this.requester = requester;
 
             this.URL_ORDER_COUNTS = '/sales/orderCounts';
+            this.URL_DATE_UNITS = '/sales/dateUnits';
 
             this.AJAX_ERROR = 'There was an error while fetching the order data';
         }
@@ -25,6 +26,10 @@ define([
                 n.error(this.AJAX_ERROR);
                 failureCallback(response);
             });
+        }
+
+        fetchDateUnits(requestData, callback) {
+            this.requester.sendRequest(this.URL_DATE_UNITS, requestData, callback)
         }
     }
 

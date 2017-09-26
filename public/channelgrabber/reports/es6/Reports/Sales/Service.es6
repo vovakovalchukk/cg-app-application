@@ -7,12 +7,15 @@ define([
 ) {
     class Service {
         constructor() {
+            this.MAX_DATA_POINTS = 120;
+
             this.chart = ChartJs;
             this.ajax = Ajax;
 
             this.data = {};
-
             this.requestData = {};
+
+
             this.selectors = {
                 channelFilterInput: ".channel-filter input[type='checkbox']",
                 dataTypeFilter: "input[name='data-type']",
@@ -48,7 +51,7 @@ define([
 
         updateChart() {
             this._showSpinner();
-            this.ajax.fetch(this.buildRequestData(), this.redrawChartFromAjax, this.handleAjaxError);
+            this.buildRequestData();
         }
 
         redrawChartFromAjax(data) {
@@ -64,7 +67,7 @@ define([
         buildRequestData() {
             this._resetRequestData();
             this.buildFiltersRequestData();
-            return this.requestData;
+            this._addUnitTypeToRequestData();
         }
 
         buildFiltersRequestData() {
@@ -115,6 +118,10 @@ define([
             });
         }
 
+        _updateChartData() {
+            this.ajax.fetch(this.requestData, this.redrawChartFromAjax, this.handleAjaxError);
+        }
+
         _redrawChart() {
             this.chart.update(this.data, this._getDataType());
             this.resetFilters();
@@ -129,8 +136,31 @@ define([
             this.requestData = {
                 'strategy': ['channel', 'total'],
                 'strategyType': ['count', 'orderValue'],
-                'unitType': 'day'
+                'unitType': 'week'
             };
+        }
+
+        _addUnitTypeToRequestData() {
+            this.ajax.fetchDateUnits(this.requestData, function(data) {
+                if (!data.data) {
+                    return false;
+                }
+                // Sort the units by their value descending
+                let units = data.data,
+                    sortedUnitKeys = Object.keys(units).sort(function(a,b) {
+                        return units[b] - units[a];
+                    });
+
+                // return the first value that is under the maximum data points value
+                // eg: if we have the max set at 60 and the data is {day: 62, month: 9, weeks: 2}, we will return 'day'
+                $(sortedUnitKeys).each(function(key, unit) {
+                    if (units[unit] < this.MAX_DATA_POINTS) {
+                        this.requestData.unitType = unit;
+                        this._updateChartData();
+                        return false;
+                    }
+                }.bind(this));
+            }.bind(this));
         }
 
         _showSpinner() {

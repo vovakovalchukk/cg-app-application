@@ -175,7 +175,8 @@ define([
                 label: label,
                 data: data,
                 borderColor: color,
-                fill: false
+                fill: false,
+                lineTension: 0.25
             });
         }
 

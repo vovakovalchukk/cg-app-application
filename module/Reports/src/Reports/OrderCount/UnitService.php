@@ -29,6 +29,20 @@ class UnitService
             ->format(DateTime::FORMAT_DATE);
     }
 
+    public function buildDateUnitFromDates(DateTime $start, DateTime $end)
+    {
+        $dateUnits = [];
+        foreach (static::UNIT_MAP as $unit => $interval) {
+            $period = new \DatePeriod(
+                $start,
+                new \DateInterval($interval),
+                $end
+            );
+            $dateUnits[$unit] = iterator_count($period);
+        }
+        return $dateUnits;
+    }
+
     public function createZeroFilledArray(DateTime $start, DateTime $end, string $unit, array $subKeys)
     {
         $unit = $this->validateUnit($unit);

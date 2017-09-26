@@ -42,6 +42,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    'dateUnits' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/dateUnits',
+                            'defaults' => [
+                                'controller' => SalesJsonController::class,
+                                'action' => 'dateUnits'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                 ],
                 'may_terminate' => true
             ],

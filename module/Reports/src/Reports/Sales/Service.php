@@ -2,6 +2,7 @@
 namespace Reports\Sales;
 
 use CG\Account\Client\Entity as Account;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Orders\Filter\Service as FilterService;
 use CG\Order\Service\Filter as OrderFilter;
@@ -22,13 +23,21 @@ class Service
     protected $filterService;
     /** @var OrderCountService */
     protected $orderCountService;
+    /** @var UnitService  */
+    protected $unitService;
 
-    public function __construct(ChannelsService $channelsService, OrderService $orderService, FilterService $filterService, OrderCountService $orderCountService)
-    {
+    public function __construct(
+        ChannelsService $channelsService,
+        OrderService $orderService,
+        FilterService $filterService,
+        OrderCountService $orderCountService,
+        UnitService $unitService
+    ) {
         $this->channelsService = $channelsService;
         $this->orderService = $orderService;
         $this->filterService = $filterService;
         $this->orderCountService = $orderCountService;
+        $this->unitService = $unitService;
     }
 
     public function getChannelsForActiveUser(): array
@@ -58,8 +67,8 @@ class Service
 
     public function getOrderCountsData(
         array $filters = [],
-        array $strategy = ['total'],
-        array $strategyType = ['count'],
+        array $strategy = [],
+        array $strategyType = [],
         string $unitType = UnitService::UNIT_DAY
     ) {
         $orders = $this->fetchOrdersByFilter(
@@ -77,6 +86,15 @@ class Service
             $unitType,
             $strategy,
             $strategyType
+        );
+    }
+
+    public function getDateUnitByFilters(array $filters)
+    {
+        $filter = $this->addFiltersFromArray($this->buildDefaultOrderFilter(), $filters);
+        return $this->unitService->buildDateUnitFromDates(
+            new DateTime($filter->getPurchaseDateFrom()),
+            new DateTime($filter->getPurchaseDateTo())
         );
     }
 
@@ -99,7 +117,7 @@ class Service
             ->setOrderDirection('ASC');
     }
 
-    protected function addFiltersFromArray(OrderFilter $filter, array $filters)
+    protected function addFiltersFromArray(OrderFilter $filter, array $filters): OrderFilter
     {
         $requestFilter = $this->filterService->addDefaultFiltersToArray($filters);
         if (!empty($requestFilter)) {
