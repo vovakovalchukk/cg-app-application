@@ -883,7 +883,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "1b51778137da5c81c61cfb2819b0f2e5c658ab08"
+                "reference": "b50653123de7eb4c51eb39bb6994faaf79edcdca"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
