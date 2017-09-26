@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90eaf625f4fd552b683a604c52546a9a",
+    "content-hash": "3a0ca56d6363631da10a73d7495575a5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.32.3",
+            "version": "1.32.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8b6a3075e1c4b758af3ebd80a7245931b1e493eb"
+                "reference": "f4dee46eace3358f28891f17fa039cf88d4ba6f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.32.3-7f6983.zip",
-                "reference": "8b6a3075e1c4b758af3ebd80a7245931b1e493eb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.32.4-848e89.zip",
+                "reference": "f4dee46eace3358f28891f17fa039cf88d4ba6f7",
                 "shasum": null
             },
             "require": {
@@ -553,7 +553,7 @@
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/phpunit": ">=1.0.0",
                 "php": ">=7.1",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~6.2"
             },
             "type": "library",
             "extra": {
@@ -574,7 +574,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-09-15T09:56:25+00:00"
+            "time": "2017-09-22T10:56:34+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3868,16 +3868,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.19.1",
+            "version": "dev-CGIV-8882-sales-graph",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7549da92e5767ff109a4b9638f57890021360dd3"
+                "reference": "f053163e8b1bac4b061108a223872106f793749f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.19.1-976b41.zip",
-                "reference": "7549da92e5767ff109a4b9638f57890021360dd3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8882-sales-graph-80c732.zip",
+                "reference": "f053163e8b1bac4b061108a223872106f793749f",
                 "shasum": null
             },
             "require": {
@@ -3925,7 +3925,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-09-13T08:22:44+00:00"
+            "time": "2017-09-26T07:47:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9001,10 +9001,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.2",
+            "alias_normalized": "1.19.2.0",
+            "version": "dev-CGIV-8882-sales-graph",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
