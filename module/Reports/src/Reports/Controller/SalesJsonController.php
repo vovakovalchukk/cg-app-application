@@ -40,11 +40,13 @@ class SalesJsonController extends AbstractJsonController
     public function dateUnitsAction()
     {
         $requestFilter = $this->params()->fromPost('filter', []);
-        if (empty($requestFilter)) {
-            return $this->buildSuccessResponse();
+        try {
+            $result = $this->salesService->getDateUnitByFilters($requestFilter);
+        } catch (\Exception $e) {
+            $this->logError($e->getMessage());
+            return $this->buildErrorResponse('An error occurred while fetching the order data.');
         }
 
-        $result = $this->salesService->getDateUnitByFilters($requestFilter);
         return $this->buildSuccessResponse(['data' => $result]);
     }
 }

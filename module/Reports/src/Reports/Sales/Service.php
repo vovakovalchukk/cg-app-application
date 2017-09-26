@@ -89,13 +89,34 @@ class Service
         );
     }
 
-    public function getDateUnitByFilters(array $filters)
+    public function getDateUnitByFilters(array $filters): array
     {
-        $filter = $this->addFiltersFromArray($this->buildDefaultOrderFilter(), $filters);
-        return $this->unitService->buildDateUnitFromDates(
-            new DateTime($filter->getPurchaseDateFrom()),
-            new DateTime($filter->getPurchaseDateTo())
-        );
+        try {
+            $filter = $this->addFiltersFromArray($this->buildDefaultOrderFilter(), $filters);
+            if ($filter->getPurchaseDateTo() && $filter->getPurchaseDateFrom()) {
+                $start = $filter->getPurchaseDateFrom();
+                $end = $filter->getPurchaseDateTo();
+            } else {
+                [$start, $end] = $this->getOrdersDateRange($filter);
+            }
+
+            return $this->unitService->buildDateUnitFromDates(new DateTime($start), new DateTime($end));
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    protected function getOrdersDateRange($filter): array
+    {
+        $orders = $this->orderService->getOrders($filter);
+        $startDate = $orders->getFirst()->getPurchaseDate();
+        // move iterator cursor to the end
+        foreach ($orders as $order) {
+            // no-op
+        }
+        $endDate = $order->getPurchaseDate();
+
+        return [$startDate, $endDate];
     }
 
     protected function buildChannelDetails(string $channel): array

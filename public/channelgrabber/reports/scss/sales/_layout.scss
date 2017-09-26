@@ -68,10 +68,8 @@
   }
 }
 
-#main-wrapper {
-  margin-top: -1px;
-}
-
-#bulk-actions .double-arrow {
-  margin-top: -1px;
+.sales-report {
+  .double-arrow {
+    margin-top: -1px !important;
+  }
 }

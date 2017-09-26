@@ -29,7 +29,7 @@ class UnitService
             ->format(DateTime::FORMAT_DATE);
     }
 
-    public function buildDateUnitFromDates(DateTime $start, DateTime $end)
+    public function buildDateUnitFromDates(DateTime $start, DateTime $end): array
     {
         $dateUnits = [];
         foreach (static::UNIT_MAP as $unit => $interval) {
