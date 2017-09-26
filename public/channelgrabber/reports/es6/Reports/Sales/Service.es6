@@ -142,7 +142,8 @@ define([
 
         _addUnitTypeToRequestData() {
             this.ajax.fetchDateUnits(this.requestData, function(data) {
-                if (!data.data) {
+                if (!data.data || data.data.length === 0) {
+                    this._updateChartData();
                     return false;
                 }
                 // Sort the units by their value descending
