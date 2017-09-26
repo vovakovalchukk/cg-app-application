@@ -137,9 +137,13 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            babel: {
+            babelReact: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
-                tasks: ['newer:babel']
+                tasks: ['newer:babel:react']
+            },
+            babelEs6: {
+                files: 'public/channelgrabber/**/es6/**/*.es6',
+                tasks: ['newer:babel:es6']
             },
             copyVanillaJs: {
                 files: 'public/channelgrabber/**/js-vanilla/**/*.js',

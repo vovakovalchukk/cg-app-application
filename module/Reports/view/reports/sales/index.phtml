@@ -1,7 +1,8 @@
-<?php
-$this->placeholder('#sub-header')->append($filters);
-$this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js');
-?>
+<?php $this->placeholder('#sub-header')->append($filters); ?>
+<div id="bulk-actions">
+    <?php echo $hideFilters; ?>
+</div>
+<?php $this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js'); ?>
 
 <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {

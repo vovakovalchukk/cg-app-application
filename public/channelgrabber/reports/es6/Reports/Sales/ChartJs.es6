@@ -86,6 +86,14 @@ define([
                     datasets: []
                 },
                 options: {
+                    hover: {
+                        intersect: false,
+                        mode: 'x'
+                    },
+                    tooltips: {
+                        mode: 'x',
+                        intersect: true
+                    },
                     scales: {
                         xAxes: [{
                             type: 'time',
@@ -128,14 +136,11 @@ define([
             let allowedKeys = Response.allowed.keys;
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
-                    let currentIndex = this.datasets.length;
-                    this.datasetsMap[allowedKeys[i]] = currentIndex;
-                    this.datasets.push({
-                        label: allowedKeys[i],
-                        data: this._transformDataForChart(data[allowedKeys[i]], dataType),
-                        borderColor: this.getColourByIndex(currentIndex),
-                        fill: false
-                    });
+                    this._addData(
+                        allowedKeys[i],
+                        data[allowedKeys[i]],
+                        dataType
+                    );
                 }
             }
         }
@@ -145,17 +150,33 @@ define([
             for (let i = 0; i < allowedKeys.length; i++) {
                 if (data[allowedKeys[i]]) {
                     $.each(data[allowedKeys[i]], (function (key, value) {
-                        let currentIndex = this.datasets.length;
-                        this.datasetsMap[key] = currentIndex;
-                        this.datasets.push({
-                            label: key,
-                            data: this._transformDataForChart(value, dataType),
-                            borderColor: this.getColourByIndex(currentIndex),
-                            fill: false
-                        });
+                        this._addData(
+                            key,
+                            value,
+                            dataType
+                        );
                     }).bind(this));
                 }
             }
+        }
+
+        _addData(label, data, dataType) {
+            this.datasetsMap[label] = this.datasets.length;
+            this._addDataToDataset(
+                label,
+                this._transformDataForChart(data, dataType),
+                this.getColourByIndex(this.datasets.length)
+            );
+        }
+
+        _addDataToDataset(label, data, color) {
+            this.datasets.push({
+                pointRadius: 1,
+                label: label,
+                data: data,
+                borderColor: color,
+                fill: false
+            });
         }
 
         _transformDataForChart(data, dataType) {

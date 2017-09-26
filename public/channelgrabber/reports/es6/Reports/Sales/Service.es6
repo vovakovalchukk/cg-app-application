@@ -75,7 +75,15 @@ define([
                     return;
                 }
                 let name = $input.attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
-                this.requestData[name] = value;
+                if (name.indexOf('[]') >= 0) {
+                    name = name.replace('[]', '');
+                    if (!Array.isArray(this.requestData[name])) {
+                        this.requestData[name] = [];
+                    }
+                    this.requestData[name].push(value);
+                } else {
+                    this.requestData[name] = value;
+                }
             }.bind(this));
         }
 

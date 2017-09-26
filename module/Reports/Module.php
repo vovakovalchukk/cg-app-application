@@ -63,8 +63,7 @@ class Module
      */
     protected function getSidebarViewModel(MvcEvent $event)
     {
-        $viewModelFactory = $this->getService($event, ViewModelFactory::class);
-        return $viewModelFactory->get('sidebar');
+        return $this->getViewModelFactory($event)->get('sidebar');
     }
 
     protected function renderSideBar(MvcEvent $event)
@@ -78,6 +77,11 @@ class Module
         $service = $this->getService($event,Service::class);
         $sidebar->setVariable('channels', $service->getChannelsForActiveUser());
         $sidebar->setVariable('total', $service->getTotalFilter());
+    }
+
+    protected function getViewModelFactory(MvcEvent $event)
+    {
+        return $this->getService($event, ViewModelFactory::class);
     }
 
     protected function getService(MvcEvent $event, $class)

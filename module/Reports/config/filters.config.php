@@ -2,6 +2,19 @@
 
 use CG_UI\View\Filters\Service as FilterService;
 use Reports\Controller\SalesController;
+use CG\Order\Shared\Status;
+use Orders\Order\CountryService;
+use Orders\Order\CurrencyService;
+use Orders\Order\TableService\OrdersTableTagColumns;
+use Orders\Order\TableService\OrdersTableFulfilmentChannelColumns;
+use Filters\Options\Channel;
+use Filters\Options\Account;
+use Orders\Order\Filter\Batch;
+use Orders\Order\Filter\Shipping;
+use Orders\Controller\OrdersController;
+
+// We'll need this in a moment when setting up the order count status group filters
+$orderCountStatusGroups = Status::getOrderCountStatusGroups();
 
 return [
     'di' => [
@@ -60,6 +73,36 @@ return [
                             ]
                         ],
                         [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'status',
+                                'title' => 'Status',
+                                'id' => 'filter-status',
+                                'searchField' => true,
+                                'concatenate' => true,
+                                'options' => Status::getAllStatusesAsSelectOptions(),
+                            ],
+                        ],
+                        [
+                            'filterType' => 'search',
+                            'variables' => [
+                                'name' => 'searchTerm',
+                                'placeholder' => 'Search for...',
+                                'class' => '',
+                                'value' => ''
+                            ],
+                        ],
+                        [
+                            'filterType' => 'more',
+                            'variables' => [
+                                'id' => 'filter-more-button',
+                                'searchField' => true,
+                                'title' => 'More',
+                                'class' => 'more',
+                                'name' => 'more'
+                            ],
+                        ],
+                        [
                             'filterType' => 'buttons',
                             'variables' => [
                                 'name' => 'buttons',
@@ -76,9 +119,272 @@ return [
                                     ]
                                 ],
                             ]
-                        ]
+                        ],
+                    ],
+                ],
+                [
+                    'type' => 'Row',
+                    'filters' => [
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'shippingAddressCountry',
+                                'title' => 'Country',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => [
+                                ]
+                            ],
+                            'optionsProvider' => CountryService::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'currencyCode',
+                                'title' => 'Currency',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => CurrencyService::class,
+                        ],
+                        [
+                            'filterType' => 'numberRange',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'total',
+                                'title' => 'Total',
+                                'isOptional' => true,
+                                'id' => ''
+                            ]
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'channel',
+                                'title' => 'Channel',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Channel::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'accountId',
+                                'title' => 'Account',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Account::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'batch',
+                                'title' => 'Batch',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Batch::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => OrdersController::FILTER_SHIPPING_ALIAS_NAME,
+                                'title' => 'Shipping Method',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Shipping::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'tag',
+                                'title' => 'Tags',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => OrdersTableTagColumns::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'fulfilmentChannel',
+                                'title' => 'Fulfilment Channel',
+                                'searchField' => false,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => OrdersTableFulfilmentChannelColumns::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'isBoolean' => true,
+                                'name' => 'archived',
+                                'title' => 'Is Archived',
+                                'isOptional' => true,
+                                'emptyValue' => true,
+                                'options' => [
+                                    [
+                                        'value' => true,
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'value' => false,
+                                        'title' => 'No',
+                                        'selected' => true
+                                    ],
+                                ]
+                            ],
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'isBoolean' => true,
+                                'name' => 'buyerMessage',
+                                'title' => 'Has Buyer Message',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'value' => true,
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'value' => false,
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'isBoolean' => true,
+                                'name' => 'giftMessage',
+                                'title' => 'Has Gift Message',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'value' => true,
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'value' => false,
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
                     ]
                 ],
+            ],
+        ],
+        'stateFilters' => [
+            [
+                'name' => 'All Orders',
+                'id' => 'allOrdersCount',
+                'subid' => 'allOrdersCountSub',
+                'statusColourClass' => '',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                        ]
+                    ]
+                )
+            ],
+            [
+                'name' => 'Awaiting Payment',
+                'id' => 'awaitingPaymentCount',
+                'subid' => 'awaitingPaymentCountSub',
+                'statusColourClass' => 'awaiting-payment',
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['awaitingPayment']
+                    ]
+                )
+            ],
+            [
+                'name' => 'New Orders',
+                'id' => 'newOrdersCount',
+                'subid' => 'newOrdersCountSub',
+                'statusColourClass' => 'new',
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['newOrders']
+                    ]
+                )
+            ],
+            [
+                'name' => 'Processing',
+                'id' => 'processingCount',
+                'subid' => 'processingCountSub',
+                'statusColourClass' => 'processing',
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['processing']
+                    ]
+                )
+            ],
+            [
+                'name' => 'Dispatched',
+                'id' => 'dispatchedCount',
+                'subid' => 'dispatchedCountSub',
+                'statusColourClass' => 'dispatched',
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['dispatched']
+                    ]
+                )
+            ],
+            [
+                'name' => 'Cancelled',
+                'id' => 'cancelledAndRefundedCount',
+                'subid' => 'cancelledAndRefundedCountSub',
+                'statusColourClass' => 'cancelled',
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['cancelledAndRefunded']
+                    ]
+                )
+            ],
+            [
+                'name' => 'Errors',
+                'id' => 'errorsCount',
+                'subid' => 'errorsCountSub',
+                'statusColourClass' => 'error',
+                'hideIfZero' => true,
+                'filter' => json_encode(
+                    [
+                        'status' => $orderCountStatusGroups['errors']
+                    ]
+                )
             ],
         ],
     ],

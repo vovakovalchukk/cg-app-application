@@ -7,15 +7,18 @@ class UnitService
 {
     const UNIT_DAY = 'day';
     const UNIT_MONTH = 'month';
+    const UNIT_WEEK = 'week';
 
     const UNIT_MAP = [
         self::UNIT_DAY => 'P1D',
-        self::UNIT_MONTH => 'P1M'
+        self::UNIT_MONTH => 'P1M',
+        self::UNIT_WEEK => 'P1W'
     ];
 
     const UNIT_CONVERSION_MAP = [
         self::UNIT_DAY => DateTime::FORMAT_DATE,
-        self::UNIT_MONTH => 'M-Y'
+        self::UNIT_MONTH => 'M-Y',
+        self::UNIT_WEEK => DateTime::FORMAT_DATE
     ];
 
     public function createZeroFilledArray(DateTime $start, DateTime $end, string $unit, array $subKeys)

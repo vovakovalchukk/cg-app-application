@@ -20,8 +20,12 @@ class SalesController extends AbstractActionController
     /** @var UIFiltersService $uiFiltersService */
     protected $uiFiltersService;
 
-    public function __construct(ViewModelFactory $viewModelFactory, SalesService $service, FilterService $filterService, UIFiltersService $uiFilterService)
-    {
+    public function __construct(
+        ViewModelFactory $viewModelFactory,
+        SalesService $service,
+        FilterService $filterService,
+        UIFiltersService $uiFilterService
+    ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->salesService = $service;
         $this->filterService = $filterService;
@@ -32,7 +36,16 @@ class SalesController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance();
         $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getHideFiltersView(), 'hideFilters');
         return $view;
+    }
+
+    protected function getHideFiltersView()
+    {
+        $hideFilters = $this->viewModelFactory->newInstance();
+        $hideFilters->setTemplate('orders/orders/bulk-actions/index');
+        $hideFilters->setVariable('isHeaderBarVisible', true);
+        return $hideFilters;
     }
 
     protected function getFilterBar()
