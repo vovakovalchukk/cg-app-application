@@ -4,6 +4,8 @@ namespace Settings\Invoice;
 use CG\Account\Client\Entity as Account;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
+use CG\Amazon\Region\Service as AmazonRegionService;
+use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
@@ -16,10 +18,10 @@ use CG\Settings\InvoiceMapping\Entity as InvoiceMapping;
 use CG\Settings\InvoiceMapping\Filter as InvoiceMappingFilter;
 use CG\Settings\InvoiceMapping\Mapper as InvoiceMappingMapper;
 use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
-use CG\Stdlib\DateTime;
 
 class Mappings
 {
@@ -42,6 +44,8 @@ class Mappings
     protected $accountService;
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var AmazonRegionService $amazonRegionService */
+    protected $amazonRegionService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -51,7 +55,8 @@ class Mappings
         InvoiceMappingService $invoiceMappingService,
         InvoiceMappingMapper $invoiceMappingMapper,
         AccountService $accountService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        AmazonRegionService $amazonRegionService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->helper = $helper;
@@ -61,6 +66,7 @@ class Mappings
         $this->invoiceMappingMapper = $invoiceMappingMapper;
         $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->amazonRegionService = $amazonRegionService;
     }
 
     public function saveInvoiceMappingFromPostData(array $postData)
@@ -171,7 +177,7 @@ class Mappings
 
         try {
             $existingMappings = $this->invoiceMappingService->fetchCollectionByFilter(
-                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())
+                (new InvoiceMappingFilter())->setAccountId($accounts->getIds())->setLimit('all')
             );
 
             /** @var InvoiceMapping $existingMapping */
@@ -188,9 +194,26 @@ class Mappings
         foreach ($accounts as $account) {
             $accountId = $account->getId();
 
-            $accountSites = [null];
+            $accountSites = [];
             if (isset($accountSiteMap[$accountId]) && !empty($accountSiteMap[$accountId])) {
                 $accountSites = $accountSiteMap[$accountId];
+            }
+            if ($account->getChannel() == 'ebay' && $account->getExternalData()['globalShippingProgram']) {
+                $accountSites = array_unique(array_merge(
+                    $accountSites,
+                    array_keys(EbaySiteMap::getSiteIdByCountryCode())
+                ));
+            }
+            if ($account->getChannel() == 'amazon' && $account->getExternalData()['fbaOrderImport']){
+                $accountSites = array_unique(array_merge(
+                    $accountSites,
+                    array_keys($this->amazonRegionService->getRegion($account)->getMarketplaces())
+                ));
+            }
+            sort($accountSites);
+
+            if (empty($accountSites)) {
+                $accountSites[] = null;
             }
 
             foreach ($accountSites as $site) {

@@ -1,13 +1,11 @@
 define([
-    'react',
-    'Common/Components/Select'
+    'react'
 ], function(
-    React,
-    Select
+    React
 ) {
     "use strict";
 
-    var ListComponent = React.createClass({
+    return React.createClass({
         filterPurchaseOrders: function (purchaseOrder) {
             if (this.props.filterStatus === 'All') {
                 return purchaseOrder;
@@ -17,8 +15,8 @@ define([
             }
         },
         sortPurchaseOrders: function (purchaseOrderA, purchaseOrderB) {
-            var dateA = Date.parse(purchaseOrderA.date);
-            var dateB = Date.parse(purchaseOrderB.date);
+            const dateA = Date.parse(purchaseOrderA.date);
+            const dateB = Date.parse(purchaseOrderB.date);
             return (this.props.sortAsc ? (dateA < dateB) : (dateA > dateB));
         },
         onRowClick: function (purchaseOrder) {
@@ -37,7 +35,7 @@ define([
                     </div>
                     <div className="body">
                         {this.props.purchaseOrders.filter(this.filterPurchaseOrders).sort(this.sortPurchaseOrders).map(function (purchaseOrder) {
-                            var statusClass = purchaseOrder.status.replace(" ", "_").toLowerCase();
+                            const statusClass = purchaseOrder.status.replace(" ", "_").toLowerCase();
                             return (
                                 <div className="row hoverable" onClick={this.onRowClick.bind(this, purchaseOrder)}>
                                     <div className="cell"><span className={"status " + statusClass}>{purchaseOrder.status}</span></div>
@@ -52,6 +50,4 @@ define([
             );
         }
     });
-
-    return ListComponent;
 });
