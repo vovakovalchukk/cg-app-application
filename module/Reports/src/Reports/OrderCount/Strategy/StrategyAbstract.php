@@ -40,7 +40,7 @@ abstract class StrategyAbstract implements StrategyInterface
 
     protected function incrementWithTypeValue(Order $order, string $strategyType, $current)
     {
-        return $current + $this->typeFactory->getStrategyType($strategyType)->getIncreaseValue($order);
+        return round($current + $this->typeFactory->getStrategyType($strategyType)->getIncreaseValue($order), 2);
     }
 
     protected function getStrategyTypeKey(string $strategyType)

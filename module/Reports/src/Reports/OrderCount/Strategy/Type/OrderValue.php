@@ -18,8 +18,12 @@ class OrderValue implements TypeInterface
 
     public function getIncreaseValue(Order $order)
     {
-        if ($order->getCurrencyCode() == ExchangeService::DEFAULT_BASE_CURRENCY_CODE) {
-            return (int) $order->getTotal();
+        if ($order->getTotal() === 0) {
+            return 0;
+        }
+
+        if (empty($order->getCurrencyCode()) || $order->getCurrencyCode() == ExchangeService::DEFAULT_BASE_CURRENCY_CODE) {
+            return $order->getTotal();
         }
 
         return $this->exchangeService->convertAmount(
