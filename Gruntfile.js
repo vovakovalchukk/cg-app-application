@@ -49,13 +49,23 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            vendorCssToCgBuilt: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/channelgrabber/vendor/',
+                        src: [ '**/dist/**/*.css' ],
+                        dest: 'public/cg-built/vendor'
+                    }
+                ]
+            },
             vendorJsToCgBuilt: {
                 files: [
                     {
                         expand: true,
-                        cwd: 'vendor/channelgrabber/',
-                        src: [ '**/js/**/*.js'],
-                        dest: 'public/cg-built/'
+                        cwd: 'public/channelgrabber/vendor/',
+                        src: [ '**/dist/**/*.min.js' ],
+                        dest: 'public/cg-built/vendor'
                     }
                 ]
             },
@@ -118,7 +128,7 @@ module.exports = function(grunt) {
                     dir: "public/cg-built",
                     paths: {
                         orders: "../../../public/channelgrabber/orders",
-                        Filters: "../../../public/channelgrabber/filters/js",
+                        Filters: "../../../public/channelgrabber/filters/js"
                     },
                     modules: [{
                         name: "main"
@@ -171,6 +181,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install:css', ['compileCss-gen']);
     grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'compileJsx', 'compileEs6', 'copyVanillaJs', 'requirejs:compile']);
+    grunt.registerTask('install:vendor', ['copy:vendorCssToCgBuilt', 'copy:vendorJsToCgBuilt']);
 
-    grunt.registerTask('install', ['install:css', 'install:js']);
+    grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor']);
 };

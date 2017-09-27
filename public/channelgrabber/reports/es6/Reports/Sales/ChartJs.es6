@@ -1,6 +1,6 @@
 define([
     'Reports/OrderCounts/Response',
-    'ChartJs/Chart.bundle.min'
+    'ChartJs'
 ], function(
     Response,
     Chart

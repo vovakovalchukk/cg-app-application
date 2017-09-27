@@ -8,8 +8,7 @@
     $(document).ready(function() {
         require.config({
             paths: {
-                'Reports': "<?=$this->basePath() . Reports\Module::PUBLIC_FOLDER . 'js/Reports';?>",
-                'ChartJs': "<?=$this->basePath() . '/cg-built/vendor/chart.js/dist';?>"
+                'Reports': "<?=$this->basePath() . Reports\Module::PUBLIC_FOLDER . 'js/Reports';?>"
             }
         });
         require([
