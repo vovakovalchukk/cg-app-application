@@ -13,7 +13,7 @@ define([
             showHideFilters();
 
             $(document).on('showHideFilters-triggered', function() {
-                $('#sub-header').toggle();
+                $('#sub-header').toggle(50);
             });
         }
 

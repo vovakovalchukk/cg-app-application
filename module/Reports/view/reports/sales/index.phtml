@@ -2,13 +2,14 @@
 <div id="bulk-actions" class="sales-report">
     <?php echo $hideFilters; ?>
 </div>
-<?php $this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js'); ?>
+<?php //$this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js'); ?>
 
 <?php $this->inlineScript()->captureStart(); ?>
     $(document).ready(function() {
         require.config({
             paths: {
-                'Reports': "<?=$this->basePath() . Reports\Module::PUBLIC_FOLDER . 'js/Reports';?>"
+                'Reports': "<?=$this->basePath() . Reports\Module::PUBLIC_FOLDER . 'js/Reports';?>",
+                'ChartJs': "<?=$this->basePath() . '/cg-built/vendor/chart.js/dist';?>"
             }
         });
         require([

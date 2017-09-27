@@ -1,7 +1,9 @@
 define([
-    'Reports/OrderCounts/Response'
+    'Reports/OrderCounts/Response',
+    'ChartJs/Chart.bundle.min'
 ], function(
-    Response
+    Response,
+    Chart
 ) {
     class ChartJs {
         constructor() {
