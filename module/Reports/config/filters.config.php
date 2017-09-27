@@ -53,7 +53,6 @@ return [
                     ]
                 ]
             ],
-        ],
-        'stateFilters' => FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_STATE_FILTERS)
+        ]
     ],
 ];
