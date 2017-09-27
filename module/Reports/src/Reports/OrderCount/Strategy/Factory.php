@@ -22,7 +22,7 @@ class Factory implements LoggerAwareInterface
     {
         $class = $this->getClassNameByStrategyName($strategy);
         if (!class_exists($class)) {
-            $this->logWarning('Strategy %s doesn\'t exist, using NullNotifier.', [$class], static::LOG_CODE);
+            $this->logWarning('Strategy %s doesn\'t exist, using NullStrategy.', [$class], static::LOG_CODE);
             $class = NullStrategy::class;
         }
 

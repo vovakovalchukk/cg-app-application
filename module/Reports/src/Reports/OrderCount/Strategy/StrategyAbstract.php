@@ -18,7 +18,7 @@ abstract class StrategyAbstract implements StrategyInterface
         $this->typeFactory = $factory;
     }
 
-    abstract function buildFromCollection(Orders $orders, string $unit, array $strategyType);
+    abstract function buildFromCollection(Orders $orders, string $unit, array $strategyType): array;
 
     protected function getLastOrder(Orders $orders): Order
     {
@@ -38,7 +38,7 @@ abstract class StrategyAbstract implements StrategyInterface
         return $this->unitService->createZeroFilledArray($startDateTime, $endDateTime, $unit, $typeKey);
     }
 
-    protected function getNewValue(Order $order, string $strategyType, $current)
+    protected function incrementWithTypeValue(Order $order, string $strategyType, $current)
     {
         return $current + $this->typeFactory->getStrategyType($strategyType)->getIncreaseValue($order);
     }

@@ -6,7 +6,7 @@ use CG\Order\Shared\Entity as Order;
 
 class Total extends StrategyAbstract
 {
-    public function buildFromCollection(Orders $orders, string $unit, array $strategyType)
+    public function buildFromCollection(Orders $orders, string $unit, array $strategyType): array
     {
         $counts = $this->createZeroFilledArrayForOrders($orders, $unit, $strategyType);
         /** @var Order $order */
@@ -15,7 +15,7 @@ class Total extends StrategyAbstract
                 $typeKey = $this->getStrategyTypeKey($type);
                 $unitKey = $this->unitService->formatUnitForEntityFromString($order->getPurchaseDate(), $unit);
                 $current = isset($counts[$unitKey][$typeKey]) ? $counts[$unitKey][$typeKey] : 0;
-                $counts[$unitKey][$typeKey] = $this->getNewValue($order, $type, $current);
+                $counts[$unitKey][$typeKey] = $this->incrementWithTypeValue($order, $type, $current);
             }
         }
         return $counts;

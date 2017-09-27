@@ -5,8 +5,9 @@ use CG\Order\Shared\Collection as Orders;
 
 class NullStrategy implements StrategyInterface
 {
-    public function buildFromCollection(Orders $orders, string $unit)
+    public function buildFromCollection(Orders $orders, string $unit, array $strategyType): array
     {
-        // No-op
+        // Return an empty array
+        return [];
     }
 }

@@ -7,7 +7,7 @@ use CG\Stdlib\DateTime;
 
 class Channel extends StrategyAbstract
 {
-    public function buildFromCollection(Orders $orders, string $unit, array $strategyType)
+    public function buildFromCollection(Orders $orders, string $unit, array $strategyType): array
     {
         $counts = $this->createDefaultArrayByChannel(
             $this->getStartEndDatesByChannel($orders),
@@ -21,7 +21,7 @@ class Channel extends StrategyAbstract
                 $typeKey = $this->getStrategyTypeKey($type);
                 $unitKey = $this->unitService->formatUnitForEntityFromString($order->getPurchaseDate(), $unit);
                 $current = isset($counts[$order->getChannel()][$unitKey][$typeKey]) ? $counts[$order->getChannel()][$unitKey][$typeKey] : 0;
-                $counts[$order->getChannel()][$unitKey][$typeKey] = $this->getNewValue($order, $type, $current);
+                $counts[$order->getChannel()][$unitKey][$typeKey] = $this->incrementWithTypeValue($order, $type, $current);
             }
         }
 
