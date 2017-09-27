@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a0ca56d6363631da10a73d7495575a5",
+    "content-hash": "943a97cfbd8403ccd7f178b3258f1d9e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -676,20 +676,20 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.19",
+            "version": "1.0.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88"
+                "reference": "4db96a5203de216446b21a0eaf18bc9b9ae9fbb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.19-fcf2ed.zip",
-                "reference": "29d1af375bcfdcaea1fdd91fb856bd080abe3d88",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.20-5eed6c.zip",
+                "reference": "4db96a5203de216446b21a0eaf18bc9b9ae9fbb8",
                 "shasum": null
             },
             "require": {
@@ -720,7 +720,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-04-27T10:57:28+00:00"
+            "time": "2017-09-20T12:18:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1405,16 +1405,16 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.1.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "f93d45869e3b8e7f3835030a22dd344a9db05917"
+                "reference": "692fd47eedc4362e7d986ad78dbec941ae0f59c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.1.1.1-d2ed78.zip",
-                "reference": "f93d45869e3b8e7f3835030a22dd344a9db05917",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.1.2-f68d99.zip",
+                "reference": "692fd47eedc4362e7d986ad78dbec941ae0f59c7",
                 "shasum": null
             },
             "require": {
@@ -1442,7 +1442,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2017-03-07T10:33:56+00:00"
+            "time": "2017-09-25T12:29:20+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -4162,7 +4162,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-28T09:38:16+00:00"
+            "time": "2015-09-28 09:38:16"
         },
         {
             "name": "composer/semver",
@@ -5556,7 +5556,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2015-08-21T07:54:03+00:00"
+            "time": "2015-08-21 07:54:03"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -5607,7 +5607,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2015-07-22T08:39:53+00:00"
+            "time": "2015-07-22 08:39:53"
         },
         {
             "name": "php-units-of-measure/php-units-of-measure",
@@ -5700,7 +5700,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6169,7 +6169,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
