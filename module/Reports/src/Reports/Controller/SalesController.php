@@ -50,7 +50,7 @@ class SalesController extends AbstractActionController
 
     protected function getFilterBar()
     {
-        $filterValues = $this->filterService->getPersistentFilter();
+        $filterValues = $this->filterService->createDisplayFilter();
         $filters = $this->uiFiltersService->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }
