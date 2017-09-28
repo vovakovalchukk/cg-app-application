@@ -181,6 +181,11 @@ use CG\ExchangeRate\StorageInterface as ExchangeRateStorage;
 // Sites
 use CG\Stdlib\Sites;
 
+// Ekm\Registration
+use CG\Ekm\Registration\Service as EkmRegistrationService;
+use CG\Ekm\Registration\Storage\Api as EkmRegistrationApi;
+use CG\Ekm\Registration\StorageInterface as EkmRegistrationStorage;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -223,6 +228,7 @@ $config = array(
                 RolloutStorage::class => RolloutRedisStorage::class,
                 StockImportInterface::class => StockImportFileS3::class,
                 LocationStorage::class => LocationApiStorage::class,
+                EkmRegistrationStorage::class => EkmRegistrationApi::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -637,6 +643,16 @@ $config = array(
             TokenStorageApi::class => [
                 'parameters' => [
                     'client' => 'billing_guzzle'
+                ]
+            ],
+            EkmRegistrationApi::class => array(
+                'parameter' => array(
+                    'client' => 'cg_app_guzzle'
+                )
+            ),
+            EkmRegistrationService::class => [
+                'parameters' => [
+                    'repository' => EkmRegistrationApi::class,
                 ]
             ],
             Sites::class => [
