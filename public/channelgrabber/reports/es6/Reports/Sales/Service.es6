@@ -15,7 +15,6 @@ define([
             this.data = {};
             this.requestData = {};
 
-
             this.selectors = {
                 channelFilterInput: ".channel-filter input[type='checkbox']",
                 dataTypeFilter: "input[name='data-type']",
@@ -135,7 +134,7 @@ define([
         _resetRequestData() {
             this.requestData = {
                 'strategy': ['channel', 'total'],
-                'strategyType': ['count', 'orderValue'],
+                'strategyType': ['count'],
                 'unitType': 'week'
             };
         }

@@ -48,6 +48,8 @@
 }
 
 .data-type-filter {
+  // @TODO: show this after fixing the currency issue
+  display: none;
   .switch-toggle {
     label {
       outline: none !important;
