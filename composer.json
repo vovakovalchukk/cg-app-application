@@ -92,7 +92,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-stdlib": "~1.2.2",
         "channelgrabber/zf2-usage": "~1.0.12",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-8882-sales-graph as 1.19.2",
+        "channelgrabber/zf2-v4-ui": "~1.19.3",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "guzzle/guzzle": "~3.7",
