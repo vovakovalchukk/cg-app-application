@@ -1,0 +1,77 @@
+.chart-container {
+  margin-top: 25px;
+  margin-left: 15px;
+  width: 95%;
+  max-width: 1600px;
+  max-height: 800px;
+}
+
+.channel-filters {
+
+  .channel-filter {
+    display: none;
+  }
+
+  .checkbox-holder {
+    width: auto;
+    margin-top: 15px;
+  }
+
+  span.logo:before {
+    content: '\2022';
+    float: left;
+    font-size: 30px;
+    line-height: 0;
+    text-indent: initial;
+    height: 10px;
+    margin-left: -11px;
+    margin-top: 7px;
+  }
+
+  .channel-filter-total {
+    span.logo {
+      width: 100px;
+      height: 23px;
+      text-align: center;
+      text-indent: initial;
+      text-transform: capitalize;
+    }
+    span.logo-text {
+      color: black !important;
+    }
+  }
+
+  .logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.data-type-filter {
+  // @TODO: show this after fixing the currency issue
+  display: none;
+  .switch-toggle {
+    label {
+      outline: none !important;
+    }
+    a {
+      background-color: $color-vlblue;
+      border: 1px solid $color-mgrey;
+    }
+    font-size: 12px;
+    margin: 20px 3px;
+    outline: none;
+    background-color: initial !important;
+    label {
+      color: initial !important;
+      text-shadow: none !important;
+    }
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+}
+
+.sales-report {
+  .double-arrow {
+    margin-top: -1px !important;
+  }
+}

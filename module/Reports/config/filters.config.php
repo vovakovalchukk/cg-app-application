@@ -2,7 +2,7 @@
 
 use CG_UI\View\Filters\Service as FilterService;
 use Filters\Service as FilterConfigService;
-use Orders\Controller\OrdersController;
+use Reports\Controller\SalesController;
 
 return [
     'di' => [
@@ -15,7 +15,7 @@ return [
         ]
     ],
     'filters' => [
-        OrdersController::FILTER_TYPE => [
+        SalesController::FILTER_TYPE => [
             'rows' => [
                 [
                     'type' => 'Row',
@@ -29,8 +29,7 @@ return [
                             [
                                 'buttons' => [
                                     FilterConfigService::FILTER_ORDER_BUTTON_APPLY,
-                                    FilterConfigService::FILTER_ORDER_BUTTON_CLEAR,
-                                    FilterConfigService::FILTER_ORDER_BUTTON_SAVE
+                                    FilterConfigService::FILTER_ORDER_BUTTON_CLEAR
                                 ]
                             ]
                         )
@@ -54,7 +53,6 @@ return [
                     ]
                 ]
             ],
-        ],
-        'stateFilters' => FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_STATE_FILTERS)
+        ]
     ],
 ];

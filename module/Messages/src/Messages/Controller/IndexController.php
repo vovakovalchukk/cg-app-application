@@ -1,11 +1,9 @@
 <?php
 namespace Messages\Controller;
 
-use CG\Communication\Thread\Status as ThreadStatus;
-use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\User\Service as UserService;
-use Messages\Module;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 

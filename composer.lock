@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e88be1fea905d90f974d5b98d7d1e7ac",
+    "content-hash": "d8e24b452704c18a57584864ab21e195",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3888,12 +3888,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c510c7551b4a07ee9741d5f952362781bd151161"
+                "reference": "417eb2ada8277cf7be6df9892dbca8d0e86838ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8900-Register-Endpoint-222a15.zip",
-                "reference": "c510c7551b4a07ee9741d5f952362781bd151161",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8900-Register-Endpoint-e6fc82.zip",
+                "reference": "417eb2ada8277cf7be6df9892dbca8d0e86838ba",
                 "shasum": null
             },
             "require": {
@@ -3901,6 +3901,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
+                "channelgrabber/feature-flags": "^1.0.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
@@ -3943,7 +3944,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-09-28 19:41:42"
+            "time": "2017-09-28 19:55:42"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9095,8 +9096,8 @@
             "package": "channelgrabber/ekm"
         },
         {
-            "alias": "1.19.2",
-            "alias_normalized": "1.19.2.0",
+            "alias": "1.19.4",
+            "alias_normalized": "1.19.4.0",
             "version": "dev-CGIV-8900-Register-Endpoint",
             "package": "channelgrabber/zf2-v4-ui"
         }
