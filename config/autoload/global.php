@@ -174,6 +174,9 @@ use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
 use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
 use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
 
+// Sites
+use CG\Stdlib\Sites;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -624,6 +627,11 @@ $config = array(
             TokenStorageApi::class => [
                 'parameters' => [
                     'client' => 'billing_guzzle'
+                ]
+            ],
+            Sites::class => [
+                'parameters' => [
+                    'config' => 'config'
                 ]
             ],
         ),
