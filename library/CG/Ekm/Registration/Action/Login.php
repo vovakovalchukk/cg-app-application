@@ -1,28 +1,43 @@
 <?php
 namespace CG\Ekm\Registration\Action;
 
+use CG\Account\Shared\Entity as Account;
 use CG\Ekm\Account\Service as EkmAccountService;
+use CG\Ekm\Registration\Entity as Registration;
+use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedInUser;
+use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedOutUser;
+use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
+use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\LoginException;
+use CG\Stdlib\Exception\Runtime\NotAuthorisedException;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\SetupIncomplete;
 use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Ekm\Registration\Exception\Runtime\RegistrationNotProcessed;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
+use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
-use CG\Stdlib\Exception\Runtime\NotAuthorisedException;
+use Exception;
 
 class Login implements LoggerAwareInterface
 {
     use LogTrait;
 
     const LOG_CODE = 'RegistrationLoginAction';
-    const LOG_CODE_NOT_FOUND = 'NotFound';
-    const LOG_MSG_REGISTRATION_NOT_FOUND = 'Failed to find registration. EKM Username: %s';
+    const LOG_CODE_CHECK_LOGIN_STATUS = 'CheckLoggedInStatus';
+    const LOG_MSG_LOGGED_OUT_USER = 'Logged out user. Token: %s';
+    const LOG_CODE_REGISTRATION_NOT_FOUND = 'RegistrationNotFound';
+    const LOG_MSG_REGISTRATION_NOT_FOUND = 'Failed to find registration. Token: %s';
+    const LOG_CODE_REGISTRATION_STATUS = 'RegistrationStatus';
+    const LOG_MSG_REGISTRATION_NOT_PROCESSED = 'Registration (%d) not processed. EKM Username: %s, Email: %s, Token: %s';
+    const LOG_CODE_REGISTRATION_ATTEMPT = 'RegistrationAttempt';
+    const LOG_MSG_REGISTRATION_RECREATE_JOB = 'Recreating registration (%d) Gearman job. EKM Username: %s, Email: %s, Token: %s';
+    const LOG_CODE_AUTO_LOGIN = 'AutoLogin';
+    const LOG_MSG_AUTO_LOGIN_ERROR = 'Failed to login user for registration (%d), an error occurred. EKM Account: %d, EKM Username: %s, Email: %s, Token: %s';
 
     /** @var  RegistrationService $registrationService */
     protected $registrationService;
@@ -53,92 +68,70 @@ class Login implements LoggerAwareInterface
         $this->organisationUnitService = $organisationUnitService;
     }
 
-    public function __invoke(string $ekmUsername, string $token): void
+    public function __invoke(string $token): Registration
     {
+        // Check user logged in
         try {
-            $this->redirectActiveUser();
+            $user = $this->checkUserLoggedIn();
         } catch(LoginException $e) {
-            // No-op: Continue to attempt login
+            $this->logDebug(static::LOG_MSG_LOGGED_OUT_USER, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_CHECK_LOGIN_STATUS]);
+            // No-op
         }
 
+        // Fetch registration
         try {
-            $this->verifyRegistration($ekmUsername, $token);
+            $registration = $this->registrationService->fetchByToken($token);
         } catch(NotFound $e) {
-            throw $e;
-        } catch(RegistrationNotProcessed $e) {
-            $this->redirectUserToPendingPage();
+            $this->logErrorException($e, static::LOG_MSG_REGISTRATION_NOT_FOUND, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_NOT_FOUND]);
+            throw new RegistrationFailed(static::LOG_CODE_REGISTRATION_NOT_FOUND);
         }
 
+        // Fetch EKM account (checks registration complete: we don't need to check the root organisation unit id on the registration entity)
         try {
-            $this->loginUser($ekmUsername, $token);
-        } catch(LoginException $e) {
-            $this->redirectUserToFailedPage();
+            $ekmAccount = $this->fetchEkmAccount($registration->getEkmUsername());
+        } catch(NotFound $e) {
+            $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
+            $this->recreateEkmRegistrationJob($registration);
+            throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS);
         }
 
-        return;
+        // Check if Setup Wizard complete
+        try {
+            $this->checkSetupWizardCompleted($registration->getOrganisationUnit());
+            if (isset($user)) {
+                throw new RegistrationCompleteForLoggedInUser(static::LOG_CODE_REGISTRATION_STATUS);
+            }
+            throw new RegistrationCompleteForLoggedOutUser(static::LOG_CODE_REGISTRATION_STATUS);
+        } catch(SetupIncomplete $e) {
+            // No-op:
+            // If logged-in: Setup Wizard has taken over.
+            // If not logged-in: Auto-login and redirect to Setup Wizard on the Channel Pick page
+        }
+
+        // Auto-login user
+        try {
+            $this->loginUser($registration->getEkmUsername());
+        } catch(Exception $e) {
+            $this->logErrorException($e, static::LOG_MSG_AUTO_LOGIN_ERROR, ['registration' => $registration->getId(), 'ekmAccount' => $ekmAccount->getId(), 'ekmUsername' => $ekmAccount->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $registration->getToken()], [static::LOG_CODE, static::LOG_CODE_AUTO_LOGIN]);
+            throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN);
+        }
+
+        return $registration;
     }
 
-    protected function verifyRegistration(string $ekmUsername, $token): void
-    {
-        try {
-            $registration = $this->registrationService->fetchByEkmUsernameAndToken($ekmUsername, $token);
-        } catch(NotFound $e) {
-            $this->logErrorException($e, static::LOG_MSG_REGISTRATION_NOT_FOUND, ['ekmUsername' => $ekmUsername], [static::LOG_CODE, static::LOG_CODE_NOT_FOUND]);
-            throw $e;
-        }
-        if (!$registration->getRootOrganisationUnitId()) {
-            throw new RegistrationNotProcessed('Registration not processed for EKM username: '.$ekmUsername);
-        }
-        $registrationJson = $registration->getJson(true);
-    }
-
-    protected function loginUser(string $ekmUsername, $token): void
-    {
-        $ekmAccount = $this->ekmAccountService->fetchByEkmUsername($ekmUsername);
-        $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(
-            $ekmAccount->getOrganisationUnitId()
-        );
-        try {
-            $user = $this->userService->fetchByUsername($ekmUsername);
-        } catch(NotFound $e) {
-            // Log error exception
-            throw new LoginException('Failed to fetch user with username: '.$ekmUsername);
-        }
-        try {
-            $this->loginService->loginUser($user);
-        } catch(NotAuthorisedException $e) {
-            // Log error exception
-            throw new LoginException('Failed to authorize user with username: '.$ekmUsername);
-        }
-
-        $this->redirectUserOnCompletion($rootOrganisationUnit);
-        return;
-    }
-
-    protected function redirectActiveUser(): void
+    protected function checkUserLoggedIn(): User
     {
         if (!$user = $this->activeUserContainer->getActiveUser()) {
             throw new LoginException('User is not logged in');
         }
         try {
-            $rootOrganisationUnit = $this->organisationUnitService->fetch(
+            $this->organisationUnitService->fetch(
                 $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
             );
+            return $user;
         } catch(NotFound $e) {
             throw new LoginException('Failed to find root organisation unit for active user');
         }
-        return $this->redirectUserOnCompletion($rootOrganisationUnit);
-    }
-
-    protected function redirectUserOnCompletion(OrganisationUnit $rootOrganisationUnit): void
-    {
-        try {
-            $this->checkSetupWizardCompleted($rootOrganisationUnit);
-        } catch(SetupIncomplete $e) {
-            $this->redirectUserToSetupChannelPickPage();
-        }
-        $this->redirectUserToLoginPage();
-        return;
     }
 
     protected function checkSetupWizardCompleted(OrganisationUnit $rootOrganisationUnit): void
@@ -149,23 +142,30 @@ class Login implements LoggerAwareInterface
         return;
     }
 
-    protected function redirectUserToSetupChannelPickPage(): void
+    protected function fetchEkmAccount(string $ekmUsername): Account
     {
-        $setupChannelPickUrl = $this->registrationService->getSetupChannelPickUrl();
+        return $this->ekmAccountService->fetchByEkmUsername($ekmUsername);
     }
 
-    protected function redirectUserToLoginPage(): void
+    protected function recreateEkmRegistrationJob(Registration $registration): void
     {
-        $loginUrl = $this->registrationService->getLoginUrl();
+        $this->registrationService->save($registration);
+        return;
+
     }
 
-    protected function redirectUserToPendingPage(): void
+    protected function loginUser(string $ekmUsername): void
     {
-        $pendingUrl = $this->registrationService->getPendingUrl();
-    }
-
-    protected function redirectUserToFailedPage(): void
-    {
-        $supportUrl = $this->registrationService->getFailedUrl();
+        try {
+            $user = $this->userService->fetchByUsername($ekmUsername);
+        } catch(NotFound $e) {
+            throw new LoginException('Failed to fetch user with username: '.$ekmUsername);
+        }
+        try {
+            $this->loginService->loginUser($user);
+        } catch(NotAuthorisedException $e) {
+            throw new LoginException('Failed to authorize user with username: '.$ekmUsername);
+        }
+        return;
     }
 }
