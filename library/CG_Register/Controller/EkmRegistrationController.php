@@ -59,8 +59,6 @@ class EkmRegistrationController extends AbstractActionController implements Logg
 
     public function indexAction()
     {
-        $requestQuery = $this->getRequest()->getQuery()->toArray();
-
         /** @var int $status */
         $status = $this->params()->fromQuery('status', null);
 
