@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "75c542bd10b4978eec142520fc7f0114",
+    "content-hash": "61f4d183a0c81d427b6ee6c5855fd807",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -888,7 +888,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "00e5115f794b31a6fb6d3a0a9b2aa586feab92b3"
+                "reference": "0fb4c8c22d2ddca0bf3523840c5ceabad2d3aae0"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -3614,17 +3614,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.14",
+            "version": "dev-CGIV-8900-Register-Endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "2ad81d388795ca792c42a10ae51f49a8c1c902ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.14-b19a7b.zip",
-                "reference": "2ad81d388795ca792c42a10ae51f49a8c1c902ba",
-                "shasum": null
+                "reference": "ebbb2bc2dec763bd25aefdd0be56cc419a1eb3f2"
             },
             "require": {
                 "channelgrabber/cglib": "^1.11.6",
@@ -9096,6 +9090,12 @@
             "package": "channelgrabber/stdlib"
         },
         {
+            "alias": "1.5.15",
+            "alias_normalized": "1.5.15.0",
+            "version": "dev-CGIV-8900-Register-Endpoint",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
             "alias": "1.19.4",
             "alias_normalized": "1.19.4.0",
             "version": "dev-CGIV-8900-Register-Endpoint",
@@ -9108,6 +9108,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ekm": 20,
         "channelgrabber/stdlib": 20,
+        "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
