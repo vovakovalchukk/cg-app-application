@@ -22,6 +22,7 @@ use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
 use CG\Permission\Exception as PermissionException;
+use CG\Http\Exception\Exception3xx\NotModified;
 use Exception;
 
 class Login implements LoggerAwareInterface
@@ -133,7 +134,11 @@ class Login implements LoggerAwareInterface
 
     public function recreateEkmRegistrationGearmanJob(Registration $registration): void
     {
-        $this->registrationService->save($registration);
+        try {
+            $this->registrationService->save($registration);
+        } catch(NotModified $e) {
+            // No-op
+        }
         return;
     }
 
