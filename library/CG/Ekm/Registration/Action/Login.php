@@ -92,7 +92,7 @@ class Login implements LoggerAwareInterface
             $this->fetchEkmAccount($registration->getEkmUsername());
         } catch(NotFound $e) {
             $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
-            $this->recreateEkmRegistrationJob($registration);
+            $this->recreateEkmRegistrationGearmanJob($registration);
             throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS.': '.$e->getMessage());
         } catch(PermissionException $e) {
             // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
@@ -130,6 +130,12 @@ class Login implements LoggerAwareInterface
         return $registration;
     }
 
+    public function recreateEkmRegistrationGearmanJob(Registration $registration): void
+    {
+        $this->registrationService->save($registration);
+        return;
+    }
+
     protected function checkUserLoggedIn(): User
     {
         if (!$user = $this->activeUserContainer->getActiveUser()) {
@@ -156,13 +162,6 @@ class Login implements LoggerAwareInterface
     protected function fetchEkmAccount(string $ekmUsername): Account
     {
         return $this->ekmAccountService->fetchByEkmUsername($ekmUsername);
-    }
-
-    protected function recreateEkmRegistrationJob(Registration $registration): void
-    {
-        $this->registrationService->save($registration);
-        return;
-
     }
 
     protected function loginUser(string $ekmUsername): void

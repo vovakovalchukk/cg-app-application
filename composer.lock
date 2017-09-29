@@ -3618,7 +3618,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "9a011195ab637ca669b9b0bc361b747976887acd"
+                "reference": "c256a41d2cc36cae0addfdb83a4dfb341f4bd6e2"
             },
             "require": {
                 "channelgrabber/cglib": "^1.11.6",
