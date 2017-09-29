@@ -87,7 +87,7 @@ class Login implements LoggerAwareInterface
             throw new RegistrationFailed(static::LOG_CODE_REGISTRATION_NOT_FOUND.': '.$e->getMessage());
         }
 
-        // Fetch EKM account (checks registration complete: we don't need to check the root organisation unit id on the registration entity)
+        // Fetch EKM account
         try {
             $this->fetchEkmAccount($registration->getEkmUsername());
         } catch(NotFound $e) {
@@ -103,7 +103,7 @@ class Login implements LoggerAwareInterface
             /** @var OrganisationUnit $rootOrganisationUnit */
             $rootOrganisationUnit = $this->organisationUnitService->fetch($registration->getOrganisationUnitId());
         } catch(NotFound $e) {
-            throw new LoginException('Failed to find root organisation unit for active user');
+            throw new LoginException('Failed to find root organisation unit for registration');
         }
 
         // Check if Setup Wizard complete
@@ -127,6 +127,7 @@ class Login implements LoggerAwareInterface
             throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN.': '.$e->getMessage());
         }
 
+        // Setup Wizard takes over - handles redirect
         return $registration;
     }
 
