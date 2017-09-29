@@ -62,7 +62,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         $requestQuery = $this->getRequest()->getQuery()->toArray();
 
         /** @var int $status */
-        $status = isset($requestQuery['status']) ? $requestQuery['status'] : null;
+        $status = $this->params()->fromQuery('status', null);
 
         /** @var string $token */
         if (!$token = $this->getToken()) {
@@ -97,7 +97,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         $requestQuery = $this->getRequest()->getQuery()->toArray();
 
         /** @var string $token */
-        $token = isset($requestQuery['token']) ? $requestQuery['token'] : null;
+        $token = $this->params()->fromQuery('token', null);
 
         return urldecode($token);
     }
