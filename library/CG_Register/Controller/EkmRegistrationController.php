@@ -70,7 +70,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         }
 
         try {
-            $registration = $this->registrationLoginAction->__invoke($token);
+            ($this->registrationLoginAction)($token);
         } catch(RegistrationPending $e) {
             if (isset($status) && $status == static::STATUS_FAILED) {
                 return $this->failedAction();
@@ -93,9 +93,6 @@ class EkmRegistrationController extends AbstractActionController implements Logg
 
     protected function getToken(): ?string
     {
-        /** @var array $requestQuery */
-        $requestQuery = $this->getRequest()->getQuery()->toArray();
-
         /** @var string $token */
         $token = $this->params()->fromQuery('token', null);
 
