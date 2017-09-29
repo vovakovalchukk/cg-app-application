@@ -21,6 +21,7 @@ use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
+use CG\Permission\Exception as PermissionException;
 use Exception;
 
 class Login implements LoggerAwareInterface
@@ -37,7 +38,7 @@ class Login implements LoggerAwareInterface
     const LOG_CODE_REGISTRATION_ATTEMPT = 'RegistrationAttempt';
     const LOG_MSG_REGISTRATION_RECREATE_JOB = 'Recreating registration (%d) Gearman job. EKM Username: %s, Email: %s, Token: %s';
     const LOG_CODE_AUTO_LOGIN = 'AutoLogin';
-    const LOG_MSG_AUTO_LOGIN_ERROR = 'Failed to login user for registration (%d), an error occurred. EKM Account: %d, EKM Username: %s, Email: %s, Token: %s';
+    const LOG_MSG_AUTO_LOGIN_ERROR = 'Failed to login user for registration (%d), an error occurred. EKM Username: %s, Email: %s, Token: %s';
 
     /** @var  RegistrationService $registrationService */
     protected $registrationService;
@@ -88,11 +89,13 @@ class Login implements LoggerAwareInterface
 
         // Fetch EKM account (checks registration complete: we don't need to check the root organisation unit id on the registration entity)
         try {
-            $ekmAccount = $this->fetchEkmAccount($registration->getEkmUsername());
+            $this->fetchEkmAccount($registration->getEkmUsername());
         } catch(NotFound $e) {
             $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
             $this->recreateEkmRegistrationJob($registration);
             throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS);
+        } catch(PermissionException $e) {
+            // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
         }
 
         // Check if Setup Wizard complete
@@ -112,7 +115,7 @@ class Login implements LoggerAwareInterface
         try {
             $this->loginUser($registration->getEkmUsername());
         } catch(Exception $e) {
-            $this->logErrorException($e, static::LOG_MSG_AUTO_LOGIN_ERROR, ['registration' => $registration->getId(), 'ekmAccount' => $ekmAccount->getId(), 'ekmUsername' => $ekmAccount->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $registration->getToken()], [static::LOG_CODE, static::LOG_CODE_AUTO_LOGIN]);
+            $this->logErrorException($e, static::LOG_MSG_AUTO_LOGIN_ERROR, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $registration->getToken()], [static::LOG_CODE, static::LOG_CODE_AUTO_LOGIN]);
             throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN);
         }
 
