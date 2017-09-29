@@ -11,6 +11,7 @@ use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Permission\Exception as PermissionException;
 use CG\Stdlib\Exception\Runtime\LoginException;
 use CG\Stdlib\Exception\Runtime\NotAuthorisedException;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -21,8 +22,6 @@ use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
-use CG\Permission\Exception as PermissionException;
-use CG\Http\Exception\Exception3xx\NotModified;
 use Exception;
 
 class Login implements LoggerAwareInterface
@@ -93,7 +92,7 @@ class Login implements LoggerAwareInterface
             $this->fetchEkmAccount($registration->getEkmUsername());
         } catch(NotFound $e) {
             $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
-            $this->recreateEkmRegistrationGearmanJob($registration);
+            $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
             throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS.': '.$e->getMessage());
         } catch(PermissionException $e) {
             // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
@@ -130,16 +129,6 @@ class Login implements LoggerAwareInterface
 
         // Setup Wizard takes over - handles redirect
         return $registration;
-    }
-
-    public function recreateEkmRegistrationGearmanJob(Registration $registration): void
-    {
-        try {
-            $this->registrationService->save($registration);
-        } catch(NotModified $e) {
-            // No-op
-        }
-        return;
     }
 
     protected function checkUserLoggedIn(): User
