@@ -657,7 +657,7 @@ $config = array(
             ],
             Sites::class => [
                 'parameters' => [
-                    'config' => 'config'
+                    'config' => 'app_config'
                 ]
             ],
         ),
