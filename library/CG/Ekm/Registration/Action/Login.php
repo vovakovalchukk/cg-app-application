@@ -84,7 +84,7 @@ class Login implements LoggerAwareInterface
             $registration = $this->registrationService->fetchByToken($token);
         } catch(NotFound $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_NOT_FOUND, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_NOT_FOUND]);
-            throw new RegistrationFailed(static::LOG_CODE_REGISTRATION_NOT_FOUND);
+            throw new RegistrationFailed(static::LOG_CODE_REGISTRATION_NOT_FOUND.': '.$e->getMessage());
         }
 
         // Fetch EKM account (checks registration complete: we don't need to check the root organisation unit id on the registration entity)
@@ -93,14 +93,22 @@ class Login implements LoggerAwareInterface
         } catch(NotFound $e) {
             $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
             $this->recreateEkmRegistrationJob($registration);
-            throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS);
+            throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS.': '.$e->getMessage());
         } catch(PermissionException $e) {
             // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
         }
 
+        // Fetch root organisation unit
+        try {
+            /** @var OrganisationUnit $rootOrganisationUnit */
+            $rootOrganisationUnit = $this->organisationUnitService->fetch($registration->getOrganisationUnitId());
+        } catch(NotFound $e) {
+            throw new LoginException('Failed to find root organisation unit for active user');
+        }
+
         // Check if Setup Wizard complete
         try {
-            $this->checkSetupWizardCompleted($registration->getOrganisationUnit());
+            $this->checkSetupWizardCompleted($rootOrganisationUnit);
             if (isset($user)) {
                 throw new RegistrationCompleteForLoggedInUser(static::LOG_CODE_REGISTRATION_STATUS);
             }
@@ -113,10 +121,10 @@ class Login implements LoggerAwareInterface
 
         // Auto-login user
         try {
-            $this->loginUser($registration->getEkmUsername());
+            $this->loginUser($registration->getEmailAddress());
         } catch(Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_AUTO_LOGIN_ERROR, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $registration->getToken()], [static::LOG_CODE, static::LOG_CODE_AUTO_LOGIN]);
-            throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN);
+            throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN.': '.$e->getMessage());
         }
 
         return $registration;
@@ -140,7 +148,7 @@ class Login implements LoggerAwareInterface
     protected function checkSetupWizardCompleted(OrganisationUnit $rootOrganisationUnit): void
     {
         if (!$rootOrganisationUnit->getMetaData()->toArray()['setupCompleteDate']) {
-            throw new SetupWizardIncomplete('User has not completed the setup wizard');
+            throw new SetupIncomplete('User has not completed the setup wizard');
         }
         return;
     }
@@ -160,12 +168,12 @@ class Login implements LoggerAwareInterface
     protected function loginUser(string $ekmUsername): void
     {
         try {
-            $user = $this->userService->fetchByUsername($ekmUsername);
+            $users = $this->userService->fetchByUsername($ekmUsername);
         } catch(NotFound $e) {
             throw new LoginException('Failed to fetch user with username: '.$ekmUsername);
         }
         try {
-            $this->loginService->loginUser($user);
+            $this->loginService->loginUser($users->getFirst());
         } catch(NotAuthorisedException $e) {
             throw new LoginException('Failed to authorize user with username: '.$ekmUsername);
         }
