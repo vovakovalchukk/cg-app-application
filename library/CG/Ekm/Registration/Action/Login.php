@@ -73,7 +73,7 @@ class Login implements LoggerAwareInterface
         $this->organisationUnitService = $organisationUnitService;
     }
 
-    public function __invoke(string $token): Registration
+    public function __invoke(string $token): string
     {
         // Check user logged in
         try {
