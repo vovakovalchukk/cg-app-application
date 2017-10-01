@@ -156,8 +156,8 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         /** @var JsonModel $status */
         $status = $this->jsonModelFactory->newInstance();
 
-        /** @var bool $error */
-        $error = true;
+        /** @var string $error */
+        $error = null;
 
         /** @var string $token */
         if (!$token = $this->getToken()) {
