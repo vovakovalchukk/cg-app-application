@@ -3,7 +3,6 @@ namespace CG\Ekm\Registration\Action;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Ekm\Account\Service as EkmAccountService;
-use CG\Ekm\Registration\Entity as Registration;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedInUser;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedOutUser;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
