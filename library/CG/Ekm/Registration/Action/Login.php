@@ -20,9 +20,13 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
+use CG_Login\Controller\LoginController;
 use CG_Login\Service\LoginService;
 use Exception;
+use Orders\Module as OrdersModule;
 use SetupWizard\App\SetupIncomplete;
+use SetupWizard\Controller\ChannelsController as SetupWizardChannelsController;
+use SetupWizard\Module as SetupWizardModule;
 
 class Login implements LoggerAwareInterface
 {
@@ -111,9 +115,9 @@ class Login implements LoggerAwareInterface
         try {
             $this->checkSetupWizardCompleted($rootOrganisationUnit);
             if (isset($user)) {
-                throw new RegistrationCompleteForLoggedInUser(static::LOG_CODE_REGISTRATION_STATUS);
+                return OrdersModule::ROUTE;
             }
-            throw new RegistrationCompleteForLoggedOutUser(static::LOG_CODE_REGISTRATION_STATUS);
+            return LoginController::ROUTE_PROMPT;
         } catch(SetupIncomplete $e) {
             // No-op:
             // If logged-in: Setup Wizard has taken over.
@@ -128,8 +132,8 @@ class Login implements LoggerAwareInterface
             throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN.': '.$e->getMessage());
         }
 
-        // Setup Wizard takes over - handles redirect
-        return $registration;
+        // NB. Setup Wizard takes over - handles redirect
+        return SetupWizardModule::ROUTE . '/' . SetupWizardChannelsController::ROUTE_CHANNELS . '/' . SetupWizardChannelsController::ROUTE_CHANNEL_PICK;
     }
 
     protected function checkUserLoggedIn(): User

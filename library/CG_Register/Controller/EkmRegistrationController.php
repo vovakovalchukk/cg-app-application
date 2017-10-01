@@ -12,12 +12,8 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Zend\Stdlib\Form\ErrorMessagesToViewTrait;
-use CG_Login\Controller\LoginController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Orders\Module as OrdersModule;
-use SetupWizard\Controller\ChannelsController as SetupWizardChannelsController;
-use SetupWizard\Module as SetupWizardModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -73,7 +69,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         }
 
         try {
-            ($this->registrationLoginAction)($token);
+            $redirectRoute = ($this->registrationLoginAction)($token);
         } catch(RegistrationPending $e) {
             if (isset($status) && $status == static::STATUS_FAILED) {
                 return $this->failedAction();
@@ -81,17 +77,12 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             return $this->pendingAction($token, $status);
         } catch(RegistrationFailed $e) {
             return $this->failedAction();
-        } catch(RegistrationCompleteForLoggedInUser $e) {
-            return $this->redirect()->toRoute(OrdersModule::ROUTE);
-        } catch(RegistrationCompleteForLoggedOutUser $e) {
-            return $this->redirect()->toRoute(LoginController::ROUTE_PROMPT);
         } catch(Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_LOGIN_ERROR, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_LOGIN_ATTEMPT]);
             return $this->failedAction();
         }
 
-        // No-op: Setup Wizard takes over - handles redirect
-        return $this->redirect()->toRoute(SetupWizardModule::ROUTE . '/' . SetupWizardChannelsController::ROUTE_CHANNELS . '/' . SetupWizardChannelsController::ROUTE_CHANNEL_PICK);
+        return $this->redirect()->toRoute($redirectRoute);
     }
 
     protected function getToken(): ?string
