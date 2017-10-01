@@ -142,7 +142,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             }
         }
         /** @var string $customerSupportPhoneNumber */
-        $customerSupportPhoneNumber = '0152 222 4589';
+        $customerSupportPhoneNumber = '0000';//$config->;
 
         /** @var ViewModel $view */
         $view = $this->viewModelFactory->newInstance();
@@ -179,7 +179,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             $registration = $this->fetchRegistration($token);
             $isRegistrationComplete = ($registration->getOrganisationUnitId() ? true : false);
             if (!$registration->getOrganisationUnitId()) {
-                $this->registrationLoginAction->recreateEkmRegistrationJob($registration);
+                $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
             }
         } catch(NotFound $e) {
             $error = 'Registration could not be found';
