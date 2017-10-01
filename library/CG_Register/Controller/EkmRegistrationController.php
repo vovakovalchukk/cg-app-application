@@ -42,23 +42,28 @@ class EkmRegistrationController extends AbstractActionController implements Logg
     protected $registrationLoginAction;
     /** @var ViewModelFactory $viewModel */
     protected $viewModelFactory;
-    /** @var JsonModelFactory */
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var string $cgSupportTelephoneNumber */
+    protected $cgSupportTelephoneNumber;
 
     public function __construct(
         RegistrationService $registrationService,
         RegistrationLoginAction $registrationLoginAction,
         ViewModelFactory $viewModelFactory,
-        JsonModelFactory $jsonModelFactory
+        JsonModelFactory $jsonModelFactory,
+        string $cgSupportTelephoneNumber
     ) {
         $this->registrationService = $registrationService;
         $this->registrationLoginAction = $registrationLoginAction;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->cgSupportTelephoneNumber = $cgSupportTelephoneNumber;
     }
 
     public function indexAction()
     {
+        return $this->failedAction();
         /** @var int $status */
         $status = $this->params()->fromQuery('status', null);
 
@@ -141,8 +146,6 @@ class EkmRegistrationController extends AbstractActionController implements Logg
                 // No-op
             }
         }
-        /** @var string $customerSupportPhoneNumber */
-        $customerSupportPhoneNumber = '0000';//$config->;
 
         /** @var ViewModel $view */
         $view = $this->viewModelFactory->newInstance();
@@ -152,7 +155,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             'failedMessage' => 'Unfortunately, we could not complete your registration.',
             'statusTitle' => $this->translate('What happened'),
             'statusMessage1' => $this->translate('We were unable to connect your EKM account to ChannelGrabber.'),
-            'statusMessage2' => $this->translate('Please contact customer support on: '.$customerSupportPhoneNumber.'.'),
+            'statusMessage2' => $this->translate('Please contact customer support on: '.$this->cgSupportTelephoneNumber.'.'),
             'statusMessage3' => $this->translate('Our friendly support staff will assist you further in connecting your EKM account to ChannelGrabber.'),
         ]);
         return $view;
