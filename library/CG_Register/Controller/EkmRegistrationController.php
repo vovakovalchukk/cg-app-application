@@ -48,18 +48,17 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         RegistrationLoginAction $registrationLoginAction,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
-        string $cgSupportTelephoneNumber
+        array $cgSupportTelephoneNumber
     ) {
         $this->registrationService = $registrationService;
         $this->registrationLoginAction = $registrationLoginAction;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
-        $this->cgSupportTelephoneNumber = $cgSupportTelephoneNumber;
+        $this->cgSupportTelephoneNumber = $cgSupportTelephoneNumber[0];
     }
 
     public function indexAction()
     {
-        return $this->failedAction();
         /** @var int $status */
         $status = $this->params()->fromQuery('status', null);
 
