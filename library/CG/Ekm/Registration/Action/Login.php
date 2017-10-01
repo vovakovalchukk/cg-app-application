@@ -15,7 +15,6 @@ use CG\Permission\Exception as PermissionException;
 use CG\Stdlib\Exception\Runtime\LoginException;
 use CG\Stdlib\Exception\Runtime\NotAuthorisedException;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\Exception\Runtime\SetupIncomplete;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
@@ -23,6 +22,7 @@ use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
 use Exception;
+use SetupWizard\App\SetupIncomplete;
 
 class Login implements LoggerAwareInterface
 {
