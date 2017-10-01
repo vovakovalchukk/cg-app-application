@@ -103,7 +103,8 @@ class Login implements LoggerAwareInterface
             /** @var OrganisationUnit $rootOrganisationUnit */
             $rootOrganisationUnit = $this->organisationUnitService->fetch($registration->getOrganisationUnitId());
         } catch(NotFound $e) {
-            throw new LoginException('Failed to find root organisation unit for registration');
+            $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
+            throw new RegistrationPending(sprintf('Failed to find root organisation unit for registration (%d): Registration Ou: %d, EKM Username: %s', $registration->getId(), $registration->getOrganisationUnitId(), $registration->getEkmUsername()));
         }
 
         // Check if Setup Wizard complete
