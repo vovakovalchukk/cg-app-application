@@ -164,13 +164,9 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             $error = 'Token not provided';
         }
 
-        /** @var bool $isRegistrationComplete */
-        $isRegistrationComplete = false;
-
         try {
             /** @var Registration $registration */
             $registration = $this->fetchRegistration($token);
-            $isRegistrationComplete = ($registration->getOrganisationUnitId() ? true : false);
             if (!$registration->getOrganisationUnitId()) {
                 $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
             }
@@ -178,7 +174,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             $error = 'Registration could not be found';
         }
 
-        $status->setVariable('complete', $isRegistrationComplete);
+        $status->setVariable('complete', ($registration->getOrganisationUnitId() ? true : false));
         $status->setVariable('error', $error);
         return $status;
     }
