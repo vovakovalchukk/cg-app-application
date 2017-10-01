@@ -69,7 +69,9 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         }
 
         try {
-            $redirectRoute = ($this->registrationLoginAction)($token);
+            return $this->redirect()->toRoute(
+                ($this->registrationLoginAction)($token)
+            );
         } catch(RegistrationPending $e) {
             if (isset($status) && $status == static::STATUS_FAILED) {
                 return $this->failedAction();
@@ -81,8 +83,6 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_LOGIN_ERROR, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_LOGIN_ATTEMPT]);
             return $this->failedAction();
         }
-
-        return $this->redirect()->toRoute($redirectRoute);
     }
 
     protected function getToken(): ?string
