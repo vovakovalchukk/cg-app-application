@@ -579,7 +579,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-09-27T15:28:48+00:00"
+            "time": "2017-09-27 15:28:48"
         },
         {
             "name": "channelgrabber/cilex",
@@ -681,7 +681,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
@@ -938,7 +938,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-10-02T08:27:32+00:00"
+            "time": "2017-10-02 08:27:32"
         },
         {
             "name": "channelgrabber/email",
@@ -2549,7 +2549,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-10-01T22:23:26+00:00"
+            "time": "2017-10-01 22:23:26"
         },
         {
             "name": "channelgrabber/stock",
@@ -3450,6 +3450,12 @@
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
                 "reference": "cb1ad58a09df5b4220b2150a7d89ed49cf5b546b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-8900-Register-Endpoint-35ec0f.zip",
+                "reference": "cb1ad58a09df5b4220b2150a7d89ed49cf5b546b",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -3488,7 +3494,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-09-12T10:21:53+00:00"
+            "time": "2017-10-02 12:44:03"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3667,7 +3673,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2017-10-02T09:14:12+00:00"
+            "time": "2017-10-02 09:14:12"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3937,7 +3943,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-09-28T19:55:42+00:00"
+            "time": "2017-09-28 19:55:42"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5771,7 +5777,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6240,7 +6246,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -9123,8 +9129,8 @@
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
