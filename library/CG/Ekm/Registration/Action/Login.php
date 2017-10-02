@@ -2,6 +2,7 @@
 namespace CG\Ekm\Registration\Action;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Type as ChannelType;
 use CG\Ekm\Account\Service as EkmAccountService;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedInUser;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedOutUser;
@@ -28,7 +29,6 @@ use Settings\Module as SettingsModule;
 use SetupWizard\App\SetupIncomplete;
 use SetupWizard\Controller\ChannelsController as SetupWizardChannelsController;
 use SetupWizard\Module as SetupWizardModule;
-use CG\Channel\Type as ChannelType;
 
 class Login implements LoggerAwareInterface
 {
