@@ -888,12 +888,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "12188dbc1e71f1e364defbfaa35514314f462709"
+                "reference": "b1a3078ca03e5a7f45068390affbecd014b8334f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-8900-Register-Endpoint-b47da1.zip",
-                "reference": "12188dbc1e71f1e364defbfaa35514314f462709",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-8900-Register-Endpoint-8b0f44.zip",
+                "reference": "b1a3078ca03e5a7f45068390affbecd014b8334f",
                 "shasum": null
             },
             "require": {
@@ -938,7 +938,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-10-01 23:58:09"
+            "time": "2017-10-02 08:27:32"
         },
         {
             "name": "channelgrabber/email",
