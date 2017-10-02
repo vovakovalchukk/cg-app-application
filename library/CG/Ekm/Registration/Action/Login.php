@@ -101,7 +101,10 @@ class Login implements LoggerAwareInterface
             $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
             throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS.': '.$e->getMessage());
         } catch(PermissionException $e) {
-            // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
+            // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction            // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
+            if (isset($user)) {
+                throw $e;
+            }
         }
 
         // Fetch root organisation unit
