@@ -109,6 +109,9 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         /** @var ViewModel $view */
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('cg_register_ekm_register_pending');
+        $ekmPoweredByCg = $this->viewModelFactory->newInstance();
+        $ekmPoweredByCg->setTemplate('cg_register_channel_ekm_powered_by_cg');
+        $view->addChild($ekmPoweredByCg, 'ekmPoweredByCg');
         $view->setVariables([
             'ekmUsername' => $registration->getEkmUsername(),
             'pleaseWaitMessage' => $this->translate('Please be patient, you will be enjoying ChannelGrabber shortly.'),
@@ -140,6 +143,9 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         /** @var ViewModel $view */
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('cg_register_ekm_register_failed');
+        $ekmPoweredByCg = $this->viewModelFactory->newInstance();
+        $ekmPoweredByCg->setTemplate('cg_register_channel_ekm_powered_by_cg');
+        $view->addChild($ekmPoweredByCg, 'ekmPoweredByCg');
         $view->setVariables([
             'ekmUsername' => $ekmUsername,
             'failedMessage' => 'Unfortunately, we could not complete your registration.',
