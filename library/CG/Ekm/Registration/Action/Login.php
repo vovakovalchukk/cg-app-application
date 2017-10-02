@@ -138,7 +138,7 @@ class Login implements LoggerAwareInterface
         }
 
         // NB. Setup Wizard takes over - handles redirect
-        return [SetupWizardModule::ROUTE.'/'.SetupWizardChannelsController::ROUTE_CHANNELS.'/'.SetupWizardChannelsController::ROUTE_CHANNEL_PICK, []];
+        return [implode('/', [SetupWizardModule::ROUTE, SetupWizardChannelsController::ROUTE_CHANNELS, SetupWizardChannelsController::ROUTE_CHANNEL_PICK]), []];
     }
 
     protected function checkUserLoggedIn(): User
