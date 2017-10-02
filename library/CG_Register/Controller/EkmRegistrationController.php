@@ -69,9 +69,8 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         }
 
         try {
-            return $this->redirect()->toRoute(
-                ($this->registrationLoginAction)($token)
-            );
+            [$redirectRoute, $redirectParams] = ($this->registrationLoginAction)($token);
+            return $this->redirect()->toRoute($redirectRoute, $redirectParams);
         } catch(RegistrationPending $e) {
             if (isset($status) && $status == static::STATUS_FAILED) {
                 return $this->failedAction();
@@ -183,7 +182,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             $error = 'Registration could not be found';
         }
 
-        $status->setVariable('complete', ($registration->getOrganisationUnitId() ? true : false));
+        $status->setVariable('complete', ((isset($registration) && $registration->getOrganisationUnitId()) ? true : false));
         $status->setVariable('error', $error);
         return $status;
     }

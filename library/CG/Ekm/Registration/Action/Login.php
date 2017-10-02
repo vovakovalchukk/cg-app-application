@@ -23,9 +23,12 @@ use CG_Login\Controller\LoginController;
 use CG_Login\Service\LoginService;
 use Exception;
 use Orders\Module as OrdersModule;
+use Settings\Controller\ChannelController;
+use Settings\Module as SettingsModule;
 use SetupWizard\App\SetupIncomplete;
 use SetupWizard\Controller\ChannelsController as SetupWizardChannelsController;
 use SetupWizard\Module as SetupWizardModule;
+use CG\Channel\Type as ChannelType;
 
 class Login implements LoggerAwareInterface
 {
@@ -72,7 +75,7 @@ class Login implements LoggerAwareInterface
         $this->organisationUnitService = $organisationUnitService;
     }
 
-    public function __invoke(string $token): string
+    public function __invoke(string $token): array
     {
         // Check user logged in
         try {
@@ -92,7 +95,7 @@ class Login implements LoggerAwareInterface
 
         // Fetch EKM account
         try {
-            $this->fetchEkmAccount($registration->getEkmUsername());
+            $ekmAccount = $this->fetchEkmAccount($registration->getEkmUsername());
         } catch(NotFound $e) {
             $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
             $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
@@ -107,6 +110,9 @@ class Login implements LoggerAwareInterface
             $rootOrganisationUnit = $this->organisationUnitService->fetch($registration->getOrganisationUnitId());
         } catch(NotFound $e) {
             $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
+            if (isset($user)) {
+                return [OrdersModule::ROUTE, []];
+            }
             throw new RegistrationPending(sprintf('Failed to find root organisation unit for registration (%d): Registration Ou: %d, EKM Username: %s', $registration->getId(), $registration->getOrganisationUnitId(), $registration->getEkmUsername()));
         }
 
@@ -114,9 +120,9 @@ class Login implements LoggerAwareInterface
         try {
             $this->checkSetupWizardCompleted($rootOrganisationUnit);
             if (isset($user)) {
-                return OrdersModule::ROUTE;
+                return [implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]), ['type' => ChannelType::SALES, 'account'=> $ekmAccount->getId()]];
             }
-            return LoginController::ROUTE_PROMPT;
+            return [LoginController::ROUTE_PROMPT, []];
         } catch(SetupIncomplete $e) {
             // No-op:
             // If logged-in: Setup Wizard has taken over.
@@ -132,7 +138,7 @@ class Login implements LoggerAwareInterface
         }
 
         // NB. Setup Wizard takes over - handles redirect
-        return SetupWizardModule::ROUTE . '/' . SetupWizardChannelsController::ROUTE_CHANNELS . '/' . SetupWizardChannelsController::ROUTE_CHANNEL_PICK;
+        return [SetupWizardModule::ROUTE.'/'.SetupWizardChannelsController::ROUTE_CHANNELS.'/'.SetupWizardChannelsController::ROUTE_CHANNEL_PICK, []];
     }
 
     protected function checkUserLoggedIn(): User
