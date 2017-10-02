@@ -3632,6 +3632,12 @@
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "8b071bc095712a78773cd75e1aac2740f331d4c6"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-8900-Register-Endpoint-dab440.zip",
+                "reference": "8b071bc095712a78773cd75e1aac2740f331d4c6",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cglib": "^1.11.6",
                 "channelgrabber/constants": "dev-master",
