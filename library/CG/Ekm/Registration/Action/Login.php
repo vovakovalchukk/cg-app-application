@@ -87,7 +87,7 @@ class Login implements LoggerAwareInterface
             $registration = $this->registrationService->fetchByToken($token);
         } catch(NotFound $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_NOT_FOUND, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_NOT_FOUND]);
-            throw new RegistrationFailed(static::LOG_CODE_REGISTRATION_NOT_FOUND.': '.$e->getMessage());
+            throw $e;
         }
 
         // Fetch EKM account

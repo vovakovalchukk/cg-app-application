@@ -12,6 +12,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Zend\Stdlib\Form\ErrorMessagesToViewTrait;
+use CG_Login\Controller\LoginController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -78,6 +79,8 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             return $this->pendingAction($token, $status);
         } catch(RegistrationFailed $e) {
             return $this->failedAction();
+        } catch(NotFound $e) {
+            return $this->redirect()->toRoute(LoginController::ROUTE_PROMPT);
         } catch(Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_LOGIN_ERROR, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_LOGIN_ATTEMPT]);
             return $this->failedAction();
