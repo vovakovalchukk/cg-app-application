@@ -888,7 +888,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "26a84126ab8eea1ea453b8ec0f99c95ece0e9a71"
+                "reference": "12188dbc1e71f1e364defbfaa35514314f462709"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -3618,7 +3618,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "1a84918473148bc0bec5652e4d872a6c570e63b0"
+                "reference": "70aa41b8490b117b3cfbb17896d6267f530ff97f"
             },
             "require": {
                 "channelgrabber/cglib": "^1.11.6",
