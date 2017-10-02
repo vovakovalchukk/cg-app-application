@@ -91,7 +91,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
         /** @var string $token */
         $token = $this->params()->fromQuery('token', null);
 
-        return urldecode($token);
+        return rawurldecode($token);
     }
 
     protected function fetchRegistration(string $token): Registration
