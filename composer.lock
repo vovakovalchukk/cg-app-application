@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b25c8a0c36b9e6e1d175d90fa33fdf4",
+    "content-hash": "4249743d5d3f5b15a9d9b1d7c7f58b07",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1597,16 +1597,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.29.0",
+            "version": "1.29.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ebbf2faca916e47de65828347bcb86898488ca7b"
+                "reference": "b60d419c3a511702d9c0ab6f0114693ad130f79b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.29.0-bedfb6.zip",
-                "reference": "ebbf2faca916e47de65828347bcb86898488ca7b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.29.5-d8a64d.zip",
+                "reference": "b60d419c3a511702d9c0ab6f0114693ad130f79b",
                 "shasum": null
             },
             "require": {
@@ -1652,7 +1652,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": "~1.0.1",
-                "phpunit/phpunit": "4.6.*"
+                "phpunit/phpunit": "~6.3"
             },
             "type": "library",
             "extra": {
@@ -1671,7 +1671,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-09-07T14:16:26+00:00"
+            "time": "2017-09-27T09:22:42+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2192,6 +2192,42 @@
                 }
             },
             "time": "2016-01-19T15:18:35+00:00"
+        },
+        {
+            "name": "channelgrabber/reporting",
+            "version": "dev-CGIV-8916-use-reporting-api-for-graph",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-reporting.git",
+                "reference": "3cf5c7ec08a7c4ef9e45b097a75487c3c1468456"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-reporting-dev-CGIV-8916-use-reporting-api-for-graph-e40f9d.zip",
+                "reference": "3cf5c7ec08a7c4ef9e45b097a75487c3c1468456",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/order": "^1.29.4",
+                "channelgrabber/stdlib": "^2.12.42"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Reporting\\": "src"
+                }
+            },
+            "license": [
+                "commercial"
+            ],
+            "authors": [
+                {
+                    "name": "Eduard Busuioc",
+                    "email": "eduard.busuioc@channelgrabber.com"
+                }
+            ],
+            "description": "Handles the reporting classes",
+            "time": "2017-10-03T12:52:19+00:00"
         },
         {
             "name": "channelgrabber/royalmail",
@@ -9078,10 +9114,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-8916-use-reporting-api-for-graph",
+            "package": "channelgrabber/reporting"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/reporting": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

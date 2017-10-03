@@ -2,7 +2,7 @@
 namespace Reports;
 
 use CG_UI\Layout\ViewModelFactory;
-use Reports\Sales\Service;
+use Reports\Order\Service;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Di\Di;
 use Zend\Mvc\MvcEvent;

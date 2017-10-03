@@ -58,6 +58,7 @@
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
+        "channelgrabber/reporting": "dev-CGIV-8916-use-reporting-api-for-graph as 1.0.0",
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sequential-numbering": "~1.0.0",
         "channelgrabber/settings": "~1.5.3",

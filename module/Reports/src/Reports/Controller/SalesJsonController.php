@@ -2,51 +2,39 @@
 namespace Reports\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Reports\OrderCount\UnitService;
-use Reports\Sales\Service as SalesService;
+use Reports\Order\Service as ReportsOrderService;
 
 class SalesJsonController extends AbstractJsonController
 {
-    /** @var  SalesService */
-    protected $salesService;
+    /** @var  ReportsOrderService */
+    protected $orderService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, SalesService $service)
+    public function __construct(JsonModelFactory $jsonModelFactory, ReportsOrderService $service)
     {
         parent::__construct($jsonModelFactory);
-        $this->salesService = $service;
+        $this->orderService = $service;
     }
 
     public function orderCountsAction()
     {
-        $requestFilter = $this->params()->fromPost('filter', []);
-        $strategy = $this->params()->fromPost('strategy', []);
-        $strategyType = $this->params()->fromPost('strategyType', []);
-        $unitType = $this->params()->fromPost('unitType', UnitService::UNIT_DAY);
+        $orderFilter = $this->params()->fromPost('filter', []);
+        $dimension = $this->params()->fromPost('dimension', ReportsOrderService::DIMENSION_CHANNEL);
+        $metrics = $this->params()->fromPost('metrics', []);
+        $limit = (int) $this->params()->fromPost('pointsLimit', ReportsOrderService::DEFAULT_POINTS_LIMIT);
 
-        if (!is_array($strategy) || !is_array($strategyType)) {
-            return $this->buildErrorResponse('An error occurred while fetching the order data.');
-        }
+        // Make sure that we will take all orders into account
+        $orderFilter['archived'] = [ true, false];
 
         try {
-            $orderCounts = $this->salesService->getOrderCountsData($requestFilter, $strategy, $strategyType, $unitType);
-            return $this->buildSuccessResponse(['data' => $orderCounts]);
+            $data = $this->orderService->getOrderCountsData($dimension, $metrics, $orderFilter, $limit);
+            return $this->buildSuccessResponse(['data' => $data]);
+        } catch (NotFound $e) {
+            return $this->buildErrorResponse('There is no data available for the selected filters');
         } catch (\Exception $e) {
             $this->logError($e->getMessage());
             return $this->buildErrorResponse('An error occurred while fetching the order data.');
         }
-    }
-
-    public function dateUnitsAction()
-    {
-        $requestFilter = $this->params()->fromPost('filter', []);
-        try {
-            $result = $this->salesService->getDateUnitByFilters($requestFilter);
-        } catch (\Exception $e) {
-            $this->logError($e->getMessage());
-            return $this->buildErrorResponse('An error occurred while fetching the order data.');
-        }
-
-        return $this->buildSuccessResponse(['data' => $result]);
     }
 }

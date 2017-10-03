@@ -51,6 +51,7 @@ define([
         updateChart() {
             this._showSpinner();
             this.buildRequestData();
+            this._updateChartData();
         }
 
         redrawChartFromAjax(data) {
@@ -66,7 +67,6 @@ define([
         buildRequestData() {
             this._resetRequestData();
             this.buildFiltersRequestData();
-            this._addUnitTypeToRequestData();
         }
 
         buildFiltersRequestData() {
@@ -133,34 +133,10 @@ define([
 
         _resetRequestData() {
             this.requestData = {
-                'strategy': ['channel', 'total'],
-                'strategyType': ['count'],
-                'unitType': 'week'
+                'dimension': 'channel',
+                'metrics': ['count', 'orderValue'],
+                'limit': 120
             };
-        }
-
-        _addUnitTypeToRequestData() {
-            this.ajax.fetchDateUnits(this.requestData, function(data) {
-                if (!data.data || data.data.length === 0) {
-                    this._updateChartData();
-                    return false;
-                }
-                // Sort the units by their value descending
-                let units = data.data,
-                    sortedUnitKeys = Object.keys(units).sort(function(a,b) {
-                        return units[b] - units[a];
-                    });
-
-                // return the first value that is under the maximum data points value
-                // eg: if we have the max set at 60 and the data is {day: 62, month: 9, weeks: 2}, we will return 'day'
-                $(sortedUnitKeys).each(function(key, unit) {
-                    if (units[unit] < this.MAX_DATA_POINTS) {
-                        this.requestData.unitType = unit;
-                        this._updateChartData();
-                        return false;
-                    }
-                }.bind(this));
-            }.bind(this));
         }
 
         _showSpinner() {
