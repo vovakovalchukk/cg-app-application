@@ -22,14 +22,15 @@ class SalesJsonController extends AbstractJsonController
         $orderFilter = $this->params()->fromPost('filter', []);
         $dimension = $this->params()->fromPost('dimension', ReportsOrderService::DIMENSION_CHANNEL);
         $metrics = $this->params()->fromPost('metrics', []);
-        $limit = (int) $this->params()->fromPost('pointsLimit', ReportsOrderService::DEFAULT_POINTS_LIMIT);
+        $limit = (int) $this->params()->fromPost('limit', ReportsOrderService::DEFAULT_POINTS_LIMIT);
 
         // Make sure that we will take all orders into account
-        $orderFilter['archived'] = [ true, false];
+        $orderFilter['archived'] = [true, false];
 
         try {
-            $data = $this->orderService->getOrderCountsData($dimension, $metrics, $orderFilter, $limit);
-            return $this->buildSuccessResponse(['data' => $data]);
+            return $this->buildSuccessResponse([
+                'data' => $this->orderService->getOrderCountsData($dimension, $metrics, $orderFilter, $limit)
+            ]);
         } catch (NotFound $e) {
             return $this->buildErrorResponse('There is no data available for the selected filters');
         } catch (\Exception $e) {

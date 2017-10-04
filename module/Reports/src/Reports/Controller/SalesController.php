@@ -51,10 +51,10 @@ class SalesController extends AbstractActionController
 
     protected function getFilterBar()
     {
-        // Set the default period as the year to date
+        // Set the default period as the last 7 days
         $filter = $this->orderService->buildOrderFilterFromArray(['purchaseDate' => [
-            'period' => 'Year to date',
-            'from' => 'first day of January',
+            'period' => 'Last 7 days',
+            'from' => '-7 days',
             'to' => '23:59'
         ]]);
 

@@ -7,7 +7,7 @@ define([
 ) {
     class Service {
         constructor() {
-            this.MAX_DATA_POINTS = 120;
+            this.MAX_DATA_POINTS = 100;
 
             this.chart = ChartJs;
             this.ajax = Ajax;
@@ -135,7 +135,7 @@ define([
             this.requestData = {
                 'dimension': 'channel',
                 'metrics': ['count', 'orderValue'],
-                'limit': 120
+                'limit': this.MAX_DATA_POINTS
             };
         }
 

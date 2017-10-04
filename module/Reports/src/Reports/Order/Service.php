@@ -67,8 +67,7 @@ class Service
         array $metrics = [],
         array $orderFilters = [],
         int $limit = self::DEFAULT_POINTS_LIMIT
-    ): array
-    {
+    ): array {
         $orderFilter = $this->buildOrderFilterFromArray($orderFilters);
         $orderFilter->setLimit($limit);
         $filter = new ReportOrderFilter($orderFilter, $dimension, $metrics);
@@ -93,8 +92,7 @@ class Service
     protected function buildDefaultOrderFilter()
     {
         return $this->filterService->getFilter()
-            ->setOrganisationUnitId($this->orderService->getActiveUser()->getOuList())
-            ->setPurchaseDatePeriod('Year to date');
+            ->setOrganisationUnitId($this->orderService->getActiveUser()->getOuList());
     }
 
     protected function addFiltersFromArray(OrderFilter $filter, array $filters): OrderFilter
