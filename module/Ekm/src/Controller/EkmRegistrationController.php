@@ -5,6 +5,7 @@ use CG\Ekm\Registration\Entity as Registration;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
+use CG\Permission\Exception as PermissionException;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -78,6 +79,8 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             return $this->failedAction();
         } catch(NotFound $e) {
             return $this->redirect()->toRoute(LoginController::ROUTE_PROMPT);
+        } catch (PermissionException $e) {
+            throw $e;
         } catch(\Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_LOGIN_ERROR, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_LOGIN_ATTEMPT]);
             return $this->failedAction();

@@ -28,6 +28,6 @@ class Module
 
     public function getModuleDependencies()
     {
-        return ['CG_Register', 'CG_UI', 'SetupWizard'];
+        return ['CG_Register', 'CG_Login', 'CG_UI', 'SetupWizard', 'Orders'];
     }
 }
