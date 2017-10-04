@@ -1,10 +1,7 @@
 <?php
-namespace CG_Register\Controller;
+namespace Ekm\Controller;
 
-use CG\Ekm\Registration\Action\Login as RegistrationLoginAction;
 use CG\Ekm\Registration\Entity as Registration;
-use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedInUser;
-use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedOutUser;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
@@ -15,6 +12,7 @@ use CG\Zend\Stdlib\Form\ErrorMessagesToViewTrait;
 use CG_Login\Controller\LoginController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Ekm\Registration\Action\Login as RegistrationLoginAction;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -80,7 +78,7 @@ class EkmRegistrationController extends AbstractActionController implements Logg
             return $this->failedAction();
         } catch(NotFound $e) {
             return $this->redirect()->toRoute(LoginController::ROUTE_PROMPT);
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_LOGIN_ERROR, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_LOGIN_ATTEMPT]);
             return $this->failedAction();
         }
@@ -90,7 +88,6 @@ class EkmRegistrationController extends AbstractActionController implements Logg
     {
         /** @var string $token */
         $token = $this->params()->fromQuery('token', null);
-
         return rawurldecode($token);
     }
 
@@ -110,9 +107,9 @@ class EkmRegistrationController extends AbstractActionController implements Logg
 
         /** @var ViewModel $view */
         $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('cg_register_ekm_register_pending');
+        $view->setTemplate('ekm_register_pending');
         $ekmPoweredByCg = $this->viewModelFactory->newInstance();
-        $ekmPoweredByCg->setTemplate('cg_register_channel_ekm_powered_by_cg');
+        $ekmPoweredByCg->setTemplate('channel_ekm_powered_by_cg');
         $view->addChild($ekmPoweredByCg, 'ekmPoweredByCg');
         $view->setVariables([
             'ekmUsername' => $registration->getEkmUsername(),
@@ -144,9 +141,9 @@ class EkmRegistrationController extends AbstractActionController implements Logg
 
         /** @var ViewModel $view */
         $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('cg_register_ekm_register_failed');
+        $view->setTemplate('ekm_register_failed');
         $ekmPoweredByCg = $this->viewModelFactory->newInstance();
-        $ekmPoweredByCg->setTemplate('cg_register_channel_ekm_powered_by_cg');
+        $ekmPoweredByCg->setTemplate('channel_ekm_powered_by_cg');
         $view->addChild($ekmPoweredByCg, 'ekmPoweredByCg');
         $view->setVariables([
             'ekmUsername' => $ekmUsername,

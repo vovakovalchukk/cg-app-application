@@ -1,11 +1,9 @@
 <?php
-namespace CG\Ekm\Registration\Action;
+namespace Ekm\Registration\Action;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
 use CG\Ekm\Account\Service as EkmAccountService;
-use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedInUser;
-use CG\Ekm\Registration\Exception\Runtime\RegistrationCompleteForLoggedOutUser;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
@@ -22,7 +20,6 @@ use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Controller\LoginController;
 use CG_Login\Service\LoginService;
-use Exception;
 use Orders\Module as OrdersModule;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -138,7 +135,7 @@ class Login implements LoggerAwareInterface
         // Auto-login user
         try {
             $this->loginUser($registration->getEmailAddress());
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_AUTO_LOGIN_ERROR, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $registration->getToken()], [static::LOG_CODE, static::LOG_CODE_AUTO_LOGIN]);
             throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN.': '.$e->getMessage());
         }
