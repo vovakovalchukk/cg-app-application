@@ -4,6 +4,7 @@ namespace Ekm\Registration\Action;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
 use CG\Ekm\Account\Service as EkmAccountService;
+use CG\Ekm\Registration\Entity as Registration;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
@@ -18,14 +19,14 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
+use CG_Login\Client\LoginSession;
 use CG_Login\Controller\LoginController;
 use CG_Login\Service\LoginService;
+use EKM\Controller\EkmRegistrationController;
 use Orders\Module as OrdersModule;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use SetupWizard\App\SetupIncomplete;
-use SetupWizard\Controller\ChannelsController as SetupWizardChannelsController;
-use SetupWizard\Module as SetupWizardModule;
 
 class Login implements LoggerAwareInterface
 {
@@ -51,6 +52,8 @@ class Login implements LoggerAwareInterface
     protected $userService;
     /** @var  LoginService $loginService */
     protected $loginService;
+    /** @var LoginSession $loginSession */
+    protected $loginSession;
     /** @var ActiveUserContainer $activeUserContainer */
     protected $activeUserContainer;
     /** @var  OrganisationUnitService $organisationUnitService */
@@ -61,6 +64,7 @@ class Login implements LoggerAwareInterface
         EkmAccountService $ekmAccountService,
         UserService $userService,
         LoginService $loginService,
+        LoginSession $loginSession,
         ActiveUserContainer $activeUserContainer,
         OrganisationUnitService $organisationUnitService
     ) {
@@ -68,80 +72,80 @@ class Login implements LoggerAwareInterface
         $this->ekmAccountService = $ekmAccountService;
         $this->userService = $userService;
         $this->loginService = $loginService;
+        $this->loginSession = $loginSession;
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
     }
 
     public function __invoke(string $token): array
     {
-        // Check user logged in
-        try {
-            $user = $this->checkUserLoggedIn();
-        } catch(LoginException $e) {
-            $this->logDebug(static::LOG_MSG_LOGGED_OUT_USER, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_CHECK_LOGIN_STATUS]);
-            // No-op
-        }
-
         // Fetch registration
         try {
+            /** @var Registration $registration */
             $registration = $this->registrationService->fetchByToken($token);
-        } catch(NotFound $e) {
+        } catch (NotFound $e) {
             $this->logErrorException($e, static::LOG_MSG_REGISTRATION_NOT_FOUND, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_NOT_FOUND]);
             throw $e;
         }
 
-        // Fetch EKM account
+        // Check user logged in
         try {
-            $ekmAccount = $this->fetchEkmAccount($registration->getEkmUsername());
-        } catch(NotFound $e) {
-            $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
-            $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
-            if (isset($user)) {
-                return [OrdersModule::ROUTE, []];
-            }
-            throw new RegistrationPending(static::LOG_CODE_REGISTRATION_STATUS.': '.$e->getMessage());
-        } catch(PermissionException $e) {
-            // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction            // No-op: Account exists but as the user is not logged in, the OwnershipTrait on the Account\Shared\Entity prevents its construction
-            if (isset($user)) {
-                throw $e;
-            }
+            $user = $this->checkUserLoggedIn();
+            $registration->setOrganisationUnitId($user->getOrganisationUnitId());
+        } catch (LoginException $e) {
+            $this->logDebug(static::LOG_MSG_LOGGED_OUT_USER, ['token' => $token], [static::LOG_CODE, static::LOG_CODE_CHECK_LOGIN_STATUS]);
+            // No-op
         }
 
         // Fetch root organisation unit
         try {
-            /** @var OrganisationUnit $rootOrganisationUnit */
-            $rootOrganisationUnit = $this->organisationUnitService->fetch($registration->getOrganisationUnitId());
-        } catch(NotFound $e) {
-            $this->registrationService->createEkmRegistrationGearmanJob($registration->getEkmUsername(), $registration->getToken());
-            if (isset($user)) {
-                return [OrdersModule::ROUTE, []];
+            $ouId = $registration->getOrganisationUnitId();
+            if (!$ouId) {
+                throw new NotFound('No ou set on registration');
             }
+
+            /** @var OrganisationUnit $rootOrganisationUnit */
+            $rootOrganisationUnit = $this->organisationUnitService->fetch($ouId);
+        } catch (NotFound | PermissionException $e) {
+            $this->createEkmRegistrationGearmanJob($user ?? null, $registration);
             throw new RegistrationPending(sprintf('Failed to find root organisation unit for registration (%d): Registration Ou: %d, EKM Username: %s', $registration->getId(), $registration->getOrganisationUnitId(), $registration->getEkmUsername()));
         }
 
         // Check if Setup Wizard complete
         try {
             $this->checkSetupWizardCompleted($rootOrganisationUnit);
-            if (isset($user)) {
-                return [implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]), ['type' => ChannelType::SALES, 'account'=> $ekmAccount->getId()]];
+            if (!isset($user)) {
+                $this->loginSession->setLandingRoute(EkmRegistrationController::ROUTE, [], ['query' => ['token' => $token]]);
+                return [LoginController::ROUTE_PROMPT, []];
             }
-            return [LoginController::ROUTE_PROMPT, []];
-        } catch(SetupIncomplete $e) {
+        } catch (SetupIncomplete $e) {
             // No-op:
             // If logged-in: Setup Wizard has taken over.
             // If not logged-in: Auto-login and redirect to Setup Wizard on the Channel Pick page
         }
 
-        // Auto-login user
         try {
-            $this->loginUser($registration->getEmailAddress());
-        } catch(\Exception $e) {
+            if (!isset($user)) {
+                // Auto-login user
+                $user = $this->loginUser($registration->getEmailAddress());
+            }
+        } catch (LoginException $exception) {
+            $this->loginSession->setLandingRoute(EkmRegistrationController::ROUTE, [], ['query' => ['token' => $token]]);
+            return [LoginController::ROUTE_PROMPT, []];
+        } catch (\Exception $e) {
             $this->logErrorException($e, static::LOG_MSG_AUTO_LOGIN_ERROR, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $registration->getToken()], [static::LOG_CODE, static::LOG_CODE_AUTO_LOGIN]);
             throw new RegistrationFailed(static::LOG_CODE_AUTO_LOGIN.': '.$e->getMessage());
         }
 
-        // NB. Setup Wizard takes over - handles redirect
-        return [implode('/', [SetupWizardModule::ROUTE, SetupWizardChannelsController::ROUTE_CHANNELS, SetupWizardChannelsController::ROUTE_CHANNEL_PICK]), []];
+        // Fetch EKM account
+        try {
+            $ekmAccount = $this->fetchEkmAccount($rootOrganisationUnit, $registration->getEkmUsername());
+            return [implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]), ['type' => ChannelType::SALES, 'account'=> $ekmAccount->getId()]];
+        } catch (NotFound $e) {
+            $this->logDebug(static::LOG_MSG_REGISTRATION_NOT_PROCESSED, ['registration' => $registration->getId(), 'ekmUsername' => $registration->getEkmUsername(), 'email' => $registration->getEmailAddress(), 'token' => $token], [static::LOG_CODE, static::LOG_CODE_REGISTRATION_STATUS]);
+            $this->createEkmRegistrationGearmanJob($user, $registration);
+            return [OrdersModule::ROUTE, []];
+        }
     }
 
     protected function checkUserLoggedIn(): User
@@ -167,23 +171,42 @@ class Login implements LoggerAwareInterface
         return;
     }
 
-    protected function fetchEkmAccount(string $ekmUsername): Account
+    protected function fetchEkmAccount(OrganisationUnit $ou, string $ekmUsername): Account
     {
-        return $this->ekmAccountService->fetchByEkmUsername($ekmUsername);
+        return $this->ekmAccountService->fetchByEkmUsername(
+            $ekmUsername,
+            $this->organisationUnitService->fetchRelatedOrganisationUnitIds($ou->getRoot())
+        );
     }
 
-    protected function loginUser(string $ekmUsername): void
+    protected function loginUser(string $ekmUsername): ?User
     {
         try {
-            $users = $this->userService->fetchByUsername($ekmUsername);
+            $user = $this->userService->fetchByUsername($ekmUsername)->getFirst();
         } catch(NotFound $e) {
             throw new LoginException('Failed to fetch user with username: '.$ekmUsername);
         }
         try {
-            $this->loginService->loginUser($users->getFirst());
+            $this->loginService->loginUser($user);
         } catch(NotAuthorisedException $e) {
             throw new LoginException('Failed to authorize user with username: '.$ekmUsername);
         }
-        return;
+
+        return $user;
+    }
+
+    protected function createEkmRegistrationGearmanJob(?User $user, Registration $registration)
+    {
+        if ($user) {
+            $ouId = $this->organisationUnitService->getRootOuIdFromOuId($user->getOrganisationUnitId());
+        } else {
+            $ouId = $registration->getOrganisationUnitId();
+        }
+
+        $this->registrationService->createEkmRegistrationGearmanJob(
+            $registration->getEkmUsername(),
+            $registration->getToken(),
+            $ouId
+        );
     }
 }

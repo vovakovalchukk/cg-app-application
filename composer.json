@@ -33,7 +33,7 @@
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
         "channelgrabber/ebay": "~1.10.12",
-        "channelgrabber/ekm": "~1.9.2",
+        "channelgrabber/ekm": "dev-CGIV-8926-EKMPricingScheme as 1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
         "channelgrabber/exchangerate": "~1.1.1",
