@@ -1,8 +1,6 @@
 define([
-    'Reports/OrderCounts/Response',
     'ChartJs'
 ], function(
-    Response,
     Chart
 ) {
     class ChartJs {
