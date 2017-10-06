@@ -174,10 +174,18 @@ use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
 use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
 use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
 
+// ExchangeRate
+use CG\ExchangeRate\Storage\Api as ExchangeRateApiStorage;
+use CG\ExchangeRate\StorageInterface as ExchangeRateStorage;
+
+// Sites
+use CG\Stdlib\Sites;
+
 $config = array(
     'di' => array(
         'instance' => array(
             'preferences' => array(
+                ExchangeRateStorage::class => ExchangeRateApiStorage::class,
                 EventManagerInterface::class => EventManager::class,
                 OrderStorage::class => OrderApiClient::class,
                 ItemStorage::class => ItemApiClient::class,
@@ -229,6 +237,11 @@ $config = array(
                 'StockSettingsAccountsMaxColumnView' => ViewModel::class,
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
+            ],
+            ExchangeRateApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
             ],
             RolloutRedisStorage::class => [
                 'parameters' => [
@@ -624,6 +637,11 @@ $config = array(
             TokenStorageApi::class => [
                 'parameters' => [
                     'client' => 'billing_guzzle'
+                ]
+            ],
+            Sites::class => [
+                'parameters' => [
+                    'config' => 'app_config'
                 ]
             ],
         ),

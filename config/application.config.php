@@ -31,6 +31,8 @@ return array (
     26 => 'CG_NetDespatch',
     27 => 'Shopify',
     28 => 'BigCommerce',
+    29 => 'Ekm',
+    30 => 'Reports',
   ),
   'module_listener_options' => 
   array (

@@ -1,0 +1,35 @@
+<?php $this->placeholder('#sub-header')->append($filters); ?>
+<div id="bulk-actions" class="sales-report">
+    <?php echo $hideFilters; ?>
+</div>
+<?php //$this->headScript()->appendFile($this->basePath() . '/cg-built/vendor/chart.js/dist/Chart.bundle.js'); ?>
+
+<?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
+        require.config({
+            paths: {
+                'Reports': "<?=$this->basePath() . Reports\Module::PUBLIC_FOLDER . 'js/Reports';?>"
+            }
+        });
+        require([
+            'Reports/Application'
+        ], function(
+            ReportsApp
+        ) {
+            let app = new ReportsApp();
+            app.buildSalesChart();
+        });
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div class="spinner-container">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+
+<div class="chart-container">
+    <canvas id="salesChart"></canvas>
+</div>
