@@ -1,8 +1,6 @@
 define([
-    'Reports/OrderCounts/Response',
     'ChartJs'
 ], function(
-    Response,
     Chart
 ) {
     class ChartJs {
@@ -27,9 +25,16 @@ define([
                 return false;
             }
 
+            // set the newly fetched datasets
             this._resetDatasetMap();
             this._buildDataSets(data, dataType);
             this.chart.data.datasets = this.datasets;
+
+            // change the date unit display format accordingly
+            let dateUnit = data.dateUnit ? data.dateUnit : 'month';
+            this._updateTimeAxisOptions(data.dateUnit);
+
+            // update the actual chart
             this.chart.update();
         }
 
@@ -101,8 +106,17 @@ define([
                             type: 'time',
                             time: {
                                 displayFormats: {
-                                    day: 'll'
-                                }
+                                    day: 'D MMM YY',
+                                    week: '[w/c] D MMM YY',
+                                    month: 'MMM YY',
+                                    year: 'YYYY'
+                                },
+                                minUnit: 'day',
+                                unit: 'month',
+                                isoWeekday: true
+                            },
+                            ticks: {
+                                source: 'data'
                             }
                         }],
                         yAxes: [{
@@ -130,36 +144,9 @@ define([
 
         _buildDataSets(data, dataType) {
             this.datasets = [];
-            this._buildSimpleKeysData(data, dataType);
-            this._buildObjectKeysData(data, dataType);
-        }
-
-        _buildSimpleKeysData(data, dataType) {
-            let allowedKeys = Response.allowed.keys;
-            for (let i = 0; i < allowedKeys.length; i++) {
-                if (data[allowedKeys[i]]) {
-                    this._addData(
-                        allowedKeys[i],
-                        data[allowedKeys[i]],
-                        dataType
-                    );
-                }
-            }
-        }
-
-        _buildObjectKeysData(data, dataType) {
-            let allowedKeys = Response.allowed.objectKeys;
-            for (let i = 0; i < allowedKeys.length; i++) {
-                if (data[allowedKeys[i]]) {
-                    $.each(data[allowedKeys[i]], (function (key, value) {
-                        this._addData(
-                            key,
-                            value,
-                            dataType
-                        );
-                    }).bind(this));
-                }
-            }
+            $.each(data.series, function (key, series) {
+                this._addData(series.name, series.values, dataType);
+            }.bind(this));
         }
 
         _addData(label, data, dataType) {
@@ -191,6 +178,11 @@ define([
                 });
             });
             return result;
+        }
+
+        _updateTimeAxisOptions(dateUnit) {
+            this.chart.options.scales.xAxes[0].time.unit = dateUnit;
+            this.chart.options.scales.xAxes[0].time.tooltipFormat = this.chart.options.scales.xAxes[0].time.displayFormats[dateUnit];
         }
     }
 
