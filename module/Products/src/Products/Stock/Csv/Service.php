@@ -119,6 +119,7 @@ class Service
     {
         try {
             $page = 1;
+            $merchantLocationIds = $this->mapper->getMerchantLocationIds($organisationUnitId);
             while (true) {
                 /** @var Stock $stock */
                 $stock = $this->stockStorage->fetchCollectionByPaginationAndFilters(
@@ -127,7 +128,7 @@ class Service
                     [],
                     [$organisationUnitId],
                     [],
-                    []
+                    $merchantLocationIds
                 );
 
                 try {
@@ -150,7 +151,7 @@ class Service
                 }
 
                 $csv->insertAll(
-                    $this->mapper->stockCollectionToCsvArray($stock, $products)
+                    $this->mapper->stockCollectionToCsvArray($stock, $products, $merchantLocationIds)
                 );
                 $this->progressStorage->incrementProgress($progressKey, count($stock), $stock->getTotal());
             }

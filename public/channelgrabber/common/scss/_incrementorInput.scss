@@ -1,0 +1,27 @@
+.incrementor-input-box {
+    .incrementor-button {
+        width: 20%;
+        display: inline-block;
+        cursor: pointer;
+        box-sizing: border-box;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none;   /* Chrome/Safari/Opera */
+        -moz-user-select: none;      /* Firefox */
+        -ms-user-select: none;       /* Internet Explorer/Edge */
+        user-select: none;
+        .increment {
+            margin-left: 1px;
+        }
+    }
+    input[type=number] {
+        width: 25px;
+        padding: 2px;
+        text-align: center;
+        -moz-appearance:textfield;
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+}

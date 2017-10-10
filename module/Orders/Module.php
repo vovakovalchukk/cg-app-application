@@ -23,7 +23,7 @@ class Module implements DependencyIndicatorInterface
     public function onBootstrap(MvcEvent $event)
     {
         $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'layoutHandler']);
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
     }
 

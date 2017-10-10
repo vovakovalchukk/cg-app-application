@@ -108,126 +108,11 @@
             min-width: 100%;
         }
     }
-    .detail-dropdown-wrapper {
-        position: relative;
-        .detail-dropdown-searchbox {
-            width: 690px;
-            .sprite-search-18-black {
-                position: absolute;
-                top: 4px;
-                left: 5px;
-            }
-            input {
-                width: 85%;
-                height: 27px;
-                padding: 3px 4px 4px 32px;
-                box-sizing: border-box;
-                border-radius: 5px 0 0 5px;
-                border: 1px solid $color-lgrey;
-                border-right: none;
-            }
-            .detail-search-btn {
-                display: inline-block;
-                padding: 4px;
-                border-radius: 0 5px 5px 0;
-                width: 15% !important;
-                &.disabled {
-                    color: $color-lgrey;
-                    cursor: default;
-                }
-            }
-        }
-        .detail-dropdown-popup {
-            position: absolute;
-            width: 688px;
-            display: none;
-            max-height: 270px;
-            overflow: auto;
-            background-color: white;
-            border: 1px solid $color-lgrey;
-            border-radius: 5px;
-            z-index: 50;
-            &:hover {
-                display: block;
-            }
-            .dropdown-count {
-                width: 100%;
-                text-align: center;
-                padding: 7px;
-                box-sizing: border-box;
-            }
-            .detail-row-wrapper {
-                padding: 5px 0 8px 0;
-                &:nth-of-type(even) {
-                    background-color: $color-xlgrey;
-                }
-                .detail-row-header {
-                    font-size: 16px;
-                    margin: 0 0 5px 30px;
-                }
-                .detail-row-variations-list {
-                    color: $color-mgrey;
-                    .detail-variation-row {
-                        min-height: 32px;
-                        padding: 0 15px 0 30px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        &:hover {
-                            background-color: $color-grey;
-                        }
-                        .variation-row-img {
-                            max-width: 32px;
-                            max-height: 32px;
-                            overflow: hidden;
-                            margin-right: 14px;
-                            img {
-                                width: 100%;
-                            }
-                        }
-                        .variation-row-sku {
-                            width: 110px;
-                            margin-right: 24px;
-                            overflow: hidden;
-                        }
-                        .variation-row-attributes {
-                            width: 240px;
-                            display: flex;
-                            justify-content: space-between;
-                            margin-right: 24px;
-                            overflow: auto;
-                            .variation-attribute {
-                                min-width: 60px;
-                            }
-                        }
-                        .variation-row-stock {
-                            width: 90px;
-                            margin-right: 14px;
-                            text-align: center;
-                        }
-                        .variation-row-qty-input {
-                            width: 70px;
-                            margin-right: 14px;
-                            .safe-input-box .submit-input .submit-cancel {
-                                left: 0;
-                                z-index: 10;
-                            }
-                        }
-                        .variation-row-actions {
-                            width: 50px;
-                            text-align: center;
-                            color: $color-linkblue;
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-        }
-        &.active, &:focus {
-            .detail-dropdown-popup {
-                display: block;
-            }
-        }
+    .detail-dropdown-searchbox {
+        width: 690px !important;
+    }
+    .detail-dropdown-popup {
+        width: 688px !important;
     }
     .order-table-wrapper {
         width: 1050px;
@@ -254,102 +139,8 @@
         }
         .order-rows-wrapper {
             margin-bottom: 35px;
-            .order-row {
-                height: 39px;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                border: 1px solid white;
-                margin-bottom: 5px;
-                &:hover {
-                    border-radius: 5px;
-                    border: 1px solid $color-lgrey;
-                    .order-row-actions {
-                        display: inline-block;
-                    }
-                }
-                .order-row-details {
-                    width: 813px;
-                    margin-right: 50px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    .order-row-img {
-                        width: 39px;
-                        max-height: 39px;
-                        overflow: hidden;
-                        border-radius: 5px;
-                        margin-right: 10px;
-                        img {
-                            width: 100%;
-                        }
-                    }
-                    .order-row-description {
-                        width: 200px;
-                        margin-right: 20px;
-                        .order-row-name {
-                            width: 100%;
-                            max-width: 190px;
-                            display: inline-block;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            overflow: hidden;
-                        }
-                        .order-row-sku {
-                            color: $color-lgrey;
-                            width: 100%;
-                            max-height: 20px;
-                            max-width: 190px;
-                            display: inline-block;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            overflow: hidden;
-                        }
-                    }
-                    .order-row-attributes {
-                        width: 210px;
-                        margin-right: 50px;
-                        .custom-select {
-                            width: 100%;
-                            .open-content {
-                                width: 100%;
-                            }
-                        }
-                        .selected-content, .custom-select-item a {
-                            display: flex;
-                            justify-content: space-between;
-                            .option-component {
-                                text-transform: capitalize;
-                                min-width: 50px;
-                                &:last-child {
-                                    min-width: 0;
-                                }
-                            }
-                        }
-                    }
-                    .order-row-price {
-                        min-width: 64px;
-                    }
-                }
-                .order-row-actions {
-                    cursor: pointer;
-                    display: none;
-                }
-                .order-row-total {
-                    margin-right: 40px;
-                    text-align: right;
-                }
-                .order-row-qty-input {
-                    display: flex;
-                    align-items: center;
-                    .multiplier {
-                        margin-right: 23px;
-                    }
-                    input {
-                        color: $color-dgrey;
-                        text-align: center;
-                    }
-                }
+            .item-row-details {
+                width: 813px !important;
             }
         }
         .detail-wrapper {
@@ -431,34 +222,6 @@
 
 .inputbox-label {
     min-height: 18px;
-}
-
-.incrementor-input-box {
-    .incrementor-button {
-        width: 25%;
-        display: inline-block;
-        cursor: pointer;
-        box-sizing: border-box;
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none;   /* Chrome/Safari/Opera */
-        -moz-user-select: none;      /* Firefox */
-        -ms-user-select: none;       /* Internet Explorer/Edge */
-        user-select: none;
-        .increment {
-            margin-left: 1px;
-        }
-    }
-    input[type=number] {
-        width: 20px;
-        padding: 2px;
-        text-align: center;
-        -moz-appearance:textfield;
-        &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    }
 }
 
 #billing-address-search-toggle-shadow, #shipping-address-search-toggle-shadow {
