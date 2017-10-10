@@ -2,7 +2,7 @@ define([
     'react',
     'Common/Components/ClickOutside',
     'Product/Filter/Entity',
-    'ManualOrder/Components/ProductDropdown/DetailRow',
+    'Common/Components/ProductDropdown/DetailRow',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -71,7 +71,7 @@ define([
             AjaxHandler.fetchByFilter(filter, variations.bind(this));
         },
         submitInput: function () {
-            if (this.state.fetchingData) {
+            if (this.props.disabled || this.state.fetchingData) {
                 return;
             }
             this.setState({
@@ -129,8 +129,8 @@ define([
                     <div className={"detail-dropdown-wrapper "+ (this.state.hasFocus && this.state.showResults && (! this.state.fetchingData) ? 'active' : '')}>
                         <div className="detail-dropdown-searchbox">
                             <div className="sprite-search-18-black"></div>
-                            <input onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress} onClick={this.onClick}/>
-                            <button className={"detail-search-btn button "+(this.state.fetchingData ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
+                            <input disabled={this.props.disabled} onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress} onClick={this.onClick}/>
+                            <button className={"detail-search-btn button "+((this.state.fetchingData || this.props.disabled) ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
                         </div>
                         {this.getDropdown()}
                     </div>

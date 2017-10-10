@@ -5,7 +5,7 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
 use CG\ETag\Exception\NotModified;
-use CG\Gearman\Exception\Gearman;
+use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
@@ -27,15 +27,16 @@ use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
-use CG\Stock\Location\Service as StockLocationService;
-use CG\Stock\Service as StockService;
+use CG\Stock\Location\StorageInterface as StockLocationStorage;
+use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
+use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
-use CG_UI\View\Table;
 use GearmanClient;
 use Zend\Di\Di;
+use Zend\Navigation\Page\AbstractPage as NavPage;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -51,6 +52,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LIMIT = 50;
     const PAGE = 1;
     const MAX_FOREGROUND_DELETES = 5;
+    const NAV_KEY_FEATURE_FLAG = 'featureFlag';
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
     const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
@@ -69,8 +71,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $organisationUnitService;
     protected $productService;
     protected $productFilterMapper;
-    protected $stockService;
-    protected $stockLocationService;
+    protected $stockStorage;
+    protected $stockLocationStorage;
     protected $stockAuditor;
     protected $intercomEventService;
     /** @var StockAdjustmentService */
@@ -83,6 +85,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $gearmanClient;
     /** @var RemoveProgressStorage */
     protected $removeProgressStorage;
+    /** @var  FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var UserOuService */
+    protected $userOuService;
 
     public function __construct(
         UserService $userService,
@@ -93,15 +99,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrganisationUnitService $organisationUnitService,
         ProductFilterMapper $productFilterMapper,
         ProductService $productService,
-        StockLocationService $stockLocationService,
-        StockService $stockService,
+        StockLocationStorage $stockLocationStorage,
+        StockStorage $stockStorage,
         StockAuditor $stockAuditor,
         IntercomEventService $intercomEventService,
         StockAdjustmentService $stockAdjustmentService,
         DetailService $detailService,
         DetailMapper $detailMapper,
         GearmanClient $gearmanClient,
-        RemoveProgressStorage $removeProgressStorage
+        RemoveProgressStorage $removeProgressStorage,
+        FeatureFlagsService $featureFlagsService,
+        UserOuService $userOuService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -111,8 +119,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->userPreferenceService = $userPreferenceService;
         $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
-        $this->stockService = $stockService;
-        $this->stockLocationService = $stockLocationService;
+        $this->stockStorage = $stockStorage;
+        $this->stockLocationStorage = $stockLocationStorage;
         $this->stockAuditor = $stockAuditor;
         $this->intercomEventService = $intercomEventService;
         $this->stockAdjustmentService = $stockAdjustmentService;
@@ -120,6 +128,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->detailMapper = $detailMapper;
         $this->gearmanClient = $gearmanClient;
         $this->removeProgressStorage = $removeProgressStorage;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->userOuService = $userOuService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -135,7 +145,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $stockLocationEntity = $this->stockLocationService->fetch($stockLocationId);
+            $stockLocationEntity = $this->stockLocationStorage->fetch($stockLocationId);
 
             $adjustment = $this->createAndAuditStockAdjustment($stockLocationEntity, $totalQuantity);
             $stockLocationEntity->setStoredEtag($eTag);
@@ -252,7 +262,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $operator = StockAdjustment::OPERATOR_DEC;
         }
         $adjustment = $this->stockAdjustmentService->createAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
-        $stock = $this->stockService->fetch($stockLocationEntity->getStockId());
+        $stock = $this->stockStorage->fetch($stockLocationEntity->getStockId());
         $this->stockAuditor->userAdjustment(
             $adjustment,
             $stock->getSku(),
@@ -347,5 +357,24 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->organisationUnitService->getRootOuIdFromOuId(
             $this->getActiveUser()->getOrganisationUnitId()
         );
+    }
+
+    public function checkPageEnabled(NavPage $page)
+    {
+        if (!$featureFlag = $page->get(static::NAV_KEY_FEATURE_FLAG)) {
+            return;
+        }
+
+        try {
+            if (!($this->userOuService->getActiveUser() instanceof User)) {
+                throw new NotFound("User is not logged in.");
+            }
+            $ou = $this->userOuService->getRootOuByActiveUser();
+            if (!$this->featureFlagsService->isActive($featureFlag, $ou)) {
+                $page->setClass('disabled');
+            }
+        } catch (\Exception $e) {
+            // No-op, don't stop rendering the nav just for this
+        }
     }
 }

@@ -10,7 +10,7 @@ use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stock\Entity as Stock;
 use CG\Stock\Mode as StockMode;
-use CG\Stock\Service as StockService;
+use CG\Stock\StorageInterface as StockStorage;
 use CG\User\OrganisationUnit\Service as UserOUService;
 
 class Service
@@ -21,8 +21,8 @@ class Service
     protected $productSettingsService;
     /** @var ProductService */
     protected $productService;
-    /** @var StockService $stockService */
-    protected $stockService;
+    /** @var StockStorage $stockStorage */
+    protected $stockStorage;
 
     /** @var ProductSettings $productSettings */
     protected $productSettings;
@@ -33,13 +33,13 @@ class Service
         UserOUService $userOUService,
         ProductSettingsService $productSettingsService,
         ProductService $productService,
-        StockService $stockService
+        StockStorage $stockStorage
     ) {
         $this
             ->setUserOUService($userOUService)
             ->setProductSettingsService($productSettingsService)
             ->setProductService($productService)
-            ->setStockService($stockService);
+            ->setStockStorage($stockStorage);
     }
 
     /**
@@ -191,7 +191,7 @@ class Service
             if (!is_null($eTag)) {
                 $stock->setStoredETag($eTag);
             }
-            $this->stockService->save($stock);
+            $this->stockStorage->save($stock);
         } catch (NotModified $exception) {
             // No-op
         }
@@ -202,7 +202,7 @@ class Service
      */
     public function saveStockStockMode($stockId, $stockMode, $eTag = null)
     {
-        $stock = $this->stockService->fetch($stockId);
+        $stock = $this->stockStorage->fetch($stockId);
         $this->saveStockMode($stock, $stockMode, $eTag);
         return $stock;
     }
@@ -241,7 +241,7 @@ class Service
             if (!is_null($eTag)) {
                 $stock->setStoredETag($eTag);
             }
-            $this->stockService->save($stock);
+            $this->stockStorage->save($stock);
         } catch (NotModified $exception) {
             // No-op
         }
@@ -252,7 +252,7 @@ class Service
      */
     public function saveStockStockLevel($stockId, $stockLevel, $eTag = null)
     {
-        $stock = $this->stockService->fetch($stockId);
+        $stock = $this->stockStorage->fetch($stockId);
         $this->saveStockLevel($stock, $stockLevel, $eTag);
         return $stock;
     }
@@ -359,9 +359,9 @@ class Service
     /**
      * @return self
      */
-    protected function setStockService(StockService $stockService)
+    protected function setStockStorage(StockStorage $stockStorage)
     {
-        $this->stockService = $stockService;
+        $this->stockStorage = $stockStorage;
         return $this;
     }
 }
