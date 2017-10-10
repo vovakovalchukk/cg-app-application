@@ -1069,12 +1069,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-file-storage.git",
-                "reference": "6debc825e1f150ac707a45bff9d30c943bbe25a2"
+                "reference": "55504d9b46fe07a44c0e1fdaebdba7413d923875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-file-storage-dev-CGIV-8930-cleanup-s3-temp-files-850149.zip",
-                "reference": "6debc825e1f150ac707a45bff9d30c943bbe25a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-file-storage-dev-CGIV-8930-cleanup-s3-temp-files-cce2aa.zip",
+                "reference": "55504d9b46fe07a44c0e1fdaebdba7413d923875",
                 "shasum": null
             },
             "type": "library",
@@ -1090,7 +1090,7 @@
                 }
             ],
             "description": "Handles the interaction with file storages",
-            "time": "2017-10-09T15:26:22+00:00"
+            "time": "2017-10-10T15:58:25+00:00"
         },
         {
             "name": "channelgrabber/gearman",
