@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba1b69ccbc8fe2ba7cea893e34144690",
+    "content-hash": "5ef6a465ad98db490cce52538f8c3cea",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1005,22 +1005,23 @@
         },
         {
             "name": "channelgrabber/exchangerate",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-exchangerate.git",
-                "reference": "dafb2d217c3ebc436d7edad6e74a67655f895512"
+                "reference": "332c387f143ff562f590069a9cb15e8e59c820ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.1.1-a39986.zip",
-                "reference": "dafb2d217c3ebc436d7edad6e74a67655f895512",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.2.0-63c576.zip",
+                "reference": "332c387f143ff562f590069a9cb15e8e59c820ae",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/stdlib": "^2.12.36"
+                "channelgrabber/stdlib": "^2.12.36",
+                "php": ">=7.1"
             },
             "type": "library",
             "autoload": {
@@ -1033,7 +1034,7 @@
                     "CG\\ExchangeRate\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-05-16T14:55:15+00:00"
+            "time": "2017-10-05T10:46:57+00:00"
         },
         {
             "name": "channelgrabber/feature-flags",
@@ -1604,6 +1605,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "1e72972b27fc4298054fb9874c3b7c5b85d93c4a"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-8184-Missing-images-prevent-invoices-from-generating-59a3bb.zip",
+                "reference": "1e72972b27fc4298054fb9874c3b7c5b85d93c4a",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
@@ -1649,7 +1656,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": "~1.0.1",
-                "phpunit/phpunit": "4.6.*"
+                "phpunit/phpunit": "~6.3"
             },
             "type": "library",
             "extra": {
