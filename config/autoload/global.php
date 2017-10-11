@@ -100,6 +100,7 @@ use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 // Stock Import
 use CG\Stock\Import\File\StorageInterface as StockImportInterface;
 use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
+use CG\FileStorage\S3\Adapter as S3FileImportAdapter;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
 // Communication
@@ -449,7 +450,13 @@ $config = array(
             ],
             StockImportFileS3::class => [
                 'parameter' => [
-                    'mapper' => StockImportFileMapper::class
+                    'mapper' => StockImportFileMapper::class,
+                    's3FileStorage' => S3FileImportAdapter::class
+                ]
+            ],
+            S3FileImportAdapter::class => [
+                'parameter' => [
+                    'location' => StockImportFileS3::S3_BUCKET
                 ]
             ],
             ThreadApi::class => [

@@ -2622,12 +2622,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "28eda1673f805c3b5a6ba5d1272a23af5be61d57"
+                "reference": "e9c36dce1c9a19576b1cc955221f134e59ac2ab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8930-cleanup-s3-temp-files-338da9.zip",
-                "reference": "28eda1673f805c3b5a6ba5d1272a23af5be61d57",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-8930-cleanup-s3-temp-files-68128d.zip",
+                "reference": "e9c36dce1c9a19576b1cc955221f134e59ac2ab5",
                 "shasum": null
             },
             "require": {
@@ -2676,7 +2676,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2017-10-09T14:40:05+00:00"
+            "time": "2017-10-11T08:22:11+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
