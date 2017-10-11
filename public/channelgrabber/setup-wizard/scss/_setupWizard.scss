@@ -3,7 +3,12 @@
     width: 250px;
 
     .logo {
-        padding-top: 30px;
+        padding-top: 15px;
+        
+        .logo-image {
+            width: 212px; 
+            height: 24px;
+        }
     }
 
     .navbar-content {
