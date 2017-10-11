@@ -456,7 +456,7 @@ $config = array(
             ],
             S3FileImportAdapter::class => [
                 'parameter' => [
-                    'location' => StockImportFileS3::S3_BUCKET
+                    'location' => function() { return StockImportFileS3::S3_BUCKET; }
                 ]
             ],
             ThreadApi::class => [
