@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7727c221792d3ca79c3ebd28bd33436b",
+    "content-hash": "a5393b9e9a978ac51046e9390ebe745c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3922,16 +3922,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.19.4",
+            "version": "dev-CGIV-8947-api-docs-fix",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5736e1accbacf7479c7022b934d2234d9cf680bc"
+                "reference": "cce756cb309d104be28304d872e0ae3f2df81321"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.19.4-41eb4f.zip",
-                "reference": "5736e1accbacf7479c7022b934d2234d9cf680bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8947-api-docs-fix-0ec607.zip",
+                "reference": "cce756cb309d104be28304d872e0ae3f2df81321",
                 "shasum": null
             },
             "require": {
@@ -3982,7 +3982,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-10-03T09:17:31+00:00"
+            "time": "2017-10-12 10:55:51"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9120,10 +9120,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.5",
+            "alias_normalized": "1.19.5.0",
+            "version": "dev-CGIV-8947-api-docs-fix",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
