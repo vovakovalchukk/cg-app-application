@@ -350,15 +350,6 @@ return [
                                                     ],
                                                 ],
                                             ],
-                                            ChannelController::ROUTE_ACCOUNT_DELETE => [
-                                                'type' => Literal::class,
-                                                'options' => [
-                                                    'route' => '/delete',
-                                                    'defaults' => [
-                                                        'action' => 'delete',
-                                                    ]
-                                                ],
-                                            ],
                                             ChannelController::ROUTE_ACCOUNT_STOCK_MANAGEMENT => [
                                                 'type' => Literal::class,
                                                 'options' => [
