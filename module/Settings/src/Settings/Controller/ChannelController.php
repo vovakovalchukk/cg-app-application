@@ -38,7 +38,6 @@ class ChannelController extends AbstractActionController
     const ROUTE_ACCOUNT = "Manage";
     const ROUTE_ACCOUNT_STATUS = 'Status';
     const ROUTE_ACCOUNT_STOCK_MANAGEMENT = 'Stock Management';
-    const ROUTE_ACCOUNT_DELETE = "Delete";
     const ROUTE_ACCOUNT_AJAX = "Sales Channel Item Ajax";
     const ROUTE = "Channel Management";
     const ROUTE_CHANNELS = "Channels";
