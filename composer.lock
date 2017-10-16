@@ -689,12 +689,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "a168ccb7e900bf4433c0ea3b015e48e8357d0837"
+                "reference": "42be6eb659413d07fc96b514813759597a53915f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-8944-parcelforce_sms_notification-8b7a7e.zip",
-                "reference": "a168ccb7e900bf4433c0ea3b015e48e8357d0837",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-8944-parcelforce_sms_notification-39ae05.zip",
+                "reference": "42be6eb659413d07fc96b514813759597a53915f",
                 "shasum": null
             },
             "require": {
@@ -725,7 +725,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-10-16T10:06:17+00:00"
+            "time": "2017-10-16T10:40:28+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
