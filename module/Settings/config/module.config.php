@@ -961,7 +961,6 @@ return [
                         ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'ChannelStockManagementJS', 'captureTo' => 'javascript', 'append' => true],
-                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
