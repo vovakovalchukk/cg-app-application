@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b38bf5e8d17bcf64a02d09d2f2ee0b47",
+    "content-hash": "698f3ba8178b2edc9fe772516664ac7d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3952,16 +3952,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4433-Prevent-users-from-deleting-sales-accounts",
+            "version": "1.19.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c3eebbdaa7dd96df3d7f1c8f516842e6525bae94"
+                "reference": "74f3d2a18f4e4752a577f2b0378400124c7e3111"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-4433-Prevent-users-from-deleting-sales-accounts-9c6675.zip",
-                "reference": "c3eebbdaa7dd96df3d7f1c8f516842e6525bae94",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.19.6-eed68f.zip",
+                "reference": "74f3d2a18f4e4752a577f2b0378400124c7e3111",
                 "shasum": null
             },
             "require": {
@@ -4012,7 +4012,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-10-17 08:38:55"
+            "time": "2017-10-17T15:22:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9150,18 +9150,10 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.6",
-            "alias_normalized": "1.19.6.0",
-            "version": "dev-CGIV-4433-Prevent-users-from-deleting-sales-accounts",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
