@@ -24,7 +24,7 @@
         "channelgrabber/bigcommerce": "~1.0.4",
         "channelgrabber/billing": "~1.11.4",
         "channelgrabber/cache": "~2.4.0",
-        "channelgrabber/cglib": "~1.13.1",
+        "channelgrabber/cglib": "dev-CGIV-8949-stock_management as 1.13.4",
         "channelgrabber/channel": "~1.32.6",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
