@@ -100,6 +100,7 @@ use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 // Stock Import
 use CG\Stock\Import\File\StorageInterface as StockImportInterface;
 use CG\Stock\Import\File\Storage\S3 as StockImportFileS3;
+use CG\FileStorage\S3\Adapter as S3FileImportAdapter;
 use CG\Stock\Import\File\Mapper as StockImportFileMapper;
 
 // Communication
@@ -174,10 +175,18 @@ use CG\PurchaseOrder\Item\Storage\Api as PurchaseOrderItemApiStorage;
 use Opensoft\Rollout\Storage\RedisStorageAdapter as RolloutRedisStorage;
 use Opensoft\Rollout\Storage\StorageInterface as RolloutStorage;
 
+// ExchangeRate
+use CG\ExchangeRate\Storage\Api as ExchangeRateApiStorage;
+use CG\ExchangeRate\StorageInterface as ExchangeRateStorage;
+
+// Sites
+use CG\Stdlib\Sites;
+
 $config = array(
     'di' => array(
         'instance' => array(
             'preferences' => array(
+                ExchangeRateStorage::class => ExchangeRateApiStorage::class,
                 EventManagerInterface::class => EventManager::class,
                 OrderStorage::class => OrderApiClient::class,
                 ItemStorage::class => ItemApiClient::class,
@@ -229,6 +238,11 @@ $config = array(
                 'StockSettingsAccountsMaxColumnView' => ViewModel::class,
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
+            ],
+            ExchangeRateApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
             ],
             RolloutRedisStorage::class => [
                 'parameters' => [
@@ -436,7 +450,13 @@ $config = array(
             ],
             StockImportFileS3::class => [
                 'parameter' => [
-                    'mapper' => StockImportFileMapper::class
+                    'mapper' => StockImportFileMapper::class,
+                    's3FileStorage' => S3FileImportAdapter::class
+                ]
+            ],
+            S3FileImportAdapter::class => [
+                'parameter' => [
+                    'location' => function() { return StockImportFileS3::S3_BUCKET; }
                 ]
             ],
             ThreadApi::class => [
@@ -624,6 +644,11 @@ $config = array(
             TokenStorageApi::class => [
                 'parameters' => [
                     'client' => 'billing_guzzle'
+                ]
+            ],
+            Sites::class => [
+                'parameters' => [
+                    'config' => 'app_config'
                 ]
             ],
         ),
