@@ -7,7 +7,7 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode, utils, searchAvailable, isAdmin, getParamSearchTerm)
+    var Product = function(mountingNode, utils, searchAvailable, isAdmin, getParamSearchTerm, linkedProductsEnabled)
     {
         ReactDOM.render(
             <RootComponent
@@ -16,6 +16,7 @@ define([
                 searchAvailable={searchAvailable}
                 initialSearchTerm={getParamSearchTerm}
                 isAdmin={isAdmin}
+                linkedProductsEnabled={linkedProductsEnabled}
             />,
             mountingNode
         );

@@ -156,6 +156,10 @@
                         .sprite {
                             margin: 0 auto;
                         }
+
+                        span {
+                            cursor: pointer;
+                        }
                     }
                     img {
                         max-height: 44px;
@@ -607,6 +611,11 @@ div.tether-element div.hover-link {
             margin-right: 23%;
         }
     }
+
+    .item-row-img {
+        margin-right: 0;
+        margin-left: 30px;
+    }
 }
 
 .react-popup.editor-popup {
@@ -642,8 +651,6 @@ div.tether-element div.hover-link {
     margin-bottom: 20px;
 }
 .product-rows {
-    max-height: 270px;
-    overflow-y: auto;
     .item-row {
         margin-top: 5px;
         .item-row-attributes {
@@ -656,4 +663,8 @@ div.tether-element div.hover-link {
             }
         }
     }
+}
+
+.product-dropdown .detail-dropdown-wrapper .detail-dropdown-popup {
+    position: relative;
 }

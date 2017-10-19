@@ -16,7 +16,8 @@ define([
                 productLinks: {},
                 attributeNames: [],
                 parentProduct: {},
-                fullView: false
+                fullView: false,
+                linkedProductsEnabled: false
             };
         },
         getInitialState: function () {
@@ -64,6 +65,16 @@ define([
 
             return this.context.imageUtils.getImageSource(this.props.parentProduct);
         },
+        renderLinkCell: function(variation) {
+            if (this.props.linkedProductsEnabled) {
+                return <td key="link" className="link-cell">
+                    <Link
+                        sku={variation.sku}
+                        productLinks={this.props.productLinks[variation.id] ? this.props.productLinks[variation.id] : []}
+                    />
+                </td>;
+            }
+        },
         render: function () {
             var imageRow = 0;
             var variationRow = 0;
@@ -76,7 +87,7 @@ define([
                                 <tr>
                                     <th key="image" className="image-col"></th>
                                     <th key="sku" className="sku-col">SKU</th>
-                                    <th key="link" className="link-col">Link</th>
+                                    {this.props.linkedProductsEnabled ? <th key="link" className="link-col">Link</th>: '' }
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,12 +100,7 @@ define([
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
                                             <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
-                                            <td key="link" className="link-cell">
-                                                <Link
-                                                    sku={variation.sku}
-                                                    productLinks={this.props.productLinks[variation.id] ? this.props.productLinks[variation.id] : []}
-                                                />
-                                            </td>
+                                            {this.renderLinkCell(variation)}
                                         </tr>
                                     );
                                 }.bind(this))}

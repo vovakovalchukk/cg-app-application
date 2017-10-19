@@ -81,9 +81,14 @@ define([
                     productLinks={this.props.productLinks}
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
+                    linkedProductsEnabled={this.props.linkedProductsEnabled}
                 />;
             } else {
-                return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
+                return <VariationView
+                    variations={[this.props.product]}
+                    fullView={this.state.expanded}
+                    linkedProductsEnabled={this.props.linkedProductsEnabled}
+                />;
             }
         },
         getProductDetailsView: function ()

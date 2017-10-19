@@ -279,6 +279,7 @@ define([
                     productLinks={this.state.allProductLinks[object.id]}
                     maxVariationAttributes={this.state.maxVariationAttributes}
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
+                    linkedProductsEnabled={this.props.linkedProductsEnabled}
                 />;
             }.bind(this))
         },
