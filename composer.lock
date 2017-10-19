@@ -442,12 +442,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "bc790b09fc6c1ff2292560a9ddb2ede540cb9adb"
+                "reference": "368e336910d55f7cdd1209ceb06446759d2a0b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8949-stock_management-494b5c.zip",
-                "reference": "bc790b09fc6c1ff2292560a9ddb2ede540cb9adb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8949-stock_management-53e3c7.zip",
+                "reference": "368e336910d55f7cdd1209ceb06446759d2a0b8f",
                 "shasum": null
             },
             "require": {
@@ -494,7 +494,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-10-18T15:17:44+00:00"
+            "time": "2017-10-18T15:56:21+00:00"
         },
         {
             "name": "channelgrabber/channel",
