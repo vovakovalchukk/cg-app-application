@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bab900ddedaedefc0ce35d7ae7f7c3ff",
+    "content-hash": "df09f2c81b7a695ad0009b78d31c8217",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -438,16 +438,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-8949-stock_management",
+            "version": "1.13.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "368e336910d55f7cdd1209ceb06446759d2a0b8f"
+                "reference": "bc09b3fa5b4c489f5daf97d18359cea961f7d5e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8949-stock_management-53e3c7.zip",
-                "reference": "368e336910d55f7cdd1209ceb06446759d2a0b8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.13.4-269d6d.zip",
+                "reference": "bc09b3fa5b4c489f5daf97d18359cea961f7d5e8",
                 "shasum": null
             },
             "require": {
@@ -494,7 +494,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-10-18T15:56:21+00:00"
+            "time": "2017-10-19T09:10:08+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -9150,17 +9150,9 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.13.4",
-            "alias_normalized": "1.13.4.0",
-            "version": "dev-CGIV-8949-stock_management",
-            "package": "channelgrabber/cglib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
