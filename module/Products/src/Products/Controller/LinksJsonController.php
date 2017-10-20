@@ -71,7 +71,12 @@ class LinksJsonController extends AbstractActionController
                 'stock' => $this->productLinkMapper->convertToStockSkuMap($links)
             ]);
         }
-        $this->productLinkService->save($productLink);
+
+        if ($productLink->getStockSkuMap() == []) {
+            $this->productLinkService->remove($productLink);
+        } else {
+            $this->productLinkService->save($productLink);
+        }
 
         return $this->jsonModelFactory->newInstance([
             'success' => true
