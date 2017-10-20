@@ -176,7 +176,7 @@ define([
             this.props.onEditorClose();
         },
         renderUnlinkButton: function () {
-            if (this.state.links === undefined || this.state.links.length === 0) {
+            if (this.props.productLink.links === undefined || this.props.productLink.links.length === 0) {
                 return;
             }
             return (
