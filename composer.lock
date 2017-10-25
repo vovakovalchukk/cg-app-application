@@ -3174,12 +3174,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "b0978670f2d3355dab486078fac4118e7aba7b96"
+                "reference": "ccd9ca0dacfd1dab19985836589e55533818bef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8962-confirmation_popup-b3919b.zip",
-                "reference": "b0978670f2d3355dab486078fac4118e7aba7b96",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8962-confirmation_popup-3a96bc.zip",
+                "reference": "ccd9ca0dacfd1dab19985836589e55533818bef4",
                 "shasum": null
             },
             "require": {
@@ -3212,7 +3212,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-10-24T15:30:41+00:00"
+            "time": "2017-10-24T15:46:39+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
