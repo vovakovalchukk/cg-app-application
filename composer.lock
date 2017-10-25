@@ -1243,16 +1243,16 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988"
+                "reference": "e3614c210f7c315fe9557ea0d2d08cfb1cd7adee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.3.0-3f1317.zip",
-                "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.3.1-2db798.zip",
+                "reference": "e3614c210f7c315fe9557ea0d2d08cfb1cd7adee",
                 "shasum": null
             },
             "require": {
@@ -1274,7 +1274,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2017-07-28T09:00:58+00:00"
+            "time": "2017-09-12T10:09:20+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -3174,12 +3174,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "ccd9ca0dacfd1dab19985836589e55533818bef4"
+                "reference": "c92178bc6247ccc59af12d30c2a024ab5c981ecd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8962-confirmation_popup-3a96bc.zip",
-                "reference": "ccd9ca0dacfd1dab19985836589e55533818bef4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-8962-confirmation_popup-cad2ac.zip",
+                "reference": "c92178bc6247ccc59af12d30c2a024ab5c981ecd",
                 "shasum": null
             },
             "require": {
@@ -3212,7 +3212,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-10-24T15:46:39+00:00"
+            "time": "2017-10-25T07:30:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
