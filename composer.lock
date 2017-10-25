@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "df09f2c81b7a695ad0009b78d31c8217",
+    "content-hash": "fae4b9695d529282ee8518d5ef4d2dad",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1243,16 +1243,16 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.3.0",
+            "version": "dev-CGIV-8902-truncate_string",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988"
+                "reference": "247196d102adf16bad1f86aea52eb907cc155e64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.3.0-3f1317.zip",
-                "reference": "5767a68e1c667c324aad11e6761f4e5e8c45b988",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-8902-truncate_string-0eefc8.zip",
+                "reference": "247196d102adf16bad1f86aea52eb907cc155e64",
                 "shasum": null
             },
             "require": {
@@ -1274,7 +1274,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2017-07-28T09:00:58+00:00"
+            "time": "2017-10-25T08:37:26+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -9150,10 +9150,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.2",
+            "alias_normalized": "1.3.2.0",
+            "version": "dev-CGIV-8902-truncate_string",
+            "package": "channelgrabber/intercom"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/intercom": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
