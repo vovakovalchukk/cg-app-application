@@ -87,7 +87,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
     {
         $refresh = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
-            'value' => 'Refresh',
+            'value' => 'Download listings',
             'id' => 'refresh-button',
             'disabled' => $this->usageService->hasUsageBeenExceeded(),
             'icon' => 'sprite-refresh-14-black'

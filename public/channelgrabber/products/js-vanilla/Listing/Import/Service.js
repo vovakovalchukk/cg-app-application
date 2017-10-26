@@ -43,13 +43,13 @@ define([
 
     Service.prototype.refreshingState = function()
     {
-        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Refreshing');
+        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Downloading');
         domManipulator.addClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
     };
 
     Service.prototype.refreshState = function()
     {
-        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Refresh');
+        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Download listings');
         domManipulator.removeClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
     };
 
