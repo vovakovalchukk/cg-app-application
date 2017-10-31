@@ -11,6 +11,7 @@ use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
+use CG\FeatureFlags\Feature;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -52,6 +53,7 @@ use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
 use Zend\Di\Di;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -108,6 +110,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $orderLinker;
     /** @var  ProductLinkService $productLinkService */
     protected $productLinkService;
+    /** @var FeatureFlagService $featureFlagService */
+    protected $featureFlagService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -135,7 +139,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         EUVATCodeChecker $euVatCodeChecker,
         OrderLinker $orderLinker,
-        ProductLinkService $productLinkService
+        ProductLinkService $productLinkService,
+        FeatureFlagService $featureFlagService
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
@@ -154,6 +159,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->euVatCodeChecker = $euVatCodeChecker;
         $this->orderLinker = $orderLinker;
         $this->productLinkService = $productLinkService;
+        $this->featureFlagService = $featureFlagService;
     }
 
     /**
@@ -456,7 +462,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
                 $tableRows->attach($tableRow);
             }
-            if (! isset($productLinks[$item->getItemSku()])) {
+            if (
+                ! isset($productLinks[$item->getItemSku()]) ||
+                ! $this->featureFlagService->featureEnabledForOu(
+                    Feature::LINKED_PRODUCTS,
+                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+                )
+            ) {
                 continue;
             }
             foreach ($productLinks[$item->getItemSku()]->getStockSkuMap() as $sku => $quantity) {
