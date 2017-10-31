@@ -88,6 +88,7 @@ define([
                     variations={[this.props.product]}
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    productLinks={this.props.productLinks}
                 />;
             }
         },

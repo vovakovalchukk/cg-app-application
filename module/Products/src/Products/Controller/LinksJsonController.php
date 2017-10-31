@@ -37,9 +37,9 @@ class LinksJsonController extends AbstractActionController
     public function ajaxAction()
     {
         $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $productIds = json_decode($this->params()->fromPost('products'), true);
+        $productsById = json_decode($this->params()->fromPost('products'), true);
 
-        $allVariationsBySkus = $this->productLinkMapper->getVariationsBySkus($productIds);
+        $allVariationsBySkus = $this->productLinkMapper->getVariationsBySkus($productsById);
 
         if (! empty($allVariationsBySkus)) {
             $productLinks = $this->productLinkService->fetchLinksForSkus($ouId, array_keys($allVariationsBySkus));
@@ -47,7 +47,7 @@ class LinksJsonController extends AbstractActionController
 
         $productLinksByProductId = [];
         if (! empty($productLinks)) {
-            $productLinksByProductId = $this->productLinkService->getProductLinksByProductId($ouId, $productIds, $allVariationsBySkus, $productLinks);
+            $productLinksByProductId = $this->productLinkService->getProductLinksByProductId($ouId, $productsById, $allVariationsBySkus, $productLinks);
         }
 
         return $this->jsonModelFactory->newInstance([

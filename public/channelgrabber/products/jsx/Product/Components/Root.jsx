@@ -132,9 +132,17 @@ define([
         },
         fetchLinkedProducts: function (variationsByParent) {
             window.triggerEvent('fetchingProductLinksStart');
+
+            var products = variationsByParent;
+            this.state.products.forEach(function(product) {
+                if (product.variationCount == 0) {
+                    products[product.id] = [product];
+                }
+            });
+
             $.ajax({
                 url: '/products/links/ajax',
-                data: {products: JSON.stringify(variationsByParent)},
+                data: {products: JSON.stringify(products)},
                 type: 'POST',
                 success: function (response) {
                     var products = [];
