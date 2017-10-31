@@ -79,7 +79,7 @@ define([
                     <span>
                         <img
                             title="Loading Product Links..."
-                            src="/channelgrabber/zf2-v4-ui/img/loading.gif"
+                            src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif"
                             className="b-loader"
                         />
                     </span>
