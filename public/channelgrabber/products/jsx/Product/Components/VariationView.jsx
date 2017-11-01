@@ -46,6 +46,11 @@ define([
             while (headers.length < this.props.maxVariationAttributes) {
                 headers.push(<th style={{width: columnWidth}}></th>);
             }
+
+            if (headers.length == 0) {
+                headers.push(<th style={{width:'100%'}}></th>);
+            }
+
             return headers;
         },
         getAttributeValues: function(variation) {
@@ -53,7 +58,7 @@ define([
             this.props.attributeNames.forEach(function (attributeName) {
                 values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="variation-attribute-col ellipsis">{variation.attributeValues[attributeName]}</td>);
             });
-            while (values.length < this.props.maxVariationAttributes) {
+            while (values.length < this.props.maxVariationAttributes || values.length == 0) {
                 values.push(<td className="variation-attribute-col"></td>);
             }
             return values;
@@ -78,10 +83,9 @@ define([
         render: function () {
             var imageRow = 0;
             var variationRow = 0;
-            var noVariations = this.props.variations.length == 1;
             return (
                 <div className="variation-table">
-                    <div className={"image-sku-table" + (noVariations ? ' full' : '')}>
+                    <div className="image-sku-table">
                         <table>
                             <thead>
                                 <tr>
@@ -107,7 +111,7 @@ define([
                             </tbody>
                         </table>
                     </div>
-                    <div className={"variations-table" + (noVariations ? ' hide' : '')}>
+                    <div className="variations-table">
                         <table>
                             <thead>
                                 <tr>
