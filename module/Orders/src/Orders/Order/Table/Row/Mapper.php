@@ -24,7 +24,7 @@ class Mapper extends UIMapper
 
     protected $mapItem = [
         self::COLUMN_SKU => ['getter' => 'getItemSku', 'callback' => null],
-        self::COLUMN_PRODUCT => ['getter' => 'getItemName', 'callback' => 'formatItemLink'],
+        self::COLUMN_PRODUCT => ['getter' => 'getItemName', 'callback' => 'formatItemName'],
         self::COLUMN_QUANTITY => ['getter' => 'getItemQuantity', 'callback' => null],
         self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatCurrency'],
@@ -49,11 +49,11 @@ class Mapper extends UIMapper
         $this->setCurrencyFormat($currencyFormat);
     }
 
-    public function fromItem(Item $item, Order $order, Columns $columns, $className = null)
+    public function fromItem(Item $item, Order $order, Columns $columns, $className = null, $productLinks)
     {
         $this->setOrder($order);
         $map = $this->mapItem;
-        return $this->fromEntity($item, $map, $columns, $className);
+        return $this->fromEntity($item, $map, $columns, $className, $productLinks);
     }
 
     public function fromOrderDiscount(Order $order, Columns $columns, $className = null)
@@ -101,7 +101,7 @@ class Mapper extends UIMapper
         return $this->fromArray($rowData, $className);
     }
 
-    protected function fromEntity($entity, $map, Columns $columns, $className = null)
+    protected function fromEntity($entity, $map, Columns $columns, $className = null, array $productLinks)
     {
         $rowData = [];
         foreach ($columns as $column) {
@@ -112,7 +112,7 @@ class Mapper extends UIMapper
             $columnMap = $map[$columnName];
             $value = $this->getCellValue($entity, $columnMap);
             $rowData[] = [
-                'content' => $this->formatCellValue($value, $entity, $columnMap),
+                'content' => $this->formatCellValue($value, $entity, $columnMap, $productLinks),
                 'class' => (isset($columnMap['class']) ? $columnMap['class'] : $column->getClass()),
                 'colSpan' => (isset($columnMap['colSpan']) ? $columnMap['colSpan'] : null)
             ];
@@ -131,12 +131,12 @@ class Mapper extends UIMapper
         return $entity->{$map['getter']}();
     }
 
-    protected function formatCellValue($value, $entity, array $map)
+    protected function formatCellValue($value, $entity, array $map, array $productLinks)
     {
         if (!$map['callback'] || !is_callable([$this, $map['callback']])) {
             return $value;
         }
-        return $this->{$map['callback']}($entity, $value);
+        return $this->{$map['callback']}($entity, $value, $productLinks);
     }
 
     protected function getItemPrice(Item $item)
@@ -200,9 +200,14 @@ class Mapper extends UIMapper
         return '<div class="wrap-message-holder"><b>Message: </b> ' . nl2br($giftWrap->getGiftWrapMessage()) . '</div>';
     }
 
-    protected function formatItemLink(Item $entity, $value)
+    protected function formatItemName(Item $entity, $value, array $productLinks)
     {
         $value = htmlentities($value, ENT_QUOTES | ENT_HTML401);
+
+        $linkedProductIcon = '';
+        if (isset($productLinks[$entity->getItemSku()])) {
+            $linkedProductIcon = '<span class="sprite sprite-linked-22-blue"></span>';
+        }
 
         $values = explode(PHP_EOL, $value);
         for ($i = 1; $i < count($values); $i++) {
@@ -214,10 +219,10 @@ class Mapper extends UIMapper
         }
 
         if (empty($entity->getUrl())) {
-            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . '</div>';
+            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . $linkedProductIcon . '</div>';
         }
 
-        return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . array_shift($values) . '</a>'
+        return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . array_shift($values) . $linkedProductIcon . '</a>'
             . '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . '</div>';
     }
 

@@ -456,7 +456,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             if (count($item->getGiftWraps())) {
                 $className .= ' has-giftwrap';
             }
-            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns, $className);
+            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns, $className, $productLinks);
             $tableRows->attach($tableRow);
             foreach ($item->getGiftWraps() as $giftWrap) {
                 $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
