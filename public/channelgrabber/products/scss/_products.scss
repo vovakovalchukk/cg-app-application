@@ -31,7 +31,7 @@
 #products-list {
     width: 100%;
     height: auto;
-    min-height: calc(100% - 48px);
+    min-height: 90vh;
     float: left;
     clear: both;
     margin-top: 50px;
@@ -577,6 +577,7 @@ div.tether-element div.hover-link {
     align-items: center;
     height: 40px;
     margin-bottom: 4px;
+    cursor: pointer;
     .thumbnail {
         margin-right: 4px;
         width: 40px;
@@ -619,9 +620,11 @@ div.tether-element div.hover-link {
 }
 
 .react-popup.editor-popup {
-    max-width: 60%;
-    left: 20% !important;
     top: 15% !important;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+
     .react-popup-buttons {
         justify-content: space-around !important;
         width: 30%;
@@ -631,9 +634,14 @@ div.tether-element div.hover-link {
         }
     }
 }
+
 .react-popup.unlink-popup {
-    left: 28% !important;
+    top: 15% !important;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
+
 .product-unlink-button {
     width: 30%;
     margin: 0 auto;

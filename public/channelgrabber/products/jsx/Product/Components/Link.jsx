@@ -60,7 +60,7 @@ define([
             return this.props.productLinks.map(function(linkedProduct) {
                 return (
                     <div key={linkedProduct.sku}
-                         className="hover-link-row"
+                         className="product-link hover-link-row"
                          onClick={this.onLinkRowClick.bind(this, linkedProduct.sku)}
                          title="Click to search for this product."
                     >
