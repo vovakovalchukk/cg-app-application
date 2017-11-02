@@ -78,23 +78,26 @@ class Mapper extends UIMapper
             'class' => 'product-link-td'
         ];
         $rowData[] = [
-            'content' => "",
-            'class' => 'product-link-td'
+            'content' => '<img title="Loading..." src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif" style="max-height:12px;">',
+            'class' => 'product-link-td js-linked-product-name',
+            'attributes' => [
+                'data-sku' => $sku
+            ]
         ];
         $rowData[] = [
             'content' => $quantity,
             'class' => 'product-link-td'
         ];
         $rowData[] = [
-            'content' => "",
+            'content' => '',
             'class' => 'product-link-td'
         ];
         $rowData[] = [
-            'content' => "",
+            'content' => '',
             'class' => 'product-link-td'
         ];
         $rowData[] = [
-            'content' => "",
+            'content' => '',
             'class' => 'product-link-td'
         ];
 
