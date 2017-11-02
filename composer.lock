@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fae4b9695d529282ee8518d5ef4d2dad",
+    "content-hash": "d4a2912e6ead5110b377471a447cb7ca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1247,12 +1247,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "a8e2d650a367bbffee825c7ee85e6c75567abc78"
+                "reference": "d17741e590f455dfa7b8a0b6b74a94ca1a821bba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-8902-truncate_string-df3148.zip",
-                "reference": "a8e2d650a367bbffee825c7ee85e6c75567abc78",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-8902-truncate_string-62ff6f.zip",
+                "reference": "d17741e590f455dfa7b8a0b6b74a94ca1a821bba",
                 "shasum": null
             },
             "require": {
@@ -1274,7 +1274,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2017-10-25T11:13:44+00:00"
+            "time": "2017-11-02T14:34:26+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -3170,16 +3170,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "035844843947984b28f065154c2e16f92bd5298f"
+                "reference": "9cbbd1e579d5853262ac9cb58d3cdcc369c1a8c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.1.1-9ac4fb.zip",
-                "reference": "035844843947984b28f065154c2e16f92bd5298f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.1.2-a272e6.zip",
+                "reference": "9cbbd1e579d5853262ac9cb58d3cdcc369c1a8c2",
                 "shasum": null
             },
             "require": {
@@ -3212,7 +3212,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-09-27T08:35:13+00:00"
+            "time": "2017-10-30T15:25:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
