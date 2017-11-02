@@ -409,9 +409,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $ou = $this->getRootOrganisationUnitForOrder($order);
         $orderItemSkus = [];
-        foreach ($order->getItems() as $orderItem) {
-            if (! empty($orderItem->getItemSku())) {
-                $orderItemSkus[] = $orderItem->getItemSku();
+        foreach ($order->getItems()->toArray() as $orderItem) {
+            if (! empty($orderItem['itemSku'])) {
+                $orderItemSkus[] = $orderItem['itemSku'];
             }
         }
 
@@ -439,7 +439,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ['name' => RowMapper::COLUMN_TOTAL,     'class' => 'price right'],
         ];
 
-        $productLinks = $this->getProductLinksForOrder($order);
+        $productLinks = [];
+        if ($this->featureFlagService->featureEnabledForOu(
+            Feature::LINKED_PRODUCTS,
+            $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+        )) {
+            $productLinks = $this->getProductLinksForOrder($order);
+        }
 
         $table = new Table();
         $tableColumns = new TableColumnCollection();
@@ -462,13 +468,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
                 $tableRows->attach($tableRow);
             }
-            if (
-                ! isset($productLinks[$item->getItemSku()]) ||
-                ! $this->featureFlagService->featureEnabledForOu(
-                    Feature::LINKED_PRODUCTS,
-                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
-                )
-            ) {
+            if (!isset($productLinks[$item->getItemSku()])) {
                 continue;
             }
             foreach ($productLinks[$item->getItemSku()]->getStockSkuMap() as $sku => $quantity) {
