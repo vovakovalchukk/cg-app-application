@@ -471,8 +471,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             if (!isset($productLinks[$item->getItemSku()])) {
                 continue;
             }
+            $isFirstLinkedProduct = true;
             foreach ($productLinks[$item->getItemSku()]->getStockSkuMap() as $sku => $quantity) {
-                $tableRow = $this->rowMapper->fromProductLink($sku, $quantity, $order, $tableColumns, 'product-link-tr ' . $toggleClass);
+                $tableRow = $this->rowMapper->fromProductLink(
+                    $sku,
+                    $quantity,
+                    'product-link-tr ' . $toggleClass,
+                    $isFirstLinkedProduct
+                );
+                $isFirstLinkedProduct = false;
                 $tableRows->attach($tableRow);
             }
         }

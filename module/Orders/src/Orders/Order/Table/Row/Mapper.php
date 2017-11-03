@@ -70,15 +70,24 @@ class Mapper extends UIMapper
         return $this->fromEntity($giftWrap, $map, $columns, $className);
     }
 
-    public function fromProductLink($sku, $quantity, Order $order, Columns $columns, $className = null)
-    {
+    public function fromProductLink(
+        $sku,
+        $quantity,
+        $className = null,
+        $isFirstLinkedProduct
+    ) {
         $rowData = [];
         $rowData[] = [
             'content' => $sku,
             'class' => 'product-link-td'
         ];
+
+        $loadingSpinner = '';
+        if ($isFirstLinkedProduct) {
+            $loadingSpinner = '<img title="Loading..." src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif" style="max-height:12px;">';
+        }
         $rowData[] = [
-            'content' => '<img title="Loading..." src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif" style="max-height:12px;">',
+            'content' => $loadingSpinner,
             'class' => 'product-link-td js-linked-product-name',
             'attributes' => [
                 'data-sku' => $sku
