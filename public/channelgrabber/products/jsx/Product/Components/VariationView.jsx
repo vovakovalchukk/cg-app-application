@@ -20,18 +20,8 @@ define([
                 linkedProductsEnabled: false
             };
         },
-        getInitialState: function () {
-            return {
-                tableWidth: 0
-            }
-        },
-        componentDidMount: function() {
-            const width = document.getElementsByClassName('variations-table')[0].clientWidth;
-            this.setState({ tableWidth: width });
-        },
         getAttributeHeaders: function() {
-            var columnWidth = this.state.tableWidth/this.props.maxVariationAttributes;
-
+            var columnWidth = 100 / this.props.maxVariationAttributes + '%';
             var headers = [];
             this.props.attributeNames.forEach(function(attributeName) {
                 var sortData = this.props.variationsSort.find(function (sort) {
