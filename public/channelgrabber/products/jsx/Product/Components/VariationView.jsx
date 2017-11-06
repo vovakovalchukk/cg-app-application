@@ -47,10 +47,6 @@ define([
                 headers.push(<th style={{width: columnWidth}}></th>);
             }
 
-            if (headers.length == 0) {
-                headers.push(<th style={{width:'100%'}}></th>);
-            }
-
             return headers;
         },
         getAttributeValues: function(variation) {
@@ -58,7 +54,7 @@ define([
             this.props.attributeNames.forEach(function (attributeName) {
                 values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="variation-attribute-col ellipsis">{variation.attributeValues[attributeName]}</td>);
             });
-            while (values.length < this.props.maxVariationAttributes || values.length == 0) {
+            while (values.length < this.props.maxVariationAttributes) {
                 values.push(<td className="variation-attribute-col"></td>);
             }
             return values;
@@ -83,15 +79,16 @@ define([
         render: function () {
             var imageRow = 0;
             var variationRow = 0;
+            var noVariations = this.props.variations.length == 1;
             return (
                 <div className="variation-table">
-                    <div className="image-sku-table">
+                    <div className={"image-sku-table" + (noVariations ? ' full' : '')}>
                         <table>
                             <thead>
                                 <tr>
                                     <th key="image" className="image-col"></th>
-                                    <th key="sku" className="sku-col">SKU</th>
                                     {this.props.linkedProductsEnabled ? <th key="link" className="link-col">Link</th>: '' }
+                                    <th key="sku" className="sku-col">SKU</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,15 +100,15 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
-                                            <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                             {this.renderLinkCell(variation)}
+                                            <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                         </tr>
                                     );
                                 }.bind(this))}
                             </tbody>
                         </table>
                     </div>
-                    <div className="variations-table">
+                    <div className={"variations-table" + (noVariations ? ' hide' : '')}>
                         <table>
                             <thead>
                                 <tr>
