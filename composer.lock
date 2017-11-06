@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ca2e93c1dd37c4d4440b035f21f8041",
+    "content-hash": "d336761cc03f18e4c2c200534a3e0428",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3952,16 +3952,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-8270-linked-products-ui-changes",
+            "version": "dev-CGIV-8977",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "eafeabe7ec556bcbf2bad2204176cb617b711b6a"
+                "reference": "dbcc1a79c7fb6336d6a896104b3a73ca566e173a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8270-linked-products-ui-changes-742007.zip",
-                "reference": "eafeabe7ec556bcbf2bad2204176cb617b711b6a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-8977-b99a46.zip",
+                "reference": "dbcc1a79c7fb6336d6a896104b3a73ca566e173a",
                 "shasum": null
             },
             "require": {
@@ -4012,7 +4012,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-10-19T10:46:20+00:00"
+            "time": "2017-11-02T15:17:39+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9160,7 +9160,7 @@
         {
             "alias": "1.20",
             "alias_normalized": "1.20.0.0",
-            "version": "dev-CGIV-8270-linked-products-ui-changes",
+            "version": "dev-CGIV-8977",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
