@@ -17,7 +17,7 @@ define([
         getInitialState: function() {
             return {
                 hover: false,
-                fetchingLinks: true,
+                fetchingLinks: false,
             }
         },
         componentDidMount: function()
