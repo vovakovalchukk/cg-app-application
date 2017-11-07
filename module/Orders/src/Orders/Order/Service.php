@@ -440,10 +440,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ];
 
         $productLinks = [];
-        if ($this->featureFlagService->featureEnabledForOu(
-            Feature::LINKED_PRODUCTS,
-            $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
-        )) {
+        if (
+            $this->featureFlagService->featureEnabledForOu(
+                Feature::LINKED_PRODUCTS,
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+            )
+        ) {
             $productLinks = $this->getProductLinksForOrder($order);
         }
 

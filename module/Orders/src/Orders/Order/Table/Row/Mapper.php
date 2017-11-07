@@ -49,7 +49,7 @@ class Mapper extends UIMapper
         $this->setCurrencyFormat($currencyFormat);
     }
 
-    public function fromItem(Item $item, Order $order, Columns $columns, $className = null, $productLinks)
+    public function fromItem(Item $item, Order $order, Columns $columns, $className = null, array $productLinks = [])
     {
         $this->setOrder($order);
         $map = $this->mapItem;
@@ -74,7 +74,7 @@ class Mapper extends UIMapper
         $sku,
         $quantity,
         $className = null,
-        $isFirstLinkedProduct
+        $isFirstLinkedProduct = null
     ) {
         $rowData = [];
         $rowData[] = [
@@ -113,7 +113,7 @@ class Mapper extends UIMapper
         return $this->fromArray($rowData, $className);
     }
 
-    protected function fromEntity($entity, $map, Columns $columns, $className = null, array $productLinks)
+    protected function fromEntity($entity, $map, Columns $columns, $className = null, array $productLinks = [])
     {
         $rowData = [];
         foreach ($columns as $column) {
@@ -143,7 +143,7 @@ class Mapper extends UIMapper
         return $entity->{$map['getter']}();
     }
 
-    protected function formatCellValue($value, $entity, array $map, array $productLinks)
+    protected function formatCellValue($value, $entity, array $map, array $productLinks = [])
     {
         if (!$map['callback'] || !is_callable([$this, $map['callback']])) {
             return $value;

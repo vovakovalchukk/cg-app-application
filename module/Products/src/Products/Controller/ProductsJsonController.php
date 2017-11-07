@@ -105,9 +105,9 @@ class ProductsJsonController extends AbstractActionController
         $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
         $limit = 'all';
         if (
-            !array_key_exists('parentProductId', $filterParams) &&
-            !array_key_exists('id', $filterParams) &&
-            !array_key_exists('replaceVariationWithParent', $filterParams)
+            !array_key_exists('parentProductId', $filterParams)
+            && !array_key_exists('id', $filterParams)
+            && !array_key_exists('replaceVariationWithParent', $filterParams)
         ) {
             $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
             $filterParams['replaceVariationWithParent'] = true;
