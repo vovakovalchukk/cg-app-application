@@ -11,6 +11,7 @@ use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
+use CG\FeatureFlags\Feature;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -33,6 +34,8 @@ use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
 use CG\Order\Shared\OrderLink\Collection as OrderLinkCollection;
 use CG\Order\Shared\OrderLinker;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Link\Filter as ProductLinkFilter;
+use CG\Product\Link\Service as ProductLinkService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -50,6 +53,7 @@ use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
 use Zend\Di\Di;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -104,6 +108,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $euVatCodeChecker;
     /** @var OrderLinker */
     protected $orderLinker;
+    /** @var  ProductLinkService $productLinkService */
+    protected $productLinkService;
+    /** @var FeatureFlagService $featureFlagService */
+    protected $featureFlagService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -130,7 +138,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ImageService $imageService,
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         EUVATCodeChecker $euVatCodeChecker,
-        OrderLinker $orderLinker
+        OrderLinker $orderLinker,
+        ProductLinkService $productLinkService,
+        FeatureFlagService $featureFlagService
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
@@ -148,6 +158,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
         $this->euVatCodeChecker = $euVatCodeChecker;
         $this->orderLinker = $orderLinker;
+        $this->productLinkService = $productLinkService;
+        $this->featureFlagService = $featureFlagService;
     }
 
     /**
@@ -393,6 +405,29 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return (isset($this->editableShippingAddressFulfilmentChannels[$order->getFulfilmentChannel()]));
     }
 
+    public function getProductLinksForOrder(OrderEntity $order)
+    {
+        $ou = $this->getRootOrganisationUnitForOrder($order);
+        $orderItemSkus = [];
+        foreach ($order->getItems()->toArray() as $orderItem) {
+            if (! empty($orderItem['itemSku'])) {
+                $orderItemSkus[] = $orderItem['itemSku'];
+            }
+        }
+
+        $productLinks = $this->productLinkService->fetchLinksForSkus($ou->getId(), $orderItemSkus);
+        if (empty($productLinks)) {
+            return [];
+        }
+
+        $productLinksBySku = [];
+        foreach ($orderItemSkus as $orderItemSku) {
+            $id = $ou->getId() . "-" . $orderItemSku;
+            $productLinksBySku[$orderItemSku] = $productLinks->getById($id);
+        }
+        return $productLinksBySku;
+    }
+
     public function getOrderItemTable(OrderEntity $order)
     {
         $columns = [
@@ -403,6 +438,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ['name' => RowMapper::COLUMN_DISCOUNT,  'class' => 'price right'],
             ['name' => RowMapper::COLUMN_TOTAL,     'class' => 'price right'],
         ];
+
+        $productLinks = [];
+        if (
+            $this->featureFlagService->featureEnabledForOu(
+                Feature::LINKED_PRODUCTS,
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+            )
+        ) {
+            $productLinks = $this->getProductLinksForOrder($order);
+        }
 
         $table = new Table();
         $tableColumns = new TableColumnCollection();
@@ -419,10 +464,24 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             if (count($item->getGiftWraps())) {
                 $className .= ' has-giftwrap';
             }
-            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns, $className);
+            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns, $className, $productLinks);
             $tableRows->attach($tableRow);
             foreach ($item->getGiftWraps() as $giftWrap) {
                 $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
+                $tableRows->attach($tableRow);
+            }
+            if (!isset($productLinks[$item->getItemSku()])) {
+                continue;
+            }
+            $isFirstLinkedProduct = true;
+            foreach ($productLinks[$item->getItemSku()]->getStockSkuMap() as $sku => $quantity) {
+                $tableRow = $this->rowMapper->fromProductLink(
+                    $sku,
+                    $quantity,
+                    'product-link-tr ' . $toggleClass,
+                    $isFirstLinkedProduct
+                );
+                $isFirstLinkedProduct = false;
                 $tableRows->attach($tableRow);
             }
         }

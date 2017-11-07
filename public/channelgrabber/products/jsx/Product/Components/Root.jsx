@@ -4,6 +4,7 @@ define([
     'Product/Filter/Entity',
     'Product/Components/Footer',
     'Product/Components/ProductRow',
+    'Product/Components/ProductLinkEditor',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -11,6 +12,7 @@ define([
     ProductFilter,
     ProductFooter,
     ProductRow,
+    ProductLinkEditor,
     AjaxHandler
 ) {
     "use strict";
@@ -21,7 +23,7 @@ define([
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
-                imageBasePath: this.props.imageBasePath,
+                imageUtils: this.props.utilities.image,
                 isAdmin: this.props.isAdmin,
                 initialVariationCount: INITIAL_VARIATION_COUNT
             };
@@ -38,6 +40,11 @@ define([
             return {
                 products: [],
                 variations: [],
+                allProductLinks: [],
+                editingProductLink: {
+                    sku: "",
+                    links: []
+                },
                 searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
@@ -55,6 +62,9 @@ define([
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
+            window.addEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillUnmount: function()
         {
@@ -62,6 +72,9 @@ define([
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
+            window.removeEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         filterBySearch: function(searchTerm) {
             this.setState({
@@ -111,10 +124,41 @@ define([
                 this.setState({
                     variations: variationsByParent
                 }, function() {
+                    this.fetchLinkedProducts(variationsByParent);
                     $('#products-loading-message').hide()
-                });
+                }.bind(this));
             }
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
+        },
+        fetchLinkedProducts: function (variationsByParent) {
+            window.triggerEvent('fetchingProductLinksStart');
+
+            var products = variationsByParent;
+            this.state.products.forEach(function(product) {
+                if (product.variationCount == 0) {
+                    products[product.id] = [product];
+                }
+            });
+
+            $.ajax({
+                url: '/products/links/ajax',
+                data: {products: JSON.stringify(products)},
+                type: 'POST',
+                success: function (response) {
+                    var products = [];
+                    if (response.productLinks) {
+                        products = response.productLinks;
+                    }
+                    this.setState({
+                        allProductLinks: products
+                    },
+                        window.triggerEvent('fetchingProductLinksStop')
+                    );
+                }.bind(this),
+                error: function(error) {
+                    console.warn(error);
+                }
+            });
         },
         sortVariationsByParentId: function (newVariations, parentProductId) {
             var variationsByParent = {};
@@ -133,6 +177,22 @@ define([
                 variationsByParent[variation.parentProductId].push(variation);
             }
             return variationsByParent;
+        },
+        onProductLinkRefresh: function (event) {
+            this.fetchLinkedProducts(this.state.variations);
+        },
+        onEditProductLink: function (event) {
+            var productSku = event.detail.sku;
+            var productLinks = event.detail.productLinks;
+            this.setState({
+                editingProductLink: {
+                    sku: productSku,
+                    links: productLinks
+                }
+            });
+        },
+        onSkuRequest: function (event) {
+            this.filterBySearch(event.detail.sku);
         },
         onVariationsRequest: function (event) {
             var filter = new ProductFilter(null, event.detail.productId);
@@ -193,6 +253,14 @@ define([
         onPageChange: function(pageNumber) {
             this.performProductsRequest(pageNumber);
         },
+        onProductLinksEditorClose: function () {
+            this.setState({
+                editingProductLink: {
+                    sku: "",
+                    links: []
+                }
+            });
+        },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
@@ -212,7 +280,15 @@ define([
             }
 
             return this.state.products.map(function(object) {
-                return <ProductRow key={object.id} product={object} variations={this.state.variations[object.id]} maxVariationAttributes={this.state.maxVariationAttributes} maxListingsPerAccount={this.state.maxListingsPerAccount}/>;
+                return <ProductRow
+                    key={object.id}
+                    product={object}
+                    variations={this.state.variations[object.id]}
+                    productLinks={this.state.allProductLinks[object.id]}
+                    maxVariationAttributes={this.state.maxVariationAttributes}
+                    maxListingsPerAccount={this.state.maxListingsPerAccount}
+                    linkedProductsEnabled={this.props.linkedProductsEnabled}
+                />;
             }.bind(this))
         },
         render: function()
@@ -223,6 +299,7 @@ define([
                     <div id="products-list">
                         {this.renderProducts()}
                     </div>
+                    <ProductLinkEditor productLink={this.state.editingProductLink} onEditorClose={this.onProductLinksEditorClose} />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );
@@ -230,7 +307,7 @@ define([
     });
 
     RootComponent.childContextTypes = {
-        imageBasePath: React.PropTypes.string,
+        imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };
