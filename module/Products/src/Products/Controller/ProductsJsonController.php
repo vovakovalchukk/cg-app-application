@@ -358,9 +358,10 @@ class ProductsJsonController extends AbstractActionController
         }
 
         if (count($nonDeletableSkuList) > 0) {
-            throw new \Exception();
+            $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
+            return $view->setVariable('nonDeletableSkuList', $nonDeletableSkuList);
         }
-        
+
         $progressKey = $this->params()->fromPost('progressKey');
         $this->productService->deleteProductsById($productIds, $progressKey);
         return $view;
