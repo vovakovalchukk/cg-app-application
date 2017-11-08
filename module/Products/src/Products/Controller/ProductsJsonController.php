@@ -350,16 +350,23 @@ class ProductsJsonController extends AbstractActionController
         );
         
         $nonDeletableSkuList = [];
+        $listOfAncestorSkusWithDeletionPreventingLinks = [];
         /** @var ProductLinkNodeEntity $productLinkNode */
         foreach($productLinkNodesForOuIdSkus as $productLinkNode) {
             if (count($productLinkNode->getAncestors()) > 0) {
                 $nonDeletableSkuList[] = $productLinkNode->getProductSku();
+                foreach ($productLinkNode->getAncestors() as $ancestorSku) {
+                    $listOfAncestorSkusWithDeletionPreventingLinks[] = $ancestorSku;
+                }
             }
         }
 
         if (count($nonDeletableSkuList) > 0) {
             $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
-            return $view->setVariable('nonDeletableSkuList', $nonDeletableSkuList);
+            return $view->setVariables([
+                'nonDeletableSkuList' => $nonDeletableSkuList,
+                'listOfAncestorSkusWithDeletionPreventingLinks' => $listOfAncestorSkusWithDeletionPreventingLinks
+            ]);
         }
 
         $progressKey = $this->params()->fromPost('progressKey');
