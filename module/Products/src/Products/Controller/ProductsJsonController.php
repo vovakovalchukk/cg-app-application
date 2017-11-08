@@ -27,7 +27,9 @@ use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Product\Link\Service as ProductLinkService;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
+use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
+use CG\Product\LinkNode\Entity as ProductLinkNodeEntity;
 use CG\Product\Collection as ProductCollection;
 
 class ProductsJsonController extends AbstractActionController
@@ -73,8 +75,8 @@ class ProductsJsonController extends AbstractActionController
     protected $locationService;
     /** @var StockLocationService */
     protected $stockLocationService;
-    /** @var ProductLinkService */
-    protected $productLinkService;
+    /** @var ProductLinkNodeService */
+    protected $productLinkNodeService;
     /** @var ActiveUserInterface */
     protected $activeUser;
 
@@ -91,7 +93,7 @@ class ProductsJsonController extends AbstractActionController
         UsageService $usageService,
         LocationService $locationService,
         StockLocationService $stockLocationService,
-        ProductLinkService $productLinkService,
+        ProductLinkNodeService $productLinkNodeService,
         ActiveUserInterface $activeUser
     ) {
         $this->productService = $productService;
@@ -106,7 +108,7 @@ class ProductsJsonController extends AbstractActionController
         $this->usageService = $usageService;
         $this->locationService = $locationService;
         $this->stockLocationService = $stockLocationService;
-        $this->productLinkService = $productLinkService;
+        $this->productLinkNodeService = $productLinkNodeService;
         $this->activeUser = $activeUser;
     }
 
@@ -341,17 +343,24 @@ class ProductsJsonController extends AbstractActionController
         }
 
         $products = $this->productService->fetchProducts(new Filter(null, null, [], [], [], $productIds));
-        $skusOfProductsAndVariations = $this->getSkusOfProductsAndVariations($products);
+        $ouIdSkuListOfProductsAndVariations = $this->getSkusOfProductsAndVariations($products);
 
-        $productLinksForSkus = $this->productLinkService->fetchLinksForSkus(
-            $this->activeUser->getActiveUserRootOrganisationUnitId(),
-            $skusOfProductsAndVariations
+        $productLinkNodesForOuIdSkus = $this->productLinkNodeService->fetchCollectionByFilter(
+            new ProductLinkNodeFilter('all', 1, $ouIdSkuListOfProductsAndVariations)
         );
-
-        if (count($productLinksForSkus) > 0) {
-            throw new \Exception();
+        
+        $nonDeletableSkuList = [];
+        /** @var ProductLinkNodeEntity $productLinkNode */
+        foreach($productLinkNodesForOuIdSkus as $productLinkNode) {
+            if (count($productLinkNode->getAncestors()) > 0) {
+                $nonDeletableSkuList[] = $productLinkNode->getProductSku();
+            }
         }
 
+        if (count($nonDeletableSkuList) > 0) {
+            throw new \Exception();
+        }
+        
         $progressKey = $this->params()->fromPost('progressKey');
         $this->productService->deleteProductsById($productIds, $progressKey);
         return $view;
@@ -490,19 +499,19 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
-    protected function getSkusOfProductsAndVariations(ProductCollection $productCollection)
+    protected function getSkusOfProductsAndVariations(ProductCollection $productCollection): array
     {
         $skuList = [];
         /** @var ProductEntity $product */
         foreach ($productCollection as $product) {
-            if ($product->getSku()) {
-                $skuList[] = $product->getSku();
+            if (!$product->isParent()) {
+                $skuList[] = $product->getOrganisationUnitId() . '-' . $product->getSku();
                 continue;
             }
 
             /** @var ProductEntity $variation */
             foreach($product->getVariations() as $variation) {
-                $skuList[] = $variation->getSku();
+                $skuList[] = $variation->getOrganisationUnitId() . '-' . $variation->getSku();
             }
         }
 
