@@ -62,7 +62,7 @@ define([
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
-            window.addEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.addEventListener('getProductsBySku', this.onSkuRequest, false);
             window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
@@ -72,7 +72,7 @@ define([
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
-            window.removeEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
             window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
@@ -83,11 +83,21 @@ define([
                 this.performProductsRequest
             );
         },
+        /**
+         * @param sku array
+         */
+        filterBySku: function(skuList) {
+            this.setState({
+                    skuFilter: skuList
+                },
+                this.performProductsRequest
+            );
+        },
         performProductsRequest: function(pageNumber) {
             pageNumber = pageNumber || 1;
 
             $('#products-loading-message').show();
-            var filter = new ProductFilter(this.state.searchTerm, null);
+            var filter = new ProductFilter(this.state.searchTerm, null, null, this.state.skuFilter);
             filter.setPage(pageNumber);
 
             function successCallback(result) {
@@ -192,7 +202,7 @@ define([
             });
         },
         onSkuRequest: function (event) {
-            this.filterBySearch(event.detail.sku);
+            this.filterBySku(event.detail.sku);
         },
         onVariationsRequest: function (event) {
             var filter = new ProductFilter(null, event.detail.productId);

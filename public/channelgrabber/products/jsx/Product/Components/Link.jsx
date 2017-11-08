@@ -46,7 +46,7 @@ define([
             window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
         },
         onLinkRowClick: function (sku) {
-            window.triggerEvent('productLinkSkuClicked', {sku: sku});
+            window.triggerEvent('getProductsBySku', {sku: [sku]});
         },
         getHoverContent: function () {
             if (this.props.productLinks.length === 0) {
