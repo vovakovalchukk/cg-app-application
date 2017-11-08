@@ -96,7 +96,17 @@ define([
                 this.getNotificationHandler().success(this.getEndMessage());
                 this.progressFinished();
             },
-            null,
+            function(response) {
+                if (response.status == 422) {
+                    this.getNotificationHandler().error(
+                        'The following skus can\'t be deleted as they are used as linked products '
+                        + JSON.stringify(response.responseJSON.nonDeletableSkuList)
+                    );
+                    return;
+                }
+                this.getAjaxRequester().handleFailure(response);
+
+            },
             this
         );
     };
