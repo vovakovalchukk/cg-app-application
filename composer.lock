@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d72ce4162dcc2cb3c937f1ebb40eba22",
+    "content-hash": "6482d6162723cea7e573ff3a1cba6eff",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -302,30 +302,34 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.11.12",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "236602d0508fa6ba1bb9e152f0360b946e445fcc"
+                "reference": "174312283847c875348a8b427c1d85437f93a906"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.12-82127b.zip",
-                "reference": "236602d0508fa6ba1bb9e152f0360b946e445fcc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-7277-automatic-package-upgrades-a1dd18.zip",
+                "reference": "174312283847c875348a8b427c1d85437f93a906",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/cache": "^2.0.6",
+                "channelgrabber/cache": "^2.4.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/email": "^1.1.2",
                 "channelgrabber/etag": "^1.5.4",
+                "channelgrabber/feature-flags": "dev-CGIV-7277-automatic-package-upgrades as 1.0.3",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/phinx": "~0.3.2",
+                "channelgrabber/settings": "dev-CGIV-7277-automatic-package-upgrades as 1.5.4",
                 "channelgrabber/slim": "^1.13.14",
-                "channelgrabber/stdlib": ">=2.12.0",
+                "channelgrabber/stdlib": "^2.12.48",
                 "channelgrabber/user": "^1.22.4",
+                "channelgrabber/zf2-email-template": "dev-CGIV-7277-automatic-package-upgrades as 1.0.15",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "require-dev": {
@@ -348,7 +352,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-06T12:31:16+00:00"
+            "time": "2017-11-09T15:25:38+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1038,16 +1042,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "1.0.2",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "887b10d733da420acf1123dc7d7abe11a773d9bc"
+                "reference": "c1a8f666b6b81ce75bef640bfd42ae7c265d0f7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-1.0.2-b70068.zip",
-                "reference": "887b10d733da420acf1123dc7d7abe11a773d9bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-7277-automatic-package-upgrades-cbb45b.zip",
+                "reference": "c1a8f666b6b81ce75bef640bfd42ae7c265d0f7a",
                 "shasum": null
             },
             "require": {
@@ -1062,7 +1066,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-09-27T08:30:43+00:00"
+            "time": "2017-11-02T13:41:18+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -2359,16 +2363,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.3",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e"
+                "reference": "28968b4eb572f0d1d359364d02578b34e4750c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.3-fc8fdb.zip",
-                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7277-automatic-package-upgrades-643d1a.zip",
+                "reference": "28968b4eb572f0d1d359364d02578b34e4750c24",
                 "shasum": null
             },
             "require": {
@@ -2391,7 +2395,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-04-28T13:25:46+00:00"
+            "time": "2017-11-09T10:26:40+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2890,21 +2894,22 @@
         },
         {
             "name": "channelgrabber/usage-check",
-            "version": "1.0.0",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "85134ab5b7048c07da1570df629b0206ea915207"
+                "reference": "d61bbd7b1af7676a4194c17e99b1c6b0a559c2cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-check-1.0.0-1062ad.zip",
-                "reference": "85134ab5b7048c07da1570df629b0206ea915207",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-check-dev-CGIV-7277-automatic-package-upgrades-66e1fd.zip",
+                "reference": "d61bbd7b1af7676a4194c17e99b1c6b0a559c2cf",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": ">=1.1.3",
+                "channelgrabber/billing": "dev-CGIV-7277-automatic-package-upgrades as 1.12.1",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
+                "channelgrabber/settings": "dev-CGIV-7277-automatic-package-upgrades as 1.5.4",
                 "channelgrabber/stdlib": ">=2.7.0",
                 "channelgrabber/usage": ">=1.0.2",
                 "composer/composer": "@dev"
@@ -2916,7 +2921,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2016-02-05T08:50:13+00:00"
+            "time": "2017-11-09T15:08:22+00:00"
         },
         {
             "name": "channelgrabber/user",
@@ -3369,16 +3374,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.19",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "41192ebbe7ae6df0fb16de846c017b694307bf0f"
+                "reference": "669d895703fe02a54a44a4f6cfc005401f547e85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.19-db97ec.zip",
-                "reference": "41192ebbe7ae6df0fb16de846c017b694307bf0f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-7277-automatic-package-upgrades-7a0db9.zip",
+                "reference": "669d895703fe02a54a44a4f6cfc005401f547e85",
                 "shasum": null
             },
             "require": {
@@ -3399,7 +3404,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2017-09-15T09:53:03+00:00"
+            "time": "2017-11-09T15:05:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -3909,21 +3914,21 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.12",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "a2693848de1ad2d6a67bcbd3b92baac8940be2bc"
+                "reference": "b995093d29db56bd8e752a613d6ca67c0c74f2dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.12-2c0361.zip",
-                "reference": "a2693848de1ad2d6a67bcbd3b92baac8940be2bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-7277-automatic-package-upgrades-02bc30.zip",
+                "reference": "b995093d29db56bd8e752a613d6ca67c0c74f2dc",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/usage-check": "^1.0.0",
+                "channelgrabber/usage-check": "dev-CGIV-7277-automatic-package-upgrades as 1.0.1",
                 "channelgrabber/zf2-v4-ui": "^1.16.1",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
@@ -3948,7 +3953,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2017-02-28T10:06:33+00:00"
+            "time": "2017-11-09T16:06:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -9150,10 +9155,53 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.12.1-dev",
+            "alias_normalized": "1.12.1.0-dev",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
+            "package": "channelgrabber/billing"
+        },
+        {
+            "alias": "1.0.3-dev",
+            "alias_normalized": "1.0.3.0-dev",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
+            "alias": "1.5.4-dev",
+            "alias_normalized": "1.5.4.0-dev",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
+            "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.0.1-dev",
+            "alias_normalized": "1.0.1.0-dev",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
+            "package": "channelgrabber/usage-check"
+        },
+        {
+            "alias": "1.0.15-dev",
+            "alias_normalized": "1.0.15.0-dev",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
+            "package": "channelgrabber/zf2-email-template"
+        },
+        {
+            "alias": "1.0.13",
+            "alias_normalized": "1.0.13.0",
+            "version": "dev-CGIV-7277-automatic-package-upgrades",
+            "package": "channelgrabber/zf2-usage"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
+        "channelgrabber/settings": 20,
+        "channelgrabber/usage-check": 20,
+        "channelgrabber/zf2-email-template": 20,
+        "channelgrabber/zf2-usage": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
