@@ -45,7 +45,6 @@ define([
                     sku: "",
                     links: []
                 },
-                searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
@@ -77,27 +76,21 @@ define([
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         filterBySearch: function(searchTerm) {
-            this.setState({
-                searchTerm: searchTerm
-            },
-                this.performProductsRequest
-            );
+            this.performProductsRequest(null, searchTerm);
         },
         /**
-         * @param sku array
+         * @param skuList array
          */
         filterBySku: function(skuList) {
-            this.setState({
-                    skuFilter: skuList
-                },
-                this.performProductsRequest
-            );
+            this.performProductsRequest(null, null, skuList);
         },
-        performProductsRequest: function(pageNumber) {
+        performProductsRequest: function(pageNumber, searchTerm, skuList) {
             pageNumber = pageNumber || 1;
+            searchTerm = searchTerm || '';
+            skuList = skuList || [];
 
             $('#products-loading-message').show();
-            var filter = new ProductFilter(this.state.searchTerm, null, null, this.state.skuFilter);
+            var filter = new ProductFilter(searchTerm, null, null, skuList);
             filter.setPage(pageNumber);
 
             function successCallback(result) {
