@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a82a8ae4049b0a0a90480031d1d28870",
+    "content-hash": "8ead9838f49f91942111a68e3a9b9733",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1976,16 +1976,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-EPIC-CGIV-7256-LinkedProducts",
+            "version": "dev-CGIV-8271-prevent-deletion",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "2d0b5a7a0e909ef23ef47da685baca0674931df9"
+                "reference": "555aacb533ed00456f2d5f6b056e4e1e6dbe3b85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-7256-LinkedProducts-fc62e8.zip",
-                "reference": "2d0b5a7a0e909ef23ef47da685baca0674931df9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-8271-prevent-deletion-3200e4.zip",
+                "reference": "555aacb533ed00456f2d5f6b056e4e1e6dbe3b85",
                 "shasum": null
             },
             "require": {
@@ -2030,7 +2030,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-07T14:05:47+00:00"
+            "time": "2017-11-09T13:20:31+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9154,7 +9154,7 @@
         {
             "alias": "1.9.3",
             "alias_normalized": "1.9.3.0",
-            "version": "dev-EPIC-CGIV-7256-LinkedProducts",
+            "version": "dev-CGIV-8271-prevent-deletion",
             "package": "channelgrabber/product"
         },
         {

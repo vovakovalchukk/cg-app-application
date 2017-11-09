@@ -14,10 +14,12 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
 use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
+use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
 use CG\Product\Link\Service as ProductLinkService;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
@@ -174,17 +176,18 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->intercomEventService->save($event);
     }
 
-    public function deleteProductsById(array $productIds, $progressKey, $linksToDelete)
+    public function deleteProductsById(array $productIds, $progressKey, $linkSkusToDeleteByProductId)
     {
         if (count($productIds) <= static::MAX_FOREGROUND_DELETES) {
             $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
             $products = $this->productService->fetchCollectionByFilter($filter);
+            /** @var Product $product */
             foreach ($products as $product) {
                 $this->productService->hardRemove($product);
-            }
 
-            foreach ($linksToDelete as $linkToDelete) {
-                $this->productLinkService->remove($linkToDelete);
+                foreach($linkSkusToDeleteByProductId[$product->getId()] as $linkSkuToDelete) {
+                    $this->productLinkService->remove(new ProductLink($product->getOrganisationUnitId(), $linkSkuToDelete, []);
+                }
             }
 
             $this->removeProgressStorage->setProgress($progressKey, count($productIds));

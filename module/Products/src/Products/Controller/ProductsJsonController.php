@@ -346,13 +346,18 @@ class ProductsJsonController extends AbstractActionController
         $products = $this->productService->fetchProducts(new Filter(null, null, [], [], [], $productIds));
         $ouIdSkuListOfProductsAndVariations = $this->getSkusOfProductsAndVariations($products);
 
-        $productLinkNodesForProductsBeingDeleted = $this->productLinkNodeService->fetchCollectionByFilter(
-            new ProductLinkNodeFilter('all', 1, $ouIdSkuListOfProductsAndVariations)
-        );
-        
+        try {
+            $productLinkNodesForProductsBeingDeleted = $this->productLinkNodeService->fetchCollectionByFilter(
+                new ProductLinkNodeFilter('all', 1, $ouIdSkuListOfProductsAndVariations)
+            );
+        } catch (NotFound $exception) {
+            $productLinkNodesForProductsBeingDeleted = [];
+        }
+
+        //find out which products can't be deleted and why, make a note of the links we'll have to delete later
         $nonDeletableSkuList = [];
         $ancestorSkusWithDeletionPreventingLinks = [];
-        $linksToDelete = [];
+        $linkSkusToDelete = [];
         /** @var ProductLinkNodeEntity $productLinkNode */
         foreach($productLinkNodesForProductsBeingDeleted as $productLinkNode) {
             if (count($productLinkNode->getAncestors()) > 0) {
@@ -363,10 +368,11 @@ class ProductsJsonController extends AbstractActionController
                 continue;
             }
             if (count($productLinkNode->getDescendants()) > 0) {
-                $linksToDelete[] = new ProductLink($productLinkNode->getOrganisationUnitId(), $productLinkNode->getProductSku(), []);
+                $linkSkusToDelete[$productLinkNode->getProductSku()] = new ProductLink($productLinkNode->getOrganisationUnitId(), $productLinkNode->getProductSku(), []);
             }
         }
 
+        //we have a problem, tell the user
         if (count($nonDeletableSkuList) > 0) {
             $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
             return $view->setVariables([
@@ -375,8 +381,28 @@ class ProductsJsonController extends AbstractActionController
             ]);
         }
 
+        //arrange by product ID
+        $linkSkusToDeleteByProductId = [];
+        /** @var ProductEntity $product */
+        foreach ($products as $product) {
+            $linkSkusToDeleteByProductId[$product->getId()] = [];
+            if (!$product->isParent()) {
+                if (isset($linkSkusToDelete[$product->getSku()])) {
+                    $linkSkusToDeleteByProductId[$product->getId()][] = $product->getSku();
+                }
+                continue;
+            }
+
+            /** @var ProductEntity $variation */
+            foreach ($product->getVariations() as $variation) {
+                if (isset($linkSkusToDelete[$variation->getSku()])) {
+                    $linkSkusToDeleteByProductId[$product->getId()][] = $variation->getSku();
+                }
+            }
+        }
+
         $progressKey = $this->params()->fromPost('progressKey');
-        $this->productService->deleteProductsById($productIds, $progressKey, $linksToDelete);
+        $this->productService->deleteProductsById($productIds, $progressKey, $linkSkusToDeleteByProductId);
         return $view;
     }
 
