@@ -25,6 +25,8 @@ use Orders\Order\Csv\MapperInterface;
 
 class OrdersItems implements MapperInterface
 {
+    use ConvertToOrderIdsFlagTrait;
+
     const ORDERS_PER_PAGE = 500;
 
     /** @var OrderService $orderService */
@@ -61,8 +63,6 @@ class OrdersItems implements MapperInterface
     protected $activeUserContainer;
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
-
-    protected $convertToOrderIdsFlag = true;
 
     public function __construct(
         OrderService $orderService,
@@ -228,15 +228,5 @@ class OrdersItems implements MapperInterface
             }
             yield Stdlib\transposeArray($columns);
         }
-    }
-
-    /**
-     * @param bool $convertToOrderIdsFlag
-     * @return $this
-     */
-    public function setConvertToOrderIdsFlag(bool $convertToOrderIdsFlag)
-    {
-        $this->convertToOrderIdsFlag = $convertToOrderIdsFlag;
-        return $this;
     }
 }

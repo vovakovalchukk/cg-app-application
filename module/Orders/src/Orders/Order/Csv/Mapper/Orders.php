@@ -18,6 +18,8 @@ use Orders\Order\Csv\MapperInterface;
 
 class Orders implements MapperInterface
 {
+    use ConvertToOrderIdsFlagTrait;
+
     const ORDERS_PER_PAGE = 500;
 
     /** @var OrderService $orderService */
