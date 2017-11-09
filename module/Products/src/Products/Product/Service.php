@@ -17,6 +17,7 @@ use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
+use CG\Product\Link\Service as ProductLinkService;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
@@ -89,6 +90,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $featureFlagsService;
     /** @var UserOuService */
     protected $userOuService;
+    /** @var ProductLinkService */
+    protected $productLinkService;
 
     public function __construct(
         UserService $userService,
@@ -109,7 +112,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         GearmanClient $gearmanClient,
         RemoveProgressStorage $removeProgressStorage,
         FeatureFlagsService $featureFlagsService,
-        UserOuService $userOuService
+        UserOuService $userOuService,
+        ProductLinkService $productLinkService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -130,6 +134,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->removeProgressStorage = $removeProgressStorage;
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
+        $this->productLinkService = $productLinkService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -169,7 +174,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->intercomEventService->save($event);
     }
 
-    public function deleteProductsById(array $productIds, $progressKey)
+    public function deleteProductsById(array $productIds, $progressKey, $linksToDelete)
     {
         if (count($productIds) <= static::MAX_FOREGROUND_DELETES) {
             $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
@@ -177,6 +182,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             foreach ($products as $product) {
                 $this->productService->hardRemove($product);
             }
+
+            foreach ($linksToDelete as $linkToDelete) {
+                $this->productLinkService->remove($linkToDelete);
+            }
+
             $this->removeProgressStorage->setProgress($progressKey, count($productIds));
             return;
         }

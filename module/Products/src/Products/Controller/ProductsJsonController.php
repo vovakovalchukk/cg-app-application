@@ -30,6 +30,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
 use CG\Product\LinkNode\Entity as ProductLinkNodeEntity;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Collection as ProductCollection;
 
 class ProductsJsonController extends AbstractActionController
@@ -345,19 +346,24 @@ class ProductsJsonController extends AbstractActionController
         $products = $this->productService->fetchProducts(new Filter(null, null, [], [], [], $productIds));
         $ouIdSkuListOfProductsAndVariations = $this->getSkusOfProductsAndVariations($products);
 
-        $productLinkNodesForOuIdSkus = $this->productLinkNodeService->fetchCollectionByFilter(
+        $productLinkNodesForProductsBeingDeleted = $this->productLinkNodeService->fetchCollectionByFilter(
             new ProductLinkNodeFilter('all', 1, $ouIdSkuListOfProductsAndVariations)
         );
         
         $nonDeletableSkuList = [];
-        $listOfAncestorSkusWithDeletionPreventingLinks = [];
+        $ancestorSkusWithDeletionPreventingLinks = [];
+        $linksToDelete = [];
         /** @var ProductLinkNodeEntity $productLinkNode */
-        foreach($productLinkNodesForOuIdSkus as $productLinkNode) {
+        foreach($productLinkNodesForProductsBeingDeleted as $productLinkNode) {
             if (count($productLinkNode->getAncestors()) > 0) {
                 $nonDeletableSkuList[] = $productLinkNode->getProductSku();
                 foreach ($productLinkNode->getAncestors() as $ancestorSku) {
-                    $listOfAncestorSkusWithDeletionPreventingLinks[] = $ancestorSku;
+                    $ancestorSkusWithDeletionPreventingLinks[] = $ancestorSku;
                 }
+                continue;
+            }
+            if (count($productLinkNode->getDescendants()) > 0) {
+                $linksToDelete[] = new ProductLink($productLinkNode->getOrganisationUnitId(), $productLinkNode->getProductSku(), []);
             }
         }
 
@@ -365,12 +371,12 @@ class ProductsJsonController extends AbstractActionController
             $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
             return $view->setVariables([
                 'nonDeletableSkuList' => $nonDeletableSkuList,
-                'listOfAncestorSkusWithDeletionPreventingLinks' => $listOfAncestorSkusWithDeletionPreventingLinks
+                'listOfAncestorSkusWithDeletionPreventingLinks' => $ancestorSkusWithDeletionPreventingLinks
             ]);
         }
 
         $progressKey = $this->params()->fromPost('progressKey');
-        $this->productService->deleteProductsById($productIds, $progressKey);
+        $this->productService->deleteProductsById($productIds, $progressKey, $linksToDelete);
         return $view;
     }
 
