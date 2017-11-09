@@ -84,7 +84,12 @@ class Service implements LoggerAwareInterface
     {
         $filter = (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
         $mapper = $this->ordersMapper;
-        $csv = $this->generateCsv($mapper->getHeaders(), $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter($filter), $progressKey);
+        $csv = $this->generateCsv(
+            $mapper->getHeaders(),
+            $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter(
+                $this->getFilter($OuIds)
+            ),
+            $progressKey);
         $this->notifyOfGeneration();
         return $csv;
     }
@@ -93,9 +98,20 @@ class Service implements LoggerAwareInterface
     {
         $filter = (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
         $mapper = $this->ordersItemsMapper;
-        $csv = $this->generateCsv($mapper->getHeaders(), $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter($filter), $progressKey);
+        $csv = $this->generateCsv(
+            $mapper->getHeaders(),
+            $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter(
+                $this->getFilter($OuIds)
+            ),
+            $progressKey
+        );
         $this->notifyOfGeneration();
         return $csv;
+    }
+
+    protected function getFilter(array $OuIds)
+    {
+        return (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
     }
 
     protected function generateCsv($headers, Generator $rowsGenerator, $progressKey = null)
