@@ -62,6 +62,8 @@ class OrdersItems implements MapperInterface
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
 
+    protected $convertToOrderIdsFlag = true;
+
     public function __construct(
         OrderService $orderService,
         OrderFilterStorage $orderFilterStorage,
@@ -182,7 +184,9 @@ class OrdersItems implements MapperInterface
     public function fromOrderFilter(OrderFilter $orderFilter)
     {
         /** @var OrderFilter $orderFilter */
-        $orderFilter = $this->orderFilterStorage->save($orderFilter->setConvertToOrderIds(true));
+        $orderFilter = $this->orderFilterStorage->save(
+            $orderFilter->setConvertToOrderIds($this->convertToOrderIdsFlag)
+        );
 
         $page = 1;
         do {
@@ -224,5 +228,15 @@ class OrdersItems implements MapperInterface
             }
             yield Stdlib\transposeArray($columns);
         }
+    }
+
+    /**
+     * @param bool $convertToOrderIdsFlag
+     * @return $this
+     */
+    public function setConvertToOrderIdsFlag(bool $convertToOrderIdsFlag)
+    {
+        $this->convertToOrderIdsFlag = $convertToOrderIdsFlag;
+        return $this;
     }
 }
