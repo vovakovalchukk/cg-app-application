@@ -82,14 +82,12 @@ class Service implements LoggerAwareInterface
 
     public function generateCsvForAllOrders(array $OuIds, $progressKey = null)
     {
-        $mapper = $this->ordersMapper;
-        return $this->generateCsvForAll($mapper, $OuIds, $progressKey);
+        return $this->generateCsvForAll($this->ordersMapper, $OuIds, $progressKey);
     }
 
     public function generateCsvForAllOrdersAndItems(array $OuIds, $progressKey = null)
     {
-        $mapper = $this->ordersItemsMapper;
-        return $this->generateCsvForAll($mapper, $OuIds, $progressKey);
+        return $this->generateCsvForAll($this->ordersItemsMapper, $OuIds, $progressKey);
     }
 
     public function generateCsvForAll($mapper, array $OuIds, $progressKey = null)
