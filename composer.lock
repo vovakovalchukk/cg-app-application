@@ -306,12 +306,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "174312283847c875348a8b427c1d85437f93a906"
+                "reference": "1768af0bd4385f35374b28171d4173dbfd2d4ec5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-7277-automatic-package-upgrades-a1dd18.zip",
-                "reference": "174312283847c875348a8b427c1d85437f93a906",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-7277-automatic-package-upgrades-78d8fe.zip",
+                "reference": "1768af0bd4385f35374b28171d4173dbfd2d4ec5",
                 "shasum": null
             },
             "require": {
@@ -352,7 +352,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2017-11-09T15:25:38+00:00"
+            "time": "2017-11-13T08:48:36+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3918,12 +3918,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "b995093d29db56bd8e752a613d6ca67c0c74f2dc"
+                "reference": "e103c462d9d704bc1d5a218047221c3f3b6b8be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-7277-automatic-package-upgrades-02bc30.zip",
-                "reference": "b995093d29db56bd8e752a613d6ca67c0c74f2dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-7277-automatic-package-upgrades-6360b6.zip",
+                "reference": "e103c462d9d704bc1d5a218047221c3f3b6b8be7",
                 "shasum": null
             },
             "require": {
@@ -3953,7 +3953,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2017-11-09T16:06:09+00:00"
+            "time": "2017-11-09T16:45:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
