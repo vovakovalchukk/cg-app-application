@@ -306,12 +306,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "1768af0bd4385f35374b28171d4173dbfd2d4ec5"
+                "reference": "1bb05069f77325edafd167cd16efe3beea60d8f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-7277-automatic-package-upgrades-78d8fe.zip",
-                "reference": "1768af0bd4385f35374b28171d4173dbfd2d4ec5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-7277-automatic-package-upgrades-acc034.zip",
+                "reference": "1bb05069f77325edafd167cd16efe3beea60d8f1",
                 "shasum": null
             },
             "require": {
@@ -352,7 +352,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2017-11-13T08:48:36+00:00"
+            "time": "2017-11-13T11:21:06+00:00"
         },
         {
             "name": "channelgrabber/cache",
