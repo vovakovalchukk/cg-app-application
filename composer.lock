@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8de61fceeabc22659bf384688d99729f",
+    "content-hash": "de561113dc8a6b12b1bd5ffffc69bcf8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1330,12 +1330,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "0fbd1173cccbe9673efbf2448b5e12a3614de2ca"
+                "reference": "494c146a1c33fac3bbb3d5f642ce1db26d6f3eb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-8340-countries-update-a2ce11.zip",
-                "reference": "0fbd1173cccbe9673efbf2448b5e12a3614de2ca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-8340-countries-update-301ee4.zip",
+                "reference": "494c146a1c33fac3bbb3d5f642ce1db26d6f3eb4",
                 "shasum": null
             },
             "require": {
@@ -1355,7 +1355,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-11 14:25:58"
+            "time": "2017-11-13 14:00:42"
         },
         {
             "name": "channelgrabber/location",
@@ -9152,8 +9152,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.14",
-            "alias_normalized": "1.0.14.0",
+            "alias": "1.0.15",
+            "alias_normalized": "1.0.15.0",
             "version": "dev-CGIV-8340-countries-update",
             "package": "channelgrabber/locale"
         }
