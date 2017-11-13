@@ -82,22 +82,18 @@ class Service implements LoggerAwareInterface
 
     public function generateCsvForAllOrders(array $OuIds, $progressKey = null)
     {
-        $filter = (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
         $mapper = $this->ordersMapper;
-        $csv = $this->generateCsv(
-            $mapper->getHeaders(),
-            $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter(
-                $this->getFilter($OuIds)
-            ),
-            $progressKey);
-        $this->notifyOfGeneration();
-        return $csv;
+        return $this->generateCsvForAll($mapper, $OuIds, $progressKey);
     }
 
     public function generateCsvForAllOrdersAndItems(array $OuIds, $progressKey = null)
     {
-        $filter = (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
         $mapper = $this->ordersItemsMapper;
+        return $this->generateCsvForAll($mapper, $OuIds, $progressKey);
+    }
+
+    public function generateCsvForAll($mapper, array $OuIds, $progressKey = null)
+    {
         $csv = $this->generateCsv(
             $mapper->getHeaders(),
             $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter(

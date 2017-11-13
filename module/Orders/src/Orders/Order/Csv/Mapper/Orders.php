@@ -143,7 +143,9 @@ class Orders implements MapperInterface
     public function fromOrderFilter(OrderFilter $orderFilter)
     {
         /** @var OrderFilter $orderFilter */
-        $orderFilter = $this->orderFilterStorage->save($orderFilter->setConvertToOrderIds(true));
+        $orderFilter = $this->orderFilterStorage->save(
+            $orderFilter->setConvertToOrderIds($this->convertToOrderIdsFlag)
+        );
 
         $page = 1;
         do {
