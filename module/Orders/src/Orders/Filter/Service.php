@@ -126,7 +126,7 @@ class Service
     /**
      * @return DisplayFilter
      */
-    protected function createDisplayFilter(Filter $filter = null)
+    public function createDisplayFilter(Filter $filter = null)
     {
         return new DisplayFilter(
             [],
