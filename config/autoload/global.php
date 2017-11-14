@@ -181,6 +181,7 @@ use CG\ExchangeRate\StorageInterface as ExchangeRateStorage;
 
 // Sites
 use CG\Stdlib\Sites;
+use CG\Email\Smtp;
 
 $config = array(
     'di' => array(
@@ -224,6 +225,7 @@ $config = array(
                 RolloutStorage::class => RolloutRedisStorage::class,
                 StockImportInterface::class => StockImportFileS3::class,
                 LocationStorage::class => LocationApiStorage::class,
+                Smtp::class => 'ses',
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,

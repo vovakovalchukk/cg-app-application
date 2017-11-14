@@ -11,6 +11,7 @@ $enableChannelRoute = implode(
         ChannelController::ROUTE_ACCOUNT_STATUS,
     ]
 );
+
 ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
@@ -76,7 +77,7 @@ require(
 <div class="module clearfix">
     <form class="account-status">
         <label>
-            <span class="inputbox-label">Enable Account:</span>
+            <span class="inputbox-label">HelloEnable Account:</span>
             <div class="alternate-input mustache">
                 <div class="enable-switch-account-manage">
                     <?= $this->mustache('columns/enable.mustache', array_merge($account, ['type' => $type])) ?>
