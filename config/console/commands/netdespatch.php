@@ -106,26 +106,30 @@ return [
 
                 $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
+                /* @var $account \CG\Account\Client\Entity */
                 foreach ($accounts as $account) {
+
+                    echo "TYPES\n";
+
                     $now = null;
-                    $dm->toDataTableArray($account);
+                    $dataTableArray = $dm->toDataTableArray($account);
 
                     if (!($now instanceof DateTime)) {
                         $now = new DateTime();
                     }
 
                     $links = [
-                        'manage' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ROUTE_ACCOUNT
+                        'manage' => 'Channels' . '/' . 'Manage'
                     ];
 
                     $manageLinks = [];
                     foreach ($links as $class => $link) {
-                        $route = Module::ROUTE . '/' . ChannelController::ROUTE . '/' . $link;
+                        $route = 'Settings' . '/' . 'Channel Management' . '/' . $link;
                         $routeMap = explode('/', $route);
                         $manageLinks[] = [
                             'name' => end($routeMap),
                             'class' => $class,
-                            'href' => $urlPlugin->fromRoute($route, ['account' => $account->getId(), 'type' => $type])
+//                            'href' => $urlPlugin->fromRoute($route, ['account' => $account->getId(), 'type' => $type])
                         ];
                     }
 
@@ -133,12 +137,14 @@ return [
 
 
 
-                    $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($account->getOrganisationUnitId());
+                    $dataTableArray['organisationUnit'] = null; //$this->getOrganisationUnitCompanyName($account->getOrganisationUnitId());
                     $dataTableArray['status'] = $account->getStatus($now);
                     // Don't allow users to enable pending OBA accounts, we enable them once we get the credentials
-                    if ($account->getChannel() == NetDespatchAccountCreationService::CHANNEL_NAME
-                        && !$this->activeUser->isAdmin()
-                        && $account->getPending()
+                    if (
+//                        $account->getChannel() == NetDespatchAccountCreationService::CHANNEL_NAME
+//                        && !$this->activeUser->isAdmin()
+//                        &&
+                    $account->getPending()
                     ) {
                         $dataTableArray['disabled'] = true;
                     }
@@ -148,6 +154,13 @@ return [
                     if ($expiryDate instanceof DateTime) {
                         $timeToExpiry = $expiryDate->getTimestamp() - $now->getTimestamp();
                         $dataTableArray['expiryDate'] = ($timeToExpiry > 0) ? $expiryDate->format('jS F Y') : 'Expired';
+                    }
+
+                    $types = $dataTableArray['type'];
+                    print_r($types);
+                    if ($account->getChannel() == 'amazon' && in_array('shipping', $types)) {
+                        $key = array_search('shipping', $types);
+                        unset($dataTableArray['type'][$key]);
                     }
 
                     print_r($dataTableArray);

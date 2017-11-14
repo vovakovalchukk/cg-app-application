@@ -243,7 +243,13 @@ class ChannelController extends AbstractActionController
 //            echo "TYPE".$this->params('type')."\n";
 
             foreach ($accounts as $account) {
-                $data['Records'][] = $this->getMapper()->toDataTableArray($account, $this->url(), "HELLO".$this->params('type'));
+                $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
+                $types = $dataTableArray['type'];
+                if ($account->getChannel() == 'amazon' && in_array('shipping', $types)) {
+                    $key = array_search('shipping', $types);
+                    unset($dataTableArray['type'][$key]);
+                }
+                $data['Records'][] = $dataTableArray;
             }
         } catch (NotFound $exception) {
             // No accounts so ignoring
