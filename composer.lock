@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d72ce4162dcc2cb3c937f1ebb40eba22",
+    "content-hash": "3cd607701b5fc04dcf4018d0dfef7dac",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1628,23 +1628,23 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.30.1",
+            "version": "dev-CGIV-7140-allow-update-for-non-api-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3c4acb3653c701a9405d3e60514da52b83f2011f"
+                "reference": "89e9035ac30f5acd197f2ea9748f67f2c346c719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.30.1-c4f847.zip",
-                "reference": "3c4acb3653c701a9405d3e60514da52b83f2011f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7140-allow-update-for-non-api-orders-b7eea8.zip",
+                "reference": "89e9035ac30f5acd197f2ea9748f67f2c346c719",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.8.11",
-                "channelgrabber/channel": "^1.26.1",
+                "channelgrabber/channel": "~1.32.7",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1704,7 +1704,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-10-10T09:53:38+00:00"
+            "time": "2017-11-14T08:54:57+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9150,10 +9150,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.31.0",
+            "alias_normalized": "1.31.0.0",
+            "version": "dev-CGIV-7140-allow-update-for-non-api-orders",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
