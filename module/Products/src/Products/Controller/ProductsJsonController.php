@@ -11,6 +11,7 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
+use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -28,10 +29,6 @@ use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Product\LinkNode\Service as ProductLinkNodeService;
-use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
-use CG\Product\LinkNode\Entity as ProductLinkNodeEntity;
-use CG\Product\Link\Entity as ProductLink;
-use CG\Product\Collection as ProductCollection;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -343,66 +340,18 @@ class ProductsJsonController extends AbstractActionController
             return $view;
         }
 
-        $products = $this->productService->fetchProducts(new Filter(null, null, [], [], [], $productIds));
-        $ouIdSkuListOfProductsAndVariations = $this->getSkusOfProductsAndVariations($products);
-
         try {
-            $productLinkNodesForProductsBeingDeleted = $this->productLinkNodeService->fetchCollectionByFilter(
-                new ProductLinkNodeFilter('all', 1, $ouIdSkuListOfProductsAndVariations)
-            );
-        } catch (NotFound $exception) {
-            $productLinkNodesForProductsBeingDeleted = [];
-        }
-
-        //find out which products can't be deleted and why, make a note of the links we'll have to delete later
-        $nonDeletableSkuList = [];
-        $ancestorSkusWithDeletionPreventingLinks = [];
-        $linkSkusToDelete = [];
-        /** @var ProductLinkNodeEntity $productLinkNode */
-        foreach($productLinkNodesForProductsBeingDeleted as $productLinkNode) {
-            if (count($productLinkNode->getAncestors()) > 0) {
-                $nonDeletableSkuList[] = $productLinkNode->getProductSku();
-                foreach ($productLinkNode->getAncestors() as $ancestorSku) {
-                    $ancestorSkusWithDeletionPreventingLinks[] = $ancestorSku;
-                }
-                continue;
-            }
-            if (count($productLinkNode->getDescendants()) > 0) {
-                $linkSkusToDelete[$productLinkNode->getProductSku()] = new ProductLink($productLinkNode->getOrganisationUnitId(), $productLinkNode->getProductSku(), []);
-            }
-        }
-
-        //we have a problem, tell the user
-        if (count($nonDeletableSkuList) > 0) {
+            $this->productService->checkForSafeDeletionWithProductLinks($productIds);
+        } catch (ProductLinkBlockingProductDeletionException $exception) {
             $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
             return $view->setVariables([
-                'nonDeletableSkuList' => $nonDeletableSkuList,
-                'listOfAncestorSkusWithDeletionPreventingLinks' => $ancestorSkusWithDeletionPreventingLinks
+                'nonDeletableSkuList' => $exception->getNonDeletableSkuList(),
+                'listOfAncestorSkusWithDeletionPreventingLinks' => $exception->getAncestorSkusWithDeletionPreventingLinks()
             ]);
         }
 
-        //arrange by product ID
-        $linkSkusToDeleteByProductId = [];
-        /** @var ProductEntity $product */
-        foreach ($products as $product) {
-            $linkSkusToDeleteByProductId[$product->getId()] = [];
-            if (!$product->isParent()) {
-                if (isset($linkSkusToDelete[$product->getSku()])) {
-                    $linkSkusToDeleteByProductId[$product->getId()][] = $product->getSku();
-                }
-                continue;
-            }
-
-            /** @var ProductEntity $variation */
-            foreach ($product->getVariations() as $variation) {
-                if (isset($linkSkusToDelete[$variation->getSku()])) {
-                    $linkSkusToDeleteByProductId[$product->getId()][] = $variation->getSku();
-                }
-            }
-        }
-
         $progressKey = $this->params()->fromPost('progressKey');
-        $this->productService->deleteProductsById($productIds, $progressKey, $linkSkusToDeleteByProductId);
+        $this->productService->deleteProductsById($productIds, $progressKey);
         return $view;
     }
 
@@ -537,25 +486,6 @@ class ProductsJsonController extends AbstractActionController
         );
 
         return $view;
-    }
-
-    protected function getSkusOfProductsAndVariations(ProductCollection $productCollection): array
-    {
-        $skuList = [];
-        /** @var ProductEntity $product */
-        foreach ($productCollection as $product) {
-            if (!$product->isParent()) {
-                $skuList[] = $product->getOrganisationUnitId() . '-' . $product->getSku();
-                continue;
-            }
-
-            /** @var ProductEntity $variation */
-            foreach($product->getVariations() as $variation) {
-                $skuList[] = $variation->getOrganisationUnitId() . '-' . $variation->getSku();
-            }
-        }
-
-        return $skuList;
     }
 
     protected function checkUsage()
