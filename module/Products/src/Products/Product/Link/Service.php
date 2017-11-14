@@ -6,6 +6,7 @@ use CG\Product\Service\Service as ProductService;
 use CG\Product\Link\Service as ProductLinkService;
 use CG\Product\Mapper as ProductMapper;
 use CG\Product\Link\Collection as ProductLinkCollection;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Service
@@ -27,9 +28,24 @@ class Service
         $this->productMapper = $productMapper;
     }
 
-    public function fetchLinksForSkus($ouId, array $skus)
+    public function fetchLinksForSkus($ouId, array $skus): ProductLinkCollection
     {
         return $this->productLinkService->fetchLinksForSkus($ouId, $skus);
+    }
+
+    public function fetch($id): ProductLink
+    {
+        return $this->productLinkService->fetch($id);
+    }
+
+    public function save(ProductLink $productLink)
+    {
+        return $this->productLinkService->save($productLink);
+    }
+
+    public function remove(ProductLink $productLink)
+    {
+        $this->productLinkService->remove($productLink);
     }
 
     public function getProductLinksByProductId($ouId, $productsById, $allProductsBySkus, ProductLinkCollection $productLinks)
