@@ -20,8 +20,6 @@ use CG\Locale\EUVATCodeChecker;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
-use CG\Order\Shared\Cancel\Item as CancelItem;
-use CG\Order\Shared\Cancel\Value as CancelValue;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
@@ -30,7 +28,6 @@ use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -603,6 +600,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         if (count($exception) > 0) {
             throw $exception;
         }
+    }
+
+    protected function reapplyChangesToEntityAfterConflict($fetchedEntity, $passedEntity)
+    {
+        $fetchedEntity->setStatus($passedEntity->getStatus());
+        return $fetchedEntity;
     }
 
     protected function notifyOfDispatch()
