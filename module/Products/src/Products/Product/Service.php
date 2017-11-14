@@ -93,8 +93,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $featureFlagsService;
     /** @var UserOuService */
     protected $userOuService;
-    /** @var ProductLinkService */
-    protected $productLinkService;
 
     public function __construct(
         UserService $userService,
@@ -115,8 +113,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         GearmanClient $gearmanClient,
         RemoveProgressStorage $removeProgressStorage,
         FeatureFlagsService $featureFlagsService,
-        UserOuService $userOuService,
-        ProductLinkService $productLinkService
+        UserOuService $userOuService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -137,7 +134,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->removeProgressStorage = $removeProgressStorage;
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
-        $this->productLinkService = $productLinkService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
