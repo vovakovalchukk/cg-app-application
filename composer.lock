@@ -1244,16 +1244,16 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "e3614c210f7c315fe9557ea0d2d08cfb1cd7adee"
+                "reference": "d0bfc128292d43d5ad349ecf199484aeae259b2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.3.1-2db798.zip",
-                "reference": "e3614c210f7c315fe9557ea0d2d08cfb1cd7adee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.3.2-a5b016.zip",
+                "reference": "d0bfc128292d43d5ad349ecf199484aeae259b2e",
                 "shasum": null
             },
             "require": {
@@ -1275,7 +1275,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2017-09-12T10:09:20+00:00"
+            "time": "2017-11-09T14:23:33+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -1327,16 +1327,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.13",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "ff04e055286fc6083149be54744d612530fd0178"
+                "reference": "dfedc25586400079892aeaaec3b35b1a2faf6793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.13-11c99c.zip",
-                "reference": "ff04e055286fc6083149be54744d612530fd0178",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.15-7c32aa.zip",
+                "reference": "dfedc25586400079892aeaaec3b35b1a2faf6793",
                 "shasum": null
             },
             "require": {
@@ -1356,7 +1356,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-01-25T12:04:43+00:00"
+            "time": "2017-11-15T11:53:27+00:00"
         },
         {
             "name": "channelgrabber/location",
