@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cd607701b5fc04dcf4018d0dfef7dac",
+    "content-hash": "1c66e2308e5d85867c254f1afc7bb181",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1487,16 +1487,16 @@
         },
         {
             "name": "channelgrabber/manual-order",
-            "version": "1.0.0",
+            "version": "dev-CGIV-7140-allow-update-for-non-api-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-manual-order.git",
-                "reference": "96a2c8dec6340bc3e00b584fb3cc09571683e9ea"
+                "reference": "483ee353f10232f359b52464d49707298116327c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-1.0.0-f05aa0.zip",
-                "reference": "96a2c8dec6340bc3e00b584fb3cc09571683e9ea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-CGIV-7140-allow-update-for-non-api-orders-1127d0.zip",
+                "reference": "483ee353f10232f359b52464d49707298116327c",
                 "shasum": null
             },
             "require": {
@@ -1519,7 +1519,7 @@
                     "CG\\ManualOrder\\Test\\": "tests/"
                 }
             },
-            "time": "2016-09-13T09:43:22+00:00"
+            "time": "2017-11-15T13:56:35+00:00"
         },
         {
             "name": "channelgrabber/netdespatch",
@@ -9152,6 +9152,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-7140-allow-update-for-non-api-orders",
+            "package": "channelgrabber/manual-order"
+        },
+        {
             "alias": "1.31.0",
             "alias_normalized": "1.31.0.0",
             "version": "dev-CGIV-7140-allow-update-for-non-api-orders",
@@ -9161,6 +9167,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/manual-order": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

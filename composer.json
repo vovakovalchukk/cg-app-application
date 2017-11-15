@@ -48,7 +48,7 @@
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.1.2",
-        "channelgrabber/manual-order": "~1.0.0",
+        "channelgrabber/manual-order": "dev-CGIV-7140-allow-update-for-non-api-orders as 1.0.1",
         "channelgrabber/netdespatch": "~1.2.15",
         "channelgrabber/order": "dev-CGIV-7140-allow-update-for-non-api-orders as 1.31.0",
         "channelgrabber/permission": "~1.0.2",
