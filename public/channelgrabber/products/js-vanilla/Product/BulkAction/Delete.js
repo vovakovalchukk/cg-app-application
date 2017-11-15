@@ -148,8 +148,9 @@ define([
         document.getElementById("main-notifications").addEventListener("click", function(e) {
             if(e.target && e.target.className == "js-product-search-by-sku") {
                 window.triggerEvent('getProductsBySku', {sku: JSON.parse(e.target.dataset.sku)});
+                this.getNotificationHandler().clearNotifications();
             }
-        });
+        }.bind(this));
 
         clickHandlerSetup = true;
     };
