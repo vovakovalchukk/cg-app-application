@@ -487,9 +487,18 @@ class ChannelController extends AbstractActionController
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
+
+
+        $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
+        $types = $dataTableArray['type'];
+        if ($account->getChannel() == 'amazon' && in_array('shipping', $types)) {
+            $key = array_search('shipping', $types);
+            unset($dataTableArray['type'][$key]);
+        }
+
         $response->setVariable(
             'account',
-            $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
+            $dataTableArray
         );
         return $response->setVariable('updated', true);
     }
