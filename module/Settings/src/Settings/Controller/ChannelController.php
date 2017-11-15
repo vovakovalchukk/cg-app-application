@@ -2,7 +2,6 @@
 namespace Settings\Controller;
 
 use CG\Account\Client\Entity as AccountEntity;
-//use CG\Account\Shared\Entity;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\AccountFactory;
 use CG\Channel\GetNamespacePartForAccountTrait;
@@ -240,13 +239,6 @@ class ChannelController extends AbstractActionController
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
             foreach ($accounts as $account) {
-//                $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
-//                $types = $dataTableArray['type'];
-//                if ($account->getChannel() == 'amazon' && in_array('shipping', $types)) {
-//                    $key = array_search('shipping', $types);
-//                    unset($dataTableArray['type'][$key]);
-//                }
-
                 $data['Records'][] = $this->filterDataTableArrayFields($account);
             }
         } catch (NotFound $exception) {
@@ -460,13 +452,6 @@ class ChannelController extends AbstractActionController
             $accountService->save($account->setActive($active)->setPending(!$clearPending));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
 
-//            $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
-//            $types = $dataTableArray['type'];
-//            if ($account->getChannel() == 'amazon' && in_array('shipping', $types)) {
-//                $key = array_search('shipping', $types);
-//                unset($dataTableArray['type'][$key]);
-//            }
-
             $filteredDataTableArray = $this->filterDataTableArrayFields($account);
 
             $response->setVariable(
@@ -500,14 +485,6 @@ class ChannelController extends AbstractActionController
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
-
-
-//        $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
-//        $types = $dataTableArray['type'];
-//        if ($account->getChannel() == 'amazon' && in_array('shipping', $types)) {
-//            $key = array_search('shipping', $types);
-//            unset($dataTableArray['type'][$key]);
-//        }
 
         $filteredDataTableArray = $this->filterDataTableArrayFields($account);
 
@@ -564,6 +541,10 @@ class ChannelController extends AbstractActionController
         return $this->getJsonModelFactory()->newInstance($variables, $options);
     }
 
+    /**
+     * @param AccountEntity $account
+     * @return array
+     */
     protected function filterDataTableArrayFields(AccountEntity $account)
     {
         $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
