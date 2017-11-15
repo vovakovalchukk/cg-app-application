@@ -186,13 +186,10 @@ class ChannelController extends AbstractActionController
     {
         $this->getService()->setupAccountList($this->params('type'));
 
-        $type = $this->params('type');
-        $type = ($type == 'sales,shipping') ? 'sales' : $type;
-
         $accountList = $this->getService()->getAccountList();
         $settings = $accountList->getVariable('settings');
         $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_AJAX, ['type' => $type])
+            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_AJAX, ['type' => $this->params('type')])
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
         return $accountList;
@@ -240,8 +237,6 @@ class ChannelController extends AbstractActionController
 
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
-//            echo "TYPE".$this->params('type')."\n";
-
             foreach ($accounts as $account) {
                 $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
                 $types = $dataTableArray['type'];
@@ -260,20 +255,18 @@ class ChannelController extends AbstractActionController
 
     public function accountAction()
     {
-        echo "TYPE ".$this->params('type')."\n";
-
         $id = $this->params('account');
         $accountEntity = $this->getService()->getAccount($id);
         $view = $this->newViewModel();
         $view->setTemplate(static::ACCOUNT_TEMPLATE);
-        $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url(), "hello".$this->params('type')));
+        $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url(), $this->params('type')));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $this->addChannelLogo($accountEntity, $view)
             ->addAccountsChannelSpecificView($accountEntity, $view)
             ->addAccountDetailsForm($accountEntity, $view)
             ->addTradingCompaniesView($accountEntity, $view);
-        $view->setVariable('type', "hello".$this->params('type'));
+        $view->setVariable('type', $this->params('type'));
 
         return $view;
     }
@@ -491,9 +484,6 @@ class ChannelController extends AbstractActionController
             $this->params()->fromPost('active', false),
             FILTER_VALIDATE_BOOLEAN
         );
-
-        echo __METHOD__;
-        print_r($account);
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
