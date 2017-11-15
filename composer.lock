@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b87859563e8c752a95c0900cff0e6f0b",
+    "content-hash": "0afb19e07677f350cddeee71038c19ef",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1038,20 +1038,21 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "1.0.2",
+            "version": "dev-EPIC-CGIV-7256-LinkedProducts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "887b10d733da420acf1123dc7d7abe11a773d9bc"
+                "reference": "ac9d30911692c28e005b80af470e6d8859f2f5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-1.0.2-b70068.zip",
-                "reference": "887b10d733da420acf1123dc7d7abe11a773d9bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-EPIC-CGIV-7256-LinkedProducts-3607cb.zip",
+                "reference": "ac9d30911692c28e005b80af470e6d8859f2f5ac",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/permission": "^1.0.0",
                 "channelgrabber/user": "^1.20.6",
                 "opensoft/rollout": "^2.2",
                 "predis/predis": "^1.1"
@@ -1062,7 +1063,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-09-27T08:30:43+00:00"
+            "time": "2017-10-17T14:26:24+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -9152,6 +9153,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "dev-EPIC-CGIV-7256-LinkedProducts",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
             "alias": "1.9.7",
             "alias_normalized": "1.9.7.0",
             "version": "dev-EPIC-CGIV-7256-LinkedProducts",
@@ -9167,6 +9174,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
         "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
