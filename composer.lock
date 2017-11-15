@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8da321d786da725575ef5b28e464e475",
+    "content-hash": "1203e54fa7593a506905cc6765390b45",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1005,16 +1005,16 @@
         },
         {
             "name": "channelgrabber/exchangerate",
-            "version": "1.2.0",
+            "version": "dev-CGIV-8937-Handle_usd_to_usd_conversion",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-exchangerate.git",
-                "reference": "332c387f143ff562f590069a9cb15e8e59c820ae"
+                "reference": "d7d9d4519af76e08c08d63296c4eeec030927f8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.2.0-63c576.zip",
-                "reference": "332c387f143ff562f590069a9cb15e8e59c820ae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-dev-CGIV-8937-Handle_usd_to_usd_conversion-6f34e4.zip",
+                "reference": "d7d9d4519af76e08c08d63296c4eeec030927f8b",
                 "shasum": null
             },
             "require": {
@@ -1034,7 +1034,7 @@
                     "CG\\ExchangeRate\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-10-05T10:46:57+00:00"
+            "time": "2017-11-13T13:40:23+00:00"
         },
         {
             "name": "channelgrabber/feature-flags",
@@ -4444,7 +4444,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contextio/PHP-ContextIO/zipball/800792db8030c7c01cd2a377b2e53f4d3850d584",
+                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-800792db8030c7c01cd2a377b2e53f4d3850d584-zip-3a5383.zip",
                 "reference": "800792db8030c7c01cd2a377b2e53f4d3850d584",
                 "shasum": ""
             },
@@ -6791,12 +6791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
@@ -9150,10 +9150,18 @@
             "time": "2015-11-11T19:50:13+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
+            "version": "dev-CGIV-8937-Handle_usd_to_usd_conversion",
+            "package": "channelgrabber/exchangerate"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/exchangerate": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
