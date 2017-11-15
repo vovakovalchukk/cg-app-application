@@ -450,10 +450,9 @@ class ChannelController extends AbstractActionController
             $wasActive = $account->getActive();
             $accountService->save($account->setActive($active)->setPending(!$clearPending));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
-            $filteredDataTableArray = $this->filterDataTableArrayFields($account);
             $response->setVariable(
                 'account',
-                $filteredDataTableArray
+                $this->filterDataTableArrayFields($account)
             );
             if ($wasActive != $active) {
                 $channelController = $this->getChannelSpecificController($account);
@@ -482,10 +481,9 @@ class ChannelController extends AbstractActionController
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
-        $filteredDataTableArray = $this->filterDataTableArrayFields($account);
         $response->setVariable(
             'account',
-            $filteredDataTableArray
+            $this->filterDataTableArrayFields($account)
         );
         return $response->setVariable('updated', true);
     }
