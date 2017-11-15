@@ -186,7 +186,6 @@ class ChannelController extends AbstractActionController
     protected function getAccountList()
     {
         $this->getService()->setupAccountList($this->params('type'));
-
         $accountList = $this->getService()->getAccountList();
         $settings = $accountList->getVariable('settings');
         $settings->setSource(
@@ -451,9 +450,7 @@ class ChannelController extends AbstractActionController
             $wasActive = $account->getActive();
             $accountService->save($account->setActive($active)->setPending(!$clearPending));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
-
             $filteredDataTableArray = $this->filterDataTableArrayFields($account);
-
             $response->setVariable(
                 'account',
                 $filteredDataTableArray
@@ -485,9 +482,7 @@ class ChannelController extends AbstractActionController
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
-
         $filteredDataTableArray = $this->filterDataTableArrayFields($account);
-
         $response->setVariable(
             'account',
             $filteredDataTableArray
@@ -553,7 +548,6 @@ class ChannelController extends AbstractActionController
             $key = array_search(Type::SHIPPING, $types);
             unset($dataTableArray[static::ACCOUNT_TYPE][$key]);
         }
-
         return $dataTableArray;
     }
 
