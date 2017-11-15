@@ -45,7 +45,6 @@ define([
                     sku: "",
                     links: []
                 },
-                searchTerm: this.props.initialSearchTerm,
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
@@ -62,7 +61,7 @@ define([
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
-            window.addEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.addEventListener('getProductsBySku', this.onSkuRequest, false);
             window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
@@ -72,22 +71,26 @@ define([
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
-            window.removeEventListener('productLinkSkuClicked', this.onSkuRequest, false);
+            window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
             window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         filterBySearch: function(searchTerm) {
-            this.setState({
-                searchTerm: searchTerm
-            },
-                this.performProductsRequest
-            );
+            this.performProductsRequest(null, searchTerm);
         },
-        performProductsRequest: function(pageNumber) {
+        /**
+         * @param skuList array
+         */
+        filterBySku: function(skuList) {
+            this.performProductsRequest(null, null, skuList);
+        },
+        performProductsRequest: function(pageNumber, searchTerm, skuList) {
             pageNumber = pageNumber || 1;
+            searchTerm = searchTerm || '';
+            skuList = skuList || [];
 
             $('#products-loading-message').show();
-            var filter = new ProductFilter(this.state.searchTerm, null);
+            var filter = new ProductFilter(searchTerm, null, null, skuList);
             filter.setPage(pageNumber);
 
             function successCallback(result) {
@@ -192,7 +195,7 @@ define([
             });
         },
         onSkuRequest: function (event) {
-            this.filterBySearch(event.detail.sku);
+            this.filterBySku(event.detail.sku);
         },
         onVariationsRequest: function (event) {
             var filter = new ProductFilter(null, event.detail.productId);

@@ -7,8 +7,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\ActiveUserInterface;
-
-use CG\Product\Link\Service as ProductLinkService;
+use Products\Product\Link\Service as ProductLinkService;
 use CG\Product\Link\Mapper as ProductLinkMapper;
 
 class LinksJsonController extends AbstractActionController

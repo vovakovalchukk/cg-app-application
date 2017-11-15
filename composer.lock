@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e60015ad056c0412a98a074a1341aac3",
+    "content-hash": "0afb19e07677f350cddeee71038c19ef",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1981,12 +1981,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "2d0b5a7a0e909ef23ef47da685baca0674931df9"
+                "reference": "56f2c011dfa8330ff4a3479388a1838e7ab72d07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-7256-LinkedProducts-fc62e8.zip",
-                "reference": "2d0b5a7a0e909ef23ef47da685baca0674931df9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-7256-LinkedProducts-811be2.zip",
+                "reference": "56f2c011dfa8330ff4a3479388a1838e7ab72d07",
                 "shasum": null
             },
             "require": {
@@ -2031,7 +2031,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-07T14:05:47+00:00"
+            "time": "2017-11-15T11:57:00+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9159,8 +9159,8 @@
             "package": "channelgrabber/feature-flags"
         },
         {
-            "alias": "1.9.3",
-            "alias_normalized": "1.9.3.0",
+            "alias": "1.9.7",
+            "alias_normalized": "1.9.7.0",
             "version": "dev-EPIC-CGIV-7256-LinkedProducts",
             "package": "channelgrabber/product"
         },

@@ -33,6 +33,8 @@ use Zend\View\Model\ViewModel;
 use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
 use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
+use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\LinkNode\Storage\Api as ProductLinkNodeApiStorage;
 
 return [
     'router' => [
@@ -589,13 +591,18 @@ return [
             ],
             'preference' => [
                 ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
+                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
             ],
             ProductLinkApiStorage::class => [
                 'parameter' => [
                     'client' => 'cg_app_guzzle'
                 ],
             ],
-
+            ProductLinkNodeApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ],
+            ],
             'ListingList' => [
                 'parameters' => [
                     'variables' => [
