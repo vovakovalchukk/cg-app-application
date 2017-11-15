@@ -55,7 +55,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.0.2",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "dev-CGIV-8271-prevent-deletion as 1.10.0",
+        "channelgrabber/product": "dev-EPIC-CGIV-7256-LinkedProducts as 1.9.7",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",

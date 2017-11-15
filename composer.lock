@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3722781f57ee0cd42335f0c9029e305f",
+    "content-hash": "b87859563e8c752a95c0900cff0e6f0b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1976,16 +1976,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-8271-prevent-deletion",
+            "version": "dev-EPIC-CGIV-7256-LinkedProducts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "5332cc5380c88a42d3a66cab5953edd55fc10012"
+                "reference": "56f2c011dfa8330ff4a3479388a1838e7ab72d07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-8271-prevent-deletion-074a13.zip",
-                "reference": "5332cc5380c88a42d3a66cab5953edd55fc10012",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-7256-LinkedProducts-811be2.zip",
+                "reference": "56f2c011dfa8330ff4a3479388a1838e7ab72d07",
                 "shasum": null
             },
             "require": {
@@ -2030,7 +2030,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-14T15:57:00+00:00"
+            "time": "2017-11-15T11:57:00+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9152,9 +9152,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.10.0",
-            "alias_normalized": "1.10.0.0",
-            "version": "dev-CGIV-8271-prevent-deletion",
+            "alias": "1.9.7",
+            "alias_normalized": "1.9.7.0",
+            "version": "dev-EPIC-CGIV-7256-LinkedProducts",
             "package": "channelgrabber/product"
         },
         {
