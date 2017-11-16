@@ -1491,12 +1491,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-manual-order.git",
-                "reference": "483ee353f10232f359b52464d49707298116327c"
+                "reference": "35c843ad590e534187a27b240b0915e71e3ab4ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-CGIV-7140-allow-update-for-non-api-orders-1127d0.zip",
-                "reference": "483ee353f10232f359b52464d49707298116327c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-manual-order-dev-CGIV-7140-allow-update-for-non-api-orders-c532d7.zip",
+                "reference": "35c843ad590e534187a27b240b0915e71e3ab4ec",
                 "shasum": null
             },
             "require": {
@@ -1519,7 +1519,7 @@
                     "CG\\ManualOrder\\Test\\": "tests/"
                 }
             },
-            "time": "2017-11-15T13:56:35+00:00"
+            "time": "2017-11-16T12:36:35+00:00"
         },
         {
             "name": "channelgrabber/netdespatch",
