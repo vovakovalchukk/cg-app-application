@@ -34,8 +34,9 @@ use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
 use CG\Order\Shared\OrderLink\Collection as OrderLinkCollection;
 use CG\Order\Shared\OrderLinker;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\Link\Filter as ProductLinkFilter;
-use CG\Product\Link\Service as ProductLinkService;
+use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
+use CG\Product\Link\Entity as ProductLink;
+use CG\Product\LinkLeaf\Filter as ProductLinkLeafFilter;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -108,8 +109,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $euVatCodeChecker;
     /** @var OrderLinker */
     protected $orderLinker;
-    /** @var  ProductLinkService $productLinkService */
-    protected $productLinkService;
+    /** @var  ProductLinkLeafService $productLinkLeafService */
+    protected $productLinkLeafService;
     /** @var FeatureFlagService $featureFlagService */
     protected $featureFlagService;
 
@@ -139,7 +140,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         McfFulfillmentStatusStorage $mcfFulfillmentStatusStorage,
         EUVATCodeChecker $euVatCodeChecker,
         OrderLinker $orderLinker,
-        ProductLinkService $productLinkService,
+        ProductLinkLeafService $productLinkLeafService,
         FeatureFlagService $featureFlagService
     ) {
         $this->orderClient = $orderClient;
@@ -158,7 +159,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->mcfFulfillmentStatusStorage = $mcfFulfillmentStatusStorage;
         $this->euVatCodeChecker = $euVatCodeChecker;
         $this->orderLinker = $orderLinker;
-        $this->productLinkService = $productLinkService;
+        $this->productLinkLeafService = $productLinkLeafService;
         $this->featureFlagService = $featureFlagService;
     }
 
@@ -415,7 +416,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             }
         }
 
-        $productLinks = $this->productLinkService->fetchLinksForSkus($ou->getId(), $orderItemSkus);
+        $ouIdProductSku = array_map(
+            function($sku) use($ou) {
+                return ProductLink::generateId($ou->getId(), $sku);
+            },
+            $orderItemSkus
+        );
+        $productLinkLeafFilter = (new ProductLinkLeafFilter('all', 1))->setOuIdProductSku($ouIdProductSku);
+        $productLinks = $this->productLinkLeafService->fetchCollectionByFilter($productLinkLeafFilter);
         if (empty($productLinks)) {
             return [];
         }
