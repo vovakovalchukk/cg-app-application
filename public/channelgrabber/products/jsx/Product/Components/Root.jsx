@@ -247,6 +247,7 @@ define([
             this.setState({maxVariationAttributes: maxVariationAttributes});
 
             if (allDefaultVariationIds.length == 0) {
+                this.fetchLinkedProducts({});
                 return;
             }
 
