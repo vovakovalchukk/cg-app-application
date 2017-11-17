@@ -423,8 +423,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $orderItemSkus
         );
         $productLinkLeafFilter = (new ProductLinkLeafFilter('all', 1))->setOuIdProductSku($ouIdProductSku);
-        $productLinks = $this->productLinkLeafService->fetchCollectionByFilter($productLinkLeafFilter);
-        if (empty($productLinks)) {
+
+        try {
+            $productLinks = $this->productLinkLeafService->fetchCollectionByFilter($productLinkLeafFilter);
+        } catch (NotFound $exception) {
             return [];
         }
 
