@@ -127,16 +127,16 @@ define([
                 this.setState({
                     variations: variationsByParent
                 }, function() {
-                    this.fetchLinkedProducts(variationsByParent);
+                    this.fetchLinkedProducts();
                     $('#products-loading-message').hide()
                 }.bind(this));
             }
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
-        fetchLinkedProducts: function (variationsByParent) {
+        fetchLinkedProducts: function () {
             window.triggerEvent('fetchingProductLinksStart');
 
-            var products = variationsByParent;
+            var products = this.state.variations || {};
             this.state.products.forEach(function(product) {
                 if (product.variationCount == 0) {
                     products[product.id] = [product];
@@ -181,8 +181,8 @@ define([
             }
             return variationsByParent;
         },
-        onProductLinkRefresh: function (event) {
-            this.fetchLinkedProducts(this.state.variations);
+        onProductLinkRefresh: function () {
+            this.fetchLinkedProducts();
         },
         onEditProductLink: function (event) {
             var productSku = event.detail.sku;
@@ -247,7 +247,7 @@ define([
             this.setState({maxVariationAttributes: maxVariationAttributes});
 
             if (allDefaultVariationIds.length == 0) {
-                this.fetchLinkedProducts({});
+                this.fetchLinkedProducts();
                 return;
             }
 
