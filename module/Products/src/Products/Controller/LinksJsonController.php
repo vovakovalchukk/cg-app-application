@@ -59,6 +59,7 @@ class LinksJsonController extends AbstractActionController
         $ou = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $sku = $this->params()->fromPost('sku');
         $links = json_decode($this->params()->fromPost('links'), true);
+        $productLinkExists = true;
 
         try {
             $productLink = $this->productLinkService->fetch($ou . '-' . $sku);
@@ -69,11 +70,14 @@ class LinksJsonController extends AbstractActionController
                 'sku' => $sku,
                 'stock' => $this->productLinkMapper->convertToStockSkuMap($links)
             ]);
+            $productLinkExists = false;
         }
 
-        if ($productLink->getStockSkuMap() == []) {
+        if ($productLinkExists && $productLink->getStockSkuMap() == []) {
             $this->productLinkService->remove($productLink);
-        } else {
+        }
+
+        if (count($productLink->getStockSkuMap()) > 0) {
             $this->productLinkService->save($productLink);
         }
 
