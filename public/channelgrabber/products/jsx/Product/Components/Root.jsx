@@ -145,7 +145,15 @@ define([
 
             $.ajax({
                 url: '/products/links/ajax',
-                data: {products: JSON.stringify(products)},
+                data: {
+                    products: JSON.stringify(
+                        Object.keys(products).filter(function(productId) {
+                            return products[productId] != null;
+                        }).reduce(function(filteredProducts, productId) {
+                            return Object.assign(filteredProducts, {[productId]: products[productId]});
+                        }, {})
+                    )
+                },
                 type: 'POST',
                 success: function (response) {
                     var products = [];
