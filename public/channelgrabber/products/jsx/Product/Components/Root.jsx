@@ -148,7 +148,7 @@ define([
                 data: {
                     products: JSON.stringify(
                         Object.keys(products).filter(function(productId) {
-                            return products[productId] == null;
+                            return products[productId] != null;
                         }).reduce(function(filteredProducts, productId) {
                             return Object.assign(filteredProducts, {[productId]: products[productId]});
                         }, {})
