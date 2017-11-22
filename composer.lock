@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f237c1d028041f5cb325846c2fa25ddc",
+    "content-hash": "abc32a4a59f742e633e8162d16f8c7c0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1632,20 +1632,19 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e3176ea909a9b3f13a803546653bb032d12ddd9a"
+                "reference": "6301eca45e5e2571720ad982adfe5f87df5bad6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7140-allow-update-for-non-api-orders-156c95.zip",
-                "reference": "e3176ea909a9b3f13a803546653bb032d12ddd9a",
-
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7140-allow-update-for-non-api-orders-7f733f.zip",
+                "reference": "6301eca45e5e2571720ad982adfe5f87df5bad6d",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/channel": "~1.32.7",
                 "channelgrabber/cglib": "^1.14.0",
+                "channelgrabber/channel": "^1.32.7",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1709,7 +1708,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2017-11-21T11:52:55+00:00"
+            "time": "2017-11-22T13:47:12+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9458,8 +9457,8 @@
             "package": "channelgrabber/manual-order"
         },
         {
-            "alias": "1.31.0",
-            "alias_normalized": "1.31.0.0",
+            "alias": "1.34.0",
+            "alias_normalized": "1.34.0.0",
             "version": "dev-CGIV-7140-allow-update-for-non-api-orders",
             "package": "channelgrabber/order"
         }
