@@ -59,7 +59,7 @@ class Service implements LoggerAwareInterface
     {
         $productsForSkus = $this->productService->fetchCollectionByOUAndSku([$ouId], $skusToFetchLinkedProductsFor);
         $productsForLinks = $this->fetchProductsForLinks($ouId, $productLinks);
-        $parentProducts = $this->fetchParentProducts($ouId, $productsForLinks);
+        $parentProducts = $this->fetchParentProductsForVariations($ouId, $productsForLinks);
 
         $productLinksByProductId = [];
         /** @var Product $product */
@@ -117,7 +117,7 @@ class Service implements LoggerAwareInterface
             $productLinkProduct = $matchingProduct;
             break;
         }
-        if ($productLinkProduct->getParentProductId()) {
+        if ($productLinkProduct->isVariation()) {
             $productLinkProduct = $parentProductsForLinks->getById($productLinkProduct->getParentProductId());
         }
 
@@ -141,12 +141,12 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    public function fetchParentProducts($ouId, ProductCollection $productLinksProducts): ProductCollection
+    public function fetchParentProductsForVariations($ouId, ProductCollection $productLinksProducts): ProductCollection
     {
         $idsToFetch = [];
         /** @var Product $product */
         foreach ($productLinksProducts as $product) {
-            if (!$product->isParent() && $product->getParentProductId() > 0) {
+            if ($product->isVariation()) {
                 $idsToFetch[] = $product->getParentProductId();
             }
         }
