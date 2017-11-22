@@ -689,12 +689,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "042f921044586f033eece7f3d06617aba121f718"
+                "reference": "1f74f5df7dc44289d8bd440db61a9d21fba35f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9026-dont-format-international-parcelforce-postcodes-1c7e29.zip",
-                "reference": "042f921044586f033eece7f3d06617aba121f718",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9026-dont-format-international-parcelforce-postcodes-bc3484.zip",
+                "reference": "1f74f5df7dc44289d8bd440db61a9d21fba35f19",
                 "shasum": null
             },
             "require": {
@@ -725,7 +725,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-11-22 12:16:02"
+            "time": "2017-11-22 12:50:12"
         },
         {
             "name": "channelgrabber/courieradapter",
