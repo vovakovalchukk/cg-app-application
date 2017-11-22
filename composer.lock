@@ -681,20 +681,20 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2015-02-06 12:09:38"
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.22",
+            "version": "1.0.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "94466b81e4031b6c2fea61de67a3d8715cea2f0a"
+                "reference": "5c18903138de2fbce49cebdce7280535fcb06a32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.22-b33534.zip",
-                "reference": "94466b81e4031b6c2fea61de67a3d8715cea2f0a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.23-1ec3cf.zip",
+                "reference": "5c18903138de2fbce49cebdce7280535fcb06a32",
                 "shasum": null
             },
             "require": {
@@ -725,7 +725,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-11-16T11:31:47+00:00"
+            "time": "2017-11-22T14:54:41+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -5854,7 +5854,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25T18:04:46+00:00"
+            "time": "2013-08-25 18:04:46"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6334,7 +6334,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14T18:33:30+00:00"
+            "time": "2014-04-14 18:33:30"
         },
         {
             "name": "rhumsaa/vnderror",
