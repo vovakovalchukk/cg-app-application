@@ -11,6 +11,7 @@ use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\FeatureFlags\Feature;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -18,6 +19,7 @@ use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Locale\EUVATCodeChecker;
+use CG\Order\Client\Action\Service as OrderActionService;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -27,9 +29,9 @@ use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\OrderLinker;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
 use CG\Product\Link\Entity as ProductLink;
 use CG\Product\LinkLeaf\Filter as ProductLinkLeafFilter;
+use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\Exception\Runtime\Conflict;
@@ -46,7 +48,6 @@ use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
 use Zend\Di\Di;
-use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -105,6 +106,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $productLinkLeafService;
     /** @var FeatureFlagService $featureFlagService */
     protected $featureFlagService;
+    /** @var OrderActionService */
+    protected $orderActionService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -133,7 +136,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         EUVATCodeChecker $euVatCodeChecker,
         OrderLinker $orderLinker,
         ProductLinkLeafService $productLinkLeafService,
-        FeatureFlagService $featureFlagService
+        FeatureFlagService $featureFlagService,
+        OrderActionService $orderActionService
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
@@ -153,6 +157,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->orderLinker = $orderLinker;
         $this->productLinkLeafService = $productLinkLeafService;
         $this->featureFlagService = $featureFlagService;
+        $this->orderActionService = $orderActionService;
     }
 
     /**
@@ -631,7 +636,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         /** @var OrderEntity $order */
         foreach ($orders as $order) {
             try {
-                $this->orderClient->dispatchOrder(
+                $this->orderActionService->dispatchOrder(
                     $order,
                     $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
                     $this->activeUserContainer->getActiveUser()->getId()
@@ -655,7 +660,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         /** @var OrderEntity $order */
         foreach ($orders as $order) {
             try {
-                $this->orderClient->markOrderAsPaid(
+                $this->orderActionService->markOrderAsPaid(
                     $order,
                     $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
                     $this->activeUserContainer->getActiveUser()->getId()
@@ -733,7 +738,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         /** @var OrderEntity $order */
         foreach ($orders as $order) {
             try {
-                $this->orderClient->cancelOrder(
+                $this->orderActionService->cancelOrder(
                     $order,
                     $type,
                     $reason,
