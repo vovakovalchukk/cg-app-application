@@ -62,6 +62,16 @@ return [
                             ]
                         ],
                     ],
+                    'exportAmazon' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/export',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'export'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
                         'type' => Literal::class,
                         'options' => [

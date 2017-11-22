@@ -1278,16 +1278,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.11.13",
+            "version": "dev-CGIV-9018-new-fields-product-endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "d80e50970790fce1b7ad14bc2659a5c73e37547c"
+                "reference": "5e14dab1a8cc222a3ef526cc22a306bcf9c1ec50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.11.13-a309b0.zip",
-                "reference": "d80e50970790fce1b7ad14bc2659a5c73e37547c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-9018-new-fields-product-endpoint-3dd6ee.zip",
+                "reference": "5e14dab1a8cc222a3ef526cc22a306bcf9c1ec50",
                 "shasum": null
             },
             "require": {
@@ -1304,6 +1304,7 @@
                 "channelgrabber/user": "^1.20.2",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
+                "php": ">=7.1",
                 "zendframework/zend-eventmanager": "~2.3"
             },
             "require-dev": {
@@ -1322,7 +1323,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-08-16T12:14:12+00:00"
+            "time": "2017-11-21T15:45:29+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -1979,16 +1980,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.9.7",
+            "version": "dev-CGIV-9018-new-fields-product-endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "249ac6c563f1c41bedd1687c2c991516cca564f2"
+                "reference": "809a68b5e585e7ccab7a3a80774706b1c79cc640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.7-a35778.zip",
-                "reference": "249ac6c563f1c41bedd1687c2c991516cca564f2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9018-new-fields-product-endpoint-508fd4.zip",
+                "reference": "809a68b5e585e7ccab7a3a80774706b1c79cc640",
                 "shasum": null
             },
             "require": {
@@ -2010,6 +2011,7 @@
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
+                "php": ">=7.1",
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
@@ -2033,7 +2035,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-21T11:55:29+00:00"
+            "time": "2017-11-21T15:46:04+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9448,10 +9450,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.11.14",
+            "alias_normalized": "1.11.14.0",
+            "version": "dev-CGIV-9018-new-fields-product-endpoint",
+            "package": "channelgrabber/listing"
+        },
+        {
+            "alias": "1.9.7",
+            "alias_normalized": "1.9.7.0",
+            "version": "dev-CGIV-9018-new-fields-product-endpoint",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
