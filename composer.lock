@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3af14f8e1f84fb301d043999a5b98bc",
+    "content-hash": "eace7bc010a8fbbc7272c6d61b14312d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -439,16 +439,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.13.4",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "bc09b3fa5b4c489f5daf97d18359cea961f7d5e8"
+                "reference": "f7838744d67e63cf31071ccc2ce6ba1466bd6d13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.13.4-269d6d.zip",
-                "reference": "bc09b3fa5b4c489f5daf97d18359cea961f7d5e8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.14.0-edb2fe.zip",
+                "reference": "f7838744d67e63cf31071ccc2ce6ba1466bd6d13",
                 "shasum": null
             },
             "require": {
@@ -495,7 +495,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-10-19T09:10:08+00:00"
+            "time": "2017-11-21T11:47:03+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1628,22 +1628,22 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.30.1",
+            "version": "1.33.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3c4acb3653c701a9405d3e60514da52b83f2011f"
+                "reference": "c080f5e52c70d782e0fc1601fdb52c997af7e735"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.30.1-c4f847.zip",
-                "reference": "3c4acb3653c701a9405d3e60514da52b83f2011f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.33.4-b0af93.zip",
+                "reference": "c080f5e52c70d782e0fc1601fdb52c997af7e735",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "^1.8.11",
+                "channelgrabber/cglib": "^1.14.0",
                 "channelgrabber/channel": "^1.26.1",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
@@ -1701,10 +1701,13 @@
             "autoload-dev": {
                 "psr-4": {
                     "CG\\Order\\Test\\": "tests/src",
-                    "CG\\Order\\TestAsset\\": "tests/assets"
+                    "CG\\Order\\TestAsset\\": "tests/assets",
+                    "CG\\Channel\\Test\\": "vendor/channelgrabber/channel/tests/Channel/Test",
+                    "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test",
+                    "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2017-10-10T09:53:38+00:00"
+            "time": "2017-11-21T11:52:55+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2359,16 +2362,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e"
+                "reference": "be45bdf43e3392c7b9052432867130c4ac191ac9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.3-fc8fdb.zip",
-                "reference": "122aa0648965e4a9a74ca0bcff51a7679b86396e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.4-646644.zip",
+                "reference": "be45bdf43e3392c7b9052432867130c4ac191ac9",
                 "shasum": null
             },
             "require": {
@@ -2391,7 +2394,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-04-28T13:25:46+00:00"
+            "time": "2017-11-22T12:03:44+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -2759,16 +2762,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.27",
+            "version": "1.4.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "93a9483715619863da9e62bbdac9da13f5d8988b"
+                "reference": "1fc4e6c588c69e6ef8965023640661f59451599e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.27-4adb3c.zip",
-                "reference": "93a9483715619863da9e62bbdac9da13f5d8988b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.28-14b940.zip",
+                "reference": "1fc4e6c588c69e6ef8965023640661f59451599e",
                 "shasum": null
             },
             "require": {
@@ -2776,13 +2779,14 @@
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
+                "channelgrabber/feature-flags": "^1.0.3",
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.9",
-                "channelgrabber/product": "^1.2.0",
-                "channelgrabber/settings": "^1.5.1",
-                "channelgrabber/stdlib": "^2.10.4",
+                "channelgrabber/product": "^1.9.7",
+                "channelgrabber/settings": "^1.5.4",
+                "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/user": "^1.22.9",
                 "ext-gd": "*",
                 "guzzle/guzzle": "~3.7",
@@ -2794,7 +2798,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "~3.7.28"
+                "phpunit/phpunit": "~6.3"
             },
             "type": "library",
             "extra": {
@@ -2813,7 +2817,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-09-05T14:32:21+00:00"
+            "time": "2017-11-22T12:08:52+00:00"
         },
         {
             "name": "channelgrabber/transaction",
