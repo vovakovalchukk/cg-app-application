@@ -148,7 +148,7 @@ define([
                     skusToFindLinkedProductsFor[product.sku] = product.sku;
                 }
             });
-            
+
             $.ajax({
                 url: '/products/links/ajax',
                 data: {

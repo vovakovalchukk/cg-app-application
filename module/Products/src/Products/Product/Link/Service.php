@@ -10,15 +10,20 @@ use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Entity as Product;
 use CG\Product\Collection as ProductCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
     /** @var ProductService */
     protected $productService;
     /** @var ProductLinkService */
     protected $productLinkService;
     /** @var ProductMapper */
     protected $productMapper;
+
+    const LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK = 'Product with sku <%s> was not loaded, but it was required as a link by product with sku <%s>';
 
     public function __construct(
         ProductService $productService,
@@ -67,15 +72,7 @@ class Service
             }
 
             foreach ($productLink->getStockSkuMap() as $stockSku => $stockQuantity) {
-
-                $matchingProducts = $productsForLinks->getBy('sku', $stockSku);
-                foreach ($matchingProducts as $matchingProduct) {
-                    $productLinkProduct = $matchingProduct;
-                    break;
-                }
-                if ($productLinkProduct->getParentProductId()) {
-                    $productLinkProduct = $parentProducts->getById($productLinkProduct->getParentProductId());
-                }
+                $productLinkProduct = $this->getProductForLinkSku($productsForLinks, $parentProducts, $productLink->getProductSku(), $stockSku);
 
                 if ($product->getParentProductId() == 0) {
                     $productLinksByProductId[$product->getId()][$product->getId()][] = [
@@ -99,6 +96,32 @@ class Service
         }
 
         return $productLinksByProductId;
+    }
+
+    protected function getProductForLinkSku(
+        ProductCollection $productsForLinks,
+        ProductCollection $parentProductsForLinks,
+        string $productSkuOfLink,
+        string $stockSku
+    ): Product {
+        $matchingProducts = $productsForLinks->getBy('sku', $stockSku);
+
+        if (!$matchingProducts || count($matchingProducts) == 0) {
+            $this->logCritical(
+                static::LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK,
+                [$stockSku, $productSkuOfLink]
+            );
+        }
+
+        foreach ($matchingProducts as $matchingProduct) {
+            $productLinkProduct = $matchingProduct;
+            break;
+        }
+        if ($productLinkProduct->getParentProductId()) {
+            $productLinkProduct = $parentProductsForLinks->getById($productLinkProduct->getParentProductId());
+        }
+
+        return $productLinkProduct;
     }
 
     public function fetchProductsForLinks($ouId, ProductLinkCollection $productLinks): ProductCollection
