@@ -1,38 +1,41 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id)
+    var Entity = function (searchTerm, parentProductId, id, sku)
     {
-        var page = 1;
+        this.page = 1;
+        this.searchTerm = searchTerm;
+        this.parentProductId = parentProductId;
+        this.id = id;
+        this.sku = sku;
 
-        this.getSearchTerm = function()
-        {
-            return searchTerm;
+        this.getSku = function () {
+            return this.sku;
+        }
+
+        this.getSearchTerm = function() {
+            return this.searchTerm;
         };
 
-        this.getParentProductId = function()
-        {
-            return parentProductId;
+        this.getParentProductId = function() {
+            return this.parentProductId;
         };
 
-        this.getId = function()
-        {
-            return id;
+        this.getId = function() {
+            return this.id;
         };
 
-        this.setId = function(newId)
-        {
-            id = (newId instanceof Array ? newId : [newId]);
+        this.setId = function(newId) {
+            this.id = (newId instanceof Array ? newId : [newId]);
             return this;
         };
 
-        this.getPage = function()
-        {
-            return page;
+        this.getPage = function() {
+            return this.page;
         };
 
         this.setPage = function(newPage)
         {
-            page = newPage;
+            this.page = newPage;
             return this;
         };
     };
@@ -56,6 +59,11 @@ define([
         var id = this.getId();
         if (id) {
             object['id'] = id;
+        }
+
+        var sku = this.getSku();
+        if (sku) {
+            object['sku'] = sku;
         }
 
         return object;

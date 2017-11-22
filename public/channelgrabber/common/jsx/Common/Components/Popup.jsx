@@ -19,6 +19,11 @@ define([
                 active: this.props.initiallyActive
             };
         },
+        componentWillReceiveProps: function (nextProps) {
+            this.setState({
+                active: nextProps.initiallyActive
+            });
+        },
         componentDidMount: function () {
             window.addEventListener('triggerPopup', this.triggerPopup);
         },
@@ -53,7 +58,7 @@ define([
             return (
                 <div>
                     <div className="react-popup-screen-mask"></div>
-                        <div className="react-popup">
+                        <div className={"react-popup " + this.props.className }>
                             <div className="react-popup-header">{this.props.headerText}</div>
                         <div className="react-popup-content">{this.props.children}</div>
                         <div className="react-popup-buttons">

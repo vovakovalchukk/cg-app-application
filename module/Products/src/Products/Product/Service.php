@@ -14,9 +14,13 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
 use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
+use CG\Product\Entity as Product;
+use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
+use CG\Product\Link\Service as ProductLinkService;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
@@ -174,9 +178,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         if (count($productIds) <= static::MAX_FOREGROUND_DELETES) {
             $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
             $products = $this->productService->fetchCollectionByFilter($filter);
+            /** @var Product $product */
             foreach ($products as $product) {
                 $this->productService->hardRemove($product);
             }
+
             $this->removeProgressStorage->setProgress($progressKey, count($productIds));
             return;
         }
@@ -186,6 +192,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $handle = ProductRemoveWorkload::FUNCTION_NAME . '-' . $productId;
             $this->gearmanClient->doBackground(ProductRemoveWorkload::FUNCTION_NAME, serialize($workload), $handle);
         }
+    }
+
+    /**
+     * @param array $productIds
+     * @throws ProductLinkBlockingProductDeletionException
+     */
+    public function checkForSafeDeletionWithProductLinks(array $productIds = [])
+    {
+        $filter = new ProductFilter('all', 1, [], null, [], $productIds);
+        $products = $this->productService->fetchCollectionByFilter($filter);
+
+        $ouIdSkuListOfProductsAndVariations = $this->productService->getSkusOfProductsAndVariations($products);
+        $this->productService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
     }
 
     public function checkProgressOfDeleteProducts($progressKey)
