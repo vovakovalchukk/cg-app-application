@@ -142,24 +142,13 @@ define([
                     skusToFindLinkedProductsFor[variation.sku] = variation.sku;
                 });
             }
-            //
-            // this.state.variations.forEach(function(variations) {
-            //     if (!variations) {
-            //         return;
-            //     }
-            //     variations.forEach(function(variation) {
-            //         skusToFindLinkedProductsFor[variation.sku] = variation.sku;
-            //     });
-            // });
 
             this.state.products.forEach(function(product) {
                 if (product.variationCount == 0 && product.sku) {
                     skusToFindLinkedProductsFor[product.sku] = product.sku;
                 }
             });
-
-            console.log(skusToFindLinkedProductsFor);
-
+            
             $.ajax({
                 url: '/products/links/ajax',
                 data: {
