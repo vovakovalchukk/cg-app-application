@@ -53,7 +53,8 @@ class Service
     public function getProductLinksByProductId($ouId, $skusToFetchLinkedProductsFor, ProductLinkCollection $productLinks)
     {
         $productsForSkus = $this->productService->fetchCollectionByOUAndSku([$ouId], $skusToFetchLinkedProductsFor);
-        $productsForLinks = $this->fetchProductsForLinks($ouId, $skusToFetchLinkedProductsFor, $productLinks);
+        $productsForLinks = $this->fetchProductsForLinks($ouId, $productLinks);
+        $parentProducts = $this->fetchParentProducts($ouId, $productsForLinks);
 
         $productLinksByProductId = [];
         /** @var Product $product */
@@ -71,6 +72,9 @@ class Service
                 foreach ($matchingProducts as $matchingProduct) {
                     $productLinkProduct = $matchingProduct;
                     break;
+                }
+                if ($productLinkProduct->getParentProductId()) {
+                    $productLinkProduct = $parentProducts->getById($productLinkProduct->getParentProductId());
                 }
 
                 if ($product->getParentProductId() == 0) {
@@ -97,65 +101,37 @@ class Service
         return $productLinksByProductId;
     }
 
-//    protected function getMapOfParentProductsByProductId(ProductCollection $products, $)
-
-    /**
-     * @param ProductCollection $products
-     * @return Product[]
-     */
-    protected function getProductsBySku(ProductCollection $products)
+    public function fetchProductsForLinks($ouId, ProductLinkCollection $productLinks): ProductCollection
     {
-        $productsBySku = [];
-
-        /** @var Product $product */
-        foreach ($products as $product) {
-            if (!$product->isParent()) {
-                $productsBySku[$product->getSku()] = $product;
-                continue;
-            }
-            /** @var Product $variation */
-            foreach ($product->getVariations() as $variation) {
-                $productsBySku[$variation->getSku()] = $variation;
-            }
-        }
-
-        return $productsBySku;
-    }
-
-    public function fetchProductsForLinks($ouId, $allVariationsBySkus, $productLinks): ProductCollection
-    {
-        $productLinkProducts = [];
         try {
             $productLinkProductSkus = [];
-            foreach ($allVariationsBySkus as $sku) {
-                $linkedProduct = $productLinks->getById(ProductLink::generateId($ouId, $sku));
-                if ($linkedProduct) {
-                    foreach ($linkedProduct->getStockSkuMap() as $stockSku => $stockQty) {
-                        $productLinkProductSkus[] = $stockSku;
-                    }
+            /** @var ProductLink $productLink */
+            foreach ($productLinks as $productLink) {
+                foreach($productLink->getStockSkuMap() as $stockSku => $stockQty) {
+                    $productLinkProductSkus[] = $stockSku;
                 }
             }
-            $productLinkProducts = $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus);
+            return $this->productService->fetchCollectionByOUAndSku([$ouId], $productLinkProductSkus);
 
         } catch(NotFound $e) {
-            //  no-op
+            return new ProductCollection(Product::class, __FUNCTION__);
         }
-        return $productLinkProducts;
     }
 
-    public function fetchParentProducts($ouId, $productSkus, $productLinkProducts): ProductCollection
+    public function fetchParentProducts($ouId, ProductCollection $productLinksProducts): ProductCollection
     {
-        $parentProducts = [];
-        try {
-            $parentProducts = $this->productService->fetchCollectionByOUAndSku([$ouId], array_keys($productSkus));
-            foreach ($productLinkProducts as $product) {
-                if ($product->getParentProductId() === 0) {
-                    $parentProducts->attach($product);
-                }
+        $idsToFetch = [];
+        /** @var Product $product */
+        foreach ($productLinksProducts as $product) {
+            if (!$product->isParent()) {
+                $idsToFetch[] = $product->getParentProductId();
             }
-        } catch(NotFound $e) {
-            //  no-op
         }
-        return $parentProducts;
+
+        if (count($idsToFetch) == 0) {
+            return new ProductCollection(Product::class, __FUNCTION__);
+        }
+
+        return $this->productService->fetchCollectionByOUAndId([$ouId], $idsToFetch);
     }
 }
