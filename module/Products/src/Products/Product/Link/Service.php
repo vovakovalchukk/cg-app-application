@@ -58,22 +58,22 @@ class Service
         $productLinksByProductId = [];
         /** @var Product $product */
         foreach ($productsForSkus as $product) {
-            if (!$product->isParent()) {
-                /** @var ProductLink $productLink */
-                $productLink = $productLinks->getById(ProductLink::generateId($ouId, $product->getSku()));
+            /** @var ProductLink $productLink */
+            $productLink = $productLinks->getById(ProductLink::generateId($ouId, $product->getSku()));
 
-                if (!$productLink) {
-                    continue;
+            if (!$productLink) {
+                continue;
+            }
+
+            foreach ($productLink->getStockSkuMap() as $stockSku => $stockQuantity) {
+
+                $matchingProducts = $productsForLinks->getBy('sku', $stockSku);
+                foreach ($matchingProducts as $matchingProduct) {
+                    $productLinkProduct = $matchingProduct;
+                    break;
                 }
 
-                foreach ($productLink->getStockSkuMap() as $stockSku => $stockQuantity) {
-
-                    $matchingProducts = $productsForLinks->getBy('sku', $stockSku);
-                    foreach ($matchingProducts as $matchingProduct) {
-                        $productLinkProduct = $matchingProduct;
-                        break;
-                    }
-
+                if ($product->getParentProductId() == 0) {
                     $productLinksByProductId[$product->getId()][$product->getId()][] = [
                         'sku' => $stockSku,
                         'quantity' => $stockQuantity,
@@ -81,32 +81,14 @@ class Service
                             $productLinkProduct
                         )
                     ];
-                }
-            } else {
-                foreach ($product->getVariations() as $variation) {
-                    /** @var ProductLink $productLink */
-                    $productLink = $productLinks->getById(ProductLink::generateId($ouId, $variation->getSku()));
-
-                    if (!$productLink) {
-                        continue;
-                    }
-
-                    foreach ($productLink->getStockSkuMap() as $stockSku => $stockQuantity) {
-
-                        $matchingProducts = $productsForLinks->getBy('sku', $stockSku);
-                        foreach ($matchingProducts as $matchingProduct) {
-                            $productLinkProduct = $matchingProduct;
-                            break;
-                        }
-
-                        $productLinksByProductId[$product->getId()][$variation->getId()][] = [
-                            'sku' => $stockSku,
-                            'quantity' => $stockQuantity,
-                            'product' => $this->productMapper->getFullProductDataArray(
-                                $productLinkProduct
-                            )
-                        ];
-                    }
+                } else {
+                    $productLinksByProductId[$product->getParentProductId()][$product->getId()][] = [
+                        'sku' => $stockSku,
+                        'quantity' => $stockQuantity,
+                        'product' => $this->productMapper->getFullProductDataArray(
+                            $productLinkProduct
+                        )
+                    ];
                 }
             }
 
