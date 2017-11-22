@@ -146,7 +146,7 @@ class Service implements LoggerAwareInterface
         $idsToFetch = [];
         /** @var Product $product */
         foreach ($productLinksProducts as $product) {
-            if (!$product->isParent()) {
+            if (!$product->isParent() && $product->getParentProductId() > 0) {
                 $idsToFetch[] = $product->getParentProductId();
             }
         }
