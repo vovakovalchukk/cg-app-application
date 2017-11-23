@@ -5,10 +5,7 @@ namespace Products\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
-use CG\Image\Entity as Image;
-use CG\Listing\Client\Service as ListingService;
 use CG\Listing\Entity as ListingEntity;
-use CG\Listing\Filter as ListingFilter;
 use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
 use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
@@ -31,7 +28,7 @@ use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Stock\Location\Entity as StockLocation;
+use Products\Product\Csv\Service as ProductCsvService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -80,8 +77,8 @@ class ProductsJsonController extends AbstractActionController
     protected $productLinkNodeService;
     /** @var ActiveUserInterface */
     protected $activeUser;
-    /** @var ListingService */
-    protected $listingService;
+    /** @var ProductCsvService */
+    protected $productCsvService;
 
     public function __construct(
         ProductService $productService,
@@ -98,7 +95,7 @@ class ProductsJsonController extends AbstractActionController
         StockLocationService $stockLocationService,
         ProductLinkNodeService $productLinkNodeService,
         ActiveUserInterface $activeUser,
-        ListingService $listingService
+        ProductCsvService $productCsvService
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -114,7 +111,7 @@ class ProductsJsonController extends AbstractActionController
         $this->stockLocationService = $stockLocationService;
         $this->productLinkNodeService = $productLinkNodeService;
         $this->activeUser = $activeUser;
-        $this->listingService = $listingService;
+        $this->productCsvService = $productCsvService;
     }
 
     public function ajaxAction()
@@ -168,50 +165,13 @@ class ProductsJsonController extends AbstractActionController
 
     public function exportAction()
     {
-        $filter = (new ListingFilter())
-            ->setOrganisationUnitId($this->activeUser->getActiveUser()->getOuList())
-            ->setChannel(['amazon'])
-            ->setLimit('all')
-            ->setPage(1);
-        $listings = $this->listingService->fetchCollectionByFilter($filter);
-        $result = [];
-
-        $merchantLocationIds = $this->locationService->fetchIdsByType(
-            [LocationType::MERCHANT],
-            $this->activeUser->getActiveUserRootOrganisationUnitId()
+        return new FileResponse(
+            ProductCsvService::MIME_TYPE,
+            ProductCsvService::FILE_NAME,
+            (string) $this->productCsvService->exportToCsv(
+                $this->params()->fromRoute('channel')
+            )
         );
-
-        /** @var ListingEntity $listing */
-        foreach ($listings as $listing) {
-            if (isset($listing->getProductIds()[1])) {
-                continue;
-            }
-            $product = $this->productService->fetchProductById($listing->getProductIds()[0]);
-            $stock = 0;
-            if ($product->getStock()) {
-                $stockLocations = $this->stockLocationService
-                    ->getFromCollectionByLocationIds($product->getStock()->getLocations(), $merchantLocationIds);
-                /** @var StockLocation $stockLocation */
-                foreach ($stockLocations as $stockLocation) {
-                    $stock += $stockLocation->getOnHand();
-                }
-            }
-            $image = "";
-            if (count($product->getImages()) > 0) {
-                /** @var Image $image */
-                $image = $product->getImages()->getFirst();
-                $image = $image->getUrl();
-            }
-            $result[] = [
-                'name' => $product->getName(),
-                'description' => $product->getDescription(),
-                'condition' => $product->getCondition(),
-                'price' => $product->getPrice(),
-                'image' => $image,
-                'stock' => $stock
-            ];
-        }
-        return $this->jsonModelFactory->newInstance()->setVariable('listings', $result);
     }
 
     protected function getAccountsIndexedById($organisationUnitIds)

@@ -62,10 +62,10 @@ return [
                             ]
                         ],
                     ],
-                    'exportAmazon' => [
-                        'type' => Literal::class,
+                    'export' => [
+                        'type' => Segment::class,
                         'options' => [
-                            'route' => '/export',
+                            'route' => '/export/:channel',
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'export'
