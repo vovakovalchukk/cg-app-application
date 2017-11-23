@@ -112,11 +112,7 @@ class Service implements LoggerAwareInterface
                 [$stockSku, $productSkuOfLink]
             );
         }
-
-        foreach ($matchingProducts as $matchingProduct) {
-            $productLinkProduct = $matchingProduct;
-            break;
-        }
+        $productLinkProduct = $matchingProducts->getFirst();
         if ($productLinkProduct->isVariation()) {
             $productLinkProduct = $parentProductsForLinks->getById($productLinkProduct->getParentProductId());
         }

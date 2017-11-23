@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b74bb8c1f83f28711a07a969448f20c",
+    "content-hash": "5e1ede900ec4174b5e44f77614859090",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1976,16 +1976,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.9.7",
+            "version": "dev-CGIV-9028-parent-products-bug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "249ac6c563f1c41bedd1687c2c991516cca564f2"
+                "reference": "d65aa8e6e2af27e2f37f65943925a7d200363540"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.9.7-a35778.zip",
-                "reference": "249ac6c563f1c41bedd1687c2c991516cca564f2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9028-parent-products-bug-c8e49c.zip",
+                "reference": "d65aa8e6e2af27e2f37f65943925a7d200363540",
                 "shasum": null
             },
             "require": {
@@ -2030,7 +2030,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-21T11:55:29+00:00"
+            "time": "2017-11-23T10:32:27+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9444,10 +9444,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.9.8",
+            "alias_normalized": "1.9.8.0",
+            "version": "dev-CGIV-9028-parent-products-bug",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
