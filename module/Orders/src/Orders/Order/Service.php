@@ -7,11 +7,11 @@ use CG\Amazon\Mcf\FulfillmentStatus\Filter as McfFulfillmentStatusFilter;
 use CG\Amazon\Mcf\FulfillmentStatus\Status as McfFulfillmentStatus;
 use CG\Amazon\Mcf\FulfillmentStatus\StorageInterface as McfFulfillmentStatusStorage;
 use CG\Amazon\Order\FulfilmentChannel\Mapper as AmazonFulfilmentChannelMapper;
-use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\FeatureFlags\Feature;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Image\Filter as ImageFilter;
@@ -19,27 +19,21 @@ use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Locale\EUVATCodeChecker;
+use CG\Order\Client\Action\Service as OrderActionService;
 use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
-use CG\Order\Shared\Cancel\Item as CancelItem;
-use CG\Order\Shared\Cancel\Value as Cancel;
-use CG\Order\Shared\Cancel\Value as CancelValue;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
-use CG\Order\Shared\Mapper as OrderMapper;
-use CG\Order\Shared\Status as OrderStatus;
-use CG\Order\Shared\OrderLink\Entity as OrderLinkEntity;
-use CG\Order\Shared\OrderLink\Collection as OrderLinkCollection;
 use CG\Order\Shared\OrderLinker;
+use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
 use CG\Product\Link\Entity as ProductLink;
 use CG\Product\LinkLeaf\Filter as ProductLinkLeafFilter;
+use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -54,7 +48,6 @@ use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
 use Zend\Di\Di;
-use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -113,6 +106,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $productLinkLeafService;
     /** @var FeatureFlagService $featureFlagService */
     protected $featureFlagService;
+    /** @var OrderActionService */
+    protected $orderActionService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
     protected $editableBillingAddressFulfilmentChannels = [
@@ -141,7 +136,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         EUVATCodeChecker $euVatCodeChecker,
         OrderLinker $orderLinker,
         ProductLinkLeafService $productLinkLeafService,
-        FeatureFlagService $featureFlagService
+        FeatureFlagService $featureFlagService,
+        OrderActionService $orderActionService
     ) {
         $this->orderClient = $orderClient;
         $this->orderItemClient = $orderItemClient;
@@ -161,6 +157,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->orderLinker = $orderLinker;
         $this->productLinkLeafService = $productLinkLeafService;
         $this->featureFlagService = $featureFlagService;
+        $this->orderActionService = $orderActionService;
     }
 
     /**
@@ -636,9 +633,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $exception = new MultiException();
 
+        /** @var OrderEntity $order */
         foreach ($orders as $order) {
             try {
-                $this->dispatchOrder($order);
+                $this->orderActionService->dispatchOrder(
+                    $order,
+                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                    $this->activeUserContainer->getActiveUser()->getId()
+                );
             } catch (Exception $orderException) {
                 $exception->addOrderException($order->getId(), $orderException);
                 $this->logException($orderException, 'error', __NAMESPACE__);
@@ -651,36 +653,18 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
     }
 
-    public function dispatchOrder(OrderEntity $order)
-    {
-        $actions = $this->actionService->getAvailableActionsForOrder($order);
-        if (!array_key_exists(ActionMapInterface::DISPATCH, array_flip($actions))) {
-            $this->logWarning(static::LOG_UNDISPATCHABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
-            return;
-        }
-        $this->logInfo(static::LOG_DISPATCHING, [$order->getId()], static::LOG_CODE);
-
-        $account = $this->accountService->fetch($order->getAccountId());
-
-        $order = $this->setOrderToDispatching($order);
-
-        $this->orderDispatcher->generateJob($account, $order);
-        $this->statsIncrement(
-            static::STAT_ORDER_ACTION_DISPATCHED, [
-                $order->getChannel(),
-                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-                $this->activeUserContainer->getActiveUser()->getId()
-            ]
-        );
-    }
-
     public function markOrdersAsPaid(OrderCollection $orders)
     {
         $exception = new MultiException();
 
+        /** @var OrderEntity $order */
         foreach ($orders as $order) {
             try {
-                $this->markOrderAsPaid($order);
+                $this->orderActionService->markOrderAsPaid(
+                    $order,
+                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                    $this->activeUserContainer->getActiveUser()->getId()
+                );
             } catch (Exception $orderException) {
                 $exception->addOrderException($order->getId(), $orderException);
                 $this->logException($orderException, 'error', __NAMESPACE__);
@@ -690,49 +674,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         if (count($exception) > 0) {
             throw $exception;
         }
-    }
-
-    public function markOrderAsPaid(OrderEntity $order)
-    {
-        $actions = $this->actionService->getAvailableActionsForOrder($order);
-        if (!array_key_exists(ActionMapInterface::PAY, array_flip($actions))) {
-            $this->logWarning(static::LOG_UNPAYABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
-            return;
-        }
-        $this->logInfo(static::LOG_PAYING, [$order->getId()], static::LOG_CODE);
-
-        $order->setStatus(OrderStatus::NEW_ORDER);
-        $order->setPaymentDate(date(StdlibDateTime::FORMAT));
-        $order = $this->saveOrder($order);
-
-        $this->statsIncrement(
-            static::STAT_ORDER_ACTION_PAID, [
-                $order->getChannel(),
-                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-                $this->activeUserContainer->getActiveUser()->getId()
-            ]
-        );
-    }
-
-    protected function setOrderToDispatching(OrderEntity $order, $attempt = 1, $maxAttempts = 2)
-    {
-        try {
-            $order = $this->saveOrder(
-                $order->setStatus(OrderStatus::DISPATCHING)
-            );
-        } catch (Conflict $e) {
-            if ($attempt >= $maxAttempts) {
-                throw new \RuntimeException('We were unable to dispatch one or more orders, please try again. If the problem persists please contact support.');
-            }
-            $this->logDebug('Attempt %d to set Order %s status to dispatching conflicted, will re-fetch and retry', [$attempt, $order->getId()], static::LOG_CODE);
-            $order = $this->orderClient->fetch($order->getId());
-            return $this->setOrderToDispatching($order, ++$attempt);
-        }
-        foreach ($order->getItems() as $item) {
-            $item->setStatus(OrderStatus::DISPATCHING);
-        }
-        $this->saveCollectionHandleErrors($this->orderItemClient, $order->getItems());
-        return $order;
     }
 
     protected function reapplyChangesToEntityAfterConflict($fetchedEntity, $passedEntity)
@@ -794,9 +735,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $exception = new MultiException();
 
+        /** @var OrderEntity $order */
         foreach ($orders as $order) {
             try {
-                $this->cancelOrder($order, $type, $reason);
+                $this->orderActionService->cancelOrder(
+                    $order,
+                    $type,
+                    $reason,
+                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                    $this->activeUserContainer->getActiveUser()->getId()
+                );
             } catch (Exception $orderException) {
                 $exception->addOrderException($order->getId(), $orderException);
                 $this->logException($orderException, 'error', __NAMESPACE__);
@@ -807,34 +755,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         if (count($exception) > 0) {
             throw $exception;
         }
-    }
-
-    public function cancelOrder(OrderEntity $order, $type, $reason)
-    {
-        $account = $this->accountService->fetch($order->getAccountId());
-        $status = OrderMapper::calculateOrderStatusFromCancelType($type);
-        if ($order->getStatus() == OrderStatus::getInActionWithCompletedStatuses()[$status]) {
-            $this->logDebug(static::LOG_ALREADY_CANCELLED, [ucwords($type), $order->getId(), $order->getStatus()]);
-            return;
-        }
-        $cancel = $this->getCancelValue($order, $type, $reason);
-
-        $order = $this->saveOrder(
-            $order->setStatus($status)
-        );
-        foreach ($order->getItems() as $item) {
-            $item->setStatus($status);
-        }
-        $this->orderItemClient->saveCollection($order->getItems());
-
-        $this->orderCanceller->generateJob($account, $order, $cancel);
-        $this->statsIncrement(
-            ($type == Cancel::CANCEL_TYPE) ? static::STAT_ORDER_ACTION_CANCELLED : static::STAT_ORDER_ACTION_REFUNDED, [
-                $order->getChannel(),
-                $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-                $this->activeUserContainer->getActiveUser()->getId()
-            ]
-        );
     }
 
     public function getRootOrganisationUnitForOrder(OrderEntity $order)
@@ -854,37 +774,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function notifyOfCancel()
     {
         $this->notifyIntercom(static::EVENT_ORDER_CANCELLED);
-    }
-
-    /**
-     * @param OrderEntity $order
-     * @param string $type
-     * @param string $reason
-     * @return CancelValue
-     */
-    protected function getCancelValue(OrderEntity $order, $type, $reason)
-    {
-        $items = [];
-        foreach ($order->getItems() as $item) {
-            $items[] = $this->di->newInstance(CancelItem::class, [
-                'orderItemId' => $item->getId(),
-                'sku' => $item->getItemSku(),
-                'quantity' => $item->getItemQuantity(),
-                'amount' => $item->getIndividualItemPrice(),
-                'unitPrice' => 0.00,
-            ]);
-        }
-
-        return $this->di->newInstance(
-            CancelValue::class,
-            [
-                'type' => $type,
-                'timestamp' => date(StdlibDateTime::FORMAT),
-                'reason' => $reason,
-                'items' => $items,
-                'shippingAmount' => $order->getShippingPrice(),
-            ]
-        );
     }
 
     protected function notifyIntercom($eventName)

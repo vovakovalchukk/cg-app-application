@@ -136,23 +136,23 @@ define([
         fetchLinkedProducts: function () {
             window.triggerEvent('fetchingProductLinksStart');
 
-            var products = this.state.variations || {};
+            var skusToFindLinkedProductsFor = {};
+            for (var productId in this.state.variations) {
+                this.state.variations[productId].forEach(function(variation) {
+                    skusToFindLinkedProductsFor[variation.sku] = variation.sku;
+                });
+            }
+
             this.state.products.forEach(function(product) {
-                if (product.variationCount == 0) {
-                    products[product.id] = [product];
+                if (product.variationCount == 0 && product.sku) {
+                    skusToFindLinkedProductsFor[product.sku] = product.sku;
                 }
             });
 
             $.ajax({
                 url: '/products/links/ajax',
                 data: {
-                    products: JSON.stringify(
-                        Object.keys(products).filter(function(productId) {
-                            return products[productId] != null;
-                        }).reduce(function(filteredProducts, productId) {
-                            return Object.assign(filteredProducts, {[productId]: products[productId]});
-                        }, {})
-                    )
+                    skus: JSON.stringify(skusToFindLinkedProductsFor)
                 },
                 type: 'POST',
                 success: function (response) {
