@@ -134,6 +134,9 @@ define([
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function () {
+            if (!this.props.linkedProductsEnabled) {
+                return;
+            }
             window.triggerEvent('fetchingProductLinksStart');
 
             var skusToFindLinkedProductsFor = {};
