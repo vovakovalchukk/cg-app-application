@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f2de14c630c3a28ad5470ad70a83f17",
+    "content-hash": "979b30b1a3d61a722ade8edd11140941",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1038,16 +1038,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "1.0.3",
+            "version": "dev-CGIV-9035-enable-sentry-specific-accounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "a85c44dd7a3bd2c131a56bc801fca077880edb05"
+                "reference": "2e9f3d5ee323f7ec38a06b9f24bc35df45aea97e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-1.0.3-8f7732.zip",
-                "reference": "a85c44dd7a3bd2c131a56bc801fca077880edb05",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9035-enable-sentry-specific-accounts-cee3cf.zip",
+                "reference": "2e9f3d5ee323f7ec38a06b9f24bc35df45aea97e",
                 "shasum": null
             },
             "require": {
@@ -1063,7 +1063,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-11-21T12:08:09+00:00"
+            "time": "2017-11-24T13:27:00+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -3951,7 +3951,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.20.0",
+            "version": "dev-CGIV-9035-enable-sentry-specific-accounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -3959,7 +3959,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.20.0-9b6291.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-9b6291.zip",
                 "reference": "90e3fe35a4b9923239c7246bed1164b5a5c9cd35",
                 "shasum": null
             },
@@ -9449,10 +9449,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.4",
+            "alias_normalized": "1.0.4.0",
+            "version": "dev-CGIV-9035-enable-sentry-specific-accounts",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
+            "alias": "1.20.0",
+            "alias_normalized": "1.20.0.0",
+            "version": "dev-CGIV-9035-enable-sentry-specific-accounts",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
