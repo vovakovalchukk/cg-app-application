@@ -43,7 +43,7 @@ class LinksJsonController extends AbstractActionController
         }
 
         $productLinksByProductId = [];
-        if (! empty($productLinks)) {
+        if (count($productLinks) > 0) {
             $productLinksByProductId = $this->productLinkService->getProductLinksByProductId($ouId, $skusToFetchLinkedProductsFor, $productLinks);
         }
 
