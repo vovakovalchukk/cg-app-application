@@ -3955,12 +3955,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8446fe28dc602fefe09019365fb6c7c8e932b4ce"
+                "reference": "01dae3e77af740fd40b41685eb789881a67a0089"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-5cbcb2.zip",
-                "reference": "8446fe28dc602fefe09019365fb6c7c8e932b4ce",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-3a906e.zip",
+                "reference": "01dae3e77af740fd40b41685eb789881a67a0089",
                 "shasum": null
             },
             "require": {
@@ -4011,7 +4011,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-11-27T10:37:13+00:00"
+            "time": "2017-11-27T13:58:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
