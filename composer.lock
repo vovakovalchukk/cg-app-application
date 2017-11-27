@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "979b30b1a3d61a722ade8edd11140941",
+    "content-hash": "2238e1a9649b4f3d6a2859838125eff0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3955,12 +3955,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "90e3fe35a4b9923239c7246bed1164b5a5c9cd35"
+                "reference": "8446fe28dc602fefe09019365fb6c7c8e932b4ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-9b6291.zip",
-                "reference": "90e3fe35a4b9923239c7246bed1164b5a5c9cd35",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-5cbcb2.zip",
+                "reference": "8446fe28dc602fefe09019365fb6c7c8e932b4ce",
                 "shasum": null
             },
             "require": {
@@ -3968,7 +3968,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
-                "channelgrabber/feature-flags": "^1.0.2",
+                "channelgrabber/feature-flags": "dev-CGIV-9035-enable-sentry-specific-accounts as 1.0.4",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
@@ -4011,7 +4011,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-11-21T12:05:43+00:00"
+            "time": "2017-11-27T10:37:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9457,8 +9457,8 @@
             "package": "channelgrabber/feature-flags"
         },
         {
-            "alias": "1.20.0",
-            "alias_normalized": "1.20.0.0",
+            "alias": "1.20.1",
+            "alias_normalized": "1.20.1.0",
             "version": "dev-CGIV-9035-enable-sentry-specific-accounts",
             "package": "channelgrabber/zf2-v4-ui"
         }
