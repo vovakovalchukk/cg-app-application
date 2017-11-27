@@ -28,14 +28,23 @@ class Service implements LoggerAwareInterface
 
     const EVENT_PICKING_LIST_PRINTED = 'Picking List Printed';
 
+    /** @var ProductService $productService */
     protected $productService;
+    /** @var PickListService $pickListService */
     protected $pickListService;
+    /** @var PickListSettingsService $pickListSettingsService */
     protected $pickListSettingsService;
+    /** @var ImageClient $imageClient */
     protected $imageClient;
+    /** @var Mapper $mapper */
     protected $mapper;
+    /** @var ProgressStorage $progressStorage */
     protected $progressStorage;
+    /** @var ActiveUserContainer $activeUserContainer */
     protected $activeUserContainer;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
+    /** @var ImageService $imageService */
     protected $imageService;
 
     public function __construct(
@@ -49,14 +58,14 @@ class Service implements LoggerAwareInterface
         IntercomEventService $intercomEventService,
         ImageService $imageService
     ) {
-        $this->setProductService($productService)
-            ->setPickListService($pickListService)
-            ->setPickListSettingsService($pickListSettingsService)
-            ->setImageClient($imageClient)
-            ->setMapper($mapper)
-            ->setProgressStorage($progressStorage)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setIntercomEventService($intercomEventService);
+        $this->productService = $productService;
+        $this->pickListService = $pickListService;
+        $this->pickListSettingsService = $pickListSettingsService;
+        $this->imageClient = $imageClient;
+        $this->mapper = $mapper;
+        $this->progressStorage = $progressStorage;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->intercomEventService = $intercomEventService;
         $this->imageService = $imageService;
     }
 
@@ -66,9 +75,9 @@ class Service implements LoggerAwareInterface
         $pickListEntries = $this->getPickListEntries($orderCollection, $pickListSettings);
 
         if($pickListSettings->getShowPictures()) {
-            $content = $this->getPickListService()->renderTemplate($pickListEntries, $this->getActiveUserContainer()->getActiveUser());
+            $content = $this->pickListService->renderTemplate($pickListEntries, $this->activeUserContainer->getActiveUser());
         } else {
-            $content = $this->getPickListService()->renderTemplateWithoutImages($pickListEntries, $this->getActiveUserContainer()->getActiveUser());
+            $content = $this->pickListService->renderTemplateWithoutImages($pickListEntries, $this->activeUserContainer->getActiveUser());
         }
         $response = new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
         $this->notifyOfGeneration();
@@ -77,7 +86,7 @@ class Service implements LoggerAwareInterface
 
     public function checkPickListGenerationProgress($key)
     {
-        return (int) $this->getProgressStorage()->getProgress($key);
+        return (int) $this->progressStorage->getProgress($key);
     }
 
     protected function getPickListEntries(OrderCollection $orderCollection, PickListSettings $pickListSettings)
@@ -90,13 +99,13 @@ class Service implements LoggerAwareInterface
         $itemsBySku = $aggregator->getItemsIndexedBySku();
 
         $pickListEntries = array_merge(
-            $this->getMapper()->fromItemsAndProductsBySku(
+            $this->mapper->fromItemsAndProductsBySku(
                 $itemsBySku,
                 $products,
                 $parentProducts,
                 ($pickListSettings->getShowPictures()) ? $this->fetchImagesForItems($itemsBySku) : null
             ),
-            $this->getMapper()->fromItemsByTitle(
+            $this->mapper->fromItemsByTitle(
                 $aggregator->getItemsIndexedByTitle()
             )
         );
@@ -106,6 +115,8 @@ class Service implements LoggerAwareInterface
             SortValidator::getSortFieldsNames()[$pickListSettings->getSortField()],
             $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
         );
+
+
 
         return $pickListEntries;
     }
@@ -132,7 +143,7 @@ class Service implements LoggerAwareInterface
 
     protected function fetchProductsForSkus(array $skus)
     {
-        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
         $filter->setLimit('all');
         $filter->setPage(1);
@@ -140,7 +151,7 @@ class Service implements LoggerAwareInterface
         $filter->setOrganisationUnitId([$organisationUnitId]);
 
         try {
-            return $this->getProductService()->fetchCollectionByFilter($filter);
+            return $this->productService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__, ['sku' => $skus]);
         }
@@ -158,7 +169,7 @@ class Service implements LoggerAwareInterface
             return new ProductCollection(Product::class, __FUNCTION__, ['id' => $parentIds]);
         }
 
-        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
         $filter->setLimit('all');
         $filter->setPage(1);
@@ -166,7 +177,7 @@ class Service implements LoggerAwareInterface
         $filter->setOrganisationUnitId([$organisationUnitId]);
 
         try {
-            return $this->getProductService()->fetchCollectionByFilter($filter);
+            return $this->productService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__, ['id' => $parentIds]);
         }
@@ -187,7 +198,7 @@ class Service implements LoggerAwareInterface
 
         $imageMap = new ImageMap();
         $this->imageService->populateImageMapBySku($imageMap, $map);
-        $this->getImageClient()->fetchImages($imageMap);
+        $this->imageClient->fetchImages($imageMap);
 
         return $imageMap;
     }
@@ -197,7 +208,7 @@ class Service implements LoggerAwareInterface
         if (!$key) {
             return;
         }
-        $this->getProgressStorage()->setProgress($key, $count);
+        $this->progressStorage->setProgress($key, $count);
     }
 
     /**
@@ -205,150 +216,13 @@ class Service implements LoggerAwareInterface
      */
     protected function getPickListSettings()
     {
-        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
-        return $this->getPickListSettingsService()->fetch($organisationUnitId);
+        $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        return $this->pickListSettingsService->fetch($organisationUnitId);
     }
 
     protected function notifyOfGeneration()
     {
-        $event = new IntercomEvent(static::EVENT_PICKING_LIST_PRINTED, $this->getActiveUserContainer()->getActiveUser()->getId());
-        $this->getIntercomEventService()->save($event);
-    }
-
-    /**
-     * @return ProductService
-     */
-    protected function getProductService()
-    {
-        return $this->productService;
-    }
-
-    /**
-     * @param ProductService $productService
-     * @return $this
-     */
-    public function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    /**
-     * @return PickListSettingsService
-     */
-    protected function getPickListSettingsService()
-    {
-        return $this->pickListSettingsService;
-    }
-
-    /**
-     * @param PickListSettingsService $pickListSettingsService
-     * @return $this
-     */
-    public function setPickListSettingsService(PickListSettingsService $pickListSettingsService)
-    {
-        $this->pickListSettingsService = $pickListSettingsService;
-        return $this;
-    }
-
-    /**
-     * @return PickListService
-     */
-    protected function getPickListService()
-    {
-        return $this->pickListService;
-    }
-
-    /**
-     * @param PickListService $pickListService
-     * @return $this
-     */
-    public function setPickListService(PickListService $pickListService)
-    {
-        $this->pickListService = $pickListService;
-        return $this;
-    }
-
-    /**
-     * @return Mapper
-     */
-    protected function getMapper()
-    {
-        return $this->mapper;
-    }
-
-    /**
-     * @param Mapper $mapper
-     * @return $this
-     */
-    public function setMapper(Mapper $mapper)
-    {
-        $this->mapper = $mapper;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getProgressStorage()
-    {
-        return $this->progressStorage;
-    }
-
-    /**
-     * @param ProgressStorage $progressStorage
-     * @return $this
-     */
-    public function setProgressStorage(ProgressStorage $progressStorage)
-    {
-        $this->progressStorage = $progressStorage;
-        return $this;
-    }
-
-    /**
-     * @return ActiveUserContainer
-     */
-    protected function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
-    /**
-     * @param ActiveUserContainer $activeUserContainer
-     * @return $this
-     */
-    public function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return ImageClient
-     */
-    protected function getImageClient()
-    {
-        return $this->imageClient;
-    }
-
-    /**
-     * @param ImageClient $imageClient
-     * @return $this
-     */
-    public function setImageClient(ImageClient $imageClient)
-    {
-        $this->imageClient = $imageClient;
-        return $this;
-    }
-
-    protected function getIntercomEventService()
-    {
-        return $this->intercomEventService;
-    }
-
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
+        $event = new IntercomEvent(static::EVENT_PICKING_LIST_PRINTED, $this->activeUserContainer->getActiveUser()->getId());
+        $this->intercomEventService->save($event);
     }
 }
