@@ -1,16 +1,24 @@
 <?php
 namespace Orders\Order\PickList;
 
+use CG\FeatureFlags\Feature;
+use CG\FeatureFlags\Service as FeatureFlags;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Entity as Item;
+use CG\OrganisationUnit\Service as OuService;
+use CG\OrganisationUnit\Entity as Ou;
+use CG\PickList\Entity as PickList;
 use CG\PickList\Service as PickListService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
+use CG\Product\LinkLeaf\Entity as ProductLink;
+use CG\Product\LinkLeaf\Filter as ProductLinkFilter;
+use CG\Product\LinkLeaf\Service as ProductLinkService;
 use CG\Settings\PickList\Entity as PickListSettings;
 use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\Picklist\SortValidator;
@@ -46,6 +54,12 @@ class Service implements LoggerAwareInterface
     protected $intercomEventService;
     /** @var ImageService $imageService */
     protected $imageService;
+    /** @var OuService $ouService */
+    protected $ouService;
+    /** @var FeatureFlags $featureFlags */
+    protected $featureFlags;
+    /** @var ProductLinkService $productLinkService */
+    protected $productLinkService;
 
     public function __construct(
         ProductService $productService,
@@ -56,7 +70,10 @@ class Service implements LoggerAwareInterface
         ProgressStorage $progressStorage,
         ActiveUserContainer $activeUserContainer,
         IntercomEventService $intercomEventService,
-        ImageService $imageService
+        ImageService $imageService,
+        OuService $ouService,
+        FeatureFlags $featureFlags,
+        ProductLinkService $productLinkService
     ) {
         $this->productService = $productService;
         $this->pickListService = $pickListService;
@@ -67,6 +84,9 @@ class Service implements LoggerAwareInterface
         $this->activeUserContainer = $activeUserContainer;
         $this->intercomEventService = $intercomEventService;
         $this->imageService = $imageService;
+        $this->ouService = $ouService;
+        $this->featureFlags = $featureFlags;
+        $this->productLinkService = $productLinkService;
     }
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
@@ -74,10 +94,12 @@ class Service implements LoggerAwareInterface
         $pickListSettings = $this->getPickListSettings();
         $pickListEntries = $this->getPickListEntries($orderCollection, $pickListSettings);
 
-        if($pickListSettings->getShowPictures()) {
-            $content = $this->pickListService->renderTemplate($pickListEntries, $this->activeUserContainer->getActiveUser());
+        if ($pickListSettings->getShowPictures()) {
+            $content = $this->pickListService->renderTemplate($pickListEntries,
+                $this->activeUserContainer->getActiveUser());
         } else {
-            $content = $this->pickListService->renderTemplateWithoutImages($pickListEntries, $this->activeUserContainer->getActiveUser());
+            $content = $this->pickListService->renderTemplateWithoutImages($pickListEntries,
+                $this->activeUserContainer->getActiveUser());
         }
         $response = new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
         $this->notifyOfGeneration();
@@ -116,27 +138,88 @@ class Service implements LoggerAwareInterface
             $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
         );
 
-
-
-        return $pickListEntries;
+        return $this->appendComponents($pickListEntries, $pickListSettings);
     }
 
+    /**
+     * @param PickList[] $pickListEntries
+     */
     protected function sortEntries(array $pickListEntries, $field, $ascending = true)
     {
-        usort($pickListEntries, function($a, $b) use ($field, $ascending) {
+        usort($pickListEntries, function ($a, $b) use ($field, $ascending) {
             $getter = 'get' . ucfirst(strtolower($field));
             $directionChanger = ($ascending === false) ? -1 : 1;
 
-            if(is_string($a->$getter())) {
+            if (is_string($a->$getter())) {
                 return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
             }
 
-            if($a->$getter() === $b->$getter()) {
+            if ($a->$getter() === $b->$getter()) {
                 return 0;
             }
             $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
             return $directionChanger * $compareValue;
         });
+
+        return $pickListEntries;
+    }
+
+    /**
+     * @param PickList[] $pickListEntries
+     */
+    protected function appendComponents(array $pickListEntries, PickListSettings $pickListSettings)
+    {
+        /** @var Ou $rootOu */
+        $rootOu = $this->ouService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+        if (!$this->featureFlags->isActive(Feature::LINKED_PRODUCTS, $rootOu)) {
+            return $pickListEntries;
+        }
+
+        $productLinkIds = array_unique(array_map(function(PickList $pickList) use($rootOu) {
+            return ProductLink::generateId($rootOu->getId(), $pickList->getSku());
+        }, $pickListEntries));
+
+        if (empty($productLinkIds)) {
+            return $pickListEntries;
+        }
+
+        try {
+            $productLinks = $this->productLinkService->fetchCollectionByFilter(
+                (new ProductLinkFilter('all', 1))->setOuIdProductSku($productLinkIds)
+            );
+        } catch (NotFound $exception) {
+            return $pickListEntries;
+        }
+
+        $productSkus = array_reduce(
+            array_map(
+                function(ProductLink $productLink) {
+                    return array_keys($productLink->getStockSkuMap());
+                },
+                iterator_to_array($productLinks)
+            ),
+            'array_merge',
+            []
+        );
+
+        $products = $this->fetchProductsForSkus($productSkus);
+        $parentProducts = $this->fetchParentProductsForProducts($products);
+        $images = ($pickListSettings->getShowPictures()) ? $this->fetchImagesForProducts($products) : null;
+
+        /** @var PickList $pickList */
+        foreach ($pickListEntries as $pickList) {
+            $productLink = $productLinks->getById(ProductLink::generateId($rootOu->getId(), $pickList->getSku()));
+            if (!($productLink instanceof ProductLink)) {
+                continue;
+            }
+            $pickList->setComponents($this->mapper->fromProductLink(
+                $productLink,
+                $pickList->getQuantity(),
+                $products,
+                $parentProducts,
+                $images
+            ));
+        }
 
         return $pickListEntries;
     }
@@ -200,6 +283,21 @@ class Service implements LoggerAwareInterface
         $this->imageService->populateImageMapBySku($imageMap, $map);
         $this->imageClient->fetchImages($imageMap);
 
+        return $imageMap;
+    }
+
+    protected function fetchImagesForProducts(ProductCollection $products)
+    {
+        $map = [];
+        /** @var Product $product */
+        foreach ($products as $product) {
+            $imageIds = array_column($product->getImageIds(), 'id', 'order');
+            $map[$product->getSku()] = array_pop($imageIds);
+        }
+
+        $imageMap = new ImageMap();
+        $this->imageService->populateImageMapBySku($imageMap, $map);
+        $this->imageClient->fetchImages($imageMap);
         return $imageMap;
     }
 

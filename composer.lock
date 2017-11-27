@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f2de14c630c3a28ad5470ad70a83f17",
+    "content-hash": "bb4a3487b0d193c06bcb7b21ca28a908",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1862,31 +1862,39 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.0.2",
+            "version": "dev-CGIV-9016-ProductLinkPdf",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "8916e76982ddce024878134066ce657d1bd5bb81"
+                "reference": "9b35a6f1651f22f2f4000d671ac303e6a13ddec7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-picklist-dev-CGIV-9016-ProductLinkPdf-bdc324.zip",
+                "reference": "9b35a6f1651f22f2f4000d671ac303e6a13ddec7",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/settings": ">=1.3.1,<2.0.0",
-                "channelgrabber/template": "^1.3.3",
-                "composer/composer": "@dev",
+                "channelgrabber/di": "^2.0.0",
+                "channelgrabber/settings": "^1.3.1",
+                "channelgrabber/template": "dev-CGIV-9016-ProductLinkPdf as 1.5.0",
                 "nocarrier/hal": "~0.9.10",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
+                "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
+            },
+            "conflict": {
+                "channelgrabber/template": "<1.5.0"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "~1.0.1",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~6.3"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CG\\PickList\\": "src"
+                    "CG\\PickList\\": "src",
+                    "": "library/"
                 }
             },
             "autoload-dev": {
@@ -1894,7 +1902,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-09-08T14:26:44+00:00"
+            "time": "2017-11-27T11:04:22+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -2763,16 +2771,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.28",
+            "version": "dev-CGIV-9016-ProductLinkPdf",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1fc4e6c588c69e6ef8965023640661f59451599e"
+                "reference": "9242863354fb2c1b72c2f51ed46128bc8c9a2678"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.28-14b940.zip",
-                "reference": "1fc4e6c588c69e6ef8965023640661f59451599e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9016-ProductLinkPdf-a777bc.zip",
+                "reference": "9242863354fb2c1b72c2f51ed46128bc8c9a2678",
                 "shasum": null
             },
             "require": {
@@ -2818,7 +2826,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-22T12:08:52+00:00"
+            "time": "2017-11-23T15:42:24+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -9449,10 +9457,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.0",
+            "alias_normalized": "1.1.0.0",
+            "version": "dev-CGIV-9016-ProductLinkPdf",
+            "package": "channelgrabber/picklist"
+        },
+        {
+            "alias": "1.5.0",
+            "alias_normalized": "1.5.0.0",
+            "version": "dev-CGIV-9016-ProductLinkPdf",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/picklist": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
