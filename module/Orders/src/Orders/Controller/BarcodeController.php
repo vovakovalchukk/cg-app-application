@@ -3,9 +3,10 @@ namespace Orders\Controller;
 
 use CG\Order\Shared\Barcode as BarcodeDecoder;
 use CG\Order\Shared\Entity as Order;
+use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Module;
-use Orders\Order\Service;
+use Cg\Order\Client\Service as Service;
 use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -20,6 +21,8 @@ class BarcodeController extends AbstractActionController
     protected $service;
     /** @var Config */
     protected $config;
+    /** @var ActiveUserInterface $activeUserContainer */
+    protected $activeUserContainer;
 
     protected $actionMap = [
         BarcodeDecoder::ACTION_VIEW => 'viewOrder',
@@ -30,12 +33,14 @@ class BarcodeController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         BarcodeDecoder $barcodeDecoder,
         Service $service,
-        Config $config
+        Config $config,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->barcodeDecoder = $barcodeDecoder;
         $this->service = $service;
         $this->config = $config;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function submitAction()
@@ -65,7 +70,11 @@ class BarcodeController extends AbstractActionController
 
     protected function dispatchOrder(Order $order, JsonModel $view)
     {
-        $this->service->dispatchOrder($order);
+        $this->service->dispatchOrder(
+            $order,
+            $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+            $this->activeUserContainer->getActiveUser()->getId()
+        );;
         $view->setVariable('message', $this->translate('Order ' . $order->getExternalId() . ' is now being dispatched'));
     }
 }
