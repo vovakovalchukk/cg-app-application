@@ -3,7 +3,7 @@ define([], function() {
         this.imageBasePath = options.imageBasePath;
     };
     Image.prototype.getImageSource = function(product) {
-        if (product.images && product.images.length > 0 && product.images[0].url) {
+        if (product && product.images && product.images.length > 0 && product.images[0].url) {
             return product.images[0].url;
         }
         return this.imageBasePath+'/noproductsimage.png';
@@ -12,7 +12,7 @@ define([], function() {
     Image.prototype.getProductImage = function(product, sku) {
         sku = sku || null;
 
-        if (! product.variations || sku === null) {
+        if (! product || ! product.variations || sku === null) {
             return this.getImageSource(product);
         }
 

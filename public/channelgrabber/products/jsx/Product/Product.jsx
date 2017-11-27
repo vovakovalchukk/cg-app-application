@@ -7,15 +7,16 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode, imageBasePath, searchAvailable, isAdmin, getParamSearchTerm)
+    var Product = function(mountingNode, utils, searchAvailable, isAdmin, getParamSearchTerm, linkedProductsEnabled)
     {
         ReactDOM.render(
             <RootComponent
                 productsUrl="/products/ajax"
-                imageBasePath={imageBasePath}
+                utilities={utils}
                 searchAvailable={searchAvailable}
                 initialSearchTerm={getParamSearchTerm}
                 isAdmin={isAdmin}
+                linkedProductsEnabled={linkedProductsEnabled}
             />,
             mountingNode
         );
