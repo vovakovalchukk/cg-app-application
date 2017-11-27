@@ -23,6 +23,7 @@ use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Controller\LinksJsonController;
 use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
@@ -30,6 +31,10 @@ use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
+use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
+use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\LinkNode\Storage\Api as ProductLinkNodeApiStorage;
 
 return [
     'router' => [
@@ -207,6 +212,40 @@ return [
                                 ],
                             ],
                         ]
+                    ],
+
+                    LinksJsonController::ROUTE_AJAX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/ajax',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'ajax'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    LinksJsonController::ROUTE_SAVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/save',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'save'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    LinksJsonController::ROUTE_REMOVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/remove',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'remove'
+                            ]
+                        ],
+                        'may_terminate' => true,
                     ],
 
                     ListingsController::ROUTE_INDEX => [
@@ -550,7 +589,20 @@ return [
                     'cryptor' => 'amazon_cryptor'
                 ]
             ],
-
+            'preference' => [
+                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
+                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
+            ],
+            ProductLinkApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ],
+            ],
+            ProductLinkNodeApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ],
+            ],
             'ListingList' => [
                 'parameters' => [
                     'variables' => [

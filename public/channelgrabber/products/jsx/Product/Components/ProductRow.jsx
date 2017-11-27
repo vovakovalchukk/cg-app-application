@@ -38,6 +38,7 @@ define([
             return {
                 product: [],
                 variations: [],
+                productLinks: {},
                 maxVariationAttributes: 0
             }
         },
@@ -77,11 +78,18 @@ define([
                     variationsSort={this.state.variationsSort}
                     attributeNames={this.props.product.attributeNames}
                     variations={this.state.variations}
+                    productLinks={this.props.productLinks}
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
+                    linkedProductsEnabled={this.props.linkedProductsEnabled}
                 />;
             } else {
-                return <VariationView variations={[this.props.product]} fullView={this.state.expanded}/>;
+                return <VariationView
+                    variations={[this.props.product]}
+                    fullView={this.state.expanded}
+                    linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    productLinks={this.props.productLinks}
+                />;
             }
         },
         getProductDetailsView: function ()
@@ -403,7 +411,7 @@ define([
     });
 
     ProductRowComponent.contextTypes = {
-        imageBasePath: React.PropTypes.string,
+        imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };
