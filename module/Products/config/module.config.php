@@ -62,6 +62,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_STOCK_FETCH => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/stock/ajax/:productId',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'stockFetchAction'
+                            ]
+                        ]
+                    ],
                     ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
                         'type' => Literal::class,
                         'options' => [

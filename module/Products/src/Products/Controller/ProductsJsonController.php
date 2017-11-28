@@ -46,6 +46,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_DELETE_PROGRESS = 'Delete Progress';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
+    const ROUTE_STOCK_FETCH = 'StockFetch';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
@@ -301,6 +302,13 @@ class ProductsJsonController extends AbstractActionController
             $listings[$id] = $listingData;
         }
         return $listings;
+    }
+
+    public function stockFetchAction()
+    {
+        $view = $this->jsonModelFactory->newInstance();
+        $filterParams = $this->params()->fromPost('filter', []);
+        return $view;
     }
 
     public function stockUpdateAction()
