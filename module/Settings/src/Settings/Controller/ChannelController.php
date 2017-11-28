@@ -540,12 +540,32 @@ class ChannelController extends AbstractActionController
      */
     protected function filterDataTableArrayFields(AccountEntity $account)
     {
+//        echo "TYPE:<br>\n\n";
+//        print_r($this->params('type'));
+
+        $type = $this->params('type');
+
         $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
         $types = $dataTableArray[static::ACCOUNT_TYPE];
-        if ($account->getChannel() == 'amazon' && in_array(Type::SHIPPING, $types)) {
-            $key = array_search(Type::SHIPPING, $types);
-            unset($dataTableArray[static::ACCOUNT_TYPE][$key]);
+
+        if (count($types) == 1) {
+            return $dataTableArray;
         }
+
+        if (in_array($type, $types)) {
+            foreach ($types as $key => $accountTypeItem) {
+                if ($accountTypeItem == $type) {
+                    continue;
+                }
+
+                unset($dataTableArray[static::ACCOUNT_TYPE][$key]);
+            }
+        }
+
+//        if ($account->getChannel() == 'amazon' && in_array(Type::SHIPPING, $types)) {
+//            $key = array_search(Type::SHIPPING, $types);
+//            unset($dataTableArray[static::ACCOUNT_TYPE][$key]);
+//        }
         return $dataTableArray;
     }
 
