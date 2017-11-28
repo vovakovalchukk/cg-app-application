@@ -101,6 +101,7 @@ define([
                     pagination: result.pagination,
                     initialLoadOccurred: true,
                     searchTerm: searchTerm,
+                    skuList: skuList,
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -267,7 +268,7 @@ define([
             this.fetchVariations(productFilter);
         },
         onPageChange: function(pageNumber) {
-            this.performProductsRequest(pageNumber, this.state.searchTerm);
+            this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
         },
         onProductLinksEditorClose: function () {
             this.setState({
