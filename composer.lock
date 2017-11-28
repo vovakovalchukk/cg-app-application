@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2238e1a9649b4f3d6a2859838125eff0",
+    "content-hash": "8b7cdf553060c45fa961c624bc19c6b4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1005,16 +1005,16 @@
         },
         {
             "name": "channelgrabber/exchangerate",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-exchangerate.git",
-                "reference": "332c387f143ff562f590069a9cb15e8e59c820ae"
+                "reference": "ca19951b61ccf73085d32de44f073cbfdc83b4ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.2.0-63c576.zip",
-                "reference": "332c387f143ff562f590069a9cb15e8e59c820ae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.2.1-9cb74e.zip",
+                "reference": "ca19951b61ccf73085d32de44f073cbfdc83b4ad",
                 "shasum": null
             },
             "require": {
@@ -1034,7 +1034,7 @@
                     "CG\\ExchangeRate\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-10-05T10:46:57+00:00"
+            "time": "2017-11-28T09:02:54+00:00"
         },
         {
             "name": "channelgrabber/feature-flags",
@@ -1042,12 +1042,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "2e9f3d5ee323f7ec38a06b9f24bc35df45aea97e"
+                "reference": "7288e5323891db623bcfce8ae3411c9a541acf2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9035-enable-sentry-specific-accounts-cee3cf.zip",
-                "reference": "2e9f3d5ee323f7ec38a06b9f24bc35df45aea97e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9035-enable-sentry-specific-accounts-c5faf6.zip",
+                "reference": "7288e5323891db623bcfce8ae3411c9a541acf2c",
                 "shasum": null
             },
             "require": {
@@ -1063,7 +1063,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-11-24T13:27:00+00:00"
+            "time": "2017-11-27T10:55:34+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -3955,12 +3955,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "01dae3e77af740fd40b41685eb789881a67a0089"
+                "reference": "4ecc3cff8efab93aed3920bc98cc446f920bfadb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-3a906e.zip",
-                "reference": "01dae3e77af740fd40b41685eb789881a67a0089",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9035-enable-sentry-specific-accounts-34f93b.zip",
+                "reference": "4ecc3cff8efab93aed3920bc98cc446f920bfadb",
                 "shasum": null
             },
             "require": {
@@ -4011,7 +4011,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-11-27T13:58:07+00:00"
+            "time": "2017-11-28T09:35:08+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

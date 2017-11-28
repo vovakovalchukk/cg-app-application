@@ -36,7 +36,7 @@
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
-        "channelgrabber/exchangerate": "~1.2.0",
+        "channelgrabber/exchangerate": "~1.2.1",
         "channelgrabber/feature-flags": "dev-CGIV-9035-enable-sentry-specific-accounts as 1.0.4",
         "channelgrabber/file-storage": "~1.0.0",
         "channelgrabber/gearman": "~1.2.26",
