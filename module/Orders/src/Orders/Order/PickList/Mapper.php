@@ -5,7 +5,6 @@ use CG\Order\Shared\Item\Entity as Item;
 use CG\PickList\Entity as PickList;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
-use CG\Product\LinkLeaf\Entity as ProductLink;
 use CG\Stdlib\Exception\Runtime\InvalidKey;
 use CG\Template\Element\Image as ImageElement;
 use CG\Template\Image\Map as ImageMap;
@@ -43,37 +42,6 @@ class Mapper
                 $this->getSkuImage($sku, $imageMap)
             );
         }
-        return $pickListEntries;
-    }
-
-    public function fromProductLink(
-        ProductLink $productLink,
-        $itemQty,
-        ProductCollection $products,
-        ProductCollection $parentProducts,
-        ImageMap $imageMap = null
-    ) {
-        $pickListEntries = [];
-
-        foreach ($productLink->getStockSkuMap() as $sku => $qty) {
-            $productCollection = $products->getBy('sku', $sku);
-            $productCollection->rewind();
-
-            $matchingProduct = $productCollection->current();
-            if ($matchingProduct instanceof Product) {
-                $title = $this->searchProductTitle($matchingProduct, $parentProducts);
-                $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
-            }
-
-            $pickListEntries[] = new PickList(
-                $title ?? '',
-                $itemQty * $qty,
-                $sku,
-                $variation ?? '',
-                $this->getSkuImage($sku, $imageMap)
-            );
-        }
-
         return $pickListEntries;
     }
 

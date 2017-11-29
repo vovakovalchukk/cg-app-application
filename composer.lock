@@ -1866,12 +1866,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "9b35a6f1651f22f2f4000d671ac303e6a13ddec7"
+                "reference": "ae869c8643ff047c61ae53c32a822251c4ce6c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-picklist-dev-CGIV-9016-ProductLinkPdf-bdc324.zip",
-                "reference": "9b35a6f1651f22f2f4000d671ac303e6a13ddec7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-picklist-dev-CGIV-9016-ProductLinkPdf-730b68.zip",
+                "reference": "ae869c8643ff047c61ae53c32a822251c4ce6c96",
                 "shasum": null
             },
             "require": {
@@ -1902,7 +1902,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-27T11:04:22+00:00"
+            "time": "2017-11-29T15:11:39+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -2775,12 +2775,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9242863354fb2c1b72c2f51ed46128bc8c9a2678"
+                "reference": "c162910812d9838415a136aadd08e725e45e2237"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9016-ProductLinkPdf-a777bc.zip",
-                "reference": "9242863354fb2c1b72c2f51ed46128bc8c9a2678",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9016-ProductLinkPdf-c43843.zip",
+                "reference": "c162910812d9838415a136aadd08e725e45e2237",
                 "shasum": null
             },
             "require": {
@@ -2826,7 +2826,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-23T15:42:24+00:00"
+            "time": "2017-11-29T14:42:00+00:00"
         },
         {
             "name": "channelgrabber/transaction",
