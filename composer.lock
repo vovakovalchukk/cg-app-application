@@ -2767,12 +2767,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "aa5c252d4510028498c4003b7770f194b257a229"
+                "reference": "7159bfb09d927d774b1907bd2d16b53b77f463f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9032-save_invoice-805eb3.zip",
-                "reference": "aa5c252d4510028498c4003b7770f194b257a229",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9032-save_invoice-0ae759.zip",
+                "reference": "7159bfb09d927d774b1907bd2d16b53b77f463f1",
                 "shasum": null
             },
             "require": {
@@ -2818,7 +2818,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-11-28T16:25:23+00:00"
+            "time": "2017-11-29T10:07:28+00:00"
         },
         {
             "name": "channelgrabber/transaction",
