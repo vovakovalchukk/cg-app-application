@@ -289,7 +289,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             throw $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
         } catch (\Exception $e) {
             $this->logException($e, 'log:error', __NAMESPACE__);
-            $this->logDebug($e->getMessage());
             throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
         }
         return false;
