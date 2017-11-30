@@ -190,13 +190,14 @@ class OrdersTable
     protected function truncatedShippingMethods(array &$orders)
     {
         $ellipsis = '...';
-        $ellipsisLen = strlen($ellipsis);
 
         foreach ($orders as &$order) {
-            if (strlen($order['shippingMethod']) <= (static::MAX_SHIPPING_METHOD_LENGTH + $ellipsisLen)) {
-                continue;
-            }
-            $order['shippingMethod'] = substr($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH) . $ellipsis;
+            $order['shippingMethod'] = mb_strimwidth(
+                $order['shippingMethod'],
+                0,
+                static::MAX_SHIPPING_METHOD_LENGTH,
+                $ellipsis
+            );
         }
 
         return $this;
