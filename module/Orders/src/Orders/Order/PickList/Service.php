@@ -1,27 +1,16 @@
 <?php
 namespace Orders\Order\PickList;
 
-use CG\FeatureFlags\Feature;
-use CG\FeatureFlags\Service as FeatureFlags;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
-use CG\OrganisationUnit\Entity as Ou;
-use CG\OrganisationUnit\Service as OuService;
-use CG\PickList\Entity as PickList;
 use CG\PickList\Service as PickListService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
-use CG\Product\LinkLeaf\Collection as ProductLinkLeafCollection;
-use CG\Product\LinkLeaf\Entity as ProductLinkLeaf;
-use CG\Product\LinkLeaf\Filter as ProductLinkLeafFilter;
-use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
 use CG\Settings\PickList\Entity as PickListSettings;
 use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\Picklist\SortValidator;
@@ -57,12 +46,8 @@ class Service implements LoggerAwareInterface
     protected $intercomEventService;
     /** @var ImageService $imageService */
     protected $imageService;
-    /** @var OuService $ouService */
-    protected $ouService;
-    /** @var FeatureFlags $featureFlags */
-    protected $featureFlags;
-    /** @var ProductLinkLeafService $productLinkLeafService */
-    protected $productLinkLeafService;
+    /** @var ComponentReplacer $componentReplacer */
+    protected $componentReplacer;
 
     public function __construct(
         ProductService $productService,
@@ -74,9 +59,7 @@ class Service implements LoggerAwareInterface
         ActiveUserContainer $activeUserContainer,
         IntercomEventService $intercomEventService,
         ImageService $imageService,
-        OuService $ouService,
-        FeatureFlags $featureFlags,
-        ProductLinkLeafService $productLinkLeafService
+        ComponentReplacer $componentReplacer
     ) {
         $this->productService = $productService;
         $this->pickListService = $pickListService;
@@ -87,9 +70,7 @@ class Service implements LoggerAwareInterface
         $this->activeUserContainer = $activeUserContainer;
         $this->intercomEventService = $intercomEventService;
         $this->imageService = $imageService;
-        $this->ouService = $ouService;
-        $this->featureFlags = $featureFlags;
-        $this->productLinkLeafService = $productLinkLeafService;
+        $this->componentReplacer = $componentReplacer;
     }
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
@@ -116,10 +97,7 @@ class Service implements LoggerAwareInterface
 
     protected function getPickListEntries(OrderCollection $orderCollection, PickListSettings $pickListSettings)
     {
-        $aggregator = new ItemAggregator(
-            $this->replaceLinksWithTheirComponents($orderCollection),
-            $pickListSettings->getShowSkuless()
-        );
+        $aggregator = new ItemAggregator(($this->componentReplacer)($orderCollection), $pickListSettings->getShowSkuless());
         $aggregator();
 
         $products = $this->fetchProductsForSkus($aggregator->getSkus());
@@ -138,111 +116,18 @@ class Service implements LoggerAwareInterface
             )
         );
 
-        return $this->sortEntries(
+        $pickListEntries = $this->sortEntries(
             $pickListEntries,
             SortValidator::getSortFieldsNames()[$pickListSettings->getSortField()],
             $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
         );
+
+        return $pickListEntries;
     }
 
-    protected function replaceLinksWithTheirComponents(OrderCollection $orderCollection): OrderCollection
-    {
-        /** @var Ou $rootOu */
-        $rootOu = $this->ouService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
-        if (!$this->featureFlags->isActive(Feature::LINKED_PRODUCTS, $rootOu)) {
-            return $orderCollection;
-        }
-
-        $productLinkIds = $this->getProductLinkLeafIds($rootOu, $orderCollection);
-        if (empty($productLinkIds)) {
-            return $orderCollection;
-        }
-
-        try {
-            /** @var ProductLinkLeafCollection $productLinkLeafs */
-            $productLinkLeafs = $this->productLinkLeafService->fetchCollectionByFilter(
-                (new ProductLinkLeafFilter('all', 1))->setOuIdProductSku($productLinkIds)
-            );
-        } catch (NotFound $exception) {
-            return $orderCollection;
-        }
-
-        $flattenedListOfLinkedSkus = array_reduce(
-            array_map(
-                function(ProductLinkLeaf $productLinkLeaf) {
-                    return array_keys($productLinkLeaf->getStockSkuMap());
-                },
-                iterator_to_array($productLinkLeafs)
-            ),
-            'array_merge',
-            []
-        );
-
-        $products = $this->fetchProductsForSkus($flattenedListOfLinkedSkus);
-        $replacedOrderCollection = new OrderCollection(Order::class, __FUNCTION__, ['orderIds' => $orderCollection->getIds()]);
-
-        /** @var Order $order */
-        foreach ($orderCollection as $order) {
-            $items = new ItemCollection(Item::class, __FUNCTION__, ['orderId' => [$order->getId()]]);
-
-            /** @var Item $item */
-            foreach ($order->getItems() as $item) {
-                $productLinkLeaf = $productLinkLeafs->getById(
-                    ProductLinkLeaf::generateId(
-                        $rootOu->getId(),
-                        $item->getItemSku()
-                    )
-                );
-
-                if (!($productLinkLeaf instanceof ProductLinkLeaf)) {
-                    $items->attach($item);
-                    continue;
-                }
-
-                $index = 1;
-                foreach ($productLinkLeaf->getStockSkuMap() as $sku => $qty) {
-                    /** @var Product $matchingProduct */
-                    $matchingProduct = $products->getBy('sku', $sku)->getFirst();
-                    $items->attach(
-                        (clone $item)
-                            ->setId(sprintf('%s-%d', $item->getId(), $index++))
-                            ->setItemSku($sku)
-                            ->setItemName($matchingProduct ? $matchingProduct->getName() : '')
-                            ->setItemQuantity($item->getItemQuantity() * $qty)
-                            ->setImageIds(
-                                $matchingProduct ? array_column($matchingProduct->getImageIds(), 'id', 'order') : []
-                            )
-                    );
-                }
-            }
-
-            $replacedOrderCollection->attach($order->setItems($items));
-        }
-
-        return $replacedOrderCollection;
-    }
-
-    protected function getProductLinkLeafIds(Ou $rootOu, OrderCollection $orderCollection): array
-    {
-        $productLinkLeafIds = [];
-
-        /** @var Order $order */
-        foreach ($orderCollection as $order) {
-            /** @var Item $item */
-            foreach ($order->getItems() as $item) {
-                $productLinkLeafIds[ProductLinkLeaf::generateId($rootOu->getId(), $item->getItemSku())] = true;
-            }
-        }
-
-        return array_keys($productLinkLeafIds);
-    }
-
-    /**
-     * @param PickList[] $pickListEntries
-     */
     protected function sortEntries(array $pickListEntries, $field, $ascending = true)
     {
-        usort($pickListEntries, function ($a, $b) use ($field, $ascending) {
+        usort($pickListEntries, function($a, $b) use ($field, $ascending) {
             $getter = 'get' . ucfirst(strtolower($field));
             $directionChanger = ($ascending === false) ? -1 : 1;
 
