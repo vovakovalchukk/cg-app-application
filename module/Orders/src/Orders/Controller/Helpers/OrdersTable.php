@@ -190,7 +190,7 @@ class OrdersTable
     protected function truncatedShippingMethods(array &$orders)
     {
         foreach ($orders as &$order) {
-            $order['shippingMethod'] = mb_strimwidth($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH, '...');
+            $order['shippingMethod'] = mb_strimwidth($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH, '…');
         }
 
         return $this;
