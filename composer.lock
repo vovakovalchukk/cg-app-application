@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f29eb166ce4448fc6d533747c9d696a",
+    "content-hash": "009b0d43128df25af817d6c464429c3e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1632,16 +1632,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.34.0",
+            "version": "dev-CGIV-9039-MCFComponents",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "cca66582b84c0e5bcc8b1c7cb1e9028209fac764"
+                "reference": "2fd351408fb4320c3104466e2294fe091700edd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.34.0-61c80d.zip",
-                "reference": "cca66582b84c0e5bcc8b1c7cb1e9028209fac764",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9039-MCFComponents-13fec4.zip",
+                "reference": "2fd351408fb4320c3104466e2294fe091700edd5",
                 "shasum": null
             },
             "require": {
@@ -1657,6 +1657,7 @@
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/exchangerate": "^1.2.0",
+                "channelgrabber/feature-flags": "~1.0.5",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
@@ -1667,7 +1668,7 @@
                 "channelgrabber/notification": "^1.2.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.9.0",
+                "channelgrabber/product": "^1.9.7",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.5.3",
@@ -1712,7 +1713,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2017-11-23T10:50:01+00:00"
+            "time": "2017-12-04T14:17:57+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9462,10 +9463,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.34.1",
+            "alias_normalized": "1.34.1.0",
+            "version": "dev-CGIV-9039-MCFComponents",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
