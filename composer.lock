@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "009b0d43128df25af817d6c464429c3e",
+    "content-hash": "0a85a7e0cd371dbecba3b5f10f4707fc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.24.6",
+            "version": "dev-CGIV-9039-MCFComponents",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "f7d3c7abf49ca063cd0b1a0475ab48f70b0bca60"
+                "reference": "e4303e4ffd64d7da72e58bbbc136c23dbe1fd360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.24.6-52dd18.zip",
-                "reference": "f7d3c7abf49ca063cd0b1a0475ab48f70b0bca60",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-9039-MCFComponents-fe5fb3.zip",
+                "reference": "e4303e4ffd64d7da72e58bbbc136c23dbe1fd360",
                 "shasum": null
             },
             "require": {
@@ -180,7 +180,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/order": "^1.28.22",
+                "channelgrabber/order": "dev-CGIV-9039-MCFComponents as 1.34.1",
                 "channelgrabber/predis": "~1.0.12",
                 "channelgrabber/product": "^1.9.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2017-11-15T10:14:24+00:00"
+            "time": "2017-12-04T16:17:15+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1636,12 +1636,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2fd351408fb4320c3104466e2294fe091700edd5"
+                "reference": "7f7214f05d87cfc49eaf9f2167b38b122546a27b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9039-MCFComponents-13fec4.zip",
-                "reference": "2fd351408fb4320c3104466e2294fe091700edd5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9039-MCFComponents-dbe951.zip",
+                "reference": "7f7214f05d87cfc49eaf9f2167b38b122546a27b",
                 "shasum": null
             },
             "require": {
@@ -1713,7 +1713,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2017-12-04T14:17:57+00:00"
+            "time": "2017-12-04T16:13:23+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9465,6 +9465,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.24.7",
+            "alias_normalized": "1.24.7.0",
+            "version": "dev-CGIV-9039-MCFComponents",
+            "package": "channelgrabber/amazon"
+        },
+        {
             "alias": "1.34.1",
             "alias_normalized": "1.34.1.0",
             "version": "dev-CGIV-9039-MCFComponents",
@@ -9473,6 +9479,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
