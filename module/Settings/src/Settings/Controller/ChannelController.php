@@ -46,6 +46,7 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
+    const ACCOUNT_TYPE = 'type';
     const ACCOUNT_TYPE_TO_LIST = 'sale';
     const EVENT_ACCOUNT_STATUS_CHANGED = 'Account Status Changed';
     const EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED = 'Account Stock Management Changed';
@@ -237,7 +238,7 @@ class ChannelController extends AbstractActionController
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
             foreach ($accounts as $account) {
-                $data['Records'][] = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
+                $data['Records'][] = $this->filterDataTableArrayFields($account);
             }
         } catch (NotFound $exception) {
             // No accounts so ignoring
@@ -451,7 +452,7 @@ class ChannelController extends AbstractActionController
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
             $response->setVariable(
                 'account',
-                $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
+                $this->filterDataTableArrayFields($account)
             );
             if ($wasActive != $active) {
                 $channelController = $this->getChannelSpecificController($account);
@@ -482,7 +483,7 @@ class ChannelController extends AbstractActionController
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
         $response->setVariable(
             'account',
-            $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
+            $this->filterDataTableArrayFields($account)
         );
         return $response->setVariable('updated', true);
     }
@@ -531,6 +532,30 @@ class ChannelController extends AbstractActionController
     protected function newJsonModel($variables = null, $options = null)
     {
         return $this->getJsonModelFactory()->newInstance($variables, $options);
+    }
+
+    /**
+     * @param AccountEntity $account
+     * @return array
+     */
+    protected function filterDataTableArrayFields(AccountEntity $account)
+    {
+        $type = $this->params('type');
+
+        $dataTableArray = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
+        $types = $dataTableArray[static::ACCOUNT_TYPE];
+
+        if (in_array($type, $types)) {
+            foreach ($types as $key => $accountTypeItem) {
+                if ($accountTypeItem == $type) {
+                    continue;
+                }
+
+                unset($dataTableArray[static::ACCOUNT_TYPE][$key]);
+            }
+        }
+
+        return $dataTableArray;
     }
 
     public function setActiveUserContainer($activeUserContainer)
