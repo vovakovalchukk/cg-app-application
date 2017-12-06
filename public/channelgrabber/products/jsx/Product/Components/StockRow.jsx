@@ -18,24 +18,45 @@ define([
                 }
             };
         },
+        getStockAvailable() {
+            if (this.props.isFetchingStock) {
+                return '';
+            }
+            return this.getOnHandStock() - Math.max(this.getAllocatedStock(), 0);
+        },
         getColumns: function(variation) {
             return [
                 <td key="stock-available" className="product-stock-available">
-                    <div>{(this.getOnHandStock() - Math.max(this.getAllocatedStock(), 0))}</div>
+                    <div>{this.getStockAvailable()}</div>
                 </td>,
                 <td key="stock-undispatched" className="product-stock-allocated">
                     <div>{this.getAllocatedStock()}</div>
                 </td>,
                 <td key="stock-total" className="product-stock-available">
-                    <Input name='total' initialValue={this.getOnHandStock()} submitCallback={this.updateStockTotal}/>
+                    <Input
+                        name='total'
+                        initialValue={this.getOnHandStock()}
+                        submitCallback={this.updateStockTotal}
+                        disabled={this.props.isFetchingStock}
+                    />
                     <input type='hidden' value={variation.eTag} />
                     <input type='hidden' value={variation.stock ? variation.stock.locations[0].eTag : ''} />
                 </td>,
                 <td key="stock-mode" colSpan="2" className="product-stock-mode">
-                    <Select options={this.getStockModeOptions()} onOptionChange={this.updateStockMode} selectedOption={this.getSelectedOption()}/>
+                    <Select
+                        options={this.getStockModeOptions()}
+                        onOptionChange={this.updateStockMode}
+                        selectedOption={this.getSelectedOption()}
+                        disabled={this.props.isFetchingStock}
+                    />
                 </td>,
                 <td key="stock-level" colSpan="1" className="product-stock-level">
-                    <Input name='level' initialValue={this.getStockModeLevel()} submitCallback={this.updateStockLevel} disabled={this.shouldInputBeDisabled()} />
+                    <Input
+                        name='level'
+                        initialValue={this.getStockModeLevel()}
+                        submitCallback={this.updateStockLevel}
+                        disabled={this.shouldInputBeDisabled()}
+                    />
                 </td>
             ];
         },
@@ -49,6 +70,9 @@ define([
             }
         },
         shouldInputBeDisabled: function() {
+            if (this.props.isFetchingStock) {
+                return true;
+            }
             var disabledStockMode = 'all';
             var shouldBeDisabled = (!this.props.variation.stock) ||
                 (   (this.props.variation.stock.stockMode === null || this.props.variation.stock.stockMode === 'null') &&
@@ -73,6 +97,9 @@ define([
             return (this.props.variation.stock ? this.props.variation.stock.locations[0].onHand : '');
         },
         getAllocatedStock: function() {
+            if (this.props.isFetchingStock) {
+                return '';
+            }
             return (this.props.variation.stock ? this.props.variation.stock.locations[0].allocated : '');
         },
         getStockEtag: function() {
@@ -155,7 +182,8 @@ define([
         },
         getDefaultProps: function() {
             return {
-                variation: null
+                variation: null,
+                isFetchingStock: false
             };
         },
         componentDidMount: function () {

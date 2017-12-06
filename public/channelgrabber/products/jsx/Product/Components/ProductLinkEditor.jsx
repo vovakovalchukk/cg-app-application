@@ -156,10 +156,12 @@ define([
                 'dataType' : 'json',
                 'success' : function (response) {
                     window.triggerEvent('productLinkRefresh');
-                    this.setState({
-                        unlinkConfirmPopup: false
-                    },
-                        this.onEditorReset()
+                    this.setState(
+                        {unlinkConfirmPopup: false},
+                        function () {
+                            this.onEditorReset();
+                            this.props.fetchUpdatedStockLevels(this.state.sku);
+                        }.bind(this)
                     );
                     n.success('Product links removed successfully.');
                 }.bind(this),

@@ -39,7 +39,8 @@ define([
                 product: [],
                 variations: [],
                 productLinks: {},
-                maxVariationAttributes: 0
+                maxVariationAttributes: 0,
+                fetchingUpdatedStockLevelsForSkus: {}
             }
         },
         getInitialState: function () {
@@ -98,11 +99,17 @@ define([
             if (this.isParentProduct()) {
                 products = this.state.variations;
             }
+
             return (
                 <div className="details-layout-column">
                     <Tabs selected={0}>
                         <Pane label="Stock">
-                            <StockView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
+                            <StockView
+                                variations={products}
+                                fullView={this.state.expanded}
+                                onVariationDetailChanged={this.onVariationDetailChanged}
+                                fetchingUpdatedStockLevelsForSkus={this.props.fetchingUpdatedStockLevelsForSkus}
+                            />
                         </Pane>
                         <Pane label="Dimensions">
                             <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>

@@ -52,7 +52,8 @@ define([
                     total: 0,
                     limit: 0,
                     page: 0
-                }
+                },
+                fetchingUpdatedStockLevelsForSkus: {}
             }
         },
         componentDidMount: function()
@@ -175,34 +176,45 @@ define([
             });
         },
         fetchUpdatedStockLevels(productSku) {
-            $.ajax({
-                url: '/products/stock/ajax/' + productSku,
-                type: 'GET',
-                success: function (response) {
-                    var newState = this.state;
+            var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
+            fetchingStockLevelsForSkuState[productSku] = true;
 
-                    newState.products.forEach(function(product) {
-                        if (product.variationCount == 0) {
-                            if (product.sku != productSku) {
+            var updateStockLevelsRequest = function() {
+                $.ajax({
+                    url: '/products/stock/ajax/' + productSku,
+                    type: 'GET',
+                    success: function (response) {
+                        var newState = this.state;
+
+                        newState.products.forEach(function(product) {
+                            if (product.variationCount == 0) {
+                                if (product.sku != productSku) {
+                                    return;
+                                }
+                                product.stock = response.stock;
                                 return;
                             }
-                            product.stock = response.stock;
-                            return;
-                        }
 
-                        newState.variations[product.id].forEach(function(product) {
-                            if (product.sku == productSku) {
-                                product.stock = response.stock;
-                            }
+                            newState.variations[product.id].forEach(function(product) {
+                                if (product.sku == productSku) {
+                                    product.stock = response.stock;
+                                }
+                            });
                         });
-                    });
 
-                    this.setState(newState);
-                }.bind(this),
-                error: function(error) {
-                    console.warn(error);
-                }
-            });
+                        newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
+                        this.setState(newState);
+                    }.bind(this),
+                    error: function(error) {
+                        console.warn(error);
+                    }
+                });
+            }.bind(this);
+
+            this.setState(
+                fetchingStockLevelsForSkuState,
+                updateStockLevelsRequest
+            );
         },
         sortVariationsByParentId: function (newVariations, parentProductId) {
             var variationsByParent = {};
@@ -324,15 +336,16 @@ define([
                 );
             }
 
-            return this.state.products.map(function(object) {
+            return this.state.products.map(function(product) {
                 return <ProductRow
-                    key={object.id}
-                    product={object}
-                    variations={this.state.variations[object.id]}
-                    productLinks={this.state.allProductLinks[object.id]}
+                    key={product.id}
+                    product={product}
+                    variations={this.state.variations[product.id]}
+                    productLinks={this.state.allProductLinks[product.id]}
                     maxVariationAttributes={this.state.maxVariationAttributes}
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
                 />;
             }.bind(this))
         },
