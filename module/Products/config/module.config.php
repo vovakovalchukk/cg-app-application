@@ -68,7 +68,7 @@ return [
                             'route' => '/stock/ajax/:productId',
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
-                                'action' => 'stockFetchAction'
+                                'action' => 'stockFetch'
                             ]
                         ]
                     ],

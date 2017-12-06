@@ -308,6 +308,7 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->jsonModelFactory->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
+        $view->setVariables(['onHand' => 14, 'allocated' => 6]);
         return $view;
     }
 
