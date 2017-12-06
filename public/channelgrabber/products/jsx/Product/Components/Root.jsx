@@ -174,6 +174,37 @@ define([
                 }
             });
         },
+        fetchUpdatedStockLevels(productSku) {
+            $.ajax({
+                url: '/products/stock/ajax/' + productSku,
+                type: 'GET',
+                success: function (response) {
+                    var newState = this.state;
+
+                    newState.products.forEach(function(product) {
+                        if (product.variationCount == 0) {
+                            if (product.sku == productSku) {
+                                product.stock.locations[0].onHand = response.onHand;
+                                product.stock.locations[0].allocated = response.allocated;
+                            }
+                            return;
+                        }
+
+                        newState.variations[product.id].forEach(function(product) {
+                            if (product.sku == productSku) {
+                                product.stock.locations[0].onHand = response.onHand;
+                                product.stock.locations[0].allocated = response.allocated;
+                            }
+                        });
+                    });
+
+                    this.setState(newState);
+                }.bind(this),
+                error: function(error) {
+                    console.warn(error);
+                }
+            });
+        },
         sortVariationsByParentId: function (newVariations, parentProductId) {
             var variationsByParent = {};
 
@@ -314,7 +345,11 @@ define([
                     <div id="products-list">
                         {this.renderProducts()}
                     </div>
-                    <ProductLinkEditor productLink={this.state.editingProductLink} onEditorClose={this.onProductLinksEditorClose} />
+                    <ProductLinkEditor
+                        productLink={this.state.editingProductLink}
+                        onEditorClose={this.onProductLinksEditorClose}
+                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                    />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );
