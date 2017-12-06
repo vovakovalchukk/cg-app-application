@@ -65,7 +65,7 @@ return [
                     ProductsJsonController::ROUTE_STOCK_FETCH => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/stock/ajax/:productId',
+                            'route' => '/stock/ajax/:productSku',
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'stockFetch'

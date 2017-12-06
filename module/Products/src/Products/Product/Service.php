@@ -19,8 +19,6 @@ use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
-use CG\Product\Link\Service as ProductLinkService;
-use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
@@ -31,6 +29,8 @@ use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
+use CG\Stock\Filter;
+use CG\Stock\Entity as Stock;
 use CG\Stock\Location\StorageInterface as StockLocationStorage;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
@@ -144,6 +144,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
         $products = $this->productService->fetchCollectionByFilter($productFilter);
         return $products;
+    }
+
+    public function fetchStockForSku(string $productSku): Stock
+    {
+        $stockFilter = (new Filter('all', 1))->setSku([$productSku]);
+        $stock = $this->stockStorage->fetchCollectionByFilter($stockFilter);
+        return $stock->getFirst();
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)

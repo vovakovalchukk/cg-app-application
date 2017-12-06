@@ -307,8 +307,17 @@ class ProductsJsonController extends AbstractActionController
     public function stockFetchAction()
     {
         $view = $this->jsonModelFactory->newInstance();
-        $filterParams = $this->params()->fromPost('filter', []);
-        $view->setVariables(['onHand' => 14, 'allocated' => 6]);
+        $productSku = $this->params()->fromRoute('productSku');
+
+        $stock = $this->productService->fetchStockForSku($productSku);
+        $view->setVariables(
+            [
+                'stock' => array_merge(
+                    $stock->toArray(),
+                    ['locations' => $stock->getLocations()->toArray()]
+                )
+            ]
+        );
         return $view;
     }
 

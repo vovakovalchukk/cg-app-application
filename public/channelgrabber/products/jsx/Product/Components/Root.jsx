@@ -183,17 +183,16 @@ define([
 
                     newState.products.forEach(function(product) {
                         if (product.variationCount == 0) {
-                            if (product.sku == productSku) {
-                                product.stock.locations[0].onHand = response.onHand;
-                                product.stock.locations[0].allocated = response.allocated;
+                            if (product.sku != productSku) {
+                                return;
                             }
+                            product.stock = response.stock;
                             return;
                         }
 
                         newState.variations[product.id].forEach(function(product) {
                             if (product.sku == productSku) {
-                                product.stock.locations[0].onHand = response.onHand;
-                                product.stock.locations[0].allocated = response.allocated;
+                                product.stock = response.stock;
                             }
                         });
                     });
