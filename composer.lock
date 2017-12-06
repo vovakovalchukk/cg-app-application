@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8b839e86451ce7d32d096d042f93463",
+    "content-hash": "785e06d819fa08601a4078c4ef3a6a9c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1049,16 +1049,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "dev-CGIV-9050-use-the-api-storage",
+            "version": "dev-EPIC-CGIV-9044-feature-flag-api",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "0135a65a709aa68c2dcdaa8dddb179b0ca085125"
+                "reference": "454b4c07832cf28731a8b6b910d30af6e250492a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9050-use-the-api-storage-c7decd.zip",
-                "reference": "0135a65a709aa68c2dcdaa8dddb179b0ca085125",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-EPIC-CGIV-9044-feature-flag-api-6a5f19.zip",
+                "reference": "454b4c07832cf28731a8b6b910d30af6e250492a",
                 "shasum": null
             },
             "require": {
@@ -1082,7 +1082,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-12-04T11:34:06+00:00"
+            "time": "2017-12-06T14:16:21+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -9482,7 +9482,7 @@
         {
             "alias": "1.0.6",
             "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-9050-use-the-api-storage",
+            "version": "dev-EPIC-CGIV-9044-feature-flag-api",
             "package": "channelgrabber/feature-flags"
         }
     ],
