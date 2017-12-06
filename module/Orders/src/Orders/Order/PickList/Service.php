@@ -5,6 +5,7 @@ use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\ComponentReplacer;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\PickList\Service as PickListService;
 use CG\Product\Client\Service as ProductService;
