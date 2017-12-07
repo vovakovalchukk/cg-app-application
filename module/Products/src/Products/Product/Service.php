@@ -168,9 +168,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $linkNodeFilter = (new ProductLinkNodeFilter('all', 1))
             ->setOuIdProductSku([ProductLink::generateId($ouId, $productSku)]);
-        $linkNode = $this->productLinkNodeService->fetchCollectionByFilter($linkNodeFilter)->getFirst();
-
-        $stockFilter = (new Filter('all', 1))->setSku(array_merge([$productSku], $linkNode->getAncestors()));
+        try {
+            $linkNode = $this->productLinkNodeService->fetchCollectionByFilter($linkNodeFilter)->getFirst();
+            $ancestors = $linkNode->getAncestors();
+        } catch (NotFound $exception) {
+            $ancestors = [];
+        }
+        $stockFilter = (new Filter('all', 1))->setSku(array_merge([$productSku], $ancestors));
         $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
 
         $stockBySku = [];
