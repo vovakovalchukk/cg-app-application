@@ -23,7 +23,7 @@ function(ProductRoot, Clipboard, ImageUtils) {
         utilities,
         searchAvailable, <?= ($isAdmin ? 'true' : 'false') ?>,
         '<?= $searchTerm ?>',
-        <?= $this->featureFlags(\CG\FeatureFlags\Feature::LINKED_PRODUCTS, $this->activeUserRootOu)? 1: 0; ?>,
+        <?= $this->featureFlags(\CG\FeatureFlags\Feature::LINKED_PRODUCTS, $this->activeUserRootOu)? 1: 0; ?>
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });
