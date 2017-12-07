@@ -5,11 +5,10 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
-use CG\Channel\Shipping\Provider\BookingOptions\ActionDescriptionsInterface;
+use CG\Channel\Shipping\Provider\BookingOptions;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\DataTable;
-use Orders\Courier\Service;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
@@ -28,6 +27,17 @@ class SpecificsPage implements LoggerAwareInterface
     /** @var Service */
     protected $courierService;
 
+    protected $bookOptionInterfaces = [
+        'Create' => BookingOptions\CreateActionDescriptionInterface::class,
+        'Cancel' => BookingOptions\CancelActionDescriptionInterface::class,
+        'Print' => BookingOptions\PrintActionDescriptionInterface::class,
+        'Dispatch' => BookingOptions\DispatchActionDescriptionInterface::class,
+        'CreateAll' => BookingOptions\CreateAllActionDescriptionInterface::class,
+        'CancelAll' => BookingOptions\CancelAllActionDescriptionInterface::class,
+        'PrintAll' => BookingOptions\PrintAllActionDescriptionInterface::class,
+        'DispatchAll' => BookingOptions\DispatchAllActionDescriptionInterface::class,
+    ];
+
     public function __construct(Di $di, AccountService $accountService, Service $courierService)
     {
         $this->di = $di;
@@ -35,10 +45,7 @@ class SpecificsPage implements LoggerAwareInterface
         $this->courierService = $courierService;
     }
 
-    /**
-     * @return AccountCollection
-     */
-    public function fetchAccountsById($accountIds)
+    public function fetchAccountsById($accountIds): AccountCollection
     {
         $filter = (new AccountFilter())
             ->setLimit('all')
@@ -64,58 +71,50 @@ class SpecificsPage implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getCreateActionDescription(Account $account)
+    public function getCreateActionDescription(Account $account): string
     {
         return $this->getActionDescription('Create', 'Create label', $account);
     }
 
-    /**
-     * @return string
-     */
-    public function getCancelActionDescription(Account $account)
+    public function getCancelActionDescription(Account $account): string
     {
         return $this->getActionDescription('Cancel', 'Cancel', $account);
     }
 
-    /**
-     * @return string
-     */
-    public function getPrintActionDescription(Account $account)
+    public function getPrintActionDescription(Account $account): string
     {
         return $this->getActionDescription('Print', 'Print label', $account);
     }
 
-    /**
-     * @return string
-     */
-    public function getCreateAllActionDescription(Account $account)
+    public function getDispatchActionDescription(Account $account): string
+    {
+        return $this->getActionDescription('Dispatch', 'Dispatch order', $account);
+    }
+
+    public function getCreateAllActionDescription(Account $account): string
     {
         return $this->getActionDescription('CreateAll', 'Create all labels', $account);
     }
 
-    /**
-     * @return string
-     */
-    public function getCancelAllActionDescription(Account $account)
+    public function getCancelAllActionDescription(Account $account): string
     {
         return $this->getActionDescription('CancelAll', 'Cancel all', $account);
     }
 
-    /**
-     * @return string
-     */
-    public function getPrintAllActionDescription(Account $account)
+    public function getPrintAllActionDescription(Account $account): string
     {
         return $this->getActionDescription('PrintAll', 'Print all labels', $account);
     }
 
-    protected function getActionDescription($action, $defaultDescription, Account $account)
+    public function getDispatchAllActionDescription(Account $account): string
     {
-        $provider = $this->courierService->getCarrierOptionsProvider($account);
-        if (!$provider instanceof ActionDescriptionsInterface) {
+        return $this->getActionDescription('DispatchAll', 'Dispatch all orders', $account);
+    }
+
+    protected function getActionDescription(string $action, string $defaultDescription, Account $account): string
+    {
+        $provider = $this->courierService->getCarrierOptionsProvider($account);;
+        if (!($provider instanceof $this->bookOptionInterfaces[$action] ?? '')) {
             return $defaultDescription;
         }
         $method = 'get' . $action . 'ActionDescription';

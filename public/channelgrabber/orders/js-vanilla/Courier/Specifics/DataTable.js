@@ -53,8 +53,8 @@ CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-sha
 
 CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true},
-    'not printed': {'print': true, 'cancel': true},
-    'printed': {'print': true},
+    'not printed': {'print': true, 'cancel': true, 'dispatch': true},
+    'printed': {'print': true, 'dispatch': true},
     'cancelled': {'create': true},
     'creating': {},
     'dispatched': {'cancel': true}
