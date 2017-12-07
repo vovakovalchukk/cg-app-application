@@ -67,36 +67,47 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
     const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
 
+    /** @var UserService $userService */
     protected $userService;
-    /** @var ActiveUserInterface */
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var Di $di */
     protected $di;
+    /** @var $activeUserPreference */
     protected $activeUserPreference;
+    /** @var UserPreferenceService $userPreferenceService */
     protected $userPreferenceService;
-    /** @var AccountService */
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var ProductService $productService */
     protected $productService;
+    /** @var ProductFilterMapper $productFilterMapper */
     protected $productFilterMapper;
+    /** @var StockStorage $stockStorage */
     protected $stockStorage;
+    /** @var StockLocationStorage $stockLocationStorage */
     protected $stockLocationStorage;
+    /** @var StockAuditor $stockAuditor */
     protected $stockAuditor;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
-    /** @var StockAdjustmentService */
+    /** @var StockAdjustmentService $stockAdjustmentService */
     protected $stockAdjustmentService;
     /** @var DetailService $detailService */
     protected $detailService;
     /** @var DetailMapper $detailMapper */
     protected $detailMapper;
-    /** @var GearmanClient */
+    /** @var GearmanClient $gearmanClient */
     protected $gearmanClient;
-    /** @var RemoveProgressStorage */
+    /** @var RemoveProgressStorage $removeProgressStorage */
     protected $removeProgressStorage;
-    /** @var  FeatureFlagsService */
+    /** @var  FeatureFlagsService $featureFlagsService */
     protected $featureFlagsService;
-    /** @var UserOuService */
+    /** @var UserOuService $userOuService */
     protected $userOuService;
-    /** @var ProductLinkNodeService */
+    /** @var ProductLinkNodeService $productLinkNodeService */
     protected $productLinkNodeService;
 
     public function __construct(
@@ -232,7 +243,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $products = $this->productService->fetchCollectionByFilter($filter);
 
         $ouIdSkuListOfProductsAndVariations = $this->productService->getSkusOfProductsAndVariations($products);
-        $this->productService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
+        $this->productLinkNodeService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
     }
 
     public function checkProgressOfDeleteProducts($progressKey)
