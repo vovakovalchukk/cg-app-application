@@ -309,15 +309,8 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->jsonModelFactory->newInstance();
         $productSku = $this->params()->fromRoute('productSku');
 
-        $stock = $this->productService->fetchStockForSku($productSku);
-        $view->setVariables(
-            [
-                'stock' => array_merge(
-                    $stock->toArray(),
-                    ['locations' => $stock->getLocations()->toArray()]
-                )
-            ]
-        );
+        $stock = $this->productService->fetchStockForSku($productSku, $this->activeUser->getActiveUserRootOrganisationUnitId());
+        $view->setVariables(['stock' => $stock]);
         return $view;
     }
 

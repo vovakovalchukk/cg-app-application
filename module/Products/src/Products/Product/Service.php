@@ -16,6 +16,9 @@ use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Entity as Product;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
+use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
@@ -93,6 +96,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $featureFlagsService;
     /** @var UserOuService */
     protected $userOuService;
+    /** @var ProductLinkNodeService */
+    protected $productLinkNodeService;
 
     public function __construct(
         UserService $userService,
@@ -113,7 +118,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         GearmanClient $gearmanClient,
         RemoveProgressStorage $removeProgressStorage,
         FeatureFlagsService $featureFlagsService,
-        UserOuService $userOuService
+        UserOuService $userOuService,
+        ProductLinkNodeService $productLinkNodeService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -134,6 +140,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->removeProgressStorage = $removeProgressStorage;
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
+        $this->productLinkNodeService = $productLinkNodeService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -146,11 +153,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $products;
     }
 
-    public function fetchStockForSku(string $productSku): Stock
+    public function fetchStockForSku(string $productSku, int $ouId): array
     {
-        $stockFilter = (new Filter('all', 1))->setSku([$productSku]);
-        $stock = $this->stockStorage->fetchCollectionByFilter($stockFilter);
-        return $stock->getFirst();
+        $linkNodeFilter = (new ProductLinkNodeFilter('all', 1))
+            ->setOuIdProductSku([ProductLink::generateId($ouId, $productSku)]);
+        $linkNode = $this->productLinkNodeService->fetchCollectionByFilter($linkNodeFilter)->getFirst();
+
+        $stockFilter = (new Filter('all', 1))->setSku(array_merge([$productSku], $linkNode->getAncestors()));
+        $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
+
+        $stockBySku = [];
+        /** @var Stock $stock */
+        foreach ($stockCollection as $stock) {
+            $stockBySku[$stock->getSku()] = array_merge(
+                $stock->toArray(),
+                ['locations' => $stock->getLocations()->toArray()]
+            );
+        }
+
+        return $stockBySku;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
