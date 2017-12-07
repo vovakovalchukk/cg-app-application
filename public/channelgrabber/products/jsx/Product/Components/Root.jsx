@@ -188,17 +188,19 @@ define([
 
                         newState.products.forEach(function(product) {
                             if (product.variationCount == 0) {
-                                if (product.sku != productSku) {
+                                if (!response.stock[product.sku]) {
                                     return;
                                 }
-                                product.stock = response.stock;
+                                product.stock = response.stock[product.sku];
                                 return;
                             }
 
                             newState.variations[product.id].forEach(function(product) {
-                                if (product.sku == productSku) {
-                                    product.stock = response.stock;
+                                if (!response.stock[product.sku]) {
+                                    return;
                                 }
+                                product.stock = response.stock[product.sku];
+                                return;
                             });
                         });
 
