@@ -19,8 +19,7 @@ use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
-use CG\Product\Link\Service as ProductLinkService;
-use CG\Product\Link\Entity as ProductLink;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
@@ -64,35 +63,48 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
     const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
 
+    /** @var UserService $userService */
     protected $userService;
-    /** @var ActiveUserInterface */
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var Di $di */
     protected $di;
+    /** @var $activeUserPreference */
     protected $activeUserPreference;
+    /** @var UserPreferenceService $userPreferenceService */
     protected $userPreferenceService;
-    /** @var AccountService */
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var ProductService $productService */
     protected $productService;
+    /** @var ProductFilterMapper $productFilterMapper */
     protected $productFilterMapper;
+    /** @var StockStorage $stockStorage */
     protected $stockStorage;
+    /** @var StockLocationStorage $stockLocationStorage */
     protected $stockLocationStorage;
+    /** @var StockAuditor $stockAuditor */
     protected $stockAuditor;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
-    /** @var StockAdjustmentService */
+    /** @var StockAdjustmentService $stockAdjustmentService */
     protected $stockAdjustmentService;
     /** @var DetailService $detailService */
     protected $detailService;
     /** @var DetailMapper $detailMapper */
     protected $detailMapper;
-    /** @var GearmanClient */
+    /** @var GearmanClient $gearmanClient */
     protected $gearmanClient;
-    /** @var RemoveProgressStorage */
+    /** @var RemoveProgressStorage $removeProgressStorage */
     protected $removeProgressStorage;
-    /** @var  FeatureFlagsService */
+    /** @var  FeatureFlagsService $featureFlagsService */
     protected $featureFlagsService;
-    /** @var UserOuService */
+    /** @var UserOuService $userOuService */
     protected $userOuService;
+    /** @var ProductLinkNodeService $productLinkNodeService */
+    protected $productLinkNodeService;
 
     public function __construct(
         UserService $userService,
@@ -113,7 +125,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         GearmanClient $gearmanClient,
         RemoveProgressStorage $removeProgressStorage,
         FeatureFlagsService $featureFlagsService,
-        UserOuService $userOuService
+        UserOuService $userOuService,
+        ProductLinkNodeService $productLinkNodeService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -134,6 +147,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->removeProgressStorage = $removeProgressStorage;
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
+        $this->productLinkNodeService = $productLinkNodeService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -204,7 +218,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $products = $this->productService->fetchCollectionByFilter($filter);
 
         $ouIdSkuListOfProductsAndVariations = $this->productService->getSkusOfProductsAndVariations($products);
-        $this->productService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
+        $this->productLinkNodeService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
     }
 
     public function checkProgressOfDeleteProducts($progressKey)
