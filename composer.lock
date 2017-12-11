@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "af997f59a54e80297e5c24f4d2243cc3",
+    "content-hash": "f839cb10a7474a479e53ed0a23dd233b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -303,16 +303,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.12.2",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "1559f32fafd57a6fe1711b58947127a49a497998"
+                "reference": "c890fc89741603b719662296b7df5c2a01fd2848"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.12.2-a78dbd.zip",
-                "reference": "1559f32fafd57a6fe1711b58947127a49a497998",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-9053-cleanup-feature-flags-ed2d5c.zip",
+                "reference": "c890fc89741603b719662296b7df5c2a01fd2848",
                 "shasum": null
             },
             "require": {
@@ -353,7 +353,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2017-12-07T13:39:06+00:00"
+            "time": "2017-12-11T11:36:56+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -450,16 +450,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.14.1",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "de3440a10c9fd99105e7813a7eaaba595ef056e9"
+                "reference": "1d7d88c12cc3cbc53ccb64a05467c2b48ca5759a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.14.1-b2cf63.zip",
-                "reference": "de3440a10c9fd99105e7813a7eaaba595ef056e9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-9053-cleanup-feature-flags-a850f9.zip",
+                "reference": "1d7d88c12cc3cbc53ccb64a05467c2b48ca5759a",
                 "shasum": null
             },
             "require": {
@@ -506,7 +506,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2017-12-07T14:19:26+00:00"
+            "time": "2017-12-11T11:49:21+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1049,16 +1049,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "2.0.1",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "2a08faf52d5ef6e0ad89c6003e8033fb71e5437e"
+                "reference": "28d33e9e4b333797e92105455d8aba17d41d498f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-2.0.1-6d5550.zip",
-                "reference": "2a08faf52d5ef6e0ad89c6003e8033fb71e5437e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9053-cleanup-feature-flags-df874d.zip",
+                "reference": "28d33e9e4b333797e92105455d8aba17d41d498f",
                 "shasum": null
             },
             "require": {
@@ -1082,7 +1082,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-12-07T13:25:58+00:00"
+            "time": "2017-12-11T11:53:12+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -1647,16 +1647,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.34.2",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1b3a7e5e6197509bce5680e4e999b07ff3cb94de"
+                "reference": "6a0510adf21663f720a864684b589d288e317f8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.34.2-264d0b.zip",
-                "reference": "1b3a7e5e6197509bce5680e4e999b07ff3cb94de",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9053-cleanup-feature-flags-dc1c4f.zip",
+                "reference": "6a0510adf21663f720a864684b589d288e317f8b",
                 "shasum": null
             },
             "require": {
@@ -1683,7 +1683,7 @@
                 "channelgrabber/notification": "^1.2.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.9.7",
+                "channelgrabber/product": "dev-CGIV-9053-cleanup-feature-flags as 1.10.1",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.5.3",
@@ -1728,7 +1728,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2017-12-07T13:45:42+00:00"
+            "time": "2017-12-11T11:49:55+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2795,12 +2795,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "dbd499953ec550cac2c42666fc6d3f170d6e31d9"
+                "reference": "f003b538dd7c80c41a3449622b75a4cbd7383de1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9053-cleanup-feature-flags-593eaa.zip",
-                "reference": "dbd499953ec550cac2c42666fc6d3f170d6e31d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9053-cleanup-feature-flags-9934b3.zip",
+                "reference": "f003b538dd7c80c41a3449622b75a4cbd7383de1",
                 "shasum": null
             },
             "require": {
@@ -2846,7 +2846,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-12-11T11:14:08+00:00"
+            "time": "2017-12-11T11:50:41+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -9480,6 +9480,30 @@
     ],
     "aliases": [
         {
+            "alias": "1.12.3",
+            "alias_normalized": "1.12.3.0",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
+            "package": "channelgrabber/billing"
+        },
+        {
+            "alias": "1.14.2",
+            "alias_normalized": "1.14.2.0",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
+            "package": "channelgrabber/cglib"
+        },
+        {
+            "alias": "2.0.2",
+            "alias_normalized": "2.0.2.0",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
+            "alias": "1.34.3",
+            "alias_normalized": "1.34.3.0",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.10.1",
             "alias_normalized": "1.10.1.0",
             "version": "dev-CGIV-9053-cleanup-feature-flags",
@@ -9500,7 +9524,11 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
+        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/product": 20,
         "channelgrabber/template": 20,
         "channelgrabber/zf2-v4-ui": 20,

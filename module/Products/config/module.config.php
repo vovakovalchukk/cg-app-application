@@ -1,40 +1,38 @@
 <?php
 namespace Products;
 
-use CG\FeatureFlags\Feature;
-use Products\Controller;
-use Products\Product\Service as ModuleProductService;
-use Products\Controller\ProductsController;
-use Zend\Mvc\Router\Http\Literal;
-use Zend\Mvc\Router\Http\Segment;
-use Products\Controller\ProductsJsonController;
-use CG\Product\Client\Service as ProductService;
-use CG\Product\Storage\Api as ProductApiStorage;
-use CG_UI\View\DataTable;
-use CG\Stock\Service as StockService;
-use CG\Stock\Storage\Api as StockApiStorage;
-use CG\Stock\Location\Service as LocationService;
-use CG\Stock\Location\Storage\Api as LocationApiStorage;
-use CG\Listing\Service as ListingService;
+use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Image\Service as ImageService;
-use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Image\Storage\Api as ImageApiStorage;
-use Products\Controller\ListingsController;
-use Products\Controller\ListingsJsonController;
-use Products\Controller\StockLogController;
-use Products\Controller\StockLogJsonController;
-use Products\Controller\LinksJsonController;
-use Products\Controller\PurchaseOrdersController;
-use Products\Controller\PurchaseOrdersJsonController;
-use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
+use CG\Listing\Service as ListingService;
+use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
-use Zend\View\Model\ViewModel;
-use CG\Amazon\ListingImport as AmazonListingImport;
-use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
-use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
 use CG\Product\LinkNode\Storage\Api as ProductLinkNodeApiStorage;
+use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\Storage\Api as ProductApiStorage;
+use CG\Stock\Location\Service as LocationService;
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG\Stock\Service as StockService;
+use CG\Stock\Storage\Api as StockApiStorage;
+use CG_UI\View\DataTable;
+use Products\Controller\LinksJsonController;
+use Products\Controller\ListingsController;
+use Products\Controller\ListingsJsonController;
+use Products\Controller\ProductsController;
+use Products\Controller\ProductsJsonController;
+use Products\Controller\PurchaseOrdersController;
+use Products\Controller\PurchaseOrdersJsonController;
+use Products\Controller\StockLogController;
+use Products\Controller\StockLogJsonController;
+use Products\Product\Service as ModuleProductService;
+use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
+use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
+use Zend\View\Model\ViewModel;
 
 return [
     'router' => [
