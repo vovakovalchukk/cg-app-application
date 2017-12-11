@@ -1119,7 +1119,6 @@ return [
                     'purchaseOrders' => [
                         'id'    => 'purchaseOrders',
                         'label' => 'Purchase Orders',
-                        ModuleProductService::NAV_KEY_FEATURE_FLAG => Feature::PURCHASE_ORDERS,
                         'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                                 '',
                                 [
@@ -1129,8 +1128,7 @@ return [
                             ),
                         'pre-render' => [
                             'diLoad' => [
-                                'class' => ModuleProductService::class,
-                                'method' => 'checkPageEnabled'
+                                'class' => ModuleProductService::class
                             ]
                         ],
                     ],
