@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f839cb10a7474a479e53ed0a23dd233b",
+    "content-hash": "869ddedcb9665336ddfc642fd60bf1ab",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3198,16 +3198,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.4",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "80308b768849a21d6644b2f87e5903fa26763fb5"
+                "reference": "86309fa1c39663e8d4c660144149e6887cf070e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.1.4-bef782.zip",
-                "reference": "80308b768849a21d6644b2f87e5903fa26763fb5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-9053-cleanup-feature-flags-a59269.zip",
+                "reference": "86309fa1c39663e8d4c660144149e6887cf070e4",
                 "shasum": null
             },
             "require": {
@@ -3240,7 +3240,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-12-07T16:04:24+00:00"
+            "time": "2017-12-11T10:08:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -9516,6 +9516,12 @@
             "package": "channelgrabber/template"
         },
         {
+            "alias": "1.1.5",
+            "alias_normalized": "1.1.5.0",
+            "version": "dev-CGIV-9053-cleanup-feature-flags",
+            "package": "channelgrabber/zf2-amazon"
+        },
+        {
             "alias": "1.20.2",
             "alias_normalized": "1.20.2.0",
             "version": "dev-CGIV-9053-cleanup-feature-flags",
@@ -9531,6 +9537,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/product": 20,
         "channelgrabber/template": 20,
+        "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
