@@ -112,6 +112,7 @@ define([
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
     Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
+    Service.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
@@ -523,7 +524,9 @@ define([
         $(labelStatusSelector).val(labelStatus);
         var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
         var cancellable = $(cancellableSelector).val();
-        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, cancellable);
+        var dispatchableSelector = Service.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
+        var dispatchable = $(dispatchableSelector).val();
+        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, cancellable, dispatchable);
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
         $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
     };

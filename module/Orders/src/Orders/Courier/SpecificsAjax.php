@@ -16,6 +16,7 @@ use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Shared\ShippableInterface as Order;
+use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Collection as ProductDetailCollection;
@@ -25,8 +26,6 @@ use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use DateTimeZone;
-use Orders\Courier\GetProductDetailsForOrdersTrait;
-use Orders\Courier\Service;
 
 class SpecificsAjax
 {
@@ -159,6 +158,7 @@ class SpecificsAjax
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
             'cancellable' => $cancellable,
+            'dispatchable' => OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING),
             'services' => $services,
         ];
         foreach ($options as $option) {

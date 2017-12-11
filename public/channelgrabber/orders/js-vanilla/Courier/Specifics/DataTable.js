@@ -204,7 +204,11 @@ CourierSpecificsDataTable.prototype.addStatusLozengeToActionsColumn = function(r
 
 CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
 {
-    return CourierSpecificsDataTable.getActionsFromLabelStatus(rowData.labelStatus, rowData.cancellable);
+    return CourierSpecificsDataTable.getActionsFromLabelStatus(
+        rowData.labelStatus,
+        rowData.cancellable,
+        rowData.dispatchable
+    );
 };
 
 CourierSpecificsDataTable.prototype.trackDistinctStatusActions = function(actions)
@@ -396,11 +400,14 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     return buttonsHtml;
 };
 
-CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, cancellable)
+CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, cancellable, dispatchable)
 {
     var actions = this.labelStatusActions[labelStatus];
     if (actions['cancel'] && !cancellable) {
         delete actions['cancel'];
+    }
+    if (actions['dispatch'] && !dispatchable) {
+        delete actions['dispatch'];
     }
     return actions;
 };
