@@ -23,6 +23,12 @@ define([
                 showResults: false
             }
         },
+        getDefaultProps: function() {
+            return {
+                hideNonLinkableProducts: false,
+                currentSku: null
+            }
+        },
         performProductsRequest: function(filter) {
             function products(data) {
                 var allVariationIds = [];
@@ -40,7 +46,7 @@ define([
                     });
                     return;
                 }
-                var variationFilter = new ProductFilter(null, null, allVariationIds);
+                var variationFilter = new ProductFilter(null, null, allVariationIds, null, filter.notIfCantLinkToSku);
                 this.performVariationsRequest(variationFilter);
             }
             AjaxHandler.fetchByFilter(filter, products.bind(this));
@@ -77,7 +83,14 @@ define([
             this.setState({
                 fetchingData: true
             });
-            var filter = new ProductFilter(this.state.searchTerm);
+            var filter = new ProductFilter(
+                this.state.searchTerm,
+                null,
+                null,
+                null,
+                this.props.hideNonLinkableProducts ? this.props.currentSku : null
+            );
+
             this.performProductsRequest(filter);
         },
         onClickOutside: function (e) {
