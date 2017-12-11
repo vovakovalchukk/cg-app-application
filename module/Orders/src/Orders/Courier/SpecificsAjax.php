@@ -150,15 +150,17 @@ class SpecificsAjax
     ) {
         $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
         $providerService = $this->getCarrierServiceProvider($courierAccount);
-        $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface &&
-            $providerService->isCancellationAllowedForOrder($courierAccount, $order));
+        $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface
+            && $providerService->isCancellationAllowedForOrder($courierAccount, $order));
+        $dispatchable = ($order->getStatus() != OrderStatus::DISPATCHING)
+            && OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING);
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
             'cancellable' => $cancellable,
-            'dispatchable' => OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING),
+            'dispatchable' => $dispatchable,
             'services' => $services,
         ];
         foreach ($options as $option) {
