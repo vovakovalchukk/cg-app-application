@@ -6,7 +6,7 @@ use Zend\Loader\StandardAutoloader;
 
 class Module
 {
-    const PUBLIC_FOLDER = '/cg-built/zf2-shipstation';
+    const PUBLIC_FOLDER = '/cg-built/shipstation';
     const ROUTE = 'ShipStation Module';
 
     public function getConfig()
@@ -23,7 +23,7 @@ class Module
         return array(
             StandardAutoloader::class => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/',
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
         );

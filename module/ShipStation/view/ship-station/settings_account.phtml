@@ -1,0 +1,11 @@
+<?php
+use CG\ShipStation\Account as ShipStationAccountService;
+use CG_Channel\Module as ChannelModule;
+use ShipStation\Module;
+
+$setupRoute = implode('/', [
+    Module::ROUTE,
+    ShipStationAccountService::ROUTE_SETUP
+]);
+$url = $this->url($setupRoute, ['channel' => $account->getChannel()]) . '?accountId=' . $account->getId();
+echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
