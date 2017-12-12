@@ -33,6 +33,7 @@ return array (
     28 => 'BigCommerce',
     29 => 'Ekm',
     30 => 'Reports',
+    31 => 'ShipStation',
   ),
   'module_listener_options' => 
   array (
