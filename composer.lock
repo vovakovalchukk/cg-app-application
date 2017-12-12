@@ -307,12 +307,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "c890fc89741603b719662296b7df5c2a01fd2848"
+                "reference": "7335f439cf114741b2f7f62a6615fd4b68253b37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-9053-cleanup-feature-flags-ed2d5c.zip",
-                "reference": "c890fc89741603b719662296b7df5c2a01fd2848",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-9053-cleanup-feature-flags-27f6da.zip",
+                "reference": "7335f439cf114741b2f7f62a6615fd4b68253b37",
                 "shasum": null
             },
             "require": {
@@ -321,7 +321,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.2",
                 "channelgrabber/etag": "^1.5.4",
-                "channelgrabber/feature-flags": "^2.0.1",
+                "channelgrabber/feature-flags": "dev-CGIV-9053-cleanup-feature-flags as 2.0.2",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
@@ -353,7 +353,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2017-12-11T11:36:56+00:00"
+            "time": "2017-12-11T16:59:38+00:00"
         },
         {
             "name": "channelgrabber/cache",
