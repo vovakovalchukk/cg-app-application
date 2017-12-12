@@ -59,7 +59,7 @@ return [
                 public function toArray(): array
                 {
                     $payload = $this->input->getArgument('payload') ?? '';
-                    return json_decode($payload,1);
+                    return json_decode($payload,1) ?? [];
                 }
 
                 public function getMethod(): string

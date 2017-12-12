@@ -16,8 +16,6 @@ class Client implements LoggerAwareInterface
 {
     use LogTrait;
 
-    const API_URL = 'https://api.shipengine.com';
-
     /** @var  GuzzleClient */
     protected $guzzle;
     /** @var  Cryptor */
@@ -46,13 +44,13 @@ class Client implements LoggerAwareInterface
 
     protected function generateHttpRequest(RequestInterface $request, Account $account)
     {
-        $guzzleRequest = $this->guzzle->createRequest(strtolower($request->getMethod()))
-            ->setUrl(static::API_URL . $request->getUri());
         $apiKey = $request instanceof PartnerRequestAbstract ? $this->partnerApiKey : $this->getApiKeyForAccount($account);
-        $guzzleRequest
-            ->setHeader('Content-Type', 'application/json')
-            ->setHeader('api-key', $apiKey);
-        return $guzzleRequest;
+        return $this->guzzle->createRequest(
+            $request->getMethod(),
+            $request->getUri(),
+            ['Content-Type' => 'application/json', 'api-key' => $apiKey],
+            $request->toJson()
+        );
     }
 
     protected function getApiKeyForAccount(Account $account)
