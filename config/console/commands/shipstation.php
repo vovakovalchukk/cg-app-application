@@ -47,7 +47,7 @@ return [
             );
 
             $response = $client->sendRequest($request, $account);
-            $output->write($response->getJsonResponse());
+            $output->writeln($response->getJsonResponse());
         }
     ]
 ];
