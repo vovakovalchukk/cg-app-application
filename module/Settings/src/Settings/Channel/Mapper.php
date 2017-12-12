@@ -60,8 +60,7 @@ class Mapper extends DataTableMapper
     protected function getManageLinks($id, $type, Url $urlPlugin)
     {
         $links = [
-            'manage' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ROUTE_ACCOUNT,
-            'delete' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ROUTE_ACCOUNT . '/' . ChannelController::ROUTE_ACCOUNT_DELETE
+            'manage' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ROUTE_ACCOUNT
         ];
 
         $manageLinks = [];

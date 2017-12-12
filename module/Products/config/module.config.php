@@ -1,7 +1,9 @@
 <?php
 namespace Products;
 
+use CG\FeatureFlags\Feature;
 use Products\Controller;
+use Products\Product\Service as ModuleProductService;
 use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
@@ -21,11 +23,18 @@ use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Controller\LinksJsonController;
+use Products\Controller\PurchaseOrdersController;
+use Products\Controller\PurchaseOrdersJsonController;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
+use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
+use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\LinkNode\Storage\Api as ProductLinkNodeApiStorage;
 
 return [
     'router' => [
@@ -205,6 +214,40 @@ return [
                         ]
                     ],
 
+                    LinksJsonController::ROUTE_AJAX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/ajax',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'ajax'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    LinksJsonController::ROUTE_SAVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/save',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'save'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    LinksJsonController::ROUTE_REMOVE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/links/remove',
+                            'defaults' => [
+                                'controller' => LinksJsonController::class,
+                                'action' => 'remove'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [
@@ -301,6 +344,79 @@ return [
                             ],
                         ]
                     ],
+                    PurchaseOrdersController::ROUTE_INDEX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/purchaseOrders',
+                            'defaults' => [
+                                'controller' => PurchaseOrdersController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            PurchaseOrdersJsonController::ROUTE_LIST => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/list',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'list'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_COMPLETE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/complete',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'complete'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_DOWNLOAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/download',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'download'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_DELETE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/delete',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'delete'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ]
+                            ],
+                            PurchaseOrdersJsonController::ROUTE_CREATE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/create',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'create'
+                                    ]
+                                ]
+                            ],
+                        ],
+                    ],
                 ]
             ]
         ]
@@ -386,7 +502,6 @@ return [
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class,
-                    'stockStorage' => StockService::class,
                     'listingStorage' => ListingService::class,
                     'imageStorage' => ImageService::class
                 ]
@@ -474,7 +589,20 @@ return [
                     'cryptor' => 'amazon_cryptor'
                 ]
             ],
-
+            'preference' => [
+                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
+                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
+            ],
+            ProductLinkApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ],
+            ],
+            ProductLinkNodeApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ],
+            ],
             'ListingList' => [
                 'parameters' => [
                     'variables' => [
@@ -966,7 +1094,7 @@ return [
                 'parameters' => [
                     'predis' => 'reliable_redis'
                 ]
-            ]
+            ],
         ],
     ],
     'navigation' => array(
@@ -987,7 +1115,25 @@ return [
                                 ListingsController::ROUTE_INDEX_URL
                             ]
                         )
-                    ]
+                    ],
+                    'purchaseOrders' => [
+                        'id'    => 'purchaseOrders',
+                        'label' => 'Purchase Orders',
+                        ModuleProductService::NAV_KEY_FEATURE_FLAG => Feature::PURCHASE_ORDERS,
+                        'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
+                                '',
+                                [
+                                    ProductsController::ROUTE_INDEX_URL,
+                                    PurchaseOrdersController::ROUTE_INDEX_URL
+                                ]
+                            ),
+                        'pre-render' => [
+                            'diLoad' => [
+                                'class' => ModuleProductService::class,
+                                'method' => 'checkPageEnabled'
+                            ]
+                        ],
+                    ],
                 ]
             ]
         ]

@@ -1,0 +1,110 @@
+.item-row {
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid white;
+    margin-bottom: 5px;
+    position: relative;
+    &:hover {
+        border-radius: 5px;
+        border: 1px solid $color-lgrey;
+        .item-row-actions {
+            a {
+                color: $color-linkblue;
+            }
+        }
+    }
+    .disable-mask {
+        width: 100%;
+        border-radius: 5px;
+        height: 39px;
+        position: absolute;
+        z-index: 100;
+        cursor: not-allowed;
+    }
+    .item-row-details {
+        width: 80%;
+        margin-right: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .item-row-img {
+            width: 39px;
+            max-height: 39px;
+            overflow: hidden;
+            border-radius: 5px;
+            margin-right: 10px;
+            img {
+                width: 100%;
+            }
+        }
+        .item-row-description {
+            width: 200px;
+            .item-row-name {
+                width: 100%;
+                max-width: 190px;
+                display: inline-block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            .item-row-sku {
+                color: $color-lgrey;
+                width: 100%;
+                max-height: 20px;
+                max-width: 190px;
+                display: inline-block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+        .item-row-attributes {
+            width: 210px;
+            .custom-select {
+                width: 100%;
+                .open-content {
+                    width: 100%;
+                }
+            }
+            .selected-content, .custom-select-item a {
+                display: flex;
+                justify-content: space-between;
+                .option-component {
+                    text-transform: capitalize;
+                    min-width: 50px;
+                    &:last-child {
+                        min-width: 0;
+                    }
+                }
+            }
+        }
+        .item-row-price {
+            min-width: 64px;
+        }
+    }
+    .item-row-actions {
+        width: 10%;
+        cursor: pointer;
+        a {
+            color: white;
+        }
+    }
+    .item-row-total {
+        width: 10%;
+        margin-right: 40px;
+        text-align: right;
+    }
+    .item-row-qty-input {
+        display: flex;
+        align-items: center;
+        .multiplier {
+            margin-right: 23px;
+        }
+        input {
+            color: $color-dgrey;
+            text-align: center;
+        }
+    }
+}

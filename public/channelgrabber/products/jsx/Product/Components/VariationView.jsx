@@ -1,9 +1,11 @@
 define([
     'react',
     'Product/Components/Image',
+    'Product/Components/Link'
 ], function(
     React,
-    Image
+    Image,
+    Link
 ) {
     "use strict";
 
@@ -11,23 +13,15 @@ define([
         getDefaultProps: function() {
             return {
                 variations: [],
+                productLinks: {},
                 attributeNames: [],
                 parentProduct: {},
-                fullView: false
+                fullView: false,
+                linkedProductsEnabled: false
             };
         },
-        getInitialState: function () {
-            return {
-                tableWidth: 0
-            }
-        },
-        componentDidMount: function() {
-            const width = document.getElementsByClassName('variations-table')[0].clientWidth;
-            this.setState({ tableWidth: width });
-        },
         getAttributeHeaders: function() {
-            var columnWidth = this.state.tableWidth/this.props.maxVariationAttributes;
-
+            var columnWidth = 100 / this.props.maxVariationAttributes + '%';
             var headers = [];
             this.props.attributeNames.forEach(function(attributeName) {
                 var sortData = this.props.variationsSort.find(function (sort) {
@@ -42,6 +36,7 @@ define([
             while (headers.length < this.props.maxVariationAttributes) {
                 headers.push(<th style={{width: columnWidth}}></th>);
             }
+
             return headers;
         },
         getAttributeValues: function(variation) {
@@ -59,10 +54,17 @@ define([
                 return variation.images[0]['url'];
             }
 
-            if (this.props.parentProduct.images && this.props.parentProduct.images.length > 0) {
-                return this.props.parentProduct.images[0]['url'];
+            return this.context.imageUtils.getImageSource(this.props.parentProduct);
+        },
+        renderLinkCell: function(variation) {
+            if (this.props.linkedProductsEnabled) {
+                return <td key="link" className="link-cell">
+                    <Link
+                        sku={variation.sku}
+                        productLinks={this.props.productLinks[variation.id] ? this.props.productLinks[variation.id] : []}
+                    />
+                </td>;
             }
-            return this.context.imageBasePath + '/noproductsimage.png';
         },
         render: function () {
             var imageRow = 0;
@@ -75,7 +77,8 @@ define([
                             <thead>
                                 <tr>
                                     <th key="image" className="image-col"></th>
-                                    <th key="sky" className="sku-col">SKU</th>
+                                    {this.props.linkedProductsEnabled ? <th key="link" className="link-col">Link</th>: '' }
+                                    <th key="sku" className="sku-col">SKU</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,6 +90,7 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
+                                            {this.renderLinkCell(variation)}
                                             <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                         </tr>
                                     );
@@ -118,7 +122,7 @@ define([
     });
 
     VariationViewComponent.contextTypes = {
-        imageBasePath: React.PropTypes.string
+        imageUtils: React.PropTypes.object
     };
 
     return VariationViewComponent;

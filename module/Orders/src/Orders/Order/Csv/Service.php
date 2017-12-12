@@ -80,6 +80,34 @@ class Service implements LoggerAwareInterface
         return $csv;
     }
 
+    public function generateCsvForAllOrders(array $OuIds, $progressKey = null)
+    {
+        return $this->generateCsvForAll($this->ordersMapper, $OuIds, $progressKey);
+    }
+
+    public function generateCsvForAllOrdersAndItems(array $OuIds, $progressKey = null)
+    {
+        return $this->generateCsvForAll($this->ordersItemsMapper, $OuIds, $progressKey);
+    }
+
+    public function generateCsvForAll($mapper, array $OuIds, $progressKey = null)
+    {
+        $csv = $this->generateCsv(
+            $mapper->getHeaders(),
+            $mapper->setConvertToOrderIdsFlag(false)->fromOrderFilter(
+                $this->getFilter($OuIds)
+            ),
+            $progressKey
+        );
+        $this->notifyOfGeneration();
+        return $csv;
+    }
+
+    protected function getFilter(array $OuIds)
+    {
+        return (new OrderFilter())->setLimit('all')->setOrganisationUnitId($OuIds);
+    }
+
     protected function generateCsv($headers, Generator $rowsGenerator, $progressKey = null)
     {
         $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));

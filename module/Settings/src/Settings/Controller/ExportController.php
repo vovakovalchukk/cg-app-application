@@ -67,14 +67,20 @@ class ExportController extends AdvancedController
     public function exportOrderAction()
     {
         $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME, null);
-        $csv = $this->orderCsvService->generateCsvFromFilterForOrders($this->getOrderFilter(), $guid);
+        $csv = $this->orderCsvService->generateCsvForAllOrders(
+            $this->getActiveUser()->getOuList(),
+            $guid
+        );
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
     }
 
     public function exportOrderItemAction()
     {
         $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME, null);
-        $csv = $this->orderCsvService->generateCsvFromFilterForOrdersAndItems($this->getOrderFilter(), $guid);
+        $csv = $this->orderCsvService->generateCsvForAllOrdersAndItems(
+            $this->getActiveUser()->getOuList(),
+            $guid
+        );
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
     }
 

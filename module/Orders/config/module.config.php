@@ -58,6 +58,10 @@ use Orders\Controller\CourierJsonController;
 use Orders\Courier\Service as CourierService;
 use Settings\Factory\SidebarNavFactory;
 
+//linked products
+use CG\Product\LinkLeaf\StorageInterface as ProductLinkLeafStorageInterface;
+use CG\Product\LinkLeaf\Storage\Api as ProductLinkLeafApiStorage;
+
 use CG\Locale\EUVATCodeChecker;
 
 return [
@@ -1253,6 +1257,12 @@ return [
                 StockStorage::class => StockApiStorage::class,
                 ListingStorage::class => ListingApiStorage::class,
                 TrackingStorage::class => TrackingStorageApi::class,
+                ProductLinkLeafStorageInterface::class => ProductLinkLeafApiStorage::class
+            ],
+            ProductLinkLeafApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
             ],
             TableService::class => [
                 'parameters' => [
@@ -1884,7 +1894,6 @@ return [
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class,
-                    'stockStorage' => StockService::class,
                     'listingStorage' => ListingService::class,
                     'imageStorage' => ImageService::class
                 ]

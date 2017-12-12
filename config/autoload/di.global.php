@@ -5,7 +5,8 @@ use Zend\Cache\Storage\StorageInterface;
 use Zend\Config\Config as ZendConfig;
 use Zend\Db\Adapter\Adapter;
 use Zend\Di\Config;
-use Zend\Di\Di;
+use Zend\Di\Di as ZendDi;
+use CG\Di\Di;
 use Zend\Di\InstanceManager;
 use Zend\Di\LocatorInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -47,6 +48,7 @@ return [
                 }
 
                 $im->addSharedInstance($di, Di::class);
+                $im->addSharedInstance($di, ZendDi::class);
                 $im->addSharedInstance($serviceManager, ServiceManager::class);
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
                 $im->addSharedInstance($di->get(ZendConfig::class, array('array' => $configuration)), 'app_config');
@@ -58,9 +60,13 @@ return [
 
                 return $di;
             },
+            ZendDi::class => function(ServiceLocatorInterface $serviceManager) {
+                return $serviceManager->get(Di::class);
+            }
         ],
         'shared' => [
             Di::class => true,
+            ZendDi::class => true,
         ],
         'aliases' => [
             'Di' => Di::class,
@@ -74,6 +80,7 @@ return [
                 'app_config' => ZendConfig::class,
             ],
             'preferences' => [
+                ZendDi::class => Di::class,
                 LocatorInterface::class => Di::class,
             ],
         ],
