@@ -55,6 +55,7 @@ class Client implements LoggerAwareInterface
 
     protected function getApiKeyForAccount(Account $account)
     {
+        return 'R78k0i9b/LXPA8BYktJ1Fcfg7Wn9NHzx4Was0zhQ+BM';
         /** @TODO: find the proper way of getting the api key for the account */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
         return $credentials->getApiKey();

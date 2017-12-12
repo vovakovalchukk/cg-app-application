@@ -7,7 +7,7 @@ class WhoAmI extends ResponseAbstract
 {
     protected $partnerId;
 
-    protected function build($decodedJson)
+    protected function build($decodedJson): self
     {
         $this->setPartnerId($decodedJson);
         return $this;
