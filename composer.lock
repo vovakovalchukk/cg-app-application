@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7e7a7cfcfa7a76a049790147dc8a267",
+    "content-hash": "5d02d2807b3da5f68742eea76fc6d896",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1330,23 +1330,23 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.15",
+            "version": "dev-CGIV-9072-EuVatRates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "dfedc25586400079892aeaaec3b35b1a2faf6793"
+                "reference": "27dd6f1af4bdb1fd7b0d9a51d58c04ecead4b213"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.15-7c32aa.zip",
-                "reference": "dfedc25586400079892aeaaec3b35b1a2faf6793",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-9072-EuVatRates-03aa7b.zip",
+                "reference": "27dd6f1af4bdb1fd7b0d9a51d58c04ecead4b213",
                 "shasum": null
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.6.*"
+                "phpunit/phpunit": "^6.3"
             },
             "type": "library",
             "autoload": {
@@ -1359,7 +1359,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-11-15T11:53:27+00:00"
+            "time": "2017-12-12T09:26:23+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9463,10 +9463,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.16",
+            "alias_normalized": "1.0.16.0",
+            "version": "dev-CGIV-9072-EuVatRates",
+            "package": "channelgrabber/locale"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
