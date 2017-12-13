@@ -210,7 +210,7 @@ define([
                             Instead its stock level will be calculated based on the available stock of the product it is linked to.
                         </p>
                         <div className="product-dropdown">
-                            <ProductDropdown currentSku={this.props.productLink.sku} hideNonLinkableProducts={true} />
+                            <ProductDropdown skuThatProductsCantLinkFrom={this.props.productLink.sku} />
                         </div>
                         <div className="product-rows">
                             {this.state.links.map(function (productLink) {

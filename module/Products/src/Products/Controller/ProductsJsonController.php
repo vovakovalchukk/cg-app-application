@@ -30,8 +30,7 @@ use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
-use CG\Product\Link\Service as ProductLinkService;
+use Products\Product\Link\Service as ProductLinkService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -76,8 +75,6 @@ class ProductsJsonController extends AbstractActionController
     protected $locationService;
     /** @var StockLocationService */
     protected $stockLocationService;
-    /** @var ProductLinkNodeService */
-    protected $productLinkNodeService;
     /** @var ActiveUserInterface */
     protected $activeUser;
     /** @var ProductLinkService */
@@ -96,7 +93,6 @@ class ProductsJsonController extends AbstractActionController
         UsageService $usageService,
         LocationService $locationService,
         StockLocationService $stockLocationService,
-        ProductLinkNodeService $productLinkNodeService,
         ActiveUserInterface $activeUser,
         ProductLinkService $productLinkService
     ) {
@@ -112,7 +108,6 @@ class ProductsJsonController extends AbstractActionController
         $this->usageService = $usageService;
         $this->locationService = $locationService;
         $this->stockLocationService = $stockLocationService;
-        $this->productLinkNodeService = $productLinkNodeService;
         $this->activeUser = $activeUser;
         $this->productLinkService = $productLinkService;
     }
@@ -148,11 +143,6 @@ class ProductsJsonController extends AbstractActionController
                 $rootOrganisationUnit->getId()
             );
 
-            $skuCantLinkTo = $filterParams['notIfCantLinkToSku'] ?? null;
-            if ($skuCantLinkTo) {
-                $products = $this->filterNonLinkableProducts($products, $skuCantLinkTo);
-            }
-
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
@@ -165,36 +155,22 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
+
+        $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
+        if ($skuThatProductsCantLinkFrom) {
+            $view->setVariable(
+                'listOfNonLinkableSkus',
+                $this->productLinkService->getSkusProductCantLinkTo(
+                    $products->getFirst()->getOrganisationUnitId(),
+                    $skuThatProductsCantLinkFrom
+                )
+            );
+        }
+
         $view
             ->setVariable('products', $productsArray)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
-    }
-
-    protected function filterNonLinkableProducts(ProductCollection $products, string $sku): ProductCollection
-    {
-        $productLinkId = ProductLink::generateId($products->getFirst()->getOrganisationUnitId(), $sku);
-        $linkNode = $this->productLinkNodeService->fetch($productLinkId);
-        $link = $this->productLinkService->fetch($productLinkId);
-
-        $skusProductCantLinkTo = [$sku => true];
-        foreach ($linkNode->getAncestors() as $ancestorSku) {
-            $skusProductCantLinkTo[$ancestorSku] = true;
-        }
-
-        foreach ($link->getStockSkuMap() as $sku => $quantity) {
-            $skusProductCantLinkTo[$sku] = true;
-        }
-
-        $filteredProducts = new ProductCollection(Product::class, __FUNCTION__);
-        /** @var Product $product */
-        foreach ($products as $product) {
-            if (!isset($skusProductCantLinkTo[$product->getSku()])) {
-                $filteredProducts->attach($product);
-            }
-        }
-
-        return $filteredProducts;
     }
 
     protected function getAccountsIndexedById($organisationUnitIds)

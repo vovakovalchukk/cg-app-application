@@ -25,8 +25,7 @@ define([
         },
         getDefaultProps: function() {
             return {
-                hideNonLinkableProducts: false,
-                currentSku: null
+                skuThatProductsCantLinkFrom: null
             }
         },
         performProductsRequest: function(filter) {
@@ -46,7 +45,7 @@ define([
                     });
                     return;
                 }
-                var variationFilter = new ProductFilter(null, null, allVariationIds, null, filter.notIfCantLinkToSku);
+                var variationFilter = new ProductFilter(null, null, allVariationIds, null, filter.skuThatProductsCantLinkFrom);
                 this.performVariationsRequest(variationFilter);
             }
             AjaxHandler.fetchByFilter(filter, products.bind(this));
@@ -88,7 +87,7 @@ define([
                 null,
                 null,
                 null,
-                this.props.hideNonLinkableProducts ? this.props.currentSku : null
+                this.props.skuThatProductsCantLinkFrom
             );
 
             this.performProductsRequest(filter);

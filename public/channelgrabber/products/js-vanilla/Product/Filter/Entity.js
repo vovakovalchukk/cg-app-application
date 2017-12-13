@@ -1,16 +1,16 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, notIfCantLinkToSku)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
         this.parentProductId = parentProductId;
         this.id = id;
         this.sku = sku;
-        this.notIfCantLinkToSku = notIfCantLinkToSku;
+        this.skuThatProductsCantLinkFrom = skuThatProductsCantLinkFrom;
 
-        this.getNotIfCantLinkToSku = function() {
-            return this.notIfCantLinkToSku;
+        this.getSkuThatProductsCantLinkFrom = function() {
+            return this.skuThatProductsCantLinkFrom;
         }
 
         this.getSku = function () {
@@ -71,8 +71,8 @@ define([
             object['sku'] = sku;
         }
 
-        if (this.getNotIfCantLinkToSku()) {
-            object['notIfCantLinkToSku'] = this.getNotIfCantLinkToSku();
+        if (this.getSkuThatProductsCantLinkFrom()) {
+            object['skuThatProductsCantLinkFrom'] = this.getSkuThatProductsCantLinkFrom();
         }
 
         return object;
