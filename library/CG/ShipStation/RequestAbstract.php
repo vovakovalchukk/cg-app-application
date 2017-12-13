@@ -5,7 +5,7 @@ abstract class RequestAbstract implements RequestInterface
 {
     const URI = '';
     const URI_VERSION_PREFIX = '/v1';
-    const METHOD = 'POST';
+    const METHOD = 'GET';
 
     abstract public function toArray(): array;
 

@@ -11,9 +11,9 @@ abstract class ResponseAbstract implements ResponseInterface
     public static function createFromJson(string $json)
     {
         $response = new static();
-        return $response
-            ->setJsonResponse($json)
-            ->build(json_decode($json));
+        $response->setJsonResponse($json);
+        $response->build(json_decode($json));
+        return $response;
     }
 
     public function getJsonResponse(): ?string
