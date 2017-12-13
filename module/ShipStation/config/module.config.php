@@ -1,5 +1,10 @@
 <?php
 use CG\Channel\Service as ChannelService;
+use CG\ShipStation\Account as SSAccountService;
+use ShipStation\Controller\AccountController;
+use ShipStation\Module;
+use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'view_manager' => [
@@ -12,7 +17,28 @@ return [
     ],
     'router' => [
         'routes' => [
-
+            Module::ROUTE => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/carrier-ss',
+                    'defaults' => [],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    SSAccountService::ROUTE_SETUP => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/setup/:channel',
+                            'defaults' => [
+                                'controller' => AccountController::class,
+                                'action' => 'setup',
+                                'sidebar' => false,
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ]
+                ],
+            ],
         ]
     ]
 ];
