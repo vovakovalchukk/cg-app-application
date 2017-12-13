@@ -12,7 +12,7 @@ return [
             dirname(__DIR__) . '/view/',
         ],
         'template_map' => [
-            ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . 'Shipstation' => dirname(__DIR__) . '/view/ship-station/settings_account.phtml',
+            ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . 'ShipStation' => dirname(__DIR__) . '/view/ship-station/settings_account.phtml',
         ]
     ],
     'router' => [
@@ -36,9 +36,40 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                    ],
+                    AccountController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/account',
+                            'defaults' => [
+                                'controller' => AccountController::class,
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            AccountController::ROUTE_SAVE => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
                     ]
                 ],
             ],
+        ]
+    ],
+    'di' => [
+        'instance' => [
+            AccountController::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ]
         ]
     ]
 ];

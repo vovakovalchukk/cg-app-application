@@ -8,7 +8,7 @@ use Zend\Form\Element\Hidden;
 
 return [
     'forms' => [
-        ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . 'Shipstation' => [
+        ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . 'ShipStation' => [
             'attributes' => [
                 'id' => 'settings_account_form_ss',
             ],
