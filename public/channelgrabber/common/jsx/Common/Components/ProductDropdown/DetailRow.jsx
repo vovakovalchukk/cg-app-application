@@ -9,7 +9,9 @@ define([
     var DetailRow = React.createClass({
         getDefaultProps: function () {
             return {
-                product: {}
+                product: {},
+                isSelectable: true,
+                nonLinkableSkus: []
             }
         },
         getInitialState: function () {
@@ -70,6 +72,15 @@ define([
         },
         render: function () {
             var variations = this.props.product.variations ? this.props.product.variations : [this.props.product];
+
+            variations = variations.filter(function(variation) {
+                return ( !!(this.props.nonLinkableSkus.indexOf(variation.sku) < 0) ) ;
+            }.bind(this));
+
+            if (variations.length == 0) {
+                return null;
+            }
+
             return (
                 <div className="detail-row-wrapper">
                     <div className="detail-row-header">

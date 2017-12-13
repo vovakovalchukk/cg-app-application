@@ -34,8 +34,12 @@ define([
                 data.products.forEach(function(product) {
                     allVariationIds = allVariationIds.concat(product.variationIds);
                 });
+
+                var listOfNonLinkableSkus = data.nonLinkableSkus ? Object.keys(data.nonLinkableSkus) : [];
+
                 this.setState({
                     products: data.products,
+                    nonLinkableSkus: listOfNonLinkableSkus
                 });
                 if (allVariationIds.length == 0) {
                     this.setState({
@@ -125,7 +129,11 @@ define([
 
             if (this.state.products.length) {
                 productsList = this.state.products.map(function (product) {
-                    return <DetailRow product={product} onAddClicked={this.onOptionSelected}/>
+                    return <DetailRow
+                        product={product}
+                        onAddClicked={this.onOptionSelected}
+                        nonLinkableSkus={this.state.nonLinkableSkus}
+                    />
                 }.bind(this));
             }
             return (

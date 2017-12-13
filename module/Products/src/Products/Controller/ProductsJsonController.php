@@ -159,7 +159,7 @@ class ProductsJsonController extends AbstractActionController
         $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
         if ($skuThatProductsCantLinkFrom) {
             $view->setVariable(
-                'listOfNonLinkableSkus',
+                'nonLinkableSkus',
                 $this->productLinkService->getSkusProductCantLinkTo(
                     $products->getFirst()->getOrganisationUnitId(),
                     $skuThatProductsCantLinkFrom
