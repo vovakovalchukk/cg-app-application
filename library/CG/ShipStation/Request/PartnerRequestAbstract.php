@@ -9,6 +9,6 @@ abstract class PartnerRequestAbstract extends RequestAbstract
 
     public function getUri(): string
     {
-        return static::API_VERSION . static::URI_PREFIX . static::URI;
+        return static::URI_VERSION_PREFIX . static::URI_PREFIX . static::URI;
     }
 }
