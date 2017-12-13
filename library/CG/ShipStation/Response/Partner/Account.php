@@ -30,6 +30,12 @@ class Account extends ResponseAbstract
         return $this->externalAccountId;
     }
 
+    public function setExternalAccountId(string $externalAccountId)
+    {
+        $this->externalAccountId = $externalAccountId;
+        return $this;
+    }
+
     public function isActive(): bool
     {
         return $this->active;

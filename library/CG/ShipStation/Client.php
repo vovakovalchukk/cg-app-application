@@ -55,6 +55,7 @@ class Client implements LoggerAwareInterface
 
     protected function getApiKeyForAccount(Account $account)
     {
+        /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
         return $credentials->getApiKey();
     }

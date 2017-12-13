@@ -4,7 +4,7 @@ namespace CG\ShipStation\Response\Connect;
 use CG\ShipStation\EntityTrait\CarrierTrait;
 use CG\ShipStation\ResponseAbstract;
 
-class FedEx extends ResponseAbstract
+class Response extends ResponseAbstract
 {
     use CarrierTrait;
 

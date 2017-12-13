@@ -4,9 +4,9 @@ namespace CG\ShipStation\Request\Connect;
 use CG\ShipStation\EntityTrait\AddressTrait;
 use CG\ShipStation\EntityTrait\UserDetailsTrait;
 use CG\ShipStation\RequestAbstract;
-use CG\ShipStation\Response\Connect\FedEx as Response;
+use CG\ShipStation\Response\Connect\Response as Response;
 
-class FedEx extends RequestAbstract
+class FedEx extends RequestAbstract implements ConnectInterface
 {
     const METHOD = 'POST';
     const URI = '/connections/carriers/fedex';
@@ -49,6 +49,25 @@ class FedEx extends RequestAbstract
             ->setAddressLine2($address2);
     }
 
+    public static function fromArray(array $params): ConnectInterface
+    {
+        return new static(
+            $params['nickname'],
+            $params['account_number'],
+            $params['first_name'],
+            $params['last_name'],
+            $params['address1'],
+            $params['city'],
+            $params['state'],
+            $params['postal_code'],
+            $params['country_code'],
+            $params['email'],
+            $params['phone'],
+            $params['company'],
+            $params['address2']
+        );
+    }
+
     public function toArray(): array
     {
         return [
@@ -57,6 +76,8 @@ class FedEx extends RequestAbstract
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
             'company' => $this->getCompanyName(),
+            'address1' => $this->getAddressLine1(),
+            'address2' => $this->getAddressLine2(),
             'city' => $this->getCityLocality(),
             'state' => $this->getProvince(),
             'postal_code' => $this->getPostalCode(),
