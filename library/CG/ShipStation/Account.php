@@ -22,9 +22,11 @@ use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
 use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
+use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 
 class Account implements AccountInterface
 {
+    const ROUTE = 'ShipStation Module';
     const ROUTE_SETUP = 'Setup';
 
     /** @var Client  */
@@ -39,6 +41,8 @@ class Account implements AccountInterface
     protected $cryptor;
     /** @var  ConnectFactory */
     protected $connectFactory;
+    /** @var UrlHelper */
+    protected $urlHelper;
 
     public function __construct(
         Client $client,
@@ -46,7 +50,8 @@ class Account implements AccountInterface
         OrganisationUnitService $ouService,
         AccountService $accountService,
         Cryptor $cryptor,
-        ConnectFactory $factory
+        ConnectFactory $factory,
+        UrlHelper $urlHelper
     ) {
         $this->client = $client;
         $this->userService = $userService;
@@ -54,11 +59,13 @@ class Account implements AccountInterface
         $this->accountService;
         $this->cryptor = $cryptor;
         $this->connectFactory = $factory;
+        $this->urlHelper = $urlHelper;
     }
 
     public function getInitialisationUrl(AccountEntity $account, $route)
     {
-        // TODO: Implement getInitialisationUrl() method.
+        $routeVariables = ['channel' => $account->getChannel()];
+        return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_SETUP, $routeVariables);
     }
 
     public function connect(AccountEntity $account, array $params = []): AccountEntity
