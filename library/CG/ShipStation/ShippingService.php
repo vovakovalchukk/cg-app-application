@@ -31,7 +31,7 @@ class ShippingService implements ShippingServiceInterface
         }
 
         $services = json_decode($this->account->getExternalData()['services']);
-        if (!is_array(is_array($services))) {
+        if (!is_array($services)) {
             return [];
         }
 
