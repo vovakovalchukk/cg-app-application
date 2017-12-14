@@ -4,7 +4,7 @@ namespace CG\ShipStation\Response\Shipping;
 use CG\ShipStation\Entity\Carrier;
 use CG\ShipStation\Entity\CarrierService;
 
-class CarrierServiceEntity
+class CarrierServiceEntity implements \JsonSerializable
 {
     /** @var  Carrier */
     protected $carrier;
@@ -17,6 +17,14 @@ class CarrierServiceEntity
     ) {
         $this->carrier = $carrier;
         $this->carrierService = $carrierService;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'carrier' => $this->getCarrier(),
+            'carrierService' => $this->getCarrierService(),
+        ];
     }
 
     public function getCarrier(): Carrier

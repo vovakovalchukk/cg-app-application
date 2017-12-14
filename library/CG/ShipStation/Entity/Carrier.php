@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Entity;
 
-class Carrier
+class Carrier implements \JsonSerializable
 {
     /** @var  string */
     protected $carrierId;
@@ -12,6 +12,14 @@ class Carrier
     {
         $this->carrierId = $carrierId;
         $this->carrierCode = $carrierCode;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'carrierId' => $this->getCarrierId(),
+            'carrierCode' => $this->getCarrierCode(),
+        ];
     }
 
     public function getCarrierId(): ?string
