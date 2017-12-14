@@ -8,18 +8,20 @@ use CG\Channel\AccountInterface;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\ShipStation\Entity\Address;
+use CG\ShipStation\Entity\User as UserRequestEntity;
 use CG\ShipStation\Request\Connect\Factory as ConnectFactory;
 use CG\ShipStation\Request\Partner\Account as AccountRequest;
 use CG\ShipStation\Request\Partner\ApiKey as ApiKeyRequest;
+use CG\ShipStation\Request\Shipping\CarrierServices as CarrierServicesRequest;
 use CG\ShipStation\Request\Warehouse\Create as CreateWarehouseRequest;
 use CG\ShipStation\Response\Connect\Response as ConnectResponse;
 use CG\ShipStation\Response\Partner\Account as AccountResponse;
 use CG\ShipStation\Response\Partner\ApiKey as ApiKeyResponse;
+use CG\ShipStation\Response\Shipping\CarrierServices as CarrierServicesResponse;
 use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
 use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
-use CG\ShipStation\Entity\User as UserRequestEntity;
 
 class Account implements AccountInterface
 {
@@ -94,10 +96,35 @@ class Account implements AccountInterface
             throw new \RuntimeException('Cannot update an existing ShipStation Carrier account.');
         }
 
-        $request = $this->connectFactory->buildRequestForAccount($account, $params);
+        $response = $this->setAccountExternalId($account, $shipStationAccount, $params);
+        $this->setCarrierServices($response, $account, $shipStationAccount);
+    }
+
+    protected function setAccountExternalId(
+        AccountEntity $account,
+        AccountEntity $shipStationAccount,
+        array $params = []
+    ): ConnectResponse {
         /** @var ConnectResponse $response */
-        $response = $this->client->sendRequest($request, $shipStationAccount);
+        $response = $this->client->sendRequest(
+            $request = $this->connectFactory->buildRequestForAccount($account, $params),
+            $shipStationAccount
+        );
         $account->setExternalId($response->getCarrier()->getCarrierId());
+        return $response;
+    }
+
+    protected function setCarrierServices(
+        ConnectResponse $response,
+        AccountEntity $account,
+        AccountEntity $shipStationAccount
+    ) {
+        /** @var CarrierServicesResponse $response */
+        $response = $this->client->sendRequest(
+            new CarrierServicesRequest($response->getCarrier()),
+            $shipStationAccount
+        );
+        $account->setExternalDataByKey('services', $response['services']);
     }
 
     protected function fetchUser(int $ouId): UserEntity
