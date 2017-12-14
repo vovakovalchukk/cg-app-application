@@ -72,8 +72,10 @@ class Account implements AccountInterface
             $credentials = (new Credentials())->setApiKey($apiKeyResponse->getEncryptedApiKey());
             $shipStationAccount->setCredentials($this->cryptor->encrypt($credentials));
 
-            $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $shipStationAccount);
-            $shipStationAccount->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
+            if (empty($shipStationAccount->getExternalData()['warehouseId'])) {
+                $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $shipStationAccount);
+                $shipStationAccount->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
+            }
             $shipStationAccount = $this->accountService->save($shipStationAccount);
         }
 
@@ -87,7 +89,7 @@ class Account implements AccountInterface
         array $params = []
     ): void {
         if ($account->getExternalId()) {
-            return;
+            throw new \RuntimeException('Cannot update an existing ShipStation Carrier account.');
         }
 
         $request = $this->connectFactory->buildRequestForAccount($account, $params);

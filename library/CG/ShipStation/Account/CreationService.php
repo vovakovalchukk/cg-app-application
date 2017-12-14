@@ -32,7 +32,6 @@ class CreationService extends CreationServiceAbstract
         return $this->getChannelAccount()->connect($account, $params);
     }
 
-
     /**
      * @return string
      * The channel name is handled by @configureAccount method
