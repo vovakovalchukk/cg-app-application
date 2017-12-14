@@ -1,10 +1,28 @@
 <?php
 
 use CG\ShipStation\Carrier\Service;
+use CG\ShipStation\Account as AccountService;
+use CG\ShipStation\Client;
+use CG\ShipStation\Account\CreationService as AccountCreationService;
 
 return [
     'di' => [
         'instance' => [
+            AccountService::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            Client::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            AccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
             Service::class => [
                 'parameters' => [
                     'carriersConfig' => [
