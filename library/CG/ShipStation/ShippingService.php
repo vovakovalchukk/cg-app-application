@@ -24,14 +24,22 @@ class ShippingService implements ShippingServiceInterface
         return $services;
     }
 
-    protected function getAccountShippingServices(): array
+    protected function getAccountShippingServices(): \Generator
     {
         if (!isset($this->account->getExternalData()['services'])) {
             return [];
         }
 
-        $shippingServices = json_decode($this->account->getExternalData()['services']);
-        return is_array($shippingServices) ? $shippingServices : [];
+        $services = json_decode($this->account->getExternalData()['services']);
+        if (!is_array(is_array($services))) {
+            return [];
+        }
+
+        foreach ($services as $service) {
+            if (isset($service['carrierService']) && is_array($service['carrierService'])) {
+                yield $service['carrierService'];
+            }
+        }
     }
 
     public function getShippingServicesForOrder(Order $order)

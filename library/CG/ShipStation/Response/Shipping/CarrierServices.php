@@ -1,12 +1,13 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
+use CG\ShipStation\Entity\Carrier;
 use CG\ShipStation\Entity\CarrierService;
 use CG\ShipStation\ResponseAbstract;
 
 class CarrierServices extends ResponseAbstract
 {
-    /** @var  CarrierService[] */
+    /** @var  CarrierServiceEntity[] */
     protected $services = [];
 
     public function __construct(array $services)
@@ -18,19 +19,21 @@ class CarrierServices extends ResponseAbstract
     {
         $services = [];
         foreach ($decodedJson->services as $service) {
-            $services[] = new CarrierService(
+            $carrier = new Carrier($service->carrier_id, $service->carrier_code);
+            $carrierService = new CarrierService(
                 $service->service_code,
                 $service->name,
                 $service->domestic,
                 $service->international,
                 $service->is_multi_package_supported
             );
+            $services[] = new CarrierServiceEntity($carrier, $carrierService);
         }
         return new static($services);
     }
 
     /**
-     * @return CarrierService[]
+     * @return CarrierServiceEntity[]
      */
     public function getServices(): array
     {
