@@ -92,7 +92,7 @@ class Entity
         return $this;
     }
 
-    public function getAllowsCancellation(): bool
+    public function isCancellationAllowed(): bool
     {
         return $this->allowsCancellation;
     }
@@ -106,7 +106,7 @@ class Entity
         return $this;
     }
 
-    public function getAllowsManifesting(): bool
+    public function isManifestingAllowed(): bool
     {
         return $this->allowsManifesting;
     }
