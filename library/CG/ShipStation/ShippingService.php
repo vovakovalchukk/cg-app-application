@@ -1,26 +1,32 @@
 <?php
 namespace CG\ShipStation;
 
+use CG\Account\Shared\Entity as ShippingAccount;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\Order\Shared\ShippableInterface as Order;
 
 class ShippingService implements ShippingServiceInterface
 {
-    protected $client;
+    /** @var ShippingAccount */
+    protected $account;
 
-    public function __construct(Client $client)
+    public function __construct(ShippingAccount $account)
     {
-        $this->client = $client;
+        $this->account = $account;
     }
 
     public function getShippingServices()
     {
-        // TODO: Implement getShippingServices() method.
+        $services = [];
+        foreach ($this->account->getExternalData()['services'] ?? [] as $service) {
+            $services[$service['service_code']] = $service['name'];
+        }
+        return $services;
     }
 
     public function getShippingServicesForOrder(Order $order)
     {
-        // TODO: Implement getShippingServicesForOrder() method.
+        return $this->getShippingServices();
     }
 
     public function doesServiceHaveOptions($service)
