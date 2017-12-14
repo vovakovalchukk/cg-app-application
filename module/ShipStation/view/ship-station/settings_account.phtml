@@ -3,9 +3,12 @@ use CG\ShipStation\Account as ShipStationAccountService;
 use CG_Channel\Module as ChannelModule;
 use ShipStation\Module;
 
+// Deliberately not rendering the 'Renew Connection' button as ShipStation don't allow it
+/*
 $setupRoute = implode('/', [
     Module::ROUTE,
     ShipStationAccountService::ROUTE_SETUP
 ]);
 $url = $this->url($setupRoute, ['channel' => $account->getChannel()]) . '?accountId=' . $account->getId();
 echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
+*/
