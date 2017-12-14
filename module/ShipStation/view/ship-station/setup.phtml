@@ -36,6 +36,8 @@ $(document).ready(function()
         $('.account-form-holder').css('top', 'calc(50% - ' + halfHeight + 'px)');
     })();
 
-
+    require(["<?= $this->basePath() . \ShipStation\Module::PUBLIC_FOLDER; ?>/js/Setup/Service.js"], function(Service) {
+        var service = new Service();
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
