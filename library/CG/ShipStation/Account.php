@@ -124,7 +124,7 @@ class Account implements AccountInterface
             new CarrierServicesRequest($response->getCarrier()),
             $shipStationAccount
         );
-        $account->setExternalDataByKey('services', $response['services']);
+        $account->setExternalDataByKey('services', json_encode($response->getServices()));
     }
 
     protected function fetchUser(int $ouId): UserEntity

@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Entity;
 
-class CarrierService
+class CarrierService implements \JsonSerializable
 {
     /** @var  string */
     protected $serviceCode;
@@ -26,6 +26,17 @@ class CarrierService
         $this->domestic = $domestic;
         $this->international = $international;
         $this->multiPackageSupported = $multiPackageSupported;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'serviceCode' => $this->getServiceCode(),
+            'name' => $this->getName(),
+            'domestic' => $this->isDomestic(),
+            'international' => $this->isInternational(),
+            'multiPackageSupported' => $this->isMultiPackageSupported(),
+        ];
     }
 
     public function getServiceCode(): ?string

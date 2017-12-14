@@ -18,10 +18,20 @@ class ShippingService implements ShippingServiceInterface
     public function getShippingServices()
     {
         $services = [];
-        foreach ($this->account->getExternalData()['services'] ?? [] as $service) {
-            $services[$service['service_code']] = $service['name'];
+        foreach ($this->getAccountShippingServices() as $service) {
+            $services[$service['serviceCode']] = $service['name'];
         }
         return $services;
+    }
+
+    protected function getAccountShippingServices(): array
+    {
+        if (!isset($this->account->getExternalData()['services'])) {
+            return [];
+        }
+
+        $shippingServices = json_decode($this->account->getExternalData()['services']);
+        return is_array($shippingServices) ? $shippingServices : [];
     }
 
     public function getShippingServicesForOrder(Order $order)
