@@ -25,6 +25,8 @@ use CG\User\Service as UserService;
 
 class Account implements AccountInterface
 {
+    const ROUTE_SETUP = 'Setup';
+
     /** @var Client  */
     protected $client;
     /** @var  UserService */

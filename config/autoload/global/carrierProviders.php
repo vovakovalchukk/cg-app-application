@@ -25,6 +25,9 @@ use CG\CourierAdapter\Provider\Implementation\CarrierBookingOptions as CourierAd
 use CG\CourierAdapter\Provider\Implementation\Service as CourierAdapterProviderImplementationService;
 use CG\CourierAdapter\Provider\Label\Service as CourierAdapterProviderLabelService;
 
+// ShipStation
+use CG\ShipStation\Carrier\Service as ShipStationCarrierService;
+
 return [
     'di' => [
         'instance' => [
@@ -36,6 +39,7 @@ return [
                         ['provider' => AmazonMcfShippingChannelsProvider::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
                         ['provider' => CourierAdapterProviderImplementationService::class],
+                        ['provider' => ShipStationCarrierService::class],
                     ]
                 ]
             ],
