@@ -1,8 +1,8 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
-use CG\ShipStation\Entity\Carrier;
-use CG\ShipStation\Entity\CarrierService;
+use CG\ShipStation\Messages\Carrier;
+use CG\ShipStation\Messages\CarrierService;
 
 class CarrierServiceEntity implements \JsonSerializable
 {

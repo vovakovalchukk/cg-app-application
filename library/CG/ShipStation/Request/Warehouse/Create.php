@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Request\Warehouse;
 
-use CG\ShipStation\Entity\Address;
+use CG\ShipStation\Messages\Address;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Warehouse\Create as Response;
 

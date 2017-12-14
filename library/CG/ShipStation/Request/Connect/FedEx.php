@@ -1,8 +1,8 @@
 <?php
 namespace CG\ShipStation\Request\Connect;
 
-use CG\ShipStation\Entity\Address;
-use CG\ShipStation\Entity\User;
+use CG\ShipStation\Messages\Address;
+use CG\ShipStation\Messages\User;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Connect\Response as Response;
 

@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Request\Partner;
 
-use CG\ShipStation\Entity\Account;
+use CG\ShipStation\Messages\Account;
 use CG\ShipStation\Request\PartnerRequestAbstract;
 use CG\ShipStation\Response\Partner\ApiKey as Response;
 

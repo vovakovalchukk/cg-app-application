@@ -6,10 +6,6 @@ use CG\ShipStation\RequestAbstract;
 
 class Factory
 {
-    const CHANNEL_TO_REQUEST_MAP = [
-        'fedex-ss' => FedEx::class
-    ];
-
     public function buildRequestForAccount(Account $account, array $params): RequestAbstract
     {
         return $this->getClassNameForAccount($account)::fromArray($params);
@@ -17,10 +13,13 @@ class Factory
 
     protected function getClassNameForAccount(Account $account)
     {
-        if (!isset(static::CHANNEL_TO_REQUEST_MAP[$account->getChannel()])) {
+        $channelName = preg_replace('/-ss$/', '', $account->getChannel());
+        /** @var ConnectInterface $className */
+        $className = __NAMESPACE__ . ucfirst($channelName);
+        if (!class_exists($className)) {
             throw new \InvalidArgumentException('Channel "' . $account->getChannel() . '" doesn\'t have an associated Connect class');
         }
 
-        return static::CHANNEL_TO_REQUEST_MAP[$account->getChannel()];
+        return $className;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Request\Shipping;
 
-use CG\ShipStation\Entity\Carrier;
+use CG\ShipStation\Messages\Carrier;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Shipping\CarrierServices as Response;
 
