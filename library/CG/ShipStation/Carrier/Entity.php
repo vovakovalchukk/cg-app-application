@@ -50,8 +50,7 @@ class Entity
 
     public function isFieldRequired(string $fieldName): bool
     {
-        $requiredFieldsKeyed = array_flip($this->getRequiredFieldNames());
-        return (isset($requiredFieldsKeyed[$fieldName]));
+        return in_array($fieldName, $this->getRequiredFieldNames());
     }
 
     public function getChannelName(): string
