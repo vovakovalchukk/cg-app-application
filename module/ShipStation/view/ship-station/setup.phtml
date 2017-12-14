@@ -14,6 +14,9 @@
                     <?php endif;?>
                 </div>
                 <div class="text-field">
+                    <?php if ($fieldView->getTemplate() == 'elements/checkbox.mustache') {
+                        $fieldView->setVariable('label', '');
+                    } ?>
                     <?= $this->mustache($fieldView); ?>
                 </div>
             </div>
