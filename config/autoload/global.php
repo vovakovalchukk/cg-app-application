@@ -231,7 +231,7 @@ $config = array(
                 StockImportInterface::class => StockImportFileS3::class,
                 LocationStorage::class => LocationApiStorage::class,
                 PackageRulesStorage::class => PackageRulesApiStorage::class,
-                Smtp::class => 'ses',
+                Smtp::class => 'orderhub-smtp',
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
