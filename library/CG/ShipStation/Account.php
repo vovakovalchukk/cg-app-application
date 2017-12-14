@@ -96,35 +96,33 @@ class Account implements AccountInterface
             throw new \RuntimeException('Cannot update an existing ShipStation Carrier account.');
         }
 
-        $response = $this->setAccountExternalId($account, $shipStationAccount, $params);
-        $this->setCarrierServices($response, $account, $shipStationAccount);
+        $connect = $this->connectCarrierToShipStation($account, $shipStationAccount, $params);
+        $account->setExternalId($connect->getCarrier()->getCarrierId());
+        $account->setExternalDataByKey(
+            'services',
+            json_encode($this->getCarrierServices($connect, $shipStationAccount))
+        );
     }
 
-    protected function setAccountExternalId(
+    protected function connectCarrierToShipStation(
         AccountEntity $account,
         AccountEntity $shipStationAccount,
         array $params = []
     ): ConnectResponse {
-        /** @var ConnectResponse $response */
-        $response = $this->client->sendRequest(
+        return $this->client->sendRequest(
             $request = $this->connectFactory->buildRequestForAccount($account, $params),
             $shipStationAccount
         );
-        $account->setExternalId($response->getCarrier()->getCarrierId());
-        return $response;
     }
 
-    protected function setCarrierServices(
-        ConnectResponse $response,
-        AccountEntity $account,
+    protected function getCarrierServices(
+        ConnectResponse $connect,
         AccountEntity $shipStationAccount
-    ) {
-        /** @var CarrierServicesResponse $response */
-        $response = $this->client->sendRequest(
-            new CarrierServicesRequest($response->getCarrier()),
+    ): CarrierServicesResponse {
+        return $this->client->sendRequest(
+            new CarrierServicesRequest($connect->getCarrier()),
             $shipStationAccount
         );
-        $account->setExternalDataByKey('services', json_encode($response->getServices()));
     }
 
     protected function fetchUser(int $ouId): UserEntity
