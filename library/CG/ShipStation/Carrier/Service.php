@@ -3,18 +3,33 @@ namespace CG\ShipStation\Carrier;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\ChannelsInterface;
+use CG\Channel\Shipping\Provider\Channels\ShippingOptionsInterface;
+use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Order\Shared\ShippableInterface as Order;
+use CG\User\OrganisationUnit\Service as UserOuService;
 
-class Service implements ChannelsInterface
+class Service implements ChannelsInterface, ShippingOptionsInterface
 {
+    const FEATURE_FLAG_SHIPSTATION = 'ShipStation';
+
     /** @var Mapper */
     protected $mapper;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var UserOuService */
+    protected $userOuService;
     /** @var Collection */
     protected $carriers;
 
-    public function __construct(Mapper $mapper, array $carriersConfig = [])
-    {
+    public function __construct(
+        Mapper $mapper,
+        FeatureFlagsService $featureFlagsService,
+        UserOuService $userOuService,
+        array $carriersConfig = []
+    ) {
         $this->mapper = $mapper;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->userOuService = $userOuService;
         $this->carriers = $this->mapper->collectionFromArray($carriersConfig);
     }
 
@@ -83,5 +98,25 @@ class Service implements ChannelsInterface
     {
         $channels = $this->getProvidedChannels();
         return isset($channels[$channel]);
+    }
+
+    /**
+     * @return array ['{Label}' => ['channel' => '{channel-name}' => 'region' => '{region|blank}']]
+     */
+    public function getShippingChannelOptions()
+    {
+        $rootOu = $this->userOuService->getRootOuByActiveUser();
+        if (!$this->featureFlagsService->isActive(static::FEATURE_FLAG_SHIPSTATION, $rootOu)) {
+            return [];
+        }
+
+        $options = [];
+        foreach ($this->carriers as $carrier) {
+            $options[$carrier->getDisplayName()] = [
+                'channel' => $carrier->getChannelName(),
+                'region' => ''
+            ];
+        }
+        return $options;
     }
 }
