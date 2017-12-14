@@ -16,7 +16,7 @@ return [
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
-                                    'label' => 'Nickname',
+                                    'label' => 'Nickname for account',
                                     'required' => true,
                                 ],
                                 'account_number' => [

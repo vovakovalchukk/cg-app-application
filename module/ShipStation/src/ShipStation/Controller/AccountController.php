@@ -4,6 +4,9 @@ namespace ShipStation\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Channel\Type as ChannelType;
+use CG\Locale\CountryNameByCode;
+use CG\ShipStation\Carrier\Entity as Carrier;
+use CG\ShipStation\Carrier\Field;
 use CG\ShipStation\Carrier\Service as CarrierService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\ChannelController;
@@ -43,6 +46,7 @@ class AccountController extends AbstractActionController
         $channelName = $this->params('channel');
         $carrier = $this->carrierService->getCarrierByChannelName($channelName);
         $accountId = $this->params()->fromQuery('accountId');
+        $credentials = null;
         if ($accountId) {
             $account = $this->accountService->fetch($accountId);
             $credentials = $this->cryptor->decrypt($account->getCredentials());
@@ -68,7 +72,7 @@ class AccountController extends AbstractActionController
         $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
         $view->setVariable('saveUrl', $saveUrl);
 
-        // TODO: get the fields to display and add them to the view
+        $this->addCarrierFieldsToView($view, $carrier, $credentials);
 
         return $view;
     }
@@ -76,6 +80,21 @@ class AccountController extends AbstractActionController
     protected function getAccountRoute()
     {
         return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS]);
+    }
+
+    protected function addCarrierFieldsToView(ViewModel $view, Carrier $carrier, $credentials = null)
+    {
+        $fieldViews = [];
+        /** @var Field $field */
+        foreach ($carrier->getFields() as $field) {
+            $fieldValue = ($credentials ? $credentials->get($field->getName()) : $field->getValue());
+            $inputTypeGetter = 'get'.ucfirst($field->getInputType()).'View';
+            if (!method_exists($this, $inputTypeGetter)) {
+                $inputTypeGetter = 'getTextView';
+            }
+            $fieldViews[] = $this->$inputTypeGetter($field->getName(), $field->getLabel(), $fieldValue, $field->isRequired());
+        }
+        $view->setVariable('fieldViews', $fieldViews);
     }
 
     protected function getButtonView($id, $text)
@@ -87,6 +106,67 @@ class AccountController extends AbstractActionController
         ]);
         $buttonView->setTemplate('elements/buttons.mustache');
         return $buttonView;
+    }
+
+    protected function getTextView($id, $label, $value = '', $required = false)
+    {
+        $textView = $this->viewModelFactory->newInstance([
+            'name' => $id,
+            'id' => $id,
+            'label' => $label,
+            'value' => $value,
+            'class' => ($required ? 'required' : ''),
+        ]);
+        $textView->setTemplate('elements/text.mustache');
+        return $textView;
+    }
+
+    protected function getCheckboxView($id, $label, $selected = false, $required = false)
+    {
+        $checkboxView = $this->viewModelFactory->newInstance([
+            'id' => $id,
+            'label' => $label,
+            'selected' => $selected,
+            'class' => ($required ? 'required' : '')
+        ]);
+        $checkboxView->setTemplate('elements/checkbox.mustache');
+        return $checkboxView;
+    }
+
+    protected function getPasswordView($id, $label, $value = '', $required = false)
+    {
+        $passwordView = $this->getTextView($id, $label, $value, $required);
+        $passwordView->setVariable('type', 'password');
+        return $passwordView;
+    }
+
+    protected function getHiddenView($id, $label, $value = '', $required = false)
+    {
+        $hiddenView = $this->getTextView($id, $label, $value, $required);
+        $hiddenView->setVariable('type', 'hidden');
+        return $hiddenView;
+    }
+
+    protected function getCountryView($id, $label, $value = null, $required = false)
+    {
+        $options = [];
+        foreach (CountryNameByCode::getCountryCodeToNameMap() as $code => $name) {
+            $options[] = [
+                'value' => $code,
+                'title' => $name,
+                'selected' => ($code == $value),
+            ];
+        }
+        $selectView = $this->viewModelFactory->newInstance([
+            'name' => $id,
+            'id' => $id,
+            'label' => $label,
+            'class' => ($required ? 'required' : ''),
+            'searchField' => true,
+            'options' => $options
+        ]);
+        $selectView->setTemplate('elements/custom-select.mustache');
+        return $selectView;
     }
 
     public function saveAction()
