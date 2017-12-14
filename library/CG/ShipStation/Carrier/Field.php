@@ -19,11 +19,11 @@ class Field
         string $inputType = null,
         $value = null
     ) {
-        $this->name = $name;
-        $this->label = $label;
-        $this->required = $required;
-        $this->inputType = $inputType;
-        $this->value = $value;
+        $this->setName($name)
+            ->setLabel($label)
+            ->setRequired($required)
+            ->setInputType($inputType)
+            ->setValue($value);
     }
 
     public function getName(): string
