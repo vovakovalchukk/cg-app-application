@@ -1,16 +1,16 @@
 <?php
 namespace CG\ShipStation\Response\Partner;
 
-use CG\ShipStation\EntityTrait\AccountTrait;
-use CG\ShipStation\EntityTrait\TimestampableTrait;
+use CG\ShipStation\Entity\Account as AccountEntity;
+use CG\ShipStation\Entity\Timestamp;
 use CG\ShipStation\ResponseAbstract;
-use CG\Stdlib\DateTime;
 
 class ApiKey extends ResponseAbstract
 {
-    use TimestampableTrait;
-    use AccountTrait;
-
+    /** @var  AccountEntity */
+    protected $account;
+    /** @var  Timestamp */
+    protected $timestamp;
     /** @var  string */
     protected $encryptedApiKey;
     /** @var  string */
@@ -18,13 +18,31 @@ class ApiKey extends ResponseAbstract
     /** @var  int */
     protected $apiKeyId;
 
-    protected function build($decodedJson)
+    public function __construct(
+        AccountEntity $account,
+        Timestamp $timestamp,
+        string $encryptedApiKey,
+        string $description,
+        int $apiKeyId
+    ) {
+        $this->account = $account;
+        $this->timestamp = $timestamp;
+        $this->encryptedApiKey = $encryptedApiKey;
+        $this->description = $description;
+        $this->apiKeyId = $apiKeyId;
+    }
+
+    protected static function build($decodedJson)
     {
-        return $this->setEncryptedApiKey($decodedJson->encrypted_api_key)
-            ->setCreatedAt(new DateTime($decodedJson->created_at))
-            ->setDescription($decodedJson->description)
-            ->setAccountId($decodedJson->account_id)
-            ->setApiKeyId($decodedJson->api_key_id);
+        $account = (new AccountEntity($decodedJson->account_id));
+        $timestamp = (new Timestamp($decodedJson->created_at));
+        return new static(
+            $account,
+            $timestamp,
+            $decodedJson->encrypted_api_key,
+            $decodedJson->description,
+            $decodedJson->api_key_id
+        );
     }
 
     public function getEncryptedApiKey(): string

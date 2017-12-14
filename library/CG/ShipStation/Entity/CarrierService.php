@@ -1,10 +1,8 @@
 <?php
-namespace CG\ShipStation\EntityTrait;
+namespace CG\ShipStation\Entity;
 
-trait CarrierServiceTrait
+class CarrierService
 {
-    use CarrierTrait;
-
     /** @var  string */
     protected $serviceCode;
     /** @var  string */
@@ -15,6 +13,20 @@ trait CarrierServiceTrait
     protected $international;
     /** @var  bool */
     protected $multiPackageSupported;
+
+    public function __construct(
+        string $serviceCode,
+        string $name,
+        bool $domestic,
+        bool $international,
+        bool $multiPackageSupported
+    ) {
+        $this->serviceCode = $serviceCode;
+        $this->name = $name;
+        $this->domestic = $domestic;
+        $this->international = $international;
+        $this->multiPackageSupported = $multiPackageSupported;
+    }
 
     public function getServiceCode(): ?string
     {

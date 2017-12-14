@@ -7,6 +7,7 @@ use CG\Account\Credentials\Cryptor;
 use CG\Channel\AccountInterface;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\ShipStation\Entity\Address;
 use CG\ShipStation\Request\Connect\Factory as ConnectFactory;
 use CG\ShipStation\Request\Partner\Account as AccountRequest;
 use CG\ShipStation\Request\Partner\ApiKey as ApiKeyRequest;
@@ -16,8 +17,9 @@ use CG\ShipStation\Response\Partner\Account as AccountResponse;
 use CG\ShipStation\Response\Partner\ApiKey as ApiKeyResponse;
 use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
-use CG\User\Entity as User;
+use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
+use CG\ShipStation\Entity\User as UserRequestEntity;
 
 class Account implements AccountInterface
 {
@@ -95,10 +97,10 @@ class Account implements AccountInterface
         $request = $this->connectFactory->buildRequestForAccount($account, $params);
         /** @var ConnectResponse $response */
         $response = $this->client->sendRequest($request, $shipStationAccount);
-        $account->setExternalId($response->getCarrierId());
+        $account->setExternalId($response->getCarrier()->getCarrierId());
     }
 
-    protected function fetchUser(int $ouId): User
+    protected function fetchUser(int $ouId): UserEntity
     {
         return $this->userService->fetchCollection(1, 1, $ouId)->first();
     }
@@ -113,25 +115,25 @@ class Account implements AccountInterface
         return $this->accountService->fetch($account->getExpiryDate()['shipstationAccountId']);
     }
 
-    protected function getAccountRequest(OrganisationUnit $ou, User $user): AccountRequest
+    protected function getAccountRequest(OrganisationUnit $ou, UserEntity $user): AccountRequest
     {
-        return new AccountRequest(
+        $userRequestEntity = new UserRequestEntity(
             $user->getFirstName(),
             $user->getLastName(),
             /** @TODO: TBC if this is the name we want to use or @ou->getAddressFullName() */
-            $ou->getAddressCompanyName(),
-            $ou->getId()
+            $ou->getAddressCompanyName()
         );
+        return (new AccountRequest($userRequestEntity))->setExternalAccountId($ou->getId());
     }
 
     protected function getApiKeyRequest(AccountResponse $response)
     {
-        return new ApiKeyRequest($response->getAccountId());
+        return new ApiKeyRequest($response->getAccount());
     }
 
     protected function sendAccountRequest(
         OrganisationUnit $ou,
-        User $user,
+        UserEntity $user,
         AccountEntity $shipStationAccount
     ): AccountResponse {
         /** @var AccountResponse $response */
@@ -152,7 +154,7 @@ class Account implements AccountInterface
         OrganisationUnit $ou,
         AccountEntity $shipStationAccount
     ): CreateWarehouseResponse {
-        $request = new CreateWarehouseRequest(
+        $address = new Address(
             $ou->getAddressFullName(),
             $ou->getPhoneNumber(),
             $ou->getAddress1(),
@@ -160,8 +162,10 @@ class Account implements AccountInterface
             /** @TODO: check if our country code matches the one required by ShipStation */
             $ou->getAddressPostcode(),
             $ou->getAddressCountryCode(),
-            $ou->getAddress2()
+            $ou->getAddress2(),
+            $ou->getEmailAddress()
         );
+        $request = new CreateWarehouseRequest($address);
         /** @var CreateWarehouseResponse $response */
         $response = $this->client->sendRequest($request, $shipStationAccount);
         return $response;

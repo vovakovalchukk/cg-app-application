@@ -1,34 +1,31 @@
 <?php
 namespace CG\ShipStation\Request\Partner;
 
-use CG\ShipStation\EntityTrait\UserDetailsTrait;
+use CG\ShipStation\Entity\User;
 use CG\ShipStation\Request\PartnerRequestAbstract;
 use CG\ShipStation\Response\Partner\Account as Response;
 
 class Account extends PartnerRequestAbstract
 {
-    use UserDetailsTrait;
-
     const METHOD = 'POST';
     const URI = '/accounts';
 
+    /** @var  User */
+    protected $user;
     /** @var  string */
     protected $externalAccountId;
 
-    public function __construct(string $firstName, string $lastName, string $companyName, string $externalAccountId = null)
+    public function __construct(User $user)
     {
-        $this->setFirstName($firstName)
-            ->setLastName($lastName)
-            ->setCompanyName($companyName)
-            ->setExternalAccountId($externalAccountId);
+        $this->user = $user;
     }
 
     public function toArray(): array
     {
         return [
-            'first_name' => $this->getFirstName(),
-            'last_name' => $this->getLastName(),
-            'company_name' => $this->getCompanyName(),
+            'first_name' => $this->user->getFirstName(),
+            'last_name' => $this->user->getLastName(),
+            'company_name' => $this->user->getCompanyName(),
             'external_account_id' => $this->getExternalAccountId()
         ];
     }
@@ -47,5 +44,10 @@ class Account extends PartnerRequestAbstract
     {
         $this->externalAccountId = $externalAccountId;
         return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
     }
 }

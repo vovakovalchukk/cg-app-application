@@ -1,12 +1,18 @@
 <?php
-namespace CG\ShipStation\EntityTrait;
+namespace CG\ShipStation\Entity;
 
-trait CarrierTrait
+class Carrier
 {
     /** @var  string */
     protected $carrierId;
     /** @var  string */
     protected $carrierCode;
+
+    public function __construct(string $carrierId, string $carrierCode = '')
+    {
+        $this->carrierId = $carrierId;
+        $this->carrierCode = $carrierCode;
+    }
 
     public function getCarrierId(): ?string
     {

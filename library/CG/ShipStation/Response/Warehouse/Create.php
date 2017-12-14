@@ -1,30 +1,40 @@
 <?php
 namespace CG\ShipStation\Response\Warehouse;
 
-use CG\ShipStation\EntityTrait\AddressTrait;
-use CG\ShipStation\EntityTrait\TimestampableTrait;
+use CG\ShipStation\Entity\Address;
+use CG\ShipStation\Entity\Timestamp;
 use CG\ShipStation\ResponseAbstract;
 
 class Create extends ResponseAbstract
 {
-    use AddressTrait;
-    use TimestampableTrait;
-
+    /** @var  Address */
+    protected $address;
+    /** @var  Timestamp */
+    protected $timestamp;
     /** @var  string */
     protected $warehouseId;
 
-    protected function build($decodedJson)
+    public function __construct(Address $address, Timestamp $timestamp, string $warehouseId)
     {
-        return $this->setCreatedAt($decodedJson->create_date)
-            ->setName($decodedJson->name)
-            ->setWarehouseId($decodedJson->warehouse_id)
-            ->setPhone($decodedJson->origin_address->phone)
-            ->setAddressLine1($decodedJson->origin_address->address_line1)
-            ->setAddressLine2($decodedJson->origin_address->address_line2)
-            ->setCityLocality($decodedJson->origin_address->city_locality)
-            ->setProvince($decodedJson->origin_address->province)
-            ->setPostalCode($decodedJson->origin_address->postal_code)
-            ->setCountryCode($decodedJson->origin_address->country_code);
+        $this->address = $address;
+        $this->timestamp = $timestamp;
+        $this->warehouseId = $warehouseId;
+    }
+
+    protected static function build($decodedJson)
+    {
+        $address = new Address(
+            $decodedJson->name,
+            $decodedJson->origin_address->phone,
+            $decodedJson->origin_address->address_line1,
+            $decodedJson->origin_address->city_locality,
+            $decodedJson->origin_address->province,
+            $decodedJson->origin_address->postal_code,
+            $decodedJson->origin_address->country_code,
+            $decodedJson->origin_address->address_line2
+        );
+        $timestamp = new Timestamp($decodedJson->create_date);
+        return new static($address, $timestamp, $decodedJson->warehouse_id);
     }
 
     public function getWarehouseId(): string

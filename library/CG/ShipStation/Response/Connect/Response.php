@@ -1,15 +1,26 @@
 <?php
 namespace CG\ShipStation\Response\Connect;
 
-use CG\ShipStation\EntityTrait\CarrierTrait;
+use CG\ShipStation\Entity\Carrier;
 use CG\ShipStation\ResponseAbstract;
 
 class Response extends ResponseAbstract
 {
-    use CarrierTrait;
+    /** @var  Carrier */
+    protected $carrier;
 
-    protected function build($decodedJson)
+    public function __construct(Carrier $carrier)
     {
-        return $this->setCarrierId($decodedJson);
+        $this->carrier = $carrier;
+    }
+
+    protected static function build($decodedJson): Response
+    {
+        return new static((new Carrier($decodedJson->{"carrier-id"})));
+    }
+
+    public function getCarrier(): Carrier
+    {
+        return $this->carrier;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Request\Warehouse;
 
-use CG\ShipStation\EntityTrait\AddressTrait;
+use CG\ShipStation\Entity\Address;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Warehouse\Create as Response;
 
@@ -10,32 +10,18 @@ class Create extends RequestAbstract
     const METHOD = 'POST';
     const URI = '/warehouses';
 
-    use AddressTrait;
+    /** @var  Address */
+    protected $address;
 
-    public function __construct(
-        string $name,
-        string $phone,
-        string $addressLine1,
-        string $cityLocality,
-        string $postalCode,
-        string $countryCode,
-        string $addressLine2 = '',
-        string $province = ''
-    ) {
-        $this->name = $name;
-        $this->phone = $phone;
-        $this->addressLine1 = $addressLine1;
-        $this->addressLine2 = $addressLine2;
-        $this->cityLocality = $cityLocality;
-        $this->province =$province;
-        $this->postalCode = $postalCode;
-        $this->countryCode = $countryCode;
+    public function __construct(Address $address)
+    {
+        $this->address = $address;
     }
 
     public function toArray(): array
     {
         return [
-            'name' => $this->getName(),
+            'name' => $this->address->getName(),
             'origin_address' => $this->buildAddress(),
             'return_address' => $this->buildAddress()
         ];
@@ -49,15 +35,15 @@ class Create extends RequestAbstract
     protected function buildAddress(): array
     {
         return [
-            'name' => $this->getName(),
-            'phone' => $this->getPhone(),
-            'company_name' => $this->getName(),
-            'address_line1' => $this->getAddressLine1(),
-            'address_line2' => $this->getAddressLine2(),
-            'city_locality' => $this->getCityLocality(),
-            'state_province' => $this->getProvince(),
-            'postal_code' => $this->getPostalCode(),
-            'country_code' => $this->getCountryCode()
+            'name' => $this->address->getName(),
+            'phone' => $this->address->getPhone(),
+            'company_name' => $this->address->getName(),
+            'address_line1' => $this->address->getAddressLine1(),
+            'address_line2' => $this->address->getAddressLine2(),
+            'city_locality' => $this->address->getCityLocality(),
+            'state_province' => $this->address->getProvince(),
+            'postal_code' => $this->address->getPostalCode(),
+            'country_code' => $this->address->getCountryCode()
         ];
     }
 }

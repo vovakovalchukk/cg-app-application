@@ -1,21 +1,22 @@
 <?php
 namespace CG\ShipStation\Request\Partner;
 
-use CG\ShipStation\EntityTrait\AccountTrait;
+use CG\ShipStation\Entity\Account;
 use CG\ShipStation\Request\PartnerRequestAbstract;
 use CG\ShipStation\Response\Partner\ApiKey as Response;
 
 class ApiKey extends PartnerRequestAbstract
 {
-    use AccountTrait;
+    /** @var Account */
+    protected $account;
 
     const METHOD = 'POST';
     const URI = '/accounts';
     const URI_SUFFIX = '/api_keys';
 
-    public function __construct(int $accountId)
+    public function __construct(Account $account)
     {
-        $this->setAccountId($accountId);
+        $this->account = $account;
     }
 
     public function toArray(): array
@@ -32,6 +33,6 @@ class ApiKey extends PartnerRequestAbstract
 
     public function getUri(): string
     {
-        return parent::getUri() . '/' . $this->getAccountId() .  static::URI_SUFFIX;
+        return parent::getUri() . '/' . $this->account->getAccountId() .  static::URI_SUFFIX;
     }
 }

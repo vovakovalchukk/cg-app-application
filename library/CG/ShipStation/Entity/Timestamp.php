@@ -1,14 +1,19 @@
 <?php
-namespace CG\ShipStation\EntityTrait;
+namespace CG\ShipStation\Entity;
 
 use CG\Stdlib\DateTime;
 
-trait TimestampableTrait
+class Timestamp
 {
     /** @var  DateTime */
     protected $createdAt;
     /** @var  DateTime */
     protected $modifiedAt;
+
+    public function __construct(DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
 
     public function getCreatedAt(): ?DateTime
     {

@@ -1,21 +1,23 @@
 <?php
 namespace CG\ShipStation\Request\Shipping;
 
-use CG\ShipStation\EntityTrait\CarrierTrait;
+use CG\ShipStation\Entity\Carrier;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Shipping\CarrierServices as Response;
 
 class CarrierServices extends RequestAbstract
 {
-    use CarrierTrait;
 
     const METHOD = 'GET';
     const URI = '/carriers';
     const URI_SUFFIX = '/services';
 
-    public function __construct(string $carrierId)
+    /** @var  Carrier */
+    protected $carrier;
+
+    public function __construct(Carrier $carrier)
     {
-        $this->setCarrierId($carrierId);
+        $this->carrier = $carrier;
     }
 
     public function toArray(): array
@@ -30,6 +32,6 @@ class CarrierServices extends RequestAbstract
 
     public function getUri(): string
     {
-        return parent::getUri() . '/' . $this->getCarrierId() . static::URI_SUFFIX;
+        return parent::getUri() . '/' . $this->carrier->getCarrierId() . static::URI_SUFFIX;
     }
 }

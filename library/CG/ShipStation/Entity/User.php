@@ -1,7 +1,7 @@
 <?php
-namespace CG\ShipStation\EntityTrait;
+namespace CG\ShipStation\Entity;
 
-trait UserDetailsTrait
+class User
 {
     /** @var  string */
     protected $firstName;
@@ -9,6 +9,13 @@ trait UserDetailsTrait
     protected $lastName;
     /** @var  string */
     protected $companyName;
+
+    public function __construct(string $firstName, string $lastName, string $companyName)
+    {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->companyName = $companyName;
+    }
 
     public function getFirstName(): ?string
     {

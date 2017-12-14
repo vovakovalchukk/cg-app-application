@@ -1,7 +1,7 @@
 <?php
-namespace CG\ShipStation\EntityTrait;
+namespace CG\ShipStation\Entity;
 
-trait AddressTrait
+class Address
 {
     /** @var  string */
     protected $name;
@@ -21,6 +21,28 @@ trait AddressTrait
     protected $postalCode;
     /** @var  string */
     protected $countryCode;
+
+    public function __construct(
+        string $name,
+        string $phone,
+        string $addressLine1,
+        string $cityLocality,
+        string $province,
+        string $postalCode,
+        string $countryCode,
+        string $addressLine2 = '',
+        string $email = ''
+    ) {
+        $this->name = $name;
+        $this->phone = $phone;
+        $this->addressLine1 = $addressLine1;
+        $this->cityLocality = $cityLocality;
+        $this->province = $province;
+        $this->postalCode = $postalCode;
+        $this->countryCode = $countryCode;
+        $this->addressLine2 = $addressLine2;
+        $this->email = $email;
+    }
 
     public function getName(): ?string
     {

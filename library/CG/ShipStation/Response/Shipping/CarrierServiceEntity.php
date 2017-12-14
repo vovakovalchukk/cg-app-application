@@ -1,27 +1,31 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
-use CG\ShipStation\EntityTrait\CarrierServiceTrait;
+use CG\ShipStation\Entity\Carrier;
+use CG\ShipStation\Entity\CarrierService;
 
 class CarrierServiceEntity
 {
-    use CarrierServiceTrait;
+    /** @var  Carrier */
+    protected $carrier;
+    /** @var  CarrierService */
+    protected $carrierService;
 
     public function __construct(
-        string $carrierId,
-        string $carrierCode,
-        string $serviceCode,
-        string $name,
-        bool $domestic,
-        bool $international,
-        bool $multiPackageSupported
+        Carrier $carrier,
+        CarrierService $carrierService
     ) {
-        $this->setCarrierId($carrierId)
-            ->setCarrierCode($carrierCode)
-            ->setServiceCode($serviceCode)
-            ->setName($name)
-            ->setDomestic($domestic)
-            ->setInternational($international)
-            ->setMultiPackageSupported($multiPackageSupported);
+        $this->carrier = $carrier;
+        $this->carrierService = $carrierService;
+    }
+
+    public function getCarrier(): Carrier
+    {
+        return $this->carrier;
+    }
+
+    public function getCarrierService(): CarrierService
+    {
+        return $this->carrierService;
     }
 }

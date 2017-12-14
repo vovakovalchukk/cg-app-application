@@ -1,8 +1,8 @@
 <?php
 namespace CG\ShipStation\Request\Connect;
 
-use CG\ShipStation\EntityTrait\AddressTrait;
-use CG\ShipStation\EntityTrait\UserDetailsTrait;
+use CG\ShipStation\Entity\Address;
+use CG\ShipStation\Entity\User;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Connect\Response as Response;
 
@@ -11,61 +11,36 @@ class FedEx extends RequestAbstract implements ConnectInterface
     const METHOD = 'POST';
     const URI = '/connections/carriers/fedex';
 
-    use AddressTrait;
-    use UserDetailsTrait;
-
+    /** @var  Address */
+    protected $address;
+    /** @var  User */
+    protected $user;
     /** @var  string */
     protected $nickname;
     /** @var  string */
     protected $accountNumber;
 
-    public function __construct(
-        string $nickname,
-        string $accountNumber,
-        string $firstName,
-        string $lastName,
-        string $address1,
-        string $city,
-        string $province,
-        string $postalCode,
-        string $countryCode,
-        string $email,
-        string $phone,
-        string $companyName = '',
-        string $address2 = ''
-    ) {
-        $this->setNickname($nickname)
-            ->setAccountNumber($accountNumber)
-            ->setFirstName($firstName)
-            ->setLastName($lastName)
-            ->setAddressLine1($address1)
-            ->setCityLocality($city)
-            ->setProvince($province)
-            ->setPostalCode($postalCode)
-            ->setCountryCode($countryCode)
-            ->setEmail($email)
-            ->setPhone($phone)
-            ->setCompanyName($companyName)
-            ->setAddressLine2($address2);
+    public function __construct(Address $address, User $user)
+    {
+        $this->address = $address;
+        $this->user = $user;
     }
 
     public static function fromArray(array $params): ConnectInterface
     {
-        return new static(
-            $params['nickname'],
-            $params['account_number'],
-            $params['first_name'],
-            $params['last_name'],
+        $address = new Address(
+            $params['company'],
+            $params['phone'],
             $params['address1'],
             $params['city'],
             $params['state'],
             $params['postal_code'],
             $params['country_code'],
-            $params['email'],
-            $params['phone'],
-            $params['company'],
-            $params['address2']
+            $params['address2'],
+            $params['email']
         );
+        $user = new User($params['first_name'], $params['last_name'], $params['company']);
+        return new static($address, $user);
     }
 
     public function toArray(): array
@@ -73,17 +48,17 @@ class FedEx extends RequestAbstract implements ConnectInterface
         return [
             'nickname' => $this->getNickname(),
             'account_number' => $this->getAccountNumber(),
-            'first_name' => $this->getFirstName(),
-            'last_name' => $this->getLastName(),
-            'company' => $this->getCompanyName(),
-            'address1' => $this->getAddressLine1(),
-            'address2' => $this->getAddressLine2(),
-            'city' => $this->getCityLocality(),
-            'state' => $this->getProvince(),
-            'postal_code' => $this->getPostalCode(),
-            'country_code' => $this->getCountryCode(),
-            'email' => $this->getEmail(),
-            'phone' => $this->getPhone(),
+            'first_name' => $this->user->getFirstName(),
+            'last_name' => $this->user->getLastName(),
+            'company' => $this->user->getCompanyName(),
+            'address1' => $this->address->getAddressLine1(),
+            'address2' => $this->address->getAddressLine2(),
+            'city' => $this->address->getCityLocality(),
+            'state' => $this->address->getProvince(),
+            'postal_code' => $this->address->getPostalCode(),
+            'country_code' => $this->address->getCountryCode(),
+            'email' => $this->address->getEmail(),
+            'phone' => $this->address->getPhone(),
             'agree_to_eula' => true
         ];
     }

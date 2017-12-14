@@ -6,13 +6,13 @@ abstract class ResponseAbstract implements ResponseInterface
     /** @var string */
     protected $jsonResponse;
 
-    abstract protected function build($decodedJson);
+    abstract protected static function build($decodedJson);
 
     public static function createFromJson(string $json)
     {
-        $response = new static();
+        /** @var ResponseAbstract $response */
+        $response = static::build($json);
         $response->setJsonResponse($json);
-        $response->build(json_decode($json));
         return $response;
     }
 

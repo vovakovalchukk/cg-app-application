@@ -1,28 +1,41 @@
 <?php
 namespace CG\ShipStation\Response\Partner;
 
-use CG\ShipStation\EntityTrait\AccountTrait;
-use CG\ShipStation\EntityTrait\TimestampableTrait;
+use CG\ShipStation\Entity\Account as AccountEntity;
+use CG\ShipStation\Entity\Timestamp;
 use CG\ShipStation\ResponseAbstract;
 use CG\Stdlib\DateTime;
 
 class Account extends ResponseAbstract
 {
-    use TimestampableTrait;
-    use AccountTrait;
-
+    /** @var  AccountEntity */
+    protected $account;
+    /** @var  Timestamp */
+    protected $timestamp;
     /** @var  string */
     protected $externalAccountId;
     /** @var  bool */
     protected $active;
 
-    protected function build($decodedJson): self
+    public function __construct(AccountEntity $account, Timestamp $timestamp, string $externalAccountId, bool $active)
     {
-        return $this->setAccountId($decodedJson->account_id)
-            ->setExternalAccountId($decodedJson->external_account_id)
-            ->setCreatedAt(new DateTime($decodedJson->created_at))
-            ->setModifiedAt(new DateTime($decodedJson->modified_at))
-            ->setActive($decodedJson->active);
+        $this->account = $account;
+        $this->timestamp = $timestamp;
+        $this->externalAccountId = $externalAccountId;
+        $this->active = $active;
+    }
+
+    protected static function build($decodedJson): self
+    {
+        $account = (new AccountEntity($decodedJson->account_id));
+        $timestamp = (new Timestamp(new DateTime($decodedJson->created_at)))
+            ->setModifiedAt(new DateTime($decodedJson->modified_at));
+        return new static(
+            $account,
+            $timestamp,
+            $decodedJson->external_account_id,
+            $decodedJson->active
+        );
     }
 
     public function getExternalAccountId(): string
@@ -45,5 +58,15 @@ class Account extends ResponseAbstract
     {
         $this->active = $active;
         return $this;
+    }
+
+    public function getAccount(): AccountEntity
+    {
+        return $this->account;
+    }
+
+    public function getTimestamp(): Timestamp
+    {
+        return $this->timestamp;
     }
 }

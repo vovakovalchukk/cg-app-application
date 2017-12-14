@@ -1,10 +1,15 @@
 <?php
-namespace CG\ShipStation\EntityTrait;
+namespace CG\ShipStation\Entity;
 
-trait AccountTrait
+class Account
 {
     /** @var  int */
     protected $accountId;
+
+    public function __construct(int $accountId)
+    {
+        $this->accountId = $accountId;
+    }
 
     public function getAccountId(): ?int
     {
