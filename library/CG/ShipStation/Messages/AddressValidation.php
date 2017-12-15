@@ -24,6 +24,18 @@ class AddressValidation
         $this->messages = $messages;
     }
 
+    public static function build($decodedJson): AddressValidation
+    {
+        $originalAddress = ShipmentAddress::build($decodedJson->original_address);
+        $matchedAddress = ShipmentAddress::build($decodedJson->matched_address);
+        return new static(
+            $decodedJson->status,
+            $originalAddress,
+            $matchedAddress,
+            ...$decodedJson->messages
+        );
+    }
+
     /**
      * @return mixed
      */

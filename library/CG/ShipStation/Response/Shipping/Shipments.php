@@ -1,10 +1,10 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
-use CG\ShipStation\Entity\AddressValidation;
-use CG\ShipStation\Entity\Package;
-use CG\ShipStation\Entity\ShipmentAddress;
-use CG\ShipStation\Entity\Timestamp;
+use CG\ShipStation\Messages\AddressValidation;
+use CG\ShipStation\Messages\Package;
+use CG\ShipStation\Messages\ShipmentAddress;
+use CG\ShipStation\Messages\Timestamp;
 use CG\ShipStation\ResponseAbstract;
 use CG\Stdlib\DateTime;
 
@@ -22,8 +22,10 @@ class Shipments extends ResponseAbstract
     protected $externalShipmentId;
     /** @var DateTime */
     protected $shipDate;
-    /** @var Timestamp */
-    protected $timestamp;
+    /** @var DateTime */
+    protected $createdAt;
+    /** @var DateTime */
+    protected $modifiedAt;
     /** @var string */
     protected $shipmentStatus;
     /** @var ShipmentAddress */
@@ -56,7 +58,8 @@ class Shipments extends ResponseAbstract
         string $serviceCode,
         $externalShipmentId,
         DateTime $shipDate,
-        Timestamp $timestamp,
+        DateTime $createdAt,
+        DateTime $modifiedAt,
         string $shipmentStatus,
         ShipmentAddress $shipTo,
         ShipmentAddress $shipFrom,
@@ -76,7 +79,8 @@ class Shipments extends ResponseAbstract
         $this->serviceCode = $serviceCode;
         $this->externalShipmentId = $externalShipmentId;
         $this->shipDate = $shipDate;
-        $this->timestamp = $timestamp;
+        $this->createdAt = $createdAt;
+        $this->modifiedAt = $modifiedAt;
         $this->shipmentStatus = $shipmentStatus;
         $this->shipTo = $shipTo;
         $this->shipFrom = $shipFrom;
@@ -91,8 +95,141 @@ class Shipments extends ResponseAbstract
         $this->packages = $packages;
     }
 
-    protected static function build($decodedJson)
+    protected static function build($decodedJson): Shipments
     {
-        return new static();
+        $addressValidation = AddressValidation::build($decodedJson->address_validation);
+        $shipDate = new DateTime($decodedJson->ship_date);
+        $createdAt = new DateTime($decodedJson->created_at);
+        $modifiedAt = new DateTime($decodedJson->modified_at);
+        $shipTo = ShipmentAddress::build($decodedJson->ship_to);
+        $shipFrom = ShipmentAddress::build($decodedJson->ship_from);
+        $returnTo = ShipmentAddress::build($decodedJson->return_to);
+        $packages = [];
+        foreach ($decodedJson->packages as $packageJson) {
+            $packages[] = Package::build($packageJson);
+        }
+
+        return new static(
+            $addressValidation,
+            $decodedJson->shipment_id,
+            $decodedJson->carrier_id,
+            $decodedJson->service_code,
+            $decodedJson->external_shipment_id,
+            $shipDate,
+            $createdAt,
+            $modifiedAt,
+            $decodedJson->shipment_status,
+            $shipTo,
+            $shipFrom,
+            $decodedJson->warehouse_id,
+            $returnTo,
+            $decodedJson->confirmation,
+            $decodedJson->advanced_options ?? [],
+            $decodedJson->insurance_provider,
+            $decodedJson->tags ?? [],
+            $decodedJson->total_weight->value,
+            $decodedJson->total_weight->unit,
+            $packages
+        );
+    }
+
+    public function getAddressValidation(): AddressValidation
+    {
+        return $this->addressValidation;
+    }
+
+    public function getShipmentId(): string
+    {
+        return $this->shipmentId;
+    }
+
+    public function getCarrierId(): string
+    {
+        return $this->carrierId;
+    }
+
+    public function getServiceCode(): string
+    {
+        return $this->serviceCode;
+    }
+
+    public function getExternalShipmentId()
+    {
+        return $this->externalShipmentId;
+    }
+
+    public function getShipDate(): DateTime
+    {
+        return $this->shipDate;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function getModifiedAt(): DateTime
+    {
+        return $this->modifiedAt;
+    }
+
+    public function getShipmentStatus(): string
+    {
+        return $this->shipmentStatus;
+    }
+
+    public function getShipTo(): ShipmentAddress
+    {
+        return $this->shipTo;
+    }
+
+    public function getShipFrom(): ShipmentAddress
+    {
+        return $this->shipFrom;
+    }
+
+    public function getWarehouseId(): string
+    {
+        return $this->warehouseId;
+    }
+
+    public function getReturnTo(): ShipmentAddress
+    {
+        return $this->returnTo;
+    }
+
+    public function getConfirmation(): string
+    {
+        return $this->confirmation;
+    }
+
+    public function getAdvancedOptions(): array
+    {
+        return $this->advancedOptions;
+    }
+
+    public function getInsuranceProvider(): string
+    {
+        return $this->insuranceProvider;
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function getTotalWeight(): float
+    {
+        return $this->totalWeight;
+    }
+
+    public function getTotalWeightUnit(): string
+    {
+        return $this->totalWeightUnit;
+    }
+
+    public function getPackages(): array
+    {
+        return $this->packages;
     }
 }

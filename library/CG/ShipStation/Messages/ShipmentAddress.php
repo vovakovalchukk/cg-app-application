@@ -5,8 +5,6 @@ class ShipmentAddress extends Address
 {
     /** @var string */
     protected $companyName;
-    /** @var string */
-    protected $stateProvince;
     /** @var bool */
     protected $addressResidentialIndicator;
 
@@ -21,8 +19,7 @@ class ShipmentAddress extends Address
         string $addressLine2 = '',
         string $email = '',
         string $companyName = '',
-        string $stateProvince = '',
-        ?bool $addressResidentialIndicator = null
+        string $addressResidentialIndicator = ''
     ) {
         parent::__construct(
             $name,
@@ -36,8 +33,26 @@ class ShipmentAddress extends Address
             $email
         );
         $this->companyName = $companyName;
-        $this->stateProvince = $stateProvince;
         $this->addressResidentialIndicator = $addressResidentialIndicator;
+    }
+
+    public static function build($decodedJson): ShipmentAddress
+    {
+        $noEmail = '';
+        return new static(
+            $decodedJson->name,
+            $decodedJson->phone,
+            $decodedJson->address_line1,
+            $decodedJson->city_locality,
+            $decodedJson->state_province,
+            $decodedJson->postal_code,
+            $decodedJson->country_code,
+            $decodedJson->address_line2 ?? '',
+            $decodedJson->address_line2 ?? '',
+            $noEmail,
+            $decodedJson->company_name ?? '',
+            $decodedJson->address_residential_indicator ?? ''
+        );
     }
 
     public function getCompanyName(): string
@@ -45,30 +60,13 @@ class ShipmentAddress extends Address
         return $this->companyName;
     }
 
-    /**
-     * @return self
-     */
-    public function setCompanyName(string $companyName)
+    public function setCompanyName(string $companyName): ShipmentAddress
     {
         $this->companyName = $companyName;
         return $this;
     }
 
-    public function getStateProvince(): string
-    {
-        return $this->stateProvince;
-    }
-
-    /**
-     * @return self
-     */
-    public function setStateProvince(string $stateProvince)
-    {
-        $this->stateProvince = $stateProvince;
-        return $this;
-    }
-
-    public function isAddressResidentialIndicator(): ?bool
+    public function isAddressResidentialIndicator(): string
     {
         return $this->addressResidentialIndicator;
     }
@@ -76,7 +74,7 @@ class ShipmentAddress extends Address
     /**
      * @return self
      */
-    public function setAddressResidentialIndicator(?bool $addressResidentialIndicator)
+    public function setAddressResidentialIndicator(string $addressResidentialIndicator): ShipmentAddress
     {
         $this->addressResidentialIndicator = $addressResidentialIndicator;
         return $this;

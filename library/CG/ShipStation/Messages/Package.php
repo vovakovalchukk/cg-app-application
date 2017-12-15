@@ -40,6 +40,20 @@ class Package
         $this->insuredCurrency = $insuredCurrency;
     }
 
+    public static function build($decodedJson): Package
+    {
+        return new static(
+            $decodedJson->weight->value,
+            $decodedJson->weight->units,
+            $decodedJson->dimensions->length,
+            $decodedJson->dimensions->width,
+            $decodedJson->dimensions->height,
+            $decodedJson->dimensions->units,
+            $decodedJson->insured_value->amount,
+            $decodedJson->insured_value->currency
+        );
+    }
+
     public function getWeight(): float
     {
         return $this->weight;
