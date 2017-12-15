@@ -660,6 +660,11 @@ $config = array(
                     'config' => 'app_config'
                 ]
             ],
+            ImageTemplateGuzzleClient::class => [
+                'parameters' => [
+                    'client' => 'imagetemplate_guzzle',
+                ],
+            ],
         ),
     ),
     'view_manager' => [
