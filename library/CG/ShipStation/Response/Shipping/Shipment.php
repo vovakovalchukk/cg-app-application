@@ -4,10 +4,9 @@ namespace CG\ShipStation\Response\Shipping;
 use CG\ShipStation\Messages\AddressValidation;
 use CG\ShipStation\Messages\Package;
 use CG\ShipStation\Messages\ShipmentAddress;
-use CG\ShipStation\ResponseAbstract;
 use CG\Stdlib\DateTime;
 
-class Shipment extends ResponseAbstract
+class Shipment
 {
     /** @var AddressValidation */
     protected $addressValidation;
@@ -94,7 +93,7 @@ class Shipment extends ResponseAbstract
         $this->packages = $packages;
     }
 
-    protected static function build($decodedJson): Shipments
+    public static function build($decodedJson): Shipment
     {
         $addressValidation = AddressValidation::build($decodedJson->address_validation);
         $shipDate = new DateTime($decodedJson->ship_date);
@@ -123,11 +122,11 @@ class Shipment extends ResponseAbstract
             $decodedJson->warehouse_id,
             $returnTo,
             $decodedJson->confirmation,
-            $decodedJson->advanced_options ?? [],
+            isset($decodedJson->advanced_options) ? (array)$decodedJson->advanced_options : [],
             $decodedJson->insurance_provider,
             $decodedJson->tags ?? [],
             $decodedJson->total_weight->value,
-            $decodedJson->total_weight->unit,
+            $decodedJson->total_weight->units,
             $packages
         );
     }
