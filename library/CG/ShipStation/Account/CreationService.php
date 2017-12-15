@@ -38,13 +38,21 @@ class CreationService extends CreationServiceAbstract
 
     public function configureAccount(AccountEntity $account, array $params)
     {
-        $account->setChannel($params['channel'] ?? '');
+        $this->setAccountChannel($account, $params);
         $carrier = $this->carrierService->getCarrierForAccount($account);
         $account->setType([ChannelType::SHIPPING])
             ->setDisplayName($carrier->getDisplayName())
             ->setCredentials($this->getCredentialsFromParams($params));
 
         return $this->getChannelAccount()->connect($account, $params);
+    }
+
+    protected function setAccountChannel(AccountEntity $account, array $params)
+    {
+        if (!isset($params['channel'])) {
+            throw new \RuntimeException('The required parameter `channel` is missing from given params array');
+        }
+        $account->setChannel($params['channel']);
     }
 
     protected function getCredentialsFromParams(array $params): string
