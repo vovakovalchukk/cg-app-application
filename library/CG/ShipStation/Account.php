@@ -182,7 +182,7 @@ class Account implements AccountInterface
                 [$account->getOrganisationUnitId()],
                 ['shipstation']
             );
-            return $this->accountService->fetchByFilter($filter)->first();
+            return $this->accountService->fetchByFilter($filter)->getFirst();
         }
     }
 
