@@ -17,6 +17,8 @@ class Client implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const LOG_CODE = 'ShipStation API Request';
+
     /** @var  GuzzleClient */
     protected $guzzle;
     /** @var  Cryptor */
@@ -34,10 +36,13 @@ class Client implements LoggerAwareInterface
     public function sendRequest(RequestInterface $request, Account $account): ResponseInterface
     {
         $guzzleRequest = $this->generateHttpRequest($request, $account);
+        $this->logInfo(str_replace('%', '%%', (string)$guzzleRequest), [], [static::LOG_CODE, 'Request']);
         try {
             $httpResponse = $guzzleRequest->send();
+            $this->logInfo(str_replace('%', '%%', (string)$httpResponse), [], [static::LOG_CODE, 'Response']);
             return $this->buildResponse($request, $httpResponse);
         } catch (GuzzleCurlException|GuzzleBadResponseException $e) {
+            $this->logInfo(str_replace('%', '%%', (string)$e->getResponse()), [], [static::LOG_CODE, 'Response']);
             $this->logException($e, 'log:error', __NAMESPACE__);
             throw new StorageException('ShipStation API error', $e->getCode(), $e);
         }
