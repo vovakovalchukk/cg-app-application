@@ -10,8 +10,12 @@ abstract class ResponseAbstract implements ResponseInterface
 
     public static function createFromJson(string $json)
     {
+        $decodedJson = json_decode($json);
+        if ($decodedJson === null) {
+            throw new \RuntimeException('JSON response from ShipStation could not be decoded: '.json_last_error_msg());
+        }
         /** @var ResponseAbstract $response */
-        $response = static::build($json);
+        $response = static::build($decodedJson);
         $response->setJsonResponse($json);
         return $response;
     }
