@@ -43,16 +43,24 @@ class Service implements LoggerAwareInterface
     public function getSkusProductCantLinkTo($ouId, $skuOfProduct): array
     {
         $productLinkId = ProductLink::generateId($ouId, $skuOfProduct);
-        $linkNode = $this->productLinkNodeService->fetch($productLinkId);
-        $link = $this->productLinkService->fetch($productLinkId);
-
         $skusProductCantLinkTo = [$skuOfProduct => true];
-        foreach ($linkNode->getAncestors() as $ancestorSku) {
-            $skusProductCantLinkTo[$ancestorSku] = true;
+
+        try {
+            $linkNode = $this->productLinkNodeService->fetch($productLinkId);
+            foreach ($linkNode->getAncestors() as $ancestorSku) {
+                $skusProductCantLinkTo[$ancestorSku] = true;
+            }
+        } catch (NotFound $exception) {
+            //noop
         }
 
-        foreach ($link->getStockSkuMap() as $notIfCantBeLinkedFromSku => $quantity) {
-            $skusProductCantLinkTo[$notIfCantBeLinkedFromSku] = true;
+        try {
+            $link = $this->productLinkService->fetch($productLinkId);
+            foreach ($link->getStockSkuMap() as $notIfCantBeLinkedFromSku => $quantity) {
+                $skusProductCantLinkTo[$notIfCantBeLinkedFromSku] = true;
+            }
+        } catch (NotFound $exception) {
+            //noop
         }
 
         return $skusProductCantLinkTo;
