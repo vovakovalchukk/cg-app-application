@@ -1,8 +1,8 @@
 <?php
 namespace CG\ShipStation\Response\Partner;
 
-use CG\ShipStation\Entity\Account as AccountEntity;
-use CG\ShipStation\Entity\Timestamp;
+use CG\ShipStation\Messages\Account as AccountEntity;
+use CG\ShipStation\Messages\Timestamp;
 use CG\ShipStation\ResponseAbstract;
 
 class ApiKey extends ResponseAbstract

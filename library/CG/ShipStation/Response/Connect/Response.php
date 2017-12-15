@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Response\Connect;
 
-use CG\ShipStation\Entity\Carrier;
+use CG\ShipStation\Messages\Carrier;
 use CG\ShipStation\ResponseAbstract;
 
 class Response extends ResponseAbstract

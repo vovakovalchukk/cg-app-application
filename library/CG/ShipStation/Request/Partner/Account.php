@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Request\Partner;
 
-use CG\ShipStation\Entity\User;
+use CG\ShipStation\Messages\User;
 use CG\ShipStation\Request\PartnerRequestAbstract;
 use CG\ShipStation\Response\Partner\Account as Response;
 
@@ -15,9 +15,10 @@ class Account extends PartnerRequestAbstract
     /** @var  string */
     protected $externalAccountId;
 
-    public function __construct(User $user)
+    public function __construct(User $user, string $externalAccountId)
     {
         $this->user = $user;
+        $this->externalAccountId = $externalAccountId;
     }
 
     public function toArray(): array

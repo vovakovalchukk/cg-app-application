@@ -11,6 +11,7 @@ use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\BadResponseException as GuzzleBadResponseException;
 use Guzzle\Http\Exception\CurlException as GuzzleCurlException;
 use Guzzle\Http\Message\Response as HttpResponse;
+use CG\ShipStation\ShipStation\Credentials;
 
 class Client implements LoggerAwareInterface
 {

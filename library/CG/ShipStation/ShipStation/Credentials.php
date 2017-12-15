@@ -5,7 +5,12 @@ use CG\Account\CredentialsInterface;
 
 class Credentials implements CredentialsInterface
 {
-    protected $apiKey = '';
+    protected $apiKey;
+
+    public function __construct(string $apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
 
     public function isEmpty()
     {
@@ -20,11 +25,5 @@ class Credentials implements CredentialsInterface
     public function getApiKey(): string
     {
         return $this->apiKey;
-    }
-
-    public function setApiKey(string $apiKey)
-    {
-        $this->apiKey = $apiKey;
-        return $this;
     }
 }

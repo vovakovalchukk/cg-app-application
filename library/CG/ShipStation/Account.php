@@ -2,13 +2,16 @@
 namespace CG\ShipStation;
 
 use CG\Account\Client\Entity as AccountEntity;
+use CG\Account\Client\Mapper as AccountMapper;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
+use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\AccountInterface;
+use CG\Channel\Type;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\ShipStation\Entity\Address;
-use CG\ShipStation\Entity\User as UserRequestEntity;
+use CG\ShipStation\Messages\Address;
+use CG\ShipStation\Messages\User as UserRequestEntity;
 use CG\ShipStation\Request\Connect\Factory as ConnectFactory;
 use CG\ShipStation\Request\Partner\Account as AccountRequest;
 use CG\ShipStation\Request\Partner\ApiKey as ApiKeyRequest;
@@ -20,11 +23,18 @@ use CG\ShipStation\Response\Partner\ApiKey as ApiKeyResponse;
 use CG\ShipStation\Response\Shipping\CarrierServices as CarrierServicesResponse;
 use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
+use CG\Stdlib\DateTime;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
+use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 
 class Account implements AccountInterface
 {
+    const KEY_SHIPSTATION_ACCOUNT_ID = 'shipstationAccountId';
+    const ROUTE = 'ShipStation Module';
+    const ROUTE_SETUP = 'Setup';
+
     /** @var Client  */
     protected $client;
     /** @var  UserService */
@@ -37,6 +47,10 @@ class Account implements AccountInterface
     protected $cryptor;
     /** @var  ConnectFactory */
     protected $connectFactory;
+    /** @var  AccountMapper */
+    protected $accountMapper;
+    /** @var UrlHelper */
+    protected $urlHelper;
 
     public function __construct(
         Client $client,
@@ -44,7 +58,8 @@ class Account implements AccountInterface
         OrganisationUnitService $ouService,
         AccountService $accountService,
         Cryptor $cryptor,
-        ConnectFactory $factory
+        ConnectFactory $factory,
+        UrlHelper $urlHelper
     ) {
         $this->client = $client;
         $this->userService = $userService;
@@ -52,38 +67,32 @@ class Account implements AccountInterface
         $this->accountService;
         $this->cryptor = $cryptor;
         $this->connectFactory = $factory;
+        $this->urlHelper = $urlHelper;
     }
 
     public function getInitialisationUrl(AccountEntity $account, $route)
     {
-        // TODO: Implement getInitialisationUrl() method.
+        $routeVariables = ['channel' => $account->getChannel()];
+        return $this->urlHelper->fromRoute(static::ROUTE . '/' . static::ROUTE_SETUP, $routeVariables);
     }
 
     public function connect(AccountEntity $account, array $params = []): AccountEntity
     {
-        $shipStationAccount = $this->getShipStationAccountForAccount($account);
-        /** @var Credentials $credentials */
-        $credentials = $this->cryptor->decrypt($shipStationAccount->getCredentials());
+        $ou = $this->fetchOrganisationUnit($account->getOrganisationUnitId());
 
-        // Create a new Shipstation account and Warehouse if the current Account doesn't have one
-        if (!$credentials->getApiKey()) {
-            $ou = $this->fetchOrganisationUnit($account->getOrganisationUnitId());
+        try {
+            $shipStationAccount = $this->fetchExistingShipStationAccount($account);
+        } catch (NotFound $e) {
             $user = $this->fetchUser($account->getOrganisationUnitId());
-
-            $accountResponse = $this->sendAccountRequest($ou, $user, $shipStationAccount);
-            $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $shipStationAccount);
-
-            $credentials = (new Credentials())->setApiKey($apiKeyResponse->getEncryptedApiKey());
-            $shipStationAccount->setCredentials($this->cryptor->encrypt($credentials));
-
-            if (empty($shipStationAccount->getExternalData()['warehouseId'])) {
-                $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $shipStationAccount);
-                $shipStationAccount->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
-            }
-            $shipStationAccount = $this->accountService->save($shipStationAccount);
+            $accountResponse = $this->sendAccountRequest($ou, $user, $account);
+            $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
+            $shipStationAccount = $this->createShipStationAccount($account, $apiKeyResponse->getEncryptedApiKey());
+            $account->setExternalDataByKey(static::KEY_SHIPSTATION_ACCOUNT_ID, $shipStationAccount->getId());
         }
 
+        $this->createWarehouse($shipStationAccount, $ou);
         $this->createCarrierAccount($account, $shipStationAccount, $params);
+        $this->saveShipStationAccount($shipStationAccount);
         return $account;
     }
 
@@ -102,6 +111,20 @@ class Account implements AccountInterface
             'services',
             json_encode($this->getCarrierServices($connect, $shipStationAccount))
         );
+    }
+
+    protected function saveShipStationAccount(AccountEntity $account): void
+    {
+        $this->accountService->save($account);
+    }
+
+    protected function createWarehouse(AccountEntity $account, OrganisationUnit $ou): void
+    {
+        if (!empty($account->getExternalData()['warehouseId'])) {
+            return;
+        }
+        $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $account);
+        $account->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
     }
 
     protected function connectCarrierToShipStation(
@@ -127,7 +150,7 @@ class Account implements AccountInterface
 
     protected function fetchUser(int $ouId): UserEntity
     {
-        return $this->userService->fetchCollection(1, 1, $ouId)->first();
+        return $this->userService->fetchCollection(1, 1, $ouId)->getFirst();
     }
 
     protected function fetchOrganisationUnit(int $ouId): OrganisationUnit
@@ -137,7 +160,45 @@ class Account implements AccountInterface
 
     protected function getShipStationAccountForAccount(AccountEntity $account): AccountEntity
     {
-        return $this->accountService->fetch($account->getExpiryDate()['shipstationAccountId']);
+        try {
+            return $this->fetchExistingShipStationAccount($account);
+        } catch (NotFound $e) {
+            return $this->createShipStationAccount($account);
+        }
+    }
+
+    protected function fetchExistingShipStationAccount(AccountEntity $account): AccountEntity
+    {
+        try {
+            if (!isset($account->getExternalData()[static::KEY_SHIPSTATION_ACCOUNT_ID])) {
+                throw new NotFound();
+            }
+            return $this->accountService->fetch($account->getExternalData()['shipstationAccountId']);
+        } catch (NotFound $e) {
+            $filter = new AccountFilter(
+                1,
+                1,
+                [],
+                [$account->getOrganisationUnitId()],
+                ['shipstation']
+            );
+            return $this->accountService->fetchByFilter($filter)->getFirst();
+        }
+    }
+
+    protected function createShipStationAccount(AccountEntity $account, string $apiKey): AccountEntity
+    {
+        return $this->accountMapper->fromArray([
+            'channel' => 'shipstationAccount',
+            'organisationUnitId' => $account->getOrganisationUnitId(),
+            'displayName' => 'ShipStation',
+            'credentials' => $this->cryptor->encrypt(new Credentials($apiKey)),
+            'active' => true,
+            'deleted' => false,
+            'pending' => false,
+            'cgCreationDate' => (new DateTime())->format(DateTime::FORMAT),
+            'type' => [Type::SHIPPING_PROVIDER]
+        ]);
     }
 
     protected function getAccountRequest(OrganisationUnit $ou, UserEntity $user): AccountRequest
@@ -148,7 +209,7 @@ class Account implements AccountInterface
             /** @TODO: TBC if this is the name we want to use or @ou->getAddressFullName() */
             $ou->getAddressCompanyName()
         );
-        return (new AccountRequest($userRequestEntity))->setExternalAccountId($ou->getId());
+        return new AccountRequest($userRequestEntity, $ou->getId());
     }
 
     protected function getApiKeyRequest(AccountResponse $response)

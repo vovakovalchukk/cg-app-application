@@ -1,8 +1,8 @@
 <?php
 namespace CG\ShipStation\Response\Warehouse;
 
-use CG\ShipStation\Entity\Address;
-use CG\ShipStation\Entity\Timestamp;
+use CG\ShipStation\Messages\Address;
+use CG\ShipStation\Messages\Timestamp;
 use CG\ShipStation\ResponseAbstract;
 
 class Create extends ResponseAbstract
