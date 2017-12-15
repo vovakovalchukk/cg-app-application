@@ -4,11 +4,10 @@ namespace CG\ShipStation\Response\Shipping;
 use CG\ShipStation\Messages\AddressValidation;
 use CG\ShipStation\Messages\Package;
 use CG\ShipStation\Messages\ShipmentAddress;
-use CG\ShipStation\Messages\Timestamp;
 use CG\ShipStation\ResponseAbstract;
 use CG\Stdlib\DateTime;
 
-class Shipments extends ResponseAbstract
+class Shipment extends ResponseAbstract
 {
     /** @var AddressValidation */
     protected $addressValidation;
