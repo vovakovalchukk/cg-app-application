@@ -2,11 +2,16 @@
 namespace CG\ShipStation\Account;
 
 use CG\Account\Client\Entity as AccountEntity;
+use CG\Account\Client\Mapper as AccountMapper;
+use CG\Account\Client\Service as AccountService;
 use CG\Account\CreationServiceAbstract;
 use CG\Account\Credentials\Cryptor;
+use CG\Channel\AccountInterface;
 use CG\Channel\Type as ChannelType;
+use CG\Scraper\Client as ScraperClient;
 use CG\ShipStation\Account;
 use CG\ShipStation\Credentials;
+use CG\ShipStation\Carrier\Service as CarrierService;
 
 /**
  * Class CreationService
@@ -16,20 +21,39 @@ use CG\ShipStation\Credentials;
  */
 class CreationService extends CreationServiceAbstract
 {
+    /** @var  CarrierService */
+    protected $carrierService;
+
+    public function __construct(
+        AccountService $accountService,
+        Cryptor $cryptor,
+        AccountMapper $accountMapper,
+        ScraperClient $scraperClient,
+        CarrierService $carrierService,
+        AccountInterface $channelAccount = null
+    ) {
+        parent::__construct($accountService, $cryptor, $accountMapper, $scraperClient, $channelAccount);
+        $this->carrierService = $carrierService;
+    }
+
     public function configureAccount(AccountEntity $account, array $params)
     {
-        /** @TODO: For FedEx, this will be fedex-ss. How do we get the display name to be FedEx? */
-        $channel = $params['channel'];
+        $carrier = $this->carrierService->getCarrierForAccount($account);
+        $account->setType([ChannelType::SHIPPING])
+            ->setChannel($carrier->getChannelName())
+            ->setDisplayName($carrier->getDisplayName())
+            ->setCredentials($this->getCredentialsFromParams($params));
+
+        return $this->getChannelAccount()->connect($account, $params);
+    }
+
+    protected function getCredentialsFromParams(array $params): Credentials
+    {
         $credentials = new Credentials();
         foreach ($params as $field => $value) {
             $credentials->set($field, $value);
         }
-
-        $account->setType([ChannelType::SHIPPING])
-            ->setChannel($params['channel'])
-            ->setDisplayName($channel)
-            ->setCredentials($this->getCryptor()->encrypt($credentials));
-        return $this->getChannelAccount()->connect($account, $params);
+        return $credentials;
     }
 
     /**
