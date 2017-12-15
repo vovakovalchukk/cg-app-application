@@ -78,30 +78,21 @@ class Account implements AccountInterface
 
     public function connect(AccountEntity $account, array $params = []): AccountEntity
     {
-        $shipStationAccount = $this->getShipStationAccountForAccount($account);
-        /** @var Credentials $credentials */
-        $credentials = $this->cryptor->decrypt($shipStationAccount->getCredentials());
+        $ou = $this->fetchOrganisationUnit($account->getOrganisationUnitId());
 
-        // Create a new Shipstation account and Warehouse if the current Account doesn't have one
-        if (!$credentials->getApiKey()) {
-            $ou = $this->fetchOrganisationUnit($account->getOrganisationUnitId());
+        try {
+            $shipStationAccount = $this->fetchExistingShipStationAccount($account);
+        } catch (NotFound $e) {
             $user = $this->fetchUser($account->getOrganisationUnitId());
-
-            $accountResponse = $this->sendAccountRequest($ou, $user, $shipStationAccount);
-            $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $shipStationAccount);
-
-            $credentials = new Credentials($apiKeyResponse->getEncryptedApiKey());
-            $shipStationAccount->setCredentials($this->cryptor->encrypt($credentials));
-
-            if (empty($shipStationAccount->getExternalData()['warehouseId'])) {
-                $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $shipStationAccount);
-                $shipStationAccount->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
-            }
-            $shipStationAccount = $this->accountService->save($shipStationAccount);
+            $accountResponse = $this->sendAccountRequest($ou, $user, $account);
+            $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
+            $shipStationAccount = $this->createShipStationAccount($account, $apiKeyResponse->getEncryptedApiKey());
+            $account->setExternalDataByKey(static::KEY_SHIPSTATION_ACCOUNT_ID, $shipStationAccount->getId());
         }
 
-        $account->setExternalDataByKey(static::KEY_SHIPSTATION_ACCOUNT_ID, $shipStationAccount->getId());
+        $this->createWarehouse($shipStationAccount, $ou);
         $this->createCarrierAccount($account, $shipStationAccount, $params);
+        $this->saveShipStationAccount($shipStationAccount);
         return $account;
     }
 
@@ -120,6 +111,20 @@ class Account implements AccountInterface
             'services',
             json_encode($this->getCarrierServices($connect, $shipStationAccount))
         );
+    }
+
+    protected function saveShipStationAccount(AccountEntity $account): void
+    {
+        $this->accountService->save($account);
+    }
+
+    protected function createWarehouse(AccountEntity $account, OrganisationUnit $ou): void
+    {
+        if (!empty($account->getExternalData()['warehouseId'])) {
+            return;
+        }
+        $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $account);
+        $account->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
     }
 
     protected function connectCarrierToShipStation(
@@ -145,7 +150,7 @@ class Account implements AccountInterface
 
     protected function fetchUser(int $ouId): UserEntity
     {
-        return $this->userService->fetchCollection(1, 1, $ouId)->first();
+        return $this->userService->fetchCollection(1, 1, $ouId)->getFirst();
     }
 
     protected function fetchOrganisationUnit(int $ouId): OrganisationUnit
@@ -181,14 +186,13 @@ class Account implements AccountInterface
         }
     }
 
-    protected function createShipStationAccount(AccountEntity $account): AccountEntity
+    protected function createShipStationAccount(AccountEntity $account, string $apiKey): AccountEntity
     {
-        // create shipstation account
         return $this->accountMapper->fromArray([
             'channel' => 'shipstationAccount',
             'organisationUnitId' => $account->getOrganisationUnitId(),
             'displayName' => 'ShipStation',
-            'credentials' => $this->cryptor->encrypt(new Credentials('')),
+            'credentials' => $this->cryptor->encrypt(new Credentials($apiKey)),
             'active' => true,
             'deleted' => false,
             'pending' => false,
