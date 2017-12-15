@@ -1,5 +1,5 @@
 <?php
-namespace CG\ShipStation\Entity;
+namespace CG\ShipStation\Messages;
 
 class Package
 {
