@@ -14,6 +14,8 @@ class Entity
     protected $allowsCancellation;
     protected $allowsManifesting;
     protected $fields;
+    /** @var array */
+    protected $bookingOptions;
 
     protected $requiredFields = null;
 
@@ -23,14 +25,17 @@ class Entity
         $displayName = null,
         $salesChannelName = null,
         $allowsCancellation = null,
-        $allowsManifesting = null
+        $allowsManifesting = null,
+        array $bookingOptions = null
     ) {
-        $this->setChannelName($channelName)
+        $this
+            ->setChannelName($channelName)
             ->setFields($fields)
             ->setDisplayName($displayName)
             ->setSalesChannelName($salesChannelName)
             ->setAllowsCancellation($allowsCancellation)
-            ->setAllowsManifesting($allowsManifesting);
+            ->setAllowsManifesting($allowsManifesting)
+            ->setBookingOptions($bookingOptions);
     }
 
     public function getRequiredFieldNames(): array
@@ -128,6 +133,20 @@ class Entity
     public function setFields(FieldCollection $fields)
     {
         $this->fields = $fields;
+        return $this;
+    }
+
+    public function getBookingOptions(): array
+    {
+        return $this->bookingOptions;
+    }
+
+    /**
+     * @return self
+     */
+    public function setBookingOptions(array $bookingOptions = null)
+    {
+        $this->bookingOptions = $bookingOptions ?? [];
         return $this;
     }
 
