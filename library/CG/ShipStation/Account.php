@@ -89,8 +89,8 @@ class Account implements AccountInterface
             $accountResponse = $this->sendAccountRequest($ou, $user, $account);
             $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
             $shipStationAccount = $this->createShipStationAccount($account, $apiKeyResponse->getEncryptedApiKey());
-            $this->saveShipStationAccount($shipStationAccount);
             $this->createWarehouse($shipStationAccount, $ou);
+            $this->saveShipStationAccount($shipStationAccount);
         }
 
         $this->createCarrierAccount($account, $shipStationAccount, $params);
