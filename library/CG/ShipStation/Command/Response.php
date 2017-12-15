@@ -7,9 +7,8 @@ class Response extends ResponseAbstract
 {
     protected $json;
 
-    protected function build($decodedJson)
+    protected static function build($decodedJson)
     {
-        $this->json = $decodedJson;
-        return $this;
+        return (new static())->setJsonResponse(json_encode($decodedJson));
     }
 }
