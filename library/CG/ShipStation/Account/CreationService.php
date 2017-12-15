@@ -38,22 +38,22 @@ class CreationService extends CreationServiceAbstract
 
     public function configureAccount(AccountEntity $account, array $params)
     {
+        $account->setChannel($params['channel'] ?? '');
         $carrier = $this->carrierService->getCarrierForAccount($account);
         $account->setType([ChannelType::SHIPPING])
-            ->setChannel($carrier->getChannelName())
             ->setDisplayName($carrier->getDisplayName())
             ->setCredentials($this->getCredentialsFromParams($params));
 
         return $this->getChannelAccount()->connect($account, $params);
     }
 
-    protected function getCredentialsFromParams(array $params): Credentials
+    protected function getCredentialsFromParams(array $params): string
     {
         $credentials = new Credentials();
         foreach ($params as $field => $value) {
             $credentials->set($field, $value);
         }
-        return $credentials;
+        return $this->getCryptor()->encrypt($credentials);
     }
 
     /**

@@ -64,7 +64,7 @@ class Account implements AccountInterface
         $this->client = $client;
         $this->userService = $userService;
         $this->ouService = $ouService;
-        $this->accountService;
+        $this->accountService = $accountService;
         $this->cryptor = $cryptor;
         $this->connectFactory = $factory;
         $this->urlHelper = $urlHelper;
