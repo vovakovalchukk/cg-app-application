@@ -1,8 +1,8 @@
 <?php
 namespace CG\ShipStation\Request\Shipping;
 
-use CG\ShipStation\Entity\Shipment;
-use CG\ShipStation\Entity\ShipmentAddress;
+use CG\ShipStation\Messages\Shipment;
+use CG\ShipStation\Messages\ShipmentAddress;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Shipping\Shipments as Response;
 
