@@ -59,6 +59,7 @@ class Account implements AccountInterface
         AccountService $accountService,
         Cryptor $cryptor,
         ConnectFactory $factory,
+        AccountMapper $accountMapper,
         UrlHelper $urlHelper
     ) {
         $this->client = $client;
@@ -67,6 +68,7 @@ class Account implements AccountInterface
         $this->accountService = $accountService;
         $this->cryptor = $cryptor;
         $this->connectFactory = $factory;
+        $this->accountMapper = $accountMapper;
         $this->urlHelper = $urlHelper;
     }
 
@@ -93,6 +95,7 @@ class Account implements AccountInterface
         $this->createWarehouse($shipStationAccount, $ou);
         $this->createCarrierAccount($account, $shipStationAccount, $params);
         $this->saveShipStationAccount($shipStationAccount);
+        $account->setExternalDataByKey(static::KEY_SHIPSTATION_ACCOUNT_ID, $shipStationAccount->getId());
         return $account;
     }
 

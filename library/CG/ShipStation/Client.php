@@ -4,6 +4,7 @@ namespace CG\ShipStation;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\ShipStation\Request\PartnerRequestAbstract;
+use CG\ShipStation\ShipStation\Credentials;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -11,7 +12,6 @@ use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\BadResponseException as GuzzleBadResponseException;
 use Guzzle\Http\Exception\CurlException as GuzzleCurlException;
 use Guzzle\Http\Message\Response as HttpResponse;
-use CG\ShipStation\ShipStation\Credentials;
 
 class Client implements LoggerAwareInterface
 {
