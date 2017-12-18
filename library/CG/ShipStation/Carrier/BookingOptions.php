@@ -19,12 +19,12 @@ class BookingOptions implements BookingOptionsInterface
 
     public function getCarrierBookingOptionsForAccount(AccountEntity $account, $serviceCode = null)
     {
-        return $this->service->getCarrierForAccount($account)->getBookingOptions($serviceCode);
+        return $this->service->getCarrierForAccount($account)->getBookingOptions();
     }
 
     public function addCarrierSpecificDataToListArray(array $data, AccountEntity $account)
     {
-        // TODO: Implement addCarrierSpecificDataToListArray() method.
+        return $data;
     }
 
     public function getDataForCarrierBookingOption(
@@ -35,7 +35,7 @@ class BookingOptions implements BookingOptionsInterface
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
-        // TODO: Implement getDataForCarrierBookingOption() method.
+        return [];
     }
 
     public function isProvidedAccount(AccountEntity $account)

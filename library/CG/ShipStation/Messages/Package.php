@@ -6,8 +6,6 @@ use CG\Product\Detail\Entity as ProductDetail;
 
 class Package
 {
-
-
     /** @var float */
     protected $weight;
     /** @var string */
