@@ -1,6 +1,8 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\Order\Shared\Entity as Order;
+
 class ShipmentAddress extends Address
 {
     /** @var string */
@@ -78,5 +80,23 @@ class ShipmentAddress extends Address
     {
         $this->addressResidentialIndicator = $addressResidentialIndicator;
         return $this;
+    }
+
+    public static function createFromOrder(Order $order): ShipmentAddress
+    {
+        $addressResidentialIndicatorUnknown = 'unknown';
+        return new static(
+            $order->getShippingAddressFullNameForCourier(),
+            $order->getShippingPhoneNumberForCourier(),
+            $order->getShippingAddress1ForCourier(),
+            $order->getShippingAddressCityForCourier() ?? '',
+            $order->getShippingAddressCountyForCourier() ?? '',
+            $order->getShippingAddressPostcodeForCourier(),
+            $order->getShippingAddressCountryCodeForCourier(),
+            $order->getShippingAddress2ForCourier(),
+            $order->getShippingEmailAddressForCourier(),
+            $order->getShippingAddressCompanyNameForCourier(),
+            $addressResidentialIndicatorUnknown
+        );
     }
 }

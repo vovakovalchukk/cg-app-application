@@ -1,6 +1,9 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\Account\Shared\Entity as Account;
+use CG\Order\Shared\Entity as Order;
+
 class Shipment
 {
     /** @var string */
@@ -18,6 +21,26 @@ class Shipment
         $this->shipTo = $shipTo;
         $this->warehouseId = $warehouseId;
         $this->packages = $packages;
+    }
+
+    public static function createFromOrderAndData(
+        Order $order,
+        array $orderData,
+        array $parcelsData,
+        Account $shipStationAccount
+    ): Shipment {
+        $shipTo = ShipmentAddress::createFromOrder($order);
+        $packages = [];
+        foreach ($parcelsData as $parcelData) {
+            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData);
+        }
+
+        return new static(
+            $orderData['service'],
+            $shipTo,
+            $shipStationAccount->getExternalDataByKey('warehouseId'),
+            ...$packages
+        );
     }
 
     public function getServiceCode(): string

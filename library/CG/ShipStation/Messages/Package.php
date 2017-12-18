@@ -1,8 +1,13 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\Order\Shared\Entity as Order;
+use CG\Product\Detail\Entity as ProductDetail;
+
 class Package
 {
+
+
     /** @var float */
     protected $weight;
     /** @var string */
@@ -51,6 +56,24 @@ class Package
             $decodedJson->dimensions->units,
             $decodedJson->insured_value->amount,
             $decodedJson->insured_value->currency
+        );
+    }
+
+    public static function createFromOrderAndData(Order $order, array $orderData, array $parcelData): Package
+    {
+        $insuranceAmount = 0;
+        if (isset($orderData['insuranceMonetary'])) {
+            $insuranceAmount = round($orderData['insuranceMonetary'] / $orderData['parcels'], 2);
+        }
+        return new static(
+            $parcelData['weight'],
+            ProductDetail::DISPLAY_UNIT_MASS,
+            $parcelData['length'],
+            $parcelData['width'],
+            $parcelData['height'],
+            ProductDetail::DISPLAY_UNIT_LENGTH,
+            $insuranceAmount,
+            $order->getCurrencyCode()
         );
     }
 
