@@ -10,9 +10,10 @@ class Timestamp
     /** @var  DateTime */
     protected $modifiedAt;
 
-    public function __construct(DateTime $createdAt)
+    public function __construct(DateTime $createdAt, DateTime $modifiedAt = null)
     {
         $this->createdAt = $createdAt;
+        $this->modifiedAt = $modifiedAt;
     }
 
     public function getCreatedAt(): ?DateTime
