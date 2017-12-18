@@ -59,6 +59,8 @@ class Label extends ResponseAbstract
     protected $formDownload;
     /** @var Downloadable */
     protected $insuranceClaim;
+    /** @var array */
+    protected $errors;
 
     public function __construct(
         string $labelId,
@@ -86,7 +88,8 @@ class Label extends ResponseAbstract
         string $trackingStatus,
         ?Downloadable $labelDownload,
         ?Downloadable $formDownload,
-        ?Downloadable $insuranceClaim
+        ?Downloadable $insuranceClaim,
+        array $errors = []
     ) {
         $this->labelId = $labelId;
         $this->status = $status;
@@ -114,10 +117,18 @@ class Label extends ResponseAbstract
         $this->labelDownload = $labelDownload;
         $this->formDownload = $formDownload;
         $this->insuranceClaim = $insuranceClaim;
+        $this->errors = $errors;
     }
 
     protected static function build($decodedJson)
     {
+        $errors = [];
+        if (isset($decodedJson->errors)) {
+            foreach ($decodedJson->errors as $errorJson) {
+                $errors[] = $errorJson->message;
+            }
+        }
+
         return new static(
             $decodedJson->label_id,
             $decodedJson->status,
@@ -144,7 +155,8 @@ class Label extends ResponseAbstract
             $decodedJson->tracking_status,
             isset($decodedJson->label_download) ? Downloadable::build($decodedJson->label_download) : null,
             isset($decodedJson->form_download) ? Downloadable::build($decodedJson->form_download) : null,
-            isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null
+            isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null,
+            $errors
         );
     }
 
@@ -276,5 +288,10 @@ class Label extends ResponseAbstract
     public function getInsuranceClaim(): ?Downloadable
     {
         return $this->insuranceClaim;
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }
