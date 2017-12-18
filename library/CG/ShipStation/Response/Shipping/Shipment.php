@@ -3,6 +3,7 @@ namespace CG\ShipStation\Response\Shipping;
 
 use CG\ShipStation\Messages\AddressValidation;
 use CG\ShipStation\Messages\Package;
+use \CG\ShipStation\Messages\Shipment as ShipmentRequest;
 use CG\ShipStation\Messages\ShipmentAddress;
 use CG\Stdlib\DateTime;
 
@@ -48,6 +49,8 @@ class Shipment
     protected $totalWeightUnit;
     /** @var Package[] */
     protected $packages;
+    /** @var array */
+    protected $errors;
 
     public function __construct(
         AddressValidation $addressValidation,
@@ -69,7 +72,8 @@ class Shipment
         array $tags,
         float $totalWeight,
         string $totalWeightUnit,
-        array $packages
+        array $packages,
+        array $errors = []
     ) {
         $this->addressValidation = $addressValidation;
         $this->shipmentId = $shipmentId;
@@ -91,6 +95,7 @@ class Shipment
         $this->totalWeight = $totalWeight;
         $this->totalWeightUnit = $totalWeightUnit;
         $this->packages = $packages;
+        $this->errors = $errors;
     }
 
     public static function build($decodedJson): Shipment
@@ -105,6 +110,12 @@ class Shipment
         $packages = [];
         foreach ($decodedJson->packages as $packageJson) {
             $packages[] = Package::build($packageJson);
+        }
+        $errors = [];
+        if (isset($decodedJson->errors) && $decodedJson->errors != null) {
+            foreach ($decodedJson->errors as $errorJson) {
+                $errors[] = $errorJson->error;
+            }
         }
 
         return new static(
@@ -127,8 +138,15 @@ class Shipment
             $decodedJson->tags ?? [],
             $decodedJson->total_weight->value,
             $decodedJson->total_weight->units,
-            $packages
+            $packages,
+            $errors
         );
+    }
+
+    public function getOrderId(): string
+    {
+        $externalIdParts = explode(ShipmentRequest::EXTERNAL_ID_SEP, $this->getExternalShipmentId());
+        return $externalIdParts[0];
     }
 
     public function getAddressValidation(): AddressValidation
