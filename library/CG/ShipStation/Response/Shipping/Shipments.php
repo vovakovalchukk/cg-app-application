@@ -13,7 +13,9 @@ class Shipments extends ResponseAbstract implements Countable, Iterator
     public function __construct(bool $hasErrors, Shipment ...$shipments)
     {
         $this->hasErrors = $hasErrors;
-        $this->shipments = $shipments;
+        foreach ($shipments as $shipment) {
+            $this->shipments[$shipment->getShipmentId()] = $shipment;
+        }
     }
 
     protected static function build($decodedJson): Shipments
@@ -37,6 +39,14 @@ class Shipments extends ResponseAbstract implements Countable, Iterator
     public function getShipments(): array
     {
         return $this->shipments;
+    }
+
+    public function getShipmentById(string $id): Shipment
+    {
+        if (!isset($this->shipments[$id])) {
+            throw new \InvalidArgumentException('Shipment with ID ' . $id . ' not in array of shipments');
+        }
+        return $this->shipments[$id];
     }
 
     /* Iterator methods */
