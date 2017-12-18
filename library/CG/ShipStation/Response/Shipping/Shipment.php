@@ -112,9 +112,9 @@ class Shipment
             $packages[] = Package::build($packageJson);
         }
         $errors = [];
-        if (isset($decodedJson->errors) && $decodedJson->errors != null) {
+        if (isset($decodedJson->errors)) {
             foreach ($decodedJson->errors as $errorJson) {
-                $errors[] = $errorJson->error;
+                $errors[] = $errorJson->message;
             }
         }
 
@@ -247,5 +247,10 @@ class Shipment
     public function getPackages(): array
     {
         return $this->packages;
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }
