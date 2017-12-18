@@ -141,10 +141,7 @@ class Entity
         return $this->bookingOptions;
     }
 
-    /**
-     * @return self
-     */
-    public function setBookingOptions(array $bookingOptions = null)
+    public function setBookingOptions(array $bookingOptions = null): Entity
     {
         $this->bookingOptions = $bookingOptions ?? [];
         return $this;

@@ -4,6 +4,8 @@ namespace CG\ShipStation;
 use CG\Account\Shared\Entity as ShippingAccount;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\Order\Shared\ShippableInterface as Order;
+use CG\ShipStation\Response\Shipping\CarrierServices as CarrierServicesResponse;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ShippingService implements ShippingServiceInterface
 {
@@ -18,28 +20,24 @@ class ShippingService implements ShippingServiceInterface
     public function getShippingServices()
     {
         $services = [];
-        foreach ($this->getAccountShippingServices() as $service) {
-            $services[$service['serviceCode']] = $service['name'];
+        try {
+            $response = $this->getAccountShippingServices();
+            foreach ($response->getServices() as $service) {
+                $services[$service->getCarrierService()->getServiceCode()] = $service->getCarrierService()->getName();
+            }
+        } catch (NotFound $e) {
+            // No services found, leave the services array empty
         }
         return $services;
     }
 
-    protected function getAccountShippingServices(): \Generator
+    protected function getAccountShippingServices(): CarrierServicesResponse
     {
         if (!isset($this->account->getExternalData()['services'])) {
-            return [];
+            throw new NotFound('No services found for the account "' . $this->account->getId() . '"');
         }
 
-        $services = json_decode($this->account->getExternalData()['services']);
-        if (!is_array($services)) {
-            return [];
-        }
-
-        foreach ($services as $service) {
-            if (isset($service['carrierService']) && is_array($service['carrierService'])) {
-                yield $service['carrierService'];
-            }
-        }
+        return CarrierServicesResponse::createFromJson($this->account->getExternalData()['services']);
     }
 
     public function getShippingServicesForOrder(Order $order)

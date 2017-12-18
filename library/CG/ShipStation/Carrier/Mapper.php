@@ -21,14 +21,16 @@ class Mapper
             $carrierConfig['displayName'] ?? null,
             $carrierConfig['salesChannelName'] ?? null,
             $carrierConfig['allowsCancellation'] ?? null,
-            $carrierConfig['allowsManifesting'] ?? null
+            $carrierConfig['allowsManifesting'] ?? null,
+            $carrierConfig['bookingOptions'] ?? null
         );
     }
 
-    public function collectionFromArray(array $carriersConfig): Collection
+    public function collectionFromArray(array $carriersConfig, array $defaultBookingOptions): Collection
     {
         $collection = new Collection(Entity::class, __FUNCTION__);
         foreach ($carriersConfig as $carrierConfig) {
+            $carrierConfig['bookingOptions'] = $carriersConfig['bookingOptions'] ?? $defaultBookingOptions;
             $collection->attach($this->fromArray($carrierConfig));
         }
         return $collection;

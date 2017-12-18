@@ -108,6 +108,14 @@ return [
                                 ],
                             ]
                         ]
+                    ],
+                    'defaultBookingOptions' => [
+                        'parcels' => 'parcels',
+                        'weight' => 'weight',
+                        'height' => 'height',
+                        'width' => 'width',
+                        'length' => 'length',
+                        'insuranceMonetary' => 'insuranceMonetary'
                     ]
                 ]
             ]
