@@ -25,15 +25,28 @@ use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 
-class Account implements AccountInterface
+class Account implements AccountInterface, LoggerAwareInterface
 {
+    use LogTrait;
+
     const KEY_SHIPSTATION_ACCOUNT_ID = 'shipstationAccountId';
     const ROUTE = 'ShipStation Module';
     const ROUTE_SETUP = 'Setup';
+
+    const LOG_CODE = 'ShipStation Account Creation';
+    const LOG_MESSAGE_EXISTING_SHIPSTATION_ACCOUNT = 'Using the existing ShipStation account with ID "%s"';
+    const LOG_MESSAGE_ACCOUNT_CREATED = 'Successfully created a ShipStation account for OU with ID "%s"';
+    const LOG_MESSAGE_API_KEY_GENERATED = 'Successfully generated a new API Key for user with ShipStation account ID "%s"';
+    const LOG_MESSAGE_WAREHOUSE_CREATED = 'Successfully created a new warehouse with ID "%s%" for OU "%s"';
+    const LOG_MESSAGE_ACCOUNT_SAVED = 'Successfully created a new ShipStation account with ID "%s" for OU "%s"';
+    const LOG_MESSAGE_CARRIER_ACCOUNT_CONNECTED = 'Successfully connected a new "%s" account with ID "%s" for OU "%s"';
+    const LOG_MESSAGE_SERVICES_SAVED = 'Successfully fetched and saved the shipping services for ShipStation account ID "%s';
 
     /** @var Client  */
     protected $client;
@@ -84,10 +97,13 @@ class Account implements AccountInterface
 
         try {
             $shipStationAccount = $this->fetchExistingShipStationAccount($account);
+            $this->logDebug(static::LOG_MESSAGE_EXISTING_SHIPSTATION_ACCOUNT, [$shipStationAccount->getId()], static::LOG_CODE, ['shipstationAccountId' => $shipStationAccount->getId()]);
         } catch (NotFound $e) {
             $user = $this->fetchUser($account->getOrganisationUnitId());
             $accountResponse = $this->sendAccountRequest($ou, $user, $account);
+            $this->logDebug(static::LOG_MESSAGE_ACCOUNT_CREATED, [$user->getOrganisationUnitId()], static::LOG_CODE. ['organisationUnitId' => $user->getOrganisationUnitId()]);
             $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
+            $this->logDebug(static::LOG_MESSAGE_API_KEY_GENERATED, [$accountResponse->getAccount()->getAccountId()], static::LOG_CODE, ['shipStationAccountId' => $accountResponse->getAccount()->getAccountId(), 'apiKey' => $apiKeyResponse->getEncryptedApiKey()]);
             $shipStationAccount = $this->createShipStationAccount($account, $apiKeyResponse->getEncryptedApiKey());
             $this->createWarehouse($shipStationAccount, $ou);
             $this->saveShipStationAccount($shipStationAccount);
@@ -107,16 +123,19 @@ class Account implements AccountInterface
             throw new \RuntimeException('Cannot update an existing ShipStation Carrier account.');
         }
         $connect = $this->connectCarrierToShipStation($account, $shipStationAccount, $params);
+        $this->logDebug(static::LOG_MESSAGE_CARRIER_ACCOUNT_CONNECTED, [$account->getChannel(), $connect->getCarrier()->getCarrierId(), $account->getOrganisationUnitId()]);
         $account->setExternalId($connect->getCarrier()->getCarrierId());
         $account->setExternalDataByKey(
             'services',
             $this->getCarrierServices($connect, $shipStationAccount)->getJsonResponse()
         );
+        $this->logDebug(static::LOG_MESSAGE_SERVICES_SAVED, [$shipStationAccount->getExternalId()]);
     }
 
     protected function saveShipStationAccount(AccountEntity $account): void
     {
         $this->accountService->save($account);
+        $this->logDebug(static::LOG_MESSAGE_ACCOUNT_SAVED, [$account->getOrganisationUnitId(), $account->getId()], static::LOG_CODE, ['organisationUnitId' => $account->getOrganisationUnitId(), 'accountId' => $account->getId()]);
     }
 
     protected function createWarehouse(AccountEntity $account, OrganisationUnit $ou): void
@@ -125,6 +144,7 @@ class Account implements AccountInterface
             return;
         }
         $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $account);
+        $this->logDebug(static::LOG_MESSAGE_WAREHOUSE_CREATED, [$createWarehouseResponse->getWarehouseId(), $ou->getOrganisationUnitId()]);
         $account->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
     }
 
