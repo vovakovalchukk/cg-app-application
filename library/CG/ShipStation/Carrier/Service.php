@@ -25,12 +25,13 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
         Mapper $mapper,
         FeatureFlagsService $featureFlagsService,
         UserOuService $userOuService,
-        array $carriersConfig = []
+        array $carriersConfig = [],
+        array $defaultBookingOptions = []
     ) {
         $this->mapper = $mapper;
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
-        $this->carriers = $this->mapper->collectionFromArray($carriersConfig);
+        $this->carriers = $this->mapper->collectionFromArray($carriersConfig, $defaultBookingOptions);
     }
 
     public function getCarrierForAccount(Account $account): Entity
