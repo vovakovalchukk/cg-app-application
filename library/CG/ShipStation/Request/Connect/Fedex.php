@@ -6,7 +6,7 @@ use CG\ShipStation\Messages\User;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Connect\Response as Response;
 
-class FedEx extends RequestAbstract implements ConnectInterface
+class Fedex extends RequestAbstract implements ConnectInterface
 {
     const METHOD = 'POST';
     const URI = '/connections/carriers/fedex';
@@ -20,10 +20,12 @@ class FedEx extends RequestAbstract implements ConnectInterface
     /** @var  string */
     protected $accountNumber;
 
-    public function __construct(Address $address, User $user)
+    public function __construct(Address $address, User $user, string $nickname, string $accountNumber)
     {
         $this->address = $address;
         $this->user = $user;
+        $this->nickname = $nickname;
+        $this->accountNumber = $accountNumber;
     }
 
     public static function fromArray(array $params): ConnectInterface
@@ -34,13 +36,13 @@ class FedEx extends RequestAbstract implements ConnectInterface
             $params['address1'],
             $params['city'],
             $params['state'],
-            $params['postal_code'],
-            $params['country_code'],
+            $params['postal code'],
+            $params['country code'],
             $params['address2'],
             $params['email']
         );
-        $user = new User($params['first_name'], $params['last_name'], $params['company']);
-        return new static($address, $user);
+        $user = new User($params['first name'], $params['last name'], $params['company']);
+        return new static($address, $user, $params['nickname'], $params['account number']);
     }
 
     public function toArray(): array
@@ -68,7 +70,7 @@ class FedEx extends RequestAbstract implements ConnectInterface
         return Response::class;
     }
 
-    public function getNickname(): string
+    public function getNickname(): ?string
     {
         return $this->nickname;
     }
@@ -79,7 +81,7 @@ class FedEx extends RequestAbstract implements ConnectInterface
         return $this;
     }
 
-    public function getAccountNumber(): string
+    public function getAccountNumber(): ?string
     {
         return $this->accountNumber;
     }

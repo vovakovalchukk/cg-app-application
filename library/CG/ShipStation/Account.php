@@ -59,14 +59,16 @@ class Account implements AccountInterface
         AccountService $accountService,
         Cryptor $cryptor,
         ConnectFactory $factory,
+        AccountMapper $accountMapper,
         UrlHelper $urlHelper
     ) {
         $this->client = $client;
         $this->userService = $userService;
         $this->ouService = $ouService;
-        $this->accountService;
+        $this->accountService = $accountService;
         $this->cryptor = $cryptor;
         $this->connectFactory = $factory;
+        $this->accountMapper = $accountMapper;
         $this->urlHelper = $urlHelper;
     }
 
@@ -87,12 +89,12 @@ class Account implements AccountInterface
             $accountResponse = $this->sendAccountRequest($ou, $user, $account);
             $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
             $shipStationAccount = $this->createShipStationAccount($account, $apiKeyResponse->getEncryptedApiKey());
-            $account->setExternalDataByKey(static::KEY_SHIPSTATION_ACCOUNT_ID, $shipStationAccount->getId());
+            $this->createWarehouse($shipStationAccount, $ou);
+            $this->saveShipStationAccount($shipStationAccount);
         }
 
-        $this->createWarehouse($shipStationAccount, $ou);
         $this->createCarrierAccount($account, $shipStationAccount, $params);
-        $this->saveShipStationAccount($shipStationAccount);
+        $account->setExternalDataByKey(static::KEY_SHIPSTATION_ACCOUNT_ID, $shipStationAccount->getId());
         return $account;
     }
 
@@ -104,12 +106,11 @@ class Account implements AccountInterface
         if ($account->getExternalId()) {
             throw new \RuntimeException('Cannot update an existing ShipStation Carrier account.');
         }
-
         $connect = $this->connectCarrierToShipStation($account, $shipStationAccount, $params);
         $account->setExternalId($connect->getCarrier()->getCarrierId());
         $account->setExternalDataByKey(
             'services',
-            json_encode($this->getCarrierServices($connect, $shipStationAccount))
+            $this->getCarrierServices($connect, $shipStationAccount)->getJsonResponse()
         );
     }
 
@@ -158,15 +159,6 @@ class Account implements AccountInterface
         return $this->ouService->fetch($ouId);
     }
 
-    protected function getShipStationAccountForAccount(AccountEntity $account): AccountEntity
-    {
-        try {
-            return $this->fetchExistingShipStationAccount($account);
-        } catch (NotFound $e) {
-            return $this->createShipStationAccount($account);
-        }
-    }
-
     protected function fetchExistingShipStationAccount(AccountEntity $account): AccountEntity
     {
         try {
@@ -180,7 +172,7 @@ class Account implements AccountInterface
                 1,
                 [],
                 [$account->getOrganisationUnitId()],
-                ['shipstation']
+                ['shipstationAccount']
             );
             return $this->accountService->fetchByFilter($filter)->getFirst();
         }
@@ -245,6 +237,7 @@ class Account implements AccountInterface
             $ou->getPhoneNumber(),
             $ou->getAddress1(),
             $ou->getAddressCity(),
+            $ou->getAddressCounty(),
             /** @TODO: check if our country code matches the one required by ShipStation */
             $ou->getAddressPostcode(),
             $ou->getAddressCountryCode(),

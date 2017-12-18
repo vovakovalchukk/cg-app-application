@@ -27,6 +27,8 @@ use CG\CourierAdapter\Provider\Label\Service as CourierAdapterProviderLabelServi
 
 // ShipStation
 use CG\ShipStation\Carrier\Service as ShipStationCarrierService;
+use CG\ShipStation\Carrier\BookingOptions as ShipStationBookingOptionsService;
+use CG\ShipStation\Carrier\Label\Service as ShipStationLabelService;
 
 return [
     'di' => [
@@ -51,6 +53,7 @@ return [
                         ['provider' => AmazonMcfCarrierBookingOptions::class],
                         ['provider' => AmazonShippingChannelsProvider::class],
                         ['provider' => CourierAdapterProviderCarrierBookingOptions::class],
+                        ['provider' => ShipStationBookingOptionsService::class],
                     ]
                 ]
             ],
@@ -62,6 +65,7 @@ return [
                         ['provider' => AmazonMcfCarrierProviderService::class],
                         ['provider' => AmazonCarrierProvider::class],
                         ['provider' => CourierAdapterProviderLabelService::class],
+                        ['provider' => ShipStationLabelService::class]
                     ]
                 ]
             ],
