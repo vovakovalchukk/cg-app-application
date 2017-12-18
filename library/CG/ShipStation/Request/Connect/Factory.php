@@ -15,9 +15,9 @@ class Factory
     {
         $channelName = preg_replace('/-ss$/', '', $account->getChannel());
         /** @var ConnectInterface $className */
-        $className = __NAMESPACE__ . ucfirst($channelName);
+        $className = __NAMESPACE__ . '\\' . ucfirst($channelName);
         if (!class_exists($className)) {
-            throw new \InvalidArgumentException('Channel "' . $account->getChannel() . '" doesn\'t have an associated Connect class');
+            throw new \InvalidArgumentException('Channel "' . $channelName . '" doesn\'t have an associated Connect class');
         }
 
         return $className;
