@@ -1,9 +1,13 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
+use CG\BigCommerce\Request\Time;
 use CG\ShipStation\Messages\AddressValidation;
+use CG\ShipStation\Messages\Carrier;
 use CG\ShipStation\Messages\Package;
+use \CG\ShipStation\Messages\Shipment as ShipmentRequest;
 use CG\ShipStation\Messages\ShipmentAddress;
+use CG\ShipStation\Messages\Timestamp;
 use CG\Stdlib\DateTime;
 
 class Shipment
@@ -12,18 +16,16 @@ class Shipment
     protected $addressValidation;
     /** @var string */
     protected $shipmentId;
-    /** @var string */
-    protected $carrierId;
+    /** @var Carrier */
+    protected $carrier;
     /** @var string */
     protected $serviceCode;
     /** @var ?string */
     protected $externalShipmentId;
     /** @var DateTime */
     protected $shipDate;
-    /** @var DateTime */
-    protected $createdAt;
-    /** @var DateTime */
-    protected $modifiedAt;
+    /** @var Time */
+    protected $timestamp;
     /** @var string */
     protected $shipmentStatus;
     /** @var ShipmentAddress */
@@ -48,16 +50,17 @@ class Shipment
     protected $totalWeightUnit;
     /** @var Package[] */
     protected $packages;
+    /** @var array */
+    protected $errors;
 
     public function __construct(
         AddressValidation $addressValidation,
         string $shipmentId,
-        string $carrierId,
+        Carrier $carrier,
         string $serviceCode,
         $externalShipmentId,
         DateTime $shipDate,
-        DateTime $createdAt,
-        DateTime $modifiedAt,
+        Timestamp $timestamp,
         string $shipmentStatus,
         ShipmentAddress $shipTo,
         ShipmentAddress $shipFrom,
@@ -69,16 +72,16 @@ class Shipment
         array $tags,
         float $totalWeight,
         string $totalWeightUnit,
-        array $packages
+        array $packages,
+        array $errors = []
     ) {
         $this->addressValidation = $addressValidation;
         $this->shipmentId = $shipmentId;
-        $this->carrierId = $carrierId;
+        $this->carrier = $carrier;
         $this->serviceCode = $serviceCode;
         $this->externalShipmentId = $externalShipmentId;
         $this->shipDate = $shipDate;
-        $this->createdAt = $createdAt;
-        $this->modifiedAt = $modifiedAt;
+        $this->timestamp = $timestamp;
         $this->shipmentStatus = $shipmentStatus;
         $this->shipTo = $shipTo;
         $this->shipFrom = $shipFrom;
@@ -91,6 +94,7 @@ class Shipment
         $this->totalWeight = $totalWeight;
         $this->totalWeightUnit = $totalWeightUnit;
         $this->packages = $packages;
+        $this->errors = $errors;
     }
 
     public static function build($decodedJson): Shipment
@@ -106,16 +110,21 @@ class Shipment
         foreach ($decodedJson->packages as $packageJson) {
             $packages[] = Package::build($packageJson);
         }
+        $errors = [];
+        if (isset($decodedJson->errors)) {
+            foreach ($decodedJson->errors as $errorJson) {
+                $errors[] = $errorJson->message;
+            }
+        }
 
         return new static(
             $addressValidation,
             $decodedJson->shipment_id,
-            $decodedJson->carrier_id,
+            new Carrier($decodedJson->carrier_id),
             $decodedJson->service_code,
             $decodedJson->external_shipment_id,
             $shipDate,
-            $createdAt,
-            $modifiedAt,
+            new Timestamp($createdAt, $modifiedAt),
             $decodedJson->shipment_status,
             $shipTo,
             $shipFrom,
@@ -127,8 +136,15 @@ class Shipment
             $decodedJson->tags ?? [],
             $decodedJson->total_weight->value,
             $decodedJson->total_weight->units,
-            $packages
+            $packages,
+            $errors
         );
+    }
+
+    public function getOrderId(): string
+    {
+        $externalIdParts = explode(ShipmentRequest::EXTERNAL_ID_SEP, $this->getExternalShipmentId());
+        return $externalIdParts[0];
     }
 
     public function getAddressValidation(): AddressValidation
@@ -141,9 +157,9 @@ class Shipment
         return $this->shipmentId;
     }
 
-    public function getCarrierId(): string
+    public function getCarrier(): Carrier
     {
-        return $this->carrierId;
+        return $this->carrier;
     }
 
     public function getServiceCode(): string
@@ -161,14 +177,9 @@ class Shipment
         return $this->shipDate;
     }
 
-    public function getCreatedAt(): DateTime
+    public function getTimestamp(): Timestamp
     {
-        return $this->createdAt;
-    }
-
-    public function getModifiedAt(): DateTime
-    {
-        return $this->modifiedAt;
+        return $this->timestamp;
     }
 
     public function getShipmentStatus(): string
@@ -229,5 +240,10 @@ class Shipment
     public function getPackages(): array
     {
         return $this->packages;
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }

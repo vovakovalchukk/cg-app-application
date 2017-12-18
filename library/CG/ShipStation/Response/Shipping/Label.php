@@ -1,6 +1,7 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
+use CG\ShipStation\Messages\Carrier;
 use CG\ShipStation\Messages\Downloadable;
 use CG\ShipStation\ResponseAbstract;
 use CG\Stdlib\DateTime;
@@ -33,8 +34,8 @@ class Label extends ResponseAbstract
     protected $international;
     /** @var string */
     protected $batchId;
-    /** @var string */
-    protected $carrierId;
+    /** @var Carrier */
+    protected $carrier;
     /** @var string */
     protected $serviceCode;
     /** @var string */
@@ -50,8 +51,6 @@ class Label extends ResponseAbstract
     /** @var bool */
     protected $trackable;
     /** @var string */
-    protected $carrierCode;
-    /** @var string */
     protected $trackingStatus;
     /** @var Downloadable */
     protected $labelDownload;
@@ -59,6 +58,8 @@ class Label extends ResponseAbstract
     protected $formDownload;
     /** @var Downloadable */
     protected $insuranceClaim;
+    /** @var array */
+    protected $errors;
 
     public function __construct(
         string $labelId,
@@ -74,7 +75,7 @@ class Label extends ResponseAbstract
         bool $returnLabel,
         bool $international,
         string $batchId,
-        string $carrierId,
+        Carrier $carrier,
         string $serviceCode,
         string $packageCode,
         bool $voided,
@@ -82,11 +83,11 @@ class Label extends ResponseAbstract
         string $labelFormat,
         string $labelLayout,
         bool $trackable,
-        string $carrierCode,
         string $trackingStatus,
         ?Downloadable $labelDownload,
         ?Downloadable $formDownload,
-        ?Downloadable $insuranceClaim
+        ?Downloadable $insuranceClaim,
+        array $errors = []
     ) {
         $this->labelId = $labelId;
         $this->status = $status;
@@ -101,7 +102,7 @@ class Label extends ResponseAbstract
         $this->returnLabel = $returnLabel;
         $this->international = $international;
         $this->batchId = $batchId;
-        $this->carrierId = $carrierId;
+        $this->carrier = $carrier;
         $this->serviceCode = $serviceCode;
         $this->packageCode = $packageCode;
         $this->voided = $voided;
@@ -109,15 +110,22 @@ class Label extends ResponseAbstract
         $this->labelFormat = $labelFormat;
         $this->labelLayout = $labelLayout;
         $this->trackable = $trackable;
-        $this->carrierCode = $carrierCode;
         $this->trackingStatus = $trackingStatus;
         $this->labelDownload = $labelDownload;
         $this->formDownload = $formDownload;
         $this->insuranceClaim = $insuranceClaim;
+        $this->errors = $errors;
     }
 
     protected static function build($decodedJson)
     {
+        $errors = [];
+        if (isset($decodedJson->errors)) {
+            foreach ($decodedJson->errors as $errorJson) {
+                $errors[] = $errorJson->message;
+            }
+        }
+
         return new static(
             $decodedJson->label_id,
             $decodedJson->status,
@@ -132,7 +140,7 @@ class Label extends ResponseAbstract
             $decodedJson->is_return_label,
             $decodedJson->is_international,
             $decodedJson->batch_id,
-            $decodedJson->carrier_id,
+            new Carrier($decodedJson->carrier_id, $decodedJson->carrier_code),
             $decodedJson->service_code,
             $decodedJson->package_code,
             $decodedJson->voided,
@@ -140,11 +148,11 @@ class Label extends ResponseAbstract
             $decodedJson->label_format,
             $decodedJson->label_layout,
             $decodedJson->trackable,
-            $decodedJson->carrier_code,
             $decodedJson->tracking_status,
             isset($decodedJson->label_download) ? Downloadable::build($decodedJson->label_download) : null,
             isset($decodedJson->form_download) ? Downloadable::build($decodedJson->form_download) : null,
-            isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null
+            isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null,
+            $errors
         );
     }
 
@@ -213,9 +221,9 @@ class Label extends ResponseAbstract
         return $this->batchId;
     }
 
-    public function getCarrierId(): string
+    public function getCarrier(): Carrier
     {
-        return $this->carrierId;
+        return $this->carrier;
     }
 
     public function getServiceCode(): string
@@ -253,11 +261,6 @@ class Label extends ResponseAbstract
         return $this->trackable;
     }
 
-    public function getCarrierCode(): string
-    {
-        return $this->carrierCode;
-    }
-
     public function getTrackingStatus(): string
     {
         return $this->trackingStatus;
@@ -276,5 +279,10 @@ class Label extends ResponseAbstract
     public function getInsuranceClaim(): ?Downloadable
     {
         return $this->insuranceClaim;
+    }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }

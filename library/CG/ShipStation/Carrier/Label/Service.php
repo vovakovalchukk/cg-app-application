@@ -52,19 +52,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     }
 
     /**
-     * @param OrderCollection $orders The orders to operate on
-     * @param OrderLabelCollection $orderLabels Pre-created OrderLabels to save label PDF data to
-     * @param array $ordersData Additional data for each Order:
-     *         ['{orderId}' => ['signature' => bool, 'deliveryInstructions' => string, ...]]
-     * @param array $orderParcelsData Additional data for each parcel:
-     *         ['{orderId}' => ['{parcelIndex}' => ['value' => float, 'height' => float, ...]]]
-     * @param array $orderItemsData Additional data for each item:
-     *         ['{orderId}' => ['{itemId}' => ['weight' => float, 'hstariff' => string, ...]]]
-     * @param OrganisationUnit $rootOu
-     * @param Account $shippingAccount
-     * @param User $user The user who triggered the request. Required if creating Order\Trackings
-     * @return array ['{orderId}' => bool || CG\Stdlib\Exception\Runtime\ValidationMessagesException]
-     *          for each order whether a label was successfully created or a ValidationMessagesException if it errored
+     * @inheritdoc
      */
     public function createLabelsForOrders(
         OrderCollection $orders,
@@ -82,10 +70,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             $orderLabels,
             $ordersData,
             $orderParcelsData,
-            $orderItemsData,
             $rootOu,
             $shippingAccount,
-            $user,
             $shipStationAccount
         );
     }
