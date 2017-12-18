@@ -92,8 +92,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
 
     public function isCancellationAllowedForOrder(Account $account, Order $order)
     {
-        // Until you try to cancel a label we don't know if you can or not
-        return true;
+        return $this->carrierServive->getCarrierForAccount($account)->isCancellationAllowed();
     }
 
     public function cancelOrderLabels(
