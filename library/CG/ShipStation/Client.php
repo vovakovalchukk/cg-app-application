@@ -4,6 +4,7 @@ namespace CG\ShipStation;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\ShipStation\Request\PartnerRequestAbstract;
+use CG\ShipStation\ShipStation\Credentials;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -15,6 +16,8 @@ use Guzzle\Http\Message\Response as HttpResponse;
 class Client implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const LOG_CODE = 'ShipStation API Request';
 
     /** @var  GuzzleClient */
     protected $guzzle;
@@ -33,10 +36,13 @@ class Client implements LoggerAwareInterface
     public function sendRequest(RequestInterface $request, Account $account): ResponseInterface
     {
         $guzzleRequest = $this->generateHttpRequest($request, $account);
+        $this->logInfo(str_replace('%', '%%', (string)$guzzleRequest), [], [static::LOG_CODE, 'Request']);
         try {
             $httpResponse = $guzzleRequest->send();
+            $this->logInfo(str_replace('%', '%%', (string)$httpResponse), [], [static::LOG_CODE, 'Response']);
             return $this->buildResponse($request, $httpResponse);
         } catch (GuzzleCurlException|GuzzleBadResponseException $e) {
+            $this->logInfo(str_replace('%', '%%', (string)$e->getResponse()), [], [static::LOG_CODE, 'Response']);
             $this->logException($e, 'log:error', __NAMESPACE__);
             throw new StorageException('ShipStation API error', $e->getCode(), $e);
         }
@@ -55,6 +61,7 @@ class Client implements LoggerAwareInterface
 
     protected function getApiKeyForAccount(Account $account)
     {
+        /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
         return $credentials->getApiKey();
     }

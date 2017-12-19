@@ -5,9 +5,13 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Channel\Type as ChannelType;
 use CG\Locale\CountryNameByCode;
+use CG\ShipStation\Account\CreationService as AccountCreationService;
 use CG\ShipStation\Carrier\Entity as Carrier;
 use CG\ShipStation\Carrier\Field;
 use CG\ShipStation\Carrier\Service as CarrierService;
+use CG\Stdlib\Exception\Storage as StorageException;
+use CG\User\ActiveUserInterface;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -22,23 +26,35 @@ class AccountController extends AbstractActionController
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var JsonModelFactory */
+    protected $jsonModelFactory;
     /** @var CarrierService */
     protected $carrierService;
     /** @var AccountService */
     protected $accountService;
     /** @var Cryptor */
     protected $cryptor;
+    /** @var AccountCreationService */
+    protected $accountCreationService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
+        JsonModelFactory $jsonModelFactory,
         CarrierService $carrierService,
         AccountService $accountService,
-        Cryptor $cryptor
+        Cryptor $cryptor,
+        AccountCreationService $accountCreationService,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->viewModelFactory = $viewModelFactory;
+        $this->jsonModelFactory = $jsonModelFactory;
         $this->carrierService = $carrierService;
         $this->accountService = $accountService;
         $this->cryptor = $cryptor;
+        $this->accountCreationService = $accountCreationService;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function setupAction(): ViewModel
@@ -171,6 +187,20 @@ class AccountController extends AbstractActionController
 
     public function saveAction()
     {
-        //TODO in CGIV-9089
+        // ZF2 replaces spaces in param names with underscores, need to undo that
+        $params = [];
+        foreach ($this->params()->fromPost() as $key => $value) {
+            $params[str_replace('_', ' ', $key)] = $value;
+        }
+        $view = $this->jsonModelFactory->newInstance();
+        $accountEntity = $this->accountCreationService->connectAccount(
+            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId(),
+            $params['account'],
+            $params
+        );
+        $url = $this->plugin('url')->fromRoute($this->getAccountRoute(), ["account" => $accountEntity->getId(), "type" => ChannelType::SHIPPING]);
+        $url .= '/' . $accountEntity->getId();
+        $view->setVariable('redirectUrl', $url);
+        return $view;
     }
 }
