@@ -4,6 +4,7 @@ namespace CG\ShipStation\Response\Partner;
 use CG\ShipStation\Messages\Account as AccountEntity;
 use CG\ShipStation\Messages\Timestamp;
 use CG\ShipStation\ResponseAbstract;
+use CG\Stdlib\DateTime;
 
 class ApiKey extends ResponseAbstract
 {
@@ -35,7 +36,7 @@ class ApiKey extends ResponseAbstract
     protected static function build($decodedJson)
     {
         $account = (new AccountEntity($decodedJson->account_id));
-        $timestamp = (new Timestamp($decodedJson->created_at));
+        $timestamp = (new Timestamp(new DateTime($decodedJson->created_at)));
         return new static(
             $account,
             $timestamp,

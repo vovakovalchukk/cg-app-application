@@ -2,9 +2,9 @@
 namespace CG\ShipStation\Test\Response\Shipping;
 
 use CG\ShipStation\Response\Shipping\Shipments;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ShipmentsTest extends PHPUnit_Framework_TestCase
+class ShipmentsTest extends TestCase
 {
     public function testCreateFromJsonWorksWithValidJson()
     {
@@ -24,7 +24,7 @@ class ShipmentsTest extends PHPUnit_Framework_TestCase
     public function testCreateFromJsonThrowsExceptionWithInvalidJson()
     {
         $rawJson = file_get_contents(__DIR__ . '/../../../../resources/CG/ShipStation/Response/Shipping/ShipmentsTest/bad_json.json');
-        $this->setExpectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         /** @var Shipments $response */
         $response = Shipments::createFromJson($rawJson);
     }

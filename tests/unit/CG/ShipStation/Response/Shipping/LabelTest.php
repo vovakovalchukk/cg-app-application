@@ -2,8 +2,9 @@
 namespace CG\ShipStation\Test\Response\Shipping;
 
 use CG\ShipStation\Response\Shipping\Label;
+use PHPUnit\Framework\TestCase;
 
-class LabelTest extends \PHPUnit_Framework_TestCase
+class LabelTest extends TestCase
 {
     public function testCreateFromJsonWorksWithValidJson()
     {
@@ -23,7 +24,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
     public function testCreateFromJsonThrowsExceptionWithInvalidJson()
     {
         $rawJson = file_get_contents(__DIR__ . '/../../../../resources/CG/ShipStation/Response/Shipping/LabelTest/bad_json.json');
-        $this->setExpectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         /** @var Label $response */
         $response = Label::createFromJson($rawJson);
     }
