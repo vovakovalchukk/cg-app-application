@@ -67,8 +67,7 @@ class Shipments extends ResponseAbstract implements Countable, Iterator
 
     public function valid()
     {
-        $key = $this->key();
-        return isset($this->shipments[$key]);
+        return isset($this->shipments[$this->key()]);
     }
 
     public function rewind()

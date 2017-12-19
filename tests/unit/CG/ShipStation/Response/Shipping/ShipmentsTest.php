@@ -16,7 +16,9 @@ class ShipmentsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($response->hasErrors());
         $this->assertInternalType('array', $response->getShipments());
         $this->assertCount(1, $response->getShipments());
-        $this->assertEquals('se-2126954', $response->getShipments()[0]->getShipmentId());
+        $shipments = $response->getShipments();
+        $shipment = array_shift($shipments);
+        $this->assertEquals('se-2126954', $shipment->getShipmentId());
     }
 
     public function testCreateFromJsonThrowsExceptionWithInvalidJson()
