@@ -15,6 +15,7 @@ use CG\ShipStation\Messages\User as UserRequestEntity;
 use CG\ShipStation\Request\Connect\Factory as ConnectFactory;
 use CG\ShipStation\Request\Partner\Account as AccountRequest;
 use CG\ShipStation\Request\Partner\ApiKey as ApiKeyRequest;
+use CG\ShipStation\Request\Partner\GetAccountByExternalId as GetAccountByExternalIdRequest;
 use CG\ShipStation\Request\Shipping\CarrierServices as CarrierServicesRequest;
 use CG\ShipStation\Request\Warehouse\Create as CreateWarehouseRequest;
 use CG\ShipStation\Response\Connect\Response as ConnectResponse;
@@ -25,11 +26,13 @@ use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class Account implements AccountInterface, LoggerAwareInterface
 {
@@ -100,7 +103,7 @@ class Account implements AccountInterface, LoggerAwareInterface
             $this->logDebug(static::LOG_MESSAGE_EXISTING_SHIPSTATION_ACCOUNT, [$shipStationAccount->getId()], static::LOG_CODE, ['shipstationAccountId' => $shipStationAccount->getId()]);
         } catch (NotFound $e) {
             $user = $this->fetchUser($account->getOrganisationUnitId());
-            $accountResponse = $this->sendAccountRequest($ou, $user, $account);
+            $accountResponse = $this->createAccountOnShipStation($ou, $user, $account);
             $this->logDebug(static::LOG_MESSAGE_ACCOUNT_CREATED, [$user->getOrganisationUnitId()], static::LOG_CODE. ['organisationUnitId' => $user->getOrganisationUnitId()]);
             $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
             $this->logDebug(static::LOG_MESSAGE_API_KEY_GENERATED, [$accountResponse->getAccount()->getAccountId()], static::LOG_CODE, ['shipStationAccountId' => $accountResponse->getAccount()->getAccountId(), 'apiKey' => $apiKeyResponse->getEncryptedApiKey()]);
@@ -130,6 +133,29 @@ class Account implements AccountInterface, LoggerAwareInterface
             $this->getCarrierServices($connect, $shipStationAccount)->getJsonResponse()
         );
         $this->logDebug(static::LOG_MESSAGE_SERVICES_SAVED, [$shipStationAccount->getExternalId()]);
+    }
+
+    protected function createAccountOnShipStation(
+        OrganisationUnit $ou,
+        UserEntity $user,
+        AccountEntity $account
+    ): AccountResponse {
+        try {
+            return $this->sendAccountRequest($ou, $user, $account);
+        } catch (StorageException $e) {
+            if ($e->getPrevious() instanceof ClientErrorResponseException) {
+                return $this->fetchExistingAccountFromShipStation($ou, $account);
+            }
+            throw $e;
+        }
+    }
+
+    protected function fetchExistingAccountFromShipStation(OrganisationUnit $ou, AccountEntity $account)
+    {
+        $existingAccountRequest = GetAccountByExternalIdRequest::buildFromExternalAccountId($ou->getId());
+        /** @var AccountResponse $response */
+        $response = $this->client->sendRequest($existingAccountRequest, $account);
+        return $response;
     }
 
     protected function saveShipStationAccount(AccountEntity $account): void
@@ -232,10 +258,10 @@ class Account implements AccountInterface, LoggerAwareInterface
     protected function sendAccountRequest(
         OrganisationUnit $ou,
         UserEntity $user,
-        AccountEntity $shipStationAccount
+        AccountEntity $account
     ): AccountResponse {
         /** @var AccountResponse $response */
-        $response = $this->client->sendRequest($this->getAccountRequest($ou, $user), $shipStationAccount);
+        $response = $this->client->sendRequest($this->getAccountRequest($ou, $user), $account);
         return $response;
     }
 
