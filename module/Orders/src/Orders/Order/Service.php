@@ -10,7 +10,6 @@ use CG\Amazon\Order\FulfilmentChannel\Mapper as AmazonFulfilmentChannelMapper;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
-use CG\FeatureFlags\Feature;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
@@ -29,6 +28,7 @@ use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\OrderLinker;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Link\Entity as ProductLink;
 use CG\Product\LinkLeaf\Filter as ProductLinkLeafFilter;
 use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
@@ -449,7 +449,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $productLinks = [];
         if (
             $this->featureFlagService->featureEnabledForOu(
-                Feature::LINKED_PRODUCTS,
+                ProductService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
             )
         ) {
