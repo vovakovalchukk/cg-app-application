@@ -100,6 +100,8 @@ define([
                     maxListingsPerAccount: result.maxListingsPerAccount,
                     pagination: result.pagination,
                     initialLoadOccurred: true,
+                    searchTerm: searchTerm,
+                    skuList: skuList,
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -134,6 +136,9 @@ define([
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function () {
+            if (!this.props.linkedProductsEnabled) {
+                return;
+            }
             window.triggerEvent('fetchingProductLinksStart');
 
             var skusToFindLinkedProductsFor = {};
@@ -263,7 +268,7 @@ define([
             this.fetchVariations(productFilter);
         },
         onPageChange: function(pageNumber) {
-            this.performProductsRequest(pageNumber);
+            this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
         },
         onProductLinksEditorClose: function () {
             this.setState({
