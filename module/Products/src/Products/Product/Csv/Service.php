@@ -59,9 +59,9 @@ class Service
             $file->addLine(
                 (new Line())
                     ->setName($product->getName())
-                    ->setDescription($product->getDescription())
-                    ->setPrice($product->getPrice())
-                    ->setCondition($product->getCondition())
+                    ->setDescription($product->getDetails()->getDescription())
+                    ->setPrice($product->getDetails()->getPrice())
+                    ->setCondition($product->getDetails()->getCondition())
                     ->setImage($this->getProductImage($product))
                     ->setStock($this->getStockForProduct($product, $merchantLocationIds))
             );
