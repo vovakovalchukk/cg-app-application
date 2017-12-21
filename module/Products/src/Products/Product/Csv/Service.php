@@ -20,7 +20,7 @@ use League\Csv\Writer as CsvWriter;
 class Service
 {
     const MIME_TYPE = 'text/csv';
-    const FILE_NAME = 'products_amazon_%s.csv';
+    const FILE_NAME = 'products_%s_%s.csv';
 
     /** @var ListingService */
     protected $listingService;
@@ -72,9 +72,9 @@ class Service
         return $this->resultsToCsv($file);
     }
 
-    public function getFileName()
+    public function getFileName(string $channel)
     {
-        return sprintf(static::FILE_NAME, (new DateTime())->format('Ymd_His'));
+        return sprintf(static::FILE_NAME, $channel, (new DateTime())->format('Ymd_His'));
     }
 
     protected function fetchListings(array $ouIds, string $channel)

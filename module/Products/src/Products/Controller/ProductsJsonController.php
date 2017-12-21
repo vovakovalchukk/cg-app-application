@@ -181,7 +181,7 @@ class ProductsJsonController extends AbstractActionController
     {
         return new FileResponse(
             ProductCsvService::MIME_TYPE,
-            $this->productCsvService->getFileName(),
+            $this->productCsvService->getFileName($this->params()->fromRoute('channel')),
             (string) $this->productCsvService->exportToCsv(
                 $this->params()->fromRoute('channel')
             )
