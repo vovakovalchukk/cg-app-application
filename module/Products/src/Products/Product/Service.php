@@ -174,7 +174,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         } catch (NotFound $exception) {
             $ancestors = [];
         }
-        $stockFilter = (new Filter('all', 1))->setSku(array_merge([$productSku], $ancestors));
+        $stockFilter = (new Filter('all', 1))
+            ->setSku(array_merge([$productSku], $ancestors))
+            ->setOrganisationUnitId($ouId);
         $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
 
         $stockBySku = [];
