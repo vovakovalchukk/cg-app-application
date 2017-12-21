@@ -70,6 +70,16 @@ return [
                             ]
                         ],
                     ],
+                    'import' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/import/:channel',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'import'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
                         'type' => Literal::class,
                         'options' => [

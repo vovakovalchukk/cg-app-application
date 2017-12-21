@@ -188,6 +188,11 @@ class ProductsJsonController extends AbstractActionController
         );
     }
 
+    public function importAction()
+    {
+        $this->productCsvService->importCsv();
+    }
+
     protected function getAccountsIndexedById($organisationUnitIds)
     {
         $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');

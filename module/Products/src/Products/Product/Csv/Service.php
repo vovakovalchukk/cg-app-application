@@ -1,6 +1,7 @@
 <?php
 namespace Products\Product\Csv;
 
+use CG\FileStorage\S3\Adapter as S3StorageAdapter;
 use CG\Image\Entity as Image;
 use CG\Listing\Client\Service as ListingService;
 use CG\Listing\Entity as Listing;
@@ -21,6 +22,7 @@ class Service
 {
     const MIME_TYPE = 'text/csv';
     const FILE_NAME = 'products_%s_%s.csv';
+    const FILE_PATH  = '';
 
     /** @var ListingService */
     protected $listingService;
@@ -33,18 +35,23 @@ class Service
     /** @var ProductService */
     protected $productService;
 
+    /** @var S3StorageAdapter*/
+    protected $storageAdapter;
+
     public function __construct(
         ListingService $listingService,
         LocationService $locationService,
         ActiveUserInterface $activeUserContainer,
         StockLocationService $stockLocationService,
-        ProductService $productService
+        ProductService $productService,
+        S3StorageAdapter $storageAdapter
     ) {
         $this->listingService = $listingService;
         $this->locationService = $locationService;
         $this->activeUserContainer = $activeUserContainer;
         $this->stockLocationService = $stockLocationService;
         $this->productService = $productService;
+        $this->storageAdapter = $storageAdapter;
     }
 
     public function exportToCsv(string $channel): CsvWriter
