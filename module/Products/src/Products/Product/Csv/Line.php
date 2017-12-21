@@ -14,6 +14,14 @@ class Line
     protected $image;
     /** @var string|null */
     protected $stock;
+    /** @var string|null */
+    protected $ean;
+    /** @var string|null */
+    protected $asin;
+    /** @var string|null */
+    protected $brand;
+    /** @var string|null */
+    protected $mpn;
 
     public function toArray()
     {
@@ -21,6 +29,10 @@ class Line
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'condition' => $this->getCondition(),
+            'ean' => $this->getEan(),
+            'asin' => $this->getAsin(),
+            'brand' => $this->getBrand(),
+            'mpn' => $this->getMpn(),
             'price' => $this->getPrice(),
             'image' => $this->getImage(),
             'stock' => $this->getStock()
@@ -79,6 +91,50 @@ class Line
     public function setImage($image)
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getEan(): ?string
+    {
+        return $this->ean;
+    }
+
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+        return $this;
+    }
+
+    public function getAsin(): ?string
+    {
+        return $this->asin;
+    }
+
+    public function setAsin($asin)
+    {
+        $this->asin = $asin;
+        return $this;
+    }
+
+    public function getBrand(): ?string
+    {
+        return $this->brand;
+    }
+
+    public function setBrand($brand)
+    {
+        $this->brand = $brand;
+        return $this;
+    }
+
+    public function getMpn(): ?string
+    {
+        return $this->mpn;
+    }
+
+    public function setMpn($mpn)
+    {
+        $this->mpn = $mpn;
         return $this;
     }
 

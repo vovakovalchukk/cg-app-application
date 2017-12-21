@@ -13,6 +13,7 @@ use CG\Stock\Location\Entity as StockLocation;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
+use CG\Product\Detail\Entity as ProductDetails;
 
 class Service
 {
@@ -56,12 +57,13 @@ class Service
             }
             /** @var Product $product */
             $product = $this->productService->fetch($listing->getProductIds()[0]);
+            $detail = $product->getDetails() ?? new ProductDetails($product->getOrganisationUnitId(), $product->getSku());
             $file->addLine(
                 (new Line())
                     ->setName($product->getName())
-                    ->setDescription($product->getDetails()->getDescription())
-                    ->setPrice($product->getDetails()->getPrice())
-                    ->setCondition($product->getDetails()->getCondition())
+                    ->setDescription($detail->getDescription())
+                    ->setPrice($detail->getPrice())
+                    ->setCondition($detail->getCondition())
                     ->setImage($this->getProductImage($product))
                     ->setStock($this->getStockForProduct($product, $merchantLocationIds))
             );
