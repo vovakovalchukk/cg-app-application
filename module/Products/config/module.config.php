@@ -73,7 +73,7 @@ return [
                     'import' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/import/:channel',
+                            'route' => '/import',
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'import'

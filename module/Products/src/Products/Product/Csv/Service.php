@@ -22,7 +22,7 @@ class Service
 {
     const MIME_TYPE = 'text/csv';
     const FILE_NAME = 'products_%s_%s.csv';
-    const FILE_PATH  = '';
+    const FILE_LOCATION = 'orderhub-stockimportdata';
 
     /** @var ListingService */
     protected $listingService;
@@ -34,7 +34,6 @@ class Service
     protected $stockLocationService;
     /** @var ProductService */
     protected $productService;
-
     /** @var S3StorageAdapter*/
     protected $storageAdapter;
 
@@ -82,6 +81,19 @@ class Service
     public function getFileName(string $channel)
     {
         return sprintf(static::FILE_NAME, $channel, (new DateTime())->format('Ymd_His'));
+    }
+
+    public function importFromCsv(string $channel, string $fileContents)
+    {
+        return $this->storageAdapter->write(
+            $this->getFileName($channel),
+            $fileContents,
+            [
+                'channel' => $channel,
+                'ou' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+            ],
+            static::FILE_LOCATION
+        );
     }
 
     protected function fetchListings(array $ouIds, string $channel)
