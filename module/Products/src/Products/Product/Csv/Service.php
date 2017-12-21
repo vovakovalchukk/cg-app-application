@@ -8,17 +8,19 @@ use CG\Listing\Filter as ListingFilter;
 use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\Product\Client\Service as ProductService;
+use CG\Product\Detail\Entity as ProductDetails;
 use CG\Product\Entity as Product;
-use CG\Stock\Location\Entity as StockLocation;
+use CG\Stdlib\DateTime;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Location\Collection as StockLocationCollection;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
-use CG\Product\Detail\Entity as ProductDetails;
 
 class Service
 {
     const MIME_TYPE = 'text/csv';
-    const FILE_NAME = 'products.csv';
+    const FILE_NAME = 'products_amazon_%s.csv';
 
     /** @var ListingService */
     protected $listingService;
@@ -59,21 +61,20 @@ class Service
             $product = $this->productService->fetch($listing->getProductIds()[0]);
             $detail = $product->getDetails() ?? new ProductDetails($product->getOrganisationUnitId(), $product->getSku());
             $file->addLine(
-                (new Line())
-                    ->setName($product->getName())
-                    ->setSku($product->getSku())
-                    ->setEan($detail->getEan())
-                    ->setBrand($detail->getBrand())
-                    ->setMpn($detail->getMpn())
-                    ->setAsin($detail->getAsin())
-                    ->setDescription($detail->getDescription())
-                    ->setPrice($detail->getPrice())
-                    ->setCondition($detail->getCondition())
-                    ->setImage($this->getProductImage($product))
-                    ->setStock($this->getStockForProduct($product, $merchantLocationIds))
+                Line::createFromProductAndDetails(
+                    $product,
+                    $detail,
+                    $this->getProductImage($product),
+                    $this->getStockForProduct($product, $merchantLocationIds)
+                )
             );
         }
         return $this->resultsToCsv($file);
+    }
+
+    public function getFileName()
+    {
+        return sprintf(static::FILE_NAME, (new DateTime())->format('Ymd_His'));
     }
 
     protected function fetchListings(array $ouIds, string $channel)
@@ -103,16 +104,19 @@ class Service
 
     protected function getStockForProduct(Product $product, array $merchantLocationIds): int
     {
-        $stock = 0;
-        if ($product->getStock()) {
-            $stockLocations = $this->stockLocationService
-                ->getFromCollectionByLocationIds($product->getStock()->getLocations(), $merchantLocationIds);
-            /** @var StockLocation $stockLocation */
-            foreach ($stockLocations as $stockLocation) {
-                $stock += $stockLocation->getOnHand();
-            }
+        if (!$product->getStock()) {
+            return 0;
         }
-        return $stock;
+        try {
+            /** @var StockLocationCollection $stockLocations */
+            $stockLocations = $this->stockLocationService->getFromCollectionByLocationIds(
+                $product->getStock()->getLocations(),
+                $merchantLocationIds
+            );
+            return $stockLocations->getTotalOnHand();
+        } catch (NotFound $e) {
+            return 0;
+        }
     }
 
     protected function getProductImage(Product $product): string

@@ -1,6 +1,9 @@
 <?php
 namespace Products\Product\Csv;
 
+use CG\Product\Entity as Product;
+use CG\Product\Detail\Entity as Detail;
+
 class Line
 {
     /** @var string|null */
@@ -40,6 +43,22 @@ class Line
             'image' => $this->getImage(),
             'stock' => $this->getStock()
         ];
+    }
+
+    public static function createFromProductAndDetails(Product $product, Detail $detail, string $imageUrl, int $stockTotal)
+    {
+        return (new static)
+            ->setName($product->getName())
+            ->setSku($product->getSku())
+            ->setEan($detail->getEan())
+            ->setBrand($detail->getBrand())
+            ->setMpn($detail->getMpn())
+            ->setAsin($detail->getAsin())
+            ->setDescription($detail->getDescription())
+            ->setPrice($detail->getPrice())
+            ->setCondition($detail->getCondition())
+            ->setImage($imageUrl)
+            ->setStock($stockTotal);
     }
 
     public function getName(): ?string

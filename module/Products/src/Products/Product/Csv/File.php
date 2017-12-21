@@ -3,7 +3,7 @@ namespace Products\Product\Csv;
 
 class File
 {
-    const HEADERS = ['Name', 'Description', 'Item Condition', 'EAN', 'ASIN', 'Brand', 'MPN' ,'Price', 'Image', 'Stock', 'Site', 'Category', 'Shipping', 'Item location', 'Item Specifics'];
+    const HEADERS = ['Name', 'Description', 'Item Condition', 'SKU', 'EAN', 'ASIN', 'Brand', 'MPN' ,'Price', 'Image', 'Stock', 'Site', 'Category', 'Shipping', 'Item location', 'Item Specifics'];
 
     /** @var  Line[] */
     protected $lines;
