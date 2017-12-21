@@ -7,6 +7,7 @@ use CG\Product\Link\Service as ProductLinkService;
 use CG\Product\Mapper as ProductMapper;
 use CG\Product\Link\Collection as ProductLinkCollection;
 use CG\Product\Link\Entity as ProductLink;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Product\Entity as Product;
 use CG\Product\Collection as ProductCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -22,17 +23,47 @@ class Service implements LoggerAwareInterface
     protected $productLinkService;
     /** @var ProductMapper */
     protected $productMapper;
+    /** @var ProductLinkNodeService */
+    protected $productLinkNodeService;
 
     const LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK = 'Product with sku <%s> was not loaded, but it was required as a link by product with sku <%s>';
 
     public function __construct(
         ProductService $productService,
         ProductLinkService $productLinkService,
-        ProductMapper $productMapper
+        ProductMapper $productMapper,
+        ProductLinkNodeService $productLinkNodeService
     ) {
         $this->productService = $productService;
         $this->productLinkService = $productLinkService;
         $this->productMapper = $productMapper;
+        $this->productLinkNodeService = $productLinkNodeService;
+    }
+
+    public function getSkusProductCantLinkTo($ouId, $skuOfProduct): array
+    {
+        $productLinkId = ProductLink::generateId($ouId, $skuOfProduct);
+        $skusProductCantLinkTo = [$skuOfProduct => true];
+
+        try {
+            $linkNode = $this->productLinkNodeService->fetch($productLinkId);
+            foreach ($linkNode->getAncestors() as $ancestorSku) {
+                $skusProductCantLinkTo[$ancestorSku] = true;
+            }
+        } catch (NotFound $exception) {
+            //noop
+        }
+
+        try {
+            $link = $this->productLinkService->fetch($productLinkId);
+            foreach ($link->getStockSkuMap() as $notIfCantBeLinkedFromSku => $quantity) {
+                $skusProductCantLinkTo[$notIfCantBeLinkedFromSku] = true;
+            }
+        } catch (NotFound $exception) {
+            //noop
+        }
+
+        return $skusProductCantLinkTo;
     }
 
     public function fetchLinksForSkus($ouId, array $skus): ProductLinkCollection
