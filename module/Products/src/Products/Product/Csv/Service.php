@@ -61,6 +61,11 @@ class Service
             $file->addLine(
                 (new Line())
                     ->setName($product->getName())
+                    ->setSku($product->getSku())
+                    ->setEan($detail->getEan())
+                    ->setBrand($detail->getBrand())
+                    ->setMpn($detail->getMpn())
+                    ->setAsin($detail->getAsin())
                     ->setDescription($detail->getDescription())
                     ->setPrice($detail->getPrice())
                     ->setCondition($detail->getCondition())

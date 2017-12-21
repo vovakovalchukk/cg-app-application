@@ -15,6 +15,8 @@ class Line
     /** @var string|null */
     protected $stock;
     /** @var string|null */
+    protected $sku;
+    /** @var string|null */
     protected $ean;
     /** @var string|null */
     protected $asin;
@@ -29,6 +31,7 @@ class Line
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'condition' => $this->getCondition(),
+            'sku' => $this->getSku(),
             'ean' => $this->getEan(),
             'asin' => $this->getAsin(),
             'brand' => $this->getBrand(),
@@ -146,6 +149,17 @@ class Line
     public function setStock($stock)
     {
         $this->stock = $stock;
+        return $this;
+    }
+
+    public function getSku(): ?string
+    {
+        return $this->sku;
+    }
+
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
         return $this;
     }
 }
