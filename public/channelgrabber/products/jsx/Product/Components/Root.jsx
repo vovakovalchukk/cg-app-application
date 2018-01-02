@@ -210,7 +210,7 @@ define([
                         this.setState(newState);
                     }.bind(this),
                     error: function(error) {
-                        console.warn(error);
+                        console.error(error);
                     }
                 });
             }.bind(this);

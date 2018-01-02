@@ -27,6 +27,7 @@ use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
@@ -166,6 +167,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function fetchStockForSku(string $productSku, int $ouId): array
     {
+        if ($productSku == '') {
+            throw new ValidationException('Cannot filter stock by empty sku');
+        }
+
         $linkNodeFilter = (new ProductLinkNodeFilter('all', 1))
             ->setOuIdProductSku([ProductLink::generateId($ouId, $productSku)]);
         try {

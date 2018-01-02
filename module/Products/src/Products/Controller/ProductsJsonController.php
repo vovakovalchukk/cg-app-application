@@ -15,6 +15,7 @@ use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
@@ -309,7 +310,13 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->jsonModelFactory->newInstance();
         $productSku = $this->params()->fromRoute('productSku');
 
-        $stock = $this->productService->fetchStockForSku($productSku, $this->activeUser->getActiveUserRootOrganisationUnitId());
+        try {
+            $stock = $this->productService->fetchStockForSku($productSku, $this->activeUser->getActiveUserRootOrganisationUnitId());
+        } catch(ValidationException $e) {
+            $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
+            return $view;
+        }
+
         $view->setVariables(['stock' => $stock]);
         return $view;
     }
