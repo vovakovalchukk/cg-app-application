@@ -176,7 +176,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $stockFilter = (new Filter('all', 1))
             ->setSku(array_merge([$productSku], $ancestors))
-            ->setOrganisationUnitId($ouId);
+            ->setOrganisationUnitId([$ouId]);
         $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
 
         $stockBySku = [];
