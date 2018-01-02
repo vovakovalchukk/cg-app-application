@@ -163,7 +163,7 @@ class Service implements LoggerAwareInterface
                     }
                 }
             }
-        } catch (\NotInUseException $e) {
+        } catch (NotInUseException $e) {
             $courierId = null;
             $services = null;
             $service = null;
