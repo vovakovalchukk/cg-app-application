@@ -23,6 +23,7 @@ use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use iio\libmergepdf\Exception;
 
 class Service implements LoggerAwareInterface
 {
@@ -137,18 +138,47 @@ class Service implements LoggerAwareInterface
         $services = null;
         $service = null;
         $serviceOptions = null;
-        if ($shippingAlias) {
-            $shippingDescription = $shippingAlias->getName();
-            $courierId = $shippingAlias->getAccountId();
-            if ($courierId) {
-                $service = $shippingAlias->getShippingService();
-                $serviceOptions = $shippingAlias->getOptions();
-                $courierAccount = $this->accountService->fetch($courierId);
-                $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
-                if (!isset($services[$service])) {
-                    $service = null;
+
+
+        try {
+            if ($shippingAlias) {
+                $shippingDescription = $shippingAlias->getName();
+                $courierId = $shippingAlias->getAccountId();
+                if ($courierId) {
+                    $service = $shippingAlias->getShippingService();
+                    $serviceOptions = $shippingAlias->getOptions();
+                    /* @var $courierAccount \CG\Account\Client\Entity */
+                    $courierAccount = $this->accountService->fetch($courierId);
+
+                    if ($courierAccount->getChannel() == 'royal-mail') {
+                        throw new \Exception('Royal Mail PPI is not used in UI');
+                    }
+
+//                    echo "COURIER ACC\n";
+//                    print_r($courierAccount);
+
+                    $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+
+//                    echo "SERVICES\n";
+//                    print_r($services);
+
+//                    echo "SERVICE\n";
+//                    print_r($service);
+
+//                echo "SERVICES ARR\n";
+//                print_r($services[$service]);
+
+                    if (!isset($services[$service])) {
+//                        echo "NULL\n";
+                        $service = null;
+                    }
                 }
             }
+        } catch (\Exception $e) {
+            $courierId = null;
+            $services = null;
+            $service = null;
+            $serviceOptions = null;
         }
         $shippingCountry = $order->getShippingAddressCountryForCourier();
         // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries
