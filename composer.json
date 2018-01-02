@@ -44,7 +44,7 @@
         "channelgrabber/image": "~1.2.6",
         "channelgrabber/intercom": "~1.3.2",
         "channelgrabber/listing": "dev-CGIV-9018-new-fields-product-endpoint as 1.11.14",
-        "channelgrabber/locale": "~1.0.15",
+        "channelgrabber/locale": "~1.0.16",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.1.2",

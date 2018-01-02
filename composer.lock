@@ -1346,23 +1346,23 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.15",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "dfedc25586400079892aeaaec3b35b1a2faf6793"
+                "reference": "c9c23c69dc25255d2b9f88f78d04aa8ee580e48e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.15-7c32aa.zip",
-                "reference": "dfedc25586400079892aeaaec3b35b1a2faf6793",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.16-d9eefc.zip",
+                "reference": "c9c23c69dc25255d2b9f88f78d04aa8ee580e48e",
                 "shasum": null
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.6.*"
+                "phpunit/phpunit": "^6.3"
             },
             "type": "library",
             "autoload": {
@@ -1375,7 +1375,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-11-15T11:53:27+00:00"
+            "time": "2018-01-02T08:45:54+00:00"
         },
         {
             "name": "channelgrabber/location",
