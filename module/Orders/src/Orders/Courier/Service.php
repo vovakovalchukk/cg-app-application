@@ -21,6 +21,7 @@ use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\NotInUseException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use iio\libmergepdf\Exception;
@@ -28,6 +29,8 @@ use iio\libmergepdf\Exception;
 class Service implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const ROYAL_MAIL_PPI = 'royal-mail';
 
     /** @var OrderService */
     protected $orderService;
@@ -139,7 +142,6 @@ class Service implements LoggerAwareInterface
         $service = null;
         $serviceOptions = null;
 
-
         try {
             if ($shippingAlias) {
                 $shippingDescription = $shippingAlias->getName();
@@ -150,31 +152,18 @@ class Service implements LoggerAwareInterface
                     /* @var $courierAccount \CG\Account\Client\Entity */
                     $courierAccount = $this->accountService->fetch($courierId);
 
-                    if ($courierAccount->getChannel() == 'royal-mail') {
-                        throw new \Exception('Royal Mail PPI is not used in UI');
+                    if ($courierAccount->getChannel() == static::ROYAL_MAIL_PPI) {
+                        throw new NotInUseException('Royal Mail PPI is not used in Courier UI');
                     }
-
-//                    echo "COURIER ACC\n";
-//                    print_r($courierAccount);
 
                     $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
 
-//                    echo "SERVICES\n";
-//                    print_r($services);
-
-//                    echo "SERVICE\n";
-//                    print_r($service);
-
-//                echo "SERVICES ARR\n";
-//                print_r($services[$service]);
-
                     if (!isset($services[$service])) {
-//                        echo "NULL\n";
                         $service = null;
                     }
                 }
             }
-        } catch (\Exception $e) {
+        } catch (\NotInUseException $e) {
             $courierId = null;
             $services = null;
             $service = null;
