@@ -41,7 +41,7 @@
 
 <?php if ($showProductExport): ?>
 <div class="module section-seperator">
-    <div class="heading-large"><?= $this->translate('Export Product Data'); ?></div>
+    <div class="heading-large"><?= $this->translate('Export Product Data *'); ?></div>
     <div class="half">
         <label>
             <span class="inputbox-label"><?=$this->translate('Channel');?>:</span>
@@ -52,6 +52,7 @@
         <div class="order-inputbox-holder">
             <?= $this->mustache('elements/buttons.mustache', ['id' => 'export-products-button', 'buttons' => true, 'value' => 'Export']) ?>
         </div>
+        <div class="order-inputbox-holder"><?=$this->translate('* This is currently limited to non-variation products and specific channels.');?></div>
     </div>
 </div>
 <?php endif; ?>
