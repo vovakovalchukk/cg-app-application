@@ -10,6 +10,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\Order\Csv\Service as OrderCsvService;
+use Products\Product\Csv\Service as ProductCsvService;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
@@ -22,6 +23,7 @@ class ExportController extends AdvancedController
     const ROUTE_EXPORT_ORDER_ITEM = 'Export Order Item Data';
     const ROUTE_EXPORT_ORDER_ITEM_CHECK = 'Check';
     const ROUTE_EXPORT_ORDER_ITEM_PROGRESS = 'Progress';
+    const ROUTE_EXPORT_PRODUCT = 'Export Product Data';
 
     const PROGRESS_KEY_NAME = 'orderExportProgressKey';
 
@@ -35,19 +37,23 @@ class ExportController extends AdvancedController
     protected $usageService;
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var ProductCsvService */
+    protected $productCsvService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ActiveUserContainer $activeUserContainer,
         OrderCsvService $orderCsvService,
         UsageService $usageService,
-        JsonModelFactory $jsonModelFactory
+        JsonModelFactory $jsonModelFactory,
+        ProductCsvService $productCsvService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->activeUserContainer = $activeUserContainer;
         $this->orderCsvService = $orderCsvService;
         $this->usageService = $usageService;
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->productCsvService = $productCsvService;
     }
 
     public function exportAction()
@@ -81,6 +87,17 @@ class ExportController extends AdvancedController
             $guid
         );
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
+    }
+
+    public function exportProductAction()
+    {
+        return new FileResponse(
+            ProductCsvService::MIME_TYPE,
+            $this->productCsvService->getFileName($this->params()->fromRoute('channel')),
+            (string) $this->productCsvService->exportToCsv(
+                $this->params()->fromRoute('channel')
+            )
+        );
     }
 
     public function exportCheckAction()

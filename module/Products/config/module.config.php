@@ -60,16 +60,6 @@ return [
                             ]
                         ],
                     ],
-                    'export' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/export/:channel',
-                            'defaults' => [
-                                'controller' => ProductsJsonController::class,
-                                'action' => 'export'
-                            ]
-                        ],
-                    ],
                     ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
                         'type' => Literal::class,
                         'options' => [
