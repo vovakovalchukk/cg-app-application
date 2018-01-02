@@ -43,12 +43,11 @@ class ExportController extends AdvancedController
         UsageService $usageService,
         JsonModelFactory $jsonModelFactory
     ) {
-        $this
-            ->setViewModelFactory($viewModelFactory)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setOrderCsvService($orderCsvService)
-            ->setUsageService($usageService)
-            ->setJsonModelFactory($jsonModelFactory);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->orderCsvService = $orderCsvService;
+        $this->usageService = $usageService;
+        $this->jsonModelFactory = $jsonModelFactory;
     }
 
     public function exportAction()
@@ -130,44 +129,5 @@ class ExportController extends AdvancedController
         return (new OrderFilter())
             ->setLimit('all')
             ->setOrganisationUnitId($this->getActiveUser()->getOuList());
-    }
-
-    /**
-     * @return self
-     */
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderCsvService(OrderCsvService $orderCsvService)
-    {
-        $this->orderCsvService = $orderCsvService;
-        return $this;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
     }
 } 
