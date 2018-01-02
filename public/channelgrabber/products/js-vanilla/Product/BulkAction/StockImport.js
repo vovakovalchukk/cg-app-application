@@ -1,4 +1,4 @@
-define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], function(BulkActionAbstract, Popup, FileUpload) {
+define(['BulkActionAbstract', 'popup/mustache'], function(BulkActionAbstract, Popup) {
     var StockImport = function(selector, updateOptions) {
         BulkActionAbstract.call(this);
 
@@ -19,16 +19,6 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
         this.getPopup = function() {
             return popup;
         };
-
-        var fileUpload;
-        this.setFileUpload = function(newFileUpload) {
-            fileUpload = newFileUpload;
-            return this;
-        };
-
-        this.getFileUpload = function() {
-            return fileUpload;
-        };
     };
 
     StockImport.prototype = Object.create(BulkActionAbstract.prototype);
@@ -41,15 +31,6 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
             type: "StockImport"
         }, "popup");
         this.setPopup(popup);
-
-        var fileUpload = new FileUpload(
-            $,
-            "#popup-stock-import-file-upload-input",
-            ".popup-stock-import-file-button",
-            ".popup-stock-import",
-            popup.getElement()
-        );
-        this.setFileUpload(fileUpload);
 
         var self = this;
         popup.getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
@@ -64,16 +45,26 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
                 },
                 'select'
             );
+
+            data['fileUpload'] = cgmustache.renderTemplate(
+                templates,
+                {
+                    id: 'popup-stock-import-file-upload',
+                    name: 'stockFileUpload',
+                    class: 'popup-stock-import-file'
+                },
+                'fileUpload'
+            );
         });
 
-        this.listen(popup, fileUpload);
+        this.listen(popup);
     };
 
     StockImport.prototype.invoke = function() {
         this.getPopup().show();
     };
 
-    StockImport.prototype.listen = function(popup, fileUpload) {
+    StockImport.prototype.listen = function(popup) {
         var self = this;
         popup.getElement().on("click", ".popup-stock-import-button", function () {
             var updateOption = popup.getElement().find(".popup-stock-import-drop-down:input").val();
@@ -109,16 +100,6 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
                     self.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
                 }
             });
-        });
-        fileUpload.watchForFileSelection(function(file) {
-            $(".popup-stock-import-file-name", popup.getElement()).html("<img src=\"cg-built/zf2-v4-ui/img/loading-transparent.gif\" >");
-
-            var reader = new FileReader();
-            reader.readAsText(file);
-            reader.onloadend = function(event) {
-                $("#popup-stock-import-file-upload-hidden-input", popup.getElement()).val(event.target.result);
-                $(".popup-stock-import-file-name", popup.getElement()).html(file.name);
-            };
         });
     };
 
