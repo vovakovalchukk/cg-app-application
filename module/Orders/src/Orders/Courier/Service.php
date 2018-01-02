@@ -29,8 +29,6 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
-    const ROYAL_MAIL_PPI = 'royal-mail';
-
     /** @var OrderService */
     protected $orderService;
     /** @var ShippingConversionService */
@@ -151,7 +149,7 @@ class Service implements LoggerAwareInterface
                     /* @var $courierAccount \CG\Account\Client\Entity */
                     $courierAccount = $this->accountService->fetch($courierId);
 
-                    if ($courierAccount->getChannel() == static::ROYAL_MAIL_PPI) {
+                    if (!$this->shippingChannelsProviderRepo->isProvidedAccount($courierAccount)) {
                         throw new NotInUseException('Royal Mail PPI is not used in Courier UI');
                     }
 
