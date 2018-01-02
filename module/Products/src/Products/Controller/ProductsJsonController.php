@@ -12,8 +12,10 @@ use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\Collection as ProductCollection;
+use CG\Product\Entity as Product;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter\Mapper as FilterMapper;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
@@ -22,13 +24,13 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use Products\Product\Link\Service as ProductLinkService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -91,7 +93,6 @@ class ProductsJsonController extends AbstractActionController
         UsageService $usageService,
         LocationService $locationService,
         StockLocationService $stockLocationService,
-        ProductLinkNodeService $productLinkNodeService,
         ActiveUserInterface $activeUser,
         ProductLinkService $productLinkService
     ) {
