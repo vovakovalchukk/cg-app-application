@@ -27,7 +27,6 @@ use CG\User\OrganisationUnit\Service as UserOUService;
 use DateTimeZone;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 use Orders\Courier\Service;
-use CG\CourierAdapter\Exception\NotFound as CourierAdapterExceptionNotFound;
 
 class SpecificsAjax
 {
@@ -102,14 +101,7 @@ class SpecificsAjax
         $labels = $this->getOrderLabelsForOrders($orders);
         $carrierOptions = $this->courierService->getCarrierOptions($courierAccount);
         foreach ($orders as $order) {
-
-
-
             $orderData = $this->courierService->getCommonOrderListData($order, $rootOu);
-
-//            echo "ORDER DATA\n";
-//            print_r($orderData);
-
             unset($orderData['courier']);
             $orderLabel = null;
             $orderLabels = $labels->getBy('orderId', $order->getId());
@@ -121,7 +113,6 @@ class SpecificsAjax
             $options = $this->courierService->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
             $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
-
             if (isset($inputData['service']) && $inputData['service'] === "") {
                 unset($inputData['service']);
             }

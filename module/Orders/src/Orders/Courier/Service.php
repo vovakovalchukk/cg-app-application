@@ -24,7 +24,6 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\NotInUseException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use iio\libmergepdf\Exception;
 
 class Service implements LoggerAwareInterface
 {
