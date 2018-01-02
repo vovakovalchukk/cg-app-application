@@ -12,8 +12,10 @@ use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\Collection as ProductCollection;
+use CG\Product\Entity as Product;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter\Mapper as FilterMapper;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
@@ -22,8 +24,6 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use Products\Product\Csv\Service as ProductCsvService;
-use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Csv\Service as StockCsvService;
@@ -31,6 +31,7 @@ use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\Http\Request;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use Products\Product\Link\Service as ProductLinkService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -77,8 +78,6 @@ class ProductsJsonController extends AbstractActionController
     protected $stockLocationService;
     /** @var ActiveUserInterface */
     protected $activeUser;
-    /** @var ProductCsvService */
-    protected $productCsvService;
     /** @var ProductLinkService */
     protected $productLinkService;
 
@@ -95,9 +94,7 @@ class ProductsJsonController extends AbstractActionController
         UsageService $usageService,
         LocationService $locationService,
         StockLocationService $stockLocationService,
-        ProductLinkNodeService $productLinkNodeService,
         ActiveUserInterface $activeUser,
-        ProductCsvService $productCsvService,
         ProductLinkService $productLinkService
     ) {
         $this->productService = $productService;
@@ -113,7 +110,6 @@ class ProductsJsonController extends AbstractActionController
         $this->locationService = $locationService;
         $this->stockLocationService = $stockLocationService;
         $this->activeUser = $activeUser;
-        $this->productCsvService = $productCsvService;
         $this->productLinkService = $productLinkService;
     }
 
@@ -176,17 +172,6 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('products', $productsArray)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
-    }
-
-    public function exportAction()
-    {
-        return new FileResponse(
-            ProductCsvService::MIME_TYPE,
-            $this->productCsvService->getFileName($this->params()->fromRoute('channel')),
-            (string) $this->productCsvService->exportToCsv(
-                $this->params()->fromRoute('channel')
-            )
-        );
     }
 
     public function importAction()

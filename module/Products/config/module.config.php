@@ -60,16 +60,6 @@ return [
                             ]
                         ],
                     ],
-                    'export' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/export/:channel',
-                            'defaults' => [
-                                'controller' => ProductsJsonController::class,
-                                'action' => 'export'
-                            ]
-                        ],
-                    ],
                     'import' => [
                         'type' => Segment::class,
                         'options' => [

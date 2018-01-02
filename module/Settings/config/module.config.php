@@ -732,6 +732,16 @@ return [
                                             ],
                                         ],
                                     ],
+                                    ExportController::ROUTE_EXPORT_PRODUCT => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/products/[:channel]',
+                                            'defaults' => [
+                                                'controller' => ExportController::class,
+                                                'action' => 'exportProduct'
+                                            ]
+                                        ],
+                                    ],
                                 ],
                             ]
                         ]
