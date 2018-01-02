@@ -154,7 +154,7 @@ return [
                 'pages' => [
                     [
                         'label' => StockController::ROUTE,
-                        'title' => PickListController::ROUTE,
+                        'title' => 'Stock settings',
                         'route' => Module::ROUTE . '/' . StockController::ROUTE,
                     ],
                 ]
