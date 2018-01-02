@@ -1,9 +1,11 @@
 <?php
 namespace Settings\Controller;
 
+use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Order\Service\Filter as OrderFilter;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
+use CG\Product\Client\Service as ProductService;
 use CG\User\Entity as User;
+use CG\User\OrganisationUnit\Service as UserOUService;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -29,8 +31,8 @@ class ExportController extends AdvancedController
 
     /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
-    /** @var ActiveUserContainer $activeUserContainer */
-    protected $activeUserContainer;
+    /** @var UserOUService $userOUService */
+    protected $userOUService;
     /** @var OrderCsvService $orderCsvService */
     protected $orderCsvService;
     /** @var UsageService */
@@ -39,34 +41,61 @@ class ExportController extends AdvancedController
     protected $jsonModelFactory;
     /** @var ProductCsvService */
     protected $productCsvService;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
-        ActiveUserContainer $activeUserContainer,
+        UserOUService $userOUService,
         OrderCsvService $orderCsvService,
         UsageService $usageService,
         JsonModelFactory $jsonModelFactory,
-        ProductCsvService $productCsvService
+        ProductCsvService $productCsvService,
+        FeatureFlagsService $featureFlagsService
     ) {
         $this->viewModelFactory = $viewModelFactory;
-        $this->activeUserContainer = $activeUserContainer;
+        $this->userOUService = $userOUService;
         $this->orderCsvService = $orderCsvService;
         $this->usageService = $usageService;
         $this->jsonModelFactory = $jsonModelFactory;
         $this->productCsvService = $productCsvService;
+        $this->featureFlagsService = $featureFlagsService;
     }
 
     public function exportAction()
     {
-        return $this->newViewModel(
+        $showProductExport = $this->featureFlagsService->isActive(
+            ProductService::FEATURE_FLAG_PRODUCT_EXPORT,
+            $this->userOUService->getRootOuByActiveUser()
+        );
+        $view = $this->newViewModel(
             [
                 'route' => implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_EXPORT]),
                 'ordersRoute' => static::ROUTE_EXPORT_ORDER,
                 'orderItemsRoute' => static::ROUTE_EXPORT_ORDER_ITEM,
+                'productsRoute' => static::ROUTE_EXPORT_PRODUCT,
+                'showProductExport' => $showProductExport,
                 'isHeaderBarVisible' => false,
                 'subHeaderHide' => true,
             ]
         );
+        $view->addChild($this->getChannelSelectForProductExport(), 'channelSelectForProductExport');
+        return $view;
+    }
+
+    protected function getChannelSelectForProductExport(): ViewModel
+    {
+        $select = $this->newViewModel([
+            'id' => 'export-products-channel-select',
+            'name' => 'channel',
+            'options' => [
+                // Hard-coded to the supported channels for now.
+                // Once all are supported get these from Filters\Options\Channel::getSelectOptions()
+                ['title' => 'Amazon', 'value' => 'amazon', 'selected' => true]
+            ]
+        ]);
+        $select->setTemplate('elements/custom-select.mustache');
+        return $select;
     }
 
     public function exportOrderAction()
@@ -135,7 +164,7 @@ class ExportController extends AdvancedController
      */
     protected function getActiveUser()
     {
-        return $this->activeUserContainer->getActiveUser();
+        return $this->userOUService->getActiveUser();
     }
 
     /**

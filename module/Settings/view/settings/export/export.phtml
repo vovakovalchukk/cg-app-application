@@ -20,12 +20,38 @@
         );
         orderExport.init('#settings-order-export');
     });
+    $(document).ready(function()
+    {
+        $('#export-products-button').click(function()
+        {
+            var channel = $('#export-products-channel-select input').val();
+            var url = '<?= $this->url($route . '/' . $productsRoute) ?>/' + channel;
+            window.location = url;
+        });
+    });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs" class="floatLeftClear">
-    <span class="heading-large"><?= $this->translate('Export Data'); ?>
+    <span class="heading-large"><?= $this->translate('Export Order Data'); ?>
 </div>
 <div class="module clearfix">
     <a id="settings-item-export" class="csvExport" href="<?= $this->url($route . '/' . $orderItemsRoute) ?>"><?= ucfirst(strtolower($orderItemsRoute)) ?></a>
     or
     <a id="settings-order-export" class="csvExport" href="<?= $this->url($route . '/' . $ordersRoute) ?>"><?= strtolower($ordersRoute) ?></a>
 </div>
+
+<?php if ($showProductExport): ?>
+<div class="module section-seperator">
+    <div class="heading-large"><?= $this->translate('Export Product Data'); ?></div>
+    <div class="half">
+        <label>
+            <span class="inputbox-label"><?=$this->translate('Channel');?>:</span>
+            <div class="order-inputbox-holder half-input">
+                <?= $channelSelectForProductExport; ?>
+            </div>
+        </label>
+        <div class="order-inputbox-holder">
+            <?= $this->mustache('elements/buttons.mustache', ['id' => 'export-products-button', 'buttons' => true, 'value' => 'Export']) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
