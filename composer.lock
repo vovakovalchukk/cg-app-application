@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f953ab4f78bafac02cf3150bd84b3bc9",
+    "content-hash": "f83ea7acd40f269db15c320b91678ef8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1345,16 +1345,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-CGIV-9072-EuVatRates",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "564cd4b78dd68d5f14191707748ee3dc7c7e48c3"
+                "reference": "c9c23c69dc25255d2b9f88f78d04aa8ee580e48e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-9072-EuVatRates-8b8619.zip",
-                "reference": "564cd4b78dd68d5f14191707748ee3dc7c7e48c3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.16-d9eefc.zip",
+                "reference": "c9c23c69dc25255d2b9f88f78d04aa8ee580e48e",
                 "shasum": null
             },
             "require": {
@@ -1374,7 +1374,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2017-12-19T13:54:26+00:00"
+            "time": "2018-01-02T08:45:54+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9479,18 +9479,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.16",
-            "alias_normalized": "1.0.16.0",
-            "version": "dev-CGIV-9072-EuVatRates",
-            "package": "channelgrabber/locale"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
