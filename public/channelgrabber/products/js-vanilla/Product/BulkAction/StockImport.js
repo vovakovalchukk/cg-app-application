@@ -51,9 +51,9 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
         );
         this.setFileUpload(fileUpload);
 
-        var that = this;
+        var self = this;
         popup.getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
-            var updateOptions = that.getUpdateOptions();
+            var updateOptions = self.getUpdateOptions();
 
             data['updateOptions'] = cgmustache.renderTemplate(
                 templates,
@@ -74,7 +74,7 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
     };
 
     StockImport.prototype.listen = function(popup, fileUpload) {
-        var that = this;
+        var self = this;
         popup.getElement().on("click", ".popup-stock-import-button", function () {
             var updateOption = popup.getElement().find(".popup-stock-import-drop-down:input").val();
             if (!updateOption.length) {
@@ -91,22 +91,22 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
             data.append('updateOption', updateOption);
             data.append('stockUploadFile', fileContent);
 
-            that.getNotificationHandler().notice("Uploading stock levels");
+            self.getNotificationHandler().notice("Uploading stock levels");
             popup.hide();
 
             $.ajax({
-                context: that,
-                url: $(that.getSelector()).data("url"),
+                context: self,
+                url: $(self.getSelector()).data("url"),
                 type: "POST",
                 dataType: 'json',
                 data: data,
                 processData: false,
                 contentType: false,
                 success : function() {
-                    that.getNotificationHandler().success("Uploading stock CSV...");
+                    self.getNotificationHandler().success("Uploading stock CSV...");
                 },
                 error: function(error, textStatus, errorThrown) {
-                    that.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
+                    self.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
                 }
             });
         });
