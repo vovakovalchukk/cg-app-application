@@ -28,7 +28,6 @@ use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
-use Zend\Http\Request;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use Products\Product\Link\Service as ProductLinkService;
@@ -172,22 +171,6 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('products', $productsArray)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
-    }
-
-    public function importAction()
-    {
-        /** @var Request $request */
-        $request = $this->getRequest();
-        $post = $request->getPost()->toArray();
-
-        if (!(isset($post['channel'])) || $post['channel'] != 'ebay') {
-            throw new \RuntimeException('Missing/Invalid channel provided');
-        }
-
-        if (!isset($post['listingFile'])) {
-            throw new \RuntimeException('No File uploaded');
-        }
-        $this->productCsvService->importFromCsv($post['channel'], $post['listingFile']);
     }
 
     protected function getAccountsIndexedById($organisationUnitIds)

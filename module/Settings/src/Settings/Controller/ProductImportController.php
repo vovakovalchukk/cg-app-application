@@ -2,6 +2,7 @@
 namespace Settings\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Products\Product\Csv\Service as ProductCsvService;
 use Settings\ProductImport\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -14,11 +15,14 @@ class ProductImportController extends AbstractActionController
     protected $viewModelFactory;
     /** @var Service */
     protected $service;
+    /** @var ProductCsvService */
+    protected $productCsvService;
 
-    public function __construct(ViewModelFactory $viewModelFactory, Service $service)
+    public function __construct(ViewModelFactory $viewModelFactory, Service $service, ProductCsvService $productCsvService)
     {
         $this->viewModelFactory = $viewModelFactory;
         $this->service = $service;
+        $this->productCsvService = $productCsvService;
     }
 
     public function indexAction()
@@ -70,6 +74,12 @@ class ProductImportController extends AbstractActionController
 
     public function importAction()
     {
-        // TODO
+        $accountId = $this->getRequest()->getPost('accountId');
+        $fileData = $this->getRequest()->getPost('listingFile');
+        if (!$accountId || (int)$accountId < 1 || !$fileData) {
+            throw new \InvalidArgumentException(__METHOD__ . ' must be passed a valid Account ID and CSV file data');
+        }
+
+        $this->productCsvService->importFromCsv($accountId, $fileData);
     }
 }
