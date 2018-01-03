@@ -6,7 +6,7 @@ use CG\Order\Shared\Entity as Order;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Module;
-use Cg\Order\Client\Service as Service;
+use CG\Order\Client\Service as Service;
 use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
