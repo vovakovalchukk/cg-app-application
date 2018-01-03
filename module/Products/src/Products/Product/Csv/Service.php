@@ -1,7 +1,6 @@
 <?php
 namespace Products\Product\Csv;
 
-use CG\FileStorage\S3\Adapter as S3StorageAdapter;
 use CG\Image\Entity as Image;
 use CG\Listing\Client\Service as ListingService;
 use CG\Listing\Entity as Listing;
@@ -17,12 +16,14 @@ use CG\Stock\Location\Collection as StockLocationCollection;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
+use Products\Product\Csv\Entity;
+use Products\Product\Csv\StorageInterface;
 
 class Service
 {
     const MIME_TYPE = 'text/csv';
     const FILE_NAME = 'products_%s_%s.csv';
-    const FILE_LOCATION = 'orderhub-stockimportdata';
+    const FILE_LOCATION = 'orderhub-productimportdata';
 
     /** @var ListingService */
     protected $listingService;
@@ -34,8 +35,8 @@ class Service
     protected $stockLocationService;
     /** @var ProductService */
     protected $productService;
-    /** @var S3StorageAdapter*/
-    protected $storageAdapter;
+    /** @var StorageInterface*/
+    protected $storage;
 
     public function __construct(
         ListingService $listingService,
@@ -43,14 +44,14 @@ class Service
         ActiveUserInterface $activeUserContainer,
         StockLocationService $stockLocationService,
         ProductService $productService,
-        S3StorageAdapter $storageAdapter
+        StorageInterface $storage
     ) {
         $this->listingService = $listingService;
         $this->locationService = $locationService;
         $this->activeUserContainer = $activeUserContainer;
         $this->stockLocationService = $stockLocationService;
         $this->productService = $productService;
-        $this->storageAdapter = $storageAdapter;
+        $this->storage = $storage;
     }
 
     public function exportToCsv(string $channel): CsvWriter
@@ -83,17 +84,12 @@ class Service
         return sprintf(static::FILE_NAME, $channel, (new DateTime())->format('Ymd_His'));
     }
 
-    public function importFromCsv(string $channel, string $fileContents)
+    public function importFromCsv(string $fileContents, int $accountId)
     {
-        return $this->storageAdapter->write(
-            $this->getFileName($channel),
-            $fileContents,
-            [
-                'channel' => $channel,
-                'ou' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
-            ],
-            static::FILE_LOCATION
-        );
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $entity = Entity::fromRaw($fileContents, ['accountId' => $accountId, 'rootOuId' => $rootOuId]);
+        $entity = $this->storage->save($entity);
+        // TODO: actually do the import by creating a gearman job
     }
 
     protected function fetchListings(array $ouIds, string $channel)
