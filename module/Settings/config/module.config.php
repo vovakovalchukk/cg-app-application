@@ -812,7 +812,19 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => []
+                        'child_routes' => [
+                            ProductImportController::ROUTE_IMPORT => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/import',
+                                    'defaults' => [
+                                        'action' => 'import'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => []
+                            ],
+                        ]
                     ],
                 ]
             ]

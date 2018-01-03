@@ -3,6 +3,7 @@ namespace Settings\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Products\Product\Csv\Service as ProductCsvService;
+use Settings\Module;
 use Settings\ProductImport\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -10,6 +11,7 @@ use Zend\View\Model\ViewModel;
 class ProductImportController extends AbstractActionController
 {
     const ROUTE = 'Product Import';
+    const ROUTE_IMPORT = 'Import';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -28,7 +30,7 @@ class ProductImportController extends AbstractActionController
     public function indexAction()
     {
         $view = $this->viewModelFactory->newInstance([
-            'saveUri' => 'todo', // TODO
+            'saveUri' => $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_IMPORT),
         ]);
         $view->addChild($this->getSalesAccountSelect(), 'accountSelect')
             ->addChild($this->getFileUpload(), 'fileUpload')
@@ -80,6 +82,6 @@ class ProductImportController extends AbstractActionController
             throw new \InvalidArgumentException(__METHOD__ . ' must be passed a valid Account ID and CSV file data');
         }
 
-        $this->productCsvService->importFromCsv($accountId, $fileData);
+        $this->productCsvService->importFromCsv($fileData, $accountId);
     }
 }
