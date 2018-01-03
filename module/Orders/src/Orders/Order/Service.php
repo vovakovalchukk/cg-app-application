@@ -408,12 +408,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $productLinksBySku = [];
         $ou = $this->getRootOrganisationUnitForOrder($order);
         $orderItemSkus = $this->getFlatArrayOfItemSkus($order);
-        $ouIdProductSkuList = $this->getOuIdProductSkuListFromOrder($orderItemSkus, $ou);
 
         if (count($orderItemSkus) == 0) {
             return $productLinksBySku;
         }
 
+        $ouIdProductSkuList = $this->getOuIdProductSkuListFromOrder($orderItemSkus, $ou);
         $productLinkLeafFilter = (new ProductLinkLeafFilter('all', 1))->setOuIdProductSku($ouIdProductSkuList);
 
         try {
