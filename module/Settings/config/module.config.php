@@ -18,6 +18,7 @@ use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\OrganisationUnit\Storage\Api as OUApiStorage;
 use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
+use CG\Product\Client\Service as ProductService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
@@ -46,6 +47,7 @@ use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
+use Settings\Controller\ProductImportController;
 use Settings\Controller\ShippingController;
 use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
@@ -156,6 +158,12 @@ return [
                         'label' => StockController::ROUTE,
                         'title' => 'Stock settings',
                         'route' => Module::ROUTE . '/' . StockController::ROUTE,
+                    ],
+                    [
+                        'label' => 'Import Products',
+                        'title' => 'Import products into the system and channel listings',
+                        'route' => Module::ROUTE . '/' . ProductImportController::ROUTE,
+                        'feature-flag' => ProductService::FEATURE_FLAG_PRODUCT_EXPORT
                     ],
                 ]
             ],
@@ -793,6 +801,18 @@ return [
                                 ]
                             ],
                         ]
+                    ],
+                    ProductImportController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/productImport',
+                            'defaults' => [
+                                'controller' => ProductImportController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => []
                     ],
                 ]
             ]

@@ -1,0 +1,28 @@
+<div id="breadcrumbs" class="floatLeftClear">
+    <span class="heading-large"><?= $this->translate('Import Products'); ?>
+</div>
+<div class="module clearfix">
+    <form id="product-import-form" method="POST" action="<?=$this->saveUri;?>">
+        <div class="half">
+            <label>
+                <span class="inputbox-label"><?= $this->translate('Account to import to');?>:</span>
+                <div class="order-inputbox-holder">
+                    <?=$this->accountSelect;?>
+                </div>
+            </label>
+            <?=$this->fileUpload;?>
+            <div class="order-inputbox-holder">
+                <?=$this->importButton;?>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ProductImport/Service.js';?>'], function(Service)
+        {
+            new Service(n);
+        });
+    });
+</script>

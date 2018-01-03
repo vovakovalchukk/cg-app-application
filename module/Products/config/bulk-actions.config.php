@@ -31,13 +31,11 @@ return [
                 'DeleteJSViewModel' => ViewModel::class,
                 'StockImportJSViewModel' => ViewModel::class,
                 'StockExportJSViewModel' => ViewModel::class,
-                'ListingsImportJsViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
                 'ImportJSViewModel' => ViewModel::class,
                 'ImportAllFilteredJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class,
                 'UrlDataViewStockImport' => ViewModel::class,
-                'UrlDataViewListingsImport' => ViewModel::class,
                 'UrlDataViewStockExport' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
@@ -63,8 +61,7 @@ return [
                     'addAction' => [
                         ['action' => ProductAction\Delete::class],
                         ['action' => ProductAction\StockExport::class],
-                        ['action' => ProductAction\StockImport::class],
-                        ['action' => ProductAction\ListingsImport::class]
+                        ['action' => ProductAction\StockImport::class]
                     ]
                 ],
             ],
@@ -103,27 +100,6 @@ return [
                     'template' => 'products/products/bulk-actions/stock-import',
                 ],
             ],
-            'UrlDataViewStockImport' => [
-                'parameters' => [
-                    'template' => 'products/products/bulk-actions/data-url',
-                ],
-            ],
-            ProductAction\ListingsImport::class => [
-                'parameters' => [
-                    'urlView' => 'UrlDataViewListingsImport',
-                    'javascript' => 'ListingsImportJsViewModel'
-                ]
-            ],
-            'ListingsImportJsViewModel' => [
-                'parameters' => [
-                    'template' => 'products/products/bulk-actions/listings-import',
-                ],
-            ],
-            'UrlDataViewListingsImport' => [
-                'parameters' => [
-                    'template' => 'products/products/bulk-actions/data-url',
-                ],
-            ],
             ProductAction\StockExport::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewStockExport',
@@ -133,6 +109,11 @@ return [
             'StockExportJSViewModel' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/stock-export',
+                ],
+            ],
+            'UrlDataViewStockImport' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/data-url',
                 ],
             ],
             'UrlDataViewStockExport' => [
