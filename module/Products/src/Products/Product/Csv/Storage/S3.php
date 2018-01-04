@@ -8,6 +8,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Product\Csv\Entity;
+use Products\Product\Csv\Mapper;
 use Products\Product\Csv\StorageInterface;
 
 class S3 implements StorageInterface, LoggerAwareInterface
@@ -22,10 +23,13 @@ class S3 implements StorageInterface, LoggerAwareInterface
 
     /** @var S3Adapter */
     protected $s3Adapter;
+    /** @var Mapper */
+    protected $mapper;
 
-    public function __construct(S3Adapter $s3Adapter)
+    public function __construct(S3Adapter $s3Adapter, Mapper $mapper)
     {
         $this->s3Adapter = $s3Adapter;
+        $this->mapper = $mapper;
     }
 
     public function fetch($id): Entity
@@ -33,7 +37,7 @@ class S3 implements StorageInterface, LoggerAwareInterface
         try {
             $result = $this->s3Adapter->read($this->getS3Key($id));
             $metadata = $result->getExtraFields()['Metadata'] ?? [];
-            return Entity::fromRaw($id, $result->getBody(), $metadata);
+            return $this->mapper->fromFileAndMetadata($id, $result->getBody(), $metadata);
 
         } catch (FileStorageException $e) {
             $this->logWarningException($e, static::LOG_NOT_FOUND, [$this->getS3Key($id)], [static::LOG_CODE, 'NotFound']);
@@ -77,7 +81,7 @@ class S3 implements StorageInterface, LoggerAwareInterface
 
     protected function extractOUIDFromId(string $id): int
     {
-        $idParts = Entity::getPartsFromId($id);
+        $idParts = $this->mapper->getPartsFromId($id);
         return (int)$idParts['rootOuId'];
     }
 

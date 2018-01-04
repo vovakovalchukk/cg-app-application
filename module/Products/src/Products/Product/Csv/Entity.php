@@ -22,23 +22,6 @@ class Entity
         $this->rootOuId = $rootOuId;
     }
 
-    public static function fromRaw(string $fileData, array $metaData, ?string $id = null): Entity
-    {
-        $id = $id ?: static::generateId($metaData);
-        return new self($id, $fileData, $metaData['accountId'], $metaData['rootOuId']);
-    }
-
-    public static function generateId(array $metaData): string
-    {
-        return $metaData['rootOuId'] . '-' . $metaData['accountId'] . '-' . (new DateTime())->format('Ymd_His');
-    }
-
-    public static function getPartsFromId(string $id): array
-    {
-        [$rootOuId, $accountId, $datetime] = explode('-', $id);
-        return compact('rootOuId', 'accountId', 'datetime');
-    }
-
     public function getId(): string
     {
         return $this->id;

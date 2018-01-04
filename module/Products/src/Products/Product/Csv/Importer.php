@@ -3,6 +3,7 @@ namespace Products\Product\Csv;
 
 use CG\User\ActiveUserInterface;
 use Products\Product\Csv\Entity;
+use Products\Product\Csv\Mapper;
 use Products\Product\Csv\StorageInterface;
 
 class Importer
@@ -11,11 +12,17 @@ class Importer
     protected $activeUserContainer;
     /** @var StorageInterface*/
     protected $storage;
+    /** @var Mapper */
+    protected $mapper;
 
-    public function __construct(ActiveUserInterface $activeUserContainer, StorageInterface $storage)
-    {
+    public function __construct(
+        ActiveUserInterface $activeUserContainer,
+        StorageInterface $storage,
+        Mapper $mapper
+    ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->storage = $storage;
+        $this->mapper = $mapper;
     }
 
     public function importFromCsv(string $fileContents, int $accountId)
@@ -27,7 +34,7 @@ class Importer
 
     protected function saveCsv(string $fileContents, int $accountId, int $rootOuId): Entity
     {
-        $entity = Entity::fromRaw($fileContents, ['accountId' => $accountId, 'rootOuId' => $rootOuId]);
+        $entity = $this->mapper->fromFileAndMetadata($fileContents, ['accountId' => $accountId, 'rootOuId' => $rootOuId]);
         return $this->storage->save($entity);
     }
 }
