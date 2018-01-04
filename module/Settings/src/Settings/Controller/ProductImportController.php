@@ -31,6 +31,8 @@ class ProductImportController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance([
             'saveUri' => $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_IMPORT),
+            'isHeaderBarVisible' => false,
+            'subHeaderHide' => true,
         ]);
         $view->addChild($this->getSalesAccountSelect(), 'accountSelect')
             ->addChild($this->getFileUpload(), 'fileUpload')
