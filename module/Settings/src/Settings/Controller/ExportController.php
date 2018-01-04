@@ -12,7 +12,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\Order\Csv\Service as OrderCsvService;
-use Products\Product\Csv\Service as ProductCsvService;
+use Products\Product\Csv\Exporter as ProductCsvService;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 

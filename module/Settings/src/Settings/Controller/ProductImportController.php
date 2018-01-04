@@ -3,7 +3,7 @@ namespace Settings\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Products\Product\Csv\Service as ProductCsvService;
+use Products\Product\Csv\Importer as ProductCsvService;
 use Settings\Module;
 use Settings\ProductImport\Service;
 use Zend\Mvc\Controller\AbstractActionController;

@@ -16,10 +16,8 @@ use CG\Stock\Location\Collection as StockLocationCollection;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
-use Products\Product\Csv\Entity;
-use Products\Product\Csv\StorageInterface;
 
-class Service
+class Exporter
 {
     const MIME_TYPE = 'text/csv';
     const FILE_NAME = 'products_%s_%s.csv';
@@ -35,23 +33,19 @@ class Service
     protected $stockLocationService;
     /** @var ProductService */
     protected $productService;
-    /** @var StorageInterface*/
-    protected $storage;
 
     public function __construct(
         ListingService $listingService,
         LocationService $locationService,
         ActiveUserInterface $activeUserContainer,
         StockLocationService $stockLocationService,
-        ProductService $productService,
-        StorageInterface $storage
+        ProductService $productService
     ) {
         $this->listingService = $listingService;
         $this->locationService = $locationService;
         $this->activeUserContainer = $activeUserContainer;
         $this->stockLocationService = $stockLocationService;
         $this->productService = $productService;
-        $this->storage = $storage;
     }
 
     public function exportToCsv(string $channel): CsvWriter
@@ -82,14 +76,6 @@ class Service
     public function getFileName(string $channel)
     {
         return sprintf(static::FILE_NAME, $channel, (new DateTime())->format('Ymd_His'));
-    }
-
-    public function importFromCsv(string $fileContents, int $accountId)
-    {
-        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $entity = Entity::fromRaw($fileContents, ['accountId' => $accountId, 'rootOuId' => $rootOuId]);
-        $entity = $this->storage->save($entity);
-        // TODO: actually do the import by creating a gearman job
     }
 
     protected function fetchListings(array $ouIds, string $channel)
