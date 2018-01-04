@@ -1,7 +1,9 @@
 define([
-    'ajaxForm'
+    'ajaxForm',
+    'element/ElementCollection'
 ], function(
-    AjaxForm
+    AjaxForm,
+    elementCollection
 ) {
     function Service(notifications)
     {
@@ -10,10 +12,16 @@ define([
             return notifications;
         };
 
+        this.getElementCollection = function()
+        {
+            return elementCollection;
+        };
+
         var init = function()
         {
             var form = new AjaxForm(notifications, Service.SELECTOR_FORM);
             this.listenForImportAndVerify();
+            this.listenForSuccessAndResetForm();
         };
         init.call(this);
     }
@@ -40,6 +48,18 @@ define([
                 e.preventDefault();
                 return;
             }
+        });
+    };
+
+    Service.prototype.listenForSuccessAndResetForm = function()
+    {
+        var self = this;
+        $(document).on('ajaxFormSubmitSuccess', function()
+        {
+            var select = self.getElementCollection().get('accountId');
+            var fileUpload = self.getElementCollection().get('listingFile');
+            select.clear();
+            fileUpload.clear();
         });
     };
 
