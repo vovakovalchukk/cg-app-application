@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Products\Product\Csv\Service as ProductCsvService;
 use Settings\Module;
@@ -15,14 +16,21 @@ class ProductImportController extends AbstractActionController
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var JsonModelFactory */
+    protected $jsonModelFactory;
     /** @var Service */
     protected $service;
     /** @var ProductCsvService */
     protected $productCsvService;
 
-    public function __construct(ViewModelFactory $viewModelFactory, Service $service, ProductCsvService $productCsvService)
-    {
+    public function __construct(
+        ViewModelFactory $viewModelFactory,
+        JsonModelFactory $jsonModelFactory,
+        Service $service,
+        ProductCsvService $productCsvService
+    ) {
         $this->viewModelFactory = $viewModelFactory;
+        $this->jsonModelFactory = $jsonModelFactory;
         $this->service = $service;
         $this->productCsvService = $productCsvService;
     }
@@ -85,5 +93,6 @@ class ProductImportController extends AbstractActionController
         }
 
         $this->productCsvService->importFromCsv($fileData, $accountId);
+        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'The import has been started successfully']);
     }
 }
