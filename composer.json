@@ -55,7 +55,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "dev-CGIV-9013-export-amazon-listings-to-csv as 1.10.1",
+        "channelgrabber/product": "dev-CGIV-9014-import-listings-csv as 1.10.1",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",

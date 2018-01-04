@@ -2009,11 +2009,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-9013-export-amazon-listings-to-csv",
+            "version": "dev-CGIV-9014-import-listings-csv",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "e3b83e5e47eb8fc17ff2374a793844e3c55b6fb9"
+                "reference": "4f0949978e40862e1245cf62d0cd7ed71ddafcf4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9486,6 +9486,12 @@
             "alias": "1.10.1",
             "alias_normalized": "1.10.1.0",
             "version": "dev-CGIV-9013-export-amazon-listings-to-csv",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-CGIV-9014-import-listings-csv",
             "package": "channelgrabber/product"
         },
         {
