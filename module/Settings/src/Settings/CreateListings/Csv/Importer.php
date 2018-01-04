@@ -34,8 +34,8 @@ class Importer
     public function importFromCsv(string $fileContents, int $accountId)
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $this->saveCsv($fileContents, $accountId, $rootOuId);
-        $this->createImportJob($accountId, $rootOuId);
+        $entity = $this->saveCsv($fileContents, $accountId, $rootOuId);
+        $this->createImportJob($entity);
     }
 
     protected function saveCsv(string $fileContents, int $accountId, int $rootOuId): Entity
@@ -44,9 +44,9 @@ class Importer
         return $this->storage->save($entity);
     }
 
-    protected function createImportJob(int $accountId, int $rootOuId)
+    protected function createImportJob(Entity $entity)
     {
-        $workload = new Workload($accountId, $rootOuId);
+        $workload = new Workload($entity->getAccountId(), $entity->getRootOuId());
         $this->gearmanClient->doBackground(Workload::FUNCTION_NAME, serialize($workload));
     }
 }
