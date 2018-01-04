@@ -29,6 +29,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Product\Csv\StorageInterface as ProductCsvStorage;
 use Products\Product\Csv\Storage\S3 as ProductCsvStorageS3;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
@@ -496,6 +497,12 @@ return [
 
                 'ProductCsvS3Adapter' => S3Adapter::class,
             ],
+            'preference' => [
+                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
+                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
+                ProductCsvStorage::class => ProductCsvStorageS3::class,
+            ],
+
             ListingsController::class => [
                 'parameters' => [
                     'listingList' => 'ListingList'
@@ -590,10 +597,6 @@ return [
                 'parameter' => [
                     'cryptor' => 'amazon_cryptor'
                 ]
-            ],
-            'preference' => [
-                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
-                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
             ],
             ProductLinkApiStorage::class => [
                 'parameter' => [
