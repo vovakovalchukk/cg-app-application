@@ -52,4 +52,15 @@ class Entity
         $this->accountId = $accountId;
         return $this;
     }
+
+    public function getRootOuId(): int
+    {
+        return $this->rootOuId;
+    }
+
+    public function setRootOuId(int $rootOuId): Entity
+    {
+        $this->rootOuId = $rootOuId;
+        return $this;
+    }
 }
