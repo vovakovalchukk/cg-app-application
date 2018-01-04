@@ -4,9 +4,9 @@ namespace Settings\CreateListings\Csv;
 use CG\Listing\Gearman\Workload\CreateListingsFromImport as Workload;
 use CG\User\ActiveUserInterface;
 use GearmanClient;
-use Settings\CreateListings\Csv\Entity;
-use Settings\CreateListings\Csv\Mapper;
-use Settings\CreateListings\Csv\StorageInterface;
+use CG\Listing\Csv\Entity;
+use CG\Listing\Csv\Mapper;
+use CG\Listing\Csv\StorageInterface;
 
 class Importer
 {
