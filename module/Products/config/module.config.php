@@ -168,6 +168,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_PRODUCT_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'productCsvImport'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_EXPORT => [
                         'type' => Literal::class,
                         'options' => [

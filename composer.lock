@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23fa18a1662cb38335fbf7c2952494e0",
+    "content-hash": "6082d27473a5f1e4cca4153df24251ac",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -717,16 +717,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.10",
+            "version": "dev-TAC-282-ProductUpload",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f229be1218ae658615d7b95ba158079de11f2588"
+                "reference": "657e6f204029341a390319177a23328ce8192f5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.10-eaa43b.zip",
-                "reference": "f229be1218ae658615d7b95ba158079de11f2588",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-282-ProductUpload-9a82a6.zip",
+                "reference": "657e6f204029341a390319177a23328ce8192f5e",
                 "shasum": null
             },
             "require": {
@@ -783,7 +783,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-9957-amazon-unimported-listing-marketplace-issue": "1.42.x-dev"
+                    "dev-CGIV-8876-disable-accounts": "1.42.x-dev"
                 }
             },
             "autoload": {
@@ -800,7 +800,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-02-12T09:55:21+00:00"
+            "time": "2019-02-13T10:07:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2502,16 +2502,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.13",
+            "version": "dev-TAC-282-ProductUpload",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "8ec7f72e26695e2516082a9f55368ec41060a08a"
+                "reference": "a461e4a47f9ddba2ad6ed395374012395ba7f9e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.13-5a7e70.zip",
-                "reference": "8ec7f72e26695e2516082a9f55368ec41060a08a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-282-ProductUpload-af02b9.zip",
+                "reference": "a461e4a47f9ddba2ad6ed395374012395ba7f9e3",
                 "shasum": null
             },
             "require": {
@@ -2564,7 +2564,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-11T10:40:13+00:00"
+            "time": "2019-02-13T09:15:57+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11029,10 +11029,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.42.12",
+            "alias_normalized": "1.42.12.0",
+            "version": "dev-TAC-282-ProductUpload",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.16.14",
+            "alias_normalized": "1.16.14.0",
+            "version": "dev-TAC-282-ProductUpload",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
