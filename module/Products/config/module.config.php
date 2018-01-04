@@ -4,7 +4,6 @@ namespace Products;
 use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
-use CG\FileStorage\S3\Adapter as S3Adapter;
 use CG\Listing\Service as ListingService;
 use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
@@ -29,8 +28,6 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
-use Products\Product\Csv\StorageInterface as ProductCsvStorage;
-use Products\Product\Csv\Storage\S3 as ProductCsvStorageS3;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
@@ -494,15 +491,7 @@ return [
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
-
-                'ProductCsvS3Adapter' => S3Adapter::class,
             ],
-            'preference' => [
-                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
-                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
-                ProductCsvStorage::class => ProductCsvStorageS3::class,
-            ],
-
             ListingsController::class => [
                 'parameters' => [
                     'listingList' => 'ListingList'
@@ -597,6 +586,10 @@ return [
                 'parameter' => [
                     'cryptor' => 'amazon_cryptor'
                 ]
+            ],
+            'preference' => [
+                ProductLinkStorageInterface::class => ProductLinkApiStorage::class,
+                ProductLinkNodeStorageInterface::class => ProductLinkNodeApiStorage::class,
             ],
             ProductLinkApiStorage::class => [
                 'parameter' => [
@@ -1100,16 +1093,6 @@ return [
                     'predis' => 'reliable_redis'
                 ]
             ],
-            'ProductCsvS3Adapter' => [
-                'parameters' => [
-                    'location' => ProductCsvStorageS3::S3_BUCKET
-                ]
-            ],
-            ProductCsvStorageS3::class => [
-                'parameters' => [
-                    's3Adapter' => 'ProductCsvS3Adapter'
-                ]
-            ]
         ],
     ],
     'navigation' => array(

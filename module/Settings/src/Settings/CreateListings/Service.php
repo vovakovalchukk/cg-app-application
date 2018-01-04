@@ -1,5 +1,5 @@
 <?php
-namespace Settings\ProductImport;
+namespace Settings\CreateListings;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;

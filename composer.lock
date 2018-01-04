@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "976d30211f14bb938b8d678a8f444a3b",
+    "content-hash": "3a031161350c95339b61e31253c4bd39",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1297,16 +1297,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-9018-new-fields-product-endpoint",
+            "version": "dev-CGIV-9014-import-listings-csv",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "5e14dab1a8cc222a3ef526cc22a306bcf9c1ec50"
+                "reference": "3152ba7f83192c3d65529bd020545bb89633cc85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-9018-new-fields-product-endpoint-3dd6ee.zip",
-                "reference": "5e14dab1a8cc222a3ef526cc22a306bcf9c1ec50",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-9014-import-listings-csv-634bfe.zip",
+                "reference": "3152ba7f83192c3d65529bd020545bb89633cc85",
                 "shasum": null
             },
             "require": {
@@ -1342,7 +1342,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2017-11-21T15:45:29+00:00"
+            "time": "2018-01-04T13:27:48+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2009,11 +2009,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-9014-import-listings-csv",
+            "version": "dev-CGIV-9013-export-amazon-listings-to-csv",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "4f0949978e40862e1245cf62d0cd7ed71ddafcf4"
+                "reference": "e3b83e5e47eb8fc17ff2374a793844e3c55b6fb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9013-export-amazon-listings-to-csv-0d2594.zip",
+                "reference": "e3b83e5e47eb8fc17ff2374a793844e3c55b6fb9",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2034,6 +2040,7 @@
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
+                "php": ">=7.1",
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
@@ -2057,7 +2064,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-02T11:52:45+00:00"
+            "time": "2018-01-04T10:35:37+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9479,19 +9486,13 @@
         {
             "alias": "1.11.14",
             "alias_normalized": "1.11.14.0",
-            "version": "dev-CGIV-9018-new-fields-product-endpoint",
+            "version": "dev-CGIV-9014-import-listings-csv",
             "package": "channelgrabber/listing"
         },
         {
             "alias": "1.10.1",
             "alias_normalized": "1.10.1.0",
             "version": "dev-CGIV-9013-export-amazon-listings-to-csv",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.10.1",
-            "alias_normalized": "1.10.1.0",
-            "version": "dev-CGIV-9014-import-listings-csv",
             "package": "channelgrabber/product"
         },
         {
@@ -9508,8 +9509,8 @@
         "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

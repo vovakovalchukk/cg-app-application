@@ -3,15 +3,15 @@ namespace Settings\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Products\Product\Csv\Importer as ProductCsvService;
+use Settings\CreateListings\Csv\Importer as ListingsCsvImporter;
+use Settings\CreateListings\Service;
 use Settings\Module;
-use Settings\ProductImport\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class ProductImportController extends AbstractActionController
+class CreateListingsController extends AbstractActionController
 {
-    const ROUTE = 'Product Import';
+    const ROUTE = 'Create Listings';
     const ROUTE_IMPORT = 'Import';
 
     /** @var ViewModelFactory */
@@ -20,19 +20,19 @@ class ProductImportController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var Service */
     protected $service;
-    /** @var ProductCsvService */
-    protected $productCsvService;
+    /** @var ListingsCsvImporter */
+    protected $listingsCsvImporter;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         Service $service,
-        ProductCsvService $productCsvService
+        ListingsCsvImporter $listingsCsvImporter
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
         $this->service = $service;
-        $this->productCsvService = $productCsvService;
+        $this->listingsCsvImporter = $listingsCsvImporter;
     }
 
     public function indexAction()
@@ -53,7 +53,7 @@ class ProductImportController extends AbstractActionController
     {
         $accountOptions = $this->service->getSalesAccountsAsSelectOptions();
         $view = $this->viewModelFactory->newInstance([
-            'id' => 'product-import-account-select',
+            'id' => 'listing-import-account-select',
             'name' => 'accountId',
             'options' => $accountOptions
         ]);
@@ -64,7 +64,7 @@ class ProductImportController extends AbstractActionController
     protected function getFileUpload(): ViewModel
     {
         $view = $this->viewModelFactory->newInstance([
-            'id' => 'product-import-file-upload',
+            'id' => 'listing-import-file-upload',
             'name' => 'listingFile',
             'accept' => '.csv'
         ]);
@@ -76,7 +76,7 @@ class ProductImportController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [[
-                'id' => 'product-import-button',
+                'id' => 'listing-import-button',
                 'value' => 'Import'
             ]]
         ]);
@@ -92,7 +92,7 @@ class ProductImportController extends AbstractActionController
             throw new \InvalidArgumentException(__METHOD__ . ' must be passed a valid Account ID and CSV file data');
         }
 
-        $this->productCsvService->importFromCsv($fileData, $accountId);
+        $this->listingsCsvImporter->importFromCsv($fileData, $accountId);
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'The import has been started successfully']);
     }
 }

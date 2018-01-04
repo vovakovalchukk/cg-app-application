@@ -12,6 +12,7 @@ use CG\Ebay\Account\CreationService as EbayAccountCreationService;
 use CG\Ebay\Client\TradingApi;
 use CG\Ekm\Account as EkmAccount;
 use CG\Ekm\Account\CreationService as EkmAccountCreationService;
+use CG\FileStorage\S3\Adapter as S3Adapter;
 use CG\Log\Logger;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
@@ -35,6 +36,8 @@ use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
+use Settings\CreateListings\Csv\StorageInterface as ListingsCsvStorage;
+use Settings\CreateListings\Csv\Storage\S3 as ListingsCsvStorageS3;
 use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
@@ -47,7 +50,7 @@ use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
-use Settings\Controller\ProductImportController;
+use Settings\Controller\CreateListingsController;
 use Settings\Controller\ShippingController;
 use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
@@ -160,9 +163,9 @@ return [
                         'route' => Module::ROUTE . '/' . StockController::ROUTE,
                     ],
                     [
-                        'label' => 'Import Products',
-                        'title' => 'Import products into the system and channel listings',
-                        'route' => Module::ROUTE . '/' . ProductImportController::ROUTE,
+                        'label' => 'Create Listings',
+                        'title' => 'Create channel listings from imported data',
+                        'route' => Module::ROUTE . '/' . CreateListingsController::ROUTE,
                         'feature-flag' => ProductService::FEATURE_FLAG_PRODUCT_EXPORT
                     ],
                 ]
@@ -802,18 +805,18 @@ return [
                             ],
                         ]
                     ],
-                    ProductImportController::ROUTE => [
+                    CreateListingsController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/productImport',
+                            'route' => '/createListings',
                             'defaults' => [
-                                'controller' => ProductImportController::class,
+                                'controller' => CreateListingsController::class,
                                 'action' => 'index'
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            ProductImportController::ROUTE_IMPORT => [
+                            CreateListingsController::ROUTE_IMPORT => [
                                 'type' => Literal::class,
                                 'options' => [
                                     'route' => '/import',
@@ -846,7 +849,8 @@ return [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
                 OUStorageInterface::class => OUApiStorage::class,
-                LoggerInterface::class => Logger::class
+                LoggerInterface::class => Logger::class,
+                ListingsCsvStorage::class => ListingsCsvStorageS3::class,
             ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
@@ -897,6 +901,8 @@ return [
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
                 'AccountStockManagementColumnView' => ViewModel::class,
+
+                'ListingsCsvS3Adapter' => S3Adapter::class,
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -1510,6 +1516,16 @@ return [
                     'viewModelFactory' => ViewModelFactory::class
                 ]
             ],
+            'ListingsCsvS3Adapter' => [
+                'parameters' => [
+                    'location' => ListingsCsvStorageS3::S3_BUCKET
+                ]
+            ],
+            ListingsCsvStorageS3::class => [
+                'parameters' => [
+                    's3Adapter' => 'ListingsCsvS3Adapter'
+                ]
+            ]
         ]
     ]
 ];

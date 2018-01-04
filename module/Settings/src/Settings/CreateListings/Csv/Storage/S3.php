@@ -1,5 +1,5 @@
 <?php
-namespace Products\Product\Csv\Storage;
+namespace Settings\CreateListings\Csv\Storage;
 
 use CG\FileStorage\FileStorageException;
 use CG\FileStorage\S3\Adapter as S3Adapter;
@@ -7,19 +7,19 @@ use CG\Http\StatusCode;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use Products\Product\Csv\Entity;
-use Products\Product\Csv\Mapper;
-use Products\Product\Csv\StorageInterface;
+use Settings\CreateListings\Csv\Entity;
+use Settings\CreateListings\Csv\Mapper;
+use Settings\CreateListings\Csv\StorageInterface;
 
 class S3 implements StorageInterface, LoggerAwareInterface
 {
     use LogTrait;
 
     const FILE_TYPE_EXTENSION = 'csv';
-    const S3_BUCKET = 'orderhub-productimportdata';
-    const LOG_CODE = 'ProductCsvStorageS3';
-    const LOG_NOT_FOUND = 'Product CSV not found at S3 key %s';
-    const LOG_SAVE_FAILED = 'Product CSV save to S3 failed, key %s';
+    const S3_BUCKET = 'orderhub-listingimportdata';
+    const LOG_CODE = 'ListingsCsvStorageS3';
+    const LOG_NOT_FOUND = 'Listings CSV not found at S3 key %s';
+    const LOG_SAVE_FAILED = 'Listings CSV save to S3 failed, key %s';
 
     /** @var S3Adapter */
     protected $s3Adapter;

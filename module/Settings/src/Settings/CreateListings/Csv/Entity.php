@@ -1,7 +1,5 @@
 <?php
-namespace Products\Product\Csv;
-
-use DateTime;
+namespace Settings\CreateListings\Csv;
 
 class Entity
 {

@@ -21,7 +21,6 @@ class Exporter
 {
     const MIME_TYPE = 'text/csv';
     const FILE_NAME = 'products_%s_%s.csv';
-    const FILE_LOCATION = 'orderhub-productimportdata';
 
     /** @var ListingService */
     protected $listingService;

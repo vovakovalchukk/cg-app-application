@@ -1,12 +1,12 @@
 <?php
-namespace Products\Product\Csv;
+namespace Settings\CreateListings\Csv;
 
-use CG\Product\Gearman\Workload\ProductImport as Workload;
+use CG\Listing\Gearman\Workload\CreateListingsFromImport as Workload;
 use CG\User\ActiveUserInterface;
 use GearmanClient;
-use Products\Product\Csv\Entity;
-use Products\Product\Csv\Mapper;
-use Products\Product\Csv\StorageInterface;
+use Settings\CreateListings\Csv\Entity;
+use Settings\CreateListings\Csv\Mapper;
+use Settings\CreateListings\Csv\StorageInterface;
 
 class Importer
 {

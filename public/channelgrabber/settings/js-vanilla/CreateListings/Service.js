@@ -26,10 +26,10 @@ define([
         init.call(this);
     }
 
-    Service.SELECTOR_FORM = '#product-import-form';
-    Service.SELECTOR_ACCOUNT = '#product-import-account-select';
-    Service.SELECTOR_FILE = '#product-import-file-upload-hidden-input';
-    Service.SELECTOR_BUTTON = '#product-import-button';
+    Service.SELECTOR_FORM = '#listing-import-form';
+    Service.SELECTOR_ACCOUNT = '#listing-import-account-select';
+    Service.SELECTOR_FILE = '#listing-import-file-upload-hidden-input';
+    Service.SELECTOR_BUTTON = '#listing-import-button';
 
     Service.prototype.listenForImportAndVerify = function()
     {

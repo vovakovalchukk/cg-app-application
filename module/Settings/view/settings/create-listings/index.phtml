@@ -1,8 +1,8 @@
 <div id="breadcrumbs" class="floatLeftClear">
-    <span class="heading-large"><?= $this->translate('Import Products'); ?>
+    <span class="heading-large"><?= $this->translate('Create Listings from Import'); ?>
 </div>
 <div class="module clearfix">
-    <form id="product-import-form" method="POST" action="<?=$this->saveUri;?>">
+    <form id="listing-import-form" method="POST" action="<?=$this->saveUri;?>">
         <div class="half">
             <label>
                 <span class="inputbox-label"><?= $this->translate('Account to import to');?>:</span>
@@ -20,7 +20,7 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-        require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ProductImport/Service.js';?>'], function(Service)
+        require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/CreateListings/Service.js';?>'], function(Service)
         {
             new Service(n);
         });

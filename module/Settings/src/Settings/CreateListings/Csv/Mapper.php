@@ -1,5 +1,5 @@
 <?php
-namespace Products\Product\Csv;
+namespace Settings\CreateListings\Csv;
 
 use DateTime;
 
