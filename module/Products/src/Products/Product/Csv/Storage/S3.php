@@ -65,8 +65,8 @@ class S3 implements StorageInterface, LoggerAwareInterface
         try {
             $this->s3Adapter->delete($this->getS3Key($entity->getId()));
         } catch (FileStorageException $e) {
-            $this->logWarningException($e, static::LOG_NOT_FOUND, [$this->getS3Key($id)], [static::LOG_CODE, 'RemoveFailed']);
-            throw new NotFound(vsprintf(static::LOG_NOT_FOUND, $this->getS3Key($id)), StatusCode::NOT_FOUND, $e);
+            $this->logWarningException($e, static::LOG_NOT_FOUND, [$this->getS3Key($entity->getId())], [static::LOG_CODE, 'RemoveFailed']);
+            throw new NotFound(vsprintf(static::LOG_NOT_FOUND, $this->getS3Key($entity->getId())), StatusCode::NOT_FOUND, $e);
         }
     }
 
