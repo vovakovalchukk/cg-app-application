@@ -46,7 +46,7 @@ class Importer
 
     protected function createImportJob(Entity $entity)
     {
-        $workload = new Workload($entity->getAccountId(), $entity->getRootOuId());
+        $workload = new Workload($entity->getAccountId(), $entity->getRootOuId(), $entity->getId());
         $this->gearmanClient->doBackground(Workload::FUNCTION_NAME, serialize($workload));
     }
 }

@@ -1301,13 +1301,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "3152ba7f83192c3d65529bd020545bb89633cc85"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-9014-import-listings-csv-634bfe.zip",
-                "reference": "3152ba7f83192c3d65529bd020545bb89633cc85",
-                "shasum": null
+                "reference": "4ac2c80652f957f162a5b98f047458619ecdc682"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9509,8 +9503,8 @@
         "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
