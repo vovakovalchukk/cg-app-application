@@ -12,6 +12,7 @@ class Line
     protected $description;
     /** @var string|null */
     protected $condition;
+    /** @var float|null */
     protected $price;
     /** @var string|null */
     protected $image;
@@ -27,6 +28,16 @@ class Line
     protected $brand;
     /** @var string|null */
     protected $mpn;
+    /** @var string|null */
+    protected $site;
+    /** @var string|null */
+    protected $category;
+    /** @var string|null */
+    protected $shipping;
+    /** @var string|null */
+    protected $location;
+    /** @var string|null */
+    protected $specifics;
 
     public function toArray()
     {
@@ -41,7 +52,12 @@ class Line
             'mpn' => $this->getMpn(),
             'price' => $this->getPrice(),
             'image' => $this->getImage(),
-            'stock' => $this->getStock()
+            'stock' => $this->getStock(),
+            'site' => $this->getSite(),
+            'category' => $this->getCategory(),
+            'shipping' => $this->getShipping(),
+            'location' => $this->getLocation(),
+            'specifics' => $this->getSpecifics(),
         ];
     }
 
@@ -179,6 +195,61 @@ class Line
     public function setSku($sku)
     {
         $this->sku = $sku;
+        return $this;
+    }
+
+    public function getSite(): ?string
+    {
+        return $this->site;
+    }
+
+    public function setSite(?string $site): Line
+    {
+        $this->site = $site;
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): Line
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getShipping(): ?string
+    {
+        return $this->shipping;
+    }
+
+    public function setShipping(?string $shipping): Line
+    {
+        $this->shipping = $shipping;
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): Line
+    {
+        $this->location = $location;
+        return $this;
+    }
+
+    public function getSpecifics(): ?string
+    {
+        return $this->specifics;
+    }
+
+    public function setSpecifics(?string $specifics): Line
+    {
+        $this->specifics = $specifics;
         return $this;
     }
 }
