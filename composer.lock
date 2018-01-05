@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a031161350c95339b61e31253c4bd39",
+    "content-hash": "67c44af8930e0cec30a2c6a43cd3c871",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1301,7 +1301,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "bd50d4b305001a17e3382e5ac6c2ddfbde70cdfc"
+                "reference": "f3fe6ffddb1c4147d6403c48f71a48ce377528dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-9014-import-listings-csv-01b04f.zip",
+                "reference": "f3fe6ffddb1c4147d6403c48f71a48ce377528dc",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1313,7 +1319,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.12.6",
+                "channelgrabber/stdlib": "dev-CGIV-9014-import-listings-csv as 2.14.0",
                 "channelgrabber/user": "^1.20.2",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
@@ -1323,7 +1329,7 @@
             "require-dev": {
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
             "autoload": {
@@ -1336,7 +1342,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-04T16:08:27+00:00"
+            "time": "2018-01-05T16:47:02+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2596,19 +2602,20 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.13.2",
+            "version": "dev-CGIV-9014-import-listings-csv",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "d801d5cbf8c0b8364e55d88a96f0993d5bd0dde2"
+                "reference": "7d89bd00116bf7588af6087b8adc4e00dc291841"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.13.2-8823ff.zip",
-                "reference": "d801d5cbf8c0b8364e55d88a96f0993d5bd0dde2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-9014-import-listings-csv-7e7056.zip",
+                "reference": "7d89bd00116bf7588af6087b8adc4e00dc291841",
                 "shasum": null
             },
             "require": {
+                "php": ">=7.1",
                 "phpseclib/mcrypt_compat": "~1.0.1",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -2643,7 +2650,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-10-03T08:07:04+00:00"
+            "time": "2018-01-05T09:29:36+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -9489,6 +9496,12 @@
             "package": "channelgrabber/product"
         },
         {
+            "alias": "2.14.0",
+            "alias_normalized": "2.14.0.0",
+            "version": "dev-CGIV-9014-import-listings-csv",
+            "package": "channelgrabber/stdlib"
+        },
+        {
             "alias": "1.20.5",
             "alias_normalized": "1.20.5.0",
             "version": "dev-CGIV-9014-import-listings-csv",
@@ -9500,6 +9513,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
         "channelgrabber/product": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
