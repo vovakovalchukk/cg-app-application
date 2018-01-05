@@ -1,6 +1,8 @@
 <?php
 namespace Settings\CreateListings\Csv;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as Account;
 use CG\Listing\Gearman\Workload\CreateListingsFromImport as Workload;
 use CG\User\ActiveUserInterface;
 use GearmanClient;
@@ -10,6 +12,8 @@ use CG\Listing\Csv\StorageInterface;
 
 class Importer
 {
+    const JOB_QUEUE_NAME = '%sCreateListingsFromImport';
+
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
     /** @var StorageInterface*/
@@ -18,17 +22,21 @@ class Importer
     protected $mapper;
     /** @var GearmanClient */
     protected $gearmanClient;
+    /** @var AccountService */
+    protected $accountService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         StorageInterface $storage,
         Mapper $mapper,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        AccountService $accountService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->storage = $storage;
         $this->mapper = $mapper;
         $this->gearmanClient = $gearmanClient;
+        $this->accountService = $accountService;
     }
 
     public function importFromCsv(string $fileContents, int $accountId)
@@ -46,7 +54,16 @@ class Importer
 
     protected function createImportJob(Entity $entity)
     {
+        $queueName = $this->getJobQueueName($entity);
         $workload = new Workload($entity->getAccountId(), $entity->getRootOuId(), $entity->getId());
-        $this->gearmanClient->doBackground(Workload::FUNCTION_NAME, serialize($workload));
+        $handle = $queueName . '-' . $entity->getId();
+        $this->gearmanClient->doBackground($queueName, serialize($workload), $handle);
+    }
+
+    protected function getJobQueueName(Entity $entity): string
+    {
+        /** @var Account $account */
+        $account = $this->accountService->fetch($entity->getAccountId());
+        return sprintf(static::JOB_QUEUE_NAME, $account->getChannel());
     }
 }
