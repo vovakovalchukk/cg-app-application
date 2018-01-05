@@ -6,6 +6,8 @@ use CG\Product\Detail\Entity as Detail;
 
 class Line
 {
+    const DEFAULT_CURRENCY = 'GBP';
+
     /** @var string|null */
     protected $name;
     /** @var string|null */
@@ -38,6 +40,12 @@ class Line
     protected $location;
     /** @var string|null */
     protected $specifics;
+    /** @var string|null */
+    protected $currency;
+    /** @var string|null */
+    protected $paymentMethod;
+    /** @var string|null */
+    protected $paypalEmail;
 
     public function toArray()
     {
@@ -51,6 +59,7 @@ class Line
             'brand' => $this->getBrand(),
             'mpn' => $this->getMpn(),
             'price' => $this->getPrice(),
+            'currency' => $this->getCurrency(),
             'image' => $this->getImage(),
             'stock' => $this->getStock(),
             'site' => $this->getSite(),
@@ -58,6 +67,8 @@ class Line
             'shipping' => $this->getShipping(),
             'location' => $this->getLocation(),
             'specifics' => $this->getSpecifics(),
+            'paymentMethod' => $this->getPaymentMethod(),
+            'paypalEmail' => $this->getPaypalEmail(),
         ];
     }
 
@@ -72,6 +83,8 @@ class Line
             ->setAsin($detail->getAsin())
             ->setDescription($detail->getDescription())
             ->setPrice($detail->getPrice())
+            // We should really store this on ProductDetail
+            ->setCurrency(static::DEFAULT_CURRENCY)
             ->setCondition($detail->getCondition())
             ->setImage($imageUrl)
             ->setStock($stockTotal);
@@ -250,6 +263,39 @@ class Line
     public function setSpecifics(?string $specifics): Line
     {
         $this->specifics = $specifics;
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): Line
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    public function getPaymentMethod(): ?string
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(?string $paymentMethod): Line
+    {
+        $this->paymentMethod = $paymentMethod;
+        return $this;
+    }
+
+    public function getPaypalEmail(): ?string
+    {
+        return $this->paypalEmail;
+    }
+
+    public function setPaypalEmail(?string $paypalEmail): Line
+    {
+        $this->paypalEmail = $paypalEmail;
         return $this;
     }
 }
