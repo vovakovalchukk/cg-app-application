@@ -1336,7 +1336,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-04T13:27:48+00:00"
+            "time": "2018-01-04T16:08:27+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -3981,12 +3981,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a987c816f2204232696886d9c122f1bf56689a26"
+                "reference": "b0e7c88ce688d8ddbe42c07af3972e34bc5f81bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9014-import-listings-csv-582153.zip",
-                "reference": "a987c816f2204232696886d9c122f1bf56689a26",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9014-import-listings-csv-b03dab.zip",
+                "reference": "b0e7c88ce688d8ddbe42c07af3972e34bc5f81bb",
                 "shasum": null
             },
             "require": {
@@ -3999,13 +3999,12 @@
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/notification": "^1.2.0",
-                "channelgrabber/stdlib": "~2.13.1",
+                "channelgrabber/stdlib": "^2.13.1",
                 "channelgrabber/stock": "^1.5.9",
                 "channelgrabber/user": "^1.20.6",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "composer/composer": "@dev",
                 "jakeasmith/http_build_url": "~1.0",
                 "php": ">=7.1",
                 "whichbrowser/whichbrowser": "~1.0.0",
@@ -4038,7 +4037,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-01-04T09:51:44+00:00"
+            "time": "2018-01-05T09:55:28+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9503,8 +9502,8 @@
         "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
