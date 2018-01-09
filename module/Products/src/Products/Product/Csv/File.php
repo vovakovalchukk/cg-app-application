@@ -5,7 +5,7 @@ use CG\Listing\Csv\Line;
 
 class File
 {
-    const HEADERS = ['Name', 'Description', 'Item Condition', 'SKU', 'EAN', 'ASIN', 'Brand', 'MPN' ,'Price', 'Currency', 'Image', 'Stock', 'Site', 'Category', 'Shipping', 'Item location', 'Item Specifics', 'Payment Method', 'Paypal Email'];
+    const HEADERS = ['Name', 'Description', 'Item Condition', 'SKU', 'EAN', 'ASIN', 'Brand', 'MPN' ,'Price', 'Currency', 'Image', 'Stock', 'Site', 'Category', 'Shipping Service', 'Shipping Price', 'Item Location', 'Item Specifics', 'Payment Method', 'Paypal Email'];
 
     /** @var  Line[] */
     protected $lines;
