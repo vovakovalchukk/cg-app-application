@@ -9,6 +9,7 @@ use GearmanClient;
 use CG\Listing\Csv\Entity;
 use CG\Listing\Csv\Mapper;
 use CG\Listing\Csv\StorageInterface;
+use function CG\Stdlib\hyphenToCamelCase;
 
 class Importer
 {
@@ -64,6 +65,6 @@ class Importer
     {
         /** @var Account $account */
         $account = $this->accountService->fetch($entity->getAccountId());
-        return sprintf(static::JOB_QUEUE_NAME, $account->getChannel());
+        return sprintf(static::JOB_QUEUE_NAME, hyphenToCamelCase($account->getChannel()));
     }
 }
