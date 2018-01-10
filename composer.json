@@ -43,7 +43,7 @@
         "channelgrabber/http": "~1.3.31",
         "channelgrabber/image": "~1.2.6",
         "channelgrabber/intercom": "~1.3.2",
-        "channelgrabber/listing": "dev-CGIV-9014-import-listings-csv as 1.11.14",
+        "channelgrabber/listing": "dev-LIS-13-create-bigcom-listings-from-csv as 1.11.14",
         "channelgrabber/locale": "~1.0.16",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",

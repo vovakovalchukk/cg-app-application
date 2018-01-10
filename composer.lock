@@ -1297,11 +1297,11 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-9014-import-listings-csv",
+            "version": "dev-LIS-13-create-bigcom-listings-from-csv",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "2fdb84243b73b73e495fd99071b14e93f7a241cd"
+                "reference": "7a94f4ae7642fffdebc636475e86ae3281e47d82"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9481,6 +9481,12 @@
             "alias": "1.11.14",
             "alias_normalized": "1.11.14.0",
             "version": "dev-CGIV-9014-import-listings-csv",
+            "package": "channelgrabber/listing"
+        },
+        {
+            "alias": "1.11.14",
+            "alias_normalized": "1.11.14.0",
+            "version": "dev-LIS-13-create-bigcom-listings-from-csv",
             "package": "channelgrabber/listing"
         },
         {
