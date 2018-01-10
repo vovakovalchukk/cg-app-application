@@ -25,7 +25,7 @@
         "channelgrabber/billing": "~1.12.3",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.15.0",
-        "channelgrabber/channel": "~1.32.6",
+        "channelgrabber/channel": "~1.32.9",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
@@ -66,7 +66,7 @@
         "channelgrabber/shopify": "~1.0.6",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
-        "channelgrabber/stdlib": "~2.13.2",
+        "channelgrabber/stdlib": "~2.13.3",
         "channelgrabber/stock": "~1.11.0",
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.5.4",
@@ -106,10 +106,9 @@
         "zendframework/zendframework": "2.3.*"
     },
     "require-dev": {
-        "channelgrabber/codeception": "~1.2.1",
-        "codeception/codeception": "~1.8.0",
         "phpspec/phpspec": "2.0.*@dev",
-        "phpspec/prophecy": "~1.0"
+        "phpspec/prophecy": "~1.0",
+        "phpunit/phpunit": "^6.5.5"
     },
     "scripts": {
         "post-install-cmd": "@setup",
