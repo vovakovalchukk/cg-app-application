@@ -1301,7 +1301,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "9226f9636be4fbae701166c77ed2412e3be572c5"
+                "reference": "2fdb84243b73b73e495fd99071b14e93f7a241cd"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
