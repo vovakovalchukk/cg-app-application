@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6f8080ba4c37c4a8ff802d5a40e6699",
+    "content-hash": "6fc7c28d3f6219a06291ca4c30043c8e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1119,7 +1119,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "f68e5029d9871d5426d48d913c42308ead7c2576"
+                "reference": "ebf02f43b433c6823884b7374410f480b762ab3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-9147-gearman-proxy-fail-2e41ba.zip",
+                "reference": "ebf02f43b433c6823884b7374410f480b762ab3f",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cg-predis": "^0.8.7",
@@ -1131,7 +1137,12 @@
                 "channelgrabber/stdlib": "^2.12.15",
                 "ext-gearman": "*",
                 "guzzle/guzzle": "~3.7",
+                "php": ">=7.1",
                 "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "^1.0.4",
+                "phpunit/phpunit": "~6.4.0"
             },
             "type": "library",
             "autoload": {
@@ -1139,7 +1150,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2017-03-23T09:44:17+00:00"
+            "time": "2018-01-11T12:30:48+00:00"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -9704,8 +9715,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/gearman": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
