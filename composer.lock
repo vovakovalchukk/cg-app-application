@@ -692,7 +692,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -1115,17 +1115,11 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.2.29",
+            "version": "dev-CGIV-9147-gearman-proxy-fail",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "6fe0704a716ba6e38829e8067f832efe8f92db02"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.29-47aae7.zip",
-                "reference": "6fe0704a716ba6e38829e8067f832efe8f92db02",
-                "shasum": null
+                "reference": "f68e5029d9871d5426d48d913c42308ead7c2576"
             },
             "require": {
                 "channelgrabber/cg-predis": "^0.8.7",
@@ -5884,7 +5878,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6364,7 +6358,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -9697,13 +9691,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.27",
+            "alias_normalized": "1.2.27.0",
+            "version": "dev-CGIV-9147-gearman-proxy-fail",
+            "package": "channelgrabber/gearman"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/gearman": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
