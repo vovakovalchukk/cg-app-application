@@ -36,7 +36,7 @@
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
-        "channelgrabber/exchangerate": "~1.2.2",
+        "channelgrabber/exchangerate": "~1.2.3",
         "channelgrabber/feature-flags": "~2.1.0",
         "channelgrabber/file-storage": "~1.0.0",
         "channelgrabber/gearman": "dev-CGIV-9147-gearman-proxy-fail as 1.2.27",
