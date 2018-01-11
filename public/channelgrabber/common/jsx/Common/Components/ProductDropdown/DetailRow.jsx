@@ -9,7 +9,9 @@ define([
     var DetailRow = React.createClass({
         getDefaultProps: function () {
             return {
-                product: {}
+                product: {},
+                isSelectable: true,
+                nonLinkableSkus: []
             }
         },
         getInitialState: function () {
@@ -27,8 +29,15 @@ define([
             return attributeValues;
         },
         getVariationRow: function (variation) {
+            var skuIsLinkable = this.props.nonLinkableSkus.indexOf(variation.sku) < 0;
+            var addFunction = skuIsLinkable ? this.onAddClicked.bind(this, this.props.product, variation.sku): this.onDisabledAddClicked;
+            var className = "detail-variation-row";
+            if (!skuIsLinkable) {
+                className += ' disabled'
+            }
+
             return (
-                <div className="detail-variation-row">
+                <div className={className}>
                     <div className="variation-row-img">
                         <img src={this.context.imageUtils.getProductImage(this.props.product, variation.sku)} />
                     </div>
@@ -45,7 +54,7 @@ define([
                         <Input name='quantity' initialValue={this.getQuantity(variation.sku)} submitCallback={this.onStockQuantitySelected.bind(this, variation.sku)} />
                     </div>
                     <div className="variation-row-actions">
-                        <span className="variation-add-action" onClick={this.onAddClicked.bind(this, this.props.product, variation.sku)}>Add</span>
+                        <span className="variation-add-action" onClick={addFunction}>Add</span>
                     </div>
                 </div>
             );
@@ -56,6 +65,9 @@ define([
         onAddClicked: function (product, sku) {
             var selectedQuantity = this.getQuantity(sku);
             this.props.onAddClicked(product, sku, selectedQuantity);
+        },
+        onDisabledAddClicked: function() {
+            n.error('The product you\'re trying to add can\'t be linked to the current sku');
         },
         onStockQuantitySelected: function (sku, quantity) {
             var newSelectedQuantities = this.state.selectedQuantity;
@@ -70,6 +82,7 @@ define([
         },
         render: function () {
             var variations = this.props.product.variations ? this.props.product.variations : [this.props.product];
+
             return (
                 <div className="detail-row-wrapper">
                     <div className="detail-row-header">

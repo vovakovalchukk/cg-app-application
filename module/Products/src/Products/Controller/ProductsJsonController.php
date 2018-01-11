@@ -12,7 +12,9 @@ use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
-use CG\Product\Filter;
+use CG\Product\Collection as ProductCollection;
+use CG\Product\Entity as Product;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
@@ -29,7 +31,7 @@ use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
+use Products\Product\Link\Service as ProductLinkService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -75,10 +77,10 @@ class ProductsJsonController extends AbstractActionController
     protected $locationService;
     /** @var StockLocationService */
     protected $stockLocationService;
-    /** @var ProductLinkNodeService */
-    protected $productLinkNodeService;
     /** @var ActiveUserInterface */
     protected $activeUser;
+    /** @var ProductLinkService */
+    protected $productLinkService;
 
     public function __construct(
         ProductService $productService,
@@ -93,8 +95,8 @@ class ProductsJsonController extends AbstractActionController
         UsageService $usageService,
         LocationService $locationService,
         StockLocationService $stockLocationService,
-        ProductLinkNodeService $productLinkNodeService,
-        ActiveUserInterface $activeUser
+        ActiveUserInterface $activeUser,
+        ProductLinkService $productLinkService
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -108,8 +110,8 @@ class ProductsJsonController extends AbstractActionController
         $this->usageService = $usageService;
         $this->locationService = $locationService;
         $this->stockLocationService = $stockLocationService;
-        $this->productLinkNodeService = $productLinkNodeService;
         $this->activeUser = $activeUser;
+        $this->productLinkService = $productLinkService;
     }
 
     public function ajaxAction()
@@ -155,6 +157,18 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
+
+        $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
+        if ($skuThatProductsCantLinkFrom) {
+            $view->setVariable(
+                'nonLinkableSkus',
+                $this->productLinkService->getSkusProductCantLinkTo(
+                    $products->getFirst()->getOrganisationUnitId(),
+                    $skuThatProductsCantLinkFrom
+                )
+            );
+        }
+
         $view
             ->setVariable('products', $productsArray)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
