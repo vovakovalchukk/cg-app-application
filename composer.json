@@ -39,7 +39,7 @@
         "channelgrabber/exchangerate": "~1.2.3",
         "channelgrabber/feature-flags": "~2.1.0",
         "channelgrabber/file-storage": "~1.0.0",
-        "channelgrabber/gearman": "dev-CGIV-9147-gearman-proxy-fail as 1.2.27",
+        "channelgrabber/gearman": "~1.3.1",
         "channelgrabber/http": "~1.3.31",
         "channelgrabber/image": "~1.2.6",
         "channelgrabber/intercom": "~1.3.2",
