@@ -69,7 +69,7 @@
         "channelgrabber/stdlib": "~2.13.3",
         "channelgrabber/stock": "~1.11.0",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "dev-CGIV-9096-LoadWeirdImages as 1.5.5",
+        "channelgrabber/template": "~1.5.5",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.23.2",
         "channelgrabber/userpreference": "~1.2.4",
