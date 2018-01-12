@@ -22,6 +22,8 @@ use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
 use CG\Settings\Shipping\Alias\Storage\Api as ShippingAliasStorage;
+use CG\ShipStation\Account as ShipStationAccount;
+use CG\ShipStation\Account\CreationService as ShipStationCreationService;
 use CG\Stdlib\Log\LoggerInterface;
 use CG\Template\Repository as TemplateRepository;
 use CG\Template\Service as TemplateService;
@@ -1413,6 +1415,11 @@ return [
                 'parameters' => [
                     'cryptor' => 'ebay_cryptor',
                     'channelAccount' => EbayAccount::class
+                ]
+            ],
+            ShipStationCreationService::class => [
+                'parameters' => [
+                    'channelAccount' => ShipStationAccount::class
                 ]
             ],
             AmazonAccountCreationService::class => [
