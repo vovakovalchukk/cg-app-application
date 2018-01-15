@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "afbae04ed23d4262a16d3c320cb08e25",
+    "content-hash": "857af2ccadbc31065fcb49498d335fb1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -696,16 +696,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.24",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "721e64daabfe45afa9d7f4b53a77bd4e86c539b0"
+                "reference": "5514cdb3cad0393e0d7aab7e02cb22e20f8ea653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.24-345d3f.zip",
-                "reference": "721e64daabfe45afa9d7f4b53a77bd4e86c539b0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.25-bea914.zip",
+                "reference": "5514cdb3cad0393e0d7aab7e02cb22e20f8ea653",
                 "shasum": null
             },
             "require": {
@@ -736,7 +736,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2017-12-12T09:00:33+00:00"
+            "time": "2018-01-12T12:47:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1016,16 +1016,16 @@
         },
         {
             "name": "channelgrabber/exchangerate",
-            "version": "1.2.3",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-exchangerate.git",
-                "reference": "1b1679ab49c4381d8e204dea439f7729b917081e"
+                "reference": "91420cbee6786264cb0ae0958fbd90fbdd846f0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.2.3-cfb969.zip",
-                "reference": "1b1679ab49c4381d8e204dea439f7729b917081e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-exchangerate-1.2.5-400f80.zip",
+                "reference": "91420cbee6786264cb0ae0958fbd90fbdd846f0d",
                 "shasum": null
             },
             "require": {
@@ -1045,7 +1045,7 @@
                     "CG\\ExchangeRate\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-10T16:14:05+00:00"
+            "time": "2018-01-15T13:25:29+00:00"
         },
         {
             "name": "channelgrabber/feature-flags",
@@ -2796,16 +2796,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.5.4",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ecb6c96b4c76ef9c5748e1200a8b4ad6affa77c7"
+                "reference": "c8d46e8279bb617d6c4a69896107357e448f8d79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.5.4-16c42b.zip",
-                "reference": "ecb6c96b4c76ef9c5748e1200a8b4ad6affa77c7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.5.5-08ba66.zip",
+                "reference": "c8d46e8279bb617d6c4a69896107357e448f8d79",
                 "shasum": null
             },
             "require": {
@@ -2852,7 +2852,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-12-20T11:50:02+00:00"
+            "time": "2018-01-12T14:11:38+00:00"
         },
         {
             "name": "channelgrabber/transaction",
