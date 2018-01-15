@@ -63,6 +63,8 @@ define([
                 // Setup emailEditor
                 setupEmailEditor();
 
+                setupEmailVerification(self);
+
                 // Set event listeners
                 $(document).on('change', selector, function() {
                     ajaxSave(self);
@@ -241,6 +243,21 @@ define([
             function setEmailVerifyButtonVerifying(emailVerifyButton)
             {
                 emailVerifyButton.prop('disabled', true).addClass('verifying').text('Verifying...');
+            }
+
+            function setupEmailVerification(self)
+            {
+                console.log('SETUP VERIFICATION');
+
+
+                if ($('.status.email-verify-status.pending').length <= 0) {
+                    return false;
+                }
+
+                console.log('GO');
+
+                // ajaxVerify(self);
+                ajaxSave(self);
             }
 
             function setupEmailEditor() {
