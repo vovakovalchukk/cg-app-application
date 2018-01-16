@@ -255,7 +255,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
-
+                    ListingsJsonController::ROUTE_CREATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing/submit',
+                            'defaults' => [
+                                'controller' => ListingsJsonController::class,
+                                'action' => 'create'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [
