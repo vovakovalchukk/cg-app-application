@@ -6,7 +6,7 @@ class File
     const HEADERS = ['Name', 'Description', 'Item Condition', 'SKU', 'EAN', 'ASIN', 'Brand', 'MPN' ,'Price', 'Image', 'Stock', 'Site', 'Category', 'Shipping', 'Item location', 'Item Specifics'];
 
     /** @var  Line[] */
-    protected $lines;
+    protected $lines = [];
 
     /**
      * @return Line[]
