@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cea5e2cbc02b2c3febd346a194a6541e",
+    "content-hash": "6e63b4b76d29f57077f131288486d67b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -842,12 +842,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "910bfd8e7f15ab4b86d5e32199eb17c1fadb5c09"
+                "reference": "b008ac765f462389630ac7044a0d1fd2d280f439"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-08040f.zip",
-                "reference": "910bfd8e7f15ab4b86d5e32199eb17c1fadb5c09",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-be0642.zip",
+                "reference": "b008ac765f462389630ac7044a0d1fd2d280f439",
                 "shasum": null
             },
             "require": {
@@ -859,7 +859,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.9.8",
+                "channelgrabber/listing": "dev-LIS-29-CreateEbayListing as 1.12.1",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
@@ -891,7 +891,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2018-01-09T17:23:28+00:00"
+            "time": "2018-01-16T16:07:24+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1341,7 +1341,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-15T16:48:00+00:00"
+            "time": "2018-01-16T14:40:07+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9713,12 +9713,6 @@
         {
             "alias": "1.12.1",
             "alias_normalized": "1.12.1.0",
-            "version": "dev-develop",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.12.1",
-            "alias_normalized": "1.12.1.0",
             "version": "dev-LIS-29-CreateEbayListing",
             "package": "channelgrabber/listing"
         }
@@ -9730,8 +9724,8 @@
         "channelgrabber/ebay": 20,
         "channelgrabber/listing": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
