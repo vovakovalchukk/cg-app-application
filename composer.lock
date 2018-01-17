@@ -454,12 +454,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "b21a1b33a95e88ccc42ab9d45ef95b0d09fe8045"
+                "reference": "9f65b80390fa8a0989b06e31ed5e254e72d0409e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-LIS-29-CreateEbayListing-c60847.zip",
-                "reference": "b21a1b33a95e88ccc42ab9d45ef95b0d09fe8045",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-LIS-29-CreateEbayListing-821d64.zip",
+                "reference": "9f65b80390fa8a0989b06e31ed5e254e72d0409e",
                 "shasum": null
             },
             "require": {
@@ -506,7 +506,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-17T14:03:23+00:00"
+            "time": "2018-01-17T15:14:48+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -842,12 +842,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "33058f4fe6835d1e3d2cc75e5393c0ca9411d558"
+                "reference": "31f7a0ddc1af811bfe7e1cad0f5dac55b7e4da80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-f5dc14.zip",
-                "reference": "33058f4fe6835d1e3d2cc75e5393c0ca9411d558",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-283eb3.zip",
+                "reference": "31f7a0ddc1af811bfe7e1cad0f5dac55b7e4da80",
                 "shasum": null
             },
             "require": {
@@ -898,7 +898,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-17T14:13:10+00:00"
+            "time": "2018-01-17T16:17:17+00:00"
         },
         {
             "name": "channelgrabber/ekm",
