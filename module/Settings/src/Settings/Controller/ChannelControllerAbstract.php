@@ -13,9 +13,13 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 abstract class ChannelControllerAbstract extends AbstractActionController
 {
+    /** @var AccountCreationService */
     protected $accountCreationService;
+    /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var FeatureFlagsService */
     protected $featureFlagsService;
