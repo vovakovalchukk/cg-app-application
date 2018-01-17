@@ -8,6 +8,13 @@ define([
     "use strict";
 
     var CreateListingIconComponent = React.createClass({
+        getDefaultProps: function() {
+            return {
+                accountsListedOn: [],
+                accountsAvailable: {},
+                isVariation: false
+            }
+        },
         getInitialState: function() {
             return {
                 hover: false
@@ -19,8 +26,16 @@ define([
         onMouseOut: function () {
             this.setState({ hover: false });
         },
+        hasAccountsToListTo: function() {
+            for (var accountId in this.props.accountsAvailable) {
+                var account = this.props.accountsAvailable[accountId];
+                if (account.channel == 'ebay' && !this.props.accountsListedOn.includes(accountId)) {
+                    return true;
+                }
+            }
+        },
         render: function() {
-            if (!this.props.isVariation) {
+            if (!this.props.isVariation && this.hasAccountsToListTo()) {
                 return <i className="fa fa-plus icon-create-listing" aria-hidden="true" />
             }
 
