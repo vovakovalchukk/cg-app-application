@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b7e9c8f91f84052a205609a3af756f5",
+    "content-hash": "ee762840308ba42930f4e954c9a37d2c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -838,17 +838,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.10.23",
+            "version": "dev-LIS-22-ebay-default-listing-settings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "43dd1b355f4713147aa04c3d73f89d4ffe326240"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.10.23-3da9f8.zip",
-                "reference": "43dd1b355f4713147aa04c3d73f89d4ffe326240",
-                "shasum": null
+                "reference": "43be7143a3babc4b080f910d34c56ccf41ce205d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3324,7 +3318,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "bba43d2a6628d5e7395d4068da5a359cd8c2b192"
+                "reference": "c58277bb540d8a632eafc30b3cf0a7da26bff0be"
             },
             "require": {
                 "channelgrabber/channel": "^1.25.6",
@@ -9698,6 +9692,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.10.13",
+            "alias_normalized": "1.10.13.0",
+            "version": "dev-LIS-22-ebay-default-listing-settings",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.11.14",
             "alias_normalized": "1.11.14.0",
             "version": "dev-LIS-22-ebay-default-listing-settings",
@@ -9714,6 +9714,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "channelgrabber/listing": 20,
         "channelgrabber/zf2-ebay": 20,
         "phpish/link_header": 20,
