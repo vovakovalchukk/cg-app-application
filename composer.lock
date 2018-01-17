@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "857af2ccadbc31065fcb49498d335fb1",
+    "content-hash": "619b269a5d1cc248c1575e77a62482ff",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -692,7 +692,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -3986,16 +3986,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.20.4",
+            "version": "dev-CGIV-9140-enable_intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3edcd1baa09bc8152ea302291bfbfac1615dd1d6"
+                "reference": "d9791b59f5db6db92a7815ec5189632da3d080d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.20.4-39fe6b.zip",
-                "reference": "3edcd1baa09bc8152ea302291bfbfac1615dd1d6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9140-enable_intercom-e5618c.zip",
+                "reference": "d9791b59f5db6db92a7815ec5189632da3d080d3",
                 "shasum": null
             },
             "require": {
@@ -4008,14 +4008,14 @@
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/notification": "^1.2.0",
-                "channelgrabber/stdlib": "~2.13.1",
+                "channelgrabber/stdlib": "^2.13.1",
                 "channelgrabber/stock": "^1.5.9",
                 "channelgrabber/user": "^1.20.6",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "composer/composer": "@dev",
                 "jakeasmith/http_build_url": "~1.0",
+                "php": ">=7.1",
                 "whichbrowser/whichbrowser": "~1.0.0",
                 "zendframework/zend-config": "^2.3",
                 "zendframework/zend-form": ">=2.3,<3.0",
@@ -4046,7 +4046,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-12-20T12:39:50+00:00"
+            "time": "2018-01-17T11:16:28+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5889,7 +5889,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6369,7 +6369,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -9702,10 +9702,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.21.1",
+            "alias_normalized": "1.21.1.0",
+            "version": "dev-CGIV-9140-enable_intercom",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
