@@ -2,6 +2,9 @@
 namespace Settings\Controller;
 
 use CG\Account\CreationServiceAbstract as AccountCreationService;
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -14,17 +17,25 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     protected $activeUserContainer;
     protected $jsonModelFactory;
     protected $viewModelFactory;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         AccountCreationService $accountCreationService,
         ActiveUserInterface $activeUserContainer,
         JsonModelFactory $jsonModelFactory,
-        ViewModelFactory $viewModelFactory
+        ViewModelFactory $viewModelFactory,
+        FeatureFlagsService $featureFlagsService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setAccountCreationService($accountCreationService)
             ->setActiveUserContainer($activeUserContainer)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory);
+            ->setViewModelFactory($viewModelFactory)
+            ->setFeatureFlagsService($featureFlagsService)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     /**
@@ -69,6 +80,11 @@ abstract class ChannelControllerAbstract extends AbstractActionController
         return $this->getActiveUserContainer()->getActiveUser();
     }
 
+    protected function getActiveUserRootOrganisationUnit(): OrganisationUnit
+    {
+        return $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+    }
+
     /**
      * @return self
      */
@@ -101,5 +117,17 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     protected function getViewModelFactory()
     {
         return $this->viewModelFactory;
+    }
+
+    protected function setFeatureFlagsService(FeatureFlagsService $featureFlagsService): ChannelControllerAbstract
+    {
+        $this->featureFlagsService = $featureFlagsService;
+        return $this;
+    }
+
+    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService): ChannelControllerAbstract
+    {
+        $this->organisationUnitService = $organisationUnitService;
+        return $this;
     }
 }

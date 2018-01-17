@@ -11,6 +11,8 @@ use CG\Amazon\Message\AccountAddressGenerator;
 use CG\Amazon\RegionAbstract as Region;
 use CG\Amazon\RegionFactory;
 use CG\Channel\Type as ChannelType;
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -40,12 +42,16 @@ class AmazonController extends ChannelControllerAbstract implements
         ActiveUserInterface $activeUserContainer,
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
+        FeatureFlagsService $featureFlagsService,
+        OrganisationUnitService $organisationUnitService,
         AccountAddressGenerator $accountAddressGenerator,
         Cryptor $cryptor,
         RegionFactory $regionFactory,
         GearmanClient $gearmanClient
     ) {
-        parent::__construct($accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory);
+        parent::__construct(
+            $accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory, $featureFlagsService, $organisationUnitService
+        );
         $this
             ->setAccountAddressGenerator($accountAddressGenerator)
             ->setCryptor($cryptor)
