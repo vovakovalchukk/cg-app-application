@@ -83,6 +83,7 @@ define([
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    createListingsEnabled={this.props.createListingsEnabled}
                 />;
             } else {
                 return <VariationView
@@ -90,6 +91,7 @@ define([
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     productLinks={this.props.productLinks}
+                    createListingsEnabled={this.props.createListingsEnabled}
                 />;
             }
         },

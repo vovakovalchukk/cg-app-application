@@ -350,6 +350,7 @@ define([
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
+                    createListingsEnabled={this.props.createListingsEnabled}
                 />;
             }.bind(this))
         },
