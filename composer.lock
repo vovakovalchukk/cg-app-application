@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "05891448b9de564a88b41246e50c87a0",
+    "content-hash": "e655a149946742de64f7581c54930c1d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3987,16 +3987,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.20.4",
+            "version": "dev-LIS-23-plus-button-products-page",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3edcd1baa09bc8152ea302291bfbfac1615dd1d6"
+                "reference": "d3eb7e431d36c78cad933b07118c34338ed077c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.20.4-39fe6b.zip",
-                "reference": "3edcd1baa09bc8152ea302291bfbfac1615dd1d6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-23-plus-button-products-page-9681c2.zip",
+                "reference": "d3eb7e431d36c78cad933b07118c34338ed077c3",
                 "shasum": null
             },
             "require": {
@@ -4009,14 +4009,14 @@
                 "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/notification": "^1.2.0",
-                "channelgrabber/stdlib": "~2.13.1",
+                "channelgrabber/stdlib": "^2.13.1",
                 "channelgrabber/stock": "^1.5.9",
                 "channelgrabber/user": "^1.20.6",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "composer/composer": "@dev",
                 "jakeasmith/http_build_url": "~1.0",
+                "php": ">=7.1",
                 "whichbrowser/whichbrowser": "~1.0.0",
                 "zendframework/zend-config": "^2.3",
                 "zendframework/zend-form": ">=2.3,<3.0",
@@ -4047,7 +4047,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2017-12-20T12:39:50+00:00"
+            "time": "2018-01-17T11:23:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9709,12 +9709,19 @@
             "alias_normalized": "1.11.14.0",
             "version": "dev-LIS-22-ebay-default-listing-settings",
             "package": "channelgrabber/listing"
+        },
+        {
+            "alias": "1.20.5",
+            "alias_normalized": "1.20.5.0",
+            "version": "dev-LIS-23-plus-button-products-page",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

@@ -40,7 +40,8 @@ define([
                 variations: [],
                 productLinks: {},
                 maxVariationAttributes: 0,
-                fetchingUpdatedStockLevelsForSkus: {}
+                fetchingUpdatedStockLevelsForSkus: {},
+                accounts: {}
             }
         },
         getInitialState: function () {
@@ -84,6 +85,7 @@ define([
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     createListingsEnabled={this.props.createListingsEnabled}
+                    accounts={this.props.accounts}
                 />;
             } else {
                 return <VariationView
@@ -92,6 +94,7 @@ define([
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     productLinks={this.props.productLinks}
                     createListingsEnabled={this.props.createListingsEnabled}
+                    accounts={this.props.accounts}
                 />;
             }
         },

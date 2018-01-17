@@ -1,11 +1,13 @@
 define([
     'react',
     'Product/Components/Image',
-    'Product/Components/Link'
+    'Product/Components/Link',
+    'Product/Components/CreateListingIcon'
 ], function(
     React,
     Image,
-    Link
+    Link,
+    CreateListingIcon
 ) {
     "use strict";
 
@@ -18,7 +20,8 @@ define([
                 parentProduct: {},
                 fullView: false,
                 linkedProductsEnabled: false,
-                createListingsEnabled: false
+                createListingsEnabled: false,
+                accounts: {}
             };
         },
         getAttributeHeaders: function() {
@@ -92,7 +95,13 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
-                                            {this.props.createListingsEnabled ? <td><i className="fa fa-plus" aria-hidden="true"></i></td> : ''}
+                                            {this.props.createListingsEnabled ? <td>
+                                                <CreateListingIcon
+                                                    isParent={!!this.props.parentProduct}
+                                                    accountsAvailable={this.props.accounts}
+                                                    accountsListedOn={Object.keys(variation.listingsPerAccount)}
+                                                />
+                                            </td> : ''}
                                             {this.renderLinkCell(variation)}
                                             <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                         </tr>
