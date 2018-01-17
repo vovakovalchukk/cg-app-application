@@ -23,7 +23,8 @@ define([
                 searchTerm: '',
                 inputFocus: false,
                 selectedOption: this.props.selectedOption,
-                active: false
+                active: false,
+                disabled: false
             }
         },
         onClickOutside: function () {
@@ -32,6 +33,7 @@ define([
             });
         },
         componentWillReceiveProps: function (newProps) {
+            this.setState({disabled: newProps.disabled});
             if (newProps.selectedOption && newProps.selectedOption.name !== "") {
                 this.setState({
                     selectedOption: newProps.selectedOption,
@@ -39,12 +41,20 @@ define([
             }
         },
         onClick: function (e) {
+            if (this.state.disabled) {
+                return;
+            }
+
             var active = this.state.inputFocus ? true : !this.state.active;
             this.setState({
                 active: active
             });
         },
         onOptionSelected: function (value) {
+            if (this.state.disabled) {
+                return;
+            }
+
             var selectedOption = this.props.options.find(function (option) {
                 return option.value === value;
             });
@@ -54,6 +64,10 @@ define([
             this.props.onOptionChange(selectedOption);
         },
         onInputFocus: function (e) {
+            if (this.state.disabled) {
+                return;
+            }
+
             this.setState({
                 active: true,
                 inputFocus: true
@@ -90,6 +104,10 @@ define([
             return optionName;
         },
         getOptionNames: function () {
+            if (this.state.disabled) {
+                return [];
+            }
+
             var options = this.props.options.filter(this.filterBySearchTerm).map(function(opt, index) {
                 var optionName = this.getOptionName(opt.name, opt.value);
 
@@ -113,12 +131,12 @@ define([
             if (this.props.filterable) {
                 return (
                     <div className="filter-box">
-                            <input
-                              onFocus={this.onInputFocus}
-                              onBlur={this.onInputBlur}
-                              onChange={this.onFilterResults}
-                              placeholder={this.props.options.length ? 'Search...' : ''}
-                            />
+                        <input
+                          onFocus={this.onInputFocus}
+                          onBlur={this.onInputBlur}
+                          onChange={this.onFilterResults}
+                          placeholder={this.props.options.length ? 'Search...' : ''}
+                        />
                     </div>
                 );
             }

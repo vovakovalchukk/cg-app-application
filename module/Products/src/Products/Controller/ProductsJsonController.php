@@ -17,6 +17,7 @@ use CG\Product\Entity as Product;
 use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
@@ -48,6 +49,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_DELETE_PROGRESS = 'Delete Progress';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
+    const ROUTE_STOCK_FETCH = 'StockFetch';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
@@ -315,6 +317,22 @@ class ProductsJsonController extends AbstractActionController
             $listings[$id] = $listingData;
         }
         return $listings;
+    }
+
+    public function stockFetchAction()
+    {
+        $view = $this->jsonModelFactory->newInstance();
+        $productSku = $this->params()->fromRoute('productSku');
+
+        try {
+            $stock = $this->productService->fetchStockForSku($productSku, $this->activeUser->getActiveUserRootOrganisationUnitId());
+        } catch(ValidationException $e) {
+            $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
+            return $view;
+        }
+
+        $view->setVariables(['stock' => $stock]);
+        return $view;
     }
 
     public function stockUpdateAction()
