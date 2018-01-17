@@ -134,6 +134,13 @@
             }
         }
         .product-content-container {
+            .icon-create-listing {
+                cursor: pointer;
+                &.inactive {
+                    color: grey;
+                    cursor: auto;
+                }
+            }
             table {
                 th {
                     height: 28px;

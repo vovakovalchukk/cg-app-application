@@ -21,7 +21,8 @@ define([
                 fullView: false,
                 linkedProductsEnabled: false,
                 createListingsEnabled: false,
-                accounts: {}
+                accounts: {},
+                isParentProduct: false
             };
         },
         getAttributeHeaders: function() {
@@ -97,7 +98,7 @@ define([
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
                                             {this.props.createListingsEnabled ? <td>
                                                 <CreateListingIcon
-                                                    isParent={!!this.props.parentProduct}
+                                                    isVariation={this.props.isParentProduct}
                                                     accountsAvailable={this.props.accounts}
                                                     accountsListedOn={Object.keys(variation.listingsPerAccount)}
                                                 />

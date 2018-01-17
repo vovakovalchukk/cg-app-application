@@ -86,6 +86,7 @@ define([
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.props.accounts}
+                    isParentProduct={true}
                 />;
             } else {
                 return <VariationView
@@ -95,6 +96,7 @@ define([
                     productLinks={this.props.productLinks}
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.props.accounts}
+                    isParentProduct={false}
                 />;
             }
         },
