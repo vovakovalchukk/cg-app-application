@@ -29,7 +29,11 @@ define([
         hasAccountsToListTo: function() {
             for (var accountId in this.props.accountsAvailable) {
                 var account = this.props.accountsAvailable[accountId];
-                if (account.channel == 'ebay' && !this.props.accountsListedOn.includes(accountId)) {
+                if (
+                    account.channel == 'ebay'
+                    && account.active
+                    && !this.props.accountsListedOn.includes(accountId.toString()))
+                {
                     return true;
                 }
             }
