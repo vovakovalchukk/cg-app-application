@@ -12,7 +12,7 @@ define([
             return {
                 accountsListedOn: [],
                 accountsAvailable: {},
-                isVariation: false
+                isSimpleProduct: false
             }
         },
         getInitialState: function() {
@@ -35,7 +35,7 @@ define([
             }
         },
         render: function() {
-            if (!this.props.isVariation && this.hasAccountsToListTo()) {
+            if (this.props.isSimpleProduct && this.hasAccountsToListTo()) {
                 return <i className="fa fa-plus icon-create-listing" aria-hidden="true" />
             }
 
