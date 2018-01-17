@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e63b4b76d29f57077f131288486d67b",
+    "content-hash": "3210ce3f6bd41191aeab9b7befb1f79d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -510,16 +510,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-9019-save-new-fields-on-product-and-listing",
+            "version": "dev-LIS-26-StoreEbayListingDefaults",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c7c232d2cc9988a5d9175804678a34d5820d9ba3"
+                "reference": "8f72cb6f408a4c183cba87b90c52f68c1d078661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9019-save-new-fields-on-product-and-listing-7659da.zip",
-                "reference": "c7c232d2cc9988a5d9175804678a34d5820d9ba3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-26-StoreEbayListingDefaults-b2e894.zip",
+                "reference": "8f72cb6f408a4c183cba87b90c52f68c1d078661",
                 "shasum": null
             },
             "require": {
@@ -591,7 +591,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2018-01-05T14:49:05+00:00"
+            "time": "2018-01-17T12:15:00+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -842,18 +842,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b008ac765f462389630ac7044a0d1fd2d280f439"
+                "reference": "e9cc2184e9d9fe6674178765e89eb16b90ff3745"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-be0642.zip",
-                "reference": "b008ac765f462389630ac7044a0d1fd2d280f439",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-a5fed7.zip",
+                "reference": "e9cc2184e9d9fe6674178765e89eb16b90ff3745",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "dev-CGIV-9019-save-new-fields-on-product-and-listing as 1.32.9",
+                "channelgrabber/channel": "dev-LIS-26-StoreEbayListingDefaults as 1.33.3",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -878,7 +878,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "~4.6.6"
+                "phpunit/phpunit": "~6.4"
             },
             "type": "library",
             "autoload": {
@@ -888,10 +888,17 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "CG\\Ebay\\Test\\": "tests/Test/"
+                    "CG\\Ebay\\Test\\": "tests/Test/",
+                    "CG\\Stdlib\\Test\\": "vendor/channelgrabber/stdlib/tests/CG/Stdlib/Test/",
+                    "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/CG/Gearman/Test/",
+                    "CG\\Channel\\Test\\": "vendor/channelgrabber/channel/tests/Channel/Test/",
+                    "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test/",
+                    "CG\\Order\\Test\\": "vendor/channelgrabber/order/tests/src/",
+                    "CG\\Listing\\Test\\": "vendor/channelgrabber/listing/tests/src/",
+                    "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-16T16:07:24+00:00"
+            "time": "2018-01-17T13:32:49+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1318,7 +1325,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.12.6",
+                "channelgrabber/stdlib": "^2.14.0",
                 "channelgrabber/user": "^1.20.2",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
@@ -9699,9 +9706,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.32.9",
-            "alias_normalized": "1.32.9.0",
-            "version": "dev-CGIV-9019-save-new-fields-on-product-and-listing",
+            "alias": "1.33.3",
+            "alias_normalized": "1.33.3.0",
+            "version": "dev-LIS-26-StoreEbayListingDefaults",
             "package": "channelgrabber/channel"
         },
         {
