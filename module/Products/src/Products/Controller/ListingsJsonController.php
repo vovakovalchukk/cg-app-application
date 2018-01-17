@@ -4,6 +4,8 @@ namespace Products\Controller;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\PageLimit;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
@@ -14,8 +16,10 @@ use Products\Listing\Filter\Service as FilterService;
 use Products\Listing\Service as ListingService;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class ListingsJsonController extends AbstractActionController
+class ListingsJsonController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_HIDE = 'HIDE';
     const ROUTE_REFRESH = 'refresh';
@@ -171,7 +175,12 @@ class ListingsJsonController extends AbstractActionController
                 $this->params()->fromPost('productId', null),
                 $this->params()->fromPost('listing', [])
             );
-        } catch (\Error $error) {
+        } catch (\Throwable $throwable) {
+            if ($throwable instanceof \Exception) {
+                $this->logWarningException($throwable, 'Failed to create listing', [], 'ListingCreation');
+            } else {
+                $this->log($throwable->getMessage(), 'ListingCreation', 'emergency', __NAMESPACE__, $throwable->getTraceAsString());
+            }
             $status->error('An unknown error has occurred');
         }
         return $this->jsonModelFactory->newInstance($status->toArray());
