@@ -20,7 +20,9 @@ use Settings\Module;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class AmazonController extends ChannelControllerAbstract implements AccountActiveToggledInterface
+class AmazonController extends ChannelControllerAbstract implements
+    AccountActiveToggledInterface,
+    AddChannelSpecificVariablesToViewInterface
 {
     /** @var AccountAddressGenerator $accountAddressGenerator */
     protected $accountAddressGenerator;
