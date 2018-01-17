@@ -36,8 +36,17 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
             ListingService::FEATURE_FLAG_CREATE_LISTINGS,
             $this->getActiveUserRootOrganisationUnit()
         );
+
+        if (!$account->getExternalDataByKey('listingDispatchTime')) {
+            $account->setExternalDataByKey('listingDispatchTime', static::DEFAULT_DISPATCH_DAYS);
+        }
+        if (!$account->getExternalDataByKey('listingLocation')) {
+            /** @var \CG\OrganisationUnit\Entity $ou */
+            $ou = $this->organisationUnitService->fetch($account->getOrganisationUnitId());
+            $account->setExternalDataByKey('listingLocation', $ou->getAddressCity());
+        }
+
         $view->setVariable('shouldShowListingDefaults', $shouldShowListingDefaults)
-            ->setVariable('defaultListingDispatchDays', static::DEFAULT_DISPATCH_DAYS)
             ->addChild($this->getCurrencySelectView($account->getExternalDataByKey('listingCurrency')), 'currencySelect')
             ->addChild($this->getListingDurationView($account->getExternalDataByKey('listingDuration')), 'listingDurationSelect')
             ->addChild($this->getPaymentMethodView($account->getExternalDataByKey('listingPaymentMethods')), 'paymentMethodsSelect');
