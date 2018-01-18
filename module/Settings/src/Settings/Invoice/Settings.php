@@ -249,11 +249,18 @@ class Settings
      */
     protected function handleEmailVerification(array $ouEmailVerificationData)
     {
-        if ($ouEmailVerificationData['emailSendAs'] == null && $ouEmailVerificationData['emailVerificationStatus'] == AmazonSesService::STATUS_PENDING) {
+        //validateVerificationState
+
+//        print_r($ouEmailVerificationData);
+
+//        if ($ouEmailVerificationData['emailSendAs'] == null && $ouEmailVerificationData['emailVerificationStatus'] == AmazonSesService::STATUS_PENDING) {
+
+
+//            return $ouEmailVerificationData;
+//        } else
+        if ($ouEmailVerificationData['emailSendAs'] == null) {
             $ouEmailVerificationData['emailVerificationStatus'] = null;
             $ouEmailVerificationData['emailVerified'] = false;
-            return $ouEmailVerificationData;
-        } elseif ($ouEmailVerificationData['emailSendAs'] == null) {
             return $ouEmailVerificationData;
         }
 
