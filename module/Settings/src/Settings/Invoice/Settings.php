@@ -249,18 +249,8 @@ class Settings
      */
     protected function handleEmailVerification(array $ouEmailVerificationData)
     {
-        //validateVerificationState
-
-//        print_r($ouEmailVerificationData);
-
-//        if ($ouEmailVerificationData['emailSendAs'] == null && $ouEmailVerificationData['emailVerificationStatus'] == AmazonSesService::STATUS_PENDING) {
-
-
-//            return $ouEmailVerificationData;
-//        } else
-        if ($ouEmailVerificationData['emailSendAs'] == null) {
-            $ouEmailVerificationData['emailVerificationStatus'] = null;
-            $ouEmailVerificationData['emailVerified'] = false;
+        $ouEmailVerificationData = $this->validateVerificationState($ouEmailVerificationData);
+        if (!$ouEmailVerificationData['emailSendAs']) {
             return $ouEmailVerificationData;
         }
 
@@ -275,6 +265,21 @@ class Settings
             $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
         }
 
+        return $ouEmailVerificationData;
+    }
+
+    /**
+     * @param array $ouEmailVerificationData
+     * @return array
+     */
+    protected function validateVerificationState(array $ouEmailVerificationData)
+    {
+        if ($ouEmailVerificationData['emailSendAs'] != null) {
+            return $ouEmailVerificationData;
+        }
+
+        $ouEmailVerificationData['emailVerificationStatus'] = null;
+        $ouEmailVerificationData['emailVerified'] = false;
         return $ouEmailVerificationData;
     }
 
