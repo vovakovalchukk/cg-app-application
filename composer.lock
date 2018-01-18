@@ -3318,7 +3318,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "c58277bb540d8a632eafc30b3cf0a7da26bff0be"
+                "reference": "7464d28798cca81cedba0a3b49022b1a28a2d5ef"
             },
             "require": {
                 "channelgrabber/channel": "^1.25.6",
