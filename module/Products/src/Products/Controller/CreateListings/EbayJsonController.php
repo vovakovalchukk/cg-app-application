@@ -2,7 +2,9 @@
 
 namespace Products\Controller\CreateListings;
 
+use CG\Account\Client\Service as AcountService;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Products\Listing\Create\Ebay\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class EbayJsonController extends AbstractActionController
@@ -15,10 +17,16 @@ class EbayJsonController extends AbstractActionController
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var AcountService */
+    protected $accountService;
+    /** @var Service */
+    protected $service;
 
-    public function __construct(JsonModelFactory $jsonModelFactory)
+    public function __construct(JsonModelFactory $jsonModelFactory, AcountService $accountService, Service $service)
     {
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->accountService = $accountService;
+        $this->service = $service;
     }
 
     public function categoryDependentFieldValuesAction()
@@ -52,8 +60,6 @@ class EbayJsonController extends AbstractActionController
 
     public function defaultSettingsAjaxAction()
     {
-        $accountId = $this->params()->fromRoute('accountId');
-
         return $this->jsonModelFactory->newInstance([
             'listingLocation' => 'Jupiter',
             'listingCurrency' => 'GBP',
@@ -68,12 +74,12 @@ class EbayJsonController extends AbstractActionController
 
     public function channelSpecificFieldValuesAction()
     {
+        //$accountId = $this->params()->fromPost('accountId');
+        $accountId = $this->params()->fromQuery('accountId'); // TEMP!
+        $account = $this->accountService->fetch($accountId);
+
         return $this->jsonModelFactory->newInstance([
-            'category' => [
-                1 => 'spuds',
-                2 => 'bananas',
-                3 => 'bicycles'
-            ],
+            'category' => $this->service->getCategoryOptionsForAccount($account),
             'shippingService' => [
                 1 => 'Royal Snail',
                 2 => 'Parcel Power',
