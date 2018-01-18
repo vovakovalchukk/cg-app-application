@@ -113,17 +113,7 @@ class Settings
                 $this->validateBoolean($data['sendToFba'])
             );
 
-//            if ($data['emailSendAs']) {
-                $data = $this->handleEmailVerification($data);
-//            } elseif ($data['emailSendAs'] == null && ) {
-
-
-//            elseif ($entity->getEmailSendAs() == null && $entity->getEmailVerificationStatus() == AmazonSesService::STATUS_PENDING) {
-//                $entity->setEmailVerificationStatus(null);
-//            }
-
-
-//            }
+            $data = $this->handleEmailVerification($data);
 
             if (! empty($data['tradingCompanies'])) {
                 $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
