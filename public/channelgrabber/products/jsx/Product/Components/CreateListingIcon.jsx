@@ -1,9 +1,11 @@
 define([
     'react',
-    'react-tether'
+    'react-tether',
+    'Product/Utils/CreateListingUtils'
 ], function(
     React,
-    TetherComponent
+    TetherComponent,
+    CreateListingUtils
 ) {
     "use strict";
 
@@ -31,11 +33,7 @@ define([
         hasAccountsToListTo: function() {
             for (var accountId in this.props.accountsAvailable) {
                 var account = this.props.accountsAvailable[accountId];
-                if (
-                    account.channel == 'ebay'
-                    && account.active
-                    && !this.props.accountsListedOn.includes(accountId.toString()))
-                {
+                if (CreateListingUtils.productCanListToAccount(account, this.props.accountsListedOn)) {
                     return true;
                 }
             }

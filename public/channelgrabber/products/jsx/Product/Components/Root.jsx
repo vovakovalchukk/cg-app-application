@@ -5,7 +5,7 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/CreateListingPopup',
+    'Product/Components/CreateListing/CreateListingPopup',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -259,9 +259,12 @@ define([
             });
         },
         onCreateListingIconClick: function(productId) {
+            var product = this.state.products.find(function(product) {
+                return product.id == productId;
+            });
             this.setState({
                 createListing: {
-                    productId: productId
+                    product: product
                 }
             });
         },
@@ -384,7 +387,8 @@ define([
                         fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                     />
                     <CreateListingPopup
-                        productId={this.state.createListing.productId}
+                        accounts={this.state.accounts}
+                        product={this.state.createListing.product}
                     />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
