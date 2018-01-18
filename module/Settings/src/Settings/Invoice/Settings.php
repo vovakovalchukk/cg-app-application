@@ -113,9 +113,17 @@ class Settings
                 $this->validateBoolean($data['sendToFba'])
             );
 
-            if ($data['emailSendAs']) {
+//            if ($data['emailSendAs']) {
                 $data = $this->handleEmailVerification($data);
-            }
+//            } elseif ($data['emailSendAs'] == null && ) {
+
+
+//            elseif ($entity->getEmailSendAs() == null && $entity->getEmailVerificationStatus() == AmazonSesService::STATUS_PENDING) {
+//                $entity->setEmailVerificationStatus(null);
+//            }
+
+
+//            }
 
             if (! empty($data['tradingCompanies'])) {
                 $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
@@ -241,8 +249,15 @@ class Settings
      */
     protected function handleEmailVerification(array $ouEmailVerificationData)
     {
-        $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
+        if ($ouEmailVerificationData['emailSendAs'] == null && $ouEmailVerificationData['emailVerificationStatus'] == AmazonSesService::STATUS_PENDING) {
+            $ouEmailVerificationData['emailVerificationStatus'] = null;
+            $ouEmailVerificationData['emailVerified'] = false;
+            return $ouEmailVerificationData;
+        } elseif ($ouEmailVerificationData['emailSendAs'] == null) {
+            return $ouEmailVerificationData;
+        }
 
+        $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
         if ($ouEmailVerificationData['emailVerified']) {
             return $ouEmailVerificationData;
         }
