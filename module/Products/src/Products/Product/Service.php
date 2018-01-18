@@ -16,20 +16,25 @@ use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Entity as Product;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
+use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
+use CG\Stock\Filter;
+use CG\Stock\Entity as Stock;
 use CG\Stock\Location\StorageInterface as StockLocationStorage;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
@@ -158,6 +163,42 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
         $products = $this->productService->fetchCollectionByFilter($productFilter);
         return $products;
+    }
+
+    public function fetchProductById($id): Product
+    {
+        return $this->productService->fetch($id);
+    }
+
+    public function fetchStockForSku(string $productSku, int $ouId): array
+    {
+        if ($productSku == '') {
+            throw new ValidationException('Cannot filter stock by empty sku');
+        }
+
+        $linkNodeFilter = (new ProductLinkNodeFilter('all', 1))
+            ->setOuIdProductSku([ProductLink::generateId($ouId, $productSku)]);
+        try {
+            $linkNode = $this->productLinkNodeService->fetchCollectionByFilter($linkNodeFilter)->getFirst();
+            $ancestors = $linkNode->getAncestors();
+        } catch (NotFound $exception) {
+            $ancestors = [];
+        }
+        $stockFilter = (new Filter('all', 1))
+            ->setSku(array_merge([$productSku], $ancestors))
+            ->setOrganisationUnitId([$ouId]);
+        $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
+
+        $stockBySku = [];
+        /** @var Stock $stock */
+        foreach ($stockCollection as $stock) {
+            $stockBySku[$stock->getSku()] = array_merge(
+                $stock->toArray(),
+                ['locations' => $stock->getLocations()->toArray()]
+            );
+        }
+
+        return $stockBySku;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
