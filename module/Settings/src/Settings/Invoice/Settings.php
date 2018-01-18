@@ -249,9 +249,8 @@ class Settings
      */
     protected function handleEmailVerification(array $ouEmailVerificationData)
     {
-        $ouEmailVerificationData = $this->validateVerificationState($ouEmailVerificationData);
         if (!$ouEmailVerificationData['emailSendAs']) {
-            return $ouEmailVerificationData;
+            return $this->resetVerificationStatus($ouEmailVerificationData);
         }
 
         $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
@@ -272,12 +271,8 @@ class Settings
      * @param array $ouEmailVerificationData
      * @return array
      */
-    protected function validateVerificationState(array $ouEmailVerificationData)
+    protected function resetVerificationStatus(array $ouEmailVerificationData)
     {
-        if ($ouEmailVerificationData['emailSendAs'] != null) {
-            return $ouEmailVerificationData;
-        }
-
         $ouEmailVerificationData['emailVerificationStatus'] = null;
         $ouEmailVerificationData['emailVerified'] = false;
         return $ouEmailVerificationData;
