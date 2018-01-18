@@ -12,7 +12,9 @@ define([
             return {
                 accountsListedOn: [],
                 accountsAvailable: {},
-                isSimpleProduct: false
+                isSimpleProduct: false,
+                productId: null,
+                onCreateListingIconClick: function() {}
             }
         },
         getInitialState: function() {
@@ -38,9 +40,12 @@ define([
                 }
             }
         },
+        onClick: function() {
+            this.props.onCreateListingIconClick(this.props.productId);
+        },
         render: function() {
             if (this.props.isSimpleProduct && this.hasAccountsToListTo()) {
-                return <i className="fa fa-plus icon-create-listing" aria-hidden="true" />
+                return <i className="fa fa-plus icon-create-listing" onClick={this.onClick.bind(this)} aria-hidden="true" />
             }
 
             var hoverImageStyle = {

@@ -5,6 +5,7 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
+    'Product/Components/CreateListingPopup',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -13,6 +14,7 @@ define([
     ProductFooter,
     ProductRow,
     ProductLinkEditor,
+    CreateListingPopup,
     AjaxHandler
 ) {
     "use strict";
@@ -54,7 +56,10 @@ define([
                     page: 0
                 },
                 fetchingUpdatedStockLevelsForSkus: {},
-                accounts: {}
+                accounts: {},
+                createListing: {
+                    productId: null
+                }
             }
         },
         componentDidMount: function()
@@ -253,6 +258,13 @@ define([
                 }
             });
         },
+        onCreateListingIconClick: function(productId) {
+            this.setState({
+                createListing: {
+                    productId: productId
+                }
+            });
+        },
         onSkuRequest: function (event) {
             this.filterBySku(event.detail.sku);
         },
@@ -354,6 +366,7 @@ define([
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.state.accounts}
+                    onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                 />;
             }.bind(this))
         },
@@ -369,6 +382,9 @@ define([
                         productLink={this.state.editingProductLink}
                         onEditorClose={this.onProductLinksEditorClose}
                         fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                    />
+                    <CreateListingPopup
+                        productId={this.state.createListing.productId}
                     />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
