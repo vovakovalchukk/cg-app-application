@@ -17,7 +17,7 @@ define([
             }
         },
         getSelectOptions: function() {
-            var options = [];
+            var options = [{name: null, value: null}];
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
                 if (CreateListingUtils.productCanListToAccount(account, this.props.accountsProductIsListedOn)) {
@@ -28,7 +28,7 @@ define([
             return options;
         },
         render: function() {
-            return <Select options={this.getSelectOptions()} />
+            return <Select options={this.getSelectOptions()} onOptionChange={this.props.onAccountSelected}/>
         }
     });
 

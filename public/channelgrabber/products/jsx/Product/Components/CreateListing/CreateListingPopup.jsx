@@ -1,13 +1,19 @@
 define([
     'react',
     'Common/Components/Popup',
-    'Product/Components/CreateListing/AccountPicker'
+    'Product/Components/CreateListing/AccountPicker',
+    'Product/Components/CreateListing/Form/Ebay'
 ], function(
     React,
     Popup,
-    AccountPicker
+    AccountPicker,
+    EbayForm
 ) {
     "use strict";
+
+    var channelToFormMap = {
+        'ebay': EbayForm
+    };
 
     var CreateListingPopupComponent = React.createClass({
         getDefaultProps: function() {
@@ -15,6 +21,24 @@ define([
                 product: null,
                 accounts: {}
             }
+        },
+        getInitialState: function() {
+            return {
+                accountSelected: null
+            }
+        },
+        renderCreateListingForm: function() {
+            if (!this.state.accountSelected) {
+                return;
+            }
+
+            var FormComponent = channelToFormMap[this.state.accountSelected.channel];
+            return <FormComponent/>
+        },
+        onAccountSelected: function(selectValue) {
+            this.setState({
+                accountSelected: this.props.accounts[selectValue.value]
+            })
         },
         render: function()
         {
@@ -35,10 +59,17 @@ define([
                         Channel Grabber needs additional information to complete this listing. Please check below and
                         complete all the fields necessary.
                     </h1>
-                    <AccountPicker
-                        accounts={this.props.accounts}
-                        accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
-                    />
+                    <div>
+                        <div>Select an account to list to:</div>
+                        <div>
+                            <AccountPicker
+                                accounts={this.props.accounts}
+                                accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
+                                onAccountSelected={this.onAccountSelected.bind(this)}
+                            />
+                        </div>
+                        {this.renderCreateListingForm()}
+                    </div>
                 </Popup>
             );
         }
