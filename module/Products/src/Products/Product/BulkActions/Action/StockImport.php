@@ -48,6 +48,7 @@ class StockImport extends Action
                 'templateMap' => [
                     'popup' => Module::PUBLIC_FOLDER . 'template/popups/updateOptions.html',
                     'select' => CG_UI::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+                    'fileUpload' => CG_UI::PUBLIC_FOLDER . 'templates/elements/file-upload.mustache',
                 ],
             ]
         );
