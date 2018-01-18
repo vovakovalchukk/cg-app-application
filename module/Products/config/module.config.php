@@ -19,6 +19,7 @@ use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
 use CG_UI\View\DataTable;
+use Products\Controller\CreateListings\EbayJsonController;
 use Products\Controller\LinksJsonController;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
@@ -435,6 +436,58 @@ return [
                             ],
                         ],
                     ],
+                    EbayJsonController::ROUTE_CREATE_LISTINGS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/create-listings',
+                        ],
+                        'child_routes' => [
+                            EbayJsonController::ROUTE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ebay'
+                                ],
+                                'child_routes' => [
+                                    EbayJsonController::ROUTE_DEFAULT_SETTINGS => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/default-settings/:accountId',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'defaultSettingsAjax'
+                                            ],
+                                            'constraints' => [
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/category-dependent-field-values/:externalCategoryId',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'categoryDependentFieldValues'
+                                            ],
+                                            'constraints' => [
+                                                'externalCategoryId' => '[0-9]+'
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/channel-specific-field-values',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'channelSpecificFieldValues'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ]
