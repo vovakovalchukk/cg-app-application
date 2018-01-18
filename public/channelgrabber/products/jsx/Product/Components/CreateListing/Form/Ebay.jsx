@@ -1,9 +1,13 @@
 define([
     'react',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    'Common/Components/CurrencyInput',
+    'Common/Components/Input'
 ], function(
     React,
-    Select
+    Select,
+    CurrencyInput,
+    Input
 ) {
     "use strict";
 
@@ -12,15 +16,15 @@ define([
             return <div>
                 <div>
                     <div>Listing Title</div>
-                    <div></div>
+                    <div><Input /></div>
                 </div>
                 <div>
                     <div>Price</div>
-                    <div></div>
+                    <div><CurrencyInput /></div>
                 </div>
                 <div>
                     <div>Description</div>
-                    <div></div>
+                    <div><Input /></div>
                 </div>
             </div>;
         }
