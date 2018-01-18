@@ -63,6 +63,7 @@ define([
                         <div>Select an account to list to:</div>
                         <div>
                             <AccountPicker
+                                product={this.props.product}
                                 accounts={this.props.accounts}
                                 accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
                                 onAccountSelected={this.onAccountSelected.bind(this)}
