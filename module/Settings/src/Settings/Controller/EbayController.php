@@ -63,7 +63,7 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
             'ebayAccountListingDefaultCurrency',
             'listingCurrency',
             $options,
-            $selected
+            true
         );
         $selectView->setVariable('searchField', true);
         return $selectView;
@@ -80,7 +80,7 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
             'ebayAccountListingDefaultDuration',
             'listingDuration',
             $options,
-            $selected
+            true
         );
     }
 
@@ -95,30 +95,32 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
             'ebayAccountListingPaymentMethod',
             'listingPaymentMethods',
             $options,
-            $selected
+            'None selected'
         );
     }
 
-    protected function getSelectView(string $id, string $name, array $options): ViewModel
+    protected function getSelectView(string $id, string $name, array $options, bool $required = false): ViewModel
     {
-        $select = $this->getBaseSelectView($id, $name, $options);
+        $select = $this->getBaseSelectView($id, $name, $options, $required);
         $select->setTemplate('elements/custom-select.mustache');
         return $select;
     }
 
-    protected function getMultiSelectView(string $id, string $name, array $options): ViewModel
+    protected function getMultiSelectView(string $id, string $name, array $options, ?string $emptyTitle = null): ViewModel
     {
         $select = $this->getBaseSelectView($id, $name, $options);
+        $select->setVariable('emptyTitle', $emptyTitle);
         $select->setTemplate('elements/custom-select-group.mustache');
         return $select;
     }
 
-    protected function getBaseSelectView(string $id, string $name, array $options): ViewModel
+    protected function getBaseSelectView(string $id, string $name, array $options, bool $required = false): ViewModel
     {
         return $this->viewModelFactory->newInstance([
             'id' => $id,
             'name' => $name,
-            'options' => $options
+            'options' => $options,
+            'class' => $required ? 'required' : null,
         ]);
     }
 }
