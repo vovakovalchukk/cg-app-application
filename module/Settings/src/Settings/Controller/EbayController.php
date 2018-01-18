@@ -15,7 +15,6 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
     const DEFAULT_CURRENCY = 'GBP';
     const DEFAULT_DURATION = ListingDuration::GTC;
     const DEFAULT_DISPATCH_DAYS = 3;
-    const DEFAULT_PAYMENT_METHODS = [PaymentMethod::PAY_PAL];
 
     public function saveAction()
     {
@@ -86,7 +85,6 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
 
     protected function getPaymentMethodView(array $selected = []): ViewModel
     {
-        $selected = (!empty($selected) ? $selected : static::DEFAULT_PAYMENT_METHODS);
         $options = [];
         foreach (PaymentMethod::getStandardValues() as $code => $text) {
             $options[] = ['title' => $text, 'value' => $code, 'selected' => in_array($code, $selected)];
