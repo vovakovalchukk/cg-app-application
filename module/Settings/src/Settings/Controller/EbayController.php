@@ -6,13 +6,11 @@ use CG\Channel\Type as ChannelType;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
 use CG\Listing\Client\Service as ListingService;
-use CG\Locale\CurrencyCode;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
 class EbayController extends ChannelControllerAbstract implements AddChannelSpecificVariablesToViewInterface
 {
-    const DEFAULT_CURRENCY = 'GBP';
     const DEFAULT_DURATION = ListingDuration::GTC;
     const DEFAULT_DISPATCH_DAYS = 3;
 
@@ -46,26 +44,8 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
         }
 
         $view->setVariable('shouldShowListingDefaults', $shouldShowListingDefaults)
-            ->addChild($this->getCurrencySelectView($account->getExternalDataByKey('listingCurrency')), 'currencySelect')
             ->addChild($this->getListingDurationView($account->getExternalDataByKey('listingDuration')), 'listingDurationSelect')
             ->addChild($this->getPaymentMethodView($account->getExternalDataByKey('listingPaymentMethods')), 'paymentMethodsSelect');
-    }
-
-    protected function getCurrencySelectView(?string $selected = null): ViewModel
-    {
-        $selected = $selected ?? static::DEFAULT_CURRENCY;
-        $options = [];
-        foreach (CurrencyCode::getCurrencyCodes() as $currencyCode) {
-            $options[] = ['title' => $currencyCode, 'value' => $currencyCode, 'selected' => $currencyCode == $selected];
-        }
-        $selectView = $this->getSelectView(
-            'ebayAccountListingDefaultCurrency',
-            'listingCurrency',
-            $options,
-            true
-        );
-        $selectView->setVariable('searchField', true);
-        return $selectView;
     }
 
     protected function getListingDurationView(?string $selected = null): ViewModel
