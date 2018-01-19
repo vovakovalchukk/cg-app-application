@@ -90,11 +90,11 @@ class EbayJsonController extends AbstractJsonController
     {
         $accountId = intval($this->params()->fromPost('accountId'));
         if ($accountId === 0) {
-            return $this->buildSuccessResponse(['Invalid accountId provided on the post data']);
+            return $this->buildErrorResponse(['Invalid accountId provided on the post data']);
         }
+
         /** @var Account $account */
         $account = $this->accountService->fetch($accountId);
-
         return $this->buildResponse([
             'category' => $this->service->getCategoryOptionsForAccount($account),
             'shippingService' => $this->service->getShippingMethodsForAccount($account),
