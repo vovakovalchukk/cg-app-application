@@ -50,6 +50,7 @@ class Service
             ->setLimit('all')
             ->setPage(1)
             ->setChannel(['ebay'])
+            ->setParentId([0])
             ->setMarketplace([$siteId])
             ->setListable(true)
             ->setEnabled(true);
