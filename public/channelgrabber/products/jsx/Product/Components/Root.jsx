@@ -268,6 +268,13 @@ define([
                 }
             });
         },
+        onCreateListingClose: function() {
+            this.setState({
+                createListing: {
+                    product: null
+                }
+            });
+        },
         onSkuRequest: function (event) {
             this.filterBySku(event.detail.sku);
         },
@@ -389,6 +396,7 @@ define([
                     <CreateListingPopup
                         accounts={this.state.accounts}
                         product={this.state.createListing.product}
+                        onCreateListingClose={this.onCreateListingClose}
                     />
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>

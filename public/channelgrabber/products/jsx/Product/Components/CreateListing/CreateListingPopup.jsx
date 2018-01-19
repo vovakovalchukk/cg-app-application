@@ -92,13 +92,13 @@ define([
             if (!this.props.product) {
                 return null;
             }
-            
+
             return (
                 <Popup
                     initiallyActive={!!this.props.product}
                     className="editor-popup"
                     onYesButtonPressed={this.submitFormData}
-                    onNoButtonPressed={function() {}}
+                    onNoButtonPressed={this.props.onCreateListingClose}
                     headerText={"Create New Listing"}
                     yesButtonText="Save"
                     noButtonText="Cancel"
