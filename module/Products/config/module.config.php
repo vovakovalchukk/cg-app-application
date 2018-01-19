@@ -484,6 +484,16 @@ return [
                                                 'action' => 'channelSpecificFieldValues'
                                             ]
                                         ]
+                                    ],
+                                    EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/categoryChildren/:externalCategoryId',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'categoryChildren'
+                                            ]
+                                        ]
                                     ]
                                 ]
                             ]

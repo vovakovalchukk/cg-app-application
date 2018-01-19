@@ -35,13 +35,9 @@ class Service
 
     public function getCategoryOptionsForAccount(Account $account): array
     {
-        $categories = $this->fetchCategoriesForAccount($account);
-        $categoryOptions = [];
-        /** @var Category $category */
-        foreach ($categories as $category) {
-            $categoryOptions[$category->getExternalId()] = $category->getTitle();
-        }
-        return $categoryOptions;
+        return $this->formatCategoriesArray(
+            $this->fetchCategoriesForAccount($account)
+        );
     }
 
     public function getShippingMethodsForAccount(Account $account): array
@@ -65,6 +61,34 @@ class Service
         } catch (\InvalidArgumentException $e) {
             return null;
         }
+    }
+
+    public function getCategoryChildrenForCategory(int $externalCategoryId): array
+    {
+        try {
+            /** @var CategoryCollection $categoryCollection */
+            $categoryCollection = $this->categoryService->fetchCollectionByFilter(
+                (new CategoryFilter(1, 1))
+                    ->setExternalId([$externalCategoryId])
+            );
+            $childCategories = $this->categoryService->fetchCollectionByFilter(
+                (new CategoryFilter('all', 1))
+                    ->setParentId([$categoryCollection->getFirst()->getId()])
+            );
+            return $this->formatCategoriesArray($childCategories);
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    protected function formatCategoriesArray(CategoryCollection $categories): array
+    {
+        $categoryOptions = [];
+        /** @var Category $category */
+        foreach ($categories as $category) {
+            $categoryOptions[$category->getExternalId()] = $category->getTitle();
+        }
+        return $categoryOptions;
     }
 
     protected function fetchCategoriesForAccount(Account $account): CategoryCollection

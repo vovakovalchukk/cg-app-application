@@ -16,6 +16,7 @@ class EbayJsonController extends AbstractActionController
     const ROUTE_DEFAULT_SETTINGS = 'DefaultSettings';
     const ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES = 'CategoryDependentFieldValues';
     const ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES = 'AccountSpecificFieldValues';
+    const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -91,6 +92,14 @@ class EbayJsonController extends AbstractActionController
             'category' => $this->service->getCategoryOptionsForAccount($account),
             'shippingService' => $this->service->getShippingMethodsForAccount($account),
             'currency' => $this->service->getCurrencySymbolForAccount($account)
+        ]);
+    }
+
+    public function categoryChildrenAction()
+    {
+        $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
+        return $this->jsonModelFactory->newInstance([
+            'categories' => $this->service->getCategoryChildrenForCategory($externalCategoryId)
         ]);
     }
 }
