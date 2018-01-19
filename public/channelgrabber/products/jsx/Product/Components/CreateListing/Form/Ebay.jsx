@@ -14,18 +14,18 @@ define([
     var EbayComponent = React.createClass({
         render: function() {
             return <div>
-                <div>
-                    <div>Listing Title</div>
-                    <div><Input /></div>
-                </div>
-                <div>
-                    <div>Price</div>
-                    <div><CurrencyInput /></div>
-                </div>
-                <div>
-                    <div>Description</div>
-                    <div><Input /></div>
-                </div>
+                <label>
+                    <span className={"inputbox-label"}>Listing Title:</span>
+                    <div className={"order-inputbox-holder"}><Input /></div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Price</span>
+                    <div className={"order-inputbox-holder"}><CurrencyInput /></div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Description</span>
+                    <div className={"order-inputbox-holder"}><Input /></div>
+                </label>
             </div>;
         }
     });

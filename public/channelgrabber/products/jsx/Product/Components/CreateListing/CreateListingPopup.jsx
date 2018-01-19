@@ -59,18 +59,22 @@ define([
                         Channel Grabber needs additional information to complete this listing. Please check below and
                         complete all the fields necessary.
                     </h1>
-                    <div>
-                        <div>Select an account to list to:</div>
-                        <div>
-                            <AccountPicker
-                                product={this.props.product}
-                                accounts={this.props.accounts}
-                                accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
-                                onAccountSelected={this.onAccountSelected.bind(this)}
-                            />
+                    <form>
+                        <div className={"order-form half"}>
+                            <label>
+                                <span className={"inputbox-label"}>Select an account to list to:</span>
+                                <div className={"order-inputbox-holder"}>
+                                    <AccountPicker
+                                        product={this.props.product}
+                                        accounts={this.props.accounts}
+                                        accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
+                                        onAccountSelected={this.onAccountSelected.bind(this)}
+                                    />
+                                </div>
+                            </label>
+                            {this.renderCreateListingForm()}
                         </div>
-                        {this.renderCreateListingForm()}
-                    </div>
+                    </form>
                 </Popup>
             );
         }
