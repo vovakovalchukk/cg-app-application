@@ -90,12 +90,12 @@ class EbayJsonController extends AbstractJsonController
     {
         $accountId = intval($this->params()->fromPost('accountId'));
         if ($accountId === 0) {
-            return $this->jsonModelFactory->newInstance([]);
+            return $this->buildSuccessResponse(['Invalid accountId provided on the post data']);
         }
         /** @var Account $account */
         $account = $this->accountService->fetch($accountId);
 
-        return $this->jsonModelFactory->newInstance([
+        return $this->buildResponse([
             'category' => $this->service->getCategoryOptionsForAccount($account),
             'shippingService' => $this->service->getShippingMethodsForAccount($account),
             'currency' => $this->service->getCurrencySymbolForAccount($account)
@@ -105,7 +105,7 @@ class EbayJsonController extends AbstractJsonController
     public function categoryChildrenAction()
     {
         $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
-        return $this->jsonModelFactory->newInstance([
+        return $this->buildResponse([
             'categories' => $this->service->getCategoryChildrenForCategory($externalCategoryId)
         ]);
     }
