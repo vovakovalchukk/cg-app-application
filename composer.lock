@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "95b35af3b2bde0512a444eaa4e1944c5",
+    "content-hash": "cf33eee0409ce48066d8f478f4291f06",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -510,16 +510,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.32.9",
+            "version": "1.33.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3df21010b38b83f4374a2adeebb1d40c89f2e191"
+                "reference": "d504237dcf011d38ad44ad06947d7a83ea792270"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.32.9-712e1d.zip",
-                "reference": "3df21010b38b83f4374a2adeebb1d40c89f2e191",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.33.3-31314d.zip",
+                "reference": "d504237dcf011d38ad44ad06947d7a83ea792270",
                 "shasum": null
             },
             "require": {
@@ -591,7 +591,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2017-12-14T11:13:06+00:00"
+            "time": "2018-01-18T15:32:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -692,7 +692,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -5892,7 +5892,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6372,7 +6372,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
@@ -7989,7 +7989,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8044,7 +8044,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8099,7 +8099,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8150,7 +8150,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8236,7 +8236,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },

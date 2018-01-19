@@ -2,7 +2,9 @@
 
 namespace Products\Controller\CreateListings;
 
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Products\Listing\CreateListings\Service as CreateListingsService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class EbayJsonController extends AbstractActionController
@@ -15,10 +17,15 @@ class EbayJsonController extends AbstractActionController
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var CreateListingsService */
+    protected $createListingsService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory)
-    {
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        CreateListingsService $createListingsService
+    ) {
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->createListingsService = $createListingsService;
     }
 
     public function categoryDependentFieldValuesAction()
@@ -54,16 +61,13 @@ class EbayJsonController extends AbstractActionController
     {
         $accountId = $this->params()->fromRoute('accountId');
 
-        return $this->jsonModelFactory->newInstance([
-            'listingLocation' => 'Jupiter',
-            'listingCurrency' => 'GBP',
-            'paypalEmail' => 'dev+createlistingstest@channelgrabber.com',
-            'listingDuration' => 'GTC',
-            'listingDipsatchTime' => 12,
-            'listingPaymentMethod' => [
-                'payPal', 'cheque'
-            ]
-        ]);
+        try {
+            return $this->jsonModelFactory->newInstance(
+                $this->createListingsService->fetchDefaultSettingsForAccount($accountId)
+            );
+        } catch (NotFound $e) {
+            return $this->jsonModelFactory->newInstance([]);
+        }
     }
 
     public function channelSpecificFieldValuesAction()
