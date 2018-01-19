@@ -2,7 +2,7 @@
 
 namespace Products\Controller\CreateListings;
 
-use CG\Account\Client\Service as AcountService;
+use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Create\Ebay\Service;
@@ -21,7 +21,7 @@ class EbayJsonController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var CreateListingsService */
     protected $createListingsService;
-    /** @var AcountService */
+    /** @var AccountService */
     protected $accountService;
     /** @var Service */
     protected $service;
@@ -29,7 +29,7 @@ class EbayJsonController extends AbstractActionController
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         CreateListingsService $createListingsService,
-        AcountService $accountService,
+        AccountService $accountService,
         Service $service
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -89,16 +89,8 @@ class EbayJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance([
             'category' => $this->service->getCategoryOptionsForAccount($account),
-            'shippingService' => [
-                1 => 'Royal Snail',
-                2 => 'Parcel Power',
-                3 => 'Carrier Pidgeon'
-            ],
-            'currency' => [
-                'BTC',
-                'ETH',
-                'XRP'
-            ]
+            'shippingService' => $this->service->getShippingMethodsForAccount($account),
+            'currency' => $this->service->getCurrencySymbolForAccount($account)
         ]);
     }
 }

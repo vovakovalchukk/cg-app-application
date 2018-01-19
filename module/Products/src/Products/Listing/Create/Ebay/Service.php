@@ -4,6 +4,10 @@ namespace Products\Listing\Create\Ebay;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Ebay\Credentials;
+use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
+use CG\Order\Shared\Shipping\Method\Collection as ShippingMethodCollection;
+use CG\Order\Shared\Shipping\Method\Entity as ShippingMethod;
+use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
 use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
@@ -16,11 +20,17 @@ class Service
     protected $categoryService;
     /** @var Cryptor */
     protected $cryptor;
+    /** @var  ShippingMethodService */
+    protected $shippingMethodService;
 
-    public function __construct(CategoryService $categoryService, Cryptor $cryptor)
-    {
+    public function __construct(
+        CategoryService $categoryService,
+        Cryptor $cryptor,
+        ShippingMethodService $shippingMethodService
+    ) {
         $this->categoryService = $categoryService;
         $this->cryptor = $cryptor;
+        $this->shippingMethodService = $shippingMethodService;
     }
 
     public function getCategoryOptionsForAccount(Account $account): array
@@ -32,6 +42,29 @@ class Service
             $categoryOptions[$category->getExternalId()] = $category->getTitle();
         }
         return $categoryOptions;
+    }
+
+    public function getShippingMethodsForAccount(Account $account): array
+    {
+        try {
+            /** @var ShippingMethodCollection $shippingMethods */
+            $shippingMethods = $this->shippingMethodService->fetchCollectionByFilter(
+                new ShippingMethodFilter('all', 1, [], ['ebay'], [], [$account->getRootOrganisationUnitId()])
+            );
+            return $this->formatShippingMethodsArray($shippingMethods);
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    public function getCurrencySymbolForAccount(Account $account): ?string
+    {
+        try {
+            $siteId = $this->getEbaySiteIdForAccount($account);
+            return CurrencyMap::getCurrencySymbolBySiteId($siteId);
+        } catch (\InvalidArgumentException $e) {
+            return null;
+        }
     }
 
     protected function fetchCategoriesForAccount(Account $account): CategoryCollection
@@ -61,5 +94,15 @@ class Service
         /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
         return $credentials->getSiteId();
+    }
+
+    protected function formatShippingMethodsArray(ShippingMethodCollection $shippingMethods): array
+    {
+        $methods = [];
+        /** @var ShippingMethod $shippingMethod */
+        foreach ($shippingMethods as $shippingMethod) {
+            $methods[$shippingMethod->getMethod()] = $shippingMethod->getMethod();
+        }
+        return $methods;
     }
 }
