@@ -1,11 +1,13 @@
 define([
     'react',
     'Common/Components/Popup',
+    'Common/Components/Popup/Message',
     'Product/Components/CreateListing/AccountPicker',
     'Product/Components/CreateListing/Form/Ebay'
 ], function(
     React,
     Popup,
+    PopupMessage,
     AccountPicker,
     EbayForm
 ) {
@@ -29,7 +31,9 @@ define([
                 accountId: null,
                 title: null,
                 description: null,
-                price: null
+                price: null,
+                errors: [],
+                warnings: []
             }
         },
         setFormStateListing: function(listingFormState) {
@@ -62,6 +66,8 @@ define([
         },
         submitFormData: function () {
             var formData = this.gatherFormData();
+// TEST
+formData.errors = true;
             $.ajax({
                 url: '/products/listing/submit',
                 data: formData,
@@ -102,8 +108,10 @@ define([
             });
         },
         handleFormSubmitError: function(response) {
-            // TODO: improve this
-            n.error('There were errors when trying to create the listing');
+            this.setState({
+                errors: response.errors,
+                warnings: response.warnings
+            });
         },
         render: function()
         {
@@ -141,6 +149,23 @@ define([
                             {this.renderCreateListingForm()}
                         </div>
                     </form>
+                    <PopupMessage
+                        initiallyActive={!!this.state.errors}
+                        headerText="There were errors when trying to create the listing"
+                    >
+                        <h4>Errors</h4>
+                        <ul>
+                            {this.state.errors.map(function (error) {
+                                <li>{error}</li>
+                            })}
+                        </ul>
+                        <h4>Warnings</h4>
+                        <ul>
+                            {this.state.warnings.map(function (warning) {
+                                <li>{warning}</li>
+                            })}
+                        </ul>
+                    </PopupMessage>
                 </Popup>
             );
         }
