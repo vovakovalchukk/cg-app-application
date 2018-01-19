@@ -65,7 +65,7 @@ class EbayJsonController extends AbstractActionController
             return $this->jsonModelFactory->newInstance(
                 $this->createListingsService->fetchDefaultSettingsForAccount($accountId)
             );
-        } catch (NotFound $e) {
+        } catch (\Exception $e) {
             return $this->jsonModelFactory->newInstance([]);
         }
     }
