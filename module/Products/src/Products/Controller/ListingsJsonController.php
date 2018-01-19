@@ -21,6 +21,7 @@ class ListingsJsonController extends AbstractActionController
     const ROUTE_REFRESH = 'refresh';
     const ROUTE_IMPORT = 'import';
     const ROUTE_IMPORT_ALL_FILTERED = 'import all filtered';
+    const ROUTE_CREATE = 'create';
 
     protected $listingService;
     protected $jsonModelFactory;
@@ -147,6 +148,34 @@ class ListingsJsonController extends AbstractActionController
         $view = $this->getJsonModelFactory()->newInstance();
         $this->getListingService()->refresh();
         return $view;
+    }
+
+    public function createAction()
+    {
+        $this->checkUsage();
+
+        $status = ['valid' => true, 'warnings' => [], 'errors' => []];
+
+        $warnings = ['This is a warning', 'Test warning message', 'WARNING!!!'];
+        shuffle($warnings);
+
+        $errors = ['This is an error', 'Test error message', 'ERROR!!!'];
+        shuffle($errors);
+
+        if ($this->params()->fromQuery('warnings', false)) {
+            for ($i = 0; $i < ($warningCount = rand(1, count($warnings))); $i++) {
+                $status['warnings'][] = array_pop($warnings);
+            }
+        }
+
+        if ($this->params()->fromQuery('errors', false)) {
+            $status['valid'] = false;
+            for ($i = 0; $i < ($errorCount = rand(1, count($errors))); $i++) {
+                $status['errors'][] = array_pop($errors);
+            }
+        }
+
+        return $this->getJsonModelFactory()->newInstance($status);
     }
 
     public function importAction()
