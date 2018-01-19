@@ -48,7 +48,7 @@ class EbayJsonController extends AbstractJsonController
                 'listingDuration' => $this->service->getListingDurationsForCategory($externalCategoryId)
             ]
         ];
-        return $this->jsonModelFactory->newInstance($categoryFields);
+        return $this->buildResponse($categoryFields);
     }
 
     public function defaultSettingsAjaxAction()
