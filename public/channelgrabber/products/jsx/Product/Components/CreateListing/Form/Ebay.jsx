@@ -14,21 +14,32 @@ define([
     var EbayComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                product: null
+                title: null,
+                description: null,
+                price:null
             }
+        },
+        onInputChange: function(event) {
+            var newStateObject = {};
+            newStateObject[event.target.name] = event.target.value;
+            this.props.setFormStateListing(newStateObject);
         },
         render: function() {
             return <div>
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
-                        <Input name='title' value={this.props.product.name ? this.props.product.name : null} />
+                        <Input
+                            name='title'
+                            value={this.props.title}
+                            onChange={this.onInputChange}
+                        />
                     </div>
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Price</span>
                     <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.product.details.price ? this.props.product.details.price : null} />
+                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} />
                     </div>
                 </label>
                 <label>
@@ -36,7 +47,8 @@ define([
                     <div className={"order-inputbox-holder"}>
                         <Input
                             name="description"
-                            value={this.props.product.details.description ? this.props.product.details.description : null}
+                            value={this.props.description}
+                            onChange={this.onInputChange}
                         />
                     </div>
                 </label>

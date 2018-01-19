@@ -19,6 +19,7 @@ define([
                         type="input"
                         name={this.props.name}
                         value={this.props.value}
+                        onChange={this.props.onChange}
                     />
                 </div>
             );

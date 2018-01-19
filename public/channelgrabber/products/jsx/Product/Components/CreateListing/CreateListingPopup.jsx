@@ -24,8 +24,27 @@ define([
         },
         getInitialState: function() {
             return {
-                accountSelected: null
+                accountSelected: null,
+                productId: null,
+                accountId: null,
+                title: null,
+                description: null,
+                price: null
             }
+        },
+        setFormStateListing: function(listingFormState) {
+            this.setState(listingFormState);
+        },
+        componentWillReceiveProps: function(newProps) {
+            if (!newProps.product) {
+                return;
+            }
+            this.setState({
+                productId: newProps.product.id,
+                title: newProps.product.name,
+                description: newProps.product.details.description ? newProps.product.details.description : null,
+                price: newProps.product.details.price ? newProps.product.details.price : null
+            });
         },
         renderCreateListingForm: function() {
             if (!this.state.accountSelected) {
@@ -33,12 +52,24 @@ define([
             }
 
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
-            return <FormComponent product={this.props.product}/>
+            return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing}/>
         },
         onAccountSelected: function(selectValue) {
             this.setState({
-                accountSelected: this.props.accounts[selectValue.value]
+                accountSelected: this.props.accounts[selectValue.value],
+                accountId: selectValue.value
             })
+        },
+        submitFormData: function () {
+            var formData = {
+                accountId: this.state.accountId,
+                productId: this.state.productId,
+                listing: {
+                    title: this.state.title,
+                    price: this.state.price,
+                    description: this.state.description
+                }
+            };
         },
         render: function()
         {
@@ -49,8 +80,8 @@ define([
                 <Popup
                     initiallyActive={!!this.props.product}
                     className="editor-popup"
-                    onYesButtonPressed={() => {}} /* TODO repeal and replace these 2 lines, too many ES6 */
-                    onNoButtonPressed={() => {}}
+                    onYesButtonPressed={this.submitFormData}
+                    onNoButtonPressed={function() {}}
                     headerText={"Create New Listing"}
                     yesButtonText="Save"
                     noButtonText="Cancel"
