@@ -1,16 +1,24 @@
 <?php
 
+use CG\Product\Category\ExternalData\Storage\Api as CategoryExternalStorageApi;
+use CG\Product\Category\ExternalData\StorageInterface as CategoryExternalStorage;
+use CG\Product\Category\Storage\Api as CategoryStorageApi;
 use CG\Product\Category\StorageInterface as CategoryStorage;
-use CG\Product\Category\Storage\Api as CategoryApiStorage;
 
 return [
     'di' => [
         'instance' => [
             'preferences' => [
-                CategoryStorage::class => CategoryApiStorage::class,
+                CategoryStorage::class => CategoryStorageApi::class,
+                CategoryExternalStorage::class => CategoryExternalStorageApi::class
             ],
-            CategoryApiStorage::class => [
-                'parameter' => [
+            CategoryStorageApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            CategoryExternalStorageApi::class => [
+                'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
             ],

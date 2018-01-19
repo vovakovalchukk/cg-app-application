@@ -42,30 +42,12 @@ class EbayJsonController extends AbstractActionController
     public function categoryDependentFieldValuesAction()
     {
         $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
-        $dummyCategoryIdToFields = [
-            1 => [
-                'listingDuration' => [
-                    '1 days',
-                    '2 days',
-                    '3 days'
-                ]
-            ],
-            2 => [
-                'listingDuration' => [
-                    '4 hours',
-                    '5 hours',
-                    '6 hours'
-                ]
-            ],
-            3 => [
-                'listingDuration' => [
-                    '4 months',
-                    '5 months',
-                    '6 months'
-                ]
+        $categoryFields = [
+            $externalCategoryId => [
+                'listingDuration' => $this->service->getListingDurationsForCategory($externalCategoryId)
             ]
         ];
-        return $this->jsonModelFactory->newInstance($dummyCategoryIdToFields[$externalCategoryId]);
+        return $this->jsonModelFactory->newInstance($categoryFields);
     }
 
     public function defaultSettingsAjaxAction()
