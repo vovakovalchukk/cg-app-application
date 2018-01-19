@@ -4,12 +4,13 @@ namespace Products\Controller\CreateListings;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use Application\Controller\AbstractJsonController;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Create\Ebay\Service;
 use Products\Listing\Create\Service as CreateListingsService;
-use Zend\Mvc\Controller\AbstractActionController;
 
-class EbayJsonController extends AbstractActionController
+class EbayJsonController extends AbstractJsonController
 {
     const ROUTE_CREATE_LISTINGS = 'CreateListings';
     const ROUTE = 'EbayListings';
@@ -33,7 +34,7 @@ class EbayJsonController extends AbstractActionController
         AccountService $accountService,
         Service $service
     ) {
-        $this->jsonModelFactory = $jsonModelFactory;
+        parent::__construct($jsonModelFactory);
         $this->createListingsService = $createListingsService;
         $this->accountService = $accountService;
         $this->service = $service;
@@ -73,11 +74,15 @@ class EbayJsonController extends AbstractActionController
         $accountId = $this->params()->fromRoute('accountId');
 
         try {
-            return $this->jsonModelFactory->newInstance(
-                $this->createListingsService->fetchDefaultSettingsForAccount($accountId)
-            );
+            $defaultSettings = $this->createListingsService->fetchDefaultSettingsForAccount($accountId);
+            if (empty($defaultSettings)) {
+                return $this->buildErrorResponse('NO_SETTINGS');
+            }
+            return $this->buildResponse($defaultSettings);
+        } catch (NotFound $e) {
+            return $this->buildErrorResponse('The account ' . $accountId . ' could not be found.');
         } catch (\Exception $e) {
-            return $this->jsonModelFactory->newInstance([]);
+            return $this->buildErrorResponse('An error has occurred. Please try again');
         }
     }
 
