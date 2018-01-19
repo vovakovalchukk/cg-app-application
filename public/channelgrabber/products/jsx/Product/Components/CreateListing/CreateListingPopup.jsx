@@ -1,13 +1,15 @@
 define([
     'react',
     'Common/Components/Popup',
-    'Product/Components/CreateListing/AccountPicker',
-    'Product/Components/CreateListing/Form/Ebay'
+    'Product/Components/CreateListing/Form/Ebay',
+    'Common/Components/Select',
+    'Product/Utils/CreateListingUtils'
 ], function(
     React,
     Popup,
-    AccountPicker,
-    EbayForm
+    EbayForm,
+    Select,
+    CreateListingUtils
 ) {
     "use strict";
 
@@ -39,6 +41,7 @@ define([
             if (!newProps.product) {
                 return;
             }
+
             this.setState({
                 productId: newProps.product.id,
                 title: newProps.product.name,
@@ -60,6 +63,18 @@ define([
                 accountId: selectValue.value
             })
         },
+        getAccountOptions: function() {
+            var options = [{name: null, value: null}];
+
+            for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (CreateListingUtils.productCanListToAccount(account, Object.keys(this.props.product.listingsPerAccount))) {
+                    options.push({name: account.displayName, value: account.id});
+                }
+            }
+
+            return options;
+        },
         submitFormData: function () {
             var formData = {
                 accountId: this.state.accountId,
@@ -77,6 +92,7 @@ define([
             if (!this.props.product) {
                 return null;
             }
+            
             return (
                 <Popup
                     initiallyActive={!!this.props.product}
@@ -96,11 +112,15 @@ define([
                             <label>
                                 <span className={"inputbox-label"}>Select an account to list to:</span>
                                 <div className={"order-inputbox-holder"}>
-                                    <AccountPicker
-                                        product={this.props.product}
-                                        accounts={this.props.accounts}
-                                        accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
-                                        onAccountSelected={this.onAccountSelected.bind(this)}
+                                    <Select
+                                        options={this.getAccountOptions()}
+                                        selectedOption={
+                                            this.state.accountSelected
+                                            && this.state.accountSelected.displayName
+                                                ? {name: this.state.accountSelected.displayName}
+                                                : null
+                                        }
+                                        onOptionChange={this.onAccountSelected.bind(this)}
                                     />
                                 </div>
                             </label>
