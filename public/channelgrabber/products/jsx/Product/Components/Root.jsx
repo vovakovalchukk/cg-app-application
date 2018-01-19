@@ -53,7 +53,8 @@ define([
                     limit: 0,
                     page: 0
                 },
-                fetchingUpdatedStockLevelsForSkus: {}
+                fetchingUpdatedStockLevelsForSkus: {},
+                accounts: {}
             }
         },
         componentDidMount: function()
@@ -103,6 +104,7 @@ define([
                     initialLoadOccurred: true,
                     searchTerm: searchTerm,
                     skuList: skuList,
+                    accounts: result.accounts
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -350,6 +352,8 @@ define([
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
+                    createListingsEnabled={this.props.createListingsEnabled}
+                    accounts={this.state.accounts}
                 />;
             }.bind(this))
         },
