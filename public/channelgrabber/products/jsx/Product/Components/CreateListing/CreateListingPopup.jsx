@@ -34,6 +34,13 @@ define([
                 price: null
             }
         },
+        componentDidMount: function() {
+            var accountOptions = this.getAccountOptions();
+
+            if (accountOptions.length == 2) {
+                this.onAccountSelected(accountOptions[1]);
+            }
+        },
         setFormStateListing: function(listingFormState) {
             this.setState(listingFormState);
         },
@@ -89,10 +96,6 @@ define([
         },
         render: function()
         {
-            if (!this.props.product) {
-                return null;
-            }
-
             return (
                 <Popup
                     initiallyActive={!!this.props.product}
