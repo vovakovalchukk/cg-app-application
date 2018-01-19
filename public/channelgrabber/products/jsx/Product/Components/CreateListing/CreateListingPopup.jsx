@@ -61,6 +61,27 @@ define([
             })
         },
         submitFormData: function () {
+            var formData = this.gatherFormData();
+            $.ajax({
+                url: '/products/listing/submit',
+                data: formData,
+                type: 'POST',
+                context: this,
+            }).then(function(response)
+            {
+                console.log(response);
+                if (response.valid) {
+                    this.handleFormSubmitSuccess(response);
+                } else {
+                    this.handleFormSubmitError(response);
+                }
+            }, function(response)
+            {
+                console.log(response);
+                n.error('There was a problem creating the listing');
+            });
+        },
+        gatherFormData: function() {
             var formData = {
                 accountId: this.state.accountId,
                 productId: this.state.productId,
@@ -70,7 +91,19 @@ define([
                     description: this.state.description
                 }
             };
+            // TODO: get the channel-specific fields
             console.log(formData);
+            return formData;
+        },
+        handleFormSubmitSuccess: function(response) {
+            n.success('Listing created successfully');
+            this.setState({
+                active: false
+            });
+        },
+        handleFormSubmitError: function(response) {
+            // TODO: improve this
+            n.error('There were errors when trying to create the listing');
         },
         render: function()
         {
@@ -83,6 +116,7 @@ define([
                     className="editor-popup"
                     onYesButtonPressed={this.submitFormData}
                     onNoButtonPressed={function() {}}
+                    closeOnYes={false}
                     headerText={"Create New Listing"}
                     yesButtonText="Save"
                     noButtonText="Cancel"
