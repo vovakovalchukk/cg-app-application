@@ -5,7 +5,7 @@
     bottom: 0px;
     left: 0px;
     opacity: 0.7;
-    z-index: 9998;
+    z-index: 9997;
     cursor: pointer;
     background-color: rgb(0, 0, 0);
     padding: 100%; /* this is a pretty disgusting hack, to ensure that the screenmask fills the full screen */
@@ -19,7 +19,7 @@
     max-height: 75%;
     left: 38%;
     top: 40%;
-    z-index: 9999;
+    z-index: 9998;
     opacity: 1;
     display: block;
     font-size: 18px;
@@ -48,6 +48,45 @@
             }
             &.yes {
 
+            }
+        }
+    }
+    .react-popup-message {
+        width: 200px;
+        height: 400px;
+        box-sizing: border-box;
+        position: fixed;
+        overflow-y: auto;
+        left: 48%;
+        top: 45%;
+        z-index: 9999;
+        opacity: 1;
+        display: block;
+        font-size: 18px;
+        padding: 5px;
+        background-color: white;
+        border-radius: 10px;
+        background-clip: padding-box;
+
+        .react-popup-message-header {
+            text-align: center;
+        }
+        .react-popup-message-content {
+            margin-bottom: 20px;
+            .center-align {
+                text-align: center;
+            }
+        }
+        .react-popup-message-buttons {
+            display: flex;
+            justify-content: space-between;
+            .button.react-popup-btn {
+                display: inline-block;
+                padding: 5px;
+                min-width: 75px;
+                &.close {
+
+                }
             }
         }
     }
