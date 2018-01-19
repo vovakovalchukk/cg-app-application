@@ -18,6 +18,7 @@ define([
                     <input
                         type="input"
                         name={this.props.name}
+                        value={this.props.value}
                     />
                 </div>
             );

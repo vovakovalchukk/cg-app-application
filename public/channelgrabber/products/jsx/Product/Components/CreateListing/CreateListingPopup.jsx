@@ -33,7 +33,7 @@ define([
             }
 
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
-            return <FormComponent/>
+            return <FormComponent product={this.props.product}/>
         },
         onAccountSelected: function(selectValue) {
             this.setState({
