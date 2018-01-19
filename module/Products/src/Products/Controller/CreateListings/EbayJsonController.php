@@ -4,12 +4,13 @@ namespace Products\Controller\CreateListings;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use Application\Controller\AbstractJsonController;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Create\Ebay\Service;
 use Products\Listing\Create\Service as CreateListingsService;
-use Zend\Mvc\Controller\AbstractActionController;
 
-class EbayJsonController extends AbstractActionController
+class EbayJsonController extends AbstractJsonController
 {
     const ROUTE_CREATE_LISTINGS = 'CreateListings';
     const ROUTE = 'EbayListings';
@@ -33,7 +34,7 @@ class EbayJsonController extends AbstractActionController
         AccountService $accountService,
         Service $service
     ) {
-        $this->jsonModelFactory = $jsonModelFactory;
+        parent::__construct($jsonModelFactory);
         $this->createListingsService = $createListingsService;
         $this->accountService = $accountService;
         $this->service = $service;
@@ -55,11 +56,15 @@ class EbayJsonController extends AbstractActionController
         $accountId = $this->params()->fromRoute('accountId');
 
         try {
-            return $this->jsonModelFactory->newInstance(
-                $this->createListingsService->fetchDefaultSettingsForAccount($accountId)
-            );
+            $defaultSettings = $this->createListingsService->fetchDefaultSettingsForAccount($accountId);
+            if (empty($defaultSettings)) {
+                return $this->buildErrorResponse('NO_SETTINGS');
+            }
+            return $this->buildResponse($defaultSettings);
+        } catch (NotFound $e) {
+            return $this->buildErrorResponse('The account ' . $accountId . ' could not be found.');
         } catch (\Exception $e) {
-            return $this->jsonModelFactory->newInstance([]);
+            return $this->buildErrorResponse('An error has occurred. Please try again');
         }
     }
 
@@ -67,12 +72,12 @@ class EbayJsonController extends AbstractActionController
     {
         $accountId = intval($this->params()->fromPost('accountId'));
         if ($accountId === 0) {
-            return $this->jsonModelFactory->newInstance([]);
+            return $this->buildErrorResponse(['Invalid accountId provided on the post data']);
         }
+
         /** @var Account $account */
         $account = $this->accountService->fetch($accountId);
-
-        return $this->jsonModelFactory->newInstance([
+        return $this->buildResponse([
             'category' => $this->service->getCategoryOptionsForAccount($account),
             'shippingService' => $this->service->getShippingMethodsForAccount($account),
             'currency' => $this->service->getCurrencySymbolForAccount($account)
@@ -82,7 +87,7 @@ class EbayJsonController extends AbstractActionController
     public function categoryChildrenAction()
     {
         $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
-        return $this->jsonModelFactory->newInstance([
+        return $this->buildResponse([
             'categories' => $this->service->getCategoryChildrenForCategory($externalCategoryId)
         ]);
     }
