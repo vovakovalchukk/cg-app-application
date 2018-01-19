@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d88777a6009ece4bc04da14604c72952",
+    "content-hash": "6e1c202a492a685eecd6e849500c66f3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2014,7 +2014,7 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-LIS-15-implement-categories",
+            "version": "dev-LIS-18-fetch-ebay-category-features",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
@@ -2022,7 +2022,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-15-implement-categories-44514c.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-18-fetch-ebay-category-features-44514c.zip",
                 "reference": "95f54cea3622042dabcee0cb7076765d1e5024aa",
                 "shasum": null
             },
@@ -9491,7 +9491,7 @@
         {
             "alias": "1.11.2",
             "alias_normalized": "1.11.2.0",
-            "version": "dev-LIS-15-implement-categories",
+            "version": "dev-LIS-18-fetch-ebay-category-features",
             "package": "channelgrabber/product"
         }
     ],
