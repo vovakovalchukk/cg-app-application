@@ -83,8 +83,10 @@ class EbayJsonController extends AbstractActionController
 
     public function channelSpecificFieldValuesAction()
     {
-        /** @TODO: remove the hard-coded account Id and sanitize the accountId from post*/
-        $accountId = $this->params()->fromQuery('accountId') ?? 23;
+        $accountId = intval($this->params()->fromPost('accountId'));
+        if ($accountId === 0) {
+            return $this->jsonModelFactory->newInstance([]);
+        }
         /** @var Account $account */
         $account = $this->accountService->fetch($accountId);
 
