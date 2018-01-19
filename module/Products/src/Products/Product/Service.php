@@ -165,6 +165,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $products;
     }
 
+    public function fetchProductById($id): Product
+    {
+        return $this->productService->fetch($id);
+    }
+
     public function fetchStockForSku(string $productSku, int $ouId): array
     {
         if ($productSku == '') {
