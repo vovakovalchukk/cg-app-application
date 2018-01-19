@@ -3,8 +3,10 @@
 namespace Products\Controller\CreateListings;
 
 use CG\Account\Client\Service as AcountService;
+use CG\Account\Shared\Entity as Account;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Create\Ebay\Service;
+use Products\Listing\Create\Service as CreateListingsService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class EbayJsonController extends AbstractActionController
@@ -17,14 +19,21 @@ class EbayJsonController extends AbstractActionController
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var CreateListingsService */
+    protected $createListingsService;
     /** @var AcountService */
     protected $accountService;
     /** @var Service */
     protected $service;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, AcountService $accountService, Service $service)
-    {
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        CreateListingsService $createListingsService,
+        AcountService $accountService,
+        Service $service
+    ) {
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->createListingsService = $createListingsService;
         $this->accountService = $accountService;
         $this->service = $service;
     }
@@ -60,22 +69,22 @@ class EbayJsonController extends AbstractActionController
 
     public function defaultSettingsAjaxAction()
     {
-        return $this->jsonModelFactory->newInstance([
-            'listingLocation' => 'Jupiter',
-            'listingCurrency' => 'GBP',
-            'paypalEmail' => 'dev+createlistingstest@channelgrabber.com',
-            'listingDuration' => 'GTC',
-            'listingDipsatchTime' => 12,
-            'listingPaymentMethod' => [
-                'payPal', 'cheque'
-            ]
-        ]);
+        $accountId = $this->params()->fromRoute('accountId');
+
+        try {
+            return $this->jsonModelFactory->newInstance(
+                $this->createListingsService->fetchDefaultSettingsForAccount($accountId)
+            );
+        } catch (\Exception $e) {
+            return $this->jsonModelFactory->newInstance([]);
+        }
     }
 
     public function channelSpecificFieldValuesAction()
     {
         //$accountId = $this->params()->fromPost('accountId');
-        $accountId = $this->params()->fromQuery('accountId'); // TEMP!
+        $accountId = $this->params()->fromQuery('accountId') ?? 23;
+        /** @var Account $account */
         $account = $this->accountService->fetch($accountId);
 
         return $this->jsonModelFactory->newInstance([
