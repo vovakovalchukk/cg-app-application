@@ -13,6 +13,8 @@ define([
 ) {
     "use strict";
 
+    var NO_SETTINGS = 'NO_SETTINGS';
+
     var channelToFormMap = {
         'ebay': EbayForm
     };
@@ -61,14 +63,52 @@ define([
                 return;
             }
 
+            if (this.state.error && this.state.error == NO_SETTINGS) {
+                return <div>
+                    <h2>
+                        In order to create listings on this account, please first create the
+                        <a href={"/settings/channel/sales/" + this.state.accountId}>default listing settings</a>
+                    </h2>
+                </div>
+            }
+
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
             return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing}/>
         },
         onAccountSelected: function(selectValue) {
+            var accountId = selectValue.value;
+            var account = this.props.accounts[selectValue.value];
+
             this.setState({
-                accountSelected: this.props.accounts[selectValue.value],
-                accountId: selectValue.value
-            })
+                accountSelected: account,
+                accountId: accountId
+            });
+
+            if (!accountId) {
+                return;
+            }
+
+            $.ajax({
+                url: '/products/create-listings/ebay/default-settings/' + selectValue.value,
+                type: 'GET',
+                success: function (response) {
+                    if (response.error == NO_SETTINGS) {
+                        this.setState({
+                            error: NO_SETTINGS
+                        })
+
+                        return;
+                    }
+                    this.setState({
+                        listingCurrency: response.listingCurrency,
+                        listingDipsatchTime: response.listingDipsatchTime,
+                        listingDuration: response.listingDuration,
+                        listingLocation: response.listingLocation,
+                        listingPaymentMethod: response.listingPaymentMethod,
+                        paypalEmail: response.paypalEmail
+                    })
+                }.bind(this)
+            });
         },
         getAccountOptions: function() {
             var options = [{name: null, value: null}];
