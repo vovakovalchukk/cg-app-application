@@ -70,6 +70,7 @@ define([
                     description: this.state.description
                 }
             };
+            console.log(formData);
         },
         render: function()
         {
