@@ -1,9 +1,9 @@
 <?php
-namespace Products\Listing\CreateListings;
+namespace Products\Listing\Create;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
-use Products\Listing\CreateListings\ChannelService\Factory;
+use Products\Listing\Create\ChannelService\Factory;
 
 class Service
 {

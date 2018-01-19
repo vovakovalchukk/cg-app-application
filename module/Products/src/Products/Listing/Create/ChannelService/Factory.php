@@ -1,5 +1,5 @@
 <?php
-namespace Products\Listing\CreateListings\ChannelService;
+namespace Products\Listing\Create\ChannelService;
 
 use CG\Di\Di;
 use function CG\Stdlib\hyphenToClassname;

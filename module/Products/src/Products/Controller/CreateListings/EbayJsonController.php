@@ -2,9 +2,8 @@
 
 namespace Products\Controller\CreateListings;
 
-use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Products\Listing\CreateListings\Service as CreateListingsService;
+use Products\Listing\Create\Service as CreateListingsService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class EbayJsonController extends AbstractActionController
