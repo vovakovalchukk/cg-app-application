@@ -11,7 +11,9 @@ define([
                 initiallyActive: false,
                 headerText: "",
                 noButtonText: "No",
-                yesButtonText: "Yes"
+                yesButtonText: "Yes",
+                closeOnNo: true,
+                closeOnYes: true
             };
         },
         getInitialState: function () {
@@ -39,17 +41,17 @@ define([
             if (this.props.onNoButtonPressed !== undefined) {
                 this.props.onNoButtonPressed();
             }
-            this.setState({
-                active: false
-            });
+            if (this.props.closeOnNo) {
+                this.setState({active: false});
+            }
         },
         yesButtonPressed: function () {
             if (this.props.onYesButtonPressed !== undefined) {
                 this.props.onYesButtonPressed();
             }
-            this.setState({
-                active: false
-            });
+            if (this.props.closeOnYes) {
+                this.setState({active: false});
+            }
         },
         getPopupMarkup: function () {
             if (! this.state.active) {
