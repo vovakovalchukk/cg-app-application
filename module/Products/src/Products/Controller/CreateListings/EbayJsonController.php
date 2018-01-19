@@ -24,7 +24,7 @@ class EbayJsonController extends AbstractJsonController
         JsonModelFactory $jsonModelFactory,
         CreateListingsService $createListingsService
     ) {
-        $this->jsonModelFactory = $jsonModelFactory;
+        parent::__construct($jsonModelFactory);
         $this->createListingsService = $createListingsService;
     }
 
