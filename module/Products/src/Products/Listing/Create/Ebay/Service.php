@@ -66,14 +66,10 @@ class Service
     public function getCategoryChildrenForCategory(int $externalCategoryId): array
     {
         try {
-            /** @var CategoryCollection $categoryCollection */
-            $categoryCollection = $this->categoryService->fetchCollectionByFilter(
-                (new CategoryFilter(1, 1))
-                    ->setExternalId([$externalCategoryId])
-            );
+            $category = $this->fetchCategoryByExternalId($externalCategoryId);
             $childCategories = $this->categoryService->fetchCollectionByFilter(
                 (new CategoryFilter('all', 1))
-                    ->setParentId([$categoryCollection->getFirst()->getId()])
+                    ->setParentId([$category->getId()])
             );
             return $this->formatCategoriesArray($childCategories);
         } catch (NotFound $e) {
@@ -128,5 +124,16 @@ class Service
             $methods[$shippingMethod->getMethod()] = $shippingMethod->getMethod();
         }
         return $methods;
+    }
+
+    protected function fetchCategoryByExternalId(int $externalId): Category
+    {
+        /** @var CategoryCollection $categoryCollection */
+        $categoryCollection = $this->categoryService->fetchCollectionByFilter(
+            (new CategoryFilter(1, 1))
+                ->setExternalId([$externalId])
+                ->setChannel(['ebay'])
+        );
+        return $categoryCollection->getFirst();
     }
 }
