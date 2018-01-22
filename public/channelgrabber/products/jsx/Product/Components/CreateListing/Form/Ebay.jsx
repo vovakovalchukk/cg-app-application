@@ -2,12 +2,14 @@ define([
     'react',
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
-    'Common/Components/Input'
+    'Common/Components/Input',
+    'Product/Components/CreateListing/Form/Ebay/CategorySelect',
 ], function(
     React,
     Select,
     CurrencyInput,
-    Input
+    Input,
+    CategorySelect
 ) {
     "use strict";
 
@@ -104,6 +106,7 @@ define([
                         />
                     </div>
                 </label>
+                <CategorySelect accountId={this.props.accountId} />
             </div>;
         }
     });
