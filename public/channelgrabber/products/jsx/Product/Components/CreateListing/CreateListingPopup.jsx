@@ -134,7 +134,6 @@ define([
                 context: this,
             }).then(function(response)
             {
-                console.log(response);
                 if (response.valid) {
                     this.handleFormSubmitSuccess(response);
                 } else {
@@ -153,7 +152,7 @@ define([
                 listing: {}
             };
             formData.listing = this.getListingDataFromState();
-            console.log(formData);
+
             return formData;
         },
         getListingDataFromState: function() {
