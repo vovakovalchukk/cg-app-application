@@ -42,10 +42,13 @@ class EbayJsonController extends AbstractJsonController
 
     public function categoryDependentFieldValuesAction()
     {
+        $accountId = $this->params()->fromRoute('accountId');
         $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
+        /** @var Account $account */
+        $account = $this->accountService->fetch($accountId);
         $categoryFields = [
             $externalCategoryId => [
-                'listingDuration' => $this->service->getListingDurationsForCategory($externalCategoryId)
+                'listingDuration' => $this->service->getListingDurationsForCategory($account, $externalCategoryId)
             ]
         ];
         return $this->buildResponse($categoryFields);
@@ -86,9 +89,12 @@ class EbayJsonController extends AbstractJsonController
 
     public function categoryChildrenAction()
     {
+        $accountId = $this->params()->fromRoute('accountId');
         $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
+        /** @var Account $account */
+        $account = $this->accountService->fetch($accountId);
         return $this->buildResponse([
-            'categories' => $this->service->getCategoryChildrenForCategory($externalCategoryId)
+            'categories' => $this->service->getCategoryChildrenForCategoryAndAccount($account, $externalCategoryId)
         ]);
     }
 }

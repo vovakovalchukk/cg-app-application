@@ -465,13 +465,24 @@ return [
                                     EbayJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/category-dependent-field-values/:externalCategoryId',
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'categoryDependentFieldValues'
-                                            ],
+                                            'route' => '/category-dependent-field-values/:accountId',
                                             'constraints' => [
-                                                'externalCategoryId' => '[0-9]+'
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ],
+                                        'child_routes' => [
+                                            'externalId' => [
+                                                'type' => Segment::class,
+                                                'options' => [
+                                                    'route' => '/:externalCategoryId',
+                                                    'defaults' => [
+                                                        'controller' => EbayJsonController::class,
+                                                        'action' => 'categoryDependentFieldValues'
+                                                    ],
+                                                    'constraints' => [
+                                                        'externalCategoryId' => '[0-9]+'
+                                                    ]
+                                                ]
                                             ]
                                         ]
                                     ],
@@ -488,10 +499,24 @@ return [
                                     EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/categoryChildren/:externalCategoryId',
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'categoryChildren'
+                                            'route' => '/categoryChildren/:accountId',
+                                            'constraints' => [
+                                                'externalCategoryId' => '[0-9]+'
+                                            ]
+                                        ],
+                                        'child_routes' => [
+                                            'externalId' => [
+                                                'type' => Segment::class,
+                                                'options' => [
+                                                    'route' => '/:externalCategoryId',
+                                                    'defaults' => [
+                                                        'controller' => EbayJsonController::class,
+                                                        'action' => 'categoryChildren'
+                                                    ],
+                                                    'constraints' => [
+                                                        'externalCategoryId' => '[0-9]+'
+                                                    ]
+                                                ]
                                             ]
                                         ]
                                     ]
