@@ -29,6 +29,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Listing\Create\Ebay\Service as ListingCreateEbayService;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
@@ -481,6 +482,16 @@ return [
                                             'defaults' => [
                                                 'controller' => EbayJsonController::class,
                                                 'action' => 'channelSpecificFieldValues'
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/categoryChildren/:externalCategoryId',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'categoryChildren'
                                             ]
                                         ]
                                     ]
@@ -1164,6 +1175,11 @@ return [
             StockCsvProgressStorage::class => [
                 'parameters' => [
                     'predis' => 'reliable_redis'
+                ]
+            ],
+            ListingCreateEbayService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
                 ]
             ],
         ],
