@@ -268,6 +268,13 @@ define([
                 }
             });
         },
+        onCreateListingClose: function() {
+            this.setState({
+                createListing: {
+                    product: null
+                }
+            });
+        },
         onSkuRequest: function (event) {
             this.filterBySku(event.detail.sku);
         },
@@ -373,6 +380,16 @@ define([
                 />;
             }.bind(this))
         },
+        renderCreateListingPopup: function() {
+            if (!this.state.createListing.product) {
+                return;
+            }
+            return <CreateListingPopup
+                accounts={this.state.accounts}
+                product={this.state.createListing.product}
+                onCreateListingClose={this.onCreateListingClose}
+            />
+        },
         render: function()
         {
             return (
@@ -386,10 +403,7 @@ define([
                         onEditorClose={this.onProductLinksEditorClose}
                         fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                     />
-                    <CreateListingPopup
-                        accounts={this.state.accounts}
-                        product={this.state.createListing.product}
-                    />
+                    {this.renderCreateListingPopup()}
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );

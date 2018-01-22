@@ -2,16 +2,20 @@ define([
     'react',
     'Common/Components/Popup',
     'Common/Components/Popup/Message',
-    'Product/Components/CreateListing/AccountPicker',
-    'Product/Components/CreateListing/Form/Ebay'
+    'Product/Components/CreateListing/Form/Ebay',
+    'Common/Components/Select',
+    'Product/Utils/CreateListingUtils'
 ], function(
     React,
     Popup,
     PopupMessage,
-    AccountPicker,
-    EbayForm
+    EbayForm,
+    Select,
+    CreateListingUtils
 ) {
     "use strict";
+
+    var NO_SETTINGS = 'NO_SETTINGS';
 
     var channelToFormMap = {
         'ebay': EbayForm
@@ -36,33 +40,90 @@ define([
                 warnings: []
             }
         },
-        setFormStateListing: function(listingFormState) {
-            this.setState(listingFormState);
-        },
-        componentWillReceiveProps: function(newProps) {
-            if (!newProps.product) {
+        componentDidMount: function() {
+            var accountOptions = this.getAccountOptions();
+
+            if (accountOptions.length == 1) {
+                this.onAccountSelected(accountOptions[0]);
+            }
+
+            if (!this.props.product) {
                 return;
             }
+
             this.setState({
-                productId: newProps.product.id,
-                title: newProps.product.name,
-                description: newProps.product.details.description ? newProps.product.details.description : null,
-                price: newProps.product.details.price ? newProps.product.details.price : null
+                productId: this.props.product.id,
+                title: this.props.product.name,
+                description: this.props.product.details.description ? this.props.product.details.description : null,
+                price: this.props.product.details.price ? this.props.product.details.price : null
             });
+        },
+        setFormStateListing: function(listingFormState) {
+            this.setState(listingFormState);
         },
         renderCreateListingForm: function() {
             if (!this.state.accountSelected) {
                 return;
             }
 
+            if (this.state.error && this.state.error == NO_SETTINGS) {
+                return <div>
+                    <h2>
+                        In order to create listings on this account, please first create the
+                        <a href={"/settings/channel/sales/" + this.state.accountId}>default listing settings</a>
+                    </h2>
+                </div>
+            }
+
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
             return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing}/>
         },
         onAccountSelected: function(selectValue) {
+            var accountId = selectValue.value;
+            var account = this.props.accounts[selectValue.value];
+
             this.setState({
-                accountSelected: this.props.accounts[selectValue.value],
-                accountId: selectValue.value
-            })
+                accountSelected: account,
+                accountId: accountId
+            });
+
+            if (!accountId) {
+                return;
+            }
+
+            $.ajax({
+                url: '/products/create-listings/ebay/default-settings/' + selectValue.value,
+                type: 'GET',
+                success: function (response) {
+                    if (response.error == NO_SETTINGS) {
+                        this.setState({
+                            error: NO_SETTINGS
+                        })
+
+                        return;
+                    }
+                    this.setState({
+                        listingCurrency: response.listingCurrency,
+                        listingDipsatchTime: response.listingDipsatchTime,
+                        listingDuration: response.listingDuration,
+                        listingLocation: response.listingLocation,
+                        listingPaymentMethod: response.listingPaymentMethod,
+                        paypalEmail: response.paypalEmail
+                    })
+                }.bind(this)
+            });
+        },
+        getAccountOptions: function() {
+            var options = [];
+
+            for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (CreateListingUtils.productCanListToAccount(account, Object.keys(this.props.product.listingsPerAccount))) {
+                    options.push({name: account.displayName, value: account.id});
+                }
+            }
+
+            return options;
         },
         submitFormData: function () {
             var formData = this.gatherFormData();
@@ -115,15 +176,12 @@ formData.errors = true;
         },
         render: function()
         {
-            if (!this.props.product) {
-                return null;
-            }
             return (
                 <Popup
-                    initiallyActive={!!this.props.product}
-                    className="editor-popup"
+                    initiallyActive={true}
+                    className="editor-popup create-listing"
                     onYesButtonPressed={this.submitFormData}
-                    onNoButtonPressed={function() {}}
+                    onNoButtonPressed={this.props.onCreateListingClose}
                     closeOnYes={false}
                     headerText={"Create New Listing"}
                     yesButtonText="Save"
@@ -138,11 +196,16 @@ formData.errors = true;
                             <label>
                                 <span className={"inputbox-label"}>Select an account to list to:</span>
                                 <div className={"order-inputbox-holder"}>
-                                    <AccountPicker
-                                        product={this.props.product}
-                                        accounts={this.props.accounts}
-                                        accountsProductIsListedOn={Object.keys(this.props.product.listingsPerAccount)}
-                                        onAccountSelected={this.onAccountSelected.bind(this)}
+                                    <Select
+                                        options={this.getAccountOptions()}
+                                        selectedOption={
+                                            this.state.accountSelected
+                                            && this.state.accountSelected.displayName
+                                                ? {name: this.state.accountSelected.displayName}
+                                                : null
+                                        }
+                                        onOptionChange={this.onAccountSelected.bind(this)}
+                                        autoSelectFirst={false}
                                     />
                                 </div>
                             </label>
