@@ -174,6 +174,32 @@ formData.errors = true;
                 warnings: response.warnings
             });
         },
+        renderErrorMessage: function() {
+            if (this.state.errors.length == 0) {
+                return;
+            }
+            return (
+                <PopupMessage
+                    initiallyActive={!!this.state.errors.length}
+                    headerText="There were errors when trying to create the listing"
+                    className="error"
+                >
+                    <h4>Errors</h4>
+                    <ul>
+                        {this.state.errors.map(function (error) {
+                            return (<li>{error}</li>);
+                        })}
+                    </ul>
+                    <h4>Warnings</h4>
+                    <ul>
+                        {this.state.warnings.map(function (warning) {
+                            return (<li>{warning}</li>);
+                        })}
+                    </ul>
+                    <p>Please address these errors then try again.</p>
+                </PopupMessage>
+            );
+        },
         render: function()
         {
             return (
@@ -212,23 +238,7 @@ formData.errors = true;
                             {this.renderCreateListingForm()}
                         </div>
                     </form>
-                    <PopupMessage
-                        initiallyActive={!!this.state.errors}
-                        headerText="There were errors when trying to create the listing"
-                    >
-                        <h4>Errors</h4>
-                        <ul>
-                            {this.state.errors.map(function (error) {
-                                <li>{error}</li>
-                            })}
-                        </ul>
-                        <h4>Warnings</h4>
-                        <ul>
-                            {this.state.warnings.map(function (warning) {
-                                <li>{warning}</li>
-                            })}
-                        </ul>
-                    </PopupMessage>
+                    {this.renderErrorMessage()}
                 </Popup>
             );
         }
