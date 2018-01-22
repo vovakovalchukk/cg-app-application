@@ -132,16 +132,13 @@ define([
                 data: formData,
                 type: 'POST',
                 context: this,
-            }).then(function(response)
-            {
+            }).then(function(response) {
                 if (response.valid) {
                     this.handleFormSubmitSuccess(response);
                 } else {
                     this.handleFormSubmitError(response);
                 }
-            }, function(response)
-            {
-                console.log(response);
+            }, function(response) {
                 n.error('There was a problem creating the listing');
             });
         },
