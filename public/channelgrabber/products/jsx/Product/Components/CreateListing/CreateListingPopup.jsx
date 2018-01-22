@@ -186,6 +186,7 @@ define([
                     initiallyActive={!!this.state.errors.length}
                     headerText="There were errors when trying to create the listing"
                     className="error"
+                    onCloseButtonPressed={this.onErrorMessageClosed}
                 >
                     <h4>Errors</h4>
                     <ul>
@@ -202,6 +203,12 @@ define([
                     <p>Please address these errors then try again.</p>
                 </PopupMessage>
             );
+        },
+        onErrorMessageClosed: function() {
+            this.setState({
+                errors: [],
+                warnings: []
+            });
         },
         render: function()
         {
