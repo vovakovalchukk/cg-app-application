@@ -32,7 +32,7 @@ define([
         },
         render: function () {
             if (!this.state.active) {
-                return;
+                return (null);
             }
             return (
                 <div className={"react-popup-message " + this.props.className }>
