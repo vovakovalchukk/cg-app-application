@@ -39,8 +39,8 @@ define([
         componentDidMount: function() {
             var accountOptions = this.getAccountOptions();
 
-            if (accountOptions.length == 2) {
-                this.onAccountSelected(accountOptions[1]);
+            if (accountOptions.length == 1) {
+                this.onAccountSelected(accountOptions[0]);
             }
 
             if (!this.props.product) {
@@ -110,7 +110,7 @@ define([
             });
         },
         getAccountOptions: function() {
-            var options = [{name: null, value: null}];
+            var options = [];
 
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
@@ -163,6 +163,7 @@ define([
                                                 : null
                                         }
                                         onOptionChange={this.onAccountSelected.bind(this)}
+                                        autoSelectFirst={false}
                                     />
                                 </div>
                             </label>
