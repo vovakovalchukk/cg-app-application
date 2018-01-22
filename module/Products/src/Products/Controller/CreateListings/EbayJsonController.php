@@ -53,7 +53,7 @@ class EbayJsonController extends AbstractActionController
     public function defaultSettingsAjaxAction()
     {
         $accountId = $this->params()->fromRoute('accountId');
-        
+
         return $this->jsonModelFactory->newInstance([
             'listingLocation' => 'Jupiter',
             'listingCurrency' => 'GBP',

@@ -39,7 +39,7 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Price</span>
                     <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency{this.props.listingCurrency} />
+                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.listingCurrency} />
                     </div>
                 </label>
                 <label>

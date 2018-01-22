@@ -139,7 +139,7 @@ define([
             return (
                 <Popup
                     initiallyActive={!!this.props.product}
-                    className="editor-popup"
+                    className="editor-popup create-listing"
                     onYesButtonPressed={this.submitFormData}
                     onNoButtonPressed={this.props.onCreateListingClose}
                     headerText={"Create New Listing"}
