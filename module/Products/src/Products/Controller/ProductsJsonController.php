@@ -171,6 +171,7 @@ class ProductsJsonController extends AbstractActionController
 
         $view
             ->setVariable('products', $productsArray)
+            ->setVariable('accounts', $accounts)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
