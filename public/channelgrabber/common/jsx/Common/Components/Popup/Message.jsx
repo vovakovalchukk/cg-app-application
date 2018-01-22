@@ -26,6 +26,9 @@ define([
         },
         closeButtonPressed: function()
         {
+            if (this.props.onCloseButtonPressed !== undefined) {
+                this.props.onCloseButtonPressed();
+            }
             this.setState({
                 active: false
             });
