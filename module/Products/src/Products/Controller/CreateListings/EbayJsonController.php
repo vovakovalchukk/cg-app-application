@@ -60,7 +60,7 @@ class EbayJsonController extends AbstractJsonController
 
         try {
             $defaultSettings = $this->createListingsService->fetchDefaultSettingsForAccount($accountId);
-            if (empty($defaultSettings)) {
+            if (empty(array_filter($defaultSettings))) {
                 return $this->buildErrorResponse('NO_SETTINGS');
             }
             return $this->buildResponse($defaultSettings);
