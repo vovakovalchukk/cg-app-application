@@ -126,7 +126,7 @@ define([
             return options;
         },
         submitFormData: function () {
-            var formData = this.gatherFormData();
+            var formData = this.getFormData();
             $.ajax({
                 url: '/products/listing/submit',
                 data: formData,
@@ -145,7 +145,7 @@ define([
                 n.error('There was a problem creating the listing');
             });
         },
-        gatherFormData: function() {
+        getFormData: function() {
             var formData = {
                 accountId: this.state.accountId,
                 productId: this.state.productId,
