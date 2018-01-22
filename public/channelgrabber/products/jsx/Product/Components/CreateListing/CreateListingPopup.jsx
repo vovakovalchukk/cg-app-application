@@ -42,21 +42,20 @@ define([
             if (accountOptions.length == 2) {
                 this.onAccountSelected(accountOptions[1]);
             }
-        },
-        setFormStateListing: function(listingFormState) {
-            this.setState(listingFormState);
-        },
-        componentWillReceiveProps: function(newProps) {
-            if (!newProps.product) {
+
+            if (!this.props.product) {
                 return;
             }
 
             this.setState({
-                productId: newProps.product.id,
-                title: newProps.product.name,
-                description: newProps.product.details.description ? newProps.product.details.description : null,
-                price: newProps.product.details.price ? newProps.product.details.price : null
+                productId: this.props.product.id,
+                title: this.props.product.name,
+                description: this.props.product.details.description ? this.props.product.details.description : null,
+                price: this.props.product.details.price ? this.props.product.details.price : null
             });
+        },
+        setFormStateListing: function(listingFormState) {
+            this.setState(listingFormState);
         },
         renderCreateListingForm: function() {
             if (!this.state.accountSelected) {
@@ -138,7 +137,7 @@ define([
         {
             return (
                 <Popup
-                    initiallyActive={!!this.props.product}
+                    initiallyActive={true}
                     className="editor-popup create-listing"
                     onYesButtonPressed={this.submitFormData}
                     onNoButtonPressed={this.props.onCreateListingClose}
