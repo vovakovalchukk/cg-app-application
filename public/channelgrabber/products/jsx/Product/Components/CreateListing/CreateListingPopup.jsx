@@ -150,15 +150,23 @@ define([
             var formData = {
                 accountId: this.state.accountId,
                 productId: this.state.productId,
-                listing: {
-                    title: this.state.title,
-                    price: this.state.price,
-                    description: this.state.description
-                }
+                listing: {}
             };
-            // TODO: get the channel-specific fields
+            formData.listing = this.getListingDataFromState();
             console.log(formData);
             return formData;
+        },
+        getListingDataFromState: function() {
+            var listing = this.cloneState();
+            delete listing.accountSelected;
+            delete listing.productId;
+            delete listing.accountId;
+            delete listing.errors;
+            delete listing.warnings;
+            return listing;
+        },
+        cloneState: function() {
+            return JSON.parse(JSON.stringify(this.state));
         },
         handleFormSubmitSuccess: function(response) {
             n.success('Listing created successfully');
