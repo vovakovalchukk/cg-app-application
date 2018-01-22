@@ -501,7 +501,7 @@ return [
                                         'options' => [
                                             'route' => '/categoryChildren/:accountId',
                                             'constraints' => [
-                                                'externalCategoryId' => '[0-9]+'
+                                                'accountId' => '[0-9]+'
                                             ]
                                         ],
                                         'child_routes' => [
