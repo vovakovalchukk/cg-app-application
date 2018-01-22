@@ -127,8 +127,6 @@ define([
         },
         submitFormData: function () {
             var formData = this.gatherFormData();
-// TEST
-formData.errors = true;
             $.ajax({
                 url: '/products/listing/submit',
                 data: formData,
@@ -164,9 +162,7 @@ formData.errors = true;
         },
         handleFormSubmitSuccess: function(response) {
             n.success('Listing created successfully');
-            this.setState({
-                active: false
-            });
+            this.props.onCreateListingClose();
         },
         handleFormSubmitError: function(response) {
             this.setState({
