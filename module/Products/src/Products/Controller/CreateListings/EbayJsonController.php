@@ -78,8 +78,12 @@ class EbayJsonController extends AbstractJsonController
             return $this->buildErrorResponse(['Invalid accountId provided on the post data']);
         }
 
-        /** @var Account $account */
-        $account = $this->accountService->fetch($accountId);
+        try {
+            /** @var Account $account */
+            $account = $this->accountService->fetch($accountId);
+        } catch (NotFound $e) {
+            return $this->buildErrorResponse('Account with ID ' . $accountId . ' doesn\'t exist.');
+        }
         return $this->buildResponse([
             'category' => $this->service->getCategoryOptionsForAccount($account),
             'shippingService' => $this->service->getShippingMethodsForAccount($account),
@@ -91,8 +95,15 @@ class EbayJsonController extends AbstractJsonController
     {
         $accountId = $this->params()->fromRoute('accountId');
         $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
-        /** @var Account $account */
-        $account = $this->accountService->fetch($accountId);
+        try {
+            /** @var Account $account */
+            $account = $this->accountService->fetch($accountId);
+        } catch (NotFound $e) {
+            return $this->buildErrorResponse(
+                'Account with ID ' . $accountId . ' doesn\'t exist.',
+                ['categories' => []]
+            );
+        }
         return $this->buildResponse([
             'categories' => $this->service->getCategoryChildrenForCategoryAndAccount($account, $externalCategoryId)
         ]);
