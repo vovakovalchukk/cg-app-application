@@ -21,7 +21,8 @@ define([
                 title: null,
                 description: null,
                 price: null,
-                accountId: null
+                accountId: null,
+                product: null
             }
         },
         getInitialState: function() {
@@ -116,7 +117,7 @@ define([
                     <ImagePicker
                         name="image"
                         multiSelect={false}
-                        images={[{id:1,url:"http://youraccount.ekmpowershop23.com/ekmps/shops/channelgrabber/images/mytestproduct-6-p.gif"},{id:2,url:"http://youraccount.ekmpowershop23.com/ekmps/shops/channelgrabber/images/discounttest-11-p.jpg"}]}
+                        images={this.props.product.images}
                         onImageSelected={this.onImageSelected}
                     />
                 </label>
