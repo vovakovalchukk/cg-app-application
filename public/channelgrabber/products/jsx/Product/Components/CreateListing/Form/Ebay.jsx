@@ -107,6 +107,38 @@ define([
                     </div>
                 </label>
                 <CategorySelect accountId={this.props.accountId} />
+                <label>
+                    <span className={"inputbox-label"}>Listing Duration</span>
+                    <div className={"order-inputbox-holder"}>
+
+                    </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Dispatch Time Max</span>
+                    <div className={"order-inputbox-holder"}>
+
+                    </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Shipping Service</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Input
+                            name="description"
+                            value={this.props.description}
+                            onChange={this.onInputChange}
+                        />
+                    </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Shipping Price</span>
+                    <div className={"order-inputbox-holder"}>
+                        <CurrencyInput
+                            value={this.props.shippingPrice}
+                            onChange={this.onInputChange}
+                            currency={this.props.listingCurrency}
+                        />
+                    </div>
+                </label>
             </div>;
         }
     });
