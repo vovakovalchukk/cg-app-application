@@ -12,19 +12,29 @@ define([
                 className: '',
                 multiSelect: true,
                 images: [],
-                onImageSelected: null
+                onImageSelected: null,
+                autoSelectFirst: true
             };
         },
         getInitialState: function() {
+            return {
+                selectedImages: []
+            };
+        },
+        componentDidMount: function() {
             var selectedImages = [];
             this.props.images.forEach(function(image) {
                 if (image.selected) {
-                    selectedImages.push(image.id);
+                    selectedImages.push(image);
                 }
             })
-            return {
-                selectedImages: selectedImages
-            };
+            if (this.props.autoSelectFirst && selectedImages.length == 0 && this.props.images.length > 0) {
+                selectedImages.push(this.props.images[0]);
+            }
+
+            selectedImages.forEach(function(image) {
+                this.imageSelected(image);
+            }.bind(this))
         },
         imageSelected: function(image) {
             var currentlySelectedImages = this.state.selectedImages.slice(0);
