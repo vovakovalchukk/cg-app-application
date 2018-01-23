@@ -30,7 +30,8 @@ define([
                 settingsFetched: false,
                 categoryFieldValues: {},
                 shippingServiceFieldValues: {},
-                currencyFieldValues: {}
+                currencyFieldValues: {},
+                shippingService: null
             }
         },
         componentDidMount: function() {
@@ -71,7 +72,7 @@ define([
                     this.setState({
                         categoryFieldValues: response.category,
                         shippingServiceFieldValues: response.shippingService,
-                        currencyFieldValues: response.currency
+                        currency: response.currency
                     });
                 }.bind(this)
             });
@@ -117,7 +118,7 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Price</span>
                     <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.listingCurrency} />
+                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.currency} />
                     </div>
                 </label>
                 <label>
@@ -149,7 +150,7 @@ define([
                         <Select
                             name="shippingService"
                             options={this.getShippingServiceOptions()}
-                            selectedOption={{}}
+                            selectedOption={{name: this.props.shippingService}}
                             autoSelectFirst={false}
                             onOptionChange={this.props.getSelectCallHandler('shippingService')}
                         />
@@ -161,7 +162,7 @@ define([
                         <CurrencyInput
                             value={this.props.shippingPrice}
                             onChange={this.onInputChange}
-                            currency={this.props.listingCurrency}
+                            currency={this.props.currency}
                         />
                     </div>
                 </label>
