@@ -71,10 +71,13 @@ class Service
         }
     }
 
-    public function getCategoryChildrenForCategory(int $externalCategoryId): array
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $externalCategoryId): array
     {
         try {
-            $category = $this->fetchCategoryByExternalId($externalCategoryId);
+            $category = $this->fetchCategoryByExternalIdAndMarketplace(
+                $this->getEbaySiteIdForAccount($account),
+                $externalCategoryId
+            );
             $childCategories = $this->categoryService->fetchCollectionByFilter(
                 (new CategoryFilter('all', 1))
                     ->setParentId([$category->getId()])
@@ -85,10 +88,13 @@ class Service
         }
     }
 
-    public function getListingDurationsForCategory(int $externalCategoryId): array
+    public function getListingDurationsForCategory(Account $account,int $externalCategoryId): array
     {
         try {
-            $category = $this->fetchCategoryByExternalId($externalCategoryId);
+            $category = $this->fetchCategoryByExternalIdAndMarketplace(
+                $this->getEbaySiteIdForAccount($account),
+                $externalCategoryId
+            );
             /** @var CategoryExternal $categoryExternal */
             $categoryExternal = $this->categoryExternalService->fetch($category->getId());
             /** @var Data $ebayData */
@@ -149,13 +155,14 @@ class Service
         return $methods;
     }
 
-    protected function fetchCategoryByExternalId(int $externalId): Category
+    protected function fetchCategoryByExternalIdAndMarketplace(string $marketplace, int $externalId): Category
     {
         /** @var CategoryCollection $categoryCollection */
         $categoryCollection = $this->categoryService->fetchCollectionByFilter(
             (new CategoryFilter(1, 1))
                 ->setExternalId([$externalId])
                 ->setChannel(['ebay'])
+                ->setMarketplace([$marketplace])
         );
         return $categoryCollection->getFirst();
     }
