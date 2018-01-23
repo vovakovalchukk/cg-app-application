@@ -81,6 +81,9 @@ class EbayJsonController extends AbstractJsonController
         try {
             /** @var Account $account */
             $account = $this->accountService->fetch($accountId);
+            if ($account->getChannel() !== 'ebay') {
+                return $this->buildErrorResponse('The account with ID ' . $accountId . ' must be an eBay account', ['categories' => []]);
+            }
         } catch (NotFound $e) {
             return $this->buildErrorResponse('Account with ID ' . $accountId . ' doesn\'t exist.');
         }
@@ -98,6 +101,9 @@ class EbayJsonController extends AbstractJsonController
         try {
             /** @var Account $account */
             $account = $this->accountService->fetch($accountId);
+            if ($account->getChannel() !== 'ebay') {
+                return $this->buildErrorResponse('The account with ID ' . $accountId . ' must be an eBay account', ['categories' => []]);
+            }
         } catch (NotFound $e) {
             return $this->buildErrorResponse(
                 'Account with ID ' . $accountId . ' doesn\'t exist.',
