@@ -113,9 +113,7 @@ class Settings
                 $this->validateBoolean($data['sendToFba'])
             );
 
-            if ($data['emailSendAs']) {
-                $data = $this->handleEmailVerification($data);
-            }
+            $data = $this->handleEmailVerification($data);
 
             if (! empty($data['tradingCompanies'])) {
                 $data['tradingCompanies'] = $this->handleTradingCompanyEmailVerification($data['tradingCompanies'], $invoiceSettings->getTradingCompanies());
@@ -241,8 +239,11 @@ class Settings
      */
     protected function handleEmailVerification(array $ouEmailVerificationData)
     {
-        $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
+        if (!$ouEmailVerificationData['emailSendAs']) {
+            return $this->resetVerificationStatus($ouEmailVerificationData);
+        }
 
+        $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
         if ($ouEmailVerificationData['emailVerified']) {
             return $ouEmailVerificationData;
         }
@@ -253,6 +254,17 @@ class Settings
             $ouEmailVerificationData = $this->addCurrentVerificationStatusToData($ouEmailVerificationData);
         }
 
+        return $ouEmailVerificationData;
+    }
+
+    /**
+     * @param array $ouEmailVerificationData
+     * @return array
+     */
+    protected function resetVerificationStatus(array $ouEmailVerificationData)
+    {
+        $ouEmailVerificationData['emailVerificationStatus'] = null;
+        $ouEmailVerificationData['emailVerified'] = false;
         return $ouEmailVerificationData;
     }
 
