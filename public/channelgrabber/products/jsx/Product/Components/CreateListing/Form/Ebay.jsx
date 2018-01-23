@@ -2,12 +2,14 @@ define([
     'react',
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
-    'Common/Components/Input'
+    'Common/Components/Input',
+    'Common/Components/ImagePicker'
 ], function(
     React,
     Select,
     CurrencyInput,
-    Input
+    Input,
+    ImagePicker
 ) {
     "use strict";
 
@@ -62,6 +64,11 @@ define([
             newStateObject[event.target.name] = event.target.value;
             this.props.setFormStateListing(newStateObject);
         },
+        onImageSelected: function(image, selectedImageIds) {
+            this.props.setFormStateListing({
+                imageId: image.id
+            });
+        },
         render: function() {
 
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -103,6 +110,15 @@ define([
                             onChange={this.onInputChange}
                         />
                     </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Image</span>
+                    <ImagePicker
+                        name="image"
+                        multiSelect={false}
+                        images={[{id:1,url:"http://youraccount.ekmpowershop23.com/ekmps/shops/channelgrabber/images/mytestproduct-6-p.gif"},{id:2,url:"http://youraccount.ekmpowershop23.com/ekmps/shops/channelgrabber/images/discounttest-11-p.jpg"}]}
+                        onImageSelected={this.onImageSelected}
+                    />
                 </label>
             </div>;
         }
