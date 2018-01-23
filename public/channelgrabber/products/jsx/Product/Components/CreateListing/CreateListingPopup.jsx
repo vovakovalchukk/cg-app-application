@@ -65,7 +65,7 @@ define([
             }
 
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
-            return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing}/>
+            return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing} product={this.props.product}/>
         },
         onAccountSelected: function(selectValue) {
             var accountId = selectValue.value;
