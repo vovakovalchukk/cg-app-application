@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2c0b9cd2bb6739f2473918677d85edd",
+    "content-hash": "ef615fd275213f00bf8d9e982cba0a03",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -842,7 +842,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "55d49e56640b3fc1c8bf03e75cd1fb19afe4e4b2"
+                "reference": "ec1bc0fa71d93f1183e622241d6119e2786eeb0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-b15e3a.zip",
+                "reference": "ec1bc0fa71d93f1183e622241d6119e2786eeb0a",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -857,7 +863,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
-                "channelgrabber/product": "dev-LIS-18-fetch-ebay-category-features as 1.11.1",
+                "channelgrabber/product": "^1.11.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -892,7 +898,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-18T13:30:09+00:00"
+            "time": "2018-01-23T15:45:38+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2019,12 +2025,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "95f54cea3622042dabcee0cb7076765d1e5024aa"
+                "reference": "fcb9c6dd6001b1421f96ac972cee3404e195b64b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-18-fetch-ebay-category-features-44514c.zip",
-                "reference": "95f54cea3622042dabcee0cb7076765d1e5024aa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-18-fetch-ebay-category-features-7e328f.zip",
+                "reference": "fcb9c6dd6001b1421f96ac972cee3404e195b64b",
                 "shasum": null
             },
             "require": {
@@ -2070,7 +2076,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-18T11:29:16+00:00"
+            "time": "2018-01-22T14:01:14+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9490,22 +9496,14 @@
     ],
     "aliases": [
         {
-<<<<<<< HEAD
             "alias": "1.15.1",
             "alias_normalized": "1.15.1.0",
             "version": "dev-LIS-29-CreateEbayListing",
             "package": "channelgrabber/cglib"
-=======
-            "alias": "1.10.24",
-            "alias_normalized": "1.10.24.0",
-            "version": "dev-LIS-18-fetch-ebay-category-features",
-            "package": "channelgrabber/ebay"
->>>>>>> develop
         },
         {
             "alias": "1.11.2",
             "alias_normalized": "1.11.2.0",
-<<<<<<< HEAD
             "version": "dev-LIS-29-CreateEbayListing",
             "package": "channelgrabber/ebay"
         },
@@ -9514,10 +9512,12 @@
             "alias_normalized": "1.12.3.0",
             "version": "dev-LIS-29-CreateEbayListing",
             "package": "channelgrabber/listing"
-=======
+        },
+        {
+            "alias": "1.11.2",
+            "alias_normalized": "1.11.2.0",
             "version": "dev-LIS-18-fetch-ebay-category-features",
             "package": "channelgrabber/product"
->>>>>>> develop
         }
     ],
     "minimum-stability": "stable",
@@ -9525,14 +9525,11 @@
         "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
-<<<<<<< HEAD
         "channelgrabber/listing": 20,
-=======
         "channelgrabber/product": 20,
->>>>>>> develop
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
