@@ -55,13 +55,24 @@ define([
         setFormStateListing: function(listingFormState) {
             this.setState(listingFormState);
         },
+        getSelectCallHandler: function(fieldName) {
+            return function(selectValue) {
+                var newState = {};
+                newState[fieldName] = selectValue.value;
+                this.setFormStateListing(newState);
+            }.bind(this);
+        },
         renderCreateListingForm: function() {
             if (!this.state.accountSelected) {
                 return;
             }
 
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
-            return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing}/>
+            return <FormComponent
+                {...this.state}
+                setFormStateListing={this.setFormStateListing}
+                getSelectCallHandler={this.getSelectCallHandler}
+            />
         },
         onAccountSelected: function(selectValue) {
             var accountId = selectValue.value;

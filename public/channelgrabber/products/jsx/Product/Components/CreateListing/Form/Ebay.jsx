@@ -27,13 +27,17 @@ define([
         getInitialState: function() {
             return {
                 error: false,
-                settingsFetched: false
+                settingsFetched: false,
+                categoryFieldValues: {},
+                shippingServiceFieldValues: {},
+                currencyFieldValues: {}
             }
         },
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
+            this.fetchAndSetChannelSpecificFieldValues();
         },
-        fetchAndSetDefaultsForAccount() {
+        fetchAndSetDefaultsForAccount: function() {
             $.ajax({
                 url: '/products/create-listings/ebay/default-settings/' + this.props.accountId,
                 type: 'GET',
@@ -59,10 +63,30 @@ define([
                 }.bind(this)
             });
         },
+        fetchAndSetChannelSpecificFieldValues: function() {
+            $.ajax({
+                url: '/products/create-listings/ebay/channel-specific-field-values/' + this.props.accountId,
+                type: 'GET',
+                success: function (response) {
+                    this.setState({
+                        categoryFieldValues: response.category,
+                        shippingServiceFieldValues: response.shippingService,
+                        currencyFieldValues: response.currency
+                    });
+                }.bind(this)
+            });
+        },
         onInputChange: function(event) {
             var newStateObject = {};
             newStateObject[event.target.name] = event.target.value;
             this.props.setFormStateListing(newStateObject);
+        },
+        getShippingServiceOptions: function() {
+            var shippingServiceOptions = [];
+            for (var shippingService in this.state.shippingServiceFieldValues) {
+                shippingServiceOptions.push({name: shippingService, value: this.state.shippingServiceFieldValues[shippingService]});
+            }
+            return shippingServiceOptions;
         },
         render: function() {
 
@@ -122,10 +146,12 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Shipping Service</span>
                     <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="description"
-                            value={this.props.description}
-                            onChange={this.onInputChange}
+                        <Select
+                            name="shippingService"
+                            options={this.getShippingServiceOptions()}
+                            selectedOption={{}}
+                            autoSelectFirst={false}
+                            onOptionChange={this.props.getSelectCallHandler('shippingService')}
                         />
                     </div>
                 </label>

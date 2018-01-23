@@ -487,9 +487,12 @@ return [
                                         ]
                                     ],
                                     EbayJsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
-                                        'type' => Literal::class,
+                                        'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/channel-specific-field-values',
+                                            'route' => '/channel-specific-field-values/:accountId',
+                                            'constraints' => [
+                                                'accountId' => '[0-9]+'
+                                            ],
                                             'defaults' => [
                                                 'controller' => EbayJsonController::class,
                                                 'action' => 'channelSpecificFieldValues'

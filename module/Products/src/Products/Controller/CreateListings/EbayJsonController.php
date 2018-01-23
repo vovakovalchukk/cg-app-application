@@ -73,7 +73,7 @@ class EbayJsonController extends AbstractJsonController
 
     public function channelSpecificFieldValuesAction()
     {
-        $accountId = intval($this->params()->fromPost('accountId'));
+        $accountId = intval($this->params()->fromRoute('accountId'));
         if ($accountId === 0) {
             return $this->buildErrorResponse(['Invalid accountId provided on the post data']);
         }
