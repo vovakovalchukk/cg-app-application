@@ -171,8 +171,8 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         try {
             $this->creationService->createListing(
                 $status,
-                $this->params()->fromPost('accountId', null),
-                $this->params()->fromPost('productId', null),
+                $this->params()->fromPost('accountId', 0),
+                $this->params()->fromPost('productId', 0),
                 $this->params()->fromPost('listing', [])
             );
         } catch (\Throwable $throwable) {
