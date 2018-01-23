@@ -70,6 +70,21 @@ define([
                 imageId: image.id
             });
         },
+        renderImagePicker: function() {
+            if (this.props.product.images.length == 0) {
+                return (
+                    <p>No images available</p>
+                );
+            }
+            return (
+                <ImagePicker
+                    name="image"
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected}
+                />
+            );
+        },
         render: function() {
 
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -114,12 +129,7 @@ define([
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Image</span>
-                    <ImagePicker
-                        name="image"
-                        multiSelect={false}
-                        images={this.props.product.images}
-                        onImageSelected={this.onImageSelected}
-                    />
+                    {this.renderImagePicker()}
                 </label>
             </div>;
         }
