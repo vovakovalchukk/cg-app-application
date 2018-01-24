@@ -38,6 +38,7 @@ define([
         getOnCategorySelect: function(categoryIndex) {
             return function (selectOption) {
                 var newState = Object.assign({}, this.state);
+                newState.selectedCategories.splice(categoryIndex);
                 newState.selectedCategories[categoryIndex] = selectOption;
 
                 $.ajax({
@@ -45,11 +46,12 @@ define([
                     type: 'GET',
                     success: function (response) {
                         if (response.categories.length == 0) {
-                            console.log('got to root');
                             this.props.onLeafCategorySelected(selectOption.value);
                             return;
                         }
-                        newState.categoryMaps.push(response.categories);
+                        newState.categoryMaps.splice(categoryIndex + 1);
+                        newState.categoryMaps[categoryIndex + 1] = response.categories;
+
                         this.setState(newState);
                     }.bind(this)
                 });
@@ -70,7 +72,7 @@ define([
                         <div className={"order-inputbox-holder"}>
                             <Select
                                 options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
-                                selectedOption={this.state.selectedCategories[index]}
+                                selectedOption={this.state.selectedCategories[index] ? this.state.selectedCategories[index] : {name: null}}
                                 onOptionChange={this.getOnCategorySelect(index)}
                                 autoSelectFirst={false}
                             />
