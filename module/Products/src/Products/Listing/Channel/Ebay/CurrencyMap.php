@@ -1,5 +1,5 @@
 <?php
-namespace Products\Listing\Create\Ebay;
+namespace Products\Listing\Channel\Ebay;
 
 use CG\Ebay\Site\Map as SiteMap;
 
