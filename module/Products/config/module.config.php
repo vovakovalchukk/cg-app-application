@@ -438,83 +438,58 @@ return [
                         ],
                     ],
                     JsonController::ROUTE_CREATE_LISTINGS => [
-                        'type' => Literal::class,
+                        'type' => Segment::class,
                         'options' => [
-                            'route' => '/create-listings',
+                            'route' => '/create-listings/:accountId',
+                        ],
+                        'constraints' => [
+                            'accountId' => '[0-9]+'
                         ],
                         'child_routes' => [
                             JsonController::ROUTE_DEFAULT_SETTINGS => [
-                                'type' => Segment::class,
+                                'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/default-settings/:accountId',
+                                    'route' => '/default-settings',
                                     'defaults' => [
                                         'controller' => JsonController::class,
                                         'action' => 'defaultSettingsAjax'
-                                    ],
-                                    'constraints' => [
-                                        'accountId' => '[0-9]+'
+                                    ]
+                                ]
+                            ],
+                            JsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/channel-specific-field-values',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'channelSpecificFieldValues'
                                     ]
                                 ]
                             ],
                             JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/category-dependent-field-values/:accountId',
-                                    'constraints' => [
-                                        'accountId' => '[0-9]+'
-                                    ]
-                                ],
-                                'child_routes' => [
-                                    'externalId' => [
-                                        'type' => Segment::class,
-                                        'options' => [
-                                            'route' => '/:externalCategoryId',
-                                            'defaults' => [
-                                                'controller' => JsonController::class,
-                                                'action' => 'categoryDependentFieldValues'
-                                            ],
-                                            'constraints' => [
-                                                'externalCategoryId' => '[0-9]+'
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            JsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
-                                'type' => Segment::class,
-                                'options' => [
-                                    'route' => '/channel-specific-field-values/:accountId',
+                                    'route' => '/category-dependent-field-values/:externalCategoryId',
                                     'defaults' => [
                                         'controller' => JsonController::class,
-                                        'action' => 'channelSpecificFieldValues'
+                                        'action' => 'categoryDependentFieldValues'
                                     ],
-                                    'constraints' => [
-                                        'accountId' => '[0-9]+'
-                                    ]
+                                ],
+                                'constraints' => [
+                                    'externalCategoryId' => '[0-9]+'
                                 ]
                             ],
                             JsonController::ROUTE_CATEGORY_CHILDREN => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/category-children/:accountId',
-                                    'constraints' => [
-                                        'accountId' => '[0-9]+'
-                                    ]
+                                    'route' => '/category-children/:externalCategoryId',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'categoryChildren'
+                                    ],
                                 ],
-                                'child_routes' => [
-                                    'externalId' => [
-                                        'type' => Segment::class,
-                                        'options' => [
-                                            'route' => '/:externalCategoryId',
-                                            'defaults' => [
-                                                'controller' => JsonController::class,
-                                                'action' => 'categoryChildren'
-                                            ],
-                                            'constraints' => [
-                                                'externalCategoryId' => '[0-9]+'
-                                            ]
-                                        ]
-                                    ]
+                                'constraints' => [
+                                    'externalCategoryId' => '[0-9]+'
                                 ]
                             ]
                         ]
