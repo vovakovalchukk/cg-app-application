@@ -119,7 +119,11 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Price</span>
                     <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.currency} />
+                        <CurrencyInput
+                            value={this.props.price}
+                            onChange={this.onInputChange}
+                            currency={this.props.currency}
+                        />
                     </div>
                 </label>
                 <label>
@@ -132,7 +136,11 @@ define([
                         />
                     </div>
                 </label>
-                <CategorySelect accountId={this.props.accountId} rootCategories={this.state.rootCategories} />
+                <CategorySelect
+                    accountId={this.props.accountId}
+                    rootCategories={this.state.rootCategories}
+                    setFormStateListing={this.props.setFormStateListing}
+                />
                 <label>
                     <span className={"inputbox-label"}>Listing Duration</span>
                     <div className={"order-inputbox-holder"}>

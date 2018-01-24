@@ -35,14 +35,24 @@ define([
 
             });
         },
-        onCategorySelect: function(selectOption) {
-            $.ajax({
-                url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectOption.value,
-                type: 'GET',
-                success: function (response) {
-                   console.log(response);
-                }.bind(this)
-            });
+        getOnCategorySelect: function(categoryIndex) {
+            return function (selectOption) {
+                var newState = Object.assign({}, this.state);
+                newState.selectedCategories[categoryIndex] = selectOption;
+
+                $.ajax({
+                    url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectOption.value,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.categories.length == 0) {
+                            this.props.setFormStateListing({listingCategory: selectOption.value});
+                            return;
+                        }
+                        newState.categoryMaps.push(response.categories);
+                        this.setState(newState);
+                    }.bind(this)
+                });
+            }.bind(this);
         },
         getCategoryOptionsFromCategoryMap(categoryMap) {
             var categoryOptions = [];
@@ -55,12 +65,12 @@ define([
             return <div>
                 {this.state.categoryMaps.map(function(categoryMap, index) {
                     return <label>
-                        <span className={"inputbox-label"}>Category</span>
+                        <span className={"inputbox-label"}>{index == 0 ? 'Category' : ''}</span>
                         <div className={"order-inputbox-holder"}>
                             <Select
                                 options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
-                                selectedOption={{}}
-                                onOptionChange={this.onCategorySelect}
+                                selectedOption={this.state.selectedCategories[index]}
+                                onOptionChange={this.getOnCategorySelect(index)}
                                 autoSelectFirst={false}
                             />
                         </div>
