@@ -32,7 +32,8 @@ define([
                 shippingServiceFieldValues: {},
                 currencyFieldValues: {},
                 shippingService: null,
-                rootCategories: null
+                rootCategories: null,
+                listingDurationFieldValues: null
             }
         },
         componentDidMount: function() {
@@ -90,22 +91,29 @@ define([
             }
             return shippingServiceOptions;
         },
+        getListingDurationOptions: function() {
+            var listingDurationOptions = [];
+            for (var listingDurationOption in this.state.listingDurationFieldValues) {
+                listingDurationOptions.push({name: this.state.listingDurationFieldValues[listingDurationOption], value: listingDurationOption});
+            }
+            return listingDurationOptions;
+        },
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({listingCategory: categoryId});
             this.fetchAndSetListingDurationOptions(categoryId);
         },
         fetchAndSetListingDurationOptions(categoryId) {
-            console.log(categoryId);
             $.ajax({
                 url: '/products/create-listings/ebay/category-dependent-field-values/' + this.props.accountId + '/' + categoryId,
                 type: 'GET',
                 success: function (response) {
-                    console.log(response);
+                    this.setState({
+                        listingDurationFieldValues: response.listingDuration
+                    });
                 }.bind(this)
             });
         },
         render: function() {
-
             if (this.state.error && this.state.error == NO_SETTINGS) {
                 return <div>
                     <h2>
@@ -155,16 +163,29 @@ define([
                     rootCategories={this.state.rootCategories}
                     onLeafCategorySelected={this.onLeafCategorySelected}
                 />
-                <label>
-                    <span className={"inputbox-label"}>Listing Duration</span>
-                    <div className={"order-inputbox-holder"}>
-                        only show if we're on a leaf category
-                    </div>
-                </label>
+                {(this.state.listingDurationFieldValues)?
+                    <label>
+                        <span className={"inputbox-label"}>Listing Duration</span>
+                        <div className={"order-inputbox-holder"}>
+                            <Select
+                                name="listingDuration"
+                                options={this.getListingDurationOptions()}
+                                selectedOption={{name: this.props.listingDuration}}
+                                autoSelectFirst={false}
+                                onOptionChange={this.props.getSelectCallHandler('listingDuration')}
+                            />
+                        </div>
+                    </label>
+                : null}
                 <label>
                     <span className={"inputbox-label"}>Dispatch Time Max</span>
                     <div className={"order-inputbox-holder"}>
-
+                        <Input
+                            name="listingDispatchTime"
+                            type="number"
+                            value={this.props.listingDispatchTime}
+                            onChange={this.onInputChange}
+                        />
                     </div>
                 </label>
                 <label>
