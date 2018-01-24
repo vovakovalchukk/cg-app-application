@@ -25,7 +25,7 @@
         "channelgrabber/billing": "~1.12.3",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.15.0",
-        "channelgrabber/channel": "~1.33.3",
+        "channelgrabber/channel": "~1.33.4",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
