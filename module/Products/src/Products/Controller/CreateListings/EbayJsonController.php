@@ -47,9 +47,7 @@ class EbayJsonController extends AbstractJsonController
         /** @var Account $account */
         $account = $this->accountService->fetch($accountId);
         $categoryFields = [
-            $externalCategoryId => [
-                'listingDuration' => $this->service->getListingDurationsForCategory($account, $externalCategoryId)
-            ]
+            'listingDuration' => $this->service->getListingDurationsForCategory($account, $externalCategoryId)
         ];
         return $this->buildResponse($categoryFields);
     }
