@@ -38,21 +38,6 @@ class JsonController extends AbstractJsonController
         $this->factory = $factory;
     }
 
-    public function categoryDependentFieldValuesAction()
-    {
-        try {
-            $account = $this->fetchAccountFromRoute();
-            $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
-            /** @var CategoryDependentServiceInterface $service */
-            $service = $this->fetchAndValidateChannelService($account, CategoryDependentServiceInterface::class);
-            return $this->buildResponse($service->getCategoryDependentValues($account, $externalCategoryId));
-        } catch (ListingException $e) {
-            return $this->buildErrorResponse($e->getMessage());
-        } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
-        }
-    }
-
     public function defaultSettingsAjaxAction()
     {
         try {
@@ -85,15 +70,34 @@ class JsonController extends AbstractJsonController
         }
     }
 
+    public function categoryDependentFieldValuesAction()
+    {
+        try {
+            $account = $this->fetchAccountFromRoute();
+            /** @var CategoryDependentServiceInterface $service */
+            $service = $this->fetchAndValidateChannelService($account, CategoryDependentServiceInterface::class);
+            return $this->buildResponse(
+                $service->getCategoryDependentValues(
+                    $account, $this->getExternalCategoryIdFromRoute()
+                )
+            );
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
+    }
+
     public function categoryChildrenAction()
     {
         try {
             $account = $this->fetchAccountFromRoute();
-            $externalCategoryId = $this->params()->fromRoute('externalCategoryId');
             /** @var CategoryChildrenInterface $service */
             $service = $this->fetchAndValidateChannelService($account, CategoryChildrenInterface::class);
             return $this->buildResponse([
-                'categories' => $service->getCategoryChildrenForCategoryAndAccount($account, $externalCategoryId)
+                'categories' => $service->getCategoryChildrenForCategoryAndAccount(
+                    $account, $this->getExternalCategoryIdFromRoute()
+                )
             ]);
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
@@ -134,5 +138,10 @@ class JsonController extends AbstractJsonController
         } catch (\InvalidArgumentException $e) {
             throw new ListingException('The account with ID ' . $account->getId() . ' is not valid');
         }
+    }
+
+    protected function getExternalCategoryIdFromRoute(): string
+    {
+        return filter_var($this->params()->fromRoute('externalCategoryId', null), FILTER_SANITIZE_STRING);
     }
 }
