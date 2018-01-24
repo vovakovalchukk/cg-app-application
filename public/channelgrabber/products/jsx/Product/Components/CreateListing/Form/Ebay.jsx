@@ -31,7 +31,8 @@ define([
                 categoryFieldValues: {},
                 shippingServiceFieldValues: {},
                 currencyFieldValues: {},
-                shippingService: null
+                shippingService: null,
+                rootCategories: null
             }
         },
         componentDidMount: function() {
@@ -70,7 +71,7 @@ define([
                 type: 'GET',
                 success: function (response) {
                     this.setState({
-                        categoryFieldValues: response.category,
+                        rootCategories: response.category,
                         shippingServiceFieldValues: response.shippingService,
                         currency: response.currency
                     });
@@ -94,8 +95,8 @@ define([
             if (this.state.error && this.state.error == NO_SETTINGS) {
                 return <div>
                     <h2>
-                        In order to create listings on this account, please first create the
-                        <a href={"/settings/channel/sales/" + this.props.accountId}>default listing settings</a>
+                        In order to create listings on this account, please first create the <a
+                        href={"/settings/channel/sales/" + this.props.accountId}>default listing settings</a>
                     </h2>
                 </div>;
             }
@@ -131,11 +132,11 @@ define([
                         />
                     </div>
                 </label>
-                <CategorySelect accountId={this.props.accountId} />
+                <CategorySelect accountId={this.props.accountId} rootCategories={this.state.rootCategories} />
                 <label>
                     <span className={"inputbox-label"}>Listing Duration</span>
                     <div className={"order-inputbox-holder"}>
-
+                        only show if we're on a leaf category
                     </div>
                 </label>
                 <label>

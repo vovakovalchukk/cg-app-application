@@ -10,25 +10,55 @@ define([
     var CategorySelectComponent = React.createClass({
         getInitialState: function() {
             return {
-                categoryLists: [
-                    ["one", "two", "three"],
-                    ["four", "five", "six"]
+                categoryMaps: [
+
                 ],
                 selectedCategories: []
             }
         },
-        onCategorySelect: function(event) {
-            console.log(event);
+        componentDidMount() {
+            if (!this.props.rootCategories) {
+                return;
+            }
+
+            var newState = Object.assign({}, this.state);
+            newState.categoryMaps[0] = this.props.rootCategories;
+            this.setState(newState);
+        },
+        componentWillReceiveProps(newProps) {
+            if (!newProps.rootCategories) {
+                return;
+            }
+            var newState = Object.assign({}, this.state);
+            newState.categoryMaps[0] = newProps.rootCategories;
+            this.setState({
+
+            });
+        },
+        onCategorySelect: function(selectOption) {
+            $.ajax({
+                url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectOption.value,
+                type: 'GET',
+                success: function (response) {
+                   console.log(response);
+                }.bind(this)
+            });
+        },
+        getCategoryOptionsFromCategoryMap(categoryMap) {
+            var categoryOptions = [];
+            for (var externalId in categoryMap) {
+                categoryOptions.push({name: categoryMap[externalId], value: externalId});
+            }
+            return categoryOptions;
         },
         render: function () {
-            console.log(this.state.categoryLists);
             return <div>
-                {this.state.categoryLists.map(function(categoryList, index) {
+                {this.state.categoryMaps.map(function(categoryMap, index) {
                     return <label>
                         <span className={"inputbox-label"}>Category</span>
                         <div className={"order-inputbox-holder"}>
                             <Select
-                                options={categoryList}
+                                options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
                                 selectedOption={{}}
                                 onOptionChange={this.onCategorySelect}
                                 autoSelectFirst={false}

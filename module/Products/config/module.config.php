@@ -502,24 +502,14 @@ return [
                                     EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/categoryChildren/:accountId',
+                                            'route' => '/categoryChildren/:accountId/:externalCategoryId',
                                             'constraints' => [
-                                                'accountId' => '[0-9]+'
-                                            ]
-                                        ],
-                                        'child_routes' => [
-                                            'externalId' => [
-                                                'type' => Segment::class,
-                                                'options' => [
-                                                    'route' => '/:externalCategoryId',
-                                                    'defaults' => [
-                                                        'controller' => EbayJsonController::class,
-                                                        'action' => 'categoryChildren'
-                                                    ],
-                                                    'constraints' => [
-                                                        'externalCategoryId' => '[0-9]+'
-                                                    ]
-                                                ]
+                                                'accountId' => '[0-9]+',
+                                                'externalCategoryId' => '[0-9]+'
+                                            ],
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'categoryChildren'
                                             ]
                                         ]
                                     ]

@@ -134,7 +134,7 @@ class Service
             ->setChannel(['ebay'])
             ->setParentId([0])
             ->setMarketplace([$siteId])
-            ->setListable(true)
+            ->setListable(false)
             ->setEnabled(true);
     }
 
