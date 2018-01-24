@@ -5,6 +5,7 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
+    'Product/Components/CreateListing/CreateListingPopup',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -13,6 +14,7 @@ define([
     ProductFooter,
     ProductRow,
     ProductLinkEditor,
+    CreateListingPopup,
     AjaxHandler
 ) {
     "use strict";
@@ -54,7 +56,10 @@ define([
                     page: 0
                 },
                 fetchingUpdatedStockLevelsForSkus: {},
-                accounts: {}
+                accounts: {},
+                createListing: {
+                    productId: null
+                }
             }
         },
         componentDidMount: function()
@@ -253,6 +258,23 @@ define([
                 }
             });
         },
+        onCreateListingIconClick: function(productId) {
+            var product = this.state.products.find(function(product) {
+                return product.id == productId;
+            });
+            this.setState({
+                createListing: {
+                    product: product
+                }
+            });
+        },
+        onCreateListingClose: function() {
+            this.setState({
+                createListing: {
+                    product: null
+                }
+            });
+        },
         onSkuRequest: function (event) {
             this.filterBySku(event.detail.sku);
         },
@@ -354,8 +376,19 @@ define([
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.state.accounts}
+                    onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                 />;
             }.bind(this))
+        },
+        renderCreateListingPopup: function() {
+            if (!this.state.createListing.product) {
+                return;
+            }
+            return <CreateListingPopup
+                accounts={this.state.accounts}
+                product={this.state.createListing.product}
+                onCreateListingClose={this.onCreateListingClose}
+            />
         },
         render: function()
         {
@@ -370,6 +403,7 @@ define([
                         onEditorClose={this.onProductLinksEditorClose}
                         fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                     />
+                    {this.renderCreateListingPopup()}
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );

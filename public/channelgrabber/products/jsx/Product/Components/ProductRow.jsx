@@ -87,6 +87,7 @@ define([
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.props.accounts}
                     isSimpleProduct={true}
+                    onCreateListingIconClick={this.props.onCreateListingIconClick}
                 />;
             } else {
                 return <VariationView
@@ -97,6 +98,7 @@ define([
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.props.accounts}
                     isSimpleProduct={false}
+                    onCreateListingIconClick={this.props.onCreateListingIconClick}
                 />;
             }
         },

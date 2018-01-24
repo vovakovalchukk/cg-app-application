@@ -111,7 +111,8 @@ define([
                     <div className="hover-link"
                          style={hoverImageStyle}
                          onMouseOver={this.onMouseOver}
-                         onMouseOut={this.onMouseOut}>
+                         onMouseOut={this.onMouseOut}
+                    >
                         {this.getHoverContent()}
                     </div>
                 </TetherComponent>
