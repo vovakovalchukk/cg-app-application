@@ -90,6 +90,20 @@ define([
             }
             return shippingServiceOptions;
         },
+        onLeafCategorySelected(categoryId) {
+            this.props.setFormStateListing({listingCategory: categoryId});
+            this.fetchAndSetListingDurationOptions(categoryId);
+        },
+        fetchAndSetListingDurationOptions(categoryId) {
+            console.log(categoryId);
+            $.ajax({
+                url: '/products/create-listings/ebay/category-dependent-field-values/' + this.props.accountId + '/' + categoryId,
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                }.bind(this)
+            });
+        },
         render: function() {
 
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -139,7 +153,7 @@ define([
                 <CategorySelect
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
-                    setFormStateListing={this.props.setFormStateListing}
+                    onLeafCategorySelected={this.onLeafCategorySelected}
                 />
                 <label>
                     <span className={"inputbox-label"}>Listing Duration</span>

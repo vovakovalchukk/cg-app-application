@@ -45,7 +45,8 @@ define([
                     type: 'GET',
                     success: function (response) {
                         if (response.categories.length == 0) {
-                            this.props.setFormStateListing({listingCategory: selectOption.value});
+                            console.log('got to root');
+                            this.props.onLeafCategorySelected(selectOption.value);
                             return;
                         }
                         newState.categoryMaps.push(response.categories);

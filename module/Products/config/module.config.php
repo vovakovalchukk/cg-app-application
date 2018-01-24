@@ -465,26 +465,16 @@ return [
                                     EbayJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/category-dependent-field-values/:accountId',
+                                            'route' => '/category-dependent-field-values/:accountId/:externalCategoryId',
                                             'constraints' => [
-                                                'accountId' => '[0-9]+'
+                                                'accountId' => '[0-9]+',
+                                                'externalCategoryId' => '[0-9]+'
+                                            ],
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'categoryDependentFieldValues'
                                             ]
                                         ],
-                                        'child_routes' => [
-                                            'externalId' => [
-                                                'type' => Segment::class,
-                                                'options' => [
-                                                    'route' => '/:externalCategoryId',
-                                                    'defaults' => [
-                                                        'controller' => EbayJsonController::class,
-                                                        'action' => 'categoryDependentFieldValues'
-                                                    ],
-                                                    'constraints' => [
-                                                        'externalCategoryId' => '[0-9]+'
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
                                     ],
                                     EbayJsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
                                         'type' => Segment::class,
