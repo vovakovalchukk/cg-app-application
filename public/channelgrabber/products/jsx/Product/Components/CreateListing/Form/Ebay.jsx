@@ -204,6 +204,7 @@ define([
                     <span className={"inputbox-label"}>Shipping Price</span>
                     <div className={"order-inputbox-holder"}>
                         <CurrencyInput
+                            name="shippingPrice"
                             value={this.props.shippingPrice}
                             onChange={this.onInputChange}
                             currency={this.props.currency}
