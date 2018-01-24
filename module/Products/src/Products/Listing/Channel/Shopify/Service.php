@@ -12,7 +12,7 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            "category" => [
+            "categories" => [
                 123  => "category name"
             ]
         ];
