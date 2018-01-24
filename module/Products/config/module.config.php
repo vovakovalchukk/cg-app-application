@@ -466,6 +466,16 @@ return [
                                     ]
                                 ]
                             ],
+                            JsonController::ROUTE_REFRESH_CATEGORIES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refresh-categories',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'refreshCategories'
+                                    ],
+                                ],
+                            ],
                             JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                 'type' => Segment::class,
                                 'options' => [

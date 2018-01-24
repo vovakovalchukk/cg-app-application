@@ -8,6 +8,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Permission\Exception as PermissionException;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
@@ -22,6 +23,7 @@ class JsonController extends AbstractJsonController
     const ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES = 'CategoryDependentFieldValues';
     const ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES = 'AccountSpecificFieldValues';
     const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
+    const ROUTE_REFRESH_CATEGORIES = 'RefreshCategories';
 
     /** @var AccountService */
     protected $accountService;
@@ -98,6 +100,22 @@ class JsonController extends AbstractJsonController
                 'categories' => $service->getCategoryChildrenForCategoryAndAccount(
                     $account, $this->getExternalCategoryIdFromRoute()
                 )
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
+    }
+
+    public function refreshCategoriesAction()
+    {
+        try {
+            $account = $this->fetchAccountFromRoute();
+            /** @var CategoriesRefreshInterface $service */
+            $service = $this->fetchAndValidateChannelService($account, CategoriesRefreshInterface::class);
+            return $this->buildResponse([
+                'categories' => $service->refetchAndSaveCategories($account)
             ]);
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
