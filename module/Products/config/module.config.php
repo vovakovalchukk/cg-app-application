@@ -29,6 +29,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Listing\Create\Ebay\Service as ListingCreateEbayService;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
@@ -464,13 +465,24 @@ return [
                                     EbayJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/category-dependent-field-values/:externalCategoryId',
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'categoryDependentFieldValues'
-                                            ],
+                                            'route' => '/category-dependent-field-values/:accountId',
                                             'constraints' => [
-                                                'externalCategoryId' => '[0-9]+'
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ],
+                                        'child_routes' => [
+                                            'externalId' => [
+                                                'type' => Segment::class,
+                                                'options' => [
+                                                    'route' => '/:externalCategoryId',
+                                                    'defaults' => [
+                                                        'controller' => EbayJsonController::class,
+                                                        'action' => 'categoryDependentFieldValues'
+                                                    ],
+                                                    'constraints' => [
+                                                        'externalCategoryId' => '[0-9]+'
+                                                    ]
+                                                ]
                                             ]
                                         ]
                                     ],
@@ -481,6 +493,30 @@ return [
                                             'defaults' => [
                                                 'controller' => EbayJsonController::class,
                                                 'action' => 'channelSpecificFieldValues'
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/categoryChildren/:accountId',
+                                            'constraints' => [
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ],
+                                        'child_routes' => [
+                                            'externalId' => [
+                                                'type' => Segment::class,
+                                                'options' => [
+                                                    'route' => '/:externalCategoryId',
+                                                    'defaults' => [
+                                                        'controller' => EbayJsonController::class,
+                                                        'action' => 'categoryChildren'
+                                                    ],
+                                                    'constraints' => [
+                                                        'externalCategoryId' => '[0-9]+'
+                                                    ]
+                                                ]
                                             ]
                                         ]
                                     ]
@@ -1164,6 +1200,11 @@ return [
             StockCsvProgressStorage::class => [
                 'parameters' => [
                     'predis' => 'reliable_redis'
+                ]
+            ],
+            ListingCreateEbayService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
                 ]
             ],
         ],
