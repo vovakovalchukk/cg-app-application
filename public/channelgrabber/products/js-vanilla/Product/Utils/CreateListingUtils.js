@@ -4,9 +4,11 @@ define([
 ) {
     "use strict";
 
+    var allowedChannels = ['ebay', 'shopify'];
+
     var CreateListingUtils = {
         productCanListToAccount: function(account, accountsProductIsListedOn) {
-            return account.channel == 'ebay'
+            return (allowedChannels.indexOf(account.channel) >= 0)
                 && account.active
                 && !accountsProductIsListedOn.includes(account.id.toString());
         }
