@@ -48,6 +48,7 @@ define([
         fetchAndSetDefaultsForAccount(newAccountId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
             $.ajax({
+                context: this,
                 url: '/products/create-listings/ebay/default-settings/' + accountId,
                 type: 'GET',
                 success: function (response) {
@@ -63,27 +64,24 @@ define([
                         error: false
                     });
                     this.props.setFormStateListing({
-                        listingCurrency: response.listingCurrency,
-                        listingDispatchTime: response.listingDispatchTime,
-                        listingDuration: response.listingDuration,
-                        listingLocation: response.listingLocation,
-                        listingPaymentMethod: response.listingPaymentMethod,
-                        paypalEmail: response.paypalEmail
+                        currency: response.listingCurrency,
+                        dispatchTimeMax: response.listingDispatchTime,
+                        duration: response.listingDuration
                     })
-                }.bind(this)
+                }
             });
         },
         fetchAndSetChannelSpecificFieldValues: function() {
             $.ajax({
+                context: this,
                 url: '/products/create-listings/ebay/channel-specific-field-values/' + this.props.accountId,
                 type: 'GET',
                 success: function (response) {
                     this.setState({
                         rootCategories: response.category,
                         shippingServiceFieldValues: response.shippingService,
-                        currency: response.currency
                     });
-                }.bind(this)
+                }
             });
         },
         onInputChange: function(event) {
@@ -106,7 +104,7 @@ define([
             return listingDurationOptions;
         },
         onLeafCategorySelected(categoryId) {
-            this.props.setFormStateListing({listingCategory: categoryId});
+            this.props.setFormStateListing({category: categoryId});
             this.fetchAndSetListingDurationOptions(categoryId);
         },
         fetchAndSetListingDurationOptions(categoryId) {
@@ -175,11 +173,11 @@ define([
                         <span className={"inputbox-label"}>Listing Duration</span>
                         <div className={"order-inputbox-holder"}>
                             <Select
-                                name="listingDuration"
+                                name="duration"
                                 options={this.getListingDurationOptions()}
-                                selectedOption={{name: this.props.listingDuration}}
+                                selectedOption={{name: this.props.duration}}
                                 autoSelectFirst={false}
-                                onOptionChange={this.props.getSelectCallHandler('listingDuration')}
+                                onOptionChange={this.props.getSelectCallHandler('duration')}
                             />
                         </div>
                     </label>
@@ -188,9 +186,9 @@ define([
                     <span className={"inputbox-label"}>Dispatch Time Max</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
-                            name="listingDispatchTime"
+                            name="dispatchTimeMax"
                             type="number"
-                            value={this.props.listingDispatchTime}
+                            value={this.props.dispatchTimeMax}
                             onChange={this.onInputChange}
                         />
                     </div>
