@@ -92,7 +92,7 @@ define([
 
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, Object.keys(this.props.product.listingsPerAccount))) {
+                if (CreateListingUtils.productCanListToAccount(account)) {
                     options.push({name: account.displayName, value: account.id});
                 }
             }
