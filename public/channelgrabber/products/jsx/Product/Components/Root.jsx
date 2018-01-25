@@ -378,6 +378,7 @@ define([
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                 />;
             }.bind(this))
         },
