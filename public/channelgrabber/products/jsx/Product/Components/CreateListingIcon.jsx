@@ -33,7 +33,7 @@ define([
         hasAccountsToListTo: function() {
             for (var accountId in this.props.accountsAvailable) {
                 var account = this.props.accountsAvailable[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, this.props.accountsListedOn)) {
+                if (CreateListingUtils.productCanListToAccount(account)) {
                     return true;
                 }
             }

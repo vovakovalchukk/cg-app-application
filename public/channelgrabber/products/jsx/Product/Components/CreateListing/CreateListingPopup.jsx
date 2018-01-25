@@ -21,7 +21,8 @@ define([
         getDefaultProps: function() {
             return {
                 product: null,
-                accounts: {}
+                accounts: {},
+                availableChannels: {}
             }
         },
         getInitialState: function() {
@@ -77,7 +78,7 @@ define([
 
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, Object.keys(this.props.product.listingsPerAccount))) {
+                if (CreateListingUtils.productCanListToAccount(account, this.props.availableChannels)) {
                     options.push({name: account.displayName, value: account.id});
                 }
             }
