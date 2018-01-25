@@ -2,6 +2,7 @@
 namespace Products;
 
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
 use CG\Listing\Service as ListingService;
@@ -1207,6 +1208,11 @@ return [
                     'cryptor' => 'ebay_cryptor'
                 ]
             ],
+            EbayListingCreator::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ]
         ],
     ],
     'navigation' => array(

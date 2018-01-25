@@ -252,6 +252,8 @@ class ProductsJsonController extends AbstractActionController
                 'width' => $detailsEntity->getDisplayWidth(),
                 'height' => $detailsEntity->getDisplayHeight(),
                 'length' => $detailsEntity->getDisplayLength(),
+                'price' => $detailsEntity->getPrice(),
+                'description' => $detailsEntity->getDescription()
             ];
         } else {
             $product['details'] = ['sku' => $productEntity->getSku()];
