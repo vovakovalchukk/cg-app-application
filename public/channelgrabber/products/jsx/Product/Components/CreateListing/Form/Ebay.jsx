@@ -113,6 +113,13 @@ define([
             this.fetchAndSetListingDurationOptions(categoryId);
         },
         fetchAndSetListingDurationOptions(categoryId) {
+            if (!categoryId) {
+                this.setState({
+                    listingDurationFieldValues: null,
+                    duration: null
+                });
+                return;
+            }
             $.ajax({
                 url: '/products/create-listings/ebay/category-dependent-field-values/' + this.props.accountId + '/' + categoryId,
                 type: 'GET',

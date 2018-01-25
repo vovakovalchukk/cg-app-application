@@ -33,8 +33,10 @@ define([
         getOnCategorySelect: function(categoryIndex) {
             return function (selectOption) {
                 var newState = Object.assign({}, this.state);
+                newState.categoryMaps.splice(categoryIndex + 1);
                 newState.selectedCategories.splice(categoryIndex);
                 newState.selectedCategories[categoryIndex] = selectOption;
+                this.props.onLeafCategorySelected(null);
 
                 $.ajax({
                     url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectOption.value,
@@ -44,7 +46,6 @@ define([
                             this.props.onLeafCategorySelected(selectOption.value);
                             return;
                         }
-                        newState.categoryMaps.splice(categoryIndex + 1);
                         newState.categoryMaps[categoryIndex + 1] = response.categories;
 
                         this.setState(newState);
