@@ -43,6 +43,7 @@ define([
         componentWillReceiveProps(newProps) {
             if (this.props.accountId != newProps.accountId) {
                 this.fetchAndSetDefaultsForAccount(newProps.accountId);
+                this.fetchAndSetChannelSpecificFieldValues(newProps.accountId);
             }
         },
         fetchAndSetDefaultsForAccount(newAccountId) {
@@ -70,10 +71,14 @@ define([
                 }
             });
         },
-        fetchAndSetChannelSpecificFieldValues: function() {
+        fetchAndSetChannelSpecificFieldValues: function(newAccountId) {
+            var accountId = newAccountId ? newAccountId : this.props.accountId;
+            this.setState({
+                listingDurationFieldValues: null
+            });
             $.ajax({
                 context: this,
-                url: '/products/create-listings/ebay/channel-specific-field-values/' + this.props.accountId,
+                url: '/products/create-listings/ebay/channel-specific-field-values/' + accountId,
                 type: 'GET',
                 success: function (response) {
                     this.setState({

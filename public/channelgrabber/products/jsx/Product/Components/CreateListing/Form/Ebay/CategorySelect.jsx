@@ -17,23 +17,18 @@ define([
             }
         },
         componentDidMount() {
-            if (!this.props.rootCategories) {
-                return;
-            }
-
-            var newState = Object.assign({}, this.state);
-            newState.categoryMaps[0] = this.props.rootCategories;
-            this.setState(newState);
+            this.saveNewRootCategoriesToState(this.props.rootCategories);
         },
         componentWillReceiveProps(newProps) {
-            if (!newProps.rootCategories) {
+            this.saveNewRootCategoriesToState(newProps.rootCategories);
+        },
+        saveNewRootCategoriesToState: function (rootCategories) {
+            if (!rootCategories || rootCategories == this.props.rootCategories) {
                 return;
             }
-            var newState = Object.assign({}, this.state);
-            newState.categoryMaps[0] = newProps.rootCategories;
-            this.setState({
-
-            });
+            var newState = this.getInitialState();
+            newState.categoryMaps = [rootCategories];
+            this.setState(newState);
         },
         getOnCategorySelect: function(categoryIndex) {
             return function (selectOption) {
