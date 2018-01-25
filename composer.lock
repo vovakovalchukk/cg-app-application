@@ -1313,12 +1313,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "5aed2a901d3a280f1b58f0b21f208d7a171099c9"
+                "reference": "e443e06154be779e4b1b414d78922a2682642f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-59-shopify-create-listings-feature-flag-4750c3.zip",
-                "reference": "5aed2a901d3a280f1b58f0b21f208d7a171099c9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-59-shopify-create-listings-feature-flag-5faa6f.zip",
+                "reference": "e443e06154be779e4b1b414d78922a2682642f7c",
                 "shasum": null
             },
             "require": {
@@ -1354,7 +1354,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-25T11:23:59+00:00"
+            "time": "2018-01-25T14:52:39+00:00"
         },
         {
             "name": "channelgrabber/locale",
