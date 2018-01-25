@@ -302,8 +302,9 @@ define([
             var refreshedProductId = (refreshedProduct.parentProductId === 0 ? refreshedProduct.id : refreshedProduct.parentProductId);
             var products = this.state.products.map(function (product) {
                 if (product.id === refreshedProductId) {
-                    product.listings[0].status = 'pending';
-                    return product;
+                    for (var listingId in product.listings) {
+                        product.listings[listingId].status = 'pending';
+                    }
                 }
                 return product;
             });

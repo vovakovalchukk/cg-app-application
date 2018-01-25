@@ -121,7 +121,7 @@ define([
                             />
                         </Pane>
                         <Pane label="Dimensions">
-                            <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
+                            <DimensionsView variations={products} fullView={this.state.expanded}/>
                         </Pane>
                         <Pane label="VAT">
                             <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
