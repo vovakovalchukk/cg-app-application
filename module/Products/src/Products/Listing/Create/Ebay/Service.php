@@ -4,19 +4,20 @@ namespace Products\Listing\Create\Ebay;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Ebay\Category\ExternalData\Data;
+use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
+use CG\Ebay\Site\CurrencyMap;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
 use CG\Order\Shared\Shipping\Method\Collection as ShippingMethodCollection;
 use CG\Order\Shared\Shipping\Method\Entity as ShippingMethod;
 use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
 use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
+use CG\Product\Category\ExternalData\Entity as CategoryExternal;
+use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Ebay\Category\ExternalData\FeatureHelper;
-use CG\Product\Category\ExternalData\Service as CategoryExternalService;
-use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 
 class Service
 {
