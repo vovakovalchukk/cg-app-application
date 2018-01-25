@@ -1,0 +1,46 @@
+<form class="account-form-holder" style="height:auto" id="carrier-account-form" action="<?=$this->saveUrl;?>" method="POST">
+    <div class="account-logo">
+        <span class="logo-large <?=$this->channelName;?>"></span>
+    </div>
+    <input type="hidden" id="accountId" name="account" value="<?= $this->accountId; ?>" />
+    <input type="hidden" id="channel" name="channel" value="<?= $this->channelName; ?>" />
+    <?php foreach ($this->fieldViews as $fieldView): ?>
+        <?php if ($fieldView->getVariable('type') != 'hidden'): ?>
+            <div class="account-field-holder">
+                <div class="label">
+                    <?= $this->translate($fieldView->getVariable('label')); ?>:
+                    <?php if ($fieldView->getVariable('class') == 'required'):?>
+                        <abbr class="required">*</abbr>
+                    <?php endif;?>
+                </div>
+                <div class="text-field">
+                    <?php if ($fieldView->getTemplate() == 'elements/checkbox.mustache') {
+                        $fieldView->setVariable('label', '');
+                    } ?>
+                    <?= $this->mustache($fieldView); ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <?= $this->mustache($fieldView); ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <div class="account-form-buttons-holder">
+        <?= $this->linkAccount ?>
+        <a href='<?= $this->goBackUrl; ?>'><?= $this->goBack ?></a>
+    </div>
+</form>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function()
+{
+    (function adjustFormPosition()
+    {
+        var height = $('.account-form-holder').height();
+        var halfHeight = Math.floor(height / 2);
+        $('.account-form-holder').css('top', 'calc(50% - ' + halfHeight + 'px)');
+    })();
+
+    require(["<?= $this->basePath() . \ShipStation\Module::PUBLIC_FOLDER; ?>/js/Setup/Service.js"], function(Service) {
+        var service = new Service();
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>

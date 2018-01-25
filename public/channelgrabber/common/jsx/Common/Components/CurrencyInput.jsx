@@ -20,7 +20,6 @@ define([
                            placeholder="0.00"
                            value={this.props.value ? this.props.value : ''}
                            onChange={this.props.onChange}
-                           onFocus={function(){this.refs.input.select()}}
                     />
                 </span>
             );

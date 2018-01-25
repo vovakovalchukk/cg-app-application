@@ -1,34 +1,46 @@
 <?php
-
 namespace Products\Controller;
 
-use ArrayObject;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\PageLimit;
-use Zend\Mvc\Controller\AbstractActionController;
-use Products\Listing\Service as ListingService;
-use Products\Listing\Filter\Service as FilterService;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_Usage\Service as UsageService;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\PageLimit;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
+use CG_Usage\Service as UsageService;
+use Products\Listing\CreationService;
+use Products\Listing\CreationService\Status as CreationStatus;
+use Products\Listing\Filter\Service as FilterService;
+use Products\Listing\Service as ListingService;
+use Zend\Mvc\Controller\AbstractActionController;
 
-class ListingsJsonController extends AbstractActionController
+class ListingsJsonController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_HIDE = 'HIDE';
     const ROUTE_REFRESH = 'refresh';
     const ROUTE_IMPORT = 'import';
     const ROUTE_IMPORT_ALL_FILTERED = 'import all filtered';
+    const ROUTE_CREATE = 'create';
 
+    /** @var ListingService */
     protected $listingService;
+    /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var FilterMapper */
     protected $filterMapper;
+    /** @var ListingMapper */
     protected $listingMapper;
+    /** @var FilterService */
     protected $filterService;
     /** @var UsageService */
     protected $usageService;
+    /** @var CreationService */
+    protected $creationService;
 
     public function __construct(
         ListingService $listingService,
@@ -36,14 +48,16 @@ class ListingsJsonController extends AbstractActionController
         FilterMapper $filterMapper,
         ListingMapper $listingMapper,
         FilterService $filterService,
-        UsageService $usageService
+        UsageService $usageService,
+        CreationService $creationService
     ) {
-        $this->setListingService($listingService)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setFilterMapper($filterMapper)
-            ->setListingMapper($listingMapper)
-            ->setFilterService($filterService)
-            ->setUsageService($usageService);
+        $this->listingService = $listingService;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->filterMapper = $filterMapper;
+        $this->listingMapper = $listingMapper;
+        $this->filterService = $filterService;
+        $this->usageService = $usageService;
+        $this->creationService = $creationService;
     }
 
     protected function getPageLimit()
@@ -61,7 +75,7 @@ class ListingsJsonController extends AbstractActionController
 
     protected function getDefaultJsonData()
     {
-        return new ArrayObject(
+        return new \ArrayObject(
             [
                 'iTotalRecords' => 0,
                 'iTotalDisplayRecords' => 0,
@@ -80,11 +94,11 @@ class ListingsJsonController extends AbstractActionController
             $requestFilter = $this->params()->fromPost('filter', []);
             $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
 
-            $requestFilter = $this->getFilterMapper()->fromArray($requestFilter)
+            $requestFilter = $this->filterMapper->fromArray($requestFilter)
                 ->setPage($pageLimit->getPage())
                 ->setLimit($pageLimit->getLimit());
 
-            $this->getFilterService()->setPersistentFilter($requestFilter);
+            $this->filterService->setPersistentFilter($requestFilter);
 
             // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
             if ($requestFilter->getCreatedDateFrom()) {
@@ -94,9 +108,9 @@ class ListingsJsonController extends AbstractActionController
                 $requestFilter->setCreatedDateTo($this->dateFormatInput($requestFilter->getCreatedDateTo()));
             }
 
-            $listings = $this->getListingService()->fetchListings($requestFilter);
+            $listings = $this->listingService->fetchListings($requestFilter);
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
-            $listings = $this->getListingService()->alterListingTable($listings, $this->getEvent());
+            $listings = $this->listingService->alterListingTable($listings, $this->getEvent());
 
             foreach ($pageLimit->getPageData($listings) as $listing) {
                 $data['Records'][] = $listing;
@@ -105,7 +119,7 @@ class ListingsJsonController extends AbstractActionController
             //noop
         }
 
-        return $this->getJsonModelFactory()->newInstance($data);
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     protected function ensureHiddenFilterApplied(array $requestFilter)
@@ -127,7 +141,7 @@ class ListingsJsonController extends AbstractActionController
     {
         $this->checkUsage();
 
-        $view = $this->getJsonModelFactory()->newInstance();
+        $view = $this->jsonModelFactory->newInstance();
 
         $listingIds = $this->params()->fromPost('listingIds');
         if (empty($listingIds)){
@@ -135,7 +149,7 @@ class ListingsJsonController extends AbstractActionController
             return $view;
         }
 
-        $this->getListingService()->hideListingsById($listingIds);
+        $this->listingService->hideListingsById($listingIds);
         $view->setVariable('hidden', true);
         return $view;
     }
@@ -144,22 +158,45 @@ class ListingsJsonController extends AbstractActionController
     {
         $this->checkUsage();
 
-        $view = $this->getJsonModelFactory()->newInstance();
-        $this->getListingService()->refresh();
+        $view = $this->jsonModelFactory->newInstance();
+        $this->listingService->refresh();
         return $view;
+    }
+
+    public function createAction()
+    {
+        $this->checkUsage();
+
+        $status = new CreationStatus();
+        try {
+            $this->creationService->createListing(
+                $status,
+                $this->params()->fromPost('accountId', 0),
+                $this->params()->fromPost('productId', 0),
+                $this->params()->fromPost('listing', [])
+            );
+        } catch (\Throwable $throwable) {
+            if ($throwable instanceof \Exception) {
+                $this->logWarningException($throwable, 'Failed to create listing', [], 'ListingCreation');
+            } else {
+                $this->log($throwable->getMessage(), 'ListingCreation', 'emergency', __NAMESPACE__, $throwable->getTraceAsString());
+            }
+            $status->error('An unknown error has occurred');
+        }
+        return $this->jsonModelFactory->newInstance($status->toArray());
     }
 
     public function importAction()
     {
         $this->checkUsage();
 
-        $view = $this->getJsonModelFactory()->newInstance();
+        $view = $this->jsonModelFactory->newInstance();
         $listingIds = $this->params()->fromPost('listingIds');
         if (empty($listingIds)){
             $view->setVariable('import', false);
             return $view;
         }
-        $this->getListingService()->importListingsById($listingIds);
+        $this->listingService->importListingsById($listingIds);
         $view->setVariable('import', true);
         return $view;
     }
@@ -174,7 +211,7 @@ class ListingsJsonController extends AbstractActionController
         $listingFilter = $this->filterMapper->fromArray($requestFilter);        
         $success = $this->listingService->importListingsByFilter($listingFilter);
 
-        return $this->getJsonModelFactory()->newInstance(['import' => $success]);
+        return $this->jsonModelFactory->newInstance(['import' => $success]);
     }
 
     protected function checkUsage()
@@ -182,66 +219,5 @@ class ListingsJsonController extends AbstractActionController
         if ($this->usageService->hasUsageBeenExceeded()) {
             throw new UsageExceeded();
         }
-    }
-
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
-    }
-
-    protected function setListingService(ListingService $listingService)
-    {
-        $this->listingService = $listingService;
-        return $this;
-    }
-
-    protected function getListingService()
-    {
-        return $this->listingService;
-    }
-
-    protected function setFilterMapper(FilterMapper $filterMapper)
-    {
-        $this->filterMapper = $filterMapper;
-        return $this;
-    }
-
-    protected function getFilterMapper()
-    {
-        return $this->filterMapper;
-    }
-
-    protected function setListingMapper(ListingMapper $listingMapper)
-    {
-        $this->listingMapper = $listingMapper;
-        return $this;
-    }
-
-    protected function getListingMapper()
-    {
-        return $this->listingMapper;
-    }
-
-    protected function getFilterService()
-    {
-        return $this->filterService;
-    }
-
-    protected function setFilterService($filterService)
-    {
-        $this->filterService = $filterService;
-        return $this;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
     }
 }

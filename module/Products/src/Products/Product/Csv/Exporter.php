@@ -3,6 +3,7 @@ namespace Products\Product\Csv;
 
 use CG\Image\Entity as Image;
 use CG\Listing\Client\Service as ListingService;
+use CG\Listing\Csv\Line\Mapper as CsvLineMapper;
 use CG\Listing\Entity as Listing;
 use CG\Listing\Filter as ListingFilter;
 use CG\Location\Service as LocationService;
@@ -32,19 +33,23 @@ class Exporter
     protected $stockLocationService;
     /** @var ProductService */
     protected $productService;
+    /** @var CsvLineMapper */
+    protected $csvLineMapper;
 
     public function __construct(
         ListingService $listingService,
         LocationService $locationService,
         ActiveUserInterface $activeUserContainer,
         StockLocationService $stockLocationService,
-        ProductService $productService
+        ProductService $productService,
+        CsvLineMapper $csvLineMapper
     ) {
         $this->listingService = $listingService;
         $this->locationService = $locationService;
         $this->activeUserContainer = $activeUserContainer;
         $this->stockLocationService = $stockLocationService;
         $this->productService = $productService;
+        $this->csvLineMapper = $csvLineMapper;
     }
 
     public function exportToCsv(string $channel): CsvWriter
@@ -61,7 +66,7 @@ class Exporter
             $product = $this->productService->fetch($listing->getProductIds()[0]);
             $detail = $product->getDetails() ?? new ProductDetails($product->getOrganisationUnitId(), $product->getSku());
             $file->addLine(
-                Line::createFromProductAndDetails(
+                $this->csvLineMapper->createFromProductAndDetails(
                     $product,
                     $detail,
                     $this->getProductImage($product),

@@ -7,8 +7,15 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(mountingNode, utils, searchAvailable, isAdmin, getParamSearchTerm, linkedProductsEnabled)
-    {
+    var Product = function(
+        mountingNode,
+        utils,
+        searchAvailable,
+        isAdmin,
+        getParamSearchTerm,
+        linkedProductsEnabled,
+        createListingsEnabled
+    ) {
         ReactDOM.render(
             <RootComponent
                 productsUrl="/products/ajax"
@@ -17,6 +24,7 @@ define([
                 initialSearchTerm={getParamSearchTerm}
                 isAdmin={isAdmin}
                 linkedProductsEnabled={linkedProductsEnabled}
+                createListingsEnabled={createListingsEnabled}
             />,
             mountingNode
         );

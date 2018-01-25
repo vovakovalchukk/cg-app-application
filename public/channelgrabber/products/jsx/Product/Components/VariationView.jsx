@@ -1,11 +1,13 @@
 define([
     'react',
     'Product/Components/Image',
-    'Product/Components/Link'
+    'Product/Components/Link',
+    'Product/Components/CreateListingIcon'
 ], function(
     React,
     Image,
-    Link
+    Link,
+    CreateListingIcon
 ) {
     "use strict";
 
@@ -17,7 +19,10 @@ define([
                 attributeNames: [],
                 parentProduct: {},
                 fullView: false,
-                linkedProductsEnabled: false
+                linkedProductsEnabled: false,
+                createListingsEnabled: false,
+                accounts: {},
+                isSimpleProduct: false
             };
         },
         getAttributeHeaders: function() {
@@ -77,6 +82,7 @@ define([
                             <thead>
                                 <tr>
                                     <th key="image" className="image-col"></th>
+                                    {this.props.createListingsEnabled ? <th className="list-col">List</th> : '' }
                                     {this.props.linkedProductsEnabled ? <th key="link" className="link-col">Link</th>: '' }
                                     <th key="sku" className="sku-col">SKU</th>
                                 </tr>
@@ -90,6 +96,15 @@ define([
                                     return (
                                         <tr key={variation.id}>
                                             <td key="image" className="image-cell"><Image src={this.getImageUrl(variation)} /></td>
+                                            {this.props.createListingsEnabled ? <td>
+                                                <CreateListingIcon
+                                                    isSimpleProduct={!this.props.isSimpleProduct}
+                                                    accountsAvailable={this.props.accounts}
+                                                    accountsListedOn={Object.keys(variation.listingsPerAccount)}
+                                                    productId={variation.id}
+                                                    onCreateListingIconClick={this.props.onCreateListingIconClick}
+                                                />
+                                            </td> : ''}
                                             {this.renderLinkCell(variation)}
                                             <td is class="sku-cell ellipsis" data-copy={variation.sku} title={variation.sku + ' (Click to Copy)'}>{variation.sku}</td>
                                         </tr>

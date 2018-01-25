@@ -1,9 +1,12 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Filter as AccountFilter;
 use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Product\Client\Service as ProductService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\Entity as User;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use CG\Zend\Stdlib\Http\FileResponse;
@@ -43,6 +46,8 @@ class ExportController extends AdvancedController
     protected $productCsvService;
     /** @var FeatureFlagsService */
     protected $featureFlagsService;
+    /** @var AccountService */
+    protected $accountService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -51,7 +56,8 @@ class ExportController extends AdvancedController
         UsageService $usageService,
         JsonModelFactory $jsonModelFactory,
         ProductCsvService $productCsvService,
-        FeatureFlagsService $featureFlagsService
+        FeatureFlagsService $featureFlagsService,
+        AccountService $accountService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->userOUService = $userOUService;
@@ -60,21 +66,18 @@ class ExportController extends AdvancedController
         $this->jsonModelFactory = $jsonModelFactory;
         $this->productCsvService = $productCsvService;
         $this->featureFlagsService = $featureFlagsService;
+        $this->accountService = $accountService;
     }
 
     public function exportAction()
     {
-        $showProductExport = $this->featureFlagsService->isActive(
-            ProductService::FEATURE_FLAG_PRODUCT_EXPORT,
-            $this->userOUService->getRootOuByActiveUser()
-        );
         $view = $this->newViewModel(
             [
                 'route' => implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_EXPORT]),
                 'ordersRoute' => static::ROUTE_EXPORT_ORDER,
                 'orderItemsRoute' => static::ROUTE_EXPORT_ORDER_ITEM,
                 'productsRoute' => static::ROUTE_EXPORT_PRODUCT,
-                'showProductExport' => $showProductExport,
+                'showProductExport' => $this->shouldShowProductExport(),
                 'isHeaderBarVisible' => false,
                 'subHeaderHide' => true,
             ]
@@ -83,16 +86,52 @@ class ExportController extends AdvancedController
         return $view;
     }
 
+    protected function shouldShowProductExport(): bool
+    {
+        $featureEnabled = $this->featureFlagsService->isActive(
+            ProductService::FEATURE_FLAG_PRODUCT_EXPORT,
+            $this->userOUService->getRootOuByActiveUser()
+        );
+        if (!$featureEnabled) {
+            return false;
+        }
+        return $this->hasAccountsForProductExport();
+    }
+
+    protected function hasAccountsForProductExport(): bool
+    {
+        // Only certain channels are supported for now.
+        // Once all channels are supported this can just return true or be removed completely
+        $channelOptions = $this->getChannelSelectOptionsForProductExport();
+        $channels = array_column($channelOptions, 'value');
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setChannel($channels)
+            ->setOrganisationUnitId($this->userOUService->getActiveUser()->getOuList());
+        try {
+            $accounts = $this->accountService->fetchByFilter($filter);
+            return true;
+        } catch (NotFound $e) {
+            return false;
+        }
+    }
+
+    protected function getChannelSelectOptionsForProductExport(): array
+    {
+        // Hard-coded to the supported channels for now.
+        // Once all are supported get these from Filters\Options\Channel::getSelectOptions()
+        return [
+            ['title' => 'Amazon', 'value' => 'amazon', 'selected' => true]
+        ];
+    }
+
     protected function getChannelSelectForProductExport(): ViewModel
     {
         $select = $this->newViewModel([
             'id' => 'export-products-channel-select',
             'name' => 'channel',
-            'options' => [
-                // Hard-coded to the supported channels for now.
-                // Once all are supported get these from Filters\Options\Channel::getSelectOptions()
-                ['title' => 'Amazon', 'value' => 'amazon', 'selected' => true]
-            ]
+            'options' => $this->getChannelSelectOptionsForProductExport()
         ]);
         $select->setTemplate('elements/custom-select.mustache');
         return $select;
