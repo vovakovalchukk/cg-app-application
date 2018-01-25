@@ -2,22 +2,25 @@ define([
     'react',
     'Common/Components/Popup',
     'Product/Components/CreateListing/Form/Ebay',
+    'Product/Components/CreateListing/Form/Shopify',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
     React,
     Popup,
     EbayForm,
+    ShopifyForm,
     Select,
     CreateListingUtils
 ) {
     "use strict";
 
     var channelToFormMap = {
-        'ebay': EbayForm
+        'ebay': EbayForm,
+        'shopify': ShopifyForm
     };
 
-    var CreateListingPopupComponent = React.createClass({
+    return React.createClass({
         getDefaultProps: function() {
             return {
                 product: null,
@@ -138,6 +141,4 @@ define([
             );
         }
     });
-
-    return CreateListingPopupComponent;
 });
