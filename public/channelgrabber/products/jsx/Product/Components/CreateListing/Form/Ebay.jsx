@@ -64,7 +64,6 @@ define([
                         error: false
                     });
                     this.props.setFormStateListing({
-                        currency: response.listingCurrency,
                         dispatchTimeMax: response.listingDispatchTime,
                         duration: response.listingDuration
                     })
@@ -78,6 +77,7 @@ define([
                 type: 'GET',
                 success: function (response) {
                     this.setState({
+                        currency: response.currency,
                         rootCategories: response.category,
                         shippingServiceFieldValues: response.shippingService,
                     });
@@ -149,7 +149,7 @@ define([
                         <CurrencyInput
                             value={this.props.price}
                             onChange={this.onInputChange}
-                            currency={this.props.currency}
+                            currency={this.state.currency}
                         />
                     </div>
                 </label>
@@ -212,7 +212,7 @@ define([
                             name="shippingPrice"
                             value={this.props.shippingPrice}
                             onChange={this.onInputChange}
-                            currency={this.props.currency}
+                            currency={this.state.currency}
                         />
                     </div>
                 </label>
