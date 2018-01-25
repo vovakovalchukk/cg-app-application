@@ -40,9 +40,15 @@ define([
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
         },
-        fetchAndSetDefaultsForAccount: function() {
+        componentWillReceiveProps(newProps) {
+            if (this.props.accountId != newProps.accountId) {
+                this.fetchAndSetDefaultsForAccount(newProps.accountId);
+            }
+        },
+        fetchAndSetDefaultsForAccount(newAccountId) {
+            var accountId = newAccountId ? newAccountId : this.props.accountId;
             $.ajax({
-                url: '/products/create-listings/ebay/default-settings/' + this.props.accountId,
+                url: '/products/create-listings/ebay/default-settings/' + accountId,
                 type: 'GET',
                 success: function (response) {
                     if (response.error == NO_SETTINGS) {
@@ -53,7 +59,8 @@ define([
                         return;
                     }
                     this.setState({
-                        settingsFetched: true
+                        settingsFetched: true,
+                        error: false
                     });
                     this.props.setFormStateListing({
                         listingCurrency: response.listingCurrency,

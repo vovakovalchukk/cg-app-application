@@ -32,7 +32,7 @@
         "channelgrabber/courier": "~1.0.26",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
-        "channelgrabber/ebay": "dev-LIS-22-ebay-default-listing-settings as 1.10.13",
+        "channelgrabber/ebay": "dev-LIS-22-ebay-default-listing-settings as 1.11.4",
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",

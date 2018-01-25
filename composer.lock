@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b778e7271d4be9865bf01a292fae767",
+    "content-hash": "2c007e600634a418e37aa93edd7a4332",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -510,16 +510,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.33.3",
+            "version": "1.33.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d504237dcf011d38ad44ad06947d7a83ea792270"
+                "reference": "5e487ba4186e5ac31fe80df4a6d4327e05b2e7ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.33.3-31314d.zip",
-                "reference": "d504237dcf011d38ad44ad06947d7a83ea792270",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.33.4-17878b.zip",
+                "reference": "5e487ba4186e5ac31fe80df4a6d4327e05b2e7ac",
                 "shasum": null
             },
             "require": {
@@ -591,7 +591,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2018-01-18T15:32:17+00:00"
+            "time": "2018-01-24T14:04:49+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -842,12 +842,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "db2a6abd4e96de7c3d36e46649b10613700d5f8e"
+                "reference": "7708aec2e882847d3a046af30663b79089e77c85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-22-ebay-default-listing-settings-42e106.zip",
-                "reference": "db2a6abd4e96de7c3d36e46649b10613700d5f8e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-22-ebay-default-listing-settings-bcaf2c.zip",
+                "reference": "7708aec2e882847d3a046af30663b79089e77c85",
                 "shasum": null
             },
             "require": {
@@ -898,7 +898,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-23T13:31:29+00:00"
+            "time": "2018-01-24T16:58:32+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3353,7 +3353,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/ebay": ">=1.1.10",
                 "channelgrabber/zf2-channel": ">=1.0.0",
-                "channelgrabber/zf2-v4-ui": "dev-LIS-22-ebay-default-listing-settings as 1.21.2",
+                "channelgrabber/zf2-v4-ui": "^1.21.3",
                 "php": ">=7.1",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
@@ -4002,12 +4002,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "eedafcae9e9c27e8555dc29dda56cac7069a6f3a"
+                "reference": "0295cdaf006c919197485f93e64f56317536ec17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-22-ebay-default-listing-settings-5453ec.zip",
-                "reference": "eedafcae9e9c27e8555dc29dda56cac7069a6f3a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-22-ebay-default-listing-settings-97a986.zip",
+                "reference": "0295cdaf006c919197485f93e64f56317536ec17",
                 "shasum": null
             },
             "require": {
@@ -4058,7 +4058,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-01-18T14:02:07+00:00"
+            "time": "2018-01-24T16:58:50+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9498,8 +9498,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.10.13",
-            "alias_normalized": "1.10.13.0",
+            "alias": "1.11.4",
+            "alias_normalized": "1.11.4.0",
             "version": "dev-LIS-22-ebay-default-listing-settings",
             "package": "channelgrabber/ebay"
         },
