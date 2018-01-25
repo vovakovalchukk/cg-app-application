@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f25fe29383200c7cf33516bf1d15913",
+    "content-hash": "b1e45faa1822c4877a69a8528148fbf2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -510,16 +510,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.33.3",
+            "version": "1.33.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d504237dcf011d38ad44ad06947d7a83ea792270"
+                "reference": "5e487ba4186e5ac31fe80df4a6d4327e05b2e7ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.33.3-31314d.zip",
-                "reference": "d504237dcf011d38ad44ad06947d7a83ea792270",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.33.4-17878b.zip",
+                "reference": "5e487ba4186e5ac31fe80df4a6d4327e05b2e7ac",
                 "shasum": null
             },
             "require": {
@@ -591,7 +591,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2018-01-18T15:32:17+00:00"
+            "time": "2018-01-24T14:04:49+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -842,12 +842,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a1ea2b386673d72c8262e052a96a34d517811b4a"
+                "reference": "109e717259906ec16e06d24d86604de8283fadf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-8e3f72.zip",
-                "reference": "a1ea2b386673d72c8262e052a96a34d517811b4a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-29-CreateEbayListing-ac4245.zip",
+                "reference": "109e717259906ec16e06d24d86604de8283fadf0",
                 "shasum": null
             },
             "require": {
@@ -898,7 +898,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-24T10:27:19+00:00"
+            "time": "2018-01-25T09:26:40+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3336,16 +3336,16 @@
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470"
+                "reference": "a9f445251233e4db934a2532ef5e3dff13a653ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.4-822a40.zip",
-                "reference": "e24975652651eea8d76fb9eea02f07c8150c0470",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.1.0-43fe05.zip",
+                "reference": "a9f445251233e4db934a2532ef5e3dff13a653ba",
                 "shasum": null
             },
             "require": {
@@ -3353,6 +3353,8 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/ebay": ">=1.1.10",
                 "channelgrabber/zf2-channel": ">=1.0.0",
+                "channelgrabber/zf2-v4-ui": "^1.21.3",
+                "php": ">=7.1",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -3372,7 +3374,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2016-10-27T10:14:51+00:00"
+            "time": "2018-01-24T17:11:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-ekm",
@@ -3996,16 +3998,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.21.2",
+            "version": "1.21.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d78df934ab957f95e042e04a9aabf66af3ad5dc6"
+                "reference": "d3ee6fac5d1d21eab721cbdd432d8740bc15391a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.21.2-f68b48.zip",
-                "reference": "d78df934ab957f95e042e04a9aabf66af3ad5dc6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.21.3-1f452d.zip",
+                "reference": "d3ee6fac5d1d21eab721cbdd432d8740bc15391a",
                 "shasum": null
             },
             "require": {
@@ -4056,7 +4058,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-01-18T16:57:11+00:00"
+            "time": "2018-01-24T16:58:58+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7996,7 +7998,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8051,7 +8053,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8106,7 +8108,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8157,7 +8159,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8243,7 +8245,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9502,8 +9504,8 @@
             "package": "channelgrabber/cglib"
         },
         {
-            "alias": "1.11.2",
-            "alias_normalized": "1.11.2.0",
+            "alias": "1.11.6",
+            "alias_normalized": "1.11.6.0",
             "version": "dev-LIS-29-CreateEbayListing",
             "package": "channelgrabber/ebay"
         },
