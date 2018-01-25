@@ -700,12 +700,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b40bffb6aec2613d7b4d07cb21076f6d15c898cf"
+                "reference": "041a90143b0272c38897c5ff3cb6a7367a09a3a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9184-update_dpd_direct_service_labels-be28af.zip",
-                "reference": "b40bffb6aec2613d7b4d07cb21076f6d15c898cf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9184-update_dpd_direct_service_labels-bae30f.zip",
+                "reference": "041a90143b0272c38897c5ff3cb6a7367a09a3a9",
                 "shasum": null
             },
             "require": {
@@ -736,7 +736,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-01-25T11:41:43+00:00"
+            "time": "2018-01-25T14:40:05+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
