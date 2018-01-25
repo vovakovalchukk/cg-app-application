@@ -29,7 +29,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.0.26",
+        "channelgrabber/courier": "dev-CGIV-9184-update_dpd_direct_service_labels as 1.0.27",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
         "channelgrabber/ebay": "~1.11.3",
