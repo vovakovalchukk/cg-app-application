@@ -1,40 +1,41 @@
 <?php
 namespace Products;
 
-use CG\FeatureFlags\Feature;
-use Products\Controller;
-use Products\Product\Service as ModuleProductService;
-use Products\Controller\ProductsController;
-use Zend\Mvc\Router\Http\Literal;
-use Zend\Mvc\Router\Http\Segment;
-use Products\Controller\ProductsJsonController;
-use CG\Product\Client\Service as ProductService;
-use CG\Product\Storage\Api as ProductApiStorage;
-use CG_UI\View\DataTable;
-use CG\Stock\Service as StockService;
-use CG\Stock\Storage\Api as StockApiStorage;
-use CG\Stock\Location\Service as LocationService;
-use CG\Stock\Location\Storage\Api as LocationApiStorage;
-use CG\Listing\Service as ListingService;
+use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
-use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Image\Storage\Api as ImageApiStorage;
-use Products\Controller\ListingsController;
-use Products\Controller\ListingsJsonController;
-use Products\Controller\StockLogController;
-use Products\Controller\StockLogJsonController;
-use Products\Controller\LinksJsonController;
-use Products\Controller\PurchaseOrdersController;
-use Products\Controller\PurchaseOrdersJsonController;
-use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
+use CG\Listing\Service as ListingService;
+use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
-use Zend\View\Model\ViewModel;
-use CG\Amazon\ListingImport as AmazonListingImport;
-use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Link\Storage\Api as ProductLinkApiStorage;
-use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\Link\StorageInterface as ProductLinkStorageInterface;
 use CG\Product\LinkNode\Storage\Api as ProductLinkNodeApiStorage;
+use CG\Product\LinkNode\StorageInterface as ProductLinkNodeStorageInterface;
+use CG\Product\Storage\Api as ProductApiStorage;
+use CG\Stock\Location\Service as LocationService;
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG\Stock\Service as StockService;
+use CG\Stock\Storage\Api as StockApiStorage;
+use CG_UI\View\DataTable;
+use Products\Controller\CreateListings\EbayJsonController;
+use Products\Controller\LinksJsonController;
+use Products\Controller\ListingsController;
+use Products\Controller\ListingsJsonController;
+use Products\Controller\ProductsController;
+use Products\Controller\ProductsJsonController;
+use Products\Controller\PurchaseOrdersController;
+use Products\Controller\PurchaseOrdersJsonController;
+use Products\Controller\StockLogController;
+use Products\Controller\StockLogJsonController;
+use Products\Listing\Create\Ebay\Service as ListingCreateEbayService;
+use Products\Product\Service as ModuleProductService;
+use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
+use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
+use Zend\View\Model\ViewModel;
 
 return [
     'router' => [
@@ -61,6 +62,16 @@ return [
                                 'action' => 'ajax'
                             ]
                         ],
+                    ],
+                    ProductsJsonController::ROUTE_STOCK_FETCH => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/stock/ajax/:productSku',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'stockFetch'
+                            ]
+                        ]
                     ],
                     ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
                         'type' => Literal::class,
@@ -247,7 +258,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
-
+                    ListingsJsonController::ROUTE_CREATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing/submit',
+                            'defaults' => [
+                                'controller' => ListingsJsonController::class,
+                                'action' => 'create'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [
@@ -417,6 +438,93 @@ return [
                             ],
                         ],
                     ],
+                    EbayJsonController::ROUTE_CREATE_LISTINGS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/create-listings',
+                        ],
+                        'child_routes' => [
+                            EbayJsonController::ROUTE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ebay'
+                                ],
+                                'child_routes' => [
+                                    EbayJsonController::ROUTE_DEFAULT_SETTINGS => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/default-settings/:accountId',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'defaultSettingsAjax'
+                                            ],
+                                            'constraints' => [
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/category-dependent-field-values/:accountId',
+                                            'constraints' => [
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ],
+                                        'child_routes' => [
+                                            'externalId' => [
+                                                'type' => Segment::class,
+                                                'options' => [
+                                                    'route' => '/:externalCategoryId',
+                                                    'defaults' => [
+                                                        'controller' => EbayJsonController::class,
+                                                        'action' => 'categoryDependentFieldValues'
+                                                    ],
+                                                    'constraints' => [
+                                                        'externalCategoryId' => '[0-9]+'
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/channel-specific-field-values',
+                                            'defaults' => [
+                                                'controller' => EbayJsonController::class,
+                                                'action' => 'channelSpecificFieldValues'
+                                            ]
+                                        ]
+                                    ],
+                                    EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/categoryChildren/:accountId',
+                                            'constraints' => [
+                                                'accountId' => '[0-9]+'
+                                            ]
+                                        ],
+                                        'child_routes' => [
+                                            'externalId' => [
+                                                'type' => Segment::class,
+                                                'options' => [
+                                                    'route' => '/:externalCategoryId',
+                                                    'defaults' => [
+                                                        'controller' => EbayJsonController::class,
+                                                        'action' => 'categoryChildren'
+                                                    ],
+                                                    'constraints' => [
+                                                        'externalCategoryId' => '[0-9]+'
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ]
@@ -1095,6 +1203,16 @@ return [
                     'predis' => 'reliable_redis'
                 ]
             ],
+            ListingCreateEbayService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ],
+            EbayListingCreator::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ]
         ],
     ],
     'navigation' => array(
@@ -1119,7 +1237,6 @@ return [
                     'purchaseOrders' => [
                         'id'    => 'purchaseOrders',
                         'label' => 'Purchase Orders',
-                        ModuleProductService::NAV_KEY_FEATURE_FLAG => Feature::PURCHASE_ORDERS,
                         'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                                 '',
                                 [
@@ -1129,8 +1246,7 @@ return [
                             ),
                         'pre-render' => [
                             'diLoad' => [
-                                'class' => ModuleProductService::class,
-                                'method' => 'checkPageEnabled'
+                                'class' => ModuleProductService::class
                             ]
                         ],
                     ],

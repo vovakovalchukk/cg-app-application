@@ -10,7 +10,6 @@ use CG\Amazon\Order\FulfilmentChannel\Mapper as AmazonFulfilmentChannelMapper;
 use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
-use CG\FeatureFlags\Feature;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagService;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
@@ -29,6 +28,7 @@ use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\OrderLinker;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Link\Entity as ProductLink;
 use CG\Product\LinkLeaf\Filter as ProductLinkLeafFilter;
 use CG\Product\LinkLeaf\Service as ProductLinkLeafService;
@@ -405,21 +405,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getProductLinksForOrder(OrderEntity $order)
     {
+        $productLinksBySku = [];
         $ou = $this->getRootOrganisationUnitForOrder($order);
-        $orderItemSkus = [];
-        foreach ($order->getItems()->toArray() as $orderItem) {
-            if (! empty($orderItem['itemSku'])) {
-                $orderItemSkus[] = $orderItem['itemSku'];
-            }
+        $orderItemSkus = $this->getFlatArrayOfItemSkus($order);
+
+        if (count($orderItemSkus) == 0) {
+            return $productLinksBySku;
         }
 
-        $ouIdProductSku = array_map(
-            function($sku) use($ou) {
-                return ProductLink::generateId($ou->getId(), $sku);
-            },
-            $orderItemSkus
-        );
-        $productLinkLeafFilter = (new ProductLinkLeafFilter('all', 1))->setOuIdProductSku($ouIdProductSku);
+        $ouIdProductSkuList = $this->getOuIdProductSkuListFromOrder($orderItemSkus, $ou);
+        $productLinkLeafFilter = (new ProductLinkLeafFilter('all', 1))->setOuIdProductSku($ouIdProductSkuList);
 
         try {
             $productLinks = $this->productLinkLeafService->fetchCollectionByFilter($productLinkLeafFilter);
@@ -427,12 +422,32 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             return [];
         }
 
-        $productLinksBySku = [];
         foreach ($orderItemSkus as $orderItemSku) {
-            $id = $ou->getId() . "-" . $orderItemSku;
-            $productLinksBySku[$orderItemSku] = $productLinks->getById($id);
+            $productLinksBySku[$orderItemSku] = $productLinks->getById(ProductLink::generateId($ou->getId(), $orderItemSku));
         }
+
         return $productLinksBySku;
+    }
+
+    protected function getFlatArrayOfItemSkus(OrderEntity $order)
+    {
+        $orderItemSkus = [];
+        foreach ($order->getItems()->toArray() as $orderItem) {
+            if (! empty($orderItem['itemSku'])) {
+                $orderItemSkus[] = $orderItem['itemSku'];
+            }
+        }
+        return $orderItemSkus;
+    }
+
+    protected function getOuIdProductSkuListFromOrder(array $orderItemSkus, $ou): array
+    {
+        return array_map(
+            function($sku) use($ou) {
+                return ProductLink::generateId($ou->getId(), $sku);
+            },
+            $orderItemSkus
+        );
     }
 
     public function getOrderItemTable(OrderEntity $order)
@@ -449,7 +464,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $productLinks = [];
         if (
             $this->featureFlagService->featureEnabledForOu(
-                Feature::LINKED_PRODUCTS,
+                ProductService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
             )
         ) {

@@ -125,10 +125,12 @@ define([
                 'dataType' : 'json',
                 'success' : function (response) {
                     window.triggerEvent('productLinkRefresh');
-                    this.setState({
-                        unlinkConfirmPopup: false
-                    },
-                        this.onEditorReset()
+                    this.setState(
+                        {unlinkConfirmPopup: false},
+                        function () {
+                            this.onEditorReset();
+                            this.props.fetchUpdatedStockLevels(this.state.sku);
+                        }.bind(this)
                     );
                     n.success('Product links saved successfully.');
                 }.bind(this),
@@ -154,10 +156,12 @@ define([
                 'dataType' : 'json',
                 'success' : function (response) {
                     window.triggerEvent('productLinkRefresh');
-                    this.setState({
-                        unlinkConfirmPopup: false
-                    },
-                        this.onEditorReset()
+                    this.setState(
+                        {unlinkConfirmPopup: false},
+                        function () {
+                            this.onEditorReset();
+                            this.props.fetchUpdatedStockLevels(this.state.sku);
+                        }.bind(this)
                     );
                     n.success('Product links removed successfully.');
                 }.bind(this),
@@ -210,7 +214,7 @@ define([
                             Instead its stock level will be calculated based on the available stock of the product it is linked to.
                         </p>
                         <div className="product-dropdown">
-                            <ProductDropdown />
+                            <ProductDropdown skuThatProductsCantLinkFrom={this.props.productLink.sku} />
                         </div>
                         <div className="product-rows">
                             {this.state.links.map(function (productLink) {

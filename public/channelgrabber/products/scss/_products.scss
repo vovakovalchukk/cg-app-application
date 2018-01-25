@@ -134,6 +134,13 @@
             }
         }
         .product-content-container {
+            .icon-create-listing {
+                cursor: pointer;
+                &.inactive {
+                    color: #CCCCCC;
+                    cursor: auto;
+                }
+            }
             table {
                 th {
                     height: 28px;
@@ -145,6 +152,10 @@
                     padding: 5px;
                     &.stock-mode-header-col {
                         width: 300px;
+                    }
+
+                    &.list-col {
+                        width: 64px;
                     }
 
                     &.link-col {
@@ -517,7 +528,7 @@ div#products-loading-message {
                 display: inline-block;
                 vertical-align: top;
             }
-            .popup-stock-import-file-name {
+            .file-upload-text {
                 font-size: 14px;
                 line-height: 25px;
             }

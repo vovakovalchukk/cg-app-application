@@ -303,8 +303,7 @@ class ChannelController extends AbstractActionController
         if (!$channelController) {
             return;
         }
-        // Don't use is_callable() as there's a magic __get() method that fools that
-        if (!method_exists($channelController, 'addAccountsChannelSpecificVariablesToChannelSpecificView')) {
+        if (!$channelController instanceof AddChannelSpecificVariablesToViewInterface) {
             return;
         }
         $channelController->addAccountsChannelSpecificVariablesToChannelSpecificView($account, $view);

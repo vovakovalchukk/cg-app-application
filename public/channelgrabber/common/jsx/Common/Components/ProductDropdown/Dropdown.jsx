@@ -23,14 +23,23 @@ define([
                 showResults: false
             }
         },
+        getDefaultProps: function() {
+            return {
+                skuThatProductsCantLinkFrom: null
+            }
+        },
         performProductsRequest: function(filter) {
             function products(data) {
                 var allVariationIds = [];
                 data.products.forEach(function(product) {
                     allVariationIds = allVariationIds.concat(product.variationIds);
                 });
+
+                var listOfNonLinkableSkus = data.nonLinkableSkus ? Object.keys(data.nonLinkableSkus) : [];
+
                 this.setState({
                     products: data.products,
+                    nonLinkableSkus: listOfNonLinkableSkus
                 });
                 if (allVariationIds.length == 0) {
                     this.setState({
@@ -40,7 +49,7 @@ define([
                     });
                     return;
                 }
-                var variationFilter = new ProductFilter(null, null, allVariationIds);
+                var variationFilter = new ProductFilter(null, null, allVariationIds, null, filter.skuThatProductsCantLinkFrom);
                 this.performVariationsRequest(variationFilter);
             }
             AjaxHandler.fetchByFilter(filter, products.bind(this));
@@ -77,7 +86,14 @@ define([
             this.setState({
                 fetchingData: true
             });
-            var filter = new ProductFilter(this.state.searchTerm);
+            var filter = new ProductFilter(
+                this.state.searchTerm,
+                null,
+                null,
+                null,
+                this.props.skuThatProductsCantLinkFrom
+            );
+
             this.performProductsRequest(filter);
         },
         onClickOutside: function (e) {
@@ -113,7 +129,11 @@ define([
 
             if (this.state.products.length) {
                 productsList = this.state.products.map(function (product) {
-                    return <DetailRow product={product} onAddClicked={this.onOptionSelected}/>
+                    return <DetailRow
+                        product={product}
+                        onAddClicked={this.onOptionSelected}
+                        nonLinkableSkus={this.state.nonLinkableSkus}
+                    />
                 }.bind(this));
             }
             return (
