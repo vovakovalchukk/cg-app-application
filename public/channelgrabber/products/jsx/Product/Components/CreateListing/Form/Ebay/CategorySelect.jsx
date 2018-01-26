@@ -33,16 +33,26 @@ define([
 
             this.setState(newState);
         },
+        removeChildElementsAndSelections: function(object, currentIndex) {
+            object.splice(currentIndex);
+            return object;
+        },
         getOnCategorySelect: function(categoryIndex) {
             return function (selectOption) {
                 var newState = JSON.parse(JSON.stringify(this.state));
-                newState.categoryMaps.splice(categoryIndex + 1);
-                newState.selectedCategories.splice(categoryIndex);
+
+                newState.categoryMaps = this.removeChildElementsAndSelections(newState.categoryMaps, categoryIndex + 1);
+                newState.selectedCategories = this.removeChildElementsAndSelections(
+                    newState.selectedCategories,
+                    categoryIndex
+                );
                 newState.selectedCategories[categoryIndex] = selectOption;
+
                 this.setState(newState);
                 this.props.onLeafCategorySelected(null);
 
                 $.ajax({
+                    context: this,
                     url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectOption.value,
                     type: 'GET',
                     success: function (response) {
@@ -53,7 +63,7 @@ define([
                         newState.categoryMaps[categoryIndex + 1] = response.categories;
 
                         this.setState(newState);
-                    }.bind(this)
+                    }
                 });
             }.bind(this);
         },
