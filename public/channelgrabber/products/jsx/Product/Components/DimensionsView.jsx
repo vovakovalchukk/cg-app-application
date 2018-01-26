@@ -34,7 +34,6 @@ define([
                 }
             });
             updatedVariation.details[dimension] = newValue;
-            this.props.onVariationDetailChanged(updatedVariation);
         },
         render: function () {
             var count = 0;

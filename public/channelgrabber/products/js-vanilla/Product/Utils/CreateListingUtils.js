@@ -7,10 +7,9 @@ define([
     var allowedChannels = ['ebay', 'shopify'];
 
     var CreateListingUtils = {
-        productCanListToAccount: function(account, accountsProductIsListedOn) {
+        productCanListToAccount: function(account) {
             return (allowedChannels.indexOf(account.channel) >= 0)
-                && account.active
-                && !accountsProductIsListedOn.includes(account.id.toString());
+                && account.active;
         }
     };
 
