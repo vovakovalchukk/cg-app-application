@@ -4,14 +4,16 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Common/Components/Button',
+    'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shopify/RefreshIcon'
+    'Product/Components/CreateListing/Form/Shopify/RefreshIcon',
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
     Button,
+    ImagePicker,
     CategorySelect,
     RefreshIcon
 ) {
@@ -27,6 +29,7 @@ define([
                 price: null,
                 accountId: null,
                 brand: null,
+                product: null,
                 category: []
             }
         },
@@ -98,6 +101,26 @@ define([
             newStateObject[event.target.name] = event.target.value;
             this.props.setFormStateListing(newStateObject);
         },
+        onImageSelected: function(image, selectedImageIds) {
+            this.props.setFormStateListing({
+                imageId: image.id
+            });
+        },
+        renderImagePicker: function() {
+            if (this.props.product.images.length == 0) {
+                return (
+                    <p>No images available</p>
+                );
+            }
+            return (
+                <ImagePicker
+                    name="image"
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected}
+                />
+            );
+        },
         render: function() {
 
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -162,6 +185,10 @@ define([
                         onClick={this.refreshCategories}
                         disabled={this.state.refreshCategoriesDisabled}
                     />
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Image</span>
+                    {this.renderImagePicker()}
                 </label>
             </div>;
         }
