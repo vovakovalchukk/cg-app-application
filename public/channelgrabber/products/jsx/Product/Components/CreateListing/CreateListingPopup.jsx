@@ -76,6 +76,7 @@ define([
                 {...this.state}
                 setFormStateListing={this.setFormStateListing}
                 getSelectCallHandler={this.getSelectCallHandler}
+                product={this.props.product}
             />
         },
         onAccountSelected: function(selectValue) {

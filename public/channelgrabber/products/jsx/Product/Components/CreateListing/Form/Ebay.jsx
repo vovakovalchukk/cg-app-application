@@ -4,12 +4,14 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
+    'Common/Components/ImagePicker'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    CategorySelect
+    CategorySelect,
+    ImagePicker
 ) {
     "use strict";
 
@@ -21,7 +23,8 @@ define([
                 title: null,
                 description: null,
                 price: null,
-                accountId: null
+                accountId: null,
+                product: null
             }
         },
         getInitialState: function() {
@@ -130,6 +133,26 @@ define([
                 }.bind(this)
             });
         },
+        onImageSelected: function(image, selectedImageIds) {
+            this.props.setFormStateListing({
+                imageId: image.id
+            });
+        },
+        renderImagePicker: function() {
+            if (this.props.product.images.length == 0) {
+                return (
+                    <p>No images available</p>
+                );
+            }
+            return (
+                <ImagePicker
+                    name="image"
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected}
+                />
+            );
+        },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
                 return <div>
@@ -174,6 +197,10 @@ define([
                             onChange={this.onInputChange}
                         />
                     </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Image</span>
+                    {this.renderImagePicker()}
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}
