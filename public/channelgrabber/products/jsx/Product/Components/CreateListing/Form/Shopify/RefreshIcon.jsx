@@ -9,7 +9,8 @@ define([
         getDefaultProps: function() {
             return {
                 onClick: function() {return false},
-                disabled: false
+                disabled: false,
+                class: "refresh-icon"
             }
         },
         onClick: function (e) {
@@ -23,7 +24,7 @@ define([
         },
         render: function() {
             return (
-                <span>
+                <span className={this.props.class}>
                     <i
                         className={this.getClassName()}
                         aria-hidden="true"
