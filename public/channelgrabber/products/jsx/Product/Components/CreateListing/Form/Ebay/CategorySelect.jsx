@@ -50,22 +50,24 @@ define([
 
                 this.setState(newState);
                 this.props.onLeafCategorySelected(null);
-
-                $.ajax({
-                    context: this,
-                    url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectOption.value,
-                    type: 'GET',
-                    success: function (response) {
-                        if (response.categories.length == 0) {
-                            this.props.onLeafCategorySelected(selectOption.value);
-                            return;
-                        }
-                        newState.categoryMaps[categoryIndex + 1] = response.categories;
-
-                        this.setState(newState);
-                    }
-                });
+                this.fetchAndSetChildCategories(selectOption.value, categoryIndex, newState);
             }.bind(this);
+        },
+        fetchAndSetChildCategories: function (selectedCategoryId, categoryIndex, previouslySetState) {
+            $.ajax({
+                context: this,
+                url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectedCategoryId,
+                type: 'GET',
+                success: function (response) {
+                    if (response.categories.length == 0) {
+                        this.props.onLeafCategorySelected(selectedCategoryId);
+                        return;
+                    }
+                    previouslySetState.categoryMaps[categoryIndex + 1] = response.categories;
+
+                    this.setState(previouslySetState);
+                }
+            });
         },
         getCategoryOptionsFromCategoryMap(categoryMap) {
             var categoryOptions = [];
