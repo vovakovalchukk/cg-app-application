@@ -1,6 +1,7 @@
 define([
     'react',
     'Common/Components/Popup',
+    'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
     'Common/Components/Select',
@@ -8,6 +9,7 @@ define([
 ], function(
     React,
     Popup,
+    PopupMessage,
     EbayForm,
     ShopifyForm,
     Select,
@@ -35,7 +37,9 @@ define([
                 accountId: null,
                 title: null,
                 description: null,
-                price: null
+                price: null,
+                errors: [],
+                warnings: []
             }
         },
         componentDidMount: function() {
@@ -65,7 +69,7 @@ define([
             }
 
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
-            return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing}/>
+            return <FormComponent {...this.state} setFormStateListing={this.setFormStateListing} product={this.props.product}/>
         },
         onAccountSelected: function(selectValue) {
             var accountId = selectValue.value;
@@ -89,16 +93,86 @@ define([
             return options;
         },
         submitFormData: function () {
+            var formData = this.getFormData();
+            $.ajax({
+                url: '/products/listing/submit',
+                data: formData,
+                type: 'POST',
+                context: this,
+            }).then(function(response) {
+                if (response.valid) {
+                    this.handleFormSubmitSuccess(response);
+                } else {
+                    this.handleFormSubmitError(response);
+                }
+            }, function(response) {
+                n.error('There was a problem creating the listing');
+            });
+        },
+        getFormData: function() {
             var formData = {
                 accountId: this.state.accountId,
                 productId: this.state.productId,
-                listing: {
-                    title: this.state.title,
-                    price: this.state.price,
-                    description: this.state.description
-                }
+                listing: {}
             };
-            console.log(formData);
+            formData.listing = this.getListingDataFromState();
+
+            return formData;
+        },
+        getListingDataFromState: function() {
+            var listing = this.cloneState();
+            delete listing.accountSelected;
+            delete listing.productId;
+            delete listing.accountId;
+            delete listing.errors;
+            delete listing.warnings;
+            return listing;
+        },
+        cloneState: function() {
+            return JSON.parse(JSON.stringify(this.state));
+        },
+        handleFormSubmitSuccess: function(response) {
+            n.success('Listing created successfully');
+            this.props.onCreateListingClose();
+        },
+        handleFormSubmitError: function(response) {
+            this.setState({
+                errors: response.errors,
+                warnings: response.warnings
+            });
+        },
+        renderErrorMessage: function() {
+            if (this.state.errors.length == 0) {
+                return;
+            }
+            return (
+                <PopupMessage
+                    initiallyActive={!!this.state.errors.length}
+                    headerText="There were errors when trying to create the listing"
+                    className="error"
+                    onCloseButtonPressed={this.onErrorMessageClosed}
+                >
+                    <h4>Errors</h4>
+                    <ul>
+                        {this.state.errors.map(function (error) {
+                            return (<li>{error}</li>);
+                        })}
+                    </ul>
+                    <h4>Warnings</h4>
+                    <ul>
+                        {this.state.warnings.map(function (warning) {
+                            return (<li>{warning}</li>);
+                        })}
+                    </ul>
+                    <p>Please address these errors then try again.</p>
+                </PopupMessage>
+            );
+        },
+        onErrorMessageClosed: function() {
+            this.setState({
+                errors: [],
+                warnings: []
+            });
         },
         render: function()
         {
@@ -108,6 +182,7 @@ define([
                     className="editor-popup create-listing"
                     onYesButtonPressed={this.submitFormData}
                     onNoButtonPressed={this.props.onCreateListingClose}
+                    closeOnYes={false}
                     headerText={"Create New Listing"}
                     yesButtonText="Save"
                     noButtonText="Cancel"
@@ -137,6 +212,7 @@ define([
                             {this.renderCreateListingForm()}
                         </div>
                     </form>
+                    {this.renderErrorMessage()}
                 </Popup>
             );
         }
