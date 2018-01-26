@@ -3,13 +3,17 @@ define([
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Shopify/CategorySelect'
+    'Common/Components/Button',
+    'Product/Components/CreateListing/Form/Shopify/CategorySelect',
+    'Product/Components/CreateListing/Form/Shopify/RefreshIcon'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    CategorySelect
+    Button,
+    CategorySelect,
+    RefreshIcon
 ) {
     "use strict";
 
@@ -29,15 +33,19 @@ define([
         getInitialState: function() {
             return {
                 error: false,
-                settingsFetched: false
+                settingsFetched: false,
+                categories: null,
+                refreshCategoriesDisabled: false
             }
         },
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
+            this.fetchAndSetCategories();
         },
         componentWillReceiveProps(newProps) {
             if (this.props.accountId != newProps.accountId) {
                 this.fetchAndSetDefaultsForAccount(newProps.accountId);
+                this.fetchAndSetCategories(newProps.accountId);
             }
         },
         fetchAndSetDefaultsForAccount(newAccountId) {
@@ -68,6 +76,22 @@ define([
                     })
                 }.bind(this)
             });
+        },
+        fetchAndSetCategories(newAccountId) {
+            var accountId = newAccountId ? newAccountId : this.props.accountId;
+
+            $.get('/products/create-listings/' + accountId + '/channel-specific-field-values', function(data) {
+                this.setState({categories: data.categories});
+            }.bind(this));
+        },
+        refreshCategories() {
+            this.setState({refreshCategoriesDisabled: true});
+            $.get('/products/create-listings/' + this.props.accountId + '/refresh-categories', function(data) {
+                this.setState({
+                    categories: data.categories,
+                    refreshCategoriesDisabled: false
+                });
+            }.bind(this));
         },
         onInputChange: function(event) {
             var newStateObject = {};
@@ -126,9 +150,19 @@ define([
                         />
                     </div>
                 </label>
-                <CategorySelect
-                    accountId={this.props.accountId}
-                />
+                <label>
+                    <span className={"inputbox-label"}>Category</span>
+                    <div className={"order-inputbox-holder"}>
+                        <CategorySelect
+                            accountId={this.props.accountId}
+                            categories={this.state.categories}
+                        />
+                    </div>
+                    <RefreshIcon
+                        onClick={this.refreshCategories}
+                        disabled={this.state.refreshCategoriesDisabled}
+                    />
+                </label>
             </div>;
         }
     });

@@ -42,6 +42,14 @@
     transition: all 0.5s ease;
 }
 
+.icon-create-listing {
+    cursor: pointer;
+    &.inactive {
+        color: #CCCCCC;
+        cursor: auto;
+    }
+}
+
 #searchBtn {
     width: 80px;
     float: left;
@@ -134,13 +142,6 @@
             }
         }
         .product-content-container {
-            .icon-create-listing {
-                cursor: pointer;
-                &.inactive {
-                    color: #CCCCCC;
-                    cursor: auto;
-                }
-            }
             table {
                 th {
                     height: 28px;
