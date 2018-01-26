@@ -8,6 +8,7 @@ use CG_UI\View\Helper\Mustache as MustacheViewHelper;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
+use Orders\Courier\Label\DispatchService as LabelDispatchService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Manifest\Service as ManifestService;
@@ -30,6 +31,8 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
     const ROUTE_LABEL_CANCEL_URI = '/cancel';
+    const ROUTE_LABEL_DISPATCH = 'Dispatch';
+    const ROUTE_LABEL_DISPATCH_URI = '/dispatch';
     const ROUTE_LABEL_READY_CHECK = 'Ready Check';
     const ROUTE_LABEL_READY_CHECK_URI = '/readyCheck';
     const ROUTE_MANIFEST = 'Manifest';
@@ -53,6 +56,8 @@ class CourierJsonController extends AbstractActionController
     protected $labelCreateService;
     /** @var LabelCancelService */
     protected $labelCancelService;
+    /** @var LabelDispatchService */
+    protected $labelDispatchService;
     /** @var LabelReadyService */
     protected $labelReadyService;
     /** @var ManifestService */
@@ -69,6 +74,7 @@ class CourierJsonController extends AbstractActionController
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
+        LabelDispatchService $labelDispatchService,
         ManifestService $manifestService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -77,6 +83,7 @@ class CourierJsonController extends AbstractActionController
         $this->specificsAjaxService = $specificsAjaxService;
         $this->labelCreateService = $labelCreateService;
         $this->labelCancelService = $labelCancelService;
+        $this->labelDispatchService = $labelDispatchService;
         $this->labelReadyService = $labelReadyService;
         $this->manifestService = $manifestService;
     }
@@ -400,6 +407,22 @@ class CourierJsonController extends AbstractActionController
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to cancel shipping order(s), please try again', $e->getCode(), $e
+            );
+        }
+    }
+
+    public function dispatchAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $orderIds = $this->params()->fromPost('order');
+        try {
+            $this->labelDispatchService->dispatchOrders($orderIds, $accountId);
+            $jsonView = $this->jsonModelFactory->newInstance([]);
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
+            return $jsonView;
+        } catch (StorageException $e) {
+            throw new \RuntimeException(
+                'Failed to dispatch shipping order(s), please try again', $e->getCode(), $e
             );
         }
     }

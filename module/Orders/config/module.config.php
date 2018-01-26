@@ -927,6 +927,16 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierJsonController::ROUTE_LABEL_DISPATCH => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_DISPATCH_URI,
+                                            'defaults' => [
+                                                'action' => 'dispatch',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                     CourierJsonController::ROUTE_LABEL_READY_CHECK => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
