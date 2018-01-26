@@ -2,6 +2,9 @@
 namespace Orders\Controller;
 
 use CG\CourierAdapter\Exception\UserError;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG_UI\View\Helper\Mustache as MustacheViewHelper;
@@ -140,13 +143,13 @@ class CourierJsonController extends AbstractActionController
         $data = $this->getDefaultJsonData();
         $orderIds = $this->params()->fromPost('order', []);
         $courierId = $this->params()->fromRoute('account');
-        $ordersData = $this->params()->fromPost('orderData', []);
-        $ordersParcelsData = $this->params()->fromPost('parcelData', []);
-        $this->sanitiseInputArray($ordersData);
-        $this->sanitiseInputArray($ordersParcelsData);
+        $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
+        $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
 
         if (!empty($orderIds)) {
-            $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
+            $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData->toArray(), $ordersParcelsData->toArray());
             $data['metadata'] = $this->specificsAjaxService->getSpecificsMetaDataFromRecords($data['Records']);
         }
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $this->countOrderRecords($data['Records']);
@@ -164,7 +167,7 @@ class CourierJsonController extends AbstractActionController
         ];
     }
 
-    protected function sanitiseInputArray(array &$inputArray)
+    protected function sanitiseInputArray(array $inputArray): array
     {
         foreach ($inputArray as &$array) {
             foreach ($array as $key => $value) {
@@ -173,7 +176,7 @@ class CourierJsonController extends AbstractActionController
                 }
             }
         }
-        return $this;
+        return $inputArray;
     }
 
     protected function countOrderRecords($records)
@@ -191,26 +194,31 @@ class CourierJsonController extends AbstractActionController
     {
         $accountId = $this->params()->fromPost('account');
         $orderIds = $this->params()->fromPost('order', []);
-        $ordersData = $this->params()->fromPost('orderData', []);
-        $ordersParcelsData = $this->params()->fromPost('parcelData', []);
-        $ordersItemsData = $this->params()->fromPost('itemData', []);
-        $this->sanitiseInputArray($ordersData)
-            ->sanitiseInputArray($ordersParcelsData)
-            ->decodeItemParcelAssignment($ordersParcelsData)
-            ->assignParcelNumbers($ordersParcelsData);
+        $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
+        $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+        $rawOrdersItemsData = $this->params()->fromPost('itemData', []);
+
+        $this->decodeItemParcelAssignment($rawOrdersParcelsData)
+            ->assignParcelNumbers($rawOrdersParcelsData);
+
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
+        $orderItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
+        $rawOrdersParcelsData = $ordersParcelsData->toArray(); // TEST
+
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
-                $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
+                $orderIds, $ordersData->toArray(), $rawOrdersParcelsData, $orderItemsData->toArray(), $accountId
             );
-            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
+            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData->toArray(), $rawOrdersParcelsData, $accountId);
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData->toArray(), $rawOrdersParcelsData));
             return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         } catch (ValidationMessagesException $e) {
-            return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
+            return $this->handleLabelCreationFailure($e, $ordersData->toArray(), $rawOrdersParcelsData, $accountId);
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
