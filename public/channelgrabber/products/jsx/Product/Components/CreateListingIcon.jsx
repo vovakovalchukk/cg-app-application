@@ -12,7 +12,6 @@ define([
     var CreateListingIconComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                accountsListedOn: [],
                 accountsAvailable: {},
                 isSimpleProduct: false,
                 productId: null,

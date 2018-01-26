@@ -6,6 +6,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
+use CG\Ebay\Site\CurrencyMap;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
 use CG\Order\Shared\Shipping\Method\Collection as ShippingMethodCollection;
 use CG\Order\Shared\Shipping\Method\Entity as ShippingMethod;
@@ -183,7 +184,7 @@ class Service implements
             ->setChannel(['ebay'])
             ->setParentId([0])
             ->setMarketplace([$siteId])
-            ->setListable(true)
+            ->setListable(false)
             ->setEnabled(true);
     }
 

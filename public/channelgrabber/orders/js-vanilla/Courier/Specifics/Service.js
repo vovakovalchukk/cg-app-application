@@ -112,11 +112,13 @@ define([
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
     Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
+    Service.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
+    Service.URI_DISPATCH = '/orders/courier/label/dispatch';
     Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
     Service.URI_SERVICE_REQ_OPTIONS = '/orders/courier/specifics/{accountId}/options';
     Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
@@ -346,6 +348,28 @@ define([
         });
     };
 
+    Service.prototype.dispatchForOrder = function(orderId, button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        $(button).addClass('disabled');
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Dispatching');
+
+        var data = {"account": this.getCourierAccountId(), "order": [orderId]};
+        this.getAjaxRequester().sendRequest(Service.URI_DISPATCH, data, function(response)
+        {
+            notifications.success('Shipping order dispatched successfully');
+            self.refreshRowsWithData(response.Records);
+        }, function(response)
+        {
+            $(button).removeClass('disabled');
+            notifications.ajaxError(response);
+        });
+    };
+
     Service.prototype.createAllLabels = function(button)
     {
         if ($(button).hasClass('disabled')) {
@@ -523,7 +547,9 @@ define([
         $(labelStatusSelector).val(labelStatus);
         var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
         var cancellable = $(cancellableSelector).val();
-        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, cancellable);
+        var dispatchableSelector = Service.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
+        var dispatchable = $(dispatchableSelector).val();
+        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, cancellable, dispatchable);
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
         $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
     };
@@ -557,6 +583,35 @@ define([
         this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function(response)
         {
             notifications.success('Shipping orders cancelled successfully');
+            self.refreshRowsWithData(response.Records);
+            $(button).removeClass('disabled');
+        }, function(response)
+        {
+            $(button).removeClass('disabled');
+            $(EventHandler.SELECTOR_CANCEL_BUTTON).removeClass('disabled');
+            notifications.ajaxError(response);
+            self.refresh();
+        });
+    };
+
+    Service.prototype.dispatchAll = function(button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
+        if (!data) {
+            return;
+        }
+        $(button).addClass('disabled');
+        $(EventHandler.SELECTOR_DISPATCH_BUTTON).addClass('disabled');
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Dispatching all');
+
+        this.getAjaxRequester().sendRequest(Service.URI_DISPATCH, data, function(response)
+        {
+            notifications.success('Shipping orders dispatched successfully');
             self.refreshRowsWithData(response.Records);
             $(button).removeClass('disabled');
         }, function(response)

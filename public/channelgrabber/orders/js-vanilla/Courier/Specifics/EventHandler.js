@@ -15,9 +15,11 @@ define([], function()
                 .listenToCreateLabelButtons()
                 .listenToPrintLabelButtons()
                 .listenToCancelButtons()
+                .listenToDispatchButtons()
                 .listenToCreateAllLabelsButtons()
                 .listenToPrintAllLabelsButtons()
                 .listenToCancelAllLabelsButtons()
+                .listenToDispatchAllLabelsButtons()
                 .listenToNextCourierButton()
                 .listenForServiceChange();
         };
@@ -31,9 +33,11 @@ define([], function()
     EventHandler.SELECTOR_CREATE_LABEL_BUTTON = '.courier-create-label-button';
     EventHandler.SELECTOR_PRINT_LABEL_BUTTON = '.courier-print-label-button';
     EventHandler.SELECTOR_CANCEL_BUTTON = '.courier-cancel-label-button';
+    EventHandler.SELECTOR_DISPATCH_BUTTON = '.courier-dispatch-label-button';
     EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button-shadow';
     EventHandler.SELECTOR_PRINT_ALL_LABELS_BUTTON = '#print-all-labels-button-shadow';
     EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON = '#cancel-all-labels-button-shadow';
+    EventHandler.SELECTOR_DISPATCH_ALL_LABELS_BUTTON = '#dispatch-all-labels-button-shadow';
     EventHandler.SELECTOR_NEXT_COURIER_BUTTON = '#next-courier-button';
     EventHandler.SELECTOR_SERVICE_SELECT = '.courier-service-select';
 
@@ -106,6 +110,18 @@ define([], function()
         return this;
     };
 
+    EventHandler.prototype.listenToDispatchButtons = function()
+    {
+        var service = this.getService();
+        $(document).on('click', EventHandler.SELECTOR_DISPATCH_BUTTON, function()
+        {
+            var button = this;
+            var orderId = $(button).attr('id').replace('-shadow', '').split('_').pop();
+            service.dispatchForOrder(orderId, button);
+        });
+        return this;
+    };
+
     EventHandler.prototype.listenToCreateAllLabelsButtons = function()
     {
         var service = this.getService();
@@ -135,6 +151,17 @@ define([], function()
         {
             var button = this;
             service.cancelAll(button);
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenToDispatchAllLabelsButtons = function()
+    {
+        var service = this.getService();
+        $(document).on('click', EventHandler.SELECTOR_DISPATCH_ALL_LABELS_BUTTON, function()
+        {
+            var button = this;
+            service.dispatchAll(button);
         });
         return this;
     };
