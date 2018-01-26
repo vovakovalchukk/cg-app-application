@@ -20,22 +20,26 @@ define([
             this.saveNewRootCategoriesToState(this.props.rootCategories);
         },
         componentWillReceiveProps(newProps) {
-            this.saveNewRootCategoriesToState(newProps.rootCategories);
+            if (newProps.rootCategories != this.props.rootCategories) {
+                this.saveNewRootCategoriesToState(newProps.rootCategories);
+            }
         },
         saveNewRootCategoriesToState: function (rootCategories) {
-            if (!rootCategories || rootCategories == this.props.rootCategories) {
+            if (!rootCategories) {
                 return;
             }
             var newState = this.getInitialState();
             newState.categoryMaps = [rootCategories];
+
             this.setState(newState);
         },
         getOnCategorySelect: function(categoryIndex) {
             return function (selectOption) {
-                var newState = Object.assign({}, this.state);
+                var newState = JSON.parse(JSON.stringify(this.state));
                 newState.categoryMaps.splice(categoryIndex + 1);
                 newState.selectedCategories.splice(categoryIndex);
                 newState.selectedCategories[categoryIndex] = selectOption;
+                this.setState(newState);
                 this.props.onLeafCategorySelected(null);
 
                 $.ajax({
