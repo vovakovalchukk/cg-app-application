@@ -19,8 +19,6 @@ define([
 ) {
     "use strict";
 
-    var NO_SETTINGS = 'NO_SETTINGS';
-
     return React.createClass({
         getDefaultProps: function() {
             return {
@@ -36,49 +34,17 @@ define([
         getInitialState: function() {
             return {
                 error: false,
-                settingsFetched: false,
                 categories: null,
                 refreshCategoriesDisabled: false
             }
         },
         componentDidMount: function() {
-            this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetCategories();
         },
         componentWillReceiveProps(newProps) {
             if (this.props.accountId != newProps.accountId) {
-                this.fetchAndSetDefaultsForAccount(newProps.accountId);
                 this.fetchAndSetCategories(newProps.accountId);
             }
-        },
-        fetchAndSetDefaultsForAccount(newAccountId) {
-            var accountId = newAccountId ? newAccountId : this.props.accountId;
-
-            $.ajax({
-                url: '/products/create-listings/' + accountId + '/default-settings',
-                type: 'GET',
-                success: function (response) {
-                    if (response.error == NO_SETTINGS) {
-                        this.setState({
-                            error: NO_SETTINGS
-                        });
-
-                        return;
-                    }
-                    this.setState({
-                        settingsFetched: true,
-                        error: false
-                    });
-                    this.props.setFormStateListing({
-                        listingCurrency: response.listingCurrency,
-                        listingDispatchTime: response.listingDispatchTime,
-                        listingDuration: response.listingDuration,
-                        listingLocation: response.listingLocation,
-                        listingPaymentMethod: response.listingPaymentMethod,
-                        paypalEmail: response.paypalEmail
-                    })
-                }.bind(this)
-            });
         },
         fetchAndSetCategories(newAccountId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
@@ -122,20 +88,6 @@ define([
             );
         },
         render: function() {
-
-            if (this.state.error && this.state.error == NO_SETTINGS) {
-                return <div>
-                    <h2>
-                        In order to create listings on this account, please first create the
-                        <a href={"/settings/channel/sales/" + this.props.accountId}>default listing settings</a>
-                    </h2>
-                </div>;
-            }
-
-            if (!this.state.settingsFetched) {
-                return <div>Loading...</div>;
-            }
-
             return <div>
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>

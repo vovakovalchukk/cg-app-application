@@ -8,13 +8,13 @@ define([
     return React.createClass({
         getDefaultProps: function() {
             return {
-                onClick: function() {return false},
+                onClick: null,
                 disabled: false,
                 class: "refresh-icon"
             }
         },
         onClick: function (e) {
-            if (this.props.disabled) {
+            if (this.props.disabled || !this.props.onClick) {
                 return;
             }
             this.props.onClick(e);

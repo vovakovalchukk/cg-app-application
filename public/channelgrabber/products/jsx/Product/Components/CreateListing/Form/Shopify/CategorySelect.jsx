@@ -32,7 +32,6 @@ define([
                 name="shopify-category"
                 options={this.getSelectOptions()}
                 autoSelectFirst={false}
-                onOptionChange={function() {return false;}}
             />
         }
     });
