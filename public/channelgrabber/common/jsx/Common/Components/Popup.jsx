@@ -60,8 +60,8 @@ define([
             return (
                 <div>
                     <div className="react-popup-screen-mask"></div>
-                        <div className={"react-popup " + this.props.className }>
-                            <div className="react-popup-header">{this.props.headerText}</div>
+                    <div className={"react-popup " + this.props.className }>
+                        <div className="react-popup-header">{this.props.headerText}</div>
                         <div className="react-popup-content">{this.props.children}</div>
                         <div className="react-popup-buttons">
                             <div className="button react-popup-btn no" onClick={this.noButtonPressed}>{this.props.noButtonText}</div>

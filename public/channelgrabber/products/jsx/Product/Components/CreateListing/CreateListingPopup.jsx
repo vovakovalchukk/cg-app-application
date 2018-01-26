@@ -4,14 +4,16 @@ define([
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Common/Components/Select',
-    'Product/Utils/CreateListingUtils'
+    'Product/Utils/CreateListingUtils',
+    'Common/Components/ClickOutside'
 ], function(
     React,
     Popup,
     PopupMessage,
     EbayForm,
     Select,
-    CreateListingUtils
+    CreateListingUtils,
+    ClickOutside
 ) {
     "use strict";
 
@@ -182,46 +184,48 @@ define([
                 warnings: []
             });
         },
-        render: function()
-        {
+        render: function() {
             return (
-                <Popup
-                    initiallyActive={true}
-                    className="editor-popup create-listing"
-                    onYesButtonPressed={this.submitFormData}
-                    onNoButtonPressed={this.props.onCreateListingClose}
-                    closeOnYes={false}
-                    headerText={"Create New Listing"}
-                    yesButtonText="Save"
-                    noButtonText="Cancel"
-                >
-                    <h1>
-                        Channel Grabber needs additional information to complete this listing. Please check below and
-                        complete all the fields necessary.
-                    </h1>
-                    <form>
-                        <div className={"order-form half"}>
-                            <label>
-                                <span className={"inputbox-label"}>Select an account to list to:</span>
-                                <div className={"order-inputbox-holder"}>
-                                    <Select
-                                        options={this.getAccountOptions()}
-                                        selectedOption={
-                                            this.state.accountSelected
-                                            && this.state.accountSelected.displayName
-                                                ? {name: this.state.accountSelected.displayName}
-                                                : null
-                                        }
-                                        onOptionChange={this.onAccountSelected.bind(this)}
-                                        autoSelectFirst={false}
-                                    />
+                    <Popup
+                        initiallyActive={true}
+                        className="editor-popup create-listing"
+                        onYesButtonPressed={this.submitFormData}
+                        onNoButtonPressed={this.props.onCreateListingClose}
+                        closeOnYes={false}
+                        headerText={"Create New Listing"}
+                        yesButtonText="Save"
+                        noButtonText="Cancel"
+                    >
+                        <ClickOutside onClickOutside={this.props.onCreateListingClose}>
+                            <p>
+                                Channel Grabber needs additional information to complete this listing. Please check below and
+                                complete all the fields necessary.
+                            </p>
+                            <form>
+                                <div className={"order-form half"}>
+                                    <label>
+                                        <span className={"inputbox-label"}>Select an account to list to:</span>
+                                        <div className={"order-inputbox-holder"}>
+                                            <Select
+                                                options={this.getAccountOptions()}
+                                                selectedOption={
+                                                    this.state.accountSelected
+                                                    && this.state.accountSelected.displayName
+                                                        ? {name: this.state.accountSelected.displayName}
+                                                        : null
+                                                }
+                                                onOptionChange={this.onAccountSelected.bind(this)}
+                                                autoSelectFirst={false}
+                                            />
+                                        </div>
+                                    </label>
+                                    {this.renderCreateListingForm()}
                                 </div>
-                            </label>
-                            {this.renderCreateListingForm()}
-                        </div>
-                    </form>
-                    {this.renderErrorMessage()}
-                </Popup>
+                            </form>
+                            {this.renderErrorMessage()}
+                        </ClickOutside>
+
+                    </Popup>
             );
         }
     });

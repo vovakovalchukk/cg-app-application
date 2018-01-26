@@ -3,13 +3,15 @@ define([
     'Common/Components/Popup',
     'Common/Components/ProductDropdown/Dropdown',
     'Common/Components/Button',
-    'Common/Components/ItemRow'
+    'Common/Components/ItemRow',
+    'Common/Components/ClickOutside'
 ], function(
     React,
     Popup,
     ProductDropdown,
     Button,
-    ItemRow
+    ItemRow,
+    ClickOutside
 ) {
     "use strict";
 
@@ -208,27 +210,29 @@ define([
                     yesButtonText="Save"
                     noButtonText="Cancel"
                 >
-                    <div id="product-link-editor">
-                        <p>
-                            Once the products are linked this item will no longer have its own stock.
-                            Instead its stock level will be calculated based on the available stock of the product it is linked to.
-                        </p>
-                        <div className="product-dropdown">
-                            <ProductDropdown skuThatProductsCantLinkFrom={this.props.productLink.sku} />
+                    <ClickOutside onClickOutside={this.props.onEditorClose.bind(this)}>
+                        <div id="product-link-editor">
+                            <p>
+                                Once the products are linked this item will no longer have its own stock.
+                                Instead its stock level will be calculated based on the available stock of the product it is linked to.
+                            </p>
+                            <div className="product-dropdown">
+                                <ProductDropdown skuThatProductsCantLinkFrom={this.props.productLink.sku} />
+                            </div>
+                            <div className="product-rows">
+                                {this.state.links.map(function (productLink) {
+                                    return (
+                                        <ItemRow row={productLink}
+                                                 onSkuChange={this.onSkuChanged}
+                                                 onStockQuantityUpdate={this.onStockQuantityUpdated}
+                                                 onRowRemove={this.onRowRemove}
+                                        />
+                                    );
+                                }.bind(this))}
+                            </div>
+                            {this.renderUnlinkButton()}
                         </div>
-                        <div className="product-rows">
-                            {this.state.links.map(function (productLink) {
-                                return (
-                                    <ItemRow row={productLink}
-                                             onSkuChange={this.onSkuChanged}
-                                             onStockQuantityUpdate={this.onStockQuantityUpdated}
-                                             onRowRemove={this.onRowRemove}
-                                    />
-                                );
-                            }.bind(this))}
-                        </div>
-                        {this.renderUnlinkButton()}
-                    </div>
+                    </ClickOutside>
                 </Popup>
             );
         }
