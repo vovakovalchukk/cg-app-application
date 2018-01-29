@@ -1666,6 +1666,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "436a2322187d411af2144d0afef4dc9d0fe19024"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TECH-88-refactor-courier-arrays-to-objects-3a842b.zip",
+                "reference": "436a2322187d411af2144d0afef4dc9d0fe19024",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
@@ -1735,7 +1741,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-01-26T08:57:17+00:00"
+            "time": "2018-01-26T16:53:09+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9503,8 +9509,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
