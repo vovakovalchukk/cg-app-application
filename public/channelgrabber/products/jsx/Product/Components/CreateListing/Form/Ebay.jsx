@@ -173,12 +173,13 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip>
-                        <Input
-                            name='title'
-                            value={this.props.title}
-                            onChange={this.onInputChange}
-                        /></Tooltip>
+                        <Tooltip hoverContent="hover hover hover">
+                            <Input
+                                name='title'
+                                value={this.props.title}
+                                onChange={this.onInputChange}
+                            />
+                        </Tooltip>
                     </div>
                 </label>
                 <label>
