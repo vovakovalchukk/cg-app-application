@@ -11,7 +11,8 @@ define([
         getDefaultProps: function() {
             return {
                 accountId: null,
-                categories: null
+                categories: null,
+                disabled: true
             }
         },
         getInitialState: function() {
@@ -27,11 +28,18 @@ define([
             });
             return options;
         },
+        getDefaultSelectedOption: function() {
+            return {
+                name: null
+            };
+        },
         render: function() {
             return <Select
                 name="shopify-category"
                 options={this.getSelectOptions()}
                 autoSelectFirst={false}
+                selectedOption={this.getDefaultSelectedOption()}
+                disabled={this.props.disabled}
             />
         }
     });

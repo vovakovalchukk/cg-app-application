@@ -131,6 +131,7 @@ define([
                         <CategorySelect
                             accountId={this.props.accountId}
                             categories={this.state.categories}
+                            disabled={this.state.refreshCategoriesDisabled}
                         />
                     </div>
                     <RefreshIcon
