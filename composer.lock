@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c94437401fc4172bd380b685386d110",
+    "content-hash": "efabdfd6a545631e3bcf8907da28a476",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -692,7 +692,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-06 12:09:38"
+            "time": "2015-02-06T12:09:38+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -2021,16 +2021,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.11.2",
+            "version": "1.11.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "78bbb61526962fbdd89958b367d233d0049199b3"
+                "reference": "02676dc649d5c0a31df79ab174da235de7d27760"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.2-d0dcee.zip",
-                "reference": "78bbb61526962fbdd89958b367d233d0049199b3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.3-c3bb47.zip",
+                "reference": "02676dc649d5c0a31df79ab174da235de7d27760",
                 "shasum": null
             },
             "require": {
@@ -2076,7 +2076,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-22T14:01:20+00:00"
+            "time": "2018-01-29T10:25:42+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -5901,7 +5901,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2013-08-25 18:04:46"
+            "time": "2013-08-25T18:04:46+00:00"
         },
         {
             "name": "phpseclib/mcrypt_compat",
@@ -6381,7 +6381,7 @@
                 "hash",
                 "timing attack"
             ],
-            "time": "2014-04-14 18:33:30"
+            "time": "2014-04-14T18:33:30+00:00"
         },
         {
             "name": "rhumsaa/vnderror",
