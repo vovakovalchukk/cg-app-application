@@ -88,6 +88,7 @@ define([
                     accounts={this.props.accounts}
                     isSimpleProduct={true}
                     onCreateListingIconClick={this.props.onCreateListingIconClick}
+                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             } else {
                 return <VariationView
@@ -99,6 +100,7 @@ define([
                     accounts={this.props.accounts}
                     isSimpleProduct={false}
                     onCreateListingIconClick={this.props.onCreateListingIconClick}
+                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             }
         },

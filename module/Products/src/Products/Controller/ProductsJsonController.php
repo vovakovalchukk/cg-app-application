@@ -32,6 +32,8 @@ use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use Products\Product\Link\Service as ProductLinkService;
+use Products\Listing\Channel\Service as ListingChannelService;
+use CG\Account\Shared\Collection as AccountCollection;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -81,6 +83,8 @@ class ProductsJsonController extends AbstractActionController
     protected $activeUser;
     /** @var ProductLinkService */
     protected $productLinkService;
+    /** @var ListingChannelService */
+    protected $listingChannelService;
 
     public function __construct(
         ProductService $productService,
@@ -96,7 +100,8 @@ class ProductsJsonController extends AbstractActionController
         LocationService $locationService,
         StockLocationService $stockLocationService,
         ActiveUserInterface $activeUser,
-        ProductLinkService $productLinkService
+        ProductLinkService $productLinkService,
+        ListingChannelService $listingChannelService
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -112,6 +117,7 @@ class ProductsJsonController extends AbstractActionController
         $this->stockLocationService = $stockLocationService;
         $this->activeUser = $activeUser;
         $this->productLinkService = $productLinkService;
+        $this->listingChannelService = $listingChannelService;
     }
 
     public function ajaxAction()
@@ -138,23 +144,27 @@ class ProductsJsonController extends AbstractActionController
         try {
             $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
-            $accounts = $this->getAccountsIndexedById($organisationUnitIds);
+            $accounts = $this->fetchAccounts($organisationUnitIds);
+            $accountsArray = $this->getAccountsIndexedById($accounts);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
             $merchantLocationIds = $this->locationService->fetchIdsByType(
                 [LocationType::MERCHANT],
                 $rootOrganisationUnit->getId()
             );
 
+            $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit, $accounts);
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
-                    $accounts,
+                    $accountsArray,
                     $rootOrganisationUnit,
                     $merchantLocationIds
                 );
             }
             $total = $products->getTotal();
         } catch(NotFound $e) {
+            $allowedCreateListingChannels = [];
+            $accountsArray = [];
             //noop
         }
 
@@ -171,14 +181,19 @@ class ProductsJsonController extends AbstractActionController
 
         $view
             ->setVariable('products', $productsArray)
-            ->setVariable('accounts', $accounts)
+            ->setVariable('accounts', $accountsArray)
+            ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
 
-    protected function getAccountsIndexedById($organisationUnitIds)
+    protected function fetchAccounts($organisationUnitIds): AccountCollection
     {
-        $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');
+        return $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');
+    }
+
+    protected function getAccountsIndexedById(AccountCollection $accounts): array
+    {
         $indexedAccounts = [];
         foreach($accounts as $account) {
             $indexedAccounts[$account->getId()] = $account->toArray();
