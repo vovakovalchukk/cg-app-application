@@ -191,14 +191,11 @@ define([
                         onNoButtonPressed={this.props.onCreateListingClose}
                         closeOnYes={false}
                         headerText={"Create New Listing"}
+                        subHeaderText={"Channel Grabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
                         yesButtonText="Save"
                         noButtonText="Cancel"
                         onClickOutside={this.props.onCreateListingClose}
                     >
-                        <p>
-                            Channel Grabber needs additional information to complete this listing. Please check below and
-                            complete all the fields necessary.
-                        </p>
                         <form>
                             <div className={"order-form half"}>
                                 <label>
