@@ -56,7 +56,7 @@ define([
         fetchAndSetChildCategories: function (selectedCategoryId, categoryIndex, previouslySetState) {
             $.ajax({
                 context: this,
-                url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectedCategoryId,
+                url: '/products/create-listings/' + this.props.accountId + '/category-children/' + selectedCategoryId,
                 type: 'GET',
                 success: function (response) {
                     if (response.categories.length == 0) {

@@ -20,7 +20,7 @@ use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
 use CG_UI\View\DataTable;
-use Products\Controller\CreateListings\EbayJsonController;
+use Products\Controller\CreateListings\JsonController;
 use Products\Controller\LinksJsonController;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
@@ -30,7 +30,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
-use Products\Listing\Create\Ebay\Service as ListingCreateEbayService;
+use Products\Listing\Channel\Ebay\Service as ListingEbayService;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
@@ -438,72 +438,69 @@ return [
                             ],
                         ],
                     ],
-                    EbayJsonController::ROUTE_CREATE_LISTINGS => [
-                        'type' => Literal::class,
+                    JsonController::ROUTE_CREATE_LISTINGS => [
+                        'type' => Segment::class,
                         'options' => [
-                            'route' => '/create-listings',
+                            'route' => '/create-listings/:accountId',
+                        ],
+                        'constraints' => [
+                            'accountId' => '[0-9]+'
                         ],
                         'child_routes' => [
-                            EbayJsonController::ROUTE => [
+                            JsonController::ROUTE_DEFAULT_SETTINGS => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/ebay'
-                                ],
-                                'child_routes' => [
-                                    EbayJsonController::ROUTE_DEFAULT_SETTINGS => [
-                                        'type' => Segment::class,
-                                        'options' => [
-                                            'route' => '/default-settings/:accountId',
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'defaultSettingsAjax'
-                                            ],
-                                            'constraints' => [
-                                                'accountId' => '[0-9]+'
-                                            ]
-                                        ]
-                                    ],
-                                    EbayJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
-                                        'type' => Segment::class,
-                                        'options' => [
-                                            'route' => '/category-dependent-field-values/:accountId/:externalCategoryId',
-                                            'constraints' => [
-                                                'accountId' => '[0-9]+',
-                                                'externalCategoryId' => '[0-9]+'
-                                            ],
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'categoryDependentFieldValues'
-                                            ]
-                                        ],
-                                    ],
-                                    EbayJsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
-                                        'type' => Segment::class,
-                                        'options' => [
-                                            'route' => '/channel-specific-field-values/:accountId',
-                                            'constraints' => [
-                                                'accountId' => '[0-9]+'
-                                            ],
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'channelSpecificFieldValues'
-                                            ]
-                                        ]
-                                    ],
-                                    EbayJsonController::ROUTE_CATEGORY_CHILDREN => [
-                                        'type' => Segment::class,
-                                        'options' => [
-                                            'route' => '/categoryChildren/:accountId/:externalCategoryId',
-                                            'constraints' => [
-                                                'accountId' => '[0-9]+',
-                                                'externalCategoryId' => '[0-9]+'
-                                            ],
-                                            'defaults' => [
-                                                'controller' => EbayJsonController::class,
-                                                'action' => 'categoryChildren'
-                                            ]
-                                        ]
+                                    'route' => '/default-settings',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'defaultSettingsAjax'
                                     ]
+                                ]
+                            ],
+                            JsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/channel-specific-field-values',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'channelSpecificFieldValues'
+                                    ]
+                                ]
+                            ],
+                            JsonController::ROUTE_REFRESH_CATEGORIES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refresh-categories',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'refreshCategories'
+                                    ],
+                                ],
+                            ],
+                            JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/category-dependent-field-values/:externalCategoryId',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'categoryDependentFieldValues'
+                                    ],
+                                ],
+                                'constraints' => [
+                                    'externalCategoryId' => '[0-9]+'
+                                ]
+                            ],
+                            JsonController::ROUTE_CATEGORY_CHILDREN => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/category-children/:externalCategoryId',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'categoryChildren'
+                                    ],
+                                ],
+                                'constraints' => [
+                                    'externalCategoryId' => '[0-9]+'
                                 ]
                             ]
                         ]
@@ -1186,7 +1183,7 @@ return [
                     'predis' => 'reliable_redis'
                 ]
             ],
-            ListingCreateEbayService::class => [
+            ListingEbayService::class => [
                 'parameters' => [
                     'cryptor' => 'ebay_cryptor'
                 ]
