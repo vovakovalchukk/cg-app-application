@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 
@@ -34,15 +35,20 @@ class Service implements
         ];
     }
 
-    protected function fetchCategoriesForAccount(Account $account)
+    protected function fetchCategoriesForAccount(Account $account): array
     {
-        $categories = $this->categoryService->fetchCollectionByFilter(
-            (new CategoryFilter())
-                ->setLimit('all')
-                ->setPage(1)
-                ->setChannel(['shopify'])
-                ->setAccountId([$account->getId()])
-        );
+        try {
+            $categories = $this->categoryService->fetchCollectionByFilter(
+                (new CategoryFilter())
+                    ->setLimit('all')
+                    ->setPage(1)
+                    ->setChannel(['shopify'])
+                    ->setAccountId([$account->getId()])
+            );
+        } catch (NotFound $e) {
+            return [];
+        }
+
         $result = [];
         /** @var Category $category */
         foreach ($categories as $category) {
