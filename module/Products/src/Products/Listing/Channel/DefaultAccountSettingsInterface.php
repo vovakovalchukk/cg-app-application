@@ -1,9 +1,9 @@
 <?php
-namespace Products\Listing\Create\ChannelService;
+namespace Products\Listing\Channel;
 
 use CG\Account\Shared\Entity as Account;
 
-interface ServiceInterface
+interface DefaultAccountSettingsInterface
 {
     public function getDefaultSettingsForAccount(Account $account): array;
 }

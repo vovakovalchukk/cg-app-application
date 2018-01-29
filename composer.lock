@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "57d0a2d5fa36c7d30312dfd4ddcf447a",
+    "content-hash": "85b49284c7fca1f0af526b240164342a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1354,7 +1354,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-29T12:28:10+00:00"
+            "time": "2018-01-29T13:35:48+00:00"
         },
         {
             "name": "channelgrabber/locale",

@@ -3,6 +3,7 @@ define([
     'Common/Components/Popup',
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
+    'Product/Components/CreateListing/Form/Shopify',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
@@ -10,20 +11,23 @@ define([
     Popup,
     PopupMessage,
     EbayForm,
+    ShopifyForm,
     Select,
     CreateListingUtils
 ) {
     "use strict";
 
     var channelToFormMap = {
-        'ebay': EbayForm
+        'ebay': EbayForm,
+        'shopify': ShopifyForm
     };
 
-    var CreateListingPopupComponent = React.createClass({
+    return React.createClass({
         getDefaultProps: function() {
             return {
                 product: null,
-                accounts: {}
+                accounts: {},
+                availableChannels: {}
             }
         },
         getInitialState: function() {
@@ -93,7 +97,7 @@ define([
 
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account)) {
+                if (CreateListingUtils.productCanListToAccount(account, this.props.availableChannels)) {
                     options.push({name: account.displayName, value: account.id});
                 }
             }
@@ -225,6 +229,4 @@ define([
             );
         }
     });
-
-    return CreateListingPopupComponent;
 });

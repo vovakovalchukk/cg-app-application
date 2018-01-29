@@ -53,7 +53,7 @@ define([
             var accountId = newAccountId ? newAccountId : this.props.accountId;
             $.ajax({
                 context: this,
-                url: '/products/create-listings/ebay/default-settings/' + accountId,
+                url: '/products/create-listings/' + accountId + '/default-settings',
                 type: 'GET',
                 success: function (response) {
                     if (response.error == NO_SETTINGS) {
@@ -81,7 +81,7 @@ define([
             });
             $.ajax({
                 context: this,
-                url: '/products/create-listings/ebay/channel-specific-field-values/' + accountId,
+                url: '/products/create-listings/' + accountId + '/channel-specific-field-values',
                 type: 'GET',
                 success: function (response) {
                     this.setState({
@@ -124,7 +124,7 @@ define([
                 return;
             }
             $.ajax({
-                url: '/products/create-listings/ebay/category-dependent-field-values/' + this.props.accountId + '/' + categoryId,
+                url: '/products/create-listings/' + this.props.accountId + '/category-dependent-field-values/' + categoryId,
                 type: 'GET',
                 success: function (response) {
                     this.setState({

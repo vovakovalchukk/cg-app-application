@@ -109,7 +109,8 @@ define([
                     initialLoadOccurred: true,
                     searchTerm: searchTerm,
                     skuList: skuList,
-                    accounts: result.accounts
+                    accounts: result.accounts,
+                    createListingsAllowedChannels: result.createListingsAllowedChannels
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -378,6 +379,7 @@ define([
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                 />;
             }.bind(this))
         },
@@ -389,6 +391,7 @@ define([
                 accounts={this.state.accounts}
                 product={this.state.createListing.product}
                 onCreateListingClose={this.onCreateListingClose}
+                availableChannels={this.state.createListingsAllowedChannels}
             />
         },
         render: function()
