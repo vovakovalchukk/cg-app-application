@@ -13,7 +13,8 @@ define([
                 multiSelect: true,
                 images: [],
                 onImageSelected: null,
-                autoSelectFirst: true
+                autoSelectFirst: true,
+                title: null
             };
         },
         getInitialState: function() {
@@ -56,7 +57,7 @@ define([
         },
         render: function() {
             return (
-                <div className={"react-image-picker " + this.props.className}>
+                <div className={"react-image-picker " + this.props.className} title={this.props.title}>
                     {this.props.images.map(function(image) {
                         var className = this.state.selectedImages.indexOf(image.id) > -1 ? 'selected' : '';
                         return (

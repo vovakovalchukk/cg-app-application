@@ -4,8 +4,7 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
-    'Common/Components/ImagePicker',
-    'Product/Components/Tooltip'
+    'Common/Components/ImagePicker'
 ], function(
     React,
     Select,
@@ -13,7 +12,6 @@ define([
     Input,
     CategorySelect,
     ImagePicker,
-    Tooltip
 ) {
     "use strict";
 
@@ -147,14 +145,13 @@ define([
                 );
             }
             return (
-                <Tooltip hoverContent={this.getTooltipText('image')}>
-                    <ImagePicker
-                        name="image"
-                        multiSelect={false}
-                        images={this.props.product.images}
-                        onImageSelected={this.onImageSelected}
-                    />
-                </Tooltip>
+                <ImagePicker
+                    name="image"
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected}
+                    title={this.getTooltipText('image')}
+                />
             );
         },
         getTooltipText(inputFieldName) {
@@ -189,37 +186,34 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip hoverContent={this.getTooltipText('title')}>
-                            <Input
-                                name='title'
-                                value={this.props.title}
-                                onChange={this.onInputChange}
-                            />
-                        </Tooltip>
+                        <Input
+                            name='title'
+                            value={this.props.title}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('title')}
+                        />
                     </div>
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Price</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip hoverContent={this.getTooltipText('price')}>
-                            <CurrencyInput
-                                value={this.props.price}
-                                onChange={this.onInputChange}
-                                currency={this.state.currency}
-                            />
-                        </Tooltip>
+                        <CurrencyInput
+                            value={this.props.price}
+                            onChange={this.onInputChange}
+                            currency={this.state.currency}
+                            title={this.getTooltipText('price')}
+                        />
                     </div>
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Description</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip hoverContent={this.getTooltipText('description')}>
-                            <Input
-                                name="description"
-                                value={this.props.description}
-                                onChange={this.onInputChange}
-                            />
-                        </Tooltip>
+                        <Input
+                            name="description"
+                            value={this.props.description}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('description')}
+                        />
                     </div>
                 </label>
                 <label>
@@ -230,62 +224,58 @@ define([
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
                     onLeafCategorySelected={this.onLeafCategorySelected}
-                    tooltipText={this.getTooltipText('category')}
+                    title={this.getTooltipText('category')}
                 />
                 {(this.state.listingDurationFieldValues)?
                     <label>
                         <span className={"inputbox-label"}>Listing Duration</span>
                         <div className={"order-inputbox-holder"}>
-                            <Tooltip hoverContent={this.getTooltipText('duration')}>
-                                <Select
-                                    name="duration"
-                                    options={this.getListingDurationOptions()}
-                                    selectedOption={{name: this.props.duration}}
-                                    autoSelectFirst={false}
-                                    onOptionChange={this.props.getSelectCallHandler('duration')}
-                                />
-                            </Tooltip>
+                            <Select
+                                name="duration"
+                                options={this.getListingDurationOptions()}
+                                selectedOption={{name: this.props.duration}}
+                                autoSelectFirst={false}
+                                onOptionChange={this.props.getSelectCallHandler('duration')}
+                                title={this.getTooltipText('duration')}
+                            />
                         </div>
                     </label>
                 : null}
                 <label>
                     <span className={"inputbox-label"}>Dispatch Time Max</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip hoverContent={this.getTooltipText('dispatchTimeMax')}>
-                            <Input
-                                name="dispatchTimeMax"
-                                type="number"
-                                value={this.props.dispatchTimeMax}
-                                onChange={this.onInputChange}
-                            />
-                        </Tooltip>
+                        <Input
+                            name="dispatchTimeMax"
+                            type="number"
+                            value={this.props.dispatchTimeMax}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('dispatchTimeMax')}
+                        />
                     </div>
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Shipping Service</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip hoverContent={this.getTooltipText('shippingService')}>
-                            <Select
-                                name="shippingService"
-                                options={this.getShippingServiceOptions()}
-                                selectedOption={{name: this.props.shippingService}}
-                                autoSelectFirst={false}
-                                onOptionChange={this.props.getSelectCallHandler('shippingService')}
-                            />
-                        </Tooltip>
+                        <Select
+                            name="shippingService"
+                            options={this.getShippingServiceOptions()}
+                            selectedOption={{name: this.props.shippingService}}
+                            autoSelectFirst={false}
+                            onOptionChange={this.props.getSelectCallHandler('shippingService')}
+                            title={this.getTooltipText('shippingService')}
+                        />
                     </div>
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Shipping Price</span>
                     <div className={"order-inputbox-holder"}>
-                        <Tooltip hoverContent={this.getTooltipText('shippingPrice')}>
-                            <CurrencyInput
-                                name="shippingPrice"
-                                value={this.props.shippingPrice}
-                                onChange={this.onInputChange}
-                                currency={this.state.currency}
-                            />
-                        </Tooltip>
+                        <CurrencyInput
+                            name="shippingPrice"
+                            value={this.props.shippingPrice}
+                            onChange={this.onInputChange}
+                            currency={this.state.currency}
+                            title={this.getTooltipText('shippingPrice')}
+                        />
                     </div>
                 </label>
             </div>;

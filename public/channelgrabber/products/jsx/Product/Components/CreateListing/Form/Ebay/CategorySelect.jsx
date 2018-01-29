@@ -1,11 +1,9 @@
 define([
     'react',
-    'Common/Components/Select',
-    'Product/Components/Tooltip'
+    'Common/Components/Select'
 ], function(
     React,
-    Select,
-    Tooltip
+    Select
 ) {
     "use strict";
 
@@ -16,6 +14,11 @@ define([
 
                 ],
                 selectedCategories: []
+            }
+        },
+        getDefaultProps: function() {
+            return {
+                title: null
             }
         },
         componentDidMount() {
@@ -78,29 +81,20 @@ define([
             }
             return categoryOptions;
         },
-        wrapWithTooltip: function(selectComponent, index) {
-            if (index != 0) {
-                return selectComponent;
-            }
-
-            return <Tooltip hoverContent={this.props.tooltipText}>
-                {selectComponent}
-            </Tooltip>
-        },
         render: function () {
             return <div>
                 {this.state.categoryMaps.map(function(categoryMap, index) {
-                    var selectComponent = <Select
-                        options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
-                        selectedOption={this.state.selectedCategories[index] ? this.state.selectedCategories[index] : {name: null}}
-                        onOptionChange={this.getOnCategorySelect(index)}
-                        autoSelectFirst={false}
-                    />;
 
                     return <label>
                         <span className={"inputbox-label"}>{index == 0 ? 'Category' : ''}</span>
                         <div className={"order-inputbox-holder"}>
-                            {this.wrapWithTooltip(selectComponent, index)}
+                            <Select
+                                options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
+                                selectedOption={this.state.selectedCategories[index] ? this.state.selectedCategories[index] : {name: null}}
+                                onOptionChange={this.getOnCategorySelect(index)}
+                                autoSelectFirst={false}
+                                title={index == 0 ? this.props.title : null}
+                            />
                         </div>
                     </label>
                 }.bind(this))}

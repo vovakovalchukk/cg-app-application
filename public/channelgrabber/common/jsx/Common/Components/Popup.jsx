@@ -1,9 +1,7 @@
 define([
-    'react',
-    'Common/Components/ClickOutside'
+    'react'
 ], function(
-    React,
-    ClickOutside
+    React
 ) {
     "use strict";
 
@@ -16,8 +14,7 @@ define([
                 noButtonText: "No",
                 yesButtonText: "Yes",
                 closeOnNo: true,
-                closeOnYes: true,
-                onClickOutside: null
+                closeOnYes: true
             };
         },
         getInitialState: function () {
@@ -62,25 +59,20 @@ define([
                 return;
             }
 
-            var innerContent = <div className={"react-popup " + this.props.className }>
-                <div className="react-popup-header">{this.props.headerText}</div>
-                {this.props.subHeaderText ?
-                    <div className="react-popup-subheader">{this.props.subHeaderText}</div>
-                    : null
-                }
-                <div className="react-popup-content">{this.props.children}</div>
-                <div className="react-popup-buttons">
-                    <div className="button react-popup-btn no" onClick={this.noButtonPressed}>{this.props.noButtonText}</div>
-                    <div className="button react-popup-btn yes" onClick={this.yesButtonPressed}>{this.props.yesButtonText}</div>
-                </div>
-            </div>;
-
             return <div>
                 <div className="react-popup-screen-mask"></div>
-                {this.props.onClickOutside ?
-                    <ClickOutside onClickOutside={this.props.onClickOutside}>{innerContent}</ClickOutside>
-                    : innerContent
-                }
+                <div className={"react-popup " + this.props.className }>
+                    <div className="react-popup-header">{this.props.headerText}</div>
+                    {this.props.subHeaderText ?
+                        <div className="react-popup-subheader">{this.props.subHeaderText}</div>
+                        : null
+                    }
+                    <div className="react-popup-content">{this.props.children}</div>
+                    <div className="react-popup-buttons">
+                        <div className="button react-popup-btn no" onClick={this.noButtonPressed}>{this.props.noButtonText}</div>
+                        <div className="button react-popup-btn yes" onClick={this.yesButtonPressed}>{this.props.yesButtonText}</div>
+                    </div>
+                </div>
             </div>;
         },
         render: function () {

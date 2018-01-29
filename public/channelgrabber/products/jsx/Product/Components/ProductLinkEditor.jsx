@@ -208,7 +208,6 @@ define([
                     subHeaderText={"Once the products are linked this item will no longer have its own stock. Instead its stock level will be calculated based on the available stock of the product it is linked to."}
                     yesButtonText="Save"
                     noButtonText="Cancel"
-                    onClickOutside={this.onEditorReset}
                 >
                     <div id="product-link-editor">
                         <div className="product-dropdown">

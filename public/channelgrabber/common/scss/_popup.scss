@@ -11,7 +11,7 @@
     padding: 100%; /* this is a pretty disgusting hack, to ensure that the screenmask fills the full screen */
 }
 .react-popup {
-    min-width: 20%;
+    min-width: 50%;
     box-sizing: border-box;
     position: fixed;
     height: 75%;
@@ -27,12 +27,19 @@
     background-clip: padding-box;
     .react-popup-header {
         text-align: center;
+        margin: -20px -20px 16px;
+        background-color: $color-linkblue;
+        color: $color-white;
+        padding: 16px;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
     }
     .react-popup-subheader {
         font-size: 15px;
     }
     .react-popup-content {
         overflow-y: auto;
+        overflow-x: hidden;
         margin-bottom: 20px;
         height: calc(100% - 90px);
         .center-align {
@@ -40,7 +47,7 @@
         }
     }
     .react-popup-subheader + .react-popup-content {
-        height: calc(100% - 110px);
+        height: calc(100% - 132px);
     }
     .react-popup-buttons {
         display: flex;
