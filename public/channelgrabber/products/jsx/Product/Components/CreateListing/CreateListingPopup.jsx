@@ -4,16 +4,14 @@ define([
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Common/Components/Select',
-    'Product/Utils/CreateListingUtils',
-    'Common/Components/ClickOutside'
+    'Product/Utils/CreateListingUtils'
 ], function(
     React,
     Popup,
     PopupMessage,
     EbayForm,
     Select,
-    CreateListingUtils,
-    ClickOutside
+    CreateListingUtils
 ) {
     "use strict";
 
@@ -195,35 +193,34 @@ define([
                         headerText={"Create New Listing"}
                         yesButtonText="Save"
                         noButtonText="Cancel"
+                        onClickOutside={this.props.onCreateListingClose}
                     >
-                        <ClickOutside onClickOutside={this.props.onCreateListingClose}>
-                            <p>
-                                Channel Grabber needs additional information to complete this listing. Please check below and
-                                complete all the fields necessary.
-                            </p>
-                            <form>
-                                <div className={"order-form half"}>
-                                    <label>
-                                        <span className={"inputbox-label"}>Select an account to list to:</span>
-                                        <div className={"order-inputbox-holder"}>
-                                            <Select
-                                                options={this.getAccountOptions()}
-                                                selectedOption={
-                                                    this.state.accountSelected
-                                                    && this.state.accountSelected.displayName
-                                                        ? {name: this.state.accountSelected.displayName}
-                                                        : null
-                                                }
-                                                onOptionChange={this.onAccountSelected.bind(this)}
-                                                autoSelectFirst={false}
-                                            />
-                                        </div>
-                                    </label>
-                                    {this.renderCreateListingForm()}
-                                </div>
-                            </form>
-                            {this.renderErrorMessage()}
-                        </ClickOutside>
+                        <p>
+                            Channel Grabber needs additional information to complete this listing. Please check below and
+                            complete all the fields necessary.
+                        </p>
+                        <form>
+                            <div className={"order-form half"}>
+                                <label>
+                                    <span className={"inputbox-label"}>Select an account to list to:</span>
+                                    <div className={"order-inputbox-holder"}>
+                                        <Select
+                                            options={this.getAccountOptions()}
+                                            selectedOption={
+                                                this.state.accountSelected
+                                                && this.state.accountSelected.displayName
+                                                    ? {name: this.state.accountSelected.displayName}
+                                                    : null
+                                            }
+                                            onOptionChange={this.onAccountSelected.bind(this)}
+                                            autoSelectFirst={false}
+                                        />
+                                    </div>
+                                </label>
+                                {this.renderCreateListingForm()}
+                            </div>
+                        </form>
+                        {this.renderErrorMessage()}
 
                     </Popup>
             );

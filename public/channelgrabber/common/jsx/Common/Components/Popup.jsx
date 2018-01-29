@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Common/Components/ClickOutside'
 ], function(
-    React
+    React,
+    ClickOutside
 ) {
     "use strict";
 
@@ -13,7 +15,8 @@ define([
                 noButtonText: "No",
                 yesButtonText: "Yes",
                 closeOnNo: true,
-                closeOnYes: true
+                closeOnYes: true,
+                onClickOutside: null
             };
         },
         getInitialState: function () {
@@ -57,19 +60,23 @@ define([
             if (! this.state.active) {
                 return;
             }
-            return (
-                <div>
-                    <div className="react-popup-screen-mask"></div>
-                    <div className={"react-popup " + this.props.className }>
-                        <div className="react-popup-header">{this.props.headerText}</div>
-                        <div className="react-popup-content">{this.props.children}</div>
-                        <div className="react-popup-buttons">
-                            <div className="button react-popup-btn no" onClick={this.noButtonPressed}>{this.props.noButtonText}</div>
-                            <div className="button react-popup-btn yes" onClick={this.yesButtonPressed}>{this.props.yesButtonText}</div>
-                        </div>
-                    </div>
+
+            var innerContent = <div className={"react-popup " + this.props.className }>
+                <div className="react-popup-header">{this.props.headerText}</div>
+                <div className="react-popup-content">{this.props.children}</div>
+                <div className="react-popup-buttons">
+                    <div className="button react-popup-btn no" onClick={this.noButtonPressed}>{this.props.noButtonText}</div>
+                    <div className="button react-popup-btn yes" onClick={this.yesButtonPressed}>{this.props.yesButtonText}</div>
                 </div>
-            );
+            </div>;
+
+            return <div>
+                <div className="react-popup-screen-mask"></div>
+                {this.props.onClickOutside ?
+                    <ClickOutside onClickOutside={this.props.onClickOutside}>{innerContent}</ClickOutside>
+                    : innerContent
+                }
+            </div>;
         },
         render: function () {
             return (

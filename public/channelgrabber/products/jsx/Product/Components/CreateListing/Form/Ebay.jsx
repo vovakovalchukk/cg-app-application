@@ -4,14 +4,16 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
-    'Common/Components/ImagePicker'
+    'Common/Components/ImagePicker',
+    'Product/Components/Tooltip'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
     CategorySelect,
-    ImagePicker
+    ImagePicker,
+    Tooltip
 ) {
     "use strict";
 
@@ -171,11 +173,12 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
+                        <Tooltip>
                         <Input
                             name='title'
                             value={this.props.title}
                             onChange={this.onInputChange}
-                        />
+                        /></Tooltip>
                     </div>
                 </label>
                 <label>
