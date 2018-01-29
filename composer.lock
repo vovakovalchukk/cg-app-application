@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f54f67cfc544363cc3877a55c71099c4",
+    "content-hash": "57d0a2d5fa36c7d30312dfd4ddcf447a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -844,6 +844,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "15856f75dba7f33fa2ccd246b1c70ce16ced7096"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-62-mitigate-inter-dependency-listing-product-50ac8a.zip",
+                "reference": "15856f75dba7f33fa2ccd246b1c70ce16ced7096",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
@@ -853,11 +859,11 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.12.3",
+                "channelgrabber/listing": "dev-LIS-62-mitigate-inter-dependency-listing-product as 1.12.4",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
-                "channelgrabber/product": "^1.11.2",
+                "channelgrabber/product": "dev-LIS-62-mitigate-inter-dependency-listing-product as 1.11.3",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -892,7 +898,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-25T10:40:38+00:00"
+            "time": "2018-01-29T13:46:55+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9517,8 +9523,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
