@@ -36,7 +36,7 @@ define([
                 return <i className="fa fa-plus icon-create-listing" onClick={this.onClick.bind(this)} aria-hidden="true" />
             }
 
-            var hoverContent = <div className="hover-link">
+            var hoverContent = <div>
                 <p>We only currently support creating listings on eBay accounts for simple products.</p>
                 <p>We're working hard to add support for other channels so check back soon.</p>
             </div>;

@@ -583,7 +583,7 @@ div.tether-element div.hover-image {
         max-width: 200px;
     }
 }
-div.tether-element div.hover-link {
+div.tether-element div.tooltip-hover {
     padding: 20px;
     border-radius: 10px;
     background-color: white;
@@ -694,4 +694,8 @@ div.tether-element div.hover-link {
 
 .product-dropdown .detail-dropdown-wrapper .detail-dropdown-popup {
     position: relative;
+}
+
+.tooltip-hover {
+    z-index: 99999;
 }
