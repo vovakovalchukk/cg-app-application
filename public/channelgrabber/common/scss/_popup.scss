@@ -12,11 +12,9 @@
 }
 .react-popup {
     min-width: 20%;
-    min-height: 60px;
     box-sizing: border-box;
     position: fixed;
-    overflow-y: auto;
-    max-height: 75%;
+    height: 75%;
     left: 38%;
     top: 40%;
     z-index: 9998;
@@ -31,7 +29,9 @@
         text-align: center;
     }
     .react-popup-content {
+        overflow-y: auto;
         margin-bottom: 20px;
+        height: calc(100% - 70px);
         .center-align {
             text-align: center;
         }
