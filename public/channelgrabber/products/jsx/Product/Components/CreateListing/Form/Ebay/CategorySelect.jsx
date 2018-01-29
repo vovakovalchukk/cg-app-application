@@ -1,9 +1,11 @@
 define([
     'react',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    'Product/Components/Tooltip'
 ], function(
     React,
-    Select
+    Select,
+    Tooltip
 ) {
     "use strict";
 
@@ -76,18 +78,29 @@ define([
             }
             return categoryOptions;
         },
+        wrapWithTooltip: function(selectComponent, index) {
+            if (index != 0) {
+                return selectComponent;
+            }
+
+            return <Tooltip hoverContent={this.props.tooltipText}>
+                {selectComponent}
+            </Tooltip>
+        },
         render: function () {
             return <div>
                 {this.state.categoryMaps.map(function(categoryMap, index) {
+                    var selectComponent = <Select
+                        options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
+                        selectedOption={this.state.selectedCategories[index] ? this.state.selectedCategories[index] : {name: null}}
+                        onOptionChange={this.getOnCategorySelect(index)}
+                        autoSelectFirst={false}
+                    />;
+
                     return <label>
                         <span className={"inputbox-label"}>{index == 0 ? 'Category' : ''}</span>
                         <div className={"order-inputbox-holder"}>
-                            <Select
-                                options={this.getCategoryOptionsFromCategoryMap(categoryMap)}
-                                selectedOption={this.state.selectedCategories[index] ? this.state.selectedCategories[index] : {name: null}}
-                                onOptionChange={this.getOnCategorySelect(index)}
-                                autoSelectFirst={false}
-                            />
+                            {this.wrapWithTooltip(selectComponent, index)}
                         </div>
                     </label>
                 }.bind(this))}

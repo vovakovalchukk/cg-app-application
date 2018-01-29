@@ -10,8 +10,7 @@ define([
     var TooltipComponent = React.createClass({
         getDefaultProps: function () {
             return {
-                hoverContent: null,
-                children: ['one', 'two']
+                hoverContent: null
             }
         },
         getInitialState: function() {
