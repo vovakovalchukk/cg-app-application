@@ -17,7 +17,8 @@ define([
                 },
                 options: [],
                 autoSelectFirst: true,
-                title: null
+                title: null,
+                onOptionChange: null
             };
         },
         getInitialState: function () {
@@ -63,7 +64,9 @@ define([
             this.setState({
                 selectedOption: selectedOption,
             });
-            this.props.onOptionChange(selectedOption);
+            if (this.props.onOptionChange) {
+                this.props.onOptionChange(selectedOption);
+            }
         },
         onInputFocus: function (e) {
             if (this.state.disabled) {
