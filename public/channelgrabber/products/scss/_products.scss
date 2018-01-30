@@ -646,29 +646,6 @@ div.tether-element div.tooltip-hover {
     }
 }
 
-.react-popup.editor-popup {
-    top: 15% !important;
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, 0);
-
-    .react-popup-buttons {
-        justify-content: space-around !important;
-        width: 30%;
-        margin: 0 auto;
-        .button {
-            width: 44% !important;
-        }
-    }
-}
-
-.react-popup.unlink-popup {
-    top: 15% !important;
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, 0);
-}
-
 .product-unlink-button {
     width: 30%;
     margin: 0 auto;
