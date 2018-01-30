@@ -12,11 +12,12 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use InvalidArgumentException;
+use Settings\Controller\AddChannelSpecificVariablesToViewInterface;
 use Zend\Form\Element as ZendFormElement;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class ProviderController extends AbstractActionController
+class ProviderController extends AbstractActionController implements AddChannelSpecificVariablesToViewInterface
 {
     use PrepareAdapterImplementationFieldsTrait;
 

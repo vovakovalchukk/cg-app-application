@@ -285,6 +285,12 @@ class CourierController extends AbstractActionController
                     'class' => 'courier-cancel-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
+                [
+                    'value' => $this->specificsPageService->getDispatchAllActionDescription($selectedAccount),
+                    'id' => 'dispatch-all-labels-button',
+                    'class' => 'courier-dispatch-all-labels-button courier-status-all-labels-button',
+                    'disabled' => false,
+                ],
             ]
         ];
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
@@ -339,6 +345,12 @@ class CourierController extends AbstractActionController
                     'value' => $this->specificsPageService->getCancelActionDescription($selectedAccount),
                     'id' => 'cancel-label-button',
                     'class' => 'courier-cancel-label-button',
+                    'disabled' => false,
+                ],
+                [
+                    'value' => $this->specificsPageService->getDispatchActionDescription($selectedAccount),
+                    'id' => 'dispatch-label-button',
+                    'class' => 'courier-dispatch-label-button',
                     'disabled' => false,
                 ],
             ]

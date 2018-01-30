@@ -12,16 +12,20 @@ use CG\Ebay\Account\CreationService as EbayAccountCreationService;
 use CG\Ebay\Client\TradingApi;
 use CG\Ekm\Account as EkmAccount;
 use CG\Ekm\Account\CreationService as EkmAccountCreationService;
+use CG\FileStorage\S3\Adapter as S3Adapter;
 use CG\Log\Logger;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\OrganisationUnit\Storage\Api as OUApiStorage;
 use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
+use CG\Product\Client\Service as ProductService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
 use CG\Settings\Shipping\Alias\Storage\Api as ShippingAliasStorage;
+use CG\ShipStation\Account as ShipStationAccount;
+use CG\ShipStation\Account\CreationService as ShipStationCreationService;
 use CG\Stdlib\Log\LoggerInterface;
 use CG\Template\Repository as TemplateRepository;
 use CG\Template\Service as TemplateService;
@@ -34,6 +38,8 @@ use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
+use CG\Listing\Csv\StorageInterface as ListingsCsvStorage;
+use CG\Listing\Csv\Storage\S3 as ListingsCsvStorageS3;
 use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
@@ -46,6 +52,7 @@ use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
+use Settings\Controller\CreateListingsController;
 use Settings\Controller\ShippingController;
 use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
@@ -154,8 +161,14 @@ return [
                 'pages' => [
                     [
                         'label' => StockController::ROUTE,
-                        'title' => PickListController::ROUTE,
+                        'title' => 'Stock settings',
                         'route' => Module::ROUTE . '/' . StockController::ROUTE,
+                    ],
+                    [
+                        'label' => 'Create Listings',
+                        'title' => 'Create channel listings from imported data',
+                        'route' => Module::ROUTE . '/' . CreateListingsController::ROUTE,
+                        'feature-flag' => ProductService::FEATURE_FLAG_PRODUCT_EXPORT
                     ],
                 ]
             ],
@@ -732,6 +745,16 @@ return [
                                             ],
                                         ],
                                     ],
+                                    ExportController::ROUTE_EXPORT_PRODUCT => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/products/[:channel]',
+                                            'defaults' => [
+                                                'controller' => ExportController::class,
+                                                'action' => 'exportProduct'
+                                            ]
+                                        ],
+                                    ],
                                 ],
                             ]
                         ]
@@ -784,6 +807,30 @@ return [
                             ],
                         ]
                     ],
+                    CreateListingsController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/createListings',
+                            'defaults' => [
+                                'controller' => CreateListingsController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            CreateListingsController::ROUTE_IMPORT => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/import',
+                                    'defaults' => [
+                                        'action' => 'import'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => []
+                            ],
+                        ]
+                    ],
                 ]
             ]
         ], 
@@ -804,7 +851,8 @@ return [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
                 OUStorageInterface::class => OUApiStorage::class,
-                LoggerInterface::class => Logger::class
+                LoggerInterface::class => Logger::class,
+                ListingsCsvStorage::class => ListingsCsvStorageS3::class,
             ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
@@ -855,6 +903,8 @@ return [
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
                 'AccountStockManagementColumnView' => ViewModel::class,
+
+                'ListingsCsvS3Adapter' => S3Adapter::class,
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -1415,6 +1465,11 @@ return [
                     'channelAccount' => EbayAccount::class
                 ]
             ],
+            ShipStationCreationService::class => [
+                'parameters' => [
+                    'channelAccount' => ShipStationAccount::class
+                ]
+            ],
             AmazonAccountCreationService::class => [
                 'parameters' => [
                     'cryptor' => 'amazon_cryptor'
@@ -1468,6 +1523,16 @@ return [
                     'viewModelFactory' => ViewModelFactory::class
                 ]
             ],
+            'ListingsCsvS3Adapter' => [
+                'parameters' => [
+                    'location' => ListingsCsvStorageS3::S3_BUCKET
+                ]
+            ],
+            ListingsCsvStorageS3::class => [
+                'parameters' => [
+                    's3Adapter' => 'ListingsCsvS3Adapter'
+                ]
+            ]
         ]
     ]
 ];

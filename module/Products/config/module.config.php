@@ -2,6 +2,7 @@
 namespace Products;
 
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
 use CG\Listing\Service as ListingService;
@@ -19,6 +20,7 @@ use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
 use CG_UI\View\DataTable;
+use Products\Controller\CreateListings\JsonController;
 use Products\Controller\LinksJsonController;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
@@ -28,6 +30,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Listing\Channel\Ebay\Service as ListingEbayService;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
@@ -59,6 +62,16 @@ return [
                                 'action' => 'ajax'
                             ]
                         ],
+                    ],
+                    ProductsJsonController::ROUTE_STOCK_FETCH => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/stock/ajax/:productSku',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'stockFetch'
+                            ]
+                        ]
                     ],
                     ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
                         'type' => Literal::class,
@@ -245,7 +258,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
-
+                    ListingsJsonController::ROUTE_CREATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing/submit',
+                            'defaults' => [
+                                'controller' => ListingsJsonController::class,
+                                'action' => 'create'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [
@@ -415,6 +438,73 @@ return [
                             ],
                         ],
                     ],
+                    JsonController::ROUTE_CREATE_LISTINGS => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/create-listings/:accountId',
+                        ],
+                        'constraints' => [
+                            'accountId' => '[0-9]+'
+                        ],
+                        'child_routes' => [
+                            JsonController::ROUTE_DEFAULT_SETTINGS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/default-settings',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'defaultSettingsAjax'
+                                    ]
+                                ]
+                            ],
+                            JsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/channel-specific-field-values',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'channelSpecificFieldValues'
+                                    ]
+                                ]
+                            ],
+                            JsonController::ROUTE_REFRESH_CATEGORIES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refresh-categories',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'refreshCategories'
+                                    ],
+                                ],
+                            ],
+                            JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/category-dependent-field-values/:externalCategoryId',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'categoryDependentFieldValues'
+                                    ],
+                                ],
+                                'constraints' => [
+                                    'externalCategoryId' => '[0-9]+'
+                                ]
+                            ],
+                            JsonController::ROUTE_CATEGORY_CHILDREN => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/category-children/:externalCategoryId',
+                                    'defaults' => [
+                                        'controller' => JsonController::class,
+                                        'action' => 'categoryChildren'
+                                    ],
+                                ],
+                                'constraints' => [
+                                    'externalCategoryId' => '[0-9]+'
+                                ]
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ]
@@ -1093,6 +1183,16 @@ return [
                     'predis' => 'reliable_redis'
                 ]
             ],
+            ListingEbayService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ],
+            EbayListingCreator::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ]
         ],
     ],
     'navigation' => array(

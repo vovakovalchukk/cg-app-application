@@ -72,7 +72,14 @@ define([
                                 return;
                             }
                             count++;
-                            return <StockRow key={variation.id} variation={variation} totalUpdated={this.totalUpdated} modeUpdated={this.modeUpdated}/>;
+                            var isFetchingStock = !!this.props.fetchingUpdatedStockLevelsForSkus[variation.sku];
+                            return <StockRow
+                                key={variation.id}
+                                variation={variation}
+                                totalUpdated={this.totalUpdated}
+                                modeUpdated={this.modeUpdated}
+                                isFetchingStock={isFetchingStock}
+                            />;
                         }.bind(this))}
                         </tbody>
                     </table>
