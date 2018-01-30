@@ -11,7 +11,7 @@ define([
     CurrencyInput,
     Input,
     CategorySelect,
-    ImagePicker
+    ImagePicker,
 ) {
     "use strict";
 
@@ -150,8 +150,23 @@ define([
                     multiSelect={false}
                     images={this.props.product.images}
                     onImageSelected={this.onImageSelected}
+                    title={this.getTooltipText('image')}
                 />
             );
+        },
+        getTooltipText(inputFieldName) {
+            var tooltips = {
+                title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
+                price: 'How much do you want to sell your item for?',
+                description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
+                image: 'Pick an image to use on this listing',
+                category: 'Select a category to list your product to',
+                duration: 'ChannelGrabber recommends using GTC as this will allow us to automatically activate listings when you add new stock',
+                dispatchTimeMax: 'What is the longest amount of time it may take you to dispatch an item?',
+                shippingService: 'This must match your shipping services on eBay',
+                shippingPrice: 'How much you want to charge for shipping'
+            };
+            return tooltips[inputFieldName];
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -175,6 +190,7 @@ define([
                             name='title'
                             value={this.props.title}
                             onChange={this.onInputChange}
+                            title={this.getTooltipText('title')}
                         />
                     </div>
                 </label>
@@ -185,6 +201,7 @@ define([
                             value={this.props.price}
                             onChange={this.onInputChange}
                             currency={this.state.currency}
+                            title={this.getTooltipText('price')}
                         />
                     </div>
                 </label>
@@ -195,6 +212,7 @@ define([
                             name="description"
                             value={this.props.description}
                             onChange={this.onInputChange}
+                            title={this.getTooltipText('description')}
                         />
                     </div>
                 </label>
@@ -206,6 +224,7 @@ define([
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
                     onLeafCategorySelected={this.onLeafCategorySelected}
+                    title={this.getTooltipText('category')}
                 />
                 {(this.state.listingDurationFieldValues)?
                     <label>
@@ -217,6 +236,7 @@ define([
                                 selectedOption={{name: this.props.duration}}
                                 autoSelectFirst={false}
                                 onOptionChange={this.props.getSelectCallHandler('duration')}
+                                title={this.getTooltipText('duration')}
                             />
                         </div>
                     </label>
@@ -229,6 +249,7 @@ define([
                             type="number"
                             value={this.props.dispatchTimeMax}
                             onChange={this.onInputChange}
+                            title={this.getTooltipText('dispatchTimeMax')}
                         />
                     </div>
                 </label>
@@ -241,6 +262,7 @@ define([
                             selectedOption={{name: this.props.shippingService}}
                             autoSelectFirst={false}
                             onOptionChange={this.props.getSelectCallHandler('shippingService')}
+                            title={this.getTooltipText('shippingService')}
                         />
                     </div>
                 </label>
@@ -252,6 +274,7 @@ define([
                             value={this.props.shippingPrice}
                             onChange={this.onInputChange}
                             currency={this.state.currency}
+                            title={this.getTooltipText('shippingPrice')}
                         />
                     </div>
                 </label>
