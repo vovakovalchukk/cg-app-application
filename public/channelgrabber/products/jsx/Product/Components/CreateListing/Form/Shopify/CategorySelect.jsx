@@ -10,8 +10,7 @@ define([
     return React.createClass({
         getDefaultProps: function() {
             return {
-                accountId: null,
-                categories: null,
+                categories: [],
                 disabled: true
             }
         },
@@ -28,18 +27,23 @@ define([
             });
             return options;
         },
-        getDefaultSelectedOption: function() {
-            return {
-                name: null
-            };
+        getSelectedCategoryName: function() {
+            for (var categoryId in this.props.categories) {
+                if (categoryId == this.props.selectedCategory) {
+                    return {name: this.props.categories[categoryId]}
+                }
+            }
+
+            return null;
         },
         render: function() {
             return <Select
-                name="shopify-category"
+                name="category"
                 options={this.getSelectOptions()}
                 autoSelectFirst={false}
-                selectedOption={this.getDefaultSelectedOption()}
+                selectedOption={this.getSelectedCategoryName()}
                 disabled={this.props.disabled}
+                onOptionChange={this.props.getSelectCallHandler('category')}
             />
         }
     });

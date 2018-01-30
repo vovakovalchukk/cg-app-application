@@ -132,6 +132,8 @@ define([
                             accountId={this.props.accountId}
                             categories={this.state.categories}
                             disabled={this.state.refreshCategoriesDisabled}
+                            getSelectCallHandler={this.props.getSelectCallHandler}
+                            selectedCategory={this.props.category}
                         />
                     </div>
                     <RefreshIcon
