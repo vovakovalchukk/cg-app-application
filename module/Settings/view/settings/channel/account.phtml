@@ -1,6 +1,7 @@
 <?php
-use Settings\Module;
+use CG\Channel\Type;
 use Settings\Controller\ChannelController;
+use Settings\Module;
 $enableChannelRoute = implode(
     '/',
     [
@@ -88,6 +89,20 @@ require(
         </label>
     </form>
 </div>
+<?php if ($type == Type::SALES) : ?>
+<div class="module clearfix">
+    <form>
+        <label>
+            <span class="inputbox-label">Auto-Import Listings:</span>
+            <div class="alternate-input mustache">
+                <div class="enable-switch-account-manage">
+                    <?= $this->mustache('elements/toggle.mustache', ['id' => 'auto-import-listings', 'selected' => $account['autoImportListings'] ?? false]) ?>
+                </div>
+            </div>
+        </label>
+    </form>
+</div>
+<?php endif; ?>
 <div id="manage-account-channel-form" class="module clearfix section-separator">
     <?= $this->channelSpecificForm;?>
 </div>
