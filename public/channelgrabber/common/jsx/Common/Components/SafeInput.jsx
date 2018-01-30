@@ -9,7 +9,8 @@ define([
         getDefaultProps: function () {
             return {
                 type: 'number',
-                initialValue: ''
+                initialValue: '',
+                disabled: false
             };
         },
         componentWillReceiveProps: function (newProps) {

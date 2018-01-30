@@ -5,6 +5,7 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
+    'Product/Components/CreateListing/CreateListingPopup',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -13,6 +14,7 @@ define([
     ProductFooter,
     ProductRow,
     ProductLinkEditor,
+    CreateListingPopup,
     AjaxHandler
 ) {
     "use strict";
@@ -52,6 +54,11 @@ define([
                     total: 0,
                     limit: 0,
                     page: 0
+                },
+                fetchingUpdatedStockLevelsForSkus: {},
+                accounts: {},
+                createListing: {
+                    productId: null
                 }
             }
         },
@@ -102,6 +109,8 @@ define([
                     initialLoadOccurred: true,
                     searchTerm: searchTerm,
                     skuList: skuList,
+                    accounts: result.accounts,
+                    createListingsAllowedChannels: result.createListingsAllowedChannels
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -176,6 +185,49 @@ define([
                 }
             });
         },
+        fetchUpdatedStockLevels(productSku) {
+            var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
+            fetchingStockLevelsForSkuState[productSku] = true;
+
+            var updateStockLevelsRequest = function() {
+                $.ajax({
+                    url: '/products/stock/ajax/' + productSku,
+                    type: 'GET',
+                    success: function (response) {
+                        var newState = this.state;
+
+                        newState.products.forEach(function(product) {
+                            if (product.variationCount == 0) {
+                                if (!response.stock[product.sku]) {
+                                    return;
+                                }
+                                product.stock = response.stock[product.sku];
+                                return;
+                            }
+
+                            newState.variations[product.id].forEach(function(product) {
+                                if (!response.stock[product.sku]) {
+                                    return;
+                                }
+                                product.stock = response.stock[product.sku];
+                                return;
+                            });
+                        });
+
+                        newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
+                        this.setState(newState);
+                    }.bind(this),
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }.bind(this);
+
+            this.setState(
+                fetchingStockLevelsForSkuState,
+                updateStockLevelsRequest
+            );
+        },
         sortVariationsByParentId: function (newVariations, parentProductId) {
             var variationsByParent = {};
 
@@ -207,6 +259,23 @@ define([
                 }
             });
         },
+        onCreateListingIconClick: function(productId) {
+            var product = this.state.products.find(function(product) {
+                return product.id == productId;
+            });
+            this.setState({
+                createListing: {
+                    product: product
+                }
+            });
+        },
+        onCreateListingClose: function() {
+            this.setState({
+                createListing: {
+                    product: null
+                }
+            });
+        },
         onSkuRequest: function (event) {
             this.filterBySku(event.detail.sku);
         },
@@ -234,8 +303,9 @@ define([
             var refreshedProductId = (refreshedProduct.parentProductId === 0 ? refreshedProduct.id : refreshedProduct.parentProductId);
             var products = this.state.products.map(function (product) {
                 if (product.id === refreshedProductId) {
-                    product.listings[0].status = 'pending';
-                    return product;
+                    for (var listingId in product.listings) {
+                        product.listings[listingId].status = 'pending';
+                    }
                 }
                 return product;
             });
@@ -296,17 +366,33 @@ define([
                 );
             }
 
-            return this.state.products.map(function(object) {
+            return this.state.products.map(function(product) {
                 return <ProductRow
-                    key={object.id}
-                    product={object}
-                    variations={this.state.variations[object.id]}
-                    productLinks={this.state.allProductLinks[object.id]}
+                    key={product.id}
+                    product={product}
+                    variations={this.state.variations[product.id]}
+                    productLinks={this.state.allProductLinks[product.id]}
                     maxVariationAttributes={this.state.maxVariationAttributes}
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
+                    createListingsEnabled={this.props.createListingsEnabled}
+                    accounts={this.state.accounts}
+                    onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                 />;
             }.bind(this))
+        },
+        renderCreateListingPopup: function() {
+            if (!this.state.createListing.product) {
+                return;
+            }
+            return <CreateListingPopup
+                accounts={this.state.accounts}
+                product={this.state.createListing.product}
+                onCreateListingClose={this.onCreateListingClose}
+                availableChannels={this.state.createListingsAllowedChannels}
+            />
         },
         render: function()
         {
@@ -316,7 +402,12 @@ define([
                     <div id="products-list">
                         {this.renderProducts()}
                     </div>
-                    <ProductLinkEditor productLink={this.state.editingProductLink} onEditorClose={this.onProductLinksEditorClose} />
+                    <ProductLinkEditor
+                        productLink={this.state.editingProductLink}
+                        onEditorClose={this.onProductLinksEditorClose}
+                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                    />
+                    {this.renderCreateListingPopup()}
                     {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                 </div>
             );
