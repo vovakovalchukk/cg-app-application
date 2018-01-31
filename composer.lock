@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "78395215bddd964359c9cfce715e98be",
+    "content-hash": "6bee34d43af89173fb9f6ac5214846fd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.0.5",
+            "version": "dev-LIS-55-refresh-bigcommerce-categories",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "b516a934c4e8877c6fd07d167e59fadfa1f82b9d"
+                "reference": "eae9d25a72108f6ab6ae4afc4e0e599313bdd3fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.5-8b8b05.zip",
-                "reference": "b516a934c4e8877c6fd07d167e59fadfa1f82b9d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-55-refresh-bigcommerce-categories-c5e60e.zip",
+                "reference": "eae9d25a72108f6ab6ae4afc4e0e599313bdd3fd",
                 "shasum": null
             },
             "require": {
@@ -299,7 +299,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-02-03T12:11:57+00:00"
+            "time": "2018-01-31T14:54:50+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -9501,6 +9501,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.6",
+            "alias_normalized": "1.0.6.0",
+            "version": "dev-LIS-55-refresh-bigcommerce-categories",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
             "version": "dev-LIS-52-bigcommerce-dunny-controller-actions",
@@ -9509,6 +9515,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
         "phpish/link_header": 20,
