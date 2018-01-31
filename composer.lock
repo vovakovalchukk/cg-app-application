@@ -2446,12 +2446,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "c0915c989f2a9bbdb4ab07d29fef765b55ddb376"
+                "reference": "069b0d30cfeeb8efedbf2ae5dbbe30b7e80ac108"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-LIS-40-shopify-create-listing-from-popup-29aaf2.zip",
-                "reference": "c0915c989f2a9bbdb4ab07d29fef765b55ddb376",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-LIS-40-shopify-create-listing-from-popup-011a63.zip",
+                "reference": "069b0d30cfeeb8efedbf2ae5dbbe30b7e80ac108",
                 "shasum": null
             },
             "require": {
@@ -2482,7 +2482,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-31T09:57:17+00:00"
+            "time": "2018-01-31T10:37:33+00:00"
         },
         {
             "name": "channelgrabber/slim",
