@@ -74,7 +74,7 @@ require(
                 });
             }
         );
-
+<?php if ($type == Type::SALES) : ?>
         var autoImportListings = new AjaxCheckbox(
             n,
             ".account-listings .mustache",
@@ -122,6 +122,7 @@ require(
                 toggle.prop("checked", !toggle.prop("checked"));
             }
         });
+<?php endif; ?>
     }
 );
 <?php $this->inlineScript()->captureEnd(); ?>
