@@ -33,7 +33,12 @@ define([
         getVatRows: function () {
             var product = this.props.parentProduct;
             if (! product.taxRates) {
-                return;
+                return <tr>
+                    <td>
+                        In order to use this feature, please <a href={this.props.adminCompanyUrl}>set your company
+                        to VAT registered here</a>
+                    </td>
+                </tr>;
             }
 
             var vatRows = [];
