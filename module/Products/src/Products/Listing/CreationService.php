@@ -3,7 +3,7 @@ namespace Products\Listing;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
-use CG\Listing\CreatorInterface;
+use CG\Product\Listing\CreatorInterface;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;

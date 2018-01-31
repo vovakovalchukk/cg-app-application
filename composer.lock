@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfc0e331dd1f8ee78bc789eb309e6169",
+    "content-hash": "9445f3c55f1355a4dd2c3f38d8f89d81",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1310,16 +1310,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.12.4",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "d82a6b40c0eaa203fea0b81bae474044d8d2af67"
+                "reference": "dee05d713be5412cdf976a4df53e02e822818930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.12.4-0dcb43.zip",
-                "reference": "d82a6b40c0eaa203fea0b81bae474044d8d2af67",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.13.0-792c33.zip",
+                "reference": "dee05d713be5412cdf976a4df53e02e822818930",
                 "shasum": null
             },
             "require": {
@@ -1355,7 +1355,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-29T13:35:48+00:00"
+            "time": "2018-01-31T12:10:29+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2023,16 +2023,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.11.3",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "02676dc649d5c0a31df79ab174da235de7d27760"
+                "reference": "478d253826f9507a2baa6fb8832993cd606707e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.3-c3bb47.zip",
-                "reference": "02676dc649d5c0a31df79ab174da235de7d27760",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.4-8ee3d1.zip",
+                "reference": "478d253826f9507a2baa6fb8832993cd606707e1",
                 "shasum": null
             },
             "require": {
@@ -2078,7 +2078,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-29T10:25:42+00:00"
+            "time": "2018-01-31T12:10:47+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
