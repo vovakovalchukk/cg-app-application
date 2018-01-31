@@ -92,7 +92,7 @@ require(
             }
 
             new Confirm(
-                "Testing",
+                "<?= str_replace(['"', "\n"], ['\\"', '\\n'], $this->partial('settings/channel/account/channel_auto_import_listings_confirmation')) ?>",
                 function(answer) {
                     if (!answer) {
                         return;
@@ -103,7 +103,10 @@ require(
                     } else {
                         toggle.prop("disabled", false).prop("checked", false);
                     }
-                }
+                },
+                [
+                    {title: "<?= $this->translate('Confirm') ?>", value: Confirm.VALUE_YES}
+                ]
             );
         });
         autoImportListings.bindAjaxResponse(function(event, data) {
