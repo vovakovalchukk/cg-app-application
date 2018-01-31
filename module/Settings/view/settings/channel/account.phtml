@@ -42,8 +42,8 @@ require.config({
 });
 
 require(
-    ["ajaxSwitch"],
-    function(ajaxSwitch) {
+    ["ajaxSwitch", "ajaxCheckbox", "popup/confirm"],
+    function(ajaxSwitch, AjaxCheckbox, Confirm) {
         var ajaxCheckbox = ajaxSwitch(
             n,
             ".account-status .mustache",
@@ -75,21 +75,44 @@ require(
             }
         );
 
-        var autoImportListings = ajaxSwitch(
+        var autoImportListings = new AjaxCheckbox(
             n,
             ".account-listings .mustache",
             "input.toggle",
             {
                 url: "<?= $this->url($autoImportListingsRoute, ['account' => $account['id'], 'type' => $type]) ?>"
             },
-            {
-                info: "<?= $this->translate('Updating Channel') ?>",
-                error: "<?= $this->translate('Channel Updated Failed') ?>",
-                success: "<?= $this->translate('Channel Updated') ?>"
-            }
+            true
         );
+        autoImportListings.bindAjax(function(event, ajaxOptions, toggle) {
+            if (!toggle.prop("checked")) {
+                n.notice("<?= $this->translate('Updating Channel') ?>");
+                autoImportListings.saveStatus(ajaxOptions, toggle);
+                return;
+            }
+
+            new Confirm(
+                "Testing",
+                function(answer) {
+                    if (!answer) {
+                        return;
+                    }
+                    if (answer == Confirm.VALUE_YES) {
+                        n.notice("<?= $this->translate('Updating Channel') ?>");
+                        autoImportListings.saveStatus(ajaxOptions, toggle);
+                    } else {
+                        toggle.prop("disabled", false).prop("checked", false);
+                    }
+                }
+            );
+        });
         autoImportListings.bindAjaxResponse(function(event, data) {
             var toggle = $("#auto-import-listings");
+            if (data.updated) {
+                n.success("<?= $this->translate('Channel Updated') ?>");
+            } else {
+                n.error("<?= $this->translate('Channel Updated Failed') ?>");
+            }
             if (data.account) {
                 toggle.prop("checked", data.account.autoImportListings);
             } else {
