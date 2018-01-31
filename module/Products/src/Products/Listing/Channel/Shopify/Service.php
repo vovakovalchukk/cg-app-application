@@ -5,9 +5,8 @@ use CG\Account\Shared\Entity as Account;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Product\Category\Entity as Category;
 use CG\Shopify\CustomCollection\Importer as CustomCollectionImporter;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 
