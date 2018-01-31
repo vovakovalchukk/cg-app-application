@@ -186,46 +186,43 @@ define([
                 warnings: []
             });
         },
-        render: function()
-        {
+        render: function() {
             return (
-                <Popup
-                    initiallyActive={true}
-                    className="editor-popup create-listing"
-                    onYesButtonPressed={this.submitFormData}
-                    onNoButtonPressed={this.props.onCreateListingClose}
-                    closeOnYes={false}
-                    headerText={"Create New Listing"}
-                    yesButtonText="Save"
-                    noButtonText="Cancel"
-                >
-                    <h1>
-                        Channel Grabber needs additional information to complete this listing. Please check below and
-                        complete all the fields necessary.
-                    </h1>
-                    <form>
-                        <div className={"order-form half"}>
-                            <label>
-                                <span className={"inputbox-label"}>Select an account to list to:</span>
-                                <div className={"order-inputbox-holder"}>
-                                    <Select
-                                        options={this.getAccountOptions()}
-                                        selectedOption={
-                                            this.state.accountSelected
-                                            && this.state.accountSelected.displayName
-                                                ? {name: this.state.accountSelected.displayName}
-                                                : null
-                                        }
-                                        onOptionChange={this.onAccountSelected.bind(this)}
-                                        autoSelectFirst={false}
-                                    />
-                                </div>
-                            </label>
-                            {this.renderCreateListingForm()}
-                        </div>
-                    </form>
-                    {this.renderErrorMessage()}
-                </Popup>
+                    <Popup
+                        initiallyActive={true}
+                        className="editor-popup create-listing"
+                        onYesButtonPressed={this.submitFormData}
+                        onNoButtonPressed={this.props.onCreateListingClose}
+                        closeOnYes={false}
+                        headerText={"Create New Listing"}
+                        subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
+                        yesButtonText="Save"
+                        noButtonText="Cancel"
+                    >
+                        <form>
+                            <div className={"order-form half"}>
+                                <label>
+                                    <span className={"inputbox-label"}>Select an account to list to:</span>
+                                    <div className={"order-inputbox-holder"}>
+                                        <Select
+                                            options={this.getAccountOptions()}
+                                            selectedOption={
+                                                this.state.accountSelected
+                                                && this.state.accountSelected.displayName
+                                                    ? {name: this.state.accountSelected.displayName}
+                                                    : null
+                                            }
+                                            onOptionChange={this.onAccountSelected.bind(this)}
+                                            autoSelectFirst={false}
+                                        />
+                                    </div>
+                                </label>
+                                {this.renderCreateListingForm()}
+                            </div>
+                        </form>
+                        {this.renderErrorMessage()}
+
+                    </Popup>
             );
         }
     });
