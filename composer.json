@@ -63,7 +63,7 @@
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sequential-numbering": "~1.0.0",
         "channelgrabber/settings": "~1.5.5",
-        "channelgrabber/shopify": "dev-develop as 1.0.6",
+        "channelgrabber/shopify": "dev-LIS-40-shopify-create-listing-from-popup as 1.0.6",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.14.1",

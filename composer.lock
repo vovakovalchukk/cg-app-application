@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "73f59211f7c29b4f9f1d2d169e1fbb2f",
+    "content-hash": "3e6cc0af30d2ac982a6c9e634c03a7d1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2442,16 +2442,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-develop",
+            "version": "dev-LIS-40-shopify-create-listing-from-popup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "8ee019d3f4ba5c2633959771416417a641d0bd2f"
+                "reference": "c0915c989f2a9bbdb4ab07d29fef765b55ddb376"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-develop-6cba6d.zip",
-                "reference": "8ee019d3f4ba5c2633959771416417a641d0bd2f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-LIS-40-shopify-create-listing-from-popup-29aaf2.zip",
+                "reference": "c0915c989f2a9bbdb4ab07d29fef765b55ddb376",
                 "shasum": null
             },
             "require": {
@@ -2482,7 +2482,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-25T13:09:10+00:00"
+            "time": "2018-01-31T09:57:17+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -9502,7 +9502,7 @@
         {
             "alias": "1.0.6",
             "alias_normalized": "1.0.6.0",
-            "version": "dev-develop",
+            "version": "dev-LIS-40-shopify-create-listing-from-popup",
             "package": "channelgrabber/shopify"
         }
     ],
