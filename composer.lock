@@ -839,16 +839,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.6",
+            "version": "1.11.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0f99d9ef16b822d2545d39c44497c7b11c495c94"
+                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.6-05be3b.zip",
-                "reference": "0f99d9ef16b822d2545d39c44497c7b11c495c94",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.8-938b4f.zip",
+                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5",
                 "shasum": null
             },
             "require": {
@@ -860,11 +860,11 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.12.3",
+                "channelgrabber/listing": "^1.13.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
-                "channelgrabber/product": "^1.11.2",
+                "channelgrabber/product": "^1.11.4",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -899,7 +899,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-25T10:40:38+00:00"
+            "time": "2018-01-31T12:16:47+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1310,16 +1310,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.12.4",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "d82a6b40c0eaa203fea0b81bae474044d8d2af67"
+                "reference": "dee05d713be5412cdf976a4df53e02e822818930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.12.4-0dcb43.zip",
-                "reference": "d82a6b40c0eaa203fea0b81bae474044d8d2af67",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.13.0-792c33.zip",
+                "reference": "dee05d713be5412cdf976a4df53e02e822818930",
                 "shasum": null
             },
             "require": {
@@ -1355,7 +1355,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-29T13:35:48+00:00"
+            "time": "2018-01-31T12:10:29+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2023,16 +2023,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.11.2",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "78bbb61526962fbdd89958b367d233d0049199b3"
+                "reference": "478d253826f9507a2baa6fb8832993cd606707e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.2-d0dcee.zip",
-                "reference": "78bbb61526962fbdd89958b367d233d0049199b3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.4-8ee3d1.zip",
+                "reference": "478d253826f9507a2baa6fb8832993cd606707e1",
                 "shasum": null
             },
             "require": {
@@ -2078,7 +2078,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-22T14:01:20+00:00"
+            "time": "2018-01-31T12:10:47+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
