@@ -12,6 +12,16 @@ $enableChannelRoute = implode(
         ChannelController::ROUTE_ACCOUNT_STATUS,
     ]
 );
+$autoImportListingsRoute = implode(
+    '/',
+    [
+        Module::ROUTE,
+        ChannelController::ROUTE,
+        ChannelController::ROUTE_CHANNELS,
+        ChannelController::ROUTE_ACCOUNT,
+        ChannelController::ROUTE_ACCOUNT_AUTO_LISTINGS_IMPORT,
+    ]
+);
 ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
@@ -64,6 +74,28 @@ require(
                 });
             }
         );
+
+        var autoImportListings = ajaxSwitch(
+            n,
+            ".account-listings .mustache",
+            "input.toggle",
+            {
+                url: "<?= $this->url($autoImportListingsRoute, ['account' => $account['id'], 'type' => $type]) ?>"
+            },
+            {
+                info: "<?= $this->translate('Updating Channel') ?>",
+                error: "<?= $this->translate('Channel Updated Failed') ?>",
+                success: "<?= $this->translate('Channel Updated') ?>"
+            }
+        );
+        autoImportListings.bindAjaxResponse(function(event, data) {
+            var toggle = $("#auto-import-listings");
+            if (data.account) {
+                toggle.prop("checked", data.account.autoImportListings);
+            } else {
+                toggle.prop("checked", !toggle.prop("checked"));
+            }
+        });
     }
 );
 <?php $this->inlineScript()->captureEnd(); ?>
@@ -91,12 +123,19 @@ require(
 </div>
 <?php if ($type == Type::SALES) : ?>
 <div class="module clearfix">
-    <form>
+    <form class="account-listings">
         <label>
             <span class="inputbox-label">Auto-Import Listings:</span>
             <div class="alternate-input mustache">
                 <div class="enable-switch-account-manage">
-                    <?= $this->mustache('elements/toggle.mustache', ['id' => 'auto-import-listings', 'selected' => $account['autoImportListings'] ?? false]) ?>
+                    <?= $this->mustache(
+                            'elements/toggle.mustache',
+                            [
+                                'id' => 'auto-import-listings',
+                                'name' => 'autoImportListings',
+                                'selected' => $account['autoImportListings'] ?? false,
+                            ]
+                    ) ?>
                 </div>
             </div>
         </label>
