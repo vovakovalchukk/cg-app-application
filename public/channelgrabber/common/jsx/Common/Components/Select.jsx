@@ -17,6 +17,7 @@ define([
                 },
                 options: [],
                 autoSelectFirst: true,
+                title: null,
                 onOptionChange: null
             };
         },
@@ -153,7 +154,7 @@ define([
         },
         render: function () {
             return <ClickOutside onClickOutside={this.onClickOutside}>
-                <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick}>
+                <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick} title={this.props.title}>
                         <div className="selected">
                             <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>

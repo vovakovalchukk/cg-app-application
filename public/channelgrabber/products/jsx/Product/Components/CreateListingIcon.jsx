@@ -1,11 +1,13 @@
 define([
     'react',
     'react-tether',
-    'Product/Utils/CreateListingUtils'
+    'Product/Utils/CreateListingUtils',
+    'Product/Components/Tooltip'
 ], function(
     React,
     TetherComponent,
-    CreateListingUtils
+    CreateListingUtils,
+    Tooltip
 ) {
     "use strict";
 
@@ -18,17 +20,6 @@ define([
                 availableChannels: {},
                 onCreateListingIconClick: function() {}
             }
-        },
-        getInitialState: function() {
-            return {
-                hover: false
-            }
-        },
-        onMouseOver: function () {
-            this.setState({ hover: true });
-        },
-        onMouseOut: function () {
-            this.setState({ hover: false });
         },
         hasAccountsToListTo: function() {
             for (var accountId in this.props.accountsAvailable) {
@@ -46,37 +37,19 @@ define([
                 return <i className="fa fa-plus icon-create-listing" onClick={this.onClick.bind(this)} aria-hidden="true" />
             }
 
-            var hoverImageStyle = {
-                display: (this.state.hover ? "block" : "none")
-            };
-
             var availableChannelsString = 'no';
             if (!(Object.keys(this.props.availableChannels).length === 0)) {
                 availableChannelsString = Object.values(this.props.availableChannels).join(', ');
             }
 
-            return  <TetherComponent
-                attachment="top left"
-                targetAttachment="middle right"
-                constraints={[{
-                    to: 'scrollParent',
-                    attachment: 'together'
-                }]}
-            >
-                <i
-                    className="fa fa-plus icon-create-listing inactive"
-                    onMouseOver={this.onMouseOver.bind(this)}
-                    onMouseOut={this.onMouseOut.bind(this)}
-                    aria-hidden="true"
-                />
-                <div
-                    className="hover-link"
-                     style={hoverImageStyle}
-                >
-                    <p>We only currently support creating listings on {availableChannelsString} accounts for simple products.</p>
-                    <p>We're working hard to add support for other channels so check back soon.</p>
-                </div>
-            </TetherComponent>;
+            var hoverContent = <div>
+                <p>We only currently support creating listings on {availableChannelsString} accounts for simple products.</p>
+                <p>We're working hard to add support for other channels so check back soon.</p>
+            </div>;
+
+            return <Tooltip hoverContent={hoverContent}>
+                <i className="fa fa-plus icon-create-listing inactive" aria-hidden="true" />
+            </Tooltip>;
         }
     });
 

@@ -1,9 +1,9 @@
 define([
     'react',
-    'react-tether'
+    'Product/Components/Tooltip'
 ], function(
     React,
-    TetherComponent
+    Tooltip
 ) {
     "use strict";
 
@@ -16,7 +16,6 @@ define([
         },
         getInitialState: function() {
             return {
-                hover: false,
                 fetchingLinks: false,
             }
         },
@@ -35,12 +34,6 @@ define([
         },
         onStopFetchingLinks: function () {
             this.setState({ fetchingLinks: false });
-        },
-        onMouseOver: function () {
-            this.setState({ hover: true });
-        },
-        onMouseOut: function () {
-            this.setState({ hover: false });
         },
         onClick: function () {
             window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
@@ -89,34 +82,13 @@ define([
             return (
                 <span className={"sprite "+ spriteClass + " click"}
                       onClick={this.onClick}
-                      onMouseOver={this.onMouseOver}
-                      onMouseOut={this.onMouseOut}
                 ></span>
             );
         },
         render: function() {
-            var hoverImageStyle = {
-                display: (this.state.hover ? "block" : "none")
-            };
-            return (
-                <TetherComponent
-                    attachment="top left"
-                    targetAttachment="middle right"
-                    constraints={[{
-                        to: 'scrollParent',
-                        attachment: 'together'
-                    }]}
-                >
-                    {this.getLinkIcon()}
-                    <div className="hover-link"
-                         style={hoverImageStyle}
-                         onMouseOver={this.onMouseOver}
-                         onMouseOut={this.onMouseOut}
-                    >
-                        {this.getHoverContent()}
-                    </div>
-                </TetherComponent>
-            );
+            return <Tooltip hoverContent={this.getHoverContent()}>
+                {this.getLinkIcon()}
+            </Tooltip>;
         }
     });
 

@@ -12,11 +12,10 @@
 }
 .react-popup {
     min-width: 20%;
-    min-height: 60px;
     box-sizing: border-box;
     position: fixed;
-    overflow-y: auto;
     max-height: 75%;
+    overflow-y: auto;
     left: 38%;
     top: 40%;
     z-index: 9998;
@@ -29,12 +28,25 @@
     background-clip: padding-box;
     .react-popup-header {
         text-align: center;
+        margin: -20px -20px 16px;
+        background-color: $color-linkblue;
+        color: $color-white;
+        padding: 16px;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+    }
+    .react-popup-subheader {
+        font-size: 15px;
     }
     .react-popup-content {
+        overflow-x: hidden;
         margin-bottom: 20px;
         .center-align {
             text-align: center;
         }
+    }
+    .react-popup-subheader + .react-popup-content {
+        height: calc(100% - 132px);
     }
     .react-popup-buttons {
         display: flex;
@@ -113,5 +125,39 @@
                 }
             }
         }
+    }
+
+    &.editor-popup {
+        min-width: 50%;
+        top: 15% !important;
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%, 0);
+        height: 75%;
+        overflow-y: hidden;
+
+        .react-popup-content {
+            overflow-y: auto;
+            height: calc(100% - 90px);
+        }
+        .react-popup-subheader + .react-popup-content {
+            height: calc(100% - 132px);
+        }
+
+        .react-popup-buttons {
+            justify-content: space-around !important;
+            width: 30%;
+            margin: 0 auto;
+            .button {
+                width: 44% !important;
+            }
+        }
+    }
+
+    &.unlink-popup {
+        top: 15% !important;
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%, 0);
     }
 }

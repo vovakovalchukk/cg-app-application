@@ -8,7 +8,8 @@ define([
     var InputComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                inputType: 'input'
+                inputType: 'input',
+                title: null
             }
         },
         mouseOver: function () {
@@ -25,6 +26,7 @@ define([
                         name={this.props.name}
                         value={this.props.value}
                         onChange={this.props.onChange}
+                        title={this.props.title}
                     />
                 </div>
             );
