@@ -58,7 +58,7 @@ class Service implements
                     ->setEnabled(true)
                     ->setListable(true)
             );
-
+            $this->filterParentCategoriesOnly($categories);
             return $this->formatCategoriesResponse($categories);
         } catch (NotFound $e) {
             return [];
