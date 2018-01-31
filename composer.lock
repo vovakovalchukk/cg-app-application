@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bc433da772d2cde13927134101723c7",
+    "content-hash": "d6115bb3b5fb24077be8a130910e2dcd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -839,16 +839,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.8",
+            "version": "1.11.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5"
+                "reference": "0f99d9ef16b822d2545d39c44497c7b11c495c94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.8-938b4f.zip",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.6-05be3b.zip",
+                "reference": "0f99d9ef16b822d2545d39c44497c7b11c495c94",
                 "shasum": null
             },
             "require": {
@@ -860,11 +860,11 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.13.0",
+                "channelgrabber/listing": "^1.12.3",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.11.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -899,7 +899,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-31T12:16:47+00:00"
+            "time": "2018-01-25T10:40:38+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1310,16 +1310,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-52-bigcommerce-dunny-controller-actions",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "7a8e286cea395f2c80844c8fc66fa2f2efdb491f"
+                "reference": "d82a6b40c0eaa203fea0b81bae474044d8d2af67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-52-bigcommerce-dunny-controller-actions-dc6718.zip",
-                "reference": "7a8e286cea395f2c80844c8fc66fa2f2efdb491f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.12.4-0dcb43.zip",
+                "reference": "d82a6b40c0eaa203fea0b81bae474044d8d2af67",
                 "shasum": null
             },
             "require": {
@@ -1355,7 +1355,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-31T14:05:29+00:00"
+            "time": "2018-01-29T13:35:48+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2023,16 +2023,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.11.4",
+            "version": "1.11.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "478d253826f9507a2baa6fb8832993cd606707e1"
+                "reference": "02676dc649d5c0a31df79ab174da235de7d27760"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.4-8ee3d1.zip",
-                "reference": "478d253826f9507a2baa6fb8832993cd606707e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.3-c3bb47.zip",
+                "reference": "02676dc649d5c0a31df79ab174da235de7d27760",
                 "shasum": null
             },
             "require": {
@@ -2078,7 +2078,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-01-31T12:10:47+00:00"
+            "time": "2018-01-29T10:25:42+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2443,16 +2443,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.0.9",
+            "version": "dev-LIS-49-refresh-shopify-categories",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "8ee019d3f4ba5c2633959771416417a641d0bd2f"
+                "reference": "fce58b8abb17b24ee97b59143c2e1bdec8e97e64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.9-6cba6d.zip",
-                "reference": "8ee019d3f4ba5c2633959771416417a641d0bd2f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-LIS-49-refresh-shopify-categories-c43c31.zip",
+                "reference": "fce58b8abb17b24ee97b59143c2e1bdec8e97e64",
                 "shasum": null
             },
             "require": {
@@ -2483,7 +2483,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-25T13:09:10+00:00"
+            "time": "2018-01-31T09:04:28+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -8001,7 +8001,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8056,7 +8056,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8111,7 +8111,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8162,7 +8162,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8248,7 +8248,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9501,16 +9501,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.13.0",
-            "alias_normalized": "1.13.0.0",
-            "version": "dev-LIS-52-bigcommerce-dunny-controller-actions",
-            "package": "channelgrabber/listing"
+            "alias": "1.0.10",
+            "alias_normalized": "1.0.10.0",
+            "version": "dev-LIS-49-refresh-shopify-categories",
+            "package": "channelgrabber/shopify"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
+        "channelgrabber/shopify": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
