@@ -11,13 +11,17 @@
     max-height: 26px;
     box-sizing: border-box;
     display: inline-flex;
-    input {
+    input[type=number] {
       width: 40px;
       height: 13px;
       border: 0;
       text-align: right;
       outline: none;
     }
+  }
+
+  .inputbox-label {
+    margin-right: 12px;
   }
 
   input[type=number] {
