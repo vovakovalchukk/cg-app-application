@@ -3,21 +3,21 @@ define([
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Ebay/CategorySelect',
-    'Common/Components/ImagePicker'
+    'Common/Components/ImagePicker',
+    'Product/Components/CreateListing/Form/BigCommerce/CategorySelect'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    CategorySelect,
     ImagePicker,
+    CategorySelect
 ) {
     "use strict";
 
     var NO_SETTINGS = 'NO_SETTINGS';
 
-    var EbayComponent = React.createClass({
+    var BigCommerceComponent = React.createClass({
         getDefaultProps: function() {
             return {
                 title: null,
@@ -31,11 +31,8 @@ define([
             return {
                 error: false,
                 settingsFetched: false,
-                shippingServiceFieldValues: {},
-                currencyFieldValues: {},
                 shippingService: null,
                 rootCategories: null,
-                listingDurationFieldValues: null
             }
         },
         componentDidMount: function() {
@@ -47,6 +44,20 @@ define([
                 this.fetchAndSetDefaultsForAccount(newProps.accountId);
                 this.fetchAndSetChannelSpecificFieldValues(newProps.accountId);
             }
+        },
+        fetchAndSetChannelSpecificFieldValues: function(newAccountId) {
+            var accountId = newAccountId ? newAccountId : this.props.accountId;
+
+            $.ajax({
+                context: this,
+                url: '/products/create-listings/' + accountId + '/channel-specific-field-values',
+                type: 'GET',
+                success: function (response) {
+                    this.setState({
+                        rootCategories: response.category
+                    });
+                }
+            });
         },
         fetchAndSetDefaultsForAccount(newAccountId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
@@ -73,64 +84,13 @@ define([
                 }
             });
         },
-        fetchAndSetChannelSpecificFieldValues: function(newAccountId) {
-            var accountId = newAccountId ? newAccountId : this.props.accountId;
-            this.setState({
-                listingDurationFieldValues: null
-            });
-            $.ajax({
-                context: this,
-                url: '/products/create-listings/' + accountId + '/channel-specific-field-values',
-                type: 'GET',
-                success: function (response) {
-                    this.setState({
-                        currency: response.currency,
-                        rootCategories: response.category,
-                        shippingServiceFieldValues: response.shippingService,
-                    });
-                }
-            });
-        },
         onInputChange: function(event) {
             var newStateObject = {};
             newStateObject[event.target.name] = event.target.value;
             this.props.setFormStateListing(newStateObject);
         },
-        getShippingServiceOptions: function() {
-            var shippingServiceOptions = [];
-            for (var shippingService in this.state.shippingServiceFieldValues) {
-                shippingServiceOptions.push({name: shippingService, value: this.state.shippingServiceFieldValues[shippingService]});
-            }
-            return shippingServiceOptions;
-        },
-        getListingDurationOptions: function() {
-            var listingDurationOptions = [];
-            for (var listingDurationOption in this.state.listingDurationFieldValues) {
-                listingDurationOptions.push({name: this.state.listingDurationFieldValues[listingDurationOption], value: listingDurationOption});
-            }
-            return listingDurationOptions;
-        },
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
-            this.fetchAndSetListingDurationOptions(categoryId);
-        },
-        fetchAndSetListingDurationOptions(categoryId) {
-            if (!categoryId) {
-                this.setState({
-                    listingDurationFieldValues: null,
-                    duration: null
-                });
-                return;
-            }
-            $.ajax({
-                url: '/products/create-listings/' + this.props.accountId + '/category-dependent-field-values/' + categoryId,
-                type: 'GET',
-                success: function (response) {
-                    this.setState({
-                        listingDurationFieldValues: response.listingDuration
-                    });
-                }.bind(this)
-            });
         },
         onImageSelected: function(image, selectedImageIds) {
             this.props.setFormStateListing({
@@ -160,10 +120,6 @@ define([
                 description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
                 image: 'Pick an image to use on this listing',
                 category: 'Select a category to list your product to',
-                duration: 'ChannelGrabber recommends using GTC as this will allow us to automatically activate listings when you add new stock',
-                dispatchTimeMax: 'What is the longest amount of time it may take you to dispatch an item?',
-                shippingService: 'This must match your shipping services on eBay',
-                shippingPrice: 'How much you want to charge for shipping'
             };
             return tooltips[inputFieldName];
         },
@@ -225,61 +181,9 @@ define([
                     onLeafCategorySelected={this.onLeafCategorySelected}
                     title={this.getTooltipText('category')}
                 />
-                {(this.state.listingDurationFieldValues)?
-                    <label>
-                        <span className={"inputbox-label"}>Listing Duration</span>
-                        <div className={"order-inputbox-holder"}>
-                            <Select
-                                name="duration"
-                                options={this.getListingDurationOptions()}
-                                selectedOption={{name: this.props.duration}}
-                                autoSelectFirst={false}
-                                onOptionChange={this.props.getSelectCallHandler('duration')}
-                                title={this.getTooltipText('duration')}
-                            />
-                        </div>
-                    </label>
-                : null}
-                <label>
-                    <span className={"inputbox-label"}>Dispatch Time Max</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="dispatchTimeMax"
-                            type="number"
-                            value={this.props.dispatchTimeMax}
-                            onChange={this.onInputChange}
-                            title={this.getTooltipText('dispatchTimeMax')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Shipping Service</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Select
-                            name="shippingService"
-                            options={this.getShippingServiceOptions()}
-                            selectedOption={{name: this.props.shippingService}}
-                            autoSelectFirst={false}
-                            onOptionChange={this.props.getSelectCallHandler('shippingService')}
-                            title={this.getTooltipText('shippingService')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Shipping Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            name="shippingPrice"
-                            value={this.props.shippingPrice}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('shippingPrice')}
-                        />
-                    </div>
-                </label>
             </div>;
         }
     });
 
-    return EbayComponent;
+    return BigCommerceComponent;
 });

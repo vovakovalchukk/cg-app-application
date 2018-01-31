@@ -4,6 +4,7 @@ define([
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
+    'Product/Components/CreateListing/Form/BigCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
@@ -12,14 +13,16 @@ define([
     PopupMessage,
     EbayForm,
     ShopifyForm,
+    BigCommerceForm,
     Select,
     CreateListingUtils
 ) {
     "use strict";
 
     var channelToFormMap = {
-        'ebay': EbayForm,
-        'shopify': ShopifyForm
+        'ebay': BigCommerceForm,
+        'shopify': BigCommerceForm,
+        'big-commerce': BigCommerceForm
     };
 
     return React.createClass({
