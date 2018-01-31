@@ -267,12 +267,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "a5c79c23c57ac34405f7c32c5091de9b98cdc37c"
+                "reference": "6d84e2c55d79dc4e44a0ce69b4ea29f2c45d5c36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-51-fetch-bigcommerce-categories-when-account-is-added-90bff4.zip",
-                "reference": "a5c79c23c57ac34405f7c32c5091de9b98cdc37c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-51-fetch-bigcommerce-categories-when-account-is-added-cb7a85.zip",
+                "reference": "6d84e2c55d79dc4e44a0ce69b4ea29f2c45d5c36",
                 "shasum": null
             },
             "require": {
@@ -299,7 +299,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-01-31T10:14:02+00:00"
+            "time": "2018-01-31T11:05:36+00:00"
         },
         {
             "name": "channelgrabber/billing",
