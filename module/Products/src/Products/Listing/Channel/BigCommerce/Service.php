@@ -2,6 +2,8 @@
 namespace Products\Listing\Channel\BigCommerce;
 
 use CG\Account\Shared\Entity as Account;
+use CG\BigCommerce\Category\Importer as CategoryImporter;
+use CG\BigCommerce\Category\Service as BigCommerceCategoryService;
 use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
@@ -10,6 +12,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
+use Products\Listing\Exception as ListingException;
 
 class Service implements
     ChannelSpecificValuesInterface,
@@ -18,10 +21,19 @@ class Service implements
 {
     /** @var  CategoryService */
     protected $categoryService;
+    /** @var BigCommerceCategoryService */
+    protected $bigCommerceCategoryService;
+    /** @var  CategoryImporter */
+    protected $categoryImporter;
 
-    public function __construct(CategoryService $categoryService)
-    {
+    public function __construct(
+        CategoryService $categoryService,
+        BigCommerceCategoryService $bigCommerceCategoryService,
+        CategoryImporter $categoryImporter
+    ) {
         $this->categoryService = $categoryService;
+        $this->bigCommerceCategoryService = $bigCommerceCategoryService;
+        $this->categoryImporter = $categoryImporter;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
@@ -31,9 +43,11 @@ class Service implements
 
     public function refetchAndSaveCategories(Account $account)
     {
-        return [
-            223  => "updated category name"
-        ];
+        $this->saveCategories(
+            $this->fetchCategoriesFromBigCommerce($account),
+            $account
+        );
+        return [$this->fetchCategoriesForAccount($account)];
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
@@ -73,5 +87,23 @@ class Service implements
             $categories[$category->getExternalId()] = $category->getTitle();
         }
         return $categories;
+    }
+
+    protected function fetchCategoriesFromBigCommerce(Account $account): array
+    {
+        try {
+            return $this->bigCommerceCategoryService->fetchCategoriesForAccount($account);
+        } catch (\Exception $e) {
+            throw new ListingException(
+                'We couldn\'t get a list of categories for your BigCommerce account. Please try again later or contact support if the problem persists',
+                $e->getCode(),
+                $e
+            );
+        }
+    }
+
+    protected function saveCategories(array $categories, Account $account): void
+    {
+        $this->categoryImporter->importCategoriesForAccount($categories, $account->getId());
     }
 }
