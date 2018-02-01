@@ -54,24 +54,14 @@ class Service implements
                     ->setLimit('all')
                     ->setPage(1)
                     ->setAccountId([$account->getId()])
+                    ->setParentId([0])
                     ->setChannel(['big-commerce'])
                     ->setEnabled(true)
                     ->setListable(true)
             );
-            $this->filterParentCategoriesOnly($categories);
             return $this->formatCategoriesResponse($categories);
         } catch (NotFound $e) {
             return [];
-        }
-    }
-
-    protected function filterParentCategoriesOnly(CategoryCollection $categories): void
-    {
-        /** @var Category $category */
-        foreach ($categories as $category) {
-            if ($category->getParentId() !== null) {
-                $categories->detach($category);
-            }
         }
     }
 
