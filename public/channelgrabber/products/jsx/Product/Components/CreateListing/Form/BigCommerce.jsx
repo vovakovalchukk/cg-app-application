@@ -62,8 +62,11 @@ define([
         refreshCategories() {
             this.setState({refreshCategoriesDisabled: true});
             $.get('/products/create-listings/' + this.props.accountId + '/refresh-categories', function(data) {
+                if (data.error) {
+                    n.error(data.error);
+                }
                 this.setState({
-                    rootCategories: data.categories,
+                    rootCategories: data.categories || [],
                     refreshCategoriesDisabled: false
                 });
             }.bind(this));
