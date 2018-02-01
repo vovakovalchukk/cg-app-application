@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "81c647da356c8493b6d451cd906a42fd",
+    "content-hash": "1be5d2f8e1bba377df4511ad42cdcb30",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2443,16 +2443,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.0.10",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "dd3e2608cfbbd47ad0d7d1c03bafe8d55f98c300"
+                "reference": "f15e74640e075ebb1c6896de793c28231c2ad598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.10-9d06a6.zip",
-                "reference": "dd3e2608cfbbd47ad0d7d1c03bafe8d55f98c300",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.1.0-8264a4.zip",
+                "reference": "f15e74640e075ebb1c6896de793c28231c2ad598",
                 "shasum": null
             },
             "require": {
@@ -2483,7 +2483,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-02-01T08:46:53+00:00"
+            "time": "2018-02-01T14:54:19+00:00"
         },
         {
             "name": "channelgrabber/slim",
