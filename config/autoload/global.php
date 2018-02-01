@@ -186,6 +186,8 @@ use CG\Stdlib\Sites;
 use CG\Settings\PackageRules\StorageInterface as PackageRulesStorage;
 use CG\Settings\PackageRules\Storage\Api as PackageRulesApiStorage;
 
+use CG\Email\Smtp;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -228,7 +230,8 @@ $config = array(
                 RolloutStorage::class => RolloutRedisStorage::class,
                 StockImportInterface::class => StockImportFileS3::class,
                 LocationStorage::class => LocationApiStorage::class,
-                PackageRulesStorage::class => PackageRulesApiStorage::class
+                PackageRulesStorage::class => PackageRulesApiStorage::class,
+                Smtp::class => 'orderhub-smtp',
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -659,6 +662,11 @@ $config = array(
                 'parameters' => [
                     'config' => 'app_config'
                 ]
+            ],
+            ImageTemplateGuzzleClient::class => [
+                'parameters' => [
+                    'client' => 'imagetemplate_guzzle',
+                ],
             ],
         ),
     ),

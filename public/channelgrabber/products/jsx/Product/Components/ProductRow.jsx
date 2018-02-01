@@ -39,7 +39,9 @@ define([
                 product: [],
                 variations: [],
                 productLinks: {},
-                maxVariationAttributes: 0
+                maxVariationAttributes: 0,
+                fetchingUpdatedStockLevelsForSkus: {},
+                accounts: {}
             }
         },
         getInitialState: function () {
@@ -82,6 +84,11 @@ define([
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    createListingsEnabled={this.props.createListingsEnabled}
+                    accounts={this.props.accounts}
+                    isSimpleProduct={true}
+                    onCreateListingIconClick={this.props.onCreateListingIconClick}
+                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             } else {
                 return <VariationView
@@ -89,6 +96,11 @@ define([
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     productLinks={this.props.productLinks}
+                    createListingsEnabled={this.props.createListingsEnabled}
+                    accounts={this.props.accounts}
+                    isSimpleProduct={false}
+                    onCreateListingIconClick={this.props.onCreateListingIconClick}
+                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             }
         },
@@ -98,17 +110,29 @@ define([
             if (this.isParentProduct()) {
                 products = this.state.variations;
             }
+
             return (
                 <div className="details-layout-column">
                     <Tabs selected={0}>
                         <Pane label="Stock">
-                            <StockView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
+                            <StockView
+                                variations={products}
+                                fullView={this.state.expanded}
+                                onVariationDetailChanged={this.onVariationDetailChanged}
+                                fetchingUpdatedStockLevelsForSkus={this.props.fetchingUpdatedStockLevelsForSkus}
+                            />
                         </Pane>
                         <Pane label="Dimensions">
-                            <DimensionsView variations={products} fullView={this.state.expanded} onVariationDetailChanged={this.onVariationDetailChanged}/>
+                            <DimensionsView variations={products} fullView={this.state.expanded}/>
                         </Pane>
                         <Pane label="VAT">
-                            <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
+                            <VatView
+                                parentProduct={this.props.product}
+                                fullView={this.state.expanded}
+                                onVatChanged={this.vatUpdated}
+                                variationCount={this.state.variations.length}
+                                adminCompanyUrl={this.props.adminCompanyUrl}
+                            />
                         </Pane>
                         <Pane label="Listings">
                             <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />

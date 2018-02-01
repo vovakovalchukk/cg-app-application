@@ -21,6 +21,7 @@ use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\NotInUseException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 
@@ -137,18 +138,33 @@ class Service implements LoggerAwareInterface
         $services = null;
         $service = null;
         $serviceOptions = null;
-        if ($shippingAlias) {
-            $shippingDescription = $shippingAlias->getName();
-            $courierId = $shippingAlias->getAccountId();
-            if ($courierId) {
-                $service = $shippingAlias->getShippingService();
-                $serviceOptions = $shippingAlias->getOptions();
-                $courierAccount = $this->accountService->fetch($courierId);
-                $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
-                if (!isset($services[$service])) {
-                    $service = null;
+
+        try {
+            if ($shippingAlias) {
+                $shippingDescription = $shippingAlias->getName();
+                $courierId = $shippingAlias->getAccountId();
+                if ($courierId) {
+                    $service = $shippingAlias->getShippingService();
+                    $serviceOptions = $shippingAlias->getOptions();
+                    /* @var $courierAccount \CG\Account\Client\Entity */
+                    $courierAccount = $this->accountService->fetch($courierId);
+
+                    if (!$this->shippingChannelsProviderRepo->isProvidedAccount($courierAccount)) {
+                        throw new NotInUseException('Royal Mail PPI is not used in Courier UI');
+                    }
+
+                    $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
+
+                    if (!isset($services[$service])) {
+                        $service = null;
+                    }
                 }
             }
+        } catch (NotInUseException $e) {
+            $courierId = null;
+            $services = null;
+            $service = null;
+            $serviceOptions = null;
         }
         $shippingCountry = $order->getShippingAddressCountryForCourier();
         // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries

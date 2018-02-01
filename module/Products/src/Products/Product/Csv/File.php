@@ -11,7 +11,7 @@ class File
     ];
 
     /** @var  Line[] */
-    protected $lines;
+    protected $lines = [];
 
     /**
      * @return Line[]

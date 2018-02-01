@@ -42,6 +42,21 @@
     transition: all 0.5s ease;
 }
 
+.icon-create-listing {
+    cursor: pointer;
+    &.inactive {
+        color: #CCCCCC;
+        cursor: auto;
+    }
+}
+
+.refresh-icon {
+    float: left;
+    display: flex;
+    clear: none;
+    margin: 2px 10px;
+}
+
 #searchBtn {
     width: 80px;
     float: left;
@@ -145,6 +160,10 @@
                     padding: 5px;
                     &.stock-mode-header-col {
                         width: 300px;
+                    }
+
+                    &.list-col {
+                        width: 64px;
                     }
 
                     &.link-col {
@@ -572,7 +591,7 @@ div.tether-element div.hover-image {
         max-width: 200px;
     }
 }
-div.tether-element div.hover-link {
+div.tether-element div.tooltip-hover {
     padding: 20px;
     border-radius: 10px;
     background-color: white;
@@ -627,29 +646,6 @@ div.tether-element div.hover-link {
     }
 }
 
-.react-popup.editor-popup {
-    top: 15% !important;
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, 0);
-
-    .react-popup-buttons {
-        justify-content: space-around !important;
-        width: 30%;
-        margin: 0 auto;
-        .button {
-            width: 44% !important;
-        }
-    }
-}
-
-.react-popup.unlink-popup {
-    top: 15% !important;
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, 0);
-}
-
 .product-unlink-button {
     width: 30%;
     margin: 0 auto;
@@ -683,4 +679,9 @@ div.tether-element div.hover-link {
 
 .product-dropdown .detail-dropdown-wrapper .detail-dropdown-popup {
     position: relative;
+}
+
+.tooltip-hover {
+    z-index: 99999;
+
 }

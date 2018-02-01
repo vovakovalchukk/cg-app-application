@@ -3,6 +3,7 @@ $files = [
     'failoverClient.php',
     'netdespatch.php',
     'geopost.php',
+    'shipstation.php'
 ];
 
 $commands = [];
