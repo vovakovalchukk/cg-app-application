@@ -12,6 +12,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
+use Products\Listing\Exception as ListingException;
 
 class Service implements
     ChannelSpecificValuesInterface,
@@ -93,7 +94,11 @@ class Service implements
         try {
             return $this->bigCommerceCategoryService->fetchCategoriesForAccount($account);
         } catch (\Exception $e) {
-            throw new \Exception('Couldn\'t fetch the categories for the account: ' . $account->getId(), $e->getCode(), $e);
+            throw new ListingException(
+                'We couldn\'t get a list of categories for your BigCommerce account. Please try again later or contact support if the problem persists',
+                $e->getCode(),
+                $e
+            );
         }
     }
 
