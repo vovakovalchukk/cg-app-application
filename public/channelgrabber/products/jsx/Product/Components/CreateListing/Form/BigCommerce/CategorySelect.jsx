@@ -1,7 +1,7 @@
 define([
     'react',
     'Common/Components/Select',
-    'Product/Components/CreateListing/Form/BigCommerce/RefreshIcon'
+    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
 ], function(
     React,
     Select,
@@ -97,8 +97,11 @@ define([
                                 autoSelectFirst={false}
                                 title={index == 0 ? this.props.title : null}
                             />
-                            {index == 0 && <RefreshIcon />}
                         </div>
+                        {index == 0 && <RefreshIcon
+                            disabled={this.props.refreshCategoriesDisabled}
+                            onClick={this.props.refreshCategories}
+                        />}
                     </label>
                 }.bind(this))}
             </div>

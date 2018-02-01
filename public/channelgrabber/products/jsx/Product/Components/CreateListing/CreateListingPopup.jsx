@@ -20,8 +20,8 @@ define([
     "use strict";
 
     var channelToFormMap = {
-        'ebay': BigCommerceForm,
-        'shopify': BigCommerceForm,
+        'ebay': EbayForm,
+        'shopify': ShopifyForm,
         'big-commerce': BigCommerceForm
     };
 

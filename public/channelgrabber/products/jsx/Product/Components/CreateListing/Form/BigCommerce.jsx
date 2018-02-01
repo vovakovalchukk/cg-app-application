@@ -59,6 +59,15 @@ define([
                 }
             });
         },
+        refreshCategories() {
+            this.setState({refreshCategoriesDisabled: true});
+            $.get('/products/create-listings/' + this.props.accountId + '/refresh-categories', function(data) {
+                this.setState({
+                    rootCategories: data.categories,
+                    refreshCategoriesDisabled: false
+                });
+            }.bind(this));
+        },
         fetchAndSetDefaultsForAccount(newAccountId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
             $.ajax({
@@ -179,6 +188,8 @@ define([
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
                     onLeafCategorySelected={this.onLeafCategorySelected}
+                    refreshCategories={this.refreshCategories}
+                    refreshCategoriesDisabled={this.state.refreshCategoriesDisabled}
                     title={this.getTooltipText('category')}
                 />
             </div>;
