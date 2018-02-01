@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd4ca3af6985ed241dd01bf43cbe1be5",
+    "content-hash": "674d8833e8cd986d3fd22706530464cb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,24 +263,19 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.0.5",
+            "version": "dev-LIS-56-create-bigcommerce-listing-from-popup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "b516a934c4e8877c6fd07d167e59fadfa1f82b9d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.0.5-8b8b05.zip",
-                "reference": "b516a934c4e8877c6fd07d167e59fadfa1f82b9d",
-                "shasum": null
+                "reference": "6fe77ba13a9d05c1fcb6ba174d452378ff60c84b"
             },
             "require": {
-                "channelgrabber/channel": "^1.27.6",
+                "channelgrabber/channel": "^1.33.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "php": ">=7.1",
                 "realityking/hash_equals": "@dev",
                 "zendframework/zend-di": "~2.3"
             },
@@ -299,7 +294,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2017-02-03T12:11:57+00:00"
+            "time": "2018-02-01T15:36:28+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -9501,19 +9496,26 @@
     ],
     "aliases": [
         {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
+            "version": "dev-LIS-56-create-bigcommerce-listing-from-popup",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.13.2",
+            "alias_normalized": "1.13.2.0",
             "version": "dev-LIS-13-create-bigcom-listings-from-csv",
             "package": "channelgrabber/listing"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
