@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bee34d43af89173fb9f6ac5214846fd",
+    "content-hash": "81c647da356c8493b6d451cd906a42fd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-LIS-55-refresh-bigcommerce-categories",
+            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "03ebe1cc4a2eb4da9fad5c578993cee46e21a55a"
+                "reference": "350a6b547e8568a092df92a9e1f5de9b175d0481"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-55-refresh-bigcommerce-categories-adabcb.zip",
-                "reference": "03ebe1cc4a2eb4da9fad5c578993cee46e21a55a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-38-bigcommerce-listings-6f4378.zip",
+                "reference": "350a6b547e8568a092df92a9e1f5de9b175d0481",
                 "shasum": null
             },
             "require": {
@@ -299,7 +299,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-01T10:01:07+00:00"
+            "time": "2018-02-01T14:17:05+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -1310,16 +1310,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-52-bigcommerce-dunny-controller-actions",
+            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "7a8e286cea395f2c80844c8fc66fa2f2efdb491f"
+                "reference": "bf6d13f5794391fa36a585f6f5d76e349ddd29ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-52-bigcommerce-dunny-controller-actions-dc6718.zip",
-                "reference": "7a8e286cea395f2c80844c8fc66fa2f2efdb491f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-EPIC-LIS-38-bigcommerce-listings-386e20.zip",
+                "reference": "bf6d13f5794391fa36a585f6f5d76e349ddd29ed",
                 "shasum": null
             },
             "require": {
@@ -1355,7 +1355,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-31T14:05:29+00:00"
+            "time": "2018-02-01T14:18:44+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2443,16 +2443,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "8ee019d3f4ba5c2633959771416417a641d0bd2f"
+                "reference": "dd3e2608cfbbd47ad0d7d1c03bafe8d55f98c300"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.9-6cba6d.zip",
-                "reference": "8ee019d3f4ba5c2633959771416417a641d0bd2f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.0.10-9d06a6.zip",
+                "reference": "dd3e2608cfbbd47ad0d7d1c03bafe8d55f98c300",
                 "shasum": null
             },
             "require": {
@@ -2483,7 +2483,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-25T13:09:10+00:00"
+            "time": "2018-02-01T08:46:53+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -8001,7 +8001,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8056,7 +8056,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8111,7 +8111,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8162,7 +8162,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8248,7 +8248,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9503,13 +9503,13 @@
         {
             "alias": "1.0.6",
             "alias_normalized": "1.0.6.0",
-            "version": "dev-LIS-55-refresh-bigcommerce-categories",
+            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "package": "channelgrabber/bigcommerce"
         },
         {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-LIS-52-bigcommerce-dunny-controller-actions",
+            "alias": "1.13.0",
+            "alias_normalized": "1.13.0.0",
+            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "package": "channelgrabber/listing"
         }
     ],
