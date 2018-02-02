@@ -1,6 +1,6 @@
 define([
     'react',
-    'Common/Components/Popup',
+    'Common/Components/Container',
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
@@ -8,7 +8,7 @@ define([
     'Product/Utils/CreateListingUtils'
 ], function(
     React,
-    Popup,
+    Container,
     PopupMessage,
     EbayForm,
     ShopifyForm,
@@ -188,9 +188,9 @@ define([
         },
         render: function() {
             return (
-                    <Popup
+                    <Container
                         initiallyActive={true}
-                        className="editor-popup create-listing"
+                        className="editor-popup product-create-listing"
                         onYesButtonPressed={this.submitFormData}
                         onNoButtonPressed={this.props.onCreateListingClose}
                         closeOnYes={false}
@@ -222,7 +222,7 @@ define([
                         </form>
                         {this.renderErrorMessage()}
 
-                    </Popup>
+                    </Container>
             );
         }
     });

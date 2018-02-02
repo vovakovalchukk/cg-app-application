@@ -1,0 +1,47 @@
+.container-wrapper {
+  width: 100%;
+  height: auto;
+  min-height: 90vh;
+  float: left;
+  clear: both;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding: 20px 20px 0px 20px !important;
+  background-color: $color-bluegrey;
+  box-sizing: border-box;
+  transition: all 0.5s ease;
+}
+
+.container-content {
+  background-color: white;
+  padding: 16px;
+
+  .inputbox-label {
+    margin-right: 8px;
+  }
+}
+
+.container-header {
+  background-color: $color-linkblue;
+  color: $color-white;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.container-sub-header {
+  padding: 8px;
+}
+
+.container-btn {
+  padding: 8px 16px;
+  margin-right: 5px;
+  max-width: 200px;
+  display: inline-block;
+  font-weight: bold;
+
+  &.yes {
+    background: $color-linkblue;
+    color: $color-white;
+  }
+}
