@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "43c48c15c47df8fa61a1178a335c5721",
+    "content-hash": "7411fbdacbd34ef49611234317b9a9be",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-LIS-56-create-bigcommerce-listing-from-popup",
+            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "9d6276dfafdda141e0867b578f7557967f573b46"
+                "reference": "44203059c8a5ef7697a6d00eeda6250a3bd13534"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-56-create-bigcommerce-listing-from-popup-9a891c.zip",
-                "reference": "9d6276dfafdda141e0867b578f7557967f573b46",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-38-bigcommerce-listings-eb6a74.zip",
+                "reference": "44203059c8a5ef7697a6d00eeda6250a3bd13534",
                 "shasum": null
             },
             "require": {
@@ -300,7 +300,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-02T10:04:02+00:00"
+            "time": "2018-02-02T10:26:50+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -9504,7 +9504,7 @@
         {
             "alias": "1.0.5",
             "alias_normalized": "1.0.5.0",
-            "version": "dev-LIS-56-create-bigcommerce-listing-from-popup",
+            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "package": "channelgrabber/bigcommerce"
         },
         {
