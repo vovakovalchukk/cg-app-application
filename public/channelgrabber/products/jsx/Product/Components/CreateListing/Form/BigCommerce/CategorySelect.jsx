@@ -56,7 +56,7 @@ define([
                 newState.selectedCategories[categoryIndex] = selectOption;
 
                 this.setState(newState);
-                this.props.onLeafCategorySelected(null);
+                this.props.onLeafCategorySelected(selectOption.value);
                 this.fetchAndSetChildCategories(selectOption.value, categoryIndex, newState);
             }.bind(this);
         },
@@ -66,12 +66,10 @@ define([
                 url: '/products/create-listings/' + this.props.accountId + '/category-children/' + selectedCategoryId,
                 type: 'GET',
                 success: function (response) {
-                    if (response.categories.length == 0) {
-                        this.props.onLeafCategorySelected(selectedCategoryId);
+                    if (response.categories && response.categories.length === 0) {
                         return;
                     }
                     previouslySetState.categoryMaps[categoryIndex + 1] = response.categories;
-
                     this.setState(previouslySetState);
                 }
             });
