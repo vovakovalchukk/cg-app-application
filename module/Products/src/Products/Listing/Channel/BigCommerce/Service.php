@@ -52,11 +52,39 @@ class Service implements
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
     {
-        return [
-            672 => "child category 1",
-            675 => "mambo number 2",
-            781 => "and a number 3 please"
-        ];
+        try {
+            $parentCategory = $this->fetchCategoryForExternalId($account, $externalCategoryId);
+            /** @var CategoryCollection $categories */
+            $categories = $this->categoryService->fetchCollectionByFilter(
+                (new CategoryFilter())
+                    ->setLimit('all')
+                    ->setPage(1)
+                    ->setAccountId([$account->getId()])
+                    ->setParentId([$parentCategory->getId()])
+                    ->setChannel(['big-commerce'])
+                    ->setEnabled(true)
+                    ->setListable(true)
+            );
+            return $this->formatCategoriesResponse($categories);
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    protected function fetchCategoryForExternalId(Account $account, string $externalCategoryId): Category
+    {
+        /** @var CategoryCollection $categories */
+        $categories = $this->categoryService->fetchCollectionByFilter(
+            (new CategoryFilter())
+                ->setLimit(1)
+                ->setPage(1)
+                ->setAccountId([$account->getId()])
+                ->setChannel(['big-commerce'])
+                ->setExternalId([$externalCategoryId])
+        );
+        /** @var Category $category */
+        $category = $categories->getFirst();
+        return $category;
     }
 
     protected function fetchCategoriesForAccount(Account $account): array
