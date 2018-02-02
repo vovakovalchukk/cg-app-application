@@ -41,6 +41,7 @@ define([
                 title: null,
                 description: null,
                 price: null,
+                weight: null,
                 errors: [],
                 warnings: []
             }
@@ -60,7 +61,8 @@ define([
                 productId: this.props.product.id,
                 title: this.props.product.name,
                 description: this.props.product.details.description ? this.props.product.details.description : null,
-                price: this.props.product.details.price ? this.props.product.details.price : null
+                price: this.props.product.details.price ? this.props.product.details.price : null,
+                weight: this.props.product.details.weight ? this.props.product.details.weight : null
             });
         },
         setFormStateListing: function(listingFormState) {

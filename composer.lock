@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a568e322f4071fc2de86977753774f93",
+    "content-hash": "7411fbdacbd34ef49611234317b9a9be",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -9502,8 +9502,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
             "version": "dev-EPIC-LIS-38-bigcommerce-listings",
             "package": "channelgrabber/bigcommerce"
         },

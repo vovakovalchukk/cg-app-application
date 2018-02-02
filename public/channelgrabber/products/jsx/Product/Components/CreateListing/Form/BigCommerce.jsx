@@ -24,7 +24,8 @@ define([
                 description: null,
                 price: null,
                 accountId: null,
-                product: null
+                product: null,
+                weight: null
             }
         },
         getInitialState: function() {
@@ -104,6 +105,7 @@ define([
                 description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
                 image: 'Pick an image to use on this listing',
                 category: 'Select a category to list your product to',
+                weight: 'BigCommerce requires a weight used for shipping purposes. Enter the weight of the product by using the weight measurement set in you BigCommerce account settings'
             };
             return tooltips[inputFieldName];
         },
@@ -145,6 +147,17 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Image</span>
                     {this.renderImagePicker()}
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Weight</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Input
+                            name="weight"
+                            value={this.props.weight}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('weight')}
+                        />
+                    </div>
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}
