@@ -100,9 +100,9 @@ define([
                                                 <CreateListingIcon
                                                     isSimpleProduct={!this.props.isSimpleProduct}
                                                     accountsAvailable={this.props.accounts}
-                                                    accountsListedOn={Object.keys(variation.listingsPerAccount)}
                                                     productId={variation.id}
                                                     onCreateListingIconClick={this.props.onCreateListingIconClick}
+                                                    availableChannels={this.props.createListingsAllowedChannels}
                                                 />
                                             </td> : ''}
                                             {this.renderLinkCell(variation)}

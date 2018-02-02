@@ -34,7 +34,8 @@ define([
             return {
                 searchAvailable: true,
                 isAdmin: false,
-                initialSearchTerm: ''
+                initialSearchTerm: '',
+                adminCompanyUrl: null
             }
         },
         getInitialState: function()
@@ -109,7 +110,8 @@ define([
                     initialLoadOccurred: true,
                     searchTerm: searchTerm,
                     skuList: skuList,
-                    accounts: result.accounts
+                    accounts: result.accounts,
+                    createListingsAllowedChannels: result.createListingsAllowedChannels
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -302,8 +304,9 @@ define([
             var refreshedProductId = (refreshedProduct.parentProductId === 0 ? refreshedProduct.id : refreshedProduct.parentProductId);
             var products = this.state.products.map(function (product) {
                 if (product.id === refreshedProductId) {
-                    product.listings[0].status = 'pending';
-                    return product;
+                    for (var listingId in product.listings) {
+                        product.listings[listingId].status = 'pending';
+                    }
                 }
                 return product;
             });
@@ -377,6 +380,8 @@ define([
                     createListingsEnabled={this.props.createListingsEnabled}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+                    adminCompanyUrl={this.props.adminCompanyUrl}
                 />;
             }.bind(this))
         },
@@ -388,6 +393,7 @@ define([
                 accounts={this.state.accounts}
                 product={this.state.createListing.product}
                 onCreateListingClose={this.onCreateListingClose}
+                availableChannels={this.state.createListingsAllowedChannels}
             />
         },
         render: function()

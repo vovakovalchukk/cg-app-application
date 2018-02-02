@@ -24,7 +24,8 @@ function(ProductRoot, Clipboard, ImageUtils) {
         searchAvailable, <?= ($isAdmin ? 'true' : 'false') ?>,
         '<?= $searchTerm ?>',
         <?= $this->featureFlags(\CG\Product\Client\Service::FEATURE_FLAG_LINKED_PRODUCTS, $this->activeUserRootOu)? 1: 0; ?>,
-        <?= $this->featureFlags(\CG\Listing\Client\Service::FEATURE_FLAG_CREATE_LISTINGS, $this->activeUserRootOu)? 1: 0; ?>
+        <?= $this->featureFlags(\CG\Listing\Client\Service::FEATURE_FLAG_CREATE_LISTINGS, $this->activeUserRootOu)? 1: 0; ?>,
+        '<?= $this->remoteUrl('/company', 'admin'); ?>'
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });

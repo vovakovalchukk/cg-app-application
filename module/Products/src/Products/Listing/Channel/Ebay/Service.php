@@ -1,5 +1,5 @@
 <?php
-namespace Products\Listing\Create\Ebay;
+namespace Products\Listing\Channel\Ebay;
 
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
@@ -18,9 +18,26 @@ use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use Products\Listing\Channel\CategoryChildrenInterface;
+use Products\Listing\Channel\CategoryDependentServiceInterface;
+use Products\Listing\Channel\ChannelSpecificValuesInterface;
+use Products\Listing\Channel\DefaultAccountSettingsInterface;
 
-class Service
+class Service implements
+    CategoryDependentServiceInterface,
+    DefaultAccountSettingsInterface,
+    ChannelSpecificValuesInterface,
+    CategoryChildrenInterface
 {
+    const ALLOWED_SETTINGS_KEYS = [
+        'listingLocation' => 'listingLocation',
+        'listingCurrency' => 'listingCurrency',
+        'paypalEmail' => 'paypalEmail',
+        'listingDuration' => 'listingDuration',
+        'listingDispatchTime' => 'listingDispatchTime',
+        'listingPaymentMethods' => 'listingPaymentMethods'
+    ];
+
     /** @var CategoryService */
     protected $categoryService;
     /** @var Cryptor */
@@ -42,37 +59,7 @@ class Service
         $this->categoryExternalService = $categoryExternalService;
     }
 
-    public function getCategoryOptionsForAccount(Account $account): array
-    {
-        return $this->formatCategoriesArray(
-            $this->fetchCategoriesForAccount($account)
-        );
-    }
-
-    public function getShippingMethodsForAccount(Account $account): array
-    {
-        try {
-            /** @var ShippingMethodCollection $shippingMethods */
-            $shippingMethods = $this->shippingMethodService->fetchCollectionByFilter(
-                new ShippingMethodFilter('all', 1, [], ['ebay'], [], [$account->getRootOrganisationUnitId()])
-            );
-            return $this->formatShippingMethodsArray($shippingMethods);
-        } catch (NotFound $e) {
-            return [];
-        }
-    }
-
-    public function getCurrencySymbolForAccount(Account $account): ?string
-    {
-        try {
-            $siteId = $this->getEbaySiteIdForAccount($account);
-            return CurrencyMap::getCurrencySymbolBySiteId($siteId);
-        } catch (\InvalidArgumentException $e) {
-            return null;
-        }
-    }
-
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $externalCategoryId): array
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
     {
         try {
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
@@ -89,7 +76,28 @@ class Service
         }
     }
 
-    public function getListingDurationsForCategory(Account $account,int $externalCategoryId): array
+    public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
+    {
+        return [
+            'listingDuration' => $this->getListingDurationsForCategory($account, $externalCategoryId)
+        ];
+    }
+
+    public function getDefaultSettingsForAccount(Account $account): array
+    {
+        return $this->filterDefaultSettingsKeys($account->getExternalData());
+    }
+
+    public function getChannelSpecificFieldValues(Account $account): array
+    {
+        return [
+            'category' => $this->getCategoryOptionsForAccount($account),
+            'shippingService' => $this->getShippingMethodsForAccount($account),
+            'currency' => $this->getCurrencySymbolForAccount($account)
+        ];
+    }
+
+    protected function getListingDurationsForCategory(Account $account,int $externalCategoryId): array
     {
         try {
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
@@ -104,6 +112,47 @@ class Service
             return $this->formatListingDurationsArray($listingDurations);
         } catch (NotFound $e) {
             return [];
+        }
+    }
+
+    protected function filterDefaultSettingsKeys(array $data)
+    {
+        return array_filter(
+            $data,
+            function($key) {
+                return isset(static::ALLOWED_SETTINGS_KEYS[$key]);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
+    protected function getCategoryOptionsForAccount(Account $account): array
+    {
+        return $this->formatCategoriesArray(
+            $this->fetchCategoriesForAccount($account)
+        );
+    }
+
+    protected function getShippingMethodsForAccount(Account $account): array
+    {
+        try {
+            /** @var ShippingMethodCollection $shippingMethods */
+            $shippingMethods = $this->shippingMethodService->fetchCollectionByFilter(
+                new ShippingMethodFilter('all', 1, [], ['ebay'], [], [$account->getRootOrganisationUnitId()])
+            );
+            return $this->formatShippingMethodsArray($shippingMethods);
+        } catch (NotFound $e) {
+            return [];
+        }
+    }
+
+    protected function getCurrencySymbolForAccount(Account $account): ?string
+    {
+        try {
+            $siteId = $this->getEbaySiteIdForAccount($account);
+            return CurrencyMap::getCurrencySymbolBySiteId($siteId);
+        } catch (\InvalidArgumentException $e) {
+            return null;
         }
     }
 
@@ -135,7 +184,7 @@ class Service
             ->setChannel(['ebay'])
             ->setParentId([0])
             ->setMarketplace([$siteId])
-            ->setListable(true)
+            ->setListable(false)
             ->setEnabled(true);
     }
 
