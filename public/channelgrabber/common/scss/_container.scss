@@ -4,11 +4,12 @@
   min-height: 90vh;
   float: left;
   clear: both;
-  margin-top: 50px;
   padding: 20px 20px 20px 20px !important;
   background-color: $color-bluegrey;
   box-sizing: border-box;
   transition: all 0.5s ease;
+  position: relative;
+  z-index: 10;
 }
 
 .container-content {
