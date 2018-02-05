@@ -112,6 +112,7 @@ define([
                 type: 'POST',
                 context: this,
             }).then(function(response) {
+                window.scrollTo(0, 0);
                 if (response.valid) {
                     this.handleFormSubmitSuccess(response);
                 } else {
@@ -200,6 +201,7 @@ define([
                         noButtonText="Cancel"
                     >
                         <form>
+                            {this.renderErrorMessage()}
                             <div className={"order-form half"}>
                                 <label>
                                     <span className={"inputbox-label"}>Select an account to list to:</span>
@@ -220,8 +222,6 @@ define([
                                 {this.renderCreateListingForm()}
                             </div>
                         </form>
-                        {this.renderErrorMessage()}
-
                     </Container>
             );
         }
