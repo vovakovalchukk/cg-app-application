@@ -196,7 +196,7 @@ define([
                         closeOnYes={false}
                         headerText={"Create New Listing"}
                         subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
-                        yesButtonText="Save"
+                        yesButtonText="Create Listing"
                         noButtonText="Cancel"
                     >
                         <form>

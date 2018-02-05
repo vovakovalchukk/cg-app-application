@@ -5,8 +5,7 @@
   float: left;
   clear: both;
   margin-top: 50px;
-  margin-bottom: 20px;
-  padding: 20px 20px 0px 20px !important;
+  padding: 20px 20px 20px 20px !important;
   background-color: $color-bluegrey;
   box-sizing: border-box;
   transition: all 0.5s ease;
@@ -43,5 +42,20 @@
   &.yes {
     background: $color-linkblue;
     color: $color-white;
+  }
+}
+
+.container-header-text {
+  display: inline-block;
+}
+
+.container-header-back-button {
+  float: right;
+  clear: right;
+
+  i {
+    color: $color-white;
+    font-size: 24px;
+    cursor: pointer;
   }
 }
