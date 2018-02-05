@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7411fbdacbd34ef49611234317b9a9be",
+    "content-hash": "22d98742720f8e4142f86726390f7d41",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2444,24 +2444,26 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "f15e74640e075ebb1c6896de793c28231c2ad598"
+                "reference": "5ec39178a0e3594e1a80d92330779a2a16fd34f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.1.0-8264a4.zip",
-                "reference": "f15e74640e075ebb1c6896de793c28231c2ad598",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.1.1-919dd8.zip",
+                "reference": "5ec39178a0e3594e1a80d92330779a2a16fd34f2",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.24.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
+                "channelgrabber/listing": "^1.13.0",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.23.0",
+                "channelgrabber/product": "~1.11.4",
                 "channelgrabber/stdlib": "^2.12.33",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "channelgrabber/zf2-stdlib": "^1.1.7",
@@ -2484,7 +2486,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-02-01T14:54:19+00:00"
+            "time": "2018-02-02T15:09:30+00:00"
         },
         {
             "name": "channelgrabber/slim",
