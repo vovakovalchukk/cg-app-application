@@ -3139,12 +3139,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "5310659cb8a75a00f341790f36cf0d634d4c40af"
+                "reference": "4592bc866f21c25edbf1fc4b699c0edd87c680f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-65-import-woocomerce-categories-on-account-add-55777f.zip",
-                "reference": "5310659cb8a75a00f341790f36cf0d634d4c40af",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-65-import-woocomerce-categories-on-account-add-f2e03f.zip",
+                "reference": "4592bc866f21c25edbf1fc4b699c0edd87c680f0",
                 "shasum": null
             },
             "require": {
@@ -3177,7 +3177,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-05T11:43:35+00:00"
+            "time": "2018-02-05T11:50:54+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
