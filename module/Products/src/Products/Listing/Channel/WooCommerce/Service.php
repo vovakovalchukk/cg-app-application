@@ -3,10 +3,11 @@ namespace Products\Listing\Channel\WooCommerce;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\WooCommerce\Gearman\Generator\CategoriesImport as CategoriesImportJobGenerator;
+use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
-use Products\Listing\Category\Service as CategoryService;
 
 class Service implements
     ChannelSpecificValuesInterface,
@@ -15,10 +16,15 @@ class Service implements
 {
     /** @var CategoryService */
     protected $categoryService;
+    /** @var  CategoriesImportJobGenerator */
+    protected $categoriesImportJobGenerator;
 
-    public function __construct(CategoryService $categoryService)
-    {
+    public function __construct(
+        CategoryService $categoryService,
+        CategoriesImportJobGenerator $categoriesImportJobGenerator
+    ) {
         $this->categoryService = $categoryService;
+        $this->categoriesImportJobGenerator = $categoriesImportJobGenerator;
     }
 
     public function refetchAndSaveCategories(Account $account)
