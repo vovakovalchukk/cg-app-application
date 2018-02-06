@@ -3139,7 +3139,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "2f681648159bbfbf5f6d6a37cf0e2aac0dabae8f"
+                "reference": "7288a986ae8ff5bc429212a677dd77c58f552dfd"
             },
             "require": {
                 "channelgrabber/channel": "^1.32.8",
@@ -3171,7 +3171,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-05T16:40:51+00:00"
+            "time": "2018-02-06T12:14:39+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
