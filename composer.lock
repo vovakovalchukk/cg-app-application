@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b349eed1db038f3d9463bb782d9a4a5c",
+    "content-hash": "3e741018e7dcfb2409204312b2ab29de",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1123,16 +1123,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "dev-CGIV-9223-GearmanConnectionErrors",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "c6a45714fc12ac88f15da9e89889f85873a18f6c"
+                "reference": "2e7309aae1abb4fb67e0ac9f10a2a111d487e9fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-9223-GearmanConnectionErrors-96bfe8.zip",
-                "reference": "c6a45714fc12ac88f15da9e89889f85873a18f6c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.2-6cc0b1.zip",
+                "reference": "2e7309aae1abb4fb67e0ac9f10a2a111d487e9fe",
                 "shasum": null
             },
             "require": {
@@ -1163,7 +1163,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-02-06T10:13:59+00:00"
+            "time": "2018-02-06T14:40:39+00:00"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -9506,18 +9506,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.2",
-            "alias_normalized": "1.3.2.0",
-            "version": "dev-CGIV-9223-GearmanConnectionErrors",
-            "package": "channelgrabber/gearman"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/gearman": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
