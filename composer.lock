@@ -3139,13 +3139,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "7288a986ae8ff5bc429212a677dd77c58f552dfd"
+                "reference": "acf4b2f0d06cfb0eb14a42d8f477846e1eb64234"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-71-create-woocommerce-listing-8aea0a.zip",
+                "reference": "acf4b2f0d06cfb0eb14a42d8f477846e1eb64234",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.32.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
+                "channelgrabber/product": "^1.11.5",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
@@ -3171,7 +3178,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-06T12:14:39+00:00"
+            "time": "2018-02-07T09:59:09+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
