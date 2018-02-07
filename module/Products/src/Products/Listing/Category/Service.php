@@ -47,7 +47,7 @@ class Service
     ): Category {
         $filter = (new CategoryFilter(1, 1))
             ->setExternalId([$externalId])
-            ->setChannel($account->getChannel())
+            ->setChannel([$account->getChannel()])
             ->setEnabled(true);
 
         !is_null($marketplace) ? $filter->setMarketplace([$marketplace]) : null;
@@ -64,9 +64,10 @@ class Service
         bool $useAccountId = true
     ): array {
         $filter = (new CategoryFilter('all', 1))
-            ->setChannel($account->getChannel())
+            ->setChannel([$account->getChannel()])
             ->setParentId([$category->getId()]);
         $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
+
         try {
             $categories = $this->categoryService->fetchCollectionByFilter($filter);
             return $this->formatCategoriesResponse($categories);
