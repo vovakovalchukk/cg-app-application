@@ -25,6 +25,8 @@ use Orders\Order\Csv\MapperInterface;
 
 class OrdersItems implements MapperInterface
 {
+    use ConvertToOrderIdsFlagTrait;
+
     const ORDERS_PER_PAGE = 500;
 
     /** @var OrderService $orderService */
@@ -182,7 +184,9 @@ class OrdersItems implements MapperInterface
     public function fromOrderFilter(OrderFilter $orderFilter)
     {
         /** @var OrderFilter $orderFilter */
-        $orderFilter = $this->orderFilterStorage->save($orderFilter->setConvertToOrderIds(true));
+        $orderFilter = $this->orderFilterStorage->save(
+            $orderFilter->setConvertToOrderIds($this->convertToOrderIdsFlag)
+        );
 
         $page = 1;
         do {

@@ -182,6 +182,12 @@ use CG\ExchangeRate\StorageInterface as ExchangeRateStorage;
 // Sites
 use CG\Stdlib\Sites;
 
+// Package Rules
+use CG\Settings\PackageRules\StorageInterface as PackageRulesStorage;
+use CG\Settings\PackageRules\Storage\Api as PackageRulesApiStorage;
+
+use CG\Email\Smtp;
+
 $config = array(
     'di' => array(
         'instance' => array(
@@ -224,6 +230,8 @@ $config = array(
                 RolloutStorage::class => RolloutRedisStorage::class,
                 StockImportInterface::class => StockImportFileS3::class,
                 LocationStorage::class => LocationApiStorage::class,
+                PackageRulesStorage::class => PackageRulesApiStorage::class,
+                Smtp::class => 'orderhub-smtp',
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -508,7 +516,11 @@ $config = array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-
+            PackageRulesApiStorage::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
+                ]
+            ],
             'StockSettingsAccountsTable' => [
                 'parameters' => [
                     'variables' => [
@@ -650,6 +662,11 @@ $config = array(
                 'parameters' => [
                     'config' => 'app_config'
                 ]
+            ],
+            ImageTemplateGuzzleClient::class => [
+                'parameters' => [
+                    'client' => 'imagetemplate_guzzle',
+                ],
             ],
         ),
     ),

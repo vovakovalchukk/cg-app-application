@@ -5,6 +5,8 @@ define([
     BulkActionAbstract,
     ProgressCheckAbstract
 ) {
+    var clickHandlerSetup = false;
+
     var Delete = function(
         startMessage,
         progressMessage,
@@ -36,6 +38,7 @@ define([
             return productIds;
         };
 
+        this.clickHandlerSetup();
         BulkActionAbstract.call(this);
         ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage, countMessage);
     };
@@ -96,7 +99,20 @@ define([
                 this.getNotificationHandler().success(this.getEndMessage());
                 this.progressFinished();
             },
-            null,
+            function(response) {
+                if (response.status == 422) {
+                    this.getNotificationHandler().error(
+                        'The following skus can\'t be deleted as they are used as linked products '
+                        + this.generateUlList(response.responseJSON.nonDeletableSkuList)
+                        + '<a class="js-product-search-by-sku" data-sku=\'' + JSON.stringify(response.responseJSON.listOfAncestorSkusWithDeletionPreventingLinks) + '\'>'
+                        + 'Click here to view products which are preventing deletion</a>'
+                    );
+
+                    return;
+                }
+                this.getAjaxRequester().handleFailure(response);
+
+            },
             this
         );
     };
@@ -112,5 +128,33 @@ define([
         window.triggerEvent('productDeleted', data);
     };
 
+
+    Delete.prototype.generateUlList = function(array) {
+        var list = '<ul>';
+
+        array.forEach(function(listItem) {
+            list += '<li>' + listItem + '</li>';
+        });
+
+        list += '</ul>';
+        return list;
+    };
+
+    Delete.prototype.clickHandlerSetup = function() {
+        if (clickHandlerSetup) {
+            return;
+        }
+
+        document.getElementById("main-notifications").addEventListener("click", function(e) {
+            if(e.target && e.target.className == "js-product-search-by-sku") {
+                window.triggerEvent('getProductsBySku', {sku: JSON.parse(e.target.dataset.sku)});
+                this.getNotificationHandler().clearNotifications();
+            }
+        }.bind(this));
+
+        clickHandlerSetup = true;
+    };
+
     return Delete;
 });
+

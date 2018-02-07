@@ -1,0 +1,116 @@
+{
+  "has_errors": false,
+  "shipments": [
+    {
+      "address_validation": {
+        "status": "verified",
+        "original_address": {
+          "name": "Mickey and Minnie Mouse",
+          "phone": "714-781-4565",
+          "company_name": "The Walt Disney Company",
+          "address_line1": "500 South Buena Vista Street",
+          "city_locality": "Burbank",
+          "state_province": "CA",
+          "postal_code": "91521",
+          "country_code": "US",
+          "address_residential_indicator": "no"
+        },
+        "matched_address": {
+          "name": "MICKEY AND MINNIE MOUSE",
+          "phone": "714-781-4565",
+          "company_name": "THE WALT DISNEY COMPANY",
+          "address_line1": "500 S BUENA VISTA ST",
+          "address_line2": "",
+          "city_locality": "BURBANK",
+          "state_province": "CA",
+          "postal_code": "91521-0007",
+          "country_code": "US",
+          "address_residential_indicator": "no"
+        },
+        "messages": []
+      },
+      "shipment_id": "se-2126954",
+      "carrier_id": "se-123890",
+      "service_code": "usps_priority_mail",
+      "external_shipment_id": null,
+      "ship_date": "2017-12-15T00:00:00.000Z",
+      "created_at": "2017-12-15T12:08:46.317Z",
+      "modified_at": "2017-12-15T12:08:46.317Z",
+      "shipment_status": "pending",
+      "ship_to": {
+        "name": "Mickey and Minnie Mouse",
+        "phone": "714-781-4565",
+        "company_name": "The Walt Disney Company",
+        "address_line1": "500 S BUENA VISTA ST",
+        "address_line2": "",
+        "city_locality": "BURBANK",
+        "state_province": "CA",
+        "postal_code": "91521-0001",
+        "country_code": "US",
+        "address_residential_indicator": "no"
+      },
+      "ship_from": {
+        "name": "Shippy",
+        "phone": "512-485-4282",
+        "company_name": "ShipStation",
+        "address_line1": "3800 N. Lamar Blvd.",
+        "address_line2": "Suite 220",
+        "city_locality": "Austin",
+        "state_province": "TX",
+        "postal_code": "78756",
+        "country_code": "US",
+        "address_residential_indicator": "unknown"
+      },
+      "warehouse_id": "se-17072",
+      "return_to": {
+        "name": "ShipStation Returns",
+        "phone": "512-485-4282",
+        "company_name": "ShipStation",
+        "address_line1": "3800 N. Lamar Blvd.",
+        "address_line2": "Suite 220",
+        "city_locality": "Austin",
+        "state_province": "TX",
+        "postal_code": "78756",
+        "country_code": "US",
+        "address_residential_indicator": "unknown"
+      },
+      "confirmation": "none",
+      "advanced_options": {
+        "bill_to_account": null,
+        "bill_to_country_code": null,
+        "bill_to_party": null,
+        "bill_to_postal_code": null,
+        "contains_alcohol": false,
+        "custom_field1": null,
+        "custom_field2": null,
+        "custom_field3": null,
+        "non_machinable": false,
+        "saturday_delivery": false
+      },
+      "insurance_provider": "none",
+      "tags": [],
+      "total_weight": {
+        "value": 1.0,
+        "units": "ounce"
+      },
+      "packages": [
+        {
+          "weight": {
+            "value": 1.0,
+            "units": "ounce"
+          },
+          "dimensions": {
+            "units": "inch",
+            "length": 0.0,
+            "width": 0.0,
+            "height": 0.0
+          },
+          "insured_value": {
+            "currency": "usd",
+            "amount": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

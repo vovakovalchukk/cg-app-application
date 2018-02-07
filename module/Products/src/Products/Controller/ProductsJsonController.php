@@ -11,10 +11,16 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
+use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\Collection as ProductCollection;
+use CG\Product\Entity as Product;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
+use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
@@ -25,6 +31,9 @@ use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use Products\Product\Link\Service as ProductLinkService;
+use Products\Listing\Channel\Service as ListingChannelService;
+use CG\Account\Shared\Collection as AccountCollection;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -42,6 +51,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_DELETE_PROGRESS = 'Delete Progress';
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
+    const ROUTE_STOCK_FETCH = 'StockFetch';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
@@ -69,6 +79,12 @@ class ProductsJsonController extends AbstractActionController
     protected $locationService;
     /** @var StockLocationService */
     protected $stockLocationService;
+    /** @var ActiveUserInterface */
+    protected $activeUser;
+    /** @var ProductLinkService */
+    protected $productLinkService;
+    /** @var ListingChannelService */
+    protected $listingChannelService;
 
     public function __construct(
         ProductService $productService,
@@ -82,7 +98,10 @@ class ProductsJsonController extends AbstractActionController
         StockSettingsService $stockSettingsService,
         UsageService $usageService,
         LocationService $locationService,
-        StockLocationService $stockLocationService
+        StockLocationService $stockLocationService,
+        ActiveUserInterface $activeUser,
+        ProductLinkService $productLinkService,
+        ListingChannelService $listingChannelService
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -96,6 +115,9 @@ class ProductsJsonController extends AbstractActionController
         $this->usageService = $usageService;
         $this->locationService = $locationService;
         $this->stockLocationService = $stockLocationService;
+        $this->activeUser = $activeUser;
+        $this->productLinkService = $productLinkService;
+        $this->listingChannelService = $listingChannelService;
     }
 
     public function ajaxAction()
@@ -104,7 +126,11 @@ class ProductsJsonController extends AbstractActionController
         $filterParams = $this->params()->fromPost('filter', []);
         $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
         $limit = 'all';
-        if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
+        if (
+            !array_key_exists('parentProductId', $filterParams)
+            && !array_key_exists('id', $filterParams)
+            && !array_key_exists('replaceVariationWithParent', $filterParams)
+        ) {
             $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
             $filterParams['replaceVariationWithParent'] = true;
         }
@@ -118,34 +144,56 @@ class ProductsJsonController extends AbstractActionController
         try {
             $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
-            $accounts = $this->getAccountsIndexedById($organisationUnitIds);
+            $accounts = $this->fetchAccounts($organisationUnitIds);
+            $accountsArray = $this->getAccountsIndexedById($accounts);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
             $merchantLocationIds = $this->locationService->fetchIdsByType(
                 [LocationType::MERCHANT],
                 $rootOrganisationUnit->getId()
             );
 
+            $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit, $accounts);
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
-                    $accounts,
+                    $accountsArray,
                     $rootOrganisationUnit,
                     $merchantLocationIds
                 );
             }
             $total = $products->getTotal();
         } catch(NotFound $e) {
+            $allowedCreateListingChannels = [];
+            $accountsArray = [];
             //noop
         }
+
+        $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
+        if ($skuThatProductsCantLinkFrom) {
+            $view->setVariable(
+                'nonLinkableSkus',
+                $this->productLinkService->getSkusProductCantLinkTo(
+                    $products->getFirst()->getOrganisationUnitId(),
+                    $skuThatProductsCantLinkFrom
+                )
+            );
+        }
+
         $view
             ->setVariable('products', $productsArray)
+            ->setVariable('accounts', $accountsArray)
+            ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }
 
-    protected function getAccountsIndexedById($organisationUnitIds)
+    protected function fetchAccounts($organisationUnitIds): AccountCollection
     {
-        $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');
+        return $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');
+    }
+
+    protected function getAccountsIndexedById(AccountCollection $accounts): array
+    {
         $indexedAccounts = [];
         foreach($accounts as $account) {
             $indexedAccounts[$account->getId()] = $account->toArray();
@@ -219,6 +267,8 @@ class ProductsJsonController extends AbstractActionController
                 'width' => $detailsEntity->getDisplayWidth(),
                 'height' => $detailsEntity->getDisplayHeight(),
                 'length' => $detailsEntity->getDisplayLength(),
+                'price' => $detailsEntity->getPrice(),
+                'description' => $detailsEntity->getDescription()
             ];
         } else {
             $product['details'] = ['sku' => $productEntity->getSku()];
@@ -287,6 +337,22 @@ class ProductsJsonController extends AbstractActionController
         return $listings;
     }
 
+    public function stockFetchAction()
+    {
+        $view = $this->jsonModelFactory->newInstance();
+        $productSku = $this->params()->fromRoute('productSku');
+
+        try {
+            $stock = $this->productService->fetchStockForSku($productSku, $this->activeUser->getActiveUserRootOrganisationUnitId());
+        } catch(ValidationException $e) {
+            $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
+            return $view;
+        }
+
+        $view->setVariables(['stock' => $stock]);
+        return $view;
+    }
+
     public function stockUpdateAction()
     {
         $this->checkUsage();
@@ -322,6 +388,16 @@ class ProductsJsonController extends AbstractActionController
         $productIds = $this->params()->fromPost('productIds');
         if (empty($productIds)){
             return $view;
+        }
+
+        try {
+            $this->productService->checkForSafeDeletionWithProductLinks($productIds);
+        } catch (ProductLinkBlockingProductDeletionException $exception) {
+            $this->getResponse()->setStatusCode(StatusCode::UNPROCESSABLE_ENTITY);
+            return $view->setVariables([
+                'nonDeletableSkuList' => $exception->getNonDeletableSkuList(),
+                'listOfAncestorSkusWithDeletionPreventingLinks' => $exception->getAncestorSkusWithDeletionPreventingLinks()
+            ]);
         }
 
         $progressKey = $this->params()->fromPost('progressKey');

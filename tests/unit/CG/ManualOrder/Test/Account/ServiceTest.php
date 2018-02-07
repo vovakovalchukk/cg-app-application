@@ -8,9 +8,9 @@ use CG\ManualOrder\Account\Service;
 use CG\ManualOrder\Account\CreationService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ServiceTest extends PHPUnit_Framework_TestCase
+class ServiceTest extends TestCase
 {
     protected $service;
     protected $accountService;

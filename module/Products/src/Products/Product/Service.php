@@ -14,6 +14,11 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
 use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
+use CG\Product\Entity as Product;
+use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
+use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
+use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
@@ -22,11 +27,14 @@ use CG\Product\StockMode;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
+use CG\Stock\Filter;
+use CG\Stock\Entity as Stock;
 use CG\Stock\Location\StorageInterface as StockLocationStorage;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
@@ -60,35 +68,48 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
     const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
 
+    /** @var UserService $userService */
     protected $userService;
-    /** @var ActiveUserInterface */
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var Di $di */
     protected $di;
+    /** @var $activeUserPreference */
     protected $activeUserPreference;
+    /** @var UserPreferenceService $userPreferenceService */
     protected $userPreferenceService;
-    /** @var AccountService */
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var ProductService $productService */
     protected $productService;
+    /** @var ProductFilterMapper $productFilterMapper */
     protected $productFilterMapper;
+    /** @var StockStorage $stockStorage */
     protected $stockStorage;
+    /** @var StockLocationStorage $stockLocationStorage */
     protected $stockLocationStorage;
+    /** @var StockAuditor $stockAuditor */
     protected $stockAuditor;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
-    /** @var StockAdjustmentService */
+    /** @var StockAdjustmentService $stockAdjustmentService */
     protected $stockAdjustmentService;
     /** @var DetailService $detailService */
     protected $detailService;
     /** @var DetailMapper $detailMapper */
     protected $detailMapper;
-    /** @var GearmanClient */
+    /** @var GearmanClient $gearmanClient */
     protected $gearmanClient;
-    /** @var RemoveProgressStorage */
+    /** @var RemoveProgressStorage $removeProgressStorage */
     protected $removeProgressStorage;
-    /** @var  FeatureFlagsService */
+    /** @var  FeatureFlagsService $featureFlagsService */
     protected $featureFlagsService;
-    /** @var UserOuService */
+    /** @var UserOuService $userOuService */
     protected $userOuService;
+    /** @var ProductLinkNodeService $productLinkNodeService */
+    protected $productLinkNodeService;
 
     public function __construct(
         UserService $userService,
@@ -109,7 +130,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         GearmanClient $gearmanClient,
         RemoveProgressStorage $removeProgressStorage,
         FeatureFlagsService $featureFlagsService,
-        UserOuService $userOuService
+        UserOuService $userOuService,
+        ProductLinkNodeService $productLinkNodeService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -130,6 +152,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->removeProgressStorage = $removeProgressStorage;
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
+        $this->productLinkNodeService = $productLinkNodeService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -140,6 +163,42 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
         $products = $this->productService->fetchCollectionByFilter($productFilter);
         return $products;
+    }
+
+    public function fetchProductById($id): Product
+    {
+        return $this->productService->fetch($id);
+    }
+
+    public function fetchStockForSku(string $productSku, int $ouId): array
+    {
+        if ($productSku == '') {
+            throw new ValidationException('Cannot filter stock by empty sku');
+        }
+
+        $linkNodeFilter = (new ProductLinkNodeFilter('all', 1))
+            ->setOuIdProductSku([ProductLink::generateId($ouId, $productSku)]);
+        try {
+            $linkNode = $this->productLinkNodeService->fetchCollectionByFilter($linkNodeFilter)->getFirst();
+            $ancestors = $linkNode->getAncestors();
+        } catch (NotFound $exception) {
+            $ancestors = [];
+        }
+        $stockFilter = (new Filter('all', 1))
+            ->setSku(array_merge([$productSku], $ancestors))
+            ->setOrganisationUnitId([$ouId]);
+        $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
+
+        $stockBySku = [];
+        /** @var Stock $stock */
+        foreach ($stockCollection as $stock) {
+            $stockBySku[$stock->getSku()] = array_merge(
+                $stock->toArray(),
+                ['locations' => $stock->getLocations()->toArray()]
+            );
+        }
+
+        return $stockBySku;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
@@ -174,9 +233,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         if (count($productIds) <= static::MAX_FOREGROUND_DELETES) {
             $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
             $products = $this->productService->fetchCollectionByFilter($filter);
+            /** @var Product $product */
             foreach ($products as $product) {
                 $this->productService->hardRemove($product);
             }
+
             $this->removeProgressStorage->setProgress($progressKey, count($productIds));
             return;
         }
@@ -186,6 +247,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $handle = ProductRemoveWorkload::FUNCTION_NAME . '-' . $productId;
             $this->gearmanClient->doBackground(ProductRemoveWorkload::FUNCTION_NAME, serialize($workload), $handle);
         }
+    }
+
+    /**
+     * @param array $productIds
+     * @throws ProductLinkBlockingProductDeletionException
+     */
+    public function checkForSafeDeletionWithProductLinks(array $productIds = [])
+    {
+        $filter = new ProductFilter('all', 1, [], null, [], $productIds);
+        $products = $this->productService->fetchCollectionByFilter($filter);
+
+        $ouIdSkuListOfProductsAndVariations = $this->productService->getSkusOfProductsAndVariations($products);
+        $this->productLinkNodeService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
     }
 
     public function checkProgressOfDeleteProducts($progressKey)

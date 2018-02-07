@@ -31,7 +31,7 @@
 #products-list {
     width: 100%;
     height: auto;
-    min-height: calc(100% - 48px);
+    min-height: 90vh;
     float: left;
     clear: both;
     margin-top: 50px;
@@ -42,6 +42,21 @@
     transition: all 0.5s ease;
 }
 
+.icon-create-listing {
+    cursor: pointer;
+    &.inactive {
+        color: #CCCCCC;
+        cursor: auto;
+    }
+}
+
+.refresh-icon {
+    float: left;
+    display: flex;
+    clear: none;
+    margin: 3px 7px;
+}
+
 #searchBtn {
     width: 80px;
     float: left;
@@ -50,6 +65,10 @@
         min-width: 50px !important;
         padding: 5px 8px;
     }
+}
+
+.js-product-search-by-sku {
+    cursor: pointer;
 }
 
 .product-container {
@@ -142,6 +161,14 @@
                     &.stock-mode-header-col {
                         width: 300px;
                     }
+
+                    &.list-col {
+                        width: 64px;
+                    }
+
+                    &.link-col {
+                        width: 64px;
+                    }
                 }
                 td {
                     height: 45px;
@@ -151,6 +178,15 @@
                     &.image-cell {
                         padding-top: 0;
                         padding-bottom: 0;
+                    }
+                    &.link-cell {
+                        .sprite {
+                            margin: 0 auto;
+                        }
+
+                        span {
+                            cursor: pointer;
+                        }
                     }
                     img {
                         max-height: 44px;
@@ -500,7 +536,7 @@ div#products-loading-message {
                 display: inline-block;
                 vertical-align: top;
             }
-            .popup-stock-import-file-name {
+            .file-upload-text {
                 font-size: 14px;
                 line-height: 25px;
             }
@@ -554,4 +590,98 @@ div.tether-element div.hover-image {
         max-height: 200px;
         max-width: 200px;
     }
+}
+div.tether-element div.tooltip-hover {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06), 0 2px 32px rgba(0, 0, 0, 0.16);
+}
+
+.hover-link-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    .thumbnail {
+        margin-right: 4px;
+        width: 40px;
+        img {
+            width: 100%;
+        }
+    }
+    .sku {
+        width: 100px;
+    }
+    .stock {
+        width: 20px;
+        text-align: right;
+    }
+}
+
+#product-link-editor {
+    font-size: 14px;
+    .product-info {
+        width: 100%;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        border-radius: 0 0 5px 5px;
+        background-color: $color-lblue;
+        color: white;
+        text-align: right;
+        .available-stock-text {
+            margin-right: 5%;
+        }
+        .available-stock-value {
+            font-weight: bold;
+            margin-right: 23%;
+        }
+    }
+
+    .item-row-img {
+        margin-right: 0;
+        margin-left: 30px;
+    }
+}
+
+.product-unlink-button {
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 25px;
+    .button {
+        .sprite-sprite {
+            margin-left: 40px !important;
+        }
+        .button-text {
+            padding: 0 45px 0 8px !important;
+        }
+    }
+}
+.product-dropdown {
+    margin-bottom: 20px;
+}
+.product-rows {
+    .item-row {
+        margin-top: 5px;
+        .item-row-attributes {
+            margin-right: 10px;
+        }
+        .item-row-qty-input {
+            max-width: 80px;
+            input {
+                width: 50px;
+            }
+        }
+    }
+}
+
+.product-dropdown .detail-dropdown-wrapper .detail-dropdown-popup {
+    position: relative;
+}
+
+.tooltip-hover {
+    z-index: 99999;
+
 }
