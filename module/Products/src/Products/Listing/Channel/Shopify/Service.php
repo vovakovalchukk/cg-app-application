@@ -30,7 +30,7 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'categories' => $this->categoryService->fetchCategoriesForAccount($account, 0)
+            'categories' => $this->categoryService->fetchCategoriesForAccount($account, null)
         ];
     }
 
@@ -54,7 +54,6 @@ class Service implements
     {
         try {
             return $this->customCollectionImporter->fetchImportAndReturnShopifyCategoriesForAccount($account);
-
         } catch (UnauthorizedException $e) {
             throw new ListingException(
                 'We are unable to connect to your Shopify account. Please open the account page and click \'Renew Connection\'',
