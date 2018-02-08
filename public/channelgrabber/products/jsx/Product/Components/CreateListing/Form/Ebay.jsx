@@ -36,7 +36,8 @@ define([
                 currencyFieldValues: {},
                 shippingService: null,
                 rootCategories: null,
-                listingDurationFieldValues: null
+                listingDurationFieldValues: null,
+                availableSites: {}
             }
         },
         componentDidMount: function() {
@@ -88,6 +89,7 @@ define([
                         currency: response.currency,
                         rootCategories: response.category,
                         shippingServiceFieldValues: response.shippingService,
+                        availableSites: response.sites
                     });
                 }
             });
@@ -104,12 +106,12 @@ define([
             }
             return shippingServiceOptions;
         },
-        getListingDurationOptions: function() {
-            var listingDurationOptions = [];
-            for (var listingDurationOption in this.state.listingDurationFieldValues) {
-                listingDurationOptions.push({name: this.state.listingDurationFieldValues[listingDurationOption], value: listingDurationOption});
+        getSelectOptions: function(selectFieldValues) {
+            var selectOptions = [];
+            for (var selectOption in selectFieldValues) {
+                selectOptions.push({name: selectFieldValues[selectOption], value: selectOption});
             }
-            return listingDurationOptions;
+            return selectOptions;
         },
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
@@ -154,7 +156,7 @@ define([
                 />
             );
         },
-        getTooltipText(inputFieldName) {
+        getTooltipText: function(inputFieldName) {
             var tooltips = {
                 title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
                 price: 'How much do you want to sell your item for?',
@@ -164,7 +166,8 @@ define([
                 duration: 'ChannelGrabber recommends using GTC as this will allow us to automatically activate listings when you add new stock',
                 dispatchTimeMax: 'What is the longest amount of time it may take you to dispatch an item?',
                 shippingService: 'This must match your shipping services on eBay',
-                shippingPrice: 'How much you want to charge for shipping'
+                shippingPrice: 'How much you want to charge for shipping',
+                site: '' //TODO FIX
             };
             return tooltips[inputFieldName];
         },
@@ -186,10 +189,12 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Site:</span>
                     <div className={"order-inputbox-holder"}>
-                        <Input
-                            name='site'
-                            value={this.props.site}
-                            onChange={this.onInputChange}
+                        <Select
+                            name="site"
+                            options={this.getSelectOptions(this.state.availableSites)}
+                            selectedOption={{name: this.state.availableSites[this.props.site]}}
+                            autoSelectFirst={false}
+                            onOptionChange={this.props.getSelectCallHandler('site')}
                             title={this.getTooltipText('site')}
                         />
                     </div>
@@ -243,7 +248,7 @@ define([
                         <div className={"order-inputbox-holder"}>
                             <Select
                                 name="duration"
-                                options={this.getListingDurationOptions()}
+                                options={this.getSelectOptions(this.state.listingDurationFieldValues)}
                                 selectedOption={{name: this.props.duration}}
                                 autoSelectFirst={false}
                                 onOptionChange={this.props.getSelectCallHandler('duration')}
