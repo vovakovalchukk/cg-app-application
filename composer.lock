@@ -1315,16 +1315,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.14.0",
+            "version": "dev-LIS-68-woo-commerce-create-listing-popup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "b165bbd25db396d7568535f2692cd379204149b1"
+                "reference": "fda0039bd368babbb688ea56059ff327e6dba349"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.14.0-ce7f99.zip",
-                "reference": "b165bbd25db396d7568535f2692cd379204149b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-68-woo-commerce-create-listing-popup-11a86b.zip",
+                "reference": "fda0039bd368babbb688ea56059ff327e6dba349",
                 "shasum": null
             },
             "require": {
@@ -1360,7 +1360,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-01T15:43:21+00:00"
+            "time": "2018-02-05T09:12:04+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9508,16 +9508,27 @@
     ],
     "aliases": [
         {
+<<<<<<< HEAD
             "alias": "1.2.23",
             "alias_normalized": "1.2.23.0",
             "version": "dev-LIS-65-import-woocomerce-categories-on-account-add",
             "package": "channelgrabber/woocommerce"
+=======
+            "alias": "1.14.1",
+            "alias_normalized": "1.14.1.0",
+            "version": "dev-LIS-68-woo-commerce-create-listing-popup",
+            "package": "channelgrabber/listing"
+>>>>>>> LIS-68-woo-commerce-create-listing-popup
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+<<<<<<< HEAD
         "channelgrabber/woocommerce": 20,
+=======
+        "channelgrabber/listing": 20,
+>>>>>>> LIS-68-woo-commerce-create-listing-popup
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
