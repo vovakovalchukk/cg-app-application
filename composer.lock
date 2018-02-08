@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddd66c1089df2a239fbf8080616eb39a",
+    "content-hash": "e36ef83cba085ff4147e3daf30d68219",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3142,16 +3142,25 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-LIS-65-import-woocomerce-categories-on-account-add",
+            "version": "dev-LIS-69-woo-commerce-refresh-categories",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
+<<<<<<< HEAD
                 "reference": "4592bc866f21c25edbf1fc4b699c0edd87c680f0"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-65-import-woocomerce-categories-on-account-add-f2e03f.zip",
                 "reference": "4592bc866f21c25edbf1fc4b699c0edd87c680f0",
+=======
+                "reference": "c00351583a73d5187a96c5142313547752a4847a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-69-woo-commerce-refresh-categories-e99f34.zip",
+                "reference": "c00351583a73d5187a96c5142313547752a4847a",
+>>>>>>> LIS-69-woo-commerce-refresh-categories
                 "shasum": null
             },
             "require": {
@@ -3159,6 +3168,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
+                "channelgrabber/product": "^1.11.5",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
@@ -3184,7 +3194,11 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
+<<<<<<< HEAD
             "time": "2018-02-05T11:50:54+00:00"
+=======
+            "time": "2018-02-08T11:41:59+00:00"
+>>>>>>> LIS-69-woo-commerce-refresh-categories
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9509,26 +9523,43 @@
     "aliases": [
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "alias": "1.2.23",
             "alias_normalized": "1.2.23.0",
             "version": "dev-LIS-65-import-woocomerce-categories-on-account-add",
             "package": "channelgrabber/woocommerce"
 =======
+=======
+>>>>>>> LIS-69-woo-commerce-refresh-categories
             "alias": "1.14.1",
             "alias_normalized": "1.14.1.0",
             "version": "dev-LIS-68-woo-commerce-create-listing-popup",
             "package": "channelgrabber/listing"
+<<<<<<< HEAD
 >>>>>>> LIS-68-woo-commerce-create-listing-popup
+=======
+        },
+        {
+            "alias": "1.2.23",
+            "alias_normalized": "1.2.23.0",
+            "version": "dev-LIS-69-woo-commerce-refresh-categories",
+            "package": "channelgrabber/woocommerce"
+>>>>>>> LIS-69-woo-commerce-refresh-categories
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
 <<<<<<< HEAD
+<<<<<<< HEAD
         "channelgrabber/woocommerce": 20,
 =======
         "channelgrabber/listing": 20,
 >>>>>>> LIS-68-woo-commerce-create-listing-popup
+=======
+        "channelgrabber/listing": 20,
+        "channelgrabber/woocommerce": 20,
+>>>>>>> LIS-69-woo-commerce-refresh-categories
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
