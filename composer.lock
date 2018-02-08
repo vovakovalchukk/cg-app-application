@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e36ef83cba085ff4147e3daf30d68219",
+    "content-hash": "ebf6d571e8a9d45e667e2123971f8522",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1315,7 +1315,7 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-68-woo-commerce-create-listing-popup",
+            "version": "dev-LIS-63-create-woo-commerce-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
@@ -1323,7 +1323,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-68-woo-commerce-create-listing-popup-11a86b.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-63-create-woo-commerce-listings-11a86b.zip",
                 "reference": "fda0039bd368babbb688ea56059ff327e6dba349",
                 "shasum": null
             },
@@ -3142,16 +3142,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-LIS-69-woo-commerce-refresh-categories",
+            "version": "dev-LIS-63-create-woo-commerce-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "4592bc866f21c25edbf1fc4b699c0edd87c680f0"
+                "reference": "b61d9ba128c0be718d237bd20753f074ca6386ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-65-import-woocomerce-categories-on-account-add-f2e03f.zip",
-                "reference": "4592bc866f21c25edbf1fc4b699c0edd87c680f0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-63-create-woo-commerce-listings-e82191.zip",
+                "reference": "b61d9ba128c0be718d237bd20753f074ca6386ed",
                 "shasum": null
             },
             "require": {
@@ -3185,7 +3185,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-05T11:50:54+00:00"
+            "time": "2018-02-08T16:54:27+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9509,21 +9509,15 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.23",
-            "alias_normalized": "1.2.23.0",
-            "version": "dev-LIS-65-import-woocomerce-categories-on-account-add",
-            "package": "channelgrabber/woocommerce"
-        },
-        {
             "alias": "1.14.1",
             "alias_normalized": "1.14.1.0",
-            "version": "dev-LIS-68-woo-commerce-create-listing-popup",
+            "version": "dev-LIS-63-create-woo-commerce-listings",
             "package": "channelgrabber/listing"
         },
         {
             "alias": "1.2.23",
             "alias_normalized": "1.2.23.0",
-            "version": "dev-LIS-69-woo-commerce-refresh-categories",
+            "version": "dev-LIS-63-create-woo-commerce-listings",
             "package": "channelgrabber/woocommerce"
         }
     ],
