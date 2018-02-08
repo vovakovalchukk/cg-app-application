@@ -214,7 +214,7 @@ class ChannelsController extends AbstractActionController
             $this->setupService->sendChannelAddNotificationEmailToCG($channel, $printName, $integrationType);
         }
 
-        $this->setupService->sendChannelAddIntercomMessageToUser($channel, $printName, $integrationType);
+        $this->setupService->sendChannelAddIntercomMessageToUser($printName, $integrationType);
 
         return $this->jsonModelFactory->newInstance($result);
     }

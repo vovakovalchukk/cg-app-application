@@ -88,14 +88,18 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    public function sendChannelAddIntercomMessageToUser(string $channel, string $channelPrintName, string $channelIntegrationType)
+    /**
+     * @param string $channelPrintName
+     * @param string $channelIntegrationType
+     */
+    public function sendChannelAddIntercomMessageToUser(string $channelPrintName, string $channelIntegrationType)
     {
         try {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
             $this->intercomMessageService->sendMessage($activeUser, $channelIntegrationType, $channelPrintName);
         } catch (NotFound $e) {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
-            $this->logEmergencyException($e, 'It was not possible to send message to Intercom for User %d.', [$activeUser->getId()], static::LOG_CODE);
+            $this->logDebugException($e, 'Channel %s does not require sending message to Intercom for User %d.', [$channelPrintName, $activeUser->getId()], static::LOG_CODE);
         }
     }
 
