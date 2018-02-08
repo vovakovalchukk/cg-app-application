@@ -171,7 +171,8 @@ define([
                 dispatchTimeMax: 'What is the longest amount of time it may take you to dispatch an item?',
                 shippingService: 'This must match your shipping services on eBay',
                 shippingPrice: 'How much you want to charge for shipping',
-                site: '' //TODO FIX
+                site: null,
+                ean: null
             };
             return tooltips[inputFieldName];
         },
@@ -239,6 +240,17 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Image</span>
                     {this.renderImagePicker()}
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Barcode</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Input
+                            name="ean"
+                            value={this.props.ean}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('ean')}
+                        />
+                    </div>
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}

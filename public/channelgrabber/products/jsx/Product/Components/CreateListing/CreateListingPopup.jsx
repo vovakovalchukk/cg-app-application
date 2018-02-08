@@ -57,7 +57,8 @@ define([
                 productId: this.props.product.id,
                 title: this.props.product.name,
                 description: this.props.product.details.description ? this.props.product.details.description : null,
-                price: this.props.product.details.price ? this.props.product.details.price : null
+                price: this.props.product.details.price ? this.props.product.details.price : null,
+                ean: this.props.product.details.ean  ? this.props.product.ean : null
             });
         },
         setFormStateListing: function(listingFormState) {
