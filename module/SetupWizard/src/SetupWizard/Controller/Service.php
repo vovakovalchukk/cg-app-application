@@ -92,7 +92,7 @@ class Service implements LoggerAwareInterface
     {
         try {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
-            $this->intercomMessageService->sendMessage($activeUser, $channelIntegrationType);
+            $this->intercomMessageService->sendMessage($activeUser, $channelIntegrationType, $channelPrintName);
         } catch (NotFound $e) {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
             $this->logEmergencyException($e, 'It was not possible to send message to Intercom for User %d.', [$activeUser->getId()], static::LOG_CODE);
