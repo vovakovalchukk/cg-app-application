@@ -47,6 +47,11 @@ class Service implements
     /** @var CategoryExternalService */
     protected $categoryExternalService;
 
+    protected $selectionModesToInputTypes = [
+        'FreeText' => 'text',
+        'SelectionOnly' => 'select',
+    ];
+
     public function __construct(
         CategoryService $categoryService,
         Cryptor $cryptor,
@@ -78,8 +83,11 @@ class Service implements
 
     public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
     {
+        $ebayData = $this->fetchEbayCategoryData($account, $externalCategoryId);
+
         return [
-            'listingDuration' => $this->getListingDurationsForCategory($account, $externalCategoryId)
+            'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
+            'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
         ];
     }
 
@@ -97,7 +105,7 @@ class Service implements
         ];
     }
 
-    protected function getListingDurationsForCategory(Account $account,int $externalCategoryId): array
+    protected function fetchEbayCategoryData(Account $account,int $externalCategoryId): ?Data
     {
         try {
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
@@ -107,12 +115,103 @@ class Service implements
             /** @var CategoryExternal $categoryExternal */
             $categoryExternal = $this->categoryExternalService->fetch($category->getId());
             /** @var Data $ebayData */
-            $ebayData = $categoryExternal->getData();
-            $listingDurations = (new FeatureHelper($ebayData))->getListingDurationsForType();
-            return $this->formatListingDurationsArray($listingDurations);
+            return $categoryExternal->getData();
         } catch (NotFound $e) {
+            return null;
+        }
+    }
+
+    protected function getListingDurationsFromEbayCategoryData(?Data $ebayData): array
+    {
+        if (!$ebayData) {
             return [];
         }
+        $listingDurations = (new FeatureHelper($ebayData))->getListingDurationsForType();
+        return $this->formatListingDurationsArray($listingDurations);
+    }
+
+    protected function getItemSpecificsFromEbayCategoryData(?Data $ebayData): array
+    {
+        if (!$ebayData || empty($ebayData->getCategorySpecifics())) {
+            return [];
+        }
+        $required = [];
+        $optional = [];
+        $categorySpecifics = $ebayData->getCategorySpecifics();
+        foreach ($categorySpecifics['NameRecommendation'] as $recommendation) {
+            $name = $recommendation['Name'];
+            $itemSpecifics = $this->buildItemSpecificsDataFromRecommendation($recommendation);
+            if ($itemSpecifics['minValues'] == 0) {
+                $optional[$name] = $itemSpecifics;
+            } else {
+                $required[$name] = $itemSpecifics;
+            }
+        }
+
+        return [
+            'required' => $required,
+            'optional' => $optional,
+        ];
+    }
+
+    protected function buildItemSpecificsDataFromRecommendation(array $recommendation): array
+    {
+        return [
+            'type' => $this->getInputTypeForRecommendation($recommendation),
+            'options' => $this->getOptionsForRecommendation($recommendation),
+            'minValues' => $this->getMinValuesForRecommendation($recommendation),
+            'maxValues' => $this->getMaxValuesForRecommendation($recommendation),
+        ];
+    }
+
+    protected function getInputTypeForRecommendation(array $recommendation): string
+    {
+        $inputType = $this->getRawInputTypeForRecommendation($recommendation);
+        // If its technically free text but there are recommended values then we need to allow both
+        if ($inputType == 'text' && isset($recommendation['ValueRecommendation'])) {
+            $inputType = 'textselect';
+        }
+        return $inputType;
+    }
+
+    protected function getRawInputTypeForRecommendation(array $recommendation): string
+    {
+        if (!isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['SelectionMode'])) {
+            return 'text';
+        }
+        $selectionMode = $recommendation['ValidationRules']['SelectionMode'];
+        if (!isset($this->selectionModesToInputTypes[$selectionMode])) {
+            return 'text';
+        }
+        return $this->selectionModesToInputTypes[$selectionMode];
+    }
+
+    protected function getOptionsForRecommendation(array $recommendation): ?array
+    {
+        if (!isset($recommendation['ValueRecommendation'])) {
+            return null;
+        }
+        $options = [];
+        $valueRecommendations = $recommendation['ValueRecommendation'];
+        // When there's only one recommendation it doesn't get stored as an array
+        if (!isset($valueRecommendations[0])) {
+            $valueRecommendations = [$valueRecommendations];
+        }
+        foreach ($valueRecommendations as $valueRecommendation) {
+            $value = (string)$valueRecommendation['Value'];
+            $options[$value] = $value;
+        }
+        return $options;
+    }
+
+    protected function getMinValuesForRecommendation(array $recommendation): int
+    {
+        return isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['MinValues']) ? (int)$recommendation['ValidationRules']['MinValues'] : 0;
+    }
+
+    protected function getMaxValuesForRecommendation(array $recommendation): ?int
+    {
+        return isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['MaxValues']) ? (int)$recommendation['ValidationRules']['MaxValues'] : null;
     }
 
     protected function filterDefaultSettingsKeys(array $data)
