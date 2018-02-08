@@ -1,17 +1,18 @@
 <?php
 namespace SetupWizard\Controller;
 
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_UI\View\Helper\NavigationMenu;
-use CG\User\ActiveUserInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Email\Mailer;
-use Zend\View\Model\ViewModel;
+use CG\Intercom\Message\Service as IntercomMessageService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use LogicException;
+use CG\User\ActiveUserInterface;
+use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
+use CG_UI\View\Helper\NavigationMenu;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\Model\ViewModel;
 
 class Service implements LoggerAwareInterface
 {
@@ -43,6 +44,8 @@ class Service implements LoggerAwareInterface
     protected $cgEmailView;
     /** @var mixed $cgEmails */
     protected $cgEmails;
+    /* @var $intercomMessageService IntercomMessageService */
+    protected $intercomMessageService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -50,6 +53,7 @@ class Service implements LoggerAwareInterface
         ServiceLocatorInterface $serviceLocator,
         ActiveUserInterface $activeUserContainer,
         OrganisationUnitService $organisationUnitService,
+        IntercomMessageService $intercomMessageService,
         UserOrganisationUnitService $userOrganisationUnitService,
         Mailer $mailer,
         ViewModel $cgEmailView,
@@ -60,6 +64,7 @@ class Service implements LoggerAwareInterface
             ->setServiceLocator($serviceLocator)
             ->setActiveUserContainer($activeUserContainer)
             ->setOrganisationUnitService($organisationUnitService);
+        $this->intercomMessageService = $intercomMessageService;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->mailer = $mailer;
         $this->cgEmailView = $cgEmailView;
@@ -81,6 +86,17 @@ class Service implements LoggerAwareInterface
         $this->mailer->send($to, $subject, $view);
         $this->logDebug(static::LOG_MSG_SENT_EMAIL_TO_CG, [], [static::LOG_CODE, static::LOG_CODE_SEND_EMAIL_TO_CG]);
         return $this;
+    }
+
+    public function sendChannelAddIntercomMessageToUser(string $channel, string $channelPrintName, string $channelIntegrationType)
+    {
+        try {
+            $activeUser = $this->userOrganisationUnitService->getActiveUser();
+            $this->intercomMessageService->sendMessage($activeUser, $channelIntegrationType);
+        } catch (NotFound $e) {
+            $activeUser = $this->userOrganisationUnitService->getActiveUser();
+            $this->logEmergencyException($e, 'It was not possible to send message to Intercom for User %d.', [$activeUser->getId()], static::LOG_CODE);
+        }
     }
 
     protected function setUpChannelAddNotificationEmailToCGView(int $rootOuId, string $userId, string $channelPrintName, string $channelIntegrationType)
