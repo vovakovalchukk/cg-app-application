@@ -184,6 +184,17 @@ define([
 
             return <div>
                 <label>
+                    <span className={"inputbox-label"}>Site:</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Input
+                            name='site'
+                            value={this.props.site}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('site')}
+                        />
+                    </div>
+                </label>
+                <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
