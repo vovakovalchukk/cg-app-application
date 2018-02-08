@@ -25,7 +25,7 @@
         "channelgrabber/billing": "~1.12.3",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.15.1",
-        "channelgrabber/channel": "~1.33.6",
+        "channelgrabber/channel": "dev-CGIV-9232-amazon-au-remove-featureflag as 1.33.7",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
