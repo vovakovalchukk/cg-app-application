@@ -91,6 +91,10 @@ define([
                         shippingServiceFieldValues: response.shippingService,
                         availableSites: response.sites
                     });
+
+                    if (response.defaultSiteId) {
+                        this.props.setFormStateListing({site: response.defaultSiteId});
+                    }
                 }
             });
         },
