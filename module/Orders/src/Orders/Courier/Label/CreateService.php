@@ -6,6 +6,15 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Locking\Failure as LockingFailure;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData\Collection as ItemDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
@@ -56,10 +65,10 @@ class CreateService extends ServiceAbstract
 
     public function createForOrdersData(
         array $orderIds,
-        array $ordersData,
-        array $orderParcelsData,
-        array $ordersItemsData,
-        $shippingAccountId
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
+        OrderItemsDataCollection $ordersItemsData,
+        int $shippingAccountId
     ) {
         $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
@@ -88,9 +97,10 @@ class CreateService extends ServiceAbstract
             $labelReadyStatuses = $this->getCarrierProviderService($shippingAccount)->createLabelsForOrders(
                 $orders,
                 $orderLabels,
-                $ordersData,
-                $orderParcelsData,
-                $ordersItemsData,
+                // These toArray()s are temporary until we update the Carrier Providers to work with the value objects
+                $ordersData->toArray(),
+                $orderParcelsData->toArray(),
+                $ordersItemsData->toArray(),
                 $rootOu,
                 $shippingAccount,
                 $user
@@ -112,16 +122,15 @@ class CreateService extends ServiceAbstract
 
     protected function persistProductDetailsForOrders(
         OrderCollection $orders,
-        array $orderParcelsData,
-        array $ordersItemsData,
+        OrderParcelsDataCollection $orderParcelsData,
+        OrderItemsDataCollection $ordersItemsData,
         OrganisationUnit $rootOu
     ) {
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
-            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
             // If there's multiple items and we don't have specific data for each then we don't know how the parcel data is made up
-            if (count($order->getItems()) > 1 && !isset($ordersItemsData[$order->getId()])) {
+            if (count($order->getItems()) > 1 && !$ordersItemsData->containsId($order->getId())) {
                 continue;
             }
             $suitableOrders->attach($order);
@@ -129,13 +138,16 @@ class CreateService extends ServiceAbstract
 
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
-            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
-            $parcelCount = count($parcelsData);
-            $parcelData = (!empty($parcelsData) ? array_pop($parcelsData) : []);
-            $itemData = (isset($ordersItemsData[$order->getId()]) ? $ordersItemsData[$order->getId()] : []);
+            /** @var OrderParcelsData $parcelsData */
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
+            $parcelCount = count($parcelsData->getParcels());
+            /** @var ParcelData $parcelData */
+            $parcelData = (!empty($parcelsData) ? $parcelsData->getParcels()->getFirst() : null);
+            /** @var OrderItemsData $itemsData */
+            $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
             $items = $order->getItems();
             foreach ($items as $item) {
-                $productDetailData = (isset($itemData[$item->getId()]) ? $itemData[$item->getId()] : $parcelData);
+                $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
@@ -230,16 +242,20 @@ class CreateService extends ServiceAbstract
         return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
     }
 
-    protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, array $orderParcelsData, Account $shippingAccount)
-    {
+    protected function createOrderLabelsForOrders(
+        OrderCollection $orders,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
+        Account $shippingAccount
+    ) {
         $orderLabelsData = [
             'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
             'errors' => [],
         ];
 
         foreach ($orders as $order) {
-            $orderData = $ordersData[$order->getId()];
-            $parcelsData = $orderParcelsData[$order->getId()] ?? [];
+            $orderData = $ordersData->getById($order->getId());
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
             $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
             if ($orderLabel instanceof ValidationMessagesException) {
                 $orderLabelsData['errors'][$order->getId()] = $orderLabel;
@@ -250,48 +266,52 @@ class CreateService extends ServiceAbstract
         return $orderLabelsData;
     }
 
-    protected function createOrderLabelForOrder(Order $order, array $orderData, array $orderParcelsData, Account $shippingAccount)
-    {
+    protected function createOrderLabelForOrder(
+        Order $order,
+        OrderData $orderData,
+        OrderParcelsData $orderParcelsData,
+        Account $shippingAccount
+    ) {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
 
-        $serviceName = (isset($orderData['serviceName']) && $orderData['serviceName'] ? $orderData['serviceName'] : '');
+        $serviceName = $orderData->getServiceName();
         if (!$serviceName) {
             $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
-            $serviceName = $services[$orderData['service']] ?? $orderData['service'];
+            $serviceName = $services[$orderData->getService()] ?? $orderData->getService();
         }
 
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
             'shippingAccountId' => $shippingAccount->getId(),
-            'shippingServiceCode' => $orderData['service'],
+            'shippingServiceCode' => $orderData->getService(),
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
             'channelName' => $shippingAccount->getChannel(),
             'courierName' => $shippingAccount->getDisplayName(),
             'courierService' => (string)$serviceName,
-            'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
-            'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
-            'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
-            'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
+            'insurance' => $orderData->getInsurance() ?? '',
+            'insuranceMonetary' => $orderData->getInsuranceMonetary() ?? '',
+            'signature' => $orderData->getSignature() ?? '',
+            'deliveryInstructions' => $orderData->getDeliveryInstructions() ?? '',
             'parcels' => [],
         ];
 
-        if (empty($orderParcelsData)) {
-            array_push($orderParcelsData, []);
+        // If there's no parcels then add a default one
+        if (count($orderParcelsData->getParcels()) == 0) {
+            $orderParcelsData->getParcels()->attach(ParcelData::fromArray(['number' => 1]));
         }
 
-        $parcelCount = 1;
-        foreach ($orderParcelsData as $parcel) {
+        /** @var ParcelData $parcel */
+        foreach ($orderParcelsData->getParcels() as $parcel) {
             $orderLabelData['parcels'][] = [
-                'number' => $parcelCount,
-                'weight' => isset($parcel['weight']) ? $parcel['weight'] : '',
-                'width' => isset($parcel['width']) ? $parcel['width'] : '',
-                'height' => isset($parcel['height']) ? $parcel['height'] : '',
-                'length' => isset($parcel['length']) ? $parcel['length'] : '',
+                'number' => $parcel->getNumber(),
+                'weight' => $parcel->getWeight() ?? '',
+                'width' => $parcel->getWidth() ?? '',
+                'height' => $parcel->getHeight() ?? '',
+                'length' => $parcel->getLength() ?? '',
             ];
-            $parcelCount++;
         }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
 
@@ -378,22 +398,31 @@ class CreateService extends ServiceAbstract
         }
     }
 
-    protected function ensureOrderItemsData(OrderCollection $orders, array $ordersItemsData, array $orderParcelsData)
-    {
+    protected function ensureOrderItemsData(
+        OrderCollection $orders,
+        OrderItemsDataCollection $ordersItemsData,
+        OrderParcelsDataCollection $orderParcelsData
+    ) {
         // Each table row can be an item, a parcel or both (when there's only one item we collapse the item and parcel
         // into one row). In the latter case we end up with parcelData but not itemData. We'll rectify that if we can.
         foreach ($orders as $order) {
-            if (isset($ordersItemsData[$order->getId()])) {
+            if ($ordersItemsData->containsId($order->getId())) {
                 continue;
             }
-            $parcelData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []); 
-            if (count($order->getItems()) > 1 || count($parcelData) > 1) {
+            /** @var OrderParcelsData $parcelsData */
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
+            if (count($order->getItems()) > 1 || !$parcelsData || count($parcelsData->getParcels()) > 1) {
                 continue;
             }
             $items = $order->getItems();
             $items->rewind();
             $item = $items->current();
-            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($parcelData);
+
+            $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item->getId());
+            $itemsData = new ItemDataCollection();
+            $itemsData->attach($itemData);
+            $orderItemsData = new OrderItemsData($order->getId(), $itemsData);
+            $ordersItemsData->attach($orderItemsData);
         }
         return $ordersItemsData;
     }

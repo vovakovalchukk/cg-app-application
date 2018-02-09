@@ -204,11 +204,10 @@ class CourierJsonController extends AbstractActionController
         $ordersData = OrderDataCollection::fromArray($rawOrdersData);
         $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
         $orderItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
-        $rawOrdersParcelsData = $ordersParcelsData->toArray(); // TEST
 
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
-                $orderIds, $ordersData->toArray(), $rawOrdersParcelsData, $orderItemsData->toArray(), $accountId
+                $orderIds, $ordersData, $ordersParcelsData, $orderItemsData, $accountId
             );
             $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses);
             $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
