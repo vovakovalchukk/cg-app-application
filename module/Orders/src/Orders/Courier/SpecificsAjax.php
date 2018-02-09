@@ -12,6 +12,7 @@ use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -196,10 +197,17 @@ class SpecificsAjax
         $orderData['parcelRow'] = $singleRow;
         $orderData['actionRow'] = $singleRow;
         if ($singleRow && $parcelsData && count($parcelsData->getParcels()) > 0) {
-            $singleParcelData = $parcelsData->getParcels()->getFirst()->toArray();
-            $orderData = array_merge($orderData, $singleParcelData);
+            $singleParcelData = $parcelsData->getParcels()->getFirst();
+            $orderData = array_merge($orderData, $this->parcelDataToSpecificsListArray($singleParcelData));
         }
         return $orderData;
+    }
+
+    protected function parcelDataToSpecificsListArray(ParcelData $parcelData): array
+    {
+        $array = $parcelData->toArray();
+        $array['itemParcelAssignment'] = json_encode($array['itemParcelAssignment']);
+        return $array;
     }
 
     /**
@@ -352,9 +360,8 @@ class SpecificsAjax
             }
 
             if ($parcelsInputData && $parcelsInputData->getParcels()->containsId($parcel)) {
-                $existingParcelData = $parcelsInputData->getParcels()->getById($parcel)->toArray();
-                $existingParcelData['itemParcelAssignment'] = json_encode($existingParcelData['itemParcelAssignment']);
-                $parcelData = array_merge($parcelData, $existingParcelData);
+                $existingParcelData = $parcelsInputData->getParcels()->getById($parcel);
+                $parcelData = array_merge($parcelData, $this->parcelDataToSpecificsListArray($existingParcelData));
             }
 
             $parcelsData[] = $parcelData;
