@@ -843,12 +843,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "827afa0c2cc2d07c456447e9928c5b1e641911c9"
+                "reference": "206a189a87a2173e33906284855017a875ba895c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-94-submit-item-specifics-247c5d.zip",
-                "reference": "827afa0c2cc2d07c456447e9928c5b1e641911c9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-94-submit-item-specifics-128324.zip",
+                "reference": "206a189a87a2173e33906284855017a875ba895c",
                 "shasum": null
             },
             "require": {
@@ -899,7 +899,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-02-09T11:16:46+00:00"
+            "time": "2018-02-09T13:52:37+00:00"
         },
         {
             "name": "channelgrabber/ekm",
