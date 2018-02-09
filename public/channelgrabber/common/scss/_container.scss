@@ -15,6 +15,8 @@
 .container-content {
   background-color: white;
   padding: 16px;
+  margin: 0 auto;
+  max-width: 736px;
 
   .inputbox-label {
     margin-right: 8px;
@@ -58,5 +60,20 @@
     color: $color-white;
     font-size: 24px;
     cursor: pointer;
+  }
+}
+
+.container-wrapper {
+  .react-popup-message {
+    border-width: 0;
+    width: 100%;
+  }
+
+  .react-popup-message-buttons {
+    display: none;
+  }
+
+  .react-popup-message-header {
+    text-align: left;
   }
 }

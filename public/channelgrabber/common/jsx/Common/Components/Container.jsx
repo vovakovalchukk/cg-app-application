@@ -28,8 +28,10 @@ define([
                     }
                     <div className="container-content">{this.props.children}</div>
                     <div className="container-buttons">
-                        <div className="button container-btn no" onClick={this.props.onNoButtonPressed}>{this.props.noButtonText}</div>
-                        <div className="button container-btn yes" onClick={this.props.onYesButtonPressed}>{this.props.yesButtonText}</div>
+                        <div style={{margin: "0px auto"}}>
+                            <div className="button container-btn no" onClick={this.props.onNoButtonPressed}>{this.props.noButtonText}</div>
+                            <div className="button container-btn yes" onClick={this.props.onYesButtonPressed}>{this.props.yesButtonText}</div>
+                        </div>
                     </div>
                 </div>
             </div>
