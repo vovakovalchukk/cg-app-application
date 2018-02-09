@@ -88,6 +88,7 @@ define([
                     accounts={this.props.accounts}
                     isSimpleProduct={true}
                     onCreateListingIconClick={this.props.onCreateListingIconClick}
+                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             } else {
                 return <VariationView
@@ -99,6 +100,7 @@ define([
                     accounts={this.props.accounts}
                     isSimpleProduct={false}
                     onCreateListingIconClick={this.props.onCreateListingIconClick}
+                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             }
         },
@@ -124,7 +126,13 @@ define([
                             <DimensionsView variations={products} fullView={this.state.expanded}/>
                         </Pane>
                         <Pane label="VAT">
-                            <VatView parentProduct={this.props.product} fullView={this.state.expanded} onVatChanged={this.vatUpdated} variationCount={this.state.variations.length}/>
+                            <VatView
+                                parentProduct={this.props.product}
+                                fullView={this.state.expanded}
+                                onVatChanged={this.vatUpdated}
+                                variationCount={this.state.variations.length}
+                                adminCompanyUrl={this.props.adminCompanyUrl}
+                            />
                         </Pane>
                         <Pane label="Listings">
                             <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />

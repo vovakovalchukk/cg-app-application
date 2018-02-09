@@ -5,9 +5,8 @@ define([
     "use strict";
 
     var CreateListingUtils = {
-        productCanListToAccount: function(account) {
-            return account.channel == 'ebay'
-                && account.active
+        productCanListToAccount: function(account, allowedChannels) {
+            return allowedChannels && (account.channel in allowedChannels) && account.active;
         }
     };
 

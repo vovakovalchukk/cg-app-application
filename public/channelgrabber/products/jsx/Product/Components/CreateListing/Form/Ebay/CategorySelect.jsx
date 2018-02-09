@@ -16,6 +16,11 @@ define([
                 selectedCategories: []
             }
         },
+        getDefaultProps: function() {
+            return {
+                title: null
+            }
+        },
         componentDidMount() {
             this.saveNewRootCategoriesToState(this.props.rootCategories);
         },
@@ -56,7 +61,7 @@ define([
         fetchAndSetChildCategories: function (selectedCategoryId, categoryIndex, previouslySetState) {
             $.ajax({
                 context: this,
-                url: '/products/create-listings/ebay/categoryChildren/' + this.props.accountId + '/' + selectedCategoryId,
+                url: '/products/create-listings/' + this.props.accountId + '/category-children/' + selectedCategoryId,
                 type: 'GET',
                 success: function (response) {
                     if (response.categories.length == 0) {
@@ -79,6 +84,7 @@ define([
         render: function () {
             return <div>
                 {this.state.categoryMaps.map(function(categoryMap, index) {
+
                     return <label>
                         <span className={"inputbox-label"}>{index == 0 ? 'Category' : ''}</span>
                         <div className={"order-inputbox-holder"}>
@@ -87,6 +93,7 @@ define([
                                 selectedOption={this.state.selectedCategories[index] ? this.state.selectedCategories[index] : {name: null}}
                                 onOptionChange={this.getOnCategorySelect(index)}
                                 autoSelectFirst={false}
+                                title={index == 0 ? this.props.title : null}
                             />
                         </div>
                     </label>
