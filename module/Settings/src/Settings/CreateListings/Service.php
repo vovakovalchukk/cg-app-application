@@ -45,7 +45,7 @@ class Service
             ->setType(ChannelType::SALES)
             ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
         // TEMPORARY. We should remove this once all channels support importing
-        $filter->setChannel(['ebay', 'shopify', 'woo-commerce']);
+        $filter->setChannel(['ebay', 'shopify', 'big-commerce', 'woo-commerce']);
         return $filter;
     }
 
