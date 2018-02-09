@@ -145,6 +145,10 @@ class CourierJsonController extends AbstractActionController
         $courierId = $this->params()->fromRoute('account');
         $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
         $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+
+        $this->decodeItemParcelAssignment($rawOrdersParcelsData)
+            ->assignParcelNumbers($rawOrdersParcelsData);
+
         $ordersData = OrderDataCollection::fromArray($rawOrdersData);
         $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
 
