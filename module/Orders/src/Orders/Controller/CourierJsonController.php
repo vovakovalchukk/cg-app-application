@@ -210,7 +210,7 @@ class CourierJsonController extends AbstractActionController
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData->toArray(), $rawOrdersParcelsData, $orderItemsData->toArray(), $accountId
             );
-            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData->toArray(), $rawOrdersParcelsData, $accountId);
+            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses);
             $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
             return $jsonView;
         } catch (StorageException $e) {
@@ -218,7 +218,7 @@ class CourierJsonController extends AbstractActionController
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         } catch (ValidationMessagesException $e) {
-            return $this->handleLabelCreationFailure($e, $ordersData->toArray(), $rawOrdersParcelsData, $accountId);
+            return $this->handleLabelCreationFailure($e);
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -250,10 +250,7 @@ class CourierJsonController extends AbstractActionController
     }
 
     protected function handleLabelCreationFailure(
-        ValidationMessagesException $e,
-        array $ordersData,
-        array $ordersParcelsData,
-        $accountId
+        ValidationMessagesException $e
     ) {
         $orderFieldErrors = $this->validationExceptionToPerOrderErrorArray($e);
         $message = $this->getValidationFailureMessage($orderFieldErrors);
@@ -267,10 +264,7 @@ class CourierJsonController extends AbstractActionController
     }
 
     protected function handleFullOrPartialCreationSuccess(
-        array $labelReadyStatuses,
-        array $ordersData,
-        array $ordersParcelsData,
-        $accountId
+        array $labelReadyStatuses
     ) {
         $readyCount = 0;
         $notReadyCount = 0;
