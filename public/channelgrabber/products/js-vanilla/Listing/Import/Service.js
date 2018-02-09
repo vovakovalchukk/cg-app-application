@@ -1,61 +1,74 @@
 define([
     'Listing/Import/Ajax',
-    'DomManipulator'
+    'popup/mustache'
 ], function (
     storage,
-    domManipulator
+    MustachePopup
 ) {
-    var Service = function ()
+    var Service = function()
     {
-        var dataTable;
-
-        this.getDataTable = function()
+        var popup;
+        this.init = function()
         {
-            return dataTable;
+            popup = new MustachePopup(
+                {
+                    'header': '/cg-built/products/template/popups/listing/header.mustache',
+                    'loading': '/cg-built/products/template/popups/listing/loading.mustache',
+                    'popup': '/cg-built/products/template/popups/listing/popup.mustache',
+                    'button': '/cg-built/zf2-v4-ui/templates/elements/buttons.mustache',
+                    'checkbox': '/cg-built/zf2-v4-ui/templates/elements/checkbox.mustache'
+                }
+            );
         };
-
-        this.setDataTable = function(newDataTable)
+        this.getPopup = function()
         {
-            dataTable = newDataTable;
+            return popup;
         };
     };
 
     Service.SELECTOR_REFRESH_BUTTON_SHADOW = '#refresh-button-shadow';
 
-    Service.prototype.refresh = function()
+    Service.prototype.refresh = function(accounts)
     {
-        if (this.isRefreshing()) {
-            return;
-        }
+        storage.refresh(accounts);
+    };
 
-        var self = this;
-        this.refreshingState();
-        storage.refresh(function() {
-            self.refreshDatatable();
-            self.refreshState();
+    Service.prototype.displayPopup = function()
+    {
+        var popup = this.getPopup();
+        popup.show(null, 'loading');
+        storage.refreshDetails(function(details) {
+            details.hasAccounts = false;
+            details.account = [];
+            for (var accountId in details['accounts']) {
+                if (details['accounts'].hasOwnProperty(accountId)) {
+                    details.hasAccounts = true;
+                    details.account.push(Object.assign(
+                        {},
+                        details['accounts'][accountId],
+                        {'checkbox': {
+                            'id': 'listing-download-' . accountId,
+                            'name': 'accounts',
+                            'value': accountId
+                        }}
+                    ));
+                }
+            }
+            details.download = {
+                'buttons': {
+                    'class': 'listingDownload',
+                    'title': 'Download Listings',
+                    'disabled': true
+                }
+            };
+            details.checkall = {
+                'checkbox': {
+                    'id': 'listing-download-all'
+                }
+            };
+            popup.hide();
+            popup.show(details, 'popup');
         });
-    };
-
-    Service.prototype.refreshDatatable = function()
-    {
-        this.getDataTable().redraw();
-    };
-
-    Service.prototype.refreshingState = function()
-    {
-        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Downloading');
-        domManipulator.addClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
-    };
-
-    Service.prototype.refreshState = function()
-    {
-        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Download listings');
-        domManipulator.removeClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
-    };
-
-    Service.prototype.isRefreshing = function()
-    {
-        return domManipulator.hasClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
     };
 
     return new Service();

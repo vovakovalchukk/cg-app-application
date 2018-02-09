@@ -1,0 +1,36 @@
+{{>header}}
+<div class="content">
+    {{#hasAccounts}}
+        {{#hasAmazonAccount}}
+            <div style="margin-bottom: 10px;">Amazon throttle big requests for lots of information (like fetching all listings in one go) and so typically takes longer than other sales channels to import.</div>
+        {{/hasAmazonAccount}}
+        <div style="margin-bottom: 10px;">
+            {{#download}}{{>button}}{{/download}}
+        </div>
+        <div>
+            <table style="width: 100%">
+                <tr>
+                    <th>{{#checkall}}{{>checkbox}}{{/checkall}}</th>
+                    <th>Channel</th>
+                    <th>Account</th>
+                    <th>Status</th>
+                    <th>Last Completed</th>
+                </tr>
+            {{#account}}
+                <tr>
+                    <td>{{#checkbox}}{{>checkbox}}{{/checkbox}}</td>
+                    <td>{{channel}}</td>
+                    <td>{{name}}</td>
+                    <td>{{status}}</td>
+                    <td>{{lastCompleted}}</td>
+                </tr>
+            {{/account}}
+            </table>
+        </div>
+    {{/hasAccounts}}
+    {{^hasAccounts}}
+        <div>
+            You do not have any enabled sales channels.
+        </div>
+    {{/hasAccounts}}
+</div>
