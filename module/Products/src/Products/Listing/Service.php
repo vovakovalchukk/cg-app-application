@@ -39,6 +39,10 @@ class Service implements LoggerAwareInterface
     const DEFAULT_TYPE = 'sales';
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
 
+    const REFRESH_STATUS_NOT_STARTED = 'Not started';
+    const REFRESH_STATUS_IN_PROGRESS = 'In progress';
+    const REFRESH_STATUS_IN_COMPLETED = 'Completed';
+
     const LOG_CODE = 'ProductsListingService';
     const LOG_IMPORT_ALL_FILTERED = 'Creating job to import all unimported listings that match the filters:';
 
@@ -113,6 +117,49 @@ class Service implements LoggerAwareInterface
             $importer = $this->listingImportFactory->createListingImport($account);
             $importer($account);
         }
+    }
+
+    public function getRefreshDetails(array $accountIds = [])
+    {
+        $filter = (new AccountFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE))
+            ->setActive(static::ACTIVE)
+            ->setType(static::DEFAULT_TYPE)
+            ->setRootOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()]);
+
+        if (!empty($accountIds)) {
+            $filter->setId($accountIds);
+        }
+
+        try {
+            $accounts = $this->accountService->fetchByFilter($filter);
+        } catch (NotFound $exception) {
+            return [];
+        }
+
+        $refreshDetails = [];
+        /** @var Account $account */
+        foreach ($accounts as $account) {
+            $refreshDetails[$account->getId()] = [
+                'channel' => $account->getChannel(),
+                'name' => $account->getDisplayName(),
+                'status' => static::REFRESH_STATUS_NOT_STARTED,
+                'lastCompleted' => null,
+            ];
+
+            $listingDownload = $account->getListingDownload();
+            if ($lastCompletedDate = $listingDownload->getLastCompletedDate()) {
+                $refreshDetails[$account->getId()]['lastCompleted'] = $lastCompletedDate->uiFormat();
+            }
+            if (is_null($listingDownload->getId())) {
+                continue;
+            }
+            if ($listingDownload->getProcessed() >= $listingDownload->getTotal()) {
+                $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_COMPLETED;
+            } else {
+                $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_PROGRESS;
+            }
+        }
+        return $refreshDetails;
     }
 
     public function isFilterBarVisible()

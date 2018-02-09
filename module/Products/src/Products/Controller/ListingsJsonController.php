@@ -23,6 +23,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_HIDE = 'HIDE';
     const ROUTE_REFRESH = 'refresh';
+    const ROUTE_REFRESH_DETAILS = 'refreshDetails';
     const ROUTE_IMPORT = 'import';
     const ROUTE_IMPORT_ALL_FILTERED = 'import all filtered';
     const ROUTE_CREATE = 'create';
@@ -163,6 +164,15 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
             $this->params()->fromPost('accounts', [])
         );
         return $view;
+    }
+
+    public function refreshDetailsAction()
+    {
+        $this->checkUsage();
+        $accounts = $this->listingService->getRefreshDetails(
+            $this->params()->fromPost('accounts', [])
+        );
+        return $this->jsonModelFactory->newInstance(['accounts' => $accounts]);
     }
 
     public function createAction()
