@@ -139,24 +139,31 @@ class Service implements LoggerAwareInterface
         $refreshDetails = [];
         /** @var Account $account */
         foreach ($accounts as $account) {
+            $listingDownload = $account->getListingDownload();
             $refreshDetails[$account->getId()] = [
                 'channel' => $account->getChannel(),
                 'name' => $account->getDisplayName(),
                 'status' => static::REFRESH_STATUS_NOT_STARTED,
                 'lastCompleted' => null,
+                'refreshAllowed' => true,
             ];
 
-            $listingDownload = $account->getListingDownload();
             if ($lastCompletedDate = $listingDownload->getLastCompletedDate()) {
                 $refreshDetails[$account->getId()]['lastCompleted'] = $lastCompletedDate->uiFormat();
             }
+
             if (is_null($listingDownload->getId())) {
                 continue;
             }
+
             if ($listingDownload->getProcessed() >= $listingDownload->getTotal()) {
                 $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_COMPLETED;
-            } else {
-                $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_PROGRESS;
+                continue;
+            }
+
+            $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_PROGRESS;
+            if ($listingDownload->getId() < strtotime('-1 day')) {
+                $refreshDetails[$account->getId()]['refreshAllowed'] = false;
             }
         }
         return $refreshDetails;

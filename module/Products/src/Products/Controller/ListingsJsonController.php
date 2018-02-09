@@ -169,10 +169,20 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     public function refreshDetailsAction()
     {
         $this->checkUsage();
+
         $accounts = $this->listingService->getRefreshDetails(
             $this->params()->fromPost('accounts', [])
         );
-        return $this->jsonModelFactory->newInstance(['accounts' => $accounts]);
+
+        $hasAmazonAccount = false;
+        foreach ($accounts as $account) {
+            if (($account['channel'] ?? '') == 'amazon') {
+                $hasAmazonAccount = true;
+                break;
+            }
+        }
+
+        return $this->jsonModelFactory->newInstance(['hasAmazonAccount' => $hasAmazonAccount, 'accounts' => $accounts]);
     }
 
     public function createAction()
