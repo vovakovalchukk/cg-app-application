@@ -309,6 +309,7 @@ class Create implements LoggerAwareInterface
 
             return true;
         } catch (SaveFailedRetryRequested $e) {
+            $this->logWarningException($e, 'Failed to save OrderLabel after it was created with the courier, a jobs been created to retry it', [], [static::LOG_CODE, 'OrderLabelSaveRetry']);
             return false;
         }
     }
