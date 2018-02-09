@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb85ecbdbf540f93bc7998d4e2afab0",
+    "content-hash": "44585522a3715c186e609ccdc5c5e719",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1667,16 +1667,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.36.3",
+            "version": "1.36.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e8daff567cf545f45c47e623df765c8ec666054d"
+                "reference": "72f875fe0ac6bf4c8cbb8dbdb39a90c5f20e8cf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.36.3-81f014.zip",
-                "reference": "e8daff567cf545f45c47e623df765c8ec666054d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.36.3.1-92a1cd.zip",
+                "reference": "72f875fe0ac6bf4c8cbb8dbdb39a90c5f20e8cf2",
                 "shasum": null
             },
             "require": {
@@ -1696,7 +1696,7 @@
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/intercom": "~1.3.2",
+                "channelgrabber/intercom": "^1.3.2",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
@@ -1748,7 +1748,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-01-26T08:57:17+00:00"
+            "time": "2018-02-07T15:41:10+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3840,22 +3840,23 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "416b27c56dca89e56f6a12cf1f87c48d9eb5ee19"
+                "reference": "b6200c628fa4552c521b482adb9882853b90c56c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.2.0-8ac139.zip",
-                "reference": "416b27c56dca89e56f6a12cf1f87c48d9eb5ee19",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.2.1-c8e4d1.zip",
+                "reference": "b6200c628fa4552c521b482adb9882853b90c56c",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/di": "^2.1.0",
                 "channelgrabber/phinx": "^0.3.2.3",
                 "channelgrabber/stdlib": "^2.14.1",
+                "cilex/cilex": "~1.0.1",
                 "php": ">=7.1",
                 "predis/predis": "~0.8.3",
                 "zendframework/zend-config": ">=2.2,<3.0",
@@ -3875,7 +3876,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2018-01-29T15:40:30+00:00"
+            "time": "2018-02-09T10:32:23+00:00"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
