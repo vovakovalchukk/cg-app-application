@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "77cd83001a03722b19d72249b90a5573",
+    "content-hash": "4a405296f4e9457f605b628e3fc1cc04",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1671,13 +1671,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "436a2322187d411af2144d0afef4dc9d0fe19024"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TECH-88-refactor-courier-arrays-to-objects-3a842b.zip",
-                "reference": "436a2322187d411af2144d0afef4dc9d0fe19024",
-                "shasum": null
+                "reference": "fa643dd6f6326b01f2f83d8fe28acddde8212381"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1748,7 +1742,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-01-26T16:53:09+00:00"
+            "time": "2018-02-09T11:11:22+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9520,8 +9514,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

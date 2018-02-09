@@ -149,7 +149,7 @@ class CourierJsonController extends AbstractActionController
         $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
 
         if (!empty($orderIds)) {
-            $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData->toArray(), $ordersParcelsData->toArray());
+            $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
             $data['metadata'] = $this->specificsAjaxService->getSpecificsMetaDataFromRecords($data['Records']);
         }
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $this->countOrderRecords($data['Records']);
@@ -211,7 +211,7 @@ class CourierJsonController extends AbstractActionController
                 $orderIds, $ordersData->toArray(), $rawOrdersParcelsData, $orderItemsData->toArray(), $accountId
             );
             $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData->toArray(), $rawOrdersParcelsData, $accountId);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData->toArray(), $rawOrdersParcelsData));
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
             return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
@@ -410,7 +410,7 @@ class CourierJsonController extends AbstractActionController
         try {
             $this->labelCancelService->cancelForOrders($orderIds, $accountId);
             $jsonView = $this->jsonModelFactory->newInstance([]);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId));
             return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
@@ -426,7 +426,7 @@ class CourierJsonController extends AbstractActionController
         try {
             $this->labelDispatchService->dispatchOrders($orderIds, $accountId);
             $jsonView = $this->jsonModelFactory->newInstance([]);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId));
             return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
