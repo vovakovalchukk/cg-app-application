@@ -1,31 +1,29 @@
 <?php
 namespace Products\Listing;
 
-use CG\Channel\Gearman\Generator\UnimportedListing\Import as UnimportedListingImportGenerator;
-use CG\Channel\Type as ChannelType;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\User\ActiveUserInterface;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-use CG\UserPreference\Client\Service as UserPreferenceService;
-use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
-use CG\Listing\Unimported\Service as ListingService;
-use CG\Listing\Unimported\Filter as ListingFilter;
-use CG\Listing\Unimported\Collection as ListingCollection;
-use CG\Listing\Unimported\Status as ListingStatus;
-use Settings\Module as SettingsModule;
-use Settings\Controller\ChannelController;
-use Zend\Mvc\MvcEvent;
-use CG\Channel\ListingImportFactory;
-use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
-use \GearmanClient;
-use CG\Channel\Gearman\Workload\ImportListing as ImportListingWorkload;
-use CG\Listing\Unimported\Status as UnimportedStatus;
+use CG\Account\Shared\Filter as AccountFilter;
+use CG\Channel\Gearman\Generator\UnimportedListing\Import as UnimportedListingImportGenerator;
+use CG\Channel\ListingImportFactory;
+use CG\Channel\Type as ChannelType;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG_UI\View\Helper\DateFormat as DateFormatHelper;
+use CG\Listing\Unimported\Collection as ListingCollection;
+use CG\Listing\Unimported\Filter as ListingFilter;
+use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
+use CG\Listing\Unimported\Service as ListingService;
+use CG\Listing\Unimported\Status as ListingStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
+use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG_UI\View\Helper\DateFormat as DateFormatHelper;
+use GearmanClient;
+use Settings\Controller\ChannelController;
+use Settings\Module as SettingsModule;
+use Zend\Mvc\MvcEvent;
 
 class Service implements LoggerAwareInterface
 {
@@ -36,9 +34,7 @@ class Service implements LoggerAwareInterface
     const DEFAULT_LIMIT = 'all';
     const DEFAULT_PAGE = 1;
     const DEFAULT_TYPE = 'sales';
-    const ONE_SECOND_DELAY = 1;
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
-    const REFRESH_TIMEOUT = 300;
 
     const LOG_CODE = 'ProductsListingService';
     const LOG_IMPORT_ALL_FILTERED = 'Creating job to import all unimported listings that match the filters:';
@@ -82,28 +78,27 @@ class Service implements LoggerAwareInterface
         return $this->getListingService()->fetchCollectionByFilter($listingFilter);
     }
 
-    public function refresh()
+    public function refresh(array $accountIds = [])
     {
-        $filter = new AccountFilter();
-        $filter->setActive(static::ACTIVE)
-            ->setLimit(static::DEFAULT_LIMIT)
-            ->setPage(static::DEFAULT_PAGE)
+        $filter = (new AccountFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE))
+            ->setActive(static::ACTIVE)
             ->setType(static::DEFAULT_TYPE)
-            ->setOus($this->getActiveUserContainer()->getActiveUser()->getOuList());
+            ->setRootOrganisationUnitId([$this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()]);
+
+        if (!empty($accountIds)) {
+            $filter->setId($accountIds);
+        }
+
         try {
             $accounts = $this->getAccountService()->fetchByFilter($filter);
         } catch (NotFound $e) {
             return;
         }
-        $gearmanJobs = [];
+
         foreach ($accounts as $account) {
             $importer = $this->getListingImportFactory()->createListingImport($account);
-            $gearmanJobs[] = $importer($account);
+            $importer($account);
         }
-        $seconds = 0;
-        do {
-            sleep(static::ONE_SECOND_DELAY);
-        } while($this->checkGearmanJobStatus($gearmanJobs) && (++$seconds <= static::REFRESH_TIMEOUT));
     }
 
     protected function checkGearmanJobStatus(array $gearmanJobs)
@@ -267,6 +262,9 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
+    /**
+     * @return ActiveUserInterface
+     */
     protected function getActiveUserContainer()
     {
         return $this->activeUserContainer;
