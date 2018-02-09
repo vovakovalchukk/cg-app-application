@@ -159,7 +159,9 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         $this->checkUsage();
 
         $view = $this->jsonModelFactory->newInstance();
-        $this->listingService->refresh();
+        $this->listingService->refresh(
+            $this->params()->fromPost('accounts', [])
+        );
         return $view;
     }
 
