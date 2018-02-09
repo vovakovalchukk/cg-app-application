@@ -61,16 +61,12 @@ class Service implements
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
     {
+        /** @TOOD: undo this! */
         try {
-            $category = $this->fetchCategoryByExternalIdAndMarketplace(
-                $this->getEbaySiteIdForAccount($account),
-                $externalCategoryId
-            );
-            $childCategories = $this->categoryService->fetchCollectionByFilter(
-                (new CategoryFilter('all', 1))
-                    ->setParentId([$category->getId()])
-            );
-            return $this->formatCategoriesArray($childCategories);
+            if ($externalCategoryId == 2323) {
+                return [];
+            }
+            return [2323 => 'haha'];
         } catch (NotFound $e) {
             return [];
         }
@@ -78,8 +74,10 @@ class Service implements
 
     public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
     {
+        /** @TOOD: undo this! */
         return [
-            'listingDuration' => $this->getListingDurationsForCategory($account, $externalCategoryId)
+            'listingDuration' => [],
+            'itemSpecifics' => json_decode('{"required":{"fieldName":{"type":"select","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName2":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName5":{"type":"text","minValues":0}},"optional":{"fieldName6":{"type":"text","minValues":0},"fieldName2":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2}}}', 1)
         ];
     }
 
@@ -90,8 +88,9 @@ class Service implements
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
+        /** @TOOD: undo this! */
         return [
-            'category' => $this->getCategoryOptionsForAccount($account),
+            'category' => [123 => 'test'],
             'shippingService' => $this->getShippingMethodsForAccount($account),
             'currency' => $this->getCurrencySymbolForAccount($account)
         ];

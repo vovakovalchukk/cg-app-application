@@ -36,7 +36,8 @@ define([
                 currencyFieldValues: {},
                 shippingService: null,
                 rootCategories: null,
-                listingDurationFieldValues: null
+                listingDurationFieldValues: null,
+                itemSpecifics: {}
             }
         },
         componentDidMount: function() {
@@ -113,9 +114,9 @@ define([
         },
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
-            this.fetchAndSetListingDurationOptions(categoryId);
+            this.fetchAndSetCategoryDependentFieldValues(categoryId);
         },
-        fetchAndSetListingDurationOptions(categoryId) {
+        fetchAndSetCategoryDependentFieldValues(categoryId) {
             if (!categoryId) {
                 this.setState({
                     listingDurationFieldValues: null,
@@ -128,7 +129,8 @@ define([
                 type: 'GET',
                 success: function (response) {
                     this.setState({
-                        listingDurationFieldValues: response.listingDuration
+                        listingDurationFieldValues: response.listingDuration,
+                        itemSpecifics: response.itemSpecifics
                     });
                 }.bind(this)
             });
@@ -167,6 +169,97 @@ define([
                 shippingPrice: 'How much you want to charge for shipping'
             };
             return tooltips[inputFieldName];
+        },
+        buildItemSpecificsInputs: function() {
+            var itemSpecifics = [];
+            if (this.state.itemSpecifics.required) {
+                var required = [];
+                $.each(this.state.itemSpecifics.required, function (name, properties) {
+                    if (properties.type == 'text') {
+                        required.push(this.buildTextItemSpecific(name, properties));
+                    }
+                    if (properties.type == 'select') {
+                        required.push(this.buildSelectItemSpecific(name, properties));
+                    }
+                    if (properties.type == 'textselect') {
+                        required.push(this.buildTextSelectItemSpecific(name, properties));
+                    }
+                }.bind(this));
+                itemSpecifics.push(<span>Item Specifics (Required){required}</span>);
+            }
+            if (this.state.itemSpecifics.optional) {
+                itemSpecifics.push(
+                    <label>
+                        <span className={"inputbox-label"}>Item Specifics (Optional)</span>
+                        <div className={"order-inputbox-holder"}>
+                            <Select
+                                name="item-specifics-optional"
+                                options={this.buildOptionalItemSpecificsSelectOptions(this.state.itemSpecifics.optional)}
+                                autoSelectFirst={false}
+                                title="Item Specifics (Optional)"
+                            />
+                        </div>
+                    </label>
+                );
+            }
+            return <span>{itemSpecifics}</span>;
+        },
+        buildTextItemSpecific: function(name, options) {
+            return <label>
+                <span className={"inputbox-label"}>{name}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Input
+                        name={name}
+                        value=''
+                        onChange={this.onInputChange}
+                    />
+                </div>
+            </label>
+        },
+        buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
+            var options = [];
+            $.each(itemSpecifics, function (name, value) {
+                options.push({
+                    "name": name,
+                    "value": value
+                })
+            });
+            return options;
+        },
+        buildSelectItemSpecific: function(name, options) {
+            return <label>
+                <span className={"inputbox-label"}>{name}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        name="duration"
+                        options={this.getSelectOptionsForItemSpecific(options.options)}
+                        autoSelectFirst={true}
+                        title={name}
+                    />
+                </div>
+            </label>
+        },
+        getSelectOptionsForItemSpecific(options) {
+            var selectOptions = [];
+            $.each(options, function(name, value) {
+                selectOptions.push({
+                    "name": name,
+                    "value": value
+                });
+            });
+            return selectOptions;
+        },
+        buildTextSelectItemSpecific: function(name, options) {
+            return <label>
+                <span className={"inputbox-label"}>{name}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Input
+                        name={name}
+                        value=''
+                        onChange={this.onInputChange}
+                    />
+                </div>
+            </label>
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -241,6 +334,7 @@ define([
                         </div>
                     </label>
                 : null}
+                {(this.state.itemSpecifics) ? this.buildItemSpecificsInputs() : null}
                 <label>
                     <span className={"inputbox-label"}>Dispatch Time Max</span>
                     <div className={"order-inputbox-holder"}>
