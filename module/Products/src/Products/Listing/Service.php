@@ -2,6 +2,7 @@
 namespace Products\Listing;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Gearman\Generator\UnimportedListing\Import as UnimportedListingImportGenerator;
 use CG\Channel\ListingImportFactory;
@@ -18,7 +19,9 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
 use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\UserPreference\Shared\Entity as UserPreference;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 use GearmanClient;
 use Settings\Controller\ChannelController;
@@ -39,13 +42,23 @@ class Service implements LoggerAwareInterface
     const LOG_CODE = 'ProductsListingService';
     const LOG_IMPORT_ALL_FILTERED = 'Creating job to import all unimported listings that match the filters:';
 
+    /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var UserPreferenceService */
     protected $userPreferenceService;
+    /** @var UserPreference */
+    protected $activeUserPreference;
+    /** @var ListingService */
     protected $listingService;
+    /** @var ListingImportFactory */
     protected $listingImportFactory;
+    /** @var AccountService */
     protected $accountService;
+    /** @var GearmanClient */
     protected $gearmanClient;
+    /** @var IntercomEventService */
     protected $intercomEventService;
+    /** @var DateFormatHelper */
     protected $dateFormatHelper;
     /** @var UnimportedListingImportGenerator */
     protected $unimportedListingImportGenerator;
@@ -61,21 +74,21 @@ class Service implements LoggerAwareInterface
         DateFormatHelper $dateFormatHelper,
         UnimportedListingImportGenerator $unimportedListingImportGenerator
     ) {
-        $this->setActiveUserContainer($activeUserContainer)
-            ->setUserPreferenceService($userPreferenceService)
-            ->setListingService($listingService)
-            ->setListingImportFactory($listingImportFactory)
-            ->setAccountService($accountService)
-            ->setGearmanClient($gearmanClient)
-            ->setIntercomEventService($intercomEventService)
-            ->setDateFormatHelper($dateFormatHelper)
-            ->setUnimportedListingImportGenerator($unimportedListingImportGenerator);
+        $this->activeUserContainer = $activeUserContainer;
+        $this->userPreferenceService = $userPreferenceService;
+        $this->listingService = $listingService;
+        $this->listingImportFactory = $listingImportFactory;
+        $this->accountService = $accountService;
+        $this->gearmanClient = $gearmanClient;
+        $this->intercomEventService = $intercomEventService;
+        $this->dateFormatHelper = $dateFormatHelper;
+        $this->unimportedListingImportGenerator = $unimportedListingImportGenerator;
     }
 
     public function fetchListings(ListingFilter $listingFilter)
     {
         $listingFilter->setOrganisationUnitId($this->getActiveUser()->getOuList());
-        return $this->getListingService()->fetchCollectionByFilter($listingFilter);
+        return $this->listingService->fetchCollectionByFilter($listingFilter);
     }
 
     public function refresh(array $accountIds = [])
@@ -83,32 +96,23 @@ class Service implements LoggerAwareInterface
         $filter = (new AccountFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE))
             ->setActive(static::ACTIVE)
             ->setType(static::DEFAULT_TYPE)
-            ->setRootOrganisationUnitId([$this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()]);
+            ->setRootOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()]);
 
         if (!empty($accountIds)) {
             $filter->setId($accountIds);
         }
 
         try {
-            $accounts = $this->getAccountService()->fetchByFilter($filter);
+            $accounts = $this->accountService->fetchByFilter($filter);
         } catch (NotFound $e) {
             return;
         }
 
+        /** @var Account $account */
         foreach ($accounts as $account) {
-            $importer = $this->getListingImportFactory()->createListingImport($account);
+            $importer = $this->listingImportFactory->createListingImport($account);
             $importer($account);
         }
-    }
-
-    protected function checkGearmanJobStatus(array $gearmanJobs)
-    {
-        foreach ($gearmanJobs as $gearmanJob) {
-            if ($this->getGearmanClient()->jobStatus($gearmanJob)[0]) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public function isFilterBarVisible()
@@ -130,7 +134,7 @@ class Service implements LoggerAwareInterface
 
     protected function addAccountDetailsToListings(array $listings, MvcEvent $event)
     {
-        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+        $accounts = $this->accountService->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
             null,
             null,
@@ -202,7 +206,7 @@ class Service implements LoggerAwareInterface
     {
         $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
         $filter->setId($listingIds);
-        $listings = $this->getListingService()->fetchCollectionByFilter($filter);
+        $listings = $this->listingService->fetchCollectionByFilter($filter);
 
         $this->listingService->importListingsCollection($listings);
         $this->notifyOfImport();
@@ -227,114 +231,27 @@ class Service implements LoggerAwareInterface
     protected function notifyOfImport()
     {
         $event = new IntercomEvent(static::EVENT_LISTINGS_IMPORTED, $this->getActiveUser()->getId());
-        $this->getIntercomEventService()->save($event);
+        $this->intercomEventService->save($event);
     }
 
+    /**
+     * @return UserPreference
+     */
     protected function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {
             $activeUserId = $this->getActiveUser()->getId();
-            $this->activeUserPreference = $this->getUserPreferenceService()->fetch($activeUserId);
+            $this->activeUserPreference = $this->userPreferenceService->fetch($activeUserId);
         }
 
         return $this->activeUserPreference;
     }
 
+    /**
+     * @return User
+     */
     protected function getActiveUser()
     {
-        return $this->getActiveUserContainer()->getActiveUser();
-    }
-
-    protected function setUserPreferenceService(UserPreferenceService $userPreferenceService)
-    {
-        $this->userPreferenceService = $userPreferenceService;
-        return $this;
-    }
-
-    protected function getUserPreferenceService()
-    {
-        return $this->userPreferenceService;
-    }
-
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return ActiveUserInterface
-     */
-    protected function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
-    protected function setListingService(ListingService $listingService)
-    {
-        $this->listingService = $listingService;
-        return $this;
-    }
-
-    protected function getListingService()
-    {
-        return $this->listingService;
-    }
-
-    protected function getAccountService()
-    {
-        return $this->accountService;
-    }
-
-    protected function setAccountService($accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-
-    protected function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-        return $this;
-    }
-
-    protected function getGearmanClient()
-    {
-        return $this->gearmanClient;
-    }
-
-    protected function setListingImportFactory(ListingImportFactory $listingImportFactory)
-    {
-        $this->listingImportFactory = $listingImportFactory;
-        return $this;
-    }
-
-    protected function getListingImportFactory()
-    {
-        return $this->listingImportFactory;
-    }
-
-    protected function getIntercomEventService()
-    {
-        return $this->intercomEventService;
-    }
-
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
-        return $this;
-    }
-
-    protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
-    {
-        $this->dateFormatHelper = $dateFormatHelper;
-        return $this;
-    }
-
-    protected function setUnimportedListingImportGenerator(UnimportedListingImportGenerator $unimportedListingImportGenerator)
-    {
-        $this->unimportedListingImportGenerator = $unimportedListingImportGenerator;
-        return $this;
+        return $this->activeUserContainer->getActiveUser();
     }
 }
