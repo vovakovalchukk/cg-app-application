@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb58c284582884d9a4b710fbd5a21e1",
+    "content-hash": "4645aaffda5a3807b1f8ac2b37379140",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3840,16 +3840,16 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "dev-CGIV-9205-SessionGCFix",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "5bc854f08aa1a7cda06edf224919c24cce300dab"
+                "reference": "b6200c628fa4552c521b482adb9882853b90c56c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-dev-CGIV-9205-SessionGCFix-78afc0.zip",
-                "reference": "5bc854f08aa1a7cda06edf224919c24cce300dab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.2.1-c8e4d1.zip",
+                "reference": "b6200c628fa4552c521b482adb9882853b90c56c",
                 "shasum": null
             },
             "require": {
@@ -3876,7 +3876,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2018-01-30T10:46:21+00:00"
+            "time": "2018-02-09T10:32:23+00:00"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -9507,18 +9507,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.1",
-            "alias_normalized": "1.2.1.0",
-            "version": "dev-CGIV-9205-SessionGCFix",
-            "package": "channelgrabber/zf2-sessions"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-sessions": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
