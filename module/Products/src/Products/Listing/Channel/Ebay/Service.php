@@ -38,6 +38,10 @@ class Service implements
         'listingPaymentMethods' => 'listingPaymentMethods'
     ];
 
+    const TYPE_TEXT = 'text';
+    const TYPE_SELECT = 'select';
+    const TYPE_TEXTSELECT = 'textselect';
+
     /** @var CategoryService */
     protected $categoryService;
     /** @var Cryptor */
@@ -48,8 +52,8 @@ class Service implements
     protected $categoryExternalService;
 
     protected $selectionModesToInputTypes = [
-        'FreeText' => 'text',
-        'SelectionOnly' => 'select',
+        'FreeText' => self::TYPE_TEXT,
+        'SelectionOnly' => self::TYPE_SELECT,
     ];
 
     public function __construct(
@@ -168,8 +172,8 @@ class Service implements
     {
         $inputType = $this->getRawInputTypeForRecommendation($recommendation);
         // If its technically free text but there are recommended values then we need to allow both
-        if ($inputType == 'text' && isset($recommendation['ValueRecommendation'])) {
-            $inputType = 'textselect';
+        if ($inputType == static::TYPE_TEXT && isset($recommendation['ValueRecommendation'])) {
+            $inputType = static::TYPE_TEXTSELECT;
         }
         return $inputType;
     }
@@ -177,11 +181,11 @@ class Service implements
     protected function getRawInputTypeForRecommendation(array $recommendation): string
     {
         if (!isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['SelectionMode'])) {
-            return 'text';
+            return static::TYPE_TEXT;
         }
         $selectionMode = $recommendation['ValidationRules']['SelectionMode'];
         if (!isset($this->selectionModesToInputTypes[$selectionMode])) {
-            return 'text';
+            return static::TYPE_TEXT;
         }
         return $this->selectionModesToInputTypes[$selectionMode];
     }
