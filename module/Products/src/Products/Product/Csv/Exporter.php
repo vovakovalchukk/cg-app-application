@@ -3,7 +3,6 @@ namespace Products\Product\Csv;
 
 use CG\Image\Entity as Image;
 use CG\Listing\Client\Service as ListingService;
-use CG\Listing\Csv\Line\Mapper as CsvLineMapper;
 use CG\Listing\Entity as Listing;
 use CG\Listing\Filter as ListingFilter;
 use CG\Location\Service as LocationService;
@@ -11,6 +10,7 @@ use CG\Location\Type as LocationType;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Entity as ProductDetails;
 use CG\Product\Entity as Product;
+use CG\Product\Listing\Line\Mapper as CsvLineMapper;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Location\Collection as StockLocationCollection;

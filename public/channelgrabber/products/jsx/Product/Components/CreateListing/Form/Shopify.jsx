@@ -56,8 +56,11 @@ define([
         refreshCategories() {
             this.setState({refreshCategoriesDisabled: true});
             $.get('/products/create-listings/' + this.props.accountId + '/refresh-categories', function(data) {
+                if (data.error) {
+                    n.error(data.error);
+                }
                 this.setState({
-                    categories: data.categories,
+                    categories: data.categories || [],
                     refreshCategoriesDisabled: false
                 });
             }.bind(this));
@@ -132,6 +135,8 @@ define([
                             accountId={this.props.accountId}
                             categories={this.state.categories}
                             disabled={this.state.refreshCategoriesDisabled}
+                            getSelectCallHandler={this.props.getSelectCallHandler}
+                            selectedCategory={this.props.category}
                         />
                     </div>
                     <RefreshIcon

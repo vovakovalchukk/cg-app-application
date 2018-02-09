@@ -34,7 +34,8 @@ define([
             return {
                 searchAvailable: true,
                 isAdmin: false,
-                initialSearchTerm: ''
+                initialSearchTerm: '',
+                adminCompanyUrl: null
             }
         },
         getInitialState: function()
@@ -380,6 +381,7 @@ define([
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+                    adminCompanyUrl={this.props.adminCompanyUrl}
                 />;
             }.bind(this))
         },

@@ -14,7 +14,8 @@ define([
         isAdmin,
         getParamSearchTerm,
         linkedProductsEnabled,
-        createListingsEnabled
+        createListingsEnabled,
+        adminCompanyUrl
     ) {
         ReactDOM.render(
             <RootComponent
@@ -25,6 +26,7 @@ define([
                 isAdmin={isAdmin}
                 linkedProductsEnabled={linkedProductsEnabled}
                 createListingsEnabled={createListingsEnabled}
+                adminCompanyUrl={adminCompanyUrl}
             />,
             mountingNode
         );
