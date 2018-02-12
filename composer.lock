@@ -1285,7 +1285,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "27f5089c341b278e1938083a79fd42c883b9e4d5"
+                "reference": "2064b146759442d93d11a3160077348edb5a0fc0"
             },
             "require": {
                 "channelgrabber/billing": "^1.8.0",
