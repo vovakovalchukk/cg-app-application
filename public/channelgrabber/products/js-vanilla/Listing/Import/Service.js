@@ -32,12 +32,22 @@ define([
         var popup = this.getPopup();
         popup.getElement().on("change", "#listing-download-all", function() {
             popup.getElement().find(":checkbox[name=accounts]:not(:disabled)").prop("checked", this.checked);
+            if (this.checked) {
+                popup.getElement().find("#listing-download-shadow").removeClass("disabled");
+            } else {
+                popup.getElement().find("#listing-download-shadow").addClass("disabled");
+            }
         });
         popup.getElement().on("change", ":checkbox[name=accounts]:not(:disabled)", function() {
             popup.getElement().find("#listing-download-all").prop(
                 "checked",
                 (popup.getElement().find(":checkbox[name=accounts]:not(:checked):not(:disabled)").length == 0)
             );
+            if (popup.getElement().find(":checkbox[name=accounts]:checked:not(:disabled)").length > 0) {
+                popup.getElement().find("#listing-download-shadow").removeClass("disabled");
+            } else {
+                popup.getElement().find("#listing-download-shadow").addClass("disabled");
+            }
         });
     };
 
@@ -74,7 +84,7 @@ define([
             }
             details.download = {
                 'buttons': {
-                    'class': 'listingDownload',
+                    'id': 'listing-download',
                     'title': 'Download Listings',
                     'disabled': true
                 }
