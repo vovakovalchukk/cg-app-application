@@ -4,7 +4,8 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
-    'Common/Components/ImagePicker'
+    'Common/Components/ImagePicker',
+    'lib/shallowCompare'
 ], function(
     React,
     Select,
@@ -12,10 +13,13 @@ define([
     Input,
     CategorySelect,
     ImagePicker,
+    ShallowCompare
 ) {
     "use strict";
 
     var NO_SETTINGS = 'NO_SETTINGS';
+
+    var CUSTOM_ITEM_SPECIFIC = 'addCustomItemSpecific';
 
     var EbayComponent = React.createClass({
         getDefaultProps: function() {
@@ -40,7 +44,8 @@ define([
                 itemSpecifics: {},
                 optionalItemSpecifics: [],
                 optionalItemSpecificsSelectOptions: [],
-                selectedItemSpecifics: {}
+                selectedItemSpecifics: {},
+                customItemSpecificCount: 0
             }
         },
         componentDidMount: function() {
@@ -212,6 +217,9 @@ define([
             if (properties.type == 'textselect') {
                 return this.buildTextSelectItemSpecific(name, properties);
             }
+            if (properties.type == 'extraCustom') {
+                return this.buildExtraItemSpecific(properties);
+            }
         },
         buildTextItemSpecific: function(name, options, hasPlusButton = false) {
             return <label>
@@ -241,6 +249,25 @@ define([
         onPlusButtonClick: function (item) {
             console.log(item);
         },
+        buildExtraItemSpecific: function () {
+            var customInputName = 'CustomInputName' + this.state.customItemSpecificCount;
+            var customInputValueName = 'CustomInputValueName' + this.state.customItemSpecificCount;
+            console.log(customInputName, customInputValueName);
+            // var itemSpecific = <label>
+            //     <span className={"inputbox-label"}>
+            //         <Input
+            //             name={customInputName}
+            //         />
+            //     </span>
+            //     <div className={"order-inputbox-holder"}>
+            //         <Input
+            //             name={customInputValueName}
+            //         />
+            //     </div>
+            // </label>;
+            this.setState({customItemSpecificCount: this.state.customItemSpecificCount + 1});
+            // return itemSpecific;
+        },
         getItemSpecificTextInputValue: function(name) {
             if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
                 return this.props.itemSpecifics[name];
@@ -255,6 +282,10 @@ define([
                     "value": value
                 })
             });
+            options.push({
+                "name": "Add Custom Item Specific",
+                "value": {type: 'extraCustom'}
+            })
             return options;
         },
         buildSelectItemSpecific: function(name, options) {
@@ -299,11 +330,16 @@ define([
             </label>
         },
         onOptionalItemSpecificSelect: function (field) {
+            // Do no render the same field twice
             for (var i = 0; i < this.state.optionalItemSpecifics.length; i++) {
                 if (this.state.optionalItemSpecifics[i].name == field.name) {
                     return;
                 }
             }
+
+            // If the user selects "add custom specific", render the custom input type
+            console.log(field);
+
             this.state.optionalItemSpecifics.push(field);
             this.setState({
                 optionalItemSpecifics: this.state.optionalItemSpecifics
@@ -317,8 +353,7 @@ define([
                 field = this.state.optionalItemSpecifics[key];
                 itemSpecifics.push(this.buildItemSpecificsInputByType(
                     field.name,
-                    field.value,
-                    key == (optionalItemSpecificsLenght - 1)
+                    field.value
                 ));
             }
             return <span>{itemSpecifics}</span>;
@@ -336,8 +371,19 @@ define([
             selectedItemSpecifics[event.target.name] = event.target.value;
             this.setState({
                 selectedItemSpecifics: this.state.selectedItemSpecifics
-            })
+            });
             this.props.setFormStateListing({"itemSpecifics": this.state.selectedItemSpecifics});
+        },
+        shouldComponentUpdate: function(nextProps, nextState) {
+            var currentCustomItemSpecificCount = this.state.customItemSpecificCount;
+            var nextCustomItemSpecificCount = nextState.customItemSpecificCount;
+            console.log(nextCustomItemSpecificCount, currentCustomItemSpecificCount);
+            nextState.customItemSpecificCount = currentCustomItemSpecificCount;
+
+            console.log(ShallowCompare);
+
+            nextState.customItemSpecificCount = nextCustomItemSpecificCount;
+            return true;
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
