@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c47f4954bb65beb1ec0965d09ca232eb",
+    "content-hash": "321fe41fbc31c22cd81792c792e67421",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "44203059c8a5ef7697a6d00eeda6250a3bd13534"
+                "reference": "04dff7c4341b9f3f994be98b7a6b007bc16166c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-38-bigcommerce-listings-eb6a74.zip",
-                "reference": "44203059c8a5ef7697a6d00eeda6250a3bd13534",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.1.1-c9fb8d.zip",
+                "reference": "04dff7c4341b9f3f994be98b7a6b007bc16166c3",
                 "shasum": null
             },
             "require": {
@@ -300,7 +300,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-02T10:26:50+00:00"
+            "time": "2018-02-12T09:29:35+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -1316,16 +1316,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "834ebb603a60f11a732d917a62fe44cb1625f1ff"
+                "reference": "91cd04ad36a6b927f184560e8b4e584ebe7c970b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-EPIC-LIS-38-bigcommerce-listings-584b26.zip",
-                "reference": "834ebb603a60f11a732d917a62fe44cb1625f1ff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.14.1-c38fb8.zip",
+                "reference": "91cd04ad36a6b927f184560e8b4e584ebe7c970b",
                 "shasum": null
             },
             "require": {
@@ -1361,7 +1361,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-09T14:43:29+00:00"
+            "time": "2018-02-12T09:23:05+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9508,25 +9508,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
-            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.14.1",
-            "alias_normalized": "1.14.1.0",
-            "version": "dev-EPIC-LIS-38-bigcommerce-listings",
-            "package": "channelgrabber/listing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
