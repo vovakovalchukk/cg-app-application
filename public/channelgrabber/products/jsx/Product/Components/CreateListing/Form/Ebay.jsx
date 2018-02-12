@@ -200,18 +200,18 @@ define([
             }
             return <span>{itemSpecifics}</span>;
         },
-        buildItemSpecificsInputByType: function(name, properties) {
+        buildItemSpecificsInputByType: function(name, properties, hasPlusButton = false) {
             if (properties.type == 'text') {
-                return this.buildTextItemSpecific(name, properties);
+                return this.buildTextItemSpecific(name, properties, hasPlusButton);
             }
             if (properties.type == 'select') {
-                return this.buildSelectItemSpecific(name, properties);
+                return this.buildSelectItemSpecific(name, properties, hasPlusButton);
             }
             if (properties.type == 'textselect') {
-                return this.buildTextSelectItemSpecific(name, properties);
+                return this.buildTextSelectItemSpecific(name, properties, hasPlusButton);
             }
         },
-        buildTextItemSpecific: function(name, options) {
+        buildTextItemSpecific: function(name, options, hasPlusButton = false) {
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -221,7 +221,23 @@ define([
                         onChange={this.onItemSpecificInputChange}
                     />
                 </div>
+                {this.renderPlusButton(hasPlusButton)}
             </label>
+        },
+        renderPlusButton: function (shouldRender = false) {
+            if (!shouldRender) {
+                return null;
+            }
+            return <span className="refresh-icon">
+                <i
+                    className='fa fa-2x fa-plus-square icon-create-listing'
+                    aria-hidden='true'
+                    onClick={this.onPlusButtonClick}
+                />
+            </span>;
+        },
+        onPlusButtonClick: function (item) {
+            console.log(item);
         },
         getItemSpecificTextInputValue: function(name) {
             if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
@@ -239,7 +255,7 @@ define([
             });
             return options;
         },
-        buildSelectItemSpecific: function(name, options) {
+        buildSelectItemSpecific: function(name, options, hasPlusButton = false) {
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -251,6 +267,7 @@ define([
                         onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
+                {this.renderPlusButton(hasPlusButton)}
             </label>
         },
         getSelectOptionsForItemSpecific(selectName, options) {
@@ -266,7 +283,7 @@ define([
             });
             return selectOptions;
         },
-        buildTextSelectItemSpecific: function(name, options) {
+        buildTextSelectItemSpecific: function(name, options, hasPlusButton = false) {
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -278,6 +295,7 @@ define([
                         onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
+                {this.renderPlusButton(hasPlusButton)}
             </label>
         },
         onOptionalItemSpecificSelect: function (field) {
@@ -293,9 +311,16 @@ define([
         },
         buildOptionalItemSpecificsInputs: function() {
             var itemSpecifics = [];
-            $.each(this.state.optionalItemSpecifics, function (key ,field) {
-                 itemSpecifics.push(this.buildItemSpecificsInputByType(field.name, field.value))
-            }.bind(this));
+            var field;
+            var optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length;
+            for (var key = 0; key < optionalItemSpecificsLenght; key++) {
+                field = this.state.optionalItemSpecifics[key];
+                itemSpecifics.push(this.buildItemSpecificsInputByType(
+                    field.name,
+                    field.value,
+                    key == (optionalItemSpecificsLenght - 1)
+                ));
+            }
             return <span>{itemSpecifics}</span>;
         },
         onItemSpecificSelected: function(field) {
