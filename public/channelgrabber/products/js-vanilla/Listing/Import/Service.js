@@ -40,6 +40,7 @@ define([
         storage.refreshDetails(function(details) {
             details.hasAccounts = false;
             details.account = [];
+            var checkAllEnabled = false;
             for (var accountId in details['accounts']) {
                 if (details['accounts'].hasOwnProperty(accountId)) {
                     details.hasAccounts = true;
@@ -50,9 +51,12 @@ define([
                             'id': 'listing-download-' + accountId,
                             'name': 'accounts',
                             'value': accountId,
-                            'label': ' '
+                            'disabled': !details['accounts'][accountId]['refreshAllowed']
                         }}
                     ));
+                    if (details['accounts'][accountId]['refreshAllowed']) {
+                        checkAllEnabled = true;
+                    }
                 }
             }
             details.download = {
@@ -64,7 +68,7 @@ define([
             };
             details.checkall = {
                 'id': 'listing-download-all',
-                'label': ' '
+                'disabled': !checkAllEnabled
             };
             popup.hide();
             popup.show(details, 'popup');
