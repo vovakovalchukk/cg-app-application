@@ -24,7 +24,8 @@ define([
                 description: null,
                 price: null,
                 accountId: null,
-                product: null
+                product: null,
+                ean: null
             }
         },
         getInitialState: function() {
@@ -176,6 +177,22 @@ define([
             };
             return tooltips[inputFieldName];
         },
+        getBarcodeErrors: function() {
+            var errors = [];
+            var EAN_LENGTH = 13;
+            if (!this.props.ean || this.props.ean.length == 0) {
+                return errors;
+            }
+
+            if (this.props.ean.length != EAN_LENGTH) {
+                errors.push('Barcode must be 13 characters long');
+            }
+
+            if (!this.props.ean.match(new RegExp('^[0-9]+$'))) {
+                errors.push('Barcode must be numbers only');
+            }
+            return errors;
+        },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
                 return <div>
@@ -249,6 +266,7 @@ define([
                             value={this.props.ean}
                             onChange={this.onInputChange}
                             title={this.getTooltipText('ean')}
+                            errors={this.getBarcodeErrors()}
                         />
                     </div>
                 </label>
