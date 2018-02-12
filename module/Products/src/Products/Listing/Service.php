@@ -162,7 +162,7 @@ class Service implements LoggerAwareInterface
             }
 
             $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_PROGRESS;
-            if ($listingDownload->getId() < strtotime('-1 day')) {
+            if ($listingDownload->getId() >= strtotime('-1 day')) {
                 $refreshDetails[$account->getId()]['refreshAllowed'] = false;
             }
         }
