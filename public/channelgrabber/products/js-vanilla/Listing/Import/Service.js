@@ -6,7 +6,7 @@ define([
     MustachePopup
 ) {
     var Service = function() {
-        var popup, refreshing;
+        var popup;
         this.init = function() {
             popup = new MustachePopup(
                 {
@@ -17,19 +17,12 @@ define([
                     'checkbox': '/cg-built/zf2-v4-ui/templates/elements/checkbox.mustache'
                 }
             );
-            refreshing = false;
             this.listenToCheckAll();
             this.listenToDownload();
 
         };
         this.getPopup = function() {
             return popup;
-        };
-        this.isRefreshing = function() {
-            return refreshing;
-        };
-        this.setRefreshing = function(status) {
-            refreshing = status;
         };
     };
 
@@ -65,25 +58,23 @@ define([
         var popup = self.getPopup();
         popup.getElement().on("click", "#listing-download", function(event) {
             if (popup.getElement().find("#listing-download-shadow.disabled").length == 0) {
+                popup.getElement().find("#listing-download-shadow").addClass("disabled");
                 self.refresh(
                     popup.getElement().find(":checkbox[name=accounts]:checked:not(:disabled)").map(function() {
+                        this.disabled = true;
                         return this.value;
                     }).get()
                 );
+                if (popup.getElement().find(":checkbox[name=accounts]:not(:disabled)").length == 0) {
+                    popup.getElement().find("#listing-download-all").prop("disabled", true);
+                }
             }
         });
     };
 
     Service.prototype.refresh = function(accounts)
     {
-        var self = this;
-        if (self.isRefreshing()) {
-            return;
-        }
-        self.setRefreshing(true);
-        storage.refresh(accounts, function() {
-            self.setRefreshing(false);
-        });
+        storage.refresh(accounts);
     };
 
     Service.prototype.displayPopup = function()
