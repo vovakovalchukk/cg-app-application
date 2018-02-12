@@ -30,6 +30,11 @@ return [
                     ],
                 ],
             ],
+            SetupWizard\Channels\Message\Type::class => [
+                'parameter' => [
+                    'fromIntercomId' => 1222805
+                ]
+            ],
         ],
     ]
 ];
