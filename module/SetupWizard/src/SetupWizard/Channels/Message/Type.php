@@ -47,7 +47,7 @@ I can see you're trying to connect a channel not listed here, can you tell me wh
         return $this->messages[static::INTEGRATION_MESSAGE][$channelIntegrationType];
     }
 
-    protected function addFromField($data): array
+    protected function addFromField(array $data): array
     {
         $data['from'] = $this->fromIntercomId;
 

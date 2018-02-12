@@ -93,10 +93,6 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    /**
-     * @param string $channelPrintName
-     * @param string $channelIntegrationType
-     */
     public function sendChannelAddIntercomMessageToUser(string $channelPrintName, string $channelIntegrationType)
     {
         try {
