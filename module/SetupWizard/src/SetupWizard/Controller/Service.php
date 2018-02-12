@@ -101,11 +101,8 @@ class Service implements LoggerAwareInterface
     {
         try {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
-            $this->messageType->parseFields($channelIntegrationType, $channelPrintName);
-
-
-
-            $this->intercomMessageService->sendMessage($activeUser, $channelIntegrationType, $channelPrintName);
+            $message = $this->messageType->parseFields($channelIntegrationType, $channelPrintName);
+            $this->intercomMessageService->sendMessage($activeUser, $message);
         } catch (NotFound $e) {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
             $this->logDebugException($e, 'Channel %s does not require sending message to Intercom for User %d.', [$channelPrintName, $activeUser->getId()], static::LOG_CODE);
