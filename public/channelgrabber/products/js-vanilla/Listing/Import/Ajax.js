@@ -11,9 +11,11 @@ define([
         };
     };
 
-    Ajax.prototype.refresh = function(accounts)
+    Ajax.prototype.refresh = function(accounts, callback)
     {
-        this.getAjaxRequester().sendRequest('/products/listing/import/refresh', {accounts: accounts || []});
+        this.getAjaxRequester().sendRequest('/products/listing/import/refresh', {accounts: accounts || []}, function() {
+            callback();
+        });
     };
 
     Ajax.prototype.refreshDetails = function(callback)
