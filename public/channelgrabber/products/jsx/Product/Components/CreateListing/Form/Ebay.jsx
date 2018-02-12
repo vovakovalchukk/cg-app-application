@@ -37,7 +37,10 @@ define([
                 shippingService: null,
                 rootCategories: null,
                 listingDurationFieldValues: null,
-                itemSpecifics: {}
+                itemSpecifics: {},
+                optionalItemSpecifics: [],
+                optionalItemSpecificsSelectOptions: [],
+                selectedItemSpecifics: {}
             }
         },
         componentDidMount: function() {
@@ -175,28 +178,21 @@ define([
             if (this.state.itemSpecifics.required) {
                 var required = [];
                 $.each(this.state.itemSpecifics.required, function (name, properties) {
-                    if (properties.type == 'text') {
-                        required.push(this.buildTextItemSpecific(name, properties));
-                    }
-                    if (properties.type == 'select') {
-                        required.push(this.buildSelectItemSpecific(name, properties));
-                    }
-                    if (properties.type == 'textselect') {
-                        required.push(this.buildTextSelectItemSpecific(name, properties));
-                    }
+                    required.push(this.buildItemSpecificsInputByType(name, properties));
                 }.bind(this));
                 itemSpecifics.push(<span>Item Specifics (Required){required}</span>);
             }
             if (this.state.itemSpecifics.optional) {
                 itemSpecifics.push(
                     <label>
-                        <span className={"inputbox-label"}>Item Specifics (Optional)</span>
+                        <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
                         <div className={"order-inputbox-holder"}>
                             <Select
                                 name="item-specifics-optional"
                                 options={this.buildOptionalItemSpecificsSelectOptions(this.state.itemSpecifics.optional)}
                                 autoSelectFirst={false}
                                 title="Item Specifics (Optional)"
+                                onOptionChange={this.onOptionalItemSpecificSelect}
                             />
                         </div>
                     </label>
@@ -204,17 +200,34 @@ define([
             }
             return <span>{itemSpecifics}</span>;
         },
+        buildItemSpecificsInputByType: function(name, properties) {
+            if (properties.type == 'text') {
+                return this.buildTextItemSpecific(name, properties);
+            }
+            if (properties.type == 'select') {
+                return this.buildSelectItemSpecific(name, properties);
+            }
+            if (properties.type == 'textselect') {
+                return this.buildTextSelectItemSpecific(name, properties);
+            }
+        },
         buildTextItemSpecific: function(name, options) {
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
                     <Input
                         name={name}
-                        value=''
-                        onChange={this.onInputChange}
+                        value={this.getItemSpecificTextInputValue(name)}
+                        onChange={this.onItemSpecificInputChange}
                     />
                 </div>
             </label>
+        },
+        getItemSpecificTextInputValue: function(name) {
+            if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
+                return this.props.itemSpecifics[name];
+            }
+            return null;
         },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             var options = [];
@@ -232,19 +245,23 @@ define([
                 <div className={"order-inputbox-holder"}>
                     <Select
                         name="duration"
-                        options={this.getSelectOptionsForItemSpecific(options.options)}
-                        autoSelectFirst={true}
+                        options={this.getSelectOptionsForItemSpecific(name, options.options)}
+                        autoSelectFirst={false}
                         title={name}
+                        onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
             </label>
         },
-        getSelectOptionsForItemSpecific(options) {
+        getSelectOptionsForItemSpecific(selectName, options) {
             var selectOptions = [];
-            $.each(options, function(name, value) {
+            $.each(options, function(optionValue, optionName) {
                 selectOptions.push({
-                    "name": name,
-                    "value": value
+                    "name": optionName,
+                    "value": {
+                        "value": optionValue,
+                        "selectName": selectName
+                    }
                 });
             });
             return selectOptions;
@@ -253,13 +270,49 @@ define([
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
-                    <Input
-                        name={name}
-                        value=''
-                        onChange={this.onInputChange}
+                    <Select
+                        name="duration"
+                        options={this.getSelectOptionsForItemSpecific(name, options.options)}
+                        autoSelectFirst={false}
+                        title={name}
+                        onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
             </label>
+        },
+        onOptionalItemSpecificSelect: function (field) {
+            for (var i = 0; i < this.state.optionalItemSpecifics.length; i++) {
+                if (this.state.optionalItemSpecifics[i].name == field.name) {
+                    return;
+                }
+            }
+            this.state.optionalItemSpecifics.push(field);
+            this.setState({
+                optionalItemSpecifics: this.state.optionalItemSpecifics
+            });
+        },
+        buildOptionalItemSpecificsInputs: function() {
+            var itemSpecifics = [];
+            $.each(this.state.optionalItemSpecifics, function (key ,field) {
+                 itemSpecifics.push(this.buildItemSpecificsInputByType(field.name, field.value))
+            }.bind(this));
+            return <span>{itemSpecifics}</span>;
+        },
+        onItemSpecificSelected: function(field) {
+            var selectedItemSpecifics = this.state.selectedItemSpecifics;
+            this.state.selectedItemSpecifics[field.value.selectName] = field.value.value;
+            this.setState({
+                selectedItemSpecifics: this.state.selectedItemSpecifics
+            });
+            this.props.setFormStateListing({"itemSpecifics": this.state.selectedItemSpecifics});
+        },
+        onItemSpecificInputChange: function(event) {
+            var selectedItemSpecifics = this.state.selectedItemSpecifics;
+            selectedItemSpecifics[event.target.name] = event.target.value;
+            this.setState({
+                selectedItemSpecifics: this.state.selectedItemSpecifics
+            })
+            this.props.setFormStateListing({"itemSpecifics": this.state.selectedItemSpecifics});
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -335,6 +388,7 @@ define([
                     </label>
                 : null}
                 {(this.state.itemSpecifics) ? this.buildItemSpecificsInputs() : null}
+                {(this.state.optionalItemSpecifics) ? this.buildOptionalItemSpecificsInputs() : null}
                 <label>
                     <span className={"inputbox-label"}>Dispatch Time Max</span>
                     <div className={"order-inputbox-holder"}>

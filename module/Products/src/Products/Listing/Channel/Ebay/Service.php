@@ -77,7 +77,7 @@ class Service implements
         /** @TOOD: undo this! */
         return [
             'listingDuration' => [],
-            'itemSpecifics' => json_decode('{"required":{"fieldName":{"type":"select","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName2":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName5":{"type":"text","minValues":0}},"optional":{"fieldName6":{"type":"text","minValues":0},"fieldName2":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2}}}', 1)
+            'itemSpecifics' => json_decode('{"required":{"fieldName":{"type":"select","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName2":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName5":{"type":"text","minValues":0}},"optional":{"fieldName6":{"type":"text","minValues":0},"fieldName12":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2}}}', 1)
         ];
     }
 
