@@ -32,7 +32,7 @@ return [
             ],
             SetupWizard\Channels\Message\Type::class => [
                 'parameter' => [
-                    'fromIntercomId' => 1222805
+                    'fromIntercomId' => '1222805' //dj's intercom id
                 ]
             ],
         ],

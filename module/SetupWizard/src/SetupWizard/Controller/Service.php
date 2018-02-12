@@ -11,6 +11,7 @@ use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\Helper\NavigationMenu;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use SetupWizard\Channels\Message\Type as MessageType;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 
@@ -46,6 +47,8 @@ class Service implements LoggerAwareInterface
     protected $cgEmails;
     /* @var $intercomMessageService IntercomMessageService */
     protected $intercomMessageService;
+    /* @var $messageType MessageType */
+    protected $messageType;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -54,6 +57,7 @@ class Service implements LoggerAwareInterface
         ActiveUserInterface $activeUserContainer,
         OrganisationUnitService $organisationUnitService,
         IntercomMessageService $intercomMessageService,
+        MessageType $messageType,
         UserOrganisationUnitService $userOrganisationUnitService,
         Mailer $mailer,
         ViewModel $cgEmailView,
@@ -65,6 +69,7 @@ class Service implements LoggerAwareInterface
             ->setActiveUserContainer($activeUserContainer)
             ->setOrganisationUnitService($organisationUnitService);
         $this->intercomMessageService = $intercomMessageService;
+        $this->messageType = $messageType;
         $this->userOrganisationUnitService = $userOrganisationUnitService;
         $this->mailer = $mailer;
         $this->cgEmailView = $cgEmailView;
@@ -96,6 +101,10 @@ class Service implements LoggerAwareInterface
     {
         try {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
+            $this->messageType->parseFields($channelIntegrationType, $channelPrintName);
+
+
+
             $this->intercomMessageService->sendMessage($activeUser, $channelIntegrationType, $channelPrintName);
         } catch (NotFound $e) {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
