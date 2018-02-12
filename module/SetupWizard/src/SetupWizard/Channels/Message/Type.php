@@ -47,9 +47,9 @@ I can see you're trying to connect a channel not listed here, can you tell me wh
         return $this->messages[static::INTEGRATION_MESSAGE][$channelIntegrationType];
     }
 
-    protected function addFromField($data, $channelIntegrationType): array
+    protected function addFromField($data): array
     {
-        $data[static::INTEGRATION_MESSAGE][$channelIntegrationType]['from'] = $this->fromIntercomId;
+        $data['from'] = $this->fromIntercomId;
 
         return $data;
     }
@@ -60,7 +60,7 @@ I can see you're trying to connect a channel not listed here, can you tell me wh
     public function parseFields(string $channelIntegrationType, string $channelPrintName): array
     {
         $data = $this->getIntegrationMessage($channelIntegrationType);
-        $data = $this->addFromField($data, $channelIntegrationType);
+        $data = $this->addFromField($data);
 
         if ($channelIntegrationType == ChannelIntegrationType::CLASSIC) {
             $data['message'] = sprintf($data['message'], $channelPrintName);
