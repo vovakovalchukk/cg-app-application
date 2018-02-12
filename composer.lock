@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "321fe41fbc31c22cd81792c792e67421",
+    "content-hash": "ff5e40290c14b1e75055cdb9b24eab13",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,17 +263,11 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.1.1",
+            "version": "dev-LIS-75-listing-creation-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "04dff7c4341b9f3f994be98b7a6b007bc16166c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.1.1-c9fb8d.zip",
-                "reference": "04dff7c4341b9f3f994be98b7a6b007bc16166c3",
-                "shasum": null
+                "reference": "01d1e09a3045083a3dcb1f9a2e5537b4d11dd30d"
             },
             "require": {
                 "channelgrabber/channel": "^1.33.2",
@@ -840,17 +834,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.8",
+            "version": "dev-LIS-75-listing-creation-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.8-938b4f.zip",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5",
-                "shasum": null
+                "reference": "e297a01058ecc7c75eb2fbe53d5dc44271d29fb6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2029,17 +2017,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.11.5",
+            "version": "dev-LIS-75-listing-creation-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "1b4b14faa3c43a4068c1ae07b4f837d19d6489a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.5-3a5ac5.zip",
-                "reference": "1b4b14faa3c43a4068c1ae07b4f837d19d6489a2",
-                "shasum": null
+                "reference": "59939712787d6ab1cc75e18f189282e8a763bbd5"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2449,17 +2431,11 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.1.1",
+            "version": "dev-LIS-75-listing-creation-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "5ec39178a0e3594e1a80d92330779a2a16fd34f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.1.1-919dd8.zip",
-                "reference": "5ec39178a0e3594e1a80d92330779a2a16fd34f2",
-                "shasum": null
+                "reference": "6d2c121dddff8b05be0f1166060c3d49589fe748"
             },
             "require": {
                 "channelgrabber/channel": "^1.24.6",
@@ -3143,17 +3119,11 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.22",
+            "version": "dev-LIS-75-listing-creation-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "1fc02cd6dcf8ec8b6caf34b1817c138170caee4f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.22-1e0a34.zip",
-                "reference": "1fc02cd6dcf8ec8b6caf34b1817c138170caee4f",
-                "shasum": null
+                "reference": "4e28e588046b86b49716fd7a9018d79a719bda7a"
             },
             "require": {
                 "channelgrabber/channel": "^1.32.8",
@@ -9508,13 +9478,49 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-LIS-75-listing-creation-variation-data",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.11.9",
+            "alias_normalized": "1.11.9.0",
+            "version": "dev-LIS-75-listing-creation-variation-data",
+            "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.11.6",
+            "alias_normalized": "1.11.6.0",
+            "version": "dev-LIS-75-listing-creation-variation-data",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-LIS-75-listing-creation-variation-data",
+            "package": "channelgrabber/shopify"
+        },
+        {
+            "alias": "1.2.20",
+            "alias_normalized": "1.2.20.0",
+            "version": "dev-LIS-75-listing-creation-variation-data",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/product": 20,
+        "channelgrabber/shopify": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
