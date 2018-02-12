@@ -98,9 +98,6 @@ class Service implements LoggerAwareInterface
         try {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
             $message = $this->messageType->parseFields($channelIntegrationType, $channelPrintName);
-            
-            $this->logDebugDump($message, 'My message array');
-            
             $this->intercomMessageService->sendMessage($activeUser, $message);
         } catch (NotFound $e) {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();

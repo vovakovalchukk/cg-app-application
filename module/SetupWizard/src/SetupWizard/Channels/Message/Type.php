@@ -41,7 +41,7 @@ I can see you're trying to connect a channel not listed here, can you tell me wh
     public function getIntegrationMessage(string $channelIntegrationType): array
     {
         if (!isset($this->messages[static::INTEGRATION_MESSAGE][$channelIntegrationType])) {
-            throw new NotFound(sprintf('Message has not been found for selected channel type %s.', $channelIntegrationType));
+            throw new NotFound(sprintf('Message has not been found for selected channel type: %s.', $channelIntegrationType));
         }
 
         return $this->messages[static::INTEGRATION_MESSAGE][$channelIntegrationType];
