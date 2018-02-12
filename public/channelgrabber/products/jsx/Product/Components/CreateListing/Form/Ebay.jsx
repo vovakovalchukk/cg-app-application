@@ -177,8 +177,10 @@ define([
             var itemSpecifics = [];
             if (this.state.itemSpecifics.required) {
                 var required = [];
+                var hasPlusButton;
                 $.each(this.state.itemSpecifics.required, function (name, properties) {
-                    required.push(this.buildItemSpecificsInputByType(name, properties));
+                    hasPlusButton = (properties.maxValues && properties.maxValues > 1 && properties.type == 'text');
+                    required.push(this.buildItemSpecificsInputByType(name, properties, hasPlusButton));
                 }.bind(this));
                 itemSpecifics.push(<span>Item Specifics (Required){required}</span>);
             }
@@ -200,15 +202,15 @@ define([
             }
             return <span>{itemSpecifics}</span>;
         },
-        buildItemSpecificsInputByType: function(name, properties, hasPlusButton = false) {
+        buildItemSpecificsInputByType: function(name, properties) {
             if (properties.type == 'text') {
-                return this.buildTextItemSpecific(name, properties, hasPlusButton);
+                return this.buildTextItemSpecific(name, properties);
             }
             if (properties.type == 'select') {
-                return this.buildSelectItemSpecific(name, properties, hasPlusButton);
+                return this.buildSelectItemSpecific(name, properties);
             }
             if (properties.type == 'textselect') {
-                return this.buildTextSelectItemSpecific(name, properties, hasPlusButton);
+                return this.buildTextSelectItemSpecific(name, properties);
             }
         },
         buildTextItemSpecific: function(name, options, hasPlusButton = false) {
@@ -221,10 +223,10 @@ define([
                         onChange={this.onItemSpecificInputChange}
                     />
                 </div>
-                {this.renderPlusButton(hasPlusButton)}
+                {this.renderPlusButton(name, hasPlusButton)}
             </label>
         },
-        renderPlusButton: function (shouldRender = false) {
+        renderPlusButton: function (name, shouldRender = false) {
             if (!shouldRender) {
                 return null;
             }
@@ -255,7 +257,7 @@ define([
             });
             return options;
         },
-        buildSelectItemSpecific: function(name, options, hasPlusButton = false) {
+        buildSelectItemSpecific: function(name, options) {
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -267,7 +269,6 @@ define([
                         onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
-                {this.renderPlusButton(hasPlusButton)}
             </label>
         },
         getSelectOptionsForItemSpecific(selectName, options) {
@@ -283,7 +284,7 @@ define([
             });
             return selectOptions;
         },
-        buildTextSelectItemSpecific: function(name, options, hasPlusButton = false) {
+        buildTextSelectItemSpecific: function(name, options) {
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -295,7 +296,6 @@ define([
                         onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
-                {this.renderPlusButton(hasPlusButton)}
             </label>
         },
         onOptionalItemSpecificSelect: function (field) {
