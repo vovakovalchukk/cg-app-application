@@ -47,9 +47,10 @@ define([
                         {},
                         details['accounts'][accountId],
                         {'checkbox': {
-                            'id': 'listing-download-' . accountId,
+                            'id': 'listing-download-' + accountId,
                             'name': 'accounts',
-                            'value': accountId
+                            'value': accountId,
+                            'label': ' '
                         }}
                     ));
                 }
@@ -62,9 +63,8 @@ define([
                 }
             };
             details.checkall = {
-                'checkbox': {
-                    'id': 'listing-download-all'
-                }
+                'id': 'listing-download-all',
+                'label': ' '
             };
             popup.hide();
             popup.show(details, 'popup');

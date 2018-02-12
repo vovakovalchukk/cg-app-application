@@ -10,7 +10,7 @@
         <div>
             <table style="width: 100%">
                 <tr>
-                    <th>{{#checkall}}{{>checkbox}}{{/checkall}}</th>
+                    <th style="width: 20px; padding-left: 6px;">{{#checkall}}{{>checkbox}}{{/checkall}}</th>
                     <th>Channel</th>
                     <th>Account</th>
                     <th>Status</th>
@@ -18,7 +18,7 @@
                 </tr>
             {{#account}}
                 <tr>
-                    <td>{{#checkbox}}{{>checkbox}}{{/checkbox}}</td>
+                    <td style="width: 20px;">{{#checkbox}}{{>checkbox}}{{/checkbox}}</td>
                     <td>{{channel}}</td>
                     <td>{{name}}</td>
                     <td>{{status}}</td>
@@ -27,6 +27,7 @@
             {{/account}}
             </table>
         </div>
+        <div>Feel free to leave this page and continue using ChannelGrabber while we download your listings</div>
     {{/hasAccounts}}
     {{^hasAccounts}}
         <div>
