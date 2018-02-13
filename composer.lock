@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff5e40290c14b1e75055cdb9b24eab13",
+    "content-hash": "4e7e9b5ff1659b3ff921cd2b51ec3023",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -838,7 +838,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "e297a01058ecc7c75eb2fbe53d5dc44271d29fb6"
+                "reference": "fb3dd32c04fbc1b985e2988ef4cb0785a73c5723"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -888,7 +888,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-31T12:16:47+00:00"
+            "time": "2018-02-13T10:14:01+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9486,8 +9486,8 @@
             "package": "channelgrabber/bigcommerce"
         },
         {
-            "alias": "1.11.9",
-            "alias_normalized": "1.11.9.0",
+            "alias": "1.11.11",
+            "alias_normalized": "1.11.11.0",
             "version": "dev-LIS-75-listing-creation-variation-data",
             "package": "channelgrabber/ebay"
         },
