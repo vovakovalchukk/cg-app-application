@@ -15,12 +15,13 @@ class Factory
         $this->di = $di;
     }
 
-    public function buildChannelService(Account $account)
+    public function buildChannelService(Account $account, array $postData = [])
     {
         $channelServiceName = __NAMESPACE__ . '\\' . hyphenToClassname($account->getChannel()) . '\\' . 'Service';
         if (!class_exists($channelServiceName)) {
             throw new \InvalidArgumentException('The class: ' . $channelServiceName . ' could not be found for the provided channel: ' . $account->getChannel());
         }
-        return $this->di->newInstance($channelServiceName);
+        $params = !empty($postData) ? ['postData' => $postData] : [];
+        return $this->di->newInstance($channelServiceName, $params);
     }
 }

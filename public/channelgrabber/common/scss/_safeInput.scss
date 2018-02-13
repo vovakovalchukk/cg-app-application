@@ -62,3 +62,14 @@
         }
     }
 }
+
+.errors-input {
+    clear: both;
+    padding-left: 0;
+    color: $color-red;
+    margin: 0;
+}
+
+.safe-input-box--error {
+    border-color: $color-red;
+}

@@ -7,6 +7,7 @@ use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
 use CG\Ebay\Site\CurrencyMap;
+use CG\Ebay\Site\Map as SiteMap;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
 use CG\Order\Shared\Shipping\Method\Collection as ShippingMethodCollection;
 use CG\Order\Shared\Shipping\Method\Entity as ShippingMethod;
@@ -50,6 +51,8 @@ class Service implements
     protected $shippingMethodService;
     /** @var CategoryExternalService */
     protected $categoryExternalService;
+    /** @var array */
+    protected $postData;
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -60,19 +63,21 @@ class Service implements
         CategoryService $categoryService,
         Cryptor $cryptor,
         ShippingMethodService $shippingMethodService,
-        CategoryExternalService $categoryExternalService
+        CategoryExternalService $categoryExternalService,
+        array $postData = []
     ) {
         $this->categoryService = $categoryService;
         $this->cryptor = $cryptor;
         $this->shippingMethodService = $shippingMethodService;
         $this->categoryExternalService = $categoryExternalService;
+        $this->postData = $postData;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
     {
         try {
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
-                $this->getEbaySiteIdForAccount($account),
+                $this->fetchDefaultSiteIdForAccount($account),
                 $externalCategoryId
             );
             $childCategories = $this->categoryService->fetchCollectionByFilter(
@@ -105,7 +110,9 @@ class Service implements
         return [
             'category' => $this->getCategoryOptionsForAccount($account),
             'shippingService' => $this->getShippingMethodsForAccount($account),
-            'currency' => $this->getCurrencySymbolForAccount($account)
+            'currency' => $this->getCurrencySymbolForAccount($account),
+            'sites' => SiteMap::getIdToNameMap(),
+            'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account)
         ];
     }
 
@@ -113,7 +120,7 @@ class Service implements
     {
         try {
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
-                $this->getEbaySiteIdForAccount($account),
+                $this->getEbaySiteId($account),
                 $externalCategoryId
             );
             /** @var CategoryExternal $categoryExternal */
@@ -252,7 +259,7 @@ class Service implements
     protected function getCurrencySymbolForAccount(Account $account): ?string
     {
         try {
-            $siteId = $this->getEbaySiteIdForAccount($account);
+            $siteId = $this->getEbaySiteId($account);
             return CurrencyMap::getCurrencySymbolBySiteId($siteId);
         } catch (\InvalidArgumentException $e) {
             return null;
@@ -280,7 +287,7 @@ class Service implements
 
     protected function buildCategoryFilterForAccount(Account $account): CategoryFilter
     {
-        $siteId = $this->getEbaySiteIdForAccount($account);
+        $siteId = $this->getEbaySiteId($account);
         return (new CategoryFilter())
             ->setLimit('all')
             ->setPage(1)
@@ -291,7 +298,15 @@ class Service implements
             ->setEnabled(true);
     }
 
-    protected function getEbaySiteIdForAccount(Account $account): int
+    protected function getEbaySiteId(Account $account): int
+    {
+        if (isset($this->postData['siteId'])) {
+            return intval($this->postData['siteId']);
+        }
+        return $this->fetchDefaultSiteIdForAccount($account);
+    }
+
+    protected function fetchDefaultSiteIdForAccount(Account $account): int
     {
         /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
