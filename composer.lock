@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad0ee03ddd3dd871f65355b04d2fc3ac",
+    "content-hash": "de60efdeb125f654fb5bff46cc0eeef6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4010,16 +4010,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.21.3",
+            "version": "dev-LIS-92-ebay-item-specifics-interface",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d3ee6fac5d1d21eab721cbdd432d8740bc15391a"
+                "reference": "47b2de3909b69b01c432cae3f17a69dec804a1fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.21.3-1f452d.zip",
-                "reference": "d3ee6fac5d1d21eab721cbdd432d8740bc15391a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-92-ebay-item-specifics-interface-c4b0b2.zip",
+                "reference": "47b2de3909b69b01c432cae3f17a69dec804a1fd",
                 "shasum": null
             },
             "require": {
@@ -4070,7 +4070,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-01-24T16:58:58+00:00"
+            "time": "2018-02-13T11:29:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9514,12 +9514,19 @@
             "alias_normalized": "1.11.11.0",
             "version": "dev-LIS-94-submit-item-specifics",
             "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.21.4",
+            "alias_normalized": "1.21.4.0",
+            "version": "dev-LIS-92-ebay-item-specifics-interface",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

@@ -24,6 +24,15 @@
     margin-right: 12px;
   }
 
+  .container-extra-item-specific {
+    margin-top: 0;
+  }
+
+  .input-extra-item-specific {
+    max-width: 100px;
+    float: left;
+  }
+
   input[type=number] {
     width: 50px;
     border-radius: 5px;

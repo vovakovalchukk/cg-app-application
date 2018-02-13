@@ -17,8 +17,6 @@ define([
 
     var NO_SETTINGS = 'NO_SETTINGS';
 
-    var CUSTOM_ITEM_SPECIFIC = 'addCustomItemSpecific';
-
     var EbayComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -275,9 +273,10 @@ define([
             var customInputName = 'CustomInputName' + this.state.customItemSpecificCount;
             var customInputValueName = 'CustomInputValueName' + this.state.customItemSpecificCount;
             var itemSpecific = <label>
-                <span className={"inputbox-label"}>
+                <span className={"inputbox-label container-extra-item-specific"}>
                     <Input
                         name={customInputName}
+                        className="input-extra-item-specific"
                     />
                 </span>
                 <div className={"order-inputbox-holder"}>
