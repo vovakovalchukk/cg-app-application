@@ -1,58 +1,42 @@
 define([
     'react',
     'Common/Components/Select',
-    'Common/Components/Input'
+    'Common/Components/Input',
+    'Product/Components/CreateListing/Form/Ebay/CustomItemSpecific'
 ], function(
     React,
     Select,
-    Input
+    Input,
+    CustomItemSpecific
 ) {
     return React.createClass({
-        getDefaultProps: function() {
-            return {
-                title: null,
-                description: null,
-                price: null,
-                accountId: null,
-                product: null,
-                ean: null
-            }
-        },
         getInitialState: function() {
             return {
-                error: false,
-                settingsFetched: false,
-                shippingServiceFieldValues: {},
-                currencyFieldValues: {},
-                shippingService: null,
-                rootCategories: null,
-                availableSites: {},
-                listingDurationFieldValues: null,
                 itemSpecifics: {},
                 optionalItemSpecifics: [],
                 optionalItemSpecificsSelectOptions: [],
                 selectedItemSpecifics: {},
-                customItemSpecificCount: 0
+                customItemSpecifics: []
             }
         },
         buildItemSpecificsInputs: function() {
-            var itemSpecifics = [];
-            if (this.state.itemSpecifics.required) {
-                var required = [];
-                var hasPlusButton;
-                $.each(this.state.itemSpecifics.required, function (name, properties) {
-                    required.push(this.buildItemSpecificsInputByType(name, properties));
+            var itemSpecifics = [], requiredItems, optionalItems;
+
+            if (requiredItems = this.props.itemSpecifics.required) {
+                var required = [], item;
+                $.each(requiredItems, function (name, properties) {
+                    required.push(this.buildItemSpecificsInputByType( name, properties));
                 }.bind(this));
                 itemSpecifics.push(<span>Item Specifics (Required){required}</span>);
             }
-            if (this.state.itemSpecifics.optional) {
+            if (optionalItems = this.props.itemSpecifics.optional) {
                 itemSpecifics.push(
                     <label>
                         <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
                         <div className={"order-inputbox-holder"}>
                             <Select
                                 name="item-specifics-optional"
-                                options={this.buildOptionalItemSpecificsSelectOptions(this.state.itemSpecifics.optional)}
+                                options={this.buildOptionalItemSpecificsSelectOptions(optionalItems)}
                                 autoSelectFirst={false}
                                 title="Item Specifics (Optional)"
                                 onOptionChange={this.onOptionalItemSpecificSelect}
@@ -73,9 +57,6 @@ define([
             if (properties.type == 'textselect') {
                 return this.buildTextSelectItemSpecific(name, properties);
             }
-            if (properties.type == 'custom') {
-                return this.buildCustomItemSpecific(properties);
-            }
         },
         buildTextItemSpecific: function(name, options, hasPlusButton = false) {
             hasPlusButton = (options.maxValues && options.maxValues > 1);
@@ -88,13 +69,10 @@ define([
                         onChange={this.onItemSpecificInputChange}
                     />
                 </div>
-                {this.renderPlusButton(name, hasPlusButton)}
+                {hasPlusButton ? this.renderPlusButton(name) : null}
             </label>
         },
-        renderPlusButton: function (name, shouldRender = false) {
-            if (!shouldRender) {
-                return null;
-            }
+        renderPlusButton: function (name) {
             return <span className="refresh-icon">
                 <i
                     className='fa fa-2x fa-plus-square icon-create-listing'
@@ -107,24 +85,14 @@ define([
         onPlusButtonClick: function (item) {
             console.log(item);
         },
-        buildCustomItemSpecific: function () {
-            var customInputName = 'CustomInputName' + this.state.customItemSpecificCount;
-            var customInputValueName = 'CustomInputValueName' + this.state.customItemSpecificCount;
-            var itemSpecific = <label>
-                <span className={"inputbox-label container-extra-item-specific"}>
-                    <Input
-                        name={customInputName}
-                    />
-                </span>
-                <div className={"order-inputbox-holder"}>
-                    <Input
-                        name={customInputValueName}
-                    />
-                </div>
-                {this.renderPlusButton(customInputName, true)}
-            </label>;
-            this.setState({customItemSpecificCount: this.state.customItemSpecificCount + 1});
-            return itemSpecific;
+        buildCustomItemSpecific: function (index) {
+            return <CustomItemSpecific
+                index={index}
+                onRemoveButtonClick={this.onRemoveCustomSpecificButtonClick}
+            />;
+        },
+        onRemoveCustomSpecificButtonClick: function (index) {
+            console.log(index);
         },
         getItemSpecificTextInputValue: function(name) {
             if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
@@ -195,23 +163,47 @@ define([
                 }
             }
 
+            if (field.value.type == 'custom') {
+                this.addCustomItemSpecific();
+            }
+
             var optionalItemSpecifics = JSON.parse(JSON.stringify(this.state.optionalItemSpecifics));
             optionalItemSpecifics.push(field);
             this.setState({
                 optionalItemSpecifics: optionalItemSpecifics
             });
         },
+        addCustomItemSpecific: function() {
+            var customSpecificCount = this.state.customItemSpecifics.length,
+                nextIndex = customSpecificCount + 1,
+                customItemSpecifics = JSON.parse(JSON.stringify(this.state.customItemSpecifics));
+
+            customItemSpecifics.push({nextIndex: nextIndex});
+
+            this.setState({
+                customItemSpecifics: customItemSpecifics
+            });
+        },
         buildOptionalItemSpecificsInputs: function() {
-            var itemSpecifics = [];
-            var field;
-            var optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length;
+            var itemSpecifics = [],
+                field,
+                optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length,
+                customItemSpecifics = this.state.customItemSpecifics;
+
             for (var key = 0; key < optionalItemSpecificsLenght; key++) {
                 field = this.state.optionalItemSpecifics[key];
-                itemSpecifics.push(this.buildItemSpecificsInputByType(
-                    field.name,
-                    field.value
+                itemSpecifics.push(
+                    this.buildItemSpecificsInputByType(
+                        key,
+                        field.name,
+                        field.value
                 ));
             }
+
+            $.each(customItemSpecifics, function (key, value) {
+                itemSpecifics.push(this.buildCustomItemSpecific(key))
+            }.bind(this));
+
             return <span>{itemSpecifics}</span>;
         },
         onItemSpecificSelected: function(field) {
@@ -231,10 +223,9 @@ define([
             this.props.setFormStateListing({'itemSpecifics': this.state.selectedItemSpecifics});
         },
         render: function () {
-            this.state.itemSpecifics = this.props.itemSpecifics;
             return <span>
-                {(this.state.itemSpecifics) ? this.buildItemSpecificsInputs() : null}
-                {(this.state.optionalItemSpecifics) ? this.buildOptionalItemSpecificsInputs() : null}
+                {this.buildItemSpecificsInputs()}
+                {this.buildOptionalItemSpecificsInputs()}
             </span>
         }
     });
