@@ -14,6 +14,7 @@ use CG\Listing\Unimported\Filter as ListingFilter;
 use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Status as ListingStatus;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -162,7 +163,7 @@ class Service implements LoggerAwareInterface
             }
 
             $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_PROGRESS;
-            if ($listingDownload->getId() >= strtotime('-1 day')) {
+            if (($listingDownloadStartedAt = $listingDownload->getStartedTime()) && $listingDownloadStartedAt >= new DateTime('-1 day')) {
                 $refreshDetails[$account->getId()]['refreshAllowed'] = false;
             }
         }

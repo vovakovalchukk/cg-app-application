@@ -515,12 +515,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6aa39d9933e964422f8608a1989f24b0fdd5d28c"
+                "reference": "bce6a97c3286daadfe1a4dfc3fe08dd0956c7de1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-TAC-5-TrackListingDownloadProgress-a01479.zip",
-                "reference": "6aa39d9933e964422f8608a1989f24b0fdd5d28c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-TAC-5-TrackListingDownloadProgress-890201.zip",
+                "reference": "bce6a97c3286daadfe1a4dfc3fe08dd0956c7de1",
                 "shasum": null
             },
             "require": {
@@ -593,7 +593,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2018-02-13T09:58:04+00:00"
+            "time": "2018-02-13T11:04:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
