@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c4820c6d941c3e13abd6f647e07ace3",
+    "content-hash": "f1a5cb003fa38a8f03bcb25bc4591abe",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -840,16 +840,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.8",
+            "version": "1.11.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5"
+                "reference": "2b94b9de9992c2f28023c48325811e252d33ef73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.8-938b4f.zip",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.10-962e02.zip",
+                "reference": "2b94b9de9992c2f28023c48325811e252d33ef73",
                 "shasum": null
             },
             "require": {
@@ -900,7 +900,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-31T12:16:47+00:00"
+            "time": "2018-02-13T10:14:01+00:00"
         },
         {
             "name": "channelgrabber/ekm",
