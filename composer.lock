@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bee90ab476654c40fdf5c6e47a3153bf",
+    "content-hash": "a98d0056c8964e726eee7ce404dc0af4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -840,16 +840,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.8",
+            "version": "1.11.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5"
+                "reference": "2b94b9de9992c2f28023c48325811e252d33ef73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.8-938b4f.zip",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.10-962e02.zip",
+                "reference": "2b94b9de9992c2f28023c48325811e252d33ef73",
                 "shasum": null
             },
             "require": {
@@ -900,7 +900,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-31T12:16:47+00:00"
+            "time": "2018-02-13T10:14:01+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1285,12 +1285,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "5ec44dfdd3823a038074fa9a904e862b2e34c1be"
+                "reference": "44ede501d5b18cbca26f5375c80e10a269c65905"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-9229-trigger_intercom_message_from_setup_wizard-1b5924.zip",
-                "reference": "5ec44dfdd3823a038074fa9a904e862b2e34c1be",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-9229-trigger_intercom_message_from_setup_wizard-d041a2.zip",
+                "reference": "44ede501d5b18cbca26f5375c80e10a269c65905",
                 "shasum": null
             },
             "require": {
@@ -1312,7 +1312,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2018-02-12T16:55:39+00:00"
+            "time": "2018-02-13T13:58:31+00:00"
         },
         {
             "name": "channelgrabber/listing",
