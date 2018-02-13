@@ -15,6 +15,7 @@ define([
     EbayForm,
     ShopifyForm,
     BigCommerceForm,
+    WooCommerceForm,
     Select,
     CreateListingUtils
 ) {
