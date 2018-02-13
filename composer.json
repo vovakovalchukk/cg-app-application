@@ -42,7 +42,7 @@
         "channelgrabber/gearman": "~1.3.2",
         "channelgrabber/http": "~1.3.31",
         "channelgrabber/image": "~1.2.6",
-        "channelgrabber/intercom": "dev-CGIV-9229-trigger_intercom_message_from_setup_wizard as 1.4.1",
+        "channelgrabber/intercom": "dev-CGIV-9229-trigger_intercom_message_from_setup_wizard as 1.5.0",
         "channelgrabber/listing": "~1.14.1",
         "channelgrabber/locale": "~1.0.16",
         "channelgrabber/location": "~1.2.0",
