@@ -1,19 +1,17 @@
 define([
-    'react',
+    'react-with-addons',
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
-    'Common/Components/ImagePicker',
-    'lib/shallowCompare'
+    'Common/Components/ImagePicker'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
     CategorySelect,
-    ImagePicker,
-    ShallowCompare
+    ImagePicker
 ) {
     "use strict";
 
@@ -252,21 +250,20 @@ define([
         buildExtraItemSpecific: function () {
             var customInputName = 'CustomInputName' + this.state.customItemSpecificCount;
             var customInputValueName = 'CustomInputValueName' + this.state.customItemSpecificCount;
-            console.log(customInputName, customInputValueName);
-            // var itemSpecific = <label>
-            //     <span className={"inputbox-label"}>
-            //         <Input
-            //             name={customInputName}
-            //         />
-            //     </span>
-            //     <div className={"order-inputbox-holder"}>
-            //         <Input
-            //             name={customInputValueName}
-            //         />
-            //     </div>
-            // </label>;
+            var itemSpecific = <label>
+                <span className={"inputbox-label"}>
+                    <Input
+                        name={customInputName}
+                    />
+                </span>
+                <div className={"order-inputbox-holder"}>
+                    <Input
+                        name={customInputValueName}
+                    />
+                </div>
+            </label>;
             this.setState({customItemSpecificCount: this.state.customItemSpecificCount + 1});
-            // return itemSpecific;
+            return itemSpecific;
         },
         getItemSpecificTextInputValue: function(name) {
             if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
@@ -337,12 +334,10 @@ define([
                 }
             }
 
-            // If the user selects "add custom specific", render the custom input type
-            console.log(field);
-
-            this.state.optionalItemSpecifics.push(field);
+            var optionalItemSpecifics = JSON.parse(JSON.stringify(this.state.optionalItemSpecifics));
+            optionalItemSpecifics.push(field);
             this.setState({
-                optionalItemSpecifics: this.state.optionalItemSpecifics
+                optionalItemSpecifics: optionalItemSpecifics
             });
         },
         buildOptionalItemSpecificsInputs: function() {
@@ -377,10 +372,11 @@ define([
         shouldComponentUpdate: function(nextProps, nextState) {
             var currentCustomItemSpecificCount = this.state.customItemSpecificCount;
             var nextCustomItemSpecificCount = nextState.customItemSpecificCount;
-            console.log(nextCustomItemSpecificCount, currentCustomItemSpecificCount);
             nextState.customItemSpecificCount = currentCustomItemSpecificCount;
 
-            console.log(ShallowCompare);
+            if (React.addons.shallowCompare(this, nextProps, nextState) === false) {
+                return false;
+            }
 
             nextState.customItemSpecificCount = nextCustomItemSpecificCount;
             return true;
