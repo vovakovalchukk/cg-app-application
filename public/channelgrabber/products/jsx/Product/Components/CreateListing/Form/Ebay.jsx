@@ -31,7 +31,6 @@ define([
             return {
                 error: false,
                 settingsFetched: false,
-                categoryFieldValues: {},
                 shippingServiceFieldValues: {},
                 currencyFieldValues: {},
                 shippingService: null,
