@@ -2435,12 +2435,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "487d167e3a82419c0e5b7e5b3eb7806bcd476f2a"
+                "reference": "59916cdf62a8fb06d457d981a9a9028c2d94ba93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-LIS-78-CreateShopifyVariaitons-07b893.zip",
-                "reference": "487d167e3a82419c0e5b7e5b3eb7806bcd476f2a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-LIS-78-CreateShopifyVariaitons-574341.zip",
+                "reference": "59916cdf62a8fb06d457d981a9a9028c2d94ba93",
                 "shasum": null
             },
             "require": {
@@ -2473,7 +2473,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-02-12T15:27:06+00:00"
+            "time": "2018-02-13T09:33:31+00:00"
         },
         {
             "name": "channelgrabber/slim",
