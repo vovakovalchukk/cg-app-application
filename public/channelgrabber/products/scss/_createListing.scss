@@ -25,12 +25,11 @@
   }
 
   .container-extra-item-specific {
+    input {
+      max-width: 100px;
+      float: left;
+    }
     margin-top: 0;
-  }
-
-  .input-extra-item-specific {
-    max-width: 100px;
-    float: left;
   }
 
   input[type=number] {
