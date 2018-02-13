@@ -4,6 +4,7 @@ define([
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
+    'Product/Components/CreateListing/Form/BigCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
@@ -12,6 +13,7 @@ define([
     PopupMessage,
     EbayForm,
     ShopifyForm,
+    BigCommerceForm,
     Select,
     CreateListingUtils
 ) {
@@ -19,7 +21,8 @@ define([
 
     var channelToFormMap = {
         'ebay': EbayForm,
-        'shopify': ShopifyForm
+        'shopify': ShopifyForm,
+        'big-commerce': BigCommerceForm
     };
 
     return React.createClass({
@@ -38,6 +41,7 @@ define([
                 title: null,
                 description: null,
                 price: null,
+                weight: null,
                 errors: [],
                 warnings: []
             }
@@ -58,7 +62,8 @@ define([
                 title: this.props.product.name,
                 description: this.props.product.details.description ? this.props.product.details.description : null,
                 price: this.props.product.details.price ? this.props.product.details.price : null,
-                ean: this.props.product.details.ean  ? this.props.product.ean : null
+                ean: this.props.product.details.ean  ? this.props.product.ean : null,
+                weight: this.props.product.details.weight ? this.props.product.details.weight : null
             });
         },
         setFormStateListing: function(listingFormState) {
