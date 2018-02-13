@@ -11,7 +11,7 @@ define([
     CurrencyInput,
     Input,
     CategorySelect,
-    ImagePicker
+    ImagePicker,
 ) {
     "use strict";
 
@@ -26,18 +26,19 @@ define([
                 description: null,
                 price: null,
                 accountId: null,
-                product: null
+                product: null,
+                ean: null
             }
         },
         getInitialState: function() {
             return {
                 error: false,
                 settingsFetched: false,
-                categoryFieldValues: {},
                 shippingServiceFieldValues: {},
                 currencyFieldValues: {},
                 shippingService: null,
                 rootCategories: null,
+                availableSites: {},
                 listingDurationFieldValues: null,
                 itemSpecifics: {},
                 optionalItemSpecifics: [],
@@ -95,7 +96,12 @@ define([
                         currency: response.currency,
                         rootCategories: response.category,
                         shippingServiceFieldValues: response.shippingService,
+                        availableSites: response.sites
                     });
+
+                    if (response.defaultSiteId) {
+                        this.props.setFormStateListing({site: response.defaultSiteId});
+                    }
                 }
             });
         },
@@ -111,12 +117,12 @@ define([
             }
             return shippingServiceOptions;
         },
-        getListingDurationOptions: function() {
-            var listingDurationOptions = [];
-            for (var listingDurationOption in this.state.listingDurationFieldValues) {
-                listingDurationOptions.push({name: this.state.listingDurationFieldValues[listingDurationOption], value: listingDurationOption});
+        getSelectOptions: function(selectFieldValues) {
+            var selectOptions = [];
+            for (var selectOption in selectFieldValues) {
+                selectOptions.push({name: selectFieldValues[selectOption], value: selectOption});
             }
-            return listingDurationOptions;
+            return selectOptions;
         },
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
@@ -162,7 +168,7 @@ define([
                 />
             );
         },
-        getTooltipText(inputFieldName) {
+        getTooltipText: function(inputFieldName) {
             var tooltips = {
                 title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
                 price: 'How much do you want to sell your item for?',
@@ -172,9 +178,27 @@ define([
                 duration: 'ChannelGrabber recommends using GTC as this will allow us to automatically activate listings when you add new stock',
                 dispatchTimeMax: 'What is the longest amount of time it may take you to dispatch an item?',
                 shippingService: 'This must match your shipping services on eBay',
-                shippingPrice: 'How much you want to charge for shipping'
+                shippingPrice: 'How much you want to charge for shipping',
+                site: null,
+                ean: null
             };
             return tooltips[inputFieldName];
+        },
+        getBarcodeErrors: function() {
+            var errors = [];
+            var EAN_LENGTH = 13;
+            if (!this.props.ean || this.props.ean.length == 0) {
+                return errors;
+            }
+
+            if (this.props.ean.length != EAN_LENGTH) {
+                errors.push('Barcode must be 13 characters long');
+            }
+
+            if (!this.props.ean.match(new RegExp('^[0-9]+$'))) {
+                errors.push('Barcode must be numbers only');
+            }
+            return errors;
         },
         buildItemSpecificsInputs: function() {
             var itemSpecifics = [];
@@ -397,6 +421,19 @@ define([
 
             return <div>
                 <label>
+                    <span className={"inputbox-label"}>Site:</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Select
+                            name="site"
+                            options={this.getSelectOptions(this.state.availableSites)}
+                            selectedOption={{name: this.state.availableSites[this.props.site]}}
+                            autoSelectFirst={false}
+                            onOptionChange={this.props.getSelectCallHandler('site')}
+                            title={this.getTooltipText('site')}
+                        />
+                    </div>
+                </label>
+                <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
@@ -433,6 +470,18 @@ define([
                     <span className={"inputbox-label"}>Image</span>
                     {this.renderImagePicker()}
                 </label>
+                <label>
+                    <span className={"inputbox-label"}>Barcode</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Input
+                            name="ean"
+                            value={this.props.ean}
+                            onChange={this.onInputChange}
+                            title={this.getTooltipText('ean')}
+                            errors={this.getBarcodeErrors()}
+                        />
+                    </div>
+                </label>
                 <CategorySelect
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
@@ -445,7 +494,7 @@ define([
                         <div className={"order-inputbox-holder"}>
                             <Select
                                 name="duration"
-                                options={this.getListingDurationOptions()}
+                                options={this.getSelectOptions(this.state.listingDurationFieldValues)}
                                 selectedOption={{name: this.props.duration}}
                                 autoSelectFirst={false}
                                 onOptionChange={this.props.getSelectCallHandler('duration')}
