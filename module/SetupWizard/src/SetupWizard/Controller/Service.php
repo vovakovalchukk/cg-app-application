@@ -93,7 +93,7 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    public function sendChannelAddIntercomMessageToUser(string $channelPrintName, string $channelIntegrationType)
+    public function sendChannelAddIntercomMessageToUser(string $channelPrintName, string $channelIntegrationType): void
     {
         try {
             $activeUser = $this->userOrganisationUnitService->getActiveUser();
