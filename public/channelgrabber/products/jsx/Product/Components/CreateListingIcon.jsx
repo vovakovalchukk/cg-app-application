@@ -34,7 +34,10 @@ define([
         },
         render: function() {
             if (this.props.isSimpleProduct && this.hasAccountsToListTo()) {
-                return <i className="fa fa-plus icon-create-listing" onClick={this.onClick.bind(this)} aria-hidden="true" />
+                return <div>
+                    Add Listing
+                    <i className="fa fa-plus icon-create-listing" onClick={this.onClick.bind(this)} aria-hidden="true" />
+                </div>
             }
 
             var availableChannelsString = 'no';
@@ -48,6 +51,7 @@ define([
             </div>;
 
             return <Tooltip hoverContent={hoverContent}>
+                Add Listing
                 <i className="fa fa-plus icon-create-listing inactive" aria-hidden="true" />
             </Tooltip>;
         }

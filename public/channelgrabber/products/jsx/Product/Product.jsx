@@ -13,8 +13,7 @@ define([
         searchAvailable,
         isAdmin,
         getParamSearchTerm,
-        linkedProductsEnabled,
-        createListingsEnabled,
+        features,
         adminCompanyUrl
     ) {
         ReactDOM.render(
@@ -24,8 +23,7 @@ define([
                 searchAvailable={searchAvailable}
                 initialSearchTerm={getParamSearchTerm}
                 isAdmin={isAdmin}
-                linkedProductsEnabled={linkedProductsEnabled}
-                createListingsEnabled={createListingsEnabled}
+                features={features}
                 adminCompanyUrl={adminCompanyUrl}
             />,
             mountingNode

@@ -13,7 +13,8 @@ define([
     'Product/Components/DimensionsView',
     'Product/Components/StockView',
     'Product/Components/VatView',
-    'Product/Components/ListingsView'
+    'Product/Components/ListingsView',
+    'Product/Components/CreateListingIcon'
 ], function(
     React,
     ThenBySort,
@@ -29,7 +30,8 @@ define([
     DimensionsView,
     StockView,
     VatView,
-    ListingsView
+    ListingsView,
+    CreateListingIcon
 ) {
     "use strict";
 
@@ -417,7 +419,7 @@ define([
                                 <Checkbox id={this.props.product.id} />
                                 <EditableField initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
                             </div>
-                            <Status listings={this.props.product.listings} accounts={this.props.product.accounts} />
+                            <CreateListingIcon />
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
                             <div className="variations-layout-column">

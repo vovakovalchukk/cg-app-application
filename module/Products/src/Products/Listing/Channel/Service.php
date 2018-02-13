@@ -15,6 +15,13 @@ class Service
         'big-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_BIGCOMMERCE
     ];
 
+    const VARIATION_LISTINGS_BY_CHANNEL_FEATURE_FLAG_MAP = [
+        'ebay' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_EBAY,
+        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_SHOPIFY,
+        'big-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_BIGCOMMERCE,
+        'woo-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_WOOCOMMERCE
+    ];
+
     /** @var  FeatureFlagService */
     protected $featureFlagService;
 
@@ -28,12 +35,16 @@ class Service
      * @param AccountCollection $accounts
      * @return array
      */
-    public function getAllowedCreateListingsChannels(OrganisationUnit $ou, AccountCollection $accounts): array
-    {
+    public function getAllowedCreateListingsChannels(
+        OrganisationUnit $ou,
+        AccountCollection $accounts,
+        $variationCreateListings = false
+    ): array {
         $allowedChannels = [];
+        $featureFlagMap = $variationCreateListings ? 'VARIATION_LISTINGS_BY_CHANNEL_FEATURE_FLAG_MAP' : 'CHANNEL_FEATURE_FLAG_MAP';
         /** @var Account $account */
         foreach ($accounts as $account) {
-            if (!isset(static::CHANNEL_FEATURE_FLAG_MAP[$account->getChannel()])) {
+            if (!isset(static::$featureFlagMap[$account->getChannel()])) {
                 continue;
             }
             if (isset($allowedChannels[$account->getChannel()])) {

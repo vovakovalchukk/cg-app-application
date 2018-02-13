@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "321fe41fbc31c22cd81792c792e67421",
+    "content-hash": "0746f0a6e9b70c1cd97c8954fbc32591",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -840,16 +840,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.8",
+            "version": "1.11.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5"
+                "reference": "46f8ff77ac2afd2ccb80c86773b60cac7e031098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.8-938b4f.zip",
-                "reference": "2c36690484e1f017452820b8301bb95d2e2fc7e5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.9-7754da.zip",
+                "reference": "46f8ff77ac2afd2ccb80c86773b60cac7e031098",
                 "shasum": null
             },
             "require": {
@@ -900,7 +900,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-01-31T12:16:47+00:00"
+            "time": "2018-02-13T09:21:14+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1316,16 +1316,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.14.1",
+            "version": "dev-LIS-74-create-variations-listing-popup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "91cd04ad36a6b927f184560e8b4e584ebe7c970b"
+                "reference": "fb0946e86b2bfa59bd32c710583067a27798b58e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.14.1-c38fb8.zip",
-                "reference": "91cd04ad36a6b927f184560e8b4e584ebe7c970b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-74-create-variations-listing-popup-0ef77a.zip",
+                "reference": "fb0946e86b2bfa59bd32c710583067a27798b58e",
                 "shasum": null
             },
             "require": {
@@ -1361,7 +1361,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-12T09:23:05+00:00"
+            "time": "2018-02-13T09:25:24+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9508,10 +9508,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.2",
+            "alias_normalized": "1.14.2.0",
+            "version": "dev-LIS-74-create-variations-listing-popup",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
