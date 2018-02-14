@@ -12,7 +12,6 @@ define([
     return React.createClass({
         getInitialState: function() {
             return {
-                itemSpecifics: {},
                 optionalItemSpecifics: [],
                 optionalItemSpecificsSelectOptions: [],
                 selectedItemSpecifics: {},
@@ -25,7 +24,7 @@ define([
             if (requiredItems = this.props.itemSpecifics.required) {
                 var required = [], item;
                 $.each(requiredItems, function (name, properties) {
-                    required.push(this.buildItemSpecificsInputByType( name, properties));
+                    required.push(this.buildItemSpecificsInputByType(name, properties));
                 }.bind(this));
                 itemSpecifics.push(<span>Item Specifics (Required){required}</span>);
             }
@@ -85,18 +84,39 @@ define([
         onPlusButtonClick: function (item) {
             console.log(item);
         },
-        buildCustomItemSpecific: function (index) {
+        buildCustomItemSpecific: function (item) {
             return <CustomItemSpecific
-                index={index}
+                index={item.index}
+                name={item.name}
+                value={item.value}
                 onRemoveButtonClick={this.onRemoveCustomSpecificButtonClick}
                 onChange={this.onCustomInputChange}
             />;
         },
-        onCustomInputChange: function (index) {
-            if (index !== this.state.customItemSpecifics.length - 1) {
+        onCustomInputChange: function (index, type, value) {
+            var customSpecifics = this.state.customItemSpecifics.slice(),
+                foundItem = customSpecifics.findIndex(i => i.index == index),
+                selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+
+            if (foundItem === -1) {
                 return;
             }
-            this.addCustomItemSpecific(index + 1);
+
+            customSpecifics[foundItem][type] = value;
+
+            this.setState({
+                customItemSpecifics: customSpecifics,
+                selectedItemSpecifics: selectedItemSpecifics
+            });
+
+            if (index === this.getMaxCustomItemSpecificIndex()) {
+                this.addCustomItemSpecific();
+            }
+        },
+        getMaxCustomItemSpecificIndex: function() {
+            return this.state.customItemSpecifics.reduce(function (max, item) {
+                return max < item.index ? item.index : max;
+            }, -1);
         },
         onRemoveCustomSpecificButtonClick: function (index) {
             if (this.state.customItemSpecifics.length === 1) {
@@ -104,10 +124,14 @@ define([
             }
             var foundItem = this.state.customItemSpecifics.findIndex(i => i.index == index);
             if (foundItem > -1) {
-                var newCustomItemSpecifics = this.state.customItemSpecifics.slice();
+                var newCustomItemSpecifics = this.state.customItemSpecifics.slice(),
+                    selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+
                 newCustomItemSpecifics.splice(foundItem, 1);
+                delete selectedItemSpecifics[this.state.customItemSpecifics[foundItem].name];
                 this.setState({
-                    customItemSpecifics: newCustomItemSpecifics
+                    customItemSpecifics: newCustomItemSpecifics,
+                    selectedItemSpecifics: selectedItemSpecifics
                 });
             }
         },
@@ -184,18 +208,19 @@ define([
                 this.addCustomItemSpecific();
             }
 
-            var optionalItemSpecifics = JSON.parse(JSON.stringify(this.state.optionalItemSpecifics));
+            var optionalItemSpecifics = this.state.optionalItemSpecifics.slice();
             optionalItemSpecifics.push(field);
             this.setState({
                 optionalItemSpecifics: optionalItemSpecifics
             });
         },
         addCustomItemSpecific: function() {
-            var customSpecificCount = this.state.customItemSpecifics.length,
-                customItemSpecifics = JSON.parse(JSON.stringify(this.state.customItemSpecifics));
-
-            customItemSpecifics.push({index: customSpecificCount});
-
+            var customItemSpecifics = this.state.customItemSpecifics.slice();
+            customItemSpecifics.push({
+                index: this.getMaxCustomItemSpecificIndex()+ 1,
+                name: '',
+                value: ''
+            });
             this.setState({
                 customItemSpecifics: customItemSpecifics
             });
@@ -210,17 +235,16 @@ define([
                 field = this.state.optionalItemSpecifics[key];
                 itemSpecifics.push(
                     this.buildItemSpecificsInputByType(
-                        key,
                         field.name,
                         field.value
                 ));
             }
 
-            $.each(customItemSpecifics, function (key, value) {
-                if (value === undefined) {
+            $.each(customItemSpecifics, function (index, item) {
+                if (item === undefined) {
                     return;
                 }
-                itemSpecifics.push(this.buildCustomItemSpecific(value.index))
+                itemSpecifics.push(this.buildCustomItemSpecific(item))
             }.bind(this));
 
             return <span>{itemSpecifics}</span>;

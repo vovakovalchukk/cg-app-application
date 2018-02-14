@@ -15,20 +15,24 @@ define([
         getCustomInputValueName: function(index) {
             return 'CustomInputValueName' + index;
         },
-        onPlusButtonClick: function(event) {
+        onRemoveButtonClick: function(event) {
             var index = event.target.dataset.index;
             this.props.onRemoveButtonClick(index);
         },
-        onChange: function(event) {
+        onNameChange: function(event) {
             var index = $(event.target).parent().parent().data().index;
-            this.props.onChange(index);
+            this.props.onChange(index, 'name', event.target.value);
+        },
+        onValueChange: function(event) {
+            var index = $(event.target).parent().parent().data().index;
+            this.props.onChange(index, 'value', event.target.value);
         },
         renderRemoveButton: function (index) {
             return <span className="remove-icon">
                 <i
                     className='fa fa-2x fa-minus-square icon-create-listing'
                     aria-hidden='true'
-                    onClick={this.onPlusButtonClick}
+                    onClick={this.onRemoveButtonClick}
                     data-index={index}
                 />
             </span>;
@@ -38,13 +42,15 @@ define([
                 <span className={"inputbox-label container-extra-item-specific"} data-index={this.props.index}>
                     <Input
                         name={this.getCustomInputName(this.props.index)}
-                        onChange={this.onChange}
+                        value={this.props.name}
+                        onChange={this.onNameChange}
                     />
                 </span>
                 <div className={"order-inputbox-holder"} data-index={this.props.index}>
                     <Input
                         name={this.getCustomInputValueName(this.props.index)}
-                        onChange={this.onChange}
+                        value={this.props.value}
+                        onChange={this.onValueChange}
                     />
                 </div>
                 {this.renderRemoveButton(this.props.index)}
