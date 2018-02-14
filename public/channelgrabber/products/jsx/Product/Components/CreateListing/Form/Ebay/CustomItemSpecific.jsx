@@ -16,7 +16,7 @@ define([
             return 'CustomInputValueName' + index;
         },
         onPlusButtonClick: function(event) {
-            var index = $(event.target).data().index;
+            var index = event.target.dataset.index;
             this.props.onRemoveButtonClick(index);
         },
         onChange: function(event) {

@@ -99,7 +99,17 @@ define([
             this.addCustomItemSpecific(index + 1);
         },
         onRemoveCustomSpecificButtonClick: function (index) {
-            console.log(index);
+            if (this.state.customItemSpecifics.length === 0) {
+                return;
+            }
+            var foundItem = this.state.customItemSpecifics.findIndex(i => i.index == index);
+            if (foundItem > -1) {
+                var newCustomItemSpecifics = this.state.customItemSpecifics.slice();
+                newCustomItemSpecifics.splice(foundItem, 1);
+                this.setState({
+                    customItemSpecifics: newCustomItemSpecifics
+                });
+            }
         },
         getItemSpecificTextInputValue: function(name) {
             if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
@@ -182,10 +192,9 @@ define([
         },
         addCustomItemSpecific: function() {
             var customSpecificCount = this.state.customItemSpecifics.length,
-                nextIndex = customSpecificCount + 1,
                 customItemSpecifics = JSON.parse(JSON.stringify(this.state.customItemSpecifics));
 
-            customItemSpecifics.push({nextIndex: nextIndex});
+            customItemSpecifics.push({index: customSpecificCount});
 
             this.setState({
                 customItemSpecifics: customItemSpecifics
@@ -208,7 +217,10 @@ define([
             }
 
             $.each(customItemSpecifics, function (key, value) {
-                itemSpecifics.push(this.buildCustomItemSpecific(key))
+                if (value === undefined) {
+                    return;
+                }
+                itemSpecifics.push(this.buildCustomItemSpecific(value.index))
             }.bind(this));
 
             return <span>{itemSpecifics}</span>;
