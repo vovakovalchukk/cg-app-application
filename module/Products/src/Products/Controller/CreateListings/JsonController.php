@@ -148,7 +148,7 @@ class JsonController extends AbstractJsonController
     protected function fetchAndValidateChannelService(Account $account, string $className)
     {
         try {
-            $service = $this->factory->buildChannelService($account);
+            $service = $this->factory->buildChannelService($account, $this->params()->fromPost());
             if ($service instanceof $className) {
                 return $service;
             }

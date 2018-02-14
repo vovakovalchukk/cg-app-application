@@ -386,9 +386,6 @@ define([
             }.bind(this))
         },
         renderCreateListingPopup: function() {
-            if (!this.state.createListing.product) {
-                return;
-            }
             return <CreateListingPopup
                 accounts={this.state.accounts}
                 product={this.state.createListing.product}
@@ -398,21 +395,25 @@ define([
         },
         render: function()
         {
-            return (
-                <div>
-                    {this.renderSearchBox()}
-                    <div id="products-list">
-                        {this.renderProducts()}
+            if (this.state.createListing.product) {
+                return this.renderCreateListingPopup();
+            } else {
+                return (
+                    <div>
+                        {this.renderSearchBox()}
+                        <div id="products-list">
+                            {this.renderProducts()}
+                        </div>
+                        <ProductLinkEditor
+                            productLink={this.state.editingProductLink}
+                            onEditorClose={this.onProductLinksEditorClose}
+                            fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                        />
+                        {(this.state.products.length ?
+                            <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
                     </div>
-                    <ProductLinkEditor
-                        productLink={this.state.editingProductLink}
-                        onEditorClose={this.onProductLinksEditorClose}
-                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
-                    />
-                    {this.renderCreateListingPopup()}
-                    {(this.state.products.length ? <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
-                </div>
-            );
+                );
+            }
         }
     });
 
