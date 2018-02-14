@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc9bc4e9d8444b3e9febecd0a94de0c0",
+    "content-hash": "38048738159d93c5bc1ebfa94c8de890",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-79-BigCommerceCreateVariationListings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "01d1e09a3045083a3dcb1f9a2e5537b4d11dd30d"
+                "reference": "ec8a9581bc64956d60f4238f5e6d293f0cf715cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-73-create-variation-listings-6fb0aa.zip",
-                "reference": "01d1e09a3045083a3dcb1f9a2e5537b4d11dd30d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-79-BigCommerceCreateVariationListings-f8711d.zip",
+                "reference": "ec8a9581bc64956d60f4238f5e6d293f0cf715cf",
                 "shasum": null
             },
             "require": {
@@ -300,7 +300,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-12T11:27:04+00:00"
+            "time": "2018-02-14T15:35:00+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -9519,7 +9519,7 @@
         {
             "alias": "1.1.2",
             "alias_normalized": "1.1.2.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-79-BigCommerceCreateVariationListings",
             "package": "channelgrabber/bigcommerce"
         },
         {
