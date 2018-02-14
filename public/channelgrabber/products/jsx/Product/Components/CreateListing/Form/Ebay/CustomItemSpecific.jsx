@@ -19,6 +19,10 @@ define([
             var index = $(event.target).data().index;
             this.props.onRemoveButtonClick(index);
         },
+        onChange: function(event) {
+            var index = $(event.target).parent().parent().data().index;
+            this.props.onChange(index);
+        },
         renderPlusButton: function (index) {
             return <span className="refresh-icon">
                 <i
@@ -31,14 +35,16 @@ define([
         },
         render: function () {
             return <label>
-                <span className={"inputbox-label container-extra-item-specific"}>
+                <span className={"inputbox-label container-extra-item-specific"} data-index={this.props.index}>
                     <Input
                         name={this.getCustomInputName(this.props.index)}
+                        onChange={this.onChange}
                     />
                 </span>
-                <div className={"order-inputbox-holder"}>
+                <div className={"order-inputbox-holder"} data-index={this.props.index}>
                     <Input
                         name={this.getCustomInputValueName(this.props.index)}
+                        onChange={this.onChange}
                     />
                 </div>
                 {this.renderPlusButton(this.props.index)}

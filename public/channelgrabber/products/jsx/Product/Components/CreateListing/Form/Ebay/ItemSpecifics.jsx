@@ -89,7 +89,14 @@ define([
             return <CustomItemSpecific
                 index={index}
                 onRemoveButtonClick={this.onRemoveCustomSpecificButtonClick}
+                onChange={this.onCustomInputChange}
             />;
+        },
+        onCustomInputChange: function (index) {
+            if (index !== this.state.customItemSpecifics.length - 1) {
+                return;
+            }
+            this.addCustomItemSpecific(index + 1);
         },
         onRemoveCustomSpecificButtonClick: function (index) {
             console.log(index);
