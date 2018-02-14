@@ -27,6 +27,7 @@ define([
                 inputFocus: false,
                 selectedOption: this.props.selectedOption,
                 active: false,
+                options: this.props.options,
                 disabled: false
             }
         },
@@ -83,6 +84,22 @@ define([
                 inputFocus: false
             });
         },
+        onCustomOption: function(e) {
+            if (this.state.disabled || e.which !== 13) {
+                return;
+            }
+
+            var customOption = {name: e.target.value, value: e.target.value},
+                options = this.state.options.slice();
+
+            options.push(customOption);
+            e.target.value = "";
+
+            this.setState({
+                options: options,
+                selectedOption: customOption
+            });
+        },
         onFilterResults: function (e) {
             this.setState({
                 searchTerm: e.target.value
@@ -122,6 +139,21 @@ define([
                     </li>
                 )
             }.bind(this));
+
+            if (this.props.customOptions) {
+                options.unshift(
+                    <li className="custom-select-item">
+                        <div className="filter-box">
+                            <input
+                                onFocus={this.onInputFocus}
+                                onBlur={this.onInputBlur}
+                                onKeyUp={this.onCustomOption}
+                                placeholder={this.state.options.length ? 'Custom Option...' : ''}
+                            />
+                        </div>
+                    </li>
+                );
+            }
 
             if (options.length) {
                 return options;

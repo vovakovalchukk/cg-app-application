@@ -24,7 +24,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
         },
         componentDidUpdate: function(prevProps, prevState) {
             if (this.props.onOptionChange && prevState.selectedOptions.length !== this.state.selectedOptions.length) {
-                this.props.onOptionChange(this.state.selectedOptions);
+                this.props.onOptionChange(this.state.selectedOptions, this.props.title);
             }
         },
         onClickOutside: function () {

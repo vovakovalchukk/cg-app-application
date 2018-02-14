@@ -1,11 +1,13 @@
 define([
     'react',
     'Common/Components/Select',
+    'Common/Components/MultiSelect',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CustomItemSpecific'
 ], function(
     React,
     Select,
+    MultiSelect,
     Input,
     CustomItemSpecific
 ) {
@@ -15,18 +17,22 @@ define([
                 optionalItemSpecifics: [],
                 optionalItemSpecificsSelectOptions: [],
                 selectedItemSpecifics: {},
-                customItemSpecifics: []
+                customItemSpecifics: [],
+                itemSpecificsCount: {}
             }
         },
         buildItemSpecificsInputs: function() {
             var itemSpecifics = [], requiredItems, optionalItems;
 
             if (requiredItems = this.props.itemSpecifics.required) {
-                var required = [], item;
+                var required = [], item, counts = this.state.itemSpecificsCount, i;
                 $.each(requiredItems, function (name, properties) {
-                    required.push(this.buildItemSpecificsInputByType(name, properties));
+                    count = (counts[name]) ? counts[name] : 1;
+                    for (i = 0; i < count; i++) {
+                        required.push(this.buildItemSpecificsInputByType(name, properties));
+                    }
                 }.bind(this));
-                itemSpecifics.push(<span>Item Specifics (Required){required}</span>);
+                itemSpecifics.push(<span><b>Item Specifics (Required)</b>{required}</span>);
             }
             if (optionalItems = this.props.itemSpecifics.optional) {
                 itemSpecifics.push(
@@ -57,7 +63,7 @@ define([
                 return this.buildTextSelectItemSpecific(name, properties);
             }
         },
-        buildTextItemSpecific: function(name, options, hasPlusButton = false) {
+        buildTextItemSpecific: function(name, options) {
             hasPlusButton = (options.maxValues && options.maxValues > 1);
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
@@ -77,12 +83,18 @@ define([
                     className='fa fa-2x fa-plus-square icon-create-listing'
                     aria-hidden='true'
                     onClick={this.onPlusButtonClick}
-                    data={name}
+                    data-name={name}
                 />
             </span>;
         },
-        onPlusButtonClick: function (item) {
-            console.log(item);
+        onPlusButtonClick: function (event) {
+            var name = event.target.dataset.name,
+                counts = JSON.parse(JSON.stringify(this.state.itemSpecificsCount));
+
+            counts[name] = (counts[name]) ? counts[name] + 1 : 2;
+            this.setState({
+                itemSpecificsCount: counts
+            });
         },
         buildCustomItemSpecific: function (item) {
             return <CustomItemSpecific
@@ -165,6 +177,7 @@ define([
                         autoSelectFirst={false}
                         title={name}
                         onOptionChange={this.onItemSpecificSelected}
+                        customOptions={true}
                     />
                 </div>
             </label>
@@ -174,10 +187,7 @@ define([
             $.each(options, function(optionValue, optionName) {
                 selectOptions.push({
                     "name": optionName,
-                    "value": {
-                        "value": optionValue,
-                        "selectName": selectName
-                    }
+                    "value": optionValue
                 });
             });
             return selectOptions;
@@ -186,12 +196,12 @@ define([
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
-                    <Select
-                        name="duration"
+                    <MultiSelect
                         options={this.getSelectOptionsForItemSpecific(name, options.options)}
                         autoSelectFirst={false}
                         title={name}
-                        onOptionChange={this.onItemSpecificSelected}
+                        customOptions={true}
+                        onOptionChange={this.onMultiItemSpecificSelected}
                     />
                 </div>
             </label>
@@ -229,15 +239,19 @@ define([
             var itemSpecifics = [],
                 field,
                 optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length,
-                customItemSpecifics = this.state.customItemSpecifics;
+                customItemSpecifics = this.state.customItemSpecifics,
+                counts = this.state.itemSpecificsCount;
 
             for (var key = 0; key < optionalItemSpecificsLenght; key++) {
-                field = this.state.optionalItemSpecifics[key];
-                itemSpecifics.push(
-                    this.buildItemSpecificsInputByType(
-                        field.name,
-                        field.value
-                ));
+                count = (counts[name]) ? counts[name] : 1;
+                    for (i = 0; i < count; i++) {
+                    field = this.state.optionalItemSpecifics[key];
+                    itemSpecifics.push(
+                        this.buildItemSpecificsInputByType(
+                            field.name,
+                            field.value
+                    ));
+                }
             }
 
             $.each(customItemSpecifics, function (index, item) {
@@ -251,11 +265,22 @@ define([
         },
         onItemSpecificSelected: function(field) {
             var selectedItemSpecifics = this.state.selectedItemSpecifics;
-            this.state.selectedItemSpecifics[field.value.selectName] = field.value.value;
+            this.state.selectedItemSpecifics[field.name] = field.value;
             this.setState({
                 selectedItemSpecifics: this.state.selectedItemSpecifics
             });
             this.props.setFormStateListing({'itemSpecifics': this.state.selectedItemSpecifics});
+        },
+        onMultiItemSpecificSelected: function (fields, title) {
+            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics)),
+                values = [];
+
+            selectedItemSpecifics[title] = fields;
+
+            this.props.setFormStateListing({'itemSpecifics': this.state.selectedItemSpecifics});
+            this.setState({
+                selectedItemSpecifics: selectedItemSpecifics
+            });
         },
         onItemSpecificInputChange: function(event) {
             var selectedItemSpecifics = this.state.selectedItemSpecifics;
