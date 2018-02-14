@@ -140,7 +140,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
         getFilterBox: function () {
             if (this.props.filterable) {
                 return (
-                    <div className="filter-box">
+                    <div className="custom-option">
                         <input
                             onFocus={this.onInputFocus}
                             onBlur={this.onInputBlur}
@@ -204,7 +204,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                     <div className="animated fadeInDown open-content">
                         {this.getFilterBox()}
                         {this.getActions()}
-                        <ul className="custom-select-checkboxes">
+                        <ul className="custom-multi-select">
                             {this.getOptions()}
                         </ul>
                     </div>
