@@ -96,7 +96,16 @@ define([
                         availableSites: response.sites
                     });
 
-                    if (!newSiteId && response.defaultSiteId) {
+                    if (newSiteId) {
+                        this.props.setFormStateListing({
+                            price: null,
+                            category: null,
+                            duration: null,
+                            dispatchTimeMax: null,
+                            shippingService: null,
+                            shippingPrice: null
+                        });
+                    } else if (response.defaultSiteId) {
                         this.props.setFormStateListing({site: response.defaultSiteId});
                     }
                 }
