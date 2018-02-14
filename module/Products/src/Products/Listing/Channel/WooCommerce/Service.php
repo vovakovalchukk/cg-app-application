@@ -41,7 +41,7 @@ class Service implements
             throw new ListingException('We are unable to connect to your WooCommerce account. Please try again', $e->getCode(), $e);
         }
 
-        return $this->categoryService->fetchCategoriesForAccount($account);
+        return $this->categoryService->fetchCategoriesForAccount($account, 0);
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
