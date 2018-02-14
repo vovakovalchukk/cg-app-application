@@ -1285,12 +1285,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "dae79369091ea854d81a7b34c8874955a5a6887d"
+                "reference": "782ca575c6878c4b2b64822539f141606c033ebe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-9229-trigger_intercom_message_from_setup_wizard-a46806.zip",
-                "reference": "dae79369091ea854d81a7b34c8874955a5a6887d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-9229-trigger_intercom_message_from_setup_wizard-a695d4.zip",
+                "reference": "782ca575c6878c4b2b64822539f141606c033ebe",
                 "shasum": null
             },
             "require": {
@@ -1312,7 +1312,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2018-02-13T16:32:32+00:00"
+            "time": "2018-02-14T10:10:31+00:00"
         },
         {
             "name": "channelgrabber/listing",
