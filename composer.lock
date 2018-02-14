@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6df67ee446d63a4a0fd7db7fc853469a",
+    "content-hash": "de956b4ae619be75b9d72f590904364e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1316,16 +1316,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-63-create-woo-commerce-listings",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "d4eb0135031b2b89fe8d25b71caee4143044d16e"
+                "reference": "4ad57bae208a6e40a14788f9ecddfaa0d77ba4d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-63-create-woo-commerce-listings-ff8910.zip",
-                "reference": "d4eb0135031b2b89fe8d25b71caee4143044d16e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.14.2-c5dfb3.zip",
+                "reference": "4ad57bae208a6e40a14788f9ecddfaa0d77ba4d2",
                 "shasum": null
             },
             "require": {
@@ -1361,7 +1361,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-13T14:50:43+00:00"
+            "time": "2018-02-14T14:50:44+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -3143,16 +3143,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-LIS-63-create-woo-commerce-listings",
+            "version": "1.2.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "a3da577e778a3e6000d23de8b40183ebe6054292"
+                "reference": "380b5c613e74cf5e65c975211f152aa7079363c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-63-create-woo-commerce-listings-ab8b51.zip",
-                "reference": "a3da577e778a3e6000d23de8b40183ebe6054292",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.24-59827d.zip",
+                "reference": "380b5c613e74cf5e65c975211f152aa7079363c0",
                 "shasum": null
             },
             "require": {
@@ -3186,7 +3186,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-13T14:51:21+00:00"
+            "time": "2018-02-14T14:51:04+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9509,25 +9509,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.2",
-            "alias_normalized": "1.14.2.0",
-            "version": "dev-LIS-63-create-woo-commerce-listings",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.2.23",
-            "alias_normalized": "1.2.23.0",
-            "version": "dev-LIS-63-create-woo-commerce-listings",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
-        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
