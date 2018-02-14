@@ -7,6 +7,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 filterable: false,
                 options: [],
                 selectedOptions: [],
+                customOptions: false,
                 title: null,
                 onOptionChange: null
             };
@@ -16,6 +17,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 active: false,
                 searchTerm: '',
                 inputFocus: false,
+                options: this.props.options,
                 selectedOptions: this.props.selectedOptions,
                 disabled: false
             }
@@ -68,7 +70,27 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 return true;
             }
         },
+        onCustomOption: function(e) {
+            if (this.state.disabled || e.which !== 13) {
+                return;
+            }
+
+            var options = this.state.options.slice(0);
+            options.push({name: e.target.value, value: e.target.value});
+            var selectedOptions = this.state.selectedOptions.slice(0);
+            selectedOptions.push(e.target.value);
+            e.target.value = "";
+
+            this.setState({
+                options: options,
+                selectedOptions: selectedOptions
+            });
+        },
         onOptionSelected: function (option) {
+            if (this.state.disabled) {
+                return;
+            }
+
             var selectedOptions = this.state.selectedOptions.slice(0);
             var index = selectedOptions.indexOf(option);
 
@@ -83,22 +105,30 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         onSelectAll: function (e) {
+            if (this.state.disabled) {
+                return;
+            }
+
             this.setState({
-                selectedOptions: this.props.options.map(function(option, index) {
+                selectedOptions: this.state.options.map(function(option, index) {
                     return option.value;
                 })
             });
         },
         onClearAll: function (e) {
+            if (this.state.disabled) {
+                return;
+            }
+
             this.setState({
                 selectedOptions: []
             });
         },
         getSelected: function () {
             var optionHash = {};
-            for (var index in this.props.options) {
-                if (this.props.options.hasOwnProperty(index)) {
-                    var option = this.props.options[index];
+            for (var index in this.state.options) {
+                if (this.state.options.hasOwnProperty(index)) {
+                    var option = this.state.options[index];
                     optionHash[option.value] = option.name;
                 }
             }
@@ -115,7 +145,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                             onFocus={this.onInputFocus}
                             onBlur={this.onInputBlur}
                             onChange={this.onFilterResults}
-                            placeholder={this.props.options.length ? 'Search...' : ''}
+                            placeholder={this.state.options.length ? 'Search...' : ''}
                         />
                     </div>
                 );
@@ -132,7 +162,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 return [];
             }
 
-            var options = this.props.options.filter(this.filterBySearchTerm).map(function(option, index) {
+            var options = this.state.options.filter(this.filterBySearchTerm).map(function(option, index) {
                 return <li className="custom-select-item">
                     <a className="std-checkbox" onClick={this.onOptionSelected.bind(this, option.value)}>
                         <input type="checkbox" value={option.value} checked={this.state.selectedOptions.indexOf(option.value) !== -1}/>
@@ -142,6 +172,21 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                     </a>
                 </li>;
             }.bind(this));
+
+            if (this.props.customOptions) {
+                options.unshift(
+                    <li className="custom-select-item">
+                        <div className="filter-box">
+                            <input
+                                onFocus={this.onInputFocus}
+                                onBlur={this.onInputBlur}
+                                onKeyUp={this.onCustomOption}
+                                placeholder={this.state.options.length ? 'Custom Option...' : ''}
+                            />
+                        </div>
+                    </li>
+                );
+            }
 
             if (options.length) {
                 return options;
