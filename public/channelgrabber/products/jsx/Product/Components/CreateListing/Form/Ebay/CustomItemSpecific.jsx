@@ -23,10 +23,10 @@ define([
             var index = $(event.target).parent().parent().data().index;
             this.props.onChange(index);
         },
-        renderPlusButton: function (index) {
-            return <span className="refresh-icon">
+        renderRemoveButton: function (index) {
+            return <span className="remove-icon">
                 <i
-                    className='fa fa-2x fa-plus-square icon-create-listing'
+                    className='fa fa-2x fa-minus-square icon-create-listing'
                     aria-hidden='true'
                     onClick={this.onPlusButtonClick}
                     data-index={index}
@@ -47,7 +47,7 @@ define([
                         onChange={this.onChange}
                     />
                 </div>
-                {this.renderPlusButton(this.props.index)}
+                {this.renderRemoveButton(this.props.index)}
             </label>;
         }
     });

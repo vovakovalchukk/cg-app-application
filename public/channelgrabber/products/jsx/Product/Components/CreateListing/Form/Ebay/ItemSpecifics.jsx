@@ -99,7 +99,7 @@ define([
             this.addCustomItemSpecific(index + 1);
         },
         onRemoveCustomSpecificButtonClick: function (index) {
-            if (this.state.customItemSpecifics.length === 0) {
+            if (this.state.customItemSpecifics.length === 1) {
                 return;
             }
             var foundItem = this.state.customItemSpecifics.findIndex(i => i.index == index);
