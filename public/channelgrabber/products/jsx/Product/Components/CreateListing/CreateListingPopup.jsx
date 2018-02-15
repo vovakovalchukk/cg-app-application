@@ -158,7 +158,7 @@ define([
                 $.each(values, function(i, item) {
                     if (item.name && item.value) {
                         if (!listing[key]) {
-                            listing[key] = [];
+                            listing[key] = {};
                         }
                         listing[key][item.name] = item.value;
                     }
