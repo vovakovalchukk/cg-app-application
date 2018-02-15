@@ -116,8 +116,7 @@ define([
         },
         onCustomInputChange: function (index, type, value) {
             var customSpecifics = this.state.customItemSpecifics.slice(),
-                foundItem = customSpecifics.findIndex(i => i.index == index),
-                selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+                foundItem = customSpecifics.findIndex(i => i.index == index);
 
             if (foundItem === -1) {
                 return;
@@ -125,9 +124,13 @@ define([
 
             customSpecifics[foundItem][type] = value;
 
+            this.props.setFormStateListing({
+                additionalValues: {
+                    itemSpecifics: customSpecifics
+                }
+            });
             this.setState({
-                customItemSpecifics: customSpecifics,
-                selectedItemSpecifics: selectedItemSpecifics
+                customItemSpecifics: customSpecifics
             });
 
             if (index === this.getMaxCustomItemSpecificIndex()) {

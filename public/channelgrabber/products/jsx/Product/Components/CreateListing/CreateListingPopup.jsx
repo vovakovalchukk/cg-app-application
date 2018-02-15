@@ -145,10 +145,27 @@ define([
             delete listing.accountId;
             delete listing.errors;
             delete listing.warnings;
-            return listing;
+            return this.addAdditionalValues(listing);
         },
         cloneState: function() {
             return JSON.parse(JSON.stringify(this.state));
+        },
+        addAdditionalValues: function(listing) {
+            if (!listing.additionalValues) {
+                return listing;
+            }
+            $.each(listing.additionalValues, function (key, values) {
+                $.each(values, function(i, item) {
+                    if (item.name && item.value) {
+                        if (!listing[key]) {
+                            listing[key] = [];
+                        }
+                        listing[key][item.name] = item.value;
+                    }
+                });
+            });
+            delete listing.additionalValues;
+            return listing;
         },
         handleFormSubmitSuccess: function(response) {
             n.success('Listing created successfully');
