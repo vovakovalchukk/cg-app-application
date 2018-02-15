@@ -111,7 +111,8 @@ define([
                     searchTerm: searchTerm,
                     skuList: skuList,
                     accounts: result.accounts,
-                    createListingsAllowedChannels: result.createListingsAllowedChannels
+                    createListingsAllowedChannels: result.createListingsAllowedChannels,
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -381,6 +382,7 @@ define([
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+                    createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
                 />;
             }.bind(this))
@@ -391,6 +393,7 @@ define([
                 product={this.state.createListing.product}
                 onCreateListingClose={this.onCreateListingClose}
                 availableChannels={this.state.createListingsAllowedChannels}
+                availableVariationsChannels={this.state.availableVariationsChannels}
             />
         },
         render: function()

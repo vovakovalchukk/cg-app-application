@@ -86,11 +86,6 @@ define([
                     maxVariationAttributes={this.props.maxVariationAttributes}
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
-                    createListingsEnabled={this.props.createListingsEnabled}
-                    accounts={this.props.accounts}
-                    isSimpleProduct={true}
-                    onCreateListingIconClick={this.props.onCreateListingIconClick}
-                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             } else {
                 return <VariationView
@@ -98,11 +93,6 @@ define([
                     fullView={this.state.expanded}
                     linkedProductsEnabled={this.props.linkedProductsEnabled}
                     productLinks={this.props.productLinks}
-                    createListingsEnabled={this.props.createListingsEnabled}
-                    accounts={this.props.accounts}
-                    isSimpleProduct={false}
-                    onCreateListingIconClick={this.props.onCreateListingIconClick}
-                    createListingsAllowedChannels={this.props.createListingsAllowedChannels}
                 />;
             }
         },
@@ -419,7 +409,16 @@ define([
                                 <Checkbox id={this.props.product.id} />
                                 <EditableField initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
                             </div>
-                            <CreateListingIcon />
+                            {this.props.createListingsEnabled ? <td>
+                                <CreateListingIcon
+                                    isSimpleProduct={!! (this.props.variations.length == 0)}
+                                    accountsAvailable={this.props.accounts}
+                                    productId={this.props.product.id}
+                                    onCreateListingIconClick={this.props.onCreateListingIconClick}
+                                    availableChannels={this.props.createListingsAllowedChannels}
+                                    availableVariationsChannels={this.props.createListingsAllowedVariationChannels}
+                                />
+                            </td> : ''}
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
                             <div className="variations-layout-column">
