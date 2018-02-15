@@ -66,7 +66,7 @@ define([
                 selectedOption: selectedOption,
             });
             if (this.props.onOptionChange) {
-                this.props.onOptionChange(selectedOption);
+                this.props.onOptionChange(selectedOption, this.props.title);
             }
         },
         onInputFocus: function (e) {

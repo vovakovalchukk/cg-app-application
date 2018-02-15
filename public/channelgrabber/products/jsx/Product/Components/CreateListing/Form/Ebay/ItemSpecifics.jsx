@@ -25,12 +25,9 @@ define([
             var itemSpecifics = [], requiredItems, optionalItems;
 
             if (requiredItems = this.props.itemSpecifics.required) {
-                var required = [], item, counts = this.state.itemSpecificsCount, i;
+                var required = [], item;
                 $.each(requiredItems, function (name, properties) {
-                    count = (counts[name]) ? counts[name] : 1;
-                    for (i = 0; i < count; i++) {
-                        required.push(this.buildItemSpecificsInputByType(name, properties));
-                    }
+                    required.push(this.buildItemSpecificsInputByType(name, properties));
                 }.bind(this));
                 itemSpecifics.push(<span><b>Item Specifics (Required)</b>{required}</span>);
             }
@@ -64,18 +61,30 @@ define([
             }
         },
         buildTextItemSpecific: function(name, options) {
-            var hasPlusButton = this.isMultiOption(options);
-            return <label>
-                <span className={"inputbox-label"}>{name}</span>
-                <div className={"order-inputbox-holder"}>
-                    <Input
-                        name={name}
-                        value={this.getItemSpecificTextInputValue(name)}
-                        onChange={this.onItemSpecificInputChange}
-                    />
-                </div>
-                {hasPlusButton ? this.renderPlusButton(name) : null}
-            </label>
+            var inputs = [],
+                counts = this.state.itemSpecificsCount,
+                count = (counts[name]) ? counts[name] : 1,
+                hasPlusButton = this.isMultiOption(options),
+                displayName = name;
+
+            for (var i = 0; i < count; i++) {
+                inputs.push(
+                    <label>
+                        <span className={"inputbox-label"}>{displayName}</span>
+                        <div className={"order-inputbox-holder"} data-index={i}>
+                            <Input
+                                name={name}
+                                value={this.getItemSpecificTextInputValue(name)}
+                                onChange={this.onItemSpecificInputChange}
+                            />
+                        </div>
+                        {hasPlusButton && i === count - 1 ? this.renderPlusButton(name) : null}
+                    </label>
+                );
+                displayName = '';
+            }
+
+            return <span>{inputs}</span>;
         },
         renderPlusButton: function (name) {
             return <span className="refresh-icon">
@@ -242,19 +251,15 @@ define([
             var itemSpecifics = [],
                 field,
                 optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length,
-                customItemSpecifics = this.state.customItemSpecifics,
-                counts = this.state.itemSpecificsCount;
+                customItemSpecifics = this.state.customItemSpecifics
 
             for (var key = 0; key < optionalItemSpecificsLenght; key++) {
-                count = (counts[name]) ? counts[name] : 1;
-                    for (i = 0; i < count; i++) {
-                    field = this.state.optionalItemSpecifics[key];
-                    itemSpecifics.push(
-                        this.buildItemSpecificsInputByType(
-                            field.name,
-                            field.value
-                    ));
-                }
+                field = this.state.optionalItemSpecifics[key];
+                itemSpecifics.push(
+                    this.buildItemSpecificsInputByType(
+                        field.name,
+                        field.value
+                ));
             }
 
             $.each(customItemSpecifics, function (index, item) {
@@ -280,18 +285,25 @@ define([
 
             selectedItemSpecifics[title] = fields;
 
-            this.props.setFormStateListing({'itemSpecifics': this.state.selectedItemSpecifics});
+            this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
         },
         onItemSpecificInputChange: function(event) {
-            var selectedItemSpecifics = this.state.selectedItemSpecifics;
-            selectedItemSpecifics[event.target.name] = event.target.value;
+            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics)),
+                index = event.target.parentElement.parentElement.dataset.index;
+
+            if (!selectedItemSpecifics[event.target.name]) {
+                selectedItemSpecifics[event.target.name] = [];
+            }
+
+            selectedItemSpecifics[event.target.name][index] = event.target.value;
+
+            this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({
-                selectedItemSpecifics: this.state.selectedItemSpecifics
+                selectedItemSpecifics: selectedItemSpecifics
             });
-            this.props.setFormStateListing({'itemSpecifics': this.state.selectedItemSpecifics});
         },
         render: function () {
             return <span>
