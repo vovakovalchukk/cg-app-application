@@ -25,13 +25,14 @@ define([
         'big-commerce': BigCommerceForm
     };
 
-    return React.createClass({
+    var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
             return {
                 product: null,
                 accounts: {},
                 availableChannels: {},
-                availableVariationsChannels: {}
+                availableVariationsChannels: {},
+                variations: []
             }
         },
         getInitialState: function() {
@@ -90,6 +91,7 @@ define([
                 setFormStateListing={this.setFormStateListing}
                 getSelectCallHandler={this.getSelectCallHandler}
                 product={this.props.product}
+                variations={this.props.variations}
             />
         },
         onAccountSelected: function(selectValue) {
@@ -237,4 +239,6 @@ define([
             );
         }
     });
+
+    return CreateListingPopup;
 });

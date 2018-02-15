@@ -4,6 +4,7 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
     'Common/Components/ImagePicker'
 ], function(
     React,
@@ -11,6 +12,7 @@ define([
     CurrencyInput,
     Input,
     CategorySelect,
+    VariationPicker,
     ImagePicker,
 ) {
     "use strict";
@@ -25,7 +27,8 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
-                ean: null
+                ean: null,
+                variations: []
             }
         },
         getInitialState: function() {
@@ -192,6 +195,10 @@ define([
             }
             return errors;
         },
+        renderVariationPicker: function () {
+            var variations = this.props.variations.length == 0 ? [this.props.product] : this.props.variations;
+            return <VariationPicker variations={variations} />
+        },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
                 return <div>
@@ -207,6 +214,7 @@ define([
             }
 
             return <div>
+                {this.renderVariationPicker()}
                 <label>
                     <span className={"inputbox-label"}>Site:</span>
                     <div className={"order-inputbox-holder"}>

@@ -394,6 +394,7 @@ define([
                 onCreateListingClose={this.onCreateListingClose}
                 availableChannels={this.state.createListingsAllowedChannels}
                 availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
+                variations={this.state.variations[this.state.createListing.product.id]}
             />
         },
         render: function()
