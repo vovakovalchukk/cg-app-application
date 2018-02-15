@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9c2a0602c2c95bd0806ab124bf120a7",
+    "content-hash": "d975fcbeaff8bc2f6da104608ffca844",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -698,16 +698,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-8660-service_validation_issue",
+            "version": "1.0.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4fc7e25cc5c2ce8f9c0ca3d5cb54a0dd3308cd58"
+                "reference": "c764a3d0e37ed7c7144288b77d843c8e23bb2a7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-8660-service_validation_issue-9cdaa1.zip",
-                "reference": "4fc7e25cc5c2ce8f9c0ca3d5cb54a0dd3308cd58",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.27-abb7da.zip",
+                "reference": "c764a3d0e37ed7c7144288b77d843c8e23bb2a7a",
                 "shasum": null
             },
             "require": {
@@ -738,7 +738,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-02-15T13:57:49+00:00"
+            "time": "2018-02-15T15:22:55+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -9509,18 +9509,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.27",
-            "alias_normalized": "1.0.27.0",
-            "version": "dev-CGIV-8660-service_validation_issue",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

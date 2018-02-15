@@ -29,7 +29,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-CGIV-8660-service_validation_issue as 1.0.27",
+        "channelgrabber/courier": "~1.0.27",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
         "channelgrabber/ebay": "~1.11.11",
