@@ -59,7 +59,7 @@ define([
                 return;
             }
 
-            var selectedOption = this.props.options.find(function (option) {
+            var selectedOption = this.state.options.find(function (option) {
                 return option.value === value;
             });
             this.setState({
@@ -97,7 +97,8 @@ define([
 
             this.setState({
                 options: options,
-                selectedOption: customOption
+                selectedOption: customOption,
+                active: false
             });
         },
         onFilterResults: function (e) {
@@ -130,7 +131,7 @@ define([
                 return [];
             }
 
-            var options = this.props.options.filter(this.filterBySearchTerm).map(function(opt, index) {
+            var options = this.state.options.filter(this.filterBySearchTerm).map(function(opt, index) {
                 var optionName = this.getOptionName(opt.name, opt.value);
 
                 return (
@@ -165,7 +166,7 @@ define([
             if (this.state.selectedOption && this.state.selectedOption.name) {
                 selectedOptionName = this.state.selectedOption.name
             } else if (this.props.autoSelectFirst) {
-                selectedOptionName = this.props.options.length > 0 ? this.props.options[0].name : '';
+                selectedOptionName = this.state.options.length > 0 ? this.state.options[0].name : '';
             }
 
             return this.getOptionName(selectedOptionName);
@@ -178,7 +179,7 @@ define([
                           onFocus={this.onInputFocus}
                           onBlur={this.onInputBlur}
                           onChange={this.onFilterResults}
-                          placeholder={this.props.options.length ? 'Search...' : ''}
+                          placeholder={this.state.options.length ? 'Search...' : ''}
                         />
                     </div>
                 );

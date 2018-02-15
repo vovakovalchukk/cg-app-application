@@ -64,7 +64,7 @@ define([
             }
         },
         buildTextItemSpecific: function(name, options) {
-            hasPlusButton = (options.maxValues && options.maxValues > 1);
+            var hasPlusButton = this.isMultiOption(options);
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -168,19 +168,21 @@ define([
             return options;
         },
         buildSelectItemSpecific: function(name, options) {
+            var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
-                    <Select
-                        name="duration"
+                    <SelectComponent
                         options={this.getSelectOptionsForItemSpecific(name, options.options)}
                         autoSelectFirst={false}
                         title={name}
                         onOptionChange={this.onItemSpecificSelected}
-                        customOptions={true}
                     />
                 </div>
             </label>
+        },
+        isMultiOption: function (options) {
+            return (options.maxValues && options.maxValues > 1);
         },
         getSelectOptionsForItemSpecific(selectName, options) {
             var selectOptions = [];
@@ -193,10 +195,11 @@ define([
             return selectOptions;
         },
         buildTextSelectItemSpecific: function(name, options) {
+            var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
-                    <MultiSelect
+                    <SelectComponent
                         options={this.getSelectOptionsForItemSpecific(name, options.options)}
                         autoSelectFirst={false}
                         title={name}
