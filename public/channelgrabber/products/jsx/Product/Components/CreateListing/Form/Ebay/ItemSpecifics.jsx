@@ -11,6 +11,8 @@ define([
     Input,
     CustomItemSpecific
 ) {
+    var addCustomItemSpecificName = "Add Custom Item Specific";
+
     return React.createClass({
         getInitialState: function() {
             return {
@@ -143,8 +145,10 @@ define([
             }, -1);
         },
         onRemoveCustomSpecificButtonClick: function (index) {
+            var optionalItemSpecifics = this.state.optionalItemSpecifics.slice();
             if (this.state.customItemSpecifics.length === 1) {
-                return;
+                var foundCustomItemSpecific = optionalItemSpecifics.findIndex(i => i.name == addCustomItemSpecificName);
+                optionalItemSpecifics.splice(foundCustomItemSpecific, 1);
             }
             var foundItem = this.state.customItemSpecifics.findIndex(i => i.index == index);
             if (foundItem > -1) {
@@ -159,7 +163,8 @@ define([
                 });
 
                 this.setState({
-                    customItemSpecifics: customItemSpecifics
+                    customItemSpecifics: customItemSpecifics,
+                    optionalItemSpecifics: optionalItemSpecifics
                 });
             }
         },
