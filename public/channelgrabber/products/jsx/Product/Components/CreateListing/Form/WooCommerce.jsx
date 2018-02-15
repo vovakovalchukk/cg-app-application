@@ -3,21 +3,19 @@ define([
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
-    'Common/Components/Button',
     'Common/Components/ImagePicker',
-    'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
+    'Product/Components/CreateListing/Form/WooCommerce/CategorySelect'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    Button,
     ImagePicker,
-    CategorySelect,
-    RefreshIcon
+    CategorySelect
 ) {
     "use strict";
+
+    var NO_SETTINGS = 'NO_SETTINGS';
 
     return React.createClass({
         getDefaultProps: function() {
@@ -26,32 +24,37 @@ define([
                 description: null,
                 price: null,
                 accountId: null,
-                brand: null,
-                product: null,
-                category: []
+                product: null
             }
         },
         getInitialState: function() {
             return {
                 error: false,
-                categories: null,
-                refreshCategoriesDisabled: false
+                shippingService: null,
+                rootCategories: null,
             }
         },
         componentDidMount: function() {
-            this.fetchAndSetCategories();
+            this.fetchAndSetChannelSpecificFieldValues();
         },
         componentWillReceiveProps(newProps) {
             if (this.props.accountId != newProps.accountId) {
-                this.fetchAndSetCategories(newProps.accountId);
+                this.fetchAndSetChannelSpecificFieldValues(newProps.accountId);
             }
         },
-        fetchAndSetCategories(newAccountId) {
+        fetchAndSetChannelSpecificFieldValues: function(newAccountId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
 
-            $.get('/products/create-listings/' + accountId + '/channel-specific-field-values', function(data) {
-                this.setState({categories: data.categories});
-            }.bind(this));
+            $.ajax({
+                context: this,
+                url: '/products/create-listings/' + accountId + '/channel-specific-field-values',
+                type: 'GET',
+                success: function (response) {
+                    this.setState({
+                        rootCategories: response.category
+                    });
+                }
+            });
         },
         refreshCategories() {
             this.setState({refreshCategoriesDisabled: true});
@@ -60,7 +63,7 @@ define([
                     n.error(data.error);
                 }
                 this.setState({
-                    categories: data.categories || [],
+                    rootCategories: data.categories || [],
                     refreshCategoriesDisabled: false
                 });
             }.bind(this));
@@ -69,6 +72,9 @@ define([
             var newStateObject = {};
             newStateObject[event.target.name] = event.target.value;
             this.props.setFormStateListing(newStateObject);
+        },
+        onLeafCategorySelected(categoryId) {
+            this.props.setFormStateListing({category: categoryId});
         },
         onImageSelected: function(image, selectedImageIds) {
             this.props.setFormStateListing({
@@ -87,8 +93,19 @@ define([
                     multiSelect={false}
                     images={this.props.product.images}
                     onImageSelected={this.onImageSelected}
+                    title={this.getTooltipText('image')}
                 />
             );
+        },
+        getTooltipText(inputFieldName) {
+            var tooltips = {
+                title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
+                price: 'How much do you want to sell your item for?',
+                description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
+                image: 'Pick an image to use on this listing',
+                category: 'Select a category to list your product to',
+            };
+            return tooltips[inputFieldName];
         },
         render: function() {
             return <div>
@@ -99,6 +116,18 @@ define([
                             name='title'
                             value={this.props.title}
                             onChange={this.onInputChange}
+                            title={this.getTooltipText('title')}
+                        />
+                    </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Price</span>
+                    <div className={"order-inputbox-holder"}>
+                        <CurrencyInput
+                            value={this.props.price}
+                            onChange={this.onInputChange}
+                            currency={this.state.currency}
+                            title={this.getTooltipText('price')}
                         />
                     </div>
                 </label>
@@ -109,45 +138,22 @@ define([
                             name="description"
                             value={this.props.description}
                             onChange={this.onInputChange}
+                            title={this.getTooltipText('description')}
                         />
                     </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.listingCurrency} />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Brand</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="brand"
-                            value={this.props.brand}
-                            onChange={this.onInputChange}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Category</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CategorySelect
-                            accountId={this.props.accountId}
-                            categories={this.state.categories}
-                            disabled={this.state.refreshCategoriesDisabled}
-                            getSelectCallHandler={this.props.getSelectCallHandler}
-                            selectedCategory={this.props.category}
-                        />
-                    </div>
-                    <RefreshIcon
-                        onClick={this.refreshCategories}
-                        disabled={this.state.refreshCategoriesDisabled}
-                    />
                 </label>
                 <label>
                     <span className={"inputbox-label"}>Image</span>
                     {this.renderImagePicker()}
                 </label>
+                <CategorySelect
+                    accountId={this.props.accountId}
+                    rootCategories={this.state.rootCategories}
+                    onLeafCategorySelected={this.onLeafCategorySelected}
+                    refreshCategories={this.refreshCategories}
+                    refreshCategoriesDisabled={this.state.refreshCategoriesDisabled}
+                    title={this.getTooltipText('category')}
+                />
             </div>;
         }
     });
