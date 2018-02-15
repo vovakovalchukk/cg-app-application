@@ -225,7 +225,7 @@ define([
                         autoSelectFirst={false}
                         title={name}
                         customOptions={true}
-                        onOptionChange={this.onMultiItemSpecificSelected}
+                        onOptionChange={this.onItemSpecificSelected}
                     />
                 </div>
             </label>
@@ -284,19 +284,18 @@ define([
 
             return <span>{itemSpecifics}</span>;
         },
-        onItemSpecificSelected: function(field) {
-            var selectedItemSpecifics = this.state.selectedItemSpecifics;
-            this.state.selectedItemSpecifics[field.name] = field.value;
-            this.setState({
-                selectedItemSpecifics: this.state.selectedItemSpecifics
-            });
-            this.props.setFormStateListing({'itemSpecifics': this.state.selectedItemSpecifics});
-        },
-        onMultiItemSpecificSelected: function (fields, title) {
+        onItemSpecificSelected: function(fields, title) {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics)),
                 values = [];
 
-            selectedItemSpecifics[title] = fields;
+            if (!Array.isArray(fields)) {
+                fields = [fields];
+            }
+
+            selectedItemSpecifics[title] = [];
+            $.each(fields, function (i, item) {
+                selectedItemSpecifics[title].push(item.value);
+            });
 
             this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({

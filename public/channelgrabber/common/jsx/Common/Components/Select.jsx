@@ -62,12 +62,12 @@ define([
             var selectedOption = this.state.options.find(function (option) {
                 return option.value === value;
             });
-            this.setState({
-                selectedOption: selectedOption,
-            });
             if (this.props.onOptionChange) {
                 this.props.onOptionChange(selectedOption, this.props.title);
             }
+            this.setState({
+                selectedOption: selectedOption,
+            });
         },
         onInputFocus: function (e) {
             if (this.state.disabled) {

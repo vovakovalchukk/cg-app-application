@@ -75,10 +75,12 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 return;
             }
 
-            var options = this.state.options.slice(0);
-            options.push({name: e.target.value, value: e.target.value});
-            var selectedOptions = this.state.selectedOptions.slice(0);
-            selectedOptions.push(e.target.value);
+            var options = this.state.options.slice(),
+                selectedOptions = this.state.selectedOptions.slice(),
+                newOption = {name: e.target.value, value: e.target.value};
+
+            options.push(newOption);
+            selectedOptions.push(newOption);
             e.target.value = "";
 
             this.setState({
@@ -91,8 +93,8 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 return;
             }
 
-            var selectedOptions = this.state.selectedOptions.slice(0);
-            var index = selectedOptions.indexOf(option);
+            var selectedOptions = this.state.selectedOptions.slice();
+            var index = selectedOptions.findIndex(i => i.value = option.value);
 
             if (index === -1) {
                 selectedOptions.push(option);
@@ -110,9 +112,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             }
 
             this.setState({
-                selectedOptions: this.state.options.map(function(option, index) {
-                    return option.value;
-                })
+                selectedOptions: this.state.options
             });
         },
         onClearAll: function (e) {
@@ -125,16 +125,8 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         getSelected: function () {
-            var optionHash = {};
-            for (var index in this.state.options) {
-                if (this.state.options.hasOwnProperty(index)) {
-                    var option = this.state.options[index];
-                    optionHash[option.value] = option.name;
-                }
-            }
-
-            return this.state.selectedOptions.map(function(option, index) {
-                return optionHash[option];
+            return this.state.selectedOptions.map(function(option) {
+                return option.name;
             }).join(", ");
         },
         getFilterBox: function () {
@@ -164,8 +156,8 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
 
             var options = this.state.options.filter(this.filterBySearchTerm).map(function(option, index) {
                 return <li className="custom-select-item">
-                    <a className="std-checkbox" onClick={this.onOptionSelected.bind(this, option.value)}>
-                        <input type="checkbox" value={option.value} checked={this.state.selectedOptions.indexOf(option.value) !== -1}/>
+                    <a className="std-checkbox" onClick={this.onOptionSelected.bind(this, option)}>
+                        <input type="checkbox" value={option.value} checked={this.state.selectedOptions.findIndex(i => i.value == option.value) !== -1}/>
                         <label>
                             <span className="checkbox_label">{option.name}</span>
                         </label>
