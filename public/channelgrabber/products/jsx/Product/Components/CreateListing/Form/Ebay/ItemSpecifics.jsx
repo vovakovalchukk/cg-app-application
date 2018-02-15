@@ -115,27 +115,27 @@ define([
             />;
         },
         onCustomInputChange: function (index, type, value) {
-            var customSpecifics = this.state.customItemSpecifics.slice(),
-                foundItem = customSpecifics.findIndex(i => i.index == index);
+            var customItemSpecifics = this.state.customItemSpecifics.slice(),
+                foundItem = customItemSpecifics.findIndex(i => i.index == index);
 
             if (foundItem === -1) {
                 return;
             }
 
-            customSpecifics[foundItem][type] = value;
+            customItemSpecifics[foundItem][type] = value;
+
+            if (index == this.getMaxCustomItemSpecificIndex()) {
+                customItemSpecifics.push(this.getNewCustomItemSpecific());
+            }
 
             this.props.setFormStateListing({
                 additionalValues: {
-                    itemSpecifics: customSpecifics
+                    itemSpecifics: customItemSpecifics
                 }
             });
             this.setState({
-                customItemSpecifics: customSpecifics
+                customItemSpecifics: customItemSpecifics
             });
-
-            if (index === this.getMaxCustomItemSpecificIndex()) {
-                this.addCustomItemSpecific();
-            }
         },
         getMaxCustomItemSpecificIndex: function() {
             return this.state.customItemSpecifics.reduce(function (max, item) {
@@ -148,14 +148,18 @@ define([
             }
             var foundItem = this.state.customItemSpecifics.findIndex(i => i.index == index);
             if (foundItem > -1) {
-                var newCustomItemSpecifics = this.state.customItemSpecifics.slice(),
-                    selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+                var customItemSpecifics = this.state.customItemSpecifics.slice();
 
-                newCustomItemSpecifics.splice(foundItem, 1);
-                delete selectedItemSpecifics[this.state.customItemSpecifics[foundItem].name];
+                customItemSpecifics.splice(foundItem, 1);
+
+                this.props.setFormStateListing({
+                    additionalValues: {
+                        itemSpecifics: customItemSpecifics
+                    }
+                });
+
                 this.setState({
-                    customItemSpecifics: newCustomItemSpecifics,
-                    selectedItemSpecifics: selectedItemSpecifics
+                    customItemSpecifics: customItemSpecifics
                 });
             }
         },
@@ -241,14 +245,15 @@ define([
         },
         addCustomItemSpecific: function() {
             var customItemSpecifics = this.state.customItemSpecifics.slice();
-            customItemSpecifics.push({
-                index: this.getMaxCustomItemSpecificIndex()+ 1,
+            customItemSpecifics.push(this.getNewCustomItemSpecific());
+            this.setState({customItemSpecifics: customItemSpecifics});
+        },
+        getNewCustomItemSpecific: function() {
+            return {
+                index: this.getMaxCustomItemSpecificIndex() + 1,
                 name: '',
                 value: ''
-            });
-            this.setState({
-                customItemSpecifics: customItemSpecifics
-            });
+            }
         },
         buildOptionalItemSpecificsInputs: function() {
             var itemSpecifics = [],

@@ -20,12 +20,14 @@ define([
             this.props.onRemoveButtonClick(index);
         },
         onNameChange: function(event) {
-            var index = $(event.target).parent().parent().data().index;
-            this.props.onChange(index, 'name', event.target.value);
+            this.onInputChange('name', event);
         },
         onValueChange: function(event) {
-            var index = $(event.target).parent().parent().data().index;
-            this.props.onChange(index, 'value', event.target.value);
+            this.onInputChange('value', event);
+        },
+        onInputChange: function(type, event) {
+            var index = event.target.parentElement.parentElement.dataset.index;
+            this.props.onChange(index, type, event.target.value);
         },
         renderRemoveButton: function (index) {
             return <span className="remove-icon">
