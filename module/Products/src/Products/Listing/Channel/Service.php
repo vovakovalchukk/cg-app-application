@@ -39,6 +39,14 @@ class Service
         $variationCreateListings = false
     ): array {
         $allowedChannels = [];
+
+        if (
+            $variationCreateListings
+            && !$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS, $rootOu)
+        ) {
+            return $allowedChannels;
+        }
+
         $featureFlagMap = $variationCreateListings ? $this->variationListingsFeatureFlagMap : $this->channelFeatureFlagMap;
         /** @var Account $account */
         foreach ($featureFlagMap as $channel => $featureFlag) {
