@@ -393,7 +393,7 @@ define([
                 product={this.state.createListing.product}
                 onCreateListingClose={this.onCreateListingClose}
                 availableChannels={this.state.createListingsAllowedChannels}
-                availableVariationsChannels={this.state.availableVariationsChannels}
+                availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
             />
         },
         render: function()

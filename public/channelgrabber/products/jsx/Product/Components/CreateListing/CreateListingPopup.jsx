@@ -30,7 +30,8 @@ define([
             return {
                 product: null,
                 accounts: {},
-                availableChannels: {}
+                availableChannels: {},
+                availableVariationsChannels: {}
             }
         },
         getInitialState: function() {
@@ -57,13 +58,15 @@ define([
                 return;
             }
 
+            var productDetails = this.props.product.details ? this.props.product.details : {};
+
             this.setState({
                 productId: this.props.product.id,
                 title: this.props.product.name,
-                description: this.props.product.details.description ? this.props.product.details.description : null,
-                price: this.props.product.details.price ? this.props.product.details.price : null,
-                ean: this.props.product.details.ean  ? this.props.product.ean : null,
-                weight: this.props.product.details.weight ? this.props.product.details.weight : null
+                description: productDetails.description ? productDetails.description : null,
+                price: productDetails.price ? productDetails.price : null,
+                ean: productDetails.ean  ? this.props.product.ean : null,
+                weight: productDetails.weight ? productDetails.weight : null
             });
         },
         setFormStateListing: function(listingFormState) {
@@ -101,9 +104,11 @@ define([
         getAccountOptions: function() {
             var options = [];
 
+            var isSimpleProduct = this.props.product.variationCount == 0;
+            var accountsAvailableForProductType = isSimpleProduct ? this.props.availableChannels : this.props.availableVariationsChannels;
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, this.props.availableChannels)) {
+                if (CreateListingUtils.productCanListToAccount(account, accountsAvailableForProductType)) {
                     options.push({name: account.displayName, value: account.id});
                 }
             }
