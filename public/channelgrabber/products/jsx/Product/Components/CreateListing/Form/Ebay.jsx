@@ -196,8 +196,14 @@ define([
             return errors;
         },
         renderVariationPicker: function () {
-            var variations = this.props.variations.length == 0 ? [this.props.product] : this.props.variations;
-            return <VariationPicker variations={variations} />
+            var variationsDataForProduct = this.props.variationsDataForProduct.length == 0
+                ? [this.props.product]
+                : this.props.variationsDataForProduct;
+            return <VariationPicker
+                variationsDataForProduct={variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+            />
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {

@@ -32,7 +32,7 @@ define([
                 accounts: {},
                 availableChannels: {},
                 availableVariationsChannels: {},
-                variations: []
+                variationsDataForProduct: []
             }
         },
         getInitialState: function() {
@@ -91,7 +91,7 @@ define([
                 setFormStateListing={this.setFormStateListing}
                 getSelectCallHandler={this.getSelectCallHandler}
                 product={this.props.product}
-                variations={this.props.variations}
+                variationsDataForProduct={this.props.variationsDataForProduct}
             />
         },
         onAccountSelected: function(selectValue) {

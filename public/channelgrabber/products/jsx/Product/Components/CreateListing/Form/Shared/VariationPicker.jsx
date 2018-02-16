@@ -1,16 +1,19 @@
 define([
     'react',
-    'Product/Components/Checkbox'
+    'Product/Components/Checkbox',
+    'Common/Components/CurrencyInput'
 ], function(
     React,
-    Checkbox
+    Checkbox,
+    CurrencyInput
 ) {
     "use strict";
 
     var VariationPicker = React.createClass({
         getDefaultProps: function() {
             return {
-                variations: []
+                variationsDataForProduct: [],
+                currency: '£'
             }
         },
         getInitialState: function() {
@@ -19,66 +22,102 @@ define([
                 allChecked: true
             }
         },
-        componentDidMount: function(props, a, b) {
+        componentDidMount: function() {
             this.createVariationFormStateFromProps(this.props);
-        },
-        componentWillReceiveProps: function(newProps) {
-            this.createVariationFormStateFromProps(newProps);
         },
         createVariationFormStateFromProps: function(newProps) {
             var variationsFormState = {};
-            for (var variationIndex in newProps.variations) {
-                var currentVariation = newProps.variations[variationIndex];
-                variationsFormState[currentVariation.id] = {checked: true};
+            for (var variationIndex in newProps.variationsDataForProduct) {
+                var currentVariation = newProps.variationsDataForProduct[variationIndex];
+                variationsFormState[currentVariation.id] = {
+                    checked: true,
+                    price: currentVariation.details ? currentVariation.details.price : null
+                }
             }
+
+            this.setState({
+                variationsFormState: variationsFormState
+            });
+        },
+        componentDidUpdate: function(prevProps, prevState) {
+            var listingFormVariationState = {};
+
+            for (var variationId in this.state.variationsFormState) {
+                var currentVariation = this.state.variationsFormState[variationId];
+
+                if (currentVariation.checked == false) {
+                    continue;
+                }
+
+                listingFormVariationState[variationId] = {
+                    price: currentVariation.price
+                }
+            }
+            console.log('didUpdate', listingFormVariationState);
+            this.props.setFormStateListing({variations: listingFormVariationState})
+        },
+        onCheckBoxClick: function(variationId) {
+            var variationsFormState = Object.assign({}, this.state.variationsFormState);
+            variationsFormState[variationId].checked = ! variationsFormState[variationId].checked;
+
+            var allChecked = true;
+            for (var variationId in variationsFormState) {
+                if (variationsFormState[variationId].checked == false) {
+                    allChecked = false;
+                    break;
+                }
+            }
+
+            this.setState({
+                variationsFormState: variationsFormState,
+                allChecked: allChecked
+            })
+        },
+        onCheckAll: function() {
+            var variationsFormState = Object.assign({}, this.state.variationsFormState);
+
+            var newCheckedState = this.state.allChecked ? false : true;
+            for (var variationId in variationsFormState) {
+                variationsFormState[variationId].checked = newCheckedState;
+            }
+
+            this.setState({
+                variationsFormState: variationsFormState,
+                allChecked: ! this.state.allChecked
+            })
+        },
+        shouldComponentUpdate(nextProps, nextState) {
+            console.log('shouldUpdate', nextState.variationsFormState != this.state.variationsFormState);
+            return nextState.variationsFormState != this.state.variationsFormState;
+        },
+        onVariationValueChange(variationId, fieldName, event) {
+            var variationsFormState = Object.assign({}, this.state.variationsFormState);
+            variationsFormState[variationId][fieldName] = event.target.value;
 
             this.setState({
                 variationsFormState: variationsFormState
             })
         },
-        onCheckBoxClick: function(variationId) {
-            var newVariationsState = Object.assign({}, this.state.variationsFormState);
-            newVariationsState[variationId].checked = ! newVariationsState[variationId].checked;
-
-            var allChecked = true;
-            for (var variationId in newVariationsState) {
-                if (newVariationsState[variationId].checked == false) {
-                    allChecked = false;
-                    break;
-                }
-            }
-            this.setState({
-                variationsFormState: newVariationsState,
-                allChecked: allChecked
-            })
-        },
         renderVariationRows: function () {
-            return this.props.variations.map(function(variation) {
+            return this.props.variationsDataForProduct.map(function(variation) {
                 return <tr>
                     <td>
                         <Checkbox
                             id={variation.id}
                             onClick={this.onCheckBoxClick.bind(this, variation.id)}
-                            isChecked={this.state.variationsFormState[variation.id] ? this.state.variationsFormState[variation.id].checked : true}
+                            isChecked={this.state.variationsFormState[variation.id] ? this.state.variationsFormState[variation.id].checked : null}
                         />
                     </td>
                     <td>{variation.sku}</td>
-                    <td>{variation.price}</td>
+                    <td>
+                        <CurrencyInput
+                            value={this.state.variationsFormState[variation.id]? this.state.variationsFormState[variation.id].price: null}
+                            onChange={this.onVariationValueChange.bind(this, variation.id, 'price')}
+                            currency={this.props.currency}
+                        />
+                    </td>
                 </tr>
             }.bind(this));
-        },
-        onCheckAll: function() {
-            var newVariationsState = Object.assign({}, this.state.variationsFormState);
-
-            var newCheckedState = this.state.allChecked ? false : true;
-            for (var variationId in newVariationsState) {
-                newVariationsState[variationId].checked = newCheckedState;
-            }
-
-            this.setState({
-                variationsFormState: newVariationsState,
-                allChecked: ! this.state.allChecked
-            })
         },
         render: function() {
             return (
