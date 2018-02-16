@@ -1,19 +1,21 @@
 define([
     'react',
-    'Common/Components/Popup',
+    'Common/Components/Container',
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
     'Product/Components/CreateListing/Form/BigCommerce',
+    'Product/Components/CreateListing/Form/WooCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
     React,
-    Popup,
+    Container,
     PopupMessage,
     EbayForm,
     ShopifyForm,
     BigCommerceForm,
+    WooCommerceForm,
     Select,
     CreateListingUtils
 ) {
@@ -22,7 +24,8 @@ define([
     var channelToFormMap = {
         'ebay': EbayForm,
         'shopify': ShopifyForm,
-        'big-commerce': BigCommerceForm
+        'big-commerce': BigCommerceForm,
+        'woo-commerce': WooCommerceForm
     };
 
     return React.createClass({
@@ -118,6 +121,7 @@ define([
                 type: 'POST',
                 context: this,
             }).then(function(response) {
+                window.scrollTo(0, 0);
                 if (response.valid) {
                     this.handleFormSubmitSuccess(response);
                 } else {
@@ -194,18 +198,19 @@ define([
         },
         render: function() {
             return (
-                    <Popup
+                    <Container
                         initiallyActive={true}
-                        className="editor-popup create-listing"
+                        className="editor-popup product-create-listing"
                         onYesButtonPressed={this.submitFormData}
                         onNoButtonPressed={this.props.onCreateListingClose}
                         closeOnYes={false}
                         headerText={"Create New Listing"}
                         subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
-                        yesButtonText="Save"
+                        yesButtonText="Create Listing"
                         noButtonText="Cancel"
                     >
                         <form>
+                            {this.renderErrorMessage()}
                             <div className={"order-form half"}>
                                 <label>
                                     <span className={"inputbox-label"}>Select an account to list to:</span>
@@ -226,9 +231,7 @@ define([
                                 {this.renderCreateListingForm()}
                             </div>
                         </form>
-                        {this.renderErrorMessage()}
-
-                    </Popup>
+                    </Container>
             );
         }
     });
