@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a9c0329b082061e098d59b1320553db",
+    "content-hash": "0a05b421af99ff355869b3d6a97a4140",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1316,16 +1316,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.14.2",
+            "version": "dev-LIS-109-collapse-listing-creation-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "4ad57bae208a6e40a14788f9ecddfaa0d77ba4d2"
+                "reference": "5c99c0e45cfe87d0d39cc39c37a0fbba02c2755d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.14.2-c5dfb3.zip",
-                "reference": "4ad57bae208a6e40a14788f9ecddfaa0d77ba4d2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-109-collapse-listing-creation-feature-flags-9ae205.zip",
+                "reference": "5c99c0e45cfe87d0d39cc39c37a0fbba02c2755d",
                 "shasum": null
             },
             "require": {
@@ -1361,7 +1361,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-14T14:50:44+00:00"
+            "time": "2018-02-16T16:17:36+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -7964,7 +7964,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8019,7 +8019,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8074,7 +8074,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8125,7 +8125,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8211,7 +8211,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9508,10 +9508,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.3",
+            "alias_normalized": "1.14.3.0",
+            "version": "dev-LIS-109-collapse-listing-creation-feature-flags",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

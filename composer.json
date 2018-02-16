@@ -43,7 +43,7 @@
         "channelgrabber/http": "~1.3.31",
         "channelgrabber/image": "~1.2.6",
         "channelgrabber/intercom": "~1.5.0",
-        "channelgrabber/listing": "~1.14.2",
+        "channelgrabber/listing": "dev-LIS-109-collapse-listing-creation-feature-flags as 1.14.3",
         "channelgrabber/locale": "~1.0.16",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
