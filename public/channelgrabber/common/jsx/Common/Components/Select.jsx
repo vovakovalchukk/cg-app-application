@@ -62,12 +62,15 @@ define([
             var selectedOption = this.state.options.find(function (option) {
                 return option.value === value;
             });
-            if (this.props.onOptionChange) {
-                this.props.onOptionChange(selectedOption, this.props.title);
-            }
+            this.callBackOnOptionSelectChanged(selectedOption);
             this.setState({
                 selectedOption: selectedOption,
             });
+        },
+        callBackOnOptionSelectChanged: function(selectedOption) {
+            if (this.props.onOptionChange) {
+                this.props.onOptionChange(selectedOption, this.props.title);
+            }
         },
         onInputFocus: function (e) {
             if (this.state.disabled) {
@@ -94,6 +97,8 @@ define([
 
             options.push(customOption);
             e.target.value = "";
+
+            this.callBackOnOptionSelectChanged(customOption);
 
             this.setState({
                 options: options,
