@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc9bc4e9d8444b3e9febecd0a94de0c0",
+    "content-hash": "edee7df8f9f88b557e50f8a3bf58adb7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3149,17 +3149,11 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-80-woocommerce-listing-variation-creation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "3191d30b946ab7b1178c73a69fcf5fef7b176ba2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-LIS-73-create-variation-listings-9d4b95.zip",
-                "reference": "3191d30b946ab7b1178c73a69fcf5fef7b176ba2",
-                "shasum": null
+                "reference": "9f308d236d545e102da48fd98f6c8dbf2e628e49"
             },
             "require": {
                 "channelgrabber/channel": "^1.32.8",
@@ -3192,7 +3186,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-14T14:07:26+00:00"
+            "time": "2018-02-16T14:47:23+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9543,7 +9537,7 @@
         {
             "alias": "1.2.24",
             "alias_normalized": "1.2.24.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-80-woocommerce-listing-variation-creation",
             "package": "channelgrabber/woocommerce"
         }
     ],
@@ -9556,8 +9550,8 @@
         "channelgrabber/shopify": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
