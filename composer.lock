@@ -838,13 +838,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "ed6b479fb5258cd84bc2e405faf18aaeb6ebe01f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-76-ebay-listing-variation-creation-1b4ab0.zip",
-                "reference": "ed6b479fb5258cd84bc2e405faf18aaeb6ebe01f",
-                "shasum": null
+                "reference": "68acab2b712113c81bda607d2cad766987b31936"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9525,8 +9519,8 @@
         "channelgrabber/shopify": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
