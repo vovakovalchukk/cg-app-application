@@ -40,8 +40,12 @@ define([
         },
         componentWillUnmount: function() {
             window.removeEventListener('productSelection', this.onProductSelected);
-            this.saveProductLinksRequest.abort();
-            this.unlinkProductLinksRequest.abort();
+            if (this.saveProductLinksRequest) {
+                this.saveProductLinksRequest.abort();
+            }
+            if (this.unlinkProductLinksRequest) {
+                this.unlinkProductLinksRequest.abort();
+            }
         },
         addProductLink: function (product, sku, quantity) {
             var links = this.state.links.slice();
