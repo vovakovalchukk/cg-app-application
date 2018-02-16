@@ -515,12 +515,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5f4d384586abf9661f8a4106b237f99143734fb8"
+                "reference": "faf4d5d5e538c35e1114137f16e17646df89fc5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-6-use-other-accounts-with-products-api-when-throttled-2a51f5.zip",
-                "reference": "5f4d384586abf9661f8a4106b237f99143734fb8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-6-use-other-accounts-with-products-api-when-throttled-70c900.zip",
+                "reference": "faf4d5d5e538c35e1114137f16e17646df89fc5f",
                 "shasum": null
             },
             "require": {
@@ -593,7 +593,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2018-02-16T09:28:10+00:00"
+            "time": "2018-02-16T11:48:02+00:00"
         },
         {
             "name": "channelgrabber/cilex",
