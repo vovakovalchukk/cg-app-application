@@ -844,12 +844,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "592001af32cef859fdcbd8d10b979ed65d0aa940"
+                "reference": "68acab2b712113c81bda607d2cad766987b31936"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-LIS-73-create-variation-listings-3d3ed7.zip",
-                "reference": "592001af32cef859fdcbd8d10b979ed65d0aa940",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-LIS-73-create-variation-listings-1d5a23.zip",
+                "reference": "68acab2b712113c81bda607d2cad766987b31936",
                 "shasum": null
             },
             "require": {
@@ -900,7 +900,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-02-15T13:02:24+00:00"
+            "time": "2018-02-16T15:21:10+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2033,13 +2033,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "dc1b7fdf781048003b7d63554684d9365ab8fb7a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-75-listing-creation-variation-data-2d709e.zip",
-                "reference": "dc1b7fdf781048003b7d63554684d9365ab8fb7a",
-                "shasum": null
+                "reference": "a5d42a2eecf922b710e892cf5117456e997acc4c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2064,12 +2058,6 @@
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
-            "conflict": {
-                "channelgrabber/bigcommerce": "<=1.1.1",
-                "channelgrabber/ebay": "<=1.11.10",
-                "channelgrabber/shopify": "<=1.1.1",
-                "channelgrabber/woocommerce": "<=1.2.23"
-            },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2",
                 "phpunit/phpunit": "~4.0.0"
@@ -2090,7 +2078,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-02-14T14:27:06+00:00"
+            "time": "2018-02-14T11:35:51+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
