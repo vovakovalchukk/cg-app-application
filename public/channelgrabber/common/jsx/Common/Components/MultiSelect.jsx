@@ -24,7 +24,19 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
         },
         componentDidUpdate: function(prevProps, prevState) {
             if (this.props.onOptionChange && prevState.selectedOptions.length !== this.state.selectedOptions.length) {
-                this.props.onOptionChange(this.state.selectedOptions, this.props.title);
+                var optionHash = [], selected, selectedOptions = this.state.selectedOptions, options = this.state.options;
+                $.each(selectedOptions, function (i, selectedValue) {
+                    selected = options.find(function(item) {
+                        if (item.value == selectedValue) {
+                            return true;
+                        }
+                    });
+                    if (selected) {
+                        optionHash.push(selected);
+                    }
+                });
+
+                this.props.onOptionChange(optionHash, this.props.title);
             }
         },
         onClickOutside: function () {
@@ -75,12 +87,10 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 return;
             }
 
-            var options = this.state.options.slice(),
-                selectedOptions = this.state.selectedOptions.slice(),
-                newOption = {name: e.target.value, value: e.target.value};
-
-            options.push(newOption);
-            selectedOptions.push(newOption);
+            var options = this.state.options.slice(0);
+            options.push({name: e.target.value, value: e.target.value});
+            var selectedOptions = this.state.selectedOptions.slice(0);
+            selectedOptions.push(e.target.value);
             e.target.value = "";
 
             this.setState({
@@ -93,8 +103,8 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 return;
             }
 
-            var selectedOptions = this.state.selectedOptions.slice();
-            var index = selectedOptions.findIndex(i => i.value = option.value);
+            var selectedOptions = this.state.selectedOptions.slice(0);
+            var index = selectedOptions.indexOf(option);
 
             if (index === -1) {
                 selectedOptions.push(option);
@@ -112,7 +122,9 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             }
 
             this.setState({
-                selectedOptions: this.state.options
+                selectedOptions: this.state.options.map(function(option, index) {
+                    return option.value;
+                })
             });
         },
         onClearAll: function (e) {
@@ -125,8 +137,16 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         getSelected: function () {
-            return this.state.selectedOptions.map(function(option) {
-                return option.name;
+            var optionHash = {};
+            for (var index in this.state.options) {
+                if (this.state.options.hasOwnProperty(index)) {
+                    var option = this.state.options[index];
+                    optionHash[option.value] = option.name;
+                }
+            }
+
+            return this.state.selectedOptions.map(function(option, index) {
+                return optionHash[option];
             }).join(", ");
         },
         getFilterBox: function () {
@@ -156,8 +176,8 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
 
             var options = this.state.options.filter(this.filterBySearchTerm).map(function(option, index) {
                 return <li className="custom-select-item">
-                    <a className="std-checkbox" onClick={this.onOptionSelected.bind(this, option)}>
-                        <input type="checkbox" value={option.value} checked={this.state.selectedOptions.findIndex(i => i.value == option.value) !== -1}/>
+                    <a className="std-checkbox" onClick={this.onOptionSelected.bind(this, option.value)}>
+                        <input type="checkbox" value={option.value} checked={this.state.selectedOptions.indexOf(option.value) !== -1}/>
                         <label>
                             <span className="checkbox_label">{option.name}</span>
                         </label>
