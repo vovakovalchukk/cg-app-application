@@ -148,8 +148,8 @@ define([
 
             if (this.props.customOptions) {
                 options.unshift(
-                    <li className="custom-select-item">
-                        <div className="filter-box">
+                    <li className="custom-select-item no-background">
+                        <div className="filter-box no-borders">
                             <input
                                 onFocus={this.onInputFocus}
                                 onBlur={this.onInputBlur}
