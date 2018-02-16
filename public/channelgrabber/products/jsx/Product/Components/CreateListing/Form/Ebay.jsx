@@ -113,7 +113,7 @@ define([
         },
         onSiteChange: function(site) {
             this.props.getSelectCallHandler('site')(site);
-            this.fetchAndSetChannelSpecificFieldValues(undefined, site.value);
+            this.fetchAndSetChannelSpecificFieldValues(null, site.value);
         },
         onInputChange: function(event) {
             var newStateObject = {};
