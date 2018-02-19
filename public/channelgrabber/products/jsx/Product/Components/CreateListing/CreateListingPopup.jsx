@@ -67,7 +67,6 @@ define([
                 title: this.props.product.name,
                 description: productDetails.description ? productDetails.description : null,
                 price: productDetails.price ? productDetails.price : null,
-                ean: productDetails.ean  ? this.props.product.ean : null,
                 weight: productDetails.weight ? productDetails.weight : null
             });
         },

@@ -18,7 +18,8 @@ define([
                 currency: '£',
                 attributeNames: [],
                 editableAttributeNames: false,
-                attributeNameMap: {}
+                attributeNameMap: {},
+                channelSpecificFields: {}
             }
         },
         getInitialState: function() {
@@ -38,6 +39,10 @@ define([
                     checked: true,
                     price: currentVariation.details ? currentVariation.details.price : null
                 }
+
+                for (var fieldName in this.props.channelSpecificFields) {
+                    variationsFormState[currentVariation.id][fieldName] = this.props.channelSpecificFields[fieldName].getDefaultValueFromVariation(currentVariation);
+                }
             }
 
             this.setState({
@@ -54,9 +59,9 @@ define([
                     continue;
                 }
 
-                listingFormVariationState[variationId] = {
-                    price: currentVariation.price
-                }
+                delete (currentVariation.checked);
+
+                listingFormVariationState[variationId] = currentVariation;
             }
             this.props.setFormStateListing({variations: listingFormVariationState})
         },
@@ -145,18 +150,45 @@ define([
                             currency={this.props.currency}
                         />
                     </td>
+                    {this.renderChannelSpecificFields(variation.id)}
                 </tr>
             }.bind(this));
         },
+        renderChannelSpecificFieldHeaders: function() {
+            for (var fieldName in this.props.channelSpecificFields) {
+                var fieldDisplayName = this.props.channelSpecificFields[fieldName]['displayName']
+                    ? this.props.channelSpecificFields[fieldName]['displayName']
+                    : fieldName;
+                return <td>
+                    {fieldDisplayName}
+                </td>
+            }
+        },
+        renderChannelSpecificFields: function(variationId) {
+            for (var fieldName in this.props.channelSpecificFields) {
+                var value = this.state.variationsFormState[variationId] && this.state.variationsFormState[variationId][fieldName]
+                    ? this.state.variationsFormState[variationId][fieldName]
+                    : null;
+
+                var elementForChannelSpecificField = this.props.channelSpecificFields[fieldName].getFormComponent(
+                    value,
+                    this.onVariationValueChange.bind(this, variationId, fieldName)
+                );
+                return <td>
+                    {elementForChannelSpecificField}
+                </td>
+            }
+        },
         render: function() {
             return (
-                <div>
+                <div className={"variation-picker"}>
                     <table>
                         <tr>
                             <td><Checkbox onClick={this.onCheckAll} isChecked={this.state.allChecked} /></td>
                             <td>sku</td>
                             {this.renderAttributeHeaders()}
                             <td>price</td>
+                            {this.renderChannelSpecificFieldHeaders()}
                         </tr>
                         {this.renderVariationRows()}
                     </table>

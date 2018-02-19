@@ -27,7 +27,6 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
-                ean: null,
                 variations: [],
                 attributeNameMap: {}
             }
@@ -180,21 +179,22 @@ define([
             };
             return tooltips[inputFieldName];
         },
-        getBarcodeErrors: function() {
-            var errors = [];
-            var EAN_LENGTH = 13;
-            if (!this.props.ean || this.props.ean.length == 0) {
-                return errors;
+        getChannelSpecificVariationFields: function() {
+            return {
+                ean: {
+                    displayName: 'Barcode',
+                    getFormComponent: function(value, onChange) {
+                        return <Input
+                            name="ean"
+                            value={value}
+                            onChange={onChange}
+                        />
+                    },
+                    getDefaultValueFromVariation: function(variation) {
+                        return variation.details.ean;
+                    }
+                }
             }
-
-            if (this.props.ean.length != EAN_LENGTH) {
-                errors.push('Barcode must be 13 characters long');
-            }
-
-            if (!this.props.ean.match(new RegExp('^[0-9]+$'))) {
-                errors.push('Barcode must be numbers only');
-            }
-            return errors;
         },
         renderVariationPicker: function () {
             var variationsDataForProduct = this.props.variationsDataForProduct;
@@ -211,6 +211,7 @@ define([
                 attributeNames={attributeNames}
                 attributeNameMap={this.props.attributeNameMap}
                 editableAttributeNames={true}
+                channelSpecificFields={this.getChannelSpecificVariationFields()}
             />
         },
         render: function() {
@@ -278,18 +279,6 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Image</span>
                     {this.renderImagePicker()}
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Barcode</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="ean"
-                            value={this.props.ean}
-                            onChange={this.onInputChange}
-                            title={this.getTooltipText('ean')}
-                            errors={this.getBarcodeErrors()}
-                        />
-                    </div>
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}
