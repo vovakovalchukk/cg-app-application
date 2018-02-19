@@ -45,7 +45,8 @@ define([
                 price: null,
                 weight: null,
                 errors: [],
-                warnings: []
+                warnings: [],
+                attributeNameMap: {}
             }
         },
         componentDidMount: function() {

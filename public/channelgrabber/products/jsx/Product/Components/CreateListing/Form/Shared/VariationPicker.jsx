@@ -1,11 +1,13 @@
 define([
     'react',
     'Product/Components/Checkbox',
-    'Common/Components/CurrencyInput'
+    'Common/Components/CurrencyInput',
+    'Common/Components/EditableField'
 ], function(
     React,
     Checkbox,
-    CurrencyInput
+    CurrencyInput,
+    EditableField
 ) {
     "use strict";
 
@@ -14,7 +16,9 @@ define([
             return {
                 variationsDataForProduct: [],
                 currency: '£',
-                attributeNames: []
+                attributeNames: [],
+                editableAttributeNames: false,
+                attributeNameMap: {}
             }
         },
         getInitialState: function() {
@@ -99,8 +103,23 @@ define([
         },
         renderAttributeHeaders: function () {
             return this.props.attributeNames.map(function(attributeName) {
-                return <td>{attributeName}</td>
-            });
+                if (this.props.editableAttributeNames) {
+                    return <td><EditableField initialFieldText={attributeName} onSubmit={(fieldValue) => {
+                        var attributeNameMap = Object.assign({}, this.props.attributeNameMap);
+                        attributeNameMap[attributeName] = fieldValue;
+
+                        this.props.setFormStateListing({attributeNameMap: attributeNameMap})
+
+                        return new Promise(function(resolve, reject) {
+                            resolve({ newFieldText: fieldValue });
+                        });
+                    }} /></td>
+                }
+
+                return <td>
+                    {this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName}
+                </td>;
+            }.bind(this));
         },
         renderAttributeColumns: function(variation) {
             return this.props.attributeNames.map(function(attributeName) {

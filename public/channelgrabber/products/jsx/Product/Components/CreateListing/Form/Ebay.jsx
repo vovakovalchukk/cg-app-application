@@ -28,7 +28,8 @@ define([
                 accountId: null,
                 product: null,
                 ean: null,
-                variations: []
+                variations: [],
+                attributeNameMap: {}
             }
         },
         getInitialState: function() {
@@ -208,6 +209,8 @@ define([
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
                 attributeNames={attributeNames}
+                attributeNameMap={this.props.attributeNameMap}
+                editableAttributeNames={true}
             />
         },
         render: function() {
