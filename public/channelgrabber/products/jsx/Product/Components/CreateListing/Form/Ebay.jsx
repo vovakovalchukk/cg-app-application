@@ -28,7 +28,8 @@ define([
                 accountId: null,
                 product: null,
                 variations: [],
-                attributeNameMap: {}
+                attributeNameMap: {},
+                listingType: null
             }
         },
         getInitialState: function() {
@@ -147,6 +148,14 @@ define([
                 imageId: image.id
             });
         },
+        onListingTypeSelected: function(listingType) {
+            var productId = (listingType.value == 'single' ? parseInt(Object.keys(this.props.variations)[0]) : this.props.product.id);
+            this.props.setFormStateListing({
+                listingType: listingType.value,
+                productId: productId
+                // variations will be handled by VariationPicker
+            });
+        },
         renderImagePicker: function() {
             if (this.props.product.images.length == 0) {
                 return (
@@ -213,7 +222,31 @@ define([
                 editableAttributeNames={true}
                 channelSpecificFields={this.getChannelSpecificVariationFields()}
                 currency={this.state.currency}
+                listingType={this.props.listingType}
             />
+        },
+        renderVariationListingType: function()
+        {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+            var multiVariation = (this.props.variations && Object.keys(this.props.variations).length > 1);
+            var options = [
+                {"value": "variation", "name": "Variation Product", "selected": multiVariation},
+                {"value": "single", "name": "Single Product"}
+            ];
+            return <label>
+                <span className={"inputbox-label"}>Listing Type:</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        options={options}
+                        autoSelectFirst={false}
+                        onOptionChange={this.onListingTypeSelected}
+                        disabled={multiVariation}
+                        selectedOption={multiVariation ? options[0] : null}
+                    />
+                </div>
+            </label>;
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -231,6 +264,7 @@ define([
 
             return <div>
                 {this.renderVariationPicker()}
+                {this.renderVariationListingType()}
                 <label>
                     <span className={"inputbox-label"}>Site:</span>
                     <div className={"order-inputbox-holder"}>

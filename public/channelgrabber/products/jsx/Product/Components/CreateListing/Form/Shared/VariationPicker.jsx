@@ -19,7 +19,8 @@ define([
                 attributeNames: [],
                 editableAttributeNames: false,
                 attributeNameMap: {},
-                channelSpecificFields: {}
+                channelSpecificFields: {},
+                listingType: null
             }
         },
         getInitialState: function() {
@@ -50,8 +51,16 @@ define([
             });
         },
         componentDidUpdate: function(prevProps, prevState) {
-            var listingFormVariationState = {};
+            var listingFormVariationState = null;
 
+            if (!(this.props.listingType == 'single' && Object.keys(this.state.variationsFormState).length == 1)) {
+                listingFormVariationState = this.getListingFormVariationState();
+            }
+            this.props.setFormStateListing({variations: listingFormVariationState})
+        },
+        getListingFormVariationState: function()
+        {
+            var listingFormVariationState = {};
             for (var variationId in this.state.variationsFormState) {
                 var currentVariation = Object.assign({}, this.state.variationsFormState[variationId]);
 
@@ -63,7 +72,7 @@ define([
 
                 listingFormVariationState[variationId] = currentVariation;
             }
-            this.props.setFormStateListing({variations: listingFormVariationState})
+            return listingFormVariationState;
         },
         onCheckBoxClick: function(variationId) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
@@ -96,7 +105,12 @@ define([
             })
         },
         shouldComponentUpdate(nextProps, nextState) {
-            return nextState.variationsFormState != this.state.variationsFormState;
+            if (nextState.variationsFormState != this.state.variationsFormState ||
+                nextProps.listingType != this.props.listingType
+            ) {
+                return true;
+            }
+            return false;
         },
         onVariationValueChange: function(variationId, fieldName, event) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
