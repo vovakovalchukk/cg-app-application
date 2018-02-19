@@ -11,8 +11,9 @@ define([
 
     Refresh.prototype.init = function()
     {
+        service.init();
         $(Refresh.SELECTOR_REFRESH_BUTTON).off('click').on('click', function() {
-            service.refresh();
+            service.displayPopup();
         });
     };
 
