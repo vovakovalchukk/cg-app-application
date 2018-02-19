@@ -1,17 +1,21 @@
 define([
     'react',
-    'Common/Components/Popup',
+    'Common/Components/Container',
     'Common/Components/Popup/Message',
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
+    'Product/Components/CreateListing/Form/BigCommerce',
+    'Product/Components/CreateListing/Form/WooCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
     React,
-    Popup,
+    Container,
     PopupMessage,
     EbayForm,
     ShopifyForm,
+    BigCommerceForm,
+    WooCommerceForm,
     Select,
     CreateListingUtils
 ) {
@@ -19,7 +23,9 @@ define([
 
     var channelToFormMap = {
         'ebay': EbayForm,
-        'shopify': ShopifyForm
+        'shopify': ShopifyForm,
+        'big-commerce': BigCommerceForm,
+        'woo-commerce': WooCommerceForm
     };
 
     return React.createClass({
@@ -38,6 +44,7 @@ define([
                 title: null,
                 description: null,
                 price: null,
+                weight: null,
                 errors: [],
                 warnings: []
             }
@@ -57,7 +64,9 @@ define([
                 productId: this.props.product.id,
                 title: this.props.product.name,
                 description: this.props.product.details.description ? this.props.product.details.description : null,
-                price: this.props.product.details.price ? this.props.product.details.price : null
+                price: this.props.product.details.price ? this.props.product.details.price : null,
+                ean: this.props.product.details.ean  ? this.props.product.ean : null,
+                weight: this.props.product.details.weight ? this.props.product.details.weight : null
             });
         },
         setFormStateListing: function(listingFormState) {
@@ -112,6 +121,7 @@ define([
                 type: 'POST',
                 context: this,
             }).then(function(response) {
+                window.scrollTo(0, 0);
                 if (response.valid) {
                     this.handleFormSubmitSuccess(response);
                 } else {
@@ -188,18 +198,19 @@ define([
         },
         render: function() {
             return (
-                    <Popup
+                    <Container
                         initiallyActive={true}
-                        className="editor-popup create-listing"
+                        className="editor-popup product-create-listing"
                         onYesButtonPressed={this.submitFormData}
                         onNoButtonPressed={this.props.onCreateListingClose}
                         closeOnYes={false}
                         headerText={"Create New Listing"}
                         subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
-                        yesButtonText="Save"
+                        yesButtonText="Create Listing"
                         noButtonText="Cancel"
                     >
                         <form>
+                            {this.renderErrorMessage()}
                             <div className={"order-form half"}>
                                 <label>
                                     <span className={"inputbox-label"}>Select an account to list to:</span>
@@ -220,9 +231,7 @@ define([
                                 {this.renderCreateListingForm()}
                             </div>
                         </form>
-                        {this.renderErrorMessage()}
-
-                    </Popup>
+                    </Container>
             );
         }
     });

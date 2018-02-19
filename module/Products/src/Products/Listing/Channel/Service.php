@@ -11,7 +11,9 @@ class Service
 {
     const CHANNEL_FEATURE_FLAG_MAP = [
         'ebay' => ListingService::FEATURE_FLAG_CREATE_LISTINGS,
-        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_SHOPIFY
+        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_SHOPIFY,
+        'big-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_BIGCOMMERCE,
+        'woo-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_WOOCOMMERCE,
     ];
 
     /** @var  FeatureFlagService */
