@@ -53,7 +53,7 @@ define([
             var listingFormVariationState = {};
 
             for (var variationId in this.state.variationsFormState) {
-                var currentVariation = this.state.variationsFormState[variationId];
+                var currentVariation = Object.assign({}, this.state.variationsFormState[variationId]);
 
                 if (currentVariation.checked == false) {
                     continue;

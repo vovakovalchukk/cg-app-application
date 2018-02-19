@@ -212,6 +212,7 @@ define([
                 attributeNameMap={this.props.attributeNameMap}
                 editableAttributeNames={true}
                 channelSpecificFields={this.getChannelSpecificVariationFields()}
+                currency={this.state.currency}
             />
         },
         render: function() {
@@ -251,17 +252,6 @@ define([
                             value={this.props.title}
                             onChange={this.onInputChange}
                             title={this.getTooltipText('title')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            value={this.props.price}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('price')}
                         />
                     </div>
                 </label>
