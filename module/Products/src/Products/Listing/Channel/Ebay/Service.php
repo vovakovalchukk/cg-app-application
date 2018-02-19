@@ -76,11 +76,6 @@ class Service implements
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
     {
         try {
-            /** @TOOD: undo this! */
-            if ($externalCategoryId == 2323) {
-                return [];
-            }
-            return [2323 => 'haha'];
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
                 $this->fetchDefaultSiteIdForAccount($account),
                 $externalCategoryId
@@ -97,12 +92,6 @@ class Service implements
 
     public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
     {
-        /** @TOOD: undo this! */
-        return [
-            'listingDuration' => [],
-            'itemSpecifics' => json_decode('{"required":{"fieldName":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":1},"fieldName2":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2},"fieldName5":{"type":"text","minValues":0,"maxValues":3}},"optional":{"fieldName6":{"type":"text","minValues":0},"fieldName12":{"type":"textselect","options":{"key1":"value1","key2":"value2"},"minValues":1,"maxValues":2}}}', 1)
-        ];
-
         $ebayData = $this->fetchEbayCategoryData($account, $externalCategoryId);
 
         return [
@@ -120,8 +109,6 @@ class Service implements
     {
         return [
             'category' => $this->getCategoryOptionsForAccount($account),
-            /** @TOOD: undo this! */
-            'category' => [123 => 'test'],
             'shippingService' => $this->getShippingMethodsForAccount($account),
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),
