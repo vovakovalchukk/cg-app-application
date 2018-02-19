@@ -1320,13 +1320,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "5c99c0e45cfe87d0d39cc39c37a0fbba02c2755d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-109-collapse-listing-creation-feature-flags-9ae205.zip",
-                "reference": "5c99c0e45cfe87d0d39cc39c37a0fbba02c2755d",
-                "shasum": null
+                "reference": "c5afdc7b2592d7d6631591eb1a8452ae8cabfe48"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9521,8 +9515,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -9,6 +9,8 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Service
 {
+    const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
+
     /** @var  FeatureFlagService */
     protected $featureFlagService;
 
@@ -30,7 +32,9 @@ class Service
         }
         /** @var Account $account */
         foreach ($accounts as $account) {
-            if (isset($allowedChannels[$account->getChannel()])) {
+            if (isset($allowedChannels[$account->getChannel()]) ||
+                !in_array($account->getChannel(), static::CHANNELS_SUPPORTED)
+            ) {
                 continue;
             }
             $allowedChannels[$account->getChannel()] = $account->getDisplayChannel() ?? ucfirst($account->getChannel());
