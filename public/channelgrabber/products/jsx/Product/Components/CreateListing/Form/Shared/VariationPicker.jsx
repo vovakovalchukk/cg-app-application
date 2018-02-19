@@ -13,7 +13,8 @@ define([
         getDefaultProps: function() {
             return {
                 variationsDataForProduct: [],
-                currency: '£'
+                currency: '£',
+                attributeNames: []
             }
         },
         getInitialState: function() {
@@ -53,7 +54,6 @@ define([
                     price: currentVariation.price
                 }
             }
-            console.log('didUpdate', listingFormVariationState);
             this.props.setFormStateListing({variations: listingFormVariationState})
         },
         onCheckBoxClick: function(variationId) {
@@ -87,16 +87,25 @@ define([
             })
         },
         shouldComponentUpdate(nextProps, nextState) {
-            console.log('shouldUpdate', nextState.variationsFormState != this.state.variationsFormState);
             return nextState.variationsFormState != this.state.variationsFormState;
         },
-        onVariationValueChange(variationId, fieldName, event) {
+        onVariationValueChange: function(variationId, fieldName, event) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
             variationsFormState[variationId][fieldName] = event.target.value;
 
             this.setState({
                 variationsFormState: variationsFormState
             })
+        },
+        renderAttributeHeaders: function () {
+            return this.props.attributeNames.map(function(attributeName) {
+                return <td>{attributeName}</td>
+            });
+        },
+        renderAttributeColumns: function(variation) {
+            return this.props.attributeNames.map(function(attributeName) {
+                return <td>{variation.attributeValues[attributeName]}</td>
+            });
         },
         renderVariationRows: function () {
             return this.props.variationsDataForProduct.map(function(variation) {
@@ -109,6 +118,7 @@ define([
                         />
                     </td>
                     <td>{variation.sku}</td>
+                    {this.renderAttributeColumns(variation)}
                     <td>
                         <CurrencyInput
                             value={this.state.variationsFormState[variation.id]? this.state.variationsFormState[variation.id].price: null}
@@ -126,6 +136,7 @@ define([
                         <tr>
                             <td><Checkbox onClick={this.onCheckAll} isChecked={this.state.allChecked} /></td>
                             <td>sku</td>
+                            {this.renderAttributeHeaders()}
                             <td>price</td>
                         </tr>
                         {this.renderVariationRows()}
