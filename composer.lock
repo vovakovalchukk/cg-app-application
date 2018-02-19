@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c02a63986b9fcc77509bb3f5a478692f",
+    "content-hash": "0be03f071cd3d56b1c1206937f2b5096",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4011,16 +4011,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-9129-orders-sidebar-hidden-batches-fix",
+            "version": "1.22.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "80e6178e1dc592cbc72d050875967163dc28a917"
+                "reference": "da1235f269240886b95c13c9032b5b38379074bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9129-orders-sidebar-hidden-batches-fix-bbec48.zip",
-                "reference": "80e6178e1dc592cbc72d050875967163dc28a917",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.2-815840.zip",
+                "reference": "da1235f269240886b95c13c9032b5b38379074bd",
                 "shasum": null
             },
             "require": {
@@ -4071,7 +4071,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-19T12:09:15+00:00"
+            "time": "2018-02-19T12:34:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9509,18 +9509,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.22.1",
-            "alias_normalized": "1.22.1.0",
-            "version": "dev-CGIV-9129-orders-sidebar-hidden-batches-fix",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
