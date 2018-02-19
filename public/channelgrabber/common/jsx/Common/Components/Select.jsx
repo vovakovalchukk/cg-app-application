@@ -48,7 +48,11 @@ define([
             if (this.state.disabled) {
                 return;
             }
-
+            // If one of the options or the input are clicked let them do their own thing
+            var targetTag = e.nativeEvent.target.tagName;
+            if (targetTag == 'LI' || targetTag == 'A' || targetTag == 'INPUT') {
+                return;
+            }
             var active = this.state.inputFocus ? true : !this.state.active;
             this.setState({
                 active: active
@@ -65,6 +69,7 @@ define([
             this.callBackOnOptionSelectChanged(selectedOption);
             this.setState({
                 selectedOption: selectedOption,
+                active: false
             });
         },
         callBackOnOptionSelectChanged: function(selectedOption) {
