@@ -4014,12 +4014,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2cefb36313f3a524c599accd025a9d9d370ab6f1"
+                "reference": "ca057a654db2257332a3c1751f10130874311aa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-92-ebay-item-specifics-interface-55c2d8.zip",
-                "reference": "2cefb36313f3a524c599accd025a9d9d370ab6f1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-92-ebay-item-specifics-interface-9c1ac8.zip",
+                "reference": "ca057a654db2257332a3c1751f10130874311aa7",
                 "shasum": null
             },
             "require": {
@@ -4070,7 +4070,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-14T09:23:16+00:00"
+            "time": "2018-02-19T11:54:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
