@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "59d34a006ff7a5dbacc0a230dcd57c1c",
+    "content-hash": "5b986196d0279b59f8587b591e739a5f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1317,16 +1317,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-109-collapse-listing-creation-feature-flags",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "c5afdc7b2592d7d6631591eb1a8452ae8cabfe48"
+                "reference": "21823e92cd8e5116bd5917a42379335d7d2e5ea8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-109-collapse-listing-creation-feature-flags-7be7d7.zip",
-                "reference": "c5afdc7b2592d7d6631591eb1a8452ae8cabfe48",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.0-69b1d4.zip",
+                "reference": "21823e92cd8e5116bd5917a42379335d7d2e5ea8",
                 "shasum": null
             },
             "require": {
@@ -1362,7 +1362,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-19T09:25:14+00:00"
+            "time": "2018-02-20T15:02:14+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9509,18 +9509,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.0",
-            "alias_normalized": "1.16.0.0",
-            "version": "dev-LIS-109-collapse-listing-creation-feature-flags",
-            "package": "channelgrabber/listing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
