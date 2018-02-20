@@ -37,6 +37,7 @@ class CreationService implements LoggerAwareInterface
     {
         $this->removeGlobalLogEventParams(['account' => $accountId, 'product' => $productId]);
         try {
+            $listing = $this->sanitiseListingData($listing);
             try {
                 $account = $this->fetchAccount($accountId);
             } catch (NotFound $exception) {
@@ -71,6 +72,15 @@ class CreationService implements LoggerAwareInterface
         } finally {
             $this->removeGlobalLogEventParams(['account', 'product']);
         }
+    }
+
+    protected function sanitiseListingData(array $listing): array
+    {
+        // The frontend converts null to empty string, ensure we've actually got an array
+        if (isset($listing['variations']) && !is_array($listing['variations'])) {
+            unset($listing['variations']);
+        }
+        return $listing;
     }
 
     protected function fetchAccount(int $accountId): Account
