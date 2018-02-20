@@ -63,11 +63,11 @@ define([
             }
         },
         buildTextItemSpecific: function(name, options) {
-            var inputs = [],
-                counts = this.state.itemSpecificsCount,
-                count = (counts[name]) ? counts[name] : 1,
-                hasPlusButton = this.isMultiOption(options),
-                displayName = name;
+            var inputs = [];
+            var counts = this.state.itemSpecificsCount;
+            var count = (counts[name]) ? counts[name] : 1;
+            var hasPlusButton = this.isMultiOption(options);
+            var displayName = name;
 
             for (var i = 0; i < count; i++) {
                 inputs.push(
@@ -99,8 +99,8 @@ define([
             </span>;
         },
         onPlusButtonClick: function (event) {
-            var name = event.target.dataset.name,
-                counts = JSON.parse(JSON.stringify(this.state.itemSpecificsCount));
+            var name = event.target.dataset.name;
+            var counts = JSON.parse(JSON.stringify(this.state.itemSpecificsCount));
 
             counts[name] = (counts[name]) ? counts[name] + 1 : 2;
             this.setState({
@@ -117,8 +117,8 @@ define([
             />;
         },
         onCustomInputChange: function (index, type, value) {
-            var customItemSpecifics = this.state.customItemSpecifics.slice(),
-                foundItem = customItemSpecifics.findIndex(i => i.index == index);
+            var customItemSpecifics = this.state.customItemSpecifics.slice();
+            var foundItem = customItemSpecifics.findIndex(i => i.index == index);
 
             if (foundItem === -1) {
                 return;
@@ -261,10 +261,10 @@ define([
             }
         },
         buildOptionalItemSpecificsInputs: function() {
-            var itemSpecifics = [],
-                field,
-                optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length,
-                customItemSpecifics = this.state.customItemSpecifics
+            var itemSpecifics = [];
+            var field;
+            var optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length;
+            var customItemSpecifics = this.state.customItemSpecifics;
 
             for (var key = 0; key < optionalItemSpecificsLenght; key++) {
                 field = this.state.optionalItemSpecifics[key];
@@ -303,8 +303,8 @@ define([
             });
         },
         onItemSpecificInputChange: function(event) {
-            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics)),
-                index = event.target.parentElement.parentElement.dataset.index;
+            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+            var index = event.target.parentElement.parentElement.dataset.index;
 
             if (!selectedItemSpecifics[event.target.name]) {
                 selectedItemSpecifics[event.target.name] = [];
