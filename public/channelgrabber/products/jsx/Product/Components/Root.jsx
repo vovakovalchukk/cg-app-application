@@ -35,7 +35,8 @@ define([
                 searchAvailable: true,
                 isAdmin: false,
                 initialSearchTerm: '',
-                adminCompanyUrl: null
+                adminCompanyUrl: null,
+                features: {}
             }
         },
         getInitialState: function()
@@ -147,7 +148,7 @@ define([
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function () {
-            if (!this.props.linkedProductsEnabled) {
+            if (!this.props.features.linkedProducts) {
                 return;
             }
             window.triggerEvent('fetchingProductLinksStart');
