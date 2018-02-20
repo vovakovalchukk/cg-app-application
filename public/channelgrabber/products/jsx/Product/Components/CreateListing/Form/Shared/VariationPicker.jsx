@@ -14,14 +14,15 @@ define([
     var VariationPicker = React.createClass({
         getDefaultProps: function() {
             return {
-                parentProduct: null,
                 variationsDataForProduct: [],
+                product: {},
                 currency: '£',
                 attributeNames: [],
                 editableAttributeNames: false,
                 attributeNameMap: {},
                 channelSpecificFields: {},
-                listingType: null
+                listingType: null,
+                fetchVariations: function() {}
             }
         },
         getInitialState: function() {
@@ -31,7 +32,15 @@ define([
             }
         },
         componentDidMount: function() {
+            if (this.props.product.variationCount > this.props.variationsDataForProduct.length) {
+                this.props.fetchVariations({detail: {productId: this.props.product.id}}, false);
+            }
             this.createVariationFormStateFromProps(this.props);
+        },
+        componentWillReceiveProps(newProps) {
+            if (newProps.variationsDataForProduct != this.props.variationsDataForProduct) {
+                this.createVariationFormStateFromProps(newProps);
+            }
         },
         createVariationFormStateFromProps: function(newProps) {
             var variationsFormState = {};
@@ -52,7 +61,7 @@ define([
             });
         },
         componentDidUpdate: function(prevProps, prevState) {
-            var productId = this.props.parentProduct.id;
+            var productId = this.props.product.id;
             var listingFormVariationState = this.getListingFormVariationState();
             var listingType = 'variation';
 
@@ -119,6 +128,7 @@ define([
         },
         shouldComponentUpdate(nextProps, nextState) {
             if (nextState.variationsFormState != this.state.variationsFormState ||
+                this.props.variationsDataForProduct != nextProps.variationsDataForProduct ||
                 nextProps.listingType != this.props.listingType
             ) {
                 return true;

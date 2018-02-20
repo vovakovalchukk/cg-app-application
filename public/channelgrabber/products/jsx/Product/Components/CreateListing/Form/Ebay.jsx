@@ -211,7 +211,6 @@ define([
             }
 
             return <VariationPicker
-                parentProduct={this.props.product}
                 variationsDataForProduct={variationsDataForProduct}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
@@ -221,6 +220,8 @@ define([
                 channelSpecificFields={this.getChannelSpecificVariationFields()}
                 currency={this.state.currency}
                 listingType={this.props.listingType}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
             />
         },
         renderVariationListingType: function()

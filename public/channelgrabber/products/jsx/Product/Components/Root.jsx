@@ -395,6 +395,7 @@ define([
                 availableChannels={this.state.createListingsAllowedChannels}
                 availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
                 variationsDataForProduct={this.state.variations[this.state.createListing.product.id]}
+                fetchVariations={this.onVariationsRequest.bind(this)}
             />
         },
         render: function()
