@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "38048738159d93c5bc1ebfa94c8de890",
+    "content-hash": "dc9bc4e9d8444b3e9febecd0a94de0c0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,7 +263,7 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-LIS-79-BigCommerceCreateVariationListings",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
@@ -271,7 +271,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-79-BigCommerceCreateVariationListings-563e10.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-73-create-variation-listings-563e10.zip",
                 "reference": "c7a72e38e7a5b3357e7c90b690680ac40b0c49f8",
                 "shasum": null
             },
@@ -9507,7 +9507,7 @@
         {
             "alias": "1.1.2",
             "alias_normalized": "1.1.2.0",
-            "version": "dev-LIS-79-BigCommerceCreateVariationListings",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "package": "channelgrabber/bigcommerce"
         },
         {
