@@ -12,44 +12,43 @@ define([
         getCustomInputValueName: function(index) {
             return 'CustomInputValueName' + index;
         },
-        onRemoveButtonClick: function(event) {
-            var index = event.target.dataset.index;
+        onRemoveButtonClick: function(index) {
             this.props.onRemoveButtonClick(index);
         },
-        onNameChange: function(event) {
-            this.onInputChange('name', event);
+        onNameChange: function(index, event) {
+            var value = event.target.value;
+            this.onInputChange(index, 'name', value);
         },
-        onValueChange: function(event) {
-            this.onInputChange('value', event);
+        onValueChange: function(index, event) {
+            var value = event.target.value;
+            this.onInputChange(index, 'value', value);
         },
-        onInputChange: function(type, event) {
-            var index = event.target.parentElement.parentElement.dataset.index;
-            this.props.onChange(index, type, event.target.value);
+        onInputChange: function(index, type, value) {
+            this.props.onChange(index, type, value);
         },
         renderRemoveButton: function (index) {
             return <span className="remove-icon">
                 <i
                     className='fa fa-2x fa-minus-square icon-create-listing'
                     aria-hidden='true'
-                    onClick={this.onRemoveButtonClick}
-                    data-index={index}
+                    onClick={this.onRemoveButtonClick.bind(this, index)}
                 />
             </span>;
         },
         render: function () {
             return <label>
-                <span className={"inputbox-label container-extra-item-specific"} data-index={this.props.index}>
+                <span className={"inputbox-label container-extra-item-specific"}>
                     <Input
                         name={this.getCustomInputName(this.props.index)}
                         value={this.props.name}
-                        onChange={this.onNameChange}
+                        onChange={this.onNameChange.bind(this, this.props.index)}
                     />
                 </span>
-                <div className={"order-inputbox-holder"} data-index={this.props.index}>
+                <div className={"order-inputbox-holder"}>
                     <Input
                         name={this.getCustomInputValueName(this.props.index)}
                         value={this.props.value}
-                        onChange={this.onValueChange}
+                        onChange={this.onValueChange.bind(this, this.props.index)}
                     />
                 </div>
                 {this.renderRemoveButton(this.props.index)}
