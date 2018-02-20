@@ -149,11 +149,8 @@ define([
             });
         },
         onListingTypeSelected: function(listingType) {
-            var productId = (listingType.value == 'single' ? parseInt(Object.keys(this.props.variations)[0]) : this.props.product.id);
             this.props.setFormStateListing({
-                listingType: listingType.value,
-                productId: productId
-                // variations will be handled by VariationPicker
+                listingType: listingType.value
             });
         },
         renderImagePicker: function() {

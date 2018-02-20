@@ -52,12 +52,21 @@ define([
             });
         },
         componentDidUpdate: function(prevProps, prevState) {
-            var listingFormVariationState = null;
+            var productId = this.props.parentProduct.id;
+            var listingFormVariationState = this.getListingFormVariationState();
+            var listingType = 'variation';
 
-            if (!(this.props.listingType == 'single' && Object.keys(this.state.variationsFormState).length == 1)) {
-                listingFormVariationState = this.getListingFormVariationState();
+            if (this.isSingleListing(listingFormVariationState)) {
+                var selectedVariationId = Object.keys(listingFormVariationState)[0];
+                productId = parseInt(selectedVariationId);
+                listingFormVariationState = null;
+                listingType = 'single';
             }
-            this.props.setFormStateListing({variations: listingFormVariationState})
+            this.props.setFormStateListing({
+                variations: listingFormVariationState,
+                productId: productId,
+                listingType: listingType
+            });
         },
         getListingFormVariationState: function()
         {
@@ -74,6 +83,9 @@ define([
                 listingFormVariationState[variationId] = currentVariation;
             }
             return listingFormVariationState;
+        },
+        isSingleListing: function(listingFormVariationState) {
+            return (this.props.listingType == 'single' && Object.keys(listingFormVariationState).length == 1);
         },
         onCheckBoxClick: function(variationId) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
