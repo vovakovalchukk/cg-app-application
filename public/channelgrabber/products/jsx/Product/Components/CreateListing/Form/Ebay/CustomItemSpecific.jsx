@@ -6,9 +6,6 @@ define([
     Input
 ) {
     return React.createClass({
-        getInitialState: function() {
-            return {}
-        },
         getCustomInputName: function(index) {
             return 'CustomInputName' + index;
         },
