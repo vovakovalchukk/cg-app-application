@@ -15,11 +15,13 @@ define([
         getDefaultProps: function() {
             return {
                 variationsDataForProduct: [],
+                product: {},
                 currency: '£',
                 attributeNames: [],
                 editableAttributeNames: false,
                 attributeNameMap: {},
-                channelSpecificFields: {}
+                channelSpecificFields: {},
+                fetchVariations: function() {}
             }
         },
         getInitialState: function() {
@@ -29,7 +31,15 @@ define([
             }
         },
         componentDidMount: function() {
+            if (this.props.product.variationCount > this.props.variationsDataForProduct.length) {
+                this.props.fetchVariations({detail: {productId: this.props.product.id}}, false);
+            }
             this.createVariationFormStateFromProps(this.props);
+        },
+        componentWillReceiveProps(newProps) {
+            if (newProps.variationsDataForProduct != this.props.variationsDataForProduct) {
+                this.createVariationFormStateFromProps(newProps);
+            }
         },
         createVariationFormStateFromProps: function(newProps) {
             var variationsFormState = {};
@@ -96,7 +106,8 @@ define([
             })
         },
         shouldComponentUpdate(nextProps, nextState) {
-            return nextState.variationsFormState != this.state.variationsFormState;
+            return nextState.variationsFormState != this.state.variationsFormState
+                || this.props.variationsDataForProduct != nextProps.variationsDataForProduct;
         },
         onVariationValueChange: function(variationId, fieldName, event) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);

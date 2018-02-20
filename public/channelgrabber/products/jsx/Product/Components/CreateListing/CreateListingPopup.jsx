@@ -92,6 +92,7 @@ define([
                 getSelectCallHandler={this.getSelectCallHandler}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                fetchVariations={this.props.fetchVariations}
             />
         },
         onAccountSelected: function(selectValue) {

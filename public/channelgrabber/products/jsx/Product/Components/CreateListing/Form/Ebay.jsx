@@ -213,6 +213,8 @@ define([
                 editableAttributeNames={true}
                 channelSpecificFields={this.getChannelSpecificVariationFields()}
                 currency={this.state.currency}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
             />
         },
         render: function() {
