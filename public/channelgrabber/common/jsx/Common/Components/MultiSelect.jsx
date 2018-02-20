@@ -23,21 +23,17 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             }
         },
         componentDidUpdate: function(prevProps, prevState) {
-            if (this.props.onOptionChange && prevState.selectedOptions.length !== this.state.selectedOptions.length) {
-                var optionHash = [], selected, selectedOptions = this.state.selectedOptions, options = this.state.options;
-                $.each(selectedOptions, function (i, selectedValue) {
-                    selected = options.find(function(item) {
-                        if (item.value == selectedValue) {
-                            return true;
-                        }
-                    });
-                    if (selected) {
-                        optionHash.push(selected);
-                    }
-                });
-
-                this.props.onOptionChange(optionHash, this.props.title);
+            if (!this.props.onOptionChange || prevState.selectedOptions.length == this.state.selectedOptions.length) {
+                return;
             }
+            var optionHash = this.getFullOptionDataForSelectedOptions();
+            this.props.onOptionChange(optionHash, this.props.title);
+        },
+        getFullOptionDataForSelectedOptions: function() {
+            var selectedOptions = this.state.selectedOptions;
+            return this.state.options.filter(function(option) {
+                return selectedOptions.indexOf(option.value) > -1
+            });
         },
         onClickOutside: function () {
             this.setState({
