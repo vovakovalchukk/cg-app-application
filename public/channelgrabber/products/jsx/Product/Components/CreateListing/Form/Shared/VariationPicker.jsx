@@ -14,6 +14,7 @@ define([
     var VariationPicker = React.createClass({
         getDefaultProps: function() {
             return {
+                parentProduct: null,
                 variationsDataForProduct: [],
                 currency: '£',
                 attributeNames: [],

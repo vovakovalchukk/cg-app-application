@@ -214,6 +214,7 @@ define([
             }
 
             return <VariationPicker
+                parentProduct={this.props.product}
                 variationsDataForProduct={variationsDataForProduct}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
