@@ -20,7 +20,7 @@ define([
                 optionalItemSpecificsSelectOptions: [],
                 selectedItemSpecifics: {},
                 customItemSpecifics: [],
-                itemSpecificsCount: {}
+                itemSpecificsCounts: {}
             }
         },
         buildItemSpecificsInputs: function() {
@@ -64,15 +64,15 @@ define([
         },
         buildTextItemSpecific: function(name, options) {
             var inputs = [];
-            var counts = this.state.itemSpecificsCount;
+            var counts = this.state.itemSpecificsCounts;
             var count = (counts[name]) ? counts[name] : 1;
             var hasPlusButton = this.isMultiOption(options);
-            var displayName = name;
+            var label = name;
 
             for (var i = 0; i < count; i++) {
                 inputs.push(
                     <label>
-                        <span className={"inputbox-label"}>{displayName}</span>
+                        <span className={"inputbox-label"}>{label}</span>
                         <div className={"order-inputbox-holder"} data-index={i}>
                             <Input
                                 name={name}
@@ -83,7 +83,8 @@ define([
                         {hasPlusButton && i === count - 1 ? this.renderPlusButton(name) : null}
                     </label>
                 );
-                displayName = '';
+                // Only the first of the repeated fields has a label
+                label = '';
             }
 
             return <span>{inputs}</span>;
@@ -100,11 +101,11 @@ define([
         },
         onPlusButtonClick: function (event) {
             var name = event.target.dataset.name;
-            var counts = JSON.parse(JSON.stringify(this.state.itemSpecificsCount));
+            var counts = JSON.parse(JSON.stringify(this.state.itemSpecificsCounts));
 
             counts[name] = (counts[name]) ? counts[name] + 1 : 2;
             this.setState({
-                itemSpecificsCount: counts
+                itemSpecificsCounts: counts
             });
         },
         buildCustomItemSpecific: function (item) {
@@ -118,7 +119,7 @@ define([
         },
         onCustomInputChange: function (index, type, value) {
             var customItemSpecifics = this.state.customItemSpecifics.slice();
-            var foundItem = customItemSpecifics.findIndex(i => i.index == index);
+            var foundItem = customItemSpecifics.findIndex(customItemSpecific => customItemSpecific.index == index);
 
             if (foundItem === -1) {
                 return;
@@ -126,7 +127,7 @@ define([
 
             customItemSpecifics[foundItem][type] = value;
 
-            if (index == this.getMaxCustomItemSpecificIndex()) {
+            if (this.isLastCustomItemSpecific(index)) {
                 customItemSpecifics.push(this.getNewCustomItemSpecific());
             }
 
@@ -139,6 +140,9 @@ define([
                 customItemSpecifics: customItemSpecifics
             });
         },
+        isLastCustomItemSpecific: function(index) {
+            return (index == this.getMaxCustomItemSpecificIndex());
+        },
         getMaxCustomItemSpecificIndex: function() {
             return this.state.customItemSpecifics.reduce(function (max, item) {
                 return max < item.index ? item.index : max;
@@ -147,10 +151,10 @@ define([
         onRemoveCustomSpecificButtonClick: function (index) {
             var optionalItemSpecifics = this.state.optionalItemSpecifics.slice();
             if (this.state.customItemSpecifics.length === 1) {
-                var foundCustomItemSpecific = optionalItemSpecifics.findIndex(i => i.name == addCustomItemSpecificName);
+                var foundCustomItemSpecific = optionalItemSpecifics.findIndex(optionalItemSpecific => optionalItemSpecific.name == addCustomItemSpecificName);
                 optionalItemSpecifics.splice(foundCustomItemSpecific, 1);
             }
-            var foundItem = this.state.customItemSpecifics.findIndex(i => i.index == index);
+            var foundItem = this.state.customItemSpecifics.findIndex(customItemSpecific => customItemSpecific.index == index);
             if (foundItem > -1) {
                 var customItemSpecifics = this.state.customItemSpecifics.slice();
 
@@ -263,10 +267,10 @@ define([
         buildOptionalItemSpecificsInputs: function() {
             var itemSpecifics = [];
             var field;
-            var optionalItemSpecificsLenght = this.state.optionalItemSpecifics.length;
+            var optionalItemSpecificsLength = this.state.optionalItemSpecifics.length;
             var customItemSpecifics = this.state.customItemSpecifics;
 
-            for (var key = 0; key < optionalItemSpecificsLenght; key++) {
+            for (var key = 0; key < optionalItemSpecificsLength; key++) {
                 field = this.state.optionalItemSpecifics[key];
                 itemSpecifics.push(
                     this.buildItemSpecificsInputByType(
