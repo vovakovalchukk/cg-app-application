@@ -119,7 +119,9 @@ define([
         },
         onCustomInputChange: function (index, type, value) {
             var customItemSpecifics = this.state.customItemSpecifics.slice();
-            var foundItem = customItemSpecifics.findIndex(customItemSpecific => customItemSpecific.index == index);
+            var foundItem = customItemSpecifics.findIndex(function(customItemSpecific) {
+                return customItemSpecific.index == index;
+            });
 
             if (foundItem === -1) {
                 return;
@@ -151,10 +153,14 @@ define([
         onRemoveCustomSpecificButtonClick: function (index) {
             var optionalItemSpecifics = this.state.optionalItemSpecifics.slice();
             if (this.state.customItemSpecifics.length === 1) {
-                var foundCustomItemSpecific = optionalItemSpecifics.findIndex(optionalItemSpecific => optionalItemSpecific.name == addCustomItemSpecificName);
+                var foundCustomItemSpecific = optionalItemSpecifics.findIndex(function(optionalItemSpecific) {
+                    return optionalItemSpecific.name == addCustomItemSpecificName;
+                });
                 optionalItemSpecifics.splice(foundCustomItemSpecific, 1);
             }
-            var foundItem = this.state.customItemSpecifics.findIndex(customItemSpecific => customItemSpecific.index == index);
+            var foundItem = this.state.customItemSpecifics.findIndex(function(customItemSpecific) {
+                return customItemSpecific.index == index;
+            });
             if (foundItem > -1) {
                 var customItemSpecifics = this.state.customItemSpecifics.slice();
 
