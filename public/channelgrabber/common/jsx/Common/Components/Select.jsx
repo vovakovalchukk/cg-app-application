@@ -93,15 +93,16 @@ define([
             });
         },
         onCustomOption: function(e) {
-            if (this.state.disabled || e.which !== 13) {
+            const ENTER_KEY_CODE = 13;
+            if (this.state.disabled || e.which !== ENTER_KEY_CODE) {
                 return;
             }
 
-            var customOption = {name: e.target.value, value: e.target.value},
-                options = this.state.options.slice();
+            var customOption = {name: e.target.value, value: e.target.value};
+            var options = this.state.options.slice();
 
             options.push(customOption);
-            e.target.value = "";
+            this.clearInput(e.target);
 
             this.callBackOnOptionSelectChanged(customOption);
 
@@ -115,6 +116,9 @@ define([
             this.setState({
                 searchTerm: e.target.value
             });
+        },
+        clearInput: function(input) {
+            input.value = '';
         },
         filterBySearchTerm: function(option) {
             if (! this.props.filterable) {

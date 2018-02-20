@@ -74,12 +74,11 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             if (!this.props.filterable) {
                 return true;
             }
-            if (option.name.toUpperCase().includes(this.state.searchTerm.toUpperCase())) {
-                return true;
-            }
+            return option.name.toUpperCase().includes(this.state.searchTerm.toUpperCase());
         },
         onCustomOption: function(e) {
-            if (this.state.disabled || e.which !== 13) {
+            const ENTER_KEY_CODE = 13;
+            if (this.state.disabled || e.which !== ENTER_KEY_CODE) {
                 return;
             }
 
@@ -87,7 +86,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             options.push({name: e.target.value, value: e.target.value});
             var selectedOptions = this.state.selectedOptions.slice(0);
             selectedOptions.push(e.target.value);
-            e.target.value = "";
+            this.clearInput(e.target);
 
             this.setState({
                 options: options,
@@ -131,6 +130,9 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             this.setState({
                 selectedOptions: []
             });
+        },
+        clearInput: function(input) {
+            input.value = '';
         },
         getSelected: function () {
             var optionHash = {};
