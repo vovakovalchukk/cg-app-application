@@ -309,6 +309,16 @@ return [
                                     ]
                                 ],
                             ],
+                            ListingsJsonController::ROUTE_REFRESH_DETAILS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refreshDetails',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'refreshDetails'
+                                    ]
+                                ],
+                            ],
                             ListingsJsonController::ROUTE_IMPORT => [
                                 'type' => Literal::class,
                                 'options' => [

@@ -10,18 +10,7 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Service
 {
-    private $channelFeatureFlagMap = [
-        'ebay' => ListingService::FEATURE_FLAG_CREATE_LISTINGS,
-        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_SHOPIFY,
-        'big-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_BIGCOMMERCE
-    ];
-
-    private $variationListingsFeatureFlagMap = [
-        'ebay' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_EBAY,
-        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_SHOPIFY,
-        'big-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_BIGCOMMERCE,
-        'woo-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_WOOCOMMERCE
-    ];
+    const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
 
     /** @var  FeatureFlagService */
     protected $featureFlagService;
@@ -47,13 +36,8 @@ class Service
             return $allowedChannels;
         }
 
-        $featureFlagMap = $variationCreateListings ? $this->variationListingsFeatureFlagMap : $this->channelFeatureFlagMap;
         /** @var Account $account */
-        foreach ($featureFlagMap as $channel => $featureFlag) {
-            if (!$this->featureFlagService->isActive($featureFlag, $rootOu)) {
-                continue;
-            }
-
+        foreach (static::CHANNELS_SUPPORTED as $channel) {
             $allowedChannels[$channel] = $this->channelName->lookupChannel($channel, null, ucfirst($channel));
         }
         return $allowedChannels;
