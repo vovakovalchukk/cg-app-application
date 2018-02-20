@@ -27,10 +27,11 @@ define([
             var itemSpecifics = [], requiredItems, optionalItems;
 
             if (requiredItems = this.props.itemSpecifics.required) {
-                var required = [], item;
-                $.each(requiredItems, function (name, properties) {
+                var required = [];
+                for (var name in requiredItems) {
+                    var properties = requiredItems[name];
                     required.push(this.buildItemSpecificsInputByType(name, properties));
-                }.bind(this));
+                }
                 itemSpecifics.push(<span><b>Item Specifics (Required)</b>{required}</span>);
             }
             if (optionalItems = this.props.itemSpecifics.optional) {
@@ -186,12 +187,12 @@ define([
         },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             var options = [];
-            $.each(itemSpecifics, function (name, value) {
+            for (var name in itemSpecifics) {
                 options.push({
                     "name": name,
-                    "value": value
+                    "value": itemSpecifics[name]
                 })
-            });
+            }
             options.push({
                 "name": "Add Custom Item Specific",
                 "value": {type: 'custom'}
@@ -217,12 +218,12 @@ define([
         },
         getSelectOptionsForItemSpecific(selectName, options) {
             var selectOptions = [];
-            $.each(options, function(optionValue, optionName) {
+            for (var optionValue in options) {
                 selectOptions.push({
-                    "name": optionName,
+                    "name": options[optionValue],
                     "value": optionValue
                 });
-            });
+            }
             return selectOptions;
         },
         buildTextSelectItemSpecific: function(name, options) {
@@ -285,12 +286,13 @@ define([
                 ));
             }
 
-            $.each(customItemSpecifics, function (index, item) {
+            for (var index in customItemSpecifics) {
+                var item = customItemSpecifics[index];
                 if (item === undefined) {
                     return;
                 }
                 itemSpecifics.push(this.buildCustomItemSpecific(item))
-            }.bind(this));
+            }
 
             return <span>{itemSpecifics}</span>;
         },
@@ -303,9 +305,10 @@ define([
             }
 
             selectedItemSpecifics[title] = [];
-            $.each(fields, function (i, item) {
+            for (var key in fields) {
+                var item = fields[key];
                 selectedItemSpecifics[title].push(item.value);
-            });
+            }
 
             this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({
