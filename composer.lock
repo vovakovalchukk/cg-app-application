@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b499a618836935cfd2d723147898335a",
+    "content-hash": "e62e735ebc4541ba4b2a409227e4960e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4015,12 +4015,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ca057a654db2257332a3c1751f10130874311aa7"
+                "reference": "418feab3fef77b0dd4491b9685f553dac7a06d15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-92-ebay-item-specifics-interface-9c1ac8.zip",
-                "reference": "ca057a654db2257332a3c1751f10130874311aa7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-92-ebay-item-specifics-interface-09c010.zip",
+                "reference": "418feab3fef77b0dd4491b9685f553dac7a06d15",
                 "shasum": null
             },
             "require": {
@@ -4071,7 +4071,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-19T11:54:25+00:00"
+            "time": "2018-02-20T12:14:53+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9511,8 +9511,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.21.4",
-            "alias_normalized": "1.21.4.0",
+            "alias": "1.22.3",
+            "alias_normalized": "1.22.3.0",
             "version": "dev-LIS-92-ebay-item-specifics-interface",
             "package": "channelgrabber/zf2-v4-ui"
         }
