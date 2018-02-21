@@ -2447,12 +2447,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "268f28870afd9df4011b92df0649fc84a2d3e86b"
+                "reference": "1f5cd909dd2b7f58d1791f586cb96e4e4ef038fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-LIS-73-create-variation-listings-564ae4.zip",
-                "reference": "268f28870afd9df4011b92df0649fc84a2d3e86b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-LIS-73-create-variation-listings-d4c241.zip",
+                "reference": "1f5cd909dd2b7f58d1791f586cb96e4e4ef038fa",
                 "shasum": null
             },
             "require": {
@@ -2485,7 +2485,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-02-14T09:59:47+00:00"
+            "time": "2018-02-21T08:38:18+00:00"
         },
         {
             "name": "channelgrabber/slim",
