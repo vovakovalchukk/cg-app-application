@@ -148,12 +148,12 @@ define([
             delete listing.accountId;
             delete listing.errors;
             delete listing.warnings;
-            return this.addAdditionalValues(listing);
+            return this.mergeAdditionalValuesIntoListingData(listing);
         },
         cloneState: function() {
             return JSON.parse(JSON.stringify(this.state));
         },
-        addAdditionalValues: function(listing) {
+        mergeAdditionalValuesIntoListingData: function(listing) {
             if (!listing.additionalValues) {
                 return listing;
             }
