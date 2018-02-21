@@ -48,9 +48,11 @@ define([
             if (this.state.disabled) {
                 return;
             }
-            // If one of the options or the input are clicked let them do their own thing
-            var targetTag = e.nativeEvent.target.tagName;
-            if (targetTag == 'LI' || targetTag == 'A' || targetTag == 'INPUT') {
+            // For certain child elements we dont want to trigger this behaviour when the event bubbles up
+            // Note: the use of data attributes is usually not required in React but as this is potentially a bubbled
+            // event we have no control over the passed data so we had to resort to it
+            var targetDataset = e.nativeEvent.target.dataset;
+            if (typeof targetDataset.triggerSelectClick !== undefined && targetDataset.triggerSelectClick == 'false') {
                 return;
             }
             var active = this.state.inputFocus ? true : !this.state.active;
@@ -149,8 +151,12 @@ define([
                 var optionName = this.getOptionName(opt.name, opt.value);
 
                 return (
-                    <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected.bind(this, opt.value)}>
-                        <a value={opt.value}>{optionName}</a>
+                    <li
+                        className={"custom-select-item "+(opt.selected ? "active" : "")}
+                        value={opt.value} key={index}
+                        onClick={this.onOptionSelected.bind(this, opt.value)}
+                    >
+                        <a value={opt.value} data-trigger-select-click="false">{optionName}</a>
                     </li>
                 )
             }.bind(this));
@@ -164,6 +170,7 @@ define([
                                 onBlur={this.onInputBlur}
                                 onKeyUp={this.onCustomOption}
                                 placeholder={this.state.options.length ? 'Custom Option...' : ''}
+                                data-trigger-select-click="false"
                             />
                         </div>
                     </li>
@@ -194,6 +201,7 @@ define([
                           onBlur={this.onInputBlur}
                           onChange={this.onFilterResults}
                           placeholder={this.state.options.length ? 'Search...' : ''}
+                          data-trigger-select-click="false"
                         />
                     </div>
                 );
