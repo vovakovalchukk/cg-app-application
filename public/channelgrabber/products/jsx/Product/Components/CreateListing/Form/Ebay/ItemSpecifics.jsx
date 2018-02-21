@@ -72,18 +72,18 @@ define([
             var hasPlusButton = this.isMultiOption(options);
             var label = name;
 
-            for (var i = 0; i < count; i++) {
+            for (var index = 0; index < count; index++) {
                 inputs.push(
                     <label>
                         <span className={"inputbox-label"}>{label}</span>
-                        <div className={"order-inputbox-holder"} data-index={i}>
+                        <div className={"order-inputbox-holder"}>
                             <Input
                                 name={name}
                                 value={this.getItemSpecificTextInputValue(name)}
-                                onChange={this.onItemSpecificInputChange}
+                                onChange={this.onItemSpecificInputChange.bind(this, index)}
                             />
                         </div>
-                        {hasPlusButton && i === count - 1 ? this.renderPlusButton(name) : null}
+                        {hasPlusButton && index === count - 1 ? this.renderPlusButton(name) : null}
                     </label>
                 );
                 // Only the first of the repeated fields has a label
@@ -315,9 +315,8 @@ define([
                 selectedItemSpecifics: selectedItemSpecifics
             });
         },
-        onItemSpecificInputChange: function(event) {
+        onItemSpecificInputChange: function(index, event) {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
-            var index = event.target.parentElement.parentElement.dataset.index;
 
             if (!selectedItemSpecifics[event.target.name]) {
                 selectedItemSpecifics[event.target.name] = [];
