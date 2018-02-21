@@ -372,6 +372,15 @@ return [
                                                     ]
                                                 ],
                                             ],
+                                            ChannelController::ROUTE_ACCOUNT_AUTO_LISTINGS_IMPORT => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/autoImportListings',
+                                                    'defaults' => [
+                                                        'action' => 'autoImportListingsAjax',
+                                                    ]
+                                                ],
+                                            ],
                                         ],
                                     ],
                                 ],
