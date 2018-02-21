@@ -5,6 +5,7 @@ define([
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
     'Product/Components/CreateListing/Form/BigCommerce',
+    'Product/Components/CreateListing/Form/WooCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
@@ -14,6 +15,7 @@ define([
     EbayForm,
     ShopifyForm,
     BigCommerceForm,
+    WooCommerceForm,
     Select,
     CreateListingUtils
 ) {
@@ -22,7 +24,8 @@ define([
     var channelToFormMap = {
         'ebay': EbayForm,
         'shopify': ShopifyForm,
-        'big-commerce': BigCommerceForm
+        'big-commerce': BigCommerceForm,
+        'woo-commerce': WooCommerceForm
     };
 
     var CreateListingPopup = React.createClass({

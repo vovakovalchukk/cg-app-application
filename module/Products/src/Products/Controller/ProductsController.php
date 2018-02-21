@@ -14,6 +14,8 @@ use Products\Product\BulkActions\Service as BulkActionsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
+use CG\Product\Client\Service as ProductClientService;
+use CG\Listing\Client\Service as ListingClientService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -79,11 +81,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('activeUserRootOu', $rootOuId);
         $view->setVariable('featureFlagJson', json_encode([
             'linkedProducts' => $this->featureFlagService->featureEnabledForOu(
-                \CG\Product\Client\Service::FEATURE_FLAG_LINKED_PRODUCTS,
+                ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $rootOuId
             ),
             'createListings' => $this->featureFlagService->featureEnabledForOu(
-                \CG\Listing\Client\Service::FEATURE_FLAG_CREATE_LISTINGS,
+                ListingClientService::FEATURE_FLAG_CREATE_LISTINGS,
                 $rootOuId
             )
         ]));

@@ -1,0 +1,37 @@
+{{>header}}
+<div class="content">
+    {{#hasAccounts}}
+        {{#hasAmazonAccount}}
+            <div style="margin-bottom: 10px;">Amazon throttle big requests for lots of information (like fetching all listings in one go) and so typically takes longer than other sales channels to import.</div>
+        {{/hasAmazonAccount}}
+        <div style="margin-bottom: 10px;">
+            {{#download}}{{>button}}{{/download}}
+        </div>
+        <div>
+            <table style="width: 100%">
+                <tr>
+                    <th style="width: 20px; padding-left: 6px;">{{#checkall}}{{>checkbox}}{{/checkall}}</th>
+                    <th>Channel</th>
+                    <th>Account</th>
+                    <th>Status</th>
+                    <th>Last Completed</th>
+                </tr>
+            {{#account}}
+                <tr>
+                    <td style="width: 20px;">{{#checkbox}}{{>checkbox}}{{/checkbox}}</td>
+                    <td>{{channel}}</td>
+                    <td>{{name}}</td>
+                    <td>{{status}}</td>
+                    <td>{{lastCompleted}}</td>
+                </tr>
+            {{/account}}
+            </table>
+        </div>
+        <div>Feel free to leave this page and continue using ChannelGrabber while we download your listings</div>
+    {{/hasAccounts}}
+    {{^hasAccounts}}
+        <div>
+            You do not have any enabled sales channels.
+        </div>
+    {{/hasAccounts}}
+</div>

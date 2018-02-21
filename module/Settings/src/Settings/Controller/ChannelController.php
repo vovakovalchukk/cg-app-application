@@ -39,6 +39,7 @@ class ChannelController extends AbstractActionController
     const ROUTE_ACCOUNT_STATUS = 'Status';
     const ROUTE_ACCOUNT_STOCK_MANAGEMENT = 'Stock Management';
     const ROUTE_ACCOUNT_AJAX = "Sales Channel Item Ajax";
+    const ROUTE_ACCOUNT_AUTO_LISTINGS_IMPORT = 'Auto Listings Import';
     const ROUTE = "Channel Management";
     const ROUTE_CHANNELS = "Channels";
     const ROUTE_AJAX = "ajax";
@@ -480,6 +481,23 @@ class ChannelController extends AbstractActionController
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
         $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
+        $response->setVariable(
+            'account',
+            $this->filterDataTableArrayFields($account)
+        );
+        return $response->setVariable('updated', true);
+    }
+
+    public function autoImportListingsAjaxAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
+        $account = $this->getAccountService()->fetch($this->params()->fromRoute('account'));
+        $autoImportListings = filter_var(
+            $this->params()->fromPost('autoImportListings', false),
+            FILTER_VALIDATE_BOOLEAN
+        );
+
+        $this->getAccountService()->save($account->setAutoImportListings($autoImportListings));
         $response->setVariable(
             'account',
             $this->filterDataTableArrayFields($account)

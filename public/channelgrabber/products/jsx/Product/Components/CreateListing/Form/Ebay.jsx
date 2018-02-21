@@ -79,15 +79,19 @@ define([
                 }
             });
         },
-        fetchAndSetChannelSpecificFieldValues: function(newAccountId) {
+        fetchAndSetChannelSpecificFieldValues: function(newAccountId, newSiteId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
+            var siteId = newSiteId ? newSiteId : this.props.site;
             this.setState({
                 listingDurationFieldValues: null
             });
             $.ajax({
                 context: this,
                 url: '/products/create-listings/' + accountId + '/channel-specific-field-values',
-                type: 'GET',
+                type: 'POST',
+                data: {
+                    siteId: siteId
+                },
                 success: function (response) {
                     this.setState({
                         currency: response.currency,
@@ -96,11 +100,24 @@ define([
                         availableSites: response.sites
                     });
 
-                    if (response.defaultSiteId) {
+                    if (newSiteId) {
+                        this.props.setFormStateListing({
+                            price: null,
+                            category: null,
+                            duration: null,
+                            dispatchTimeMax: null,
+                            shippingService: null,
+                            shippingPrice: null
+                        });
+                    } else if (response.defaultSiteId) {
                         this.props.setFormStateListing({site: response.defaultSiteId});
                     }
                 }
             });
+        },
+        onSiteChange: function(site) {
+            this.props.getSelectCallHandler('site')(site);
+            this.fetchAndSetChannelSpecificFieldValues(null, site.value);
         },
         onInputChange: function(event) {
             var newStateObject = {};
@@ -272,7 +289,7 @@ define([
                             options={this.getSelectOptions(this.state.availableSites)}
                             selectedOption={{name: this.state.availableSites[this.props.site]}}
                             autoSelectFirst={false}
-                            onOptionChange={this.props.getSelectCallHandler('site')}
+                            onOptionChange={this.onSiteChange}
                             title={this.getTooltipText('site')}
                         />
                     </div>
