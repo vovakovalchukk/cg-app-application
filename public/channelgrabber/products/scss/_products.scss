@@ -44,6 +44,11 @@
 
 .icon-create-listing {
     cursor: pointer;
+
+    i {
+        padding-left: 8px;
+    }
+
     &.inactive {
         color: #CCCCCC;
         cursor: auto;
@@ -70,6 +75,14 @@
 
 .js-product-search-by-sku {
     cursor: pointer;
+}
+
+.variation-picker {
+    input {
+        width: 60px;
+    }
+
+    min-width: 800px;
 }
 
 .product-container {

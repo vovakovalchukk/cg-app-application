@@ -3,48 +3,41 @@ namespace Products\Listing\Channel;
 
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Name;
 use CG\FeatureFlags\Service as FeatureFlagService;
 use CG\Listing\Client\Service as ListingService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Service
 {
-    const CHANNEL_FEATURE_FLAG_MAP = [
-        'ebay' => ListingService::FEATURE_FLAG_CREATE_LISTINGS,
-        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_SHOPIFY,
-        'big-commerce' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_BIGCOMMERCE
-    ];
+    const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
 
     /** @var  FeatureFlagService */
     protected $featureFlagService;
+    /** @var Name */
+    protected $channelName;
 
-    public function __construct(FeatureFlagService $featureFlagService)
+    public function __construct(FeatureFlagService $featureFlagService, Name $channelName)
     {
         $this->featureFlagService = $featureFlagService;
+        $this->channelName = $channelName;
     }
 
-    /**
-     * @param OrganisationUnit $ou
-     * @param AccountCollection $accounts
-     * @return array
-     */
-    public function getAllowedCreateListingsChannels(OrganisationUnit $ou, AccountCollection $accounts): array
-    {
+    public function getAllowedCreateListingsChannels(): array {
         $allowedChannels = [];
         /** @var Account $account */
-        foreach ($accounts as $account) {
-            if (!isset(static::CHANNEL_FEATURE_FLAG_MAP[$account->getChannel()])) {
-                continue;
-            }
-            if (isset($allowedChannels[$account->getChannel()])) {
-                continue;
-            }
-            $featureFlag = static::CHANNEL_FEATURE_FLAG_MAP[$account->getChannel()];
-            if (!$this->featureFlagService->isActive($featureFlag, $ou)) {
-                continue;
-            }
-            $allowedChannels[$account->getChannel()] = $account->getDisplayChannel() ?? ucfirst($account->getChannel());
+        foreach (static::CHANNELS_SUPPORTED as $channel) {
+            $allowedChannels[$channel] = $this->channelName->lookupChannel($channel, null, ucfirst($channel));
         }
         return $allowedChannels;
+    }
+
+    public function getAllowedCreateVariationListingsChannels(OrganisationUnit $rootOu)
+    {
+        if(!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS, $rootOu)) {
+            return [];
+        }
+
+        return $this->getAllowedCreateListingsChannels();
     }
 }

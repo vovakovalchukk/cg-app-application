@@ -3,6 +3,7 @@
 namespace Products\Controller;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as AccountCollection;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Listing\Entity as ListingEntity;
@@ -12,9 +13,6 @@ use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
-use CG\Product\Collection as ProductCollection;
-use CG\Product\Entity as Product;
-use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
@@ -25,15 +23,14 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
+use Products\Listing\Channel\Service as ListingChannelService;
+use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use Products\Product\Link\Service as ProductLinkService;
-use Products\Listing\Channel\Service as ListingChannelService;
-use CG\Account\Shared\Collection as AccountCollection;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -152,7 +149,8 @@ class ProductsJsonController extends AbstractActionController
                 $rootOrganisationUnit->getId()
             );
 
-            $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit, $accounts);
+            $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels();
+            $allowedCreateListingVariationsChannels = $this->listingChannelService->getAllowedCreateVariationListingsChannels($rootOrganisationUnit);
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
@@ -164,6 +162,7 @@ class ProductsJsonController extends AbstractActionController
             $total = $products->getTotal();
         } catch(NotFound $e) {
             $allowedCreateListingChannels = [];
+            $allowedCreateListingVariationsChannels = [];
             $accountsArray = [];
             //noop
         }
@@ -183,6 +182,7 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('products', $productsArray)
             ->setVariable('accounts', $accountsArray)
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
+            ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }

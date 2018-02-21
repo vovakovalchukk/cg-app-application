@@ -154,7 +154,7 @@ define([
         },
         render: function () {
             return <ClickOutside onClickOutside={this.onClickOutside}>
-                <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick} title={this.props.title}>
+                <div className={"custom-select "+ (this.state.active ? 'active' : '')+(this.state.disabled ? 'disabled' : '')} onClick={this.onClick} title={this.props.title}>
                         <div className="selected">
                             <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>

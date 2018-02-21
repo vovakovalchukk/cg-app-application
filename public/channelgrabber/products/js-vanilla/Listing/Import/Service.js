@@ -1,61 +1,123 @@
 define([
     'Listing/Import/Ajax',
-    'DomManipulator'
+    'popup/mustache'
 ], function (
     storage,
-    domManipulator
+    MustachePopup
 ) {
-    var Service = function ()
-    {
-        var dataTable;
+    var Service = function() {
+        var popup;
+        this.init = function() {
+            popup = new MustachePopup(
+                {
+                    'header': '/cg-built/products/template/popups/listing/header.mustache',
+                    'loading': '/cg-built/products/template/popups/listing/loading.mustache',
+                    'popup': '/cg-built/products/template/popups/listing/popup.mustache',
+                    'button': '/cg-built/zf2-v4-ui/templates/elements/buttons.mustache',
+                    'checkbox': '/cg-built/zf2-v4-ui/templates/elements/checkbox.mustache'
+                }
+            );
+            this.listenToCheckAll();
+            this.listenToDownload();
 
-        this.getDataTable = function()
-        {
-            return dataTable;
         };
-
-        this.setDataTable = function(newDataTable)
-        {
-            dataTable = newDataTable;
+        this.getPopup = function() {
+            return popup;
         };
     };
 
     Service.SELECTOR_REFRESH_BUTTON_SHADOW = '#refresh-button-shadow';
 
-    Service.prototype.refresh = function()
+    Service.prototype.listenToCheckAll = function()
     {
-        if (this.isRefreshing()) {
-            return;
-        }
-
-        var self = this;
-        this.refreshingState();
-        storage.refresh(function() {
-            self.refreshDatatable();
-            self.refreshState();
+        var popup = this.getPopup();
+        popup.getElement().on("change", "#listing-download-all", function() {
+            popup.getElement().find(":checkbox[name=accounts]:not(:disabled)").prop("checked", this.checked);
+            if (this.checked) {
+                popup.getElement().find("#listing-download-shadow").removeClass("disabled");
+            } else {
+                popup.getElement().find("#listing-download-shadow").addClass("disabled");
+            }
+        });
+        popup.getElement().on("change", ":checkbox[name=accounts]:not(:disabled)", function() {
+            popup.getElement().find("#listing-download-all").prop(
+                "checked",
+                (popup.getElement().find(":checkbox[name=accounts]:not(:checked):not(:disabled)").length == 0)
+            );
+            if (popup.getElement().find(":checkbox[name=accounts]:checked:not(:disabled)").length > 0) {
+                popup.getElement().find("#listing-download-shadow").removeClass("disabled");
+            } else {
+                popup.getElement().find("#listing-download-shadow").addClass("disabled");
+            }
         });
     };
 
-    Service.prototype.refreshDatatable = function()
+    Service.prototype.listenToDownload = function()
     {
-        this.getDataTable().redraw();
+        var self = this;
+        var popup = self.getPopup();
+        popup.getElement().on("click", "#listing-download", function(event) {
+            if (popup.getElement().find("#listing-download-shadow.disabled").length == 0) {
+                popup.getElement().find("#listing-download-shadow").addClass("disabled");
+                self.refresh(
+                    popup.getElement().find(":checkbox[name=accounts]:checked:not(:disabled)").map(function() {
+                        this.disabled = true;
+                        return this.value;
+                    }).get()
+                );
+                if (popup.getElement().find(":checkbox[name=accounts]:not(:disabled)").length == 0) {
+                    popup.getElement().find("#listing-download-all").prop("disabled", true);
+                }
+            }
+        });
     };
 
-    Service.prototype.refreshingState = function()
+    Service.prototype.refresh = function(accounts)
     {
-        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Downloading');
-        domManipulator.addClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
+        storage.refresh(accounts);
     };
 
-    Service.prototype.refreshState = function()
+    Service.prototype.displayPopup = function()
     {
-        domManipulator.setHtml(Service.SELECTOR_REFRESH_BUTTON_SHADOW + ' .title', 'Download listings');
-        domManipulator.removeClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
-    };
-
-    Service.prototype.isRefreshing = function()
-    {
-        return domManipulator.hasClass(Service.SELECTOR_REFRESH_BUTTON_SHADOW, 'disabled');
+        var popup = this.getPopup();
+        popup.hide();
+        popup.show(null, 'loading');
+        storage.refreshDetails(function(details) {
+            details.hasAccounts = false;
+            details.account = [];
+            var checkAllEnabled = false;
+            for (var accountId in details['accounts']) {
+                if (details['accounts'].hasOwnProperty(accountId)) {
+                    details.hasAccounts = true;
+                    details.account.push(Object.assign(
+                        {},
+                        details['accounts'][accountId],
+                        {'checkbox': {
+                            'id': 'listing-download-' + accountId,
+                            'name': 'accounts',
+                            'value': accountId,
+                            'disabled': !details['accounts'][accountId]['refreshAllowed']
+                        }}
+                    ));
+                    if (details['accounts'][accountId]['refreshAllowed']) {
+                        checkAllEnabled = true;
+                    }
+                }
+            }
+            details.download = {
+                'buttons': {
+                    'id': 'listing-download',
+                    'title': 'Download Listings',
+                    'disabled': true
+                }
+            };
+            details.checkall = {
+                'id': 'listing-download-all',
+                'disabled': !checkAllEnabled
+            };
+            popup.hide();
+            popup.show(details, 'popup');
+        });
     };
 
     return new Service();

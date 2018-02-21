@@ -5,6 +5,7 @@ define([
     'Product/Components/CreateListing/Form/Ebay',
     'Product/Components/CreateListing/Form/Shopify',
     'Product/Components/CreateListing/Form/BigCommerce',
+    'Product/Components/CreateListing/Form/WooCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
 ], function(
@@ -14,6 +15,7 @@ define([
     EbayForm,
     ShopifyForm,
     BigCommerceForm,
+    WooCommerceForm,
     Select,
     CreateListingUtils
 ) {
@@ -22,15 +24,18 @@ define([
     var channelToFormMap = {
         'ebay': EbayForm,
         'shopify': ShopifyForm,
-        'big-commerce': BigCommerceForm
+        'big-commerce': BigCommerceForm,
+        'woo-commerce': WooCommerceForm
     };
 
-    return React.createClass({
+    var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
             return {
                 product: null,
                 accounts: {},
-                availableChannels: {}
+                availableChannels: {},
+                availableVariationsChannels: {},
+                variationsDataForProduct: []
             }
         },
         getInitialState: function() {
@@ -43,7 +48,8 @@ define([
                 price: null,
                 weight: null,
                 errors: [],
-                warnings: []
+                warnings: [],
+                attributeNameMap: {}
             }
         },
         componentDidMount: function() {
@@ -57,13 +63,14 @@ define([
                 return;
             }
 
+            var productDetails = this.props.product.details ? this.props.product.details : {};
+
             this.setState({
                 productId: this.props.product.id,
                 title: this.props.product.name,
-                description: this.props.product.details.description ? this.props.product.details.description : null,
-                price: this.props.product.details.price ? this.props.product.details.price : null,
-                ean: this.props.product.details.ean  ? this.props.product.ean : null,
-                weight: this.props.product.details.weight ? this.props.product.details.weight : null
+                description: productDetails.description ? productDetails.description : null,
+                price: productDetails.price ? productDetails.price : null,
+                weight: productDetails.weight ? productDetails.weight : null
             });
         },
         setFormStateListing: function(listingFormState) {
@@ -87,6 +94,8 @@ define([
                 setFormStateListing={this.setFormStateListing}
                 getSelectCallHandler={this.getSelectCallHandler}
                 product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                fetchVariations={this.props.fetchVariations}
             />
         },
         onAccountSelected: function(selectValue) {
@@ -101,9 +110,11 @@ define([
         getAccountOptions: function() {
             var options = [];
 
+            var isSimpleProduct = this.props.product.variationCount == 0;
+            var accountsAvailableForProductType = isSimpleProduct ? this.props.availableChannels : this.props.availableVariationsChannels;
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, this.props.availableChannels)) {
+                if (CreateListingUtils.productCanListToAccount(account, accountsAvailableForProductType)) {
                     options.push({name: account.displayName, value: account.id});
                 }
             }
@@ -232,4 +243,6 @@ define([
             );
         }
     });
+
+    return CreateListingPopup;
 });

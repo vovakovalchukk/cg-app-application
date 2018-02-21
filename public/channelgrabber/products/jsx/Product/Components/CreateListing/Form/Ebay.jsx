@@ -4,6 +4,7 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
     'Common/Components/ImagePicker'
 ], function(
     React,
@@ -11,6 +12,7 @@ define([
     CurrencyInput,
     Input,
     CategorySelect,
+    VariationPicker,
     ImagePicker,
 ) {
     "use strict";
@@ -25,7 +27,9 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
-                ean: null
+                variations: [],
+                attributeNameMap: {},
+                listingType: null
             }
         },
         getInitialState: function() {
@@ -75,15 +79,19 @@ define([
                 }
             });
         },
-        fetchAndSetChannelSpecificFieldValues: function(newAccountId) {
+        fetchAndSetChannelSpecificFieldValues: function(newAccountId, newSiteId) {
             var accountId = newAccountId ? newAccountId : this.props.accountId;
+            var siteId = newSiteId ? newSiteId : this.props.site;
             this.setState({
                 listingDurationFieldValues: null
             });
             $.ajax({
                 context: this,
                 url: '/products/create-listings/' + accountId + '/channel-specific-field-values',
-                type: 'GET',
+                type: 'POST',
+                data: {
+                    siteId: siteId
+                },
                 success: function (response) {
                     this.setState({
                         currency: response.currency,
@@ -92,11 +100,24 @@ define([
                         availableSites: response.sites
                     });
 
-                    if (response.defaultSiteId) {
+                    if (newSiteId) {
+                        this.props.setFormStateListing({
+                            price: null,
+                            category: null,
+                            duration: null,
+                            dispatchTimeMax: null,
+                            shippingService: null,
+                            shippingPrice: null
+                        });
+                    } else if (response.defaultSiteId) {
                         this.props.setFormStateListing({site: response.defaultSiteId});
                     }
                 }
             });
+        },
+        onSiteChange: function(site) {
+            this.props.getSelectCallHandler('site')(site);
+            this.fetchAndSetChannelSpecificFieldValues(null, site.value);
         },
         onInputChange: function(event) {
             var newStateObject = {};
@@ -144,6 +165,11 @@ define([
                 imageId: image.id
             });
         },
+        onListingTypeSelected: function(listingType) {
+            this.props.setFormStateListing({
+                listingType: listingType.value
+            });
+        },
         renderImagePicker: function() {
             if (this.props.product.images.length == 0) {
                 return (
@@ -176,21 +202,67 @@ define([
             };
             return tooltips[inputFieldName];
         },
-        getBarcodeErrors: function() {
-            var errors = [];
-            var EAN_LENGTH = 13;
-            if (!this.props.ean || this.props.ean.length == 0) {
-                return errors;
+        getChannelSpecificVariationFields: function() {
+            return {
+                ean: {
+                    displayName: 'Barcode',
+                    getFormComponent: function(value, onChange) {
+                        return <Input
+                            name="ean"
+                            value={value}
+                            onChange={onChange}
+                        />
+                    },
+                    getDefaultValueFromVariation: function(variation) {
+                        return variation.details.ean;
+                    }
+                }
+            }
+        },
+        renderVariationPicker: function () {
+            var variationsDataForProduct = this.props.variationsDataForProduct;
+            var attributeNames = this.props.product.attributeNames;
+            if (this.props.variationsDataForProduct.length == 0) {
+                variationsDataForProduct = [this.props.product];
+                attributeNames = [];
             }
 
-            if (this.props.ean.length != EAN_LENGTH) {
-                errors.push('Barcode must be 13 characters long');
+            return <VariationPicker
+                variationsDataForProduct={variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                attributeNames={attributeNames}
+                attributeNameMap={this.props.attributeNameMap}
+                editableAttributeNames={true}
+                channelSpecificFields={this.getChannelSpecificVariationFields()}
+                currency={this.state.currency}
+                listingType={this.props.listingType}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
+        },
+        renderVariationListingType: function()
+        {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
             }
-
-            if (!this.props.ean.match(new RegExp('^[0-9]+$'))) {
-                errors.push('Barcode must be numbers only');
-            }
-            return errors;
+            var multiVariation = (this.props.variations && Object.keys(this.props.variations).length > 1);
+            var options = [
+                {"value": "variation", "name": "Variation Product", "selected": multiVariation},
+                {"value": "single", "name": "Single Product"}
+            ];
+            return <label>
+                <span className={"inputbox-label"}>Listing Type:</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        options={options}
+                        autoSelectFirst={false}
+                        onOptionChange={this.onListingTypeSelected}
+                        disabled={multiVariation}
+                        selectedOption={multiVariation ? options[0] : null}
+                    />
+                </div>
+            </label>;
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -207,6 +279,8 @@ define([
             }
 
             return <div>
+                {this.renderVariationPicker()}
+                {this.renderVariationListingType()}
                 <label>
                     <span className={"inputbox-label"}>Site:</span>
                     <div className={"order-inputbox-holder"}>
@@ -215,7 +289,7 @@ define([
                             options={this.getSelectOptions(this.state.availableSites)}
                             selectedOption={{name: this.state.availableSites[this.props.site]}}
                             autoSelectFirst={false}
-                            onOptionChange={this.props.getSelectCallHandler('site')}
+                            onOptionChange={this.onSiteChange}
                             title={this.getTooltipText('site')}
                         />
                     </div>
@@ -228,17 +302,6 @@ define([
                             value={this.props.title}
                             onChange={this.onInputChange}
                             title={this.getTooltipText('title')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            value={this.props.price}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('price')}
                         />
                     </div>
                 </label>
@@ -256,18 +319,6 @@ define([
                 <label>
                     <span className={"inputbox-label"}>Image</span>
                     {this.renderImagePicker()}
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Barcode</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="ean"
-                            value={this.props.ean}
-                            onChange={this.onInputChange}
-                            title={this.getTooltipText('ean')}
-                            errors={this.getBarcodeErrors()}
-                        />
-                    </div>
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}
