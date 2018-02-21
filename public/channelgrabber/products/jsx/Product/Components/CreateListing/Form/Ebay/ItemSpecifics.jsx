@@ -245,8 +245,8 @@ define([
         },
         onOptionalItemSpecificSelect: function (field) {
             // Do no render the same field twice
-            for (var i = 0; i < this.state.optionalItemSpecifics.length; i++) {
-                if (this.state.optionalItemSpecifics[i].name == field.name) {
+            for (var index = 0; index < this.state.optionalItemSpecifics.length; index++) {
+                if (this.state.optionalItemSpecifics[index].name == field.name) {
                     return;
                 }
             }
