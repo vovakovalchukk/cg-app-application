@@ -23,23 +23,21 @@ class Service
         $this->channelName = $channelName;
     }
 
-    public function getAllowedCreateListingsChannels(
-        OrganisationUnit $rootOu,
-        $variationCreateListings = false
-    ): array {
+    public function getAllowedCreateListingsChannels(): array {
         $allowedChannels = [];
-
-        if (
-            $variationCreateListings
-            && !$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS, $rootOu)
-        ) {
-            return $allowedChannels;
-        }
-
         /** @var Account $account */
         foreach (static::CHANNELS_SUPPORTED as $channel) {
             $allowedChannels[$channel] = $this->channelName->lookupChannel($channel, null, ucfirst($channel));
         }
         return $allowedChannels;
+    }
+
+    public function getAllowedCreateVariationListingsChannels(OrganisationUnit $rootOu)
+    {
+        if(!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS, $rootOu)) {
+            return [];
+        }
+
+        return $this->getAllowedCreateListingsChannels();
     }
 }
