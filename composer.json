@@ -74,7 +74,7 @@
         "channelgrabber/user": "~1.23.2",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
-        "channelgrabber/woocommerce": "dev-LIS-80-woocommerce-listing-variation-creation as 1.2.25",
+        "channelgrabber/woocommerce": "dev-EPIC-LIS-73-create-variation-listings as 1.2.25",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.1.5",
         "channelgrabber/zf2-api": "~1.0.0",
