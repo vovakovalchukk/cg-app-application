@@ -15,6 +15,7 @@ use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
 use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\ExternalData\Entity as CategoryExternal;
+use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
@@ -116,7 +117,7 @@ class Service implements
         ];
     }
 
-    protected function fetchEbayCategoryData(Account $account,int $externalCategoryId): ?Data
+    protected function fetchEbayCategoryData(Account $account, int $externalCategoryId): ?Data
     {
         try {
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
@@ -132,6 +133,25 @@ class Service implements
         }
     }
 
+    /**
+     * @return Data[]
+     */
+    protected function fetchEbayCategoriesData(CategoryCollection $categories): array
+    {
+        $data = [];
+        try {
+            $filter = (new CategoryExternalFilter('all', 1))->setCategoryId($categories->getIds());
+            $categoryExternals = $this->categoryExternalService->fetchCollectionByFilter($filter);
+            /** @var CategoryExternal $categoryExternal */
+            foreach ($categoryExternals as $categoryExternal) {
+                $data[$categoryExternal->getCategoryId()] = $categoryExternal->getData();
+            }
+        } catch (NotFound $exception) {
+            // Not Category data for requested categories
+        }
+        return $data;
+    }
+
     protected function getListingDurationsFromEbayCategoryData(?Data $ebayData): array
     {
         if (!$ebayData) {
@@ -139,6 +159,11 @@ class Service implements
         }
         $listingDurations = (new FeatureHelper($ebayData))->getListingDurationsForType();
         return $this->formatListingDurationsArray($listingDurations);
+    }
+
+    protected function getVariationsEnabledFromEbayCategoryData(?Data $ebayData): bool
+    {
+        return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
     }
 
     protected function getItemSpecificsFromEbayCategoryData(?Data $ebayData): array
@@ -268,10 +293,15 @@ class Service implements
 
     protected function formatCategoriesArray(CategoryCollection $categories): array
     {
+        $externalData = $this->fetchEbayCategoriesData($categories);
+
         $categoryOptions = [];
         /** @var Category $category */
         foreach ($categories as $category) {
-            $categoryOptions[$category->getExternalId()] = $category->getTitle();
+            $categoryOptions[$category->getExternalId()] = [
+                'title' => $category->getTitle(),
+                'variations' => $this->getVariationsEnabledFromEbayCategoryData($externalData[$category->getId()] ?? null),
+            ];
         }
         return $categoryOptions;
     }
