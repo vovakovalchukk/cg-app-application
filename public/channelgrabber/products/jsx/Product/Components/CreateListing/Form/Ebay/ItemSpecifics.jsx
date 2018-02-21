@@ -304,11 +304,9 @@ define([
                 fields = [fields];
             }
 
-            selectedItemSpecifics[title] = [];
-            for (var key in fields) {
-                var item = fields[key];
-                selectedItemSpecifics[title].push(item.value);
-            }
+            selectedItemSpecifics[title] = fields.map(function(item) {
+                return item.value;
+            });
 
             this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({
