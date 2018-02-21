@@ -155,7 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8661ffdc98d798edc6a7b9b62b6da8f4df6dab13"
+                "reference": "e943143dba226ae7506f2ba4505d98a883e2c29b"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
