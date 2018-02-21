@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "edee7df8f9f88b557e50f8a3bf58adb7",
+    "content-hash": "7e6e7f29d282aa4d91c2baac8ae02f6a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3153,7 +3153,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "9f308d236d545e102da48fd98f6c8dbf2e628e49"
+                "reference": "263ed645ecfad7efdc4947ffb8548d4fd38d93a6"
             },
             "require": {
                 "channelgrabber/channel": "^1.32.8",
