@@ -11,11 +11,15 @@ define([
         };
     };
 
-    Ajax.prototype.refresh = function(callback)
+    Ajax.prototype.refresh = function(accounts)
     {
-        this.getAjaxRequester().sendRequest('/products/listing/import/refresh', {}, function()
-        {
-            callback();
+        this.getAjaxRequester().sendRequest('/products/listing/import/refresh', {accounts: accounts || []});
+    };
+
+    Ajax.prototype.refreshDetails = function(callback)
+    {
+        this.getAjaxRequester().sendRequest('/products/listing/import/refreshDetails', {}, function(details) {
+            callback(details);
         });
     };
 
