@@ -24,7 +24,9 @@ define([
             }
         },
         buildItemSpecificsInputs: function() {
-            var itemSpecifics = [], requiredItems, optionalItems;
+            var itemSpecifics = [];
+            var requiredItems;
+            var optionalItems;
 
             if (requiredItems = this.props.itemSpecifics.required) {
                 var required = [];
@@ -297,8 +299,8 @@ define([
             return <span>{itemSpecifics}</span>;
         },
         onItemSpecificSelected: function(fields, title) {
-            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics)),
-                values = [];
+            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+            var values = [];
 
             if (!Array.isArray(fields)) {
                 fields = [fields];
