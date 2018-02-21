@@ -157,16 +157,19 @@ define([
             if (!listing.additionalValues) {
                 return listing;
             }
-            $.each(listing.additionalValues, function (key, values) {
-                $.each(values, function(i, item) {
-                    if (item.name && item.value) {
-                        if (!listing[key]) {
-                            listing[key] = {};
-                        }
-                        listing[key][item.name] = item.value;
+            for (var key in listing.additionalValues) {
+                var values = listing.additionalValues[key];
+                for (var key2 in values) {
+                    var item = values[key2];
+                    if (!item.name || !item.value) {
+                        continue;
                     }
-                });
-            });
+                    if (!listing[key]) {
+                        listing[key] = {};
+                    }
+                    listing[key][item.name] = item.value;
+                }
+            }
             delete listing.additionalValues;
             return listing;
         },
