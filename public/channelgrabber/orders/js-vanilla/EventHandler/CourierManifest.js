@@ -33,8 +33,19 @@ define([], function()
     CourierManifest.prototype.listenForGenerateButtonClick = function()
     {
         var service = this.getService();
-        $(CourierManifest.SELECTOR_GENERATE_BUTTON+'-shadow').off('click').on('click', function()
+        $(CourierManifest.SELECTOR_GENERATE_BUTTON+'-shadow').off('click').on('click', function(event)
         {
+            console.log(event);
+            console.log('HELLO');
+            console.log(event.currentTarget.classList);
+
+            tokenList = event.currentTarget.classList;
+
+            if (tokenList.contains('disabled')) {
+                console.log('HELLO RETURN');
+                return this;
+            }
+            console.log('HELLO 2');
             service.generateManifest();
         });
         return this;
