@@ -231,6 +231,7 @@ define([
 
             return <VariationPicker
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                images={false}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
                 attributeNames={this.props.product.attributeNames}

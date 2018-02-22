@@ -49,3 +49,28 @@
   }
 }
 
+.image-dropdown-target {
+  .react-image-picker {
+    width: 110px !important;
+    overflow: initial;
+    background-color: $color-white;
+    cursor: pointer;
+    margin: auto;
+  }
+
+  .sprite-arrow-up-10-black, .sprite-arrow-down-10-black {
+    float: right;
+    margin-right: 5px;
+    margin-top: 25px;
+    transition: none !important;
+  }
+}
+
+.image-dropdown-element {
+  z-index: 999;
+
+  .react-image-picker {
+    background-color: $color-white;
+  }
+}
+
