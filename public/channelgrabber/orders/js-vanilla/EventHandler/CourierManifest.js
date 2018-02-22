@@ -35,17 +35,12 @@ define([], function()
         var service = this.getService();
         $(CourierManifest.SELECTOR_GENERATE_BUTTON+'-shadow').off('click').on('click', function(event)
         {
-            console.log(event);
-            console.log('HELLO');
-            console.log(event.currentTarget.classList);
-
             tokenList = event.currentTarget.classList;
-
             if (tokenList.contains('disabled')) {
                 service.closeManifestPopupAsNoOrdersToProcess();
                 return this;
             }
-            console.log('HELLO 2');
+
             service.generateManifest();
         });
         return this;
