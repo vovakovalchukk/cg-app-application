@@ -3153,12 +3153,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "3191d30b946ab7b1178c73a69fcf5fef7b176ba2"
+                "reference": "263ed645ecfad7efdc4947ffb8548d4fd38d93a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-LIS-73-create-variation-listings-9d4b95.zip",
-                "reference": "3191d30b946ab7b1178c73a69fcf5fef7b176ba2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-LIS-73-create-variation-listings-34dea0.zip",
+                "reference": "263ed645ecfad7efdc4947ffb8548d4fd38d93a6",
                 "shasum": null
             },
             "require": {
@@ -3192,7 +3192,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-14T14:07:26+00:00"
+            "time": "2018-02-21T12:24:43+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
