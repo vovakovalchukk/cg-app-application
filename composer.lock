@@ -155,13 +155,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "e943143dba226ae7506f2ba4505d98a883e2c29b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-9239-notification_email-20f179.zip",
-                "reference": "e943143dba226ae7506f2ba4505d98a883e2c29b",
-                "shasum": null
+                "reference": "e2a3b353046568adcadaf11ed29aa4005a7e7a10"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -9522,8 +9516,8 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
