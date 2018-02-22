@@ -25,10 +25,10 @@ define([
         },
         buildItemSpecificsInputs: function() {
             var itemSpecifics = [];
-            var requiredItems;
-            var optionalItems;
+            var requiredItems = this.props.itemSpecifics.required;
+            var optionalItems = this.props.itemSpecifics.optional;
 
-            if (requiredItems = this.props.itemSpecifics.required) {
+            if (requiredItems && Object.keys(requiredItems).length > 0) {
                 var required = [];
                 for (var name in requiredItems) {
                     var properties = requiredItems[name];
@@ -36,7 +36,7 @@ define([
                 }
                 itemSpecifics.push(<span><b>Item Specifics (Required)</b>{required}</span>);
             }
-            if (optionalItems = this.props.itemSpecifics.optional) {
+            if (optionalItems && Object.keys(optionalItems).length > 0) {
                 itemSpecifics.push(
                     <label>
                         <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
