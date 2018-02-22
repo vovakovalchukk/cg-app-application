@@ -228,6 +228,7 @@ define([
             }
 
             return <VariationPicker
+                images={false}
                 variationsDataForProduct={variationsDataForProduct}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
