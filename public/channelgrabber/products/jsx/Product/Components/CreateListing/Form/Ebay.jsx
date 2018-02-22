@@ -95,7 +95,12 @@ define([
                 success: function (response) {
                     this.setState({
                         currency: response.currency,
-                        rootCategories: response.category,
+                        /**
+                         * We cannot set rootCategories on this version of the code because the API has started returning
+                         * {<categoryId>: {<title>: <listingName, <variations>: <bool>}} which does not work with the UI
+                         * You will need to uncomment this line in LIS-84
+                         */
+                        // rootCategories: response.category
                         shippingServiceFieldValues: response.shippingService,
                         availableSites: response.sites
                     });
@@ -220,18 +225,15 @@ define([
             }
         },
         renderVariationPicker: function () {
-            var variationsDataForProduct = this.props.variationsDataForProduct;
-            var attributeNames = this.props.product.attributeNames;
             if (this.props.variationsDataForProduct.length == 0) {
-                variationsDataForProduct = [this.props.product];
-                attributeNames = [];
+                return;
             }
 
             return <VariationPicker
-                variationsDataForProduct={variationsDataForProduct}
+                variationsDataForProduct={this.props.variationsDataForProduct}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
-                attributeNames={attributeNames}
+                attributeNames={this.props.product.attributeNames}
                 attributeNameMap={this.props.attributeNameMap}
                 editableAttributeNames={true}
                 channelSpecificFields={this.getChannelSpecificVariationFields()}
