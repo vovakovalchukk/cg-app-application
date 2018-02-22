@@ -41,6 +41,7 @@ define([
             if (newProps.selectedOption && newProps.selectedOption.name !== "") {
                 this.setState({
                     selectedOption: newProps.selectedOption,
+                    options: newProps.options
                 });
             }
         },
