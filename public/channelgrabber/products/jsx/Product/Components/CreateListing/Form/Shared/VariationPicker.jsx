@@ -2,12 +2,14 @@ define([
     'react',
     'Product/Components/Checkbox',
     'Common/Components/CurrencyInput',
-    'Common/Components/EditableField'
+    'Common/Components/EditableField',
+    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
 ], function(
     React,
     Checkbox,
     CurrencyInput,
-    EditableField
+    EditableField,
+    ImageDropDown
 ) {
     "use strict";
 
@@ -17,6 +19,7 @@ define([
                 variationsDataForProduct: [],
                 product: {},
                 currency: '£',
+                images: true,
                 attributeNames: [],
                 editableAttributeNames: false,
                 attributeNameMap: {},
@@ -49,6 +52,10 @@ define([
                 variationsFormState[currentVariation.id] = {
                     checked: true,
                     price: currentVariation.details ? currentVariation.details.price : null
+                }
+
+                if (this.props.images && currentVariation.images.length != 0) {
+                    variationsFormState[currentVariation.id]['imageId'] = currentVariation.images[0].id;
                 }
 
                 for (var fieldName in this.props.channelSpecificFields) {
@@ -163,10 +170,31 @@ define([
                 </td>;
             }.bind(this));
         },
+        renderImageHeader: function() {
+            if (!this.props.images) {
+                return;
+            }
+            return <td>Image</td>;
+        },
         renderAttributeColumns: function(variation) {
             return this.props.attributeNames.map(function(attributeName) {
                 return <td>{variation.attributeValues[attributeName]}</td>
             });
+        },
+        renderImageColumn: function(variation) {
+            if (!this.props.images) {
+                return;
+            }
+            if (variation.images.length == 0) {
+                return <td>No images available</td>
+            }
+            return <td>
+                <ImageDropDown
+                    selected={variation.images[0]}
+                    images={variation.images}
+                    onChange={this.onVariationValueChange.bind(this, variation.id, 'imageId')}
+                />
+            </td>;
         },
         renderVariationRows: function () {
             return this.props.variationsDataForProduct.map(function(variation) {
@@ -180,6 +208,7 @@ define([
                     </td>
                     <td>{variation.sku}</td>
                     {this.renderAttributeColumns(variation)}
+                    {this.renderImageColumn(variation)}
                     <td>
                         <CurrencyInput
                             value={this.state.variationsFormState[variation.id]? this.state.variationsFormState[variation.id].price: null}
@@ -222,9 +251,10 @@ define([
                     <table>
                         <tr>
                             <td><Checkbox onClick={this.onCheckAll} isChecked={this.state.allChecked} /></td>
-                            <td>sku</td>
+                            <td>SKU</td>
                             {this.renderAttributeHeaders()}
-                            <td>price</td>
+                            {this.renderImageHeader()}
+                            <td>Price</td>
                             {this.renderChannelSpecificFieldHeaders()}
                         </tr>
                         {this.renderVariationRows()}
