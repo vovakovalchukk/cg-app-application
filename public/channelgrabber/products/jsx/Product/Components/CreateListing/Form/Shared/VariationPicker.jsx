@@ -78,6 +78,7 @@ define([
                 listingFormVariationState = null;
                 listingType = 'single';
             }
+
             this.props.setFormStateListing({
                 variations: listingFormVariationState,
                 productId: productId,
@@ -123,7 +124,7 @@ define([
         onCheckAll: function() {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
 
-            var newCheckedState = this.state.allChecked ? false : true;
+            var newCheckedState = ! this.state.allChecked;
             for (var variationId in variationsFormState) {
                 variationsFormState[variationId].checked = newCheckedState;
             }
@@ -134,13 +135,9 @@ define([
             })
         },
         shouldComponentUpdate(nextProps, nextState) {
-            if (nextState.variationsFormState != this.state.variationsFormState ||
-                this.props.variationsDataForProduct != nextProps.variationsDataForProduct ||
-                nextProps.listingType != this.props.listingType
-            ) {
-                return true;
-            }
-            return false;
+            return nextState.variationsFormState != this.state.variationsFormState
+                || this.props.variationsDataForProduct != nextProps.variationsDataForProduct
+                || nextProps.listingType != this.props.listingType;
         },
         onVariationValueChange: function(variationId, fieldName, event) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
