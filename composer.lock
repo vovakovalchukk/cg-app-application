@@ -699,17 +699,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.27",
+            "version": "dev-CGIV-9244-unable_to_create_manifest",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c764a3d0e37ed7c7144288b77d843c8e23bb2a7a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.27-abb7da.zip",
-                "reference": "c764a3d0e37ed7c7144288b77d843c8e23bb2a7a",
-                "shasum": null
+                "reference": "d9fc6fa49eba9381aae7c701d55f5e55073234e1"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -9509,13 +9503,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.28",
+            "alias_normalized": "1.0.28.0",
+            "version": "dev-CGIV-9244-unable_to_create_manifest",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
