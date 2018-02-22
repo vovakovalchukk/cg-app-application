@@ -1,0 +1,14 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'SetupWizard': '<?= $this->basePath() . SetupWizard\Module::PUBLIC_FOLDER ?>js'
+    }
+});
+require(['react', 'react-dom', 'SetupWizard/Component/Complete/Callback'], function(React, ReactDOM, CallbackComponent) {
+    ReactDOM.render(
+        React.createElement(CallbackComponent, {callNow: <?= $this->callNow ? 'true' : 'false' ?>}),
+        document.getElementById('setup-wizard-complete-callback')
+    );
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="setup-wizard-complete-callback" class="setup-wizard-complete setup-wizard-complete-callback"></div>

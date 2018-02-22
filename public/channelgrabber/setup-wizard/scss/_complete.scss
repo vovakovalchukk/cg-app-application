@@ -1,23 +1,37 @@
+@import '../../zf2-v4-ui/scss/common/library/_flexbox.scss';
+
 .setup-wizard-complete {
     font-size: 32px;
     color: $color-mgrey;
+    margin: auto;
+    text-align: center;
 }
 
-.setup-wizard-complete-thanks {
-    margin-bottom: 30px;
-    
-    img {
-        vertical-align: middle;
-        padding-right: 30px;
+.setup-wizard-complete-header {
+    font-size: 60px;
+}
+
+.setup-wizard-complete-thanks > div {
+    margin-top: 25px;
+}
+
+.setup-wizard-complete-footer {
+    font-size: 28px;
+}
+
+.setup-wizard-complete-callback {
+    .callback-buttons {
+        @include flexbox();
+        @include justify-content(center);
+        padding-top: 50px;
     }
-}
 
-.setup-wizard-complete-congrats {
-    padding-left:30px !important;
-    padding-right:30px !important;
-}
-
-.setup-wizard-complete-name,
-.setup-wizard-complete-oh {
-    font-weight: bold;
+    .callback-button {
+        margin: 15px;
+        padding: 15px;
+        border-radius: 25px;
+        color: $color-white;
+        background-color: $color-green;
+        cursor: pointer;
+    }
 }

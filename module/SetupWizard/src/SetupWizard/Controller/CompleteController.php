@@ -2,12 +2,13 @@
 namespace SetupWizard\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
-use SetupWizard\Controller\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CompleteController extends AbstractActionController
 {
     const ROUTE_COMPLETE = 'Complete';
+    const BUSINESS_HOURS_START = '09:00:00';
+    const BUSINESS_HOURS_END = '16:00:00';
 
     /** @var Service */
     protected $service;
@@ -16,51 +17,56 @@ class CompleteController extends AbstractActionController
 
     public function __construct(Service $service, ViewModelFactory $viewModelFactory)
     {
-        $this->setService($service)
-            ->setViewModelFactory($viewModelFactory);
+        $this->service = $service;
+        $this->viewModelFactory = $viewModelFactory;
     }
 
     public function indexAction()
     {
-        $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/complete/index');
-        $view->setVariable('name', $this->getActiveUsersName());
-
-        return $this->service->getSetupView('Complete', $view, $this->getFooterView());
+        if ($this->params()->fromQuery('thanks')) {
+            return $this->service->getSetupView($this->getHeader(), $this->getThanks(), false);
+        }
+        return $this->service->getSetupView($this->getHeader(), $this->getCallback(), $this->getFooterView());
     }
 
-    protected function getActiveUsersName()
+    protected function getHeader()
     {
-        return $this->service->getActiveUser()->getFirstName();
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('setup-wizard/complete/header');
+        return $view;
+    }
+
+    protected function getThanks()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('setup-wizard/complete/thanks');
+        return $view;
+    }
+
+    protected function getCallback()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('setup-wizard/complete/callback');
+        $view->setVariable('callNow', $this->canCallNow());
+        return $view;
+    }
+
+    protected function canCallNow(\DateTime $now = null): bool
+    {
+        $now = $now ?? new \DateTime();
+        if ($now < new \DateTime(static::BUSINESS_HOURS_START)) {
+            return false;
+        }
+        if ($now > new \DateTime(static::BUSINESS_HOURS_END)) {
+            return false;
+        }
+        return true;
     }
 
     protected function getFooterView()
     {
-        $nextUri = $this->url()->fromRoute('home');
-        $footer = $this->viewModelFactory->newInstance([
-            'buttons' => [
-                [
-                    'value' => 'Done',
-                    'id' => 'setup-wizard-done-button',
-                    'class' => 'setup-wizard-next-button setup-wizard-done-button',
-                    'disabled' => false,
-                    'action' => $nextUri,
-                ]
-            ]
-        ]);
-        $footer->setTemplate('elements/buttons.mustache');
+        $footer = $this->viewModelFactory->newInstance();
+        $footer->setTemplate('setup-wizard/complete/footer');
         return $footer;
-    }
-
-    protected function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
     }
 }
