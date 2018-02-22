@@ -42,7 +42,7 @@ define([], function()
             tokenList = event.currentTarget.classList;
 
             if (tokenList.contains('disabled')) {
-                console.log('HELLO RETURN');
+                service.closeManifestPopupAsNoOrdersToProcess();
                 return this;
             }
             console.log('HELLO 2');

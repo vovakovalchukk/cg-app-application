@@ -275,24 +275,11 @@ define([
         $(CourierManifest.SELECTOR_GENERATE_FORM).submit();
     };
 
-    CourierManifest.prototype.noOrdersToProcess = function()
+    CourierManifest.prototype.closeManifestPopupAsNoOrdersToProcess = function()
     {
-        var self = this;
         this.getNotificationHandler().notice('Open orders have not been found to generate manifest');
         this.getPopup().hide();
-        this.getAjaxRequester().sendRequest(CourierManifest.URL_GENERATE, {"account": accountId}, function(response)
-        {
-            if (response.id) {
-                self.getNotificationHandler().success('Manifest generated successfully, now downloading...');
-                self.sendPrintManifestRequest(response.id);
-            } else {
-                self.getNotificationHandler().success('Manifest generated and sent to courier successfully.');
-            }
-            self.removePopup();
-        }, function(response)
-        {
-            self.ajaxError(response);
-        });
+        this.removePopup();
     };
 
     CourierManifest.prototype.historicYearSelected = function(year)
