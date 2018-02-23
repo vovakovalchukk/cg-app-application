@@ -48,6 +48,8 @@ class CompleteController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/complete/callback');
         $view->setVariable('callNow', $this->canCallNow());
+        $view->setVariable('callLater', 'https://samgilbert.youcanbook.me');
+        $view->setVariable('thanks', $this->url()->fromRoute(null, [], ['query' => ['thanks' => true]]));
         return $view;
     }
 

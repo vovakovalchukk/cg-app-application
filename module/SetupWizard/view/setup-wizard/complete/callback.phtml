@@ -6,7 +6,11 @@ require.config({
 });
 require(['react', 'react-dom', 'SetupWizard/Component/Complete/Callback'], function(React, ReactDOM, CallbackComponent) {
     ReactDOM.render(
-        React.createElement(CallbackComponent, {callNow: <?= $this->callNow ? 'true' : 'false' ?>}),
+        React.createElement(CallbackComponent, {
+            callNow: <?= $this->callNow ? 'true' : 'false' ?>,
+            callLater: "<?= $this->callLater ?>",
+            thanks: "<?= $this->thanks ?>"
+        }),
         document.getElementById('setup-wizard-complete-callback')
     );
 });
