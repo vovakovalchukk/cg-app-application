@@ -25,9 +25,12 @@ define([
             return {
                 searchTerm: '',
                 inputFocus: false,
-                selectedOption: this.props.selectedOption,
+                selectedOption: {
+                    name: '',
+                    value: ''
+                },
                 active: false,
-                options: this.props.options,
+                options: [],
                 disabled: false
             }
         },
@@ -36,14 +39,39 @@ define([
                 active: false
             });
         },
-        componentWillReceiveProps: function (newProps) {
-            this.setState({disabled: newProps.disabled});
-            if (newProps.selectedOption && newProps.selectedOption.name !== "") {
-                this.setState({
-                    selectedOption: newProps.selectedOption,
-                    options: newProps.options
-                });
+        componentDidMount: function() {
+            var selectedOption = this.props.selectedOption;
+            if (!this.isSelectedOptionAvailable(selectedOption, this.props.options)) {
+                selectedOption = this.getDefaultSelectedOption();
             }
+            this.setState({
+                disabled: this.props.disabled,
+                options: this.props.options,
+                selectedOption: selectedOption
+            });
+        },
+        componentWillReceiveProps: function (newProps) {
+            var selectedOption = (newProps.selectedOption && newProps.selectedOption.name !== "" ? newProps.selectedOption : this.state.selectedOption);
+            if (!this.isSelectedOptionAvailable(selectedOption, newProps.options)) {
+                selectedOption = this.getDefaultSelectedOption();
+            }
+            this.setState({
+                disabled: newProps.disabled,
+                options: newProps.options,
+                selectedOption: selectedOption
+            });
+        },
+        getDefaultSelectedOption: function() {
+            return {name: '', value: ''};
+        },
+        isSelectedOptionAvailable: function(selectedOption, options) {
+            if (selectedOption == undefined || selectedOption.name == '') {
+                return true;
+            }
+            var indexOfSelectedOption = options.findIndex(function(option) {
+                return option.name == selectedOption.name;
+            });
+            return (indexOfSelectedOption > -1);
         },
         onClick: function (e) {
             if (this.state.disabled) {
@@ -69,11 +97,15 @@ define([
             var selectedOption = this.state.options.find(function (option) {
                 return option.value === value;
             });
-            this.callBackOnOptionSelectChanged(selectedOption);
+
             this.setState({
                 selectedOption: selectedOption,
                 active: false
-            });
+            }, function() {
+                // We need the state to finish updating before we update the parent because that triggers
+                // a re-render before the state of this would have been updated and we'll lose it
+                this.callBackOnOptionSelectChanged(selectedOption);
+            }.bind(this));
         },
         callBackOnOptionSelectChanged: function(selectedOption) {
             if (this.props.onOptionChange) {
