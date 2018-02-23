@@ -275,6 +275,13 @@ define([
         $(CourierManifest.SELECTOR_GENERATE_FORM).submit();
     };
 
+    CourierManifest.prototype.closeManifestPopupAsNoOrdersToProcess = function()
+    {
+        this.getNotificationHandler().notice('Open orders have not been found to generate manifest');
+        this.getPopup().hide();
+        this.removePopup();
+    };
+
     CourierManifest.prototype.historicYearSelected = function(year)
     {
         var self = this;
