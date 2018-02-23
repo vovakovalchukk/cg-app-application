@@ -10,6 +10,11 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
                 ajax: null
             };
         },
+        getInitialState: function() {
+            return {
+                loading: false
+            };
+        },
         handleCallNow: function() {
             this.sendAjaxNotification(true, this.props.thanks);
         },
@@ -17,8 +22,14 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
             this.sendAjaxNotification(false, this.props.callLater);
         },
         sendAjaxNotification: function(callNow, redirect) {
+            this.setState({loading: true});
             if (this.props.ajax) {
-                ajaxRequester.sendRequest(this.props.ajax, {callNow: callNow ? 1 : 0}, this.redirect.bind(this, redirect));
+                ajaxRequester.sendRequest(
+                    this.props.ajax,
+                    {callNow: callNow ? 1 : 0},
+                    this.redirect.bind(this, redirect),
+                    this.setState.bind(this, {loading: false})
+                );
             } else {
                 this.redirect(redirect);
             }
@@ -29,26 +40,38 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
             }
         },
         renderCallNow: function() {
+            var buttons = [];
+            if (!this.state.loading) {
+                buttons.push(this.renderButton('Call Now', this.handleCallNow));
+                buttons.push(this.renderButton('Call Later', this.handleCallLater));
+            } else {
+                buttons.push(this.renderLoader())
+            }
             return(
                 <div>
                     <div className="callback-message">
                         Click below to let us know when you are free for one of our product specialists to contact you to activate your trial.
                     </div>
                     <div className="callback-buttons">
-                        {this.renderButton('Call Now', this.handleCallNow)}
-                        {this.renderButton('Call Later', this.handleCallLater)}
+                        {buttons}
                     </div>
                 </div>
             );
         },
         renderCallLater: function() {
+            var buttons = [];
+            if (!this.state.loading) {
+                buttons.push(this.renderButton('Book your activation call now', this.handleCallLater));
+            } else {
+                buttons.push(this.renderLoader())
+            }
             return(
                 <div>
                     <div className="callback-message">
                         Click below to book a call with one of our product specialists to activate your trial.
                     </div>
                     <div className="callback-buttons">
-                        {this.renderButton('Book your activation call now', this.handleCallLater)}
+                        {buttons}
                     </div>
                 </div>
             );
@@ -56,6 +79,11 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
         renderButton: function(message, callback) {
             return(
                 <div className="callback-button" onClick={callback}>{message}</div>
+            );
+        },
+        renderLoader: function() {
+            return(
+                <div><img src="/cg-built/zf2-v4-ui/img/loading.gif"/></div>
             );
         },
         render: function() {
