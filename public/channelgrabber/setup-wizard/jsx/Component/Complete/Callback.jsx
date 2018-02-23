@@ -1,4 +1,4 @@
-define(['react', 'react-dom'], function(React, ReactDOM) {
+define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
     "use strict";
 
     var CallbackComponent = React.createClass({
@@ -6,17 +6,26 @@ define(['react', 'react-dom'], function(React, ReactDOM) {
             return {
                 callNow: false,
                 callLater: null,
-                thanks: null
+                thanks: null,
+                ajax: null
             };
         },
         handleCallNow: function() {
-            if (this.props.thanks) {
-                window.location = this.props.thanks;
-            }
+            this.sendAjaxNotification(true, this.props.thanks);
         },
         handleCallLater: function() {
-            if (this.props.callLater) {
-                window.location = this.props.callLater;
+            this.sendAjaxNotification(false, this.props.callLater);
+        },
+        sendAjaxNotification: function(callNow, redirect) {
+            if (this.props.ajax) {
+                ajaxRequester.sendRequest(this.props.ajax, {callNow: callNow ? 1 : 0}, this.redirect.bind(this, redirect));
+            } else {
+                this.redirect(redirect);
+            }
+        },
+        redirect: function(redirect) {
+            if (redirect) {
+                window.location = redirect;
             }
         },
         renderCallNow: function() {
