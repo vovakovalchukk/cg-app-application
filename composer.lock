@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b1ec63c10dbcd06c35ebf7aed3f1384",
+    "content-hash": "5d3351b0f3db390fbfcc184db9719bbc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-release-20170223",
+            "version": "1.26.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "f5d7be2a201ad196cbfaf1827f6cc7453524eae6"
+                "reference": "513d438ab03c88008fe39add6718f9bf1f3f5a54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-release-20170223-94caa0.zip",
-                "reference": "f5d7be2a201ad196cbfaf1827f6cc7453524eae6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.26.3-7085aa.zip",
+                "reference": "513d438ab03c88008fe39add6718f9bf1f3f5a54",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-02-23T10:31:01+00:00"
+            "time": "2018-02-23T14:47:17+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -699,16 +699,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-release-20170223",
+            "version": "1.0.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "1ff8e1db4d540749b9af27b2bfa99bcb9e3be9dc"
+                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-release-20170223-a42c1d.zip",
-                "reference": "1ff8e1db4d540749b9af27b2bfa99bcb9e3be9dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.28-08cfaa.zip",
+                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c",
                 "shasum": null
             },
             "require": {
@@ -739,7 +739,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-02-23T10:33:38+00:00"
+            "time": "2018-02-23T14:46:07+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -9509,25 +9509,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.3",
-            "alias_normalized": "1.26.3.0",
-            "version": "dev-release-20170223",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.0.28",
-            "alias_normalized": "1.0.28.0",
-            "version": "dev-release-20170223",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
