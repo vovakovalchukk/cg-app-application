@@ -62,7 +62,7 @@
         "channelgrabber/reporting": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "~1.5.5",
+        "channelgrabber/settings": "dev-TAC-10-SetupWizardCallBack as 1.5.8",
         "channelgrabber/shopify": "~1.1.1",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
