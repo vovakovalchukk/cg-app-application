@@ -23,6 +23,28 @@ define([
                 itemSpecificsCounts: {}
             }
         },
+        componentWillReceiveProps: function (newProps) {
+            this.removeInvalidSelectedItemSpecifics(newProps);
+        },
+        removeInvalidSelectedItemSpecifics: function(newProps) {
+            var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
+            var changes = false;
+            for (var title in this.state.selectedItemSpecifics) {
+                if (newProps.itemSpecifics.required[title] == undefined &&
+                    newProps.itemSpecifics.optional[title] == undefined
+                ) {
+                    delete selectedItemSpecifics[title];
+                    changes = true;
+                }
+            }
+            if (!changes) {
+                return;
+            }
+            this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
+            this.setState({
+                selectedItemSpecifics: selectedItemSpecifics
+            });
+        },
         buildItemSpecificsInputs: function() {
             var itemSpecifics = [];
             var requiredItems = this.props.itemSpecifics.required;
