@@ -1,0 +1,11 @@
+<html>
+<body>
+<div>User <b><?= implode(' ', array_filter([$this->user->getFirstName(), $this->user->getLastName()])) ?></b> has completed the setup wizard.</div>
+<table style="margin-top: 25px; margin-bottom: 25px;">
+    <tr><th>Company:</th><td><?= $this->ou->getAddressFullName() ?></td></tr>
+    <tr><th>Email:</th><td><?= $this->user->getUsername() ?></td></tr>
+    <tr><th>Phone:</th><td><?= $this->ou->getPhoneNumber() ?></td></tr>
+</table>
+<div>The user has requested a callback <?= $this->callNow ? '<b>Now</b>' : 'at a later date' ?>.</div>
+</body>
+</html>

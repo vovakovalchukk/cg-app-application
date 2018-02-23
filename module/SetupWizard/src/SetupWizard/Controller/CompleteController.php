@@ -5,6 +5,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use SetupWizard\Module;
 use Zend\Mvc\Controller\AbstractActionController;
+use SetupWizard\Callback\Service as CallbackService;
 
 class CompleteController extends AbstractActionController
 {
@@ -16,6 +17,8 @@ class CompleteController extends AbstractActionController
 
     /** @var Service */
     protected $service;
+    /** @var CallbackService */
+    protected $callbackService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -23,10 +26,12 @@ class CompleteController extends AbstractActionController
 
     public function __construct(
         Service $service,
+        CallbackService $callbackService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory
     ) {
         $this->service = $service;
+        $this->callbackService = $callbackService;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
     }
@@ -43,6 +48,7 @@ class CompleteController extends AbstractActionController
 
     public function ajaxAction()
     {
+        $this->callbackService->sendCallbackEmail((bool) $this->params()->fromPost('callNow'));
         return $this->jsonModelFactory->newInstance();
     }
 
