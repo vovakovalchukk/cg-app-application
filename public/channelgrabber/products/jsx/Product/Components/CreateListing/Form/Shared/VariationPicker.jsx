@@ -141,6 +141,9 @@ define([
         },
         onVariationValueChange: function(variationId, fieldName, event) {
             var variationsFormState = Object.assign({}, this.state.variationsFormState);
+            if (!variationsFormState[variationId]) {
+                variationsFormState[variationId] = {};
+            }
             variationsFormState[variationId][fieldName] = event.target.value;
 
             this.setState({
@@ -182,13 +185,13 @@ define([
             if (!this.props.images) {
                 return;
             }
-            if (variation.images.length == 0) {
+            if (this.props.product.images == 0) {
                 return <td>No images available</td>
             }
             return <td>
                 <ImageDropDown
                     selected={variation.images[0]}
-                    images={variation.images}
+                    images={this.props.product.images}
                     onChange={this.onVariationValueChange.bind(this, variation.id, 'imageId')}
                 />
             </td>;
