@@ -19,7 +19,7 @@ define([
 ) {
     "use strict";
 
-    return React.createClass({
+    var Shopify = React.createClass({
         getDefaultProps: function() {
             return {
                 title: null,
@@ -151,4 +151,6 @@ define([
             </div>;
         }
     });
+
+    return Shopify;
 });
