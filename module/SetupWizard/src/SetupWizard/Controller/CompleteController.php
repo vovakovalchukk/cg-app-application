@@ -1,17 +1,22 @@
 <?php
 namespace SetupWizard\Controller;
 
-use CG_UI\View\Prototyper\ViewModelFactory;
+use CG\Settings\SetupProgress\Entity as SetupProgress;
+use CG\Settings\SetupProgress\Step\Status as SetupProgressStepStatus;
+use CG\User\ActiveUserInterface as ActiveUser;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use SetupWizard\Module;
-use Zend\Mvc\Controller\AbstractActionController;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Callback\Service as CallbackService;
+use SetupWizard\Module;
+use SetupWizard\StepStatusService;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class CompleteController extends AbstractActionController
 {
     const ROUTE_COMPLETE = 'Complete';
     const ROUTE_COMPLETE_THANKS = 'CompleteThanks';
     const ROUTE_COMPLETE_AJAX = 'CompleteAjax';
+    const ROUTE_COMPLETE_DONE = 'CompleteDone';
     const BUSINESS_HOURS_START = '09:00:00';
     const BUSINESS_HOURS_END = '16:00:00';
 
@@ -19,6 +24,10 @@ class CompleteController extends AbstractActionController
     protected $service;
     /** @var CallbackService */
     protected $callbackService;
+    /** @var StepStatusService */
+    protected $stepStatusService;
+    /** @var ActiveUser */
+    protected $activeUser;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -27,11 +36,15 @@ class CompleteController extends AbstractActionController
     public function __construct(
         Service $service,
         CallbackService $callbackService,
+        StepStatusService $stepStatusService,
+        ActiveUser $activeUser,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory
     ) {
         $this->service = $service;
         $this->callbackService = $callbackService;
+        $this->stepStatusService = $stepStatusService;
+        $this->activeUser = $activeUser;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
     }
@@ -50,6 +63,20 @@ class CompleteController extends AbstractActionController
     {
         $this->callbackService->sendCallbackEmail((bool) $this->params()->fromPost('callNow'));
         return $this->jsonModelFactory->newInstance();
+    }
+
+    public function doneAction()
+    {
+        $processed = false;
+        if ($this->activeUser->isAdmin()) {
+            $processed = true;
+            $this->stepStatusService->processStepStatus(
+                SetupProgress::FINAL_STEP,
+                SetupProgressStepStatus::COMPLETED,
+                null
+            );
+        }
+        return $this->jsonModelFactory->newInstance(compact('processed'));
     }
 
     protected function getHeader()

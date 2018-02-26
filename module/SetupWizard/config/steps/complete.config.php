@@ -56,6 +56,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            CompleteController::ROUTE_COMPLETE_DONE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/done',
+                                    'defaults' => [
+                                        'action' => 'done',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ],
                     ]
                 ],
