@@ -6,7 +6,8 @@ define([
     'Common/Components/Button',
     'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
+    'Product/Components/CreateListing/Form/Shared/RefreshIcon',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker'
 ], function(
     React,
     Select,
@@ -15,7 +16,8 @@ define([
     Button,
     ImagePicker,
     CategorySelect,
-    RefreshIcon
+    RefreshIcon,
+    VariationPicker
 ) {
     "use strict";
 
@@ -28,7 +30,8 @@ define([
                 accountId: null,
                 brand: null,
                 product: null,
-                category: []
+                category: [],
+                listingType: null
             }
         },
         getInitialState: function() {
@@ -90,8 +93,75 @@ define([
                 />
             );
         },
+        getChannelSpecificVariationFields: function() {
+            return {
+                ean: {
+                    displayName: 'Barcode',
+                    getFormComponent: function(value, onChange) {
+                        return <Input
+                            name="ean"
+                            value={value}
+                            onChange={onChange}
+                        />
+                    },
+                    getDefaultValueFromVariation: function(variation) {
+                        return variation.details.ean;
+                    }
+                }
+            }
+        },
+        onListingTypeSelected: function(listingType) {
+            this.props.setFormStateListing({
+                listingType: listingType.value
+            });
+        },
+        renderVariationPicker: function () {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+
+            return <VariationPicker
+                images={false}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                attributeNames={this.props.product.attributeNames}
+                attributeNameMap={this.props.attributeNameMap}
+                editableAttributeNames={true}
+                channelSpecificFields={this.getChannelSpecificVariationFields()}
+                currency={this.state.currency}
+                listingType={this.props.listingType}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
+        },
+        renderVariationListingType: function()
+        {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+            var multiVariation = (this.props.variations && Object.keys(this.props.variations).length > 1);
+            var options = [
+                {"value": "variation", "name": "Variation Product", "selected": multiVariation},
+                {"value": "single", "name": "Single Product"}
+            ];
+            return <label>
+                <span className={"inputbox-label"}>Listing Type:</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        options={options}
+                        autoSelectFirst={false}
+                        onOptionChange={this.onListingTypeSelected}
+                        disabled={multiVariation}
+                        selectedOption={multiVariation ? options[0] : null}
+                    />
+                </div>
+            </label>;
+        },
         render: function() {
             return <div>
+                {this.renderVariationPicker()}
+                {this.renderVariationListingType()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
