@@ -16,7 +16,7 @@ class CompleteController extends AbstractActionController
     const ROUTE_COMPLETE = 'Complete';
     const ROUTE_COMPLETE_THANKS = 'CompleteThanks';
     const ROUTE_COMPLETE_AJAX = 'CompleteAjax';
-    const ROUTE_COMPLETE_DONE = 'CompleteDone';
+    const ROUTE_COMPLETE_ACTIVATE = 'CompleteActivate';
     const BUSINESS_HOURS_START = '09:00:00';
     const BUSINESS_HOURS_END = '16:00:00';
 
@@ -51,7 +51,7 @@ class CompleteController extends AbstractActionController
 
     public function indexAction()
     {
-        return $this->service->getSetupView($this->getHeader(), $this->getCallback(), $this->getFooterView());
+        return $this->service->getSetupView($this->getHeader(), $this->getCallback(), $this->getFooter());
     }
 
     public function thanksAction()
@@ -65,18 +65,19 @@ class CompleteController extends AbstractActionController
         return $this->jsonModelFactory->newInstance();
     }
 
-    public function doneAction()
+    public function activateAction()
     {
-        $processed = false;
-        if ($this->activeUser->isAdmin()) {
-            $processed = true;
-            $this->stepStatusService->processStepStatus(
-                SetupProgress::FINAL_STEP,
-                SetupProgressStepStatus::COMPLETED,
-                null
-            );
+        if (!$this->activeUser->isAdmin()) {
+            return $this->notFoundAction();
         }
-        return $this->jsonModelFactory->newInstance(compact('processed'));
+
+        $this->stepStatusService->processStepStatus(
+            SetupProgress::FINAL_STEP,
+            SetupProgressStepStatus::COMPLETED,
+            null
+        );
+
+        return $this->service->getSetupView($this->getHeader(), $this->getActivate(), $this->getActivateFooter());
     }
 
     protected function getHeader()
@@ -139,7 +140,32 @@ class CompleteController extends AbstractActionController
         ]));
     }
 
-    protected function getFooterView()
+    protected function getActivate()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('setup-wizard/complete/activate');
+        return $view;
+    }
+
+    protected function getActivateFooter()
+    {
+        $nextUri = $this->url()->fromRoute('home');
+        $footer = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                [
+                    'value' => 'Done',
+                    'id' => 'setup-wizard-done-button',
+                    'class' => 'setup-wizard-next-button setup-wizard-done-button',
+                    'disabled' => false,
+                    'action' => $nextUri,
+                ]
+            ]
+        ]);
+        $footer->setTemplate('elements/buttons.mustache');
+        return $footer;
+    }
+
+    protected function getFooter()
     {
         $footer = $this->viewModelFactory->newInstance();
         $footer->setTemplate('setup-wizard/complete/footer');

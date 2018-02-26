@@ -56,12 +56,12 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
-                            CompleteController::ROUTE_COMPLETE_DONE => [
+                            CompleteController::ROUTE_COMPLETE_ACTIVATE => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/done',
+                                    'route' => '/activate',
                                     'defaults' => [
-                                        'action' => 'done',
+                                        'action' => 'activate',
                                     ]
                                 ],
                                 'may_terminate' => true,
