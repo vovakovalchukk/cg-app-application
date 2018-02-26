@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dc9865b308ef0a3caa09a99ebc81181",
+    "content-hash": "5c70c46e7066a470ca83bcd0ecfad7d0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -845,12 +845,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2cc3f35575744523d21d5376cdaf51c4aa61338d"
+                "reference": "68295dc1ed0b6ff67681d0ef812e3f9109340ab6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-92-ebay-item-specifics-interface-c8217e.zip",
+                "reference": "68295dc1ed0b6ff67681d0ef812e3f9109340ab6",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.33.3",
+                "channelgrabber/channel": "^1.34.0",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -895,7 +901,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-02-15T09:07:44+00:00"
+            "time": "2018-02-26T15:38:41+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9523,8 +9529,8 @@
         "channelgrabber/ebay": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
