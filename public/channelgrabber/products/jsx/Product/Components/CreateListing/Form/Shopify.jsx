@@ -107,7 +107,6 @@ define([
                 attributeNameMap={this.props.attributeNameMap}
                 editableAttributeNames={true}
                 currency={this.state.currency}
-                listingType={this.props.listingType}
                 fetchVariations={this.props.fetchVariations}
                 product={this.props.product}
             />
