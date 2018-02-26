@@ -93,28 +93,6 @@ define([
                 />
             );
         },
-        getChannelSpecificVariationFields: function() {
-            return {
-                ean: {
-                    displayName: 'Barcode',
-                    getFormComponent: function(value, onChange) {
-                        return <Input
-                            name="ean"
-                            value={value}
-                            onChange={onChange}
-                        />
-                    },
-                    getDefaultValueFromVariation: function(variation) {
-                        return variation.details.ean;
-                    }
-                }
-            }
-        },
-        onListingTypeSelected: function(listingType) {
-            this.props.setFormStateListing({
-                listingType: listingType.value
-            });
-        },
         renderVariationPicker: function () {
             if (this.props.variationsDataForProduct.length == 0) {
                 return;
@@ -128,40 +106,15 @@ define([
                 attributeNames={this.props.product.attributeNames}
                 attributeNameMap={this.props.attributeNameMap}
                 editableAttributeNames={true}
-                channelSpecificFields={this.getChannelSpecificVariationFields()}
                 currency={this.state.currency}
                 listingType={this.props.listingType}
                 fetchVariations={this.props.fetchVariations}
                 product={this.props.product}
             />
         },
-        renderVariationListingType: function()
-        {
-            if (this.props.variationsDataForProduct.length == 0) {
-                return;
-            }
-            var multiVariation = (this.props.variations && Object.keys(this.props.variations).length > 1);
-            var options = [
-                {"value": "variation", "name": "Variation Product", "selected": multiVariation},
-                {"value": "single", "name": "Single Product"}
-            ];
-            return <label>
-                <span className={"inputbox-label"}>Listing Type:</span>
-                <div className={"order-inputbox-holder"}>
-                    <Select
-                        options={options}
-                        autoSelectFirst={false}
-                        onOptionChange={this.onListingTypeSelected}
-                        disabled={multiVariation}
-                        selectedOption={multiVariation ? options[0] : null}
-                    />
-                </div>
-            </label>;
-        },
         render: function() {
             return <div>
                 {this.renderVariationPicker()}
-                {this.renderVariationListingType()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
@@ -180,12 +133,6 @@ define([
                             value={this.props.description}
                             onChange={this.onInputChange}
                         />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.listingCurrency} />
                     </div>
                 </label>
                 <label>
@@ -213,10 +160,6 @@ define([
                         onClick={this.refreshCategories}
                         disabled={this.state.refreshCategoriesDisabled}
                     />
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Image</span>
-                    {this.renderImagePicker()}
                 </label>
             </div>;
         }
