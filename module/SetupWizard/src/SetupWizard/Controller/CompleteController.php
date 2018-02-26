@@ -19,6 +19,7 @@ class CompleteController extends AbstractActionController
     const ROUTE_COMPLETE_ACTIVATE = 'CompleteActivate';
     const BUSINESS_HOURS_START = '09:00:00';
     const BUSINESS_HOURS_END = '16:00:00';
+    const WORKDAYS = [1, 2, 3, 4, 5];
 
     /** @var Service */
     protected $service;
@@ -112,6 +113,9 @@ class CompleteController extends AbstractActionController
             return false;
         }
         if ($now > new \DateTime(static::BUSINESS_HOURS_END)) {
+            return false;
+        }
+        if (!in_array($now->format('w'), static::WORKDAYS)) {
             return false;
         }
         return true;
