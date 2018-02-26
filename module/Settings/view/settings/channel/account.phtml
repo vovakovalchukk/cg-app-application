@@ -1,6 +1,7 @@
 <?php
-use Settings\Module;
+use CG\Channel\Type;
 use Settings\Controller\ChannelController;
+use Settings\Module;
 $enableChannelRoute = implode(
     '/',
     [
@@ -9,6 +10,16 @@ $enableChannelRoute = implode(
         ChannelController::ROUTE_CHANNELS,
         ChannelController::ROUTE_ACCOUNT,
         ChannelController::ROUTE_ACCOUNT_STATUS,
+    ]
+);
+$autoImportListingsRoute = implode(
+    '/',
+    [
+        Module::ROUTE,
+        ChannelController::ROUTE,
+        ChannelController::ROUTE_CHANNELS,
+        ChannelController::ROUTE_ACCOUNT,
+        ChannelController::ROUTE_ACCOUNT_AUTO_LISTINGS_IMPORT,
     ]
 );
 ?>
@@ -31,8 +42,8 @@ require.config({
 });
 
 require(
-    ["ajaxSwitch"],
-    function(ajaxSwitch) {
+    ["ajaxSwitch", "ajaxCheckbox", "popup/confirm"],
+    function(ajaxSwitch, AjaxCheckbox, Confirm) {
         var ajaxCheckbox = ajaxSwitch(
             n,
             ".account-status .mustache",
@@ -63,6 +74,55 @@ require(
                 });
             }
         );
+<?php if ($type == Type::SALES) : ?>
+        var autoImportListings = new AjaxCheckbox(
+            n,
+            ".account-listings .mustache",
+            "input.toggle",
+            {
+                url: "<?= $this->url($autoImportListingsRoute, ['account' => $account['id'], 'type' => $type]) ?>"
+            },
+            true
+        );
+        autoImportListings.bindAjax(function(event, ajaxOptions, toggle) {
+            if (!toggle.prop("checked")) {
+                n.notice("<?= $this->translate('Updating Channel') ?>");
+                autoImportListings.saveStatus(ajaxOptions, toggle);
+                return;
+            }
+
+            new Confirm(
+                "<?= str_replace(['"', "\n"], ['\\"', '\\n'], $this->partial('settings/channel/account/channel_auto_import_listings_confirmation')) ?>",
+                function(answer) {
+                    if (!answer) {
+                        return;
+                    }
+                    if (answer == Confirm.VALUE_YES) {
+                        n.notice("<?= $this->translate('Updating Channel') ?>");
+                        autoImportListings.saveStatus(ajaxOptions, toggle);
+                    } else {
+                        toggle.prop("disabled", false).prop("checked", false);
+                    }
+                },
+                [
+                    {title: "<?= $this->translate('Confirm') ?>", value: Confirm.VALUE_YES}
+                ]
+            );
+        });
+        autoImportListings.bindAjaxResponse(function(event, data) {
+            var toggle = $("#auto-import-listings");
+            if (data.updated) {
+                n.success("<?= $this->translate('Channel Updated') ?>");
+            } else {
+                n.error("<?= $this->translate('Channel Updated Failed') ?>");
+            }
+            if (data.account) {
+                toggle.prop("checked", data.account.autoImportListings);
+            } else {
+                toggle.prop("checked", !toggle.prop("checked"));
+            }
+        });
+<?php endif; ?>
     }
 );
 <?php $this->inlineScript()->captureEnd(); ?>
@@ -88,6 +148,27 @@ require(
         </label>
     </form>
 </div>
+<?php if ($type == Type::SALES) : ?>
+<div class="module clearfix">
+    <form class="account-listings">
+        <label>
+            <span class="inputbox-label">Auto-Import Listings:</span>
+            <div class="alternate-input mustache">
+                <div>
+                    <?= $this->mustache(
+                            'elements/toggle.mustache',
+                            [
+                                'id' => 'auto-import-listings',
+                                'name' => 'autoImportListings',
+                                'selected' => $account['autoImportListings'] ?? false,
+                            ]
+                    ) ?>
+                </div>
+            </div>
+        </label>
+    </form>
+</div>
+<?php endif; ?>
 <div id="manage-account-channel-form" class="module clearfix section-separator">
     <?= $this->channelSpecificForm;?>
 </div>

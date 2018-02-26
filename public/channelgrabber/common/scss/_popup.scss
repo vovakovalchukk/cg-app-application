@@ -63,69 +63,6 @@
             }
         }
     }
-    .react-popup-message {
-        width: 60%;
-        max-height: 90%;
-        box-sizing: border-box;
-        position: fixed;
-        overflow-y: auto;
-        left: 20%;
-        top: 20px;
-        z-index: 9999;
-        opacity: 1;
-        display: block;
-        font-size: 16px;
-        padding: 10px;
-        background-color: white;
-        border-radius: 10px;
-        background-clip: padding-box;
-        border-width: 1px;
-        border-style: solid;
-        border-color: $color-lgrey;
-
-        &.error {
-            color: $color-red;
-            border-color:$color-red;
-            background-color: lighten($color-red, 50%);
-        }
-
-        &.notice {
-            color: $color-yellow;
-            border-color: $color-yellow;
-            background-color: lighten($color-yellow, 40%);
-        }
-
-        &.success {
-            color: $color-green;
-            border-color: $color-green;
-            background-color: lighten($color-green, 50%);
-        }
-
-        .react-popup-message-header {
-            text-align: center;
-            font-weight: bold;
-        }
-        .react-popup-message-content {
-            margin-bottom: 20px;
-            .center-align {
-                text-align: center;
-            }
-        }
-        .react-popup-message-buttons {
-            display: flex;
-            justify-content: space-between;
-            width: 20%;
-            margin: 0 auto;
-            .button.react-popup-btn {
-                display: inline-block;
-                padding: 5px;
-                min-width: 75px;
-                &.close {
-
-                }
-            }
-        }
-    }
 
     &.editor-popup {
         min-width: 50%;
@@ -159,5 +96,68 @@
         position: fixed;
         left: 50%;
         transform: translate(-50%, 0);
+    }
+}
+
+.react-popup-message {
+    width: 60%;
+    max-height: 90%;
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
+    z-index: 9999;
+    opacity: 1;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color-lgrey;
+    margin-bottom: 16px;
+
+    &.error {
+        color: $color-red;
+        border-color:$color-red;
+        background-color: lighten($color-red, 50%);
+    }
+
+    &.notice {
+        color: $color-yellow;
+        border-color: $color-yellow;
+        background-color: lighten($color-yellow, 40%);
+    }
+
+    &.success {
+        color: $color-green;
+        border-color: $color-green;
+        background-color: lighten($color-green, 50%);
+    }
+
+    .react-popup-message-header {
+        text-align: center;
+        font-weight: bold;
+    }
+    .react-popup-message-content {
+        margin-bottom: 20px;
+        .center-align {
+            text-align: center;
+        }
+    }
+    .react-popup-message-buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 20%;
+        margin: 0 auto;
+        .button.react-popup-btn {
+            display: inline-block;
+            padding: 5px;
+            min-width: 75px;
+            &.close {
+
+            }
+        }
     }
 }
