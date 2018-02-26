@@ -1,18 +1,22 @@
 <?php
 namespace SetupWizard;
 
+use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as Event;
 use CG\Intercom\Event\Service as EventService;
-use CG\Settings\SetupProgress\CompletionService;
+use CG\OrganisationUnit\Entity as OrganisationUnitEntity;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
 use CG\Settings\SetupProgress\Step\Status as StepStatus;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -48,10 +52,12 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $sessionManager;
     /** @var Config */
     protected $config;
+    /** @var SubscriptionService */
+    protected $subscriptionService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
     /** @var SetupProgress */
     protected $setupProgress;
-    /** @var CompletionService */
-    protected $completionService;
 
     public function __construct(
         EventService $eventService,
@@ -60,8 +66,8 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         SetupProgressService $setupProgressService,
         SessionManager $sessionManager,
         Config $config,
-        SetupProgress $setupProgress,
-        CompletionService $completionService
+        SubscriptionService $subscriptionService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->eventService = $eventService;
         $this->activeUserContainer = $activeUserContainer;
@@ -69,8 +75,8 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $this->setupProgressService = $setupProgressService;
         $this->sessionManager = $sessionManager;
         $this->config = $config;
-        $this->setupProgress = $setupProgress;
-        $this->completionService = $completionService;
+        $this->subscriptionService = $subscriptionService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -108,7 +114,9 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 
         // When the wizard is completed start the timer on the free trial
         if ($setupProgress->isComplete()) {
-            $this->completionService->complete($setupProgress, $this->activeUserContainer->getActiveUser());
+            $this->setFreeTrialEndDate();
+            // Also, save the OU with the setup complete date
+            $this->saveOrganisationUnit($user);
         }
         return $this;
     }
@@ -147,6 +155,27 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $this->eventService->save($event);
 
         return $this;
+    }
+
+    protected function setFreeTrialEndDate()
+    {
+        $user = $this->activeUserContainer->getActiveUser();
+        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $freeTrialDays = SubscriptionService::FREE_TRIAL_DAYS;
+        $subscription = $this->subscriptionService->fetchActiveSubscriptionForOuId($ouId);
+
+        // If they already have an end date we don't want to extend it any further
+        if ($subscription->getToDate() !== null) {
+            return;
+        }
+
+        try {
+            $this->subscriptionService->extendTrial($subscription, $freeTrialDays);
+            $this->logDebug(static::LOG_TRIAL_END_DATE, [$user->getId(), $ouId, $freeTrialDays], [static::LOG_CODE, 'TrialEndDate']);
+
+        } catch (ValidationException $e) {
+            // This would be thrown if the user is not on a free trial. No-op.
+        }
     }
 
     public function getRedirectRouteIfIncomplete($currentRoute)
@@ -212,5 +241,13 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
             return true;
         }
         return false;
+    }
+
+    protected function saveOrganisationUnit(UserEntity $user)
+    {
+        /** @var OrganisationUnitEntity $ou */
+        $ou = $this->organisationUnitService->fetch($user->getOrganisationUnitId());
+        $ou->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
+        $this->organisationUnitService->save($ou);
     }
 }
