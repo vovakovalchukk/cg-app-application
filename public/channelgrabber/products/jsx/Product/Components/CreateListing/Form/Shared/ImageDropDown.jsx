@@ -22,8 +22,13 @@ define([
         getInitialState: function() {
             return {
                 active: false,
-                image: this.props.selected || {url: "/cg-built/products/img/noproductsimage.png"}
+                image:  null
             }
+        },
+        componentDidMount() {
+            this.setState({
+                image: this.props.selected
+            })
         },
         onClickOutside: function(event) {
             if (event.target.closest(".image-dropdown-element")) {
@@ -43,15 +48,7 @@ define([
                 active: false,
                 image: image
             });
-        },
-        componentDidUpdate: function(prevProps, prevState) {
-            if (this.props.onChange && prevState.image.id !== this.state.image.id) {
-                var input = document.createElement('input');
-                input.value = this.state.image.id;
-                this.props.onChange({
-                    target: input
-                });
-            }
+            this.props.onChange({target:{value: image.id}});
         },
         render: function() {
             return (
@@ -66,7 +63,9 @@ define([
                 >
                     <ClickOutside onClickOutside={this.onClickOutside}>
                         <div className="react-image-picker" onClick={this.onClick}>
-                            <span className="react-image-picker-image"><img src={this.state.image.url}/></span>
+                            <span className="react-image-picker-image">
+                                { this.state.image ? <img src={this.state.image.url}/> : 'Please select an image' }
+                            </span>
                             <span className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
                         </div>
                     </ClickOutside>

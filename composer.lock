@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5d3cb8f6647a0787ec0168932728b1a",
+    "content-hash": "f1cd53bb2b221b2733259b4e864074ee",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.25.7",
+            "version": "1.26.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "c413baa30c1aef81ba1e99ab0efd163a376e11c0"
+                "reference": "513d438ab03c88008fe39add6718f9bf1f3f5a54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.25.7-ee866e.zip",
-                "reference": "c413baa30c1aef81ba1e99ab0efd163a376e11c0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.26.3-7085aa.zip",
+                "reference": "513d438ab03c88008fe39add6718f9bf1f3f5a54",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.32.8",
+                "channelgrabber/channel": "^1.34.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-02-15T14:36:52+00:00"
+            "time": "2018-02-23T14:47:17+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.0",
+            "version": "1.34.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9690ccc8ad74ad4270ec9ec59a0440d978c41c99"
+                "reference": "3cd941de45672241d54ea8baab6dc05cf9c5c8db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.0-3ca0ca.zip",
-                "reference": "9690ccc8ad74ad4270ec9ec59a0440d978c41c99",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.1-9c768f.zip",
+                "reference": "3cd941de45672241d54ea8baab6dc05cf9c5c8db",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-02-16T16:56:09+00:00"
+            "time": "2018-02-22T09:01:55+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -699,16 +699,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.27",
+            "version": "1.0.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c764a3d0e37ed7c7144288b77d843c8e23bb2a7a"
+                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.27-abb7da.zip",
-                "reference": "c764a3d0e37ed7c7144288b77d843c8e23bb2a7a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.28-08cfaa.zip",
+                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c",
                 "shasum": null
             },
             "require": {
@@ -739,7 +739,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-02-15T15:22:55+00:00"
+            "time": "2018-02-23T14:46:07+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",

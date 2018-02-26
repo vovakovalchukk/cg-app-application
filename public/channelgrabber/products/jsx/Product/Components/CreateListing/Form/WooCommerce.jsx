@@ -4,27 +4,27 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Common/Components/ImagePicker',
-    'Product/Components/CreateListing/Form/WooCommerce/CategorySelect'
+    'Product/Components/CreateListing/Form/WooCommerce/CategorySelect',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
     ImagePicker,
-    CategorySelect
+    CategorySelect,
+    VariationPicker
 ) {
     "use strict";
 
-    var NO_SETTINGS = 'NO_SETTINGS';
-
-    return React.createClass({
+    var WooCommerce = React.createClass({
         getDefaultProps: function() {
             return {
                 title: null,
                 description: null,
-                price: null,
                 accountId: null,
-                product: null
+                product: null,
+                variationsDataForProduct: []
             }
         },
         getInitialState: function() {
@@ -76,39 +76,36 @@ define([
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
         },
-        onImageSelected: function(image, selectedImageIds) {
-            this.props.setFormStateListing({
-                imageId: image.id
-            });
-        },
-        renderImagePicker: function() {
-            if (this.props.product.images.length == 0) {
-                return (
-                    <p>No images available</p>
-                );
-            }
-            return (
-                <ImagePicker
-                    name="image"
-                    multiSelect={false}
-                    images={this.props.product.images}
-                    onImageSelected={this.onImageSelected}
-                    title={this.getTooltipText('image')}
-                />
-            );
-        },
         getTooltipText(inputFieldName) {
             var tooltips = {
                 title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
-                price: 'How much do you want to sell your item for?',
                 description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
-                image: 'Pick an image to use on this listing',
                 category: 'Select a category to list your product to',
             };
             return tooltips[inputFieldName];
         },
+        renderVariationPicker: function () {
+            var variationsDataForProduct = this.props.variationsDataForProduct;
+            var attributeNames = this.props.product.attributeNames;
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+
+            return <VariationPicker
+                variationsDataForProduct={variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                attributeNames={attributeNames}
+                editableAttributeNames={false}
+                channelSpecificFields={{}}
+                currency={this.state.currency}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
+        },
         render: function() {
             return <div>
+                {this.renderVariationPicker()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
@@ -117,17 +114,6 @@ define([
                             value={this.props.title}
                             onChange={this.onInputChange}
                             title={this.getTooltipText('title')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            value={this.props.price}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('price')}
                         />
                     </div>
                 </label>
@@ -142,10 +128,6 @@ define([
                         />
                     </div>
                 </label>
-                <label>
-                    <span className={"inputbox-label"}>Image</span>
-                    {this.renderImagePicker()}
-                </label>
                 <CategorySelect
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
@@ -157,4 +139,6 @@ define([
             </div>;
         }
     });
+
+    return WooCommerce;
 });

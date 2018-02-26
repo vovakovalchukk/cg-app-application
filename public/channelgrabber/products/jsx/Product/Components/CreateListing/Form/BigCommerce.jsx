@@ -4,18 +4,18 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Common/Components/ImagePicker',
-    'Product/Components/CreateListing/Form/BigCommerce/CategorySelect'
+    'Product/Components/CreateListing/Form/BigCommerce/CategorySelect',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
     ImagePicker,
-    CategorySelect
+    CategorySelect,
+    VariationPicker
 ) {
     "use strict";
-
-    var NO_SETTINGS = 'NO_SETTINGS';
 
     var BigCommerceComponent = React.createClass({
         getDefaultProps: function() {
@@ -25,7 +25,8 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
-                weight: null
+                weight: null,
+                variationsDataForProduct: []
             }
         },
         getInitialState: function() {
@@ -109,8 +110,47 @@ define([
             };
             return tooltips[inputFieldName];
         },
+        getChannelSpecificVariationFields: function() {
+            return {
+                weight: {
+                    displayName: 'Weight',
+                    getFormComponent: function(value, onChange) {
+                        return <Input
+                            name="weight"
+                            value={value}
+                            onChange={onChange}
+                            title={this.getTooltipText('weight')}
+                        />
+                    }.bind(this),
+                    getDefaultValueFromVariation: function(variation) {
+                        return variation.details.weight ? variation.details.weight : null;
+                    }
+                }
+            }
+        },
+        renderVariationPicker: function () {
+            var variationsDataForProduct = this.props.variationsDataForProduct;
+            var attributeNames = this.props.product.attributeNames;
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+
+            return <VariationPicker
+                variationsDataForProduct={variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                attributeNames={attributeNames}
+                attributeNameMap={this.props.attributeNameMap}
+                editableAttributeNames={false}
+                channelSpecificFields={this.getChannelSpecificVariationFields()}
+                currency={this.state.currency}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
+        },
         render: function() {
             return <div>
+                {this.renderVariationPicker()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
@@ -123,17 +163,6 @@ define([
                     </div>
                 </label>
                 <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            value={this.props.price}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('price')}
-                        />
-                    </div>
-                </label>
-                <label>
                     <span className={"inputbox-label"}>Description</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
@@ -141,21 +170,6 @@ define([
                             value={this.props.description}
                             onChange={this.onInputChange}
                             title={this.getTooltipText('description')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Image</span>
-                    {this.renderImagePicker()}
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Weight</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="weight"
-                            value={this.props.weight}
-                            onChange={this.onInputChange}
-                            title={this.getTooltipText('weight')}
                         />
                     </div>
                 </label>

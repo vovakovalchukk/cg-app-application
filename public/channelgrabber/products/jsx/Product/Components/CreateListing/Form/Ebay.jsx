@@ -27,7 +27,7 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
-                variations: [],
+                variationsDataForProduct: [],
                 attributeNameMap: {},
                 listingType: null
             }
