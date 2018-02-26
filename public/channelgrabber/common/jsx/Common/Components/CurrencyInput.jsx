@@ -20,7 +20,7 @@ define([
                         type="number"
                         name={this.props.name ? this.props.name : "price"}
                         placeholder="0.00"
-                        value={this.props.value ? this.props.value : ''}
+                        value={!isNaN(this.props.value) ? this.props.value : ''}
                         onChange={this.props.onChange}
                         title={this.props.title}
                     />

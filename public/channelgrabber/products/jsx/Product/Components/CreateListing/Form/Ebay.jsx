@@ -27,7 +27,8 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
-                ean: null
+                ean: null,
+                shippingPrice: 0
             }
         },
         getInitialState: function() {
