@@ -10,6 +10,7 @@ use SetupWizard\Callback\Service as CallbackService;
 use SetupWizard\Module;
 use SetupWizard\StepStatusService;
 use Zend\Mvc\Controller\AbstractActionController;
+use function CG\Stdlib\isUkBankHoliday;
 
 class CompleteController extends AbstractActionController
 {
@@ -116,6 +117,9 @@ class CompleteController extends AbstractActionController
             return false;
         }
         if (!in_array($now->format('w'), static::WORKDAYS)) {
+            return false;
+        }
+        if (isUkBankHoliday($now)) {
             return false;
         }
         return true;
