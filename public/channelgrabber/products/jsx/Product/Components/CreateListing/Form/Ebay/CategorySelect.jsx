@@ -45,6 +45,12 @@ define([
         getOnCategorySelect: function(categoryIndex) {
             return function (selectOption) {
                 var newState = JSON.parse(JSON.stringify(this.state));
+                if (selectOption.disabled) {
+                    newState.categoryMaps = this.removeChildElementsAndSelections(newState.categoryMaps, categoryIndex + 1);
+                    newState.selectedCategories = newState.selectedCategories.splice(categoryIndex);
+                    this.setState(newState);
+                    return;
+                }
 
                 newState.categoryMaps = this.removeChildElementsAndSelections(newState.categoryMaps, categoryIndex + 1);
                 newState.selectedCategories = this.removeChildElementsAndSelections(
