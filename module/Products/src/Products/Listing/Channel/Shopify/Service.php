@@ -58,7 +58,9 @@ class Service implements
         $categoryOptions = [];
         /** @var Category $category */
         foreach ($categories as $category) {
-            $categoryOptions[$category->getExternalId()] = $category->getTitle();
+            $categoryOptions[$category->getExternalId()] = [
+                'title' => $category->getTitle()
+            ];
         }
         return $categoryOptions;
     }

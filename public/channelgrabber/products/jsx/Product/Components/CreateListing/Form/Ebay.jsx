@@ -95,12 +95,7 @@ define([
                 success: function (response) {
                     this.setState({
                         currency: response.currency,
-                        /**
-                         * We cannot set rootCategories on this version of the code because the API has started returning
-                         * {<categoryId>: {<title>: <listingName, <variations>: <bool>}} which does not work with the UI
-                         * You will need to uncomment this line in LIS-84
-                         */
-                        // rootCategories: response.category
+                        rootCategories: response.category,
                         shippingServiceFieldValues: response.shippingService,
                         availableSites: response.sites
                     });
