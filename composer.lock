@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1cd53bb2b221b2733259b4e864074ee",
+    "content-hash": "e347819349835f908d5792cfad4418a9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4017,17 +4017,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.2",
+            "version": "dev-LIS-84-categories-with-variations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "da1235f269240886b95c13c9032b5b38379074bd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.2-815840.zip",
-                "reference": "da1235f269240886b95c13c9032b5b38379074bd",
-                "shasum": null
+                "reference": "5351040ec28e7927fb6d6f4afe1760daedd845c0"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -9551,6 +9545,12 @@
             "alias_normalized": "1.2.25.0",
             "version": "dev-EPIC-LIS-73-create-variation-listings",
             "package": "channelgrabber/woocommerce"
+        },
+        {
+            "alias": "1.22.3",
+            "alias_normalized": "1.22.3.0",
+            "version": "dev-LIS-84-categories-with-variations",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -9562,9 +9562,10 @@
         "channelgrabber/product": 20,
         "channelgrabber/shopify": 20,
         "channelgrabber/woocommerce": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

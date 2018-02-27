@@ -273,8 +273,8 @@ class Service implements
     {
         /** @TODO: remove this */
         return [
-                123 => ['title' => 'My first category'],
-                23232 => ['title' => 'second category']
+                123 => ['title' => 'My first category', 'variations' => false],
+                23232 => ['title' => 'second category', 'variations' => true]
         ];
         return $this->formatCategoriesArray(
             $this->fetchCategoriesForAccount($account)

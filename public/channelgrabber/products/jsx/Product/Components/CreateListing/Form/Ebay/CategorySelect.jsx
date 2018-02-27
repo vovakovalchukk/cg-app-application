@@ -75,9 +75,18 @@ define([
             });
         },
         getCategoryOptionsFromCategoryMap(categoryMap) {
-            var categoryOptions = [];
+            var categoryOptions = [], disabled, category;
             for (var externalId in categoryMap) {
-                categoryOptions.push({name: categoryMap[externalId].title, value: externalId});
+                category = categoryMap[externalId];
+                disabled = false;
+                if (category.hasOwnProperty('variations')) {
+                    disabled = !category.variations;
+                }
+                categoryOptions.push({
+                    name: category.title,
+                    value: externalId,
+                    disabled: disabled
+                });
             }
             return categoryOptions;
         },

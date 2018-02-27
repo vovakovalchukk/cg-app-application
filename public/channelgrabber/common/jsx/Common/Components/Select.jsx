@@ -113,11 +113,18 @@ define([
                 return [];
             }
 
+            var optionName, className;
             var options = this.props.options.filter(this.filterBySearchTerm).map(function(opt, index) {
-                var optionName = this.getOptionName(opt.name, opt.value);
+                optionName = this.getOptionName(opt.name, opt.value);
+                className = '';
+                if (opt.disabled) {
+                    className = 'disabled';
+                } else if (opt.active) {
+                    className = 'active';
+                }
 
                 return (
-                    <li className={"custom-select-item "+(opt.selected ? "active" : "")} value={opt.value} key={index} onClick={this.onOptionSelected.bind(this, opt.value)}>
+                    <li className={"custom-select-item " + className} value={opt.value} key={index} onClick={this.onOptionSelected.bind(this, opt.value)}>
                         <a value={opt.value}>{optionName}</a>
                     </li>
                 )
