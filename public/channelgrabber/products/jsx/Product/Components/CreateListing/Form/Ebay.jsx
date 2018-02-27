@@ -47,6 +47,9 @@ define([
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
+            this.props.setFormStateListing({
+                shippingPrice: this.props.shippingPrice
+            });
         },
         componentWillReceiveProps(newProps) {
             if (this.props.accountId != newProps.accountId) {
@@ -107,7 +110,7 @@ define([
                             duration: null,
                             dispatchTimeMax: null,
                             shippingService: null,
-                            shippingPrice: null
+                            shippingPrice: 0
                         });
                     } else if (response.defaultSiteId) {
                         this.props.setFormStateListing({site: response.defaultSiteId});
