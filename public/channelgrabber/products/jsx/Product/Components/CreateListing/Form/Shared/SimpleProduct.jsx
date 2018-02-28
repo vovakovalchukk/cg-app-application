@@ -17,6 +17,17 @@ define([
              * ensure you pass in the value of the custom fields by props
              * i.e. if the Ebay form instantiates SimpleProduct with an ean field, then you should pass the value
              * of the ean field in via props when SimpleProduct is rendered
+             *
+             * @customFields - object -
+             * {
+             *     String <key>: {
+                    displayName: String <displayName>,
+                    getFormComponent: Fnc (value, onChange) return: ReactComponent <componentForCustomField>,
+                    * note - onChange is a callback which must be used as the onChange for the component which you return
+                    getDefaultValueFromVariation: Fnc(variation) return String <valueOfCustomFieldGivenAVariation>
+                }
+             * }
+             *
              */
             return {
                 product: {},

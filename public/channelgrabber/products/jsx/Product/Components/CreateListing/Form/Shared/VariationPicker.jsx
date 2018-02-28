@@ -14,7 +14,20 @@ define([
     "use strict";
 
     var VariationPicker = React.createClass({
+
         getDefaultProps: function() {
+            /*
+             * @customFields - object -
+             * {
+             *     String <key>: {
+             *           displayName: String <displayName>,
+             *           getFormComponent: Fnc (value, onChange) return: ReactComponent <componentForCustomField>,
+             *           * note - onChange is a callback which must be used as the onChange for the component which you return
+             *           getDefaultValueFromVariation: Fnc(variation) return String <valueOfCustomFieldGivenAVariation>
+             *       }
+             * }
+             *
+             */
             return {
                 variationsDataForProduct: [],
                 product: {},
