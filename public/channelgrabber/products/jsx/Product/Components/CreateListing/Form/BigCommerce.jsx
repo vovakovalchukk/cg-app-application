@@ -110,7 +110,7 @@ define([
             };
             return tooltips[inputFieldName];
         },
-        getCustomFieldsFields: function() {
+        getCustomFields: function() {
             return {
                 weight: {
                     displayName: 'Weight',
@@ -134,7 +134,7 @@ define([
             if (this.props.variationsDataForProduct.length == 0) {
                 return <SimpleProduct
                     setFormStateListing={this.props.setFormStateListing}
-                    customFields={this.getCustomFieldsFields()}
+                    customFields={this.getCustomFields()}
                     currency={this.state.currency}
                     product={this.props.product}
                     price={this.props.price}
@@ -147,7 +147,7 @@ define([
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
                 attributeNames={attributeNames}
-                customFields={this.getCustomFieldsFields()}
+                customFields={this.getCustomFields()}
                 currency={this.state.currency}
                 fetchVariations={this.props.fetchVariations}
                 product={this.props.product}

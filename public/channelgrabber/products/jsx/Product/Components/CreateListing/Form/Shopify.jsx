@@ -7,7 +7,8 @@ define([
     'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
     'Product/Components/CreateListing/Form/Shared/RefreshIcon',
-    'Product/Components/CreateListing/Form/Shared/VariationPicker'
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
 ], function(
     React,
     Select,
@@ -17,7 +18,8 @@ define([
     ImagePicker,
     CategorySelect,
     RefreshIcon,
-    VariationPicker
+    VariationPicker,
+    SimpleProduct
 ) {
     "use strict";
 
@@ -94,7 +96,12 @@ define([
         },
         renderVariationPicker: function () {
             if (this.props.variationsDataForProduct.length == 0) {
-                return;
+                return <SimpleProduct
+                    setFormStateListing={this.props.setFormStateListing}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                />;
             }
 
             return <VariationPicker
