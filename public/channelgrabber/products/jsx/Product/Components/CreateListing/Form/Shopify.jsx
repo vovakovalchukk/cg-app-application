@@ -6,7 +6,8 @@ define([
     'Common/Components/Button',
     'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
+    'Product/Components/CreateListing/Form/Shared/RefreshIcon',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker'
 ], function(
     React,
     Select,
@@ -15,7 +16,8 @@ define([
     Button,
     ImagePicker,
     CategorySelect,
-    RefreshIcon
+    RefreshIcon,
+    VariationPicker
 ) {
     "use strict";
 
@@ -90,8 +92,23 @@ define([
                 />
             );
         },
+        renderVariationPicker: function () {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+
+            return <VariationPicker
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                currency={this.state.currency}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
+        },
         render: function() {
             return <div>
+                {this.renderVariationPicker()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
@@ -110,12 +127,6 @@ define([
                             value={this.props.description}
                             onChange={this.onInputChange}
                         />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.listingCurrency} />
                     </div>
                 </label>
                 <label>
@@ -143,10 +154,6 @@ define([
                         onClick={this.refreshCategories}
                         disabled={this.state.refreshCategoriesDisabled}
                     />
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Image</span>
-                    {this.renderImagePicker()}
                 </label>
             </div>;
         }
