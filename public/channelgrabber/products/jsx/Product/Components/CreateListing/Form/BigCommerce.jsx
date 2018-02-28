@@ -128,7 +128,7 @@ define([
                 }
             }
         },
-        renderVariationPicker: function () {
+        renderVariationSpecificFields: function () {
             var variationsDataForProduct = this.props.variationsDataForProduct;
             var attributeNames = this.props.product.attributeNames;
             if (this.props.variationsDataForProduct.length == 0) {
@@ -155,7 +155,7 @@ define([
         },
         render: function() {
             return <div>
-                {this.renderVariationPicker()}
+                {this.renderVariationSpecificFields()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>

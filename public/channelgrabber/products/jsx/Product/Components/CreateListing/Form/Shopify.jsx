@@ -94,7 +94,7 @@ define([
                 />
             );
         },
-        renderVariationPicker: function () {
+        renderVariationSpecificFields: function () {
             if (this.props.variationsDataForProduct.length == 0) {
                 return <SimpleProduct
                     setFormStateListing={this.props.setFormStateListing}
@@ -115,7 +115,7 @@ define([
         },
         render: function() {
             return <div>
-                {this.renderVariationPicker()}
+                {this.renderVariationSpecificFields()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
