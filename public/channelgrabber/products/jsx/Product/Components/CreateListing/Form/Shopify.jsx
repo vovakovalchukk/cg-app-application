@@ -30,8 +30,7 @@ define([
                 accountId: null,
                 brand: null,
                 product: null,
-                category: [],
-                listingType: null
+                category: []
             }
         },
         getInitialState: function() {
@@ -99,13 +98,9 @@ define([
             }
 
             return <VariationPicker
-                images={true}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
-                attributeNames={this.props.product.attributeNames}
-                attributeNameMap={this.props.attributeNameMap}
-                editableAttributeNames={true}
                 currency={this.state.currency}
                 fetchVariations={this.props.fetchVariations}
                 product={this.props.product}
