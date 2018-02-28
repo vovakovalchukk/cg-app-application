@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "35d351d1a7ed37555007efc4fef82607",
+    "content-hash": "b82d69b4f743f848731a73606975b594",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -841,22 +841,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.11.11",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b4f74c30c77ac656a796802d39b0d872874484b4"
+                "reference": "b9072da683839b52eafb18bae3d3408610f988a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.11.11-c18372.zip",
-                "reference": "b4f74c30c77ac656a796802d39b0d872874484b4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.1-663c0a.zip",
+                "reference": "b9072da683839b52eafb18bae3d3408610f988a1",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.33.3",
+                "channelgrabber/channel": "^1.34.0",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -901,7 +901,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-02-15T09:07:44+00:00"
+            "time": "2018-02-28T14:13:56+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2624,16 +2624,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.14.1",
+            "version": "2.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "3f1855424db55a84398ba7eafa4655cadfc7e422"
+                "reference": "f20d81f2bfbf364b44fbf133e630e8788b6509c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.14.1-03d0aa.zip",
-                "reference": "3f1855424db55a84398ba7eafa4655cadfc7e422",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.14.2-2cd688.zip",
+                "reference": "f20d81f2bfbf364b44fbf133e630e8788b6509c6",
                 "shasum": null
             },
             "require": {
@@ -2672,7 +2672,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-29T15:34:00+00:00"
+            "time": "2018-02-28T09:34:22+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -4011,16 +4011,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.2",
+            "version": "1.22.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "da1235f269240886b95c13c9032b5b38379074bd"
+                "reference": "d0ba8a469e82e7d1134e0f4824bc4cffeb4f5e2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.2-815840.zip",
-                "reference": "da1235f269240886b95c13c9032b5b38379074bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.3-2f6ee9.zip",
+                "reference": "d0ba8a469e82e7d1134e0f4824bc4cffeb4f5e2c",
                 "shasum": null
             },
             "require": {
@@ -4071,7 +4071,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-19T12:34:33+00:00"
+            "time": "2018-02-28T14:14:21+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7965,7 +7965,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8020,7 +8020,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8075,7 +8075,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8126,7 +8126,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8212,7 +8212,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
