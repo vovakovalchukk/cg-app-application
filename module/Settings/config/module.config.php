@@ -13,6 +13,8 @@ use CG\Ebay\Client\TradingApi;
 use CG\Ekm\Account as EkmAccount;
 use CG\Ekm\Account\CreationService as EkmAccountCreationService;
 use CG\FileStorage\S3\Adapter as S3Adapter;
+use CG\Listing\Csv\Storage\S3 as ListingsCsvStorageS3;
+use CG\Listing\Csv\StorageInterface as ListingsCsvStorage;
 use CG\Log\Logger;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
@@ -38,12 +40,13 @@ use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
-use CG\Listing\Csv\StorageInterface as ListingsCsvStorage;
-use CG\Listing\Csv\Storage\S3 as ListingsCsvStorageS3;
 use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
+use Settings\Controller\CategoryTemplatesController;
+use Settings\Controller\CategoryTemplatesJsonController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\CreateListingsController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
 use Settings\Controller\EmailController;
@@ -52,7 +55,6 @@ use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
-use Settings\Controller\CreateListingsController;
 use Settings\Controller\ShippingController;
 use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
@@ -167,6 +169,12 @@ return [
                     [
                         'label' => 'Create Listings',
                         'title' => 'Create channel listings from imported data',
+                        'route' => Module::ROUTE . '/' . CreateListingsController::ROUTE,
+                        'feature-flag' => ProductService::FEATURE_FLAG_PRODUCT_EXPORT
+                    ],
+                    [
+                        'label' => 'Category Templates',
+                        'title' => 'Manage the category templates',
                         'route' => Module::ROUTE . '/' . CreateListingsController::ROUTE,
                         'feature-flag' => ProductService::FEATURE_FLAG_PRODUCT_EXPORT
                     ],
@@ -840,6 +848,121 @@ return [
                             ],
                         ]
                     ],
+                    'Category' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/category',
+                        ],
+                        'may_terminate' => false,
+                        'child_routes' => [
+                            CategoryTemplatesController::ROUTE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/templates',
+                                    'defaults' => [
+                                        'action' => 'index',
+                                        'controller' => CategoryTemplatesController::class
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CategoryTemplatesJsonController::ROUTE_ACCOUNTS => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/accounts',
+                                            'defaults' => [
+                                                'action' => 'accounts',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                    CategoryTemplatesJsonController::ROUTE_FETCH => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/fetch',
+                                            'defaults' => [
+                                                'action' => 'fetch',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                    CategoryTemplatesJsonController::ROUTE_CATEGORY_ROOTS => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/category-roots',
+                                            'defaults' => [
+                                                'action' => 'categoryRoots',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                    CategoryTemplatesJsonController::ROUTE_SAVE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'action' => 'save',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                    CategoryTemplatesJsonController::ROUTE_CATEGORY_CHILDREN => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:accountId/category-children/:externalCategoryId',
+                                            'defaults' => [
+                                                'action' => 'categoryChildren',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ],
+                                            'constraints' => [
+                                                'accountId' => '[0-9]*'
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                    CategoryTemplatesJsonController::ROUTE_REFRESH_CATEGORIES => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:accountId/refresh-categories',
+                                            'defaults' => [
+                                                'action' => 'refreshCategories',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ],
+                                            'constraints' => [
+                                                'accountId' => '[0-9]*'
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                    CategoryTemplatesJsonController::ROUTE_TEMPLATE_DELETE => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:templateId/delete',
+                                            'defaults' => [
+                                                'action' => 'templateDelete',
+                                                'controller' => CategoryTemplatesJsonController::class
+                                            ],
+                                            'constraints' => [
+                                                'templateId' => '[0-9]*'
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => []
+                                    ],
+                                ]
+                            ],
+                        ]
+                    ]
                 ]
             ]
         ], 
