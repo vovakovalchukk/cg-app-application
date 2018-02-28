@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e347819349835f908d5792cfad4418a9",
+    "content-hash": "2e4de06bc8cf4917a3944f56b1054619",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4017,11 +4017,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-LIS-84-categories-with-variations",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "5351040ec28e7927fb6d6f4afe1760daedd845c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-LIS-73-create-variation-listings-407546.zip",
+                "reference": "5351040ec28e7927fb6d6f4afe1760daedd845c0",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4071,7 +4077,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-19T12:34:33+00:00"
+            "time": "2018-02-27T11:41:47+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9549,7 +9555,7 @@
         {
             "alias": "1.22.3",
             "alias_normalized": "1.22.3.0",
-            "version": "dev-LIS-84-categories-with-variations",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
@@ -9564,8 +9570,8 @@
         "channelgrabber/woocommerce": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
