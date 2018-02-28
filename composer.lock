@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3011d7c4bf016b4d08ace1067acf93c",
+    "content-hash": "db0d3fda3bfb46b07146dd74da54639d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.1",
+            "version": "dev-TAC-18-ExportShippingInfo",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3cd941de45672241d54ea8baab6dc05cf9c5c8db"
+                "reference": "b01e71c6823f2d9b901d942d18b0bbc99c0d7eb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.1-9c768f.zip",
-                "reference": "3cd941de45672241d54ea8baab6dc05cf9c5c8db",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-18-ExportShippingInfo-6e0e36.zip",
+                "reference": "b01e71c6823f2d9b901d942d18b0bbc99c0d7eb7",
                 "shasum": null
             },
             "require": {
@@ -528,6 +528,7 @@
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/courieradapter": "dev-TAC-18-ExportShippingInfo as 1.1.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.5.4",
@@ -594,7 +595,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-02-22T09:01:55+00:00"
+            "time": "2018-02-28T14:42:26+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -743,16 +744,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.1.1",
+            "version": "dev-TAC-18-ExportShippingInfo",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32"
+                "reference": "cd7b60f00fdb9ed8fbbee48f94b5ad1dfc2b6cf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.1-83d7ad.zip",
-                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-18-ExportShippingInfo-c2a09d.zip",
+                "reference": "cd7b60f00fdb9ed8fbbee48f94b5ad1dfc2b6cf9",
                 "shasum": null
             },
             "require": {
@@ -772,7 +773,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2017-01-27T11:47:38+00:00"
+            "time": "2018-02-28T13:47:06+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -9509,10 +9510,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.34.2",
+            "alias_normalized": "1.34.2.0",
+            "version": "dev-TAC-18-ExportShippingInfo",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-TAC-18-ExportShippingInfo",
+            "package": "channelgrabber/courieradapter"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

@@ -274,6 +274,12 @@ class CourierController extends AbstractActionController
                     'disabled' => false,
                 ],
                 [
+                    'value' => $this->specificsPageService->getExportAllActionDescription($selectedAccount),
+                    'id' => 'export-all-labels-button',
+                    'class' => 'courier-export-all-labels-button courier-status-all-labels-button',
+                    'disabled' => false,
+                ],
+                [
                     'value' => $this->specificsPageService->getPrintAllActionDescription($selectedAccount),
                     'id' => 'print-all-labels-button',
                     'class' => 'courier-print-all-labels-button courier-status-all-labels-button',
@@ -333,6 +339,12 @@ class CourierController extends AbstractActionController
                     'value' => $this->specificsPageService->getCreateActionDescription($selectedAccount),
                     'id' => 'create-label-button',
                     'class' => 'courier-create-label-button',
+                    'disabled' => false,
+                ],
+                [
+                    'value' => $this->specificsPageService->getExportActionDescription($selectedAccount),
+                    'id' => 'export-label-button',
+                    'class' => 'courier-export-label-button',
                     'disabled' => false,
                 ],
                 [

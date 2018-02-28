@@ -4,6 +4,7 @@ namespace Orders\Courier;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
+use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
@@ -150,6 +151,8 @@ class SpecificsAjax
     ) {
         $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
         $providerService = $this->getCarrierServiceProvider($courierAccount);
+        $exportable = ($providerService instanceof CarrierServiceProviderExportInterface
+            && $providerService->isExportAllowedForOrder($courierAccount, $order));
         $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface
             && $providerService->isCancellationAllowedForOrder($courierAccount, $order));
         $dispatchable = ($order->getStatus() != OrderStatus::DISPATCHING)
@@ -159,6 +162,7 @@ class SpecificsAjax
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
+            'exportable' => $exportable,
             'cancellable' => $cancellable,
             'dispatchable' => $dispatchable,
             'services' => $services,
@@ -331,6 +335,7 @@ class SpecificsAjax
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['serviceOptions'] = $orderData['serviceOptions'];
+            $parcelData['exportable'] = $orderData['exportable'];
             $parcelData['cancellable'] = $orderData['cancellable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
