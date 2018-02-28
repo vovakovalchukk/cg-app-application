@@ -54,6 +54,7 @@ define([
 
                 if (selectOption.disabled) {
                     this.setState(newState);
+                    n.error('The selected category <b>' + selectOption.name + '</b> doesn\'t support varations. Please select another category.');
                     return;
                 }
 
