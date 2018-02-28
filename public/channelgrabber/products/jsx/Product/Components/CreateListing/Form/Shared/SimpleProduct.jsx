@@ -13,11 +13,16 @@ define([
 
     var SimpleProduct = React.createClass({
         getDefaultProps: function() {
+            /**
+             * ensure you pass in the value of the custom fields by props
+             * i.e. if the Ebay form instantiates SimpleProduct with an ean field, then you should pass the value
+             * of the ean field in via props when SimpleProduct is rendered
+             */
             return {
                 product: {},
                 currency: '£',
                 images: true,
-                channelSpecificFields: {},
+                customFields: {},
                 setFormStateListing: function() {}
             }
         },
@@ -26,19 +31,19 @@ define([
             newStateObject[fieldName] = event.target.value;
             this.props.setFormStateListing(newStateObject);
         },
-        renderChannelSpecificFields: function() {
-            var channelSpecificFields = [];
-            for (var fieldName in this.props.channelSpecificFields) {
-                var channelSpecificField = this.props.channelSpecificFields[fieldName];
-                
-                channelSpecificFields.push(<label>
+        renderCustomFields: function() {
+            var customFields = [];
+            for (var fieldName in this.props.customFields) {
+                var channelSpecificField = this.props.customFields[fieldName];
+
+                customFields.push(<label>
                     <span className={"inputbox-label"}>{channelSpecificField.displayName}</span>
                     <div className={"order-inputbox-holder"}>
                         {channelSpecificField.getFormComponent(this.props[fieldName], this.onValueChange.bind(this, fieldName))}
                     </div>
                 </label>);
             }
-            return channelSpecificFields;
+            return customFields;
         },
         onImageSelected: function(image, selectedImageIds) {
             this.props.setFormStateListing({
@@ -86,7 +91,7 @@ define([
                             />
                         </div>
                     </label>
-                    {this.renderChannelSpecificFields()}
+                    {this.renderCustomFields()}
                 </div>
             );
         }

@@ -23,7 +23,7 @@ define([
                 attributeNames: [],
                 editableAttributeNames: false,
                 attributeNameMap: {},
-                channelSpecificFields: {},
+                customFields: {},
                 listingType: null,
                 fetchVariations: function() {}
             }
@@ -58,8 +58,8 @@ define([
                     variationsFormState[currentVariation.id]['imageId'] = currentVariation.images[0].id;
                 }
 
-                for (var fieldName in this.props.channelSpecificFields) {
-                    variationsFormState[currentVariation.id][fieldName] = this.props.channelSpecificFields[fieldName].getDefaultValueFromVariation(currentVariation);
+                for (var fieldName in this.props.customFields) {
+                    variationsFormState[currentVariation.id][fieldName] = this.props.customFields[fieldName].getDefaultValueFromVariation(currentVariation);
                 }
             }
 
@@ -216,27 +216,27 @@ define([
                             currency={this.props.currency}
                         />
                     </td>
-                    {this.renderChannelSpecificFields(variation.id)}
+                    {this.renderCustomFields(variation.id)}
                 </tr>
             }.bind(this));
         },
         renderChannelSpecificFieldHeaders: function() {
-            for (var fieldName in this.props.channelSpecificFields) {
-                var fieldDisplayName = this.props.channelSpecificFields[fieldName]['displayName']
-                    ? this.props.channelSpecificFields[fieldName]['displayName']
+            for (var fieldName in this.props.customFields) {
+                var fieldDisplayName = this.props.customFields[fieldName]['displayName']
+                    ? this.props.customFields[fieldName]['displayName']
                     : fieldName;
                 return <td>
                     {fieldDisplayName}
                 </td>
             }
         },
-        renderChannelSpecificFields: function(variationId) {
-            for (var fieldName in this.props.channelSpecificFields) {
+        renderCustomFields: function(variationId) {
+            for (var fieldName in this.props.customFields) {
                 var value = this.state.variationsFormState[variationId] && this.state.variationsFormState[variationId][fieldName]
                     ? this.state.variationsFormState[variationId][fieldName]
                     : null;
 
-                var elementForChannelSpecificField = this.props.channelSpecificFields[fieldName].getFormComponent(
+                var elementForChannelSpecificField = this.props.customFields[fieldName].getFormComponent(
                     value,
                     this.onVariationValueChange.bind(this, variationId, fieldName)
                 );

@@ -92,7 +92,7 @@ define([
                 return <SimpleProduct
                     variationFormState={this.props.variations}
                     setFormStateListing={this.props.setFormStateListing}
-                    channelSpecificFields={{}}
+                    customFields={{}}
                     currency={this.state.currency}
                     product={this.props.product}
                     price={this.props.price}
@@ -105,7 +105,7 @@ define([
                 setFormStateListing={this.props.setFormStateListing}
                 attributeNames={attributeNames}
                 editableAttributeNames={false}
-                channelSpecificFields={{}}
+                customFields={{}}
                 currency={this.state.currency}
                 fetchVariations={this.props.fetchVariations}
                 product={this.props.product}

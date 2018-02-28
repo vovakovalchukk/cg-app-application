@@ -5,6 +5,7 @@ define([
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
     'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
     'Common/Components/ImagePicker'
 ], function(
     React,
@@ -13,6 +14,7 @@ define([
     Input,
     CategorySelect,
     VariationPicker,
+    SimpleProduct,
     ImagePicker,
 ) {
     "use strict";
@@ -207,7 +209,7 @@ define([
             };
             return tooltips[inputFieldName];
         },
-        getChannelSpecificVariationFields: function() {
+        getCustomFields: function() {
             return {
                 ean: {
                     displayName: 'Barcode',
@@ -226,7 +228,15 @@ define([
         },
         renderVariationPicker: function () {
             if (this.props.variationsDataForProduct.length == 0) {
-                return;
+                return <SimpleProduct
+                    setFormStateListing={this.props.setFormStateListing}
+                    customFields={this.getCustomFields()}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                    ean={this.props.ean}
+                    images={false}
+                />;
             }
 
             return <VariationPicker
@@ -237,7 +247,7 @@ define([
                 attributeNames={this.props.product.attributeNames}
                 attributeNameMap={this.props.attributeNameMap}
                 editableAttributeNames={true}
-                channelSpecificFields={this.getChannelSpecificVariationFields()}
+                customFields={this.getCustomFields()}
                 currency={this.state.currency}
                 listingType={this.props.listingType}
                 fetchVariations={this.props.fetchVariations}
