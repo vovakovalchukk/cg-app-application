@@ -77,14 +77,6 @@ class Service implements
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
     {
         try {
-            /** @TODO: remove this */
-            if (in_array($externalCategoryId, [222, 888])) {
-                return [];
-            }
-            return [
-                222 => ['title' => 'child one'],
-                888 => ['title' => 'the second category child']
-            ];
             $category = $this->fetchCategoryByExternalIdAndMarketplace(
                 $this->fetchDefaultSiteIdForAccount($account),
                 $externalCategoryId
@@ -271,11 +263,6 @@ class Service implements
 
     protected function getCategoryOptionsForAccount(Account $account): array
     {
-        /** @TODO: remove this */
-        return [
-                123 => ['title' => 'My first category', 'variations' => false],
-                23232 => ['title' => 'second category', 'variations' => true]
-        ];
         return $this->formatCategoriesArray(
             $this->fetchCategoriesForAccount($account)
         );
