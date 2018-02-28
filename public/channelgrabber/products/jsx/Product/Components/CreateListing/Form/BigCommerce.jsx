@@ -3,17 +3,17 @@ define([
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
-    'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/BigCommerce/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/VariationPicker'
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    ImagePicker,
     CategorySelect,
-    VariationPicker
+    VariationPicker,
+    SimpleProduct
 ) {
     "use strict";
 
@@ -132,7 +132,14 @@ define([
             var variationsDataForProduct = this.props.variationsDataForProduct;
             var attributeNames = this.props.product.attributeNames;
             if (this.props.variationsDataForProduct.length == 0) {
-                return;
+                return <SimpleProduct
+                    setFormStateListing={this.props.setFormStateListing}
+                    channelSpecificFields={this.getChannelSpecificVariationFields()}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                    weight={this.props.weight}
+                />;
             }
 
             return <VariationPicker
@@ -140,8 +147,6 @@ define([
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
                 attributeNames={attributeNames}
-                attributeNameMap={this.props.attributeNameMap}
-                editableAttributeNames={false}
                 channelSpecificFields={this.getChannelSpecificVariationFields()}
                 currency={this.state.currency}
                 fetchVariations={this.props.fetchVariations}

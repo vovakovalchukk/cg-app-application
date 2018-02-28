@@ -3,17 +3,17 @@ define([
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
-    'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/WooCommerce/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/VariationPicker'
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    ImagePicker,
     CategorySelect,
-    VariationPicker
+    VariationPicker,
+    SimpleProduct
 ) {
     "use strict";
 
@@ -24,7 +24,8 @@ define([
                 description: null,
                 accountId: null,
                 product: null,
-                variationsDataForProduct: []
+                variationsDataForProduct: [],
+                price: null
             }
         },
         getInitialState: function() {
@@ -84,11 +85,18 @@ define([
             };
             return tooltips[inputFieldName];
         },
-        renderVariationPicker: function () {
+        renderVariationSpecificFields: function () {
             var variationsDataForProduct = this.props.variationsDataForProduct;
             var attributeNames = this.props.product.attributeNames;
             if (this.props.variationsDataForProduct.length == 0) {
-                return;
+                return <SimpleProduct
+                    variationFormState={this.props.variations}
+                    setFormStateListing={this.props.setFormStateListing}
+                    channelSpecificFields={{}}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                />;
             }
 
             return <VariationPicker
@@ -105,7 +113,7 @@ define([
         },
         render: function() {
             return <div>
-                {this.renderVariationPicker()}
+                {this.renderVariationSpecificFields()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
