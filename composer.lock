@@ -2630,16 +2630,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.14.1",
+            "version": "2.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "3f1855424db55a84398ba7eafa4655cadfc7e422"
+                "reference": "f20d81f2bfbf364b44fbf133e630e8788b6509c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.14.1-03d0aa.zip",
-                "reference": "3f1855424db55a84398ba7eafa4655cadfc7e422",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.14.2-2cd688.zip",
+                "reference": "f20d81f2bfbf364b44fbf133e630e8788b6509c6",
                 "shasum": null
             },
             "require": {
@@ -2678,7 +2678,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-29T15:34:00+00:00"
+            "time": "2018-02-28T09:34:22+00:00"
         },
         {
             "name": "channelgrabber/stock",
