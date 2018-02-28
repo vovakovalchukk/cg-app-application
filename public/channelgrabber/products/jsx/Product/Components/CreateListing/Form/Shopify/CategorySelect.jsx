@@ -24,7 +24,7 @@ define([
                 return options;
             }
             $.each(this.props.categories, function(id, name) {
-                options.push({name: name, value: name})
+                options.push({name: name.title, value: name.title})
             });
             return options;
         },

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1cd53bb2b221b2733259b4e864074ee",
+    "content-hash": "2e4de06bc8cf4917a3944f56b1054619",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2630,16 +2630,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.14.1",
+            "version": "2.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "3f1855424db55a84398ba7eafa4655cadfc7e422"
+                "reference": "f20d81f2bfbf364b44fbf133e630e8788b6509c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.14.1-03d0aa.zip",
-                "reference": "3f1855424db55a84398ba7eafa4655cadfc7e422",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.14.2-2cd688.zip",
+                "reference": "f20d81f2bfbf364b44fbf133e630e8788b6509c6",
                 "shasum": null
             },
             "require": {
@@ -2678,7 +2678,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-01-29T15:34:00+00:00"
+            "time": "2018-02-28T09:34:22+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -4017,16 +4017,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.2",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "da1235f269240886b95c13c9032b5b38379074bd"
+                "reference": "5351040ec28e7927fb6d6f4afe1760daedd845c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.2-815840.zip",
-                "reference": "da1235f269240886b95c13c9032b5b38379074bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-LIS-73-create-variation-listings-407546.zip",
+                "reference": "5351040ec28e7927fb6d6f4afe1760daedd845c0",
                 "shasum": null
             },
             "require": {
@@ -4077,7 +4077,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-19T12:34:33+00:00"
+            "time": "2018-02-27T11:41:47+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9551,6 +9551,12 @@
             "alias_normalized": "1.2.25.0",
             "version": "dev-EPIC-LIS-73-create-variation-listings",
             "package": "channelgrabber/woocommerce"
+        },
+        {
+            "alias": "1.22.3",
+            "alias_normalized": "1.22.3.0",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -9562,6 +9568,7 @@
         "channelgrabber/product": 20,
         "channelgrabber/shopify": 20,
         "channelgrabber/woocommerce": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

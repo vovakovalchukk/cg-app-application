@@ -51,6 +51,13 @@ define([
                     newState.selectedCategories,
                     categoryIndex
                 );
+
+                if (selectOption.disabled) {
+                    this.setState(newState);
+                    n.error('The selected category <b>' + selectOption.name + '</b> doesn\'t support varations. Please select another category.');
+                    return;
+                }
+
                 newState.selectedCategories[categoryIndex] = selectOption;
 
                 this.setState(newState);
@@ -75,9 +82,18 @@ define([
             });
         },
         getCategoryOptionsFromCategoryMap(categoryMap) {
-            var categoryOptions = [];
+            var categoryOptions = [], disabled, category;
             for (var externalId in categoryMap) {
-                categoryOptions.push({name: categoryMap[externalId], value: externalId});
+                category = categoryMap[externalId];
+                disabled = false;
+                if (category.hasOwnProperty('variations')) {
+                    disabled = !category.variations;
+                }
+                categoryOptions.push({
+                    name: category.title,
+                    value: externalId,
+                    disabled: disabled
+                });
             }
             return categoryOptions;
         },
