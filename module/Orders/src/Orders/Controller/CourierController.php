@@ -1,23 +1,25 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Collection as AccountCollection;
+use CG\Account\Shared\Entity as Account;
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter;
+use CG\Stdlib\Exception\Storage as StorageException;
+use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Zend\Stdlib\Http\FileResponse;
-use Orders\Module;
+use Orders\Courier\Label\ExportService as LabelExportService;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
-use Orders\Courier\SpecificsPage as SpecificsPageService;
 use Orders\Courier\Service;
-use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Orders\Courier\ShippingAccountsService;
+use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
+use Orders\Courier\SpecificsPage as SpecificsPageService;
+use Orders\Module;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use CG\Order\Client\Service as OrderService;
-use CG\Order\Service\Filter;
 
 class CourierController extends AbstractActionController
 {
@@ -29,6 +31,8 @@ class CourierController extends AbstractActionController
     const ROUTE_SPECIFICS_URI = '/specifics[/:account]';
     const ROUTE_LABEL = 'Label';
     const ROUTE_LABEL_URI = '/label';
+    const ROUTE_LABEL_EXPORT = 'Export';
+    const ROUTE_LABEL_EXPORT_URI = '/export';
     const ROUTE_LABEL_PRINT = 'Print';
     const ROUTE_LABEL_PRINT_URI = '/print';
     const ROUTE_MANIFEST_PRINT = 'Print';
@@ -37,13 +41,18 @@ class CourierController extends AbstractActionController
     const LABEL_MIME_TYPE = 'application/pdf';
     const MANIFEST_MIME_TYPE = 'application/pdf';
 
+    /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var DataTable */
     protected $reviewTable;
+    /** @var DataTable */
     protected $specificsTable;
     /** @var Service */
     protected $service;
     /** @var SpecificsPageService */
     protected $specificsPageService;
+    /** @var LabelExportService */
+    protected $labelExportService;
     /** @var LabelPrintService */
     protected $labelPrintService;
     /** @var ManifestService */
@@ -61,6 +70,7 @@ class CourierController extends AbstractActionController
         DataTable $specificsTable,
         Service $service,
         SpecificsPageService $specificsPageService,
+        LabelExportService $labelExportService,
         LabelPrintService $labelPrintService,
         ManifestService $manifestService,
         OrdersToOperateOn $ordersToOperatorOn,
@@ -72,6 +82,7 @@ class CourierController extends AbstractActionController
         $this->specificsTable = $specificsTable;
         $this->service = $service;
         $this->specificsPageService = $specificsPageService;
+        $this->labelExportService = $labelExportService;
         $this->labelPrintService = $labelPrintService;
         $this->manifestService = $manifestService;
         $this->ordersToOperatorOn = $ordersToOperatorOn;
@@ -412,6 +423,29 @@ class CourierController extends AbstractActionController
         ]);
         $view->setTemplate('elements/buttons.mustache');
         return $view;
+    }
+
+    public function exportAction()
+    {
+        try {
+            $export = $this->labelExportService->exportOrders(
+                $this->params()->fromPost('order'),
+                $this->params()->fromPost('orderData'),
+                $this->params()->fromPost('parcelData'),
+                $this->params()->fromPost('itemData'),
+                $this->params()->fromPost('account')
+            );
+        } catch (StorageException $exception) {
+            throw new \RuntimeException(
+                'Failed to export shipping order(s), please try again', $exception->getCode(), $exception
+            );
+        }
+
+        return new FileResponse(
+            $export->getType(),
+            date('Y-m-d hi') . ' Export.' . $export->getFileExtension(),
+            base64_decode($export->getData())
+        );
     }
 
     public function printLabelAction()

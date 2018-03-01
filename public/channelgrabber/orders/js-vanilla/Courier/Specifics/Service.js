@@ -117,6 +117,7 @@ define([
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
+    Service.URI_EXPORT = '/orders/courier/label/export';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
     Service.URI_DISPATCH = '/orders/courier/label/dispatch';
@@ -312,6 +313,23 @@ define([
         this.sendCreateLabelsRequest(data);
     };
 
+    Service.prototype.exportOrder = function(orderId, button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId);
+        if (!inputData) {
+            return;
+        }
+        $(button).addClass('disabled');
+        this.getNotifications().notice('Exporting');
+        var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
+        data.account = this.getCourierAccountId();
+        data.order = [orderId];
+        this.sendExportRequest(data);
+    };
+
     Service.prototype.printLabelForOrder = function(orderId)
     {
         this.getNotifications().notice('Generating label', true);
@@ -386,6 +404,21 @@ define([
         this.sendCreateLabelsRequest(data);
     };
 
+    Service.prototype.exportAll = function(button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'exported']);
+        if (!data) {
+            return;
+        }
+        $(button).addClass('disabled');
+        $(EventHandler.SELECTOR_EXPORT_LABEL_BUTTON).addClass('disabled');
+        this.getNotifications().notice('Exporting all');
+        this.sendExportRequest(data);
+    };
+
     Service.prototype.sendCreateLabelsRequest = function(data)
     {
         var self = this;
@@ -403,6 +436,30 @@ define([
             // Refresh the table in case some orders did process to prevent double creation
             self.refresh();
         });
+    };
+
+    Service.prototype.sendExportRequest = function(data)
+    {
+        var formHtml = '<form method="POST" action="' + Service.URI_EXPORT + '">';
+        for (var name in data) {
+            if (!data.hasOwnProperty(name)) {
+                continue;
+            }
+
+            var values = data[name];
+            if (values instanceof Array) {
+                for (var value in values) {
+                    if (!values.hasOwnProperty(value)) {
+                        continue;
+                    }
+                    formHtml += '<input name="' + name + '[]" value="' + values[value] + '">';
+                }
+            } else {
+                formHtml += '<input name="' + name + '" value="' + values + '">';
+            }
+        }
+        formHtml += '</form>';
+        $(formHtml).appendTo('body').submit().remove();
     };
 
     Service.prototype.processCreateLabelsResponse = function(response)
