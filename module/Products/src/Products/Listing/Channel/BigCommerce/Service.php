@@ -44,7 +44,7 @@ class Service implements
             $this->fetchCategoriesFromBigCommerce($account),
             $account
         );
-        return [$this->categoryService->fetchCategoriesForAccount($account, 0)];
+        return $this->categoryService->fetchCategoriesForAccount($account, 0);
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
