@@ -268,6 +268,30 @@ class CategoryTemplatesJsonController extends AbstractJsonController
                         '345' => 'Clothes',
                         '567' => 'Phones'
                     ]
+                ],
+                [
+                    'accountId' => 36,
+                    'categories' => [
+                        '123' => 'Televisions 2',
+                        '345' => 'Clothes 2',
+                        '567' => 'Phones 2'
+                    ]
+                ],
+                [
+                    'accountId' => 42,
+                    'categories' => [
+                        '123' => 'Televisions 3',
+                        '345' => 'Clothes 3',
+                        '567' => 'Phones 3'
+                    ]
+                ],
+                [
+                    'accountId' => 115,
+                    'categories' => [
+                        '123' => 'Televisions 4',
+                        '345' => 'Clothes 4',
+                        '567' => 'Phones 4'
+                    ]
                 ]
             ]
         ]);
