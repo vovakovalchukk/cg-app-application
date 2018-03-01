@@ -275,22 +275,33 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function saveAction()
     {
-        return $this->buildResponse([
-            'valid' => true,
-            'id' => 726,
-            'etag' => '12321esdfc2342jkda',
-            'errors' => [
-                [
-                    'code' => 'existing',
-                    'message' => 'You have already mapped this category',
-                    'existing' => [
-                        'name' => 'TVs',
-                        'accountId' => 36,
-                        'externalCategoryId' => 12345
-                    ]
+        $success = $this->params()->fromPost('success' , false);
+        $success = !($success === 'false' || $success === false);
+
+        if ($success) {
+            return $this->buildSuccessResponse([
+                'valid' => true,
+                'id' => 726,
+                'etag' => '12321esdfc2342jkda',
+                'errors' => false
+            ]);
+        }
+
+        return $this->buildErrorResponse(
+            [
+                'code' => 'existing',
+                'message' => 'You have already mapped this category',
+                'existing' => [
+                    'name' => 'Washing machines and others',
+                    'accountId' => 36,
+                    'externalCategoryId' => 12345
                 ]
+            ],
+            [
+                'valid' => false,
+                'id' => 1
             ]
-        ]);
+        );
     }
 
     public function categoryChildrenAction()
