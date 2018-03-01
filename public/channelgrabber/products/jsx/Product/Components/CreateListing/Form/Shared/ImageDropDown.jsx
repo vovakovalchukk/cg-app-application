@@ -15,6 +15,7 @@ define([
         getDefaultProps: function() {
             return {
                 selected: null,
+                autoSelectFirst: true,
                 images: [],
                 onChange: null
             };
@@ -71,6 +72,7 @@ define([
                     </ClickOutside>
                     <div style={{display: this.state.active ? 'initial' : 'none'}}>
                         <ImagePicker
+                            autoSelectFirst={this.props.autoSelectFirst}
                             multiSelect={false}
                             images={this.props.images}
                             onImageSelected={this.onImageSelected}
