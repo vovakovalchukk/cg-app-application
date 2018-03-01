@@ -43,13 +43,12 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function fetchAction()
     {
-
-        return $this->buildResponse([
-            'categoryTemplates' => [
-                1 => [
-                    'etag' => '12321esdfc2342jkda',
-                    'name' => 'washing machines test',
-                    'accountCategories' => [
+        $data =  [
+            1 => [
+                'etag' => '12321esdfc2342jkda',
+                'name' => 'washing machines test',
+                'accountCategories' => [
+                    [
                         'accountId' => 12,
                         'categories' => [
                             [
@@ -68,10 +67,194 @@ class CategoryTemplatesJsonController extends AbstractJsonController
                                 'selected' => false
                             ]
                         ]
+                    ],
+                    [
+                        'accountId' => 36,
+                        'categories' => [
+                            [
+                                'value' => '12345',
+                                'name' => 'Washing machines shopify',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '34567',
+                                'name' => 'Dryers shopify',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '28234',
+                                'name' => 'Washer dryers shopify',
+                                'selected' => false
+                            ]
+                        ]
+                    ],
+                    [
+                        'accountId' => 42,
+                        'categories' => [
+                            [
+                                'value' => '12345',
+                                'name' => 'Washing machines and others BigCommerce',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '34567',
+                                'name' => 'Dryers BigCommerce',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '28234',
+                                'name' => 'Washer dryers BigCommerce',
+                                'selected' => false
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            2 => [
+                'etag' => '12321esdfc2342jkda',
+                'name' => 'watches',
+                'accountCategories' => [
+                    [
+                        'accountId' => 12,
+                        'categories' => [
+                            [
+                                'value' => '1444',
+                                'name' => 'expensive watches',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '98721',
+                                'name' => 'good price watches',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '45172',
+                                'name' => 'cheap watches',
+                                'selected' => false
+                            ]
+                        ]
+                    ],
+                    [
+                        'accountId' => 36,
+                        'categories' => [
+                            [
+                                'value' => '34231',
+                                'name' => 'just watches',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '76314',
+                                'name' => 'smart watch',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '94324',
+                                'name' => 'no watches haha',
+                                'selected' => true
+                            ]
+                        ]
+                    ],
+                    [
+                        'accountId' => 115,
+                        'categories' => [
+                            [
+                                'value' => '9278341',
+                                'name' => 'Washing machines and others',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '987312',
+                                'name' => 'Dryers',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '123543',
+                                'name' => 'Washer dryers',
+                                'selected' => false
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            3 => [
+                'etag' => '12321esdfc2342jkda',
+                'name' => 'computers',
+                'accountCategories' => [
+                    [
+                        'accountId' => 36,
+                        'categories' => [
+                            [
+                                'value' => '455662',
+                                'name' => 'computers 1 ',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '92831',
+                                'name' => 'computers 2',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '1235217',
+                                'name' => 'computers 3',
+                                'selected' => false
+                            ]
+                        ]
+                    ],
+                    [
+                        'accountId' => 42,
+                        'categories' => [
+                            [
+                                'value' => '12313123',
+                                'name' => 'monitors',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '345627',
+                                'name' => 'keyboards',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '221823',
+                                'name' => 'laptops',
+                                'selected' => false
+                            ]
+                        ]
+                    ],
+                    [
+                        'accountId' => 115,
+                        'categories' => [
+                            [
+                                'value' => '12123345',
+                                'name' => 'cables',
+                                'selected' => false
+                            ],
+                            [
+                                'value' => '8921789',
+                                'name' => 'tablets',
+                                'selected' => true
+                            ],
+                            [
+                                'value' => '89213',
+                                'name' => 'nothing here',
+                                'selected' => false
+                            ]
+                        ]
                     ]
                 ]
             ]
-        ]);
+        ];
+        $search = $this->params()->fromPost('search', '');
+        $page = $this->params()->fromPost('page', 1);
+
+        if (!empty($search)) {
+            $data = array_filter($data, function($value) use ($search) {
+                return strpos($value['name'], $search) !== false;
+            });
+        }
+
+        $data = array_slice($data, ($page - 1) * 2, 2, true);
+
+        return $this->buildResponse(['categoryTemplates' => $data]);
     }
 
     public function categoryRootsAction()
@@ -126,8 +309,8 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         return $this->buildResponse([
             'categories' => [
                 '91' => 'Refetched Televisions',
-                '103' => 'Refetched Clothes Child',
-                '209' => 'Refetched Phones Child'
+                '103' => 'Refetched Clothes',
+                '209' => 'Refetched Phones'
             ]
         ]);
     }
