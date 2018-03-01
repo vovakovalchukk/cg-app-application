@@ -175,8 +175,8 @@ return [
                     [
                         'label' => 'Category Templates',
                         'title' => 'Manage the category templates',
-                        'route' => Module::ROUTE . '/' . CreateListingsController::ROUTE,
-                        'feature-flag' => ProductService::FEATURE_FLAG_PRODUCT_EXPORT
+                        'route' => Module::ROUTE . '/Category/' . CategoryTemplatesController::ROUTE_INDEX,
+                        'feature-flag' => CategoryTemplatesController::FEATURE_FLAG
                     ],
                 ]
             ],
