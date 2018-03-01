@@ -111,6 +111,7 @@ define([
                 currency={this.state.currency}
                 fetchVariations={this.props.fetchVariations}
                 product={this.props.product}
+                attributeNames={this.props.product.attributeNames}
             />
         },
         render: function() {

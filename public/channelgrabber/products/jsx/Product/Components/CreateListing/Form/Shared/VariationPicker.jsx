@@ -166,7 +166,7 @@ define([
         renderAttributeHeaders: function () {
             return this.props.attributeNames.map(function(attributeName) {
                 if (this.props.editableAttributeNames) {
-                    return <td><EditableField initialFieldText={attributeName} onSubmit={(fieldValue) => {
+                    return <th><EditableField initialFieldText={attributeName} onSubmit={(fieldValue) => {
                         var attributeNameMap = Object.assign({}, this.props.attributeNameMap);
                         attributeNameMap[attributeName] = fieldValue;
 
@@ -175,19 +175,19 @@ define([
                         return new Promise(function(resolve, reject) {
                             resolve({ newFieldText: fieldValue });
                         });
-                    }} /></td>
+                    }} /></th>
                 }
 
-                return <td>
+                return <th>
                     {this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName}
-                </td>;
+                </th>;
             }.bind(this));
         },
         renderImageHeader: function() {
             if (!this.props.images) {
                 return;
             }
-            return <td>Image</td>;
+            return <th>Image</th>;
         },
         renderAttributeColumns: function(variation) {
             return this.props.attributeNames.map(function(attributeName) {
@@ -238,9 +238,9 @@ define([
                 var fieldDisplayName = this.props.customFields[fieldName]['displayName']
                     ? this.props.customFields[fieldName]['displayName']
                     : fieldName;
-                return <td>
+                return <th>
                     {fieldDisplayName}
-                </td>
+                </th>
             }
         },
         renderCustomFields: function(variationId) {
@@ -262,14 +262,18 @@ define([
             return (
                 <div className={"variation-picker"}>
                     <table>
-                        <tr>
-                            <td><Checkbox onClick={this.onCheckAll} isChecked={this.state.allChecked} /></td>
-                            <td>SKU</td>
-                            {this.renderAttributeHeaders()}
-                            {this.renderImageHeader()}
-                            <td>Price</td>
-                            {this.renderChannelSpecificFieldHeaders()}
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th className={'variation-picker-checkbox'}>
+                                    <Checkbox onClick={this.onCheckAll} isChecked={this.state.allChecked} />
+                                </th>
+                                <th>SKU</th>
+                                {this.renderAttributeHeaders()}
+                                {this.renderImageHeader()}
+                                <th>Price</th>
+                                {this.renderChannelSpecificFieldHeaders()}
+                            </tr>
+                        </thead>
                         {this.renderVariationRows()}
                     </table>
                 </div>

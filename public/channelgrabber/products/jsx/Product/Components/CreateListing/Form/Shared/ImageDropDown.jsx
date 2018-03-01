@@ -63,9 +63,10 @@ define([
                 >
                     <ClickOutside onClickOutside={this.onClickOutside}>
                         <div className="react-image-picker" onClick={this.onClick}>
-                            <span className="react-image-picker-image">
-                                { this.state.image ? <img src={this.state.image.url}/> : 'Please select an image' }
-                            </span>
+                            { this.state.image
+                                ? <span className="react-image-picker-image"><img src={this.state.image.url}/></span>
+                                : <span className="react-image-picker-select-text">Select an image</span>
+                            }
                             <span className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
                         </div>
                     </ClickOutside>
