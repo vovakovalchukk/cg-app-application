@@ -74,3 +74,13 @@
   }
 }
 
+.product-create-listing {
+  .half {
+    width: auto; /* sigh, we need to use .half or all of our form elements don't render properly */
+  }
+
+  table {
+    width: auto;
+  }
+
+}
