@@ -429,10 +429,10 @@ class CourierController extends AbstractActionController
     {
         try {
             $export = $this->labelExportService->exportOrders(
-                $this->params()->fromPost('order'),
-                $this->params()->fromPost('orderData'),
-                $this->params()->fromPost('parcelData'),
-                $this->params()->fromPost('itemData'),
+                $this->params()->fromPost('order', []),
+                $this->params()->fromPost('orderData', []),
+                $this->params()->fromPost('parcelData', []),
+                $this->params()->fromPost('itemData', []),
                 $this->params()->fromPost('account')
             );
         } catch (StorageException $exception) {
