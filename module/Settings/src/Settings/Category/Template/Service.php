@@ -46,6 +46,7 @@ class Service
             $refreshable = true;
             if (isset(static::SALES_PLATFORMS[$account->getChannel()])) {
                 $displayName = $allowedChannels[$account->getChannel()];
+                unset($allowedChannels[$account->getChannel()]);
                 $refreshable = false;
             }
             $result[$account->getId()] = [
