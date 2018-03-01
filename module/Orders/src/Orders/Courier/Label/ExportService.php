@@ -1,11 +1,14 @@
 <?php
 namespace Orders\Courier\Label;
 
+use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\ExportInterface;
 use CG\CourierAdapter\ExportDocumentInterface;
+use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ExportService extends ServiceAbstract
 {
@@ -30,9 +33,14 @@ class ExportService extends ServiceAbstract
             /** @var ExportInterface $carrier */
             $carrier = $this->getCarrierProviderService($shippingAccount);
             $orders = $this->getOrdersByIds($orderIds);
-            $orderLabels = $this->getOrderLabelsForOrders($orders);
+            $orderLabels = $this->getOrCreateOrderLabelsForOrders(
+                $orders,
+                $ordersData,
+                $orderParcelsData,
+                $shippingAccount
+            );
 
-            $this->logDebug(static::LOG_EXPORT, [implode(',', $orderIds)], static::LOG_CODE, $shippingAccountId);
+            $this->logDebug(static::LOG_EXPORT, [implode(',', $orderIds), $shippingAccountId], static::LOG_CODE);
             $export = $carrier->exportOrders(
                 $orders,
                 $orderLabels,
@@ -43,14 +51,46 @@ class ExportService extends ServiceAbstract
                 $shippingAccount,
                 $user
             );
-            $this->logDebug(static::LOG_EXPORT_DONE, [implode(',', $orderIds)], static::LOG_CODE, $shippingAccountId);
+            $this->logDebug(static::LOG_EXPORT_DONE, [implode(',', $orderIds), $shippingAccountId], static::LOG_CODE);
 
             $this->updateOrderLabelStatus($orderLabels);
         } finally {
+            $this->unlockOrderLabels();
             $this->removeGlobalLogEventParams(['ou', 'account']);
         }
 
         return $export;
+    }
+
+    protected function getOrCreateOrderLabelsForOrders(
+        Orders $orders,
+        array $orderData,
+        array $orderParcelsData,
+        Account $shippingAccount
+    ): OrderLabels {
+        try {
+            $orderLabels = $this->getOrderLabelsForOrders($orders);
+        } catch (NotFound $exception) {
+            $orderLabels = new OrderLabels(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
+        }
+
+        $missingOrders = array_diff($orders->getIds(), $orderLabels->getArrayOf('orderId'));
+        if (empty($missingOrders)) {
+            return $orderLabels;
+        }
+
+        foreach ($missingOrders as $missingOrderId) {
+            $orderLabels->attach(
+                $this->createOrderLabelForOrder(
+                    $orders->getById($missingOrderId),
+                    $orderData[$missingOrderId] ?? [],
+                    $orderParcelsData[$missingOrderId] ?? [],
+                    $shippingAccount
+                )
+            );
+        }
+
+        return $orderLabels;
     }
 
     protected function updateOrderLabelStatus(OrderLabels $orderLabels)

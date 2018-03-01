@@ -3,19 +3,17 @@ namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Http\StatusCode;
-use CG\Locking\Failure as LockingFailure;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\ShippableInterface as Order;
+use CG\Order\Shared\Entity;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
@@ -43,10 +41,8 @@ class CreateService extends ServiceAbstract
     const LOG_GET_TRACKING = 'Looking for tracking numbers for order number %s, Order %s, shipping Account %d.';
     const LOG_GET_TRACKING_FOUND = 'Found tracking number %s for Order %s.';
     const LOG_GET_TRACKING_SAVE = 'Saving tracking numbers for Order %s.';
-    const LOG_CREATE_ORDER_LABEL = 'Creating OrderLabel for Order %s';
     const LOG_UPDATE_ORDER_LABEL = 'Updating OrderLabel with PDF data for Order %s (attempt %d)';
 
-    protected $orderLabelLocks = [];
     protected $productDetailFields = [
         'weight' => 'processWeightForProductDetails',
         'width'  => 'processDimensionForProductDetails',
@@ -240,89 +236,38 @@ class CreateService extends ServiceAbstract
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()] ?? [];
-            $orderLabel = $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount);
-            if ($orderLabel instanceof ValidationMessagesException) {
-                $orderLabelsData['errors'][$order->getId()] = $orderLabel;
-            } else {
-                $orderLabelsData['orderLabels']->attach($orderLabel);
+            try {
+                $orderLabelsData['orderLabels']->attach(
+                    $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount)
+                );
+            } catch (ValidationMessagesException $exception) {
+                $orderLabelsData['errors'][$order->getId()] = $exception;
             }
         }
         return $orderLabelsData;
     }
 
-    protected function createOrderLabelForOrder(Order $order, array $orderData, array $orderParcelsData, Account $shippingAccount)
-    {
-        $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
-
-        $serviceName = (isset($orderData['serviceName']) && $orderData['serviceName'] ? $orderData['serviceName'] : '');
-        if (!$serviceName) {
-            $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
-            $serviceName = $services[$orderData['service']] ?? $orderData['service'];
-        }
-
-        $date = new StdlibDateTime();
-        $orderLabelData = [
-            'organisationUnitId' => $order->getOrganisationUnitId(),
-            'shippingAccountId' => $shippingAccount->getId(),
-            'shippingServiceCode' => $orderData['service'],
-            'orderId' => $order->getId(),
-            'status' => OrderLabelStatus::CREATING,
-            'created' => $date->stdFormat(),
-            'channelName' => $shippingAccount->getChannel(),
-            'courierName' => $shippingAccount->getDisplayName(),
-            'courierService' => (string)$serviceName,
-            'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
-            'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
-            'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
-            'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
-            'parcels' => [],
-        ];
-
-        if (empty($orderParcelsData)) {
-            array_push($orderParcelsData, []);
-        }
-
-        $parcelCount = 1;
-        foreach ($orderParcelsData as $parcel) {
-            $orderLabelData['parcels'][] = [
-                'number' => $parcelCount,
-                'weight' => isset($parcel['weight']) ? $parcel['weight'] : '',
-                'width' => isset($parcel['width']) ? $parcel['width'] : '',
-                'height' => isset($parcel['height']) ? $parcel['height'] : '',
-                'length' => isset($parcel['length']) ? $parcel['length'] : '',
-            ];
-            $parcelCount++;
-        }
-        $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
-
-        // Lock to prevent two people creating the same label at the same time
-        try {
-            $lock = $this->lockingService->lock($orderLabel);
-            $this->orderLabelLocks[$orderLabel->getOrderId()] = $lock;
-        } catch (LockingFailure $ex) {
-            $this->logException($ex, 'error', __NAMESPACE__);
-            $exception = new ValidationMessagesException('Locking error');
-            $errorCode = StatusCode::LOCKED;
-            $exception->addErrorWithField($order->getId().':'.StatusCode::LOCKED, 'Someone else appears to be creating that label');
-            return $exception;
-        }
+    protected function createOrderLabelForOrder(
+        Entity $order,
+        array $orderData,
+        array $orderParcelsData,
+        Account $shippingAccount
+    ) {
+        $orderLabel = parent::createOrderLabelForOrder(
+            $order,
+            $orderData,
+            $orderParcelsData,
+            $shippingAccount
+        );
 
         // Check this label doesnt already exist before we try to create it
         // This needs to happen inside the lock to prevent duplication
         if ($this->doesOrderLabelExistForOrder($order)) {
-            $this->lockingService->unlock($lock);
-            return (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
+            $this->unlockOrderLabel($orderLabel);
+            throw (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
         }
 
-        // DO NOT save the OrderLabel at this stage. We only want to save them if the courier call is successful
         return $orderLabel;
-    }
-
-    protected function unlockOrderLabels()
-    {
-        foreach ($this->orderLabelLocks as $lock) {
-            $this->lockingService->unlock($lock);
-        }
     }
 
     /**
