@@ -8,17 +8,22 @@ use function CG\Stdlib\hyphenToClassname;
 
 class Factory
 {
-    public function getShippingServiceForAccount(Account $account): ServicesInterface
+    public function getExportOptionsForAccount(Account $account): ExportOptionsInterface
     {
-        return $this->getClassForAccount($account, ServicesInterface::class, 'ShippingService');
+        return $this->getClassForAccount($account, ExportOptionsInterface::class, 'ExportOptions');
     }
 
-    protected function getClassForAccount(Account $account, string $interface, string $className, ...$arguments)
+    public function getExporterForAccount(Account $account): ExporterInterface
+    {
+        return $this->getClassForAccount($account, ExporterInterface::class, 'Exporter');
+    }
+
+    protected function getClassForAccount(Account $account, string $interface, string $className)
     {
         $class = __NAMESPACE__ . '\\' . hyphenToClassname($account->getChannel()) . '\\' . $className;
         if (!class_exists($class) || !is_a($class, $interface, true)) {
             throw new NotFound(sprintf('Unsupported account "%s"', $account->getChannel()));
         }
-        return new $class(...$arguments);
+        return new $class();
     }
 }

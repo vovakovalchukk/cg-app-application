@@ -6,22 +6,33 @@ use CG\Order\Shared\ShippableInterface as Order;
 
 class ShippingService implements ServicesInterface
 {
+    const FIRST_CLASS = 'Royal Mail 1st Class';
+    const SECOND_CLASS = 'Royal Mail 2nd Class';
+    const TWENTY_FOUR = 'Royal Mail 24';
+    const FORTY_EIGHT = 'Royal Mail 48';
+    const SPECIAL_DELIVERY = 'Special Delivery';
+    const FIRST_CLASS_ACCOUNT = '1st Class Account Mail';
+    const SECOND_CLASS_ACCOUNT = '2nd Class Account Mail';
+    const INTERNATIONAL_STANDARD = 'International Standard On Account';
+    const INTERNATIONAL_ECONOMY = 'International Economy On Account';
+    const INTERNATIONAL_TRACKED = 'International Tracked On Account';
+
     protected $services = [
-        'Royal Mail 1st Class' => [
+        self::FIRST_CLASS => [
             'inputType' => 'multiselect',
             'options' => [
                 ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
-        'Royal Mail 2nd Class' => [
+        self::SECOND_CLASS => [
             'inputType' => 'multiselect',
             'options' => [
                 ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
-        'Royal Mail 24' => false,
-        'Royal Mail 48' => false,
-        'Special Delivery' => [
+        self::TWENTY_FOUR => false,
+        self::FORTY_EIGHT => false,
+        self::SPECIAL_DELIVERY => [
             'inputType' => 'multiselect',
             'options' => [
                 ['title' => 'Guaranteed by 1pm', 'value' => '1pm', 'excludes' => '9am'],
@@ -30,12 +41,13 @@ class ShippingService implements ServicesInterface
                 ['title' => 'Up to £1000 Compensation', 'value' => '£1000', 'excludes' => '£500,£2500'],
                 ['title' => 'Up to £2500 Compensation', 'value' => '£2500', 'excludes' => '£500,£1000'],
             ],
+            'defaultSelection' => ['1pm', '£500'],
         ],
-        '1st Class Account Mail' => false,
-        '2nd Class Account Mail' => false,
-        'International Standard On Account' => false,
-        'International Economy On Account' => false,
-        'International Tracked On Account' => [
+        self::FIRST_CLASS_ACCOUNT => false,
+        self::SECOND_CLASS_ACCOUNT => false,
+        self::INTERNATIONAL_STANDARD => false,
+        self::INTERNATIONAL_ECONOMY => false,
+        self::INTERNATIONAL_TRACKED => [
             'inputType' => 'multiselect',
             'options' => [
                 ['title' => 'Extra Compensation', 'value' => 'extraCompensation'],
@@ -46,7 +58,8 @@ class ShippingService implements ServicesInterface
 
     public function getShippingServices()
     {
-        return array_keys($this->services);
+        $services = array_keys($this->services);
+        return array_combine($services, $services);
     }
 
     public function getShippingServicesForOrder(Order $order)
@@ -67,7 +80,7 @@ class ShippingService implements ServicesInterface
 
         $options = $this->services[$service];
 
-        $selectedOptions = array_fill_keys($selected ? str_getcsv($selected) : [], true);
+        $selectedOptions = array_fill_keys($selected ? str_getcsv($selected) : ($options['defaultSelection'] ?? []), true);
         foreach ($options['options'] ?? [] as &$option) {
             $option['selected'] = isset($selectedOptions[$option['value']]);
         }
