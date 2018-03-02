@@ -107,16 +107,32 @@ class Service
         foreach ($categoryTemplates as $categoryTemplate) {
             $categories = $this->categoryService->fetchCollectionByFilter($filter->setId($categoryTemplate->getCategoryIds()));
             $categoriesByAccount = [];
+            $categoryFilterForSiblings = (new CategoryFilter())
+                ->setPage(1)
+                ->setLimit('all');
+
             /** @var Category $category */
             foreach ($categories as $category) {
                 if (!isset($categoriesByAccount[$category->getAccountId()])) {
                     $categoriesByAccount[$category->getAccountId()] = [];
                 }
-                $categoriesByAccount[$category->getAccountId()][] = [
-                    'value' => $category->getId(),
-                    'name' => $category->getTitle(),
-                    'selected' => true
-                ];
+
+                $categoryFilterForSiblings->setAccountId([$category->getAccountId()]);
+                $categoryFilterForSiblings->setParentId([$category->getParentId() !== null ? $category->getParentId() : null]);
+                try {
+                    $siblings = $this->categoryService->fetchCollectionByFilter($categoryFilterForSiblings);
+                } catch (NotFound $e) {
+                    continue;
+                }
+
+                /** @var Category $categorySibling */
+                foreach ($siblings as $categorySibling) {
+                    $categoriesByAccount[$categorySibling->getAccountId()][] = [
+                        'value' => $categorySibling->getId(),
+                        'name' => $categorySibling->getTitle(),
+                        'selected' => $categorySibling->getId() == $category->getId()
+                    ];
+                }
             }
             $accountCategories = [];
             foreach ($categoriesByAccount as $accountId => $categories) {
