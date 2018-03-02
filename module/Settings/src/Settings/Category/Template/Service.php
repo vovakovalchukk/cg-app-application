@@ -6,12 +6,12 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Category\Entity as Category;
+use CG\Product\Category\Filter as CategoryFilter;
+use CG\Product\Category\Service as CategoryService;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
 use CG\Product\Category\Template\Service as CategoryTemplateService;
-use CG\Product\Category\Service as CategoryService;
-use CG\Product\Category\Filter as CategoryFilter;
-use CG\Product\Category\Entity as Category;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Channel\Service as ChannelService;
 
@@ -113,12 +113,35 @@ class Service
 
             /** @var Category $category */
             foreach ($categories as $category) {
+                $channel = null;
+                $accountId = $category->getAccountId();
+                if (isset(static::SALES_PLATFORMS[$category->getChannel()])) {
+                    $accountFilter = $filter = (new AccountFilter())
+                        ->setLimit(1)
+                        ->setPage(1)
+                        ->setOrganisationUnitId([$ou->getId()])
+                        ->setChannel([$category->getChannel()])
+                        ->setActive(true)
+                        ->setDeleted(false);
+                    try {
+                        /** @var Account $account */
+                        $account = $this->accountService->fetchByFilter($accountFilter)->getFirst();
+                    } catch (NotFound $e) {
+                        continue;
+                    }
+
+                    $channel = $account->getChannel();
+                    $accountId = null;
+                }
+
                 if (!isset($categoriesByAccount[$category->getAccountId()])) {
                     $categoriesByAccount[$category->getAccountId()] = [];
                 }
 
-                $categoryFilterForSiblings->setAccountId([$category->getAccountId()]);
+                $categoryFilterForSiblings->setAccountId([$accountId]);
                 $categoryFilterForSiblings->setParentId([$category->getParentId() !== null ? $category->getParentId() : null]);
+                $categoryFilterForSiblings->setChannel([$channel]);
+
                 try {
                     $siblings = $this->categoryService->fetchCollectionByFilter($categoryFilterForSiblings);
                 } catch (NotFound $e) {
@@ -127,13 +150,14 @@ class Service
 
                 /** @var Category $categorySibling */
                 foreach ($siblings as $categorySibling) {
-                    $categoriesByAccount[$categorySibling->getAccountId()][] = [
+                    $categoriesByAccount[$accountId][] = [
                         'value' => $categorySibling->getId(),
                         'name' => $categorySibling->getTitle(),
                         'selected' => $categorySibling->getId() == $category->getId()
                     ];
                 }
             }
+
             $accountCategories = [];
             foreach ($categoriesByAccount as $accountId => $categories) {
                 $accountCategories[] = [
