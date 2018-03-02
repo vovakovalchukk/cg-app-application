@@ -40,6 +40,12 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function fetchAction()
     {
+        $ou = $this->userOuService->getRootOuByActiveUser();
+        $search = $this->params()->fromPost('search', null);
+        $page = (int) $this->params()->fromPost('page', 1);
+        return $this->buildResponse(
+            $this->categoryTemplateService->fetchCategoryTemplates($ou, $search, $page)
+        );
         $data =  [
             1 => [
                 'etag' => '12321esdfc2342jkda',
@@ -240,8 +246,6 @@ class CategoryTemplatesJsonController extends AbstractJsonController
                 ]
             ]
         ];
-        $search = $this->params()->fromPost('search', '');
-        $page = $this->params()->fromPost('page', 1);
 
         if (!empty($search)) {
             $data = array_filter($data, function($value) use ($search) {
