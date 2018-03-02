@@ -62,7 +62,7 @@ class Provider implements ChannelsInterface, BookingOptionsInterface, ServiceInt
 
     public function getCarrierBookingOptionsForAccount(Account $account, $serviceCode = null)
     {
-        return $this->factory->getExportOptionsForAccount($account)->getExportOptions($serviceCode);
+        return $this->factory->getExportOptionsForAccount($account)->getDefaultExportOptions($serviceCode);
     }
 
     public function addCarrierSpecificDataToListArray(array $data, Account $account)

@@ -10,7 +10,7 @@ interface ExportOptionsInterface
     /**
      * @return array ['{optionName}' => bool] for the courier booking options e.g. 'signature', 'deliveryInstructions', etc
      */
-    public function getExportOptions($serviceCode = null): array;
+    public function getDefaultExportOptions($serviceCode = null): array;
 
     /**
      * Given the array of rows for the courier booking table add in any carrier-specific data as required
