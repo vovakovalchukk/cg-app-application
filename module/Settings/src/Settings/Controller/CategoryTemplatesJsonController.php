@@ -2,6 +2,9 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use CG\User\OrganisationUnit\Service as UserOUService;
+use \Settings\Category\Template\Service as CategoryTemplateService;
 
 class CategoryTemplatesJsonController extends AbstractJsonController
 {
@@ -13,31 +16,25 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     const ROUTE_REFRESH_CATEGORIES = 'refreshCategories';
     const ROUTE_TEMPLATE_DELETE = 'templateDelete';
 
+    /** @var UserOUService */
+    protected $userOuService;
+    /** @var  CategoryTemplateService */
+    protected $categoryTemplateService;
+
+    public function __construct(JsonModelFactory $jsonModelFactory,
+        UserOUService $userOuService,
+        CategoryTemplateService $categoryTemplateService
+    ) {
+        parent::__construct($jsonModelFactory);
+        $this->userOuService = $userOuService;
+        $this->categoryTemplateService = $categoryTemplateService;
+    }
+
     public function accountsAction()
     {
+        $ou = $this->userOuService->getRootOuByActiveUser();
         return $this->buildResponse([
-            'accounts' => [
-                12 => [
-                    'channel' => 'ebay',
-                    'displayName' => 'eBay',
-                    'refreshable' => false
-                ],
-                36 => [
-                    'channel' => 'shopify',
-                    'displayName' => 'Shopify',
-                    'refreshable' => true
-                ],
-                42 => [
-                    'channel' => 'big-commerce',
-                    'displayName' => 'BigCommerce',
-                    'refreshable' => true
-                ],
-                115 => [
-                    'channel' => 'woo-commerce',
-                    'displayName' => 'WooCommerce',
-                    'refreshable' => false
-                ]
-            ]
+            'accounts' => $this->categoryTemplateService->fetchAccounts($ou)
         ]);
     }
 
