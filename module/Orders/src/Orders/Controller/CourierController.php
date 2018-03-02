@@ -433,7 +433,7 @@ class CourierController extends AbstractActionController
                 $this->params()->fromPost('orderData', []),
                 $this->params()->fromPost('parcelData', []),
                 $this->params()->fromPost('itemData', []),
-                $this->params()->fromPost('account')
+                (int)$this->params()->fromPost('account')
             );
         } catch (StorageException $exception) {
             throw new \RuntimeException(
