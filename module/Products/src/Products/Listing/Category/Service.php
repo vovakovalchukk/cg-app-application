@@ -18,17 +18,23 @@ class Service
         $this->categoryService = $categoryService;
     }
 
-    public function fetchCategoriesForAccount(Account $account, int $parentId = null, bool $listable = true): array
-    {
+    public function fetchCategoriesForAccount(
+        Account $account,
+        int $parentId = null,
+        bool $listable = true,
+        string $marketplace = null,
+        bool $useAccountId = true
+    ): array {
         $filter = (new CategoryFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setAccountId([$account->getId()])
             ->setChannel([$account->getChannel()])
             ->setEnabled(true)
             ->setListable($listable);
 
         !is_null($parentId) ? $filter->setParentId([$parentId]) : null;
+        !is_null($marketplace) ? $filter->setMarketplace([$marketplace]) : null;
+        $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
 
         try {
             /** @var CategoryCollection $categories */
@@ -67,6 +73,7 @@ class Service
             ->setChannel([$account->getChannel()])
             ->setParentId([$category->getId()]);
         $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
+
         try {
             $categories = $this->categoryService->fetchCollectionByFilter($filter);
             return $this->formatCategoriesResponse($categories);
