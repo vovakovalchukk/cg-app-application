@@ -6,9 +6,11 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
+use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
 use CG\Product\Category\Template\Service as CategoryTemplateService;
@@ -25,6 +27,8 @@ class Service
     protected $categoryTemplateService;
     /** @var  CategoryService  */
     protected $categoryService;
+    /** @var  Account[] */
+    protected $accountsByChannel = [];
 
     const SALES_PLATFORMS = [
         'ebay' => 'ebay',
@@ -87,93 +91,140 @@ class Service
 
     public function fetchCategoryTemplates(OrganisationUnit $ou, ?string $search, int $page): array
     {
-        $filter = (new CategoryTemplateFilter())
-            ->setPage($page)
-            ->setLimit(10)
-            ->setOrganisationUnitId([$ou->getId()]);
-        $search ? $filter->setSearch($search) : null;
-
         try {
-            $categoryTemplates = $this->categoryTemplateService->fetchCollectionByFilter($filter);
+            $categoryTemplates = $this->fetchCategoryTemplatesByOu($ou, $search, $page);
         } catch (NotFound $e) {
             return [];
         }
 
         $result = [];
-        $filter = (new CategoryFilter())
-            ->setPage(1)
-            ->setLimit('all');
+        $categoryFilterForSiblings = $this->buildCategoryFilterForSiblings();
         /** @var CategoryTemplate $categoryTemplate */
         foreach ($categoryTemplates as $categoryTemplate) {
-            $categories = $this->categoryService->fetchCollectionByFilter($filter->setId($categoryTemplate->getCategoryIds()));
-            $categoriesByAccount = [];
-            $categoryFilterForSiblings = (new CategoryFilter())
-                ->setPage(1)
-                ->setLimit('all');
+            try {
+                $categories = $this->fetchCategoriesByIds($categoryTemplate->getCategoryIds());
+            } catch (NotFound $e) {
+                continue;
+            }
 
+            $categoriesByAccount = [];
             /** @var Category $category */
             foreach ($categories as $category) {
-                $channel = null;
                 $accountId = $category->getAccountId();
                 $filterByAccountId = true;
                 if (isset(static::SALES_PLATFORMS[$category->getChannel()])) {
                     $filterByAccountId = false;
-                    $accountFilter = $filter = (new AccountFilter())
-                        ->setLimit(1)
-                        ->setPage(1)
-                        ->setOrganisationUnitId([$ou->getId()])
-                        ->setChannel([$category->getChannel()])
-                        ->setActive(true)
-                        ->setDeleted(false);
                     try {
                         /** @var Account $account */
-                        $account = $this->accountService->fetchByFilter($accountFilter)->getFirst();
+                        $account = $this->fetchAccountByOuAndChannel($ou, $category->getChannel());
+                        $accountId = $account->getId();
                     } catch (NotFound $e) {
+                        // If no account is found, we skip the current category
                         continue;
                     }
-
-                    $channel = $account->getChannel();
-                    $accountId = $account->getChannel();
                 }
 
                 if (!isset($categoriesByAccount[$accountId])) {
                     $categoriesByAccount[$accountId] = [];
                 }
 
-                $filterByAccountId? $categoryFilterForSiblings->setAccountId([$accountId]) : null;
-                $categoryFilterForSiblings->setParentId([$category->getParentId() !== null ? $category->getParentId() : null]);
-                $categoryFilterForSiblings->setChannel([$channel]);
-
                 try {
-                    $siblings = $this->categoryService->fetchCollectionByFilter($categoryFilterForSiblings);
+                    $siblings = $this->fetchCategorySiblings($categoryFilterForSiblings, $category, $accountId, $filterByAccountId);
                 } catch (NotFound $e) {
                     continue;
                 }
 
                 /** @var Category $categorySibling */
                 foreach ($siblings as $categorySibling) {
-                    $categoriesByAccount[$accountId][] = [
-                        'value' => $categorySibling->getId(),
-                        'name' => $categorySibling->getTitle(),
-                        'selected' => $categorySibling->getId() == $category->getId()
-                    ];
+                    $categoriesByAccount[$accountId][] = $this->formatCategoryArray($categorySibling, $category->getId());
                 }
             }
 
-            $accountCategories = [];
-            foreach ($categoriesByAccount as $accountId => $categories) {
-                $accountCategories[] = [
-                    'accountId' => $accountId,
-                    'categories' => $categories
-                ];
-            }
-
-            $result[$categoryTemplate->getId()] = [
-                'etag' => $categoryTemplate->getETag(),
-                'name' => $categoryTemplate->getName(),
-                'accountCategories' => $accountCategories
-            ];
+            $result[$categoryTemplate->getId()] = $this->formatCategoryTemplateArray($categoryTemplate, $categoriesByAccount);
         }
         return $result;
+    }
+
+    protected function fetchCategoryTemplatesByOu(
+        OrganisationUnit $ou, ?string $search, int $page
+    ): CategoryTemplateCollection {
+        $filter = (new CategoryTemplateFilter())
+            ->setPage($page)
+            ->setLimit(10)
+            ->setOrganisationUnitId([$ou->getId()]);
+        $search ? $filter->setSearch($search) : null;
+        return $this->categoryTemplateService->fetchCollectionByFilter($filter);
+    }
+
+    protected function fetchAccountByOuAndChannel(OrganisationUnit $ou, string $channel): Account
+    {
+        if (isset($this->accountsByChannel[$channel])) {
+            return $this->accountsByChannel[$channel];
+        }
+
+        $accountFilter = $filter = (new AccountFilter())
+            ->setLimit(1)
+            ->setPage(1)
+            ->setOrganisationUnitId([$ou->getId()])
+            ->setChannel([$channel])
+            ->setActive(true)
+            ->setDeleted(false);
+        $account = $this->accountService->fetchByFilter($accountFilter)->getFirst();
+        $this->accountsByChannel[$channel] = $account;
+        return $account;
+    }
+
+    protected function fetchCategoriesByIds(array $categoryIds): CategoryCollection
+    {
+        $filter = (new CategoryFilter())
+            ->setPage(1)
+            ->setLimit('all')
+            ->setId($categoryIds);
+        return $this->categoryService->fetchCollectionByFilter($filter);
+    }
+
+    protected function buildCategoryFilterForSiblings(): CategoryFilter
+    {
+        return (new CategoryFilter())
+            ->setPage(1)
+            ->setLimit('all');
+    }
+
+    protected function fetchCategorySiblings(
+        CategoryFilter $categoryFilter,
+        Category $category,
+        int $accountId,
+        bool $filterByAccountId
+    ): CategoryCollection {
+        $categoryFilter->setAccountId([$filterByAccountId ? $accountId : null]);
+        $categoryFilter->setParentId([$category->getParentId() !== null ? $category->getParentId() : null]);
+        $categoryFilter->setChannel([$category->getChannel()]);
+        return $this->categoryService->fetchCollectionByFilter($categoryFilter);
+    }
+
+    protected function formatCategoryArray(Category $category, $selectedCategoryId): array
+    {
+        return [
+            'value' => $category->getId(),
+            'name' => $category->getTitle(),
+            'selected' => $category->getId() == $selectedCategoryId
+        ];
+    }
+
+    protected function formatCategoryTemplateArray(CategoryTemplate $categoryTemplate, array $categoriesByAccount): array
+    {
+        $accountCategories = [];
+        foreach ($categoriesByAccount as $accountId => $categories) {
+            $accountCategories[] = [
+                'accountId' => $accountId,
+                'categories' => $categories
+            ];
+        }
+
+        return [
+            'etag' => $categoryTemplate->getETag(),
+            'name' => $categoryTemplate->getName(),
+            'accountCategories' => $accountCategories
+        ];
     }
 }
