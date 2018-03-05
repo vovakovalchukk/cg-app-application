@@ -1,7 +1,7 @@
 <?php
 namespace CG\CourierExport\RoyalMailClickDrop;
 
-use CG\CourierAdapter\ExportDocumentInterface;
+use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\CourierExport\ExporterInterface;
 use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Label\Collection as OrderLabels;

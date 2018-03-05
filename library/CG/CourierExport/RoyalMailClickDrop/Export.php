@@ -1,7 +1,7 @@
 <?php
 namespace CG\CourierExport\RoyalMailClickDrop;
 
-use CG\CourierAdapter\ExportDocumentInterface;
+use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use function CG\Stdlib\str_putcsv;
 
 class Export implements ExportDocumentInterface

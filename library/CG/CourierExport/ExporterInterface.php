@@ -1,7 +1,7 @@
 <?php
 namespace CG\CourierExport;
 
-use CG\CourierAdapter\ExportDocumentInterface;
+use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
