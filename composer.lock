@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "36c122a62c6510fea20b4d4d2bff8ae1",
+    "content-hash": "b799cb4f8740011aaac5fa820ce5a157",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1669,16 +1669,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-18-ExportShippingInfo",
+            "version": "dev-TAC-19-CourierExportProvider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5fce8c91ff1c4643057bdddad6d082b837350fa9"
+                "reference": "f270914101530f3b666c8ec2ceb133b326457e9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-18-ExportShippingInfo-412a2b.zip",
-                "reference": "5fce8c91ff1c4643057bdddad6d082b837350fa9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-19-CourierExportProvider-2d23b7.zip",
+                "reference": "f270914101530f3b666c8ec2ceb133b326457e9a",
                 "shasum": null
             },
             "require": {
@@ -1749,7 +1749,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-03-05T15:17:30+00:00"
+            "time": "2018-03-05T16:04:04+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9519,7 +9519,7 @@
         {
             "alias": "1.38.2",
             "alias_normalized": "1.38.2.0",
-            "version": "dev-TAC-18-ExportShippingInfo",
+            "version": "dev-TAC-19-CourierExportProvider",
             "package": "channelgrabber/order"
         }
     ],
