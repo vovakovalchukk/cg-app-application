@@ -4,7 +4,6 @@ namespace Orders\Courier\Label;
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -248,7 +247,7 @@ class CreateService extends ServiceAbstract
     }
 
     protected function createOrderLabelForOrder(
-        Entity $order,
+        Order $order,
         array $orderData,
         array $orderParcelsData,
         Account $shippingAccount
