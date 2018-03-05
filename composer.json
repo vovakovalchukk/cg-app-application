@@ -55,7 +55,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "dev-LIS-113-categorytemplate-endpoint as 1.11.6",
+        "channelgrabber/product": "~1.11.6",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
