@@ -73,7 +73,7 @@ class Service implements
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndCategory($account, $categoryId);
+            return $this->categoryService->fetchCategoryChildrenForAccountAndCategory($categoryId);
         } catch (NotFound $e) {
             return [];
         }
@@ -223,9 +223,8 @@ class Service implements
 
     protected function getCategoryOptionsForAccount(Account $account): array
     {
-        return $this->categoryService->fetchCategoriesForAccount(
+        return $this->categoryService->fetchRootCategoriesForAccount(
             $account,
-            0,
             false,
             $this->getEbaySiteIdForAccount($account),
             false

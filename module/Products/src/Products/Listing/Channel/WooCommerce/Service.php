@@ -41,13 +41,13 @@ class Service implements
             throw new ListingException('We are unable to connect to your WooCommerce account. Please try again', $e->getCode(), $e);
         }
 
-        return $this->categoryService->fetchCategoriesForAccount($account, 0);
+        return $this->categoryService->fetchRootCategoriesForAccount($account);
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId)
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndCategory($account, $categoryId);
+            return $this->categoryService->fetchCategoryChildrenForAccountAndCategory($categoryId);
         } catch (NotFound $e) {
             return [];
         }

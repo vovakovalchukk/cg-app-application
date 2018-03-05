@@ -45,29 +45,20 @@ class Service
         }
     }
 
-    public function fetchCategoryChildrenForAccountAndParent(
+    public function fetchRootCategoriesForAccount(
         Account $account,
-        Category $category
-    ): array {
-        $filter = (new CategoryFilter('all', 1))
-            ->setChannel([$account->getChannel()])
-            ->setParentId([$category->getId()]);
-
-        try {
-            $categories = $this->categoryService->fetchCollectionByFilter($filter);
-            return $this->formatCategoriesResponse($categories);
-        } catch (NotFound $e) {
-            return [];
-        }
+        bool $listable = true,
+        string $marketplace = null,
+        bool $useAccountId = true
+    ) {
+        return $this->fetchRootCategoriesForAccount($account, $listable, $marketplace, $useAccountId);
     }
 
-    public function fetchCategoryChildrenForAccountAndCategory(
-        Account $account,
-        int $categoryId
-    ) {
+    public function fetchCategoryChildrenForAccountAndCategory(int $categoryId) {
         try {
-            $category = $this->categoryService->fetch($categoryId);
-            return $this->fetchCategoryChildrenForAccountAndParent($account, $category);
+            $filter = (new CategoryFilter('all', 1))->setParentId([$categoryId]);
+            $categories = $this->categoryService->fetchCollectionByFilter($filter);
+            return $this->formatCategoriesResponse($categories);
         } catch (NotFound $e) {
             return [];
         }
