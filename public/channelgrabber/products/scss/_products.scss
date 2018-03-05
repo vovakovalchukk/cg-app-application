@@ -55,11 +55,16 @@
     }
 }
 
-.refresh-icon {
+.refresh-icon, .remove-icon {
     float: left;
     display: flex;
     clear: none;
     margin: 3px 0 0 14px;
+}
+.remove-icon {
+    color: $color-red;
+}
+.refresh-icon {
     color: $color-green;
 }
 

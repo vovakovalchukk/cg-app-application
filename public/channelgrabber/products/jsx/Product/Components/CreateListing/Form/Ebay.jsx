@@ -6,7 +6,8 @@ define([
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
     'Product/Components/CreateListing/Form/Shared/VariationPicker',
     'Product/Components/CreateListing/Form/Shared/SimpleProduct',
-    'Common/Components/ImagePicker'
+    'Common/Components/ImagePicker',
+    'Product/Components/CreateListing/Form/Ebay/ItemSpecifics'
 ], function(
     React,
     Select,
@@ -16,6 +17,7 @@ define([
     VariationPicker,
     SimpleProduct,
     ImagePicker,
+    ItemSpecifics
 ) {
     "use strict";
 
@@ -31,7 +33,9 @@ define([
                 product: null,
                 variationsDataForProduct: [],
                 attributeNameMap: {},
-                listingType: null
+                listingType: null,
+                ean: null,
+                shippingPrice: 0
             }
         },
         getInitialState: function() {
@@ -42,13 +46,17 @@ define([
                 currencyFieldValues: {},
                 shippingService: null,
                 rootCategories: null,
+                availableSites: {},
                 listingDurationFieldValues: null,
-                availableSites: {}
+                itemSpecifics: {}
             }
         },
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
+            this.props.setFormStateListing({
+                shippingPrice: this.props.shippingPrice
+            });
         },
         componentWillReceiveProps(newProps) {
             if (this.props.accountId != newProps.accountId) {
@@ -109,7 +117,7 @@ define([
                             duration: null,
                             dispatchTimeMax: null,
                             shippingService: null,
-                            shippingPrice: null
+                            shippingPrice: 0
                         });
                     } else if (response.defaultSiteId) {
                         this.props.setFormStateListing({site: response.defaultSiteId});
@@ -142,9 +150,9 @@ define([
         },
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
-            this.fetchAndSetListingDurationOptions(categoryId);
+            this.fetchAndSetCategoryDependentFieldValues(categoryId);
         },
-        fetchAndSetListingDurationOptions(categoryId) {
+        fetchAndSetCategoryDependentFieldValues(categoryId) {
             if (!categoryId) {
                 this.setState({
                     listingDurationFieldValues: null,
@@ -157,7 +165,8 @@ define([
                 type: 'GET',
                 success: function (response) {
                     this.setState({
-                        listingDurationFieldValues: response.listingDuration
+                        listingDurationFieldValues: response.listingDuration,
+                        itemSpecifics: response.itemSpecifics
                     });
                 }.bind(this)
             });
@@ -349,6 +358,10 @@ define([
                         </div>
                     </label>
                 : null}
+                <ItemSpecifics
+                    itemSpecifics={this.state.itemSpecifics}
+                    setFormStateListing={this.props.setFormStateListing}
+                />
                 <label>
                     <span className={"inputbox-label"}>Dispatch Time Max</span>
                     <div className={"order-inputbox-holder"}>

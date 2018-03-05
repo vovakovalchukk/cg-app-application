@@ -67,8 +67,9 @@ define([
                     price: currentVariation.details ? currentVariation.details.price : null
                 }
 
-                if (this.props.images && currentVariation.images.length != 0) {
-                    variationsFormState[currentVariation.id]['imageId'] = currentVariation.images[0].id;
+                if (this.props.images) {
+                    var image = (currentVariation.images.length > 0 ? currentVariation.images[0] : this.props.product.images[0]);
+                    variationsFormState[currentVariation.id]['imageId'] = image.id;
                 }
 
                 for (var fieldName in this.props.customFields) {
@@ -201,9 +202,11 @@ define([
             if (this.props.product.images == 0) {
                 return <td>No images available</td>
             }
+            var selected = (variation.images.length > 0 ? variation.images[0] : this.props.product.images[0]);
             return <td>
                 <ImageDropDown
-                    selected={variation.images[0]}
+                    selected={selected}
+                    autoSelectFirst={false}
                     images={this.props.product.images}
                     onChange={this.onVariationValueChange.bind(this, variation.id, 'imageId')}
                 />
