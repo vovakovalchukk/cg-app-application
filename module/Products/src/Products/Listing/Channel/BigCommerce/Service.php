@@ -4,11 +4,8 @@ namespace Products\Listing\Channel\BigCommerce;
 use CG\Account\Shared\Entity as Account;
 use CG\BigCommerce\Category\Importer as CategoryImporter;
 use CG\BigCommerce\Category\Service as BigCommerceCategoryService;
-use CG\Product\Category\Collection as CategoryCollection;
-use CG\Product\Category\Entity as Category;
-use CG\Product\Category\Filter as CategoryFilter;
-use CG\Product\Category\Service as CategoryService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
@@ -38,7 +35,7 @@ class Service implements
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
-        return ['categories' => $this->fetchCategoriesForAccount($account)];
+        return ['categories' => $this->categoryService->fetchCategoriesForAccount($account, 0)];
     }
 
     public function refetchAndSaveCategories(Account $account)
@@ -47,76 +44,16 @@ class Service implements
             $this->fetchCategoriesFromBigCommerce($account),
             $account
         );
-        return [$this->fetchCategoriesForAccount($account)];
+        return $this->categoryService->fetchCategoriesForAccount($account, 0);
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
     {
         try {
-            $parentCategory = $this->fetchCategoryForExternalId($account, $externalCategoryId);
-            /** @var CategoryCollection $categories */
-            $categories = $this->categoryService->fetchCollectionByFilter(
-                (new CategoryFilter())
-                    ->setLimit('all')
-                    ->setPage(1)
-                    ->setAccountId([$account->getId()])
-                    ->setParentId([$parentCategory->getId()])
-                    ->setChannel(['big-commerce'])
-                    ->setEnabled(true)
-                    ->setListable(true)
-            );
-            return $this->formatCategoriesResponse($categories);
+            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId($account, $externalCategoryId);
         } catch (NotFound $e) {
             return [];
         }
-    }
-
-    protected function fetchCategoryForExternalId(Account $account, string $externalCategoryId): Category
-    {
-        /** @var CategoryCollection $categories */
-        $categories = $this->categoryService->fetchCollectionByFilter(
-            (new CategoryFilter())
-                ->setLimit(1)
-                ->setPage(1)
-                ->setAccountId([$account->getId()])
-                ->setChannel(['big-commerce'])
-                ->setExternalId([$externalCategoryId])
-        );
-        /** @var Category $category */
-        $category = $categories->getFirst();
-        return $category;
-    }
-
-    protected function fetchCategoriesForAccount(Account $account): array
-    {
-        try {
-            /** @var CategoryCollection $categories */
-            $categories = $this->categoryService->fetchCollectionByFilter(
-                (new CategoryFilter())
-                    ->setLimit('all')
-                    ->setPage(1)
-                    ->setAccountId([$account->getId()])
-                    ->setParentId([0])
-                    ->setChannel(['big-commerce'])
-                    ->setEnabled(true)
-                    ->setListable(true)
-            );
-            return $this->formatCategoriesResponse($categories);
-        } catch (NotFound $e) {
-            return [];
-        }
-    }
-
-    protected function formatCategoriesResponse(CategoryCollection $categoryCollection): array
-    {
-        $categories = [];
-        /** @var Category $category */
-        foreach ($categoryCollection as $category) {
-            $categories[$category->getExternalId()] = [
-                'title' => $category->getTitle()
-            ];
-        }
-        return $categories;
     }
 
     protected function fetchCategoriesFromBigCommerce(Account $account): array

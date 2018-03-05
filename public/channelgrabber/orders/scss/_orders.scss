@@ -228,6 +228,13 @@
     margin: 0;
 }
 
+.custom-select-item.no-background {
+    background-color: transparent!important;
+    &:hover,&:focus {
+        background-color: transparent!important;
+    }
+}
+
 .custom-select {
     .open-content {
         max-width: 250px;
@@ -235,9 +242,12 @@
             padding: 5px;
             text-align: left;
         }
-        .filter-box {
+        .filter-box, .custom-option {
             padding: 5px;
             border-bottom: 1px solid $color-lgrey;
+            &.no-borders {
+                border: 0;
+            }
             input {
                 width: 100%;
                 box-sizing: border-box;
