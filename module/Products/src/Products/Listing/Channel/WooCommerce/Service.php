@@ -44,10 +44,10 @@ class Service implements
         return $this->categoryService->fetchCategoriesForAccount($account, 0);
     }
 
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId)
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId($account, $externalCategoryId);
+            return $this->categoryService->fetchCategoryChildrenForAccountAndCategory($account, $categoryId);
         } catch (NotFound $e) {
             return [];
         }

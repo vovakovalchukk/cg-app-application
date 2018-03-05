@@ -45,34 +45,13 @@ class Service
         }
     }
 
-    public function fetchCategoryForAccountAndExternalAccountId(
-        Account $account,
-        string $externalId,
-        bool $useAccountId = true,
-        string $marketplace = null
-    ): Category {
-        $filter = (new CategoryFilter(1, 1))
-            ->setExternalId([$externalId])
-            ->setChannel([$account->getChannel()])
-            ->setEnabled(true);
-
-        !is_null($marketplace) ? $filter->setMarketplace([$marketplace]) : null;
-        $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
-
-        /** @var CategoryCollection $categoryCollection */
-        $categoryCollection = $this->categoryService->fetchCollectionByFilter($filter);
-        return $categoryCollection->getFirst();
-    }
-
     public function fetchCategoryChildrenForAccountAndParent(
         Account $account,
-        Category $category,
-        bool $useAccountId = true
+        Category $category
     ): array {
         $filter = (new CategoryFilter('all', 1))
             ->setChannel([$account->getChannel()])
             ->setParentId([$category->getId()]);
-        $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
 
         try {
             $categories = $this->categoryService->fetchCollectionByFilter($filter);
@@ -82,15 +61,13 @@ class Service
         }
     }
 
-    public function fetchCategoryChildrenForAccountAndExternalId(
+    public function fetchCategoryChildrenForAccountAndCategory(
         Account $account,
-        string $externalId,
-        bool $useAccountId = true,
-        string $marketplace = null
+        int $categoryId
     ) {
         try {
-            $category = $this->fetchCategoryForAccountAndExternalAccountId($account, $externalId, $useAccountId, $marketplace);
-            return $this->fetchCategoryChildrenForAccountAndParent($account, $category, $useAccountId);
+            $category = $this->categoryService->fetch($categoryId);
+            return $this->fetchCategoryChildrenForAccountAndParent($account, $category);
         } catch (NotFound $e) {
             return [];
         }
@@ -101,7 +78,7 @@ class Service
         $categories = [];
         /** @var Category $category */
         foreach ($categoryCollection as $category) {
-            $categories[$category->getExternalId()] = $category->getTitle();
+            $categories[$category->getId()] = $category->getTitle();
         }
         return $categories;
     }
