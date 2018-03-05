@@ -2,7 +2,7 @@
 namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\ExportDocumentInterface;
+use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface;
 use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Label\Collection as OrderLabels;

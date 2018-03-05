@@ -4,12 +4,10 @@ namespace Products\Listing\Channel\Shopify;
 use CG\Account\Shared\Entity as Account;
 use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
-use CG\Product\Category\Filter as CategoryFilter;
-use CG\Product\Category\Service as CategoryService;
 use CG\Shopify\Client\ThrottledException;
 use CG\Shopify\Client\UnauthorizedException;
 use CG\Shopify\CustomCollection\Importer as CustomCollectionImporter;
-use CG\Stdlib\Exception\Runtime\NotFound;
+use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoriesRefreshInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 use Products\Listing\Exception as ListingException;
@@ -32,24 +30,13 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'categories' => $this->fetchCategoriesForAccount($account)
+            'categories' => $this->categoryService->fetchCategoriesForAccount($account, null)
         ];
     }
 
-    protected function fetchCategoriesForAccount(Account $account): array
+    public function refetchAndSaveCategories(Account $account): array
     {
-        try {
-            $categories = $this->categoryService->fetchCollectionByFilter(
-                (new CategoryFilter())
-                    ->setLimit('all')
-                    ->setPage(1)
-                    ->setChannel(['shopify'])
-                    ->setAccountId([$account->getId()])
-            );
-        } catch (NotFound $e) {
-            return [];
-        }
-
+        $categories = $this->fetchImportAndReturnShopifyCategoriesForAccount($account);
         return $this->getOptionsForCategories($categories);
     }
 
@@ -63,17 +50,10 @@ class Service implements
         return $categoryOptions;
     }
 
-    public function refetchAndSaveCategories(Account $account): array
-    {
-        $categories = $this->fetchImportAndReturnShopifyCategoriesForAccount($account);
-        return $this->getOptionsForCategories($categories);
-    }
-
     protected function fetchImportAndReturnShopifyCategoriesForAccount(Account $account): CategoryCollection
     {
         try {
             return $this->customCollectionImporter->fetchImportAndReturnShopifyCategoriesForAccount($account);
-
         } catch (UnauthorizedException $e) {
             throw new ListingException(
                 'We are unable to connect to your Shopify account. Please open the account page and click \'Renew Connection\'',
