@@ -2,9 +2,14 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG\Product\Category\Template\Entity as CategoryTemplate;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use \Settings\Category\Template\Service as CategoryTemplateService;
+use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
+use Settings\Category\Template\Exception\NameAlreadyUsedException;
+use Settings\Category\Template\Service as CategoryTemplateService;
+use Zend\View\Model\JsonModel;
 
 class CategoryTemplatesJsonController extends AbstractJsonController
 {
@@ -15,6 +20,10 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     const ROUTE_CATEGORY_CHILDREN = 'categoryChildren';
     const ROUTE_REFRESH_CATEGORIES = 'refreshCategories';
     const ROUTE_TEMPLATE_DELETE = 'templateDelete';
+
+    const SAVE_ERROR_EXISTING_NAME = 'existing name';
+    const SAVE_ERROR_EXISTING_CATEGORY = 'existing category';
+    const SAVE_ERROR_ETAG = 'conflict';
 
     /** @var UserOUService */
     protected $userOuService;
@@ -90,33 +99,88 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function saveAction()
     {
-        $success = $this->params()->fromPost('success' , false);
-        $success = !($success === 'false' || $success === false);
-
-        if ($success) {
+        $postData = $this->params()->fromPost();
+        try {
+            /** @var CategoryTemplate $entity */
+            $entity = $this->categoryTemplateService->saveCategoryTemplateFromRaw($postData);
             return $this->buildSuccessResponse([
                 'valid' => true,
-                'id' => 726,
-                'etag' => '12321esdfc2342jkda',
-                'errors' => false
+                'id' => $entity->getId(),
+                'etag' => $entity->getStoredETag(),
+                'error' => false
             ]);
+        } catch (NameAlreadyUsedException $e) {
+            return $this->buildNameAlreadyExistsError($e, $postData['name']);
+        } catch (CategoryAlreadyMappedException $e) {
+            return $this->buildCategoryAlreadyMappedError($e, $postData['categoryIds'], $postData['id'] ?? null);
+        } catch (Conflict $e) {
+            return $this->buildEtagError();
         }
+    }
 
+    protected function buildNameAlreadyExistsError(Conflict $e, string $name): JsonModel
+    {
         return $this->buildErrorResponse(
             [
-                'code' => 'existing',
-                'message' => 'You have already mapped this category',
+                'code' => static::SAVE_ERROR_EXISTING_NAME,
+                'message' => $e->getMessage(),
                 'existing' => [
-                    'name' => 'Washing machines and others',
-                    'accountId' => 36,
-                    'externalCategoryId' => 12345
+                    'name' => $name
                 ]
             ],
             [
                 'valid' => false,
-                'id' => 1
             ]
         );
+    }
+
+    protected function buildCategoryAlreadyMappedError(Conflict $e, array $requestedCategoryIds, $templateId = null): JsonModel
+    {
+        $existing = $this->fetchExistingByCategoryIds($requestedCategoryIds, $templateId);
+        $overlapCategoryIds = array_intersect($existing->getCategoryIds(), $requestedCategoryIds);
+        $category = $this->categoryTemplateService->fetchCategory($overlapCategoryIds[0]);
+        $accountId = $this->categoryTemplateService->fetchAccountIdForCategory($category, $this->userOuService->getRootOuByActiveUser());
+        return $this->buildErrorResponse(
+            [
+                'code' => static::SAVE_ERROR_EXISTING_CATEGORY,
+                'message' => $e->getMessage(),
+                'existing' => [
+                    'name' => $existing->getName(),
+                    'accountId' => $accountId,
+                    'categoryId' => $category->getId(),
+                ]
+            ],
+            [
+                'valid' => false,
+                'id' => $existing->getId()
+            ]
+        );
+    }
+
+    protected function buildEtagError(): JsonModel
+    {
+        return $this->buildErrorResponse(
+            [
+                'code' => static::SAVE_ERROR_ETAG,
+                'message' => 'Someone else may have updated that. Please refresh and try again.',
+                'existing' => false
+            ],
+            [
+                'valid' => false,
+            ]
+        );
+    }
+
+    protected function fetchExistingByCategoryIds(array $requestedCategoryIds, $templateId = null): CategoryTemplate
+    {
+        $existingTemplates = $this->categoryTemplateService->fetchByCategoryIds($requestedCategoryIds);
+        foreach ($existingTemplates as $existingTemplate) {
+            // Don't conflict with itself
+            if ($templateId && $existingTemplate->getId() == $templateId) {
+                continue;
+            }
+            return $existingTemplate;
+        }
     }
 
     public function categoryChildrenAction()

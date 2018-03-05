@@ -13,18 +13,32 @@ use CG\Product\Category\Service as CategoryService;
 use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
+use CG\Product\Category\Template\Mapper as CategoryTemplateMapper;
 use CG\Product\Category\Template\Service as CategoryTemplateService;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use Products\Listing\Channel\Service as ChannelService;
+use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
+use Settings\Category\Template\Exception\NameAlreadyUsedException;
 
 class Service
 {
+    const DEFAULT_TEMPLATE_LIMIT = 10;
+    const INDEX_NAME = 'OrganisationUnitIdName';
+    const INDEX_CATEGORY = 'OrganisationUnitIdCategoryId';
+
     /** @var  AccountService */
     protected $accountService;
     /** @var  ChannelService */
     protected $channelService;
-    /** @var  CategoryTemplateService */
+    /** @var CategoryTemplateService */
     protected $categoryTemplateService;
+    /** @var CategoryTemplateMapper */
+    protected $categoryTemplateMapper;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
     /** @var  CategoryService  */
     protected $categoryService;
     /** @var  Account[] */
@@ -35,17 +49,19 @@ class Service
         'amazon' => 'amazon'
     ];
 
-    const DEFAULT_TEMPLATE_LIMIT = 10;
-
     public function __construct(
         AccountService $accountService,
         ChannelService $channelService,
         CategoryTemplateService $categoryTemplateService,
+        CategoryTemplateMapper $categoryTemplateMapper,
+        ActiveUserInterface $activeUserContainer,
         CategoryService $categoryService
     ) {
         $this->accountService = $accountService;
         $this->channelService = $channelService;
         $this->categoryTemplateService = $categoryTemplateService;
+        $this->categoryTemplateMapper = $categoryTemplateMapper;
+        $this->activeUserContainer = $activeUserContainer;
         $this->categoryService = $categoryService;
     }
 
@@ -151,7 +167,7 @@ class Service
         return $categoriesByAccount;
     }
 
-    protected function fetchAccountIdForCategory(Category $category, OrganisationUnit $ou)
+    public function fetchAccountIdForCategory(Category $category, OrganisationUnit $ou)
     {
         if ($category->getAccountId()) {
             return $category->getAccountId();
@@ -242,5 +258,52 @@ class Service
             'name' => $categoryTemplate->getName(),
             'accountCategories' => $accountCategories
         ];
+    }
+
+    public function fetchByCategoryIds(array $categoryIds): CategoryTemplateCollection
+    {
+        $filter = (new CategoryTemplateFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()])
+            ->setCategoryId($categoryIds);
+        return $this->categoryTemplateService->fetchCollectionByFilter($filter);
+    }
+
+    public function fetchCategory(int $categoryId): Category
+    {
+        return $this->categoryService->fetch($categoryId);
+    }
+
+    public function saveCategoryTemplateFromRaw(array $rawData): CategoryTemplate
+    {
+        $rawData['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $entity = $this->categoryTemplateMapper->fromArray($rawData);
+        if (isset($rawData['etag'])) {
+            $entity->setStoredETag($rawData['etag']);
+        }
+        try {
+            $this->categoryTemplateService->save($entity);
+            return $entity;
+        } catch (Conflict $e) {
+            throw $this->getSpecificConflictException($e);
+        }
+    }
+
+    protected function getSpecificConflictException(Conflict $original): Conflict
+    {
+        $previous = $original->getPrevious();
+        if (!$previous || !$previous instanceof ClientErrorResponseException) {
+            return $original;
+        }
+        $body = $previous->getResponse()->getBody(true);
+        if (strstr($body, static::INDEX_NAME)) {
+            return new NameAlreadyUsedException('You have already used this template name', $original->getCode(), $original);
+        }
+        if (strstr($body, static::INDEX_CATEGORY)) {
+            return new CategoryAlreadyMappedException('You have already mapped this category', $original->getCode(), $original);
+        }
+
+        return $original;
     }
 }
