@@ -115,7 +115,9 @@ class Service
             foreach ($categories as $category) {
                 $channel = null;
                 $accountId = $category->getAccountId();
+                $filterByAccountId = true;
                 if (isset(static::SALES_PLATFORMS[$category->getChannel()])) {
+                    $filterByAccountId = false;
                     $accountFilter = $filter = (new AccountFilter())
                         ->setLimit(1)
                         ->setPage(1)
@@ -131,14 +133,14 @@ class Service
                     }
 
                     $channel = $account->getChannel();
-                    $accountId = null;
+                    $accountId = $account->getChannel();
                 }
 
-                if (!isset($categoriesByAccount[$category->getAccountId()])) {
-                    $categoriesByAccount[$category->getAccountId()] = [];
+                if (!isset($categoriesByAccount[$accountId])) {
+                    $categoriesByAccount[$accountId] = [];
                 }
 
-                $categoryFilterForSiblings->setAccountId([$accountId]);
+                $filterByAccountId? $categoryFilterForSiblings->setAccountId([$accountId]) : null;
                 $categoryFilterForSiblings->setParentId([$category->getParentId() !== null ? $category->getParentId() : null]);
                 $categoryFilterForSiblings->setChannel([$channel]);
 
