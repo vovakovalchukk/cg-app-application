@@ -4,6 +4,7 @@ namespace Settings\Controller;
 use Application\Controller\AbstractJsonController;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
@@ -207,9 +208,16 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function templateDeleteAction()
     {
-        return $this->buildResponse([
-            'valid' => true,
-            'errors' => []
-        ]);
+        try {
+            $id = $this->params()->fromRoute('templateId');
+            $this->categoryTemplateService->deleteById($id);
+            return $this->buildSuccessResponse(['valid' => true]);
+
+        } catch (NotFound $e) {
+            // Nothing to delete
+            return $this->buildSuccessResponse(['valid' => true]);
+        } catch (\Exception $e) {
+            return $this->buildErrorResponse('There was a problem with the delete', ['valid' => false]);
+        }
     }
 }

@@ -306,4 +306,10 @@ class Service
 
         return $original;
     }
+
+    public function deleteById(int $id)
+    {
+        $entity = $this->categoryTemplateService->fetch($id);
+        $this->categoryTemplateService->remove($entity);
+    }
 }
