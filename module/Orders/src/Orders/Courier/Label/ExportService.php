@@ -33,6 +33,8 @@ class ExportService extends ServiceAbstract
             /** @var ExportInterface $carrier */
             $carrier = $this->getCarrierProviderService($shippingAccount);
             $orders = $this->getOrdersByIds($orderIds);
+
+            $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
             $orderLabels = $this->getOrCreateOrderLabelsForOrders(
                 $orders,
                 $ordersData,
