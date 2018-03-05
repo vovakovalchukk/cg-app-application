@@ -35,6 +35,8 @@ class Service
         'amazon' => 'amazon'
     ];
 
+    const DEFAULT_TEMPLATE_LIMIT = 10;
+
     public function __construct(
         AccountService $accountService,
         ChannelService $channelService,
@@ -98,7 +100,7 @@ class Service
         }
 
         $result = [];
-        $categoryFilterForSiblings = $this->buildCategoryFilterForSiblings();
+        $categoryFilterForSiblings = $this->buildCategoryFilter();
         /** @var CategoryTemplate $categoryTemplate */
         foreach ($categoryTemplates as $categoryTemplate) {
             try {
@@ -164,7 +166,7 @@ class Service
     ): CategoryTemplateCollection {
         $filter = (new CategoryTemplateFilter())
             ->setPage($page)
-            ->setLimit(10)
+            ->setLimit(static::DEFAULT_TEMPLATE_LIMIT)
             ->setOrganisationUnitId([$ou->getId()]);
         $search ? $filter->setSearch($search) : null;
         return $this->categoryTemplateService->fetchCollectionByFilter($filter);
@@ -197,7 +199,7 @@ class Service
         return $this->categoryService->fetchCollectionByFilter($filter);
     }
 
-    protected function buildCategoryFilterForSiblings(): CategoryFilter
+    protected function buildCategoryFilter(): CategoryFilter
     {
         return (new CategoryFilter())
             ->setPage(1)
