@@ -206,7 +206,7 @@ class Service
         return $account;
     }
 
-    protected function fetchCategoriesByIds(array $categoryIds): CategoryCollection
+    public function fetchCategoriesByIds(array $categoryIds): CategoryCollection
     {
         $filter = (new CategoryFilter())
             ->setPage(1)
@@ -268,11 +268,6 @@ class Service
             ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()])
             ->setCategoryId($categoryIds);
         return $this->categoryTemplateService->fetchCollectionByFilter($filter);
-    }
-
-    public function fetchCategory(int $categoryId): Category
-    {
-        return $this->categoryService->fetch($categoryId);
     }
 
     public function saveCategoryTemplateFromRaw(array $rawData): CategoryTemplate
