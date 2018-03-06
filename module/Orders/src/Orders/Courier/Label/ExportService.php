@@ -29,7 +29,7 @@ class ExportService extends ServiceAbstract
         $this->addGlobalLogEventParams(['ou' => $rootOu->getId(), 'account' => $shippingAccountId]);
 
         try {
-            $shippingAccount = $this->accountService->fetch($shippingAccountId);
+            $shippingAccount = $this->accountService->fetchShippingAccount($shippingAccountId);
             /** @var ExportInterface $carrier */
             $carrier = $this->getCarrierProviderService($shippingAccount);
             $orders = $this->getOrdersByIds($orderIds);

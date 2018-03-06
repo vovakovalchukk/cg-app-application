@@ -1,8 +1,8 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
@@ -83,7 +83,7 @@ class SpecificsAjax
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
-        $courierAccount = $this->accountService->fetch($courierAccountId);
+        $courierAccount = $this->accountService->fetchShippingAccount($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);
     }
@@ -435,7 +435,7 @@ class SpecificsAjax
      */
     public function getCarrierOptionsForService($orderId, $accountId, $service)
     {
-        $account = $this->accountService->fetch($accountId);
+        $account = $this->accountService->fetchShippingAccount($accountId);
         $carrierOptions = $this->courierService->getCarrierOptions($account);
         $serviceOptions = $this->courierService->getCarrierOptions($account, $service);
         return $this->getFieldsRequirementStatus($serviceOptions, $carrierOptions);
@@ -448,7 +448,7 @@ class SpecificsAjax
     public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
     {
         $order = $this->orderService->fetch($orderId);
-        $account = $this->accountService->fetch($accountId);
+        $account = $this->accountService->fetchShippingAccount($accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $orders = new OrderCollection(Order::class, 'fetch', ['id' => $orderId]);
         $orders->attach($order);

@@ -1,10 +1,9 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Account\Shared\Filter as AccountFilter;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\BookingOptions;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -49,11 +48,7 @@ class SpecificsPage implements LoggerAwareInterface
 
     public function fetchAccountsById($accountIds): AccountCollection
     {
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setId($accountIds);
-        return $this->accountService->fetchByFilter($filter);
+        return $this->accountService->fetchShippingAccounts($accountIds);
     }
 
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)

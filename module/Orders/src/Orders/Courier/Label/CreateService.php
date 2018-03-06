@@ -40,7 +40,7 @@ class CreateService extends ServiceAbstract
         $user = $this->userOUService->getActiveUser();
         $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $shippingAccount = $this->accountService->fetchShippingAccount($shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
         $this->removeZeroQuantityItemsFromOrders($orders);
 

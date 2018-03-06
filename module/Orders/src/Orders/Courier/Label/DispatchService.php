@@ -1,7 +1,7 @@
 <?php
 namespace Orders\Courier\Label;
 
-use CG\Account\Client\Service as AccountService;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Locking\Service as LockingService;
