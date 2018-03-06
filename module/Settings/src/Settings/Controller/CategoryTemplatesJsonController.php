@@ -163,7 +163,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         return $this->buildErrorResponse(
             [
                 'code' => static::SAVE_ERROR_ETAG,
-                'message' => 'Someone else may have updated that. Please refresh and try again.',
+                'message' => 'Someone else may have updated this template in the meantime. Please refresh and try again.',
                 'existing' => false
             ],
             [
@@ -217,7 +217,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
             // Nothing to delete
             return $this->buildSuccessResponse(['valid' => true]);
         } catch (\Exception $e) {
-            return $this->buildErrorResponse('There was a problem with the delete', ['valid' => false]);
+            return $this->buildErrorResponse('There was a problem while deleting the template. Please try again. Contact support if the problem persists.', ['valid' => false]);
         }
     }
 }
