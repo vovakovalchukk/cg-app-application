@@ -64,7 +64,7 @@ class Service
         }
     }
 
-    protected function formatCategoriesResponse(CategoryCollection $categoryCollection): array
+    public function formatCategoriesResponse(CategoryCollection $categoryCollection): array
     {
         $categories = [];
         /** @var Category $category */
