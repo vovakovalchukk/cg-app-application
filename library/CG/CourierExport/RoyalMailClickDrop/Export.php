@@ -64,7 +64,7 @@ class Export implements ExportDocumentInterface
     protected function getRow(array $row): string
     {
         $fields = array_fill_keys(array_values($this->headers), '');
-        $rowData = array_merge($fields, array_intersect_assoc($row, $fields));
+        $rowData = array_merge($fields, array_intersect_key($row, $fields));
         return str_putcsv($rowData);
     }
 }
