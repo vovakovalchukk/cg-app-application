@@ -24,6 +24,7 @@
     "css-toggle-switch": "^4.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-redux": "^5.0.7"
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2"
   }
 }
