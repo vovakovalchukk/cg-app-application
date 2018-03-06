@@ -1,18 +1,27 @@
 define([
     'react',
     'react-dom',
-    'Redux/Components/Root'
+    'redux',
+    'react-redux',
+    'Redux/Components/Root',
+    'Redux/Reducers/Combined'
 ], function(
     React,
     ReactDOM,
-    RootComponent
+    Redux,
+    ReactRedux,
+    RootComponent,
+    Reducer
 ) {
     var Prototype = function(
         mountingNode
     ) {
+        var store = Redux.createStore(Reducer);
+        var Provider = ReactRedux.Provider;
         ReactDOM.render(
-            <RootComponent
-            />,
+            <Provider store={store}>
+                <RootComponent />
+            </Provider>,
             mountingNode
         );
     };

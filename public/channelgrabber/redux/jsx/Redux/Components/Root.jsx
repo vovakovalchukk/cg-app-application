@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Redux/Containers/AddTodo'
 ], function(
-    React
+    React,
+    AddTodo
 ) {
     "use strict";
 
@@ -18,7 +20,9 @@ define([
         render: function()
         {
             return (
-                <div>Hello World!</div>
+                <div>
+                    <AddTodo />
+                </div>
             );
         }
     });

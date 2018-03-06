@@ -1,8 +1,8 @@
-define(['react'], function (React) {
+define(['react', 'Redux/Containers/AddTodo'], function (React, AddTodo) {
     "use strict";
 
     var RootComponent = React.createClass({
-        displayName: "RootComponent",
+        displayName: 'RootComponent',
 
         getDefaultProps: function () {
             return {};
@@ -12,9 +12,9 @@ define(['react'], function (React) {
         },
         render: function () {
             return React.createElement(
-                "div",
+                'div',
                 null,
-                "Hello World!"
+                React.createElement(AddTodo, null)
             );
         }
     });
