@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "342f02c02474f157509820c2e373f83d",
+    "content-hash": "2453fdf5ba6d1a6426ae8f3c64b0c97f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2029,16 +2029,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-LIS-75-listing-creation-variation-data",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "517d4c02db8769d6931e84125806f85bb82daeff"
+                "reference": "7a0ad2a2bfb533932663272a499372f0e7949303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-75-listing-creation-variation-data-e3ea98.zip",
-                "reference": "517d4c02db8769d6931e84125806f85bb82daeff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-LIS-73-create-variation-listings-f77abb.zip",
+                "reference": "7a0ad2a2bfb533932663272a499372f0e7949303",
                 "shasum": null
             },
             "require": {
@@ -2090,7 +2090,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-03-05T10:19:44+00:00"
+            "time": "2018-03-06T09:21:20+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9535,9 +9535,9 @@
             "package": "channelgrabber/listing"
         },
         {
-            "alias": "1.11.6",
-            "alias_normalized": "1.11.6.0",
-            "version": "dev-LIS-75-listing-creation-variation-data",
+            "alias": "1.11.7",
+            "alias_normalized": "1.11.7.0",
+            "version": "dev-EPIC-LIS-73-create-variation-listings",
             "package": "channelgrabber/product"
         },
         {
