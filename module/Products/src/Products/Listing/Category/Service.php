@@ -51,7 +51,7 @@ class Service
         string $marketplace = null,
         bool $useAccountId = true
     ) {
-        return $this->fetchCategoriesForAccount($account, $listable, $marketplace, $useAccountId);
+        return $this->fetchCategoriesForAccount($account, 0, $listable, $marketplace, $useAccountId);
     }
 
     public function fetchCategoryChildrenForAccountAndCategory(int $categoryId) {
