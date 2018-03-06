@@ -2,6 +2,7 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -135,27 +136,39 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         );
     }
 
-    protected function buildCategoryAlreadyMappedError(Conflict $e, array $requestedCategoryIds, $templateId = null): JsonModel
+    protected function buildCategoryAlreadyMappedError(Conflict $e, array $requestedCategoryIds, $currentTemplateId = null): JsonModel
     {
-        $existing = $this->fetchExistingByCategoryIds($requestedCategoryIds, $templateId);
-        $overlapCategoryIds = array_intersect($existing->getCategoryIds(), $requestedCategoryIds);
-        $category = $this->categoryTemplateService->fetchCategory($overlapCategoryIds[0]);
-        $accountId = $this->categoryTemplateService->fetchAccountIdForCategory($category, $this->userOuService->getRootOuByActiveUser());
         return $this->buildErrorResponse(
             [
                 'code' => static::SAVE_ERROR_EXISTING_CATEGORY,
                 'message' => $e->getMessage(),
-                'existing' => [
-                    'name' => $existing->getName(),
-                    'accountId' => $accountId,
-                    'categoryId' => $category->getId(),
-                ]
+                'existing' => $this->buildDetailsOfAlreadyMappedCategories($requestedCategoryIds, $currentTemplateId)
             ],
             [
                 'valid' => false,
-                'id' => $existing->getId()
+                'id' => $currentTemplateId
             ]
         );
+    }
+
+    protected function buildDetailsOfAlreadyMappedCategories(array $requestedCategoryIds, $currentTemplateId = null): array
+    {
+        $existingTemplates = $this->fetchExistingByCategoryIds($requestedCategoryIds, $currentTemplateId);
+        $rootOU = $this->userOuService->getRootOuByActiveUser();
+        $existingDetails = [];
+        foreach ($existingTemplates as $existingTemplate) {
+            $overlapCategoryIds = array_intersect($existingTemplate->getCategoryIds(), $requestedCategoryIds);
+            $overlapCategories = $this->categoryTemplateService->fetchCategoriesByIds($overlapCategoryIds);
+            foreach ($overlapCategories as $category) {
+                $accountId = $this->categoryTemplateService->fetchAccountIdForCategory($category, $rootOU);
+                $existingDetails[] = [
+                    'name' => $existingTemplate->getName(),
+                    'accountId' => $accountId,
+                    'categoryId' => $category->getId(),
+                ];
+            }
+        }
+        return $existingDetails;
     }
 
     protected function buildEtagError(): JsonModel
@@ -172,16 +185,15 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         );
     }
 
-    protected function fetchExistingByCategoryIds(array $requestedCategoryIds, $templateId = null): CategoryTemplate
+    protected function fetchExistingByCategoryIds(array $requestedCategoryIds, $currentTemplateId = null): CategoryTemplateCollection
     {
         $existingTemplates = $this->categoryTemplateService->fetchByCategoryIds($requestedCategoryIds);
-        foreach ($existingTemplates as $existingTemplate) {
-            // Don't conflict with itself
-            if ($templateId && $existingTemplate->getId() == $templateId) {
-                continue;
-            }
-            return $existingTemplate;
+        if ($currentTemplateId && $existingTemplates->containsId($currentTemplateId)) {
+            // Don't mark it as conflicting with itself
+            $currentTemplate = $existingTemplates->getById($currentTemplateId);
+            $existingTemplates->detach($currentTemplate);
         }
+        return $existingTemplates;
     }
 
     public function categoryChildrenAction()
