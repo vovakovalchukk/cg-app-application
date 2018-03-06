@@ -4,7 +4,7 @@ namespace Settings\Controller;
 use Application\Controller\AbstractJsonController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use \Settings\Category\Template\Service as CategoryTemplateService;
+use Settings\Category\Template\Service as CategoryTemplateService;
 
 class CategoryTemplatesJsonController extends AbstractJsonController
 {
@@ -21,7 +21,8 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     /** @var  CategoryTemplateService */
     protected $categoryTemplateService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory,
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
         UserOUService $userOuService,
         CategoryTemplateService $categoryTemplateService
     ) {

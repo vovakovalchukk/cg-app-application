@@ -3,6 +3,7 @@ namespace Products\Listing\Channel;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Di\Di;
+use Products\Listing\Exception as ListingException;
 use function CG\Stdlib\hyphenToClassname;
 
 class Factory
@@ -23,5 +24,18 @@ class Factory
         }
         $params = !empty($postData) ? ['postData' => $postData] : [];
         return $this->di->newInstance($channelServiceName, $params);
+    }
+
+    public function fetchAndValidateChannelService(Account $account, string $className, array $postData = [])
+    {
+        try {
+            $service = $this->buildChannelService($account, $postData);
+            if ($service instanceof $className) {
+                return $service;
+            }
+            throw new ListingException('The account with ID ' . $account->getId() . ' does not support this action.');
+        } catch (\InvalidArgumentException $e) {
+            throw new ListingException('The account with ID ' . $account->getId() . ' is not valid');
+        }
     }
 }
