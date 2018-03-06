@@ -208,6 +208,9 @@ class Service
 
     public function fetchCategoriesByIds(array $categoryIds): CategoryCollection
     {
+        if (empty($categoryIds)) {
+            throw new \InvalidArgumentException('Don\'t attempt to filter on empty categoryId array as it will fetch all categories');
+        }
         $filter = (new CategoryFilter())
             ->setPage(1)
             ->setLimit('all')
