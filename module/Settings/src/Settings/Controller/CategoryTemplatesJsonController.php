@@ -2,10 +2,10 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
-use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Products\Listing\Exception as ListingException;
 use Settings\Category\Template\Service as CategoryTemplateService;
-use Products\Listing\Channel\Service as ChannelService;
 
 class CategoryTemplatesJsonController extends AbstractJsonController
 {
@@ -52,11 +52,15 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function categoryRootsAction()
     {
-        return $this->buildResponse([
-            'accountCategories' => $this->categoryTemplateService->fetchCategoryRoots(
-                $this->userOuService->getRootOuByActiveUser()
-            )
-        ]);
+        try {
+            return $this->buildResponse([
+                'accountCategories' => $this->categoryTemplateService->fetchCategoryRoots(
+                    $this->userOuService->getRootOuByActiveUser()
+                )
+            ]);
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function saveAction()
@@ -92,19 +96,31 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function categoryChildrenAction()
     {
-        return $this->buildResponse([
-            'categories' => $this->categoryTemplateService->fetchCategoryChildrenForAccountAndCategory(
-                $this->getAccountIdFromRoute(),
-                $this->params()->fromRoute('categoryId', -1)
-            )
-        ]);
+        try {
+            return $this->buildResponse([
+                'categories' => $this->categoryTemplateService->fetchCategoryChildrenForAccountAndCategory(
+                    $this->getAccountIdFromRoute(),
+                    $this->params()->fromRoute('categoryId', -1)
+                )
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function refreshCategoriesAction()
     {
-        return $this->buildResponse([
-            'categories' => $this->categoryTemplateService->refreshCategories($this->getAccountIdFromRoute())
-        ]);
+        try {
+            return $this->buildResponse([
+                'categories' => $this->categoryTemplateService->refreshCategories($this->getAccountIdFromRoute())
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function templateDeleteAction()
@@ -118,5 +134,10 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     protected function getAccountIdFromRoute()
     {
         return $this->params()->fromRoute('accountId', 0);
+    }
+
+    protected function buildGenericErrorResponse()
+    {
+        return $this->buildErrorResponse('An error has occurred. Please try again');
     }
 }

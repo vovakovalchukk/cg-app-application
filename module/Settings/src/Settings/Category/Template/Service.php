@@ -16,6 +16,7 @@ use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
 use CG\Product\Category\Template\Service as CategoryTemplateService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Channel\Service as ChannelService;
+use Products\Listing\Exception as ListingException;
 
 class Service
 {
@@ -95,13 +96,23 @@ class Service
             if (!isset($allowedChannels[$account->getChannel()])) {
                 continue;
             }
-            $defaultSettings = $this->channelService->getChannelSpecificFieldValues($account);
+
             $result[] = [
                 'accountId' => $account->getId(),
-                'categories' => $defaultSettings['categories'] ?? []
+                'categories' => $this->fetchCategoriesForAccount($account)
             ];
         }
         return $result;
+    }
+
+    public function fetchCategoriesForAccount(Account $account): array
+    {
+        try {
+            $defaultSettings = $this->channelService->getChannelSpecificFieldValues($account);
+            return $defaultSettings['categories'] ?? [];
+        } catch (ListingException $e) {
+            return [];
+        }
     }
 
     public function fetchCategoryChildrenForAccountAndCategory(int $accountId, int $categoryId): array
