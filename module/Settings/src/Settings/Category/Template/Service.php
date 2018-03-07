@@ -114,6 +114,16 @@ class Service
         return $this->channelService->getCategoryChildrenForCategoryAndAccount($account, $categoryId);
     }
 
+    public function refreshCategories(int $accountId): array
+    {
+        try {
+            $account = $this->accountService->fetch($accountId);
+        } catch (NotFound $e) {
+            return [];
+        }
+        return $this->channelService->refetchAndSaveCategories($account);
+    }
+
     protected function fetchActiveAccountsForOu(OrganisationUnit $ou)
     {
         $filter = (new AccountFilter())

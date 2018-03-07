@@ -94,7 +94,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     {
         return $this->buildResponse([
             'categories' => $this->categoryTemplateService->fetchCategoryChildrenForAccountAndCategory(
-                $this->params()->fromRoute('accountId', 0),
+                $this->getAccountIdFromRoute(),
                 $this->params()->fromRoute('categoryId', -1)
             )
         ]);
@@ -103,11 +103,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     public function refreshCategoriesAction()
     {
         return $this->buildResponse([
-            'categories' => [
-                '91' => 'Refetched Televisions',
-                '103' => 'Refetched Clothes',
-                '209' => 'Refetched Phones'
-            ]
+            'categories' => $this->categoryTemplateService->refreshCategories($this->getAccountIdFromRoute())
         ]);
     }
 
@@ -117,5 +113,10 @@ class CategoryTemplatesJsonController extends AbstractJsonController
             'valid' => true,
             'errors' => []
         ]);
+    }
+
+    protected function getAccountIdFromRoute()
+    {
+        return $this->params()->fromRoute('accountId', 0);
     }
 }
