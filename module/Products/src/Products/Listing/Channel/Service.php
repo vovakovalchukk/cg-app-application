@@ -53,35 +53,35 @@ class Service
         return $allowedChannels;
     }
 
-    public function getDefaultSettingsForAccount(Account $account, array $postData = [])
+    public function getDefaultSettingsForAccount(Account $account, array $postData = []): array
     {
         /** @var DefaultAccountSettingsInterface $channelService */
         $channelService = $this->factory->fetchAndValidateChannelService($account, DefaultAccountSettingsInterface::class, $postData);
         return $channelService->getDefaultSettingsForAccount($account);
     }
 
-    public function getChannelSpecificFieldValues(Account $account, array $postData = [])
+    public function getChannelSpecificFieldValues(Account $account, array $postData = []): array
     {
         /** @var ChannelSpecificValuesInterface $service */
         $service = $this->factory->fetchAndValidateChannelService($account, ChannelSpecificValuesInterface::class, $postData);
         return $service->getChannelSpecificFieldValues($account);
     }
 
-    public function getCategoryDependentValues(Account $account, int $categoryId, array $postData = [])
+    public function getCategoryDependentValues(Account $account, int $categoryId, array $postData = []): array
     {
         /** @var CategoryDependentServiceInterface $service */
         $service = $this->factory->fetchAndValidateChannelService($account, CategoryDependentServiceInterface::class, $postData);
         return $service->getCategoryDependentValues($account, $categoryId);
     }
 
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId, array $postData = [])
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId, array $postData = []): array
     {
         /** @var CategoryChildrenInterface $service */
         $service = $this->factory->fetchAndValidateChannelService($account, CategoryChildrenInterface::class, $postData);
         return $service->getCategoryChildrenForCategoryAndAccount($account, $categoryId);
     }
 
-    public function refetchAndSaveCategories(Account $account, array $postData = [])
+    public function refetchAndSaveCategories(Account $account, array $postData = []): array
     {
         /** @var CategoriesRefreshInterface $service */
         $service = $this->factory->fetchAndValidateChannelService($account, CategoriesRefreshInterface::class, $postData);
