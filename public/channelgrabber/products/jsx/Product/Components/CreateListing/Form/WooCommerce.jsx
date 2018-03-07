@@ -100,6 +100,8 @@ define([
             }
 
             return <VariationPicker
+                /** @TODO remove the images flag after we support variation images */
+                images={false}
                 variationsDataForProduct={variationsDataForProduct}
                 variationFormState={this.props.variations}
                 setFormStateListing={this.props.setFormStateListing}
