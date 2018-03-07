@@ -18,7 +18,7 @@ define(['react', 'react-redux', 'Redux/Actions/Todo', 'Redux/Components/TodoList
 
     var mapStateToProps = function (state) {
         return {
-            todos: getVisibleTodos(state.todos, 'SHOW_ALL')
+            todos: getVisibleTodos(state.todos, state.visibilityFilter)
         };
     };
 

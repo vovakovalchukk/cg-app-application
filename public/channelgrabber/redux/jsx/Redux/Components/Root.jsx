@@ -1,11 +1,13 @@
 define([
     'react',
     'Redux/Containers/AddTodo',
-    'Redux/Containers/TodoList'
+    'Redux/Containers/TodoList',
+    'Redux/Components/FilterLinks'
 ], function(
     React,
     AddTodoContainer,
-    TodoListContainer
+    TodoListContainer,
+    FilterLinksComponent,
 ) {
     "use strict";
 
@@ -16,6 +18,7 @@ define([
                 <div style={{width: "500px"}}>
                     <AddTodoContainer />
                     <TodoListContainer />
+                    <FilterLinksComponent />
                 </div>
             );
         }

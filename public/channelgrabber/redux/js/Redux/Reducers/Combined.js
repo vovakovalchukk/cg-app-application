@@ -1,6 +1,7 @@
-define(['redux', 'Redux/Reducers/Todo'], function (Redux, TodoReducer) {
+define(['redux', 'Redux/Reducers/Todo', 'Redux/Reducers/FilterLink'], function (Redux, TodoReducer, FilterLinkReducer) {
     var combined = Redux.combineReducers({
-        todos: TodoReducer
+        todos: TodoReducer,
+        visibilityFilter: FilterLinkReducer
     });
     return combined;
 });

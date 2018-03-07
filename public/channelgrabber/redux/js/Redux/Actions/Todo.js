@@ -15,6 +15,14 @@ define([], function () {
                     id: id
                 }
             };
+        },
+        visibility: function (filter) {
+            return {
+                type: 'SET_VISIBILITY',
+                payload: {
+                    filter: filter
+                }
+            };
         }
     };
 

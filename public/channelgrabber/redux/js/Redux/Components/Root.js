@@ -1,4 +1,4 @@
-define(['react', 'Redux/Containers/AddTodo', 'Redux/Containers/TodoList'], function (React, AddTodoContainer, TodoListContainer) {
+define(['react', 'Redux/Containers/AddTodo', 'Redux/Containers/TodoList', 'Redux/Components/FilterLinks'], function (React, AddTodoContainer, TodoListContainer, FilterLinksComponent) {
     "use strict";
 
     var RootComponent = React.createClass({
@@ -9,7 +9,8 @@ define(['react', 'Redux/Containers/AddTodo', 'Redux/Containers/TodoList'], funct
                 'div',
                 { style: { width: "500px" } },
                 React.createElement(AddTodoContainer, null),
-                React.createElement(TodoListContainer, null)
+                React.createElement(TodoListContainer, null),
+                React.createElement(FilterLinksComponent, null)
             );
         }
     });
