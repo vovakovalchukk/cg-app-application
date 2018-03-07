@@ -47,7 +47,7 @@ class Service implements
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId)
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndCategory($categoryId);
+            return $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId);
         } catch (NotFound $e) {
             return [];
         }
