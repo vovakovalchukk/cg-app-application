@@ -1,27 +1,21 @@
 define([
     'react',
-    'Redux/Containers/AddTodo'
+    'Redux/Containers/AddTodo',
+    'Redux/Containers/TodoList'
 ], function(
     React,
-    AddTodo
+    AddTodoContainer,
+    TodoListContainer
 ) {
     "use strict";
 
     var RootComponent = React.createClass({
-        getDefaultProps: function() {
-            return {
-            };
-        },
-        getInitialState: function()
-        {
-            return {
-            };
-        },
         render: function()
         {
             return (
-                <div>
-                    <AddTodo />
+                <div style={{width: "500px"}}>
+                    <AddTodoContainer />
+                    <TodoListContainer />
                 </div>
             );
         }

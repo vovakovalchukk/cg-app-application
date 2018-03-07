@@ -1,5 +1,5 @@
 define([], function() {
-    return {
+    var TodoActions = {
         add: function (text) {
             return {
                 type: 'ADD',
@@ -17,4 +17,6 @@ define([], function() {
             };
         }
     };
+
+    return TodoActions;
 });

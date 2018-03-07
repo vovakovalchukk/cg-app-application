@@ -4,7 +4,7 @@ define(['Redux/Reducers/creator'], function (reducerCreator) {
         "ADD": function (state, action) {
             var newState = state.slice(0);
             newState.push({
-                id: action.payload.id,
+                id: state.length + 1,
                 text: action.payload.text,
                 completed: false
             });

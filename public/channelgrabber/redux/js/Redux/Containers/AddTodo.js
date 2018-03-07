@@ -1,31 +1,11 @@
-define(['react', 'react-redux', 'Redux/Actions/Todo'], function (React, ReactRedux, Actions) {
-    var AddTodo = ReactRedux.connect()(function (store) {
-        var input;
+define(['react', 'react-redux', 'Redux/Actions/Todo', 'Redux/Components/AddTodo'], function (React, ReactRedux, Actions, AddTodoComponent) {
+    var mapStateToProps = null;
 
-        return React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'form',
-                { onSubmit: function (e) {
-                        e.preventDefault();
-                        if (!input.value.trim()) {
-                            return;
-                        }
-                        store.dispatch(Actions.add(input.value));
-                        input.value = '';
-                    } },
-                React.createElement('input', { ref: function (node) {
-                        input = node;
-                    } }),
-                React.createElement(
-                    'button',
-                    { type: 'submit' },
-                    'Add Todo'
-                )
-            )
-        );
-    });
+    var mapDispatchToProps = {
+        onAddClick: Actions.add
+    };
 
-    return AddTodo;
+    var AddTodoConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+
+    return AddTodoConnector(AddTodoComponent);
 });
