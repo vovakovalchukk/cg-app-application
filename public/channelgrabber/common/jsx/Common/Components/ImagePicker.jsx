@@ -52,7 +52,7 @@ define([
                 selectedImages: currentlySelectedImages
             });
             if (this.props.onImageSelected) {
-                this.props.onImageSelected(image, currentlySelectedImages);
+                this.props.onImageSelected(image, currentlySelectedImages, this.props.name);
             }
         },
         render: function() {
