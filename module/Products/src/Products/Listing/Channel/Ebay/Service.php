@@ -97,7 +97,7 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'category' => $this->getCategoryOptionsForAccount($account),
+            'categories' => $this->getCategoryOptionsForAccount($account),
             'shippingService' => $this->getShippingMethodsForAccount($account),
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),

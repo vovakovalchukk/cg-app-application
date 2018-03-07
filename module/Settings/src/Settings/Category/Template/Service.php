@@ -80,6 +80,30 @@ class Service
         return $result;
     }
 
+    public function fetchCategoryRoots(OrganisationUnit $ou)
+    {
+        try {
+            $accounts = $this->fetchActiveAccountsForOu($ou);
+        } catch (NotFound $e) {
+            return [];
+        }
+
+        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels($ou, $accounts);
+        $result = [];
+        /** @var Account $account */
+        foreach ($accounts as $account) {
+            if (!isset($allowedChannels[$account->getChannel()])) {
+                continue;
+            }
+            $defaultSettings = $this->channelService->getChannelSpecificFieldValues($account);
+            $result[] = [
+                'accountId' => $account->getId(),
+                'categories' => $defaultSettings['categories'] ?? []
+            ];
+        }
+        return $result;
+    }
+
     protected function fetchActiveAccountsForOu(OrganisationUnit $ou)
     {
         $filter = (new AccountFilter())
