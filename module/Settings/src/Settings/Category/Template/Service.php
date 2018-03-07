@@ -80,7 +80,7 @@ class Service
         return $result;
     }
 
-    public function fetchCategoryRoots(OrganisationUnit $ou)
+    public function fetchCategoryRoots(OrganisationUnit $ou): array
     {
         try {
             $accounts = $this->fetchActiveAccountsForOu($ou);
@@ -102,6 +102,16 @@ class Service
             ];
         }
         return $result;
+    }
+
+    public function fetchCategoryChildrenForAccountAndCategory(int $accountId, int $categoryId): array
+    {
+        try {
+            $account = $this->accountService->fetch($accountId);
+        } catch (NotFound $e) {
+            return [];
+        }
+        return $this->channelService->getCategoryChildrenForCategoryAndAccount($account, $categoryId);
     }
 
     protected function fetchActiveAccountsForOu(OrganisationUnit $ou)

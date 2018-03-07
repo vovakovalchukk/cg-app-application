@@ -5,6 +5,7 @@ use Application\Controller\AbstractJsonController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Settings\Category\Template\Service as CategoryTemplateService;
+use Products\Listing\Channel\Service as ChannelService;
 
 class CategoryTemplatesJsonController extends AbstractJsonController
 {
@@ -92,11 +93,10 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     public function categoryChildrenAction()
     {
         return $this->buildResponse([
-            'categories' => [
-                '1023' => 'Televisions Child',
-                '2354' => 'Clothes Child',
-                '8721' => 'Phones Child'
-            ]
+            'categories' => $this->categoryTemplateService->fetchCategoryChildrenForAccountAndCategory(
+                $this->params()->fromRoute('accountId', 0),
+                $this->params()->fromRoute('categoryId', -1)
+            )
         ]);
     }
 
