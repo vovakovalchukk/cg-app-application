@@ -5,6 +5,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Gearman\Generator\UnimportedListing\Import as UnimportedListingImportGenerator;
+use CG\Channel\Listing\Download\Service as ListingDownloadService;
 use CG\Channel\ListingImportFactory;
 use CG\Channel\Type as ChannelType;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -14,7 +15,6 @@ use CG\Listing\Unimported\Filter as ListingFilter;
 use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Status as ListingStatus;
-use CG\Stdlib\DateTime;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -67,6 +67,7 @@ class Service implements LoggerAwareInterface
     protected $dateFormatHelper;
     /** @var UnimportedListingImportGenerator */
     protected $unimportedListingImportGenerator;
+    protected $listingDownloadService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -77,7 +78,8 @@ class Service implements LoggerAwareInterface
         GearmanClient $gearmanClient,
         IntercomEventService $intercomEventService,
         DateFormatHelper $dateFormatHelper,
-        UnimportedListingImportGenerator $unimportedListingImportGenerator
+        UnimportedListingImportGenerator $unimportedListingImportGenerator,
+        ListingDownloadService $listingDownloadService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->userPreferenceService = $userPreferenceService;
@@ -88,6 +90,7 @@ class Service implements LoggerAwareInterface
         $this->intercomEventService = $intercomEventService;
         $this->dateFormatHelper = $dateFormatHelper;
         $this->unimportedListingImportGenerator = $unimportedListingImportGenerator;
+        $this->listingDownloadService = $listingDownloadService;
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -146,7 +149,7 @@ class Service implements LoggerAwareInterface
                 'name' => $account->getDisplayName(),
                 'status' => static::REFRESH_STATUS_NOT_STARTED,
                 'lastCompleted' => null,
-                'refreshAllowed' => true,
+                'refreshAllowed' => $this->listingDownloadService->decideRefreshAllowed($account),
             ];
 
             if ($lastCompletedDate = $listingDownload->getLastCompletedDate()) {
@@ -163,9 +166,6 @@ class Service implements LoggerAwareInterface
             }
 
             $refreshDetails[$account->getId()]['status'] = static::REFRESH_STATUS_IN_PROGRESS;
-            if (($listingDownloadStartedAt = $listingDownload->getStartedTime()) && $listingDownloadStartedAt >= new DateTime('-1 day')) {
-                $refreshDetails[$account->getId()]['refreshAllowed'] = false;
-            }
         }
         return $refreshDetails;
     }

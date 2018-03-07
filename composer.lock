@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e90e1d03e8be96f84bacb4160c85c65",
+    "content-hash": "50f9af26f9cc49aef485e9e4e2e3d5e5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,17 +511,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.1",
+            "version": "dev-CGIV-9293-prevent_automated_listing_downloading",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3cd941de45672241d54ea8baab6dc05cf9c5c8db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.1-9c768f.zip",
-                "reference": "3cd941de45672241d54ea8baab6dc05cf9c5c8db",
-                "shasum": null
+                "reference": "3d43d67792c29e3381aeee0c424d2c7d344701c0"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -9509,13 +9503,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.34.2",
+            "alias_normalized": "1.34.2.0",
+            "version": "dev-CGIV-9293-prevent_automated_listing_downloading",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
