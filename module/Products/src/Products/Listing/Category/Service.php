@@ -54,7 +54,7 @@ class Service
         return $this->fetchCategoriesForAccount($account, 0, $listable, $marketplace, $useAccountId);
     }
 
-    public function fetchCategoryChildrenForAccountAndCategory(int $categoryId) {
+    public function fetchCategoryChildrenForParentCategoryId(int $categoryId) {
         try {
             $filter = (new CategoryFilter('all', 1))->setParentId([$categoryId]);
             $categories = $this->categoryService->fetchCollectionByFilter($filter);
