@@ -338,13 +338,18 @@ define([
         },
         onVariationImageSelected: function(image, selectedImageIds, variationValue)
         {
-            this.state.attributeImageMap[variationValue] = image.id;
+            var attributeMap = this.state.attributeImageMap;
+            if (selectedImageIds.length === 0) {
+                delete attributeMap[variationValue];
+            } else {
+                attributeMap[variationValue] = selectedImageIds[0];
+            }
             this.setState({
-                attributeImageMap: this.state.attributeImageMap
+                attributeImageMap: attributeMap
             });
             this.props.setFormStateListing({
                 imageAttributeName: variationValue,
-                attributeImageMap: this.state.attributeImageMap
+                attributeImageMap: attributeMap
             });
         },
         render: function() {

@@ -123,6 +123,9 @@ define([
         },
         submitFormData: function () {
             var formData = this.getFormData();
+            /** @TODO: remove this! */
+            console.log(formData.listing.attributeImageMap);
+            return;
             $.ajax({
                 url: '/products/listing/submit',
                 data: formData,
