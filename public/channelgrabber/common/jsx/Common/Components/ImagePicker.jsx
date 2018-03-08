@@ -23,26 +23,38 @@ define([
             };
         },
         componentDidMount: function() {
+            this.updateSelectedImages(true);
+        },
+        componentDidUpdate: function(prevProps, prevState)
+        {
+            if (prevProps.name === this.props.name) {
+                return;
+            }
+
+            this.updateSelectedImages(false);
+        },
+        updateSelectedImages(onInitialize = false)
+        {
             var selectedImages = [];
             this.props.images.forEach(function(image) {
                 if (image.selected) {
                     selectedImages.push(image);
                 }
-            })
+            });
             if (this.props.autoSelectFirst && selectedImages.length == 0 && this.props.images.length > 0) {
                 selectedImages.push(this.props.images[0]);
             }
 
             selectedImages.forEach(function(image) {
-                this.imageSelected(image);
+                this.imageSelected(image, onInitialize ? undefined : []);
             }.bind(this))
         },
-        imageSelected: function(image) {
-            var currentlySelectedImages = this.state.selectedImages.slice(0);
+        imageSelected: function(image, selectedImages) {
+            var currentlySelectedImages = selectedImages !== undefined ? selectedImages : this.state.selectedImages.slice(0);
             var selectedImageIndex = currentlySelectedImages.indexOf(image.id);
             if (selectedImageIndex > -1) {
                 // Already selected. Second click de-selects.
-                delete currentlySelectedImages[selectedImageIndex];
+                currentlySelectedImages.splice(selectedImageIndex, 1);
             } else if (!this.props.multiSelect) {
                 currentlySelectedImages = [image.id];
             } else {
@@ -62,7 +74,7 @@ define([
                         var className = this.state.selectedImages.indexOf(image.id) > -1 ? 'selected' : '';
                         return (
                             <div className={"react-image-picker-image " + className}
-                                 onClick={this.imageSelected.bind(this, image)}
+                                 onClick={this.imageSelected.bind(this, image, undefined)}
                             >
                                 <img src={image.url} />
                             </div>
