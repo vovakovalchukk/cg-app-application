@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "50c852cbc57b63c7eeabc2fd2a258301",
+    "content-hash": "a106fd35fb1661411d8a4775571126a4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -515,12 +515,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f3de0ca73903afae9b35bcfd0e3fda0e2e144dcd"
+                "reference": "79ff5e8e2f0eaa8d5b3633a726566b5b3a3bf90c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-16-RoyalMailClickAndDrop-2b562f.zip",
-                "reference": "f3de0ca73903afae9b35bcfd0e3fda0e2e144dcd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-16-RoyalMailClickAndDrop-2b6471.zip",
+                "reference": "79ff5e8e2f0eaa8d5b3633a726566b5b3a3bf90c",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-03-05T15:20:10+00:00"
+            "time": "2018-03-08T15:28:23+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1673,12 +1673,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ae352aa6c8457cdaa4af0042fb9922d8bd26f422"
+                "reference": "6cc7cc6bcb45a3362c9d7dcf1f3123b68b0443c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-16-RoyalMailClickAndDrop-d4d9d2.zip",
-                "reference": "ae352aa6c8457cdaa4af0042fb9922d8bd26f422",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-16-RoyalMailClickAndDrop-e50452.zip",
+                "reference": "6cc7cc6bcb45a3362c9d7dcf1f3123b68b0443c7",
                 "shasum": null
             },
             "require": {
@@ -1749,7 +1749,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-03-05T14:20:52+00:00"
+            "time": "2018-03-08T15:29:13+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9511,14 +9511,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.34.2",
-            "alias_normalized": "1.34.2.0",
+            "alias": "1.34.3",
+            "alias_normalized": "1.34.3.0",
             "version": "dev-TAC-16-RoyalMailClickAndDrop",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.38.1",
-            "alias_normalized": "1.38.1.0",
+            "alias": "1.38.3",
+            "alias_normalized": "1.38.3.0",
             "version": "dev-TAC-16-RoyalMailClickAndDrop",
             "package": "channelgrabber/order"
         }
