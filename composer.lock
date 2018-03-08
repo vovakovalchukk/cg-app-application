@@ -515,7 +515,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ec263e037ffe1266dce5f2a6284db466e27d8471"
+                "reference": "29d9bb1a766974329e5f6d9e7acc492c6bbe45d6"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
