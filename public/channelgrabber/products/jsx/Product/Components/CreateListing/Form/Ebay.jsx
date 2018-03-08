@@ -57,6 +57,7 @@ define([
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
+            this.initializeVariationsImagePicker();
             this.props.setFormStateListing({
                 shippingPrice: this.props.shippingPrice
             });
@@ -284,24 +285,29 @@ define([
                 </div>
             </label>;
         },
+        initializeVariationsImagePicker: function()
+        {
+            var variations = this.props.product.attributeNames.map(function(attribute) {
+                return {"value": attribute, "name": attribute};
+            });
+
+            if (variations.length !== 1) {
+                return;
+            }
+
+            this.onVariationOptionSelected(this.variations[0]);
+        },
         renderVariationImagePicker: function()
         {
             var variations = this.props.product.attributeNames.map(function(attribute) {
                 return {"value": attribute, "name": attribute};
             });
-            var fields = [
-                <label>
-                    <span className={"inputbox-label"}>Variation images variable:</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Select
-                            options={variations}
-                            autoSelectFirst={false}
-                            onOptionChange={this.onVariationOptionSelected}
-                            selectedOption={this.variationImageVariable}
-                        />
-                    </div>
-                </label>
-            ];
+
+            if (variations.length === 0) {
+                return;
+            }
+
+            var fields = [this.renderVariationImageValuePicker(variations)];
 
             for (var variationValue of this.state.variationImageNames) {
                 fields.push(
@@ -318,6 +324,28 @@ define([
                 )
             }
             return <span>{fields}</span>;
+        },
+        renderVariationImageValuePicker: function(variations)
+        {
+            if (variations.length === 1) {
+                return <label>
+                    <span className={"inputbox-label"}>Variation images variable:</span>
+                    <div className={"order-inputbox-holder"}>
+                        <span className={"inputbox-label"}>test</span>
+                    </div>
+                </label>;
+            }
+            return <label>
+                <span className={"inputbox-label"}>Variation images variable:</span>
+                <div className={"order-inputbox-holder"}>
+                 <Select
+                     options={variations}
+                     autoSelectFirst={false}
+                     onOptionChange={this.onVariationOptionSelected}
+                     selectedOption={this.variationImageVariable}
+                 />
+                </div>
+            </label>;
         },
         onVariationOptionSelected: function(variation)
         {
