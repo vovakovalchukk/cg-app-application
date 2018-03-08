@@ -32,9 +32,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
-
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
-
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
