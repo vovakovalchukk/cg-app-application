@@ -29,7 +29,6 @@ define([
             return options;
         },
         getSelectedCategory: function() {
-            console.log(this.props.selectedCategory);
             for (var category in this.props.categories) {
                 if (category.id == this.props.selectedCategory) {
                     return category;
