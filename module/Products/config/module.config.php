@@ -2,6 +2,8 @@
 namespace Products;
 
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Account\Client\Storage\Api as AccountStorageApi;
+use CG\Channel\Listing\Download\Service as ChannelListingDownloadService;
 use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
@@ -30,7 +32,9 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
+
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
@@ -591,6 +595,11 @@ return [
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
+            ],
+            ChannelListingDownloadService::class => [
+                'parameters' => [
+                    'accountStorage' => AccountStorageApi::class
+                ]
             ],
             ListingsController::class => [
                 'parameters' => [
