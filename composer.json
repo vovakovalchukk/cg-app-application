@@ -63,7 +63,7 @@
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sequential-numbering": "~1.0.0",
         "channelgrabber/settings": "~1.5.5",
-        "channelgrabber/shopify": "~1.1.1",
+        "channelgrabber/shopify": "dev-LIS-123-use-internal-category-id-create-listings as 1.1.2",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.14.2",
