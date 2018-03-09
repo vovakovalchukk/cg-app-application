@@ -80,7 +80,7 @@ class Exporter implements ExporterInterface
         OrganisationUnit $rootOu,
         User $user
     ) {
-        [$title, $firstName, $lastName] = $this->parseName($fullName = $order->getShippingAddressFullNameForCourier());
+        [$title, $firstName, $lastName] = $this->parseName($fullName = trim($order->getShippingAddressFullNameForCourier()));
         foreach ($orderParcelsData as $orderParcelData) {
             $export->addRowData(
                 [
@@ -115,11 +115,14 @@ class Exporter implements ExporterInterface
 
     protected function parseName(string $name): array
     {
-        preg_match(
-            '/^\s*(?:(?<title>Dr|Master|Mr|Mrs|Ms|Miss|Mx)\.?\s*)?(?:(?<firstName>[^\s]+)\s+)?(?<lastName>.*?)\s*$/i',
+        $parsed = preg_match(
+            '/^(?:(?<title>Dr|Master|Mr|Mrs|Ms|Miss|Mx)\.?\s*)?(?:(?<firstName>[^\s]+)\s+)?(?<lastName>.*)$/i',
             $name,
             $match
         );
+        if (!$parsed) {
+            return ['', '', $name];
+        }
         return [$match['title'] ?? '', $match['firstName'] ?? '', $match['lastName'] ?? ''];
     }
 
