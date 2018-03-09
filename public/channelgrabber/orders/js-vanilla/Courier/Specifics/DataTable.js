@@ -294,7 +294,7 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
 {
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
     {
-        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled') {
+        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled' || aData.labelStatus == 'exported') {
             return;
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
