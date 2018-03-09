@@ -323,7 +323,7 @@ define([
             return;
         }
         $(button).addClass('disabled');
-        this.getNotifications().notice('Exporting');
+        this.getNotifications().notice('Exporting', true);
         var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
         data.account = this.getCourierAccountId();
         data.order = [orderId];
@@ -415,7 +415,7 @@ define([
         }
         $(button).addClass('disabled');
         $(EventHandler.SELECTOR_EXPORT_LABEL_BUTTON).addClass('disabled');
-        this.getNotifications().notice('Exporting all');
+        this.getNotifications().notice('Exporting all', true);
         this.sendExportRequest(data);
     };
 
