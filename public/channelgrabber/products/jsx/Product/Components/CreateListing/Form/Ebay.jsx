@@ -360,7 +360,7 @@ define([
                 attributeImageMap: {}
             });
             this.props.setFormStateListing({
-                imageAttributeName: variation,
+                imageAttributeName: variation.value,
                 attributeImageMap: {}
             });
         },
@@ -376,7 +376,6 @@ define([
                 attributeImageMap: attributeMap
             });
             this.props.setFormStateListing({
-                imageAttributeName: variationValue,
                 attributeImageMap: attributeMap
             });
         },
