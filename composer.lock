@@ -841,17 +841,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-126-submit-variation-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2966a2f73240b62268f9e86a3393c3545437745b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-LIS-73-create-variation-listings-83d98e.zip",
-                "reference": "2966a2f73240b62268f9e86a3393c3545437745b",
-                "shasum": null
+                "reference": "a395d0149117a4acd70b79f15f60b3306470e0e1"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9529,6 +9523,12 @@
             "package": "channelgrabber/ebay"
         },
         {
+            "alias": "1.12.2",
+            "alias_normalized": "1.12.2.0",
+            "version": "dev-LIS-126-submit-variation-images",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.16.1",
             "alias_normalized": "1.16.1.0",
             "version": "dev-EPIC-LIS-73-create-variation-listings",
@@ -9570,8 +9570,8 @@
         "channelgrabber/woocommerce": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -32,7 +32,7 @@
         "channelgrabber/courier": "~1.0.28",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
-        "channelgrabber/ebay": "dev-EPIC-LIS-73-create-variation-listings as 1.12.2",
+        "channelgrabber/ebay": "dev-LIS-126-submit-variation-images as 1.12.2",
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
