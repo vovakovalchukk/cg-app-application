@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0197acd6fae6100f4eefb6dc77ec9879",
+    "content-hash": "2b5ebe39b3dc1690cdefe2819927c2e0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -699,17 +699,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.28",
+            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.28-08cfaa.zip",
-                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c",
-                "shasum": null
+                "reference": "bb2946b87dba247e2566df8d043318c08b1a8ba5"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
@@ -1673,13 +1667,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2565ef863bd0158e80b797fe631ad3f3febfee59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TECH-88-refactor-courier-arrays-to-objects-c24f83.zip",
-                "reference": "2565ef863bd0158e80b797fe631ad3f3febfee59",
-                "shasum": null
+                "reference": "6eedca0a499c1080faeca3b5d5c3c3a0bf57d643"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -9511,6 +9499,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.29",
+            "alias_normalized": "1.0.29.0",
+            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
+            "package": "channelgrabber/courier"
+        },
+        {
             "alias": "1.36.5",
             "alias_normalized": "1.36.5.0",
             "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
@@ -9520,10 +9514,11 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

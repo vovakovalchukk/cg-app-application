@@ -29,7 +29,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.0.28",
+        "channelgrabber/courier": "dev-TECH-88-refactor-courier-arrays-to-objects as 1.0.29",
         "channelgrabber/courieradapter": "~1.1.1",
         "channelgrabber/di": "~2.2.1",
         "channelgrabber/ebay": "~1.12.1",
