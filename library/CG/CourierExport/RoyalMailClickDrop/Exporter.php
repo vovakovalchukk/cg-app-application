@@ -12,6 +12,38 @@ use CG\User\Entity as User;
 
 class Exporter implements ExporterInterface
 {
+    protected $serviceMap = [
+        ShippingService::FIRST_CLASS => [
+            'BPR1' => ['signedFor'],
+            'BPL1' => [],
+        ],
+        ShippingService::SECOND_CLASS => [
+            'BPR2' => ['signedFor'],
+            'BPL2' => [],
+        ],
+        ShippingService::TWENTY_FOUR => 'CRL24',
+        ShippingService::FORTY_EIGHT => 'CRL48',
+        ShippingService::SPECIAL_DELIVERY => [
+            'SD6' => ['9am', '£2500'],
+            'SD5' => ['9am', '£1000'],
+            'SD4' => ['9am'],
+            'SD3' => ['£2500'],
+            'SD2' => ['£1000'],
+            'SD1' => [],
+        ],
+        ShippingService::FIRST_CLASS_ACCOUNT => 'STL1',
+        ShippingService::SECOND_CLASS_ACCOUNT => 'STL2',
+        ShippingService::INTERNATIONAL_STANDARD => 'OLA',
+        ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
+        ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
+        ShippingService::INTERNATIONAL_TRACKED => [
+            'OTD' => ['signedFor', 'extraCompensation'],
+            'OTC' => ['signedFor'],
+            'OTB' => ['extraCompensation'],
+            'OTA' => [],
+        ],
+    ];
+
     public function exportOrders(
         Orders $orders,
         OrderLabels $orderLabels,
@@ -42,39 +74,55 @@ class Exporter implements ExporterInterface
         Export $export,
         Order $order,
         OrderLabel $orderLabel,
-        array $ordersData,
+        array $orderData,
         array $orderParcelsData,
         array $orderItemsData,
         OrganisationUnit $rootOu,
         User $user
     ) {
-        $export->addRowData(
-            [
-                'orderReference' => $order->getId(),
-                'specialInstructions' => '',
-                'date' => '',
-                'weight' => '',
-                'packageSize' => '',
-                'subTotal' => '',
-                'shippingCost' => '',
-                'total' => '',
-                'currencyCode' => '',
-                'serviceCode' => '',
-                'customerTitle' => '',
-                'firstName' => '',
-                'lastName' => '',
-                'fullName' => '',
-                'phone' => '',
-                'email' => '',
-                'companyName' => '',
-                'addressLine1' => '',
-                'addressLine2' => '',
-                'addressLine3' => '',
-                'city' => '',
-                'county' => '',
-                'postcode' => '',
-                'country' => '',
-            ]
-        );
+        foreach ($orderParcelsData as $orderParcelData) {
+            $export->addRowData(
+                [
+                    'orderReference' => $order->getId(),
+                    'specialInstructions' => '',
+                    'date' => $orderData['collectionDate'] ?? '',
+                    'weight' => $orderParcelData['weight'] ?? '',
+                    'packageSize' => $orderData['packageType'] ?? '',
+                    'subTotal' => '',
+                    'shippingCost' => '',
+                    'total' => '',
+                    'currencyCode' => '',
+                    'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $orderData['addOn'] ?? []),
+                    'customerTitle' => '',
+                    'firstName' => '',
+                    'lastName' => '',
+                    'fullName' => '',
+                    'phone' => '',
+                    'email' => '',
+                    'companyName' => '',
+                    'addressLine1' => '',
+                    'addressLine2' => '',
+                    'addressLine3' => '',
+                    'city' => '',
+                    'county' => '',
+                    'postcode' => '',
+                    'country' => '',
+                ]
+            );
+        }
+    }
+
+    protected function getServiceCode(string $service, array $addOns = []): string
+    {
+        $serviceMap = $this->serviceMap[$service] ?? '';
+        if (!is_array($serviceMap)) {
+            return $serviceMap;
+        }
+        foreach ($serviceMap as $serviceCode => $requiredAddOns) {
+            if (count(array_intersect($requiredAddOns, $addOns)) == count($requiredAddOns)) {
+                return $serviceCode;
+            }
+        }
+        return '';
     }
 }
