@@ -1,8 +1,8 @@
 <?php
 namespace Products;
 
-use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
+use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Channel\Listing\Download\Service as ChannelListingDownloadService;
 use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
