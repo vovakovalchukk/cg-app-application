@@ -3,6 +3,7 @@ namespace SetupWizard;
 
 use CG\Http\StatusCode;
 use CG\PasswordResetToken\Email\Controller as LoginPasswordController;
+use CG_SSO\Module as CG_SSO;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Di\Di;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
@@ -56,7 +57,7 @@ class Module implements DependencyIndicatorInterface
     public function constrainToWizard(MvcEvent $e)
     {
         $route = $e->getRouteMatch()->getMatchedRouteName();
-        if ($this->isLoginRoute($route) || $this->isSetupWizardRoute($route)) {
+        if ($this->isLoginRoute($route) || $this->isSsoRoute($route) || $this->isSetupWizardRoute($route)) {
             return;
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
@@ -72,6 +73,15 @@ class Module implements DependencyIndicatorInterface
     protected function isLoginRoute($route)
     {
         return preg_match('/^(cg_login|' . preg_quote(LoginPasswordController::ROUTE, '/') . ')/', $route);
+    }
+
+    protected function isSsoRoute($route)
+    {
+        $routes = [
+            preg_quote(CG_SSO::ROUTE_RETURN, '/'),
+            preg_quote(CG_SSO::ROUTE_LOGOUT, '/'),
+        ];
+        return preg_match('/^(' . implode('|', $routes) . ')/', $route);
     }
 
     protected function isSetupWizardRoute($route)

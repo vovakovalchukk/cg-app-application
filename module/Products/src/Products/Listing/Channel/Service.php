@@ -9,10 +9,7 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Service
 {
-    const CHANNEL_FEATURE_FLAG_MAP = [
-        'ebay' => ListingService::FEATURE_FLAG_CREATE_LISTINGS,
-        'shopify' => ListingService::FEATURE_FLAG_CREATE_LISTINGS_SHOPIFY
-    ];
+    const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
 
     /** @var  FeatureFlagService */
     protected $featureFlagService;
@@ -30,16 +27,14 @@ class Service
     public function getAllowedCreateListingsChannels(OrganisationUnit $ou, AccountCollection $accounts): array
     {
         $allowedChannels = [];
+        if (!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS, $ou)) {
+            return $allowedChannels;
+        }
         /** @var Account $account */
         foreach ($accounts as $account) {
-            if (!isset(static::CHANNEL_FEATURE_FLAG_MAP[$account->getChannel()])) {
-                continue;
-            }
-            if (isset($allowedChannels[$account->getChannel()])) {
-                continue;
-            }
-            $featureFlag = static::CHANNEL_FEATURE_FLAG_MAP[$account->getChannel()];
-            if (!$this->featureFlagService->isActive($featureFlag, $ou)) {
+            if (isset($allowedChannels[$account->getChannel()]) ||
+                !in_array($account->getChannel(), static::CHANNELS_SUPPORTED)
+            ) {
                 continue;
             }
             $allowedChannels[$account->getChannel()] = $account->getDisplayChannel() ?? ucfirst($account->getChannel());

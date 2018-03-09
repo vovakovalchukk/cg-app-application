@@ -6,7 +6,7 @@ define([
     'Common/Components/Button',
     'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shopify/RefreshIcon',
+    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
 ], function(
     React,
     Select,

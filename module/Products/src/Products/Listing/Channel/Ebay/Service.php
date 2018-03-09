@@ -7,17 +7,15 @@ use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
 use CG\Ebay\Site\CurrencyMap;
+use CG\Ebay\Site\Map as SiteMap;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
 use CG\Order\Shared\Shipping\Method\Collection as ShippingMethodCollection;
 use CG\Order\Shared\Shipping\Method\Entity as ShippingMethod;
 use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
-use CG\Product\Category\Collection as CategoryCollection;
-use CG\Product\Category\Entity as Category;
 use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
-use CG\Product\Category\Filter as CategoryFilter;
-use CG\Product\Category\Service as CategoryService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
@@ -38,6 +36,10 @@ class Service implements
         'listingPaymentMethods' => 'listingPaymentMethods'
     ];
 
+    const TYPE_TEXT = 'text';
+    const TYPE_SELECT = 'select';
+    const TYPE_TEXTSELECT = 'textselect';
+
     /** @var CategoryService */
     protected $categoryService;
     /** @var Cryptor */
@@ -46,31 +48,37 @@ class Service implements
     protected $shippingMethodService;
     /** @var CategoryExternalService */
     protected $categoryExternalService;
+    /** @var array */
+    protected $postData;
+
+    protected $selectionModesToInputTypes = [
+        'FreeText' => self::TYPE_TEXT,
+        'SelectionOnly' => self::TYPE_SELECT,
+    ];
 
     public function __construct(
         CategoryService $categoryService,
         Cryptor $cryptor,
         ShippingMethodService $shippingMethodService,
-        CategoryExternalService $categoryExternalService
+        CategoryExternalService $categoryExternalService,
+        array $postData = []
     ) {
         $this->categoryService = $categoryService;
         $this->cryptor = $cryptor;
         $this->shippingMethodService = $shippingMethodService;
         $this->categoryExternalService = $categoryExternalService;
+        $this->postData = $postData;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
     {
         try {
-            $category = $this->fetchCategoryByExternalIdAndMarketplace(
-                $this->getEbaySiteIdForAccount($account),
-                $externalCategoryId
+            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId(
+                $account,
+                $externalCategoryId,
+                false,
+                $this->getEbaySiteIdForAccount($account)
             );
-            $childCategories = $this->categoryService->fetchCollectionByFilter(
-                (new CategoryFilter('all', 1))
-                    ->setParentId([$category->getId()])
-            );
-            return $this->formatCategoriesArray($childCategories);
         } catch (NotFound $e) {
             return [];
         }
@@ -78,8 +86,11 @@ class Service implements
 
     public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
     {
+        $ebayData = $this->fetchEbayCategoryData($account, $externalCategoryId);
+
         return [
-            'listingDuration' => $this->getListingDurationsForCategory($account, $externalCategoryId)
+            'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
+            'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
         ];
     }
 
@@ -93,26 +104,121 @@ class Service implements
         return [
             'category' => $this->getCategoryOptionsForAccount($account),
             'shippingService' => $this->getShippingMethodsForAccount($account),
-            'currency' => $this->getCurrencySymbolForAccount($account)
+            'currency' => $this->getCurrencySymbolForAccount($account),
+            'sites' => SiteMap::getIdToNameMap(),
+            'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account)
         ];
     }
 
-    protected function getListingDurationsForCategory(Account $account,int $externalCategoryId): array
+    protected function fetchEbayCategoryData(Account $account,int $externalCategoryId): ?Data
     {
         try {
-            $category = $this->fetchCategoryByExternalIdAndMarketplace(
-                $this->getEbaySiteIdForAccount($account),
-                $externalCategoryId
+            $category = $this->categoryService->fetchCategoryForAccountAndExternalAccountId(
+                $account,
+                $externalCategoryId,
+                false,
+                $this->getEbaySiteIdForAccount($account)
             );
             /** @var CategoryExternal $categoryExternal */
             $categoryExternal = $this->categoryExternalService->fetch($category->getId());
             /** @var Data $ebayData */
-            $ebayData = $categoryExternal->getData();
-            $listingDurations = (new FeatureHelper($ebayData))->getListingDurationsForType();
-            return $this->formatListingDurationsArray($listingDurations);
+            return $categoryExternal->getData();
         } catch (NotFound $e) {
+            return null;
+        }
+    }
+
+    protected function getListingDurationsFromEbayCategoryData(?Data $ebayData): array
+    {
+        if (!$ebayData) {
             return [];
         }
+        $listingDurations = (new FeatureHelper($ebayData))->getListingDurationsForType();
+        return $this->formatListingDurationsArray($listingDurations);
+    }
+
+    protected function getItemSpecificsFromEbayCategoryData(?Data $ebayData): array
+    {
+        if (!$ebayData || empty($ebayData->getCategorySpecifics())) {
+            return [];
+        }
+        $required = [];
+        $optional = [];
+        $categorySpecifics = $ebayData->getCategorySpecifics();
+        foreach ($categorySpecifics['NameRecommendation'] as $recommendation) {
+            $name = $recommendation['Name'];
+            $itemSpecifics = $this->buildItemSpecificsDataFromRecommendation($recommendation);
+            if ($itemSpecifics['minValues'] == 0) {
+                $optional[$name] = $itemSpecifics;
+            } else {
+                $required[$name] = $itemSpecifics;
+            }
+        }
+
+        return [
+            'required' => $required,
+            'optional' => $optional,
+        ];
+    }
+
+    protected function buildItemSpecificsDataFromRecommendation(array $recommendation): array
+    {
+        return [
+            'type' => $this->getInputTypeForRecommendation($recommendation),
+            'options' => $this->getOptionsForRecommendation($recommendation),
+            'minValues' => $this->getMinValuesForRecommendation($recommendation),
+            'maxValues' => $this->getMaxValuesForRecommendation($recommendation),
+        ];
+    }
+
+    protected function getInputTypeForRecommendation(array $recommendation): string
+    {
+        $inputType = $this->getRawInputTypeForRecommendation($recommendation);
+        // If its technically free text but there are recommended values then we need to allow both
+        if ($inputType == static::TYPE_TEXT && isset($recommendation['ValueRecommendation'])) {
+            $inputType = static::TYPE_TEXTSELECT;
+        }
+        return $inputType;
+    }
+
+    protected function getRawInputTypeForRecommendation(array $recommendation): string
+    {
+        if (!isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['SelectionMode'])) {
+            return static::TYPE_TEXT;
+        }
+        $selectionMode = $recommendation['ValidationRules']['SelectionMode'];
+        if (!isset($this->selectionModesToInputTypes[$selectionMode])) {
+            return static::TYPE_TEXT;
+        }
+        return $this->selectionModesToInputTypes[$selectionMode];
+    }
+
+    protected function getOptionsForRecommendation(array $recommendation): ?array
+    {
+        if (!isset($recommendation['ValueRecommendation'])) {
+            return null;
+        }
+        $options = [];
+        $valueRecommendations = $recommendation['ValueRecommendation'];
+        // When there's only one recommendation it doesn't get stored as an array
+        if (!isset($valueRecommendations[0])) {
+            $valueRecommendations = [$valueRecommendations];
+        }
+        foreach ($valueRecommendations as $valueRecommendation) {
+            $value = (string)$valueRecommendation['Value'];
+            $options[$value] = $value;
+        }
+        return $options;
+    }
+
+    protected function getMinValuesForRecommendation(array $recommendation): int
+    {
+        return isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['MinValues']) ? (int)$recommendation['ValidationRules']['MinValues'] : 0;
+    }
+
+    protected function getMaxValuesForRecommendation(array $recommendation): ?int
+    {
+        return isset($recommendation['ValidationRules'], $recommendation['ValidationRules']['MaxValues']) ? (int)$recommendation['ValidationRules']['MaxValues'] : null;
     }
 
     protected function filterDefaultSettingsKeys(array $data)
@@ -128,8 +234,12 @@ class Service implements
 
     protected function getCategoryOptionsForAccount(Account $account): array
     {
-        return $this->formatCategoriesArray(
-            $this->fetchCategoriesForAccount($account)
+        return $this->categoryService->fetchCategoriesForAccount(
+            $account,
+            0,
+            false,
+            $this->getEbaySiteIdForAccount($account),
+            false
         );
     }
 
@@ -156,39 +266,15 @@ class Service implements
         }
     }
 
-    protected function formatCategoriesArray(CategoryCollection $categories): array
-    {
-        $categoryOptions = [];
-        /** @var Category $category */
-        foreach ($categories as $category) {
-            $categoryOptions[$category->getExternalId()] = $category->getTitle();
-        }
-        return $categoryOptions;
-    }
-
-    protected function fetchCategoriesForAccount(Account $account): CategoryCollection
-    {
-        try {
-            return $this->categoryService->fetchCollectionByFilter($this->buildCategoryFilterForAccount($account));
-        } catch (NotFound $e) {
-            return new CategoryCollection(Category::class, 'empty');
-        }
-    }
-
-    protected function buildCategoryFilterForAccount(Account $account): CategoryFilter
-    {
-        $siteId = $this->getEbaySiteIdForAccount($account);
-        return (new CategoryFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setChannel(['ebay'])
-            ->setParentId([0])
-            ->setMarketplace([$siteId])
-            ->setListable(false)
-            ->setEnabled(true);
-    }
-
     protected function getEbaySiteIdForAccount(Account $account): int
+    {
+        if (isset($this->postData['siteId'])) {
+            return intval($this->postData['siteId']);
+        }
+        return $this->fetchDefaultSiteIdForAccount($account);
+    }
+
+    protected function fetchDefaultSiteIdForAccount(Account $account): int
     {
         /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
@@ -203,18 +289,6 @@ class Service implements
             $methods[$shippingMethod->getMethod()] = $shippingMethod->getMethod();
         }
         return $methods;
-    }
-
-    protected function fetchCategoryByExternalIdAndMarketplace(string $marketplace, int $externalId): Category
-    {
-        /** @var CategoryCollection $categoryCollection */
-        $categoryCollection = $this->categoryService->fetchCollectionByFilter(
-            (new CategoryFilter(1, 1))
-                ->setExternalId([$externalId])
-                ->setChannel(['ebay'])
-                ->setMarketplace([$marketplace])
-        );
-        return $categoryCollection->getFirst();
     }
 
     /**

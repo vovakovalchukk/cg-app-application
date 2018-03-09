@@ -1,4 +1,8 @@
-.editor-popup.create-listing {
+.container-wrapper.product-create-listing {
+  .container-buttons {
+    margin: 8px 0 0 178px;
+  }
+
   .currency-symbol {
     border-radius: 5px;
     background-clip: padding-box;
@@ -22,6 +26,14 @@
 
   .inputbox-label {
     margin-right: 12px;
+  }
+
+  .container-extra-item-specific {
+    input {
+      max-width: 100px;
+      float: left;
+    }
+    margin-top: 0;
   }
 
   input[type=number] {
