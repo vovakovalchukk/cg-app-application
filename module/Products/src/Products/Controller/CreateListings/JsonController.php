@@ -80,7 +80,7 @@ class JsonController extends AbstractJsonController
             $service = $this->fetchAndValidateChannelService($account, CategoryDependentServiceInterface::class);
             return $this->buildResponse(
                 $service->getCategoryDependentValues(
-                    $account, $this->getExternalCategoryIdFromRoute()
+                    $account, $this->getCategoryIdFromRoute()
                 )
             );
         } catch (ListingException $e) {
@@ -98,7 +98,7 @@ class JsonController extends AbstractJsonController
             $service = $this->fetchAndValidateChannelService($account, CategoryChildrenInterface::class);
             return $this->buildResponse([
                 'categories' => $service->getCategoryChildrenForCategoryAndAccount(
-                    $account, $this->getExternalCategoryIdFromRoute()
+                    $account, $this->getCategoryIdFromRoute()
                 )
             ]);
         } catch (ListingException $e) {
@@ -158,8 +158,8 @@ class JsonController extends AbstractJsonController
         }
     }
 
-    protected function getExternalCategoryIdFromRoute(): string
+    protected function getCategoryIdFromRoute(): string
     {
-        return filter_var($this->params()->fromRoute('externalCategoryId', null), FILTER_SANITIZE_STRING);
+        return (int) $this->params()->fromRoute('categoryId', -1);
     }
 }

@@ -71,23 +71,18 @@ class Service implements
         $this->postData = $postData;
     }
 
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId(
-                $account,
-                $externalCategoryId,
-                false,
-                $this->getEbaySiteIdForAccount($account)
-            );
+            return $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId);
         } catch (NotFound $e) {
             return [];
         }
     }
 
-    public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
+    public function getCategoryDependentValues(Account $account, int $categoryId): array
     {
-        $ebayData = $this->fetchEbayCategoryData($account, $externalCategoryId);
+        $ebayData = $this->fetchEbayCategoryData($categoryId);
 
         return [
             'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
@@ -111,17 +106,12 @@ class Service implements
         ];
     }
 
-    protected function fetchEbayCategoryData(Account $account, int $externalCategoryId): ?Data
+
+    protected function fetchEbayCategoryData(int $categoryId): ?Data
     {
         try {
-            $category = $this->categoryService->fetchCategoryForAccountAndExternalAccountId(
-                $account,
-                $externalCategoryId,
-                false,
-                $this->getEbaySiteIdForAccount($account)
-            );
             /** @var CategoryExternal $categoryExternal */
-            $categoryExternal = $this->categoryExternalService->fetch($category->getId());
+            $categoryExternal = $this->categoryExternalService->fetch($categoryId);
             /** @var Data $ebayData */
             return $categoryExternal->getData();
         } catch (NotFound $e) {
@@ -259,9 +249,8 @@ class Service implements
 
     protected function getCategoryOptionsForAccount(Account $account): array
     {
-        return $this->categoryService->fetchCategoriesForAccount(
+        return $this->categoryService->fetchRootCategoriesForAccount(
             $account,
-            0,
             false,
             $this->getEbaySiteIdForAccount($account),
             false
