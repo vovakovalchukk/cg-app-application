@@ -48,12 +48,16 @@ define([
                 rootCategories: null,
                 availableSites: {},
                 listingDurationFieldValues: null,
-                itemSpecifics: {}
+                itemSpecifics: {},
+                variationImageVariable: null,
+                variationImageNames: [],
+                attributeImageMap: {}
             }
         },
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
+            this.initializeVariationsImagePicker();
             this.props.setFormStateListing({
                 shippingPrice: this.props.shippingPrice
             });
@@ -281,6 +285,101 @@ define([
                 </div>
             </label>;
         },
+        initializeVariationsImagePicker: function()
+        {
+            var variations = this.props.product.attributeNames.map(function(attribute) {
+                return {"value": attribute, "name": attribute};
+            });
+
+            if (variations.length !== 1) {
+                return;
+            }
+
+            this.onVariationOptionSelected(this.variations[0]);
+        },
+        renderVariationImagePicker: function()
+        {
+            var variations = this.props.product.attributeNames.map(function(attribute) {
+                return {"value": attribute, "name": attribute};
+            });
+
+            if (variations.length === 0) {
+                return;
+            }
+
+            var fields = [this.renderVariationImageValuePicker(variations)];
+
+            for (var variationValue of this.state.variationImageNames) {
+                fields.push(
+                    <label>
+                        <span className={"inputbox-label"}>{variationValue}</span>
+                        <ImagePicker
+                            name={variationValue}
+                            multiSelect={false}
+                            images={this.props.product.images}
+                            onImageSelected={this.onVariationImageSelected}
+                            title={this.getTooltipText('image')}
+                        />
+                    </label>
+                )
+            }
+            return <span>{fields}</span>;
+        },
+        renderVariationImageValuePicker: function(variations)
+        {
+            if (variations.length === 1) {
+                return <label>
+                    <span className={"inputbox-label"}>Variation images variable:</span>
+                    <div className={"order-inputbox-holder"}>
+                        <span className={"inputbox-label"}>test</span>
+                    </div>
+                </label>;
+            }
+            return <label>
+                <span className={"inputbox-label"}>Variation images variable:</span>
+                <div className={"order-inputbox-holder"}>
+                 <Select
+                     options={variations}
+                     autoSelectFirst={false}
+                     onOptionChange={this.onVariationOptionSelected}
+                     selectedOption={this.variationImageVariable}
+                 />
+                </div>
+            </label>;
+        },
+        onVariationOptionSelected: function(variation)
+        {
+            var variationValues = [], value;
+            for (var variationProduct of this.props.variationsDataForProduct) {
+                value = variationProduct.attributeValues[variation.value];
+                variationValues[value] = value;
+            }
+            this.setState({
+                variationImageVariable: variation,
+                variationImageNames: Object.values(variationValues),
+                attributeImageMap: {}
+            });
+            this.props.setFormStateListing({
+                imageAttributeName: variation,
+                attributeImageMap: {}
+            });
+        },
+        onVariationImageSelected: function(image, selectedImageIds, variationValue)
+        {
+            var attributeMap = this.state.attributeImageMap;
+            if (selectedImageIds.length === 0) {
+                delete attributeMap[variationValue];
+            } else {
+                attributeMap[variationValue] = selectedImageIds[0];
+            }
+            this.setState({
+                attributeImageMap: attributeMap
+            });
+            this.props.setFormStateListing({
+                imageAttributeName: variationValue,
+                attributeImageMap: attributeMap
+            });
+        },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
                 return <div>
@@ -334,9 +433,10 @@ define([
                     </div>
                 </label>
                 <label>
-                    <span className={"inputbox-label"}>Image</span>
+                    <span className={"inputbox-label"}>Primary image</span>
                     {this.renderImagePicker()}
                 </label>
+                {this.renderVariationImagePicker()}
                 <CategorySelect
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
