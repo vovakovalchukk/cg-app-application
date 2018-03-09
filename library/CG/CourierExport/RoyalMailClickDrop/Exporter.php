@@ -80,36 +80,47 @@ class Exporter implements ExporterInterface
         OrganisationUnit $rootOu,
         User $user
     ) {
+        [$title, $firstName, $lastName] = $this->parseName($fullName = $order->getShippingAddressFullNameForCourier());
         foreach ($orderParcelsData as $orderParcelData) {
             $export->addRowData(
                 [
-                    'orderReference' => $order->getId(),
-                    'specialInstructions' => '',
+                    'orderReference' => $order->getExternalId(),
+                    'specialInstructions' => $orderData['deliveryInstructions'] ?? '',
                     'date' => $orderData['collectionDate'] ?? '',
                     'weight' => $orderParcelData['weight'] ?? '',
                     'packageSize' => $orderData['packageType'] ?? '',
-                    'subTotal' => '',
-                    'shippingCost' => '',
-                    'total' => '',
-                    'currencyCode' => '',
+                    'subTotal' => $order->getTotal() - $order->getShippingPrice(),
+                    'shippingCost' => $order->getShippingPrice(),
+                    'total' => $order->getTotal(),
+                    'currencyCode' => $order->getCurrencyCode(),
                     'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $orderData['addOn'] ?? []),
-                    'customerTitle' => '',
-                    'firstName' => '',
-                    'lastName' => '',
-                    'fullName' => '',
-                    'phone' => '',
-                    'email' => '',
-                    'companyName' => '',
-                    'addressLine1' => '',
-                    'addressLine2' => '',
-                    'addressLine3' => '',
-                    'city' => '',
-                    'county' => '',
-                    'postcode' => '',
-                    'country' => '',
+                    'customerTitle' => $title,
+                    'firstName' => $firstName,
+                    'lastName' => $lastName,
+                    'fullName' => $fullName,
+                    'phone' => $order->getShippingPhoneNumberForCourier(),
+                    'email' => $order->getShippingEmailAddressForCourier(),
+                    'companyName' => $order->getShippingAddressCompanyNameForCourier(),
+                    'addressLine1' => $order->getShippingAddress1ForCourier(),
+                    'addressLine2' => $order->getShippingAddress2ForCourier(),
+                    'addressLine3' => $order->getShippingAddress3ForCourier(),
+                    'city' => $order->getShippingAddressCityForCourier(),
+                    'county' => $order->getShippingAddressCountyForCourier(),
+                    'postcode' => $order->getShippingAddressPostcodeForCourier(),
+                    'country' => $order->getShippingAddressCountyForCourier(),
                 ]
             );
         }
+    }
+
+    protected function parseName(string $name): array
+    {
+        preg_match(
+            '/^\s*(?:(?<title>Dr|Master|Mr|Mrs|Ms|Miss|Mx)\.?\s*)?(?:(?<firstName>[^\s]+)\s+)?(?<lastName>.*?)\s*$/i',
+            $name,
+            $match
+        );
+        return [$match['title'] ?? '', $match['firstName'] ?? '', $match['lastName'] ?? ''];
     }
 
     protected function getServiceCode(string $service, array $addOns = []): string

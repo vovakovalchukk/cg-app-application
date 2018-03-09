@@ -1673,12 +1673,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "167ddc491ce7c94f7c98a2dcbb5dc240c8e87b62"
+                "reference": "cadc342096623a1775883f5b43f5820e48cd6c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-19-CourierExportProvider-94b56d.zip",
-                "reference": "167ddc491ce7c94f7c98a2dcbb5dc240c8e87b62",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-19-CourierExportProvider-1bd2d9.zip",
+                "reference": "cadc342096623a1775883f5b43f5820e48cd6c2b",
                 "shasum": null
             },
             "require": {
@@ -1749,7 +1749,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-03-08T15:39:50+00:00"
+            "time": "2018-03-09T12:14:58+00:00"
         },
         {
             "name": "channelgrabber/permission",
