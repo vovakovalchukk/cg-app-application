@@ -28,6 +28,14 @@
     margin-right: 12px;
   }
 
+  .container-extra-item-specific {
+    input {
+      max-width: 100px;
+      float: left;
+    }
+    margin-top: 0;
+  }
+
   input[type=number] {
     width: 50px;
     border-radius: 5px;
