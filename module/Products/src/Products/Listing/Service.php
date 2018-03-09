@@ -149,7 +149,7 @@ class Service implements LoggerAwareInterface
                 'name' => $account->getDisplayName(),
                 'status' => static::REFRESH_STATUS_NOT_STARTED,
                 'lastCompleted' => null,
-                'refreshAllowed' => $this->listingDownloadService->decideRefreshAllowed($account),
+                'refreshAllowed' => $this->listingDownloadService->isRefreshAllowed($account),
             ];
 
             if ($lastCompletedDate = $listingDownload->getLastCompletedDate()) {
