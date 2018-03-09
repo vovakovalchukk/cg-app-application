@@ -47,13 +47,15 @@ class ExportOptions implements ExportOptionsInterface
     public function addCarrierSpecificDataToListArray(array $data): array
     {
         foreach ($data as &$row) {
-            if (!($row['orderRow'] ?? false)) {
-                continue;
+            if ($row['orderRow'] ?? false) {
+                $row = array_merge($row, $this->defaultExportOptions);
+                if (isset($this->serviceExportOptions[$row['service']])) {
+                    $row = array_merge($row, $this->serviceExportOptions[$row['service'] ?? '']);
+                }
             }
 
-            $row = array_merge($row, $this->defaultExportOptions);
-            if (isset($this->serviceExportOptions[$row['service']])) {
-                $row = array_merge($row, $this->serviceExportOptions[$row['service'] ?? '']);
+            if ($row['actionRow'] ?? false) {
+                $row['deliveryInstructionsRequired'] = true;
             }
         }
         return $data;

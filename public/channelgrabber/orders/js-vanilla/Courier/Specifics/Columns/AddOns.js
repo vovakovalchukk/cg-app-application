@@ -41,7 +41,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             $(AddOns.SELECTOR_DEL_INSTR_INPUT).each(function()
             {
                 var input = this;
-                var hide = true;
+                var hide = input.dataset.hasOwnProperty('required') ? !input.dataset.required : true;
                 var orderId = $(input).attr('name').match(/^orderData\[(.+?)\]/)[1];
                 $(input).closest('tr').find(AddOns.SELECTOR_ADD_ONS_CONTAINER + ' ' + AddOns.SELECTOR_ADD_ONS_OPTION).each(function()
                 {
