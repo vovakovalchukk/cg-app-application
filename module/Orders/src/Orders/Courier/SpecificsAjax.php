@@ -83,7 +83,7 @@ class SpecificsAjax
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
-        $courierAccount = $this->accountService->fetchShippingAccount($courierAccountId);
+        $courierAccount = $this->accountService->fetchShippingAccount((int) $courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);
     }
@@ -435,7 +435,7 @@ class SpecificsAjax
      */
     public function getCarrierOptionsForService($orderId, $accountId, $service)
     {
-        $account = $this->accountService->fetchShippingAccount($accountId);
+        $account = $this->accountService->fetchShippingAccount((int) $accountId);
         $carrierOptions = $this->courierService->getCarrierOptions($account);
         $serviceOptions = $this->courierService->getCarrierOptions($account, $service);
         return $this->getFieldsRequirementStatus($serviceOptions, $carrierOptions);
@@ -448,7 +448,7 @@ class SpecificsAjax
     public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
     {
         $order = $this->orderService->fetch($orderId);
-        $account = $this->accountService->fetchShippingAccount($accountId);
+        $account = $this->accountService->fetchShippingAccount((int) $accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $orders = new OrderCollection(Order::class, 'fetch', ['id' => $orderId]);
         $orders->attach($order);

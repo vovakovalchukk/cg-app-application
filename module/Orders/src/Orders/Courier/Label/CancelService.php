@@ -20,7 +20,7 @@ class CancelService extends ServiceAbstract
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
         $this->logDebug(static::LOG_CANCEL, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $shippingAccount = $this->accountService->fetchShippingAccount($shippingAccountId);
+        $shippingAccount = $this->accountService->fetchShippingAccount((int) $shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
         $orderLabels = $this->getOrderLabelsForOrders($orders);
 

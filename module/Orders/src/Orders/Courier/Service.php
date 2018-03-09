@@ -146,7 +146,7 @@ class Service implements LoggerAwareInterface
                 if ($courierId) {
                     $service = $shippingAlias->getShippingService();
                     $serviceOptions = $shippingAlias->getOptions();
-                    $courierAccount = $this->accountService->fetchShippingAccount($courierId);
+                    $courierAccount = $this->accountService->fetchShippingAccount((int) $courierId);
 
                     if (!$this->shippingChannelsProviderRepo->isProvidedAccount($courierAccount)) {
                         throw new NotInUseException('Royal Mail PPI is not used in Courier UI');
@@ -178,7 +178,7 @@ class Service implements LoggerAwareInterface
             $couriers[$index]['selected'] = true;
             $courierId = $couriers[$index]['value'];
             if (!$services) {
-                $courierAccount = $this->accountService->fetchShippingAccount($courierId);
+                $courierAccount = $this->accountService->fetchShippingAccount((int) $courierId);
                 $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
             }
         }
