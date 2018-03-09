@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2453fdf5ba6d1a6426ae8f3c64b0c97f",
+    "content-hash": "7f967d00a6e5c9e21b3d3940c6f7e78f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2449,17 +2449,11 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-126-submit-variation-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "73c4489df1a0552bfaf2330974a32a3af1eab71a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-LIS-73-create-variation-listings-d3c82d.zip",
-                "reference": "73c4489df1a0552bfaf2330974a32a3af1eab71a",
-                "shasum": null
+                "reference": "fa96b2ad8be4351af6580310a700571a33a70af4"
             },
             "require": {
                 "channelgrabber/channel": "^1.24.6",
@@ -9544,6 +9538,12 @@
             "alias": "1.1.2",
             "alias_normalized": "1.1.2.0",
             "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "package": "channelgrabber/shopify"
+        },
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-LIS-126-submit-variation-images",
             "package": "channelgrabber/shopify"
         },
         {
