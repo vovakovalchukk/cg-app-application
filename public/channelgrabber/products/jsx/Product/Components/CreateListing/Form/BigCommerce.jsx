@@ -5,7 +5,8 @@ define([
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/BigCommerce/CategorySelect',
     'Product/Components/CreateListing/Form/Shared/VariationPicker',
-    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
+    'Common/Components/ImagePicker',
 ], function(
     React,
     Select,
@@ -13,7 +14,8 @@ define([
     Input,
     CategorySelect,
     VariationPicker,
-    SimpleProduct
+    SimpleProduct,
+    ImagePicker
 ) {
     "use strict";
 
@@ -78,7 +80,7 @@ define([
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
         },
-        onImageSelected: function(image, selectedImageIds) {
+        onImageSelected: function(image) {
             this.props.setFormStateListing({
                 imageId: image.id
             });
@@ -177,6 +179,10 @@ define([
                             title={this.getTooltipText('description')}
                         />
                     </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Primary image</span>
+                    {this.renderImagePicker()}
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}
