@@ -24,16 +24,24 @@ define([
                 return options;
             }
             $.each(this.props.categories, function(id, name) {
-                options.push({name: name, value: name})
+                options.push({name: name, value: id})
             });
             return options;
+        },
+        getSelectedCategory: function() {
+            for (var category in this.props.categories) {
+                if (category.id == this.props.selectedCategory) {
+                    return category;
+                }
+            }
+            return {name: '', value: ''};
         },
         render: function() {
             return <Select
                 name="category"
                 options={this.getSelectOptions()}
                 autoSelectFirst={false}
-                selectedOption={{name: this.props.selectedCategory}}
+                selectedOption={this.getSelectedCategory()}
                 disabled={this.props.disabled}
                 onOptionChange={this.props.getSelectCallHandler('category')}
             />
