@@ -8,6 +8,7 @@ use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use Products\Listing\Exception as ListingException;
 use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
 use Settings\Category\Template\Exception\NameAlreadyUsedException;
 use Settings\Category\Template\Service as CategoryTemplateService;
@@ -32,7 +33,8 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     /** @var  CategoryTemplateService */
     protected $categoryTemplateService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory,
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
         UserOUService $userOuService,
         CategoryTemplateService $categoryTemplateService
     ) {
@@ -61,42 +63,15 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function categoryRootsAction()
     {
-        return $this->buildResponse([
-            'accountCategories' => [
-                [
-                    'accountId' => 12,
-                    'categories' => [
-                        '123' => 'Televisions',
-                        '345' => 'Clothes',
-                        '567' => 'Phones'
-                    ]
-                ],
-                [
-                    'accountId' => 36,
-                    'categories' => [
-                        '123' => 'Televisions 2',
-                        '345' => 'Clothes 2',
-                        '567' => 'Phones 2'
-                    ]
-                ],
-                [
-                    'accountId' => 42,
-                    'categories' => [
-                        '123' => 'Televisions 3',
-                        '345' => 'Clothes 3',
-                        '567' => 'Phones 3'
-                    ]
-                ],
-                [
-                    'accountId' => 115,
-                    'categories' => [
-                        '123' => 'Televisions 4',
-                        '345' => 'Clothes 4',
-                        '567' => 'Phones 4'
-                    ]
-                ]
-            ]
-        ]);
+        try {
+            return $this->buildResponse([
+                'accountCategories' => $this->categoryTemplateService->fetchCategoryRoots(
+                    $this->userOuService->getRootOuByActiveUser()
+                )
+            ]);
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function saveAction()
@@ -198,24 +173,31 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function categoryChildrenAction()
     {
-        return $this->buildResponse([
-            'categories' => [
-                '1023' => 'Televisions Child',
-                '2354' => 'Clothes Child',
-                '8721' => 'Phones Child'
-            ]
-        ]);
+        try {
+            return $this->buildResponse([
+                'categories' => $this->categoryTemplateService->fetchCategoryChildrenForAccountAndCategory(
+                    $this->getAccountIdFromRoute(),
+                    $this->params()->fromRoute('categoryId', -1)
+                )
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function refreshCategoriesAction()
     {
-        return $this->buildResponse([
-            'categories' => [
-                '91' => 'Refetched Televisions',
-                '103' => 'Refetched Clothes',
-                '209' => 'Refetched Phones'
-            ]
-        ]);
+        try {
+            return $this->buildResponse([
+                'categories' => $this->categoryTemplateService->refreshCategories($this->getAccountIdFromRoute())
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function templateDeleteAction()
@@ -231,5 +213,15 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         } catch (\Exception $e) {
             return $this->buildErrorResponse('There was a problem while deleting the template. Please try again. Contact support if the problem persists.', ['valid' => false]);
         }
+    }
+
+    protected function getAccountIdFromRoute()
+    {
+        return $this->params()->fromRoute('accountId', 0);
+    }
+
+    protected function buildGenericErrorResponse()
+    {
+        return $this->buildErrorResponse('An error has occurred. Please try again');
     }
 }

@@ -5,5 +5,5 @@ use CG\Account\Shared\Entity as Account;
 
 interface CategoryChildrenInterface
 {
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId);
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId);
 }

@@ -20,6 +20,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Products\Listing\Channel\Service as ChannelService;
+use Products\Listing\Exception as ListingException;
 use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
 use Settings\Category\Template\Exception\NameAlreadyUsedException;
 
@@ -94,6 +95,60 @@ class Service
             ];
         }
         return $result;
+    }
+
+    public function fetchCategoryRoots(OrganisationUnit $ou): array
+    {
+        try {
+            $accounts = $this->fetchActiveAccountsForOu($ou);
+        } catch (NotFound $e) {
+            return [];
+        }
+
+        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels($ou, $accounts);
+        $result = [];
+        /** @var Account $account */
+        foreach ($accounts as $account) {
+            if (!isset($allowedChannels[$account->getChannel()])) {
+                continue;
+            }
+
+            $result[] = [
+                'accountId' => $account->getId(),
+                'categories' => $this->fetchCategoriesForAccount($account)
+            ];
+        }
+        return $result;
+    }
+
+    public function fetchCategoriesForAccount(Account $account): array
+    {
+        try {
+            $defaultSettings = $this->channelService->getChannelSpecificFieldValues($account);
+            return $defaultSettings['categories'] ?? [];
+        } catch (ListingException $e) {
+            return [];
+        }
+    }
+
+    public function fetchCategoryChildrenForAccountAndCategory(int $accountId, int $categoryId): array
+    {
+        try {
+            $account = $this->accountService->fetch($accountId);
+        } catch (NotFound $e) {
+            return [];
+        }
+        return $this->channelService->getCategoryChildrenForCategoryAndAccount($account, $categoryId);
+    }
+
+    public function refreshCategories(int $accountId): array
+    {
+        try {
+            $account = $this->accountService->fetch($accountId);
+        } catch (NotFound $e) {
+            return [];
+        }
+        return $this->channelService->refetchAndSaveCategories($account);
     }
 
     protected function fetchActiveAccountsForOu(OrganisationUnit $ou)
