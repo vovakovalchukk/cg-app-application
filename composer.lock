@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a106fd35fb1661411d8a4775571126a4",
+    "content-hash": "d22f1c16247b8aeec94db2e1f3c5fca7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1317,16 +1317,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.16.1",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "8484ce2605a027f76ca6e6d5ad421f8ed3af6ad8"
+                "reference": "21823e92cd8e5116bd5917a42379335d7d2e5ea8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.1-709ef0.zip",
-                "reference": "8484ce2605a027f76ca6e6d5ad421f8ed3af6ad8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.0-69b1d4.zip",
+                "reference": "21823e92cd8e5116bd5917a42379335d7d2e5ea8",
                 "shasum": null
             },
             "require": {
@@ -1362,7 +1362,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-03-01T15:59:11+00:00"
+            "time": "2018-02-20T15:02:14+00:00"
         },
         {
             "name": "channelgrabber/locale",
