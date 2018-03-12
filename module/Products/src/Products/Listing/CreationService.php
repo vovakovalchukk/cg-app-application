@@ -3,6 +3,8 @@ namespace Products\Listing;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Product\Category\Entity as Category;
+use CG\Product\Category\Service as CategoryService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Entity as Product;
 use CG\Product\Listing\CreatorInterface;
@@ -25,12 +27,19 @@ class CreationService implements LoggerAwareInterface
     protected $productService;
     /** @var Di */
     protected $di;
+    /** @var CategoryService  */
+    protected $categoryService;
 
-    public function __construct(AccountService $accountService, ProductService $productService, Di $di)
-    {
+    public function __construct(
+        AccountService $accountService,
+        ProductService $productService,
+        Di $di,
+        CategoryService $categoryService
+    ) {
         $this->accountService = $accountService;
         $this->productService = $productService;
         $this->di = $di;
+        $this->categoryService = $categoryService;
     }
 
     public function createListing(CreationStatus $status, int $accountId, int $productId, array $listing)
@@ -58,6 +67,7 @@ class CreationService implements LoggerAwareInterface
                 return;
             }
 
+            $listing = $this->formatListingData($listing);
             $result = $creator->createListing($account, $product, $listing);
             foreach ($result->getWarnings() as $warning) {
                 $status->warning($warning);
@@ -102,5 +112,22 @@ class CreationService implements LoggerAwareInterface
         } catch (DiException $exception) {
             throw new UnsupportedChannelException($exception->getMessage(), $exception->getCode(), $exception);
         }
+    }
+
+    protected function formatListingData(array $listing): array
+    {
+        if (!isset($listing['category'])) {
+            return $listing;
+        }
+        $categoryId = (int) $listing['category'];
+        try {
+            /** @var Category $category */
+            $category = $this->categoryService->fetch($categoryId);
+            $listing['category'] = $category->getExternalId();
+        } catch (NotFound $e) {
+            unset($listing['category']);
+        }
+
+        return $listing;
     }
 }

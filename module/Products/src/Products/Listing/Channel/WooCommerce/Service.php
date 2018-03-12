@@ -41,13 +41,13 @@ class Service implements
             throw new ListingException('We are unable to connect to your WooCommerce account. Please try again', $e->getCode(), $e);
         }
 
-        return $this->categoryService->fetchCategoriesForAccount($account, 0);
+        return $this->categoryService->fetchRootCategoriesForAccount($account);
     }
 
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId)
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId($account, $externalCategoryId);
+            return $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId);
         } catch (NotFound $e) {
             return [];
         }
@@ -56,7 +56,7 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'category' => $this->categoryService->fetchCategoriesForAccount($account, 0)
+            'categories' => $this->categoryService->fetchRootCategoriesForAccount($account)
         ];
     }
 }
