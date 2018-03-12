@@ -5,7 +5,8 @@ define([
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/WooCommerce/CategorySelect',
     'Product/Components/CreateListing/Form/Shared/VariationPicker',
-    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
+    'Common/Components/ImagePicker',
 ], function(
     React,
     Select,
@@ -13,7 +14,8 @@ define([
     Input,
     CategorySelect,
     VariationPicker,
-    SimpleProduct
+    SimpleProduct,
+    ImagePicker
 ) {
     "use strict";
 
@@ -85,6 +87,11 @@ define([
             };
             return tooltips[inputFieldName];
         },
+        onImageSelected: function(image) {
+            this.props.setFormStateListing({
+                imageId: image.id
+            });
+        },
         renderVariationSpecificFields: function () {
             var variationsDataForProduct = this.props.variationsDataForProduct;
             var attributeNames = this.props.product.attributeNames;
@@ -111,6 +118,22 @@ define([
                 product={this.props.product}
             />
         },
+        renderImagePicker: function() {
+            if (this.props.product.images.length == 0) {
+                return (
+                    <p>No images available</p>
+                );
+            }
+            return (
+                <ImagePicker
+                    name="image"
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected}
+                    title={this.getTooltipText('image')}
+                />
+            );
+        },
         render: function() {
             return <div>
                 {this.renderVariationSpecificFields()}
@@ -135,6 +158,10 @@ define([
                             title={this.getTooltipText('description')}
                         />
                     </div>
+                </label>
+                <label>
+                    <span className={"inputbox-label"}>Primary image</span>
+                    {this.renderImagePicker()}
                 </label>
                 <CategorySelect
                     accountId={this.props.accountId}
