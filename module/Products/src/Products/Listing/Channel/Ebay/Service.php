@@ -74,7 +74,9 @@ class Service implements
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId);
+            return $this->appendEbaySpecificFieldsToCategoriesResponse(
+                $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId)
+            );
         } catch (NotFound $e) {
             return [];
         }
@@ -106,7 +108,6 @@ class Service implements
         ];
     }
 
-
     protected function fetchEbayCategoryData(int $categoryId): ?Data
     {
         try {
@@ -122,11 +123,11 @@ class Service implements
     /**
      * @return Data[]
      */
-    protected function fetchEbayCategoriesData(CategoryCollection $categories): array
+    protected function fetchEbayCategoriesData(array $categoryIds): array
     {
         $data = [];
         try {
-            $filter = (new CategoryExternalFilter('all', 1))->setCategoryId($categories->getIds());
+            $filter = (new CategoryExternalFilter('all', 1))->setCategoryId($categoryIds);
             $categoryExternals = $this->categoryExternalService->fetchCollectionByFilter($filter);
             /** @var CategoryExternal $categoryExternal */
             foreach ($categoryExternals as $categoryExternal) {
@@ -249,12 +250,13 @@ class Service implements
 
     protected function getCategoryOptionsForAccount(Account $account): array
     {
-        return $this->categoryService->fetchRootCategoriesForAccount(
+        $categories = $this->categoryService->fetchRootCategoriesForAccount(
             $account,
             false,
             $this->getEbaySiteIdForAccount($account),
             false
         );
+        return $this->appendEbaySpecificFieldsToCategoriesResponse($categories);
     }
 
     protected function getShippingMethodsForAccount(Account $account): array
@@ -324,5 +326,16 @@ class Service implements
             $durations[$listingDuration] = $durationName;
         }
         return $durations;
+    }
+
+    protected function appendEbaySpecificFieldsToCategoriesResponse(array $categoriesResponse): array
+    {
+        $ebayData = $this->fetchEbayCategoriesData(array_keys($categoriesResponse));
+        foreach ($categoriesResponse as $categoryId => &$categoryResponse) {
+            $categoryResponse['variations'] = $this->getVariationsEnabledFromEbayCategoryData(
+                $ebayData[$categoryId] ?? null
+            );
+        }
+        return $categoriesResponse;
     }
 }
