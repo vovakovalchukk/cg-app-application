@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "17bacc6f8fbe43d955c943f15a280f2d",
+    "content-hash": "72fb7adeaa3d92592ab2305f54058eac",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-126-submit-variation-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "074830040b10739ed6e7601bf5d3879c003eceb4"
+                "reference": "f50064974b9fb0d7c77c7bb827c169599501ae6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-73-create-variation-listings-aa85d2.zip",
-                "reference": "074830040b10739ed6e7601bf5d3879c003eceb4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-126-submit-variation-images-876565.zip",
+                "reference": "f50064974b9fb0d7c77c7bb827c169599501ae6b",
                 "shasum": null
             },
             "require": {
@@ -300,7 +300,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-05T10:07:23+00:00"
+            "time": "2018-03-12T13:57:39+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -9513,7 +9513,7 @@
         {
             "alias": "1.1.4",
             "alias_normalized": "1.1.4.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "dev-LIS-126-submit-variation-images",
             "package": "channelgrabber/bigcommerce"
         },
         {
