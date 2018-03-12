@@ -85,8 +85,8 @@ define([
             for (var externalId in categoryMap) {
                 category = categoryMap[externalId];
                 disabled = false;
-                if (this.props.variations && category.hasOwnProperty('variations')) {
-                    disabled = !category.variations;
+                if (this.props.variations && category.hasOwnProperty('listable') && category.hasOwnProperty('variations')) {
+                    disabled = category.listable && !category.variations;
                 }
                 categoryOptions.push({
                     name: category.title,
