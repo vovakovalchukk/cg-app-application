@@ -126,6 +126,9 @@ class Service implements
     protected function fetchEbayCategoriesData(array $categoryIds): array
     {
         $data = [];
+        if (empty($categoryIds)) {
+            return $data;
+        }
         try {
             $filter = (new CategoryExternalFilter('all', 1))->setCategoryId($categoryIds);
             $categoryExternals = $this->categoryExternalService->fetchCollectionByFilter($filter);
