@@ -295,7 +295,7 @@ define([
                 return;
             }
 
-            this.onVariationOptionSelected(this.variations[0]);
+            this.onVariationOptionSelected(variations[0]);
         },
         renderVariationImagePicker: function()
         {
