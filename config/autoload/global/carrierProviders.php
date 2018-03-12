@@ -6,6 +6,8 @@ use CG\Channel\Shipping\Provider\ChannelsInterface as CarrierProviderChannelsInt
 use CG\Channel\Shipping\Provider\Channels\Repository as CarrierProviderChannelsRepository;
 use CG\Channel\Shipping\Provider\ServiceInterface as CarrierProviderServiceInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
+use CG\Account\Shipping\Service as AccountShippingService;
+use CG\Account\Shipping\GenericAccountProviderInterface as GenericShippingAccountProvider;
 
 // NetDespatch
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
@@ -32,6 +34,7 @@ use CG\ShipStation\Carrier\Label\Service as ShipStationLabelService;
 
 // CourierExports
 use CG\CourierExport\Provider as CourierExportProvider;
+use CG\CourierExport\RoyalMailClickDrop\GenericAccountProvider as RoyalMailClickDropGenericAccountProvider;
 
 return [
     'di' => [
@@ -75,6 +78,13 @@ return [
                     ]
                 ]
             ],
+            AccountShippingService::class => [
+                'injections' => [
+                    'registerGenericAccount' => [
+                        ['genericAccountProvider' => RoyalMailClickDropGenericAccountProvider::class],
+                    ],
+                ],
+            ],
         ],
         'definition' => [
             'class' => [
@@ -107,6 +117,16 @@ return [
                             ]
                         ]
                     ]
+                ],
+                AccountShippingService::class => [
+                    'methods' => [
+                        'registerGenericAccount' => [
+                            'genericAccountProvider' => [
+                                'type' => GenericShippingAccountProvider::class,
+                                'required' => true
+                            ],
+                        ],
+                    ],
                 ],
             ]
         ],

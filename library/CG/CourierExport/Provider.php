@@ -7,6 +7,7 @@ use CG\Channel\Shipping\Provider\ChannelsInterface;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface;
 use CG\Channel\Shipping\Provider\ServiceInterface;
+use CG\CourierExport\RoyalMailClickDrop\GenericAccountProvider as RoyalMailClickDrop;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -21,7 +22,7 @@ class Provider implements ChannelsInterface, BookingOptionsInterface, ServiceInt
     protected $factory;
 
     protected $channels = [
-        'royal-mail-click-drop' => 'Royal Mail Click & Drop',
+        RoyalMailClickDrop::CHANNEL => 'Royal Mail Click & Drop',
     ];
 
     public function __construct(Factory $factory)
