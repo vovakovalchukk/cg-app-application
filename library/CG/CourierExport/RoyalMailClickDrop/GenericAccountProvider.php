@@ -40,7 +40,7 @@ class GenericAccountProvider implements GenericAccountProviderInterface
         }
 
         return $this->accountMapper->fromArray([
-            'id' => PHP_INT_MAX,
+            'id' => 2147483647,
             'channel' => static::CHANNEL,
             'organisationUnitId' => $ou->getId(),
             'rootOrganisationUnitId' => $ou->getId(),
