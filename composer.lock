@@ -703,7 +703,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "3d2a942772378c9ef2031674d101039316e6a744"
+                "reference": "9e6416722252de0d1392c08ed84ba59cbaafb2a7"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.1.1",
