@@ -906,6 +906,17 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierController::ROUTE_LABEL_EXPORT => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierController::ROUTE_LABEL_EXPORT_URI,
+                                            'defaults' => [
+                                                'controller' => CourierController::class,
+                                                'action' => 'export',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                     CourierController::ROUTE_LABEL_PRINT => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [

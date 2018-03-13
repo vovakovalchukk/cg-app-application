@@ -52,7 +52,8 @@ CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actio
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
 
 CourierSpecificsDataTable.labelStatusActions = {
-    '': {'create': true},
+    '': {'create': true, 'export': true},
+    'exported': {"export": true},
     'not printed': {'print': true, 'cancel': true, 'dispatch': true},
     'printed': {'print': true, 'dispatch': true},
     'cancelled': {'create': true},
@@ -206,6 +207,7 @@ CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
 {
     return CourierSpecificsDataTable.getActionsFromLabelStatus(
         rowData.labelStatus,
+        rowData.exportable,
         rowData.cancellable,
         rowData.dispatchable
     );
@@ -292,7 +294,7 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
 {
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
     {
-        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled') {
+        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled' || aData.labelStatus == 'exported') {
             return;
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
@@ -400,9 +402,15 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     return buttonsHtml;
 };
 
-CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, cancellable, dispatchable)
+CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable)
 {
     var actions = this.labelStatusActions[labelStatus];
+    if (actions['create'] && exportable) {
+        delete actions['create'];
+    }
+    if (actions['export'] && !exportable) {
+        delete actions['export'];
+    }
     if (actions['cancel'] && !cancellable) {
         delete actions['cancel'];
     }

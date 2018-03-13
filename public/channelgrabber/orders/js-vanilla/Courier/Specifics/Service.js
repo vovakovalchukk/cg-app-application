@@ -111,11 +111,13 @@ define([
     Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
     Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
+    Service.SELECTOR_ORDER_EXPORTABLE_TPL = '#datatable input[name="orderInfo[_orderId_][exportable]"]';
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
     Service.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
+    Service.URI_EXPORT = '/orders/courier/label/export';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
     Service.URI_DISPATCH = '/orders/courier/label/dispatch';
@@ -311,6 +313,23 @@ define([
         this.sendCreateLabelsRequest(data);
     };
 
+    Service.prototype.exportOrder = function(orderId, button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId);
+        if (!inputData) {
+            return;
+        }
+        $(button).addClass('disabled');
+        this.getNotifications().notice('Exporting', true);
+        var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
+        data.account = this.getCourierAccountId();
+        data.order = [orderId];
+        this.sendExportRequest(data);
+    };
+
     Service.prototype.printLabelForOrder = function(orderId)
     {
         this.getNotifications().notice('Generating label', true);
@@ -385,6 +404,21 @@ define([
         this.sendCreateLabelsRequest(data);
     };
 
+    Service.prototype.exportAll = function(button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'exported']);
+        if (!data) {
+            return;
+        }
+        $(button).addClass('disabled');
+        $(EventHandler.SELECTOR_EXPORT_LABEL_BUTTON).addClass('disabled');
+        this.getNotifications().notice('Exporting all', true);
+        this.sendExportRequest(data);
+    };
+
     Service.prototype.sendCreateLabelsRequest = function(data)
     {
         var self = this;
@@ -402,6 +436,30 @@ define([
             // Refresh the table in case some orders did process to prevent double creation
             self.refresh();
         });
+    };
+
+    Service.prototype.sendExportRequest = function(data)
+    {
+        var formHtml = '<form method="POST" action="' + Service.URI_EXPORT + '">';
+        for (var name in data) {
+            if (!data.hasOwnProperty(name)) {
+                continue;
+            }
+
+            var values = data[name];
+            if (values instanceof Array) {
+                for (var value in values) {
+                    if (!values.hasOwnProperty(value)) {
+                        continue;
+                    }
+                    formHtml += '<input name="' + name + '[]" value="' + values[value] + '">';
+                }
+            } else {
+                formHtml += '<input name="' + name + '" value="' + values + '">';
+            }
+        }
+        formHtml += '</form>';
+        $(formHtml).appendTo('body').submit().remove();
     };
 
     Service.prototype.processCreateLabelsResponse = function(response)
@@ -545,11 +603,13 @@ define([
         var labelStatus = 'not printed';
         var labelStatusSelector = Service.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
         $(labelStatusSelector).val(labelStatus);
+        var exportableSelector = Service.SELECTOR_ORDER_EXPORTABLE_TPL.replace('_orderId_', orderId);
+        var exportable = $(exportableSelector).val();
         var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
         var cancellable = $(cancellableSelector).val();
         var dispatchableSelector = Service.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
         var dispatchable = $(dispatchableSelector).val();
-        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, cancellable, dispatchable);
+        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, exportable, cancellable, dispatchable);
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
         $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
     };

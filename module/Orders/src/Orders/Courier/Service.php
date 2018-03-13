@@ -1,9 +1,9 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\BookingOptions\Repository as CarrierBookingOptionsRepository;
 use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
 use CG\Channel\Shipping\ProviderInterface;
@@ -11,9 +11,9 @@ use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductService;
@@ -146,8 +146,7 @@ class Service implements LoggerAwareInterface
                 if ($courierId) {
                     $service = $shippingAlias->getShippingService();
                     $serviceOptions = $shippingAlias->getOptions();
-                    /* @var $courierAccount \CG\Account\Client\Entity */
-                    $courierAccount = $this->accountService->fetch($courierId);
+                    $courierAccount = $this->accountService->fetchShippingAccount((int) $courierId);
 
                     if (!$this->shippingChannelsProviderRepo->isProvidedAccount($courierAccount)) {
                         throw new NotInUseException('Royal Mail PPI is not used in Courier UI');
@@ -179,7 +178,7 @@ class Service implements LoggerAwareInterface
             $couriers[$index]['selected'] = true;
             $courierId = $couriers[$index]['value'];
             if (!$services) {
-                $courierAccount = $this->accountService->fetch($courierId);
+                $courierAccount = $this->accountService->fetchShippingAccount((int) $courierId);
                 $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
             }
         }

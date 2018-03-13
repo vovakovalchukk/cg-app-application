@@ -1,10 +1,9 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Account\Shared\Filter as AccountFilter;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\BookingOptions;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -29,10 +28,12 @@ class SpecificsPage implements LoggerAwareInterface
 
     protected $bookOptionInterfaces = [
         'Create' => BookingOptions\CreateActionDescriptionInterface::class,
+        'Export' => BookingOptions\ExportActionDescriptionInterface::class,
         'Cancel' => BookingOptions\CancelActionDescriptionInterface::class,
         'Print' => BookingOptions\PrintActionDescriptionInterface::class,
         'Dispatch' => BookingOptions\DispatchActionDescriptionInterface::class,
         'CreateAll' => BookingOptions\CreateAllActionDescriptionInterface::class,
+        'ExportAll' => BookingOptions\ExportAllActionDescriptionInterface::class,
         'CancelAll' => BookingOptions\CancelAllActionDescriptionInterface::class,
         'PrintAll' => BookingOptions\PrintAllActionDescriptionInterface::class,
         'DispatchAll' => BookingOptions\DispatchAllActionDescriptionInterface::class,
@@ -47,11 +48,7 @@ class SpecificsPage implements LoggerAwareInterface
 
     public function fetchAccountsById($accountIds): AccountCollection
     {
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setId($accountIds);
-        return $this->accountService->fetchByFilter($filter);
+        return $this->accountService->fetchShippingAccounts($accountIds);
     }
 
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
@@ -76,6 +73,11 @@ class SpecificsPage implements LoggerAwareInterface
         return $this->getActionDescription('Create', 'Create label', $account);
     }
 
+    public function getExportActionDescription(Account $account): string
+    {
+        return $this->getActionDescription('Export', 'Download file', $account);
+    }
+
     public function getCancelActionDescription(Account $account): string
     {
         return $this->getActionDescription('Cancel', 'Cancel', $account);
@@ -94,6 +96,11 @@ class SpecificsPage implements LoggerAwareInterface
     public function getCreateAllActionDescription(Account $account): string
     {
         return $this->getActionDescription('CreateAll', 'Create all labels', $account);
+    }
+
+    public function getExportAllActionDescription(Account $account): string
+    {
+        return $this->getActionDescription('ExportAll', 'Download file for all', $account);
     }
 
     public function getCancelAllActionDescription(Account $account): string
@@ -117,7 +124,6 @@ class SpecificsPage implements LoggerAwareInterface
         if (!($provider instanceof $this->bookOptionInterfaces[$action] ?? '')) {
             return $defaultDescription;
         }
-        $method = 'get' . $action . 'ActionDescription';
-        return $provider->$method();
+        return $provider->{'get' . $action . 'ActionDescription'}();
     }
 }
