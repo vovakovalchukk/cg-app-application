@@ -35,7 +35,7 @@ class Service implements
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
-        return ['categories' => $this->categoryService->fetchCategoriesForAccount($account, 0)];
+        return ['categories' => $this->categoryService->fetchRootCategoriesForAccount($account)];
     }
 
     public function refetchAndSaveCategories(Account $account)
@@ -44,13 +44,13 @@ class Service implements
             $this->fetchCategoriesFromBigCommerce($account),
             $account
         );
-        return $this->categoryService->fetchCategoriesForAccount($account, 0);
+        return $this->categoryService->fetchRootCategoriesForAccount($account);
     }
 
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId)
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId)
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId($account, $externalCategoryId);
+            return $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId);
         } catch (NotFound $e) {
             return [];
         }

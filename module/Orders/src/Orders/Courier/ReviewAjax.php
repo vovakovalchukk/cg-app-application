@@ -1,18 +1,16 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Services\CheckForOrdersInterface as CheckShippingServicesForOrders;
+use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Channel\Shipping\Services\ForOrderDataInterface as ShippingServicesForOrderData;
 use CG\Channel\Shipping\Services\ForOrdersInterface as ShippingServicesForOrders;
-use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
-use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Product\Collection as ProductCollection;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use Orders\Courier\Service;
 
 class ReviewAjax
 {
@@ -49,7 +47,7 @@ class ReviewAjax
     public function getServicesOptionsForOrderAndAccount($orderId, $shippingAccountId, array $orderData = [])
     {
         $order = $this->orderService->fetch($orderId);
-        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $shippingAccount = $this->accountService->fetchShippingAccount($shippingAccountId);
         $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
         if ($orderData && $shippingService instanceof ShippingServicesForOrderData) {
             $shippingServices = $shippingService->getShippingServicesForOrderAndData($order, $orderData);
@@ -64,7 +62,7 @@ class ReviewAjax
      */
     public function getServicesOptionsForOrdersAndAccount(array $orderIds, $shippingAccountId, array $orderData = [])
     {
-        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $shippingAccount = $this->accountService->fetchShippingAccount($shippingAccountId);
         $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
         if (!$shippingService instanceof ShippingServicesForOrders) {
             throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
@@ -79,7 +77,7 @@ class ReviewAjax
      */
     public function checkServicesOptionsForOrdersAndAccount(array $orderIds, $shippingAccountId)
     {
-        $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $shippingAccount = $this->accountService->fetchShippingAccount($shippingAccountId);
         $shippingService = $this->shippingServiceFactory->createShippingService($shippingAccount);
         if (!$shippingService instanceof CheckShippingServicesForOrders) {
             throw new \RuntimeException(sprintf('%s called for Account %d, channel %s, which does not support it', __METHOD__, $shippingAccount->getId(), $shippingAccount->getChannel()));
