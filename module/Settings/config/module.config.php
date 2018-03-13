@@ -917,13 +917,14 @@ return [
                                     CategoryTemplatesJsonController::ROUTE_CATEGORY_CHILDREN => [
                                         'type' => Segment::class,
                                         'options' => [
-                                            'route' => '/:accountId/category-children/:externalCategoryId',
+                                            'route' => '/:accountId/category-children/:categoryId',
                                             'defaults' => [
                                                 'action' => 'categoryChildren',
                                                 'controller' => CategoryTemplatesJsonController::class
                                             ],
                                             'constraints' => [
-                                                'accountId' => '[0-9]*'
+                                                'accountId' => '[0-9]*',
+                                                'categoryId' => '[0-9]*'
                                             ],
                                         ],
                                         'may_terminate' => true,

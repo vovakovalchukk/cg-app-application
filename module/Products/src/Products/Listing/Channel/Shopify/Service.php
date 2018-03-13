@@ -3,7 +3,6 @@ namespace Products\Listing\Channel\Shopify;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Product\Category\Collection as CategoryCollection;
-use CG\Product\Category\Entity as Category;
 use CG\Shopify\Client\ThrottledException;
 use CG\Shopify\Client\UnauthorizedException;
 use CG\Shopify\CustomCollection\Importer as CustomCollectionImporter;
@@ -30,24 +29,14 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'categories' => $this->categoryService->fetchCategoriesForAccount($account, null)
+            'categories' => $this->categoryService->fetchCategoriesForAccount($account)
         ];
     }
 
     public function refetchAndSaveCategories(Account $account): array
     {
         $categories = $this->fetchImportAndReturnShopifyCategoriesForAccount($account);
-        return $this->getOptionsForCategories($categories);
-    }
-
-    protected function getOptionsForCategories(CategoryCollection $categories): array
-    {
-        $categoryOptions = [];
-        /** @var Category $category */
-        foreach ($categories as $category) {
-            $categoryOptions[$category->getExternalId()] = $category->getTitle();
-        }
-        return $categoryOptions;
+        return $this->categoryService->formatCategoriesResponse($categories);
     }
 
     protected function fetchImportAndReturnShopifyCategoriesForAccount(Account $account): CategoryCollection
