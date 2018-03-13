@@ -297,7 +297,7 @@ define([
 
             this.onVariationOptionSelected(variations[0]);
         },
-        renderVariationImagePicker: function()
+        renderVariationsImagePicker: function()
         {
             var variations = this.props.product.attributeNames.map(function(attribute) {
                 return {"value": attribute, "name": attribute};
@@ -310,20 +310,28 @@ define([
             var fields = [this.renderVariationImageValuePicker(variations)];
 
             for (var variationValue of this.state.variationImageNames) {
-                fields.push(
-                    <label>
-                        <span className={"inputbox-label"}>{variationValue}</span>
-                        <ImagePicker
-                            name={variationValue}
-                            multiSelect={false}
-                            images={this.props.product.images}
-                            onImageSelected={this.onVariationImageSelected}
-                            title={this.getTooltipText('image')}
-                        />
-                    </label>
-                )
+                fields.push(this.renderVariationImagePicker(variationValue));
             }
             return <span>{fields}</span>;
+        },
+        renderVariationImagePicker: function (variationValue)
+        {
+            var imagePicker;
+            if (this.props.product.images.length == 0) {
+                imagePicker = <p>No images available</p>
+            } else {
+                imagePicker = <ImagePicker
+                    name={variationValue}
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onVariationImageSelected}
+                    title={this.getTooltipText('image')}
+                />;
+            }
+            return <label>
+                <span className={"inputbox-label"}>{variationValue}</span>
+                {imagePicker}
+            </label>;
         },
         renderVariationImageValuePicker: function(variations)
         {
@@ -331,7 +339,7 @@ define([
                 return <label>
                     <span className={"inputbox-label"}>Variation images variable:</span>
                     <div className={"order-inputbox-holder"}>
-                        <span className={"inputbox-label"}>test</span>
+                        <span className={"inputbox-label"}>{variations[0].name}</span>
                     </div>
                 </label>;
             }
@@ -435,7 +443,7 @@ define([
                     <span className={"inputbox-label"}>Primary image</span>
                     {this.renderImagePicker()}
                 </label>
-                {this.renderVariationImagePicker()}
+                {this.renderVariationsImagePicker()}
                 <CategorySelect
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
