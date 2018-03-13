@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "25a7d302811d343777ab8203d92b0f88",
+    "content-hash": "b7c21e93083c817ea23b13b40b5a1c48",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -515,12 +515,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ed28d715883ed20e1c596033a2a791b0f9ddda3a"
+                "reference": "ed36c339d4ddc8c5ff6961dc21b08c112a626f30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-16-RoyalMailClickAndDrop-d1cae8.zip",
-                "reference": "ed28d715883ed20e1c596033a2a791b0f9ddda3a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-16-RoyalMailClickAndDrop-26c67c.zip",
+                "reference": "ed36c339d4ddc8c5ff6961dc21b08c112a626f30",
                 "shasum": null
             },
             "require": {
@@ -577,7 +577,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-CGIV-9293-prevent_automated_listing_downloading": "1.x-dev"
                 }
             },
             "autoload": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-03-13T08:32:29+00:00"
+            "time": "2018-03-13T09:07:16+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9511,8 +9511,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.34.4",
-            "alias_normalized": "1.34.4.0",
+            "alias": "1.34.5",
+            "alias_normalized": "1.34.5.0",
             "version": "dev-TAC-16-RoyalMailClickAndDrop",
             "package": "channelgrabber/channel"
         },
