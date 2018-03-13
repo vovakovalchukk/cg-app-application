@@ -54,7 +54,7 @@ define([
                 type: 'GET',
                 success: function (response) {
                     this.setState({
-                        rootCategories: response.category
+                        rootCategories: response.categories
                     });
                 }
             });

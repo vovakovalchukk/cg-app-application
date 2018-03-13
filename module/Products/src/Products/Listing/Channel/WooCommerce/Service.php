@@ -56,7 +56,7 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'category' => $this->categoryService->fetchRootCategoriesForAccount($account)
+            'categories' => $this->categoryService->fetchRootCategoriesForAccount($account)
         ];
     }
 }

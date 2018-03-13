@@ -1,7 +1,9 @@
 <?php
 namespace Products;
 
+use CG\Account\Client\Storage\Api as AccountStorageApi;
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Channel\Listing\Download\Service as ChannelListingDownloadService;
 use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
@@ -591,6 +593,11 @@ return [
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
+            ],
+            ChannelListingDownloadService::class => [
+                'parameters' => [
+                    'accountStorage' => AccountStorageApi::class
+                ]
             ],
             ListingsController::class => [
                 'parameters' => [

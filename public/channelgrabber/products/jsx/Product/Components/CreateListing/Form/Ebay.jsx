@@ -109,7 +109,7 @@ define([
                 success: function (response) {
                     this.setState({
                         currency: response.currency,
-                        rootCategories: response.category,
+                        rootCategories: response.categories,
                         shippingServiceFieldValues: response.shippingService,
                         availableSites: response.sites
                     });
