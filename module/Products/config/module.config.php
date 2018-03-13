@@ -490,27 +490,27 @@ return [
                             JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/category-dependent-field-values/:externalCategoryId',
+                                    'route' => '/category-dependent-field-values/:categoryId',
                                     'defaults' => [
                                         'controller' => JsonController::class,
                                         'action' => 'categoryDependentFieldValues'
                                     ],
                                 ],
                                 'constraints' => [
-                                    'externalCategoryId' => '[0-9]+'
+                                    'categoryId' => '[0-9]+'
                                 ]
                             ],
                             JsonController::ROUTE_CATEGORY_CHILDREN => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/category-children/:externalCategoryId',
+                                    'route' => '/category-children/:categoryId',
                                     'defaults' => [
                                         'controller' => JsonController::class,
                                         'action' => 'categoryChildren'
                                     ],
                                 ],
                                 'constraints' => [
-                                    'externalCategoryId' => '[0-9]+'
+                                    'categoryId' => '[0-9]+'
                                 ]
                             ]
                         ]
