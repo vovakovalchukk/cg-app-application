@@ -9,7 +9,11 @@ use CG\Product\Detail\Collection as ProductDetails;
 class ExportOptions implements ExportOptionsInterface
 {
     protected $defaultExportOptions = [
-        'packageTypes' => ['Letter', 'Large letter', 'Parcel'],
+        'packageTypes' => [
+            ['title' => 'Letter', 'value' => 'Letter'],
+            ['title' => 'Large letter', 'value' => 'Large letter'],
+            ['title' => 'Parcel', 'value' => 'Parcel'],
+        ],
     ];
     protected $serviceExportOptions = [
         ShippingService::FIRST_CLASS => [
@@ -47,14 +51,11 @@ class ExportOptions implements ExportOptionsInterface
     public function addCarrierSpecificDataToListArray(array $data): array
     {
         foreach ($data as &$row) {
-            if ($row['orderRow'] ?? false) {
+            if ($row['actionRow'] ?? false) {
                 $row = array_merge($row, $this->defaultExportOptions);
                 if (isset($this->serviceExportOptions[$row['service']])) {
                     $row = array_merge($row, $this->serviceExportOptions[$row['service'] ?? '']);
                 }
-            }
-
-            if ($row['actionRow'] ?? false) {
                 $row['deliveryInstructionsRequired'] = true;
             }
         }
