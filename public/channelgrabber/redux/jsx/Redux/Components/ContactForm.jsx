@@ -1,9 +1,11 @@
 define([
     'react',
-    'redux-form'
+    'redux-form',
+    'Redux/Components/CustomFields'
 ], function(
     React,
-    ReduxForm
+    ReduxForm,
+    CustomFields
 ) {
     "use strict";
 
@@ -15,6 +17,7 @@ define([
         },
         render: function() {
             var Field = ReduxForm.Field;
+            var FieldArray = ReduxForm.FieldArray;
             return (
                 <form onSubmit={this.props.handleSubmit}>
                     <div>
@@ -29,6 +32,7 @@ define([
                         <label htmlFor="email">Email</label>
                         <Field name="email" component="input" type="email" />
                     </div>
+                    <FieldArray name="customFields" component={CustomFields} />
                     <button type="submit">Submit</button>
                 </form>
             );
