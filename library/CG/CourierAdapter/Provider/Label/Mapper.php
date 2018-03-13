@@ -141,7 +141,10 @@ class Mapper
             $parcelItemQty,
             $itemUnitWeight,
             $item->getIndividualItemPrice(),
-            $order->getCurrencyCode()
+            $order->getCurrencyCode(),
+            $item->getItemName(),
+            '',
+            $item->getItemSku()
         );
     }
 
