@@ -305,7 +305,9 @@ define([
             var products = this.state.products.map(function (product) {
                 if (product.id === refreshedProductId) {
                     for (var listingId in product.listings) {
-                        product.listings[listingId].status = 'pending';
+                        if (product.listings[listingId]) {
+                            product.listings[listingId].status = 'pending';
+                        }
                     }
                 }
                 return product;
