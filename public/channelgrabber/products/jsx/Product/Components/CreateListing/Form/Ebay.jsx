@@ -441,6 +441,7 @@ define([
                     rootCategories={this.state.rootCategories}
                     onLeafCategorySelected={this.onLeafCategorySelected}
                     title={this.getTooltipText('category')}
+                    variations={this.props.variations && Object.keys(this.props.variations).length > 1}
                 />
                 {(this.state.listingDurationFieldValues)?
                     <label>
