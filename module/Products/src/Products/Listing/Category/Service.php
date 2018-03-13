@@ -70,7 +70,8 @@ class Service
         /** @var Category $category */
         foreach ($categoryCollection as $category) {
             $categories[$category->getId()] = [
-                'title' => $category->getTitle()
+                'title' => $category->getTitle(),
+                'listable' => $category->isListable(),
             ];
         }
         return $categories;

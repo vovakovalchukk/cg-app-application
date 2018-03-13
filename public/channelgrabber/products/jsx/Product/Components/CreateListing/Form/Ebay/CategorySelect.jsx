@@ -10,15 +10,14 @@ define([
     var CategorySelectComponent = React.createClass({
         getInitialState: function() {
             return {
-                categoryMaps: [
-
-                ],
+                categoryMaps: [],
                 selectedCategories: []
             }
         },
         getDefaultProps: function() {
             return {
-                title: null
+                title: null,
+                variations: false
             }
         },
         componentDidMount() {
@@ -86,8 +85,8 @@ define([
             for (var externalId in categoryMap) {
                 category = categoryMap[externalId];
                 disabled = false;
-                if (category.hasOwnProperty('variations')) {
-                    disabled = !category.variations;
+                if (this.props.variations && category.hasOwnProperty('listable') && category.hasOwnProperty('variations')) {
+                    disabled = category.listable && !category.variations;
                 }
                 categoryOptions.push({
                     name: category.title,
