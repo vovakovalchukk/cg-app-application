@@ -22,6 +22,7 @@ define([
                     defaultValue={field.input.value}
                     placeholder={field.placeholder}
                     onFocus={field.input.onFocus}
+                    onChange={field.input.onChange}
                 />
             );
         },
