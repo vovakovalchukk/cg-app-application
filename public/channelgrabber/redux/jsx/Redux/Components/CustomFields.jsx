@@ -19,7 +19,7 @@ define([
                     style={{width: "110px"}}
                     type={field.type}
                     name={field.input.name}
-                    value={field.input.value}
+                    defaultValue={field.input.value}
                     placeholder={field.placeholder}
                     onFocus={field.input.onFocus}
                 />
