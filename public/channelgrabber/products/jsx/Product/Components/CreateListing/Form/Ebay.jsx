@@ -354,10 +354,23 @@ define([
                      options={variations}
                      autoSelectFirst={false}
                      onOptionChange={this.onVariationOptionSelected}
-                     selectedOption={this.variationImageVariable}
+                     selectedOption={this.getSelectedImageVariationVariable()}
                  />
                 </div>
             </label>;
+        },
+        getSelectedImageVariationVariable: function() {
+            if (this.state.variationImageVariable) {
+                var name = this.state.variationImageVariable;
+                if (this.props.attributeNameMap[this.state.variationImageVariable]) {
+                    name = this.props.attributeNameMap[this.state.variationImageVariable];
+                }
+                return {
+                    value: this.state.variationImageVariable,
+                    name: name
+                }
+            }
+            return {value: '', name: ''};
         },
         onVariationOptionSelected: function(variation)
         {
@@ -367,7 +380,7 @@ define([
                 variationValues[value] = value;
             }
             this.setState({
-                variationImageVariable: variation,
+                variationImageVariable: variation.value,
                 variationImageNames: Object.values(variationValues),
                 attributeImageMap: {}
             });
