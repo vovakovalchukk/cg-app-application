@@ -57,7 +57,7 @@ define([
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
-            this.initializeVariationsImagePicker();
+            // this.initializeVariationsImagePicker();
             this.props.setFormStateListing({
                 shippingPrice: this.props.shippingPrice
             });
@@ -300,8 +300,12 @@ define([
         renderVariationsImagePicker: function()
         {
             var variations = this.props.product.attributeNames.map(function(attribute) {
-                return {"value": attribute, "name": attribute};
-            });
+                var name = attribute;
+                if (this.props.attributeNameMap[attribute]) {
+                    name = this.props.attributeNameMap[attribute];
+                }
+                return {"value": attribute, "name": name};
+            }.bind(this));
 
             if (variations.length === 0) {
                 return;
