@@ -703,13 +703,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "eb3a5e25409fbafcf7fd5064cbf8fd004e262fe8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9184-update_dpd_direct_service_labels-8c810e.zip",
-                "reference": "eb3a5e25409fbafcf7fd5064cbf8fd004e262fe8",
-                "shasum": null
+                "reference": "d99d6d4c22b54f08776ed7c25dc0938cf505c34b"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-9184-update_dpd_direct_service_labels as 1.1.2",
@@ -9530,8 +9524,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
