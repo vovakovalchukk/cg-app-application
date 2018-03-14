@@ -1,7 +1,8 @@
 <?php $this->inlineScript()->captureStart(); ?>
     require.config({
         paths: {
-            'Redux': '<?= $this->basePath() . \Redux\Module::PUBLIC_FOLDER; ?>/js/Redux'
+            'Redux': '<?= $this->basePath() . \Redux\Module::PUBLIC_FOLDER; ?>/js/Redux',
+            'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
         }
     });
     require(["Redux/Prototype"], function(Prototype) {
