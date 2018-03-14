@@ -1,9 +1,10 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
+use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
@@ -82,7 +83,7 @@ class SpecificsAjax
     {
         $orders = $this->courierService->fetchOrdersById($orderIds);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
-        $courierAccount = $this->accountService->fetch($courierAccountId);
+        $courierAccount = $this->accountService->fetchShippingAccount((int) $courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
         return $this->sortSpecificsListData($data, $courierAccount);
     }
@@ -150,6 +151,8 @@ class SpecificsAjax
     ) {
         $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
         $providerService = $this->getCarrierServiceProvider($courierAccount);
+        $exportable = ($providerService instanceof CarrierServiceProviderExportInterface
+            && $providerService->isExportAllowedForOrder($courierAccount, $order));
         $cancellable = ($providerService instanceof CarrierServiceProviderCancelInterface
             && $providerService->isCancellationAllowedForOrder($courierAccount, $order));
         $dispatchable = ($order->getStatus() != OrderStatus::DISPATCHING)
@@ -159,6 +162,7 @@ class SpecificsAjax
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
+            'exportable' => $exportable,
             'cancellable' => $cancellable,
             'dispatchable' => $dispatchable,
             'services' => $services,
@@ -331,6 +335,7 @@ class SpecificsAjax
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['serviceOptions'] = $orderData['serviceOptions'];
+            $parcelData['exportable'] = $orderData['exportable'];
             $parcelData['cancellable'] = $orderData['cancellable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
@@ -430,7 +435,7 @@ class SpecificsAjax
      */
     public function getCarrierOptionsForService($orderId, $accountId, $service)
     {
-        $account = $this->accountService->fetch($accountId);
+        $account = $this->accountService->fetchShippingAccount((int) $accountId);
         $carrierOptions = $this->courierService->getCarrierOptions($account);
         $serviceOptions = $this->courierService->getCarrierOptions($account, $service);
         return $this->getFieldsRequirementStatus($serviceOptions, $carrierOptions);
@@ -443,7 +448,7 @@ class SpecificsAjax
     public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
     {
         $order = $this->orderService->fetch($orderId);
-        $account = $this->accountService->fetch($accountId);
+        $account = $this->accountService->fetchShippingAccount((int) $accountId);
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $orders = new OrderCollection(Order::class, 'fetch', ['id' => $orderId]);
         $orders->attach($order);

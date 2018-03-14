@@ -1,6 +1,7 @@
 {{#orderRow}}
 <input type="hidden" name="order[]" value="{{orderId}}" />
 <input type="hidden" name="orderInfo[{{orderId}}][labelStatus]" value="{{labelStatus}}" />
+<input type="hidden" name="orderInfo[{{orderId}}][exportable]" value="{{#exportable}}1{{/exportable}}{{^exportable}}0{{/exportable}}" />
 <input type="hidden" name="orderInfo[{{orderId}}][cancellable]" value="{{#cancellable}}1{{/cancellable}}{{^cancellable}}0{{/cancellable}}" />
 <input type="hidden" name="orderInfo[{{orderId}}][dispatchable]" value="{{#dispatchable}}1{{/dispatchable}}{{^dispatchable}}0{{/dispatchable}}" />
 <div class="courier-buyer-name">
