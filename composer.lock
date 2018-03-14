@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b0bf6464708093fb43f5a0cdf454338",
+    "content-hash": "221e7219d0b95a7101c45f32746580eb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4011,17 +4011,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.3",
+            "version": "dev-LIS-125-react-redux-prototype",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d0ba8a469e82e7d1134e0f4824bc4cffeb4f5e2c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.3-2f6ee9.zip",
-                "reference": "d0ba8a469e82e7d1134e0f4824bc4cffeb4f5e2c",
-                "shasum": null
+                "reference": "375de3f51564fb857be8d45a585fb84bef025949"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -9509,13 +9503,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.22.4",
+            "alias_normalized": "1.22.4.0",
+            "version": "dev-LIS-125-react-redux-prototype",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

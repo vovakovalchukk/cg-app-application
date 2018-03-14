@@ -29,6 +29,7 @@
 /public/channelgrabber/reports/js/
 /public/channelgrabber/settings/js/
 /public/channelgrabber/setup-wizard/js/
+/public/channelgrabber/redux/js/
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml

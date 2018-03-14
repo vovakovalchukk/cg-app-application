@@ -34,6 +34,7 @@ return array (
     29 => 'Ekm',
     30 => 'Reports',
     31 => 'ShipStation',
+    32 => 'Redux',
   ),
   'module_listener_options' => 
   array (
