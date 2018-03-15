@@ -166,6 +166,7 @@ define([
         },
         renderAttributeHeaders: function () {
             return this.props.attributeNames.map(function(attributeName) {
+                attributeName = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
                 if (this.props.editableAttributeNames) {
                     return <th><EditableField initialFieldText={attributeName} onSubmit={(fieldValue) => {
                         var attributeNameMap = Object.assign({}, this.props.attributeNameMap);
@@ -180,7 +181,7 @@ define([
                 }
 
                 return <th>
-                    {this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName}
+                    {attributeName}
                 </th>;
             }.bind(this));
         },
