@@ -30,8 +30,9 @@ define([
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var changes = false;
             for (var title in this.state.selectedItemSpecifics) {
-                if (newProps.itemSpecifics.required[title] == undefined &&
-                    newProps.itemSpecifics.optional[title] == undefined
+                if (!newProps.itemSpecifics
+                    || newProps.itemSpecifics.length === 0
+                    || newProps.itemSpecifics.required[title] == undefined && newProps.itemSpecifics.optional[title] == undefined
                 ) {
                     delete selectedItemSpecifics[title];
                     changes = true;
