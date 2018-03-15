@@ -56,7 +56,17 @@ define([
                     var properties = requiredItems[name];
                     required.push(this.buildItemSpecificsInputByType(name, properties));
                 }
-                itemSpecifics.push(<span><b>Item Specifics (Required)</b>{required}</span>);
+                itemSpecifics.push(
+                    <span>
+                        <label>
+                            <span className={"inputbox-label"}><b>Item Specifics (Required)</b></span>
+                            <div className={"order-inputbox-holder"}></div>
+                        </label>
+                        <span>
+                            {required}
+                        </span>
+                    </span>
+                );
             }
             if (optionalItems && Object.keys(optionalItems).length > 0) {
                 itemSpecifics.push(
