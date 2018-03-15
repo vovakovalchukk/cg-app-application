@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "abcc7b2e6142e09ada7cd83afbf73aac",
+    "content-hash": "755ff278a8c020ddbf0d487e8656ef46",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "40dd3309dc3ff2c899679d7ceb4891e7543c03d3"
+                "reference": "5c84cd478b5b34fa3a9fe81e46d0505ee6c8a2c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-EPIC-LIS-73-create-variation-listings-3dbb2d.zip",
-                "reference": "40dd3309dc3ff2c899679d7ceb4891e7543c03d3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.1.4-64ac5c.zip",
+                "reference": "5c84cd478b5b34fa3a9fe81e46d0505ee6c8a2c3",
                 "shasum": null
             },
             "require": {
@@ -300,7 +300,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-13T09:16:02+00:00"
+            "time": "2018-03-15T09:46:14+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -841,16 +841,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "94f29c3c7facaac09df7cd2a5ee2bcf8d8983301"
+                "reference": "237ad55969b0caecaeda6d3acc24027f50bef181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-LIS-73-create-variation-listings-3c82ab.zip",
-                "reference": "94f29c3c7facaac09df7cd2a5ee2bcf8d8983301",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.2-2c4ef8.zip",
+                "reference": "237ad55969b0caecaeda6d3acc24027f50bef181",
                 "shasum": null
             },
             "require": {
@@ -901,7 +901,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-14T15:49:07+00:00"
+            "time": "2018-03-15T09:50:45+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1317,16 +1317,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "7eb75c91d1d2ecea50a257183776e7d05ee29755"
+                "reference": "8484ce2605a027f76ca6e6d5ad421f8ed3af6ad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-EPIC-LIS-73-create-variation-listings-580d12.zip",
-                "reference": "7eb75c91d1d2ecea50a257183776e7d05ee29755",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.1-709ef0.zip",
+                "reference": "8484ce2605a027f76ca6e6d5ad421f8ed3af6ad8",
                 "shasum": null
             },
             "require": {
@@ -1362,7 +1362,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-03-05T10:19:07+00:00"
+            "time": "2018-03-01T15:59:11+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2033,12 +2033,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "7a0ad2a2bfb533932663272a499372f0e7949303"
+                "reference": "81169854f39c10aaa01df72f2f94d20118faaacd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-LIS-73-create-variation-listings-f77abb.zip",
-                "reference": "7a0ad2a2bfb533932663272a499372f0e7949303",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-LIS-73-create-variation-listings-628f5d.zip",
+                "reference": "81169854f39c10aaa01df72f2f94d20118faaacd",
                 "shasum": null
             },
             "require": {
@@ -2090,7 +2090,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-03-06T09:21:20+00:00"
+            "time": "2018-03-15T09:55:25+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2455,16 +2455,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "fcb0cafaa8212f2e011e2389aff626066cd77d1b"
+                "reference": "56c557ad3ea903c1b4747d2f951ec855a0a51e18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-LIS-73-create-variation-listings-f46815.zip",
-                "reference": "fcb0cafaa8212f2e011e2389aff626066cd77d1b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.2.0-73d7d8.zip",
+                "reference": "56c557ad3ea903c1b4747d2f951ec855a0a51e18",
                 "shasum": null
             },
             "require": {
@@ -2497,7 +2497,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-03-13T09:33:10+00:00"
+            "time": "2018-03-15T09:57:15+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3149,20 +3149,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.2.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "5c455b668069cb67b35bc1060948004f895ecd38"
+                "reference": "380b5c613e74cf5e65c975211f152aa7079363c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-LIS-73-create-variation-listings-0268f6.zip",
-                "reference": "5c455b668069cb67b35bc1060948004f895ecd38",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.24-59827d.zip",
+                "reference": "380b5c613e74cf5e65c975211f152aa7079363c0",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.34.0",
+                "channelgrabber/channel": "^1.32.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3192,7 +3192,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-05T10:32:16+00:00"
+            "time": "2018-02-14T14:51:04+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -4017,16 +4017,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.22.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cb0d8cc10f093ce4d850d6767975c9d907c79adb"
+                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-LIS-73-create-variation-listings-50d7d9.zip",
-                "reference": "cb0d8cc10f093ce4d850d6767975c9d907c79adb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.4-dc404c.zip",
+                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40",
                 "shasum": null
             },
             "require": {
@@ -4077,7 +4077,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-03-05T10:32:35+00:00"
+            "time": "2018-03-15T10:03:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9517,58 +9517,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.4",
-            "alias_normalized": "1.1.4.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.12.2",
-            "alias_normalized": "1.12.2.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.16.1",
-            "alias_normalized": "1.16.1.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/listing"
-        },
-        {
             "alias": "1.11.7",
             "alias_normalized": "1.11.7.0",
             "version": "dev-EPIC-LIS-73-create-variation-listings",
             "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/shopify"
-        },
-        {
-            "alias": "1.2.25",
-            "alias_normalized": "1.2.25.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/woocommerce"
-        },
-        {
-            "alias": "1.22.4",
-            "alias_normalized": "1.22.4.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/bigcommerce": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/listing": 20,
         "channelgrabber/product": 20,
-        "channelgrabber/shopify": 20,
-        "channelgrabber/woocommerce": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
