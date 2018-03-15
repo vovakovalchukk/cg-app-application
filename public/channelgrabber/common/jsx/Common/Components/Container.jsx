@@ -26,7 +26,7 @@ define([
                         <div className="container-sub-header">{this.props.subHeaderText}</div>
                         : null
                     }
-                    <div className="container-content">{this.props.children}</div>
+                    <div className="container-children">{this.props.children}</div>
                     <div className="container-buttons">
                         <div style={{margin: "0px auto"}}>
                             <div className="button container-btn no" onClick={this.props.onNoButtonPressed}>{this.props.noButtonText}</div>
