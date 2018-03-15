@@ -44,15 +44,6 @@ class Service
         return $allowedChannels;
     }
 
-    public function getAllowedCreateVariationListingsChannels(OrganisationUnit $rootOu)
-    {
-        if (!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS, $rootOu)) {
-            return [];
-        }
-
-        return $this->getAllowedCreateListingsChannels();
-    }
-
     public function getDefaultSettingsForAccount(Account $account, array $postData = []): array
     {
         /** @var DefaultAccountSettingsInterface $channelService */
