@@ -3,6 +3,7 @@ define([
     'react-dom',
     'redux',
     'react-redux',
+    'react-router-dom',
     'Redux/Components/Root',
     'Redux/Reducers/Combined'
 ], function(
@@ -10,6 +11,7 @@ define([
     ReactDOM,
     Redux,
     ReactRedux,
+    ReactRouterDom,
     RootComponent,
     Reducer
 ) {
@@ -18,9 +20,13 @@ define([
     ) {
         var store = Redux.createStore(Reducer);
         var Provider = ReactRedux.Provider;
+        var BrowserRouter = ReactRouterDom.BrowserRouter;
+
         ReactDOM.render(
             <Provider store={store}>
-                <RootComponent />
+                <BrowserRouter>
+                    <RootComponent />
+                </BrowserRouter>
             </Provider>,
             mountingNode
         );
