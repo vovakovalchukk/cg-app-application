@@ -57,7 +57,7 @@ define([
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
-            this.initializeVariationsImagePicker(this.props.product.attributeNames);
+            this.initializeVariationsImagePicker();
             this.props.setFormStateListing({
                 shippingPrice: this.props.shippingPrice
             });
@@ -66,6 +66,9 @@ define([
             if (this.props.accountId != newProps.accountId) {
                 this.fetchAndSetDefaultsForAccount(newProps.accountId);
                 this.fetchAndSetChannelSpecificFieldValues(newProps.accountId);
+            }
+            if (newProps.variationsDataForProduct.length !== this.props.variationsDataForProduct.length) {
+                this.initializeVariationsImagePicker(newProps.variationsDataForProduct);
             }
         },
         fetchAndSetDefaultsForAccount(newAccountId) {
@@ -285,7 +288,7 @@ define([
                 </div>
             </label>;
         },
-        initializeVariationsImagePicker: function()
+        initializeVariationsImagePicker: function(variationsDataForProduct)
         {
             var variations = this.props.product.attributeNames.map(function(attribute) {
                 return {"value": attribute, "name": attribute};
@@ -295,7 +298,7 @@ define([
                 return;
             }
 
-            this.onVariationOptionSelected(variations[0]);
+            this.onVariationOptionSelected(variations[0], variationsDataForProduct);
         },
         renderVariationsImagePicker: function()
         {
@@ -376,16 +379,18 @@ define([
             }
             return {value: '', name: ''};
         },
-        onVariationOptionSelected: function(variation)
+        onVariationOptionSelected: function(variation, variationsDataForProduct)
         {
             var variationValues = [], value;
-            for (var variationProduct of this.props.variationsDataForProduct) {
-                value = variationProduct.attributeValues[variation.value];
-                variationValues[value] = value;
+            !(variationsDataForProduct) ? variationsDataForProduct = this.props.variationsDataForProduct : null;
+            for (var variationProduct of variationsDataForProduct) {
+                if (value = variationProduct.attributeValues[variation.value]) {
+                    variationValues[value] = value;
+                }
             }
             this.setState({
                 variationImageVariable: variation.value,
-                variationImageNames: Object.values(variationValues),
+                variationImageNames: Object.keys(variationValues).map(function(key){return variationValues[key]}),
                 attributeImageMap: {}
             });
             this.props.setFormStateListing({
