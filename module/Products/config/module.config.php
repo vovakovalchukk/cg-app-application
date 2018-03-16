@@ -1,7 +1,9 @@
 <?php
 namespace Products;
 
+use CG\Account\Client\Storage\Api as AccountStorageApi;
 use CG\Amazon\ListingImport as AmazonListingImport;
+use CG\Channel\Listing\Download\Service as ChannelListingDownloadService;
 use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
@@ -490,27 +492,27 @@ return [
                             JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/category-dependent-field-values/:externalCategoryId',
+                                    'route' => '/category-dependent-field-values/:categoryId',
                                     'defaults' => [
                                         'controller' => JsonController::class,
                                         'action' => 'categoryDependentFieldValues'
                                     ],
                                 ],
                                 'constraints' => [
-                                    'externalCategoryId' => '[0-9]+'
+                                    'categoryId' => '[0-9]+'
                                 ]
                             ],
                             JsonController::ROUTE_CATEGORY_CHILDREN => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/category-children/:externalCategoryId',
+                                    'route' => '/category-children/:categoryId',
                                     'defaults' => [
                                         'controller' => JsonController::class,
                                         'action' => 'categoryChildren'
                                     ],
                                 ],
                                 'constraints' => [
-                                    'externalCategoryId' => '[0-9]+'
+                                    'categoryId' => '[0-9]+'
                                 ]
                             ]
                         ]
@@ -591,6 +593,11 @@ return [
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
+            ],
+            ChannelListingDownloadService::class => [
+                'parameters' => [
+                    'accountStorage' => AccountStorageApi::class
+                ]
             ],
             ListingsController::class => [
                 'parameters' => [

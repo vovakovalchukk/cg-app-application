@@ -2,9 +2,17 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
+use CG\Product\Category\Template\Entity as CategoryTemplate;
+use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use \Settings\Category\Template\Service as CategoryTemplateService;
+use Products\Listing\Exception as ListingException;
+use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
+use Settings\Category\Template\Exception\NameAlreadyUsedException;
+use Settings\Category\Template\Service as CategoryTemplateService;
+use Zend\View\Model\JsonModel;
 
 class CategoryTemplatesJsonController extends AbstractJsonController
 {
@@ -16,12 +24,17 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     const ROUTE_REFRESH_CATEGORIES = 'refreshCategories';
     const ROUTE_TEMPLATE_DELETE = 'templateDelete';
 
+    const SAVE_ERROR_EXISTING_NAME = 'existing name';
+    const SAVE_ERROR_EXISTING_CATEGORY = 'existing category';
+    const SAVE_ERROR_ETAG = 'conflict';
+
     /** @var UserOUService */
     protected $userOuService;
     /** @var  CategoryTemplateService */
     protected $categoryTemplateService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory,
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
         UserOUService $userOuService,
         CategoryTemplateService $categoryTemplateService
     ) {
@@ -50,102 +63,165 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function categoryRootsAction()
     {
-        return $this->buildResponse([
-            'accountCategories' => [
-                [
-                    'accountId' => 12,
-                    'categories' => [
-                        '123' => 'Televisions',
-                        '345' => 'Clothes',
-                        '567' => 'Phones'
-                    ]
-                ],
-                [
-                    'accountId' => 36,
-                    'categories' => [
-                        '123' => 'Televisions 2',
-                        '345' => 'Clothes 2',
-                        '567' => 'Phones 2'
-                    ]
-                ],
-                [
-                    'accountId' => 42,
-                    'categories' => [
-                        '123' => 'Televisions 3',
-                        '345' => 'Clothes 3',
-                        '567' => 'Phones 3'
-                    ]
-                ],
-                [
-                    'accountId' => 115,
-                    'categories' => [
-                        '123' => 'Televisions 4',
-                        '345' => 'Clothes 4',
-                        '567' => 'Phones 4'
-                    ]
-                ]
-            ]
-        ]);
+        try {
+            return $this->buildResponse([
+                'accountCategories' => $this->categoryTemplateService->fetchCategoryRoots(
+                    $this->userOuService->getRootOuByActiveUser()
+                )
+            ]);
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function saveAction()
     {
-        $success = $this->params()->fromPost('success' , false);
-        $success = !($success === 'false' || $success === false);
-
-        if ($success) {
+        $postData = $this->params()->fromPost();
+        try {
+            /** @var CategoryTemplate $entity */
+            $entity = $this->categoryTemplateService->saveCategoryTemplateFromRaw($postData);
             return $this->buildSuccessResponse([
                 'valid' => true,
-                'id' => 726,
-                'etag' => '12321esdfc2342jkda',
-                'errors' => false
+                'id' => $entity->getId(),
+                'etag' => $entity->getStoredETag(),
+                'error' => false
             ]);
+        } catch (NameAlreadyUsedException $e) {
+            return $this->buildNameAlreadyExistsError($e, $postData['name']);
+        } catch (CategoryAlreadyMappedException $e) {
+            return $this->buildCategoryAlreadyMappedError($e, $postData['categoryIds'], $postData['id'] ?? null);
+        } catch (Conflict $e) {
+            return $this->buildEtagError();
         }
+    }
 
+    protected function buildNameAlreadyExistsError(Conflict $e, string $name): JsonModel
+    {
         return $this->buildErrorResponse(
             [
-                'code' => 'existing',
-                'message' => 'You have already mapped this category',
+                'code' => static::SAVE_ERROR_EXISTING_NAME,
+                'message' => $e->getMessage(),
                 'existing' => [
-                    'name' => 'Washing machines and others',
-                    'accountId' => 36,
-                    'externalCategoryId' => 12345
+                    'name' => $name
                 ]
             ],
             [
                 'valid' => false,
-                'id' => 1
             ]
         );
     }
 
+    protected function buildCategoryAlreadyMappedError(Conflict $e, array $requestedCategoryIds, $currentTemplateId = null): JsonModel
+    {
+        return $this->buildErrorResponse(
+            [
+                'code' => static::SAVE_ERROR_EXISTING_CATEGORY,
+                'message' => $e->getMessage(),
+                'existing' => $this->buildDetailsOfAlreadyMappedCategories($requestedCategoryIds, $currentTemplateId)
+            ],
+            [
+                'valid' => false,
+                'id' => $currentTemplateId
+            ]
+        );
+    }
+
+    protected function buildDetailsOfAlreadyMappedCategories(array $requestedCategoryIds, $currentTemplateId = null): array
+    {
+        $existingTemplates = $this->fetchExistingByCategoryIds($requestedCategoryIds, $currentTemplateId);
+        $rootOU = $this->userOuService->getRootOuByActiveUser();
+        $existingDetails = [];
+        foreach ($existingTemplates as $existingTemplate) {
+            $overlapCategoryIds = array_intersect($existingTemplate->getCategoryIds(), $requestedCategoryIds);
+            $overlapCategories = $this->categoryTemplateService->fetchCategoriesByIds($overlapCategoryIds);
+            foreach ($overlapCategories as $category) {
+                $accountId = $this->categoryTemplateService->fetchAccountIdForCategory($category, $rootOU);
+                $existingDetails[] = [
+                    'name' => $existingTemplate->getName(),
+                    'accountId' => $accountId,
+                    'categoryId' => $category->getId(),
+                ];
+            }
+        }
+        return $existingDetails;
+    }
+
+    protected function buildEtagError(): JsonModel
+    {
+        return $this->buildErrorResponse(
+            [
+                'code' => static::SAVE_ERROR_ETAG,
+                'message' => 'Someone else may have updated this template in the meantime. Please refresh and try again.',
+                'existing' => false
+            ],
+            [
+                'valid' => false,
+            ]
+        );
+    }
+
+    protected function fetchExistingByCategoryIds(array $requestedCategoryIds, $currentTemplateId = null): CategoryTemplateCollection
+    {
+        $existingTemplates = $this->categoryTemplateService->fetchByCategoryIds($requestedCategoryIds);
+        if ($currentTemplateId && $existingTemplates->containsId($currentTemplateId)) {
+            // Don't mark it as conflicting with itself
+            $currentTemplate = $existingTemplates->getById($currentTemplateId);
+            $existingTemplates->detach($currentTemplate);
+        }
+        return $existingTemplates;
+    }
+
     public function categoryChildrenAction()
     {
-        return $this->buildResponse([
-            'categories' => [
-                '1023' => 'Televisions Child',
-                '2354' => 'Clothes Child',
-                '8721' => 'Phones Child'
-            ]
-        ]);
+        try {
+            return $this->buildResponse([
+                'categories' => $this->categoryTemplateService->fetchCategoryChildrenForAccountAndCategory(
+                    $this->getAccountIdFromRoute(),
+                    $this->params()->fromRoute('categoryId', -1)
+                )
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function refreshCategoriesAction()
     {
-        return $this->buildResponse([
-            'categories' => [
-                '91' => 'Refetched Televisions',
-                '103' => 'Refetched Clothes',
-                '209' => 'Refetched Phones'
-            ]
-        ]);
+        try {
+            return $this->buildResponse([
+                'categories' => $this->categoryTemplateService->refreshCategories($this->getAccountIdFromRoute())
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function templateDeleteAction()
     {
-        return $this->buildResponse([
-            'valid' => true,
-            'errors' => []
-        ]);
+        try {
+            $id = $this->params()->fromRoute('templateId');
+            $this->categoryTemplateService->deleteById($id);
+            return $this->buildSuccessResponse(['valid' => true]);
+
+        } catch (NotFound $e) {
+            // Nothing to delete
+            return $this->buildSuccessResponse(['valid' => true]);
+        } catch (\Exception $e) {
+            return $this->buildErrorResponse('There was a problem while deleting the template. Please try again. Contact support if the problem persists.', ['valid' => false]);
+        }
+    }
+
+    protected function getAccountIdFromRoute()
+    {
+        return $this->params()->fromRoute('accountId', 0);
+    }
+
+    protected function buildGenericErrorResponse()
+    {
+        return $this->buildErrorResponse('An error has occurred. Please try again');
     }
 }

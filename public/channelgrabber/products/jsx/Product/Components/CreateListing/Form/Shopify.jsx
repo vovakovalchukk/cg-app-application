@@ -6,7 +6,9 @@ define([
     'Common/Components/Button',
     'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
+    'Product/Components/CreateListing/Form/Shared/RefreshIcon',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
 ], function(
     React,
     Select,
@@ -15,11 +17,13 @@ define([
     Button,
     ImagePicker,
     CategorySelect,
-    RefreshIcon
+    RefreshIcon,
+    VariationPicker,
+    SimpleProduct
 ) {
     "use strict";
 
-    return React.createClass({
+    var Shopify = React.createClass({
         getDefaultProps: function() {
             return {
                 title: null,
@@ -90,8 +94,29 @@ define([
                 />
             );
         },
+        renderVariationSpecificFields: function () {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return <SimpleProduct
+                    setFormStateListing={this.props.setFormStateListing}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                />;
+            }
+
+            return <VariationPicker
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                currency={this.state.currency}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+                attributeNames={this.props.product.attributeNames}
+            />
+        },
         render: function() {
             return <div>
+                {this.renderVariationSpecificFields()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
@@ -110,12 +135,6 @@ define([
                             value={this.props.description}
                             onChange={this.onInputChange}
                         />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput value={this.props.price} onChange={this.onInputChange} currency={this.props.listingCurrency} />
                     </div>
                 </label>
                 <label>
@@ -144,11 +163,9 @@ define([
                         disabled={this.state.refreshCategoriesDisabled}
                     />
                 </label>
-                <label>
-                    <span className={"inputbox-label"}>Image</span>
-                    {this.renderImagePicker()}
-                </label>
             </div>;
         }
     });
+
+    return Shopify;
 });

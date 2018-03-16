@@ -10,13 +10,16 @@
   transition: all 0.5s ease;
   position: relative;
   z-index: 10;
+  text-align: center;
 }
 
 .container-content {
   background-color: white;
   padding: 16px;
   margin: 0 auto;
-  max-width: 736px;
+  max-width: 1200px;
+  text-align: left;
+  display: inline-block;
 
   .inputbox-label {
     margin-right: 8px;
@@ -32,6 +35,10 @@
 }
 
 .container-sub-header {
+  padding: 8px;
+}
+
+.container-children {
   padding: 8px;
 }
 

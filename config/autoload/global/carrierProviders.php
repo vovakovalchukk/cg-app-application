@@ -6,6 +6,8 @@ use CG\Channel\Shipping\Provider\ChannelsInterface as CarrierProviderChannelsInt
 use CG\Channel\Shipping\Provider\Channels\Repository as CarrierProviderChannelsRepository;
 use CG\Channel\Shipping\Provider\ServiceInterface as CarrierProviderServiceInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
+use CG\Account\Shipping\Service as AccountShippingService;
+use CG\Account\Shipping\GenericAccountProviderInterface as GenericShippingAccountProvider;
 
 // NetDespatch
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
@@ -30,6 +32,10 @@ use CG\ShipStation\Carrier\Service as ShipStationCarrierService;
 use CG\ShipStation\Carrier\BookingOptions as ShipStationBookingOptionsService;
 use CG\ShipStation\Carrier\Label\Service as ShipStationLabelService;
 
+// CourierExports
+use CG\CourierExport\Provider as CourierExportProvider;
+use CG\CourierExport\RoyalMailClickDrop\GenericAccountProvider as RoyalMailClickDropGenericAccountProvider;
+
 return [
     'di' => [
         'instance' => [
@@ -42,6 +48,7 @@ return [
                         ['provider' => AmazonShippingChannelsProvider::class],
                         ['provider' => CourierAdapterProviderImplementationService::class],
                         ['provider' => ShipStationCarrierService::class],
+                        ['provider' => CourierExportProvider::class],
                     ]
                 ]
             ],
@@ -54,6 +61,7 @@ return [
                         ['provider' => AmazonShippingChannelsProvider::class],
                         ['provider' => CourierAdapterProviderCarrierBookingOptions::class],
                         ['provider' => ShipStationBookingOptionsService::class],
+                        ['provider' => CourierExportProvider::class],
                     ]
                 ]
             ],
@@ -65,9 +73,17 @@ return [
                         ['provider' => AmazonMcfCarrierProviderService::class],
                         ['provider' => AmazonCarrierProvider::class],
                         ['provider' => CourierAdapterProviderLabelService::class],
-                        ['provider' => ShipStationLabelService::class]
+                        ['provider' => ShipStationLabelService::class],
+                        ['provider' => CourierExportProvider::class],
                     ]
                 ]
+            ],
+            AccountShippingService::class => [
+                'injections' => [
+                    'registerGenericAccount' => [
+                        ['genericAccountProvider' => RoyalMailClickDropGenericAccountProvider::class],
+                    ],
+                ],
             ],
         ],
         'definition' => [
@@ -101,6 +117,16 @@ return [
                             ]
                         ]
                     ]
+                ],
+                AccountShippingService::class => [
+                    'methods' => [
+                        'registerGenericAccount' => [
+                            'genericAccountProvider' => [
+                                'type' => GenericShippingAccountProvider::class,
+                                'required' => true
+                            ],
+                        ],
+                    ],
                 ],
             ]
         ],

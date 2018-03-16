@@ -3,28 +3,31 @@ define([
     'Common/Components/Select',
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
+    'Product/Components/CreateListing/Form/WooCommerce/CategorySelect',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
     'Common/Components/ImagePicker',
-    'Product/Components/CreateListing/Form/WooCommerce/CategorySelect'
 ], function(
     React,
     Select,
     CurrencyInput,
     Input,
-    ImagePicker,
-    CategorySelect
+    CategorySelect,
+    VariationPicker,
+    SimpleProduct,
+    ImagePicker
 ) {
     "use strict";
 
-    var NO_SETTINGS = 'NO_SETTINGS';
-
-    return React.createClass({
+    var WooCommerce = React.createClass({
         getDefaultProps: function() {
             return {
                 title: null,
                 description: null,
-                price: null,
                 accountId: null,
-                product: null
+                product: null,
+                variationsDataForProduct: [],
+                price: null
             }
         },
         getInitialState: function() {
@@ -51,7 +54,7 @@ define([
                 type: 'GET',
                 success: function (response) {
                     this.setState({
-                        rootCategories: response.category
+                        rootCategories: response.categories
                     });
                 }
             });
@@ -76,10 +79,44 @@ define([
         onLeafCategorySelected(categoryId) {
             this.props.setFormStateListing({category: categoryId});
         },
-        onImageSelected: function(image, selectedImageIds) {
+        getTooltipText(inputFieldName) {
+            var tooltips = {
+                title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
+                description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
+                category: 'Select a category to list your product to',
+            };
+            return tooltips[inputFieldName];
+        },
+        onImageSelected: function(image) {
             this.props.setFormStateListing({
                 imageId: image.id
             });
+        },
+        renderVariationSpecificFields: function () {
+            var variationsDataForProduct = this.props.variationsDataForProduct;
+            var attributeNames = this.props.product.attributeNames;
+            if (this.props.variationsDataForProduct.length == 0) {
+                return <SimpleProduct
+                    variationFormState={this.props.variations}
+                    setFormStateListing={this.props.setFormStateListing}
+                    customFields={{}}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                />;
+            }
+
+            return <VariationPicker
+                variationsDataForProduct={variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                attributeNames={attributeNames}
+                editableAttributeNames={false}
+                customFields={{}}
+                currency={this.state.currency}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
         },
         renderImagePicker: function() {
             if (this.props.product.images.length == 0) {
@@ -97,18 +134,9 @@ define([
                 />
             );
         },
-        getTooltipText(inputFieldName) {
-            var tooltips = {
-                title: 'An effective title should include brand name and item specifics. Reiterate what your item actually is to make it easy to find',
-                price: 'How much do you want to sell your item for?',
-                description: 'Describe your item in detail. Be sure to include all item specifics like size shape and colour. Clearly state the item\'s condition such as new or used',
-                image: 'Pick an image to use on this listing',
-                category: 'Select a category to list your product to',
-            };
-            return tooltips[inputFieldName];
-        },
         render: function() {
             return <div>
+                {this.renderVariationSpecificFields()}
                 <label>
                     <span className={"inputbox-label"}>Listing Title:</span>
                     <div className={"order-inputbox-holder"}>
@@ -117,17 +145,6 @@ define([
                             value={this.props.title}
                             onChange={this.onInputChange}
                             title={this.getTooltipText('title')}
-                        />
-                    </div>
-                </label>
-                <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            value={this.props.price}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('price')}
                         />
                     </div>
                 </label>
@@ -143,7 +160,7 @@ define([
                     </div>
                 </label>
                 <label>
-                    <span className={"inputbox-label"}>Image</span>
+                    <span className={"inputbox-label"}>Primary image</span>
                     {this.renderImagePicker()}
                 </label>
                 <CategorySelect
@@ -157,4 +174,6 @@ define([
             </div>;
         }
     });
+
+    return WooCommerce;
 });

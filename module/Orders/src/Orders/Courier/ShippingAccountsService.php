@@ -1,11 +1,9 @@
 <?php
 namespace Orders\Courier;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Account\Shared\Filter as AccountFilter;
-use CG\Channel\Type as ChannelType;
+use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\Channels\AccountDisplayNameInterface;
 use CG\Channel\Shipping\Provider\Channels\Repository as ShippingChannelsProviderRepository;
 use CG\User\OrganisationUnit\Service as UserOuService;
@@ -37,18 +35,9 @@ class ShippingAccountsService
      */
     public function getShippingAccounts()
     {
-        if ($this->shippingAccounts) {
-            return $this->shippingAccounts;
+        if (!$this->shippingAccounts) {
+            $this->shippingAccounts = $this->accountService->fetchShippingAccounts();
         }
-        $ouIds = $this->userOuService->getAncestorOrganisationUnitIdsByActiveUser();
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId($ouIds)
-            ->setType(ChannelType::SHIPPING)
-            ->setDeleted(false)
-            ->setActive(true);
-        $this->shippingAccounts =  $this->accountService->fetchByFilter($filter);
         return $this->shippingAccounts;
     }
 
@@ -60,8 +49,8 @@ class ShippingAccountsService
         $accounts = $this->getShippingAccounts();
         $providedAccounts = new AccountCollection(Account::class, __FUNCTION__);
 
-        foreach ($accounts as $account)
-        {
+        /** @var Account $account */
+        foreach ($accounts as $account) {
             if (!$this->shippingChannelsProviderRepository->isProvidedAccount($account)) {
                 continue;
             }
@@ -78,6 +67,7 @@ class ShippingAccountsService
     public function convertShippingAccountsToOptions(AccountCollection $shippingAccounts, $selectedAccountId = null)
     {
         $courierOptions = [];
+        /** @var Account $shippingAccount */
         foreach ($shippingAccounts as $shippingAccount) {
             $displayName = $this->getDisplayNameForAccount($shippingAccount);
             $courierOptions[] = [

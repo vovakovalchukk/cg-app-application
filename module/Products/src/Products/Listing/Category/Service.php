@@ -45,36 +45,18 @@ class Service
         }
     }
 
-    public function fetchCategoryForAccountAndExternalAccountId(
+    public function fetchRootCategoriesForAccount(
         Account $account,
-        string $externalId,
-        bool $useAccountId = true,
-        string $marketplace = null
-    ): Category {
-        $filter = (new CategoryFilter(1, 1))
-            ->setExternalId([$externalId])
-            ->setChannel([$account->getChannel()])
-            ->setEnabled(true);
-
-        !is_null($marketplace) ? $filter->setMarketplace([$marketplace]) : null;
-        $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
-
-        /** @var CategoryCollection $categoryCollection */
-        $categoryCollection = $this->categoryService->fetchCollectionByFilter($filter);
-        return $categoryCollection->getFirst();
+        bool $listable = true,
+        string $marketplace = null,
+        bool $useAccountId = true
+    ) {
+        return $this->fetchCategoriesForAccount($account, 0, $listable, $marketplace, $useAccountId);
     }
 
-    public function fetchCategoryChildrenForAccountAndParent(
-        Account $account,
-        Category $category,
-        bool $useAccountId = true
-    ): array {
-        $filter = (new CategoryFilter('all', 1))
-            ->setChannel([$account->getChannel()])
-            ->setParentId([$category->getId()]);
-        $useAccountId ? $filter->setAccountId([$account->getId()]) : null;
-
+    public function fetchCategoryChildrenForParentCategoryId(int $categoryId) {
         try {
+            $filter = (new CategoryFilter('all', 1))->setParentId([$categoryId]);
             $categories = $this->categoryService->fetchCollectionByFilter($filter);
             return $this->formatCategoriesResponse($categories);
         } catch (NotFound $e) {
@@ -82,26 +64,15 @@ class Service
         }
     }
 
-    public function fetchCategoryChildrenForAccountAndExternalId(
-        Account $account,
-        string $externalId,
-        bool $useAccountId = true,
-        string $marketplace = null
-    ) {
-        try {
-            $category = $this->fetchCategoryForAccountAndExternalAccountId($account, $externalId, $useAccountId, $marketplace);
-            return $this->fetchCategoryChildrenForAccountAndParent($account, $category, $useAccountId);
-        } catch (NotFound $e) {
-            return [];
-        }
-    }
-
-    protected function formatCategoriesResponse(CategoryCollection $categoryCollection): array
+    public function formatCategoriesResponse(CategoryCollection $categoryCollection): array
     {
         $categories = [];
         /** @var Category $category */
         foreach ($categoryCollection as $category) {
-            $categories[$category->getExternalId()] = $category->getTitle();
+            $categories[$category->getId()] = [
+                'title' => $category->getTitle(),
+                'listable' => $category->isListable(),
+            ];
         }
         return $categories;
     }

@@ -13,6 +13,7 @@ use CG\Order\Shared\Shipping\Method\Collection as ShippingMethodCollection;
 use CG\Order\Shared\Shipping\Method\Entity as ShippingMethod;
 use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
 use CG\Product\Category\ExternalData\Entity as CategoryExternal;
+use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Category\Service as CategoryService;
@@ -70,23 +71,20 @@ class Service implements
         $this->postData = $postData;
     }
 
-    public function getCategoryChildrenForCategoryAndAccount(Account $account, string $externalCategoryId): array
+    public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
     {
         try {
-            return $this->categoryService->fetchCategoryChildrenForAccountAndExternalId(
-                $account,
-                $externalCategoryId,
-                false,
-                $this->getEbaySiteIdForAccount($account)
+            return $this->appendEbaySpecificFieldsToCategoriesResponse(
+                $this->categoryService->fetchCategoryChildrenForParentCategoryId($categoryId)
             );
         } catch (NotFound $e) {
             return [];
         }
     }
 
-    public function getCategoryDependentValues(Account $account, string $externalCategoryId): array
+    public function getCategoryDependentValues(Account $account, int $categoryId): array
     {
-        $ebayData = $this->fetchEbayCategoryData($account, $externalCategoryId);
+        $ebayData = $this->fetchEbayCategoryData($categoryId);
 
         return [
             'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
@@ -102,7 +100,7 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'category' => $this->getCategoryOptionsForAccount($account),
+            'categories' => $this->getCategoryOptionsForAccount($account),
             'shippingService' => $this->getShippingMethodsForAccount($account),
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),
@@ -110,22 +108,38 @@ class Service implements
         ];
     }
 
-    protected function fetchEbayCategoryData(Account $account,int $externalCategoryId): ?Data
+    protected function fetchEbayCategoryData(int $categoryId): ?Data
     {
         try {
-            $category = $this->categoryService->fetchCategoryForAccountAndExternalAccountId(
-                $account,
-                $externalCategoryId,
-                false,
-                $this->getEbaySiteIdForAccount($account)
-            );
             /** @var CategoryExternal $categoryExternal */
-            $categoryExternal = $this->categoryExternalService->fetch($category->getId());
+            $categoryExternal = $this->categoryExternalService->fetch($categoryId);
             /** @var Data $ebayData */
             return $categoryExternal->getData();
         } catch (NotFound $e) {
             return null;
         }
+    }
+
+    /**
+     * @return Data[]
+     */
+    protected function fetchEbayCategoriesData(array $categoryIds): array
+    {
+        $data = [];
+        if (empty($categoryIds)) {
+            return $data;
+        }
+        try {
+            $filter = (new CategoryExternalFilter('all', 1))->setCategoryId($categoryIds);
+            $categoryExternals = $this->categoryExternalService->fetchCollectionByFilter($filter);
+            /** @var CategoryExternal $categoryExternal */
+            foreach ($categoryExternals as $categoryExternal) {
+                $data[$categoryExternal->getCategoryId()] = $categoryExternal->getData();
+            }
+        } catch (NotFound $exception) {
+            // Not Category data for requested categories
+        }
+        return $data;
     }
 
     protected function getListingDurationsFromEbayCategoryData(?Data $ebayData): array
@@ -135,6 +149,11 @@ class Service implements
         }
         $listingDurations = (new FeatureHelper($ebayData))->getListingDurationsForType();
         return $this->formatListingDurationsArray($listingDurations);
+    }
+
+    protected function getVariationsEnabledFromEbayCategoryData(?Data $ebayData): bool
+    {
+        return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
     }
 
     protected function getItemSpecificsFromEbayCategoryData(?Data $ebayData): array
@@ -234,13 +253,13 @@ class Service implements
 
     protected function getCategoryOptionsForAccount(Account $account): array
     {
-        return $this->categoryService->fetchCategoriesForAccount(
+        $categories = $this->categoryService->fetchRootCategoriesForAccount(
             $account,
-            0,
             false,
             $this->getEbaySiteIdForAccount($account),
             false
         );
+        return $this->appendEbaySpecificFieldsToCategoriesResponse($categories);
     }
 
     protected function getShippingMethodsForAccount(Account $account): array
@@ -310,5 +329,16 @@ class Service implements
             $durations[$listingDuration] = $durationName;
         }
         return $durations;
+    }
+
+    protected function appendEbaySpecificFieldsToCategoriesResponse(array $categoriesResponse): array
+    {
+        $ebayData = $this->fetchEbayCategoriesData(array_keys($categoriesResponse));
+        foreach ($categoriesResponse as $categoryId => &$categoryResponse) {
+            $categoryResponse['variations'] = $this->getVariationsEnabledFromEbayCategoryData(
+                $ebayData[$categoryId] ?? null
+            );
+        }
+        return $categoriesResponse;
     }
 }

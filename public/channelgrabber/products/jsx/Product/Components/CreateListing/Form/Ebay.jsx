@@ -4,6 +4,8 @@ define([
     'Common/Components/CurrencyInput',
     'Common/Components/Input',
     'Product/Components/CreateListing/Form/Ebay/CategorySelect',
+    'Product/Components/CreateListing/Form/Shared/VariationPicker',
+    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
     'Common/Components/ImagePicker',
     'Product/Components/CreateListing/Form/Ebay/ItemSpecifics'
 ], function(
@@ -12,6 +14,8 @@ define([
     CurrencyInput,
     Input,
     CategorySelect,
+    VariationPicker,
+    SimpleProduct,
     ImagePicker,
     ItemSpecifics
 ) {
@@ -27,6 +31,9 @@ define([
                 price: null,
                 accountId: null,
                 product: null,
+                variationsDataForProduct: [],
+                attributeNameMap: {},
+                listingType: null,
                 ean: null,
                 shippingPrice: 0
             }
@@ -41,12 +48,16 @@ define([
                 rootCategories: null,
                 availableSites: {},
                 listingDurationFieldValues: null,
-                itemSpecifics: {}
+                itemSpecifics: {},
+                variationImageVariable: null,
+                variationImageNames: [],
+                attributeImageMap: {}
             }
         },
         componentDidMount: function() {
             this.fetchAndSetDefaultsForAccount();
             this.fetchAndSetChannelSpecificFieldValues();
+            this.initializeVariationsImagePicker();
             this.props.setFormStateListing({
                 shippingPrice: this.props.shippingPrice
             });
@@ -98,7 +109,7 @@ define([
                 success: function (response) {
                     this.setState({
                         currency: response.currency,
-                        rootCategories: response.category,
+                        rootCategories: response.categories,
                         shippingServiceFieldValues: response.shippingService,
                         availableSites: response.sites
                     });
@@ -169,6 +180,11 @@ define([
                 imageId: image.id
             });
         },
+        onListingTypeSelected: function(listingType) {
+            this.props.setFormStateListing({
+                listingType: listingType.value
+            });
+        },
         renderImagePicker: function() {
             if (this.props.product.images.length == 0) {
                 return (
@@ -201,21 +217,192 @@ define([
             };
             return tooltips[inputFieldName];
         },
-        getBarcodeErrors: function() {
-            var errors = [];
-            var EAN_LENGTH = 13;
-            if (!this.props.ean || this.props.ean.length == 0) {
-                return errors;
+        getCustomFields: function() {
+            return {
+                ean: {
+                    displayName: 'Barcode',
+                    getFormComponent: function(value, onChange) {
+                        return <Input
+                            name="ean"
+                            value={value}
+                            onChange={onChange}
+                        />
+                    },
+                    getDefaultValueFromVariation: function(variation) {
+                        return variation.details.ean;
+                    }
+                }
+            }
+        },
+        renderVariationSpecificFields: function () {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return <SimpleProduct
+                    setFormStateListing={this.props.setFormStateListing}
+                    customFields={this.getCustomFields()}
+                    currency={this.state.currency}
+                    product={this.props.product}
+                    price={this.props.price}
+                    ean={this.props.ean}
+                    images={false}
+                />;
             }
 
-            if (this.props.ean.length != EAN_LENGTH) {
-                errors.push('Barcode must be 13 characters long');
+            return <VariationPicker
+                images={false}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                variationFormState={this.props.variations}
+                setFormStateListing={this.props.setFormStateListing}
+                attributeNames={this.props.product.attributeNames}
+                attributeNameMap={this.props.attributeNameMap}
+                editableAttributeNames={true}
+                customFields={this.getCustomFields()}
+                currency={this.state.currency}
+                listingType={this.props.listingType}
+                fetchVariations={this.props.fetchVariations}
+                product={this.props.product}
+            />
+        },
+        renderVariationListingType: function()
+        {
+            if (this.props.variationsDataForProduct.length == 0) {
+                return;
+            }
+            var multiVariation = (this.props.variations && Object.keys(this.props.variations).length > 1);
+            var options = [
+                {"value": "variation", "name": "Variation Product", "selected": multiVariation},
+                {"value": "single", "name": "Single Product"}
+            ];
+            return <label>
+                <span className={"inputbox-label"}>Listing Type:</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        options={options}
+                        autoSelectFirst={false}
+                        onOptionChange={this.onListingTypeSelected}
+                        disabled={multiVariation}
+                        selectedOption={multiVariation ? options[0] : null}
+                    />
+                </div>
+            </label>;
+        },
+        initializeVariationsImagePicker: function()
+        {
+            var variations = this.props.product.attributeNames.map(function(attribute) {
+                return {"value": attribute, "name": attribute};
+            });
+
+            if (variations.length !== 1) {
+                return;
             }
 
-            if (!this.props.ean.match(new RegExp('^[0-9]+$'))) {
-                errors.push('Barcode must be numbers only');
+            this.onVariationOptionSelected(variations[0]);
+        },
+        renderVariationsImagePicker: function()
+        {
+            var variations = this.props.product.attributeNames.map(function(attribute) {
+                var name = attribute;
+                if (this.props.attributeNameMap[attribute]) {
+                    name = this.props.attributeNameMap[attribute];
+                }
+                return {"value": attribute, "name": name};
+            }.bind(this));
+
+            if (variations.length === 0) {
+                return;
             }
-            return errors;
+
+            var fields = [this.renderVariationImageValuePicker(variations)];
+
+            for (var variationValue of this.state.variationImageNames) {
+                fields.push(this.renderVariationImagePicker(variationValue));
+            }
+            return <span>{fields}</span>;
+        },
+        renderVariationImagePicker: function (variationValue)
+        {
+            var imagePicker;
+            if (this.props.product.images.length == 0) {
+                imagePicker = <p>No images available</p>
+            } else {
+                imagePicker = <ImagePicker
+                    name={variationValue}
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onVariationImageSelected}
+                    title={this.getTooltipText('image')}
+                />;
+            }
+            return <label>
+                <span className={"inputbox-label"}>{variationValue}</span>
+                {imagePicker}
+            </label>;
+        },
+        renderVariationImageValuePicker: function(variations)
+        {
+            if (variations.length === 1) {
+                return <label>
+                    <span className={"inputbox-label"}>Variation images variable:</span>
+                    <div className={"order-inputbox-holder"}>
+                        <span className={"inputbox-label"}>{variations[0].name}</span>
+                    </div>
+                </label>;
+            }
+            return <label>
+                <span className={"inputbox-label"}>Variation images variable:</span>
+                <div className={"order-inputbox-holder"}>
+                 <Select
+                     options={variations}
+                     autoSelectFirst={false}
+                     onOptionChange={this.onVariationOptionSelected}
+                     selectedOption={this.getSelectedImageVariationVariable()}
+                 />
+                </div>
+            </label>;
+        },
+        getSelectedImageVariationVariable: function() {
+            if (this.state.variationImageVariable) {
+                var name = this.state.variationImageVariable;
+                if (this.props.attributeNameMap[this.state.variationImageVariable]) {
+                    name = this.props.attributeNameMap[this.state.variationImageVariable];
+                }
+                return {
+                    value: this.state.variationImageVariable,
+                    name: name
+                }
+            }
+            return {value: '', name: ''};
+        },
+        onVariationOptionSelected: function(variation)
+        {
+            var variationValues = [], value;
+            for (var variationProduct of this.props.variationsDataForProduct) {
+                value = variationProduct.attributeValues[variation.value];
+                variationValues[value] = value;
+            }
+            this.setState({
+                variationImageVariable: variation.value,
+                variationImageNames: Object.values(variationValues),
+                attributeImageMap: {}
+            });
+            this.props.setFormStateListing({
+                imageAttributeName: variation.value,
+                attributeImageMap: {}
+            });
+        },
+        onVariationImageSelected: function(image, selectedImageIds, variationValue)
+        {
+            var attributeMap = this.state.attributeImageMap;
+            if (selectedImageIds.length === 0) {
+                delete attributeMap[variationValue];
+            } else {
+                attributeMap[variationValue] = selectedImageIds[0];
+            }
+            this.setState({
+                attributeImageMap: attributeMap
+            });
+            this.props.setFormStateListing({
+                attributeImageMap: attributeMap
+            });
         },
         render: function() {
             if (this.state.error && this.state.error == NO_SETTINGS) {
@@ -232,6 +419,8 @@ define([
             }
 
             return <div>
+                {this.renderVariationSpecificFields()}
+                {this.renderVariationListingType()}
                 <label>
                     <span className={"inputbox-label"}>Site:</span>
                     <div className={"order-inputbox-holder"}>
@@ -257,17 +446,6 @@ define([
                     </div>
                 </label>
                 <label>
-                    <span className={"inputbox-label"}>Price</span>
-                    <div className={"order-inputbox-holder"}>
-                        <CurrencyInput
-                            value={this.props.price}
-                            onChange={this.onInputChange}
-                            currency={this.state.currency}
-                            title={this.getTooltipText('price')}
-                        />
-                    </div>
-                </label>
-                <label>
                     <span className={"inputbox-label"}>Description</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
@@ -279,26 +457,16 @@ define([
                     </div>
                 </label>
                 <label>
-                    <span className={"inputbox-label"}>Image</span>
+                    <span className={"inputbox-label"}>Primary image</span>
                     {this.renderImagePicker()}
                 </label>
-                <label>
-                    <span className={"inputbox-label"}>Barcode</span>
-                    <div className={"order-inputbox-holder"}>
-                        <Input
-                            name="ean"
-                            value={this.props.ean}
-                            onChange={this.onInputChange}
-                            title={this.getTooltipText('ean')}
-                            errors={this.getBarcodeErrors()}
-                        />
-                    </div>
-                </label>
+                {this.renderVariationsImagePicker()}
                 <CategorySelect
                     accountId={this.props.accountId}
                     rootCategories={this.state.rootCategories}
                     onLeafCategorySelected={this.onLeafCategorySelected}
                     title={this.getTooltipText('category')}
+                    variations={this.props.variations && Object.keys(this.props.variations).length > 1}
                 />
                 {(this.state.listingDurationFieldValues)?
                     <label>
