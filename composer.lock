@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9c2ee4c9c30881a9e1ddc0800dd63d4",
+    "content-hash": "e831f433ac3fb22b66e9bb21784f64bb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2023,16 +2023,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "81169854f39c10aaa01df72f2f94d20118faaacd"
+                "reference": "eb3ea3fa47401b08cf29d5ae15e91a0cfd93506a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-LIS-73-create-variation-listings-628f5d.zip",
-                "reference": "81169854f39c10aaa01df72f2f94d20118faaacd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.12.0-3d2e20.zip",
+                "reference": "eb3ea3fa47401b08cf29d5ae15e91a0cfd93506a",
                 "shasum": null
             },
             "require": {
@@ -2084,7 +2084,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-03-15T09:55:25+00:00"
+            "time": "2018-03-15T09:55:31+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2449,16 +2449,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.2.0",
+            "version": "1.2.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "56c557ad3ea903c1b4747d2f951ec855a0a51e18"
+                "reference": "e038c4e03556d2a8c851f42997d6f543f8b72185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.2.0-73d7d8.zip",
-                "reference": "56c557ad3ea903c1b4747d2f951ec855a0a51e18",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.2.0.1-e5c3ad.zip",
+                "reference": "e038c4e03556d2a8c851f42997d6f543f8b72185",
                 "shasum": null
             },
             "require": {
@@ -2468,7 +2468,7 @@
                 "channelgrabber/listing": "^1.13.0",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.23.0",
-                "channelgrabber/product": "~1.11.4",
+                "channelgrabber/product": "^1.11.4",
                 "channelgrabber/stdlib": "^2.12.33",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "channelgrabber/zf2-stdlib": "^1.1.7",
@@ -2491,7 +2491,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-03-15T09:57:15+00:00"
+            "time": "2018-03-16T13:05:45+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -7965,7 +7965,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8020,7 +8020,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8075,7 +8075,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8126,7 +8126,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8212,7 +8212,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9515,12 +9515,6 @@
             "alias_normalized": "1.12.3.0",
             "version": "dev-LIS-145-fix-create-listing-ebay-url",
             "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.11.7",
-            "alias_normalized": "1.11.7.0",
-            "version": "dev-EPIC-LIS-73-create-variation-listings",
-            "package": "channelgrabber/product"
         }
     ],
     "minimum-stability": "stable",
