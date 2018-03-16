@@ -26,10 +26,10 @@
 /public/channelgrabber/common/js/
 /public/channelgrabber/orders/js/
 /public/channelgrabber/products/js/
+/public/channelgrabber/redux/js/
 /public/channelgrabber/reports/js/
 /public/channelgrabber/settings/js/
 /public/channelgrabber/setup-wizard/js/
-/public/channelgrabber/redux/js/
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml

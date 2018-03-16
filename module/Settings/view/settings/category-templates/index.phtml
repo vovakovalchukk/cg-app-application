@@ -2,3 +2,22 @@
 <div id="breadcrumbs" class="floatLeftClear">
     <span class="heading-large"><?= $this->translate('Category mapper'); ?>
 </div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'CategoryMapper': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/CategoryMapper',
+            'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common'
+        }
+    });
+    require(["CategoryMapper/App"], function(App) {
+        var app = new App(
+            document.getElementById('app-mount-node'),
+            {
+                accounts: <?= json_encode($accounts); ?>,
+                categories: <?= json_encode($categories); ?>
+            }
+        );
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="app-mount-node" class="module clearfix section-separator"></div>

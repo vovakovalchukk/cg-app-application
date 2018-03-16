@@ -45,10 +45,15 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function accountsAction()
     {
-        $ou = $this->userOuService->getRootOuByActiveUser();
-        return $this->buildResponse([
-            'accounts' => $this->categoryTemplateService->fetchAccounts($ou)
-        ]);
+        try {
+            $ou = $this->userOuService->getRootOuByActiveUser();
+            return $this->buildResponse([
+                'accounts' => $this->categoryTemplateService->fetchAccounts($ou),
+                'categories' => $this->categoryTemplateService->fetchCategoryRoots($ou)
+            ]);
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function fetchAction()
