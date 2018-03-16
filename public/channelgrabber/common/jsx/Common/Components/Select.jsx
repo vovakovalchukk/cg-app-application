@@ -180,18 +180,26 @@ define([
                 return [];
             }
 
-            var options = this.state.options.filter(this.filterBySearchTerm).map(function(opt, index) {
-                var optionName = this.getOptionName(opt.name, opt.value);
+            var optionName;
+            var className;
+            var options = this.props.options.filter(this.filterBySearchTerm).map(function(opt, index) {
+                optionName = this.getOptionName(opt.name, opt.value);
+                className = '';
+                if (opt.disabled) {
+                    className = 'disabled';
+                } else if (opt.selected) {
+                    className = 'active';
+                }
 
                 return (
                     <li
-                        className={"custom-select-item "+(opt.selected ? "active" : "")}
+                        className={"custom-select-item " + className}
                         value={opt.value} key={index}
                         onClick={this.onOptionSelected.bind(this, opt.value)}
                     >
                         <a value={opt.value} data-trigger-select-click="false">{optionName}</a>
                     </li>
-                )
+                );
             }.bind(this));
 
             if (this.props.customOptions) {
@@ -242,7 +250,7 @@ define([
         },
         render: function () {
             return <ClickOutside onClickOutside={this.onClickOutside}>
-                <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick} title={this.props.title}>
+                <div className={"custom-select "+ (this.state.active ? 'active' : '')+(this.state.disabled ? 'disabled' : '')} onClick={this.onClick} title={this.props.title}>
                         <div className="selected">
                             <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>

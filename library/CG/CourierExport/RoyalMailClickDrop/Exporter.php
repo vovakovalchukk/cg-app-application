@@ -107,7 +107,7 @@ class Exporter implements ExporterInterface
                     'city' => $order->getShippingAddressCityForCourier(),
                     'county' => $order->getShippingAddressCountyForCourier(),
                     'postcode' => $order->getShippingAddressPostcodeForCourier(),
-                    'country' => $order->getShippingAddressCountyForCourier(),
+                    'country' => $order->getShippingAddressCountryForCourier(),
                 ]
             );
         }

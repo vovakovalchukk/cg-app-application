@@ -10,15 +10,14 @@ define([
     var CategorySelectComponent = React.createClass({
         getInitialState: function() {
             return {
-                categoryMaps: [
-
-                ],
+                categoryMaps: [],
                 selectedCategories: []
             }
         },
         getDefaultProps: function() {
             return {
-                title: null
+                title: null,
+                variations: false
             }
         },
         componentDidMount() {
@@ -51,6 +50,13 @@ define([
                     newState.selectedCategories,
                     categoryIndex
                 );
+
+                if (selectOption.disabled) {
+                    this.setState(newState);
+                    n.error('The selected category <b>' + selectOption.name + '</b> doesn\'t support varations. Please select another category.');
+                    return;
+                }
+
                 newState.selectedCategories[categoryIndex] = selectOption;
 
                 this.setState(newState);
@@ -75,9 +81,18 @@ define([
             });
         },
         getCategoryOptionsFromCategoryMap(categoryMap) {
-            var categoryOptions = [];
+            var categoryOptions = [], disabled, category;
             for (var externalId in categoryMap) {
-                categoryOptions.push({name: categoryMap[externalId], value: externalId});
+                category = categoryMap[externalId];
+                disabled = false;
+                if (this.props.variations && category.hasOwnProperty('listable') && category.hasOwnProperty('variations')) {
+                    disabled = category.listable && !category.variations;
+                }
+                categoryOptions.push({
+                    name: category.title,
+                    value: externalId,
+                    disabled: disabled
+                });
             }
             return categoryOptions;
         },
