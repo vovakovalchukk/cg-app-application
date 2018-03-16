@@ -2,7 +2,7 @@ define([
     'react',
     'redux-form',
     'Common/Components/Select',
-    'Redux/Components/CustomFields'
+    'Redux/Components/ContactForm/CustomFields'
 ], function(
     React,
     ReduxForm,

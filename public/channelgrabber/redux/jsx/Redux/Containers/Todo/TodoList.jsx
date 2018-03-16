@@ -2,7 +2,7 @@ define([
     'react',
     'react-redux',
     'Redux/Actions/Todo',
-    'Redux/Components/TodoList'
+    'Redux/Components/Todo/TodoList'
 ], function(
     React,
     ReactRedux,

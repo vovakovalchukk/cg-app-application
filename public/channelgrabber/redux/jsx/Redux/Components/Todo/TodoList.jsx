@@ -1,6 +1,6 @@
 define([
     'react',
-    'Redux/Components/Todo'
+    'Redux/Components/Todo/Todo'
 ], function(
     React,
     Todo
