@@ -1,32 +1,21 @@
 define([
     'react',
-    'Redux/Containers/AddTodo',
-    'Redux/Containers/TodoList',
-    'Redux/Components/FilterLinks',
-    'Redux/Containers/ContactForm'
+    'Redux/Components/TodoListApp',
+    'Redux/Components/ContactFormApp'
 ], function(
     React,
-    AddTodoContainer,
-    TodoListContainer,
-    FilterLinksComponent,
-    ContactFormContainer
+    TodoListApp,
+    ContactFormApp
 ) {
     "use strict";
 
     var RootComponent = React.createClass({
-        contactSubmit: function(values) {
-            console.log(values);
-        },
         render: function()
         {
             return (
                 <div style={{width: "500px"}}>
-                    <h1>Todo list</h1>
-                    <AddTodoContainer />
-                    <TodoListContainer />
-                    <FilterLinksComponent />
-                    <h1>Contact Form</h1>
-                    <ContactFormContainer onSubmit={this.contactSubmit} />
+                    <TodoListApp />
+                    <ContactFormApp />
                 </div>
             );
         }

@@ -1,6 +1,6 @@
 define([
     'react',
-    'Redux/Containers/FilterLink'
+    'Redux/Containers/Todo/FilterLink'
 ], function(
     React,
     FilterLinkContainer

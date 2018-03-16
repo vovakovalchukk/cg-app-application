@@ -2,7 +2,7 @@ define([
     'react',
     'react-redux',
     'Redux/Actions/Todo',
-    'Redux/Components/FilterLink'
+    'Redux/Components/Todo/FilterLink'
 ], function(
     React,
     ReactRedux,

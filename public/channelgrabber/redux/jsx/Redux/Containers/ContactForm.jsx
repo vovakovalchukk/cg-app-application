@@ -1,6 +1,6 @@
 define([
     'redux-form',
-    'Redux/Components/ContactForm'
+    'Redux/Components/ContactForm/ContactForm'
 ], function(
     ReduxForm,
     ContactFormComponent
