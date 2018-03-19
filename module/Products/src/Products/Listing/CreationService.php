@@ -6,7 +6,9 @@ use CG\Account\Shared\Entity as Account;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Service as CategoryService;
 use CG\Product\Client\Service as ProductService;
+use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
 use CG\Product\Listing\CreatorInterface;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -46,6 +48,7 @@ class CreationService implements LoggerAwareInterface
     {
         $this->removeGlobalLogEventParams(['account' => $accountId, 'product' => $productId]);
         try {
+            $listing = $this->sanitiseListingData($listing);
             try {
                 $account = $this->fetchAccount($accountId);
             } catch (NotFound $exception) {
@@ -61,6 +64,13 @@ class CreationService implements LoggerAwareInterface
             }
 
             try {
+                $variations = $this->fetchVariationsForListingData($listing);
+            } catch (NotFound $exception) {
+                $status->error('Please select valid variation products');
+                return;
+            }
+
+            try {
                 $creator = $this->getCreatorForChannel($account->getChannel());
             } catch (UnsupportedChannelException $exception) {
                 $status->error('Channel is not supported');
@@ -68,7 +78,12 @@ class CreationService implements LoggerAwareInterface
             }
 
             $listing = $this->formatListingData($listing);
-            $result = $creator->createListing($account, $product, $listing);
+            if (!$variations) {
+                $result = $creator->createListing($account, $product, $listing);
+            } else {
+                $result = $creator->createVariationListing($account, $product, $variations, $listing);
+            }
+
             foreach ($result->getWarnings() as $warning) {
                 $status->warning($warning);
             }
@@ -83,6 +98,15 @@ class CreationService implements LoggerAwareInterface
         }
     }
 
+    protected function sanitiseListingData(array $listing): array
+    {
+        // The frontend converts null to empty string, ensure we've actually got an array
+        if (isset($listing['variations']) && !is_array($listing['variations'])) {
+            unset($listing['variations']);
+        }
+        return $listing;
+    }
+
     protected function fetchAccount(int $accountId): Account
     {
         return $this->accountService->fetch($accountId);
@@ -91,6 +115,24 @@ class CreationService implements LoggerAwareInterface
     protected function fetchProduct(int $productId): Product
     {
         return $this->productService->fetch($productId);
+    }
+
+    protected function fetchVariationsForListingData(array $listing): ?ProductCollection
+    {
+        if (!isset($listing['variations'])) {
+            return null;
+        }
+
+        $filter = $this->buildFilterForVariationIds(array_keys($listing['variations']));
+        return $this->productService->fetchCollectionByFilter($filter);
+    }
+
+    protected function buildFilterForVariationIds(array $variationIds): ProductFilter
+    {
+        return (new ProductFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setId($variationIds);
     }
 
     protected function getCreatorForChannel(string $channel): CreatorInterface

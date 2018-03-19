@@ -23,8 +23,7 @@ function(ProductRoot, Clipboard, ImageUtils) {
         utilities,
         searchAvailable, <?= ($isAdmin ? 'true' : 'false') ?>,
         '<?= $searchTerm ?>',
-        <?= $this->featureFlags(\CG\Product\Client\Service::FEATURE_FLAG_LINKED_PRODUCTS, $this->activeUserRootOu)? 1: 0; ?>,
-        <?= $this->featureFlags(\CG\Listing\Client\Service::FEATURE_FLAG_CREATE_LISTINGS, $this->activeUserRootOu)? 1: 0; ?>,
+        <?= $featureFlagJson; ?>,
         '<?= $this->remoteUrl('/company', 'admin'); ?>'
     );
     new Clipboard('td.sku-cell', [], 'data-copy');

@@ -149,7 +149,7 @@ class ProductsJsonController extends AbstractActionController
                 $rootOrganisationUnit->getId()
             );
 
-            $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit, $accounts);
+            $allowedCreateListingChannels = $allowedCreateListingVariationsChannels = $this->listingChannelService->getAllowedCreateListingsChannels();
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
@@ -161,6 +161,7 @@ class ProductsJsonController extends AbstractActionController
             $total = $products->getTotal();
         } catch(NotFound $e) {
             $allowedCreateListingChannels = [];
+            $allowedCreateListingVariationsChannels = [];
             $accountsArray = [];
             //noop
         }
@@ -180,6 +181,7 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('products', $productsArray)
             ->setVariable('accounts', $accountsArray)
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
+            ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }

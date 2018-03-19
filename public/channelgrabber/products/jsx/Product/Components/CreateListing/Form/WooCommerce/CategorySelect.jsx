@@ -77,7 +77,7 @@ define([
         getCategoryOptionsFromCategoryMap(categoryMap) {
             var categoryOptions = [];
             for (var externalId in categoryMap) {
-                categoryOptions.push({name: categoryMap[externalId], value: externalId});
+                categoryOptions.push({name: categoryMap[externalId].title, value: externalId});
             }
             return categoryOptions;
         },
