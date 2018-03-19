@@ -89,6 +89,22 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 $rootOuId
             )
         ]));
+        // Dummy data to be replaced by LIS-140
+        $stockModeOptionsDummyData = ['default' => 'Default', 'fixed' => 'Fixed', 'minimum' => 'Minimum'];
+        $taxRatesDummyData = [
+            'GB' => [
+                'GB1' => ['name' => 'Standard', 'rate' => 20, 'selected' => true],
+                'GB2' => ['name' => 'Reduced', 'rate' => 5, 'selected' => false],
+                'GB3' => ['name' => 'Exempt', 'rate' => 0, 'selected' => false],
+            ],
+            'FR' => [
+                'FR1' => ['name' => 'Standard', 'rate' => 17, 'selected' => true],
+                'FR2' => ['name' => 'Reduced', 'rate' => 7, 'selected' => false],
+                'FR3' => ['name' => 'Exempt', 'rate' => 0, 'selected' => false],
+            ],
+        ];
+        $view->setVariable('stockModeOptions', $stockModeOptionsDummyData);
+        $view->setVariable('taxRates', $taxRatesDummyData);
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
