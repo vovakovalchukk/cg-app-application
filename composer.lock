@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "755ff278a8c020ddbf0d487e8656ef46",
+    "content-hash": "719fb50dd806cd61e581fc4bc7eb8fd3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1059,16 +1059,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "2.1.0",
+            "version": "dev-CGIV-9317-prevent_feature_flag_cache",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "6d27060ca8c32a3a5195c2b2d0ee1033be30da59"
+                "reference": "871de13b1f86d732945a0cba491204e70d1850a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-2.1.0-3128eb.zip",
-                "reference": "6d27060ca8c32a3a5195c2b2d0ee1033be30da59",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9317-prevent_feature_flag_cache-2a8a2f.zip",
+                "reference": "871de13b1f86d732945a0cba491204e70d1850a1",
                 "shasum": null
             },
             "require": {
@@ -1092,7 +1092,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-12-20T11:18:03+00:00"
+            "time": "2018-03-19T11:43:44+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -7971,7 +7971,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8026,7 +8026,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8081,7 +8081,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8132,7 +8132,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8218,7 +8218,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9517,6 +9517,12 @@
     ],
     "aliases": [
         {
+            "alias": "2.1.1",
+            "alias_normalized": "2.1.1.0",
+            "version": "dev-CGIV-9317-prevent_feature_flag_cache",
+            "package": "channelgrabber/feature-flags"
+        },
+        {
             "alias": "1.11.7",
             "alias_normalized": "1.11.7.0",
             "version": "dev-EPIC-LIS-73-create-variation-listings",
@@ -9526,6 +9532,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/feature-flags": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
