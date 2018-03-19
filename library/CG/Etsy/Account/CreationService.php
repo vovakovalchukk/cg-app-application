@@ -3,6 +3,7 @@ namespace CG\Etsy\Account;
 
 use CG\Account\Client\Entity as AccountEntity;
 use CG\Account\CreationServiceAbstract;
+use CG\Etsy\Credentials;
 
 class CreationService extends CreationServiceAbstract
 {
@@ -15,11 +16,13 @@ class CreationService extends CreationServiceAbstract
 
     public function configureAccount(AccountEntity $account, array $params)
     {
-        // TODO: Implement configureAccount() method.
+        return $account->setCredentials(
+            $this->cryptor->encrypt(new Credentials($params['accessToken'] ?? null))
+        );
     }
 
     public function getDisplayName(array $params)
     {
-        // TODO: Implement getDisplayName() method.
+        return $params['loginName'] ?? static::CHANNEL;
     }
 }
