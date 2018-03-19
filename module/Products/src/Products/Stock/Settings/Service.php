@@ -61,7 +61,7 @@ class Service
         );
     }
 
-    protected function getStockModeOptions($stockMode = null)
+    public function getStockModeOptions($stockMode = null): array
     {
         $options = $this->buildStockModeOptions();
         foreach ($options as &$option) {

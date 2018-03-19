@@ -11,6 +11,7 @@ use CG_Usage\Service as UsageService;
 use CG\User\ActiveUserInterface;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
@@ -36,6 +37,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $usageService;
     /** @var FeatureFlagsService */
     protected $featureFlagService;
+    /** @var StockSettingsService */
+    protected $stockSettingsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -45,7 +48,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         DataTable $accountStockSettingsTable,
         ActiveUserInterface $activeUserContainer,
         UsageService $usageService,
-        FeatureFlagsService $featureFlagService
+        FeatureFlagsService $featureFlagService,
+        StockSettingsService $stockSettingsService
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
@@ -55,6 +59,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
              ->setActiveUserContainer($activeUserContainer)
              ->setUsageService($usageService);
         $this->featureFlagService = $featureFlagService;
+        $this->stockSettingsService = $stockSettingsService;
     }
 
     public function indexAction()
@@ -90,11 +95,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
             )
         ]));
         // Dummy data to be replaced by LIS-140
-        $stockModeOptionsDummyData = [
-            ['value' => 'default', 'title' => 'Default'],
-            ['value' => 'fixed', 'title' => 'Fixed'],
-            ['value' => 'minimum', 'title' => 'Minimum'],
-        ];
         $taxRatesDummyData = [
             'GB' => [
                 'GB1' => ['name' => 'Standard', 'rate' => 20, 'selected' => true],
@@ -107,7 +107,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 'FR3' => ['name' => 'Exempt', 'rate' => 0, 'selected' => false],
             ],
         ];
-        $view->setVariable('stockModeOptions', $stockModeOptionsDummyData);
+        $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
         $view->setVariable('taxRates', $taxRatesDummyData);
 
         $this->addAccountStockSettingsTableToView($view);
