@@ -1,12 +1,15 @@
 define([
     'redux',
-    'redux-form'
+    'redux-form',
+    'CategoryMapper/Reducers/CategorySelect'
 ], function(
     Redux,
-    ReduxForm
+    ReduxForm,
+    CategorySelect
 ) {
     var CategoryMapReducer = Redux.combineReducers({
-        form: ReduxForm.reducer
+        form: ReduxForm.reducer,
+        categorySelect: CategorySelect
     });
     return CategoryMapReducer;
 });

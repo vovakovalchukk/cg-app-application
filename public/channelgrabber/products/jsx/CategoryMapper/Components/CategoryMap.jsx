@@ -1,7 +1,7 @@
 define([
     'react',
     'redux-form',
-    'CategoryMapper/Components/CategorySelect'
+    'CategoryMapper/Containers/CategorySelect'
 ], function(
     React,
     ReduxForm,
@@ -14,41 +14,27 @@ define([
         getDefaultProps: function() {
             return {
                 handleSubmit: null,
-                accounts: {},
-                categories: []
+                accounts: {}
             };
-        },
-        getCategoriesOptionsForAccount: function (accountId, accountData) {
-            return this.formatCategorySelectOptions(
-                this.findCategoriesByAccountId(accountId)
-            );
-        },
-        findCategoriesByAccountId: function (accountId) {
-            for (var category of this.props.categories) {
-                if (category.accountId == accountId) {
-                    return category.categories;
-                }
-            }
-        },
-        formatCategorySelectOptions: function (categories) {
-            var options = [];
-            for (var categoryId in categories) {
-                options.push({'name': categories[categoryId].title, 'value': categoryId});
-            }
-            return options;
         },
         renderCategorySelects: function() {
             var selects = [];
             for (var accountId in this.props.accounts) {
+                var accountData = this.props.accounts[accountId];
                 selects.push(
-                    <div className={"order-form half"}>
+                    <label>
+                        <span
+                            style={{ width: 300 }}
+                            className={"inputbox-label"}>{accountData.displayName}
+                        </span>
                         <div className={"order-inputbox-holder"}>
                             <Field name="category"
                                 component={CategorySelect}
-                                categories={this.getCategoriesOptionsForAccount(accountId, this.props.accounts[accountId])}
+                                categories={accountData}
+                                accountId={accountId}
                             />
                         </div>
-                    </div>
+                    </label>
                 );
             };
             return <span>{selects}</span>;
@@ -57,11 +43,13 @@ define([
             return (
                 <form onSubmit={this.props.handleSubmit}>
                     <div className={"order-form half"}>
-                        <div className={"order-inputbox-holder"}>
-                            <Field name="templateName" component="input" type="text" placeholder="HAHAH"/>
-                        </div>
+                        <label>
+                            <div className={"order-inputbox-holder"}>
+                                <Field name="templateName" component="input" type="text" placeholder="Category template name here..."/>
+                            </div>
+                        </label>
+                        {this.renderCategorySelects()}
                     </div>
-                    {this.renderCategorySelects()}
                 </form>
             );
         }

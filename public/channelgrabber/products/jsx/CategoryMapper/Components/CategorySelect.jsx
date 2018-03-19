@@ -10,11 +10,15 @@ define([
     return React.createClass({
         getDefaultProps: function() {
             return {
-                categories: []
+                categories: [],
+                onOptionChange: null
             }
         },
         onOptionChange: function (category) {
             this.props.input.onChange(category.value);
+            if (this.props.onOptionChange) {
+                this.props.onOptionChange(this.props.accountId, category.value);
+            }
         },
         render: function() {
             return <Select

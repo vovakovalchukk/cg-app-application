@@ -17,7 +17,6 @@ define([
                 <CategoryMapContainer
                     onSubmit={this.submitCategoryMap}
                     accounts={this.props.accounts}
-                    categories={this.props.categories}
                 />
             );
         }
