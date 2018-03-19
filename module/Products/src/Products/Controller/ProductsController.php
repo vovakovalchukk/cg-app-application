@@ -90,7 +90,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             )
         ]));
         // Dummy data to be replaced by LIS-140
-        $stockModeOptionsDummyData = ['default' => 'Default', 'fixed' => 'Fixed', 'minimum' => 'Minimum'];
+        $stockModeOptionsDummyData = [
+            ['value' => 'default', 'title' => 'Default'],
+            ['value' => 'fixed', 'title' => 'Fixed'],
+            ['value' => 'minimum', 'title' => 'Minimum'],
+        ];
         $taxRatesDummyData = [
             'GB' => [
                 'GB1' => ['name' => 'Standard', 'rate' => 20, 'selected' => true],
