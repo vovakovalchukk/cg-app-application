@@ -1030,12 +1030,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "6ab310f8d3fe6d4373ebb455cc1332a86673e89a"
+                "reference": "407c8fe312544a5a67e67b1007788c7b3938eb81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-25-EtsyAccountCreation-cdbcf7.zip",
-                "reference": "6ab310f8d3fe6d4373ebb455cc1332a86673e89a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-25-EtsyAccountCreation-78dd3d.zip",
+                "reference": "407c8fe312544a5a67e67b1007788c7b3938eb81",
                 "shasum": null
             },
             "require": {
@@ -1061,7 +1061,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-03-20T11:12:02+00:00"
+            "time": "2018-03-20T11:52:24+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
