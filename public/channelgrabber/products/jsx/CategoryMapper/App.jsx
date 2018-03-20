@@ -4,14 +4,14 @@ define([
     'redux',
     'react-redux',
     'CategoryMapper/Components/Root',
-    'CategoryMapper/Reducers/CategoryMap'
+    'CategoryMapper/Reducers/Combined'
 ], function(
     React,
     ReactDOM,
     Redux,
     ReactRedux,
     RootContainer,
-    CategoryMapReducer
+    CombinedReducer
 ) {
     "use strict"
 
@@ -32,7 +32,12 @@ define([
 
     var CreateNewApp = function(mountingNode, data) {
         var Provider = ReactRedux.Provider;
-        var store = Redux.createStore(CategoryMapReducer);
+        var store = Redux.createStore(
+            CombinedReducer,
+            {
+                categoryMap: mergeDataIntoAccounts(data)
+            }
+        );
         ReactDOM.render(
             <Provider store={store}>
                 <RootContainer

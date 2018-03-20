@@ -1,23 +1,31 @@
 define([
     'react',
+    'redux-form',
+    'CategoryMapper/Components/CategorySelect',
     'Common/Components/Select',
 ], function(
     React,
+    ReduxForm,
+    CategorySelect,
     Select
 ) {
     "use strict";
 
+    var Field = ReduxForm.Field;
     return React.createClass({
         getDefaultProps: function() {
             return {
                 categories: [],
-                onOptionChange: null
+                accountId: 0,
             }
         },
         getCategoryOptions: function () {
             var selects = [], options = [], categories;
-            for (var categoryLevel = 0; categoryLevel < this.props.categories.categories.length; categoryLevel++) {
-                categories = this.props.categories.categories[categoryLevel];
+            for (var categoryLevel = 0; categoryLevel < this.props.categories.length; categoryLevel++) {
+                if (Object.keys(this.props.categories[categoryLevel]).length === 0) {
+                    continue;
+                }
+                categories = this.props.categories[categoryLevel];
                 options = [];
                 for (var categoryId in categories) {
                     options.push({
@@ -27,10 +35,11 @@ define([
                     });
                 }
                 selects.push(
-                    <Select
-                        name="category"
-                        options={options}
-                        autoSelectFirst={false}
+                    <Field
+                        name={"category." + this.props.accountId}
+                        component={CategorySelect}
+                        categories={options}
+                        accountId={this.props.accountId}
                         onOptionChange={this.onOptionChange}
                     />
                 )
@@ -38,7 +47,6 @@ define([
             return selects;
         },
         onOptionChange: function (category) {
-            this.props.input.onChange(category.value);
             if (this.props.onOptionChange) {
                 this.props.onOptionChange(this.props.accountId, category.value, category.level);
             }

@@ -14,15 +14,15 @@ define([
                 onOptionChange: null
             }
         },
-        onOptionChange: function (category) {
+        onOptionChange: function(category) {
             this.props.input.onChange(category.value);
             if (this.props.onOptionChange) {
-                this.props.onOptionChange(this.props.accountId, category.value);
+                this.props.onOptionChange(category);
             }
         },
         render: function() {
             return <Select
-                name="category"
+                name={this.props.name}
                 options={this.props.categories}
                 autoSelectFirst={false}
                 onOptionChange={this.onOptionChange}

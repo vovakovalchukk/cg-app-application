@@ -1,15 +1,16 @@
 define([
     'react',
     'redux-form',
-    'CategoryMapper/Containers/CategorySelect'
+    'CategoryMapper/Containers/AccountCategorySelect'
 ], function(
     React,
     ReduxForm,
-    CategorySelect
+    AccountCategorySelect
 ) {
     "use strict";
 
     var Field = ReduxForm.Field;
+    var FieldArray = ReduxForm.FieldArray;
     var CategoryMapComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -28,9 +29,9 @@ define([
                             className={"inputbox-label"}>{accountData.displayName}
                         </span>
                         <div className={"order-inputbox-holder"}>
-                            <Field name="category"
-                                component={CategorySelect}
-                                categories={accountData}
+                            <FieldArray
+                                component={AccountCategorySelect}
+                                categories={accountData.categories}
                                 accountId={accountId}
                             />
                         </div>

@@ -10,10 +10,7 @@ define([
     AccountCategorySelectComponent
 ) {
     var mapStateToProps = function(state, ownProps) {
-        console.log(state, ownProps);
-        return {
-            children: state.hasOwnProperty('categories') ? state.categories : {}
-        }
+        return state;
     };
 
     var mapDispatchToProps = function (dispatch) {

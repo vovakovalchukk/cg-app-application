@@ -27,7 +27,9 @@ define([], function() {
             return {
                 type: 'CATEGORY_SELECTED',
                 payload: {
-                    categoryId: categoryId
+                    accountId: accountId,
+                    categoryId: categoryId,
+                    categoryLevel: categoryLevel
                 }
             };
         }
