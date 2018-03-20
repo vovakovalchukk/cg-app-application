@@ -94,7 +94,7 @@
         "channelgrabber/zf2-sessions": "~1.2.1",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-usage": "~1.0.13",
-        "channelgrabber/zf2-v4-ui": "~1.22.4",
+        "channelgrabber/zf2-v4-ui": "dev-TAC-25-EtsyAccountCreation as 1.22.5",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "guzzle/guzzle": "~3.7",

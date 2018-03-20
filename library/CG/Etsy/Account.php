@@ -20,10 +20,8 @@ class Account implements AccountInterface
     {
         return $this->urlHelper->fromRoute(
             AccountController::ROUTE_INITIALISE,
-            [],
-            [
-                'query' => ['account' => $account->getId()],
-            ]
+            ['account' => $account->getId()],
+            ['force_canonical' => true]
         );
     }
 }

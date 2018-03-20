@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cc6fbcb04415d7d757ddab68fc9c412",
+    "content-hash": "619d566eb5972f6cdda52fc255cb0a47",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1030,12 +1030,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "79887825faed0d5cca987794ca3380eb169aed0e"
+                "reference": "10ad680b3f79d83260ace6687808b50c54c293d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-25-EtsyAccountCreation-3a7ae3.zip",
-                "reference": "79887825faed0d5cca987794ca3380eb169aed0e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-25-EtsyAccountCreation-71edac.zip",
+                "reference": "10ad680b3f79d83260ace6687808b50c54c293d9",
                 "shasum": null
             },
             "require": {
@@ -1060,7 +1060,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-03-19T16:22:12+00:00"
+            "time": "2018-03-19T16:28:47+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -4055,16 +4055,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.4",
+            "version": "dev-TAC-25-EtsyAccountCreation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40"
+                "reference": "90b3242063ce781c3350d490d8e8c6363908236a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.4-dc404c.zip",
-                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-25-EtsyAccountCreation-6835e8.zip",
+                "reference": "90b3242063ce781c3350d490d8e8c6363908236a",
                 "shasum": null
             },
             "require": {
@@ -4115,7 +4115,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-03-15T10:03:24+00:00"
+            "time": "2018-03-20T09:47:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9565,6 +9565,12 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-TAC-25-EtsyAccountCreation",
             "package": "channelgrabber/etsy"
+        },
+        {
+            "alias": "1.22.5",
+            "alias_normalized": "1.22.5.0",
+            "version": "dev-TAC-25-EtsyAccountCreation",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -9572,6 +9578,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/etsy": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

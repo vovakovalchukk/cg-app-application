@@ -6,6 +6,16 @@ use Zend\Mvc\Router\Http\Segment;
 use function CG\Stdlib\hyphenToClassname;
 
 return [
+    'CG' => [
+        'global' => [
+            'white_listed_routes' => [AccountController::ROUTE_REGISTER => true],
+        ],
+    ],
+    'SetupWizard' => [
+        'SetupWizard' => [
+            'white_listed_routes' => [AccountController::ROUTE_REGISTER => true],
+        ],
+    ],
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
