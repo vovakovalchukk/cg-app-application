@@ -11,6 +11,7 @@ use CG_Usage\Service as UsageService;
 use CG\User\ActiveUserInterface;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
@@ -39,6 +40,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $featureFlagService;
     /** @var StockSettingsService */
     protected $stockSettingsService;
+    /** @var TaxRateService */
+    protected $taxRateService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -49,7 +52,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ActiveUserInterface $activeUserContainer,
         UsageService $usageService,
         FeatureFlagsService $featureFlagService,
-        StockSettingsService $stockSettingsService
+        StockSettingsService $stockSettingsService,
+        TaxRateService $taxRateService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -60,6 +64,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->usageService = $usageService;
         $this->featureFlagService = $featureFlagService;
         $this->stockSettingsService = $stockSettingsService;
+        $this->taxRateService = $taxRateService;
     }
 
     public function indexAction()
@@ -94,21 +99,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 $rootOuId
             )
         ]));
-        // Dummy data to be replaced by LIS-140
-        $taxRatesDummyData = [
-            'GB' => [
-                'GB1' => ['name' => 'Standard', 'rate' => 20, 'selected' => true],
-                'GB2' => ['name' => 'Reduced', 'rate' => 5, 'selected' => false],
-                'GB3' => ['name' => 'Exempt', 'rate' => 0, 'selected' => false],
-            ],
-            'FR' => [
-                'FR1' => ['name' => 'Standard', 'rate' => 17, 'selected' => true],
-                'FR2' => ['name' => 'Reduced', 'rate' => 7, 'selected' => false],
-                'FR3' => ['name' => 'Exempt', 'rate' => 0, 'selected' => false],
-            ],
-        ];
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
-        $view->setVariable('taxRates', $taxRatesDummyData);
+        $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
