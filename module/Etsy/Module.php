@@ -29,6 +29,6 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, De
 
     public function getModuleDependencies()
     {
-        return ['CG_UI', 'SetupWizard', 'Settings'];
+        return ['CG_UI', 'CG_Channel', 'SetupWizard', 'Settings'];
     }
 }

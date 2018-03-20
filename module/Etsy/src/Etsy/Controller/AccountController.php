@@ -12,7 +12,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
-    const ROUTE = 'EtsyAccount';
+    const ROUTE_INITIALISE = 'EtsyAccountInitialise';
+    const ROUTE_REGISTER = 'EtsyAccountRegister';
 
     /** @var AccountService */
     protected $accountService;
@@ -31,12 +32,19 @@ class AccountController extends AbstractActionController
         $this->accountCreationService = $accountCreationService;
     }
 
+    public function initialiseAction()
+    {
+        return $this->redirect()->toUrl(
+            $this->accountService->getLoginUrl($this->params()->fromRoute('account'))
+        );
+    }
+
     public function registerAction()
     {
         $accessToken = $this->getAccessToken();
         $account = $this->connectAccount($accessToken, $this->getLoginName($accessToken));
         return $this->redirect()->toRoute(
-            implode('\\', [Settings::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]),
+            implode('/', [Settings::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]),
             ['type' => $account->getType(), 'account' => $account->getId()]
         );
     }
@@ -58,7 +66,7 @@ class AccountController extends AbstractActionController
     {
         return $this->accountCreationService->connectAccount(
             $this->activeUserInterface->getCompanyId(),
-            $this->params()->fromQuery('account'),
+            $this->params()->fromRoute('account'),
             compact('accessToken', 'loginName')
         );
     }

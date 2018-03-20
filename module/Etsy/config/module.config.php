@@ -2,7 +2,7 @@
 use CG\Channel\Service as ChannelService;
 use CG\Etsy\Account\CreationService as AccountCreator;
 use Etsy\Controller\AccountController;
-use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 use function CG\Stdlib\hyphenToClassname;
 
 return [
@@ -16,10 +16,20 @@ return [
     ],
     'router' => [
         'routes' => [
-            AccountController::ROUTE => [
-                'type' => Literal::class,
+            AccountController::ROUTE_INITIALISE => [
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/etsy/register',
+                    'route' => '/etsy/initialise[/:account]',
+                    'defaults' => [
+                        'controller' => AccountController::class,
+                        'action' => 'initialise',
+                    ]
+                ],
+            ],
+            AccountController::ROUTE_REGISTER => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/etsy/register[/:account]',
                     'defaults' => [
                         'controller' => AccountController::class,
                         'action' => 'register',
