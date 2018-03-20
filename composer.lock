@@ -1063,12 +1063,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "d6ed512d8dc3622bade594e8aa2a9b776aa99add"
+                "reference": "b59e0b2bdc63db57e08d42c822d4d503c2f2895b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9317-prevent_feature_flag_cache-12afca.zip",
-                "reference": "d6ed512d8dc3622bade594e8aa2a9b776aa99add",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9317-prevent_feature_flag_cache-def2eb.zip",
+                "reference": "b59e0b2bdc63db57e08d42c822d4d503c2f2895b",
                 "shasum": null
             },
             "require": {
@@ -1092,7 +1092,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2018-03-19T16:54:31+00:00"
+            "time": "2018-03-20T10:28:27+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
