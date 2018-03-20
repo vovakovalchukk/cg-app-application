@@ -6,6 +6,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
+use CG\Image\Uploader as ImageUploader;
 use CG\Listing\Entity as ListingEntity;
 use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
 use CG\Location\Service as LocationService;
@@ -84,6 +85,8 @@ class ProductsJsonController extends AbstractActionController
     protected $productLinkService;
     /** @var ListingChannelService */
     protected $listingChannelService;
+    /** @var ImageUploader */
+    protected $imageUploader;
 
     public function __construct(
         ProductService $productService,
@@ -100,7 +103,8 @@ class ProductsJsonController extends AbstractActionController
         StockLocationService $stockLocationService,
         ActiveUserInterface $activeUser,
         ProductLinkService $productLinkService,
-        ListingChannelService $listingChannelService
+        ListingChannelService $listingChannelService,
+        ImageUploader $imageUploader
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -117,6 +121,7 @@ class ProductsJsonController extends AbstractActionController
         $this->activeUser = $activeUser;
         $this->productLinkService = $productLinkService;
         $this->listingChannelService = $listingChannelService;
+        $this->imageUploader = $imageUploader;
     }
 
     public function ajaxAction()
@@ -542,13 +547,24 @@ class ProductsJsonController extends AbstractActionController
     public function imageUploadAction()
     {
         $imageData = $this->params()->fromPost('image');
+        $filename = $this->params()->fromPost('filename');
+        if (!$imageData || !$filename) {
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'error' => 'No image data or filename was supplied',
+            ]);
+        }
 
-        // Dummy data to be replaced by LIS-140
-        $dummyId = rand(1,999);
-        $dummyUrl = 'http://youraccount.ekmpowershop23.com/ekmps/shops/channelgrabber/images/new-ekm-product-32-p.png';
+        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+        $rootOu = $this->organisationUnitService->fetch($rootOuId);
+        $filenameParts = explode('.', $filename);
+        $extension = array_pop($filenameParts);
+        $image = ($this->imageUploader)($rootOu, base64_decode($imageData), $extension);
+
         return $this->jsonModelFactory->newInstance([
-            'id' => $dummyId,
-            'url' => $dummyUrl
+            'success' => true,
+            'id' => $image->getId(),
+            'url' => $image->getUrl()
         ]);
     }
 
