@@ -40,20 +40,22 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
             }
         },
         renderCallNow: function() {
-            var buttons = [];
-            if (!this.state.loading) {
-                buttons.push(this.renderButton('Call Now', this.handleCallNow));
-                buttons.push(this.renderButton('Call Later', this.handleCallLater));
-            } else {
-                buttons.push(this.renderLoader())
-            }
+            // var buttons = [];
+            // if (!this.state.loading) {
+            //     buttons.push(this.renderButton('Call Now', this.handleCallNow));
+            //     buttons.push(this.renderButton('Call Later', this.handleCallLater));
+            // } else {
+            //     buttons.push(this.renderLoader())
+            // /* {buttons} */
+            // }
             return(
                 <div>
                     <div className="callback-message">
-                        Click below to let us know when you are free for one of our product specialists to contact you to activate your trial.
+                        One of our product specialists will contact you to activate your trial shortly.
                     </div>
-                    <div className="callback-buttons">
-                        {buttons}
+
+                    <div className="callback-phone-number">
+                        Activate your 14 day free trial now by calling us on 0161 711 0248
                     </div>
                 </div>
             );
