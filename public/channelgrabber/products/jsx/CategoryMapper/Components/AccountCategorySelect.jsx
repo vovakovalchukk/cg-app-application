@@ -20,31 +20,33 @@ define([
             }
         },
         getCategoryOptions: function () {
-            var selects = [], options = [], categories;
+            var selects = [];
             for (var categoryLevel = 0; categoryLevel < this.props.categories.length; categoryLevel++) {
                 if (Object.keys(this.props.categories[categoryLevel]).length === 0) {
                     continue;
-                }
-                categories = this.props.categories[categoryLevel];
-                options = [];
-                for (var categoryId in categories) {
-                    options.push({
-                        'name': categories[categoryId].title,
-                        'value': categoryId,
-                        'level': categoryLevel
-                    });
                 }
                 selects.push(
                     <Field
                         name={"category." + this.props.accountId}
                         component={CategorySelect}
-                        categories={options}
+                        categories={this.getCategorySelectOptionsForAccount(categoryLevel, this.props.categories[categoryLevel])}
                         accountId={this.props.accountId}
                         onOptionChange={this.onOptionChange}
                     />
                 )
             }
             return selects;
+        },
+        getCategorySelectOptionsForAccount: function (categoryLevel, categories) {
+            var options = [];
+            for (var categoryId in categories) {
+                options.push({
+                    'name': categories[categoryId].title,
+                    'value': categoryId,
+                    'level': categoryLevel
+                });
+            }
+            return options;
         },
         onOptionChange: function (category) {
             if (this.props.onOptionChange) {
