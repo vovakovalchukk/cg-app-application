@@ -847,6 +847,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "f275b3035eb8038935bad5ef23166c57e9614d7b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-169-fix-ebay-listing-error-responses-f13e90.zip",
+                "reference": "f275b3035eb8038935bad5ef23166c57e9614d7b",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
@@ -895,7 +901,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-15T09:50:45+00:00"
+            "time": "2018-03-21T13:50:11+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9522,8 +9528,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
