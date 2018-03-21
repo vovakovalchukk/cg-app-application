@@ -3,11 +3,13 @@ define([
     'redux-form',
     'CategoryMapper/Components/CategorySelect',
     'Common/Components/Select',
+    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
 ], function(
     React,
     ReduxForm,
     CategorySelect,
-    Select
+    Select,
+    RefreshIcon
 ) {
     "use strict";
 
@@ -34,6 +36,11 @@ define([
                         onOptionChange={this.onOptionChange}
                     />
                 )
+                if (categoryLevel === 0) {
+                    selects.push(
+                        <RefreshIcon/>
+                    )
+                }
             }
             return selects;
         },
