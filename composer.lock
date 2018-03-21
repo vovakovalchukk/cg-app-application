@@ -841,17 +841,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.12.2",
+            "version": "dev-LIS-145-fix-create-listing-ebay-url",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "237ad55969b0caecaeda6d3acc24027f50bef181"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.2-2c4ef8.zip",
-                "reference": "237ad55969b0caecaeda6d3acc24027f50bef181",
-                "shasum": null
+                "reference": "1fa1af90ba0841d4ee988c9a64550c51ac749cb8"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -901,7 +895,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-15T09:50:45+00:00"
+            "time": "2018-03-15T16:02:57+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9521,12 +9515,19 @@
             "alias_normalized": "2.1.1.0",
             "version": "dev-CGIV-9317-prevent_feature_flag_cache",
             "package": "channelgrabber/feature-flags"
+},{
+            "alias": "1.12.3",
+            "alias_normalized": "1.12.3.0",
+            "version": "dev-LIS-145-fix-create-listing-ebay-url",
+            "package": "channelgrabber/ebay"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/feature-flags": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
