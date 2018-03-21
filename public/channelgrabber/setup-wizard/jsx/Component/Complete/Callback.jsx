@@ -6,7 +6,7 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
             return {
                 callNow: false,
                 callLater: null,
-                thanks: null,
+                // thanks: null,
                 ajax: null
             };
         },
@@ -15,9 +15,9 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
                 loading: false
             };
         },
-        handleCallNow: function() {
-            this.sendAjaxNotification(true, this.props.thanks);
-        },
+        // handleCallNow: function() {
+        //     this.sendAjaxNotification(true, this.props.thanks);
+        // },
         handleCallLater: function() {
             this.sendAjaxNotification(false, this.props.callLater);
         },

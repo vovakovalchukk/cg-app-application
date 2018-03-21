@@ -15,7 +15,6 @@ use function CG\Stdlib\isUkBankHoliday;
 class CompleteController extends AbstractActionController
 {
     const ROUTE_COMPLETE = 'Complete';
-    const ROUTE_COMPLETE_THANKS = 'CompleteThanks';
     const ROUTE_COMPLETE_AJAX = 'CompleteAjax';
     const ROUTE_COMPLETE_ACTIVATE = 'CompleteActivate';
     const BUSINESS_HOURS_START = '09:00:00';
@@ -56,11 +55,6 @@ class CompleteController extends AbstractActionController
         return $this->service->getSetupView($this->getHeader(), $this->getCallback(), $this->getFooter());
     }
 
-    public function thanksAction()
-    {
-        return $this->service->getSetupView($this->getHeader(), $this->getThanks(), false);
-    }
-
     public function ajaxAction()
     {
         $this->callbackService->sendCallbackEmail((bool) $this->params()->fromPost('callNow'));
@@ -89,20 +83,12 @@ class CompleteController extends AbstractActionController
         return $view;
     }
 
-    protected function getThanks()
-    {
-        $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/complete/thanks');
-        return $view;
-    }
-
     protected function getCallback()
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/complete/callback');
         $view->setVariable('callNow', $this->canCallNow());
         $view->setVariable('callLater', $this->getCallLaterUrl());
-        $view->setVariable('thanks', $this->getThanksUrl());
         $view->setVariable('ajax', $this->getAjaxUrl());
         return $view;
     }
@@ -128,15 +114,6 @@ class CompleteController extends AbstractActionController
     protected function getCallLaterUrl()
     {
         return 'https://samgilbert.youcanbook.me';
-    }
-
-    protected function getThanksUrl()
-    {
-        return $this->url()->fromRoute(implode('/', [
-            Module::ROUTE,
-            static::ROUTE_COMPLETE,
-            static::ROUTE_COMPLETE_THANKS
-        ]));
     }
 
     protected function getAjaxUrl()
