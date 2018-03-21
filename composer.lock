@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c967dfe053c3b44200bba0883aa7f02",
+    "content-hash": "786535d684949d230a9da77fc88e8173",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -845,7 +845,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "4b2678df41fffb0432572a048ae8519aec5b0043"
+                "reference": "f275b3035eb8038935bad5ef23166c57e9614d7b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
