@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c967dfe053c3b44200bba0883aa7f02",
+    "content-hash": "5b0fff8b478b1b55f81714c13105a324",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -847,6 +847,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "f02d970994b232cef21b7d71ec430cb0c24c2ff7"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-171-only-send-images-for-selected-variations-b8a6d2.zip",
+                "reference": "f02d970994b232cef21b7d71ec430cb0c24c2ff7",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
@@ -895,7 +901,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-15T09:50:45+00:00"
+            "time": "2018-03-21T14:38:42+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9522,8 +9528,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
