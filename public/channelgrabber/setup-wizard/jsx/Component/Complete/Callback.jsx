@@ -6,7 +6,6 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
             return {
                 callNow: false,
                 callLater: null,
-                // thanks: null,
                 ajax: null
             };
         },
@@ -15,9 +14,6 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
                 loading: false
             };
         },
-        // handleCallNow: function() {
-        //     this.sendAjaxNotification(true, this.props.thanks);
-        // },
         handleCallLater: function() {
             this.sendAjaxNotification(false, this.props.callLater);
         },
@@ -40,14 +36,6 @@ define(['react', 'AjaxRequester'], function(React, ajaxRequester) {
             }
         },
         renderCallNow: function() {
-            // var buttons = [];
-            // if (!this.state.loading) {
-            //     buttons.push(this.renderButton('Call Now', this.handleCallNow));
-            //     buttons.push(this.renderButton('Call Later', this.handleCallLater));
-            // } else {
-            //     buttons.push(this.renderLoader())
-            // /* {buttons} */
-            // }
             return(
                 <div>
                     <div className="callback-message">
