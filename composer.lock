@@ -841,17 +841,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.12.2",
+            "version": "dev-LIS-171-only-send-images-for-selected-variations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "237ad55969b0caecaeda6d3acc24027f50bef181"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.2-2c4ef8.zip",
-                "reference": "237ad55969b0caecaeda6d3acc24027f50bef181",
-                "shasum": null
+                "reference": "f02d970994b232cef21b7d71ec430cb0c24c2ff7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9515,13 +9509,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.12.3",
+            "alias_normalized": "1.12.3.0",
+            "version": "dev-LIS-171-only-send-images-for-selected-variations",
+            "package": "channelgrabber/ebay"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
