@@ -22,14 +22,12 @@ define([
                 refreshing: false,
                 onOptionChange: null,
                 onRefreshClick: null,
-                onRemoveButtonClick: null
+                onRemoveButtonClick: null,
+                resetSelection: null
             }
         },
         getCategoryOptions: function () {
             var selects = [];
-            if (this.props.accountId == 3) {
-                console.log(this.props);
-            }
             for (var categoryLevel = 0; categoryLevel < this.props.categories.length; categoryLevel++) {
                 if (Object.keys(this.props.categories[categoryLevel]).length === 0) {
                     continue;
@@ -41,7 +39,7 @@ define([
                         categories={this.getCategorySelectOptionsForAccount(categoryLevel, this.props.categories[categoryLevel])}
                         accountId={this.props.accountId}
                         onOptionChange={this.onOptionChange}
-                        selectedCategory={this.props.selectedCategory}
+                        resetSelection={this.props.resetSelection}
                     />
                 )
                 if (categoryLevel === 0) {

@@ -51,7 +51,7 @@ define([
             });
         },
         componentWillReceiveProps: function (newProps) {
-            var selectedOption = (newProps.selectedOption && newProps.selectedOption.name !== "" ? newProps.selectedOption : this.state.selectedOption);
+            var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
             if (!this.isSelectedOptionAvailable(selectedOption, newProps.options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }

@@ -13,6 +13,7 @@ define([
                     continue;
                 }
                 newState[accountId].categories.splice(action.payload.categoryLevel + 1);
+                newState[accountId].resetSelection = false;
                 break;
             }
             return newState;
@@ -61,7 +62,7 @@ define([
                     continue;
                 }
                 newState[accountId].categories.splice(1);
-                newState[accountId].selectedCategory = {value: '', name: ''};
+                newState[accountId].resetSelection = true;
             }
             return newState;
         }
