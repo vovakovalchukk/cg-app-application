@@ -28,12 +28,14 @@ define([
         'woo-commerce': WooCommerceForm
     };
 
-    return React.createClass({
+    var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
             return {
                 product: null,
                 accounts: {},
-                availableChannels: {}
+                availableChannels: {},
+                availableVariationsChannels: {},
+                variationsDataForProduct: []
             }
         },
         getInitialState: function() {
@@ -46,7 +48,8 @@ define([
                 price: null,
                 weight: null,
                 errors: [],
-                warnings: []
+                warnings: [],
+                attributeNameMap: {}
             }
         },
         componentDidMount: function() {
@@ -60,13 +63,14 @@ define([
                 return;
             }
 
+            var productDetails = this.props.product.details ? this.props.product.details : {};
+
             this.setState({
                 productId: this.props.product.id,
                 title: this.props.product.name,
-                description: this.props.product.details.description ? this.props.product.details.description : null,
-                price: this.props.product.details.price ? this.props.product.details.price : null,
-                ean: this.props.product.details.ean  ? this.props.product.ean : null,
-                weight: this.props.product.details.weight ? this.props.product.details.weight : null
+                description: productDetails.description ? productDetails.description : null,
+                price: productDetails.price ? productDetails.price : null,
+                weight: productDetails.weight ? productDetails.weight : null
             });
         },
         setFormStateListing: function(listingFormState) {
@@ -90,6 +94,8 @@ define([
                 setFormStateListing={this.setFormStateListing}
                 getSelectCallHandler={this.getSelectCallHandler}
                 product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                fetchVariations={this.props.fetchVariations}
             />
         },
         onAccountSelected: function(selectValue) {
@@ -104,9 +110,11 @@ define([
         getAccountOptions: function() {
             var options = [];
 
+            var isSimpleProduct = this.props.product.variationCount == 0;
+            var accountsAvailableForProductType = isSimpleProduct ? this.props.availableChannels : this.props.availableVariationsChannels;
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, this.props.availableChannels)) {
+                if (CreateListingUtils.productCanListToAccount(account, accountsAvailableForProductType)) {
                     options.push({name: account.displayName, value: account.id});
                 }
             }
@@ -187,6 +195,15 @@ define([
             if (this.state.errors.length == 0) {
                 return;
             }
+            var warnings = [];
+            if (this.state.warnings) {
+                warnings.push(<h4>Warnings</h4>);
+                warnings.push(<ul>
+                    {this.state.warnings.map(function (warning) {
+                        return (<li>{warning}</li>);
+                    })}
+                </ul>);
+            }
             return (
                 <PopupMessage
                     initiallyActive={!!this.state.errors.length}
@@ -200,12 +217,7 @@ define([
                             return (<li>{error}</li>);
                         })}
                     </ul>
-                    <h4>Warnings</h4>
-                    <ul>
-                        {this.state.warnings.map(function (warning) {
-                            return (<li>{warning}</li>);
-                        })}
-                    </ul>
+                    {warnings}
                     <p>Please address these errors then try again.</p>
                 </PopupMessage>
             );
@@ -255,4 +267,6 @@ define([
             );
         }
     });
+
+    return CreateListingPopup;
 });

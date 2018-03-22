@@ -20,6 +20,7 @@ define([
                         ref="input"
                         type="number"
                         name={this.props.name ? this.props.name : "price"}
+                        step="any"
                         placeholder="0.00"
                         value={isNaN(value) ? '' : value}
                         onChange={this.props.onChange}

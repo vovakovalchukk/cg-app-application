@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90dc2c4e9121bd8efa42074903856498",
+    "content-hash": "ad7b70b51de5b9bba482548878908936",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,16 +263,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "27fcffe35b8c5186f272f3b378ec1ba5e7bc46e9"
+                "reference": "5c84cd478b5b34fa3a9fe81e46d0505ee6c8a2c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.1.3-f8ddc2.zip",
-                "reference": "27fcffe35b8c5186f272f3b378ec1ba5e7bc46e9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.1.4-64ac5c.zip",
+                "reference": "5c84cd478b5b34fa3a9fe81e46d0505ee6c8a2c3",
                 "shasum": null
             },
             "require": {
@@ -300,7 +300,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-01T14:14:01+00:00"
+            "time": "2018-03-15T09:46:14+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -705,6 +705,12 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "d99d6d4c22b54f08776ed7c25dc0938cf505c34b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9184-update_dpd_direct_service_labels-e8d967.zip",
+                "reference": "d99d6d4c22b54f08776ed7c25dc0938cf505c34b",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-9184-update_dpd_direct_service_labels as 1.1.2",
                 "channelgrabber/locale": "^1.0.17",
@@ -734,7 +740,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-03-14T11:52:09+00:00"
+            "time": "2018-03-14T12:03:32+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -836,16 +842,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.12.1",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b9072da683839b52eafb18bae3d3408610f988a1"
+                "reference": "1b43ff4526dbc49643aaf9038040af6e30386995"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.1-663c0a.zip",
-                "reference": "b9072da683839b52eafb18bae3d3408610f988a1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.3-af2175.zip",
+                "reference": "1b43ff4526dbc49643aaf9038040af6e30386995",
                 "shasum": null
             },
             "require": {
@@ -896,7 +902,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-02-28T14:13:56+00:00"
+            "time": "2018-03-22T13:57:39+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1054,16 +1060,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "6d27060ca8c32a3a5195c2b2d0ee1033be30da59"
+                "reference": "653c5728821d6afd958838cf415b3b7d868b1941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-2.1.0-3128eb.zip",
-                "reference": "6d27060ca8c32a3a5195c2b2d0ee1033be30da59",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-2.1.1-d5df48.zip",
+                "reference": "653c5728821d6afd958838cf415b3b7d868b1941",
                 "shasum": null
             },
             "require": {
@@ -1087,7 +1093,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2017-12-20T11:18:03+00:00"
+            "time": "2018-03-22T13:55:20+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -1312,16 +1318,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.16.0",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "21823e92cd8e5116bd5917a42379335d7d2e5ea8"
+                "reference": "8484ce2605a027f76ca6e6d5ad421f8ed3af6ad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.0-69b1d4.zip",
-                "reference": "21823e92cd8e5116bd5917a42379335d7d2e5ea8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.1-709ef0.zip",
+                "reference": "8484ce2605a027f76ca6e6d5ad421f8ed3af6ad8",
                 "shasum": null
             },
             "require": {
@@ -1357,7 +1363,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-20T15:02:14+00:00"
+            "time": "2018-03-01T15:59:11+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -2024,16 +2030,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.11.6",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "20c414e1a85d62373ad0a6aa2ddc2193dd34fce2"
+                "reference": "eb3ea3fa47401b08cf29d5ae15e91a0cfd93506a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.11.6-f2ecd4.zip",
-                "reference": "20c414e1a85d62373ad0a6aa2ddc2193dd34fce2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.12.0-3d2e20.zip",
+                "reference": "eb3ea3fa47401b08cf29d5ae15e91a0cfd93506a",
                 "shasum": null
             },
             "require": {
@@ -2059,6 +2065,12 @@
                 "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
+            "conflict": {
+                "channelgrabber/bigcommerce": "<=1.1.1",
+                "channelgrabber/ebay": "<=1.11.10",
+                "channelgrabber/shopify": "<=1.1.1",
+                "channelgrabber/woocommerce": "<=1.2.23"
+            },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2",
                 "phpunit/phpunit": "~4.0.0"
@@ -2079,7 +2091,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-03-02T09:38:14+00:00"
+            "time": "2018-03-15T09:55:31+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2444,16 +2456,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.1.3",
+            "version": "1.2.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "4e0097a0cefb983d22ab9d568d1501025a2b4b17"
+                "reference": "e038c4e03556d2a8c851f42997d6f543f8b72185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.1.3-7ce596.zip",
-                "reference": "4e0097a0cefb983d22ab9d568d1501025a2b4b17",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.2.0.1-e5c3ad.zip",
+                "reference": "e038c4e03556d2a8c851f42997d6f543f8b72185",
                 "shasum": null
             },
             "require": {
@@ -2463,7 +2475,7 @@
                 "channelgrabber/listing": "^1.13.0",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.23.0",
-                "channelgrabber/product": "~1.11.4",
+                "channelgrabber/product": "^1.11.4",
                 "channelgrabber/stdlib": "^2.12.33",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "channelgrabber/zf2-stdlib": "^1.1.7",
@@ -2486,7 +2498,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-03-12T09:25:01+00:00"
+            "time": "2018-03-16T13:05:45+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3138,20 +3150,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.2.24",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "380b5c613e74cf5e65c975211f152aa7079363c0"
+                "reference": "e8fe6e21867cd6cb80af9e83359ebf44cd6320eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.24-59827d.zip",
-                "reference": "380b5c613e74cf5e65c975211f152aa7079363c0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.3.2-1c0312.zip",
+                "reference": "e8fe6e21867cd6cb80af9e83359ebf44cd6320eb",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.32.8",
+                "channelgrabber/channel": "^1.34.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3181,7 +3193,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-02-14T14:51:04+00:00"
+            "time": "2018-03-15T10:00:20+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -4006,16 +4018,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.3",
+            "version": "1.22.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d0ba8a469e82e7d1134e0f4824bc4cffeb4f5e2c"
+                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.3-2f6ee9.zip",
-                "reference": "d0ba8a469e82e7d1134e0f4824bc4cffeb4f5e2c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.4-dc404c.zip",
+                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40",
                 "shasum": null
             },
             "require": {
@@ -4066,7 +4078,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-02-28T14:14:21+00:00"
+            "time": "2018-03-15T10:03:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9524,8 +9536,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

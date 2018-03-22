@@ -51,15 +51,34 @@ define([
             });
         },
         componentWillReceiveProps: function (newProps) {
+            var newState = {
+                disabled: newProps.disabled
+            }
+            var options = this.state.options;
+            if (this.shouldUpdateStateFromProps(newProps)) {
+                newState.options = newProps.options;
+                options = newProps.options;
+            }
             var selectedOption = (newProps.selectedOption && newProps.selectedOption.name !== "" ? newProps.selectedOption : this.state.selectedOption);
-            if (!this.isSelectedOptionAvailable(selectedOption, newProps.options)) {
+            if (!this.isSelectedOptionAvailable(selectedOption, options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }
-            this.setState({
-                disabled: newProps.disabled,
-                options: newProps.options,
-                selectedOption: selectedOption
-            });
+            newState.selectedOption = selectedOption;
+            this.setState(newState);
+        },
+        shouldUpdateStateFromProps: function(newProps) {
+            if (!this.props.options) {
+                return true;
+            }
+            for (var i = 0; i < newProps.options.length; i++) {
+                if (!this.props.options[i]) {
+                    return true;
+                }
+                if (newProps.options[i].value != this.props.options[i].value || newProps.options[i].name != this.props.options[i].name) {
+                    return true;
+                }
+            }
+            return false;
         },
         getDefaultSelectedOption: function() {
             return {name: '', value: ''};
@@ -139,13 +158,13 @@ define([
             options.push(customOption);
             this.clearInput(e.target);
 
-            this.callBackOnOptionSelectChanged(customOption);
-
             this.setState({
                 options: options,
                 selectedOption: customOption,
                 active: false
-            });
+            }, function() {
+                this.callBackOnOptionSelectChanged(customOption);
+            }.bind(this));
         },
         onFilterResults: function (e) {
             this.setState({
@@ -180,18 +199,26 @@ define([
                 return [];
             }
 
+            var optionName;
+            var className;
             var options = this.state.options.filter(this.filterBySearchTerm).map(function(opt, index) {
-                var optionName = this.getOptionName(opt.name, opt.value);
+                optionName = this.getOptionName(opt.name, opt.value);
+                className = '';
+                if (opt.disabled) {
+                    className = 'disabled';
+                } else if (opt.selected) {
+                    className = 'active';
+                }
 
                 return (
                     <li
-                        className={"custom-select-item "+(opt.selected ? "active" : "")}
+                        className={"custom-select-item " + className}
                         value={opt.value} key={index}
                         onClick={this.onOptionSelected.bind(this, opt.value)}
                     >
                         <a value={opt.value} data-trigger-select-click="false">{optionName}</a>
                     </li>
-                )
+                );
             }.bind(this));
 
             if (this.props.customOptions) {
@@ -242,7 +269,7 @@ define([
         },
         render: function () {
             return <ClickOutside onClickOutside={this.onClickOutside}>
-                <div className={"custom-select "+ (this.state.active ? 'active' : '')} onClick={this.onClick} title={this.props.title}>
+                <div className={"custom-select "+ (this.state.active ? 'active' : '')+(this.state.disabled ? 'disabled' : '')} onClick={this.onClick} title={this.props.title}>
                         <div className="selected">
                             <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
                             <span className="sprite-arrow-down-10-black">&nbsp;</span>
