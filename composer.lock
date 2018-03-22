@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ff29f376720e821a8c150e7928a42e9",
+    "content-hash": "142177cd2d0b2de1a9189cc6005d9572",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -841,11 +841,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-LIS-145-fix-create-listing-ebay-url",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "1fa1af90ba0841d4ee988c9a64550c51ac749cb8"
+                "reference": "1b43ff4526dbc49643aaf9038040af6e30386995"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.3-af2175.zip",
+                "reference": "1b43ff4526dbc49643aaf9038040af6e30386995",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -895,7 +901,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-15T16:02:57+00:00"
+            "time": "2018-03-22T13:57:39+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1053,16 +1059,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "dev-CGIV-9317-prevent_feature_flag_cache",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "b59e0b2bdc63db57e08d42c822d4d503c2f2895b"
+                "reference": "653c5728821d6afd958838cf415b3b7d868b1941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9317-prevent_feature_flag_cache-def2eb.zip",
-                "reference": "b59e0b2bdc63db57e08d42c822d4d503c2f2895b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-2.1.1-d5df48.zip",
+                "reference": "653c5728821d6afd958838cf415b3b7d868b1941",
                 "shasum": null
             },
             "require": {
@@ -1086,7 +1092,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2018-03-20T10:28:27+00:00"
+            "time": "2018-03-22T13:55:20+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -7965,7 +7971,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8020,7 +8026,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8075,7 +8081,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8126,7 +8132,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8212,7 +8218,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9509,25 +9515,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.1.1",
-            "alias_normalized": "2.1.1.0",
-            "version": "dev-CGIV-9317-prevent_feature_flag_cache",
-            "package": "channelgrabber/feature-flags"
-},{
-            "alias": "1.12.3",
-            "alias_normalized": "1.12.3.0",
-            "version": "dev-LIS-145-fix-create-listing-ebay-url",
-            "package": "channelgrabber/ebay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/feature-flags": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
