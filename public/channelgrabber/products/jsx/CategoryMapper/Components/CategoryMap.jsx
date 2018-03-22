@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    'CategoryMapper/Containers/AccountCategorySelect'
+    'CategoryMapper/Containers/AccountCategorySelect',
+    'Common/Components/Button'
 ], function(
     React,
     ReduxForm,
-    AccountCategorySelect
+    AccountCategorySelect,
+    Button
 ) {
     "use strict";
 
@@ -51,6 +53,9 @@ define([
                             </div>
                         </label>
                         {this.renderCategorySelects()}
+                        <div style={{width: 80, display: 'flex'}}>
+                            <Button text={"Save"} onClick={this.props.handleSubmit}/>
+                        </div>
                     </div>
                 </form>
             );
