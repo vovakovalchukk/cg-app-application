@@ -195,6 +195,15 @@ define([
             if (this.state.errors.length == 0) {
                 return;
             }
+            var warnings = [];
+            if (this.state.warnings) {
+                warnings.push(<h4>Warnings</h4>);
+                warnings.push(<ul>
+                    {this.state.warnings.map(function (warning) {
+                        return (<li>{warning}</li>);
+                    })}
+                </ul>);
+            }
             return (
                 <PopupMessage
                     initiallyActive={!!this.state.errors.length}
@@ -208,12 +217,7 @@ define([
                             return (<li>{error}</li>);
                         })}
                     </ul>
-                    <h4>Warnings</h4>
-                    <ul>
-                        {this.state.warnings.map(function (warning) {
-                            return (<li>{warning}</li>);
-                        })}
-                    </ul>
+                    {warnings}
                     <p>Please address these errors then try again.</p>
                 </PopupMessage>
             );
