@@ -35,7 +35,8 @@ define([
                 searchAvailable: true,
                 isAdmin: false,
                 initialSearchTerm: '',
-                adminCompanyUrl: null
+                adminCompanyUrl: null,
+                features: {}
             }
         },
         getInitialState: function()
@@ -111,7 +112,8 @@ define([
                     searchTerm: searchTerm,
                     skuList: skuList,
                     accounts: result.accounts,
-                    createListingsAllowedChannels: result.createListingsAllowedChannels
+                    createListingsAllowedChannels: result.createListingsAllowedChannels,
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
                 }, function(){
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -146,7 +148,7 @@ define([
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function () {
-            if (!this.props.linkedProductsEnabled) {
+            if (!this.props.features.linkedProducts) {
                 return;
             }
             window.triggerEvent('fetchingProductLinksStart');
@@ -377,12 +379,13 @@ define([
                     productLinks={this.state.allProductLinks[product.id]}
                     maxVariationAttributes={this.state.maxVariationAttributes}
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
-                    linkedProductsEnabled={this.props.linkedProductsEnabled}
+                    linkedProductsEnabled={this.props.features.linkedProducts}
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-                    createListingsEnabled={this.props.createListingsEnabled}
+                    createListingsEnabled={this.props.features.createListings}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+                    createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
                 />;
             }.bind(this))
@@ -393,6 +396,9 @@ define([
                 product={this.state.createListing.product}
                 onCreateListingClose={this.onCreateListingClose}
                 availableChannels={this.state.createListingsAllowedChannels}
+                availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
+                variationsDataForProduct={this.state.variations[this.state.createListing.product.id]}
+                fetchVariations={this.onVariationsRequest.bind(this)}
             />
         },
         render: function()

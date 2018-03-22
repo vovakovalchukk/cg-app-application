@@ -13,6 +13,9 @@ use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
+use CG\Product\Client\Service as ProductClientService;
+use CG\Listing\Client\Service as ListingClientService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -31,6 +34,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $activeUserContainer;
     /** @var UsageService */
     protected $usageService;
+    /** @var FeatureFlagsService */
+    protected $featureFlagService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -39,7 +44,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         Translator $translator,
         DataTable $accountStockSettingsTable,
         ActiveUserInterface $activeUserContainer,
-        UsageService $usageService
+        UsageService $usageService,
+        FeatureFlagsService $featureFlagService
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
@@ -48,10 +54,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
              ->setAccountStockSettingsTable($accountStockSettingsTable)
              ->setActiveUserContainer($activeUserContainer)
              ->setUsageService($usageService);
+        $this->featureFlagService = $featureFlagService;
     }
 
     public function indexAction()
     {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $view = $this->getViewModelFactory()->newInstance();
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
@@ -70,7 +78,17 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('isAdmin', $this->activeUserContainer->isAdmin());
         $view->setVariable('searchTerm', $this->params()->fromQuery('search', ''));
-        $view->setVariable('activeUserRootOu', $this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+        $view->setVariable('activeUserRootOu', $rootOuId);
+        $view->setVariable('featureFlagJson', json_encode([
+            'linkedProducts' => $this->featureFlagService->featureEnabledForOu(
+                ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
+                $rootOuId
+            ),
+            'createListings' => $this->featureFlagService->featureEnabledForOu(
+                ListingClientService::FEATURE_FLAG_CREATE_LISTINGS,
+                $rootOuId
+            )
+        ]));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
