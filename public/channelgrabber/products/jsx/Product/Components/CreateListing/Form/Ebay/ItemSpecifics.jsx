@@ -30,8 +30,9 @@ define([
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var changes = false;
             for (var title in this.state.selectedItemSpecifics) {
-                if (newProps.itemSpecifics.required[title] == undefined &&
-                    newProps.itemSpecifics.optional[title] == undefined
+                if (!newProps.itemSpecifics
+                    || newProps.itemSpecifics.length === 0
+                    || newProps.itemSpecifics.required[title] == undefined && newProps.itemSpecifics.optional[title] == undefined
                 ) {
                     delete selectedItemSpecifics[title];
                     changes = true;
@@ -56,7 +57,17 @@ define([
                     var properties = requiredItems[name];
                     required.push(this.buildItemSpecificsInputByType(name, properties));
                 }
-                itemSpecifics.push(<span><b>Item Specifics (Required)</b>{required}</span>);
+                itemSpecifics.push(
+                    <span>
+                        <label>
+                            <span className={"inputbox-label"}><b>Item Specifics (Required)</b></span>
+                            <div className={"order-inputbox-holder"}></div>
+                        </label>
+                        <span>
+                            {required}
+                        </span>
+                    </span>
+                );
             }
             if (optionalItems && Object.keys(optionalItems).length > 0) {
                 itemSpecifics.push(
