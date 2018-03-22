@@ -35,8 +35,9 @@ define([
                     continue;
                 }
                 newState[accountId].categories = [{
-                    tile: ''
+                    0: {tile: ''}
                 }];
+                newState[accountId].refreshing = true;
                 break;
             }
             return newState;
@@ -47,7 +48,8 @@ define([
                 if (action.payload.accountId != accountId) {
                     continue;
                 }
-                newState[accountId].categories = [action.payload.categories]
+                newState[accountId].categories = [action.payload.categories];
+                newState[accountId].refreshing = false;
                 break;
             }
             return newState;

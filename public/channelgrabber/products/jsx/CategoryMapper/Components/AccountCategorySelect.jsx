@@ -20,7 +20,8 @@ define([
                 categories: [],
                 accountId: 0,
                 onOptionChange: null,
-                onRefreshClick: null
+                onRefreshClick: null,
+                refreshing: false
             }
         },
         getCategoryOptions: function () {
@@ -42,6 +43,7 @@ define([
                     selects.push(
                         <RefreshIcon
                             onClick={this.onRefreshClick}
+                            disabled={this.props.refreshing}
                         />
                     )
                 }

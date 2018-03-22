@@ -33,6 +33,7 @@ define([
                                 component={AccountCategorySelect}
                                 categories={accountData.categories}
                                 accountId={accountId}
+                                refreshing={accountData.refreshing}
                             />
                         </div>
                     </label>
