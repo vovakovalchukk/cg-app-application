@@ -23,6 +23,8 @@ define([
         },
         getSelectedCategory: function() {
             if (this.props.resetSelection) {
+                // Reset the selected value
+                this.props.input.onChange(null);
                 return {
                     name: '',
                     value: ''
