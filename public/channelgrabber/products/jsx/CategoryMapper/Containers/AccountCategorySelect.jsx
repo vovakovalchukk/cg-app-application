@@ -17,6 +17,9 @@ define([
         return {
             onOptionChange: function(accountId, categoryId, categoryLevel) {
                 dispatch(Actions.categorySelected(dispatch, accountId, categoryId, categoryLevel));
+            },
+            onRefreshClick: function(accountId) {
+                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
             }
         };
     };

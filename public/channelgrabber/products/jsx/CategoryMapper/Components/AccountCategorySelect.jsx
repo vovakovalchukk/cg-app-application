@@ -19,6 +19,8 @@ define([
             return {
                 categories: [],
                 accountId: 0,
+                onOptionChange: null,
+                onRefreshClick: null
             }
         },
         getCategoryOptions: function () {
@@ -38,7 +40,9 @@ define([
                 )
                 if (categoryLevel === 0) {
                     selects.push(
-                        <RefreshIcon/>
+                        <RefreshIcon
+                            onClick={this.onRefreshClick}
+                        />
                     )
                 }
             }
@@ -58,6 +62,11 @@ define([
         onOptionChange: function (category) {
             if (this.props.onOptionChange) {
                 this.props.onOptionChange(this.props.accountId, category.value, category.level);
+            }
+        },
+        onRefreshClick: function () {
+            if (this.props.onRefreshClick) {
+                this.props.onRefreshClick(this.props.accountId);
             }
         },
         render: function() {

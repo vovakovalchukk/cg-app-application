@@ -1,10 +1,12 @@
 define([
     'redux-form',
     'react-redux',
+    'CategoryMapper/Actions/Category',
     'CategoryMapper/Components/CategoryMap'
 ], function(
     ReduxForm,
     ReactRedux,
+    Actions,
     CategoryMap
 ) {
     var mapStateToProps = function(state, ownProps) {
