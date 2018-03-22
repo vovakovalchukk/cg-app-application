@@ -19,13 +19,17 @@ define([
             return {
                 categories: [],
                 accountId: 0,
+                refreshing: false,
                 onOptionChange: null,
                 onRefreshClick: null,
-                refreshing: false
+                onRemoveButtonClick: null
             }
         },
         getCategoryOptions: function () {
             var selects = [];
+            if (this.props.accountId == 3) {
+                console.log(this.props);
+            }
             for (var categoryLevel = 0; categoryLevel < this.props.categories.length; categoryLevel++) {
                 if (Object.keys(this.props.categories[categoryLevel]).length === 0) {
                     continue;
@@ -37,6 +41,7 @@ define([
                         categories={this.getCategorySelectOptionsForAccount(categoryLevel, this.props.categories[categoryLevel])}
                         accountId={this.props.accountId}
                         onOptionChange={this.onOptionChange}
+                        selectedCategory={this.props.selectedCategory}
                     />
                 )
                 if (categoryLevel === 0) {
@@ -44,7 +49,8 @@ define([
                         <RefreshIcon
                             onClick={this.onRefreshClick}
                             disabled={this.props.refreshing}
-                        />
+                        />,
+                        this.renderRemoveButton()
                     )
                 }
             }
@@ -70,6 +76,20 @@ define([
             if (this.props.onRefreshClick) {
                 this.props.onRefreshClick(this.props.accountId);
             }
+        },
+        onRemoveButtonClick: function () {
+            if (this.props.onRemoveButtonClick) {
+                this.props.onRemoveButtonClick(this.props.accountId);
+            }
+        },
+        renderRemoveButton: function (index) {
+            return <span className="remove-icon">
+                <i
+                    className='fa fa-2x fa-minus-square icon-create-listing'
+                    aria-hidden='true'
+                    onClick={this.onRemoveButtonClick}
+                />
+            </span>;
         },
         render: function() {
             return <span>

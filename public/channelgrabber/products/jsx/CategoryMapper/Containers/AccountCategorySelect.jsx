@@ -20,6 +20,9 @@ define([
             },
             onRefreshClick: function(accountId) {
                 dispatch(Actions.refreshButtonClicked(dispatch, accountId));
+            },
+            onRemoveButtonClick: function (accountId) {
+                dispatch(Actions.removeButtonClicked(accountId));
             }
         };
     };

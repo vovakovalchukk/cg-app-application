@@ -11,7 +11,8 @@ define([
         getDefaultProps: function() {
             return {
                 categories: [],
-                onOptionChange: null
+                onOptionChange: null,
+                selectedCategory: null
             }
         },
         onOptionChange: function(category) {
@@ -26,6 +27,7 @@ define([
                 options={this.props.categories}
                 autoSelectFirst={false}
                 onOptionChange={this.onOptionChange}
+                selectedOption={this.props.selectedCategory}
             />
         }
     });

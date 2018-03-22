@@ -54,5 +54,16 @@ define([
             }
             return newState;
         },
+        "REMOVE_ROOT_CATEGORY": function (state, action) {
+            var newState = Object.assign({}, state);
+            for (var accountId in newState) {
+                if (action.payload.accountId != accountId) {
+                    continue;
+                }
+                newState[accountId].categories.splice(1);
+                newState[accountId].selectedCategory = {value: '', name: ''};
+            }
+            return newState;
+        }
     });
 });

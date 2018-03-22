@@ -63,6 +63,14 @@ define([], function() {
                     accountId: accountId
                 }
             }
+        },
+        removeButtonClicked: function (accountId) {
+            return {
+                type: 'REMOVE_ROOT_CATEGORY',
+                payload: {
+                    accountId: accountId
+                }
+            }
         }
     };
 });
