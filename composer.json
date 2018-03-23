@@ -64,7 +64,7 @@
         "channelgrabber/sequential-numbering": "~1.0.0",
         "channelgrabber/settings": "~1.5.5",
         "channelgrabber/shopify": "~1.2.0",
-        "channelgrabber/slim": "dev-develop as 1.13.32-dev",
+        "channelgrabber/slim": "dev-CGIV-9328-CleanupLogFields as 1.14.0-dev",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "dev-CGIV-9328-CleanupLogFields as 2.15.0",
