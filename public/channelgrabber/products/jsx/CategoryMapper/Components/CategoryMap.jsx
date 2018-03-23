@@ -36,6 +36,7 @@ define([
                                 categories={accountData.categories}
                                 accountId={accountId}
                                 refreshing={accountData.refreshing}
+                                refreshable={accountData.refreshable}
                                 resetSelection={accountData.resetSelection}
                             />
                         </div>

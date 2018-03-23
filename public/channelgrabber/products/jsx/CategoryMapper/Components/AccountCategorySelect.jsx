@@ -19,6 +19,7 @@ define([
             return {
                 categories: [],
                 accountId: 0,
+                refreshable: false,
                 refreshing: false,
                 onOptionChange: null,
                 onRefreshClick: null,
@@ -43,13 +44,15 @@ define([
                     />
                 )
                 if (categoryLevel === 0) {
-                    selects.push(
-                        <RefreshIcon
-                            onClick={this.onRefreshClick}
-                            disabled={this.props.refreshing}
-                        />,
-                        this.renderRemoveButton()
-                    )
+                    if (this.props.refreshable) {
+                        selects.push(
+                            <RefreshIcon
+                                onClick={this.onRefreshClick}
+                                disabled={this.props.refreshing}
+                            />
+                        );
+                    }
+                    selects.push(this.renderRemoveButton());
                 }
             }
             return selects;
