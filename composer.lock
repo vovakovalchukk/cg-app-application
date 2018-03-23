@@ -703,7 +703,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "34c3f4644ff840bd67c35d30abf712f4c7eac38b"
+                "reference": "ac921e406c6e2aa3c482d3008c89be5eeb8f44a6"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-CGIV-9184-update_dpd_direct_service_labels as 1.1.2",
