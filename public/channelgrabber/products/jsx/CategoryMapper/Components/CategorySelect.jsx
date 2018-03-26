@@ -7,7 +7,7 @@ define([
 ) {
     "use strict";
 
-    return React.createClass({
+    var CategorySelectComponent = React.createClass({
         getDefaultProps: function() {
             return {
                 categories: [],
@@ -42,4 +42,6 @@ define([
             />
         }
     });
+
+    return CategorySelectComponent;
 });

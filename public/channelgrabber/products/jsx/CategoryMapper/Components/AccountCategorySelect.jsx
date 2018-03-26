@@ -12,7 +12,7 @@ define([
     "use strict";
 
     var Field = ReduxForm.Field;
-    return React.createClass({
+    var AccountCategorySelect = React.createClass({
         getDefaultProps: function() {
             return {
                 categories: [],
@@ -93,4 +93,6 @@ define([
             </span>
         }
     });
+
+    return AccountCategorySelect;
 });
