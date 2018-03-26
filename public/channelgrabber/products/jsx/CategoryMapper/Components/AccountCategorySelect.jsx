@@ -25,9 +25,6 @@ define([
                 onRemoveButtonClick: function() {},
             }
         },
-        componentWillReceiveProps: function() {
-            console.log(arguments);
-        },
         getCategoryOptions: function () {
             var selects = [];
             for (var categoryLevel = 0; categoryLevel < this.props.categories.length; categoryLevel++) {

@@ -1,6 +1,6 @@
 define([
     'react',
-    'CategoryMapper/Containers/CategoryMap',
+    'CategoryMapper/Components/CategoryMap',
 ], function(
     React,
     CategoryMapContainer

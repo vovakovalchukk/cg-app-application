@@ -1,12 +1,16 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
     'Common/Components/Button',
+    'CategoryMapper/Actions/Category',
     'CategoryMapper/Components/AccountCategorySelect'
 ], function(
     React,
     ReduxForm,
+    ReactRedux,
     Button,
+    Actions,
     AccountCategorySelect
 ) {
     "use strict";
@@ -67,5 +71,34 @@ define([
         }
     });
 
-    return CategoryMapComponent;
+    var mapStateToProps = function(state) {
+        var categoryMap = state.categoryMap;
+        return {
+            accounts: categoryMap
+        }
+    };
+
+    var mapDispatchToProps = function (dispatch) {
+        return {
+            onCategorySelected: function(accountId, categoryId, categoryLevel) {
+                dispatch(Actions.categorySelected(dispatch, accountId, categoryId, categoryLevel));
+            },
+            onRefreshClick: function(accountId) {
+                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
+            },
+            onRemoveButtonClick: function (accountId) {
+                dispatch(Actions.removeButtonClicked(accountId));
+            }
+        };
+    };
+
+    var CategoryMapConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+
+    CategoryMapComponent = CategoryMapConnector(CategoryMapComponent);
+
+    var categoryMapFormCreator = ReduxForm.reduxForm({
+        form: "categoryMap"
+    });
+
+    return categoryMapFormCreator(CategoryMapComponent);
 });
