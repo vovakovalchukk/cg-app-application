@@ -2,13 +2,11 @@ define([
     'react',
     'redux-form',
     'CategoryMapper/Components/CategorySelect',
-    'Common/Components/Select',
     'Product/Components/CreateListing/Form/Shared/RefreshIcon'
 ], function(
     React,
     ReduxForm,
     CategorySelect,
-    Select,
     RefreshIcon
 ) {
     "use strict";
@@ -21,11 +19,14 @@ define([
                 accountId: 0,
                 refreshable: false,
                 refreshing: false,
-                onOptionChange: null,
-                onRefreshClick: null,
-                onRemoveButtonClick: null,
-                resetSelection: null
+                resetSelection: null,
+                onCategorySelected: function() {},
+                onRefreshClick: function() {},
+                onRemoveButtonClick: function() {},
             }
+        },
+        componentWillReceiveProps: function() {
+            console.log(arguments);
         },
         getCategoryOptions: function () {
             var selects = [];
@@ -39,7 +40,7 @@ define([
                         component={CategorySelect}
                         categories={this.getCategorySelectOptionsForAccount(categoryLevel, this.props.categories[categoryLevel])}
                         accountId={this.props.accountId}
-                        onOptionChange={this.onOptionChange}
+                        onOptionChange={this.onCategorySelected}
                         resetSelection={this.props.resetSelection}
                     />
                 )
@@ -68,20 +69,14 @@ define([
             }
             return options;
         },
-        onOptionChange: function (category) {
-            if (this.props.onOptionChange) {
-                this.props.onOptionChange(this.props.accountId, category.value, category.level);
-            }
+        onCategorySelected: function (category) {
+            this.props.onCategorySelected(this.props.accountId, category.value, category.level);
         },
         onRefreshClick: function () {
-            if (this.props.onRefreshClick) {
-                this.props.onRefreshClick(this.props.accountId);
-            }
+            this.props.onRefreshClick(this.props.accountId);
         },
         onRemoveButtonClick: function () {
-            if (this.props.onRemoveButtonClick) {
-                this.props.onRemoveButtonClick(this.props.accountId);
-            }
+            this.props.onRemoveButtonClick(this.props.accountId);
         },
         renderRemoveButton: function (index) {
             return <span className="remove-icon">

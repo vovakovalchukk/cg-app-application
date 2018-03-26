@@ -16,7 +16,19 @@ define([
         }
     };
 
-    var mapDispatchToProps = null;
+    var mapDispatchToProps = function (dispatch) {
+        return {
+            onCategorySelected: function(accountId, categoryId, categoryLevel) {
+                dispatch(Actions.categorySelected(dispatch, accountId, categoryId, categoryLevel));
+            },
+            onRefreshClick: function(accountId) {
+                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
+            },
+            onRemoveButtonClick: function (accountId) {
+                dispatch(Actions.removeButtonClicked(accountId));
+            }
+        };
+    };
 
     var CategoryMapConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
 

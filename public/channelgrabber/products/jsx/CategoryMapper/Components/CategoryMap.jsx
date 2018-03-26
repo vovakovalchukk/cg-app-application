@@ -1,13 +1,13 @@
 define([
     'react',
     'redux-form',
-    'CategoryMapper/Containers/AccountCategorySelect',
-    'Common/Components/Button'
+    'Common/Components/Button',
+    'CategoryMapper/Components/AccountCategorySelect'
 ], function(
     React,
     ReduxForm,
-    AccountCategorySelect,
-    Button
+    Button,
+    AccountCategorySelect
 ) {
     "use strict";
 
@@ -33,11 +33,14 @@ define([
                         <div className={"order-inputbox-holder"}>
                             <FieldArray
                                 component={AccountCategorySelect}
-                                categories={accountData.categories}
                                 accountId={accountId}
+                                categories={accountData.categories}
                                 refreshing={accountData.refreshing}
                                 refreshable={accountData.refreshable}
                                 resetSelection={accountData.resetSelection}
+                                onCategorySelected={this.props.onCategorySelected}
+                                onRefreshClick={this.props.onRefreshClick}
+                                onRemoveButtonClick={this.props.onRemoveButtonClick}
                             />
                         </div>
                     </label>
