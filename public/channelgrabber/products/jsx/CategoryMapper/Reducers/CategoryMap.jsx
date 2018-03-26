@@ -24,7 +24,10 @@ define([
                 if (action.payload.accountId != accountId) {
                     continue;
                 }
-                newState[accountId].categories.push(action.payload.categories);
+                newState[accountId] = Object.assign({}, newState[accountId]);
+                var categories = state[accountId].categories.slice();
+                categories.push(action.payload.categories);
+                newState[accountId].categories = categories;
                 break;
             }
             return newState;
