@@ -51,15 +51,34 @@ define([
             });
         },
         componentWillReceiveProps: function (newProps) {
-            var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
-            if (!this.isSelectedOptionAvailable(selectedOption, newProps.options)) {
+            var newState = {
+                disabled: newProps.disabled
+            }
+            var options = this.state.options;
+            if (this.shouldUpdateStateFromProps(newProps)) {
+                newState.options = newProps.options;
+                options = newProps.options;
+            }
+                var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
+            if (!this.isSelectedOptionAvailable(selectedOption, options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }
-            this.setState({
-                disabled: newProps.disabled,
-                options: newProps.options,
-                selectedOption: selectedOption
-            });
+            newState.selectedOption = selectedOption;
+            this.setState(newState);
+        },
+        shouldUpdateStateFromProps: function(newProps) {
+            if (!this.props.options) {
+                return true;
+            }
+            for (var i = 0; i < newProps.options.length; i++) {
+                if (!this.props.options[i]) {
+                    return true;
+                }
+                if (newProps.options[i].value != this.props.options[i].value || newProps.options[i].name != this.props.options[i].name) {
+                    return true;
+                }
+            }
+            return false;
         },
         getDefaultSelectedOption: function() {
             return {name: '', value: ''};
@@ -139,13 +158,13 @@ define([
             options.push(customOption);
             this.clearInput(e.target);
 
-            this.callBackOnOptionSelectChanged(customOption);
-
             this.setState({
                 options: options,
                 selectedOption: customOption,
                 active: false
-            });
+            }, function() {
+                this.callBackOnOptionSelectChanged(customOption);
+            }.bind(this));
         },
         onFilterResults: function (e) {
             this.setState({
@@ -182,7 +201,7 @@ define([
 
             var optionName;
             var className;
-            var options = this.props.options.filter(this.filterBySearchTerm).map(function(opt, index) {
+            var options = this.state.options.filter(this.filterBySearchTerm).map(function(opt, index) {
                 optionName = this.getOptionName(opt.name, opt.value);
                 className = '';
                 if (opt.disabled) {
