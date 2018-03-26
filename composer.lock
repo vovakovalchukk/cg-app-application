@@ -1489,12 +1489,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "2b4ccd72c8c8b3fbf804f4a33b533a2827fd2dcc"
+                "reference": "dfc6b1a8b97473bcb81bfd6e0fca23481282e486"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-CGIV-9328-CleanupLogFields-908f08.zip",
-                "reference": "2b4ccd72c8c8b3fbf804f4a33b533a2827fd2dcc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-CGIV-9328-CleanupLogFields-844c08.zip",
+                "reference": "dfc6b1a8b97473bcb81bfd6e0fca23481282e486",
                 "shasum": null
             },
             "require": {
@@ -1523,7 +1523,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-23T09:46:32+00:00"
+            "time": "2018-03-26T08:12:58+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
