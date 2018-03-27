@@ -41,17 +41,6 @@ define([
                         resetSelection={this.props.resetSelection}
                     />
                 )
-                if (categoryLevel === 0) {
-                    if (this.props.refreshable) {
-                        selects.push(
-                            <RefreshIcon
-                                onClick={this.onRefreshClick}
-                                disabled={this.props.refreshing}
-                            />
-                        );
-                    }
-                    selects.push(this.renderRemoveButton());
-                }
             }
             return selects;
         },
@@ -75,7 +64,7 @@ define([
         onRemoveButtonClick: function () {
             this.props.onRemoveButtonClick(this.props.accountId);
         },
-        renderRemoveButton: function (index) {
+        renderRemoveButton: function () {
             return <span className="remove-icon">
                 <i
                     className='fa fa-2x fa-times icon-create-listing'
@@ -84,9 +73,27 @@ define([
                 />
             </span>;
         },
+        renderRefreshButton: function () {
+            return <RefreshIcon
+              onClick={this.onRefreshClick}
+              disabled={this.props.refreshing}
+            />
+        },
+        renderActionButtons: function () {
+            var actions = [this.renderRemoveButton()];
+            if (this.props.refreshable) {
+                actions.push(this.renderRefreshButton());
+            }
+            return <span>
+                {actions}
+            </span>
+        },
         render: function() {
             return <span>
-                {this.getCategoryOptions()}
+                <div className={"order-inputbox-holder"} style={{ width: 300 }}>
+                    {this.getCategoryOptions()}
+                </div>
+                {this.renderActionButtons()}
             </span>
         }
     });

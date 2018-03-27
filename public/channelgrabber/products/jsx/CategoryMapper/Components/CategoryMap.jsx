@@ -29,24 +29,22 @@ define([
             for (var accountId in this.props.accounts) {
                 var accountData = this.props.accounts[accountId];
                 selects.push(
-                    <label>
+                    <label style={{ width: 400, display: 'inline-block', float: 'initial' }}>
                         <span
                             style={{ width: 300 }}
                             className={"inputbox-label"}>{accountData.displayName}
                         </span>
-                        <div className={"order-inputbox-holder"}>
-                            <FieldArray
-                                component={AccountCategorySelect}
-                                accountId={accountId}
-                                categories={accountData.categories}
-                                refreshing={accountData.refreshing}
-                                refreshable={accountData.refreshable}
-                                resetSelection={accountData.resetSelection}
-                                onCategorySelected={this.props.onCategorySelected}
-                                onRefreshClick={this.props.onRefreshClick}
-                                onRemoveButtonClick={this.props.onRemoveButtonClick}
-                            />
-                        </div>
+                        <FieldArray
+                            component={AccountCategorySelect}
+                            accountId={accountId}
+                            categories={accountData.categories}
+                            refreshing={accountData.refreshing}
+                            refreshable={accountData.refreshable}
+                            resetSelection={accountData.resetSelection}
+                            onCategorySelected={this.props.onCategorySelected}
+                            onRefreshClick={this.props.onRefreshClick}
+                            onRemoveButtonClick={this.props.onRemoveButtonClick}
+                        />
                     </label>
                 );
             };
@@ -55,16 +53,20 @@ define([
         render: function() {
             return (
                 <form onSubmit={this.props.handleSubmit}>
-                    <div className={"order-form half"}>
-                        <label>
-                            <div className={"order-inputbox-holder"}>
-                                <Field name="templateName" component="input" type="text" placeholder="Category template name here..."/>
-                            </div>
-                        </label>
-                        {this.renderCategorySelects()}
-                        <div style={{width: 80, display: 'flex'}}>
-                            <Button text={"Save"} onClick={this.props.handleSubmit}/>
+                    <div className={"order-form half"} style={{ width: '100%' }}>
+                        <div style={{ width: '100%' }}>
+                            <label>
+                                <div className={"order-inputbox-holder"}>
+                                    <Field name="templateName" component="input" type="text" placeholder="Category template name here..."/>
+                                </div>
+                            </label>
+                            <label>
+                                <div>
+                                    <Button text={"Save"} onClick={this.props.handleSubmit}/>
+                                </div>
+                            </label>
                         </div>
+                        {this.renderCategorySelects()}
                     </div>
                 </form>
             );
