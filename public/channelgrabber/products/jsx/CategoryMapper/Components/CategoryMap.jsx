@@ -31,7 +31,6 @@ define([
                 selects.push(
                     <label>
                         <span
-                            style={{ width: 300 }}
                             className={"inputbox-label"}>{accountData.displayName}
                         </span>
                         <FieldArray
@@ -48,7 +47,7 @@ define([
                     </label>
                 );
             };
-            return <div style={{ display: 'inline-flex' }}>
+            return <div className={"category-selects-container"}>
                 {selects}
             </div>;
         },
