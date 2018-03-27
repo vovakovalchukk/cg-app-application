@@ -48,7 +48,9 @@ define([
                     </label>
                 );
             };
-            return <span>{selects}</span>;
+            return <div style={{ float: 'left' }}>
+                {selects}
+            </div>;
         },
         render: function() {
             return (
@@ -60,7 +62,7 @@ define([
                                     <Field name="templateName" component="input" type="text" placeholder="Category template name here..."/>
                                 </div>
                             </label>
-                            <label>
+                            <label style={{ width: 80, display: 'inline-block', float: 'initial' }}>
                                 <div>
                                     <Button text={"Save"} onClick={this.props.handleSubmit}/>
                                 </div>
