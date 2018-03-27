@@ -32,7 +32,8 @@
     .category-selects-container {
         display: inline-flex;
         max-width: 88vw;
-        overflow: auto;
+        overflow-x: auto;
+        overflow-y: visible;
     }
 
     .category-select {
@@ -45,6 +46,6 @@
     }
 
     .account-category-container {
-        min-width: 385px;
+        min-width: 360px;
     }
 }
