@@ -377,7 +377,7 @@ define([
         renderRemoveOptionalItemSpecificButton: function (optionalItemSpecificName) {
             return <span className="remove-icon">
                 <i
-                    className='fa fa-2x fa-minus-square icon-create-listing'
+                    className='fa fa-2x  fa-trash-o'
                     aria-hidden='true'
                     onClick={this.onRemoveOptionalItemSpecific.bind(this, optionalItemSpecificName)}
                 />
