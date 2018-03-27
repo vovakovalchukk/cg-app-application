@@ -65,7 +65,7 @@ define([
             this.props.onRemoveButtonClick(this.props.accountId);
         },
         renderRemoveButton: function () {
-            return <span className="remove-icon">
+            return <span className="remove-icon" style={{ marginLeft: 6 }} >
                 <i
                     className='fa fa-2x fa-times icon-create-listing'
                     aria-hidden='true'

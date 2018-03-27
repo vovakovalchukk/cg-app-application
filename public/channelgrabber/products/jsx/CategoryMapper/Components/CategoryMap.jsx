@@ -55,7 +55,7 @@ define([
         render: function() {
             return (
                 <form onSubmit={this.props.handleSubmit}>
-                    <div className={"order-form half product-container"} style={{ width: 'auto', padding: 10, display: 'inline-block' }}>
+                    <div className={"order-form half product-container"} style={{ width: 'auto', padding: '5px 5px 5px 25px', display: 'inline-block' }}>
                         <div style={{ width: '100%' }}>
                             <label>
                                 <div className={"order-inputbox-holder"}>
