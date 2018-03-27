@@ -6,6 +6,10 @@
 
     label {
         width: 385px !important;
+        .inputbox-label {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
     }
 
     .save-icon {
@@ -20,20 +24,27 @@
 
     .save-button {
         .button {
-            line-height: 1.1em;
-            font-size: 1.5em;
-            background: $color-light-green;
-            color: $color-dgrey;
-            border: 1px solid $color-dgrey;
+            line-height: 1.4em;
+            font-size: 1.3em;
         }
     }
 
     .category-selects-container {
-        display: inline-flex
+        display: inline-flex;
+        max-width: 88vw;
+        overflow: auto;
     }
 
     .category-select {
         display: flex;
         margin-bottom: 10px;
+    }
+
+    .actions-container {
+        display: inline-block;
+    }
+
+    .account-category-container {
+        min-width: 385px;
     }
 }

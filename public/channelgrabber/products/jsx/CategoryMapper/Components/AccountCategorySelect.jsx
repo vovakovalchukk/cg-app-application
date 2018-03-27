@@ -84,12 +84,12 @@ define([
             if (this.props.refreshable) {
                 actions.push(this.renderRefreshButton());
             }
-            return <span>
+            return <span className={'actions-container'}>
                 {actions}
             </span>
         },
         render: function() {
-            return <span>
+            return <span className={'account-category-container'}>
                 <div className={"order-inputbox-holder"}>
                     {this.getCategoryOptions()}
                 </div>

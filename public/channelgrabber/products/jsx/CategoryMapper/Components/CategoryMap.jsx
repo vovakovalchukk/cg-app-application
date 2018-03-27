@@ -63,7 +63,6 @@ define([
                             </label>
                             <label className={"save-button"}>
                                 <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
-                                    <i className="fa fa-floppy-o save-icon" aria-hidden="true"/>
                                     <span>Save</span>
                                 </div>
                             </label>
