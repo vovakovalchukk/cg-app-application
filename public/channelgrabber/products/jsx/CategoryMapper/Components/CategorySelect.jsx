@@ -12,7 +12,8 @@ define([
             return {
                 categories: [],
                 onOptionChange: null,
-                resetSelection: null
+                resetSelection: null,
+                className: 'category-select'
             }
         },
         onOptionChange: function(category) {
@@ -39,6 +40,7 @@ define([
                 autoSelectFirst={false}
                 onOptionChange={this.onOptionChange}
                 selectedOption={this.getSelectedCategory()}
+                className={this.props.className}
             />
         }
     });
