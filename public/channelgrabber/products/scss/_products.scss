@@ -3,6 +3,8 @@
     min-height: 100%;
 }
 
+$color-light-green: #9bb679;
+
 .no-products-message-holder {
     width: 100%;
     height: 100%;
@@ -62,10 +64,14 @@
     margin: 3px 0 0 14px;
 }
 .remove-icon {
-    color: $color-red;
+    color: $color-dgrey;
 }
 .refresh-icon {
-    color: $color-green;
+    color: $color-light-green;
+}
+
+.icon-small-margin {
+    margin: 3px 0 0 6px;
 }
 
 #searchBtn {

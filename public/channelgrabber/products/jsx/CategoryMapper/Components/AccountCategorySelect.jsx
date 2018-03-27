@@ -1,13 +1,15 @@
 define([
     'react',
     'redux-form',
+    'Common/Components/RefreshIcon',
+    'Common/Components/RemoveIcon',
     'CategoryMapper/Components/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
 ], function(
     React,
     ReduxForm,
-    CategorySelect,
-    RefreshIcon
+    RefreshIcon,
+    RemoveIcon,
+    CategorySelect
 ) {
     "use strict";
 
@@ -65,18 +67,16 @@ define([
             this.props.onRemoveButtonClick(this.props.accountId);
         },
         renderRemoveButton: function () {
-            return <span className="remove-icon" style={{ marginLeft: 6 }} >
-                <i
-                    className='fa fa-2x fa-times fa-trash-o'
-                    aria-hidden='true'
-                    onClick={this.onRemoveButtonClick}
-                />
-            </span>;
+            return <RemoveIcon
+                onClick={this.onRemoveButtonClick}
+                class='remove-icon icon-small-margin'
+            />
         },
         renderRefreshButton: function () {
             return <RefreshIcon
-              onClick={this.onRefreshClick}
-              disabled={this.props.refreshing}
+                onClick={this.onRefreshClick}
+                disabled={this.props.refreshing}
+                class='refresh-icon icon-small-margin'
             />
         },
         renderActionButtons: function () {

@@ -10,7 +10,7 @@ define([
             return {
                 onClick: null,
                 disabled: false,
-                class: "refresh-icon"
+                class: "remove-icon"
             }
         },
         onClick: function (e) {
@@ -20,7 +20,7 @@ define([
             this.props.onClick(e);
         },
         getClassName() {
-            return "fa fa-2x fa-refresh icon-create-listing" + (this.props.disabled ? ' inactive' : '');
+            return "fa fa-2x fa-times fa-trash-o" + (this.props.disabled ? ' inactive' : '');
         },
         render: function() {
             return (

@@ -1,7 +1,7 @@
 define([
     'react',
     'Common/Components/Select',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon'
+    'Common/Components/RefreshIcon'
 ], function(
     React,
     Select,
