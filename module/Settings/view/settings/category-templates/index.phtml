@@ -1,24 +1,27 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
-<div id="breadcrumbs" class="floatLeftClear">
-    <span class="heading-large"><?= $this->translate('Category mapper'); ?>
-</div>
 
-<?php $this->inlineScript()->captureStart(); ?>
-    require.config({
-        paths: {
-            'CategoryMapper': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/CategoryMapper',
-            'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common',
-            'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/Product'
-        }
-    });
-    require(["CategoryMapper/App"], function(App) {
-        var app = new App(
-            document.getElementById('app-mount-node'),
-            {
-                accounts: <?= json_encode($accounts); ?>,
-                categories: <?= json_encode($categories); ?>
+<div class="category-template-container" style="background-color: #d2dce1; min-height: 94vh;">
+    <div id="breadcrumbs" class="floatLeftClear">
+        <span class="heading-large"><?= $this->translate('Category mapper'); ?>
+    </div>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        require.config({
+            paths: {
+                'CategoryMapper': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/CategoryMapper',
+                'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common',
+                'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/Product'
             }
-        );
-    });
-<?php $this->inlineScript()->captureEnd(); ?>
-<div id="app-mount-node" class="module clearfix section-separator"></div>
+        });
+        require(["CategoryMapper/App"], function(App) {
+            var app = new App(
+                document.getElementById('app-mount-node'),
+                {
+                    accounts: <?= json_encode($accounts); ?>,
+                    categories: <?= json_encode($categories); ?>
+                }
+            );
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="app-mount-node" class="module clearfix section-separator"></div>
+</div>

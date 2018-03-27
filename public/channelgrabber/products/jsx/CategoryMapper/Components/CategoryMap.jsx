@@ -29,7 +29,7 @@ define([
             for (var accountId in this.props.accounts) {
                 var accountData = this.props.accounts[accountId];
                 selects.push(
-                    <label style={{ width: 400, display: 'inline-block', float: 'initial' }}>
+                    <label style={{ width: 385 }}>
                         <span
                             style={{ width: 300 }}
                             className={"inputbox-label"}>{accountData.displayName}
@@ -48,14 +48,14 @@ define([
                     </label>
                 );
             };
-            return <div style={{ float: 'left' }}>
+            return <div style={{ display: 'inline-flex' }}>
                 {selects}
             </div>;
         },
         render: function() {
             return (
                 <form onSubmit={this.props.handleSubmit}>
-                    <div className={"order-form half"} style={{ width: '100%' }}>
+                    <div className={"order-form half product-container"} style={{ width: 'auto', padding: 10, display: 'inline-block' }}>
                         <div style={{ width: '100%' }}>
                             <label>
                                 <div className={"order-inputbox-holder"}>
