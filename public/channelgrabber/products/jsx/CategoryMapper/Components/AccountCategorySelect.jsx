@@ -90,7 +90,7 @@ define([
         },
         render: function() {
             return <span>
-                <div className={"order-inputbox-holder"} style={{ width: 300 }}>
+                <div className={"order-inputbox-holder"}>
                     {this.getCategoryOptions()}
                 </div>
                 {this.renderActionButtons()}

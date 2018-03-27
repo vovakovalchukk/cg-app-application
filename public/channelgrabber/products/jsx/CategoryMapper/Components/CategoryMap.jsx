@@ -29,7 +29,7 @@ define([
             for (var accountId in this.props.accounts) {
                 var accountData = this.props.accounts[accountId];
                 selects.push(
-                    <label style={{ width: 385 }}>
+                    <label>
                         <span
                             style={{ width: 300 }}
                             className={"inputbox-label"}>{accountData.displayName}
@@ -55,16 +55,17 @@ define([
         render: function() {
             return (
                 <form onSubmit={this.props.handleSubmit}>
-                    <div className={"order-form half product-container"} style={{ width: 'auto', padding: '5px 5px 5px 25px', display: 'inline-block', marginBottom: 15 }}>
-                        <div style={{ width: '100%' }}>
+                    <div className={"order-form half product-container category-map-container"}>
+                        <div>
                             <label>
                                 <div className={"order-inputbox-holder"}>
                                     <Field name="templateName" component="input" type="text" placeholder="Category template name here..."/>
                                 </div>
                             </label>
-                            <label style={{ width: 80, display: 'inline-block', float: 'initial' }}>
-                                <div>
-                                    <Button text={"Save"} onClick={this.props.handleSubmit}/>
+                            <label className={"save-button"}>
+                                <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
+                                    <i className="fa fa-floppy-o save-icon" aria-hidden="true"/>
+                                    <span>Save</span>
                                 </div>
                             </label>
                         </div>
