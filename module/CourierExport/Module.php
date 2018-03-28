@@ -8,6 +8,8 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
+    const PUBLIC_FOLDER = '/cg-built/courier-export';
+
     public function getConfig()
     {
         return ConfigFactory::fromFiles(glob(__DIR__ . '/config/*.config.php'));
