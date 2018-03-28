@@ -13,6 +13,7 @@ use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Listing\Unimported\Collection as ListingCollection;
 use CG\Listing\Unimported\Filter as ListingFilter;
 use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListingsByFilterWorkload;
+use CG\Listing\Unimported\Marketplace\Client\Service as MarketplaceService;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Status as ListingStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -67,7 +68,10 @@ class Service implements LoggerAwareInterface
     protected $dateFormatHelper;
     /** @var UnimportedListingImportGenerator */
     protected $unimportedListingImportGenerator;
+    /** @var ListingDownloadService */
     protected $listingDownloadService;
+    /** @var MarketplaceService */
+    protected $marketplaceService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -79,7 +83,8 @@ class Service implements LoggerAwareInterface
         IntercomEventService $intercomEventService,
         DateFormatHelper $dateFormatHelper,
         UnimportedListingImportGenerator $unimportedListingImportGenerator,
-        ListingDownloadService $listingDownloadService
+        ListingDownloadService $listingDownloadService,
+        MarketplaceService $marketplaceService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->userPreferenceService = $userPreferenceService;
@@ -91,6 +96,7 @@ class Service implements LoggerAwareInterface
         $this->dateFormatHelper = $dateFormatHelper;
         $this->unimportedListingImportGenerator = $unimportedListingImportGenerator;
         $this->listingDownloadService = $listingDownloadService;
+        $this->marketplaceService = $marketplaceService;
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -199,16 +205,22 @@ class Service implements LoggerAwareInterface
         );
 
         foreach($listings as &$listing) {
-            $accountEntity = $accounts->getById($listing['accountId']);
-            if ($accountEntity) {
-                $listing['accountName'] = $accountEntity->getDisplayName();
-                $listing['channelImgUrl'] = $accountEntity->getImageUrl();
-            }
-
             $listing['accountLink'] = $event->getRouter()->assemble(
                 ['account' => $listing['accountId'], 'type' => ChannelType::SALES],
                 ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
             );
+
+            $accountEntity = $accounts->getById($listing['accountId']);
+            if (!$accountEntity) {
+                continue;
+            }
+
+            $listing['accountName'] = $accountEntity->getDisplayName();
+            $listing['channelImgUrl'] = $accountEntity->getImageUrl();
+
+            if (isset($listing['marketplace'])) {
+                $listing['marketplace'] = $this->marketplaceService->mapMarketplaceIdToName($accountEntity, $listing['marketplace']);
+            }
         }
         return $listings;
     }
