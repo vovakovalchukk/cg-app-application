@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "142177cd2d0b2de1a9189cc6005d9572",
+    "content-hash": "d0a4ab7360aef0870ef9af2fe5ac6e17",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -678,24 +678,29 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a"
+                "reference": "469320f89e5f70a2b56ab90cc819f9230d2e76a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-constants-dev-master-1ee173.zip",
-                "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-constants-dev-master-52fe78.zip",
+                "reference": "469320f89e5f70a2b56ab90cc819f9230d2e76a8",
                 "shasum": null
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG": ""
                 }
             },
-            "time": "2015-02-06T12:09:38+00:00"
+            "time": "2017-05-12T14:57:48+00:00"
         },
         {
             "name": "channelgrabber/courier",
@@ -841,16 +846,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.12.3",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "1b43ff4526dbc49643aaf9038040af6e30386995"
+                "reference": "51729f1e129778636d8919482388ede433d42b9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.3-af2175.zip",
-                "reference": "1b43ff4526dbc49643aaf9038040af6e30386995",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.4-8a4b48.zip",
+                "reference": "51729f1e129778636d8919482388ede433d42b9b",
                 "shasum": null
             },
             "require": {
@@ -901,7 +906,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-22T13:57:39+00:00"
+            "time": "2018-03-26T12:57:47+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -4017,16 +4022,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.4",
+            "version": "1.22.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40"
+                "reference": "2d5648a4a504819d77fa338268883abf8748c745"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.4-dc404c.zip",
-                "reference": "1e5c05692d155f4322ee29bef817959b3aae4f40",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.5-bee650.zip",
+                "reference": "2d5648a4a504819d77fa338268883abf8748c745",
                 "shasum": null
             },
             "require": {
@@ -4077,7 +4082,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-03-15T10:03:24+00:00"
+            "time": "2018-03-26T12:56:26+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5051,7 +5056,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -5844,7 +5849,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -7725,7 +7730,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -8339,7 +8344,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
+                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -8370,7 +8375,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -8715,8 +8720,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
