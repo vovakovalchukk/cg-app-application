@@ -74,7 +74,7 @@ class Service
             return [];
         }
 
-        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels($ou, $accounts);
+        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels();
         $result = [];
         /** @var Account $account */
         foreach ($accounts as $account) {
@@ -105,7 +105,7 @@ class Service
             return [];
         }
 
-        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels($ou, $accounts);
+        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels();
         $result = [];
         /** @var Account $account */
         foreach ($accounts as $account) {
@@ -207,19 +207,33 @@ class Service
                 $categoriesByAccount[$accountId] = [];
             }
 
-            try {
-                $siblings = $this->fetchCategorySiblings($categoryFilter, $category);
-            } catch (NotFound $e) {
-                continue;
-            }
-
-            /** @var Category $categorySibling */
-            foreach ($siblings as $categorySibling) {
-                $categoriesByAccount[$accountId][] = $this->formatCategoryArray($categorySibling, $category->getId());
-            }
+            $data = [];
+            $this->formatCategoryTree($categoryFilter, $category, $data);
+            $categoriesByAccount[$accountId][] = $data;
         }
 
         return $categoriesByAccount;
+    }
+
+    protected function formatCategoryTree(CategoryFilter $filter, Category $category, &$data)
+    {
+        try {
+            $siblings = $this->fetchCategorySiblings($filter, $category);
+        } catch (NotFound $e) {
+            return;
+        }
+
+        $array = [];
+        /** @var Category $sibling */
+        foreach ($siblings as $sibling) {
+            $array[] = $this->formatCategoryArray($sibling, $category->getId());
+        }
+
+        array_unshift($data, $array);
+
+        if ($category->getParentId()) {
+            $this->formatCategoryTree($filter, $this->categoryService->fetch($category->getParentId()), $data);
+        }
     }
 
     public function fetchAccountIdForCategory(Category $category, OrganisationUnit $ou)
