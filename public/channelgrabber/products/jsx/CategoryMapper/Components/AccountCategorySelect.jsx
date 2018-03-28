@@ -69,14 +69,14 @@ define([
         renderRemoveButton: function () {
             return <RemoveIcon
                 onClick={this.onRemoveButtonClick}
-                class='remove-icon icon-small-margin'
+                className='remove-icon icon-small-margin'
             />
         },
         renderRefreshButton: function () {
             return <RefreshIcon
                 onClick={this.onRefreshClick}
                 disabled={this.props.refreshing}
-                class='refresh-icon icon-small-margin'
+                className='refresh-icon icon-small-margin'
             />
         },
         renderActionButtons: function () {
