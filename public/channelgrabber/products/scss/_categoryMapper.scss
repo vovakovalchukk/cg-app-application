@@ -1,3 +1,8 @@
+.category-template-container {
+    background-color: $color-bluegrey;
+    min-height: 94vh;
+}
+
 .category-map-container {
     width: auto !important;
     padding: 5px 5px 5px 25px;
@@ -33,7 +38,6 @@
         display: inline-flex;
         max-width: 88vw;
         overflow-x: auto;
-        overflow-y: visible;
     }
 
     .category-select {
@@ -47,5 +51,29 @@
 
     .account-category-container {
         min-width: 360px;
+    }
+}
+
+.category-selects-container {
+    overflow-x: auto;
+
+    label {
+        position: static !important;
+    }
+
+    .account-category-container {
+        position: static;
+    }
+
+    form label > span {
+        position: static;
+    }
+
+    .custom-select {
+        position: static;
+    }
+    
+    .custom-select.selected {
+        position: relative;
     }
 }
