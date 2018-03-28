@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4399f0f024d8dd92eb5ac383ad770741",
+    "content-hash": "2cd5045c75b1be4d1e1e12d5122c67db",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4022,7 +4022,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-LIS-119-category-mapping-ui",
+            "version": "dev-LIS-112-category-mapping",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -4030,7 +4030,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-119-category-mapping-ui-11abd9.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-112-category-mapping-11abd9.zip",
                 "reference": "04d62e524fc9673e74b05967908cc63821ab07d0",
                 "shasum": null
             },
@@ -9524,7 +9524,7 @@
         {
             "alias": "1.22.4",
             "alias_normalized": "1.22.4.0",
-            "version": "dev-LIS-119-category-mapping-ui",
+            "version": "dev-LIS-112-category-mapping",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
