@@ -30,7 +30,7 @@ define([
         return data.accounts;
     };
 
-    var CreateNewApp = function(mountingNode, data) {
+    var App = function(mountingNode, data) {
         var Provider = ReactRedux.Provider;
         var store = Redux.createStore(
             CombinedReducer,
@@ -48,5 +48,5 @@ define([
         );
     };
 
-    return CreateNewApp;
+    return App;
 });

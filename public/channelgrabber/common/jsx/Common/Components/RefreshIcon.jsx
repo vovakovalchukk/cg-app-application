@@ -10,7 +10,7 @@ define([
             return {
                 onClick: null,
                 disabled: false,
-                class: "refresh-icon"
+                className: "refresh-icon"
             }
         },
         onClick: function (e) {
@@ -24,7 +24,7 @@ define([
         },
         render: function() {
             return (
-                <span className={this.props.class}>
+                <span className={this.props.className}>
                     <i
                         className={this.getClassName()}
                         aria-hidden="true"
