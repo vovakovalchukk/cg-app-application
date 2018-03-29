@@ -381,11 +381,10 @@ define([
             };
 
             this.getMappingSaveData = function (element, property) {
-
                 var row = element.closest('tr');
                 var saveData = {
                     id: $(row).attr('data-element-row-id'),
-                    site: $.trim($(row.find('.site-column')).text()),
+                    site: $.trim($(row.find('.site-column input')).val()),
                     accountId: $(row.find('.account-column input')).val(),
                 };
                 saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
