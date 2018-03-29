@@ -66,10 +66,11 @@ define([], function() {
                 }
             }
         },
-        removeButtonClicked: function (accountId) {
+        removeButtonClicked: function (categoryMapIndex, accountId) {
             return {
                 type: 'REMOVE_ROOT_CATEGORY',
                 payload: {
+                    categoryMapIndex: categoryMapIndex,
                     accountId: accountId
                 }
             }

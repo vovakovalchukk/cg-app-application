@@ -83,7 +83,7 @@ define([
                 dispatch(Actions.refreshButtonClicked(dispatch, accountId));
             },
             onRemoveButtonClick: function (accountId) {
-                dispatch(Actions.removeButtonClicked(accountId));
+                dispatch(Actions.removeButtonClicked(ownProps.index, accountId));
             }
         };
     };

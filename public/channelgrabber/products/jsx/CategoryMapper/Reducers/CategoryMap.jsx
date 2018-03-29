@@ -49,26 +49,52 @@ define([
             return newState;
         },
         "REFRESH_CATEGORIES": function (state, action) {
-            var newState = Object.assign({}, state);
+            var newState = state.slice(0);
             var accountId = action.payload.accountId;
-            newState[accountId].categories = [{
-                0: {tile: ''}
-            }];
-            newState[accountId].refreshing = true;
+
+            for (var i = 0; i < newState.length; i++) {
+                var newCategoryMap = Object.assign({}, newState[i].categoryMap);
+                newCategoryMap[accountId] = Object.assign({}, newCategoryMap[accountId], {
+                    categories: [{0: {tile: ''}}],
+                    refreshing: true
+                });
+                newState[i].categoryMap = newCategoryMap;
+            }
+
             return newState;
         },
         "REFRESH_CATEGORIES_FETCHED": function (state, action) {
-            var newState = Object.assign({}, state);
+            var newState = state.slice(0);
             var accountId = action.payload.accountId;
-            newState[accountId].categories = [action.payload.categories];
-            newState[accountId].refreshing = false;
+
+            for (var i = 0; i < newState.length; i++) {
+                var newCategoryMap = Object.assign({}, newState[i].categoryMap);
+                newCategoryMap[accountId] = Object.assign({}, newCategoryMap[accountId], {
+                    categories: [action.payload.categories],
+                    refreshing: false
+                });
+                newState[i].categoryMap = newCategoryMap;
+            }
+
             return newState;
         },
         "REMOVE_ROOT_CATEGORY": function (state, action) {
-            var newState = Object.assign({}, state);
+            var newState = state.slice(0);
             var accountId = action.payload.accountId;
-            newState[accountId].categories.splice(1);
-            newState[accountId].resetSelection = true;
+            var categoryMapIndex = action.payload.categoryMapIndex;
+
+            var newCategoryMap = Object.assign({}, newState[categoryMapIndex].categoryMap);
+
+            var newCategoriesArray = newCategoryMap[accountId].categories.slice(0);
+            newCategoriesArray.splice(1);
+
+            newCategoryMap[accountId] = Object.assign({}, newCategoryMap[accountId], {
+                categories: newCategoriesArray,
+                resetSelection: true
+            });
+
+            newState[categoryMapIndex].categoryMap = newCategoryMap
+
             return newState;
         }
     });
