@@ -35,14 +35,15 @@ define([
         var store = Redux.createStore(
             CombinedReducer,
             {
-                categoryMap: mergeDataIntoAccounts(data)
+                categoryMap: [
+                    {categoryMap: mergeDataIntoAccounts(data)},
+                    {categoryMap: mergeDataIntoAccounts(data)}
+                ]
             }
         );
         ReactDOM.render(
             <Provider store={store}>
-                <RootContainer
-                    accounts={mergeDataIntoAccounts(data)}
-                />
+                <RootContainer/>
             </Provider>,
             mountingNode
         );

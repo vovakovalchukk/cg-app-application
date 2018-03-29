@@ -1,9 +1,9 @@
 define([
     'react',
-    'CategoryMapper/Components/CategoryMap',
+    'CategoryMapper/Components/CategoryMaps',
 ], function(
     React,
-    CategoryMapContainer
+    CategoryMaps
 ) {
     "use strict";
 
@@ -18,7 +18,7 @@ define([
         render: function()
         {
             return (
-                <CategoryMapContainer
+                <CategoryMaps
                     onSubmit={this.submitCategoryMap}
                 />
             );

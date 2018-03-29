@@ -7,19 +7,45 @@ define([
 
     return reducerCreator(initialState, {
         "CATEGORY_SELECTED": function (state, action) {
-            var newState = Object.assign({}, state);
+            var newState = state.slice(0);
             var accountId = action.payload.accountId;
-            newState[accountId].categories.splice(action.payload.categoryLevel + 1);
-            newState[accountId].resetSelection = false;
+            var categoryMapIndex = action.payload.categoryMapIndex;
+            var categoryLevel = action.payload.categoryLevel + 1;
+
+            var newCategoryMap = Object.assign({}, newState[categoryMapIndex].categoryMap);
+
+            newCategoryMap[accountId] = Object.assign({}, newCategoryMap[accountId]);
+
+            var newCategoriesArray = newCategoryMap[accountId].categories.slice(0);
+            newCategoriesArray.splice(categoryLevel);
+
+            newCategoryMap[accountId].categories = newCategoriesArray;
+
+            newCategoryMap[accountId].resetSelection = false;
+
+            newState[categoryMapIndex].categoryMap = newCategoryMap;
+
             return newState;
         },
         "CATEGORY_CHILDREN_FETCHED": function (state, action) {
-            var newState = Object.assign({}, state);
+            var newState = state.slice(0);
             var accountId = action.payload.accountId;
-            var categories = state[accountId].categories.slice();
-            newState[accountId] = Object.assign({}, newState[accountId]);
-            categories.push(action.payload.categories);
-            newState[accountId].categories = categories;
+            var categoryMapIndex = action.payload.categoryMapIndex;
+            var categoryLevel = action.payload.categoryLevel + 1;
+
+            var newCategoryMap = Object.assign({}, newState[categoryMapIndex].categoryMap);
+
+            newCategoryMap[accountId] = Object.assign({}, newCategoryMap[accountId]);
+
+            var newCategoriesArray = newCategoryMap[accountId].categories.slice(0);
+            newCategoriesArray.push(action.payload.categories);
+
+            newCategoryMap[accountId].categories = newCategoriesArray;
+
+            newCategoryMap[accountId].resetSelection = false;
+
+            newState[categoryMapIndex].categoryMap = newCategoryMap;
+
             return newState;
         },
         "REFRESH_CATEGORIES": function (state, action) {

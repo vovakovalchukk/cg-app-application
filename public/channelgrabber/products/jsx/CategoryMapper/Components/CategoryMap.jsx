@@ -74,17 +74,10 @@ define([
         }
     });
 
-    var mapStateToProps = function(state) {
-        var categoryMap = state.categoryMap;
-        return {
-            accounts: categoryMap
-        }
-    };
-
-    var mapDispatchToProps = function (dispatch) {
+    var mapDispatchToProps = function (dispatch, ownProps) {
         return {
             onCategorySelected: function(accountId, categoryId, categoryLevel) {
-                dispatch(Actions.categorySelected(dispatch, accountId, categoryId, categoryLevel));
+                dispatch(Actions.categorySelected(dispatch, ownProps.index, accountId, categoryId, categoryLevel));
             },
             onRefreshClick: function(accountId) {
                 dispatch(Actions.refreshButtonClicked(dispatch, accountId));
@@ -95,7 +88,7 @@ define([
         };
     };
 
-    var CategoryMapConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+    var CategoryMapConnector = ReactRedux.connect(null, mapDispatchToProps);
 
     CategoryMapComponent = CategoryMapConnector(CategoryMapComponent);
 

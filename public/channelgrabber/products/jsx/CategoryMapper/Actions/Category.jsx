@@ -1,9 +1,10 @@
 define([], function() {
     var ResponseActions = {
-        categoryChildrenFetched: function (accountId, categoryId, categoryLevel, data) {
+        categoryChildrenFetched: function (categoryMapIndex, accountId, categoryId, categoryLevel, data) {
             return {
                 type: 'CATEGORY_CHILDREN_FETCHED',
                 payload: {
+                    categoryMapIndex: categoryMapIndex,
                     accountId: accountId,
                     categories: data.hasOwnProperty('categories') ? data.categories : {},
                     categoryId: categoryId,
@@ -32,17 +33,18 @@ define([], function() {
     }
 
     return {
-        categorySelected: function (dispatch, accountId, categoryId, categoryLevel) {
+        categorySelected: function (dispatch, categoryMapIndex, accountId, categoryId, categoryLevel) {
             $.get(
                 Api.buildCategoryChildrenUrl(accountId, categoryId),
                 function(response) {
-                    dispatch(ResponseActions.categoryChildrenFetched(accountId, categoryId, categoryLevel, response));
+                    dispatch(ResponseActions.categoryChildrenFetched(categoryMapIndex, accountId, categoryId, categoryLevel, response));
                 }
             );
 
             return {
                 type: 'CATEGORY_SELECTED',
                 payload: {
+                    categoryMapIndex: categoryMapIndex,
                     accountId: accountId,
                     categoryId: categoryId,
                     categoryLevel: categoryLevel
