@@ -6,6 +6,7 @@ use CG\PickList\Entity as PickList;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\InvalidKey;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\Element\Image as ImageElement;
 use CG\Template\Image\Map as ImageMap;
 
@@ -30,7 +31,7 @@ class Mapper
                 $title = $description['title'];
                 $variation = $this->formatAttributes($description['variationAttributes']);
             } else {
-                $title = $this->searchProductTitle($matchingProduct, $parentProducts);
+                $title = $this->searchProductTitleInCollection($productCollection, $parentProducts);
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
             }
 
@@ -115,12 +116,29 @@ class Mapper
         return $sum;
     }
 
+    protected function searchProductTitleInCollection(ProductCollection $productCollection, ProductCollection $parentProducts)
+    {
+        $title = '';
+        foreach ($productCollection as $matchingProduct) {
+            try {
+                $title = $this->searchProductTitle($matchingProduct, $parentProducts);
+                break;
+            } catch (NotFound $e) {
+                // no-op
+            }
+        }
+        return $title;
+    }
+
     protected function searchProductTitle(Product $product, ProductCollection $parentProducts)
     {
         if($product->getParentProductId() !== 0 &&
             ($product->getName() === '' || $product->getName() === null)
         ) {
             $parentProduct = $parentProducts->getById($product->getParentProductId());
+            if (is_null($parentProduct)) {
+                throw new NotFound(sprintf('Parent product with id %s not found', [$product->getParentProductId()]));
+            }
             return $parentProduct->getName();
         }
 
