@@ -2639,12 +2639,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "6b3424891727ce4852472c039fe8f99e8d020ef1"
+                "reference": "3dc079deacc685e6613bf375a5b59d94ff7469a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-9312-paginated-collection-missing-entities-970c07.zip",
-                "reference": "6b3424891727ce4852472c039fe8f99e8d020ef1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-9312-paginated-collection-missing-entities-4b3deb.zip",
+                "reference": "3dc079deacc685e6613bf375a5b59d94ff7469a3",
                 "shasum": null
             },
             "require": {
@@ -2683,7 +2683,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-03-29T12:37:55+00:00"
+            "time": "2018-03-29T15:24:00+00:00"
         },
         {
             "name": "channelgrabber/stock",
