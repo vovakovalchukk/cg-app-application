@@ -17,6 +17,7 @@ define([
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
+
     var CategoryMapComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -58,7 +59,7 @@ define([
                         <div>
                             <label>
                                 <div className={"order-inputbox-holder"}>
-                                    <Field name="templateName" component="input" type="text" placeholder="Category template name here..."/>
+                                    <Field name={"templateName[" + this.props.index + "]"} component="input" type="text" placeholder="Category template name here..."/>
                                 </div>
                             </label>
                             <label className={"save-button"}>
@@ -93,7 +94,10 @@ define([
     CategoryMapComponent = CategoryMapConnector(CategoryMapComponent);
 
     var categoryMapFormCreator = ReduxForm.reduxForm({
-        form: "categoryMap"
+        form: "categoryMap",
+        onSubmit: function(values, f, state) {
+            console.log(values, state);
+        }
     });
 
     return categoryMapFormCreator(CategoryMapComponent);
