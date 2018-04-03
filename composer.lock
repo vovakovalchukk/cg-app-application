@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0efc4ed5a29a668fa4b7533a0e1f518a",
+    "content-hash": "53c01bc44c00fe318fd4f114ac7aaa5e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.5",
+            "version": "1.34.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8eaad1a4edd1b1a8ec71fda56263e14ead73d368"
+                "reference": "213c97071c46a719ccf3f67c656f526f03eb4115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.5-56823e.zip",
-                "reference": "8eaad1a4edd1b1a8ec71fda56263e14ead73d368",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.6-f2e3f4.zip",
+                "reference": "213c97071c46a719ccf3f67c656f526f03eb4115",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-03-13T11:59:46+00:00"
+            "time": "2018-03-22T14:01:33+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4026,16 +4026,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-46-OptionalClickAndDrop",
+            "version": "1.22.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "892173c0f87987efaa7d818fbc62318f692fa6ba"
+                "reference": "2f0e4efdc8029040e525163983783fb1346c3a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-46-OptionalClickAndDrop-7712d3.zip",
-                "reference": "892173c0f87987efaa7d818fbc62318f692fa6ba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.6-65c9e9.zip",
+                "reference": "2f0e4efdc8029040e525163983783fb1346c3a65",
                 "shasum": null
             },
             "require": {
@@ -4086,7 +4086,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-03-28T15:19:03+00:00"
+            "time": "2018-04-03T13:04:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9524,18 +9524,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.22.6",
-            "alias_normalized": "1.22.6.0",
-            "version": "dev-TAC-46-OptionalClickAndDrop",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
