@@ -7,10 +7,10 @@ use CG\Account\Shared\Collection as Accounts;
 use CG\Amazon\Region\Service as AmazonRegionService;
 use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Listing\Unimported\Marketplace\Client\Service as MarketplaceService;
 use CG\Listing\Unimported\Marketplace\Collection as Marketplaces;
 use CG\Listing\Unimported\Marketplace\Entity as Marketplace;
 use CG\Listing\Unimported\Marketplace\Filter as MarketplaceFilter;
-use CG\Listing\Unimported\Marketplace\Service as MarketplaceService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\Invoice\Shared\Entity;
@@ -273,6 +273,7 @@ class Mappings
             'channel' => $mainAccountRow ? $account->getChannel() : '',
             'displayName' => $mainAccountRow ? $account->getDisplayName() : '',
             'site' => $invoiceMapping->getSite(),
+            'siteName' => $this->marketplaceService->mapMarketplaceIdToName($account, $invoiceMapping->getSite()),
             'tradingCompany' => $mainAccountRow ? $this->getTradingCompanyOptions($account, $tradingCompanies) : '',
             'assignedInvoice' => $this->getInvoiceOptions($invoiceMapping, $invoices),
             'sendViaEmail' => $this->getSendOptions($invoiceMapping->getSendViaEmail()),

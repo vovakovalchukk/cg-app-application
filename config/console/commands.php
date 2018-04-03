@@ -1,6 +1,7 @@
 <?php
 $files = [
     'failoverClient.php',
+    'adhoc.php',
     'netdespatch.php',
     'geopost.php',
     'shipstation.php'
