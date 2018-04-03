@@ -20,6 +20,7 @@ class CompleteController extends AbstractActionController
     const BUSINESS_HOURS_START = '09:00:00';
     const BUSINESS_HOURS_END = '16:45:00';
     const WORKDAYS = [1, 2, 3, 4, 5];
+    const TIMEZONE = 'Europe/London';
 
     /** @var Service */
     protected $service;
@@ -95,11 +96,12 @@ class CompleteController extends AbstractActionController
 
     protected function canCallNow(\DateTime $now = null): bool
     {
-        $now = $now ?? new \DateTime();
-        if ($now < new \DateTime(static::BUSINESS_HOURS_START)) {
+        $timeZone = new \DateTimeZone(static::TIMEZONE);
+        $now = $now ?? new \DateTime('now', $timeZone);
+        if ($now < new \DateTime(static::BUSINESS_HOURS_START, $timeZone)) {
             return false;
         }
-        if ($now > new \DateTime(static::BUSINESS_HOURS_END)) {
+        if ($now > new \DateTime(static::BUSINESS_HOURS_END, $timeZone)) {
             return false;
         }
         if (!in_array($now->format('w'), static::WORKDAYS)) {
