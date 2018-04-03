@@ -35,6 +35,7 @@ return array (
     30 => 'Etsy',
     31 => 'Reports',
     32 => 'ShipStation',
+    33 => 'CourierExport',
   ),
   'module_listener_options' => 
   array (
