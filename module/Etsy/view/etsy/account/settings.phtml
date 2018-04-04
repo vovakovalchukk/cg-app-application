@@ -1,0 +1,7 @@
+<?php $url = $this->url(\Etsy\Controller\AccountController::ROUTE_INITIALISE, ['account' => $account->getId()]); ?>
+<div class="module clearfix">
+    <b>The term 'Etsy' is a trademark of Etsy, Inc. This application uses the Etsy API but is not endorsed or certified by Etsy, Inc.</b>
+</div>
+<div>
+    <?= $this->partial(\CG_Channel\Module::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url')) ?>
+</div>
