@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a390ef496b0f1c0a793826ec33ed6ca2",
+    "content-hash": "d733cd16ce8a1b700ef235ebb2ff3ad1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -703,20 +703,21 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.28",
+            "version": "1.0.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c"
+                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.28-08cfaa.zip",
-                "reference": "f4599dfe82fa82c811dfde628bc962adda84905c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.29-265268.zip",
+                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "^1.1.1",
+                "channelgrabber/courieradapter": "~1.2.0",
+                "channelgrabber/locale": "^1.0.17",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
                 "maennchen/zipstream-php": "~0.3.1",
@@ -743,20 +744,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-02-23T14:46:07+00:00"
+            "time": "2018-04-04T11:56:59+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32"
+                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.1.1-83d7ad.zip",
-                "reference": "5c52385f6316f531bf4c459c16853a8733f4fc32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.2.0-0d7aae.zip",
+                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf",
                 "shasum": null
             },
             "require": {
@@ -776,7 +777,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2017-01-27T11:47:38+00:00"
+            "time": "2018-04-04T11:51:33+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -1409,16 +1410,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.16",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "c9c23c69dc25255d2b9f88f78d04aa8ee580e48e"
+                "reference": "c706431f2e4d449ad40315ddfc3007faf6b9ff46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.16-d9eefc.zip",
-                "reference": "c9c23c69dc25255d2b9f88f78d04aa8ee580e48e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.17-e6adf7.zip",
+                "reference": "c706431f2e4d449ad40315ddfc3007faf6b9ff46",
                 "shasum": null
             },
             "require": {
@@ -1438,7 +1439,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-02T08:45:54+00:00"
+            "time": "2018-02-08T16:50:43+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -8019,7 +8020,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8074,7 +8075,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8129,7 +8130,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8180,7 +8181,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8266,7 +8267,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
