@@ -49,6 +49,8 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
     const ROUTE_NEW_NAME = 'newName';
     const ROUTE_STOCK_FETCH = 'StockFetch';
+    const ROUTE_IMAGE_UPLOAD = 'Image Upload';
+    const ROUTE_CREATE = 'Create';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
@@ -535,6 +537,31 @@ class ProductsJsonController extends AbstractActionController
         );
 
         return $view;
+    }
+
+    public function imageUploadAction()
+    {
+        $imageData = $this->params()->fromPost('image');
+
+        // Dummy data to be replaced by LIS-140
+        $dummyId = rand(1,999);
+        $dummyUrl = 'http://youraccount.ekmpowershop23.com/ekmps/shops/channelgrabber/images/new-ekm-product-32-p.png';
+        return $this->jsonModelFactory->newInstance([
+            'id' => $dummyId,
+            'url' => $dummyUrl
+        ]);
+    }
+
+    public function createAction()
+    {
+        // Dummy data to be replaced by LIS-140
+        $dummyId = rand(1,999);
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
+            'id' => $dummyId,
+            'etag' => 'abc123efg456hij78900abc123efg456hij78900',
+            'error' => ''
+        ]);
     }
 
     protected function checkUsage()

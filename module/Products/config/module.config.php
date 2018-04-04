@@ -516,7 +516,27 @@ return [
                                 ]
                             ]
                         ]
-                    ]
+                    ],
+                    ProductsJsonController::ROUTE_IMAGE_UPLOAD => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/create/imageUpload',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'imageUpload'
+                            ]
+                        ],
+                    ],
+                    ProductsJsonController::ROUTE_CREATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/create/save',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'create'
+                            ]
+                        ],
+                    ],
                 ]
             ]
         ]
