@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "828969c0c4140d8664c32dbd3294c7f9",
+    "content-hash": "63e44407e8f95087de0ab6ac5e725082",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -703,20 +703,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-9184-update_dpd_direct_service_labels",
+            "version": "1.0.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "adc20ae067bf46fc4440a5830c0459ab675be48e"
+                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9184-update_dpd_direct_service_labels-866144.zip",
-                "reference": "adc20ae067bf46fc4440a5830c0459ab675be48e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.29-265268.zip",
+                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-CGIV-9184-update_dpd_direct_service_labels as 1.1.2",
+                "channelgrabber/courieradapter": "~1.2.0",
                 "channelgrabber/locale": "^1.0.17",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
@@ -744,20 +744,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-04-03T12:31:14+00:00"
+            "time": "2018-04-04T11:56:59+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-CGIV-9184-update_dpd_direct_service_labels",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "5d9b4f817bf5d49e58ad3e22fd6cf8d6d1b3fc90"
+                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-9184-update_dpd_direct_service_labels-4db26a.zip",
-                "reference": "5d9b4f817bf5d49e58ad3e22fd6cf8d6d1b3fc90",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.2.0-0d7aae.zip",
+                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf",
                 "shasum": null
             },
             "require": {
@@ -777,7 +777,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-03-14T11:43:58+00:00"
+            "time": "2018-04-04T11:51:33+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -7981,7 +7981,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8036,7 +8036,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8091,7 +8091,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8142,7 +8142,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8228,7 +8228,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9525,25 +9525,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.29",
-            "alias_normalized": "1.0.29.0",
-            "version": "dev-CGIV-9184-update_dpd_direct_service_labels",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
-            "version": "dev-CGIV-9184-update_dpd_direct_service_labels",
-            "package": "channelgrabber/courieradapter"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
