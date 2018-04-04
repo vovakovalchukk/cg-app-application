@@ -30,15 +30,32 @@ define([
         return data.accounts;
     };
 
+    var parseAccountData = function (data) {
+        var accounts = {},
+            newAccountData;
+        for (var accountId in data.accounts) {
+            newAccountData = Object.assign({}, data.accounts[accountId], {categories: null});
+            delete(newAccountData['categories']);
+            accounts[accountId] = newAccountData;
+        }
+        return accounts;
+    }
+
+    var parseCategoryData = function (data) {
+        var categories = {};
+        data.categories.forEach(function (value, index) {
+            categories[value.accountId] = Object.assign({}, value.categories);
+        });
+        return categories;
+    }
+
     var App = function(mountingNode, data) {
         var Provider = ReactRedux.Provider;
         var store = Redux.createStore(
             CombinedReducer,
             {
-                categoryMap: [
-                    {categoryMap: mergeDataIntoAccounts(data)},
-                    {categoryMap: mergeDataIntoAccounts(data)}
-                ]
+                accounts: parseAccountData(data),
+                categories: parseCategoryData(data)
             }
         );
         ReactDOM.render(

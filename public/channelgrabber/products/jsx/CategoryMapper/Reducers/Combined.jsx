@@ -1,15 +1,27 @@
 define([
     'redux',
     'redux-form',
-    'CategoryMapper/Reducers/CategoryMap'
+    'CategoryMapper/Reducers/CategoryMaps'
 ], function(
     Redux,
     ReduxForm,
-    CategoryMapReducer
+    CategoryMapsReducer
 ) {
     var CombinedReducer = Redux.combineReducers({
+        accounts: function (state) {
+            if (!state) {
+                return {};
+            }
+            return state;
+        },
+        categories: function (state) {
+            if (!state) {
+                return {};
+            }
+            return state;
+        },
         form: ReduxForm.reducer,
-        categoryMap: CategoryMapReducer
+        categoryMaps: CategoryMapsReducer
     });
     return CombinedReducer;
 });

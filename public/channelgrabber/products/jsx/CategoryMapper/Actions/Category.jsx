@@ -1,4 +1,16 @@
 define([], function() {
+    var Api = {
+        buildCategoryChildrenUrl: function (accountId, categoryId) {
+            return '/settings/category/templates/' + accountId + '/category-children/' + categoryId;
+        },
+        buildRefreshCategoryUrl: function(accountId) {
+            return '/settings/category/templates/' + accountId + '/refresh-categories';
+        },
+        buildFetchCategoryMapsUrl: function () {
+            return '/settings/category/templates/fetch'
+        },
+    }
+
     var ResponseActions = {
         categoryChildrenFetched: function (categoryMapIndex, accountId, categoryId, categoryLevel, data) {
             return {
@@ -20,15 +32,14 @@ define([], function() {
                     categories: data.hasOwnProperty('categories') ? data.categories : {}
                 }
             }
-        }
-    }
-
-    var Api = {
-        buildCategoryChildrenUrl: function (accountId, categoryId) {
-            return '/settings/category/templates/' + accountId + '/category-children/' + categoryId;
         },
-        buildRefreshCategoryUrl: function(accountId) {
-            return '/settings/category/templates/' + accountId + '/refresh-categories';
+        categoryMapsFetched: function(data) {
+            return {
+                type: 'CATEGORY_MAPS_FETCHED',
+                payload: {
+                    categoryMaps: data
+                }
+            }
         }
     }
 
@@ -73,6 +84,19 @@ define([], function() {
                     categoryMapIndex: categoryMapIndex,
                     accountId: accountId
                 }
+            }
+        },
+        fetchCategoryMaps: function (dispatch) {
+            $.get(
+                Api.buildFetchCategoryMapsUrl(),
+                function (response) {
+                    dispatch(ResponseActions.categoryMapsFetched(response));
+                }
+            )
+
+            return {
+                type: 'FETCH_CATEGORY_MAPS',
+                payload: {}
             }
         }
     };
