@@ -9,24 +9,25 @@ define([
         "CATEGORY_SELECTED": function (state, action) {
             var newState = Object.assign({}, state),
                 accountId = action.payload.accountId,
-                mapId = action.payload.categoryMapIndex,
-                categoryLevel = action.payload.categoryLevel,
                 categoryId = action.payload.categoryId;
 
-            if (!newState[mapId]) {
-                newState[mapId] = {
-                    name: '',
-                    selectedCategories: {}
-                }
-            }
+            newState[accountId] = Object.assign({}, newState[accountId]);
+            newState[accountId][categoryId] = Object.assign({}, newState[accountId][categoryId], {
+                categoryChildren: {}
+            });
 
-            newState[mapId].selectedCategories = Object.assign({}, newState[mapId].selectedCategories);
+            return newState;
+        },
+        "CATEGORY_CHILDREN_FETCHED": function (state, action) {
+            var newState = Object.assign({}, state),
+                accountId = action.payload.accountId,
+                categoryId = action.payload.categoryId,
+                childCategories = action.payload.categories;
 
-            if (!newState[mapId].selectedCategories[accountId]) {
-                newState[mapId].selectedCategories[accountId] = [];
-            }
-
-            newState[mapId].selectedCategories[accountId][categoryLevel] = categoryId;
+            newState[accountId] = Object.assign({}, newState[accountId]);
+            newState[accountId][categoryId] = Object.assign({}, newState[accountId][categoryId], {
+                categoryChildren: childCategories
+            });
 
             return newState;
         },
