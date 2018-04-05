@@ -247,7 +247,7 @@ class ProductsJsonController extends AbstractActionController
         }
 
         if($rootOrganisationUnit->isVatRegistered()) {
-            $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity, $rootOrganisationUnit->getMemberState());
+            $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity, $rootOrganisationUnit);
         }
 
         $product['variationCount'] = count($productEntity->getVariationIds());
