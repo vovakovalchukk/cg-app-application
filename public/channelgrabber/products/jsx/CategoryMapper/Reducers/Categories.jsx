@@ -81,7 +81,7 @@ define([
             return newState;
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
-            console.log(state, action);
+            // console.log(state, action);
             return state;
         }
     });

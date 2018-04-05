@@ -22,29 +22,46 @@ define([
                 refreshable: false,
                 refreshing: false,
                 resetSelection: null,
+                selectedCategories: {},
                 onCategorySelected: function() {},
                 onRefreshClick: function() {},
                 onRemoveButtonClick: function() {},
             }
         },
         getCategoryOptions: function () {
-            var selects = [];
-            for (var categoryLevel = 0; categoryLevel < this.props.categories.length; categoryLevel++) {
-                if (Object.keys(this.props.categories[categoryLevel]).length === 0) {
-                    continue;
-                }
-                selects.push(
-                    <Field
-                        name={"category." + this.props.accountId}
-                        component={CategorySelect}
-                        categories={this.getCategorySelectOptionsForAccount(categoryLevel, this.props.categories[categoryLevel])}
-                        accountId={this.props.accountId}
-                        onOptionChange={this.onCategorySelected}
-                        resetSelection={this.props.resetSelection}
-                    />
-                )
+            var selects = [],
+                index = 0,
+                selectedCategory;
+
+            if (this.props.categories) {
+                selects = this.getCategorySelects(this.props.categories, selects, index);
             }
             return selects;
+        },
+        getCategorySelects: function (categories, selects, index) {
+            var selectedCategory = this.props.selectedCategories[index] ? this.props.selectedCategories[index] : null;
+            selects.push(
+                this.getCategorySelect(index, categories, selectedCategory)
+            );
+            if (selectedCategory
+                && categories[selectedCategory]
+                && categories[selectedCategory].categoryChildren
+                && Object.keys(categories[selectedCategory].categoryChildren).length > 0
+            ) {
+                this.getCategorySelects(categories[selectedCategory].categoryChildren, selects, ++index);
+            }
+            return selects;
+        },
+        getCategorySelect: function (index, categories, selectedCategory) {
+            return <Field
+                name={"category." + this.props.accountId}
+                component={CategorySelect}
+                categories={this.getCategorySelectOptionsForAccount(index, categories)}
+                accountId={this.props.accountId}
+                onOptionChange={this.onCategorySelected}
+                resetSelection={this.props.resetSelection}
+                selectedCategory={selectedCategory}
+            />
         },
         getCategorySelectOptionsForAccount: function (categoryLevel, categories) {
             var options = [];

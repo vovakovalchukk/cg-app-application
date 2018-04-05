@@ -41,6 +41,7 @@ define([
                             refreshing={accountData.refreshing}
                             refreshable={accountData.refreshable}
                             resetSelection={accountData.resetSelection}
+                            selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : {}}
                             onCategorySelected={this.props.onCategorySelected}
                             onRefreshClick={this.props.onRefreshClick}
                             onRemoveButtonClick={this.props.onRemoveButtonClick}
@@ -96,7 +97,7 @@ define([
     var categoryMapFormCreator = ReduxForm.reduxForm({
         form: "categoryMap",
         onSubmit: function(values, f, state) {
-            console.log(values, state);
+            // console.log(values, state);
         }
     });
 

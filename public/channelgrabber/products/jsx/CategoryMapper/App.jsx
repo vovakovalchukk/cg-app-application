@@ -15,21 +15,6 @@ define([
 ) {
     "use strict"
 
-    var mergeDataIntoAccounts = function (data) {
-        var categories = [];
-        for (var accountId in data.accounts) {
-            categories = {};
-            for (var category of data.categories) {
-                if (category.accountId == accountId) {
-                    categories = category.categories;
-                    break;
-                }
-            }
-            data.accounts[accountId].categories = [categories];
-        }
-        return data.accounts;
-    };
-
     var parseAccountData = function (data) {
         var accounts = {},
             newAccountData;

@@ -13,7 +13,8 @@ define([
                 categories: [],
                 onOptionChange: null,
                 resetSelection: null,
-                className: 'category-select'
+                className: 'category-select',
+                selectedCategory: null
             }
         },
         onOptionChange: function(category) {
@@ -29,6 +30,19 @@ define([
                 return {
                     name: '',
                     value: ''
+                }
+            }
+            return this.findSelectedCategory();
+        },
+        findSelectedCategory: function () {
+            if (!this.props.selectedCategory) {
+                return null;
+            }
+
+            var categories = this.props.categories;
+            for (var i = 0; i < categories.length; i++) {
+                if (categories[i].value == this.props.selected) {
+                    return categories[i];
                 }
             }
             return null;
