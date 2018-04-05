@@ -25,6 +25,7 @@ define([
             </ul>;
         },
         render: function () {
+            console.log('in Input with props: ',this.props);
             return (
                 <div className="safe-input-box">
                     <input

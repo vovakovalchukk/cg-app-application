@@ -69,6 +69,8 @@ define([
                     </span>
                 );
             }
+
+
             if (optionalItems && Object.keys(optionalItems).length > 0) {
                 itemSpecifics.push(
                     <label>
@@ -103,9 +105,12 @@ define([
             var counts = this.state.itemSpecificsCounts;
             var count = (counts[name]) ? counts[name] : 1;
             var hasPlusButton = this.isMultiOption(options);
+
             var label = name;
+            var value;
 
             for (var index = 0; index < count; index++) {
+                value = this.getItemSpecificTextInputValue(name) || this.getOptionalItemSpecificTextInputValue(name);
                 inputs.push(
                     <label>
                         <span className={"inputbox-label"}>{label}</span>
@@ -128,6 +133,16 @@ define([
         },
         buildSelectItemSpecific: function(name, options, isOptional) {
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
+
+            var selectedOption = getSelectedOption(name,this.state.selectedItemSpecifics);
+            if(!selectedOption){
+                // send a default option if a selection doesn't exist
+                selectedOption = {
+                    name: '',
+                    value: ''
+                };
+            }
+
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -136,6 +151,7 @@ define([
                         autoSelectFirst={false}
                         title={name}
                         onOptionChange={this.onItemSpecificSelected}
+                        selectedOption={selectedOption}
                     />
                 </div>
                 {isOptional && this.renderRemoveOptionalItemSpecificButton(name)}
@@ -143,6 +159,16 @@ define([
         },
         buildTextSelectItemSpecific: function(name, options, isOptional) {
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
+
+            var selectedOption = getSelectedOption(name,this.state.selectedItemSpecifics);
+            if(!selectedOption){
+                // send a default option if a selection doesn't exist
+                selectedOption = {
+                    name: '',
+                    value: ''
+                };
+            }
+
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
@@ -152,6 +178,7 @@ define([
                         title={name}
                         customOptions={true}
                         onOptionChange={this.onItemSpecificSelected}
+                        selectedOption={selectedOption}
                     />
                 </div>
                 {isOptional && this.renderRemoveOptionalItemSpecificButton(name)}
@@ -252,6 +279,12 @@ define([
             }
             return null;
         },
+        getOptionalItemSpecificTextInputValue: function(name){
+            if (this.state.selectedItemSpecifics && this.state.selectedItemSpecifics[name]) {
+                return this.state.selectedItemSpecifics[name][0];
+            }
+            return null;
+        },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             var options = [];
             for (var name in itemSpecifics) {
@@ -335,6 +368,7 @@ define([
             return <span>{itemSpecifics}</span>;
         },
         onItemSpecificSelected: function(fields, title) {
+
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var values = [];
 
@@ -392,4 +426,16 @@ define([
     });
 
     return ItemSpecifics;
+
+    function getSelectedOption(name, selectedItemSpecifics){
+        if(selectedItemSpecifics[name]){
+            return {
+                name:selectedItemSpecifics[name][0],
+                value: selectedItemSpecifics[name][0]
+            };
+        }else{
+            return false;
+        }
+    }
+
 });

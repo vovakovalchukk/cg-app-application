@@ -229,6 +229,7 @@ define([
             });
         },
         render: function() {
+
             return (
                     <Container
                         initiallyActive={true}

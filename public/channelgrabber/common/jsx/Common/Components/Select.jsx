@@ -41,6 +41,7 @@ define([
         },
         componentDidMount: function() {
             var selectedOption = this.props.selectedOption;
+
             if (!this.isSelectedOptionAvailable(selectedOption, this.props.options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }
