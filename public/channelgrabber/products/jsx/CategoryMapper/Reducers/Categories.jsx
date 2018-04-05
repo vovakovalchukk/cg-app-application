@@ -6,28 +6,33 @@ define([
     var initialState = {};
 
     return reducerCreator(initialState, {
-        "CATEGORY_SELECTED": function (state, action) {
-            var newState = Object.assign({}, state),
-                accountId = action.payload.accountId,
-                categoryId = action.payload.categoryId;
-
-            newState[accountId] = Object.assign({}, newState[accountId]);
-            newState[accountId][categoryId] = Object.assign({}, newState[accountId][categoryId], {
-                categoryChildren: {}
-            });
-
-            return newState;
-        },
         "CATEGORY_CHILDREN_FETCHED": function (state, action) {
             var newState = Object.assign({}, state),
                 accountId = action.payload.accountId,
                 categoryId = action.payload.categoryId,
-                childCategories = action.payload.categories;
+                childCategories = action.payload.categories,
+                selectedCategories = action.payload.selectedCategories;
 
             newState[accountId] = Object.assign({}, newState[accountId]);
-            newState[accountId][categoryId] = Object.assign({}, newState[accountId][categoryId], {
-                categoryChildren: childCategories
-            });
+            if (categoryId in newState[accountId]) {
+                newState[accountId][categoryId] = Object.assign({}, newState[accountId][categoryId], {
+                    categoryChildren: childCategories
+                });
+            }
+
+            var accountCategories = JSON.parse(JSON.stringify(newState[accountId])),
+                categories = accountCategories;
+            for (var i = 0; i < selectedCategories.length; i++) {
+                if (categoryId == selectedCategories[i]) {
+                    categories[categoryId] = Object.assign({}, categories[categoryId], {
+                        categoryChildren: childCategories
+                    });
+                    break;
+                }
+
+                categories = categories[selectedCategories[i]].categoryChildren;
+            }
+            newState[accountId] = accountCategories;
 
             return newState;
         },

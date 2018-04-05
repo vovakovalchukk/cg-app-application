@@ -78,8 +78,8 @@ define([
 
     var mapDispatchToProps = function (dispatch, ownProps) {
         return {
-            onCategorySelected: function(accountId, categoryId, categoryLevel) {
-                dispatch(Actions.categorySelected(dispatch, ownProps.index, accountId, categoryId, categoryLevel));
+            onCategorySelected: function(accountId, categoryId, categoryLevel, selectedCategories) {
+                dispatch(Actions.categorySelected(dispatch, ownProps.index, accountId, categoryId, categoryLevel, selectedCategories));
             },
             onRefreshClick: function(accountId) {
                 dispatch(Actions.refreshButtonClicked(dispatch, accountId));

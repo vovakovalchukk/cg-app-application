@@ -75,7 +75,7 @@ define([
             return options;
         },
         onCategorySelected: function (category) {
-            this.props.onCategorySelected(this.props.accountId, category.value, category.level);
+            this.props.onCategorySelected(this.props.accountId, category.value, category.level, this.props.selectedCategories);
         },
         onRefreshClick: function () {
             this.props.onRefreshClick(this.props.accountId);

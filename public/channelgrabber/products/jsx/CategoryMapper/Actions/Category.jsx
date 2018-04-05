@@ -1,4 +1,5 @@
 define([], function() {
+
     var Api = {
         buildCategoryChildrenUrl: function (accountId, categoryId) {
             return '/settings/category/templates/' + accountId + '/category-children/' + categoryId;
@@ -12,7 +13,7 @@ define([], function() {
     }
 
     var ResponseActions = {
-        categoryChildrenFetched: function (categoryMapIndex, accountId, categoryId, categoryLevel, data) {
+        categoryChildrenFetched: function (categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories, data) {
             return {
                 type: 'CATEGORY_CHILDREN_FETCHED',
                 payload: {
@@ -20,7 +21,8 @@ define([], function() {
                     accountId: accountId,
                     categories: data.hasOwnProperty('categories') ? data.categories : {},
                     categoryId: categoryId,
-                    categoryLevel: categoryLevel
+                    categoryLevel: categoryLevel,
+                    selectedCategories: selectedCategories
                 }
             }
         },
@@ -44,11 +46,11 @@ define([], function() {
     }
 
     return {
-        categorySelected: function (dispatch, categoryMapIndex, accountId, categoryId, categoryLevel) {
+        categorySelected: function (dispatch, categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories) {
             $.get(
                 Api.buildCategoryChildrenUrl(accountId, categoryId),
                 function(response) {
-                    dispatch(ResponseActions.categoryChildrenFetched(categoryMapIndex, accountId, categoryId, categoryLevel, response));
+                    dispatch(ResponseActions.categoryChildrenFetched(categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories, response));
                 }
             );
 
@@ -58,7 +60,8 @@ define([], function() {
                     categoryMapIndex: categoryMapIndex,
                     accountId: accountId,
                     categoryId: categoryId,
-                    categoryLevel: categoryLevel
+                    categoryLevel: categoryLevel,
+                    selectedCategories: selectedCategories
                 }
             };
         },
