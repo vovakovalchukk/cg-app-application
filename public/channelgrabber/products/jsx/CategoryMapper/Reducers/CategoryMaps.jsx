@@ -53,7 +53,55 @@ define([
             return newState;
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
-            return state;
+            var categoryMaps = action.payload.categoryMaps,
+                newCategoryMaps = {},
+                newCategoryMap,
+                newState;
+
+            for (var mapId in categoryMaps) {
+                var categoryMap = categoryMaps[mapId],
+                    accountCategories = categoryMap.accountCategories,
+                    mapName = categoryMap.name,
+                    categoriesForAccount,
+                    accountId,
+                    index,
+                    j,
+                    k,
+                    categories,
+                    selectedCategories = {},
+                    selectedCategoriesForAccount,
+                    category;
+
+                for (index = 0; index < accountCategories.length; index++) {
+                    categoriesForAccount = accountCategories[index].categories[0];
+                    accountId = accountCategories[index].accountId;
+
+                    selectedCategoriesForAccount = [];
+
+                    for (j = 0; j < categoriesForAccount.length; j++) {
+                        categories = categoriesForAccount[j];
+                        for (k = 0; k < categories.length; k ++) {
+                            category = categories[k];
+                            if (category.selected === true) {
+                                selectedCategoriesForAccount.push(category.value);
+                            }
+                        }
+                    }
+
+                    selectedCategories[accountId] = selectedCategoriesForAccount;
+                }
+
+                newCategoryMap = {
+                    name: mapName,
+                    selectedCategories: selectedCategories
+                };
+
+                newCategoryMaps[mapId] = newCategoryMap;
+            }
+
+            newState = Object.assign({}, state, newCategoryMaps);
+
+            return newState;
         }
     });
 });

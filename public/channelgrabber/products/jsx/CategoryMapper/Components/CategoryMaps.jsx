@@ -58,7 +58,8 @@ define([
         for (var mapId in state.categoryMaps) {
             categoriesForMap = Object.assign({}, categories);
             for (accountId in state.categoryMaps[mapId].selectedCategories) {
-                categoriesForMap[accountId].selectedCategories = state.categoryMaps[mapId].selectedCategories[accountId];
+                categoriesForMap[accountId] = Object.assign({}, categoriesForMap[accountId]);
+                categoriesForMap[accountId].selectedCategories = state.categoryMaps[mapId].selectedCategories[accountId].slice();
             }
 
             categoryMaps[mapId] = categoriesForMap;

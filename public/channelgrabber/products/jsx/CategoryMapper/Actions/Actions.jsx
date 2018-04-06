@@ -36,6 +36,7 @@ define([], function() {
             }
         },
         categoryMapsFetched: function(data) {
+            delete data.bodyTag;
             return {
                 type: 'CATEGORY_MAPS_FETCHED',
                 payload: {
