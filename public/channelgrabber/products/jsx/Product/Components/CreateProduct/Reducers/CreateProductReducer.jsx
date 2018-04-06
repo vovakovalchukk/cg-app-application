@@ -14,12 +14,8 @@ define([
 
         "SAVE_PRODUCT_REQUEST": function (state, action) {
             var newState = Object.assign({}, state);
-            //     accountId = action.payload.accountId,
-            //     categoryId = action.payload.categoryId,
-            //     childCategories = action.payload.categories,
-            //     selectedCategories = action.payload.selectedCategories;
             return newState;
-        },
+        }
 
     });
 

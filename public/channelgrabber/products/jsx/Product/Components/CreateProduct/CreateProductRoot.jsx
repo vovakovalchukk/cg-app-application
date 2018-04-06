@@ -17,7 +17,6 @@ define([
     var Provider = ReactRedux.Provider;
 
 
-
     var store = Redux.createStore(
         CombinedReducer,
         {
@@ -29,15 +28,19 @@ define([
 
     var CreateProductRoot = React.createClass({
 
-        componentDidMount: function() {
+        getDefaultProps: function () {
+            return {};
+        },
+
+        componentDidMount: function () {
 
         },
 
-        render: function() {
+        render: function () {
             return (
 
                 <Provider store={store}>
-                    <CreateProduct/>
+                    <CreateProduct />
                 </Provider>
 
             );

@@ -439,7 +439,8 @@ define([
                         {this.renderSearchBox()}
 
                         <div className='products-list__container'>
-                            {this.renderAddNewProductButton()}
+
+                            { this.props.features.createProducts ? this.renderAddNewProductButton() : '' }
 
 
                             <div id="products-list">
