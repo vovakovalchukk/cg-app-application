@@ -36,16 +36,6 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            CompleteController::ROUTE_COMPLETE_THANKS => [
-                                'type' => Literal::class,
-                                'options' => [
-                                    'route' => '/thanks',
-                                    'defaults' => [
-                                        'action' => 'thanks',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
                             CompleteController::ROUTE_COMPLETE_AJAX => [
                                 'type' => Literal::class,
                                 'options' => [
