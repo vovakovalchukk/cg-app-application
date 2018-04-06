@@ -65,6 +65,10 @@ define([
             categoryMaps[mapId] = categoriesForMap;
         }
 
+        // console.log(state.categories);
+
+        // console.log({maps: categoryMaps});
+
         return categoryMaps;
     }
 

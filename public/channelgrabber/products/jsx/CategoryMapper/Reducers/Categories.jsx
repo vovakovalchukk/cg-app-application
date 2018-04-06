@@ -42,7 +42,66 @@ define([
             return newState;
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
-            // console.log(state, action);
+            var categoryMaps = action.payload.categoryMaps,
+                newState = JSON.parse(JSON.stringify(state));
+
+            console.log(state);
+
+            for (var mapId in categoryMaps) {
+                var categoryMap = categoryMaps[mapId],
+                    accountCategories = categoryMap.accountCategories,
+                    mapName = categoryMap.name,
+                    categoriesForAccount,
+                    accountId,
+                    index,
+                    categoryLevel,
+                    k,
+                    categories,
+                    category,
+                    currentCategories;
+
+                for (index = 0; index < accountCategories.length; index++) {
+                    categoriesForAccount = accountCategories[index].categories[0];
+                    accountId = accountCategories[index].accountId;
+
+                    currentCategories = newState[accountId];
+                    var categoryId = null;
+
+                    categoryLevelLoop:
+                        for (categoryLevel = 0; categoryLevel < categoriesForAccount.length; categoryLevel++) {
+                            categories = categoriesForAccount[categoryLevel];
+
+                            console.log({
+                                cats: categories,
+                                current: currentCategories,
+                                id: categoryId
+                            });
+
+                            if (categoryId) {
+                                var map = {};
+                                currentCategories[categoryId].categoryChildren = categories.reduce(function (map, category) {
+                                    map[category.value] = {
+                                        title: category.name
+                                    };
+                                    return map;
+                                });
+                                currentCategories = currentCategories[categoryId].categoryChildren;
+                            }
+
+                            categoriesLoop:
+                                for (k = 0; k < categories.length; k ++) {
+                                    category = categories[k];
+                                    if (category.selected) {
+                                        categoryId = category.value;
+                                        continue categoryLevelLoop;
+                                    }
+                                }
+                        }
+                }
+            }
+
+            console.log(newState);
+
             return state;
         }
     });
