@@ -1,3 +1,8 @@
+$medium-margin-distance: 2rem;
+$small-margin-distance: 1rem;
+$screen-padding:20px;
+
+
 #main, #main-wrapper {
     height: 100%;
     min-height: 100%;
@@ -28,16 +33,28 @@
     color: $color-black;
 }
 
+.add-new-product-button{
+    margin-top: $medium-margin-distance;
+    margin-left:$screen-padding;
+    margin-right:$screen-padding;
+    padding:1rem;
+    border-radius: 5px;
+    background-color: $color-white;
+    transition: all 500ms ease;
+}
+.products-list__container{
+    margin-top: 50px;
+    background-color: $color-bluegrey;
+    overflow:hidden;
+}
 #products-list {
     width: 100%;
     height: auto;
     min-height: 90vh;
     float: left;
     clear: both;
-    margin-top: 50px;
     margin-bottom: 20px;
     padding: 20px 20px 0px 20px !important;
-    background-color: $color-bluegrey;
     box-sizing: border-box;
     transition: all 0.5s ease;
 }
@@ -695,4 +712,13 @@ div.tether-element div.tooltip-hover {
 .tooltip-hover {
     z-index: 99999;
 
+}
+
+.margin-left--small{
+    margin-left:$small-margin-distance
+}
+
+.bold-item{
+    font-size: 1.25rem;
+    font-weight: 700;
 }

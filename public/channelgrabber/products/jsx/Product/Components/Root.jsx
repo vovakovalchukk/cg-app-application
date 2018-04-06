@@ -6,6 +6,7 @@ define([
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
     'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax'
 ], function(
     React,
@@ -15,12 +16,17 @@ define([
     ProductRow,
     ProductLinkEditor,
     CreateListingPopup,
+    CreateProductRoot,
     AjaxHandler
 ) {
     "use strict";
 
     const INITIAL_VARIATION_COUNT = 2;
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
+
+        const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
+    const NEW_LISTING_VIEW ='CREATE_LISTING_VIEW';
+    const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 
     var RootComponent = React.createClass({
         getChildContext: function() {
@@ -42,6 +48,7 @@ define([
         getInitialState: function()
         {
             return {
+                currentView:PRODUCT_LIST_VIEW,
                 products: [],
                 variations: [],
                 allProductLinks: [],
@@ -267,6 +274,7 @@ define([
                 return product.id == productId;
             });
             this.setState({
+                currentView:NEW_LISTING_VIEW,
                 createListing: {
                     product: product
                 }
@@ -353,10 +361,29 @@ define([
                 }
             });
         },
+        addNewProductButtonClick(){
+            this.setState({
+                currentView: NEW_PRODUCT_VIEW
+            });
+        },
+        viewRender: function(){
+            console.log('ths.state.currentView : ', this.state.currentView);
+            return{
+                NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
+                NEW_LISTING_VIEW: this.renderCreateListingPopup,
+                PRODUCT_LIST_VIEW: this.renderProductListView
+            }
+        },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
             }
+        },
+        renderAddNewProductButton: function(){
+            return <button name='add new product' className='add-new-product-button bold-item' onClick={this.addNewProductButtonClick}>
+                <i className ='fa fa-plus'></i>
+                <span className="margin-left--small">Add New Product</span>
+            </button>
         },
         renderProducts: function () {
             if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
@@ -401,27 +428,41 @@ define([
                 fetchVariations={this.onVariationsRequest.bind(this)}
             />
         },
+        renderCreateNewProduct: function(){
+            console.log('in renderCreateNewProduct')
+            return <CreateProductRoot />
+        },
+        renderProductListView: function(){
+            return (
+                    <div>
+
+                        {this.renderSearchBox()}
+
+                        <div className='products-list__container'>
+                            {this.renderAddNewProductButton()}
+
+
+                            <div id="products-list">
+                                {this.renderProducts()}
+                            </div>
+                            <ProductLinkEditor
+                                productLink={this.state.editingProductLink}
+                                onEditorClose={this.onProductLinksEditorClose}
+                                fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                            />
+                            {(this.state.products.length ?
+                                <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
+                            </div>
+                        </div>
+                );
+        },
         render: function()
         {
-            if (this.state.createListing.product) {
-                return this.renderCreateListingPopup();
-            } else {
-                return (
-                    <div>
-                        {this.renderSearchBox()}
-                        <div id="products-list">
-                            {this.renderProducts()}
-                        </div>
-                        <ProductLinkEditor
-                            productLink={this.state.editingProductLink}
-                            onEditorClose={this.onProductLinksEditorClose}
-                            fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
-                        />
-                        {(this.state.products.length ?
-                            <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
-                    </div>
-                );
-            }
+
+
+            return this.viewRender()[this.state.currentView]()
+
+
         }
     });
 
