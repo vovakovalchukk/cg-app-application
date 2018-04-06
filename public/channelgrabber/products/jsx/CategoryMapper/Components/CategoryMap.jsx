@@ -45,7 +45,7 @@ define([
                             selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : {}}
                             onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
                             onRefreshClick={this.props.onRefreshClick}
-                            onRemoveButtonClick={this.props.onRemoveButtonClick}
+                            onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
                         />
                     </label>
                 );

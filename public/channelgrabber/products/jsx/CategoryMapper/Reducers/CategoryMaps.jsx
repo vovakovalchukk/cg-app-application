@@ -7,7 +7,7 @@ define([
 
     return reducerCreator(initialState, {
         "CATEGORY_SELECTED": function (state, action) {
-            var newState = Object.assign({}, state),
+            var newState = JSON.parse(JSON.stringify(state)),
                 accountId = action.payload.accountId,
                 mapId = action.payload.categoryMapIndex,
                 categoryLevel = action.payload.categoryLevel,
@@ -19,8 +19,6 @@ define([
                     selectedCategories: {}
                 }
             }
-
-            newState[mapId].selectedCategories = Object.assign({}, newState[mapId].selectedCategories);
 
             if (!newState[mapId].selectedCategories[accountId]) {
                 newState[mapId].selectedCategories[accountId] = [];

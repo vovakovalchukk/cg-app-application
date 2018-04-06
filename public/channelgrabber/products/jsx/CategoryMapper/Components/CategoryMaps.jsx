@@ -81,8 +81,8 @@ define([
             onRefreshClick: function(accountId) {
                 dispatch(Actions.refreshButtonClicked(dispatch, accountId));
             },
-            onRemoveButtonClick: function (accountId) {
-                dispatch(Actions.removeButtonClicked(ownProps.index, accountId));
+            onRemoveButtonClick: function (mapId, accountId) {
+                dispatch(Actions.removeButtonClicked(mapId, accountId));
             },
             fetchCategoryMaps: function () {
                 dispatch(Actions.fetchCategoryMaps(dispatch));

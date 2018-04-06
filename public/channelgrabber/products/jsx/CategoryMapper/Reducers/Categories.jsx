@@ -23,15 +23,13 @@ define([
             var accountCategories = JSON.parse(JSON.stringify(newState[accountId])),
                 categories = accountCategories;
             for (var i = 0; i < selectedCategories.length; i++) {
-                if (categoryId == selectedCategories[i]) {
-                    categories[categoryId] = Object.assign({}, categories[categoryId], {
-                        categoryChildren: childCategories
-                    });
-                    break;
-                }
-
                 categories = categories[selectedCategories[i]].categoryChildren;
             }
+
+            categories[categoryId].categoryChildren = Object.assign({}, categories[categoryId], {
+                categoryChildren: childCategories
+            });
+
             newState[accountId] = accountCategories;
 
             return newState;

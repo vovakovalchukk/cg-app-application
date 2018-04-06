@@ -12,7 +12,6 @@ define([
             return {
                 categories: [],
                 onOptionChange: null,
-                resetSelection: null,
                 className: 'category-select',
                 selectedCategory: null
             }
@@ -24,17 +23,9 @@ define([
             }
         },
         getSelectedCategory: function() {
-            if (this.props.resetSelection) {
-                // Reset the selected value
-                this.props.input.onChange(null);
-                return {
-                    name: '',
-                    value: ''
-                }
-            }
-            return this.findSelectedCategory();
-        },
-        findSelectedCategory: function () {
+            console.log({
+                catSelectProps: this.props
+            });
             if (!this.props.selectedCategory) {
                 return null;
             }
