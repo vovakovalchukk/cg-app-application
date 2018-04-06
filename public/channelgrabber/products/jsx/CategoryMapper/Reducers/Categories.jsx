@@ -14,24 +14,16 @@ define([
                 selectedCategories = action.payload.selectedCategories;
 
             newState[accountId] = Object.assign({}, newState[accountId]);
-            if (categoryId in newState[accountId]) {
-                newState[accountId][categoryId] = Object.assign({}, newState[accountId][categoryId], {
-                    categoryChildren: childCategories
-                });
-            }
 
             var accountCategories = JSON.parse(JSON.stringify(newState[accountId])),
                 categories = accountCategories;
 
-            console.log({
-                accountCat: accountCategories,
-                id: categoryId,
-                childCat: childCategories,
-                selectedCategories
-            });
-
             for (var i = 0; i < selectedCategories.length; i++) {
                 categories = categories[selectedCategories[i]].categoryChildren;
+            }
+
+            if (categoryId in categories && 'categoryChildren' in categories[categoryId] && Object.keys(categories[categoryId].categoryChildren).length > 0) {
+                return state;
             }
 
             categories[categoryId] = Object.assign({}, categories[categoryId], {
