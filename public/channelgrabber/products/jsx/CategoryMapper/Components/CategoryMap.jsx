@@ -3,7 +3,7 @@ define([
     'redux-form',
     'react-redux',
     'Common/Components/Button',
-    'CategoryMapper/Actions/Category',
+    'CategoryMapper/Actions/Actions',
     'CategoryMapper/Components/AccountCategorySelect'
 ], function(
     React,
@@ -22,7 +22,8 @@ define([
         getDefaultProps: function() {
             return {
                 handleSubmit: null,
-                accounts: {}
+                accounts: {},
+                mapId: null
             };
         },
         renderCategorySelects: function() {
@@ -42,7 +43,7 @@ define([
                             refreshable={accountData.refreshable}
                             resetSelection={accountData.resetSelection}
                             selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : {}}
-                            onCategorySelected={this.props.onCategorySelected}
+                            onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
                             onRefreshClick={this.props.onRefreshClick}
                             onRemoveButtonClick={this.props.onRemoveButtonClick}
                         />
@@ -75,24 +76,6 @@ define([
             );
         }
     });
-
-    var mapDispatchToProps = function (dispatch, ownProps) {
-        return {
-            onCategorySelected: function(accountId, categoryId, categoryLevel, selectedCategories) {
-                dispatch(Actions.categorySelected(dispatch, ownProps.index, accountId, categoryId, categoryLevel, selectedCategories));
-            },
-            onRefreshClick: function(accountId) {
-                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
-            },
-            onRemoveButtonClick: function (accountId) {
-                dispatch(Actions.removeButtonClicked(ownProps.index, accountId));
-            }
-        };
-    };
-
-    var CategoryMapConnector = ReactRedux.connect(null, mapDispatchToProps);
-
-    CategoryMapComponent = CategoryMapConnector(CategoryMapComponent);
 
     var categoryMapFormCreator = ReduxForm.reduxForm({
         form: "categoryMap",

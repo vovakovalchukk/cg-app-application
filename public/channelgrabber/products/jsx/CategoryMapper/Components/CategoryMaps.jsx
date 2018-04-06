@@ -2,7 +2,7 @@ define([
     'react',
     'react-redux',
     'CategoryMapper/Components/CategoryMap',
-    'CategoryMapper/Actions/Category',
+    'CategoryMapper/Actions/Actions',
 ], function(
     React,
     ReactRedux,
@@ -21,7 +21,10 @@ define([
                 categoryMaps.push(
                     <CategoryMap
                         accounts={this.props.categoryMaps[mapId]}
-                        index={mapId}
+                        mapId={mapId}
+                        onCategorySelected={this.props.onCategorySelected}
+                        onRefreshClick={this.props.onRefreshClick}
+                        onRemoveButtonClick={this.props.onRemoveButtonClick}
                     />
                 );
             }
@@ -61,8 +64,6 @@ define([
             categoryMaps[mapId] = categoriesForMap;
         }
 
-        // console.log(categoryMaps);
-
         return categoryMaps;
     }
 
@@ -72,8 +73,17 @@ define([
         }
     };
 
-    var mapDispatchToProps = function (dispatch) {
+    var mapDispatchToProps = function (dispatch, ownProps) {
         return {
+            onCategorySelected: function(mapId, accountId, categoryId, categoryLevel, selectedCategories) {
+                dispatch(Actions.categorySelected(dispatch, mapId, accountId, categoryId, categoryLevel, selectedCategories));
+            },
+            onRefreshClick: function(accountId) {
+                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
+            },
+            onRemoveButtonClick: function (accountId) {
+                dispatch(Actions.removeButtonClicked(ownProps.index, accountId));
+            },
             fetchCategoryMaps: function () {
                 dispatch(Actions.fetchCategoryMaps(dispatch));
             }
