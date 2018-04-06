@@ -26,7 +26,7 @@ define([
                 categories = categories[selectedCategories[i]].categoryChildren;
             }
 
-            categories[categoryId].categoryChildren = Object.assign({}, categories[categoryId], {
+            categories[categoryId] = Object.assign({}, categories[categoryId], {
                 categoryChildren: childCategories
             });
 
