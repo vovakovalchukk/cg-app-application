@@ -23,11 +23,10 @@ define([
             }
         },
         getSelectedCategory: function() {
-            console.log({
-                catSelectProps: this.props
-            });
             if (!this.props.selectedCategory) {
-                return null;
+                // Resets the input value
+                this.props.input.onChange(null);
+                return {name: '', value: ''};
             }
 
             var categories = this.props.categories;

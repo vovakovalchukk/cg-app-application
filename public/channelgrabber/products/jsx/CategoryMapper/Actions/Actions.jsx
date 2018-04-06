@@ -47,10 +47,17 @@ define([], function() {
 
     return {
         categorySelected: function (dispatch, categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories) {
+
+            console.log(selectedCategories);
+
+            selectedCategoriesForChildren = selectedCategories.slice(0);
+            selectedCategoriesForChildren.splice(categoryLevel);
+            console.log(selectedCategories, selectedCategoriesForChildren)
+
             $.get(
                 Api.buildCategoryChildrenUrl(accountId, categoryId),
                 function(response) {
-                    dispatch(ResponseActions.categoryChildrenFetched(categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories, response));
+                    dispatch(ResponseActions.categoryChildrenFetched(categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategoriesForChildren, response));
                 }
             );
 

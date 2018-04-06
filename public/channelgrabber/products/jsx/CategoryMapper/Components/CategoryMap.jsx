@@ -42,7 +42,7 @@ define([
                             refreshing={accountData.refreshing}
                             refreshable={accountData.refreshable}
                             resetSelection={accountData.resetSelection}
-                            selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : {}}
+                            selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
                             onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
                             onRefreshClick={this.props.onRefreshClick}
                             onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}

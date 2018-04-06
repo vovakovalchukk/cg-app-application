@@ -25,6 +25,7 @@ define([
             }
 
             newState[mapId].selectedCategories[accountId][categoryLevel] = categoryId;
+            newState[mapId].selectedCategories[accountId].splice(categoryLevel + 1);
 
             return newState;
         },
@@ -45,9 +46,9 @@ define([
                 accountId = action.payload.accountId,
                 mapId = action.payload.categoryMapIndex;
 
-            newState[mapId] = Object.assign({}, state[mapId], {
-                selectedCategories: []
-            });
+            newState[mapId] = Object.assign({}, state[mapId]);
+            newState[mapId].selectedCategories = Object.assign({}, newState[mapId].selectedCategories);
+            newState[mapId].selectedCategories[accountId] = [];
 
             return newState;
         },

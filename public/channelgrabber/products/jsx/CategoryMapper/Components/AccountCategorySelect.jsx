@@ -22,7 +22,7 @@ define([
                 refreshable: false,
                 refreshing: false,
                 resetSelection: null,
-                selectedCategories: {},
+                selectedCategories: [],
                 onCategorySelected: function() {},
                 onRefreshClick: function() {},
                 onRemoveButtonClick: function() {},

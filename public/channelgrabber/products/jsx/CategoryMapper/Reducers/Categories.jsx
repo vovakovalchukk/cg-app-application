@@ -22,6 +22,14 @@ define([
 
             var accountCategories = JSON.parse(JSON.stringify(newState[accountId])),
                 categories = accountCategories;
+
+            console.log({
+                accountCat: accountCategories,
+                id: categoryId,
+                childCat: childCategories,
+                selectedCategories
+            });
+
             for (var i = 0; i < selectedCategories.length; i++) {
                 categories = categories[selectedCategories[i]].categoryChildren;
             }
