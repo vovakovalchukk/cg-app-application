@@ -58,39 +58,39 @@ define([
             </div>;
         },
         render: function() {
-            console.log(this.props.name, this.props.etag);
+            // console.log(this.props.name, this.props.etag);
             return (
-                <form onSubmit={this.props.handleSubmit}>
-                    <div className={"order-form half product-container category-map-container"}>
-                        <div>
-                            <label>
-                                <div className={"order-inputbox-holder"}>
-                                    <Field
-                                        name={'map[' + this.props.mapId + '].name'}
-                                        component="input"
-                                        type="text" placeholder="Category template name here..."
-                                    />
-                                </div>
-                            </label>
-                            <label className={"save-button"}>
-                                <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
-                                    <span>Save</span>
-                                </div>
-                            </label>
-                        </div>
-                        {this.renderCategorySelects()}
+                <div className={"order-form half product-container category-map-container"}>
+                    <div>
+                        <label>
+                            <div className={"order-inputbox-holder"}>
+                                <Field
+                                    name={'map[' + this.props.mapId + '].name'}
+                                    component="input"
+                                    type="text" placeholder="Category template name here..."
+                                />
+                            </div>
+                        </label>
+                        <label className={"save-button"}>
+                            <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
+                                <span>Save</span>
+                            </div>
+                        </label>
                     </div>
-                </form>
+                    {this.renderCategorySelects()}
+                </div>
             );
         }
     });
 
-    var categoryMapFormCreator = ReduxForm.reduxForm({
+/*    var categoryMapFormCreator = ReduxForm.reduxForm({
         form: "categoryMap",
         onSubmit: function(values, f, state) {
             console.log(values, state);
         }
-    });
+    });*/
 
-    return categoryMapFormCreator(CategoryMapComponent);
+    // return categoryMapFormCreator(CategoryMapComponent);
+
+    return CategoryMapComponent;
 });

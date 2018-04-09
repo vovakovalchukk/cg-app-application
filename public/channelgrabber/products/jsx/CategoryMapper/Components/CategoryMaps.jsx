@@ -1,10 +1,12 @@
 define([
     'react',
+    'redux-form',
     'react-redux',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Actions/Actions',
 ], function(
     React,
+    ReduxForm,
     ReactRedux,
     CategoryMap,
     Actions
@@ -27,6 +29,7 @@ define([
                         onCategorySelected={this.props.onCategorySelected}
                         onRefreshClick={this.props.onRefreshClick}
                         onRemoveButtonClick={this.props.onRemoveButtonClick}
+                        handleSubmit={this.props.handleSubmit}
                     />
                 );
             }
@@ -35,11 +38,20 @@ define([
         render: function() {
             return (
                 <span>
-                    {this.renderCategoryMapComponents()}
+                    <form onSubmit={this.props.handleSubmit}>
+                        {this.renderCategoryMapComponents()}
+                    </form>
                 </span>
             );
         }
     });
+
+
+    var categoryMapsFormCreator = ReduxForm.reduxForm({
+        form: "categoryMapssss"
+    });
+
+    CategoryMapsComponent = categoryMapsFormCreator(CategoryMapsComponent);
 
     var mergeData = function (state) {
         var categories = {},
@@ -79,8 +91,13 @@ define([
     }
 
     var mapStateToProps = function(state) {
+        var map = [];
+        map[4] = {name: 'AAAAA'};
         return {
-            categoryMaps: mergeData(state)
+            categoryMaps: mergeData(state),
+            initialValues: {
+                map: map
+            }
         }
     };
 

@@ -32,7 +32,6 @@ define([
             var categories = this.props.categories;
             for (var i = 0; i < categories.length; i++) {
                 if (categories[i].value == this.props.selectedCategory) {
-                    this.props.input.onChange(this.props.selectedCategory);
                     return categories[i];
                 }
             }
