@@ -20,8 +20,10 @@ define([
             for (var mapId in this.props.categoryMaps) {
                 categoryMaps.push(
                     <CategoryMap
-                        accounts={this.props.categoryMaps[mapId]}
+                        accounts={this.props.categoryMaps[mapId].accounts}
                         mapId={mapId}
+                        name={this.props.categoryMaps[mapId].name}
+                        etag={this.props.categoryMaps[mapId].etag}
                         onCategorySelected={this.props.onCategorySelected}
                         onRefreshClick={this.props.onRefreshClick}
                         onRemoveButtonClick={this.props.onRemoveButtonClick}
@@ -51,7 +53,11 @@ define([
         }
 
         if (!(0 in state.categoryMaps)) {
-            categoryMaps[0] = categories;
+            categoryMaps[0] = {
+                accounts: categories,
+                name: '',
+                etag: ''
+            };
         }
 
         var categoriesForMap;
@@ -62,12 +68,12 @@ define([
                 categoriesForMap[accountId].selectedCategories = state.categoryMaps[mapId].selectedCategories[accountId].slice();
             }
 
-            categoryMaps[mapId] = categoriesForMap;
+            categoryMaps[mapId] =  {
+                accounts: categoriesForMap,
+                name: state.categoryMaps[mapId].name,
+                etag: state.categoryMaps[mapId].etag
+            };
         }
-
-        // console.log(state.categories);
-
-        // console.log({maps: categoryMaps});
 
         return categoryMaps;
     }

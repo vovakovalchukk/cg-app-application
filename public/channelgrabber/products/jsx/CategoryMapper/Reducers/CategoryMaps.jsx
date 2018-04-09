@@ -27,8 +27,6 @@ define([
             newState[mapId].selectedCategories[accountId][categoryLevel] = categoryId;
             newState[mapId].selectedCategories[accountId].splice(categoryLevel + 1);
 
-            console.log(newState);
-
             return newState;
         },
         "REFRESH_CATEGORIES": function (state, action) {

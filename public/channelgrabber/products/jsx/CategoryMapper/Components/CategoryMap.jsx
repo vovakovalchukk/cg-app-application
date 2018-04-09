@@ -23,7 +23,9 @@ define([
             return {
                 handleSubmit: null,
                 accounts: {},
-                mapId: null
+                mapId: null,
+                name: '',
+                etag: ''
             };
         },
         renderCategorySelects: function() {
@@ -37,6 +39,7 @@ define([
                         </span>
                         <FieldArray
                             component={AccountCategorySelect}
+                            name={'map[' + this.props.mapId + '].categories'}
                             accountId={accountId}
                             categories={accountData.categories}
                             refreshing={accountData.refreshing}
@@ -55,13 +58,18 @@ define([
             </div>;
         },
         render: function() {
+            console.log(this.props.name, this.props.etag);
             return (
                 <form onSubmit={this.props.handleSubmit}>
                     <div className={"order-form half product-container category-map-container"}>
                         <div>
                             <label>
                                 <div className={"order-inputbox-holder"}>
-                                    <Field name={"templateName[" + this.props.index + "]"} component="input" type="text" placeholder="Category template name here..."/>
+                                    <Field
+                                        name={'map[' + this.props.mapId + '].name'}
+                                        component="input"
+                                        type="text" placeholder="Category template name here..."
+                                    />
                                 </div>
                             </label>
                             <label className={"save-button"}>
@@ -80,7 +88,7 @@ define([
     var categoryMapFormCreator = ReduxForm.reduxForm({
         form: "categoryMap",
         onSubmit: function(values, f, state) {
-            // console.log(values, state);
+            console.log(values, state);
         }
     });
 

@@ -54,7 +54,7 @@ define([
         },
         getCategorySelect: function (index, categories, selectedCategory) {
             return <Field
-                name={"category." + this.props.accountId}
+                name={this.props.fields.name + '[' + this.props.accountId + ']'}
                 component={CategorySelect}
                 categories={this.getCategorySelectOptionsForAccount(index, categories)}
                 accountId={this.props.accountId}
