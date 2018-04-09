@@ -32,10 +32,6 @@ define([
             return {};
         },
 
-        componentDidMount: function () {
-
-        },
-
         render: function () {
             return (
 

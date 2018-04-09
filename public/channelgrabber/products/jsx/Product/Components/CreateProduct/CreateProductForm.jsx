@@ -18,12 +18,11 @@ define([
 
         render:function(){
             return (
-                    <Form onSubmit={this.props.handleSubmit}>
+                    <Form id="create-product-form"  onSubmit={this.props.handleSubmit}>
                         <label>Title</label>
                         <div>
                             <Field type="text" name="title" component="input" />
                         </div>
-                        <button type="submit" >Submit Button</button>
                     </Form>
             );
         }

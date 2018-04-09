@@ -379,10 +379,17 @@ define([
             }
         },
         renderAddNewProductButton: function(){
-            return <button name='add new product' className='add-new-product-button bold-item' onClick={this.addNewProductButtonClick}>
-                <i className ='fa fa-plus'></i>
-                <span className="margin-left--small">Add New Product</span>
-            </button>
+            return(
+                <div className=" navbar-strip--push-up-fix ">
+
+                        <span className="navbar-strip__button " onClick={this.addNewProductButtonClick}>
+                            <span className="fa-plus left icon icon--medium navbar-strip__button__icon">&nbsp;</span>
+                            <span className="navbar-strip__button__text">Add</span>
+                        </span>
+
+                </div>
+            )
+
         },
         renderProducts: function () {
             if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
@@ -432,13 +439,13 @@ define([
         },
         renderProductListView: function(){
             return (
-                    <div>
+                    <div id='products-app'>
 
                         {this.renderSearchBox()}
+                        { this.props.features.createProducts ? this.renderAddNewProductButton() : '' }
 
                         <div className='products-list__container'>
 
-                            { this.props.features.createProducts ? this.renderAddNewProductButton() : '' }
 
 
                             <div id="products-list">

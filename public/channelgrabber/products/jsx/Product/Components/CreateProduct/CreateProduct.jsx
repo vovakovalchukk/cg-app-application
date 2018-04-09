@@ -15,31 +15,11 @@ define([
 ) {
     "use strict";
 
-    var Field = reduxForm.Field;
-
-
-
-
 
     var CreateProduct = React.createClass({
-        getDefaultProps: function() {
-            return {
-                onCreateProductClose : function(){
 
-                }
-            }
-        },
-        getInitialState: function() {
-            return {
-
-            }
-        },
-        componentDidMount: function() {
-
-        },
-
-        submitFormData: function(){
-
+        handleContainerSubmit:function(){
+            this.refs.productForm.submit();
         },
 
         handleSubmit : function(values){
@@ -48,13 +28,12 @@ define([
         },
 
 
-
         render: function() {
             return (
                 <Container
                     initiallyActive={true}
                     className="editor-popup "
-                    onYesButtonPressed={this.handleSubmit}
+                    onYesButtonPressed={this.handleContainerSubmit}
                     onNoButtonPressed={this.props.onCreateProductClose}
                     closeOnYes={false}
                     headerText={"Create New Product"}
@@ -63,7 +42,7 @@ define([
                     noButtonText="Cancel"
                 >
 
-                    <CreateProductForm onSubmit={this.handleSubmit}/>
+                    <CreateProductForm onSubmit={this.handleSubmit} ref="productForm"/>
 
 
                 </Container>
