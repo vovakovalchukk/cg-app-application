@@ -1035,12 +1035,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "6911c1d406f4e9090be18586236324d6b2598de8"
+                "reference": "7df314272f73b1bfe433b6285c4bff84da88a862"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-45-DispatchEtsyOrders-513910.zip",
-                "reference": "6911c1d406f4e9090be18586236324d6b2598de8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-45-DispatchEtsyOrders-1bf670.zip",
+                "reference": "7df314272f73b1bfe433b6285c4bff84da88a862",
                 "shasum": null
             },
             "require": {
@@ -1066,7 +1066,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-04-09T11:18:27+00:00"
+            "time": "2018-04-09T14:53:38+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
