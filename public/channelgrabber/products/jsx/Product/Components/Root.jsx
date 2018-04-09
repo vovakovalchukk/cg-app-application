@@ -367,7 +367,6 @@ define([
             });
         },
         viewRender: function(){
-            console.log('ths.state.currentView : ', this.state.currentView);
             return{
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
@@ -429,7 +428,6 @@ define([
             />
         },
         renderCreateNewProduct: function(){
-            console.log('in renderCreateNewProduct')
             return <CreateProductRoot />
         },
         renderProductListView: function(){

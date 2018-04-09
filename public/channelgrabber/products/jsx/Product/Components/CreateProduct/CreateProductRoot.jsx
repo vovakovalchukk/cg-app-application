@@ -24,7 +24,7 @@ define([
             // categories: parseCategoryData(data)
         }
     );
-//
+
 
     var CreateProductRoot = React.createClass({
 

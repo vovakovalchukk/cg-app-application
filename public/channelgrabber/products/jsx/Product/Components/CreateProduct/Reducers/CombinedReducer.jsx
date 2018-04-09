@@ -1,15 +1,16 @@
 define([
             'redux',
-            // 'redux-form',
-            'Product/Components/CreateProduct/Reducers/CreateProductReducer'
+            'redux-form',
+            // 'Product/Components/CreateProduct/Reducers/CreateProductReducer'
 
 ], function(
         Redux,
-        // ReduxForm,
+        ReduxForm,
         CreateProductReducer
     ) {
         var CombinedReducer = Redux.combineReducers({
-            createProduct: CreateProductReducer
+            // createProduct: CreateProductReducer
+            form: ReduxForm.reducer
         });
 
         return CombinedReducer;
