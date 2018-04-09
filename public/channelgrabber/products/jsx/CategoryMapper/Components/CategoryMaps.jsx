@@ -49,8 +49,7 @@ define([
 
     var categoryMapsFormCreator = ReduxForm.reduxForm({
         form: "categoryMapssss",
-        enableReinitialize: true,
-        keepDirtyOnReinitialize: true
+        enableReinitialize: true
     });
 
     CategoryMapsComponent = categoryMapsFormCreator(CategoryMapsComponent);
