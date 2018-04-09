@@ -43,66 +43,49 @@ define([
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             var categoryMaps = action.payload.categoryMaps,
-                newState = JSON.parse(JSON.stringify(state));
-
-            console.log(state);
+                newState = JSON.parse(JSON.stringify(state)),
+                newCategories = {};
 
             for (var mapId in categoryMaps) {
                 var categoryMap = categoryMaps[mapId],
-                    accountCategories = categoryMap.accountCategories,
-                    mapName = categoryMap.name,
-                    categoriesForAccount,
-                    accountId,
-                    index,
-                    categoryLevel,
-                    k,
-                    categories,
-                    category,
-                    currentCategories;
+                    accountCategories = categoryMap.accountCategories;
 
-                for (index = 0; index < accountCategories.length; index++) {
-                    categoriesForAccount = accountCategories[index].categories[0];
-                    accountId = accountCategories[index].accountId;
+                accountCategories.map(function (categoryMap) {
+                    var currentCategories = newState[categoryMap.accountId];
+                    categoryMap.categories.map(function (categoriesByLevel) {
+                        var selectedCategoryId;
+                        categoriesByLevel.map(function (categories, level) {
 
-                    currentCategories = newState[accountId];
-                    var categoryId = null;
-
-                    categoryLevelLoop:
-                        for (categoryLevel = 0; categoryLevel < categoriesForAccount.length; categoryLevel++) {
-                            categories = categoriesForAccount[categoryLevel];
-
-                            console.log({
-                                cats: categories,
-                                current: currentCategories,
-                                id: categoryId
-                            });
-
-                            if (categoryId) {
-                                var map = {};
-                                currentCategories[categoryId].categoryChildren = categories.reduce(function (map, category) {
-                                    map[category.value] = {
-                                        title: category.name
-                                    };
-                                    return map;
+                            if (level == 0) {
+                                categories.map(function (category) {
+                                    if (category.selected) {
+                                        selectedCategoryId = category.value;
+                                    }
                                 });
-                                currentCategories = currentCategories[categoryId].categoryChildren;
+                                return;
                             }
 
-                            categoriesLoop:
-                                for (k = 0; k < categories.length; k ++) {
-                                    category = categories[k];
-                                    if (category.selected) {
-                                        categoryId = category.value;
-                                        continue categoryLevelLoop;
-                                    }
+                            newCategories = {};
+                            categories.map(function (category) {
+                                newCategories[category.value] = {
+                                    title: category.name
                                 }
-                        }
-                }
+                            });
+
+                            currentCategories[selectedCategoryId].categoryChildren = newCategories;
+                            currentCategories = currentCategories[selectedCategoryId].categoryChildren;
+
+                            categories.map(function (category) {
+                                if (category.selected) {
+                                    selectedCategoryId = category.value;
+                                }
+                            });
+                        })
+                    });
+                });
             }
 
-            console.log(newState);
-
-            return state;
+            return newState;
         }
     });
 });

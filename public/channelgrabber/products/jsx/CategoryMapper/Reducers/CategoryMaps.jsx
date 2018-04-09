@@ -27,6 +27,8 @@ define([
             newState[mapId].selectedCategories[accountId][categoryLevel] = categoryId;
             newState[mapId].selectedCategories[accountId].splice(categoryLevel + 1);
 
+            console.log(newState);
+
             return newState;
         },
         "REFRESH_CATEGORIES": function (state, action) {
@@ -55,53 +57,36 @@ define([
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             var categoryMaps = action.payload.categoryMaps,
                 newCategoryMaps = {},
-                newCategoryMap,
-                newState;
+                newCategoryMap;
 
             for (var mapId in categoryMaps) {
                 var categoryMap = categoryMaps[mapId],
-                    accountCategories = categoryMap.accountCategories,
-                    mapName = categoryMap.name,
-                    categoriesForAccount,
-                    accountId,
-                    index,
-                    j,
-                    k,
-                    categories,
-                    selectedCategories = {},
-                    selectedCategoriesForAccount,
-                    category;
-
-                for (index = 0; index < accountCategories.length; index++) {
-                    categoriesForAccount = accountCategories[index].categories[0];
-                    accountId = accountCategories[index].accountId;
-
-                    selectedCategoriesForAccount = [];
-
-                    for (j = 0; j < categoriesForAccount.length; j++) {
-                        categories = categoriesForAccount[j];
-                        for (k = 0; k < categories.length; k ++) {
-                            category = categories[k];
-                            if (category.selected === true) {
-                                selectedCategoriesForAccount.push(category.value);
-                            }
-                        }
-                    }
-
-                    selectedCategories[accountId] = selectedCategoriesForAccount;
-                }
+                    accountCategories = categoryMap.accountCategories;
 
                 newCategoryMap = {
-                    name: mapName,
-                    selectedCategories: selectedCategories
+                    selectedCategories: {},
+                    name: categoryMap.name,
+                    etag: categoryMap.etag
                 };
 
+                accountCategories.map(function (categoriesForAccount) {
+                    var selectedCategories = [];
+                    categoriesForAccount.categories.map(function (categoriesByLevel) {
+                        selectedCategories = [];
+                        categoriesByLevel.map(function (categories, level) {
+                            categories.map(function (category) {
+                                if (category.selected) {
+                                    selectedCategories.push(category.value);
+                                }
+                            });
+                        })
+                    });
+                    newCategoryMap.selectedCategories[categoriesForAccount.accountId] = selectedCategories;
+                });
                 newCategoryMaps[mapId] = newCategoryMap;
             }
 
-            newState = Object.assign({}, state, newCategoryMaps);
-
-            return newState;
+            return Object.assign({}, state, newCategoryMaps);
         }
     });
 });
