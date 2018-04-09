@@ -48,7 +48,9 @@ define([
 
 
     var categoryMapsFormCreator = ReduxForm.reduxForm({
-        form: "categoryMapssss"
+        form: "categoryMapssss",
+        enableReinitialize: true,
+        keepDirtyOnReinitialize: true
     });
 
     CategoryMapsComponent = categoryMapsFormCreator(CategoryMapsComponent);
@@ -90,13 +92,39 @@ define([
         return categoryMaps;
     }
 
+    var formatFormData = function(state) {
+        var categoryMaps = state.categoryMaps,
+            categoryMap,
+            data = [],
+            categoriesForAccount,
+            categoryId,
+            categories;
+
+        for (var mapId in categoryMaps) {
+            categoryMap = categoryMaps[mapId];
+            categories = [];
+
+            for (var accountId in categoryMap.selectedCategories) {
+                categoriesForAccount = categoryMap.selectedCategories[accountId];
+                categoryId = categoriesForAccount[categoriesForAccount.length - 1];
+                categories[accountId] = categoryId;
+            }
+
+            data[mapId] = {
+                name: categoryMap.name,
+                etag: categoryMap.etag,
+                categories: categories
+            }
+        }
+
+        return data;
+    }
+
     var mapStateToProps = function(state) {
-        var map = [];
-        map[4] = {name: 'AAAAA'};
         return {
             categoryMaps: mergeData(state),
             initialValues: {
-                map: map
+                map: formatFormData(state)
             }
         }
     };
