@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce8e04f633ba32bc33691f7df2f5a3b2",
+    "content-hash": "f30a487a536dbda6f765433037e1d8e8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,17 +511,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.7",
+            "version": "dev-LIS-141-product-creation-save",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ce6527a88cc2795b432a6298d8adb7f29d9b8d3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.7-8338a7.zip",
-                "reference": "ce6527a88cc2795b432a6298d8adb7f29d9b8d3e",
-                "shasum": null
+                "reference": "b1ce3fffab5e4bc7b6e36301368c25f93e44b51f"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -9564,13 +9558,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.34.8",
+            "alias_normalized": "1.34.8.0",
+            "version": "dev-LIS-141-product-creation-save",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

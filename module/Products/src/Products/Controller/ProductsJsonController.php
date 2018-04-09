@@ -24,6 +24,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Products\Listing\Channel\Service as ListingChannelService;
+use Products\Product\Creator as ProductCreator;
 use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
@@ -84,6 +85,8 @@ class ProductsJsonController extends AbstractActionController
     protected $productLinkService;
     /** @var ListingChannelService */
     protected $listingChannelService;
+    /** @var ProductCreator */
+    protected $productCreator;
 
     public function __construct(
         ProductService $productService,
@@ -100,7 +103,8 @@ class ProductsJsonController extends AbstractActionController
         StockLocationService $stockLocationService,
         ActiveUserInterface $activeUser,
         ProductLinkService $productLinkService,
-        ListingChannelService $listingChannelService
+        ListingChannelService $listingChannelService,
+        ProductCreator $productCreator
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -117,6 +121,7 @@ class ProductsJsonController extends AbstractActionController
         $this->activeUser = $activeUser;
         $this->productLinkService = $productLinkService;
         $this->listingChannelService = $listingChannelService;
+        $this->productCreator = $productCreator;
     }
 
     public function ajaxAction()
@@ -541,6 +546,8 @@ class ProductsJsonController extends AbstractActionController
 
     public function imageUploadAction()
     {
+        $this->checkUsage();
+
         $imageData = $this->params()->fromPost('image');
 
         // Dummy data to be replaced by LIS-140
@@ -554,12 +561,22 @@ class ProductsJsonController extends AbstractActionController
 
     public function createAction()
     {
-        // Dummy data to be replaced by LIS-140
-        $dummyId = rand(1,999);
+        $this->checkUsage();
+
+        $productData = $this->params()->fromPost('product');
+        if (!$productData) {
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'error' => 'No product data was supplied'
+            ]);
+        }
+
+        $product = $this->productCreator->createFromUserInput($productData);
+
         return $this->jsonModelFactory->newInstance([
             'success' => true,
-            'id' => $dummyId,
-            'etag' => 'abc123efg456hij78900abc123efg456hij78900',
+            'id' => $product->getId(),
+            'etag' => $product->getStoredETag(),
             'error' => ''
         ]);
     }
