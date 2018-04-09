@@ -35,7 +35,7 @@ define([
                     return categories[i];
                 }
             }
-            return null;
+            return {name: '', value: ''};
         },
         render: function() {
             return <Select
