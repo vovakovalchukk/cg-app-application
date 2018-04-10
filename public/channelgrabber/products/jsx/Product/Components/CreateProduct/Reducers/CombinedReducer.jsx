@@ -1,15 +1,13 @@
 define([
-            'redux',
-            'redux-form',
+    'redux',
+    'redux-form',
 
-], function(
-        Redux,
-        ReduxForm,
+], function (
+    Redux,
+    ReduxForm,
     ) {
         var CombinedReducer = Redux.combineReducers({
-
             form: ReduxForm.reducer
         });
-
         return CombinedReducer;
     });
