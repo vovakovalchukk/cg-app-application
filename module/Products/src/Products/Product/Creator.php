@@ -84,6 +84,8 @@ class Creator implements LoggerAwareInterface
         $this->logInfo('Starting Product creation for OU %d, SKU %s', [$productData['organisationUnitId'], $productData['sku']], [static::LOG_CODE, 'Starting']);
         $this->logDebugDump($productData, 'Creating from the following data', [], [static::LOG_CODE, 'RawData']);
 
+        $stockData = $this->splitOutStockDataFromProductData($productData);
+
         $product = $this->createProduct($productData);
         $images = $this->fetchImagesForProductData($productData);
         $product->setImages($images);
@@ -91,7 +93,7 @@ class Creator implements LoggerAwareInterface
         $product->setVariations($variations);
         $productDetail = $this->createProductDetail($productData);
         $product->setDetails($productDetail);
-        $stock = $this->createStock($productData);
+        $stock = $this->createStock($stockData, $product);
         $product->setStock($stock);
 
         $savedProduct = $this->saveProduct($product);
@@ -188,6 +190,14 @@ class Creator implements LoggerAwareInterface
         return array_unique($attributeNames);
     }
 
+    protected function splitOutStockDataFromProductData(array &$productData): array
+    {
+        $stockData = $productData['stock'] ?? [];
+        $stockData['quantity'] = $productData['quantity'];
+        unset($productData['stock'], $productData['quantity']);
+        return $stockData;
+    }
+
     protected function createProduct(array $productData): Product
     {
         return $this->mapper->fromArray($productData);
@@ -213,12 +223,13 @@ class Creator implements LoggerAwareInterface
         $variations = new ProductCollection(Product::class, 'newProductVariations');
         foreach ($productData['variations'] as $variationData) {
             $variationData = $this->addDefaultProductData($variationData);
+            $stockData = $this->splitOutStockDataFromProductData($variationData);
             $variation = $this->createProduct($variationData);
             $images = $this->getImagesForVariation($variationData, $parentImages);
             $variation->setImages($images);
             $variationDetail = $this->createProductDetail($variationData);
             $variation->setDetails($variationDetail);
-            $stock = $this->createStock($variationData, $variation);
+            $stock = $this->createStock($stockData, $variation);
             $variation->setStock($stock);
             $variations->attach($variation);
         }
@@ -242,23 +253,23 @@ class Creator implements LoggerAwareInterface
         return $this->detailMapper->fromArray($detailData);
     }
 
-    protected function createStock(array $productData, Product $product): Stock
+    protected function createStock(array $stockData, Product $product): Stock
     {
-        if ($this->hasVariations($productData)) {
+        if ($product->isParent()) {
             return null;
         }
 
         $stock = $this->stockCreator->create(
             $product->getOrganisationUnitId(),
             $product->getSku(),
-            $productData['quantity']
+            $stockData['quantity']
         );
 
-        if (isset($productData['stock'], $productData['stock']['stockMode'])) {
-            $stock->setStockMode($productData['stock']['stockMode']);
+        if (isset($stockData['stockMode'])) {
+            $stock->setStockMode($stockData['stockMode']);
         }
-        if (isset($productData['stock'], $productData['stock']['stockLevel'])) {
-            $stock->setStockLevel($productData['stock']['stockLevel']);
+        if (isset($stockData['stockLevel'])) {
+            $stock->setStockLevel($stockData['stockLevel']);
         }
 
         return $stock;
