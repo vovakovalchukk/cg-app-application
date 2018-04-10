@@ -2,6 +2,7 @@
 namespace Products\Product\TaxRate;
 
 use CG\Product\Entity as Product;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\MemberState\Decider as MemberStateDecider;
 use CG\Tax\RatesAbstract as TaxRatesAbstract;
@@ -22,7 +23,7 @@ class Service
         $this->cache = [];
     }
 
-    public function getTaxRatesOptionsForProduct(Product $product, array $memberStates = null)
+    public function getTaxRatesOptionsForProduct(Product $product, OrganisationUnit $rootOu)
     {
         $organisationUnitId = $product->getOrganisationUnitId();
 
@@ -32,21 +33,18 @@ class Service
             );
         }
 
-        foreach ($memberStates as $memberStateOfOu) {
-            $rates = $this->fetchTaxRatesForMemberState($memberStateOfOu);
-            $defaultRate[$memberStateOfOu] = $rates->getDefault();
-            $ratesOptions[$memberStateOfOu] = $this->buildRatesOptions($rates);
-        }
+        $ratesOptions = $this->getTaxRatesOptionsForOu($rootOu);
+        $defaultRates = $this->getDefaultTaxRatesForOu($rootOu);
 
         foreach ($product->getTaxRateIds() as $memberState => $taxRateId) {
             $rates = $this->fetchTaxRatesForMemberState($memberState);
-            $defaultRate[$memberState] = $rates->getDefault();
+            $defaultRates[$memberState] = $rates->getDefault();
             $ratesOptions[$memberState] = $this->buildRatesOptions($rates);
         }
         $this->cache[$organisationUnitId] = $ratesOptions;
-        $this->cacheDefaults[$organisationUnitId] = $defaultRate;
+        $this->cacheDefaults[$organisationUnitId] = $defaultRates;
 
-        return $this->markRateOptionSelectedForProduct($product, $ratesOptions, $defaultRate);
+        return $this->markRateOptionSelectedForProduct($product, $ratesOptions, $defaultRates);
     }
 
     protected function fetchMemberStateForOuId($organisationUnitId)
@@ -88,6 +86,43 @@ class Service
         }
 
         return $ratesOptions;
+    }
+
+    protected function getTaxRatesOptionsForOu(OrganisationUnit $ou): array
+    {
+        $ratesOptions = [];
+        foreach ($ou->getMemberState() as $memberStateOfOu) {
+            $rates = $this->fetchTaxRatesForMemberState($memberStateOfOu);
+            $ratesOptions[$memberStateOfOu] = $this->buildRatesOptions($rates);
+        }
+        return $ratesOptions;
+    }
+
+    protected function getDefaultTaxRatesForOu(OrganisationUnit $ou): array
+    {
+        $defaultRates = [];
+        foreach ($ou->getMemberState() as $memberStateOfOu) {
+            $rates = $this->fetchTaxRatesForMemberState($memberStateOfOu);
+            $defaultRates[$memberStateOfOu] = $rates->getDefault();
+        }
+        return $defaultRates;
+    }
+
+    protected function markRateOptionSelectedForOu(OrganisationUnit $ou, $ratesOptions, $defaultRates): array
+    {
+        foreach ($ratesOptions as $memberState => $taxRate) {
+            $taxRateId = $defaultRates[$memberState]->getId();
+            $ratesOptions[$memberState][$taxRateId]['selected'] = true;
+        }
+        return $ratesOptions;
+    }
+
+    public function getTaxRatesOptionsForOuIdWithDefaultsSelected(int $ouId): array
+    {
+        $ou = $this->organisationUnitService->fetch($ouId);
+        $ratesOptions = $this->getTaxRatesOptionsForOu($ou);
+        $defaultRates = $this->getDefaultTaxRatesForOu($ou);
+        return $this->markRateOptionSelectedForOu($ou, $ratesOptions, $defaultRates);
     }
 
     /**
