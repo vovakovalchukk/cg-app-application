@@ -282,6 +282,7 @@ define([
         },
         onCreateListingClose: function() {
             this.setState({
+                currentView:PRODUCT_LIST_VIEW,
                 createListing: {
                     product: null
                 }
@@ -445,9 +446,6 @@ define([
                         { this.props.features.createProducts ? this.renderAddNewProductButton() : '' }
 
                         <div className='products-list__container'>
-
-
-
                             <div id="products-list">
                                 {this.renderProducts()}
                             </div>
