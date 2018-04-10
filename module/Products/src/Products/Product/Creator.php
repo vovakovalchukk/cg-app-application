@@ -30,9 +30,9 @@ class Creator implements LoggerAwareInterface
     const LOG_CODE = 'ProductCreator';
 
     /** @var Mapper */
-    protected $mapper;
+    protected $productMapper;
     /** @var Service */
-    protected $service;
+    protected $productService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
     /** @var DetailMapper */
@@ -49,7 +49,7 @@ class Creator implements LoggerAwareInterface
     protected $simpleProductImporter;
 
     public function __construct(
-        Mapper $mapper,
+        Mapper $productMapper,
         Service $service,
         ActiveUserInterface $activeUserContainer,
         DetailMapper $detailMapper,
@@ -59,8 +59,8 @@ class Creator implements LoggerAwareInterface
         ParentProductImporter $parentProductImporter,
         SimpleProductImporter $simpleProductImporter
     ) {
-        $this->mapper = $mapper;
-        $this->service = $service;
+        $this->productMapper = $productMapper;
+        $this->productService = $service;
         $this->activeUserContainer = $activeUserContainer;
         $this->detailMapper = $detailMapper;
         $this->imageService = $imageService;
@@ -83,20 +83,11 @@ class Creator implements LoggerAwareInterface
         $variationsData = $this->splitOutVariationDataFromProductData($productData);
         $stockData = $this->splitOutStockDataFromProductData($productData);
 
-        $product = $this->createProduct($productData);
-        $images = $this->fetchImagesForProductData($productData);
-        $product->setImages($images);
-        $variations = $this->createVariationProducts($variationsData, $images);
-        $product->setVariations($variations);
-        $productDetail = $this->createProductDetail($productData);
-        $product->setDetails($productDetail);
-        $stock = $this->createStock($stockData, $product);
-        $product->setStock($stock);
-
+        $product = $this->createProductWithVariationsAndStock($productData, $variationsData, $stockData);
         $savedProduct = $this->saveProduct($product);
 
         // Unfortunately when we create a new Entity no eTag is returned which we need, have to fetch
-        $fetchedProduct = $this->service->fetch($savedProduct->getId());
+        $fetchedProduct = $this->productService->fetch($savedProduct->getId());
         $this->logInfo('Finished Product creation for OU %d, SKU %s', [$fetchedProduct->getOrganisationUnitId(), $fetchedProduct->getSku()], [static::LOG_CODE, 'Finished']);
         $this->removeGlobalLogEventParams(['ou', 'sku']);
         return $fetchedProduct;
@@ -149,7 +140,7 @@ class Creator implements LoggerAwareInterface
             ->setPage(1)
             ->setOrganisationUnitId([$organisationUnitId])
             ->setSku($skus);
-        return $this->service->fetchCollectionByFilter($filter);
+        return $this->productService->fetchCollectionByFilter($filter);
     }
 
     protected function reformatSingleVariationAsSimpleProduct(array $productData): array
@@ -212,9 +203,19 @@ class Creator implements LoggerAwareInterface
         return $stockData;
     }
 
-    protected function createProduct(array $productData): Product
+    protected function createProductWithVariationsAndStock(array $productData, array $variationsData, array $stockData): Product
     {
-        return $this->mapper->fromArray($productData);
+        $product = $this->productMapper->fromArray($productData);
+        $images = $this->fetchImagesForProductData($productData);
+        $product->setImages($images);
+        $variations = $this->createVariationProducts($variationsData, $images);
+        $product->setVariations($variations);
+        $productDetail = $this->createProductDetail($productData);
+        $product->setDetails($productDetail);
+        $stock = $this->createStock($stockData, $product);
+        $product->setStock($stock);
+
+        return $product;
     }
 
     protected function fetchImagesForProductData(array $productData): ImageCollection

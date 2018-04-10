@@ -515,12 +515,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "22c282e9b54045379fa325bbf19d4216d1cd3746"
+                "reference": "ee8a95cd19e43f0f0c0ca5b55c0ea7f5908303d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-141-product-creation-save-61d4d0.zip",
-                "reference": "22c282e9b54045379fa325bbf19d4216d1cd3746",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-141-product-creation-save-416e7c.zip",
+                "reference": "ee8a95cd19e43f0f0c0ca5b55c0ea7f5908303d0",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-10T11:48:45+00:00"
+            "time": "2018-04-10T12:49:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
