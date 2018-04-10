@@ -25,9 +25,7 @@ define([
             return {
                 handleSubmit: null,
                 accounts: {},
-                mapId: null,
-                name: '',
-                etag: ''
+                mapId: null
             };
         },
         renderCategorySelects: function() {

@@ -4,17 +4,18 @@ define([
     'react-redux',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Actions/Actions',
+    'CategoryMapper/Components/Search',
 ], function(
     React,
     ReduxForm,
     ReactRedux,
     CategoryMap,
-    Actions
+    Actions,
+    SearchComponent
 ) {
     "use strict";
 
-    var formValues = ReduxForm.formValues;
-
+    var Field = ReduxForm.Field;
     var CategoryMapsComponent = React.createClass({
         componentDidMount: function () {
             this.props.fetchCategoryMaps();
@@ -26,23 +27,26 @@ define([
                     <CategoryMap
                         accounts={this.props.categoryMaps[mapId].accounts}
                         mapId={mapId}
-                        name={this.props.categoryMaps[mapId].name}
-                        etag={this.props.categoryMaps[mapId].etag}
                         onCategorySelected={this.props.onCategorySelected}
                         onRefreshClick={this.props.onRefreshClick}
                         onRemoveButtonClick={this.props.onRemoveButtonClick}
                         onSubmit={this.props.onSubmit}
                     />
                 );
+
+                if (mapId == 0) {
+                    categoryMaps.push(this.renderSearchBox());
+                }
             }
             return categoryMaps;
+        },
+        renderSearchBox: function() {
+            return <SearchComponent/>;
         },
         render: function() {
             return (
                 <span>
-                    <form onSubmit={this.props.handleSubmit}>
-                        {this.renderCategoryMapComponents()}
-                    </form>
+                    {this.renderCategoryMapComponents()}
                 </span>
             );
         }

@@ -26,7 +26,8 @@ use Settings\Category\Template\Exception\NameAlreadyUsedException;
 
 class Service
 {
-    const DEFAULT_TEMPLATE_LIMIT = 10;
+    /** @TODO: revert this to 10! */
+    const DEFAULT_TEMPLATE_LIMIT = 2;
     const INDEX_NAME = 'OrganisationUnitIdName';
     const INDEX_CATEGORY = 'OrganisationUnitIdCategoryId';
 
