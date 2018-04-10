@@ -79,12 +79,13 @@ class Creator implements LoggerAwareInterface
         $this->logInfo('Starting Product creation for OU %d, SKU %s', [$productData['organisationUnitId'], $productData['sku']], [static::LOG_CODE, 'Starting']);
         $this->logDebugDump($productData, 'Creating from the following data', [], [static::LOG_CODE, 'RawData']);
 
+        $variationsData = $this->splitOutVariationDataFromProductData($productData);
         $stockData = $this->splitOutStockDataFromProductData($productData);
 
         $product = $this->createProduct($productData);
         $images = $this->fetchImagesForProductData($productData);
         $product->setImages($images);
-        $variations = $this->createVariationProducts($productData, $images);
+        $variations = $this->createVariationProducts($variationsData, $images);
         $product->setVariations($variations);
         $productDetail = $this->createProductDetail($productData);
         $product->setDetails($productDetail);
@@ -195,6 +196,13 @@ class Creator implements LoggerAwareInterface
         return array_unique($attributeNames);
     }
 
+    protected function splitOutVariationDataFromProductData(array &$productData): array
+    {
+        $variationData = $productData['variations'] ?? [];
+        unset($productData['variations']);
+        return $variationData;
+    }
+
     protected function splitOutStockDataFromProductData(array &$productData): array
     {
         $stockData = $productData['stock'] ?? [];
@@ -220,13 +228,13 @@ class Creator implements LoggerAwareInterface
         return $this->imageService->fetchCollectionByPaginationAndFilters($filter);
     }
 
-    protected function createVariationProducts(array $productData, ImageCollection $parentImages): ?ProductCollection
+    protected function createVariationProducts(array $variationsData, ImageCollection $parentImages): ProductCollection
     {
-        if (!$this->hasVariations($productData)) {
-            return null;
-        }
         $variations = new ProductCollection(Product::class, 'newProductVariations');
-        foreach ($productData['variations'] as $variationData) {
+        if (empty($variationsData)) {
+            return $variations;
+        }
+        foreach ($variationsData as $variationData) {
             $variationData = $this->addDefaultProductData($variationData);
             $stockData = $this->splitOutStockDataFromProductData($variationData);
             $variation = $this->createProduct($variationData);
