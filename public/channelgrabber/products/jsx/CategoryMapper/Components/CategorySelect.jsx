@@ -14,6 +14,7 @@ define([
                 onOptionChange: null,
                 className: 'category-select',
                 selectedCategory: null,
+                resetSelection: null
             }
         },
         onOptionChange: function(category) {
@@ -36,6 +37,9 @@ define([
             return {name: '', value: ''};
         },
         render: function() {
+            if (this.props.resetSelection) {
+                this.props.input.onChange(null);
+            }
             return <Select
                 name={this.props.name}
                 options={this.props.categories}

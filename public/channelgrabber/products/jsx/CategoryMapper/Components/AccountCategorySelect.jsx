@@ -40,10 +40,13 @@ define([
             return selects;
         },
         getCategorySelects: function (categories, selects, index) {
-            var selectedCategory = this.props.selectedCategories[index] ? this.props.selectedCategories[index] : null;
+            var selectedCategory = this.props.selectedCategories[index] ? this.props.selectedCategories[index] : null,
+                resetSelection = (!selectedCategory && index == 0);
+
             selects.push(
-                this.getCategorySelect(index, categories, selectedCategory)
+                this.getCategorySelect(index, categories, selectedCategory, resetSelection)
             );
+
             if (selectedCategory
                 && categories[selectedCategory]
                 && categories[selectedCategory].categoryChildren
@@ -51,9 +54,10 @@ define([
             ) {
                 this.getCategorySelects(categories[selectedCategory].categoryChildren, selects, ++index);
             }
+
             return selects;
         },
-        getCategorySelect: function (index, categories, selectedCategory) {
+        getCategorySelect: function (index, categories, selectedCategory, resetSelection) {
             return <Field
                 name={this.props.fields.name + '.' + this.props.accountId}
                 component={CategorySelect}
@@ -61,6 +65,7 @@ define([
                 accountId={this.props.accountId}
                 onOptionChange={this.onCategorySelected}
                 selectedCategory={selectedCategory}
+                resetSelection={resetSelection}
             />
         },
         getCategorySelectOptionsForAccount: function (categoryLevel, categories) {
