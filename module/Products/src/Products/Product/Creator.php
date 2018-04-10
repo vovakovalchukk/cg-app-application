@@ -133,15 +133,15 @@ class Creator implements LoggerAwareInterface
         return isset($productData['variations']) && !empty($productData['variations']);
     }
 
-    protected function addDefaultProductData(array $productData, int $parentProductId = 0): array
+    protected function addDefaultProductData(array $productData, ?int $parentProductId = null): array
     {
         $productData['organisationUnitId'] = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $productData['parentProductId'] = $parentProductId;
+        $productData['deleted'] = false;
         if ($this->hasVariations($productData)) {
             $productData['sku'] = '';
-            $productData['parentProductId'] = 0;
             $productData['attributeNames'] = $this->getAttributeNamesFromProductData($productData);
         }
-        $productData['deleted'] = false;
         return $productData;
     }
 
