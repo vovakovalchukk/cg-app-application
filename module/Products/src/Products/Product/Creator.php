@@ -263,14 +263,17 @@ class Creator implements LoggerAwareInterface
         return $images;
     }
 
-    protected function createProductDetail(array $detailData): ProductDetail
+    protected function createProductDetail(array $detailData): ?ProductDetail
     {
+        if (!isset($detailData['sku']) || $detailData['sku'] == '') {
+            return null;
+        }
         // Sometimes the dimensions come through as the empty string
         $filteredDetailData = array_filter($detailData);
         return $this->detailMapper->fromArray($filteredDetailData);
     }
 
-    protected function createStock(array $stockData, Product $product): Stock
+    protected function createStock(array $stockData, Product $product): ?Stock
     {
         if ($product->isParent()) {
             return null;
