@@ -12,8 +12,10 @@ use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
 use CG\Product\Mapper;
 use CG\Product\Client\Service;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Entity as Stock;
@@ -69,12 +71,15 @@ class Creator implements LoggerAwareInterface
 
     public function createFromUserInput(array $productData): Product
     {
-        $productData = $this->reformatSingleVariationAsSimpleProduct($productData);
         if (!$this->isRequiredCreationDataFieldsPresent($productData)) {
             throw new \InvalidArgumentException('Not all required fields were completed');
         }
+        if ($this->isForExistingSku($productData)) {
+            throw new \InvalidArgumentException('You already have a product with that SKU');
+        }
 
-        $productData = $this->addDefaultProductData($productData);
+        $productData = $this->reformatSingleVariationAsSimpleProduct($productData);
+        $productData = $this->addDefaultProductData($productData, 0);
         $this->addGlobalLogEventParams(['ou' => $productData['organisationUnitId'], 'sku' => $productData['sku']]);
         $this->logInfo('Starting Product creation for OU %d, SKU %s', [$productData['organisationUnitId'], $productData['sku']], [static::LOG_CODE, 'Starting']);
         $this->logDebugDump($productData, 'Creating from the following data', [], [static::LOG_CODE, 'RawData']);
@@ -98,6 +103,46 @@ class Creator implements LoggerAwareInterface
         return $fetchedProduct;
     }
 
+    protected function isRequiredCreationDataFieldsPresent(array $productData): bool
+    {
+        if (!isset($productData['name'])) {
+            return false;
+        }
+        $variationsData = ($this->hasVariations($productData) ? $productData['variations'] : [$productData]);
+        foreach ($variationsData as $variationData) {
+            if (!isset($variationData['sku'], $variationData['quantity'])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected function isForExistingSku(array $productData): bool
+    {
+        if ($this->hasVariations($productData)) {
+            $skus = array_column($productData['variations'], 'sku');
+        } else {
+            $skus = [$productData['sku']];
+        }
+        try {
+            $this->fetchProductsBySku($skus);
+            return true;
+        } catch (NotFound $e) {
+            return false;
+        }
+    }
+
+    protected function fetchProductsBySku(array $skus): ProductCollection
+    {
+        $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $filter = (new ProductFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId($organisationUnitId)
+            ->setSku($skus);
+        return $this->service->fetchCollectionByFilter($filter);
+    }
+
     protected function reformatSingleVariationAsSimpleProduct(array $productData): array
     {
         if (!isset($productData['variations']) || count($productData['variations']) > 1) {
@@ -112,20 +157,6 @@ class Creator implements LoggerAwareInterface
         unset($reformattedData['variations']);
         $reformattedData = array_merge($reformattedData, $variationData);
         return $reformattedData;
-    }
-
-    protected function isRequiredCreationDataFieldsPresent(array $productData): bool
-    {
-        if (!isset($productData['name'])) {
-            return false;
-        }
-        $variationsData = ($this->hasVariations($productData) ? $productData['variations'] : [$productData]);
-        foreach ($variationsData as $variationData) {
-            if (!isset($variationData['sku'], $variationData['quantity'])) {
-                return false;
-            }
-        }
-        return true;
     }
 
     protected function hasVariations(array $productData): bool
