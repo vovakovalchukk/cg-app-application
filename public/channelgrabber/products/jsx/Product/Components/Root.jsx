@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateListing/CreateListingPopup',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax'
-], function(
+], function (
     React,
     SearchBox,
     ProductFilter,
@@ -20,16 +20,16 @@ define([
     AjaxHandler
 ) {
     "use strict";
-
+    
     const INITIAL_VARIATION_COUNT = 2;
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
-
-        const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
-    const NEW_LISTING_VIEW ='NEW_LISTING_VIEW';
+    
+    const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
+    const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-
+    
     var RootComponent = React.createClass({
-        getChildContext: function() {
+        getChildContext: function () {
             return {
                 imageUtils: this.props.utilities.image,
                 isAdmin: this.props.isAdmin,
@@ -45,10 +45,9 @@ define([
                 features: {}
             }
         },
-        getInitialState: function()
-        {
+        getInitialState: function () {
             return {
-                currentView:PRODUCT_LIST_VIEW,
+                currentView: PRODUCT_LIST_VIEW,
                 products: [],
                 variations: [],
                 allProductLinks: [],
@@ -71,8 +70,7 @@ define([
                 }
             }
         },
-        componentDidMount: function()
-        {
+        componentDidMount: function () {
             this.performProductsRequest();
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
@@ -81,8 +79,7 @@ define([
             window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
-        componentWillUnmount: function()
-        {
+        componentWillUnmount: function () {
             this.productsRequest.abort();
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
@@ -91,24 +88,24 @@ define([
             window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
-        filterBySearch: function(searchTerm) {
+        filterBySearch: function (searchTerm) {
             this.performProductsRequest(null, searchTerm);
         },
         /**
          * @param skuList array
          */
-        filterBySku: function(skuList) {
+        filterBySku: function (skuList) {
             this.performProductsRequest(null, null, skuList);
         },
-        performProductsRequest: function(pageNumber, searchTerm, skuList) {
+        performProductsRequest: function (pageNumber, searchTerm, skuList) {
             pageNumber = pageNumber || 1;
             searchTerm = searchTerm || '';
             skuList = skuList || [];
-
+            
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null, null, skuList);
             filter.setPage(pageNumber);
-
+            
             function successCallback(result) {
                 var self = this;
                 this.setState({
@@ -121,37 +118,41 @@ define([
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
                     createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
-                }, function(){
+                }, function () {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
                 });
             }
+            
             function errorCallback() {
                 throw 'Unable to load products';
             }
+            
             this.fetchProducts(filter, successCallback, errorCallback);
         },
         fetchProducts: function (filter, successCallback, errorCallback) {
             this.productsRequest = $.ajax({
-                'url' : this.props.productsUrl,
-                'data' : {'filter': filter.toObject()},
-                'method' : 'POST',
-                'dataType' : 'json',
-                'success' : successCallback.bind(this),
-                'error' : errorCallback.bind(this)
+                'url': this.props.productsUrl,
+                'data': {'filter': filter.toObject()},
+                'method': 'POST',
+                'dataType': 'json',
+                'success': successCallback.bind(this),
+                'error': errorCallback.bind(this)
             });
         },
         fetchVariations: function (filter) {
             $('#products-loading-message').show();
+            
             function onSuccess(data) {
                 var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
                 this.setState({
                     variations: variationsByParent
-                }, function() {
+                }, function () {
                     this.fetchLinkedProducts();
                     $('#products-loading-message').hide()
                 }.bind(this));
             }
+            
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function () {
@@ -159,20 +160,20 @@ define([
                 return;
             }
             window.triggerEvent('fetchingProductLinksStart');
-
+            
             var skusToFindLinkedProductsFor = {};
             for (var productId in this.state.variations) {
-                this.state.variations[productId].forEach(function(variation) {
+                this.state.variations[productId].forEach(function (variation) {
                     skusToFindLinkedProductsFor[variation.sku] = variation.sku;
                 });
             }
-
-            this.state.products.forEach(function(product) {
+            
+            this.state.products.forEach(function (product) {
                 if (product.variationCount == 0 && product.sku) {
                     skusToFindLinkedProductsFor[product.sku] = product.sku;
                 }
             });
-
+            
             $.ajax({
                 url: '/products/links/ajax',
                 data: {
@@ -185,12 +186,12 @@ define([
                         products = response.productLinks;
                     }
                     this.setState({
-                        allProductLinks: products
-                    },
+                            allProductLinks: products
+                        },
                         window.triggerEvent('fetchingProductLinksStop')
                     );
                 }.bind(this),
-                error: function(error) {
+                error: function (error) {
                     console.warn(error);
                 }
             });
@@ -198,15 +199,15 @@ define([
         fetchUpdatedStockLevels(productSku) {
             var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
             fetchingStockLevelsForSkuState[productSku] = true;
-
-            var updateStockLevelsRequest = function() {
+            
+            var updateStockLevelsRequest = function () {
                 $.ajax({
                     url: '/products/stock/ajax/' + productSku,
                     type: 'GET',
                     success: function (response) {
                         var newState = this.state;
-
-                        newState.products.forEach(function(product) {
+                        
+                        newState.products.forEach(function (product) {
                             if (product.variationCount == 0) {
                                 if (!response.stock[product.sku]) {
                                     return;
@@ -214,8 +215,8 @@ define([
                                 product.stock = response.stock[product.sku];
                                 return;
                             }
-
-                            newState.variations[product.id].forEach(function(product) {
+                            
+                            newState.variations[product.id].forEach(function (product) {
                                 if (!response.stock[product.sku]) {
                                     return;
                                 }
@@ -223,16 +224,16 @@ define([
                                 return;
                             });
                         });
-
+                        
                         newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
                         this.setState(newState);
                     }.bind(this),
-                    error: function(error) {
+                    error: function (error) {
                         console.error(error);
                     }
                 });
             }.bind(this);
-
+            
             this.setState(
                 fetchingStockLevelsForSkuState,
                 updateStockLevelsRequest
@@ -240,13 +241,13 @@ define([
         },
         sortVariationsByParentId: function (newVariations, parentProductId) {
             var variationsByParent = {};
-
+            
             if (parentProductId) {
                 variationsByParent = this.state.variations;
                 variationsByParent[parentProductId] = newVariations;
                 return variationsByParent;
             }
-
+            
             for (var index in newVariations) {
                 var variation = newVariations[index];
                 if (!variationsByParent[variation.parentProductId]) {
@@ -269,20 +270,20 @@ define([
                 }
             });
         },
-        onCreateListingIconClick: function(productId) {
-            var product = this.state.products.find(function(product) {
+        onCreateListingIconClick: function (productId) {
+            var product = this.state.products.find(function (product) {
                 return product.id == productId;
             });
             this.setState({
-                currentView:NEW_LISTING_VIEW,
+                currentView: NEW_LISTING_VIEW,
                 createListing: {
                     product: product
                 }
             });
         },
-        onCreateListingClose: function() {
+        onCreateListingClose: function () {
             this.setState({
-                currentView:PRODUCT_LIST_VIEW,
+                currentView: PRODUCT_LIST_VIEW,
                 createListing: {
                     product: null
                 }
@@ -297,7 +298,7 @@ define([
         },
         onDeleteProduct: function (event) {
             var deletedProductIds = event.detail.productIds;
-
+            
             var products = this.state.products;
             var productsAfterDelete = [];
             products.forEach(function (product) {
@@ -305,7 +306,7 @@ define([
                     productsAfterDelete.push(product);
                 }
             });
-
+            
             this.setState({
                 products: productsAfterDelete
             });
@@ -323,7 +324,7 @@ define([
                 }
                 return product;
             });
-
+            
             this.setState({
                 products: products
             });
@@ -331,7 +332,7 @@ define([
         onNewProductsReceived: function () {
             var maxVariationAttributes = 1;
             var allDefaultVariationIds = [];
-            this.state.products.forEach(function(product) {
+            this.state.products.forEach(function (product) {
                 if (product.attributeNames.length > maxVariationAttributes) {
                     maxVariationAttributes = product.attributeNames.length;
                 }
@@ -342,16 +343,16 @@ define([
                 maxVariationAttributes = MAX_VARIATION_ATTRIBUTE_COLUMNS;
             }
             this.setState({maxVariationAttributes: maxVariationAttributes});
-
+            
             if (allDefaultVariationIds.length == 0) {
                 this.fetchLinkedProducts();
                 return;
             }
-
+            
             var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
             this.fetchVariations(productFilter);
         },
-        onPageChange: function(pageNumber) {
+        onPageChange: function (pageNumber) {
             this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
         },
         onProductLinksEditorClose: function () {
@@ -362,41 +363,42 @@ define([
                 }
             });
         },
-        addNewProductButtonClick: function(){
+        addNewProductButtonClick: function () {
             this.setState({
                 currentView: NEW_PRODUCT_VIEW
             });
         },
-        onCreateProductClose: function() {
+        onCreateProductClose: function () {
             this.setState({
                 currentView: PRODUCT_LIST_VIEW
             });
         },
-
-
+        
+        
         // RENDER METHODS
-
-        viewRender: function(){
-            return{
+        
+        viewRender: function () {
+            return {
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
                 PRODUCT_LIST_VIEW: this.renderProductListView
             }
         },
-        renderSearchBox: function() {
+        renderSearchBox: function () {
             if (this.props.searchAvailable) {
-                return <SearchBox initialSearchTerm={this.props.initialSearchTerm} submitCallback={this.filterBySearch}/>
+                return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
+                                  submitCallback={this.filterBySearch}/>
             }
         },
-        renderAddNewProductButton: function(){
-            return(
+        renderAddNewProductButton: function () {
+            return (
                 <div className=" navbar-strip--push-up-fix ">
 
                         <span className="navbar-strip__button " onClick={this.addNewProductButtonClick}>
                             <span className="fa-plus left icon icon--medium navbar-strip__button__icon">&nbsp;</span>
                             <span className="navbar-strip__button__text">Add</span>
                         </span>
-
+                
                 </div>
             )
         },
@@ -412,8 +414,8 @@ define([
                     </div>
                 );
             }
-
-            return this.state.products.map(function(product) {
+            
+            return this.state.products.map(function (product) {
                 return <ProductRow
                     key={product.id}
                     product={product}
@@ -432,7 +434,7 @@ define([
                 />;
             }.bind(this))
         },
-        renderCreateListingPopup: function() {
+        renderCreateListingPopup: function () {
             return <CreateListingPopup
                 accounts={this.state.accounts}
                 product={this.state.createListing.product}
@@ -443,48 +445,47 @@ define([
                 fetchVariations={this.onVariationsRequest.bind(this)}
             />
         },
-        renderCreateNewProduct: function(){
+        renderCreateNewProduct: function () {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
             />
         },
-        renderProductListView: function(){
+        renderProductListView: function () {
             return (
-                    <div id='products-app'>
-
-                        {this.renderSearchBox()}
-                        { this.props.features.createProducts ? this.renderAddNewProductButton() : '' }
-
-                        <div className='products-list__container'>
-                            <div id="products-list">
-                                {this.renderProducts()}
-                            </div>
-                            <ProductLinkEditor
-                                productLink={this.state.editingProductLink}
-                                onEditorClose={this.onProductLinksEditorClose}
-                                fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
-                            />
-                            {(this.state.products.length ?
-                                <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
-                            </div>
+                <div id='products-app'>
+                    
+                    {this.renderSearchBox()}
+                    {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
+                    
+                    <div className='products-list__container'>
+                        <div id="products-list">
+                            {this.renderProducts()}
                         </div>
-                );
+                        <ProductLinkEditor
+                            productLink={this.state.editingProductLink}
+                            onEditorClose={this.onProductLinksEditorClose}
+                            fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                        />
+                        {(this.state.products.length ?
+                            <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
+                    </div>
+                </div>
+            );
         },
-        render: function()
-        {
-
-
+        render: function () {
+            
+            
             return this.viewRender()[this.state.currentView]()
-
-
+            
+            
         }
     });
-
+    
     RootComponent.childContextTypes = {
         imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };
-
+    
     return RootComponent;
 });
