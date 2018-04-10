@@ -41,12 +41,11 @@ define([
                         </span>
                         <FieldArray
                             component={AccountCategorySelect}
-                            name={'map[' + this.props.mapId + '].categories'}
+                            name={'categories'}
                             accountId={accountId}
                             categories={accountData.categories}
                             refreshing={accountData.refreshing}
                             refreshable={accountData.refreshable}
-                            resetSelection={accountData.resetSelection}
                             selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
                             onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
                             onRefreshClick={this.props.onRefreshClick}
@@ -61,28 +60,77 @@ define([
         },
         render: function() {
             return (
-                <div className={"order-form half product-container category-map-container"}>
-                    <div>
-                        <label>
-                            <div className={"order-inputbox-holder"}>
-                                <Field
-                                    name={'map[' + this.props.mapId + '].name'}
-                                    component="input"
-                                    type="text" placeholder="Category template name here..."
-                                />
-                            </div>
-                        </label>
-                        <label className={"save-button"}>
-                            <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
-                                <span>Save</span>
-                            </div>
-                        </label>
+                <form
+                    onSubmit={this.props.handleSubmit}
+                    name={'categoryMap-' + this.props.mapId}
+                >
+                    <div className={"order-form half product-container category-map-container"}>
+                        <div>
+                            <label>
+                                <div className={"order-inputbox-holder"}>
+                                    <Field
+                                        name={'name'}
+                                        component="input"
+                                        type="text" placeholder="Category template name here..."
+                                    />
+                                </div>
+                            </label>
+                            <label className={"save-button"}>
+                                <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
+                                    <span>Save</span>
+                                </div>
+                            </label>
+                        </div>
+                        {this.renderCategorySelects()}
                     </div>
-                    {this.renderCategorySelects()}
-                </div>
+                </form>
             );
         }
     });
 
-    return CategoryMapComponent;
+    var categoryMapFormCreator = ReduxForm.reduxForm({
+        enableReinitialize: true
+    });
+
+    CategoryMapComponent = categoryMapFormCreator(CategoryMapComponent);
+
+    var formatFormData = function(categoryMap) {
+        var data = [],
+            categoriesForAccount,
+            categoryId,
+            categories;
+
+        categories = [];
+
+        for (var accountId in categoryMap.selectedCategories) {
+            categoriesForAccount = categoryMap.selectedCategories[accountId];
+            categoryId = categoriesForAccount[categoriesForAccount.length - 1];
+            categories[accountId] = categoryId;
+        }
+
+        return {
+            name: categoryMap.name,
+            etag: categoryMap.etag,
+            categories: categories
+        }
+    }
+
+    var CategoryMapConnector = ReactRedux.connect(
+        function (state, ownProps) {
+            var initialValues = {},
+                values = {};
+
+            if (ownProps.mapId in state.initialValues) {
+                initialValues = formatFormData(state.initialValues[ownProps.mapId]);
+            }
+
+            return {
+                form: 'categoryMap-' + ownProps.mapId,
+                initialValues: initialValues
+            }
+        },
+        null
+    );
+
+    return CategoryMapConnector(CategoryMapComponent);
 });

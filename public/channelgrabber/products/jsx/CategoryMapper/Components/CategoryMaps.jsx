@@ -13,6 +13,8 @@ define([
 ) {
     "use strict";
 
+    var formValues = ReduxForm.formValues;
+
     var CategoryMapsComponent = React.createClass({
         componentDidMount: function () {
             this.props.fetchCategoryMaps();
@@ -29,7 +31,7 @@ define([
                         onCategorySelected={this.props.onCategorySelected}
                         onRefreshClick={this.props.onRefreshClick}
                         onRemoveButtonClick={this.props.onRemoveButtonClick}
-                        handleSubmit={this.props.handleSubmit}
+                        onSubmit={this.props.onSubmit}
                     />
                 );
             }
@@ -45,14 +47,6 @@ define([
             );
         }
     });
-
-
-    var categoryMapsFormCreator = ReduxForm.reduxForm({
-        form: "categoryMapssss",
-        enableReinitialize: true
-    });
-
-    CategoryMapsComponent = categoryMapsFormCreator(CategoryMapsComponent);
 
     var mergeData = function (state) {
         var categories = {},
@@ -91,40 +85,9 @@ define([
         return categoryMaps;
     }
 
-    var formatFormData = function(state) {
-        var categoryMaps = state.categoryMaps,
-            categoryMap,
-            data = [],
-            categoriesForAccount,
-            categoryId,
-            categories;
-
-        for (var mapId in categoryMaps) {
-            categoryMap = categoryMaps[mapId];
-            categories = [];
-
-            for (var accountId in categoryMap.selectedCategories) {
-                categoriesForAccount = categoryMap.selectedCategories[accountId];
-                categoryId = categoriesForAccount[categoriesForAccount.length - 1];
-                categories[accountId] = categoryId;
-            }
-
-            data[mapId] = {
-                name: categoryMap.name,
-                etag: categoryMap.etag,
-                categories: categories
-            }
-        }
-
-        return data;
-    }
-
     var mapStateToProps = function(state) {
         return {
-            categoryMaps: mergeData(state),
-            initialValues: {
-                map: formatFormData(state)
-            }
+            categoryMaps: mergeData(state)
         }
     };
 

@@ -14,6 +14,8 @@ define([
     "use strict";
 
     var Field = ReduxForm.Field;
+    var FieldArray = ReduxForm.FieldArray;
+
     var AccountCategorySelect = React.createClass({
         getDefaultProps: function() {
             return {
@@ -21,7 +23,6 @@ define([
                 accountId: 0,
                 refreshable: false,
                 refreshing: false,
-                resetSelection: null,
                 selectedCategories: [],
                 onCategorySelected: function() {},
                 onRefreshClick: function() {},
@@ -54,12 +55,11 @@ define([
         },
         getCategorySelect: function (index, categories, selectedCategory) {
             return <Field
-                name={this.props.fields.name + '[' + this.props.accountId + ']'}
+                name={this.props.fields.name + '.' + this.props.accountId}
                 component={CategorySelect}
                 categories={this.getCategorySelectOptionsForAccount(index, categories)}
                 accountId={this.props.accountId}
                 onOptionChange={this.onCategorySelected}
-                resetSelection={this.props.resetSelection}
                 selectedCategory={selectedCategory}
             />
         },

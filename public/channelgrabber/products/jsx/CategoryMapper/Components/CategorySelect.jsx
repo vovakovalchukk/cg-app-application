@@ -13,10 +13,11 @@ define([
                 categories: [],
                 onOptionChange: null,
                 className: 'category-select',
-                selectedCategory: null
+                selectedCategory: null,
             }
         },
         onOptionChange: function(category) {
+            this.props.input.onChange(category.value);
             if (this.props.onOptionChange) {
                 this.props.onOptionChange(category);
             }
