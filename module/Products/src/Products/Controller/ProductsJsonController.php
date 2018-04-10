@@ -579,7 +579,7 @@ class ProductsJsonController extends AbstractActionController
                 'etag' => $product->getStoredETag(),
                 'error' => ''
             ]);
-        } catch (\InvalidArgumentException $e) {
+        } catch (ValidationException $e) {
             return $this->jsonModelFactory->newInstance([
                 'success' => false,
                 'error' => $e->getMessage()

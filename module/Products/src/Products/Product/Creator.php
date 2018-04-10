@@ -16,6 +16,7 @@ use CG\Product\Filter as ProductFilter;
 use CG\Product\Mapper;
 use CG\Product\Client\Service;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Entity as Stock;
@@ -104,10 +105,10 @@ class Creator implements LoggerAwareInterface
     protected function validateUserInput(array $productData)
     {
         if (!$this->isRequiredCreationDataFieldsPresent($productData)) {
-            throw new \InvalidArgumentException('Not all required fields were completed');
+            throw new ValidationException('Not all required fields were completed');
         }
         if ($this->isForExistingSku($productData)) {
-            throw new \InvalidArgumentException('You already have a product with that SKU');
+            throw new ValidationException('You already have a product with that SKU');
         }
     }
 
