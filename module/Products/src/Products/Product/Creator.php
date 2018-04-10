@@ -71,12 +71,7 @@ class Creator implements LoggerAwareInterface
 
     public function createFromUserInput(array $productData): Product
     {
-        if (!$this->isRequiredCreationDataFieldsPresent($productData)) {
-            throw new \InvalidArgumentException('Not all required fields were completed');
-        }
-        if ($this->isForExistingSku($productData)) {
-            throw new \InvalidArgumentException('You already have a product with that SKU');
-        }
+        $this->validateUserInput($productData);
 
         $productData = $this->reformatSingleVariationAsSimpleProduct($productData);
         $productData = $this->addDefaultProductData($productData, 0);
@@ -103,6 +98,16 @@ class Creator implements LoggerAwareInterface
         $this->logInfo('Finished Product creation for OU %d, SKU %s', [$fetchedProduct->getOrganisationUnitId, $fetchedProduct->getSku()], [static::LOG_CODE, 'Finished']);
         $this->removeGlobalLogEventParams(['ou', 'sku']);
         return $fetchedProduct;
+    }
+
+    protected function validateUserInput(array $productData)
+    {
+        if (!$this->isRequiredCreationDataFieldsPresent($productData)) {
+            throw new \InvalidArgumentException('Not all required fields were completed');
+        }
+        if ($this->isForExistingSku($productData)) {
+            throw new \InvalidArgumentException('You already have a product with that SKU');
+        }
     }
 
     protected function isRequiredCreationDataFieldsPresent(array $productData): bool
