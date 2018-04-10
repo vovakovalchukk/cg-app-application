@@ -19,11 +19,20 @@ define([
         render:function(){
             return (
                     <Form id="create-product-form"  onSubmit={this.props.handleSubmit}>
-                        <label>Title</label>
-                        <div>
-                            <Field type="text" name="title" component="input" />
+
+                        <div className={"order-form half"}>
+                            <label>
+                                <span className={"inputbox-label"}>Title:</span>
+                                <div className={"order-inputbox-holder"}>
+                                    <Field type="text" name="title" component="input" />
+                                </div>
+                            </label>
                         </div>
+
                     </Form>
+
+
+
             );
         }
     })
