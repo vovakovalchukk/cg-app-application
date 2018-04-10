@@ -571,14 +571,20 @@ class ProductsJsonController extends AbstractActionController
             ]);
         }
 
-        $product = $this->productCreator->createFromUserInput($productData);
-
-        return $this->jsonModelFactory->newInstance([
-            'success' => true,
-            'id' => $product->getId(),
-            'etag' => $product->getStoredETag(),
-            'error' => ''
-        ]);
+        try {
+            $product = $this->productCreator->createFromUserInput($productData);
+            return $this->jsonModelFactory->newInstance([
+                'success' => true,
+                'id' => $product->getId(),
+                'etag' => $product->getStoredETag(),
+                'error' => ''
+            ]);
+        } catch (\InvalidArgumentException $e) {
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     protected function checkUsage()
