@@ -25,7 +25,7 @@ define([
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
 
         const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
-    const NEW_LISTING_VIEW ='CREATE_LISTING_VIEW';
+    const NEW_LISTING_VIEW ='NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 
     var RootComponent = React.createClass({
