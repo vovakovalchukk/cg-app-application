@@ -245,6 +245,7 @@ class Creator implements LoggerAwareInterface
             $variation->setDetails($variationDetail);
             $stock = $this->createStock($stockData, $variation);
             $variation->setStock($stock);
+            $variation->setId($this->generateTemporaryId());
             $variations->attach($variation);
         }
         return $variations;
@@ -289,6 +290,11 @@ class Creator implements LoggerAwareInterface
         }
 
         return $stock;
+    }
+
+    protected function generateTemporaryId(): float
+    {
+        return hexdec(uniqid("", true));
     }
 
     protected function saveProduct(Product $product): Product
