@@ -25,18 +25,19 @@ define([
         }
     );
 
-
     var CreateProductRoot = React.createClass({
 
         getDefaultProps: function () {
-            return {};
+            return {
+                onCreateProductClose:null
+            };
         },
 
         render: function () {
             return (
 
                 <Provider store={store}>
-                    <CreateProduct />
+                    <CreateProduct onCreateProductClose={this.props.onCreateProductClose}/>
                 </Provider>
 
             );

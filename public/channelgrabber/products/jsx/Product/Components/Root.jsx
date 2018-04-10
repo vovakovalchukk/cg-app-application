@@ -362,11 +362,20 @@ define([
                 }
             });
         },
-        addNewProductButtonClick(){
+        addNewProductButtonClick: function(){
             this.setState({
                 currentView: NEW_PRODUCT_VIEW
             });
         },
+        onCreateProductClose: function() {
+            this.setState({
+                currentView: PRODUCT_LIST_VIEW
+            });
+        },
+
+
+        // RENDER METHODS
+
         viewRender: function(){
             return{
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
@@ -390,7 +399,6 @@ define([
 
                 </div>
             )
-
         },
         renderProducts: function () {
             if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
@@ -436,7 +444,9 @@ define([
             />
         },
         renderCreateNewProduct: function(){
-            return <CreateProductRoot />
+            return <CreateProductRoot
+                onCreateProductClose={this.onCreateProductClose}
+            />
         },
         renderProductListView: function(){
             return (

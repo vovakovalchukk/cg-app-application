@@ -18,6 +18,12 @@ define([
 
     var CreateProduct = React.createClass({
 
+        getDefaultProps: function() {
+            return {
+                onCreateProductClose: null
+            };
+        },
+
         handleContainerSubmit:function(){
             this.refs.productForm.submit();
         },
@@ -26,7 +32,6 @@ define([
             console.log('in handleSubmit with values: ', values);
             console.log(`Title: ${values.title}`);
         },
-
 
         render: function() {
             return (
