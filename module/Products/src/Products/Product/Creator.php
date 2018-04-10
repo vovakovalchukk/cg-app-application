@@ -145,7 +145,7 @@ class Creator implements LoggerAwareInterface
         $filter = (new ProductFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setOrganisationUnitId($organisationUnitId)
+            ->setOrganisationUnitId([$organisationUnitId])
             ->setSku($skus);
         return $this->service->fetchCollectionByFilter($filter);
     }
@@ -216,11 +216,11 @@ class Creator implements LoggerAwareInterface
         $filter = (new ImageFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setId($productData['imageIds']);
+            ->setId(array_column($productData['imageIds'], 'imageId'));
         return $this->imageService->fetchCollectionByPaginationAndFilters($filter);
     }
 
-    protected function createVariationProducts(array $productData, ImageCollection $parentImages): ProductCollection
+    protected function createVariationProducts(array $productData, ImageCollection $parentImages): ?ProductCollection
     {
         if (!$this->hasVariations($productData)) {
             return null;
