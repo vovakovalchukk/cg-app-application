@@ -17,22 +17,18 @@ define([
             }
         },
         onOptionChange: function(category) {
-            this.props.input.onChange(category.value);
             if (this.props.onOptionChange) {
                 this.props.onOptionChange(category);
             }
         },
         getSelectedCategory: function() {
             if (!this.props.selectedCategory) {
-                // Resets the input value
-                this.props.input.onChange(null);
                 return {name: '', value: ''};
             }
 
             var categories = this.props.categories;
             for (var i = 0; i < categories.length; i++) {
                 if (categories[i].value == this.props.selectedCategory) {
-                    this.props.input.onChange(this.props.selectedCategory);
                     return categories[i];
                 }
             }

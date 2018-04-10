@@ -3,6 +3,7 @@ define([
     'redux-form',
     'react-redux',
     'Common/Components/Button',
+    'Common/Components/EditableField',
     'CategoryMapper/Actions/Actions',
     'CategoryMapper/Components/AccountCategorySelect'
 ], function(
@@ -10,6 +11,7 @@ define([
     ReduxForm,
     ReactRedux,
     Button,
+    EditableField,
     Actions,
     AccountCategorySelect
 ) {
@@ -58,7 +60,6 @@ define([
             </div>;
         },
         render: function() {
-            // console.log(this.props.name, this.props.etag);
             return (
                 <div className={"order-form half product-container category-map-container"}>
                     <div>
@@ -82,15 +83,6 @@ define([
             );
         }
     });
-
-/*    var categoryMapFormCreator = ReduxForm.reduxForm({
-        form: "categoryMap",
-        onSubmit: function(values, f, state) {
-            console.log(values, state);
-        }
-    });*/
-
-    // return categoryMapFormCreator(CategoryMapComponent);
 
     return CategoryMapComponent;
 });
