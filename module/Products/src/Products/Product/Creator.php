@@ -192,7 +192,7 @@ class Creator implements LoggerAwareInterface
             if (!isset($variationData['attributeValues'])) {
                 continue;
             }
-            $attributeNames = array_merge($productData['attributeNames'], array_keys($variationData['attributeValues']));
+            $attributeNames = array_merge($attributeNames, array_keys($variationData['attributeValues']));
         }
         return array_unique($attributeNames);
     }
@@ -207,7 +207,7 @@ class Creator implements LoggerAwareInterface
     protected function splitOutStockDataFromProductData(array &$productData): array
     {
         $stockData = $productData['stock'] ?? [];
-        $stockData['quantity'] = $productData['quantity'];
+        $stockData['quantity'] = $productData['quantity'] ?? 0;
         unset($productData['stock'], $productData['quantity']);
         return $stockData;
     }
@@ -264,7 +264,9 @@ class Creator implements LoggerAwareInterface
 
     protected function createProductDetail(array $detailData): ProductDetail
     {
-        return $this->detailMapper->fromArray($detailData);
+        // Sometimes the dimensions come through as the empty string
+        $filteredDetailData = array_filter($detailData);
+        return $this->detailMapper->fromArray($filteredDetailData);
     }
 
     protected function createStock(array $stockData, Product $product): Stock
