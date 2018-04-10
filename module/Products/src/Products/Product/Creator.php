@@ -285,10 +285,10 @@ class Creator implements LoggerAwareInterface
             $stockData['quantity']
         );
 
-        if (isset($stockData['stockMode'])) {
+        if (isset($stockData['stockMode']) && $stockData['stockMode'] != '') {
             $stock->setStockMode($stockData['stockMode']);
         }
-        if (isset($stockData['stockLevel'])) {
+        if (isset($stockData['stockLevel']) && $stockData['stockLevel'] != '') {
             $stock->setStockLevel($stockData['stockLevel']);
         }
 
