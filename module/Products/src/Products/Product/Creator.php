@@ -96,7 +96,7 @@ class Creator implements LoggerAwareInterface
 
         // Unfortunately when we create a new Entity no eTag is returned which we need, have to fetch
         $fetchedProduct = $this->service->fetch($savedProduct->getId());
-        $this->logInfo('Finished Product creation for OU %d, SKU %s', [$fetchedProduct->getOrganisationUnitId, $fetchedProduct->getSku()], [static::LOG_CODE, 'Finished']);
+        $this->logInfo('Finished Product creation for OU %d, SKU %s', [$fetchedProduct->getOrganisationUnitId(), $fetchedProduct->getSku()], [static::LOG_CODE, 'Finished']);
         $this->removeGlobalLogEventParams(['ou', 'sku']);
         return $fetchedProduct;
     }
