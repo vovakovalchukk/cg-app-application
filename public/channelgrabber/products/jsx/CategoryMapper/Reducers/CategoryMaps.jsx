@@ -31,12 +31,15 @@ define([
         },
         "REFRESH_CATEGORIES": function (state, action) {
             var newState = Object.assign({}, state),
-                accountId = action.payload.accountId;
+                accountId = action.payload.accountId,
+                categoryMap;
 
             for (var mapId in newState) {
-                newState[mapId] = Object.assign({}, state[mapId], {
-                    selectedCategories: []
-                });
+                categoryMap = newState[mapId];
+                categoryMap = Object.assign({}, categoryMap);
+                categoryMap.selectedCategories = Object.assign({}, categoryMap.selectedCategories);
+                categoryMap.selectedCategories[accountId] = [];
+                newState[mapId] = categoryMap;
             }
 
             return newState;
