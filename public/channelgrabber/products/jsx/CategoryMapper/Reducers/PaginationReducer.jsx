@@ -16,13 +16,10 @@ define([
             };
         },
         "FETCH_CATEGORY_MAPS": function (state, action) {
-            if (action.payload.shouldReset) {
-                return {
-                    searchText: state.searchText,
-                    page: 1
-                }
+            return {
+                searchText: action.payload.searchText,
+                page: action.payload.shouldReset ? 1 : state.page
             }
-            return state;
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             return {

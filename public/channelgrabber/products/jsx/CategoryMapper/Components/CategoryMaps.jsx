@@ -43,8 +43,7 @@ define([
         renderSearchBox: function() {
             return <SearchComponent
                 value={this.props.pagination.searchText}
-                onChange={this.props.searchTextChanged}
-                onSubmit={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText)}
+                onSubmit={this.props.fetchCategoryMaps}
             />
         },
         renderLoadMoreButton: function() {
@@ -113,10 +112,7 @@ define([
     var mapStateToProps = function(state) {
         return {
             categoryMaps: mergeData(state),
-            pagination: {
-                searchText: state.pagination.searchText,
-                page: state.pagination.page
-            }
+            pagination: state.pagination
         }
     };
 
@@ -132,7 +128,6 @@ define([
                 dispatch(Actions.removeButtonClicked(mapId, accountId));
             },
             fetchCategoryMaps: function (searchText = '', page = 1) {
-                console.log(searchText, page);
                 dispatch(Actions.fetchCategoryMaps(dispatch, searchText, page));
             },
             searchTextChanged: function (searchText) {

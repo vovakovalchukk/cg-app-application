@@ -6,19 +6,24 @@ define([
     "use strict";
 
     var SearchComponent = React.createClass({
+        getInitialState: function() {
+            return {
+                value: ''
+            }
+        },
         getDefaultProps: function() {
             return {
-                value: '',
-                onChange: function () {},
                 onSubmit: function () {},
             }
         },
         onChange: function (event) {
-            this.props.onChange(event.target.value);
+            this.setState({
+                value: event.target.value
+            });
         },
         onSubmit: function(event) {
             event.preventDefault();
-            this.props.onSubmit();
+            this.props.onSubmit(this.state.value);
         },
         render: function() {
             return (
@@ -34,7 +39,7 @@ define([
                                         type="text"
                                         placeholder="Search..."
                                         onChange={this.onChange}
-                                        value={this.props.value}
+                                        value={this.state.value}
                                     />
                                 </div>
                             </label>

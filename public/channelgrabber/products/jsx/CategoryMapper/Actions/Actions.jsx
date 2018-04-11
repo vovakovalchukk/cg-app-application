@@ -108,7 +108,8 @@ define([], function() {
             return {
                 type: 'FETCH_CATEGORY_MAPS',
                 payload: {
-                    shouldReset: searchText.length > 0 && page == 1
+                    shouldReset: searchText.length > 0 && page == 1,
+                    searchText: searchText
                 }
             }
         },
