@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "257788f32e8ff81974f5dad7830000c5",
+    "content-hash": "0c6125f19c26f0921147a69e3e2960b4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1031,7 +1031,7 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "dev-TAC-45-DispatchEtsyOrders",
+            "version": "dev-EPIC-TAC-26-EtsyOrders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
@@ -1039,7 +1039,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-45-DispatchEtsyOrders-1bf670.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-EPIC-TAC-26-EtsyOrders-1bf670.zip",
                 "reference": "7df314272f73b1bfe433b6285c4bff84da88a862",
                 "shasum": null
             },
@@ -9568,7 +9568,7 @@
         {
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
-            "version": "dev-TAC-45-DispatchEtsyOrders",
+            "version": "dev-EPIC-TAC-26-EtsyOrders",
             "package": "channelgrabber/etsy"
         }
     ],
