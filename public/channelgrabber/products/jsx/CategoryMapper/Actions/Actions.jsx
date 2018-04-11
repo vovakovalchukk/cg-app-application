@@ -93,9 +93,13 @@ define([], function() {
                 }
             }
         },
-        fetchCategoryMaps: function (dispatch) {
-            $.get(
+        fetchCategoryMaps: function (dispatch, searchText, page) {
+            $.post(
                 Api.buildFetchCategoryMapsUrl(),
+                {
+                    search: searchText,
+                    page: page
+                },
                 function (response) {
                     dispatch(ResponseActions.categoryMapsFetched(response));
                 }
@@ -103,7 +107,17 @@ define([], function() {
 
             return {
                 type: 'FETCH_CATEGORY_MAPS',
-                payload: {}
+                payload: {
+                    shouldReset: searchText.length > 0 && page == 1
+                }
+            }
+        },
+        updateSearch: function (searchText) {
+            return {
+                type: 'SEARCH_CHANGED',
+                payload: {
+                    searchText: searchText
+                }
             }
         }
     };

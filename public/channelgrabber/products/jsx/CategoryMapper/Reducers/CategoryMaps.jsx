@@ -52,6 +52,12 @@ define([
 
             return newState;
         },
+        "FETCH_CATEGORY_MAPS": function(state, action) {
+            if (action.payload.shouldReset) {
+                return (0 in state) ? {0: state[0]} : {};
+            }
+            return state;
+        },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             var categoryMaps = action.payload.categoryMaps,
                 newCategoryMaps = {},

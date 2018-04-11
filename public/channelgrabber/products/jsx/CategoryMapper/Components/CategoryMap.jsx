@@ -69,7 +69,8 @@ define([
                                     <Field
                                         name={'name'}
                                         component="input"
-                                        type="text" placeholder="Category template name here..."
+                                        type="text"
+                                        placeholder="Category template name here..."
                                     />
                                 </div>
                             </label>
