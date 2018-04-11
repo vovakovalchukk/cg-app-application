@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateListing/Form/WooCommerce',
     'Common/Components/Select',
     'Product/Utils/CreateListingUtils'
-], function (
+], function(
     React,
     Container,
     PopupMessage,
@@ -20,16 +20,16 @@ define([
     CreateListingUtils
 ) {
     "use strict";
-    
+
     var channelToFormMap = {
         'ebay': EbayForm,
         'shopify': ShopifyForm,
         'big-commerce': BigCommerceForm,
         'woo-commerce': WooCommerceForm
     };
-    
+
     var CreateListingPopup = React.createClass({
-        getDefaultProps: function () {
+        getDefaultProps: function() {
             return {
                 product: null,
                 accounts: {},
@@ -38,7 +38,7 @@ define([
                 variationsDataForProduct: []
             }
         },
-        getInitialState: function () {
+        getInitialState: function() {
             return {
                 accountSelected: null,
                 productId: null,
@@ -52,19 +52,19 @@ define([
                 attributeNameMap: {}
             }
         },
-        componentDidMount: function () {
+        componentDidMount: function() {
             var accountOptions = this.getAccountOptions();
-            
+
             if (accountOptions.length == 1) {
                 this.onAccountSelected(accountOptions[0]);
             }
-            
+
             if (!this.props.product) {
                 return;
             }
-            
+
             var productDetails = this.props.product.details ? this.props.product.details : {};
-            
+
             this.setState({
                 productId: this.props.product.id,
                 title: this.props.product.name,
@@ -73,21 +73,21 @@ define([
                 weight: productDetails.weight ? productDetails.weight : null
             });
         },
-        setFormStateListing: function (listingFormState) {
+        setFormStateListing: function(listingFormState) {
             this.setState(listingFormState);
         },
-        getSelectCallHandler: function (fieldName) {
-            return function (selectValue) {
+        getSelectCallHandler: function(fieldName) {
+            return function(selectValue) {
                 var newState = {};
                 newState[fieldName] = selectValue.value;
                 this.setFormStateListing(newState);
             }.bind(this);
         },
-        renderCreateListingForm: function () {
+        renderCreateListingForm: function() {
             if (!this.state.accountSelected) {
                 return;
             }
-            
+
             var FormComponent = channelToFormMap[this.state.accountSelected.channel];
             return <FormComponent
                 {...this.state}
@@ -98,18 +98,18 @@ define([
                 fetchVariations={this.props.fetchVariations}
             />
         },
-        onAccountSelected: function (selectValue) {
+        onAccountSelected: function(selectValue) {
             var accountId = selectValue.value;
             var account = this.props.accounts[selectValue.value];
-            
+
             this.setState({
                 accountSelected: account,
                 accountId: accountId
             });
         },
-        getAccountOptions: function () {
+        getAccountOptions: function() {
             var options = [];
-            
+
             var isSimpleProduct = this.props.product.variationCount == 0;
             var accountsAvailableForProductType = isSimpleProduct ? this.props.availableChannels : this.props.availableVariationsChannels;
             for (var accountId in this.props.accounts) {
@@ -118,7 +118,7 @@ define([
                     options.push({name: account.displayName, value: account.id});
                 }
             }
-            
+
             return options;
         },
         submitFormData: function () {
@@ -128,28 +128,28 @@ define([
                 data: formData,
                 type: 'POST',
                 context: this,
-            }).then(function (response) {
+            }).then(function(response) {
                 window.scrollTo(0, 0);
                 if (response.valid) {
                     this.handleFormSubmitSuccess(response);
                 } else {
                     this.handleFormSubmitError(response);
                 }
-            }, function (response) {
+            }, function(response) {
                 n.error('There was a problem creating the listing');
             });
         },
-        getFormData: function () {
+        getFormData: function() {
             var formData = {
                 accountId: this.state.accountId,
                 productId: this.state.productId,
                 listing: {}
             };
             formData.listing = this.getListingDataFromState();
-            
+
             return formData;
         },
-        getListingDataFromState: function () {
+        getListingDataFromState: function() {
             var listing = this.cloneState();
             delete listing.accountSelected;
             delete listing.productId;
@@ -158,10 +158,10 @@ define([
             delete listing.warnings;
             return this.mergeAdditionalValuesIntoListingData(listing);
         },
-        cloneState: function () {
+        cloneState: function() {
             return JSON.parse(JSON.stringify(this.state));
         },
-        mergeAdditionalValuesIntoListingData: function (listing) {
+        mergeAdditionalValuesIntoListingData: function(listing) {
             if (!listing.additionalValues) {
                 return listing;
             }
@@ -181,17 +181,17 @@ define([
             delete listing.additionalValues;
             return listing;
         },
-        handleFormSubmitSuccess: function (response) {
+        handleFormSubmitSuccess: function(response) {
             n.success('Listing created successfully');
             this.props.onCreateListingClose();
         },
-        handleFormSubmitError: function (response) {
+        handleFormSubmitError: function(response) {
             this.setState({
                 errors: response.errors,
                 warnings: response.warnings
             });
         },
-        renderErrorMessage: function () {
+        renderErrorMessage: function() {
             if (this.state.errors.length == 0) {
                 return;
             }
@@ -222,51 +222,51 @@ define([
                 </PopupMessage>
             );
         },
-        onErrorMessageClosed: function () {
+        onErrorMessageClosed: function() {
             this.setState({
                 errors: [],
                 warnings: []
             });
         },
-        render: function () {
+        render: function() {
             return (
-                <Container
-                    initiallyActive={true}
-                    className="editor-popup product-create-listing"
-                    onYesButtonPressed={this.submitFormData}
-                    onNoButtonPressed={this.props.onCreateListingClose}
-                    closeOnYes={false}
-                    headerText={"Create New Listing"}
-                    subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
-                    yesButtonText="Create Listing"
-                    noButtonText="Cancel"
-                >
-                    <form>
-                        {this.renderErrorMessage()}
-                        <div className={"order-form half"}>
-                            <label>
-                                <span className={"inputbox-label"}>Select an account to list to:</span>
-                                <div className={"order-inputbox-holder"}>
-                                    <Select
-                                        options={this.getAccountOptions()}
-                                        selectedOption={
-                                            this.state.accountSelected
-                                            && this.state.accountSelected.displayName
-                                                ? {name: this.state.accountSelected.displayName}
-                                                : null
-                                        }
-                                        onOptionChange={this.onAccountSelected.bind(this)}
-                                        autoSelectFirst={false}
-                                    />
-                                </div>
-                            </label>
-                            {this.renderCreateListingForm()}
-                        </div>
-                    </form>
-                </Container>
+                    <Container
+                        initiallyActive={true}
+                        className="editor-popup product-create-listing"
+                        onYesButtonPressed={this.submitFormData}
+                        onNoButtonPressed={this.props.onCreateListingClose}
+                        closeOnYes={false}
+                        headerText={"Create New Listing"}
+                        subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
+                        yesButtonText="Create Listing"
+                        noButtonText="Cancel"
+                    >
+                        <form>
+                            {this.renderErrorMessage()}
+                            <div className={"order-form half"}>
+                                <label>
+                                    <span className={"inputbox-label"}>Select an account to list to:</span>
+                                    <div className={"order-inputbox-holder"}>
+                                        <Select
+                                            options={this.getAccountOptions()}
+                                            selectedOption={
+                                                this.state.accountSelected
+                                                && this.state.accountSelected.displayName
+                                                    ? {name: this.state.accountSelected.displayName}
+                                                    : null
+                                            }
+                                            onOptionChange={this.onAccountSelected.bind(this)}
+                                            autoSelectFirst={false}
+                                        />
+                                    </div>
+                                </label>
+                                {this.renderCreateListingForm()}
+                            </div>
+                        </form>
+                    </Container>
             );
         }
     });
-    
+
     return CreateListingPopup;
 });
