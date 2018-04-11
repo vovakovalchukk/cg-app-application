@@ -47,10 +47,27 @@ define([
                 onSubmit={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText)}
             />
         },
+        renderLoadMoreButton: function() {
+            return <form
+                onSubmit={function(event) {event.preventDefault();}}
+                name={'loadMore'}
+            >
+                <div className={"order-form half product-container category-map-container"}>
+                    <div>
+                        <label className={"save-button"}>
+                            <div className={"button container-btn yes"} onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}>
+                                <span>Load more...</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        },
         render: function() {
             return (
                 <span>
                     {this.renderCategoryMapComponents()}
+                    {this.renderLoadMoreButton()}
                 </span>
             );
         }
@@ -115,6 +132,7 @@ define([
                 dispatch(Actions.removeButtonClicked(mapId, accountId));
             },
             fetchCategoryMaps: function (searchText = '', page = 1) {
+                console.log(searchText, page);
                 dispatch(Actions.fetchCategoryMaps(dispatch, searchText, page));
             },
             searchTextChanged: function (searchText) {
