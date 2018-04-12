@@ -23,28 +23,28 @@ define([
                 hasPopup: true
             })
         },
-        renderConfirmationPopup: function() {
-            window.triggerEvent('triggerPopup');
-        },
         onConfirm: function() {
+            this.props.onClick();
+            this.hidePopup();
+        },
+        hidePopup: function() {
             this.setState({
                 hasPopup: false
             });
-            this.props.onClick();
         },
         render: function() {
+            console.log(this.state);
             return (
                 <span className="delete-container">
-                    {
-                        this.state.hasPopup &&
+                    {this.state.hasPopup &&
                         (<Popup
                             onYesButtonPressed={this.onConfirm}
+                            onNoButtonPressed={this.hidePopup}
                             initiallyActive={true}
                         >
                             <p>Do you want to delete this category map?</p>
                             <p>It will be deleted permanently and it cannot be recovered.</p>
-                        </Popup>)
-                    }
+                        </Popup>)}
                     <label className={"map-button remove-button"}>
                         <div className={"button"} onClick={this.displayConfirmationPopup}>
                             <span>Delete</span>
