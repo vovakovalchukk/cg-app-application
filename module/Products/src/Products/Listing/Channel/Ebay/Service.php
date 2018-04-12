@@ -16,6 +16,7 @@ use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
@@ -49,6 +50,8 @@ class Service implements
     protected $shippingMethodService;
     /** @var CategoryExternalService */
     protected $categoryExternalService;
+    /** @var ActiveUserInterface */
+    protected $activeUser;
     /** @var array */
     protected $postData;
 
@@ -62,12 +65,14 @@ class Service implements
         Cryptor $cryptor,
         ShippingMethodService $shippingMethodService,
         CategoryExternalService $categoryExternalService,
+        ActiveUserInterface $activeUser,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
         $this->cryptor = $cryptor;
         $this->shippingMethodService = $shippingMethodService;
         $this->categoryExternalService = $categoryExternalService;
+        $this->activeUser = $activeUser;
         $this->postData = $postData;
     }
 
@@ -88,6 +93,9 @@ class Service implements
 
         return [
             'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
+            'shippingMethods' => $this->getShippingMethodsForAccount(
+                $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
+            ),
             'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
         ];
     }
@@ -101,7 +109,7 @@ class Service implements
     {
         return [
             'categories' => $this->getCategoryOptionsForAccount($account),
-            'shippingService' => $this->getShippingMethodsForAccount($account),
+            'shippingService' => $this->getShippingMethodsForAccount($account->getRootOrganisationUnitId()),
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),
             'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account)
@@ -262,12 +270,12 @@ class Service implements
         return $this->appendEbaySpecificFieldsToCategoriesResponse($categories);
     }
 
-    protected function getShippingMethodsForAccount(Account $account): array
+    protected function getShippingMethodsForAccount(int $rootOuId): array
     {
         try {
             /** @var ShippingMethodCollection $shippingMethods */
             $shippingMethods = $this->shippingMethodService->fetchCollectionByFilter(
-                new ShippingMethodFilter('all', 1, [], ['ebay'], [], [$account->getRootOrganisationUnitId()])
+                new ShippingMethodFilter('all', 1, [], ['ebay'], [], [$rootOuId])
             );
             return $this->formatShippingMethodsArray($shippingMethods);
         } catch (NotFound $e) {
