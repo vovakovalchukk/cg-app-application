@@ -207,8 +207,6 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function templateDeleteAction()
     {
-        /** @TODO: remove this, for testing purposes only! */
-        return $this->buildSuccessResponse(['valid' => true]);
         try {
             $id = $this->params()->fromRoute('templateId');
             $this->categoryTemplateService->deleteById($id);
