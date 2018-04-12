@@ -9,7 +9,8 @@ define([
         getDefaultProps: function() {
             return {
                 onClick: function () {},
-                disabled: false
+                disabled: false,
+                active: false
             }
         },
         onClick: function() {
@@ -22,6 +23,9 @@ define([
             return "button container-btn yes" + (this.props.disabled ? " disabled" : "");
         },
         render: function() {
+            if (!this.props.active) {
+                return null;
+            }
             return (
                 <span className="button-container">
                     <div className="load-more-button">

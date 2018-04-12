@@ -49,9 +49,11 @@ define([
             />
         },
         renderLoadMoreButton: function() {
+            console.log(this.props.pagination);
             return <LoadMoreButton
                 onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}
                 disabled={!this.props.pagination.shouldLoadMore}
+                active={this.props.pagination.loadMoreActive}
             />
         },
         render: function() {

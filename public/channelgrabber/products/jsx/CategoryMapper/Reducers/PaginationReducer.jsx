@@ -7,22 +7,23 @@ define([
         searchText: '',
         page: 1,
         shouldLoadMore: false,
-        isFetching: false
+        isFetching: false,
+        loadMoreActive: false
     };
 
     return reducerCreator(initialState, {
         "SEARCH_CHANGED": function (state, action) {
-            return {
-                searchText: action.payload.searchText,
-                page: state.page,
-                shouldLoadMore: state.shouldLoadMore
-            };
+            return Object.assign({}, state, {
+                searchText: action.payload.searchText
+            });
         },
         "FETCH_CATEGORY_MAPS": function (state, action) {
+            var page = action.payload.shouldReset ? 1 : state.page;
             return {
                 searchText: action.payload.searchText,
-                page: action.payload.shouldReset ? 1 : state.page,
+                page: page,
                 shouldLoadMore: false,
+                loadMoreActive: page !== 1,
                 isFetching: true
             }
         },
@@ -31,6 +32,7 @@ define([
                 searchText: state.searchText,
                 page: state.page + 1,
                 shouldLoadMore: Object.keys(action.payload.categoryMaps).length > 0,
+                loadMoreActive: Object.keys(action.payload.categoryMaps).length > 0,
                 isFetching: false
             }
         }
