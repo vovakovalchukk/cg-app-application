@@ -1,6 +1,18 @@
 .category-template-container {
     background-color: $color-bluegrey;
     min-height: 94vh;
+    .button {
+        line-height: 1.4em;
+        font-size: 1.3em;
+    }
+    .button-container {
+        width: 100%;
+        display: inline-block;
+    }
+    .load-more-button {
+        width: 150px !important;
+        margin: 0 auto;
+    }
 }
 
 .category-map-container {
@@ -25,13 +37,6 @@
         width: 150px !important;
         display: inline-block;
         float: initial;
-    }
-
-    .save-button {
-        .button {
-            line-height: 1.4em;
-            font-size: 1.3em;
-        }
     }
 
     .category-selects-container {

@@ -47,20 +47,15 @@ define([
             />
         },
         renderLoadMoreButton: function() {
-            return <form
-                onSubmit={function(event) {event.preventDefault();}}
-                name={'loadMore'}
-            >
-                <div className={"order-form half product-container category-map-container"}>
-                    <div>
-                        <label className={"save-button"}>
-                            <div className={"button container-btn yes"} onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}>
-                                <span>Load more...</span>
-                            </div>
-                        </label>
+            return (
+                <span className="button-container">
+                    <div className="load-more-button">
+                        <div className={"button container-btn yes"} onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}>
+                            <span>Load more...</span>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </span>
+            );
         },
         render: function() {
             return (
