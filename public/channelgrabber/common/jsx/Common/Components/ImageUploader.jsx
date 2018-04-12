@@ -1,18 +1,16 @@
 define([
-    'react',
-    'element/FileUpload'
+    'react'
 ], function(
-    React,
-    FileUpload
+    React
 ) {
     "use strict";
 
     var ImageUploaderComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                input: {
-                    onChange: null
-                }
+                onImageUploadStart: null,
+                onImageUploadSuccess: null,
+                onImageUploadFailure: null
             };
         },
         onUploadButtonClick: function(e) {
@@ -30,20 +28,34 @@ define([
                         filename: file.name,
                         size: file.size,
                         type: file.type,
-                        binaryData: data
+                        binaryDataString: data
                     });
                 }
             })
         },
-        passDataChangeToContainerComponent: function(data) {
-            this.props.input.onChange(data);
+        uploadFile: function(file) {
+            var bas64EncodedData = btoa(file.binaryDataString);
+            this.props.onImageUploadStart();
+            return $.ajax({
+                url: '/products/create/imageUpload',
+                data: bas64EncodedData,
+                type: 'POST',
+                context: this
+            })
+        },
+        uploadFileResponseHandler: function(file, response) {
+            if (response.valid) {
+                this.props.onImageUploadSuccess(response);
+            } else {
+                this.props.onImageUploadFailure(response);
+            }
         },
         onFileChange: function(e) {
             var file = e.target.files[0];
             if (!file) return;
-            this.getImageBinaryFromFile(file).then(
-                this.passDataChangeToContainerComponent
-            );
+            this.getImageBinaryFromFile(file)
+                .then(this.uploadFile)
+                .then(this.uploadFileResponseHandler.bind(this, file))
         },
         render: function() {
             return (
@@ -51,6 +63,7 @@ define([
 
                     <input type="file" onChange={this.onFileChange} onClick={this.onUploadButtonClick} name="fileupload"
                            id="fileupload"/>
+
                 </div>
             );
 

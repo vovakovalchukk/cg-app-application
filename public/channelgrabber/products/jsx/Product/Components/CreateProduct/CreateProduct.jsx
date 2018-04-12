@@ -2,7 +2,7 @@ define([
     'react',
     'Common/Components/Container',
     'redux-form',
-    'Product/Components/CreateProduct/CreateProductForm'
+    'Product/Components/CreateProduct/Form/FormRoot'
 ], function (
     React,
     Container,
@@ -21,8 +21,7 @@ define([
             this.refs.productForm.submit();
         },
         handleSubmit: function (values) {
-            console.log('in handleSubmit with values: ', values);
-            console.log(`Title: ${values.title}`);
+            if(values.productImage) this.postImageDataToApi(values.productImage.binaryDataString);
         },
         render: function () {
             return (
@@ -33,12 +32,13 @@ define([
                     onNoButtonPressed={this.props.onCreateProductClose}
                     closeOnYes={false}
                     headerText={"Create New Product"}
-                    subHeaderText={"ChannelGrabber needs additional information to create a new product. Please check below and complete all the fields necessary."}
                     yesButtonText="Create Product"
                     noButtonText="Cancel"
                 >
-                    
-                    <CreateProductForm onSubmit={this.handleSubmit} ref="productForm"/>
+                    <CreateProductForm
+                        onSubmit={this.handleSubmit} ref="productForm"
+                    />
+
                 </Container>
             );
         }
