@@ -19,13 +19,13 @@ define([
             this.props.onClick();
         },
         getClassName: function() {
-            return "load-more-button" + (this.props.disabled ? " disabled" : "");
+            return "button container-btn yes" + (this.props.disabled ? " disabled" : "");
         },
         render: function() {
             return (
                 <span className="button-container">
-                    <div className={this.getClassName()}>
-                        <div className={"button container-btn yes"} onClick={this.onClick}>
+                    <div className="load-more-button">
+                        <div className={this.getClassName()} onClick={this.onClick}>
                             <span>Load more</span>
                         </div>
                     </div>
