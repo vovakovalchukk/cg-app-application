@@ -34,9 +34,9 @@ class Factory
             if ($service instanceof $className) {
                 return $service;
             }
-            throw new ListingException('The ' . $channel . ' account  does not support this action.');
+            throw new ListingException('The ' . $channel . ' account does not support this action.');
         } catch (\InvalidArgumentException $e) {
-            throw new ListingException('The ' . $channel . ' account  is not valid');
+            throw new ListingException('The ' . $channel . ' account is not valid');
         }
     }
 }
