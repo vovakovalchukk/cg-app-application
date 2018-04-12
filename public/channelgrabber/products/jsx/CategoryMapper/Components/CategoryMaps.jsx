@@ -30,6 +30,8 @@ define([
                         accounts={this.props.categoryMaps[mapId].accounts}
                         mapId={mapId}
                         onSubmit={this.props.onSubmit}
+                        form={'categoryMap-' + mapId}
+                        key={'categoryMap-' + mapId}
                     />
                 );
 

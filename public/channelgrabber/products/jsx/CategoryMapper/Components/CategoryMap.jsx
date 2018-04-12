@@ -58,7 +58,6 @@ define([
             return (
                 <form
                     onSubmit={this.props.handleSubmit}
-                    name={'categoryMap-' + this.props.mapId}
                 >
                     <div className={"order-form half product-container category-map-container"}>
                         <div>
