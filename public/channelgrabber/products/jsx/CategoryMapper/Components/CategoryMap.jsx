@@ -3,7 +3,6 @@ define([
     'redux-form',
     'react-redux',
     'Common/Components/Button',
-    'Common/Components/EditableField',
     'CategoryMapper/Actions/Actions',
     'CategoryMapper/Components/AccountCategorySelect'
 ], function(
@@ -11,7 +10,6 @@ define([
     ReduxForm,
     ReactRedux,
     Button,
-    EditableField,
     Actions,
     AccountCategorySelect
 ) {
@@ -74,11 +72,18 @@ define([
                                     />
                                 </div>
                             </label>
-                            <label className={"save-button"}>
+                            <label className={"map-button save-button"}>
                                 <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
                                     <span>Save</span>
                                 </div>
                             </label>
+                            {this.props.mapId > 0 &&
+                                (<label className={"map-button remove-button"}>
+                                    <div className={"button container-btn yes"} onClick={this.props.deleteCategoryMap.bind(this, this.props.mapId)}>
+                                        <span>Delete</span>
+                                    </div>
+                                </label>)
+                            }
                         </div>
                         {this.renderCategorySelects()}
                     </div>
@@ -138,6 +143,9 @@ define([
             },
             onRemoveButtonClick: function (mapId, accountId) {
                 dispatch(Actions.removeButtonClicked(mapId, accountId));
+            },
+            deleteCategoryMap: function (mapId) {
+                dispatch(Actions.deleteCategoryMap(dispatch, mapId));
             }
         };
     };

@@ -50,10 +50,14 @@
         margin-right: 10px;
     }
 
-    label.save-button {
+    label.map-button {
         width: 150px !important;
         display: inline-block;
         float: initial;
+    }
+
+    .remove-button {
+        margin-left: 20px;
     }
 
     .category-selects-container {

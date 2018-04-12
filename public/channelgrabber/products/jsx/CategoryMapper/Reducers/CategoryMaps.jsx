@@ -55,7 +55,7 @@ define([
 
             return newState;
         },
-        "FETCH_CATEGORY_MAPS": function(state, action) {
+        "FETCH_CATEGORY_MAPS": function (state, action) {
             if (action.payload.shouldReset) {
                 return (0 in state) ? {0: state[0]} : {};
             }
@@ -94,6 +94,13 @@ define([
             }
 
             return Object.assign({}, state, newCategoryMaps);
+        },
+        "CATEGORY_MAP_DELETED": function (state, action) {
+            var newState = Object.assign({}, state);
+            if (action.payload.mapId in newState) {
+                delete newState[action.payload.mapId];
+            }
+            return newState;
         }
     });
 });

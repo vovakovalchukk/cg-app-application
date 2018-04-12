@@ -1,56 +1,15 @@
-define([], function() {
-
-    var Api = {
-        buildCategoryChildrenUrl: function (accountId, categoryId) {
-            return '/settings/category/templates/' + accountId + '/category-children/' + categoryId;
-        },
-        buildRefreshCategoryUrl: function(accountId) {
-            return '/settings/category/templates/' + accountId + '/refresh-categories';
-        },
-        buildFetchCategoryMapsUrl: function () {
-            return '/settings/category/templates/fetch'
-        },
-    }
-
-    var ResponseActions = {
-        categoryChildrenFetched: function (categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories, data) {
-            return {
-                type: 'CATEGORY_CHILDREN_FETCHED',
-                payload: {
-                    categoryMapIndex: categoryMapIndex,
-                    accountId: accountId,
-                    categories: data.hasOwnProperty('categories') ? data.categories : {},
-                    categoryId: categoryId,
-                    categoryLevel: categoryLevel,
-                    selectedCategories: selectedCategories
-                }
-            }
-        },
-        categoryRefreshed: function(accountId, data) {
-            return {
-                type: 'REFRESH_CATEGORIES_FETCHED',
-                payload: {
-                    accountId: accountId,
-                    categories: data.hasOwnProperty('categories') ? data.categories : {}
-                }
-            }
-        },
-        categoryMapsFetched: function(data) {
-            delete data.bodyTag;
-            return {
-                type: 'CATEGORY_MAPS_FETCHED',
-                payload: {
-                    categoryMaps: data
-                }
-            }
-        }
-    }
-
+define([
+    'CategoryMapper/Actions/ApiHelper',
+    'CategoryMapper/Actions/ResponseActions'
+], function(
+    ApiHelper,
+    ResponseActions
+) {
     return {
         categorySelected: function (dispatch, categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories) {
 
             $.get(
-                Api.buildCategoryChildrenUrl(accountId, categoryId),
+                ApiHelper.buildCategoryChildrenUrl(accountId, categoryId),
                 function(response) {
                     var selectedCategoriesForChildren = selectedCategories.slice(0);
                     selectedCategoriesForChildren.splice(categoryLevel);
@@ -71,7 +30,7 @@ define([], function() {
         },
         refreshButtonClicked: function (dispatch, accountId) {
             $.get(
-                Api.buildRefreshCategoryUrl(accountId),
+                ApiHelper.buildRefreshCategoryUrl(accountId),
                 function (response) {
                     dispatch(ResponseActions.categoryRefreshed(accountId, response));
                 }
@@ -95,7 +54,7 @@ define([], function() {
         },
         fetchCategoryMaps: function (dispatch, searchText, page) {
             $.post(
-                Api.buildFetchCategoryMapsUrl(),
+                ApiHelper.buildFetchCategoryMapsUrl(),
                 {
                     search: searchText,
                     page: page
@@ -120,6 +79,23 @@ define([], function() {
                     searchText: searchText
                 }
             }
+        },
+        deleteCategoryMap: function (dispatch, mapId) {
+            $.get(
+                ApiHelper.buildDeleteCategoryMapUrl(mapId),
+                function (response) {
+                    if (response.valid) {
+                        dispatch(ResponseActions.categoryMapDeleted(mapId))
+                    }
+                }
+            )
+
+            return {
+                type: 'DELETE_CATEGORY_MAP',
+                payload: {
+                    mapId: mapId
+                }
+            };
         }
     };
 });
