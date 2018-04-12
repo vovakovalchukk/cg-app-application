@@ -34,7 +34,6 @@ use CG\ShipStation\Carrier\Label\Service as ShipStationLabelService;
 
 // CourierExports
 use CG\CourierExport\Provider as CourierExportProvider;
-use CG\CourierExport\RoyalMailClickDrop\GenericAccountProvider as RoyalMailClickDropGenericAccountProvider;
 
 return [
     'di' => [
@@ -80,9 +79,7 @@ return [
             ],
             AccountShippingService::class => [
                 'injections' => [
-                    'registerGenericAccount' => [
-                        ['genericAccountProvider' => RoyalMailClickDropGenericAccountProvider::class],
-                    ],
+                    'registerGenericAccount' => [],
                 ],
             ],
         ],

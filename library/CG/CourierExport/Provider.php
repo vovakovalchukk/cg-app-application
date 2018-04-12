@@ -3,31 +3,35 @@ namespace CG\CourierExport;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface;
+use CG\Channel\Shipping\Provider\Channels\ShippingOptionsInterface;
 use CG\Channel\Shipping\Provider\ChannelsInterface;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface;
 use CG\Channel\Shipping\Provider\ServiceInterface;
-use CG\CourierExport\RoyalMailClickDrop\GenericAccountProvider as RoyalMailClickDrop;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use function CG\Stdlib\hyphenToFullyQualifiedClassname;
 
-class Provider implements ChannelsInterface, BookingOptionsInterface, ServiceInterface, ExportInterface
+class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOptionsInterface, ServiceInterface, ExportInterface
 {
     /** @var Factory */
     protected $factory;
+    /** @var ActiveUserInterface */
+    protected $activeUser;
 
     protected $channels = [
-        RoyalMailClickDrop::CHANNEL => 'Royal Mail Click & Drop',
+        'royal-mail-click-drop' => 'Royal Mail Click & Drop',
     ];
 
-    public function __construct(Factory $factory)
+    public function __construct(Factory $factory, ActiveUserInterface $activeUser)
     {
         $this->factory = $factory;
+        $this->activeUser = $activeUser;
     }
 
     public function isOrderSupported($channelName, Order $order)
@@ -49,6 +53,32 @@ class Provider implements ChannelsInterface, BookingOptionsInterface, ServiceInt
     {
         $channels = array_keys($this->channels);
         return array_combine($channels, $channels);
+    }
+
+    public function getShippingChannelOptions()
+    {
+        return array_map(
+            function(string $channel) {
+                return [
+                    'channel' => $channel,
+                    'region' => '',
+                ];
+            },
+            array_flip($this->channels)
+        );
+    }
+
+    public function connectAccount(string $channel, int $accountId = null): Account
+    {
+        $channelName = $this->channels[$channel] ?? null;
+        if (!$channelName) {
+            throw new \InvalidArgumentException(sprintf('"%s" is not a provider channel', $channel));
+        }
+
+        return $this->factory->getCreationService($channel, $channelName)->connectAccount(
+            $this->activeUser->getActiveUserRootOrganisationUnitId(),
+            $accountId
+        );
     }
 
     public function isProvidedAccount(Account $account)
