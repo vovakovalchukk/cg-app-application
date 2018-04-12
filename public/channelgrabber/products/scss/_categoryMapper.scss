@@ -16,6 +16,21 @@
     .disabled {
         display: none;
     }
+    .heading-large {
+        label {
+            float: left
+        }
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    .search-form {
+        width: 500px;
+        margin-left: 233px;
+    }
+    input[disabled] {
+        border: 0;
+        cursor: not-allowed;
+    }
 }
 
 .category-map-container {

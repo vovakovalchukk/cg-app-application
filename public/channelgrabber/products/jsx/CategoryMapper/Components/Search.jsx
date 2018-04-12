@@ -14,6 +14,7 @@ define([
         getDefaultProps: function() {
             return {
                 onSubmit: function () {},
+                disabled: false
             }
         },
         onChange: function (event) {
@@ -27,25 +28,26 @@ define([
         },
         render: function() {
             return (
-                <form
-                    name="search"
-                    onSubmit={this.onSubmit}
-                >
-                    <div className={"order-form half product-container category-map-container"}>
-                        <div>
-                            <label>
-                                <div className={"order-inputbox-holder"}>
-                                    <input
-                                        type="text"
-                                        placeholder="Search..."
-                                        onChange={this.onChange}
-                                        value={this.state.value}
-                                    />
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </form>
+                <span className={"heading-large"}>
+                    <label>Existing category maps</label>
+                    <form
+                        className="search-form"
+                        name="search"
+                        onSubmit={this.onSubmit}
+                    >
+                        <label>
+                            <div className={"order-inputbox-holder"}>
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    onChange={this.onChange}
+                                    value={this.state.value}
+                                    disabled={this.props.disabled}
+                                />
+                            </div>
+                        </label>
+                    </form>
+                </span>
             );
         }
     });

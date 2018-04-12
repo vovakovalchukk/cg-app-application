@@ -46,6 +46,7 @@ define([
             return <SearchComponent
                 value={this.props.pagination.searchText}
                 onSubmit={this.props.fetchCategoryMaps}
+                disabled={this.props.pagination.isFetching}
             />
         },
         renderLoadMoreButton: function() {

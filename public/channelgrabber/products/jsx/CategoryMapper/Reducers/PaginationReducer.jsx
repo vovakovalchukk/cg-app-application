@@ -6,7 +6,8 @@ define([
     var initialState = {
         searchText: '',
         page: 1,
-        shouldLoadMore: false
+        shouldLoadMore: false,
+        isFetching: false
     };
 
     return reducerCreator(initialState, {
@@ -21,14 +22,16 @@ define([
             return {
                 searchText: action.payload.searchText,
                 page: action.payload.shouldReset ? 1 : state.page,
-                shouldLoadMore: false
+                shouldLoadMore: false,
+                isFetching: true
             }
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             return {
                 searchText: state.searchText,
                 page: state.page + 1,
-                shouldLoadMore: Object.keys(action.payload.categoryMaps).length > 0
+                shouldLoadMore: Object.keys(action.payload.categoryMaps).length > 0,
+                isFetching: false
             }
         }
     });
