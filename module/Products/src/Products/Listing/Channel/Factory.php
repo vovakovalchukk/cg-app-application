@@ -16,26 +16,27 @@ class Factory
         $this->di = $di;
     }
 
-    public function buildChannelService(Account $account, array $postData = [])
+    public function buildChannelService(string $channel, array $postData = [])
     {
-        $channelServiceName = __NAMESPACE__ . '\\' . hyphenToClassname($account->getChannel()) . '\\' . 'Service';
+        $channelServiceName = __NAMESPACE__ . '\\' . hyphenToClassname($channel) . '\\' . 'Service';
         if (!class_exists($channelServiceName)) {
-            throw new \InvalidArgumentException('The class: ' . $channelServiceName . ' could not be found for the provided channel: ' . $account->getChannel());
+            throw new \InvalidArgumentException('The class: ' . $channelServiceName . ' could not be found for the provided channel: ' . $channel);
         }
         $params = !empty($postData) ? ['postData' => $postData] : [];
         return $this->di->newInstance($channelServiceName, $params);
     }
 
-    public function fetchAndValidateChannelService(Account $account, string $className, array $postData = [])
+    public function fetchAndValidateChannelService($accountOrChannel, string $className, array $postData = [])
     {
+        $channel = (($accountOrChannel instanceof Account) ? $accountOrChannel->getChannel() : $accountOrChannel);
         try {
-            $service = $this->buildChannelService($account, $postData);
+            $service = $this->buildChannelService($channel, $postData);
             if ($service instanceof $className) {
                 return $service;
             }
-            throw new ListingException('The account with ID ' . $account->getId() . ' does not support this action.');
+            throw new ListingException('The ' . $channel . ' account  does not support this action.');
         } catch (\InvalidArgumentException $e) {
-            throw new ListingException('The account with ID ' . $account->getId() . ' is not valid');
+            throw new ListingException('The ' . $channel . ' account  is not valid');
         }
     }
 }

@@ -82,7 +82,7 @@ class Service implements
         }
     }
 
-    public function getCategoryDependentValues(Account $account, int $categoryId): array
+    public function getCategoryDependentValues(?Account $account, int $categoryId): array
     {
         $ebayData = $this->fetchEbayCategoryData($categoryId);
 
