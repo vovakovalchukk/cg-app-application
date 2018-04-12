@@ -114,22 +114,34 @@ define([
         }
     }
 
-    var CategoryMapConnector = ReactRedux.connect(
-        function (state, ownProps) {
-            var initialValues = {},
-                values = {};
+    var mapStateToProps = function (state, ownProps) {
+        var initialValues = {},
+            values = {};
 
-            if (ownProps.mapId in state.initialValues) {
-                initialValues = formatFormData(state.initialValues[ownProps.mapId]);
+        if (ownProps.mapId in state.initialValues) {
+            initialValues = formatFormData(state.initialValues[ownProps.mapId]);
+        }
+
+        return {
+            form: 'categoryMap-' + ownProps.mapId,
+            initialValues: initialValues
+        }
+    };
+
+    var mapDispatchToProps = function (dispatch) {
+        return {
+            onCategorySelected: function(mapId, accountId, categoryId, categoryLevel, selectedCategories) {
+                dispatch(Actions.categorySelected(dispatch, mapId, accountId, categoryId, categoryLevel, selectedCategories));
+            },
+            onRefreshClick: function(accountId) {
+                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
+            },
+            onRemoveButtonClick: function (mapId, accountId) {
+                dispatch(Actions.removeButtonClicked(mapId, accountId));
             }
+        };
+    };
 
-            return {
-                form: 'categoryMap-' + ownProps.mapId,
-                initialValues: initialValues
-            }
-        },
-        null
-    );
-
+    var CategoryMapConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return CategoryMapConnector(CategoryMapComponent);
 });

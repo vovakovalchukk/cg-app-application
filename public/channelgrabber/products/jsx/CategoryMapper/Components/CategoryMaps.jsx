@@ -29,9 +29,6 @@ define([
                     <CategoryMap
                         accounts={this.props.categoryMaps[mapId].accounts}
                         mapId={mapId}
-                        onCategorySelected={this.props.onCategorySelected}
-                        onRefreshClick={this.props.onRefreshClick}
-                        onRemoveButtonClick={this.props.onRemoveButtonClick}
                         onSubmit={this.props.onSubmit}
                     />
                 );
@@ -111,15 +108,6 @@ define([
 
     var mapDispatchToProps = function (dispatch, ownProps) {
         return {
-            onCategorySelected: function(mapId, accountId, categoryId, categoryLevel, selectedCategories) {
-                dispatch(Actions.categorySelected(dispatch, mapId, accountId, categoryId, categoryLevel, selectedCategories));
-            },
-            onRefreshClick: function(accountId) {
-                dispatch(Actions.refreshButtonClicked(dispatch, accountId));
-            },
-            onRemoveButtonClick: function (mapId, accountId) {
-                dispatch(Actions.removeButtonClicked(mapId, accountId));
-            },
             fetchCategoryMaps: function (searchText = '', page = 1) {
                 dispatch(Actions.fetchCategoryMaps(dispatch, searchText, page));
             },
