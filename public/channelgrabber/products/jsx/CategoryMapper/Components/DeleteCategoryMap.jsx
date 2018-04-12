@@ -33,7 +33,6 @@ define([
             });
         },
         render: function() {
-            console.log(this.state);
             return (
                 <span className="delete-container">
                     {this.state.hasPopup &&
