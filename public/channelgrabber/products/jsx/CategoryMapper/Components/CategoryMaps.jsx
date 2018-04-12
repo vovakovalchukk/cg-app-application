@@ -5,13 +5,15 @@ define([
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Actions/Actions',
     'CategoryMapper/Components/Search',
+    'CategoryMapper/Components/LoadMoreButton',
 ], function(
     React,
     ReduxForm,
     ReactRedux,
     CategoryMap,
     Actions,
-    SearchComponent
+    SearchComponent,
+    LoadMoreButton
 ) {
     "use strict";
 
@@ -47,15 +49,10 @@ define([
             />
         },
         renderLoadMoreButton: function() {
-            return (
-                <span className="button-container">
-                    <div className="load-more-button">
-                        <div className={"button container-btn yes"} onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}>
-                            <span>Load more...</span>
-                        </div>
-                    </div>
-                </span>
-            );
+            return <LoadMoreButton
+                onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}
+                disabled={!this.props.pagination.shouldLoadMore}
+            />
         },
         render: function() {
             return (
