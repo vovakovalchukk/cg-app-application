@@ -4,6 +4,10 @@
     .button {
         line-height: 1.4em;
         font-size: 1.3em;
+        &.react-popup-btn {
+            line-height: 1em;
+            font-size: 1em;
+        }
     }
     .button-container {
         width: 100%;
@@ -54,6 +58,9 @@
         width: 150px !important;
         display: inline-block;
         float: initial;
+        .button {
+            display: block;
+        }
     }
 
     .remove-button {
@@ -77,6 +84,10 @@
 
     .account-category-container {
         min-width: 360px;
+    }
+
+    .delete-container > div {
+        display: inline-block;
     }
 }
 

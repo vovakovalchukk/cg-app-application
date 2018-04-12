@@ -4,14 +4,16 @@ define([
     'react-redux',
     'Common/Components/Button',
     'CategoryMapper/Actions/Actions',
-    'CategoryMapper/Components/AccountCategorySelect'
+    'CategoryMapper/Components/AccountCategorySelect',
+    'CategoryMapper/Components/DeleteCategoryMap'
 ], function(
     React,
     ReduxForm,
     ReactRedux,
     Button,
     Actions,
-    AccountCategorySelect
+    AccountCategorySelect,
+    DeleteCategoryMap
 ) {
     "use strict";
 
@@ -42,7 +44,7 @@ define([
                             categories={accountData.categories}
                             refreshing={accountData.refreshing}
                             refreshable={accountData.refreshable}
-                            selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
+                            selecteappsdCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
                             onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
                             onRefreshClick={this.props.onRefreshClick}
                             onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
@@ -72,16 +74,14 @@ define([
                                 </div>
                             </label>
                             <label className={"map-button save-button"}>
-                                <div className={"button container-btn yes"} onClick={this.props.handleSubmit}>
+                                <div className={"button"} onClick={this.props.handleSubmit}>
                                     <span>Save</span>
                                 </div>
                             </label>
                             {this.props.mapId > 0 &&
-                                (<label className={"map-button remove-button"}>
-                                    <div className={"button container-btn yes"} onClick={this.props.deleteCategoryMap.bind(this, this.props.mapId)}>
-                                        <span>Delete</span>
-                                    </div>
-                                </label>)
+                                (<DeleteCategoryMap
+                                    onClick={this.props.deleteCategoryMap.bind(this, this.props.mapId)}
+                                />)
                             }
                         </div>
                         {this.renderCategorySelects()}
