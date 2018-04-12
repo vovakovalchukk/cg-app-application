@@ -104,7 +104,7 @@ class Account implements AccountInterface, LoggerAwareInterface
         } catch (NotFound $e) {
             $user = $this->fetchUser($account->getOrganisationUnitId());
             $accountResponse = $this->createAccountOnShipStation($ou, $user, $account);
-            $this->logDebug(static::LOG_MESSAGE_ACCOUNT_CREATED, [$user->getOrganisationUnitId()], static::LOG_CODE. ['organisationUnitId' => $user->getOrganisationUnitId()]);
+            $this->logDebug(static::LOG_MESSAGE_ACCOUNT_CREATED, [$user->getOrganisationUnitId()], static::LOG_CODE, ['organisationUnitId' => $user->getOrganisationUnitId()]);
             $apiKeyResponse = $this->sendApiKeyRequest($accountResponse, $account);
             $this->logDebug(static::LOG_MESSAGE_API_KEY_GENERATED, [$accountResponse->getAccount()->getAccountId()], static::LOG_CODE, ['shipStationAccountId' => $accountResponse->getAccount()->getAccountId(), 'apiKey' => $apiKeyResponse->getEncryptedApiKey()]);
             $shipStationAccount = $this->createShipStationAccount($account, $apiKeyResponse->getEncryptedApiKey());

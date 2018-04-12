@@ -12,16 +12,32 @@ class Content implements ContentInterface
     protected $weight;
     protected $unitValue;
     protected $unitCurrency;
+    protected $name;
+    protected $composition;
+    protected $sku;
 
-    public function __construct($description, $hsCode, $origin, $quantity, $weight, $unitValue, $unitCurrency)
-    {
+    public function __construct(
+        $description,
+        $hsCode,
+        $origin,
+        $quantity,
+        $weight,
+        $unitValue,
+        $unitCurrency,
+        $name,
+        $composition,
+        $sku
+    ) {
         $this->setDescription($description)
             ->setHsCode($hsCode)
             ->setOrigin($origin)
             ->setQuantity($quantity)
             ->setWeight($weight)
             ->setUnitValue($unitValue)
-            ->setUnitCurrency($unitCurrency);
+            ->setUnitCurrency($unitCurrency)
+            ->setName($name)
+            ->setComposition($composition)
+            ->setSku($sku);
     }
 
     public function getDescription()
@@ -98,6 +114,39 @@ class Content implements ContentInterface
     public function setUnitCurrency($unitCurrency)
     {
         $this->unitCurrency = $unitCurrency;
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getComposition()
+    {
+        return $this->composition;
+    }
+
+    public function setComposition($composition)
+    {
+        $this->composition = $composition;
+        return $this;
+    }
+
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
         return $this;
     }
 }

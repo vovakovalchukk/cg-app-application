@@ -32,8 +32,10 @@ return array (
     27 => 'Shopify',
     28 => 'BigCommerce',
     29 => 'Ekm',
-    30 => 'Reports',
-    31 => 'ShipStation'
+    30 => 'Etsy',
+    31 => 'Reports',
+    32 => 'ShipStation',
+    33 => 'CourierExport',
   ),
   'module_listener_options' => 
   array (

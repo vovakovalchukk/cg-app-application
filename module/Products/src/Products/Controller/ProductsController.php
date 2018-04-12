@@ -11,6 +11,8 @@ use CG_Usage\Service as UsageService;
 use CG\User\ActiveUserInterface;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Products\Product\TaxRate\Service as TaxRateService;
+use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
@@ -36,6 +38,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $usageService;
     /** @var FeatureFlagsService */
     protected $featureFlagService;
+    /** @var StockSettingsService */
+    protected $stockSettingsService;
+    /** @var TaxRateService */
+    protected $taxRateService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -45,35 +51,39 @@ class ProductsController extends AbstractActionController implements LoggerAware
         DataTable $accountStockSettingsTable,
         ActiveUserInterface $activeUserContainer,
         UsageService $usageService,
-        FeatureFlagsService $featureFlagService
+        FeatureFlagsService $featureFlagService,
+        StockSettingsService $stockSettingsService,
+        TaxRateService $taxRateService
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-             ->setProductService($productService)
-             ->setBulkActionsService($bulkActionsService)
-             ->setTranslator($translator)
-             ->setAccountStockSettingsTable($accountStockSettingsTable)
-             ->setActiveUserContainer($activeUserContainer)
-             ->setUsageService($usageService);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->productService = $productService;
+        $this->bulkActionsService = $bulkActionsService;
+        $this->translator = $translator;
+        $this->accountStockSettingsTable = $accountStockSettingsTable;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->usageService = $usageService;
         $this->featureFlagService = $featureFlagService;
+        $this->stockSettingsService = $stockSettingsService;
+        $this->taxRateService = $taxRateService;
     }
 
     public function indexAction()
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $view = $this->getViewModelFactory()->newInstance();
+        $view = $this->viewModelFactory->newInstance();
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
-        $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
+        $bulkActions = $this->bulkActionsService->getListPageBulkActions();
         $this->amendBulkActionsForUsage($bulkActions);
-        $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/products/bulk-actions/index');
+        $bulkAction = $this->viewModelFactory->newInstance()->setTemplate('products/products/bulk-actions/index');
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
-        $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
+        $bulkAction->setVariable('isHeaderBarVisible', $this->productService->isFilterBarVisible());
         $view->addChild($this->getPaginationView(), 'pagination');
-        $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
+        $view->setVariable('isSidebarVisible', $this->productService->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('isAdmin', $this->activeUserContainer->isAdmin());
@@ -89,6 +99,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 $rootOuId
             )
         ]));
+        $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
+        $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
@@ -97,7 +109,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected function getDetailsSidebar()
     {
-        $sidebar = $this->getViewModelFactory()->newInstance();
+        $sidebar = $this->viewModelFactory->newInstance();
         $sidebar->setTemplate('products/products/sidebar/navbar');
 
         $links = [];
@@ -121,7 +133,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected function getPaginationView()
     {
-        $view = $this->getViewModelFactory()->newInstance();
+        $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/pagination.mustache');
         $view->setVariable('id', 'product-pagination')
             ->setVariable('firstRecord', 0)
@@ -137,75 +149,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
     }
 
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return ViewModelFactory
-     */
+    // Required by AccountTableTrait
     protected function getViewModelFactory()
     {
         return $this->viewModelFactory;
-    }
-
-    protected function setBulkActionsService(BulkActionsService $bulkActionsService)
-    {
-        $this->bulkActionsService = $bulkActionsService;
-        return $this;
-    }
-
-    /**
-     * @return BulkActionsService
-     */
-    protected function getBulkActionsService()
-    {
-        return $this->bulkActionsService;
-    }
-
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    protected function getProductService()
-    {
-        return $this->productService;
-    }
-
-    protected function getTranslator()
-    {
-        return $this->translator;
-    }
-
-    protected function setTranslator(Translator $translator)
-    {
-        $this->translator = $translator;
-        return $this;
-    }
-
-    protected function setAccountStockSettingsTable(DataTable $accountStockSettingsTable)
-    {
-        $this->accountStockSettingsTable = $accountStockSettingsTable;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
     }
 
     // Required by AccountTableTrait
