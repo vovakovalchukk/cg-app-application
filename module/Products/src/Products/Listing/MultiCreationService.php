@@ -1,11 +1,21 @@
 <?php
 namespace Products\Listing;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as Accounts;
+use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\AccountDetail\Entity as ProductAccountDetail;
 use CG\Product\AccountDetail\Mapper as ProductAccountDetailMapper;
 use CG\Product\AccountDetail\Service as ProductAccountDetailService;
+use CG\Product\Category\Collection as Categories;
+use CG\Product\Category\Filter as CategoryFilter;
+use CG\Product\Category\Service as CategoryService;
+use CG\Product\Category\Template\Collection as CategoryTemplates;
+use CG\Product\Category\Template\Entity as CategoryTemplate;
+use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
+use CG\Product\Category\Template\Service as CategoryTemplateService;
 use CG\Product\CategoryDetail\Entity as ProductCategoryDetail;
 use CG\Product\CategoryDetail\Mapper as ProductCategoryDetailMapper;
 use CG\Product\CategoryDetail\Service as ProductCategoryDetailService;
@@ -24,6 +34,18 @@ class MultiCreationService implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const LOG_CODE_MISSING_ACCOUNT_IDS = 'No account ids specified - can\'t create listings';
+    const LOG_MSG_MISSING_ACCOUNT_IDS = 'No account ids specified - can\'t create listings';
+    const LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND = 'Accounts not found - can\'t create listings';
+    const LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND = 'Accounts (%s) not found - can\'t create listings';
+    const LOG_CODE_MISSING_CATEGORY_TEMPLATE_IDS = 'No category template ids specified - can\'t create listings';
+    const LOG_MSG_MISSING_CATEGORY_TEMPLATE_IDS = 'No category template ids specified - can\'t create listings';
+    const LOG_CODE_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND = 'Category templates not found - can\'t create listings';
+    const LOG_MSG_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND = 'Category templates (%s) not found - can\'t create listings';
+    const LOG_CODE_MISSING_CATEGORY_IDS = 'No category ids specified in category templates - can\'t create listings';
+    const LOG_MSG_MISSING_CATEGORY_IDS = 'No category ids specified in category templates - can\'t create listings';
+    const LOG_CODE_REQUESTED_CATEGORIES_NOT_FOUND = 'Categories not found - can\'t create listings';
+    const LOG_MSG_REQUESTED_CATEGORIES_NOT_FOUND = 'Categories (%s) not found - can\'t create listings';
     const LOG_CODE_MISSING_PRODUCT_ID = 'No product id specified - can\'t create listings';
     const LOG_MSG_MISSING_PRODUCT_ID = 'No product id specified - can\'t create listings';
     const LOG_CODE_REQUESTED_PRODUCT_NOT_FOUND = 'Product not found - can\'t create listings';
@@ -43,6 +65,12 @@ class MultiCreationService implements LoggerAwareInterface
     const LOG_CODE_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku from product - assuming variation listing';
     const LOG_MSG_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku (%s) from product - assuming variation listing';
 
+    /** @var AccountService */
+    protected $accountService;
+    /** @var CategoryTemplateService */
+    protected $categoryTemplateService;
+    /** @var CategoryService */
+    protected $categoryService;
     /** @var ProductService */
     protected $productService;
     /** @var ProductDetailMapper */
@@ -63,6 +91,9 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productCategoryDetailService;
 
     public function __construct(
+        AccountService $accountService,
+        CategoryTemplateService $categoryTemplateService,
+        CategoryService $categoryService,
         ProductService $productService,
         ProductDetailMapper $productDetailMapper,
         ProductDetailImporter $productDetailImporter,
@@ -73,6 +104,9 @@ class MultiCreationService implements LoggerAwareInterface
         ProductCategoryDetailMapper $productCategoryDetailMapper,
         ProductCategoryDetailService $productCategoryDetailService
     ) {
+        $this->accountService = $accountService;
+        $this->categoryTemplateService = $categoryTemplateService;
+        $this->categoryService = $categoryService;
         $this->productService = $productService;
         $this->productDetailMapper = $productDetailMapper;
         $this->productDetailImporter = $productDetailImporter;
@@ -91,15 +125,67 @@ class MultiCreationService implements LoggerAwareInterface
         array $productData,
         &$guid = null
     ): bool {
-        $this->addGlobalLogEventParam('guid', $guid = uniqid('', true));
+        $guid = uniqid('', true);
+
+        $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
+            if (empty($accountIds)) {
+                $this->logWarning(static::LOG_MSG_MISSING_ACCOUNT_IDS, [], static::LOG_CODE_MISSING_ACCOUNT_IDS);
+                return false;
+            }
+
+            try {
+                /** @var Accounts $accounts */
+                $accounts = $this->accountService->fetchByFilter(
+                    (new AccountFilter('all', 1))->setId($accountIds)
+                );
+            } catch (NotFound $exception) {
+                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $accountIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+                return false;
+            }
+
+            if (empty($categoryTemplateIds)) {
+                $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_TEMPLATE_IDS, [], static::LOG_CODE_MISSING_CATEGORY_TEMPLATE_IDS);
+                return false;
+            }
+
+            try {
+                /** @var CategoryTemplates $accounts */
+                $categoryTemplates = $this->categoryTemplateService->fetchCollectionByFilter(
+                    (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
+                );
+            } catch (NotFound $exception) {
+                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND, [implode(',', $categoryTemplateIds)], static::LOG_CODE_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND);
+                return false;
+            }
+
+            $categoryIds = array_merge(...array_map(function(CategoryTemplate $categoryTemplate) {
+                return $categoryTemplate->getCategoryIds();
+            }, iterator_to_array($categoryTemplates)));
+
+            if (empty($categoryIds)) {
+                $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_IDS, [], static::LOG_CODE_MISSING_CATEGORY_IDS);
+                return false;
+            }
+
+            $this->addGlobalLogEventParam('category', implode(', ', $categoryIds));
+            try {
+                /** @var Categories $categories */
+                $categories = $this->categoryService->fetchCollectionByFilter(
+                    (new CategoryFilter('all', 1))->setId($categoryIds)
+                );
+            } catch (NotFound $exception) {
+                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+                return false;
+            }
+
             $productId = $productData['id'] ?? null;
             if (!$productId) {
                 $this->logWarning(static::LOG_MSG_MISSING_PRODUCT_ID, [], static::LOG_CODE_MISSING_PRODUCT_ID);
                 return false;
             }
-            $this->addGlobalLogEventParam('product', $productId);
 
+            $this->addGlobalLogEventParam('product', $productId);
             try {
                 /** @var Product $product */
                 $product = $this->productService->fetch($productId);
@@ -129,7 +215,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             return false;
         } finally {
-            $this->removeGlobalLogEventParams(['guid', 'product', 'sku']);
+            $this->removeGlobalLogEventParams(['account', 'categoryTemplate', 'site', 'guid', 'category', 'product', 'sku']);
         }
     }
 
