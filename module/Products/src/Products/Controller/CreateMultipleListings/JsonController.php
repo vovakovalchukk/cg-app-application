@@ -2,18 +2,34 @@
 namespace Products\Controller\CreateMultipleListings;
 
 use Application\Controller\AbstractJsonController;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Products\Listing\MultiCreationService;
 
 class JsonController extends AbstractJsonController
 {
     const ROUTE_SUBMIT_MULTIPLE_LISTINGS = 'SubmitMultipleListings';
     const ROUTE_SUBMIT_MULTIPLE_LISTINGS_PROGRESS = 'SubmitMultipleListingsProgress';
 
+    /** @var MultiCreationService */
+    protected $multiCreationService;
+
+    public function __construct(JsonModelFactory $jsonModelFactory, MultiCreationService $multiCreationService)
+    {
+        parent::__construct($jsonModelFactory);
+        $this->multiCreationService = $multiCreationService;
+    }
+
     public function submitMultipleAction()
     {
-        // Dummy Data
         return $this->buildResponse([
-            'allowed' => true,
-            'guid' => uniqid('', true),
+            'allowed' => $this->multiCreationService->createListings(
+                $this->params()->fromPost('accountIds', []),
+                $this->params()->fromPost('categoryTemplateIds', []),
+                $this->params()->fromPost('siteId', ''),
+                $this->params()->fromPost('product', []),
+                $guid
+            ),
+            'guid' => $guid,
         ]);
     }
 
