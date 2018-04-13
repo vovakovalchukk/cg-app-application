@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c61897fe1917c2145390bf9464abb6e",
+    "content-hash": "3363c46018ab0f755043486683015d8f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.7",
+            "version": "1.34.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ce6527a88cc2795b432a6298d8adb7f29d9b8d3e"
+                "reference": "cb348ccc990e7700111dbd8745ae274d2ec07952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.7-8338a7.zip",
-                "reference": "ce6527a88cc2795b432a6298d8adb7f29d9b8d3e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.8-9e2764.zip",
+                "reference": "cb348ccc990e7700111dbd8745ae274d2ec07952",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-04T12:58:29+00:00"
+            "time": "2018-04-13T12:30:46+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1291,16 +1291,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.7",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "108a73ddf4ccc5de6b14f37069b023423a71c6ba"
+                "reference": "132ff9a822f835a7ed4437f2413a454d7357e187"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.7-9c96e3.zip",
-                "reference": "108a73ddf4ccc5de6b14f37069b023423a71c6ba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.8-bd4201.zip",
+                "reference": "132ff9a822f835a7ed4437f2413a454d7357e187",
                 "shasum": null
             },
             "require": {
@@ -1308,6 +1308,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/etag": "^1.5.4",
+                "channelgrabber/file-storage": "^1.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
@@ -1322,7 +1323,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2017-09-22T10:59:28+00:00"
+            "time": "2018-04-12T08:02:40+00:00"
         },
         {
             "name": "channelgrabber/intercom",
