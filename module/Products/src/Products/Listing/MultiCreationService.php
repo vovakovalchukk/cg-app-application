@@ -10,6 +10,7 @@ use CG\Product\AccountDetail\Entity as ProductAccountDetail;
 use CG\Product\AccountDetail\Mapper as ProductAccountDetailMapper;
 use CG\Product\AccountDetail\Service as ProductAccountDetailService;
 use CG\Product\Category\Collection as Categories;
+use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
 use CG\Product\Category\Template\Collection as CategoryTemplates;
@@ -205,9 +206,9 @@ class MultiCreationService implements LoggerAwareInterface
             }, $variationsData))));
 
             $this->saveProductDetails($product, $productData, $variationsData);
-            $this->saveProductChannelDetails($product, $productData);
-            $this->saveProductAccountDetails($product, $variationsData);
-            $this->saveProductCategoryDetails($product, $productData);
+            $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData);
+            $this->saveProductAccountDetails($accounts, $product, $variationsData);
+            $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
                 return false;
@@ -298,11 +299,11 @@ class MultiCreationService implements LoggerAwareInterface
         ]);
     }
 
-    protected function saveProductChannelDetails(Product $product, array $productData)
+    protected function saveProductChannelDetails(array $channels, Product $product, array $productData)
     {
         foreach (($productData['productChannelDetail'] ?? []) as $productChannelData) {
             $channel = $productChannelData['channel'] ?? null;
-            if (!$channel) {
+            if (!$channel || !in_array($channel, $channels)) {
                 continue;
             }
             $this->saveProductChannelDetail(
@@ -352,7 +353,7 @@ class MultiCreationService implements LoggerAwareInterface
         ]);
     }
 
-    protected function saveProductAccountDetails(Product $product, array $variationsData)
+    protected function saveProductAccountDetails(Accounts $accounts, Product $product, array $variationsData)
     {
         $productAccountDetails = [];
         foreach ($variationsData as $variationData) {
@@ -365,6 +366,10 @@ class MultiCreationService implements LoggerAwareInterface
             foreach (($variationData['productAccountDetail'] ?? []) as $productAccountDetail) {
                 $accountId = $productAccountDetail['accountId'] ?? null;
                 if (!$accountId) {
+                    continue;
+                }
+                $account = $accounts->getById($accountId);
+                if (!$account) {
                     continue;
                 }
                 $productAccountDetails[$sku][$accountId] = $productAccountDetail;
@@ -443,19 +448,23 @@ class MultiCreationService implements LoggerAwareInterface
         ]);
     }
 
-    protected function saveProductCategoryDetails(Product $product, array $productData)
+    protected function saveProductCategoryDetails(Categories $categories, Product $product, array $productData)
     {
         foreach (($productData['productCategoryDetail'] ?? []) as $productCategoryData) {
             $categoryId = $productCategoryData['categoryId'] ?? null;
-            $channel = $productCategoryData['channel'] ?? null;
-            if (!$categoryId || !$channel) {
+            if (!$categoryId) {
+                continue;
+            }
+            /** @var Category $category */
+            $category = $categories->getById($categoryId);
+            if (!$category) {
                 continue;
             }
             $this->saveCategoryChannelDetail(
                 $this->mapProductCategoryDetails(
                     $product->getId(),
                     $categoryId,
-                    $channel,
+                    $category->getChannel(),
                     $product->getOrganisationUnitId(),
                     $productCategoryData
                 )
