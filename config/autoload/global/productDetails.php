@@ -1,4 +1,6 @@
 <?php
+use CG\Product\AccountDetail\Storage\Api as ProductAccountDetailApiStorage;
+use CG\Product\AccountDetail\StorageInterface as ProductAccountDetailStorage;
 use CG\Product\ChannelDetail\Storage\Api as ProductChannelDetailApiStorage;
 use CG\Product\ChannelDetail\StorageInterface as ProductChannelDetailStorage;
 use CG\Product\Detail\Storage\Api as ProductDetailApiStorage;
@@ -10,6 +12,7 @@ return [
             'preferences' => [
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 ProductChannelDetailStorage::class => ProductChannelDetailApiStorage::class,
+                ProductAccountDetailStorage::class => ProductAccountDetailApiStorage::class,
             ],
             ProductDetailApiStorage::class => [
                 'parameters' => [
@@ -17,6 +20,11 @@ return [
                 ]
             ],
             ProductChannelDetailApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ProductAccountDetailApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
