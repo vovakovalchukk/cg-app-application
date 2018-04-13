@@ -105,12 +105,14 @@ class Creator implements LoggerAwareInterface
 
     protected function isRequiredCreationDataFieldsPresent(array $productData): bool
     {
-        if (!isset($productData['name'])) {
+        if (!isset($productData['name']) || $productData['name'] == '') {
             return false;
         }
         $variationsData = ($this->hasVariations($productData) ? $productData['variations'] : [$productData]);
         foreach ($variationsData as $variationData) {
-            if (!isset($variationData['sku'], $variationData['quantity'])) {
+            if (!isset($variationData['sku'], $variationData['quantity']) ||
+                $variationData['sku'] == '' || $variationData['quantity'] = ''
+            ) {
                 return false;
             }
         }
