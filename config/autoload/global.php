@@ -129,8 +129,6 @@ use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 // Couriers
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
-use CG\Product\Detail\StorageInterface as ProductDetailStorage;
-use CG\Product\Detail\Storage\Api as ProductDetailApiStorage;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 
@@ -214,7 +212,6 @@ $config = array(
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
-                ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
                 TransactionClient::class => RedisTransactionClient::class,
                 StockLogStorage::class => StockLogApiStorage::class,
@@ -612,11 +609,6 @@ $config = array(
                 ]
             ],
             OrderLabelApiStorage::class => [
-                'parameters' => [
-                    'client' => 'cg_app_guzzle'
-                ]
-            ],
-            ProductDetailApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]

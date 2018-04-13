@@ -2,6 +2,10 @@
 namespace Products\Listing;
 
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Product\ChannelDetail\Entity as ProductChannelDetail;
+use CG\Product\ChannelDetail\Service as ProductChannelDetailService;
+use CG\Product\ChannelDetail\Mapper as ProductChannelDetailMapper;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Mapper as ProductDetailMapper;
@@ -28,6 +32,8 @@ class MultiCreationService implements LoggerAwareInterface
     const LOG_MSG_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku (%s) from product - assuming variation listing';
     const LOG_CODE_VARIATION_LISTING_INCOMPATABLE = 'Product is not a parent product but variation listing requested - can\'t create listings';
     const LOG_MSG_VARIATION_LISTING_INCOMPATABLE = 'Product %d is not a parent product but variation listing requested - can\'t create listings';
+    const LOG_CODE_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS = 'Failed to save product channel details';
+    const LOG_MSG_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS = 'Failed to save product channel details';
 
     /** @var ProductService */
     protected $productService;
@@ -35,15 +41,23 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productDetailMapper;
     /** @var ProductDetailImporter */
     protected $productDetailImporter;
+    /** @var ProductChannelDetailMapper */
+    protected $productChannelDetailMapper;
+    /** @var ProductChannelDetailService */
+    protected $productChannelDetailService;
 
     public function __construct(
         ProductService $productService,
         ProductDetailMapper $productDetailMapper,
-        ProductDetailImporter $productDetailImporter
+        ProductDetailImporter $productDetailImporter,
+        ProductChannelDetailMapper $productChannelDetailMapper,
+        ProductChannelDetailService $productChannelDetailService
     ) {
         $this->productService = $productService;
         $this->productDetailMapper = $productDetailMapper;
         $this->productDetailImporter = $productDetailImporter;
+        $this->productChannelDetailMapper = $productChannelDetailMapper;
+        $this->productChannelDetailService = $productChannelDetailService;
     }
 
     public function createListings(
@@ -135,7 +149,8 @@ class MultiCreationService implements LoggerAwareInterface
     ): bool {
         $this->addGlobalLogEventParam('sku', $product->getSku());
         try {
-            $this->updateSimpleProductDetail($product, $productData, $variationData);
+            $this->saveSimpleProductDetail($product, $productData, $variationData);
+            $this->saveProductChannelDetails($product, $productData);
             return false;
         } finally {
             $this->removeGlobalLogEventParam('sku');
@@ -154,10 +169,11 @@ class MultiCreationService implements LoggerAwareInterface
         $skus = array_filter(array_map(function(array $variationData) {
             return $variationData['sku'] ?? null;
         }, $variationsData));
-        $this->addGlobalLogEventParam('sku', implode(', ', $skus));
 
+        $this->addGlobalLogEventParam('sku', implode(', ', $skus));
         try {
-            $this->updateVariationsProductDetail($product, $productData, $variationsData);
+            $this->saveVariationsProductDetail($product, $productData, $variationsData);
+            $this->saveProductChannelDetails($product, $productData);
             return false;
         } finally {
             $this->removeGlobalLogEventParam('sku');
@@ -187,7 +203,7 @@ class MultiCreationService implements LoggerAwareInterface
         ]);
     }
 
-    protected function updateSimpleProductDetail(Product $product, array $productData, array $variationData)
+    protected function saveSimpleProductDetail(Product $product, array $productData, array $variationData)
     {
         $this->productDetailImporter->import(
             $product,
@@ -200,7 +216,7 @@ class MultiCreationService implements LoggerAwareInterface
         );
     }
 
-    protected function updateVariationsProductDetail(Product $product, array $productData, array $variationsData)
+    protected function saveVariationsProductDetail(Product $product, array $productData, array $variationsData)
     {
         $productDetails = [];
         foreach ($variationsData as $variationData) {
@@ -220,6 +236,60 @@ class MultiCreationService implements LoggerAwareInterface
         foreach ($product->getVariations() as $variation) {
             if (isset($productDetails[$variation->getSku()])) {
                 $this->productDetailImporter->import($variation, $productDetails);
+            }
+        }
+    }
+
+    protected function mapProductChannelDetails(
+        int $productId,
+        string $channel,
+        int $ou,
+        array $productChannelData
+    ): ProductChannelDetail {
+        return $this->productChannelDetailMapper->fromArray([
+            'productId' => $productId,
+            'channel' => $channel,
+            'organisationUnitId' => $ou,
+            'external' => $productChannelData,
+        ]);
+    }
+
+    protected function saveProductChannelDetails(Product $product, array $productData)
+    {
+        foreach (($productData['productChannelDetail'] ?? []) as $productChannelData) {
+            $channel = $productChannelData['channel'] ?? null;
+            if (!$channel) {
+                continue;
+            }
+            $this->saveProductChannelDetail(
+                $this->mapProductChannelDetails(
+                    $product->getId(),
+                    $channel,
+                    $product->getOrganisationUnitId(),
+                    $productChannelData
+                )
+            );
+        }
+    }
+
+    protected function saveProductChannelDetail(ProductChannelDetail $productChannelDetail)
+    {
+        for ($attempt = 1; $attempt <= 3; $attempt++) {
+            try {
+                // Copy current etag so we can safley overright current data
+                $productChannelDetail->setStoredETag(
+                    $this->productChannelDetailService->fetch($productChannelDetail->getId())->getStoredETag()
+                );
+            } catch (NotFound $exception) {
+                // New entity - no etag to steal
+            }
+
+            try {
+                $this->productChannelDetailService->save($productChannelDetail);
+            } catch (NotModified $exception) {
+                return;
+            } catch (\Throwable $throwable) {
+                $this->logCriticalException($throwable, static::LOG_MSG_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS, [], static::LOG_CODE_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS);
             }
         }
     }
