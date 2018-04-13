@@ -97,13 +97,10 @@ define([
 
     CategoryMapComponent = categoryMapFormCreator(CategoryMapComponent);
 
-    var formatFormData = function(categoryMap) {
-        var data = [],
-            categoriesForAccount,
+    var getSelectedLeafCategoriesByAccount = function(categoryMap) {
+        var categoriesForAccount,
             categoryId,
-            categories;
-
-        categories = [];
+            categories = [];
 
         for (var accountId in categoryMap.selectedCategories) {
             categoriesForAccount = categoryMap.selectedCategories[accountId];
@@ -111,24 +108,21 @@ define([
             categories[accountId] = categoryId;
         }
 
+        return categories;
+    }
+
+    var convertCategoryMapToFormData = function(categoryMap) {
         return {
             name: categoryMap.name,
             etag: categoryMap.etag,
-            categories: categories
+            categories: getSelectedLeafCategoriesByAccount(categoryMap)
         }
     }
 
     var mapStateToProps = function (state, ownProps) {
-        var initialValues = {},
-            values = {};
-
-        if (ownProps.mapId in state.initialValues) {
-            initialValues = formatFormData(state.initialValues[ownProps.mapId]);
-        }
-
         return {
             form: 'categoryMap-' + ownProps.mapId,
-            initialValues: initialValues
+            initialValues: ownProps.mapId in state.initialValues ? convertCategoryMapToFormData(state.initialValues[ownProps.mapId]) : {}
         }
     };
 

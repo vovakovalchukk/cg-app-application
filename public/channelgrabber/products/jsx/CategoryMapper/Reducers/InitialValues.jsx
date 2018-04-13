@@ -1,8 +1,12 @@
 define([
-    'Common/Reducers/creator'
+    'Common/Reducers/creator',
+    'CategoryMapper/Reducers/Helper'
 ], function(
-    reducerCreator
+    reducerCreator,
+    Helper
 ) {
+    "use strict";
+
     var initialState = {};
 
     return reducerCreator(initialState, {
@@ -12,30 +16,7 @@ define([
                 newCategoryMap;
 
             for (var mapId in categoryMaps) {
-                var categoryMap = categoryMaps[mapId],
-                    accountCategories = categoryMap.accountCategories;
-
-                newCategoryMap = {
-                    selectedCategories: {},
-                    name: categoryMap.name,
-                    etag: categoryMap.etag
-                };
-
-                accountCategories.map(function (categoriesForAccount) {
-                    var selectedCategories = [];
-                    categoriesForAccount.categories.map(function (categoriesByLevel) {
-                        selectedCategories = [];
-                        categoriesByLevel.map(function (categories, level) {
-                            categories.map(function (category) {
-                                if (category.selected) {
-                                    selectedCategories.push(category.value);
-                                }
-                            });
-                        })
-                    });
-                    newCategoryMap.selectedCategories[categoriesForAccount.accountId] = selectedCategories;
-                });
-                newCategoryMaps[mapId] = newCategoryMap;
+                newCategoryMaps[mapId] = Helper.extractSelectedCategoryDataFromCategoryMap(categoryMaps[mapId]);
             }
 
             return Object.assign({}, state, newCategoryMaps);

@@ -29,22 +29,15 @@ define([
                 onRemoveButtonClick: function() {},
             }
         },
-        getCategoryOptions: function () {
-            var selects = [],
-                index = 0,
-                selectedCategory;
-
-            if (this.props.categories) {
-                selects = this.getCategorySelects(this.props.categories, selects, index);
-            }
-            return selects;
+        renderCategorySelects: function () {
+            return this.props.categories ? this.getCategorySelectsByLevel(this.props.categories) : [];
         },
-        getCategorySelects: function (categories, selects, index) {
-            var selectedCategory = this.props.selectedCategories[index] ? this.props.selectedCategories[index] : null,
-                resetSelection = (!selectedCategory && index == 0);
+        getCategorySelectsByLevel: function (categories, selects = [], categoryLevel = 0) {
+            var selectedCategory = this.props.selectedCategories[categoryLevel] ? this.props.selectedCategories[categoryLevel] : null,
+                resetSelection = (!selectedCategory && categoryLevel == 0);
 
             selects.push(
-                this.getCategorySelect(index, categories, selectedCategory, resetSelection)
+                this.getCategorySelect(categoryLevel, categories, selectedCategory, resetSelection)
             );
 
             if (selectedCategory
@@ -52,16 +45,16 @@ define([
                 && categories[selectedCategory].categoryChildren
                 && Object.keys(categories[selectedCategory].categoryChildren).length > 0
             ) {
-                this.getCategorySelects(categories[selectedCategory].categoryChildren, selects, ++index);
+                this.getCategorySelectsByLevel(categories[selectedCategory].categoryChildren, selects, ++categoryLevel);
             }
 
             return selects;
         },
-        getCategorySelect: function (index, categories, selectedCategory, resetSelection) {
+        getCategorySelect: function (categoryLevel, categories, selectedCategory, resetSelection) {
             return <Field
                 name={this.props.fields.name + '.' + this.props.accountId}
                 component={CategorySelect}
-                categories={this.getCategorySelectOptionsForAccount(index, categories)}
+                categories={this.getCategorySelectOptionsForAccount(categoryLevel, categories)}
                 accountId={this.props.accountId}
                 onOptionChange={this.onCategorySelected}
                 selectedCategory={selectedCategory}
@@ -113,7 +106,7 @@ define([
         render: function() {
             return <span className={'account-category-container'}>
                 <div className={"order-inputbox-holder"}>
-                    {this.getCategoryOptions()}
+                    {this.renderCategorySelects()}
                 </div>
                 {this.renderActionButtons()}
             </span>

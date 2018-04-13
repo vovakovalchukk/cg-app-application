@@ -15,7 +15,7 @@ define([
 ) {
     "use strict"
 
-    var parseAccountData = function (data) {
+    var extractAccountsFromRawData = function (data) {
         var accounts = {},
             newAccountData;
         for (var accountId in data.accounts) {
@@ -26,7 +26,7 @@ define([
         return accounts;
     }
 
-    var parseCategoryData = function (data) {
+    var extractCategoriesFromRawData = function (data) {
         var categories = {};
         data.categories.forEach(function (value, index) {
             categories[value.accountId] = Object.assign({}, value.categories);
@@ -39,8 +39,8 @@ define([
         var store = Redux.createStore(
             CombinedReducer,
             {
-                accounts: parseAccountData(data),
-                categories: parseCategoryData(data)
+                accounts: extractAccountsFromRawData(data),
+                categories: extractCategoriesFromRawData(data)
             }
         );
         ReactDOM.render(

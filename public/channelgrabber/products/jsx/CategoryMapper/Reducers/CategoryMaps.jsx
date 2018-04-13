@@ -1,8 +1,12 @@
 define([
-    'Common/Reducers/creator'
+    'Common/Reducers/creator',
+    'CategoryMapper/Reducers/Helper'
 ], function(
-    reducerCreator
+    reducerCreator,
+    Helper
 ) {
+    "use strict";
+
     var initialState = {};
 
     return reducerCreator(initialState, {
@@ -31,15 +35,10 @@ define([
         },
         "REFRESH_CATEGORIES": function (state, action) {
             var newState = Object.assign({}, state),
-                accountId = action.payload.accountId,
-                categoryMap;
+                accountId = action.payload.accountId;
 
             for (var mapId in newState) {
-                categoryMap = newState[mapId];
-                categoryMap = Object.assign({}, categoryMap);
-                categoryMap.selectedCategories = Object.assign({}, categoryMap.selectedCategories);
-                categoryMap.selectedCategories[accountId] = [];
-                newState[mapId] = categoryMap;
+                newState[mapId] = Helper.invalidateSelectedCategoriesForAccount(newState[mapId], accountId);
             }
 
             return newState;
@@ -63,34 +62,10 @@ define([
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             var categoryMaps = action.payload.categoryMaps,
-                newCategoryMaps = {},
-                newCategoryMap;
+                newCategoryMaps = {};
 
             for (var mapId in categoryMaps) {
-                var categoryMap = categoryMaps[mapId],
-                    accountCategories = categoryMap.accountCategories;
-
-                newCategoryMap = {
-                    selectedCategories: {},
-                    name: categoryMap.name,
-                    etag: categoryMap.etag
-                };
-
-                accountCategories.map(function (categoriesForAccount) {
-                    var selectedCategories = [];
-                    categoriesForAccount.categories.map(function (categoriesByLevel) {
-                        selectedCategories = [];
-                        categoriesByLevel.map(function (categories, level) {
-                            categories.map(function (category) {
-                                if (category.selected) {
-                                    selectedCategories.push(category.value);
-                                }
-                            });
-                        })
-                    });
-                    newCategoryMap.selectedCategories[categoriesForAccount.accountId] = selectedCategories;
-                });
-                newCategoryMaps[mapId] = newCategoryMap;
+                newCategoryMaps[mapId] = Helper.extractSelectedCategoryDataFromCategoryMap(categoryMaps[mapId]);
             }
 
             return Object.assign({}, state, newCategoryMaps);

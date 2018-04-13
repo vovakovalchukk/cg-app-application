@@ -1,6 +1,5 @@
 define([
     'react',
-    'redux-form',
     'react-redux',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Actions/Actions',
@@ -8,7 +7,6 @@ define([
     'CategoryMapper/Components/LoadMoreButton',
 ], function(
     React,
-    ReduxForm,
     ReactRedux,
     CategoryMap,
     Actions,
@@ -17,14 +15,19 @@ define([
 ) {
     "use strict";
 
-    var Field = ReduxForm.Field;
     var CategoryMapsComponent = React.createClass({
         componentDidMount: function () {
             this.props.fetchCategoryMaps();
         },
-        renderCategoryMapComponents: function() {
+        renderNewCategoryMapComponent: function() {
+            return this.renderCategoryMapComponent(0);
+        },
+        renderExistingCategoryMapComponents: function() {
             var categoryMaps = [];
             for (var mapId in this.props.categoryMaps) {
+                if (mapId == 0) {
+                    continue;
+                }
                 categoryMaps.push(
                     <CategoryMap
                         accounts={this.props.categoryMaps[mapId].accounts}
@@ -34,12 +37,19 @@ define([
                         key={'categoryMap-' + mapId}
                     />
                 );
-
-                if (mapId == 0) {
-                    categoryMaps.push(this.renderSearchBox());
-                }
             }
             return categoryMaps;
+        },
+        renderCategoryMapComponent: function(mapId) {
+            return (
+                <CategoryMap
+                    accounts={this.props.categoryMaps[mapId].accounts}
+                    mapId={mapId}
+                    onSubmit={this.props.onSubmit}
+                    form={'categoryMap-' + mapId}
+                    key={'categoryMap-' + mapId}
+                />
+            );
         },
         renderSearchBox: function() {
             return <SearchComponent
@@ -51,21 +61,50 @@ define([
         renderLoadMoreButton: function() {
             return <LoadMoreButton
                 onClick={this.props.fetchCategoryMaps.bind(this, this.props.pagination.searchText, this.props.pagination.page)}
-                disabled={!this.props.pagination.shouldLoadMore}
-                active={this.props.pagination.loadMoreActive}
+                disabled={!this.props.pagination.loadMoreEnabled}
+                active={this.props.pagination.loadMoreVisible}
             />
         },
         render: function() {
             return (
                 <span>
-                    {this.renderCategoryMapComponents()}
+                    {this.renderNewCategoryMapComponent()}
+                    {this.renderSearchBox()}
+                    {this.renderExistingCategoryMapComponents()}
                     {this.renderLoadMoreButton()}
                 </span>
             );
         }
     });
 
-    var mergeData = function (state) {
+    var addNewCategoryMapTemplate = function(existingCategoryMaps, newCategoryMaps, categories) {
+        if (!(0 in existingCategoryMaps)) {
+            newCategoryMaps[0] = {
+                accounts: categories,
+                name: '',
+                etag: ''
+            };
+        }
+    }
+
+    var addExistingCategoryMaps = function(existingCategoryMaps, newCategoryMaps, categories) {
+        var categoriesForMap;
+        for (var mapId in existingCategoryMaps) {
+            categoriesForMap = Object.assign({}, categories);
+            for (var accountId in existingCategoryMaps[mapId].selectedCategories) {
+                categoriesForMap[accountId] = Object.assign({}, categoriesForMap[accountId]);
+                categoriesForMap[accountId].selectedCategories = existingCategoryMaps[mapId].selectedCategories[accountId].slice();
+            }
+
+            newCategoryMaps[mapId] =  {
+                accounts: categoriesForMap,
+                name: existingCategoryMaps[mapId].name,
+                etag: existingCategoryMaps[mapId].etag
+            };
+        }
+    }
+
+    var convertStateToCategoryMaps = function (state) {
         var categories = {},
             categoryMaps = {},
             accountId;
@@ -76,35 +115,15 @@ define([
             });
         }
 
-        if (!(0 in state.categoryMaps)) {
-            categoryMaps[0] = {
-                accounts: categories,
-                name: '',
-                etag: ''
-            };
-        }
-
-        var categoriesForMap;
-        for (var mapId in state.categoryMaps) {
-            categoriesForMap = Object.assign({}, categories);
-            for (accountId in state.categoryMaps[mapId].selectedCategories) {
-                categoriesForMap[accountId] = Object.assign({}, categoriesForMap[accountId]);
-                categoriesForMap[accountId].selectedCategories = state.categoryMaps[mapId].selectedCategories[accountId].slice();
-            }
-
-            categoryMaps[mapId] =  {
-                accounts: categoriesForMap,
-                name: state.categoryMaps[mapId].name,
-                etag: state.categoryMaps[mapId].etag
-            };
-        }
+        addNewCategoryMapTemplate(state.categoryMaps, categoryMaps, categories);
+        addExistingCategoryMaps(state.categoryMaps, categoryMaps, categories);
 
         return categoryMaps;
     }
 
     var mapStateToProps = function(state) {
         return {
-            categoryMaps: mergeData(state),
+            categoryMaps: convertStateToCategoryMaps(state),
             pagination: state.pagination
         }
     };
