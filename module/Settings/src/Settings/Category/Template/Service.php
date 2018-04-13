@@ -207,15 +207,13 @@ class Service
                 $categoriesByAccount[$accountId] = [];
             }
 
-            $data = [];
-            $this->formatCategoryTree($categoryFilter, $category, $data);
-            $categoriesByAccount[$accountId][] = $data;
+            $categoriesByAccount[$accountId][] = $this->formatCategoryTree($categoryFilter, $category);
         }
 
         return $categoriesByAccount;
     }
 
-    protected function formatCategoryTree(CategoryFilter $filter, Category $category, &$data)
+    protected function formatCategoryTree(CategoryFilter $filter, Category $category, array &$data = [])
     {
         try {
             $siblings = $this->fetchCategorySiblings($filter, $category);
@@ -234,6 +232,7 @@ class Service
         if ($category->getParentId()) {
             $this->formatCategoryTree($filter, $this->categoryService->fetch($category->getParentId()), $data);
         }
+        return $data;
     }
 
     public function fetchAccountIdForCategory(Category $category, OrganisationUnit $ou)
