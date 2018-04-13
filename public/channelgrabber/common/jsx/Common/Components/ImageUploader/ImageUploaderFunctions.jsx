@@ -54,7 +54,7 @@ define([
                     context: this
                 })
             }
-        }
+        };
 
         return self;
 

@@ -16,9 +16,12 @@ define([
     "use strict";
     
     var Provider = ReactRedux.Provider;
-    
+
     var store = Redux.createStore(
-        CombinedReducer, Redux.applyMiddleware(thunk.default)
+        CombinedReducer,
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+            Redux.applyMiddleware(thunk.default)
+        )
     );
     
     var CreateProductRoot = React.createClass({

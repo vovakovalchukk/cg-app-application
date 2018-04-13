@@ -44,11 +44,7 @@ define([
                                 <button onClick={this.props.addImage}>this button triggers add image</button>
 
                                 <div className={"order-inputbox-holder"}>
-                                    <ImageUploader
-                                        onImageUploadStart={this.props.imageUploadStart}
-                                        onImageUploadSuccess={this.props.imageUploadSuccess}
-                                        onImageUploadFailure={this.props.imageUploadFailure}
-                                    />
+                                    <ImageUploader />
                                 </div>
 
                             </div>

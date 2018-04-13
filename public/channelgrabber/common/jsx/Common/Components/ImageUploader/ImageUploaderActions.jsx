@@ -16,12 +16,10 @@ define([
                     ImageUploaderFunctions.uploadImageHandler(image)
                         .then(
                             function(response) {
-                                console.log('uploadSuccess');
                                 dispatch(self.imageUploadSuccess(response.imageRequestedForUpload));
                             }
                         )
                         .catch(function(response) {
-                            console.log('uploadFailure');
                             dispatch(self.imageUploadFailure(response.imageRequestedForUpload));
                         })
 

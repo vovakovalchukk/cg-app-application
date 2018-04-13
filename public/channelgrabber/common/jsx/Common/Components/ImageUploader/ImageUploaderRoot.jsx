@@ -3,7 +3,6 @@ define([
     'react-redux',
     'Common/Components/ImageUploader/ImageUploader',
     'Common/Components/ImageUploader/ImageUploaderActions'
-//
 ], function(
     Redux,
     ReactRedux,
@@ -16,8 +15,9 @@ define([
             uploadedImages: state.images
         }
     };
-    const mapDispatchToProps = function(dispatch) {
-        return Redux.bindActionCreators( ImageUploaderActions, dispatch);
+    const mapDispatchToProps = function(dispatch, ownProps) {
+        var actionsToBind = ownProps.reduxActions ? ownProps.reduxActions : ImageUploaderActions;
+        return Redux.bindActionCreators( actionsToBind, dispatch);
     };
 
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
