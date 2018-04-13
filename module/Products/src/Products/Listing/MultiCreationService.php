@@ -30,20 +30,18 @@ class MultiCreationService implements LoggerAwareInterface
     const LOG_MSG_REQUESTED_PRODUCT_NOT_FOUND = 'Product %d not found - can\'t create listings';
     const LOG_CODE_NO_VARIATIONS_SPECIFIED = 'No variaitions specified - can\'t create listings';
     const LOG_MSG_NO_VARIATIONS_SPECIFIED = 'No variaitions specified - can\'t create listings';
-    const LOG_CODE_MULTIPLE_VARIATIONS = 'Multiple variations specified - assuming variation listing';
-    const LOG_MSG_MULTIPLE_VARIATIONS = '%d variations specified - assuming variation listing';
-    const LOG_CODE_VARIATION_SKU_MATCH = 'Single variation specified with same sku as product - assuming simple listing';
-    const LOG_MSG_VARIATION_SKU_MATCH = 'Single variation specified with same sku (%s) as product - assuming simple listing';
-    const LOG_CODE_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku from product - assuming variation listing';
-    const LOG_MSG_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku (%s) from product - assuming variation listing';
-    const LOG_CODE_VARIATION_LISTING_INCOMPATABLE = 'Product is not a parent product but variation listing requested - can\'t create listings';
-    const LOG_MSG_VARIATION_LISTING_INCOMPATABLE = 'Product %d is not a parent product but variation listing requested - can\'t create listings';
     const LOG_CODE_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS = 'Failed to save product channel details';
     const LOG_MSG_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS = 'Failed to save product channel (%s) details';
     const LOG_CODE_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS = 'Failed to save product account details';
     const LOG_MSG_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS = 'Failed to save product account (%d) details';
     const LOG_CODE_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS = 'Failed to save product category details';
     const LOG_MSG_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS = 'Failed to save product category (%d [%s]) details';
+    const LOG_CODE_MULTIPLE_VARIATIONS = 'Multiple variations specified - assuming variation listing';
+    const LOG_MSG_MULTIPLE_VARIATIONS = '%d variations specified - assuming variation listing';
+    const LOG_CODE_VARIATION_SKU_MATCH = 'Single variation specified with same sku as product - assuming simple listing';
+    const LOG_MSG_VARIATION_SKU_MATCH = 'Single variation specified with same sku (%s) as product - assuming simple listing';
+    const LOG_CODE_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku from product - assuming variation listing';
+    const LOG_MSG_VARIATION_SKU_DIFFERS = 'Single variation specified with different sku (%s) from product - assuming variation listing';
 
     /** @var ProductService */
     protected $productService;
@@ -116,34 +114,22 @@ class MultiCreationService implements LoggerAwareInterface
                 return false;
             }
 
-            if ($this->isSimpleListing($product, $variationsData)) {
-                return $this->createSimpleListings(
-                    $accountIds,
-                    $categoryTemplateIds,
-                    $siteId,
-                    $product,
-                    $productData,
-                    $variationsData,
-                    $guid
-                );
-            }
+            $this->addGlobalLogEventParam('sku', implode(', ', array_filter(array_map(function(array $variationData) {
+                return $variationData['sku'] ?? null;
+            }, $variationsData))));
 
-            if (!$product->isParent()) {
-                $this->logWarning(static::LOG_MSG_VARIATION_LISTING_INCOMPATABLE, [$productId], static::LOG_CODE_VARIATION_LISTING_INCOMPATABLE);
+            $this->saveProductDetails($product, $productData, $variationsData);
+            $this->saveProductChannelDetails($product, $productData);
+            $this->saveProductAccountDetails($product, $variationsData);
+            $this->saveProductCategoryDetails($product, $productData);
+
+            if ($this->isSimpleListing($product, $variationsData)) {
                 return false;
             }
 
-            return $this->createVariationeListings(
-                $accountIds,
-                $categoryTemplateIds,
-                $siteId,
-                $product,
-                $productData,
-                $variationsData,
-                $guid
-            );
+            return false;
         } finally {
-            $this->removeGlobalLogEventParams(['guid', 'product']);
+            $this->removeGlobalLogEventParams(['guid', 'product', 'sku']);
         }
     }
 
@@ -161,52 +147,6 @@ class MultiCreationService implements LoggerAwareInterface
         } else {
             $this->logDebug(static::LOG_MSG_VARIATION_SKU_DIFFERS, ['sku' => $sku], static::LOG_CODE_VARIATION_SKU_DIFFERS);
             return false;
-        }
-    }
-
-    protected function createSimpleListings(
-        array $accountIds,
-        array $categoryTemplateIds,
-        string $siteId,
-        Product $product,
-        array $productData,
-        array $variationsData,
-        string $guid
-    ): bool {
-        $this->addGlobalLogEventParam('sku', $product->getSku());
-        try {
-            $this->saveProductDetails($product, $productData, $variationsData);
-            $this->saveProductChannelDetails($product, $productData);
-            $this->saveProductAccountDetails($product, $variationsData);
-            $this->saveProductCategoryDetails($product, $productData);
-            return false;
-        } finally {
-            $this->removeGlobalLogEventParam('sku');
-        }
-    }
-
-    protected function createVariationeListings(
-        array $accountIds,
-        array $categoryTemplateIds,
-        string $siteId,
-        Product $product,
-        array $productData,
-        array $variationsData,
-        string $guid
-    ): bool {
-        $skus = array_filter(array_map(function(array $variationData) {
-            return $variationData['sku'] ?? null;
-        }, $variationsData));
-
-        $this->addGlobalLogEventParam('sku', implode(', ', $skus));
-        try {
-            $this->saveProductDetails($product, $productData, $variationsData);
-            $this->saveProductChannelDetails($product, $productData);
-            $this->saveProductAccountDetails($product, $variationsData);
-            $this->saveProductCategoryDetails($product, $productData);
-            return false;
-        } finally {
-            $this->removeGlobalLogEventParam('sku');
         }
     }
 
