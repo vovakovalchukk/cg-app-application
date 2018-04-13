@@ -20,13 +20,6 @@ define([
             }
 
             return Object.assign({}, state, newCategoryMaps);
-        },
-        "ADD_NEW_CATEGORY_MAP": function (state, action) {
-            var newState = Object.assign({}, state);
-            newState[action.payload.mapId] = Object.assign({}, newState[0], {
-                etag: action.payload.etag
-            });
-            return newState;
         }
     });
 });
