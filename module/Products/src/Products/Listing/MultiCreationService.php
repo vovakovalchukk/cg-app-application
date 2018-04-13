@@ -1,7 +1,10 @@
 <?php
 namespace Products\Listing;
 
+use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Product\Client\Service as ProductService;
+use CG\Product\Detail\Entity as ProductDetail;
+use CG\Product\Detail\Mapper as ProductDetailMapper;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -28,10 +31,19 @@ class MultiCreationService implements LoggerAwareInterface
 
     /** @var ProductService */
     protected $productService;
+    /** @var ProductDetailMapper */
+    protected $productDetailMapper;
+    /** @var ProductDetailImporter */
+    protected $productDetailImporter;
 
-    public function __construct(ProductService $productService)
-    {
+    public function __construct(
+        ProductService $productService,
+        ProductDetailMapper $productDetailMapper,
+        ProductDetailImporter $productDetailImporter
+    ) {
         $this->productService = $productService;
+        $this->productDetailMapper = $productDetailMapper;
+        $this->productDetailImporter = $productDetailImporter;
     }
 
     public function createListings(
@@ -58,19 +70,20 @@ class MultiCreationService implements LoggerAwareInterface
                 return false;
             }
 
-            $variations = $productData['variations'] ?? [];
-            if (empty($variations)) {
+            $variationsData = $productData['variations'] ?? [];
+            if (empty($variationsData)) {
                 $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
                 return false;
             }
 
-            if ($this->isSimpleListing($product, $variations)) {
+            if ($this->isSimpleListing($product, $variationsData)) {
                 return $this->createSimpleListings(
                     $accountIds,
                     $categoryTemplateIds,
                     $siteId,
                     $product,
                     $productData,
+                    reset($variationsData),
                     $guid
                 );
             }
@@ -86,6 +99,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $siteId,
                 $product,
                 $productData,
+                $variationsData,
                 $guid
             );
         } finally {
@@ -116,9 +130,16 @@ class MultiCreationService implements LoggerAwareInterface
         string $siteId,
         Product $product,
         array $productData,
+        array $variationData,
         string $guid
     ): bool {
-        return false;
+        $this->addGlobalLogEventParam('sku', $product->getSku());
+        try {
+            $this->updateSimpleProductDetail($product, $productData, $variationData);
+            return false;
+        } finally {
+            $this->removeGlobalLogEventParam('sku');
+        }
     }
 
     protected function createVariationeListings(
@@ -127,8 +148,79 @@ class MultiCreationService implements LoggerAwareInterface
         string $siteId,
         Product $product,
         array $productData,
+        array $variationsData,
         string $guid
     ): bool {
-        return false;
+        $skus = array_filter(array_map(function(array $variationData) {
+            return $variationData['sku'] ?? null;
+        }, $variationsData));
+        $this->addGlobalLogEventParam('sku', implode(', ', $skus));
+
+        try {
+            $this->updateVariationsProductDetail($product, $productData, $variationsData);
+            return false;
+        } finally {
+            $this->removeGlobalLogEventParam('sku');
+        }
+    }
+
+    protected function mapProductDetails(int $ou, string $sku, array $productData, array $variationData): ProductDetail
+    {
+        return $this->productDetailMapper->fromArray([
+            'organisationUnitId' => $ou,
+            'sku' => $sku,
+            'weight' => $variationData['weight'] ?? $productData['weight'] ?? null,
+            'width' => $variationData['width'] ?? $productData['width'] ?? null,
+            'height' => $variationData['height'] ?? $productData['height'] ?? null,
+            'length' => $variationData['length'] ?? $productData['length'] ?? null,
+            'description' => $variationData['description'] ?? $productData['description'] ?? null,
+            'ean' => $variationData['ean'] ?? $productData['ean'] ?? null,
+            'brand' => $variationData['brand'] ?? $productData['brand'] ?? null,
+            'mpn' => $variationData['mpn'] ?? $productData['mpn'] ?? null,
+            'asin' => $variationData['asin'] ?? $productData['asin'] ?? null,
+            'price' => $variationData['price'] ?? $productData['price'] ?? null,
+            'cost' => $variationData['cost'] ?? $productData['cost'] ?? null,
+            'condition' => $variationData['condition'] ?? $productData['condition'] ?? null,
+            'categoryTemplateIds' => $variationData['categoryTemplateIds'] ?? $productData['categoryTemplateIds'] ?? [],
+            'upc' => $variationData['upc'] ?? $productData['upc'] ?? null,
+            'isbn' => $variationData['isbn'] ?? $productData['isbn'] ?? null,
+        ]);
+    }
+
+    protected function updateSimpleProductDetail(Product $product, array $productData, array $variationData)
+    {
+        $this->productDetailImporter->import(
+            $product,
+            $this->mapProductDetails(
+                $product->getOrganisationUnitId(),
+                $product->getSku(),
+                $productData,
+                $variationData
+            )
+        );
+    }
+
+    protected function updateVariationsProductDetail(Product $product, array $productData, array $variationsData)
+    {
+        $productDetails = [];
+        foreach ($variationsData as $variationData) {
+            $sku = $variationData['sku'] ?? null;
+            if (!$sku) {
+                continue;
+            }
+            $productDetails[$sku] = $this->mapProductDetails(
+                $product->getOrganisationUnitId(),
+                $sku,
+                $productData,
+                $variationData
+            );
+        }
+
+        /** @var Product $variation */
+        foreach ($product->getVariations() as $variation) {
+            if (isset($productDetails[$variation->getSku()])) {
+                $this->productDetailImporter->import($variation, $productDetails);
+            }
+        }
     }
 }
