@@ -28,15 +28,7 @@ define([
                 if (mapId == 0) {
                     continue;
                 }
-                categoryMaps.push(
-                    <CategoryMap
-                        accounts={this.props.categoryMaps[mapId].accounts}
-                        mapId={mapId}
-                        onSubmit={this.props.onSubmit}
-                        form={'categoryMap-' + mapId}
-                        key={'categoryMap-' + mapId}
-                    />
-                );
+                categoryMaps.push(this.renderCategoryMapComponent(mapId));
             }
             return categoryMaps;
         },
