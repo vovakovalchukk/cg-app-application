@@ -6,6 +6,9 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\AccountDetail\Entity as ProductAccountDetail;
 use CG\Product\AccountDetail\Mapper as ProductAccountDetailMapper;
 use CG\Product\AccountDetail\Service as ProductAccountDetailService;
+use CG\Product\CategoryDetail\Entity as ProductCategoryDetail;
+use CG\Product\CategoryDetail\Mapper as ProductCategoryDetailMapper;
+use CG\Product\CategoryDetail\Service as ProductCategoryDetailService;
 use CG\Product\ChannelDetail\Entity as ProductChannelDetail;
 use CG\Product\ChannelDetail\Mapper as ProductChannelDetailMapper;
 use CG\Product\ChannelDetail\Service as ProductChannelDetailService;
@@ -37,8 +40,10 @@ class MultiCreationService implements LoggerAwareInterface
     const LOG_MSG_VARIATION_LISTING_INCOMPATABLE = 'Product %d is not a parent product but variation listing requested - can\'t create listings';
     const LOG_CODE_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS = 'Failed to save product channel details';
     const LOG_MSG_FAILED_TO_SAVE_PRODUCT_CHANNEL_DETAILS = 'Failed to save product channel (%s) details';
-    const LOG_Code_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS = 'Failed to save product account details';
+    const LOG_CODE_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS = 'Failed to save product account details';
     const LOG_MSG_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS = 'Failed to save product account (%d) details';
+    const LOG_CODE_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS = 'Failed to save product category details';
+    const LOG_MSG_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS = 'Failed to save product category (%d [%s]) details';
 
     /** @var ProductService */
     protected $productService;
@@ -54,6 +59,10 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productAccountDetailMapper;
     /** @var ProductAccountDetailService */
     protected $productAccountDetailService;
+    /** @var ProductCategoryDetailMapper */
+    protected $productCategoryDetailMapper;
+    /** @var ProductCategoryDetailService */
+    protected $productCategoryDetailService;
 
     public function __construct(
         ProductService $productService,
@@ -62,7 +71,9 @@ class MultiCreationService implements LoggerAwareInterface
         ProductChannelDetailMapper $productChannelDetailMapper,
         ProductChannelDetailService $productChannelDetailService,
         ProductAccountDetailMapper $productAccountDetailMapper,
-        ProductAccountDetailService $productAccountDetailService
+        ProductAccountDetailService $productAccountDetailService,
+        ProductCategoryDetailMapper $productCategoryDetailMapper,
+        ProductCategoryDetailService $productCategoryDetailService
     ) {
         $this->productService = $productService;
         $this->productDetailMapper = $productDetailMapper;
@@ -71,6 +82,8 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productChannelDetailService = $productChannelDetailService;
         $this->productAccountDetailMapper = $productAccountDetailMapper;
         $this->productAccountDetailService = $productAccountDetailService;
+        $this->productCategoryDetailMapper = $productCategoryDetailMapper;
+        $this->productCategoryDetailService = $productCategoryDetailService;
     }
 
     public function createListings(
@@ -165,6 +178,7 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductDetails($product, $productData, $variationsData);
             $this->saveProductChannelDetails($product, $productData);
             $this->saveProductAccountDetails($product, $variationsData);
+            $this->saveProductCategoryDetails($product, $productData);
             return false;
         } finally {
             $this->removeGlobalLogEventParam('sku');
@@ -189,6 +203,7 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductDetails($product, $productData, $variationsData);
             $this->saveProductChannelDetails($product, $productData);
             $this->saveProductAccountDetails($product, $variationsData);
+            $this->saveProductCategoryDetails($product, $productData);
             return false;
         } finally {
             $this->removeGlobalLogEventParam('sku');
@@ -381,7 +396,65 @@ class MultiCreationService implements LoggerAwareInterface
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
-                $this->logCriticalException($throwable, static::LOG_MSG_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS, ['account' => $productAccountDetail->getAccountId()], static::LOG_CODE_FAILED_TO_SAVE_ACCOUNT_CHANNEL_DETAILS);
+                $this->logCriticalException($throwable, static::LOG_MSG_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS, ['account' => $productAccountDetail->getAccountId()], static::LOG_CODE_FAILED_TO_SAVE_PRODUCT_ACCOUNT_DETAILS);
+            }
+        }
+    }
+
+    protected function mapProductCategoryDetails(
+        int $productId,
+        int $categoryId,
+        string $channel,
+        int $ou,
+        array $productCategoryData
+    ): ProductCategoryDetail {
+        return $this->productCategoryDetailMapper->fromArray([
+            'productId' => $productId,
+            'categoryId' => $categoryId,
+            'channel' => $channel,
+            'organisationUnitId' => $ou,
+            'external' => $productCategoryData,
+        ]);
+    }
+
+    protected function saveProductCategoryDetails(Product $product, array $productData)
+    {
+        foreach (($productData['productCategoryDetail'] ?? []) as $productCategoryData) {
+            $categoryId = $productChannelData['categoryId'] ?? null;
+            $channel = $productChannelData['channel'] ?? null;
+            if (!$categoryId || !$channel) {
+                continue;
+            }
+            $this->saveCategoryChannelDetail(
+                $this->mapProductCategoryDetails(
+                    $product->getId(),
+                    $categoryId,
+                    $channel,
+                    $product->getOrganisationUnitId(),
+                    $productCategoryData
+                )
+            );
+        }
+    }
+
+    protected function saveCategoryChannelDetail(ProductCategoryDetail $productCategoryDetail)
+    {
+        for ($attempt = 1; $attempt <= 3; $attempt++) {
+            try {
+                // Copy current etag so we can safley overright current data
+                $productCategoryDetail->setStoredETag(
+                    $this->productCategoryDetailService->fetch($productCategoryDetail->getId())->getStoredETag()
+                );
+            } catch (NotFound $exception) {
+                // New entity - no etag to steal
+            }
+
+            try {
+                $this->productCategoryDetailService->save($productCategoryDetail);
+            } catch (NotModified $exception) {
+                return;
+            } catch (\Throwable $throwable) {
+                $this->logCriticalException($throwable, static::LOG_MSG_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS, ['category' => $productCategoryDetail->getCategoryId(), 'channel' => $productCategoryDetail->getChannel()], static::LOG_CODE_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS);
             }
         }
     }
