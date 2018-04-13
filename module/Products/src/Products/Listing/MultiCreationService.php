@@ -3,6 +3,7 @@ namespace Products\Listing;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
+use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Http\Exception\Exception3xx\NotModified;
@@ -201,9 +202,10 @@ class MultiCreationService implements LoggerAwareInterface
                 return false;
             }
 
-            $this->addGlobalLogEventParam('sku', implode(', ', array_filter(array_map(function(array $variationData) {
+            $skus = array_filter(array_map(function(array $variationData) {
                 return $variationData['sku'] ?? null;
-            }, $variationsData))));
+            }, $variationsData));
+            $this->addGlobalLogEventParam('sku', implode(', ', $skus));
 
             $this->saveProductDetails($product, $productData, $variationsData);
             $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData);
@@ -211,10 +213,19 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
-                return false;
+                $this->generateCreateSimpleListingJobs($accounts, $categories, $siteId, $product, $guid);
+            } else {
+                if (!$product->isParent()) {
+                    $variations = [$product];
+                } else {
+                    $variations = array_filter(iterator_to_array($product->getVariations()), function(Product $product) use($skus) {
+                        return in_array($product->getSku(), $skus);
+                    });
+                }
+                $this->generateCreateVariationListingJobs($accounts, $categories, $siteId, $variations, $guid);
             }
 
-            return false;
+            return true;
         } finally {
             $this->removeGlobalLogEventParams(['account', 'categoryTemplate', 'site', 'guid', 'category', 'product', 'sku']);
         }
@@ -490,6 +501,64 @@ class MultiCreationService implements LoggerAwareInterface
                 return;
             } catch (\Throwable $throwable) {
                 $this->logCriticalException($throwable, static::LOG_MSG_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS, ['category' => $productCategoryDetail->getCategoryId(), 'channel' => $productCategoryDetail->getChannel()], static::LOG_CODE_FAILED_TO_SAVE_PRODUCT_CATEGORY_DETAILS);
+            }
+        }
+    }
+
+    /**
+     * @param Account[] $accounts
+     * @param Category[] $categories
+     */
+    protected function getAccountCategoryIterator(Accounts $accounts, Categories $categories): \Generator
+    {
+        foreach ($categories as $category) {
+            $accountId = $category->getAccountId();
+            if ($accountId) {
+                $account = $accounts->getById($accountId);
+                if ($account) {
+                    yield [$account, $category];
+                }
+            } else {
+                foreach ($accounts->getBy('channel', $category->getChannel()) as $account) {
+                    yield [$account, $category];
+                }
+            }
+        }
+    }
+
+    protected function generateCreateSimpleListingJobs(
+        Accounts $accounts,
+        Categories $categories,
+        string $siteId,
+        Product $product,
+        string $guid
+    ) {
+        /**
+         * @var Account $account
+         * @var Category $category
+         */
+        foreach ($this->getAccountCategoryIterator($accounts, $categories) as [$account, $category]) {
+            // TODO: Generate Job!
+        }
+    }
+
+    /**
+     * @param Product[] $variations
+     */
+    protected function generateCreateVariationListingJobs(
+        Accounts $accounts,
+        Categories $categories,
+        string $siteId,
+        array $variations,
+        string $guid
+    ) {
+        /**
+         * @var Account $account
+         * @var Category $category
+         */
+        foreach ($this->getAccountCategoryIterator($accounts, $categories) as [$account, $category]) {
+            foreach ($variations as $product) {
+                // TODO: Generate Job!
             }
         }
     }
