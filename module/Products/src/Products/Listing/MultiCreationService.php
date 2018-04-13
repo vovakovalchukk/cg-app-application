@@ -322,7 +322,7 @@ class MultiCreationService implements LoggerAwareInterface
             'productId' => $productId,
             'accountId' => $accountId,
             'organisationUnitId' => $ou,
-            'price' => $variationAccountData ?? null,
+            'price' => $variationAccountData['price'] ?? null,
         ]);
     }
 
