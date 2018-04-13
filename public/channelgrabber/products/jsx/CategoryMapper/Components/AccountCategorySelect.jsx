@@ -14,7 +14,6 @@ define([
     "use strict";
 
     var Field = ReduxForm.Field;
-    var FieldArray = ReduxForm.FieldArray;
 
     var AccountCategorySelect = React.createClass({
         getDefaultProps: function() {

@@ -13,6 +13,9 @@ define([], function() {
         },
         buildDeleteCategoryMapUrl: function(mapId) {
             return '/settings/category/templates/' + mapId + '/delete';
+        },
+        buildSaveCategoryMapUrl: function() {
+            return '/settings/category/templates/save';
         }
     };
 });

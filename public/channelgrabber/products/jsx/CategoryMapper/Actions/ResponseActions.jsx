@@ -41,5 +41,15 @@ define([], function() {
                 }
             }
         },
+        addCategoryMap: function(mapId, etag)
+        {
+            return {
+                type: 'ADD_NEW_CATEGORY_MAP',
+                payload: {
+                    mapId: mapId,
+                    etag: etag
+                }
+            }
+        }
     }
 });

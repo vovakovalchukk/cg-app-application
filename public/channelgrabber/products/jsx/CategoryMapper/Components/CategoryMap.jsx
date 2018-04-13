@@ -28,33 +28,63 @@ define([
                 mapId: null
             };
         },
+        renderAccountCategorySelectComponent: function(accountId, field) {
+            var accountData = this.props.accounts[accountId],
+                invalid = field.meta.invalid,
+                error = field.meta.error;
+
+            return <label>
+                <span
+                    className={"inputbox-label"}>{accountData.displayName}
+                </span>
+                <AccountCategorySelect
+                    {...field}
+                    accountId={accountId}
+                    categories={accountData.categories}
+                    refreshing={accountData.refreshing}
+                    refreshable={accountData.refreshable}
+                    selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
+                    onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
+                    onRefreshClick={this.props.onRefreshClick}
+                    onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
+                />
+                {invalid && error && (
+                    <span class="input-error">{error}</span>
+                )}
+            </label>;
+        },
         renderCategorySelects: function() {
             var selects = [];
             for (var accountId in this.props.accounts) {
                 var accountData = this.props.accounts[accountId];
                 selects.push(
-                    <label>
-                        <span
-                            className={"inputbox-label"}>{accountData.displayName}
-                        </span>
-                        <FieldArray
-                            component={AccountCategorySelect}
-                            name={'categories'}
-                            accountId={accountId}
-                            categories={accountData.categories}
-                            refreshing={accountData.refreshing}
-                            refreshable={accountData.refreshable}
-                            selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
-                            onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
-                            onRefreshClick={this.props.onRefreshClick}
-                            onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
-                        />
-                    </label>
+                    <FieldArray
+                        component={this.renderAccountCategorySelectComponent.bind(this, accountId)}
+                        name={"categories"}
+                    />
                 );
             };
             return <div className={"category-selects-container"}>
                 {selects}
             </div>;
+        },
+        renderNameField: function(field) {
+            var type = field.type,
+                touched = field.meta.touched,
+                error = field.meta.error;
+
+            return <label>
+                <div className={"order-inputbox-holder"}>
+                    <input
+                        {...field.input}
+                        type={type}
+                        placeholder="Category template name here..."
+                    />
+                </div>
+                {touched && error && (
+                    <span class="input-error">{error}</span>
+                )}
+            </label>;
         },
         render: function() {
             return (
@@ -63,16 +93,11 @@ define([
                 >
                     <div className={"order-form half product-container category-map-container"}>
                         <div>
-                            <label>
-                                <div className={"order-inputbox-holder"}>
-                                    <Field
-                                        name={'name'}
-                                        component="input"
-                                        type="text"
-                                        placeholder="Category template name here..."
-                                    />
-                                </div>
-                            </label>
+                            <Field
+                                name={'name'}
+                                component={this.renderNameField}
+                                type="text"
+                            />
                             <label className={"map-button save-button"}>
                                 <div className={"button"} onClick={this.props.handleSubmit}>
                                     <span>Save</span>
