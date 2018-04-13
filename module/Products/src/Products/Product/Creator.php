@@ -239,7 +239,7 @@ class Creator implements LoggerAwareInterface
         foreach ($variationsData as $variationData) {
             $variationData = $this->addDefaultProductData($variationData);
             $stockData = $this->splitOutStockDataFromProductData($variationData);
-            $variation = $this->createProduct($variationData);
+            $variation = $this->productMapper->fromArray($variationData);
             $images = $this->getImagesForVariation($variationData, $parentImages);
             $variation->setImages($images);
             $variationDetail = $this->createProductDetail($variationData);
