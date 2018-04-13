@@ -2,12 +2,14 @@ define([
     'react',
     'redux',
     'react-redux',
+    'redux-thunk',
     'Product/Components/CreateProduct/Reducers/CombinedReducer',
     'Product/Components/CreateProduct/CreateProduct'
 ], function (
     React,
     Redux,
     ReactRedux,
+    thunk,
     CombinedReducer,
     CreateProduct
 ) {
@@ -16,7 +18,7 @@ define([
     var Provider = ReactRedux.Provider;
     
     var store = Redux.createStore(
-        CombinedReducer, {}
+        CombinedReducer, Redux.applyMiddleware(thunk.default)
     );
     
     var CreateProductRoot = React.createClass({

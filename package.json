@@ -26,6 +26,7 @@
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "redux-form": "^7.3.0"
+    "redux-form": "^7.3.0",
+    "redux-thunk": "^2.2.0"
   }
 }

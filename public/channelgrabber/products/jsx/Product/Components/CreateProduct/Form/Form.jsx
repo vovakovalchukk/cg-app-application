@@ -1,7 +1,7 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/ImageUploader',
+    'Common/Components/ImageUploader/ImageUploaderRoot',
     'Common/Components/ImagePicker'
 ], function(
     React,
