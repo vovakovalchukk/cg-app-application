@@ -420,8 +420,8 @@ class MultiCreationService implements LoggerAwareInterface
     protected function saveProductCategoryDetails(Product $product, array $productData)
     {
         foreach (($productData['productCategoryDetail'] ?? []) as $productCategoryData) {
-            $categoryId = $productChannelData['categoryId'] ?? null;
-            $channel = $productChannelData['channel'] ?? null;
+            $categoryId = $productCategoryData['categoryId'] ?? null;
+            $channel = $productCategoryData['channel'] ?? null;
             if (!$categoryId || !$channel) {
                 continue;
             }
