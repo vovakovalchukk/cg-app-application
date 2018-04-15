@@ -39,7 +39,7 @@ define([
                             categories = categories[selectedCatId].categoryChildren;
                         }
                     });
-                    if (!lastSelectedCategory.listable) {
+                    if (lastSelectedCategory && !lastSelectedCategory.listable) {
                         invalidAccountIds[accountId] = accountId;
                     }
                 }

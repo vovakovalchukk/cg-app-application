@@ -143,7 +143,12 @@ define([
     });
 
     var categoryMapFormCreator = ReduxForm.reduxForm({
-        enableReinitialize: true
+        enableReinitialize: true,
+        onChange: (values, dispatch, props) => {
+            if (props.error) {
+                dispatch(ReduxForm.clearSubmitErrors(props.form));
+            }
+        }
     });
 
     CategoryMapComponent = categoryMapFormCreator(CategoryMapComponent);
