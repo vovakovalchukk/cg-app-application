@@ -109,7 +109,7 @@ define([
             if (!this.props.error) {
                 return null;
             }
-            return <span className="input-error">{this.props.error}</span>;
+            return <span className="input-error form-error">{this.props.error}</span>;
         },
         render: function() {
             return (

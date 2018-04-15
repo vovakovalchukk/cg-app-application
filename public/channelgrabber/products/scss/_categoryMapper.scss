@@ -31,6 +31,15 @@
     input[disabled] {
         cursor: not-allowed;
     }
+    .input-error {
+        color: $color-red;
+        font-size: 1.1em;
+        max-width: 400px;
+    }
+    .form-error {
+        margin: 0 auto;
+        display: block;
+    }
 }
 
 .category-map-container {
