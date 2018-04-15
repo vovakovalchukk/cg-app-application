@@ -28,11 +28,12 @@ define([
             }
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
+            var loadMore = Object.keys(action.payload.categoryMaps).length == 10;
             return {
                 searchText: state.searchText,
                 page: state.page + 1,
-                loadMoreEnabled: Object.keys(action.payload.categoryMaps).length > 0,
-                loadMoreVisible: Object.keys(action.payload.categoryMaps).length > 0,
+                loadMoreEnabled: loadMore,
+                loadMoreVisible: loadMore,
                 isFetching: false
             }
         }

@@ -25,7 +25,7 @@ define([
                         return;
                     }
 
-                    newCategories = {};
+                    var newCategories = {};
                     categories.map(function (category) {
                         newCategories[category.value] = {
                             title: category.name

@@ -45,20 +45,27 @@ define([
             });
             return categoryIds;
         },
-        saveCategoryMap: function(values) {
+        buildPostData: function(mapId, values) {
+            var data = {
+                name: values.name,
+                categoryIds: this.extractCategoryIdsFromFormValues(values.categories)
+            };
+            if (mapId > 0) {
+                data.id = mapId;
+                data.etag = values.etag;
+            }
+            return data;
+        },
+        saveCategoryMap: function(mapId, values) {
             return new Promise(function(resolve) {
                 return $.post(
                     ApiHelper.buildSaveCategoryMapUrl(),
-                    {
-                        name: values.name,
-                        etag: values.etag,
-                        categoryIds: this.extractCategoryIdsFromFormValues(values.categories)
-                    }
+                    this.buildPostData(mapId, values)
                 ).success(function(response) {
                     resolve(response);
                 }).error(function() {
                     n.error('There was an error while saving the category map. Please try again or contact support if the problem persists.');
-                })
+                });
             }.bind(this));
         },
         submitCategoryMap: function(values, dispatch, state) {
@@ -67,7 +74,7 @@ define([
 
             console.log(mapId, values);
 
-            return this.saveCategoryMap(values).then(function(response) {
+            return this.saveCategoryMap(mapId, values).then(function(response) {
                 this.checkResponseForErrors(response);
 
                 if (mapId == 0) {
