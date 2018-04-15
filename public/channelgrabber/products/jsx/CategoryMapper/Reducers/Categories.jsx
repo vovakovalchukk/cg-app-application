@@ -5,9 +5,29 @@ define([
 ) {
     var initialState = {};
 
-    var categoryHasChildren = function(categories, parentCategoryId) {
-        return (parentCategoryId in categories && 'categoryChildren' in categories[parentCategoryId] && Object.keys(categories[parentCategoryId].categoryChildren).length > 0);
-    }
+    var categoryHasChildren = function(category) {
+        return 'categoryChildren' in category && Object.keys(category.categoryChildren).length > 0;
+    };
+
+    var formatNewCategoriesArray = function(categories) {
+        var newCategories = {};
+        categories.map(function (category) {
+            newCategories[category.value] = {
+                title: category.name
+            };
+        });
+        return newCategories;
+    };
+
+    var getSelectedCategoryId = function(categories) {
+        var selectedCategoryId = null;
+        categories.map(function (category) {
+            if (category.selected) {
+                selectedCategoryId = category.value;
+            }
+        });
+        return selectedCategoryId;
+    };
 
     var extractCategoryDataFromCategoryMap = function(newState, accountCategories) {
         accountCategories.map(function (categoryMap) {
@@ -15,32 +35,19 @@ define([
             categoryMap.categories.map(function (categoriesByLevel) {
                 var selectedCategoryId;
                 categoriesByLevel.map(function (categories, level) {
-
                     if (level == 0) {
-                        categories.map(function (category) {
-                            if (category.selected) {
-                                selectedCategoryId = category.value;
-                            }
-                        });
+                        selectedCategoryId = getSelectedCategoryId(categories);
                         return;
                     }
 
-                    var newCategories = {};
-                    categories.map(function (category) {
-                        newCategories[category.value] = {
-                            title: category.name
-                        }
-                    });
+                    var currentSelectedCategory = currentCategories[selectedCategoryId];
+                    if (!categoryHasChildren(currentSelectedCategory)) {
+                        currentSelectedCategory.categoryChildren = formatNewCategoriesArray(categories);
+                    }
 
-                    currentCategories[selectedCategoryId].categoryChildren = newCategories;
                     currentCategories = currentCategories[selectedCategoryId].categoryChildren;
-
-                    categories.map(function (category) {
-                        if (category.selected) {
-                            selectedCategoryId = category.value;
-                        }
-                    });
-                })
+                    selectedCategoryId = getSelectedCategoryId(categories);
+                });
             });
         });
     }
@@ -62,7 +69,7 @@ define([
                 categories = categories[selectedCategories[i]].categoryChildren;
             }
 
-            if (categoryHasChildren(categories, parentCategoryId)) {
+            if (categoryHasChildren(categories[parentCategoryId])) {
                 return state;
             }
 
@@ -83,8 +90,7 @@ define([
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             var categoryMaps = action.payload.categoryMaps,
-                newState = JSON.parse(JSON.stringify(state)),
-                newCategories = {};
+                newState = JSON.parse(JSON.stringify(state));
 
             for (var mapId in categoryMaps) {
                 extractCategoryDataFromCategoryMap(newState, categoryMaps[mapId].accountCategories);
