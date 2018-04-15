@@ -72,8 +72,6 @@ define([
             var mapId = state.mapId;
             this.validateForm(mapId, values);
 
-            console.log(mapId, values);
-
             return this.saveCategoryMap(mapId, values).then(function(response) {
                 this.checkResponseForErrors(response);
 
