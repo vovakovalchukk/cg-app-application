@@ -31,7 +31,9 @@ define([
         renderAccountCategorySelectComponent: function(accountId, field) {
             var accountData = this.props.accounts[accountId],
                 invalid = field.meta.invalid,
-                error = field.meta.error;
+                error = field.meta.error ? JSON.parse(field.meta.error) : false;
+
+            var existingMapName = error && error.existingMapNames && accountId in error.existingMapNames ? accountId in error.existingMapNames : false;
 
             return <label>
                 <span
@@ -48,8 +50,11 @@ define([
                     onRefreshClick={this.props.onRefreshClick}
                     onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
                 />
-                {invalid && error && (
-                    <span class="input-error">{error}</span>
+                {invalid && error && existingMapName && (
+                    <span class="input-error">
+                        {error.text}
+                        <div><a href="#" onClick={this.props.onViewExistingMapClick.bind(this, error.existingMapNames[accountId], 1)}>Click here</a> to view it.</div>
+                    </span>
                 )}
             </label>;
         },
@@ -159,10 +164,10 @@ define([
             onRefreshClick: function(accountId) {
                 dispatch(Actions.refreshButtonClicked(dispatch, accountId));
             },
-            onRemoveButtonClick: function (mapId, accountId) {
+            onRemoveButtonClick: function(mapId, accountId) {
                 dispatch(Actions.removeButtonClicked(mapId, accountId));
             },
-            deleteCategoryMap: function (mapId) {
+            deleteCategoryMap: function(mapId) {
                 dispatch(Actions.deleteCategoryMap(dispatch, mapId));
             }
         };

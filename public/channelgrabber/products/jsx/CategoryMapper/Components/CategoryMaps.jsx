@@ -40,6 +40,7 @@ define([
                     onSubmit={this.props.onSubmit}
                     form={'categoryMap-' + mapId}
                     key={'categoryMap-' + mapId}
+                    onViewExistingMapClick={this.props.fetchCategoryMaps}
                 />
             );
         },
@@ -120,13 +121,10 @@ define([
         }
     };
 
-    var mapDispatchToProps = function (dispatch, ownProps) {
+    var mapDispatchToProps = function (dispatch) {
         return {
             fetchCategoryMaps: function (searchText = '', page = 1) {
                 dispatch(Actions.fetchCategoryMaps(dispatch, searchText, page));
-            },
-            searchTextChanged: function (searchText) {
-                dispatch(Actions.updateSearch(searchText));
             }
         };
     };

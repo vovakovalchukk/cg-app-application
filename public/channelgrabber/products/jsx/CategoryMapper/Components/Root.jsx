@@ -30,11 +30,21 @@ define([
                     // This doesn't work as expected as it triggers the whole array of accounts to fail, but it's a start
                     throw new SubmissionError({
                         categories: {
-                            _error: response.error.message
+                            _error: JSON.stringify({
+                                text: response.error.message,
+                                existingMapNames: this.extractExistingCategoryNamesFromErrorResponse(response.error)
+                            })
                         }
                     });
                 }
             }
+        },
+        extractExistingCategoryNamesFromErrorResponse: function(error) {
+            var existing = {};
+            error.existing.forEach(function(categoryMap) {
+                existing[categoryMap.accountId] = categoryMap.name;
+            });
+            return existing;
         },
         extractCategoryIdsFromFormValues: function(categories) {
             var categoryIds = [];

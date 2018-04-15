@@ -17,6 +17,14 @@ define([
                 disabled: false
             }
         },
+        componentWillReceiveProps(nextProps) {
+            if (!nextProps.value) {
+                return;
+            }
+            this.setState({
+                value: nextProps.value
+            });
+        },
         onChange: function (event) {
             this.setState({
                 value: event.target.value
