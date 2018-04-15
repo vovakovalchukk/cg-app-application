@@ -28,12 +28,31 @@ define([
                 mapId: null
             };
         },
-        renderAccountCategorySelectComponent: function(accountId, field) {
-            var accountData = this.props.accounts[accountId],
-                invalid = field.meta.invalid,
+        renderErrorMessage: function(accountId, field) {
+            var valid = field.meta.valid,
                 error = field.meta.error ? JSON.parse(field.meta.error) : false;
 
+            if (valid || !error) {
+                return null;
+            }
+
             var existingMapName = error && error.existingMapNames && accountId in error.existingMapNames ? accountId in error.existingMapNames : false;
+            if (existingMapName) {
+                return <span class="input-error">
+                    {error.text}
+                        <div><a href="#" onClick={this.props.onViewExistingMapClick.bind(this, error.existingMapNames[accountId], 1)}>Click here</a> to view it.</div>
+                </span>
+            }
+
+            var accountIdFromError = error && error.accountId;
+            if (accountIdFromError && accountIdFromError == accountId) {
+                return <span class="input-error">{error.text}</span>
+            }
+
+            return null;
+        },
+        renderAccountCategorySelectComponent: function(accountId, field) {
+            var accountData = this.props.accounts[accountId];
 
             return <label>
                 <span
@@ -50,12 +69,7 @@ define([
                     onRefreshClick={this.props.onRefreshClick}
                     onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
                 />
-                {invalid && error && existingMapName && (
-                    <span class="input-error">
-                        {error.text}
-                        <div><a href="#" onClick={this.props.onViewExistingMapClick.bind(this, error.existingMapNames[accountId], 1)}>Click here</a> to view it.</div>
-                    </span>
-                )}
+                {this.renderErrorMessage(accountId, field)}
             </label>;
         },
         renderCategorySelects: function() {

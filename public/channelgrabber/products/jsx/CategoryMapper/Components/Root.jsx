@@ -16,10 +16,42 @@ define([
     var SubmissionError = ReduxForm.SubmissionError;
 
     var RootComponent = React.createClass({
-        validateForm: function(mapId, values) {
-            if (!values.name || values.name.length < 2) {
+        validateName: function(name) {
+            if (!name || name.length < 2) {
                 throw new SubmissionError({name: 'The name is too short.'});
             }
+        },
+        validateCategories: function(categories, accounts) {
+            var accountData,
+                selectedCategories;
+
+            categories.forEach(function (leafCategoryId, accountId) {
+                accountData = accounts[accountId];
+                var categories = accountData.categories,
+                    lastSelectedCategory;
+                if (accountData.selectedCategories) {
+                    accountData.selectedCategories.forEach(function (selectedCatId) {
+                        lastSelectedCategory = categories[selectedCatId];
+                        if (categories[selectedCatId] && categories[selectedCatId].categoryChildren && Object.keys(categories[selectedCatId].categoryChildren).length > 0) {
+                            categories = categories[selectedCatId].categoryChildren;
+                        }
+                    });
+                    if (!lastSelectedCategory.listable) {
+                        throw new SubmissionError({
+                            categories: {
+                                _error: JSON.stringify({
+                                    text: 'The selected category is not listable. Please select another one.',
+                                    accountId: accountId
+                                })
+                            }
+                        });
+                    }
+                }
+            });
+        },
+        validateForm: function(mapId, values, state) {
+            this.validateName(values.name);
+            this.validateCategories(values.categories, state.accounts);
         },
         checkResponseForErrors: function(response) {
             if (response.error) {
@@ -37,6 +69,7 @@ define([
                         }
                     });
                 }
+                n.error('There was an error while saving the category map. Please try again or contact support if the problem persists.');
             }
         },
         extractExistingCategoryNamesFromErrorResponse: function(error) {
@@ -80,7 +113,7 @@ define([
         },
         submitCategoryMap: function(values, dispatch, state) {
             var mapId = state.mapId;
-            this.validateForm(mapId, values);
+            this.validateForm(mapId, values, state);
 
             return this.saveCategoryMap(mapId, values).then(function(response) {
                 this.checkResponseForErrors(response);
