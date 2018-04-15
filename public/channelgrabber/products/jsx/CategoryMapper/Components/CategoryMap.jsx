@@ -87,7 +87,14 @@ define([
                 {selects}
             </div>;
         },
-        renderNameField: function(field) {
+        renderNameField: function() {
+            return <Field
+                name={'name'}
+                component={this.renderNameComponent}
+                type="text"
+            />
+        },
+        renderNameComponent: function(field) {
             var type = field.type,
                 touched = field.meta.touched,
                 error = field.meta.error;
@@ -105,6 +112,21 @@ define([
                 )}
             </label>;
         },
+        renderSaveButton: function() {
+            return <label className={"map-button save-button"}>
+                <div className={"button"} onClick={this.props.handleSubmit}>
+                    <span>Save</span>
+                </div>
+            </label>
+        },
+        renderDeleteButton: function() {
+            if (this.props.mapId > 0) {
+                return <DeleteCategoryMap
+                    onClick={this.props.deleteCategoryMap.bind(this, this.props.mapId)}
+                />
+            }
+            return null;
+        },
         renderFormErrorMessage: function() {
             if (!this.props.error) {
                 return null;
@@ -118,21 +140,9 @@ define([
                 >
                     <div className={"order-form half product-container category-map-container"}>
                         <div>
-                            <Field
-                                name={'name'}
-                                component={this.renderNameField}
-                                type="text"
-                            />
-                            <label className={"map-button save-button"}>
-                                <div className={"button"} onClick={this.props.handleSubmit}>
-                                    <span>Save</span>
-                                </div>
-                            </label>
-                            {this.props.mapId > 0 &&
-                                (<DeleteCategoryMap
-                                    onClick={this.props.deleteCategoryMap.bind(this, this.props.mapId)}
-                                />)
-                            }
+                            {this.renderNameField()}
+                            {this.renderSaveButton()}
+                            {this.renderDeleteButton()}
                         </div>
                         {this.renderCategorySelects()}
                         {this.renderFormErrorMessage()}
