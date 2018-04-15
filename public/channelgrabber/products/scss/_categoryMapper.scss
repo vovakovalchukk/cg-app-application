@@ -34,11 +34,12 @@
     .input-error {
         color: $color-red;
         font-size: 1.1em;
-        max-width: 400px;
+        max-width: 300px;
     }
     .form-error {
         margin: 0 auto;
         display: block;
+        max-width: 500px;
     }
 }
 
