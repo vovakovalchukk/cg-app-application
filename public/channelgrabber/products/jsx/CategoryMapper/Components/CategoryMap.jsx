@@ -114,7 +114,7 @@ define([
         },
         renderSaveButton: function() {
             return <label className={"map-button save-button"}>
-                <div className={"button"} onClick={this.props.handleSubmit}>
+                <div className={"button" + (this.props.submitting ? " disabled" : "")} onClick={this.onSaveButtonClick}>
                     <span>Save</span>
                 </div>
             </label>
@@ -133,11 +133,15 @@ define([
             }
             return <span className="input-error form-error">{this.props.error}</span>;
         },
+        onSaveButtonClick: function() {
+            if (this.props.submitting) {
+                return;
+            }
+            this.props.handleSubmit();
+        },
         render: function() {
             return (
-                <form
-                    onSubmit={this.props.handleSubmit}
-                >
+                <form onSubmit={this.props.handleSubmit}>
                     <div className={"order-form half product-container category-map-container"}>
                         <div>
                             {this.renderNameField()}
