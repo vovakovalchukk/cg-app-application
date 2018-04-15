@@ -70,7 +70,7 @@ define([
                         });
                     }
                 }
-                dispatch(Actions.addCategoryMap(response.id, response.etag));
+                dispatch(Actions.addCategoryMap(response.id, response.etag, values));
             });
         },
         render: function()

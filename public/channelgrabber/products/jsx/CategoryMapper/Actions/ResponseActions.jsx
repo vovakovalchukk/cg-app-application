@@ -41,13 +41,15 @@ define([], function() {
                 }
             }
         },
-        addCategoryMap: function(mapId, etag)
+        addCategoryMap: function(mapId, etag, formValues)
         {
             return {
                 type: 'ADD_NEW_CATEGORY_MAP',
                 payload: {
                     mapId: mapId,
-                    etag: etag
+                    etag: etag,
+                    name: formValues.name,
+                    categories: formValues.categories
                 }
             }
         }

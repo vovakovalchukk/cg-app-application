@@ -20,6 +20,26 @@ define([
             }
 
             return Object.assign({}, state, newCategoryMaps);
+        },
+        "ADD_NEW_CATEGORY_MAP": function (state, action) {
+            var newState = Object.assign({}, state),
+                selectedCategories = {};
+
+            action.payload.categories.forEach(function(categoryId, accountId) {
+                categoryId ? selectedCategories[accountId] = [categoryId] : null;
+            });
+
+            var newMap = {
+                name: action.payload.name,
+                etag: action.payload.etag,
+                selectedCategories: selectedCategories
+            };
+
+            console.log(state, action, newMap);
+
+            newState[action.payload.mapId] = newMap;
+
+            return newState;
         }
     });
 });
