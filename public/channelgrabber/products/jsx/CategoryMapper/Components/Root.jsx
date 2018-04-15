@@ -68,6 +68,10 @@ define([
                 }
             }
 
+            if (values.categories.filter(Boolean).length == 0) {
+                errorObject._error = 'Please select at least one category.'
+            }
+
             if (Object.keys(errorObject).length > 0) {
                 throw new SubmissionError(errorObject);
             }

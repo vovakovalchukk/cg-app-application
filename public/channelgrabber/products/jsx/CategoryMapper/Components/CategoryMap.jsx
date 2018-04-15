@@ -28,7 +28,7 @@ define([
                 mapId: null
             };
         },
-        renderErrorMessage: function(accountId, field) {
+        renderErrorMessageForCategory: function(accountId, field) {
             var valid = field.meta.valid,
                 error = field.meta.error ? JSON.parse(field.meta.error) : false;
 
@@ -38,15 +38,15 @@ define([
 
             var existingMapName = error && error.existingMapNames && accountId in error.existingMapNames ? accountId in error.existingMapNames : false;
             if (existingMapName) {
-                return <span class="input-error">
+                return <span className="input-error">
                     {error.text}
-                        <div><a href="#" onClick={this.props.onViewExistingMapClick.bind(this, error.existingMapNames[accountId], 1)}>Click here</a> to view it.</div>
+                    <div><a href="#" onClick={this.props.onViewExistingMapClick.bind(this, error.existingMapNames[accountId], 1)}>Click here</a> to view it.</div>
                 </span>
             }
 
             var accountIds = error && error.accountIds && accountId in error.accountIds;
             if (accountIds) {
-                return <span class="input-error">{error.text}</span>
+                return <span className="input-error">{error.text}</span>
             }
 
             return null;
@@ -69,7 +69,7 @@ define([
                     onRefreshClick={this.props.onRefreshClick}
                     onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
                 />
-                {this.renderErrorMessage(accountId, field)}
+                {this.renderErrorMessageForCategory(accountId, field)}
             </label>;
         },
         renderCategorySelects: function() {
@@ -101,9 +101,15 @@ define([
                     />
                 </div>
                 {touched && error && (
-                    <span class="input-error">{error}</span>
+                    <span className="input-error">{error}</span>
                 )}
             </label>;
+        },
+        renderFormErrorMessage: function() {
+            if (!this.props.error) {
+                return null;
+            }
+            return <span className="input-error">{this.props.error}</span>;
         },
         render: function() {
             return (
@@ -129,6 +135,7 @@ define([
                             }
                         </div>
                         {this.renderCategorySelects()}
+                        {this.renderFormErrorMessage()}
                     </div>
                 </form>
             );
