@@ -18,12 +18,15 @@ define([
     var RootComponent = React.createClass({
         validateName: function(name) {
             if (!name || name.length < 2) {
-                throw new SubmissionError({name: 'The name is too short.'});
+                return 'The name is too short.';
             }
+
+            return null;
         },
         validateCategories: function(categories, accounts) {
             var accountData,
-                selectedCategories;
+                selectedCategories,
+                invalidAccountIds = {};
 
             categories.forEach(function (leafCategoryId, accountId) {
                 accountData = accounts[accountId];
@@ -37,21 +40,37 @@ define([
                         }
                     });
                     if (!lastSelectedCategory.listable) {
-                        throw new SubmissionError({
-                            categories: {
-                                _error: JSON.stringify({
-                                    text: 'The selected category is not listable. Please select another one.',
-                                    accountId: accountId
-                                })
-                            }
-                        });
+                        invalidAccountIds[accountId] = accountId;
                     }
                 }
             });
+
+            if (Object.keys(invalidAccountIds).length > 0) {
+                return {
+                    text: 'The selected category is not listable. Please select another one.',
+                    accountIds: invalidAccountIds
+                }
+            }
+
+            return null;
         },
         validateForm: function(mapId, values, state) {
-            this.validateName(values.name);
-            this.validateCategories(values.categories, state.accounts);
+            var name = this.validateName(values.name),
+                categories = this.validateCategories(values.categories, state.accounts),
+                errorObject = {};
+
+            if (name) {
+                errorObject.name = name;
+            }
+            if (categories) {
+                errorObject.categories = {
+                    _error: JSON.stringify(categories)
+                }
+            }
+
+            if (Object.keys(errorObject).length > 0) {
+                throw new SubmissionError(errorObject);
+            }
         },
         checkResponseForErrors: function(response) {
             if (response.error) {

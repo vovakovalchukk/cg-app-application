@@ -44,8 +44,8 @@ define([
                 </span>
             }
 
-            var accountIdFromError = error && error.accountId;
-            if (accountIdFromError && accountIdFromError == accountId) {
+            var accountIds = error && error.accountIds && accountId in error.accountIds;
+            if (accountIds) {
                 return <span class="input-error">{error.text}</span>
             }
 
