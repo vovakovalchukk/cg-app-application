@@ -144,6 +144,7 @@ define([
                 if (mapId == 0) {
                     n.success('The new category map <b>' + values.name + '</b> has been saved successfully');
                     dispatch(Actions.addCategoryMap(response.id, response.etag, values));
+                    dispatch(ReduxForm.reset(state.form));
                     return;
                 }
 

@@ -82,6 +82,10 @@ define([
             newState[action.payload.mapId] = Object.assign({}, newState[0], {
                 etag: action.payload.etag
             });
+            newState[0] = {
+                name: '',
+                selectedCategories: {}
+            }
             return newState;
         },
         "UPDATE_CATEGORY_MAP": function (state, action) {
