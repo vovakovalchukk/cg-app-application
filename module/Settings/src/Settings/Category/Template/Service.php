@@ -310,7 +310,8 @@ class Service
         return [
             'value' => $category->getId(),
             'name' => $category->getTitle(),
-            'selected' => $category->getId() == $selectedCategoryId
+            'selected' => $category->getId() == $selectedCategoryId,
+            'listable' => $category->isListable()
         ];
     }
 

@@ -13,7 +13,8 @@ define([
         var newCategories = {};
         categories.map(function (category) {
             newCategories[category.value] = {
-                title: category.name
+                title: category.name,
+                listable: category.listable
             };
         });
         return newCategories;
