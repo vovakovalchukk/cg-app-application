@@ -82,13 +82,17 @@ define([
         },
         deleteCategoryMap: function (dispatch, mapId) {
             $.get(
-                ApiHelper.buildDeleteCategoryMapUrl(mapId),
-                function (response) {
-                    if (response.valid) {
-                        dispatch(ResponseActions.categoryMapDeleted(mapId))
-                    }
+                ApiHelper.buildDeleteCategoryMapUrl(mapId)
+            ).success(function (response) {
+                if (response.valid) {
+                    n.success('The category map was deleted sucessfully.');
+                    dispatch(ResponseActions.categoryMapDeleted(mapId));
+                    return;
                 }
-            )
+                n.error('There was an error while deleting the category map. Please try again or contact support if the problem persists.');
+            }).error(function () {
+                n.error('There was an error while deleting the category map. Please try again or contact support if the problem persists.');
+            });
 
             return {
                 type: 'DELETE_CATEGORY_MAP',
