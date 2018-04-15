@@ -28,6 +28,7 @@ define([
                 '/settings/category/templates/save',
                 {
                     name: values.name,
+                    etag: values.etag,
                     categoryIds: extractCategoryIds(values.categories)
                 }
             ).success(
@@ -45,7 +46,8 @@ define([
             }
         },
         submitCategoryMap: function(values, dispatch, state) {
-            this.validateForm(state.mapId, values);
+            var mapId = state.mapId;
+            this.validateForm(mapId, values);
             /**
              *  @TODO: this will be handled by LIS-121, but I'll leave this debug code in here,
              *  @TODO: so that we know what are the form values when pressing the Save button
@@ -70,7 +72,13 @@ define([
                         });
                     }
                 }
-                dispatch(Actions.addCategoryMap(response.id, response.etag, values));
+
+                if (mapId == 0) {
+                    dispatch(Actions.addCategoryMap(response.id, response.etag, values));
+                    return;
+                }
+
+                dispatch(Actions.updateCategoryMap(mapId, response.etag, values));
             });
         },
         render: function()

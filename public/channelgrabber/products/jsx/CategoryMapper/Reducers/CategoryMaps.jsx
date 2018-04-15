@@ -83,6 +83,13 @@ define([
                 etag: action.payload.etag
             });
             return newState;
+        },
+        "UPDATE_CATEGORY_MAP": function (state, action) {
+            var newState = Object.assign({}, state);
+            newState[action.payload.mapId] = Object.assign({}, newState[action.payload.mapId], {
+                etag: action.payload.etag
+            });
+            return newState;
         }
     });
 });

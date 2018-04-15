@@ -52,6 +52,17 @@ define([], function() {
                     categories: formValues.categories
                 }
             }
+        },
+        updateCategoryMap: function(mapId, etag, formValues) {
+            return {
+                type: 'UPDATE_CATEGORY_MAP',
+                payload: {
+                    mapId: mapId,
+                    etag: etag,
+                    name: formValues.name,
+                    categories: formValues.categories
+                }
+            }
         }
     }
 });

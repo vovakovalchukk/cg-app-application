@@ -29,16 +29,19 @@ define([
                 categoryId ? selectedCategories[accountId] = [categoryId] : null;
             });
 
-            var newMap = {
+            newState[action.payload.mapId] = {
                 name: action.payload.name,
                 etag: action.payload.etag,
                 selectedCategories: selectedCategories
             };
 
-            console.log(state, action, newMap);
-
-            newState[action.payload.mapId] = newMap;
-
+            return newState;
+        },
+        "UPDATE_CATEGORY_MAP": function (state, action) {
+            var newState = Object.assign({}, state);
+            newState[action.payload.mapId] = Object.assign({}, newState[action.payload.mapId], {
+                etag: action.payload.etag
+            });
             return newState;
         }
     });
