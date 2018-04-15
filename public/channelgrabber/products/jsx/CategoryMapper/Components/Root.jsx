@@ -82,7 +82,6 @@ define([
                     throw new SubmissionError({name: response.error.message});
                 }
                 if (response.error.code == 'existing category') {
-                    // This doesn't work as expected as it triggers the whole array of accounts to fail, but it's a start
                     throw new SubmissionError({
                         categories: {
                             _error: JSON.stringify({
@@ -90,6 +89,11 @@ define([
                                 existingMapNames: this.extractExistingCategoryNamesFromErrorResponse(response.error)
                             })
                         }
+                    });
+                }
+                if (response.error.code) {
+                    throw new SubmissionError({
+                        _error: response.error.message
                     });
                 }
                 n.error('There was an error while saving the category map. Please try again or contact support if the problem persists.');
