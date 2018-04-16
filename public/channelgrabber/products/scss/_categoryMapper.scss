@@ -23,10 +23,12 @@
         }
         display: inline-block;
         margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 22px;
     }
     .search-form {
-        width: 500px;
-        margin-left: 233px;
+        width: 300px;
+        margin-left: 20px;
     }
     input[disabled] {
         cursor: not-allowed;
@@ -65,7 +67,7 @@
         display: inline-block;
         float: right;
         clear: none;
-        margin-right: 50px;
+        margin-right: 10px;
         .button {
             display: block;
         }
@@ -78,14 +80,17 @@
     .category-selects-container {
         display: inline-block;
         label {
-            margin: 0 10px 0 0;
+            margin: 0 30px 0 0;
             float: initial;
             clear: none;
             display: inline-block;
             width: auto;
             .inputbox-label {
                 font-size: 1.3em;
-                margin-bottom: 10px;
+                max-width: 260px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;;
             }
         }
     }
@@ -105,7 +110,7 @@
 
     .account-category-container {
         .order-inputbox-holder {
-            width: 290px;
+            width: 260px;
         }
     }
 }
@@ -125,5 +130,5 @@
 }
 
 #breadcrumbs {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }

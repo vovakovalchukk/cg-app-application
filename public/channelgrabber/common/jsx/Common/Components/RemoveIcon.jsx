@@ -20,7 +20,7 @@ define([
             this.props.onClick(e);
         },
         getClassName() {
-            return "fa fa-2x fa-times fa-trash-o" + (this.props.disabled ? ' inactive' : '');
+            return "fa fa-2x fa-minus-square" + (this.props.disabled ? ' inactive' : '');
         },
         render: function() {
             return (
