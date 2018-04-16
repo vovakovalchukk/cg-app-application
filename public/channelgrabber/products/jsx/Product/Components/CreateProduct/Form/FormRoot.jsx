@@ -11,7 +11,6 @@ define([
 ) {
     "use strict";
     const mapStateToProps = function(state){
-        console.log('mapStateToProps: ', state);
         return{
             uploadedImages: state.uploadedImages
         }
@@ -19,7 +18,6 @@ define([
     const mapDispatchToProps = function(dispatch) {
         return Redux.bindActionCreators(formActionCreators, dispatch);
     };
-
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return FormConnector(CreateProductForm);
 })

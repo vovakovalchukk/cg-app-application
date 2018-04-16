@@ -17,7 +17,7 @@ define([
                     ImageUploaderFunctions.uploadImageHandler(image)
                         .then(
                             function(response) {
-                                dispatch(self.imageUploadSuccess(response.url));
+                                dispatch(self.imageUploadSuccess(response));
                             }
                         )
                         .catch(function(response) {
@@ -34,11 +34,12 @@ define([
                     }
                 }
             },
-            imageUploadSuccess: function(uploadedImageUrl) {
+            imageUploadSuccess: function(image) {
                 return {
                     type: 'IMAGE_UPLOAD_SUCCESS',
                     payload: {
-                        uploadedImageUrl: uploadedImageUrl
+                        id:image.id,
+                        uploadedImageUrl: image.url
                     }
                 };
             },

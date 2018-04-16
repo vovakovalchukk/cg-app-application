@@ -24,12 +24,13 @@ define([
             var uploadedImages = this.props.uploadedImages.images;
             return (
                 <div>
-                    <Field type="text" name="title" component={function(props) {
+                    <Field model="main-image" type="text" name="Main Image" component={function(props) {
                         return <ImagePicker
                             images={
                                 uploadedImages
                             }
-                            onImageSelected={props.onChange}
+                            onImageSelected={props.input.onChange}
+                            multiSelect: false
                         />;
                     }}/>
                     <ImageUploader/>

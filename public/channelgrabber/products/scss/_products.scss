@@ -1,5 +1,3 @@
-$medium-margin-distance: 2rem;
-$small-margin-distance: 1rem;
 $screen-padding: 20px;
 #main,
 #main-wrapper {
@@ -708,6 +706,10 @@ div.tether-element div.tooltip-hover {
   position: relative;
 }
 
+$medium-margin-distance: 2rem;
+$small-margin-distance: 1rem;
+$button-height: 22px;
+$vertical-margin: 3px;
 //form
 .form-row {
   position: relative;
@@ -715,23 +717,20 @@ div.tether-element div.tooltip-hover {
   display: block;
   margin-top:1rem;
   overflow:hidden;
-}
-
-.form-row__label-column {
-
+  &:last-of-type{
+    margin-bottom:1rem;
+  },
+  &:__label-column {
+    float:left;
+    min-width:10rem;
+  },
+  &:__input-column {
   float:left;
-  min-width:10rem;
-
-}
-
-.form-row__input-column {
-  float:left;
-
+  }
 }
 
 //buttons
-$button-height: 22px;
-$vertical-margin: 3px;
+
 .navbar-strip {
   &__button {
     display: block;
@@ -791,7 +790,10 @@ $vertical-margin: 3px;
 }
 
 .margin-left--small {
-  margin-left: $small-margin-distance
+  margin-left: $small-margin-distance;
+}
+.margin-bottom--small{
+  margin-bottom:$small-margin-distance;
 }
 
 .bold-item {
