@@ -716,17 +716,17 @@ $vertical-margin: 3px;
   position: relative;
   width: 100%;
   display: block;
-  margin-top:1rem;
-  overflow:hidden;
-  &:last-of-type{
-    margin-bottom:1rem;
-  },
-  &:__label-column {
-    float:left;
-    min-width:10rem;
-  },
-  &:__input-column {
-  float:left;
+  margin-top: 1rem;
+  overflow: hidden;
+  &:last-of-type {
+    margin-bottom: 1rem;
+  }
+  &__label-column {
+    float: left;
+    min-width: 10rem;
+  }
+  &__input-column {
+    float: left;
   }
 }
 
@@ -767,6 +767,7 @@ $vertical-margin: 3px;
     }
   }
 }
+
 .navbar-strip--push-up-fix {
   position: fixed;
   top: 49px;
@@ -779,18 +780,23 @@ $vertical-margin: 3px;
 .tooltip-hover {
   z-index: 99999;
 }
+
 .left {
   float: left;
 }
+
 .no-margin {
   margin: 0px auto;
 }
+
 .margin-left--small {
   margin-left: $small-margin-distance;
 }
-.margin-bottom--small{
-  margin-bottom:$small-margin-distance;
+
+.margin-bottom--small {
+  margin-bottom: $small-margin-distance;
 }
+
 .bold-item {
   font-size: 1.25rem;
   font-weight: 700;
