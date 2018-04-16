@@ -5,7 +5,6 @@ define([
     reducerCreator
 ) {
     "use strict";
-
     var initialState={
         images:[]
     };
@@ -28,9 +27,5 @@ define([
         },
     });
 
-
-
     return imageUploaderReducer;
-
-
 });

@@ -710,6 +710,7 @@ $medium-margin-distance: 2rem;
 $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
+
 //form
 .form-row {
   position: relative;
@@ -730,7 +731,6 @@ $vertical-margin: 3px;
 }
 
 //buttons
-
 .navbar-strip {
   &__button {
     display: block;
@@ -767,7 +767,6 @@ $vertical-margin: 3px;
     }
   }
 }
-
 .navbar-strip--push-up-fix {
   position: fixed;
   top: 49px;
@@ -780,22 +779,18 @@ $vertical-margin: 3px;
 .tooltip-hover {
   z-index: 99999;
 }
-
 .left {
   float: left;
 }
-
 .no-margin {
   margin: 0px auto;
 }
-
 .margin-left--small {
   margin-left: $small-margin-distance;
 }
 .margin-bottom--small{
   margin-bottom:$small-margin-distance;
 }
-
 .bold-item {
   font-size: 1.25rem;
   font-weight: 700;

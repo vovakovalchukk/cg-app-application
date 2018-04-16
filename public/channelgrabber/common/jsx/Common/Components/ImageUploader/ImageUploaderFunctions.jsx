@@ -4,7 +4,7 @@ define([
     React
 ) {
 
-    var imageUploaderFunctions =  (function(){
+    var imageUploaderFunctions = (function() {
         var self = {
             uploadImageHandler: function(image) {
                 return new Promise(function(resolve, reject) {
@@ -22,7 +22,7 @@ define([
                         });
                 });
             },
-            getImageFromOnChangeEvent: function(event){
+            getImageFromOnChangeEvent: function(event) {
                 return event.target.files[0];
             },
             getImageBinaryFromFile: function(file) {
@@ -52,11 +52,8 @@ define([
                 })
             }
         };
-
         return self;
-
     }());
 
     return imageUploaderFunctions;
-
 });

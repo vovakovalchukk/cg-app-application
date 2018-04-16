@@ -8,7 +8,6 @@ define([
 ) {
 
     var imageUploaderActions = (function() {
-
         var self = {
             uploadImageHandler: function(event) {
                 return function(dispatch) {
@@ -23,7 +22,6 @@ define([
                         .catch(function(response) {
                             dispatch(self.imageUploadFailure(response.imageRequestedForUpload));
                         })
-
                 }
             },
             imageUploadRequest: function(image) {
@@ -38,7 +36,7 @@ define([
                 return {
                     type: 'IMAGE_UPLOAD_SUCCESS',
                     payload: {
-                        id:image.id,
+                        id: image.id,
                         uploadedImageUrl: image.url
                     }
                 };
@@ -52,11 +50,8 @@ define([
                 };
             }
         }
-
         return self;
-
     }());
 
     return imageUploaderActions;
-
 });

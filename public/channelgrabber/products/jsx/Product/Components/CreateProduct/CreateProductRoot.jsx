@@ -17,7 +17,6 @@ define([
     
     var Provider = ReactRedux.Provider;
 
-
     var store = Redux.createStore(
         CombinedReducer,
         Redux.applyMiddleware(thunk.default)
