@@ -2,12 +2,13 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Exception as ListingException;
 use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
 use Settings\Category\Template\Exception\NameAlreadyUsedException;
@@ -97,6 +98,10 @@ class CategoryTemplatesJsonController extends AbstractJsonController
             return $this->buildCategoryAlreadyMappedError($e, $postData['categoryIds'], $postData['id'] ?? null);
         } catch (Conflict $e) {
             return $this->buildEtagError();
+        } catch (NotModified $e) {
+            return $this->buildSuccessResponse([
+                'valid' => true
+            ]);
         }
     }
 
