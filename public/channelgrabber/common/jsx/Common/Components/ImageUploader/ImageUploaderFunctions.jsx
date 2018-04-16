@@ -5,7 +5,6 @@ define([
 ) {
 
     var imageUploaderFunctions =  (function(){
-
         var self = {
             uploadImageHandler: function(image) {
                 return new Promise(function(resolve, reject) {

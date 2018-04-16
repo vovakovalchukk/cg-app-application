@@ -2,17 +2,41 @@ define([
     'react',
     'redux-form',
     'Common/Components/ImageUploader/ImageUploaderRoot',
-    'Common/Components/ImagePicker'
+    'Common/Components/ImagePicker',
+    'Common/Components/FormRow'
 ], function(
     React,
     reduxForm,
     ImageUploader,
-    ImagePicker
+    ImagePicker,
+    FormRow
 ) {
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
 
-    console.log('in connected Form');
+    var inputColumnRenderMethods = {
+        newProductName: function() {
+            return (
+                <Field type="text" name="title" component="input"/>
+            )
+        },
+        mainImage: function() {
+            var uploadedImages = this.props.uploadedImages.images;
+            return (
+                <div>
+                    <Field type="text" name="title" component={function(props) {
+                        return <ImagePicker
+                            images={
+                                uploadedImages
+                            }
+                            onImageSelected={props.onChange}
+                        />;
+                    }}/>
+                    <ImageUploader/>
+                </div>
+            );
+        }
+    };
 
     var createFormComponent = React.createClass({
         getDefaultProps: function() {
@@ -22,40 +46,17 @@ define([
                 uploadedImages: {}
             };
         },
-
         render: function() {
-
-            var uploadedImages = this.props.uploadedImages.images;
-
             return (
                 <Form id="create-product-form" onSubmit={this.props.handleSubmit}>
-
-                        <label>
-                            <span className={"inputbox-label"}>New Product Name:</span>
-                            <div className={"order-inputbox-holder"}>
-                                <Field type="text" name="title" component="input"/>
-                            </div>
-                        </label>
-
-
-
-
-                        <div className={"form-row"}>
-                            <label className={"form-row__label-column"}>Main Image:</label>
-                            <div className={"form-row__input-column"}>
-                                <ImagePicker
-                                    images={
-                                        uploadedImages
-                                    }
-                                    onImageSelected={this.props.onChange}
-                                />
-                                <ImageUploader/>
-                            </div>
-                        </div>
-
-
-
-
+                    <FormRow
+                        label={'Main Image'}
+                        inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
+                    />
+                    <FormRow
+                        label={'Main Image'}
+                        inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
+                    />
                 </Form>
             );
         }

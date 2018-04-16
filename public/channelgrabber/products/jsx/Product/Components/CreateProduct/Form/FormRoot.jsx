@@ -11,6 +11,7 @@ define([
 ) {
     "use strict";
     const mapStateToProps = function(state){
+        console.log('mapStateToProps: ', state);
         return{
             uploadedImages: state.uploadedImages
         }
