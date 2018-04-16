@@ -17,11 +17,10 @@ define([
     
     var Provider = ReactRedux.Provider;
 
+
     var store = Redux.createStore(
         CombinedReducer,
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
-            Redux.applyMiddleware(thunk.default)
-        )
+        Redux.applyMiddleware(thunk.default)
     );
     
     var CreateProductRoot = React.createClass({

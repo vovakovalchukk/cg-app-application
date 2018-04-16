@@ -10,13 +10,14 @@ define([
     var imageUploaderActions = (function() {
 
         var self = {
-            uploadImageHandler: function(image) {
+            uploadImageHandler: function(event) {
                 return function(dispatch) {
-                    dispatch(self.imageUploadRequest);
+                    var image = ImageUploaderFunctions.getImageFromOnChangeEvent(event);
+                    dispatch(self.imageUploadRequest(image));
                     ImageUploaderFunctions.uploadImageHandler(image)
                         .then(
                             function(response) {
-                                dispatch(self.imageUploadSuccess(response.imageRequestedForUpload));
+                                dispatch(self.imageUploadSuccess(response.url));
                             }
                         )
                         .catch(function(response) {
@@ -33,11 +34,11 @@ define([
                     }
                 }
             },
-            imageUploadSuccess: function(image) {
+            imageUploadSuccess: function(uploadedImageUrl) {
                 return {
                     type: 'IMAGE_UPLOAD_SUCCESS',
                     payload: {
-                        image: image
+                        uploadedImageUrl: uploadedImageUrl
                     }
                 };
             },

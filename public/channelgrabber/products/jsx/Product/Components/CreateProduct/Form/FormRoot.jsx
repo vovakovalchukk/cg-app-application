@@ -9,10 +9,10 @@ define([
     CreateProductForm,
     formActionCreators
 ) {
-
+    "use strict";
     const mapStateToProps = function(state){
         return{
-            images: state.images
+            uploadedImages: state.uploadedImages
         }
     };
     const mapDispatchToProps = function(dispatch) {

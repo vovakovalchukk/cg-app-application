@@ -6,7 +6,9 @@ define([
 ) {
     "use strict";
 
-    var initialState={};
+    var initialState={
+        images:[]
+    };
 
     var imageUploaderReducer = reducerCreator(initialState, {
         "IMAGE_UPLOAD_START": function(state, action) {
@@ -15,7 +17,9 @@ define([
         },
         "IMAGE_UPLOAD_SUCCESS": function(state, action) {
             console.log('in Image Upload Success IN reducer action: ', action)
-            return state;
+            var newImage = {url: action.payload.uploadedImageUrl};
+            var newImages = [].concat(state.images, newImage);
+            return Object.assign({images:newImages},{})
         },
         "IMAGE_UPLOAD_FAILURE": function(state, action) {
             console.log('in Image Upload Failure IN reducer')
@@ -26,5 +30,6 @@ define([
 
 
     return imageUploaderReducer;
+
 
 });

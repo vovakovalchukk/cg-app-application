@@ -7,26 +7,24 @@ define([
     var imageUploaderFunctions =  (function(){
 
         var self = {
-            uploadImageHandler: function(event) {
+            uploadImageHandler: function(image) {
                 return new Promise(function(resolve, reject) {
-                    var file = event.target.files[0];
-                    if (!file) return;
-                    self.getImageBinaryFromFile(file)
+                    if (!image) return;
+                    self.getImageBinaryFromFile(image)
                         .then(self.uploadFile)
                         .then(function(response) {
-                            resolve({
-                                response: response,
-                                imageRequestedForUpload: file
-                            })
+                            resolve(response)
                         })
                         .catch(function(response) {
-                            console.trace();
                             reject({
                                 response: response,
-                                imageRequestedForUpload: file
+                                imageRequestedForUpload: image
                             })
                         });
                 });
+            },
+            getImageFromOnChangeEvent: function(event){
+                return event.target.files[0];
             },
             getImageBinaryFromFile: function(file) {
                 return new Promise(function(resolve) {

@@ -18,10 +18,15 @@ define([
         getDefaultProps: function() {
             return {
                 handleSubmit: null,
-                addImage:null
+                addImage: null,
+                uploadedImages: {}
             };
         },
+
         render: function() {
+
+            var uploadedImages = this.props.uploadedImages.images;
+
             return (
                 <Form id="create-product-form" onSubmit={this.props.handleSubmit}>
                     <div className={"order-form half"}>
@@ -32,19 +37,29 @@ define([
                             </div>
                         </label>
 
+
+                        <ImagePicker
+                            images={
+                                uploadedImages
+                            }
+                            onImageSelected={this.props.onChange}
+                        />
                         <label>
                             <span className={"inputbox-label"}>Main Image:</span>
                             <div className={"order-inputbox-holder"}>
+
                                 {/*<Field name="productImage" component={function(props){*/}
-                                   {/*return <ImagePicker*/}
-                                       {/*images={}*/}
-                                       {/*onImageSelected={props.onChange}*/}
-                                   {/*/>*/}
-                                {/*}}/>*/}
-                                <button onClick={this.props.addImage}>this button triggers add image</button>
+                                {/*console.log('this.props: ',this.props)*/}
+                                {/*return <ImagePicker*/}
+                                {/*images={this.props.uploadedImages.images}*/}
+                                {/*onImageSelected={props.onChange}*/}
+                                {/*/>*/}
+                                {/*}} />*/}
 
                                 <div className={"order-inputbox-holder"}>
-                                    <ImageUploader />
+
+
+                                    <ImageUploader/>
                                 </div>
 
                             </div>
