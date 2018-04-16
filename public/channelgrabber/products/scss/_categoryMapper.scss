@@ -62,8 +62,9 @@
     label.map-button {
         width: 150px !important;
         display: inline-block;
-        float:none;
-        margin-left: 25px;
+        float: right;
+        clear: none;
+        margin-right: 50px;
         .button {
             display: block;
         }
