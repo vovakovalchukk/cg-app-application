@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cac24dbe70682b367ed62a72e5b06a0",
+    "content-hash": "7ffaaeed4fc705738d64a3dae63b9392",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4067,16 +4067,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-LIS-112-category-mapping",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8e249af0b8d03023d59995cb991572a505fa9fd3"
+                "reference": "99b41eaff6e9d9edad356ce66ae00c4b7aeb6f67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-112-category-mapping-c488c5.zip",
-                "reference": "8e249af0b8d03023d59995cb991572a505fa9fd3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.0-e547a8.zip",
+                "reference": "99b41eaff6e9d9edad356ce66ae00c4b7aeb6f67",
                 "shasum": null
             },
             "require": {
@@ -4127,7 +4127,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-04-16T09:07:46+00:00"
+            "time": "2018-04-16T14:31:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9565,18 +9565,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.22.4",
-            "alias_normalized": "1.22.4.0",
-            "version": "dev-LIS-112-category-mapping",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
