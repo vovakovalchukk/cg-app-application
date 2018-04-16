@@ -143,7 +143,7 @@ define([
             return (
                 <form onSubmit={this.props.handleSubmit}>
                     <div className={"order-form half product-container category-map-container"}>
-                        <div>
+                        <div className={"header-container"}>
                             {this.renderNameField()}
                             {this.renderSaveButton()}
                             {this.renderDeleteButton()}

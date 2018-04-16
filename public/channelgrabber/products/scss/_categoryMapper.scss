@@ -1,6 +1,6 @@
 .category-template-container {
     background-color: $color-bluegrey;
-    min-height: 94vh;
+    min-height: 93vh;
     .button {
         line-height: 1.4em;
         font-size: 1.3em;
@@ -45,15 +45,13 @@
 
 .category-map-container {
     width: auto !important;
-    padding: 5px 5px 5px 25px;
+    padding: 5px 5px 5px 20px;
     display: inline-block;
     margin-bottom: 15px !important;
 
-    label {
-        width: 385px !important;
-        .inputbox-label {
-            font-size: 1.3em;
-            margin-bottom: 10px;
+    .header-container {
+        label {
+            width: auto;
         }
     }
 
@@ -64,7 +62,8 @@
     label.map-button {
         width: 150px !important;
         display: inline-block;
-        float: initial;
+        float:none;
+        margin-left: 25px;
         .button {
             display: block;
         }
@@ -75,9 +74,18 @@
     }
 
     .category-selects-container {
-        display: inline-flex;
-        max-width: 88vw;
-        overflow-x: auto;
+        display: inline-block;
+        label {
+            margin: 0 10px 0 0;
+            float: initial;
+            clear: none;
+            display: inline-block;
+            width: auto;
+            .inputbox-label {
+                font-size: 1.3em;
+                margin-bottom: 10px;
+            }
+        }
     }
 
     .category-select {
@@ -89,35 +97,21 @@
         display: inline-block;
     }
 
-    .account-category-container {
-        min-width: 360px;
-    }
-
     .delete-container > div {
         display: inline-block;
     }
 }
 
 .category-selects-container {
-    overflow-x: auto;
-
-    label {
-        position: static !important;
-    }
-
-    .account-category-container {
-        position: static;
-    }
-
-    form label > span {
-        position: static;
-    }
-
-    .custom-select {
-        position: static;
-    }
-    
     .custom-select.selected {
         position: relative;
     }
+}
+
+#sidebar {
+    height: 100%;
+}
+
+.module {
+    padding: 20px;
 }
