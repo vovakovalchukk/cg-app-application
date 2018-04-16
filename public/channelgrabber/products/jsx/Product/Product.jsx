@@ -2,12 +2,12 @@ define([
     'react',
     'react-dom',
     'Product/Components/Root'
-], function(
+], function (
     React,
     ReactDOM,
     RootComponent
 ) {
-    var Product = function(
+    var Product = function (
         mountingNode,
         utils,
         searchAvailable,
@@ -29,6 +29,6 @@ define([
             mountingNode
         );
     };
-
+    
     return Product;
 });

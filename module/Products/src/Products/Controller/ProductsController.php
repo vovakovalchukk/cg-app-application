@@ -97,6 +97,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'createListings' => $this->featureFlagService->featureEnabledForOu(
                 ListingClientService::FEATURE_FLAG_CREATE_LISTINGS,
                 $rootOuId
+            ),
+            'createProducts' => $this->featureFlagService->featureEnabledForOu(
+                ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
+                $rootOuId
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
