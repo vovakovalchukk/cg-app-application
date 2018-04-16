@@ -29,7 +29,7 @@ define([
 
             return (
                 <Form id="create-product-form" onSubmit={this.props.handleSubmit}>
-                    <div className={"order-form half"}>
+
                         <label>
                             <span className={"inputbox-label"}>New Product Name:</span>
                             <div className={"order-inputbox-holder"}>
@@ -38,34 +38,24 @@ define([
                         </label>
 
 
-                        <ImagePicker
-                            images={
-                                uploadedImages
-                            }
-                            onImageSelected={this.props.onChange}
-                        />
-                        <label>
-                            <span className={"inputbox-label"}>Main Image:</span>
-                            <div className={"order-inputbox-holder"}>
-
-                                {/*<Field name="productImage" component={function(props){*/}
-                                {/*console.log('this.props: ',this.props)*/}
-                                {/*return <ImagePicker*/}
-                                {/*images={this.props.uploadedImages.images}*/}
-                                {/*onImageSelected={props.onChange}*/}
-                                {/*/>*/}
-                                {/*}} />*/}
-
-                                <div className={"order-inputbox-holder"}>
 
 
-                                    <ImageUploader/>
-                                </div>
-
+                        <div className={"form-row"}>
+                            <label className={"form-row__label-column"}>Main Image:</label>
+                            <div className={"form-row__input-column"}>
+                                <ImagePicker
+                                    images={
+                                        uploadedImages
+                                    }
+                                    onImageSelected={this.props.onChange}
+                                />
+                                <ImageUploader/>
                             </div>
-                        </label>
+                        </div>
 
-                    </div>
+
+
+
                 </Form>
             );
         }
