@@ -46,7 +46,11 @@ define([
                 var bas64EncodedData = btoa(file.binaryDataString);
                 return $.ajax({
                     url: '/products/create/imageUpload',
-                    data: bas64EncodedData,
+                    data: {
+                        filename: file.filename,
+                        image: bas64EncodedData
+                    },
+                    filename: file.filename,
                     type: 'POST',
                     context: this
                 })

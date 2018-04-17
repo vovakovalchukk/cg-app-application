@@ -25,13 +25,15 @@ define([
             return (
                 <div>
                     <Field model="main-image" type="text" name="Main Image" component={function(props) {
-                        return <ImagePicker
-                            images={
-                                uploadedImages
-                            }
-                            onImageSelected={props.input.onChange}
-                            multiSelect: false
-                        />;
+                        return (
+                            <ImagePicker
+                                images={
+                                    uploadedImages
+                                }
+                                onImageSelected={props.input.onChange}
+                                multiSelect={false}
+                            />
+                        );
                     }}/>
                     <ImageUploader/>
                 </div>
@@ -51,7 +53,7 @@ define([
             return (
                 <Form id="create-product-form" onSubmit={this.props.handleSubmit}>
                     <FormRow
-                        label={'Main Image'}
+                        label={'New Product Name'}
                         inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
                     />
                     <FormRow

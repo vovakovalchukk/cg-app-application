@@ -19,10 +19,10 @@ define([
                 url: action.payload.uploadedImageUrl
             };
             var newImages = [].concat(state.images, newImage);
-            return Object.assign({images:newImages},{})
+            var newState = Object.assign({images:newImages},{})
+            return newState;
         },
         "IMAGE_UPLOAD_FAILURE": function(state, action) {
-            console.log('in Image Upload Failure IN reducer')
             return state;
         },
     });
