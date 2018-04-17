@@ -14,7 +14,8 @@ define([
         isAdmin,
         getParamSearchTerm,
         features,
-        adminCompanyUrl
+        adminCompanyUrl,
+        taxRates
     ) {
         ReactDOM.render(
             <RootComponent
@@ -25,6 +26,7 @@ define([
                 isAdmin={isAdmin}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
+                taxRates={taxRates}
             />,
             mountingNode
         );

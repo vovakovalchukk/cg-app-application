@@ -3,13 +3,15 @@ define([
     'redux-form',
     'Common/Components/ImageUploader/ImageUploaderRoot',
     'Common/Components/ImagePicker',
-    'Common/Components/FormRow'
+    'Common/Components/FormRow',
+    'Product/Components/VatView'
 ], function(
     React,
     reduxForm,
     ImageUploader,
     ImagePicker,
-    FormRow
+    FormRow,
+    VatView
 ) {
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
@@ -60,6 +62,19 @@ define([
                         label={'Main Image'}
                         inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
                     />
+
+                    above VAT VIEW
+                    {/*<label>Vat </label>*/}
+                    {/*<Field component={function(props) {*/}
+                        {/*return <VatView*/}
+                            {/*parentProduct={{}}*/}
+                            {/*fullView={true}*/}
+                            {/*onVatChanged={props.onChange}*/}
+                            {/*variationCount={0}*/}
+                            {/*//                        adminCompanyUrl={this.props.adminCompanyUrl}*/}
+                        {/*/>*/}
+                    {/*}}*/}
+                    {/*/>*/}
                 </Form>
             );
         }

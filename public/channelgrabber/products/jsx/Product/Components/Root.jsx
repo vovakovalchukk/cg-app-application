@@ -40,7 +40,8 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
-                features: {}
+                features: {},
+                taxRates: {}
             }
         },
         getInitialState: function() {
@@ -418,6 +419,7 @@ define([
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
+                taxRates={this.props.taxRates}
             />
         },
         renderProductListView: function() {
