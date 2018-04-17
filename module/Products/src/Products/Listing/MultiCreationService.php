@@ -5,6 +5,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
+use CG\Channel\Gearman\Generator\Listing\CreateListing as CreateListingJobGenerator;
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\AccountDetail\Entity as ProductAccountDetail;
@@ -91,6 +92,8 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productCategoryDetailMapper;
     /** @var ProductCategoryDetailService */
     protected $productCategoryDetailService;
+    /** @var CreateListingJobGenerator */
+    protected $createListingJobGenerator;
 
     public function __construct(
         AccountService $accountService,
@@ -104,7 +107,8 @@ class MultiCreationService implements LoggerAwareInterface
         ProductAccountDetailMapper $productAccountDetailMapper,
         ProductAccountDetailService $productAccountDetailService,
         ProductCategoryDetailMapper $productCategoryDetailMapper,
-        ProductCategoryDetailService $productCategoryDetailService
+        ProductCategoryDetailService $productCategoryDetailService,
+        CreateListingJobGenerator $createListingJobGenerator
     ) {
         $this->accountService = $accountService;
         $this->categoryTemplateService = $categoryTemplateService;
@@ -118,6 +122,7 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productAccountDetailService = $productAccountDetailService;
         $this->productCategoryDetailMapper = $productCategoryDetailMapper;
         $this->productCategoryDetailService = $productCategoryDetailService;
+        $this->createListingJobGenerator = $createListingJobGenerator;
     }
 
     public function createListings(
@@ -538,7 +543,13 @@ class MultiCreationService implements LoggerAwareInterface
          * @var Category $category
          */
         foreach ($this->getAccountCategoryIterator($accounts, $categories) as [$account, $category]) {
-            // TODO: Generate Job!
+            $this->createListingJobGenerator->generateJob(
+                $account,
+                $category,
+                $product,
+                $siteId,
+                $guid
+            );
         }
     }
 
@@ -548,6 +559,7 @@ class MultiCreationService implements LoggerAwareInterface
     protected function generateCreateVariationListingJobs(
         Accounts $accounts,
         Categories $categories,
+        Product $product,
         string $siteId,
         array $variations,
         string $guid
@@ -557,9 +569,27 @@ class MultiCreationService implements LoggerAwareInterface
          * @var Category $category
          */
         foreach ($this->getAccountCategoryIterator($accounts, $categories) as [$account, $category]) {
-            foreach ($variations as $product) {
-                // TODO: Generate Job!
-            }
+            $this->createListingJobGenerator->generateJob(
+                $account,
+                $category,
+                $product,
+                $siteId,
+                $guid,
+                $this->extractVariationProductIds($variations)
+            );
         }
+    }
+
+    /**
+     * @param Product[] $variations
+     * @return array
+     */
+    protected function extractVariationProductIds(array $variations)
+    {
+        $ids = [];
+        foreach ($variations as $variation) {
+            $ids[$variation->getId()] = $variation->getId();
+        }
+        return $ids;
     }
 }
