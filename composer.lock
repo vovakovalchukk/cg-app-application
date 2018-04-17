@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa5e13e9f1b27a5ba05468a9d21bdf2f",
+    "content-hash": "f1f4928fc4b261d0ba9b7a9e3c8bdfc4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-151-MultiListingProductData",
+            "version": "1.34.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8650e2c5d67e6bb383c0eeb068135e592aa5f41a"
+                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-151-MultiListingProductData-eab306.zip",
-                "reference": "8650e2c5d67e6bb383c0eeb068135e592aa5f41a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.9-ee9bf4.zip",
+                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-17T13:32:00+00:00"
+            "time": "2018-04-17T15:09:14+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9565,17 +9565,9 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.34.9",
-            "alias_normalized": "1.34.9.0",
-            "version": "dev-LIS-151-MultiListingProductData",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
