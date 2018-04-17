@@ -106,6 +106,20 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
 
+        // Dummy Data
+        $view->setVariable('ebaySiteOptions', [
+            '<string1>' => '<string1>',
+            '<stringN>' => '<stringN>',
+        ]);
+        $view->setVariable('conditionOptions', [
+            '<value1>' => '<title1>',
+            '<valueN>' => '<titleN>',
+        ]);
+        $view->setVariable('categoryTemplateOptions', [
+            '<ID1>' => '<name1>',
+            '<ID2>' => '<name2>',
+        ]);
+
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;

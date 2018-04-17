@@ -22,7 +22,8 @@ use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
 use CG_UI\View\DataTable;
-use Products\Controller\CreateListings\JsonController;
+use Products\Controller\CreateListings\JsonController as CreateListingsJsonController;
+use Products\Controller\CreateMultipleListings\JsonController as CreateMultipleListingsJsonController;
 use Products\Controller\LinksJsonController;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
@@ -450,7 +451,7 @@ return [
                             ],
                         ],
                     ],
-                    JsonController::ROUTE_CREATE_LISTINGS => [
+                    CreateListingsJsonController::ROUTE_CREATE_LISTINGS => [
                         'type' => Segment::class,
                         'options' => [
                             'route' => '/create-listings/:accountId',
@@ -459,42 +460,42 @@ return [
                             'accountId' => '[0-9]+'
                         ],
                         'child_routes' => [
-                            JsonController::ROUTE_DEFAULT_SETTINGS => [
+                            CreateListingsJsonController::ROUTE_DEFAULT_SETTINGS => [
                                 'type' => Literal::class,
                                 'options' => [
                                     'route' => '/default-settings',
                                     'defaults' => [
-                                        'controller' => JsonController::class,
+                                        'controller' => CreateListingsJsonController::class,
                                         'action' => 'defaultSettingsAjax'
                                     ]
                                 ]
                             ],
-                            JsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
+                            CreateListingsJsonController::ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES => [
                                 'type' => Literal::class,
                                 'options' => [
                                     'route' => '/channel-specific-field-values',
                                     'defaults' => [
-                                        'controller' => JsonController::class,
+                                        'controller' => CreateListingsJsonController::class,
                                         'action' => 'channelSpecificFieldValues'
                                     ]
                                 ]
                             ],
-                            JsonController::ROUTE_REFRESH_CATEGORIES => [
+                            CreateListingsJsonController::ROUTE_REFRESH_CATEGORIES => [
                                 'type' => Literal::class,
                                 'options' => [
                                     'route' => '/refresh-categories',
                                     'defaults' => [
-                                        'controller' => JsonController::class,
+                                        'controller' => CreateListingsJsonController::class,
                                         'action' => 'refreshCategories'
                                     ],
                                 ],
                             ],
-                            JsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
+                            CreateListingsJsonController::ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES => [
                                 'type' => Segment::class,
                                 'options' => [
                                     'route' => '/category-dependent-field-values/:categoryId',
                                     'defaults' => [
-                                        'controller' => JsonController::class,
+                                        'controller' => CreateListingsJsonController::class,
                                         'action' => 'categoryDependentFieldValues'
                                     ],
                                 ],
@@ -502,12 +503,12 @@ return [
                                     'categoryId' => '[0-9]+'
                                 ]
                             ],
-                            JsonController::ROUTE_CATEGORY_CHILDREN => [
+                            CreateListingsJsonController::ROUTE_CATEGORY_CHILDREN => [
                                 'type' => Segment::class,
                                 'options' => [
                                     'route' => '/category-children/:categoryId',
                                     'defaults' => [
-                                        'controller' => JsonController::class,
+                                        'controller' => CreateListingsJsonController::class,
                                         'action' => 'categoryChildren'
                                     ],
                                 ],
@@ -516,6 +517,38 @@ return [
                                 ]
                             ]
                         ]
+                    ],
+                    CreateListingsJsonController::ROUTE_CATEGORY_TEMPLATE_DEPENDENT_FIELD_VALUES => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/create-listings/category-template-dependent-field-values',
+                            'defaults' => [
+                                'controller' => CreateListingsJsonController::class,
+                                'action' => 'categoryTemplateDependentFieldValues',
+                            ],
+                        ],
+                    ],
+                    CreateMultipleListingsJsonController::ROUTE_SUBMIT_MULTIPLE_LISTINGS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing/submitMultiple',
+                            'defaults' => [
+                                'controller' => CreateMultipleListingsJsonController::class,
+                                'action' => 'submitMultiple',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            CreateMultipleListingsJsonController::ROUTE_SUBMIT_MULTIPLE_LISTINGS_PROGRESS => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/progress/:key',
+                                    'defaults' => [
+                                        'action' => 'submitMultipleProgress'
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                     ProductsJsonController::ROUTE_IMAGE_UPLOAD => [
                         'type' => Literal::class,
