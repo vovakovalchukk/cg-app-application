@@ -296,7 +296,7 @@ class MultiCreationService implements LoggerAwareInterface
         $products = $product->isParent() ? $product->getVariations() : [$product];
         foreach ($products as $product) {
             if (isset($productDetails[$product->getSku()])) {
-                $this->productDetailImporter->import($product, $productDetails);
+                $this->productDetailImporter->import($product, $productDetails, $forceNewValues = true);
             }
         }
     }
