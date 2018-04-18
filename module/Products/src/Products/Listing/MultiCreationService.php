@@ -213,6 +213,7 @@ class MultiCreationService implements LoggerAwareInterface
             $this->addGlobalLogEventParam('sku', implode(', ', $skus));
 
             $this->saveProductDetails($product, $productData, $variationsData);
+            die;
             $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData);
             $this->saveProductAccountDetails($accounts, $product, $variationsData);
             $this->saveProductCategoryDetails($categories, $product, $productData);
@@ -227,7 +228,7 @@ class MultiCreationService implements LoggerAwareInterface
                         return in_array($product->getSku(), $skus);
                     });
                 }
-                $this->generateCreateVariationListingJobs($accounts, $categories, $siteId, $variations, $guid);
+                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid);
             }
 
             return true;
