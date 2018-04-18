@@ -409,21 +409,6 @@ class MultiCreationService implements LoggerAwareInterface
                 }
             }
         }
-
-        foreach (($productData['productChannelDetail'] ?? []) as $productChannelData) {
-            $channel = $productChannelData['channel'] ?? null;
-            if (!$channel) {
-                continue;
-            }
-            $this->saveProductChannelDetail(
-                $this->mapProductChannelDetails(
-                    $product->getId(),
-                    $channel,
-                    $product->getOrganisationUnitId(),
-                    $productChannelData
-                )
-            );
-        }
     }
 
     protected function saveProductAccountDetail(ProductAccountDetail $productAccountDetail)
