@@ -26,7 +26,7 @@ define([
             var uploadedImages = this.props.uploadedImages.images;
             return (
                 <div>
-                    <Field model="main-image" type="text"  name="Main Image" component={function(props) {
+                    <Field name="mainImage" type="text"  component={function(props) {
                         return (
                             <ImagePicker
                                 images={
@@ -42,14 +42,13 @@ define([
             );
         },
         taxRates: function() {
-            return (<Field component={function(props) {
-                    console.log('in field component with props: ', props);
+            return (<Field name="taxRates" component={function(props) {
                     return <VatView
                         parentProduct={{
                             taxRates: this.props.taxRates
                         }}
                         fullView={true}
-                        onVatChanged={props.onChange}
+                        onVatChanged={props.input.onChange}
                         variationCount={0}
                     />
                 }.bind(this)}/>
