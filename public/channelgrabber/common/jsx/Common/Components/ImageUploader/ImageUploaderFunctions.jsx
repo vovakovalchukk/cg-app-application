@@ -8,7 +8,9 @@ define([
         var self = {
             uploadImageHandler: function(image) {
                 return new Promise(function(resolve, reject) {
-                    if (!image) return;
+                    if (!image) {
+                        return;
+                    }
                     self.getImageBinaryFromFile(image)
                         .then(self.uploadFile)
                         .then(function(response) {
@@ -50,7 +52,6 @@ define([
                         filename: file.filename,
                         image: bas64EncodedData
                     },
-                    filename: file.filename,
                     type: 'POST',
                     context: this
                 })
