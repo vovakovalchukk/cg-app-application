@@ -19,14 +19,14 @@ define([
     var inputColumnRenderMethods = {
         newProductName: function() {
             return (
-                <Field type="text" name="title" component="input"/>
+                <Field type="text" name="title" className={'form-row__input'} component="input"/>
             )
         },
         mainImage: function() {
             var uploadedImages = this.props.uploadedImages.images;
             return (
                 <div>
-                    <Field model="main-image" type="text" name="Main Image" component={function(props) {
+                    <Field model="main-image" type="text"  name="Main Image" component={function(props) {
                         return (
                             <ImagePicker
                                 images={
@@ -37,8 +37,22 @@ define([
                             />
                         );
                     }}/>
-                    <ImageUploader/>
+                    <ImageUploader className={'form-row__input'}/>
                 </div>
+            );
+        },
+        taxRates: function() {
+            return (<Field component={function(props) {
+                    console.log('in field component with props: ', props);
+                    return <VatView
+                        parentProduct={{
+                            taxRates: this.props.taxRates
+                        }}
+                        fullView={true}
+                        onVatChanged={props.onChange}
+                        variationCount={0}
+                    />
+                }.bind(this)}/>
             );
         }
     };
@@ -49,7 +63,7 @@ define([
                 handleSubmit: null,
                 addImage: null,
                 uploadedImages: {},
-                taxRates:null
+                taxRates: null
             };
         },
         render: function() {
@@ -63,16 +77,10 @@ define([
                         label={'Main Image'}
                         inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
                     />
-                    <Field component={function(props) {
-                        return <VatView
-                            parentProduct={{
-                                taxRates:props.taxRates
-                            }}
-                            fullView={true}
-                            onVatChanged={props.onChange}
-                            variationCount={0}
-                        />
-                    }}/>
+                    <FormRow
+                        label={'Tax Rates'}
+                        inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
+                    />
                 </Form>
             );
         }

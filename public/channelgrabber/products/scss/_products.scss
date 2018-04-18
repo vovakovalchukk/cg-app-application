@@ -713,20 +713,33 @@ $vertical-margin: 3px;
 
 //form
 .form-row {
+  $parent: &;
   position: relative;
   width: 100%;
   display: block;
   margin-top: 1rem;
   overflow: hidden;
+  &__input{
+    float:left;
+  }
   &:last-of-type {
     margin-bottom: 1rem;
   }
   &__label-column {
     float: left;
-    min-width: 10rem;
   }
   &__input-column {
     float: left;
+  }
+  &--medium {
+    #{$parent}__label-column {
+      min-width:10rem;
+      max-width:15rem;
+    }
+    #{$parent}__input-column {
+      min-width:30rem;
+      max-width:45rem;
+    }
   }
 }
 

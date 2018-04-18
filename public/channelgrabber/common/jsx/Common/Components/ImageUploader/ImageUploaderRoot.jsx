@@ -10,9 +10,10 @@ define([
     ImageUploaderActions
 ) {
     "use strict";
-    const mapStateToProps = function(state){
+    const mapStateToProps = function(state,ownProps){
         return{
-            uploadedImages: state.images
+            uploadedImages: state.images,
+            className:ownProps.className
         }
     };
     const mapDispatchToProps = function(dispatch, ownProps) {

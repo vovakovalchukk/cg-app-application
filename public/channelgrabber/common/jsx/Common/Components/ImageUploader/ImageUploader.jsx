@@ -8,7 +8,8 @@ define([
     var ImageUploaderComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                uploadImageHandler:null
+                uploadImageHandler:null,
+                className:''
             };
         },
         onUploadButtonClick: function(e) {
@@ -19,7 +20,7 @@ define([
             return (
                 <div>
 
-                    <input type="file" onChange={this.props.uploadImageHandler} onClick={this.onUploadButtonClick} name="fileupload"
+                    <input type="file" onChange={this.props.uploadImageHandler} onClick={this.onUploadButtonClick} name="fileupload" className={this.props.className}
                            id="fileupload"/>
 
                 </div>
