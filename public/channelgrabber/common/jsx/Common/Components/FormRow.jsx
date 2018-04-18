@@ -8,7 +8,8 @@ define([
         getDefaultProps: function() {
             return {
                 label: '',
-                inputColumnContent: ''
+                inputColumnContent: '',
+                size:'medium'
             };
         },
         getInitialState: function() {
@@ -18,7 +19,7 @@ define([
         },
         render: function() {
             return (
-                <div className={"form-row"}>
+                <div className={"form-row form-row--"+this.props.size}>
                     <label className={"form-row__label-column"}>{this.props.label}</label>
                     <div className={"form-row__input-column"}>
                         {this.props.inputColumnContent}
