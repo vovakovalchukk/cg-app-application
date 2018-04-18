@@ -48,7 +48,8 @@ define([
             return {
                 handleSubmit: null,
                 addImage: null,
-                uploadedImages: {}
+                uploadedImages: {},
+                taxRates:null
             };
         },
         render: function() {
@@ -62,19 +63,16 @@ define([
                         label={'Main Image'}
                         inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
                     />
-
-                    above VAT VIEW
-                    {/*<label>Vat </label>*/}
-                    {/*<Field component={function(props) {*/}
-                        {/*return <VatView*/}
-                            {/*parentProduct={{}}*/}
-                            {/*fullView={true}*/}
-                            {/*onVatChanged={props.onChange}*/}
-                            {/*variationCount={0}*/}
-                            {/*//                        adminCompanyUrl={this.props.adminCompanyUrl}*/}
-                        {/*/>*/}
-                    {/*}}*/}
-                    {/*/>*/}
+                    <Field component={function(props) {
+                        return <VatView
+                            parentProduct={{
+                                taxRates:props.taxRates
+                            }}
+                            fullView={true}
+                            onVatChanged={props.onChange}
+                            variationCount={0}
+                        />
+                    }}/>
                 </Form>
             );
         }

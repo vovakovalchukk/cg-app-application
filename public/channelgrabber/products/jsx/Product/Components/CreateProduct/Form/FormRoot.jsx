@@ -12,7 +12,8 @@ define([
     "use strict";
     const mapStateToProps = function(state){
         return{
-            uploadedImages: state.uploadedImages
+            uploadedImages: state.uploadedImages,
+            taxRates:state.account.taxRates
         }
     };
     const mapDispatchToProps = function(dispatch) {

@@ -30,7 +30,7 @@ define([
         getDefaultProps: function() {
             return {
                 onCreateProductClose: null,
-                taxRates: null
+
             };
         },
         componentWillReceiveProps: function(newProps) {
@@ -47,7 +47,6 @@ define([
                 <Provider store={store}>
                     <CreateProduct
                         onCreateProductClose={this.props.onCreateProductClose}
-                        taxRates={this.props.taxRates}
                     />
                 </Provider>
             );

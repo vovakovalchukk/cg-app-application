@@ -15,7 +15,6 @@ define([
         getDefaultProps: function () {
             return {
                 onCreateProductClose: null,
-                taxRates:null
             };
         },
         handleContainerSubmit: function () {
@@ -39,7 +38,6 @@ define([
                     <CreateProductForm
                         onSubmit={this.handleSubmit}
                         ref="productForm"
-                        taxRates={this.props.taxRates}
                     />
 
                 </Container>
