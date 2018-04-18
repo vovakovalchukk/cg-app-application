@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d015b1977a56b02ad95e1d2a5a1b8b60",
+    "content-hash": "1583aade9ef62b4d2bbfce2050398938",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -850,12 +850,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "c6d716522c1a968bba72fcfbd91c1fcf47e7343b"
+                "reference": "734e557845bbf33cc8773c47a053321fd71451e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-128-ProductDetailsEndpoints-b71107.zip",
-                "reference": "c6d716522c1a968bba72fcfbd91c1fcf47e7343b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-LIS-128-ProductDetailsEndpoints-d491bc.zip",
+                "reference": "734e557845bbf33cc8773c47a053321fd71451e0",
                 "shasum": null
             },
             "require": {
@@ -871,7 +871,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
-                "channelgrabber/product": "dev-LIS-128-ProductDetailsEndpoints as 1.12.1",
+                "channelgrabber/product": "^1.12.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -906,7 +906,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-04-12T09:31:26+00:00"
+            "time": "2018-04-17T10:17:53+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2074,16 +2074,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-LIS-128-ProductDetailsEndpoints",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "319dc7fd289d64696d37ddc7dc183c12fff9b8c2"
+                "reference": "632786c2772abcfc6e0715d57025d7befe67ec66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-128-ProductDetailsEndpoints-f0f56e.zip",
-                "reference": "319dc7fd289d64696d37ddc7dc183c12fff9b8c2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.12.2-225a09.zip",
+                "reference": "632786c2772abcfc6e0715d57025d7befe67ec66",
                 "shasum": null
             },
             "require": {
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-12T08:25:08+00:00"
+            "time": "2018-04-17T09:16:11+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -4067,16 +4067,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.22.7",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e4363f0372b9286837f27ec6a85283d06c9bc3fd"
+                "reference": "99b41eaff6e9d9edad356ce66ae00c4b7aeb6f67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.22.7-9bbcc8.zip",
-                "reference": "e4363f0372b9286837f27ec6a85283d06c9bc3fd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.0-e547a8.zip",
+                "reference": "99b41eaff6e9d9edad356ce66ae00c4b7aeb6f67",
                 "shasum": null
             },
             "require": {
@@ -4127,7 +4127,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-04-04T12:59:09+00:00"
+            "time": "2018-04-16T14:31:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9577,12 +9577,6 @@
             "alias_normalized": "1.12.6.0",
             "version": "dev-LIS-128-ProductDetailsEndpoints",
             "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.12.1",
-            "alias_normalized": "1.12.1.0",
-            "version": "dev-LIS-128-ProductDetailsEndpoints",
-            "package": "channelgrabber/product"
         }
     ],
     "minimum-stability": "stable",
@@ -9590,7 +9584,6 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
-        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
