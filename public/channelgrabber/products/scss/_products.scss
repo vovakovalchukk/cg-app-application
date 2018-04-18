@@ -711,7 +711,6 @@ $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
 
-//form
 .form-row {
     position: relative;
     width: 100%;
@@ -730,7 +729,6 @@ $vertical-margin: 3px;
     }
 }
 
-//buttons
 .navbar-strip {
     &__button {
         display: block;
@@ -776,7 +774,6 @@ $vertical-margin: 3px;
     padding: 11px 0 9px 10px;
 }
 
-//helpers
 .tooltip-hover {
     z-index: 99999;
 }

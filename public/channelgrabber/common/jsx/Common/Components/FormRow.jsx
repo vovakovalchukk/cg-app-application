@@ -11,11 +11,6 @@ define([
                 inputColumnContent: ''
             };
         },
-        getInitialState: function() {
-            return {
-                selectedImages: []
-            };
-        },
         render: function() {
             return (
                 <div className={"form-row"}>
