@@ -14,7 +14,8 @@ define([
     var CreateProduct = React.createClass({
         getDefaultProps: function () {
             return {
-                onCreateProductClose: null
+                onCreateProductClose: null,
+                taxRates:null
             };
         },
         handleContainerSubmit: function () {
@@ -36,7 +37,9 @@ define([
                     noButtonText="Cancel"
                 >
                     <CreateProductForm
-                        onSubmit={this.handleSubmit} ref="productForm"
+                        onSubmit={this.handleSubmit}
+                        ref="productForm"
+                        taxRates={this.props.taxRates}
                     />
 
                 </Container>
