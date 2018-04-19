@@ -13,8 +13,14 @@ define([
     FormRow,
     VatView
 ) {
+
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
+
+    var variations = [
+        {sku: 'some name here'},
+        {sku: 'some new name here'}
+    ];
 
     var inputColumnRenderMethods = {
         newProductName: function() {
@@ -54,6 +60,7 @@ define([
                 }.bind(this)}/>
             );
         }
+
     };
 
     var createFormComponent = React.createClass({
@@ -65,10 +72,46 @@ define([
                 taxRates: null
             };
         },
+        getVariations: function() {
+            return [
+                {
+                    image: 'image',
+                    sku: 'unique-t-shirt',
+                    quantity: 2,
+                    stockMode: 'sdfsdfsdfsd',
+                    attribute1: 'attribute1',
+                    attribute2: 'attribute2'
+                },
+                {
+                    sku: 'some new name here'
+
+                }
+            ];
+        },
+        renderVariations: function(variations) {
+            return (
+                <table>
+                    {variations.map(this.renderVariation, this)}
+                </table>
+            );
+        },
+        renderVariation: function(variation) {
+            return (
+                <tr>
+                    <td>{variation.image}</td>
+                    <td>{variation.sku}</td>
+                    <td>{variation.quantity}</td>
+                    <td>{variation.stockMode}</td>
+                    <td>{variation.attribute1}</td>
+                    <td>{variation.attribute2}</td>
+                </tr>
+            );
+
+        },
         render: function() {
             return (
-                <Form id="create-product-form" className={"form-root"} onSubmit={this.props.handleSubmit}>
-                    <fieldset className={'form-root__fieldset'}>
+                <Form id="create-product-form" className={"form-root margin-bottom--small"} onSubmit={this.props.handleSubmit}>
+                    <fieldset className={'form-root__fieldset margin-bottom--small'}>
                         <FormRow
                             label={'New Product Name'}
                             inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
@@ -78,13 +121,19 @@ define([
                             inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
                         />
                     </fieldset>
-                    <fieldset className={'form-root__fieldset'}>
+                    <fieldset className={'form-root__fieldset margin-bottom--small'}>
                         <FormRow
                             label={'Tax Rates'}
                             inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
                         />
                     </fieldset>
+                    <fieldset>
+                        <legend className={'form-root__legend'}>Variations</legend>
 
+                        {this.renderVariations(this.getVariations())}
+
+                        <button type="button" onClick={this.props.variationNew}> add variation</button>
+                    </fieldset>
                 </Form>
             );
         }
@@ -93,4 +142,6 @@ define([
     return reduxForm.reduxForm({
         form: 'createProductForm'
     })(createFormComponent);
-});
+
+})
+;

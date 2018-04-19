@@ -26,7 +26,13 @@ define([], function() {
                     image: image
                 }
             };
-        }
+        },
+        variationNew: function(image) {
+            return {
+                type: 'VARIATION_NEW',
+
+            };
+        },
     };
 
     return formActionCreators;

@@ -718,9 +718,8 @@ $vertical-margin: 3px;
         font-size: 1.2em;
     }
     &__fieldset {
-        margin-top: $small-margin-distance;
-        &:last-of-type {
-            margin-bottom: $small-margin-distance;
+        &--seperated {
+            margin-top: $small-margin-distance;
         }
     }
 }
@@ -734,9 +733,6 @@ $vertical-margin: 3px;
     overflow: hidden;
     &__input {
         float: left;
-    }
-    &:last-of-type {
-        margin-bottom: $small-margin-distance;
     }
     &__label-column {
         float: left;
