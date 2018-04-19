@@ -2,9 +2,9 @@
 namespace Products\Controller\CreateMultipleListings;
 
 use Application\Controller\AbstractJsonController;
+use CG\Channel\Listing\CreationService\StatusService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\MultiCreationService;
-use CG\Channel\Listing\CreationService\StatusService;
 
 class JsonController extends AbstractJsonController
 {
