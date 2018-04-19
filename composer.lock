@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "087b7f4f4cb2d49b9c43aeeecc957267",
+    "content-hash": "8c8e16b93ce96f037955ad4c77d63acc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-154-SubmitMultipleListings",
+            "version": "dev-LIS-164-submit-multiple-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c72253744485db8a23307f5b738569ba41a00765"
+                "reference": "4d07245c263a94d28431e9e6c953b7368737769a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-154-SubmitMultipleListings-3ba251.zip",
-                "reference": "c72253744485db8a23307f5b738569ba41a00765",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-164-submit-multiple-listings-90655f.zip",
+                "reference": "4d07245c263a94d28431e9e6c953b7368737769a",
                 "shasum": null
             },
             "require": {
@@ -542,7 +542,7 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.9.3",
+                "channelgrabber/product": "^1.12.2",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-18T09:55:50+00:00"
+            "time": "2018-04-19T10:34:56+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9569,7 +9569,7 @@
         {
             "alias": "1.34.8",
             "alias_normalized": "1.34.8.0",
-            "version": "dev-LIS-154-SubmitMultipleListings",
+            "version": "dev-LIS-164-submit-multiple-listings",
             "package": "channelgrabber/channel"
         }
     ],

@@ -4,6 +4,7 @@ namespace Products\Controller\CreateMultipleListings;
 use Application\Controller\AbstractJsonController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\MultiCreationService;
+use CG\Channel\Listing\CreationService\StatusService;
 
 class JsonController extends AbstractJsonController
 {
@@ -12,11 +13,17 @@ class JsonController extends AbstractJsonController
 
     /** @var MultiCreationService */
     protected $multiCreationService;
+    /** @var StatusService */
+    protected $statusService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, MultiCreationService $multiCreationService)
-    {
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        MultiCreationService $multiCreationService,
+        StatusService $statusService
+    ) {
         parent::__construct($jsonModelFactory);
         $this->multiCreationService = $multiCreationService;
+        $this->statusService = $statusService;
     }
 
     public function submitMultipleAction()
@@ -35,6 +42,19 @@ class JsonController extends AbstractJsonController
 
     public function submitMultipleProgressAction()
     {
+        $response = [];
+        $statuses = $this->statusService->fetchStatusForGuid($this->params()->fromRoute('key'));
+        foreach ($statuses as $accountCategory => $status) {
+            [$accountId, $categoryId] = explode('-', $accountCategory);
+            if (empty($response[$accountId])) {
+                $response[$accountId] = ['categories' => []];
+            }
+            $response[$accountId]['categories'][$categoryId] = $status;
+        }
+        return $this->buildResponse([
+            'accounts' => $response
+        ]);
+
         // Dummy Data
         $statuses = ['started', 'complete', 'error'];
         $warnings = ['This is a warning', 'This is a different warning', 'This is also a warning'];
