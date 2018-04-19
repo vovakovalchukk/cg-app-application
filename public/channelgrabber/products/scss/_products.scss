@@ -711,14 +711,13 @@ $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
 
-
 //form
-.form-root{
-    &__legend{
-        font-weight:bold;
-        font-size:1.2em;
+.form-root {
+    &__legend {
+        font-weight: bold;
+        font-size: 1.2em;
     }
-    &__fieldset{
+    &__fieldset {
         margin-top: $small-margin-distance;
         &:last-of-type {
             margin-bottom: $small-margin-distance;

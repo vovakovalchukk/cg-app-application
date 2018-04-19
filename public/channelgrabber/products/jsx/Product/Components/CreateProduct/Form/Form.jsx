@@ -69,7 +69,6 @@ define([
             return (
                 <Form id="create-product-form" className={"form-root"} onSubmit={this.props.handleSubmit}>
                     <fieldset className={'form-root__fieldset'}>
-                        <legend className={'form-root__legend'}>Main Details</legend>
                         <FormRow
                             label={'New Product Name'}
                             inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
@@ -80,12 +79,8 @@ define([
                         />
                     </fieldset>
                     <fieldset className={'form-root__fieldset'}>
-                        <legend className={'form-root__legend'}>Dimensions</legend>
-                        // some elements here
-                    </fieldset>
-                    <fieldset className={'form-root__fieldset'}>
-                        <legend className={'form-root__legend'}>Tax Rates</legend>
                         <FormRow
+                            label={'Tax Rates'}
                             inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
                         />
                     </fieldset>

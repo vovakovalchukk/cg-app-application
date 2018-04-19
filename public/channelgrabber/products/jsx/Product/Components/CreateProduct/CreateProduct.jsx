@@ -3,27 +3,27 @@ define([
     'Common/Components/Container',
     'redux-form',
     'Product/Components/CreateProduct/Form/FormRoot'
-], function (
+], function(
     React,
     Container,
     reduxForm,
     CreateProductForm
 ) {
     "use strict";
-    
+
     var CreateProduct = React.createClass({
-        getDefaultProps: function () {
+        getDefaultProps: function() {
             return {
-                onCreateProductClose: null,
+                onCreateProductClose: null
             };
         },
-        handleContainerSubmit: function () {
+        handleContainerSubmit: function() {
             this.refs.productForm.submit();
         },
-        handleSubmit: function (values) {
-            if(values.productImage) this.postImageDataToApi(values.productImage.binaryDataString);
+        handleSubmit: function(values) {
+            if (values.productImage) this.postImageDataToApi(values.productImage.binaryDataString);
         },
-        render: function () {
+        render: function() {
             return (
                 <Container
                     initiallyActive={true}
@@ -44,6 +44,6 @@ define([
             );
         }
     });
-    
+
     return CreateProduct;
 });

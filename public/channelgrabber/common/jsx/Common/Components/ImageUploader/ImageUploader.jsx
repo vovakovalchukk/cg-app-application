@@ -8,19 +8,19 @@ define([
     var ImageUploaderComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                uploadImageHandler:null,
-                className:''
+                uploadImageHandler: null,
+                className: ''
             };
         },
         onUploadButtonClick: function(e) {
             e.target.value = null;
         },
-
         render: function() {
             return (
                 <div>
 
-                    <input type="file" onChange={this.props.uploadImageHandler} onClick={this.onUploadButtonClick} name="fileupload" className={this.props.className}
+                    <input type="file" onChange={this.props.uploadImageHandler} onClick={this.onUploadButtonClick}
+                           name="fileupload" className={this.props.className}
                            id="fileupload"/>
 
                 </div>

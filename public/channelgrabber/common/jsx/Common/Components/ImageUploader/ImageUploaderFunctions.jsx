@@ -3,6 +3,7 @@ define([
 ], function(
     React
 ) {
+    "use strict";
 
     var imageUploaderFunctions = (function() {
         var self = {

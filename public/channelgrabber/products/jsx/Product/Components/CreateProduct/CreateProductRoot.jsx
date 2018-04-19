@@ -17,7 +17,7 @@ define([
     var Provider = ReactRedux.Provider;
 
     var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        latency:0,
+        latency: 0
     });
     var store = Redux.createStore(
         CombinedReducer,
@@ -29,10 +29,10 @@ define([
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {
             return {
-                onCreateProductClose: null,
+                onCreateProductClose: null
             };
         },
-        componentDidMount:function(){
+        componentDidMount: function() {
             store.dispatch({
                 type: 'INITIAL_ACCOUNT_DATA_LOADED',
                 payload: {
