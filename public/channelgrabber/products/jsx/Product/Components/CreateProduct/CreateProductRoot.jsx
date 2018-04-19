@@ -30,15 +30,13 @@ define([
         getDefaultProps: function() {
             return {
                 onCreateProductClose: null,
-
             };
         },
-        componentWillReceiveProps: function(newProps) {
-            if (newProps !== this.props)
+        componentDidMount:function(){
             store.dispatch({
                 type: 'INITIAL_ACCOUNT_DATA_LOADED',
                 payload: {
-                    taxRates: newProps.taxRates
+                    taxRates: this.props.taxRates
                 }
             });
         },

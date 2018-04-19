@@ -26,7 +26,7 @@ define([
             var uploadedImages = this.props.uploadedImages.images;
             return (
                 <div>
-                    <Field name="mainImage" type="text"  component={function(props) {
+                    <Field name="mainImage" type="text" component={function(props) {
                         return (
                             <ImagePicker
                                 images={
@@ -67,19 +67,29 @@ define([
         },
         render: function() {
             return (
-                <Form id="create-product-form" onSubmit={this.props.handleSubmit}>
-                    <FormRow
-                        label={'New Product Name'}
-                        inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
-                    />
-                    <FormRow
-                        label={'Main Image'}
-                        inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
-                    />
-                    <FormRow
-                        label={'Tax Rates'}
-                        inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
-                    />
+                <Form id="create-product-form" className={"form-root"} onSubmit={this.props.handleSubmit}>
+                    <fieldset className={'form-root__fieldset'}>
+                        <legend className={'form-root__legend'}>Main Details</legend>
+                        <FormRow
+                            label={'New Product Name'}
+                            inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
+                        />
+                        <FormRow
+                            label={'Main Image'}
+                            inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
+                        />
+                    </fieldset>
+                    <fieldset className={'form-root__fieldset'}>
+                        <legend className={'form-root__legend'}>Dimensions</legend>
+                        // some elements here
+                    </fieldset>
+                    <fieldset className={'form-root__fieldset'}>
+                        <legend className={'form-root__legend'}>Tax Rates</legend>
+                        <FormRow
+                            inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
+                        />
+                    </fieldset>
+
                 </Form>
             );
         }

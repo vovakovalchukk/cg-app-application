@@ -713,6 +713,19 @@ $vertical-margin: 3px;
 
 
 //form
+.form-root{
+    &__legend{
+        font-weight:bold;
+        font-size:1.2em;
+    }
+    &__fieldset{
+        margin-top: $small-margin-distance;
+        &:last-of-type {
+            margin-bottom: $small-margin-distance;
+        }
+    }
+}
+
 .form-row {
     $parent: &;
     position: relative;
@@ -724,7 +737,7 @@ $vertical-margin: 3px;
         float: left;
     }
     &:last-of-type {
-        margin-bottom: 1rem;
+        margin-bottom: $small-margin-distance;
     }
     &__label-column {
         float: left;
