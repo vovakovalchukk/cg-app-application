@@ -55,6 +55,5 @@ class JsonController extends AbstractJsonController
         return $this->buildResponse([
             'accounts' => $response
         ]);
-
     }
 }
