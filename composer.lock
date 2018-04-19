@@ -515,13 +515,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5ebdd85c0f4bbfd0efde1f927d8846ed82189aa9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-164-submit-multiple-listings-782a5b.zip",
-                "reference": "5ebdd85c0f4bbfd0efde1f927d8846ed82189aa9",
-                "shasum": null
+                "reference": "dd4e34ead48ad336839027f8fb14b224e410a99b"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -9578,8 +9572,8 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

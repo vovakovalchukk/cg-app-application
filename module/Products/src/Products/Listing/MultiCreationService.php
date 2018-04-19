@@ -157,7 +157,7 @@ class MultiCreationService implements LoggerAwareInterface
             }
 
             try {
-                /** @var CategoryTemplates $accounts */
+                /** @var CategoryTemplates $categoryTemplates */
                 $categoryTemplates = $this->categoryTemplateService->fetchCollectionByFilter(
                     (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
                 );
