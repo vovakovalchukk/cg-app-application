@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "15d5d4a1b74eea5fbfa9cf33b8564b21",
+    "content-hash": "eebf0fa3d91702e062be70ad1b9b2d73",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2068,17 +2068,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.12.1",
+            "version": "dev-CGIV-9393-picking_list",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "0747dd32715c4b9cee97f23eb6ed264042a8bffe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.12.1-eac9bd.zip",
-                "reference": "0747dd32715c4b9cee97f23eb6ed264042a8bffe",
-                "shasum": null
+                "reference": "6e9000b00f6b8ca45b91718e868cf9927913eca3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2726,17 +2720,11 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.11.0",
+            "version": "dev-CGIV-9393-picking_list",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "c3b7b97a39bad270b39c82b240e88b9935bd794e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.11.0-150730.zip",
-                "reference": "c3b7b97a39bad270b39c82b240e88b9935bd794e",
-                "shasum": null
+                "reference": "85a2d77107520286c70f0f3b18c063018e4ad827"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -9565,12 +9553,26 @@
             "alias_normalized": "1.38.4.0",
             "version": "dev-CGIV-9393-picking_list",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.12.3",
+            "alias_normalized": "1.12.3.0",
+            "version": "dev-CGIV-9393-picking_list",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.12.3",
+            "alias_normalized": "1.12.3.0",
+            "version": "dev-CGIV-9393-picking_list",
+            "package": "channelgrabber/stock"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/product": 20,
+        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
         "realityking/hash_equals": 20
