@@ -2724,7 +2724,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "85a2d77107520286c70f0f3b18c063018e4ad827"
+                "reference": "61b17d1a49b9d769e74ae5ce9baf6ab6c9d5bdcc"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
