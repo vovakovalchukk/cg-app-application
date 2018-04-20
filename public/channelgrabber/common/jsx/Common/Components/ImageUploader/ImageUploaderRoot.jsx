@@ -10,15 +10,15 @@ define([
     ImageUploaderActions
 ) {
     "use strict";
-    const mapStateToProps = function(state,ownProps){
-        return{
+    const mapStateToProps = function(state, ownProps) {
+        return {
             uploadedImages: state.images,
-            className:ownProps.className
+            className: ownProps.className
         }
     };
     const mapDispatchToProps = function(dispatch, ownProps) {
         var actionsToBind = ownProps.reduxActions ? ownProps.reduxActions : ImageUploaderActions;
-        return Redux.bindActionCreators( actionsToBind, dispatch);
+        return Redux.bindActionCreators(actionsToBind, dispatch);
     };
 
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);

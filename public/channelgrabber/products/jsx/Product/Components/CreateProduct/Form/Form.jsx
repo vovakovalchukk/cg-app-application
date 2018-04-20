@@ -22,37 +22,38 @@ define([
                 <Field type="text" name="title" className={'form-row__input'} component="input"/>
             )
         },
-        mainImage: function() {
+        mainImagePickerComponent: function(props){
             var uploadedImages = this.props.uploadedImages.images;
             return (
+                <ImagePicker
+                    images={
+                        uploadedImages
+                    }
+                    onImageSelected={props.input.onChange}
+                    multiSelect={false}
+                />
+            );
+        },
+        mainImage: function() {
+            return (
                 <div>
-                    <Field name="mainImage" type="text" component={function(props) {
-                        return (
-                            <ImagePicker
-                                images={
-                                    uploadedImages
-                                }
-                                onImageSelected={props.input.onChange}
-                                multiSelect={false}
-                            />
-                        );
-                    }}/>
-                    <ImageUploader className={'form-row__input'}/>
+                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.mainImagePickerComponent.bind(this)}/>
+                    <ImageUploader/>
                 </div>
             );
         },
+        vatViewComponent:function(props) {
+            return <VatView
+                parentProduct={{
+                    taxRates: this.props.taxRates
+                }}
+                fullView={true}
+                onVatChanged={props.input.onChange}
+                variationCount={0}
+            />
+        },
         taxRates: function() {
-            return (<Field name="taxRates" component={function(props) {
-                    return <VatView
-                        parentProduct={{
-                            taxRates: this.props.taxRates
-                        }}
-                        fullView={true}
-                        onVatChanged={props.input.onChange}
-                        variationCount={0}
-                    />
-                }.bind(this)}/>
-            );
+            return (<Field name="taxRates" component={inputColumnRenderMethods.vatViewComponent.bind(this)}/>);
         }
     };
 

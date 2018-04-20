@@ -1,10 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
+define([], function() {
     "use strict";
-
     var imageUploaderFunctions = (function() {
         var self = {
             uploadImageHandler: function(image) {

@@ -1,6 +1,5 @@
 define([
     'Common/Reducers/creator'
-
 ], function(
     reducerCreator
 ) {

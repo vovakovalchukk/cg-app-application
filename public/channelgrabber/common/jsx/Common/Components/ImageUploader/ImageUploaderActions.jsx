@@ -1,9 +1,6 @@
 define([
-    'redux-thunk',
     'Common/Components/ImageUploader/ImageUploaderFunctions'
-
 ], function(
-    ReduxThunk,
     ImageUploaderFunctions
 ) {
 
