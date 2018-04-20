@@ -20,21 +20,22 @@ define([
                 <Field type="text" name="title" component="input"/>
             )
         },
-        mainImage: function() {
+        renderMainImageComponent: function(props){
             var uploadedImages = this.props.uploadedImages.images;
             return (
+                <ImagePicker
+                    images={
+                        uploadedImages
+                    }
+                    onImageSelected={props.input.onChange}
+                    multiSelect={false}
+                />
+            );
+        },
+        mainImage: function() {
+            return (
                 <div>
-                    <Field model="main-image" type="text" name="Main Image" component={function(props) {
-                        return (
-                            <ImagePicker
-                                images={
-                                    uploadedImages
-                                }
-                                onImageSelected={props.input.onChange}
-                                multiSelect={false}
-                            />
-                        );
-                    }}/>
+                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
                     <ImageUploader/>
                 </div>
             );
