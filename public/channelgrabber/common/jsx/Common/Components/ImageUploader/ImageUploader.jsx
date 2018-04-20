@@ -11,14 +11,12 @@ define([
                 uploadImageHandler: null
             };
         },
-        onUploadButtonClick: function(e) {
-            e.target.value = null;
+        onUploadButtonClick: function(event) {
+            event.target.value = null;
         },
-
         render: function() {
             return (
                 <div>
-
                     <input
                         type="file"
                         onChange={this.props.uploadImageHandler}
@@ -26,7 +24,6 @@ define([
                         name="fileupload"
                         id="fileupload"
                     />
-
                 </div>
             );
         }

@@ -1,6 +1,5 @@
 define([
     'Common/Reducers/creator'
-
 ], function(
     reducerCreator
 ) {
@@ -8,7 +7,6 @@ define([
     var initialState={
         images:[]
     };
-
     var imageUploaderReducer = reducerCreator(initialState, {
         "IMAGE_UPLOAD_START": function(state, action) {
             return state;

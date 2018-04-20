@@ -1,9 +1,4 @@
-define([
-    'react'
-], function(
-    React
-) {
-
+define([], function() {
     var imageUploaderFunctions = (function() {
         var self = {
             uploadImageHandler: function(image) {
