@@ -1,15 +1,17 @@
 define([
     'react',
+    'react-redux',
     'Common/Components/Container',
 ], function(
     React,
+    ReactRedux,
     Container
 ) {
     "use strict";
 
     var AccountSelectionPopup = React.createClass({
         render: function() {
-            console.log(this.props.accounts, this.props.channelBadges);
+            console.log(this.props);
             return (
                 <Container
                     initiallyActive={true}
@@ -26,5 +28,16 @@ define([
         }
     });
 
-    return AccountSelectionPopup;
+    var mapStateToProps = function (state, ownProps) {
+        return {
+            acccounts: state.accounts,
+            channelBadges: state.channelBadges
+        }
+    };
+
+    var mapDispatchToProps = function (dispatch) {
+        return {}
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
 });

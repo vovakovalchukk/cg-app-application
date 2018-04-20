@@ -132,7 +132,7 @@ class Service
         foreach ($this->getChannelBadgesData() as $details) {
             $badgeView = $this->viewModelFactory->newInstance($details);
             $badgeView->setTemplate('setup-wizard/channels/channel-badge.mustache');
-            $views[] = $badgeView;
+            $views[$details['channel']] = $badgeView;
         }
         return $views;
     }
@@ -144,7 +144,7 @@ class Service
             $channel = $details['channel'];
             $integrationType = $details['integrationType'] ?? null;
             $region = $details['region'] ?? null;
-            $badges[] = [
+            $badges[$channel] = [
                 'channel' => $channel,
                 'image' => $this->getChannelImagePath($channel, $region),
                 'region' => $region,

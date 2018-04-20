@@ -20,6 +20,7 @@ use SetupWizard\Channels\Service as ChannelService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_Mustache\View\Renderer as MustacheRenderer;
+use Zend\View\Model\ViewModel;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -115,16 +116,21 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
-
-        $badges = [];
-        foreach ($this->channelService->getChannelBadgeViews() as $badge) {
-            $badges[] = $this->viewRenderer->render($badge);
-        }
-        $view->setVariable('channelBadges', json_encode($badges));
+        $view->setVariable('channelBadges', $this->getChannelBadges());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;
+    }
+
+    protected function getChannelBadges(): string
+    {
+        $badges = [];
+        /** @var ViewModel $badge */
+        foreach ($this->channelService->getChannelBadgeViews() as $channel => $badge) {
+            $badges[$channel] = $this->viewRenderer->render($badge);
+        }
+        return json_encode($badges);
     }
 
     protected function getDetailsSidebar()

@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateListing/CreateListingPopup',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/AccountSelectionPopup',
+    'Product/Components/CreateListing/Root',
 ], function(
     React,
     SearchBox,
@@ -19,7 +19,7 @@ define([
     CreateListingPopup,
     CreateProductRoot,
     AjaxHandler,
-    AccountSelectionPopup
+    CreateListingRoot
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -407,13 +407,13 @@ define([
             }.bind(this))
         },
         renderCreateListingPopup: function() {
-            return <AccountSelectionPopup
-                accounts={this.state.accounts}
-                onCreateListingClose={this.onCreateListingClose}
-                availableChannels={this.state.createListingsAllowedChannels}
-                availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
-                channelBadges={this.props.channelBadges}
-            />
+            var CreateListingRootComponent = CreateListingRoot(
+                this.state.accounts,
+                this.state.createListingsAllowedChannels,
+                this.props.channelBadges,
+                this.onCreateListingClose
+            );
+            return <CreateListingRootComponent/>;
         },
         renderCreateNewProduct: function() {
             return <CreateProductRoot
