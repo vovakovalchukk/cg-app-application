@@ -16,11 +16,9 @@ define([
 
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
+    var FormSection = reduxForm.FormSection;
 
-    var variations = [
-        {sku: 'some name here'},
-        {sku: 'some new name here'}
-    ];
+
 
     var inputColumnRenderMethods = {
         newProductName: function() {
@@ -69,7 +67,8 @@ define([
                 handleSubmit: null,
                 addImage: null,
                 uploadedImages: {},
-                taxRates: null
+                taxRates: null,
+                newVariationRowRequest:null
             };
         },
         getVariations: function() {
@@ -101,15 +100,23 @@ define([
                 </tr>
             );
         },
-        renderVariations:function(variations){
-            return (
-                variations.map(this.renderVariation, this)
-            );
+//        renderVariations:function(variations){
+//            return (
+//                variations.map(this.renderVariation, this)
+//            );
+//        },
+        renderBlankVariationRowField:function(placeholder){
+            return(
+                <td> <input type={'text'} className={'variations-table__input'} placeholder={placeholder} /> </td>
+            )
         },
         renderBlankVariationRow: function(){
             return(
                 <tr>
-                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'Image'}/> </td>
+
+
+                    <td><Field type="text" name="variation-1-image" className={'form-row__input'} component="input"/></td>
+
                     <td> <input type={'text'} className={'variations-table__input'} placeholder={'sku'}/> </td>
                     <td> <input type={'text'} className={'variations-table__input'} placeholder={'quantity'}/> </td>
                     <td> <input type={'text'} className={'variations-table__input'} placeholder={'stockMode'}/> </td>
@@ -121,11 +128,13 @@ define([
         },
         renderVariationsTable: function(variations) {
             return (
-                <table className={'variations-table'}>
-                    {this.renderVariationsTableHeadings()}
-                    {this.renderVariations(variations)}
-                    {this.renderBlankVariationRow()}
-                </table>
+                <FormSection name={"variations"}>
+                    <table className={'variations-table'}>
+                        {this.renderVariationsTableHeadings()}
+                        {/*{this.renderVariations(variations)}*/}
+                        {this.renderBlankVariationRow()}
+                    </table>
+                </FormSection>
             );
         },
         renderVariation: function(variation) {
