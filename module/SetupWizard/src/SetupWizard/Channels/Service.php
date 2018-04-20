@@ -9,7 +9,9 @@ use CG\Channel\Integration\Type as ChannelIntegrationType;
 use CG\Channel\Service as ChannelService;
 use CG\Channel\Type as ChannelType;
 use CG\User\ActiveUserInterface;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Module;
+use Zend\View\Model\ViewModel;
 
 class Service
 {
@@ -21,6 +23,8 @@ class Service
     protected $amazonCryptor;
     /** @var ChannelService */
     protected $channelService;
+    /** @var ViewModelFactory */
+    protected $viewModelFactory;
 
     protected $channelImgMap = [
         'amazon' => 'getImageNameFromAmazonAccount',
@@ -30,12 +34,14 @@ class Service
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
         AmazonCryptor $amazonCryptor,
-        ChannelService $channelService
+        ChannelService $channelService,
+        ViewModelFactory $viewModelFactory
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
             ->setAmazonCryptor($amazonCryptor)
             ->setChannelService($channelService);
+        $this->viewModelFactory = $viewModelFactory;
     }
 
     public function fetchAccountsForActiveUser()
@@ -118,6 +124,42 @@ class Service
     {
         $account = $this->accountService->fetch($id);
         $this->accountService->delete($account);
+    }
+
+    public function getChannelBadgeViews(): array
+    {
+        $views = [];
+        foreach ($this->getChannelBadgesData() as $details) {
+            $badgeView = $this->viewModelFactory->newInstance($details);
+            $badgeView->setTemplate('setup-wizard/channels/channel-badge.mustache');
+            $views[] = $badgeView;
+        }
+        return $views;
+    }
+
+    public function getChannelBadgesData()
+    {
+        $badges = [];
+        foreach ($this->getSalesChannelOptions() as $name => $details) {
+            $channel = $details['channel'];
+            $integrationType = $details['integrationType'] ?? null;
+            $region = $details['region'] ?? null;
+            $badges[] = [
+                'channel' => $channel,
+                'image' => $this->getChannelImagePath($channel, $region),
+                'region' => $region,
+                'integrationType' => $integrationType,
+                'name' => $name
+            ];
+        }
+
+        return $badges;
+    }
+
+    protected function getChannelImagePath(string $channel, ?string $region): string
+    {
+        $img = $channel . ($region ? strtoupper($region) : '') . '.png';
+        return Module::PUBLIC_FOLDER . 'img/channel-badges/' . $img;
     }
 
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)

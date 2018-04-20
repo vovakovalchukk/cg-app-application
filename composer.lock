@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3363c46018ab0f755043486683015d8f",
+    "content-hash": "7ffaaeed4fc705738d64a3dae63b9392",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4067,16 +4067,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-LIS-112-category-mapping",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "04d62e524fc9673e74b05967908cc63821ab07d0"
+                "reference": "99b41eaff6e9d9edad356ce66ae00c4b7aeb6f67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-112-category-mapping-11abd9.zip",
-                "reference": "04d62e524fc9673e74b05967908cc63821ab07d0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.0-e547a8.zip",
+                "reference": "99b41eaff6e9d9edad356ce66ae00c4b7aeb6f67",
                 "shasum": null
             },
             "require": {
@@ -4127,7 +4127,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-03-28T13:04:23+00:00"
+            "time": "2018-04-16T14:31:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

@@ -7,7 +7,8 @@ define([
     'Product/Components/ProductLinkEditor',
     'Product/Components/CreateListing/CreateListingPopup',
     'Product/Components/CreateProduct/CreateProductRoot',
-    'Product/Storage/Ajax'
+    'Product/Storage/Ajax',
+    'Product/Components/CreateListing/AccountSelectionPopup',
 ], function(
     React,
     SearchBox,
@@ -17,7 +18,8 @@ define([
     ProductLinkEditor,
     CreateListingPopup,
     CreateProductRoot,
-    AjaxHandler
+    AjaxHandler,
+    AccountSelectionPopup
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -113,7 +115,7 @@ define([
                     skuList: skuList,
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
-                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
                 }, function() {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -405,14 +407,12 @@ define([
             }.bind(this))
         },
         renderCreateListingPopup: function() {
-            return <CreateListingPopup
+            return <AccountSelectionPopup
                 accounts={this.state.accounts}
-                product={this.state.createListing.product}
                 onCreateListingClose={this.onCreateListingClose}
                 availableChannels={this.state.createListingsAllowedChannels}
                 availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
-                variationsDataForProduct={this.state.variations[this.state.createListing.product.id]}
-                fetchVariations={this.onVariationsRequest.bind(this)}
+                channelBadges={this.props.channelBadges}
             />
         },
         renderCreateNewProduct: function() {

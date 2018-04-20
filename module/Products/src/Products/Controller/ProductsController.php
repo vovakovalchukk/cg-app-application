@@ -1,23 +1,25 @@
 <?php
 namespace Products\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
+use CG\Listing\Client\Service as ListingClientService;
+use CG\Product\Client\Service as ProductClientService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
 use CG_UI\View\BulkActions as BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use CG_Usage\Service as UsageService;
-use CG\User\ActiveUserInterface;
-use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
+use SetupWizard\Channels\Service as ChannelService;
 use Zend\I18n\Translator\Translator;
-use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
-use CG\Product\Client\Service as ProductClientService;
-use CG\Listing\Client\Service as ListingClientService;
+use Zend\Mvc\Controller\AbstractActionController;
+use CG_Mustache\View\Renderer as MustacheRenderer;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -42,6 +44,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $stockSettingsService;
     /** @var TaxRateService */
     protected $taxRateService;
+    /** @var ChannelService */
+    protected $channelService;
+    /** @var MustacheRenderer */
+    protected $viewRenderer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -53,7 +59,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
         UsageService $usageService,
         FeatureFlagsService $featureFlagService,
         StockSettingsService $stockSettingsService,
-        TaxRateService $taxRateService
+        TaxRateService $taxRateService,
+        ChannelService $channelService,
+        MustacheRenderer $viewRenderer
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -65,6 +73,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->featureFlagService = $featureFlagService;
         $this->stockSettingsService = $stockSettingsService;
         $this->taxRateService = $taxRateService;
+        $this->channelService = $channelService;
+        $this->viewRenderer = $viewRenderer;
     }
 
     public function indexAction()
@@ -105,6 +115,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
+
+        $badges = [];
+        foreach ($this->channelService->getChannelBadgeViews() as $badge) {
+            $badges[] = $this->viewRenderer->render($badge);
+        }
+        $view->setVariable('channelBadges', json_encode($badges));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

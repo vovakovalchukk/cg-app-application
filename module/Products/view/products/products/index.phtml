@@ -24,7 +24,8 @@ function(ProductRoot, Clipboard, ImageUtils) {
         searchAvailable, <?= ($isAdmin ? 'true' : 'false') ?>,
         '<?= $searchTerm ?>',
         <?= $featureFlagJson; ?>,
-        '<?= $this->remoteUrl('/company', 'admin'); ?>'
+        '<?= $this->remoteUrl('/company', 'admin'); ?>',
+        <?php echo json_encode($channelBadges); ?>
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });
