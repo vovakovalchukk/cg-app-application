@@ -724,6 +724,31 @@ $vertical-margin: 3px;
     }
 }
 
+.variations-table{
+    &__td{
+        &:last-of-type{
+            background: none;
+        }
+    }
+    &__th {
+        width: inherit;
+        text-align:center;
+        &:last-of-type{
+            background: none;
+        }
+    }
+
+    &__input{
+        width:7rem;
+        float:left;
+        border: 1px solid transparent;
+        transition:200ms;
+        &:hover{
+            border: 1px solid #c2c2c2;
+        }
+    }
+}
+
 .form-row {
     $parent: &;
     position: relative;

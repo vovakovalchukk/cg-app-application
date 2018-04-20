@@ -88,10 +88,43 @@ define([
                 }
             ];
         },
-        renderVariations: function(variations) {
+        renderVariationsTableHeadings:function(){
+            return(
+                <tr >
+                    <th className={'variations-table__th'}>Image</th>
+                    <th className={'variations-table__th'}>SKU</th>
+                    <th className={'variations-table__th'}>Quantity</th>
+                    <th className={'variations-table__th'}>Stock Mode</th>
+                    <th className={'variations-table__th'}>Attribute 1</th>
+                    <th className={'variations-table__th'}>Attribute 2</th>
+                    <th className={'variations-table__th'}><button type="button">add column</button></th>
+                </tr>
+            );
+        },
+        renderVariations:function(variations){
             return (
-                <table>
-                    {variations.map(this.renderVariation, this)}
+                variations.map(this.renderVariation, this)
+            );
+        },
+        renderBlankVariationRow: function(){
+            return(
+                <tr>
+                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'Image'}/> </td>
+                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'sku'}/> </td>
+                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'quantity'}/> </td>
+                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'stockMode'}/> </td>
+                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'attr1'}/> </td>
+                    <td> <input type={'text'} className={'variations-table__input'} placeholder={'attr2'}/>  </td>
+                    <td><button type="button">add variation</button></td>
+                </tr>
+            );
+        },
+        renderVariationsTable: function(variations) {
+            return (
+                <table className={'variations-table'}>
+                    {this.renderVariationsTableHeadings()}
+                    {this.renderVariations(variations)}
+                    {this.renderBlankVariationRow()}
                 </table>
             );
         },
@@ -104,6 +137,7 @@ define([
                     <td>{variation.stockMode}</td>
                     <td>{variation.attribute1}</td>
                     <td>{variation.attribute2}</td>
+                    <td><button type="button">remove</button></td>
                 </tr>
             );
 
@@ -127,12 +161,11 @@ define([
                             inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
                         />
                     </fieldset>
-                    <fieldset>
+                    <fieldset className={'margin-bottom--small'}>
                         <legend className={'form-root__legend'}>Variations</legend>
 
-                        {this.renderVariations(this.getVariations())}
+                        {this.renderVariationsTable(this.getVariations())}
 
-                        <button type="button" onClick={this.props.variationNew}> add variation</button>
                     </fieldset>
                 </Form>
             );
