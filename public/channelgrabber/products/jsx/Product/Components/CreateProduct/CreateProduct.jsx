@@ -20,8 +20,10 @@ define([
         handleContainerSubmit: function() {
             this.refs.productForm.submit();
         },
-        handleSubmit: function(values) {
-            if (values.productImage) this.postImageDataToApi(values.productImage.binaryDataString);
+        handleSubmit: function (values) {
+            if(values.productImage) {
+                this.postImageDataToApi(values.productImage.binaryDataString);
+            }
         },
         render: function() {
             return (
