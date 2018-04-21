@@ -27,13 +27,25 @@ define([], function() {
                 }
             };
         },
-        variationNew: function(image) {
+        newVariationRowCreate: function() {
             return {
-                type: 'VARIATION_NEW',
-
-            };
+                type: 'NEW_VARIATION_ROW_CREATE'
+            }
         },
+        newVariationRowCreateRequest: function( variationId) {
+            return function(dispatch, getState) {
+                var currState = getState();
+                if (!variationIsEmpty(currState,variationId)) {
+                    dispatch(formActionCreators.newVariationRowCreate());
+                }
+            }
+        }
     };
 
     return formActionCreators;
+
+    function variationIsEmpty(currState,variationId){
+        return currState.form.createProductForm.values && currState.form.createProductForm.values.variations["variation-" + variationId];
+    }
+
 });

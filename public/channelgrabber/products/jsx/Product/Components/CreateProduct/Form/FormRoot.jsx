@@ -14,6 +14,7 @@ define([
         return{
             uploadedImages: state.uploadedImages,
             taxRates:state.account.taxRates,
+            variationRowProperties:state.variationRowProperties
         }
     };
     const mapDispatchToProps = function(dispatch) {

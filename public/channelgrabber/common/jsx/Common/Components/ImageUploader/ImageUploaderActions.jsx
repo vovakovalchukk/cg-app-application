@@ -48,11 +48,6 @@ define([
                         image: image
                     }
                 };
-            },
-            newVariationRowRequest:function(){
-                return {
-                    type: 'NEW_VARIATION_ROW_REQUEST'
-                }
             }
         }
         return self;
