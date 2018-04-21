@@ -40,9 +40,10 @@ define([
                 <span className={"inputbox-label"}>Site</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
+                        autoSelectFirst={false}
                         options={this.getSiteSelectOptions()}
+                        selectedOption={this.getSelectedSite.call(this, field.input.value)}
                         onOptionChange={this.onSiteSelected.bind(this, field.input)}
-                        filterable={true}
                     />
                 </div>
             </label>);
@@ -56,6 +57,12 @@ define([
                 })
             }
             return options;
+        },
+        getSelectedSite: function (siteId) {
+            return {
+                name: siteId ? this.props.ebaySiteOptions[siteId] : '',
+                value: siteId ? siteId : ''
+            }
         },
         onSiteSelected: function(input, site) {
             input.onChange(site.value);
@@ -88,19 +95,13 @@ define([
             }
             return options;
         },
-        onCategorySelected: function (field, category) {
-            field.onChange(category.value);
+        onCategorySelected: function (input, categories) {
+            input.onChange(categories.map(function(category) {
+                return category.value;
+            }));
         },
-        onAccountSelected: function(input, accountId) {
-            input.onChange(accountId);
-        },
-        renderAccountBadge: function(accountData, field) {
-            return <ChannelBadgeComponent
-                id={accountData.id}
-                channel={accountData.channel}
-                displayName={accountData.name}
-                onClick={this.onAccountSelected.bind(this, field.input)}
-            />;
+        renderAccountSelectField: function() {
+            return <FieldArray name="accounts" component={this.renderAccountSelect}/>
         },
         renderAccountSelect: function() {
             var accountSelects = [],
@@ -109,7 +110,7 @@ define([
                 var account = this.props.accounts[accountId];
                 accountSelects.push(
                     <Field
-                        name={"account." + index}
+                        name={"accounts." + index}
                         component={this.renderAccountBadge.bind(this, account)}
                     />
                 );
@@ -119,8 +120,17 @@ define([
                 {accountSelects}
             </span>);
         },
-        renderAccountSelectField: function() {
-            return <FieldArray name="accounts" component={this.renderAccountSelect}/>
+        renderAccountBadge: function(accountData, field) {
+            return <ChannelBadgeComponent
+                id={accountData.id}
+                channel={accountData.channel}
+                displayName={accountData.name}
+                onClick={this.onAccountSelected.bind(this, field.input)}
+                selected={!!field.input.value}
+            />;
+        },
+        onAccountSelected: function(input, accountId) {
+            input.onChange(input.value ? null : accountId);
         },
         renderForm: function() {
             return (
@@ -149,7 +159,13 @@ define([
     });
 
     AccountSelectionPopup = ReduxForm.reduxForm({
-        form: "accountSelection"
+        form: "accountSelection",
+        onSubmit: function() {
+            console.log(arguments);
+        },
+        onChange: function(values) {
+            console.log(values);
+        }
     })(AccountSelectionPopup);
 
     var mapStateToProps = function (state, ownProps) {
