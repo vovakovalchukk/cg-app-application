@@ -25,18 +25,19 @@ define([
         renderCategorySelectField: function() {
             /** @TODO */
         },
+        onAccountSelected: function(input, accountId) {
+            input.onChange(accountId);
+        },
         renderAccountBadge: function(accountData, field) {
             console.log(field);
             return <ChannelBadgeComponent
                 id={accountData.id}
                 channel={accountData.channel}
                 displayName={accountData.name}
-                onClick={function(accountId) {
-                    field.input.onChange(accountId);
-                }}
+                onClick={this.onAccountSelected.bind(this, field.input)}
             />;
         },
-        renderAccountSelect: function(fields) {
+        renderAccountSelect: function() {
             var accountSelects = [],
                 index = 0;
             for (var accountId in this.props.accounts) {
@@ -83,8 +84,7 @@ define([
 
     var mapStateToProps = function (state, ownProps) {
         return {
-            accounts: state.accounts,
-            channelBadges: state.channelBadges
+            accounts: state.accounts
         }
     };
 

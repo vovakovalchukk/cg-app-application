@@ -18,7 +18,6 @@ define([
     var CreateListingRoot = function(
         accounts,
         allowedChannels,
-        channelBadges,
         onCreateListingClose
     ) {
         var Provider = ReactRedux.Provider;
@@ -35,18 +34,9 @@ define([
             return data;
         };
 
-        var getFilteredChannelBadges = function (channelBadges, allowedChannels) {
-            var badges = {};
-            for (var channel in allowedChannels) {
-                badges[channel] = channelBadges[channel];
-            }
-            return badges;
-        };
-
         var buildInitialStateFromData = function() {
             return {
-                accounts: getAccountOptions(accounts, allowedChannels),
-                channelBadges: getFilteredChannelBadges(channelBadges, allowedChannels)
+                accounts: getAccountOptions(accounts, allowedChannels)
             };
         };
 

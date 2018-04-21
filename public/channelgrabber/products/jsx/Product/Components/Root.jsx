@@ -410,7 +410,6 @@ define([
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
-                this.props.channelBadges,
                 this.onCreateListingClose
             );
             return <CreateListingRootComponent/>;

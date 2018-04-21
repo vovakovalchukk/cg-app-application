@@ -14,8 +14,7 @@ define([
         isAdmin,
         getParamSearchTerm,
         features,
-        adminCompanyUrl,
-        channelBadges
+        adminCompanyUrl
     ) {
         ReactDOM.render(
             <RootComponent
@@ -26,7 +25,6 @@ define([
                 isAdmin={isAdmin}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
-                channelBadges={JSON.parse(channelBadges)}
             />,
             mountingNode
         );
