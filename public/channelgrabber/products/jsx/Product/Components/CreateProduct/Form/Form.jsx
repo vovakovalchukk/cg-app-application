@@ -4,16 +4,21 @@ define([
     'Common/Components/ImageUploader/ImageUploaderRoot',
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
-    'Product/Components/VatView'
+    'Product/Components/VatView',
+    'Product/Components/CreateProduct/CreateVariationsTable/Root'
+
 ], function(
     React,
     reduxForm,
     ImageUploader,
     ImagePicker,
     FormRow,
-    VatView
+    VatView,
+    CreateVariationsTable
 ) {
+//
 
+    console.log("loggingCreateVariationsTale: " , CreateVariationsTable)
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
     var FormSection = reduxForm.FormSection;
@@ -69,117 +74,7 @@ define([
                 newVariationRowRequest: null
             };
         },
-        getVariations: function() {
-            return [
-                {
-                    image: 'image',
-                    sku: 'unique-t-shirt',
-                    quantity: 2,
-                    stockMode: 'sdfsdfsdfsd',
-                    attribute1: 'attribute1',
-                    attribute2: 'attribute2'
-                },
-                {
-                    sku: 'some new name here'
 
-                }
-            ];
-        },
-        variationRowFieldOnChange: function(event,variationId) {
-            this.props.newVariationRowCreateRequest(variationId);
-        },
-        renderVariationsTableHeadings: function() {
-            return (
-                <tr>
-                    <th className={'variations-table__th'}>Image</th>
-                    <th className={'variations-table__th'}>SKU</th>
-                    <th className={'variations-table__th'}>Quantity</th>
-                    <th className={'variations-table__th'}>Stock Mode</th>
-                    <th className={'variations-table__th'}>Attribute 1</th>
-                    <th className={'variations-table__th'}>Attribute 2</th>
-                    <th className={'variations-table__th'}>
-                        <button type="button">add column</button>
-                    </th>
-                </tr>
-            );
-        },
-        renderVariations: function() {
-            var variations = this.props.variationRowProperties.variations;
-            console.log('in render variations with variations: ', variations);
-
-            variations.forEach(function(variation) {
-                this.renderVariationRow.call(this, variation);
-            }.bind(this));
-            return (
-                variations.map(this.renderVariationRow, this)
-            );
-        },
-        renderBlankVariationRowField: function(placeholder) {
-            return (
-                <td><input type={'text'} className={'variations-table__input'} placeholder={placeholder}/></td>
-            )
-        },
-        renderVariationRow: function(variation) {
-            var variationId = variation.id;
-            return (
-                <FormSection name={"variation-" + variationId}>
-                    <tr>
-
-                        {/*<td><Field type="text" name={"image"} className={'form-row__input'} component="input" onChange={*/}
-                        {/*function(event) {*/}
-
-                        {/*this.props.newVariationRowCreateRequest(event,variationId);*/}
-
-                        {/*}.bind(this)*/}
-                        {/*}/></td>*/}
-                        <td><Field type="text" name={"image"} className={'form-row__input'} component="input"
-                                   onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}/></td>
-                        <td><Field type="text" name={"sku"} className={'form-row__input'} component="input"/></td>
-                        <td><Field type="text" name={"quantity"} className={'form-row__input'} component="input"/></td>
-                        <td><Field type="text" name={"stockMode"} className={'form-row__input'} component="input"/></td>
-
-                        {/*<td><Field type="text" name="variation-1-attr1" className={'form-row__input'} component="input"/></td>*/}
-                        {/*<td><Field type="text" name="variation-1-attr2" className={'form-row__input'} component="input"/></td>*/}
-
-                        {/*<td> <input type={'text'} className={'variations-table__input'} placeholder={'sku'}/> </td>*/}
-                        {/*<td> <input type={'text'} className={'variations-table__input'} placeholder={'quantity'}/> </td>*/}
-                        {/*<td> <input type={'text'} className={'variations-table__input'} placeholder={'stockMode'}/> </td>*/}
-                        {/*<td> <input type={'text'} className={'variations-table__input'} placeholder={'attr1'}/> </td>*/}
-                        {/*<td> <input type={'text'} className={'variations-table__input'} placeholder={'attr2'}/>  </td>*/}
-                        {/*<td><button type="button">add variation</button></td>*/}
-                    </tr>
-                </FormSection>
-            );
-        },
-        renderVariationsTable: function(variations) {
-            return (
-                <FormSection name={"variations"}>
-                    <table className={'variations-table'}>
-                        {this.renderVariationsTableHeadings()}
-                        {this.renderVariations()}
-                        {/*{this.renderBlankVariationRow()}*/}
-                        {/*{this.renderVariationRow(0)}*/}
-
-                    </table>
-                </FormSection>
-            );
-        },
-//        renderVariation: function(variation) {
-//            return (
-//                <tr>
-//                    <td>{variation.image}</td>
-//                    <td>{variation.sku}</td>
-//                    <td>{variation.quantity}</td>
-//                    <td>{variation.stockMode}</td>
-//                    {/*<td>{variation.attribute1}</td>*/}
-//                    {/*<td>{variation.attribute2}</td>*/}
-//                    <td>
-//                        <button type="button">remove</button>
-//                    </td>
-//                </tr>
-//            );
-//
-//        },
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom--small"}
@@ -203,7 +98,7 @@ define([
                     <fieldset className={'margin-bottom--small'}>
                         <legend className={'form-root__legend'}>Variations</legend>
 
-                        {this.renderVariationsTable(this.getVariations())}
+                        <CreateVariationsTable />
 
                     </fieldset>
                 </Form>
