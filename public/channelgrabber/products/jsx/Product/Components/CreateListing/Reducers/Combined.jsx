@@ -12,7 +12,7 @@ define([
         accounts: function (state) {
             return state ? state : {};
         },
-        channelBadges: function (state) {
+        categoryTemplateOptions: function (state) {
             return state ? state : {};
         }
     });

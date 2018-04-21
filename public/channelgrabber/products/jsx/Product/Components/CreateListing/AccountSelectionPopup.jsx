@@ -37,7 +37,7 @@ define([
         },
         renderSiteSelectComponent: function(field) {
             return (<label>
-                <span className={"inputbox-label"}>Site: </span>
+                <span className={"inputbox-label"}>Site</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
                         options={this.getSiteSelectOptions()}
@@ -61,8 +61,35 @@ define([
             input.onChange(site.value);
         },
         renderCategorySelectField: function() {
-            /** @TODO */
-            return null;
+            return <Field
+                name="categories"
+                component={this.renderCategorySelectComponent}
+            />
+        },
+        renderCategorySelectComponent: function(field) {
+            return (<label>
+                <span className={"inputbox-label"}>Category </span>
+                <div className={"order-inputbox-holder"}>
+                    <MultiSelect
+                        options={this.getCategorySelectOptions()}
+                        onOptionChange={this.onCategorySelected.bind(this, field.input)}
+                        filterable={true}
+                    />
+                </div>
+            </label>);
+        },
+        getCategorySelectOptions: function() {
+            var options = [];
+            for (var categoryId in this.props.categoryTemplateOptions) {
+                options.push({
+                    name: this.props.categoryTemplateOptions[categoryId],
+                    value: categoryId
+                });
+            }
+            return options;
+        },
+        onCategorySelected: function (field, category) {
+            field.onChange(category.value);
         },
         onAccountSelected: function(input, accountId) {
             input.onChange(accountId);
