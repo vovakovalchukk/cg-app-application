@@ -7,6 +7,7 @@ define([
     'Common/Components/ChannelBadge',
     'Common/Components/Select',
     'Common/Components/MultiSelect',
+    'CategoryMapper/Components/CategoryMap'
 ], function(
     React,
     ReactDom,
@@ -15,7 +16,8 @@ define([
     Container,
     ChannelBadgeComponent,
     Select,
-    MultiSelect
+    MultiSelect,
+    CategoryMap
 ) {
     "use strict";
 
@@ -23,6 +25,11 @@ define([
     var FieldArray = ReduxForm.FieldArray;
 
     var AccountSelectionPopup = React.createClass({
+        getInitialState: function() {
+            return {
+                addNewCategoryVisible: false
+            }
+        },
         renderSiteSelectField: function() {
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
@@ -84,6 +91,7 @@ define([
                         filterable={true}
                     />
                 </div>
+                <a href="#" onClick={this.showAddNewCategoryMapComponent}>Add new category map</a>
             </label>);
         },
         getCategorySelectOptions: function() {
@@ -96,10 +104,15 @@ define([
             }
             return options;
         },
-        onCategorySelected: function (input, categories) {
+        onCategorySelected: function(input, categories) {
             input.onChange(categories.map(function(category) {
                 return category.value;
             }));
+        },
+        showAddNewCategoryMapComponent: function() {
+            this.setState({
+                addNewCategoryVisible: true
+            });
         },
         renderAccountSelectField: function() {
             return <FieldArray name="accounts" component={this.renderAccountSelect}/>
@@ -133,6 +146,15 @@ define([
         onAccountSelected: function(input, accountId) {
             input.onChange(input.value ? null : accountId);
         },
+        renderAddNewCategoryComponent: function() {
+            if (!this.state.addNewCategoryVisible) {
+                return;
+            }
+            return <CategoryMap
+                accounts={this.props.accounts}
+                mapId={0}
+            />;
+        },
         renderForm: function() {
             return (
                 <form
@@ -142,6 +164,7 @@ define([
                     {this.renderAccountSelectField()}
                     {this.renderSiteSelectField()}
                     {this.renderCategorySelectField()}
+                    {this.renderAddNewCategoryComponent()}
                 </form>
             );
         },

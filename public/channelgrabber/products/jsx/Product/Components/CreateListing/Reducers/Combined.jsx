@@ -14,6 +14,9 @@ define([
         },
         categoryTemplateOptions: function (state) {
             return state ? state : {};
+        },
+        initialValues: function (state) {
+            return {};
         }
     });
     return CombinedReducer;
