@@ -1,6 +1,8 @@
 <?php
 namespace Products\Controller;
 
+use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
+use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
 use CG\Product\Client\Service as ProductClientService;
@@ -12,15 +14,13 @@ use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Service as UsageService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Products\Product\Category\Service as CategoryService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
-use SetupWizard\Channels\Service as ChannelService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG_Mustache\View\Renderer as MustacheRenderer;
-use Zend\View\Model\ViewModel;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -45,10 +45,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $stockSettingsService;
     /** @var TaxRateService */
     protected $taxRateService;
-    /** @var ChannelService */
-    protected $channelService;
-    /** @var MustacheRenderer */
-    protected $viewRenderer;
+    /** @var CategoryService */
+    protected $categoryService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -61,8 +59,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         FeatureFlagsService $featureFlagService,
         StockSettingsService $stockSettingsService,
         TaxRateService $taxRateService,
-        ChannelService $channelService,
-        MustacheRenderer $viewRenderer
+        CategoryService $categoryService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -74,8 +71,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->featureFlagService = $featureFlagService;
         $this->stockSettingsService = $stockSettingsService;
         $this->taxRateService = $taxRateService;
-        $this->channelService = $channelService;
-        $this->viewRenderer = $viewRenderer;
+        $this->categoryService = $categoryService;
     }
 
     public function indexAction()
@@ -116,21 +112,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
-        $view->setVariable('channelBadges', $this->getChannelBadges());
+        $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
+        $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
+        $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;
-    }
-
-    protected function getChannelBadges(): string
-    {
-        $badges = [];
-        /** @var ViewModel $badge */
-        foreach ($this->channelService->getChannelBadgeViews() as $channel => $badge) {
-            $badges[$channel] = $this->viewRenderer->render($badge);
-        }
-        return json_encode($badges);
     }
 
     protected function getDetailsSidebar()

@@ -1,5 +1,4 @@
 <?php
-
 namespace Products\Controller\CreateListings;
 
 use Application\Controller\AbstractJsonController;
@@ -16,6 +15,7 @@ class JsonController extends AbstractJsonController
     const ROUTE_CREATE_LISTINGS = 'CreateListings';
     const ROUTE_DEFAULT_SETTINGS = 'DefaultSettings';
     const ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES = 'CategoryDependentFieldValues';
+    const ROUTE_CATEGORY_TEMPLATE_DEPENDENT_FIELD_VALUES = 'CategoryTemplateDependentFieldValues';
     const ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES = 'AccountSpecificFieldValues';
     const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
     const ROUTE_REFRESH_CATEGORIES = 'RefreshCategories';
@@ -76,6 +76,77 @@ class JsonController extends AbstractJsonController
         } catch (\Throwable $e) {
             return $this->buildGenericErrorResponse();
         }
+    }
+
+    public function categoryTemplateDependentFieldValuesAction()
+    {
+        // Dummy Data
+        return $this->buildResponse([
+            'categoryTemplates' => [
+                '<template1>' => [
+                    'name' => '<name1>',
+                    'categories' => [
+                        '<category1>' => [
+                            'title' => '<title1>',
+                            'accountId' => 1,
+                            'channel' => 'ebay',
+                            'fieldValues' => [
+                                'listingDuration' => [
+                                    '<value1>' => '<value1>',
+                                    '<value2>' => '<value2>',
+                                    '<valueN>' => '<valueN>',
+                                ],
+                                'shippingMethods' => [
+                                    '<value1>' => '<title1>',
+                                    '<value2>' => '<title2>',
+                                    '<valueN>' => '<titleN>',
+                                ],
+                                'itemSpecifics' => [
+                                    'required' => [
+                                        '<fieldName1>' => [
+                                            'type' => 'select',
+                                            'options' => ['<key1>' => '<value1>', '<key2>' => '<value2>', '<keyN>' => '<valueN>'],
+                                            'minValues' => 1,
+                                            'maxValues' => 2,
+                                        ],
+                                        '<fieldNameN>' => [
+                                            'type' => 'select',
+                                            'options' => ['<key1>' => '<value1>', '<key2>' => '<value2>', '<keyN>' => '<valueN>'],
+                                            'minValues' => 1,
+                                            'maxValues' => 1,
+                                        ],
+                                    ],
+                                    'optional' => [
+                                        '<fieldName1>' => [
+                                            'type' => 'text',
+                                            'minValues' => 0,
+                                        ],
+                                        '<fieldNameN>' => [
+                                            'type' => 'select',
+                                            'options' => ['<key1>' => '<value1>', '<key2>' => '<value2>', '<keyN>' => '<valueN>'],
+                                            'minValues' => 1,
+                                            'maxValues' => 2,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        '<category2>' => [
+                            'title' => '<title2>',
+                            'accountId' => 2,
+                            'channel' => 'dummy',
+                            'fieldValues' => [],
+                        ],
+                        '<category3>' => [
+                            'title' => '<title3>',
+                            'accountId' => 3,
+                            'channel' => 'dummy',
+                            'fieldValues' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 
     public function categoryChildrenAction()
