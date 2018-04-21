@@ -5,13 +5,17 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Common/Components/ChannelBadge',
+    'Common/Components/Select',
+    'Common/Components/MultiSelect',
 ], function(
     React,
     ReactDom,
     ReactRedux,
     ReduxForm,
     Container,
-    ChannelBadgeComponent
+    ChannelBadgeComponent,
+    Select,
+    MultiSelect
 ) {
     "use strict";
 
@@ -20,16 +24,50 @@ define([
 
     var AccountSelectionPopup = React.createClass({
         renderSiteSelectField: function() {
-            /** @TODO */
+            for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (account.channel == 'ebay') {
+                    return <Field
+                        name="site"
+                        component={this.renderSiteSelectComponent}
+                    />
+                }
+            }
+            return null;
+        },
+        renderSiteSelectComponent: function(field) {
+            return (<label>
+                <span className={"inputbox-label"}>Site: </span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        options={this.getSiteSelectOptions()}
+                        onOptionChange={this.onSiteSelected.bind(this, field.input)}
+                        filterable={true}
+                    />
+                </div>
+            </label>);
+        },
+        getSiteSelectOptions: function() {
+            var options = [];
+            for (var siteId in this.props.ebaySiteOptions) {
+                options.push({
+                    name: this.props.ebaySiteOptions[siteId],
+                    value: siteId
+                })
+            }
+            return options;
+        },
+        onSiteSelected: function(input, site) {
+            input.onChange(site.value);
         },
         renderCategorySelectField: function() {
             /** @TODO */
+            return null;
         },
         onAccountSelected: function(input, accountId) {
             input.onChange(accountId);
         },
         renderAccountBadge: function(accountData, field) {
-            console.log(field);
             return <ChannelBadgeComponent
                 id={accountData.id}
                 channel={accountData.channel}
@@ -54,10 +92,15 @@ define([
                 {accountSelects}
             </span>);
         },
+        renderAccountSelectField: function() {
+            return <FieldArray name="accounts" component={this.renderAccountSelect}/>
+        },
         renderForm: function() {
             return (
                 <form onSubmit={this.props.handleSubmit}>
-                    <FieldArray name="accounts" component={this.renderAccountSelect}/>
+                    {this.renderSiteSelectField()}
+                    {this.renderCategorySelectField()}
+                    {this.renderAccountSelectField()}
                 </form>
             );
         },
@@ -84,7 +127,8 @@ define([
 
     var mapStateToProps = function (state, ownProps) {
         return {
-            accounts: state.accounts
+            accounts: state.accounts,
+            categoryTemplateOptions: state.categoryTemplateOptions
         }
     };
 

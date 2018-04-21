@@ -22,9 +22,6 @@ define([
         ebaySiteOptions,
         categoryTemplateOptions
     ) {
-
-        console.log(ebaySiteOptions, categoryTemplateOptions);
-
         var Provider = ReactRedux.Provider;
 
         var getAccountOptions = function(accounts, allowedChannels) {
@@ -41,7 +38,8 @@ define([
 
         var buildInitialStateFromData = function() {
             return {
-                accounts: getAccountOptions(accounts, allowedChannels)
+                accounts: getAccountOptions(accounts, allowedChannels),
+                categoryTemplateOptions: categoryTemplateOptions
             };
         };
 
@@ -60,6 +58,7 @@ define([
                         <AccountSelectionPopup
                             onCreateListingClose={onCreateListingClose}
                             onSubmit={this.onSubmit}
+                            ebaySiteOptions={ebaySiteOptions}
                         />
                     </Provider>
                 );
