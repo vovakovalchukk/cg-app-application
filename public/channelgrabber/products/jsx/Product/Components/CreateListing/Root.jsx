@@ -56,11 +56,15 @@ define([
         );
 
         var CreateListingRootComponent = React.createClass({
+            onSubmit: function() {
+                console.log(arguments);
+            },
             render: function () {
                 return (
                     <Provider store={store}>
                         <AccountSelectionPopup
                             onCreateListingClose={onCreateListingClose}
+                            onSubmit={this.onSubmit}
                         />
                     </Provider>
                 );

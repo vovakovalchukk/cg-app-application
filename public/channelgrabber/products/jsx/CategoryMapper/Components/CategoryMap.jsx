@@ -75,7 +75,6 @@ define([
         renderCategorySelects: function() {
             var selects = [];
             for (var accountId in this.props.accounts) {
-                var accountData = this.props.accounts[accountId];
                 selects.push(
                     <FieldArray
                         component={this.renderAccountCategorySelectComponent.bind(this, accountId)}

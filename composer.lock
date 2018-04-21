@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ffaaeed4fc705738d64a3dae63b9392",
+    "content-hash": "f1f4928fc4b261d0ba9b7a9e3c8bdfc4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -511,16 +511,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.8",
+            "version": "1.34.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cb348ccc990e7700111dbd8745ae274d2ec07952"
+                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.8-9e2764.zip",
-                "reference": "cb348ccc990e7700111dbd8745ae274d2ec07952",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.9-ee9bf4.zip",
+                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e",
                 "shasum": null
             },
             "require": {
@@ -594,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-13T12:30:46+00:00"
+            "time": "2018-04-17T15:09:14+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2074,16 +2074,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-LIS-135-main-product-form",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "bcbbe6d547d388aa4e889306aaa073c5b444639d"
+                "reference": "632786c2772abcfc6e0715d57025d7befe67ec66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-135-main-product-form-66948e.zip",
-                "reference": "bcbbe6d547d388aa4e889306aaa073c5b444639d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.12.2-225a09.zip",
+                "reference": "632786c2772abcfc6e0715d57025d7befe67ec66",
                 "shasum": null
             },
             "require": {
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-06T10:39:58+00:00"
+            "time": "2018-04-17T09:16:11+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -8021,7 +8021,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8076,7 +8076,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8131,7 +8131,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8182,7 +8182,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8268,7 +8268,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9565,25 +9565,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.12.1",
-            "alias_normalized": "1.12.1.0",
-            "version": "dev-LIS-135-main-product-form",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.22.7",
-            "alias_normalized": "1.22.7.0",
-            "version": "dev-LIS-112-category-mapping",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
