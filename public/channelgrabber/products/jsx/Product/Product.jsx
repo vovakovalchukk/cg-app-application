@@ -14,7 +14,9 @@ define([
         isAdmin,
         getParamSearchTerm,
         features,
-        adminCompanyUrl
+        adminCompanyUrl,
+        ebaySiteOptions,
+        categoryTemplateOptions
     ) {
         ReactDOM.render(
             <RootComponent
@@ -25,6 +27,8 @@ define([
                 isAdmin={isAdmin}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
+                ebaySiteOptions={JSON.parse(ebaySiteOptions)}
+                categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
             />,
             mountingNode
         );

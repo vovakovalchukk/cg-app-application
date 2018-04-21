@@ -18,8 +18,13 @@ define([
     var CreateListingRoot = function(
         accounts,
         allowedChannels,
-        onCreateListingClose
+        onCreateListingClose,
+        ebaySiteOptions,
+        categoryTemplateOptions
     ) {
+
+        console.log(ebaySiteOptions, categoryTemplateOptions);
+
         var Provider = ReactRedux.Provider;
 
         var getAccountOptions = function(accounts, allowedChannels) {

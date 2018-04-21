@@ -42,7 +42,9 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
-                features: {}
+                features: {},
+                ebaySiteOptions: {},
+                categoryTemplateOptions: {}
             }
         },
         getInitialState: function() {
@@ -410,7 +412,9 @@ define([
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
-                this.onCreateListingClose
+                this.onCreateListingClose,
+                this.props.ebaySiteOptions,
+                this.props.categoryTemplateOptions,
             );
             return <CreateListingRootComponent/>;
         },
