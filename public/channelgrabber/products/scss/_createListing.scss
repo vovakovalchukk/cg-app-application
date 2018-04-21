@@ -55,6 +55,42 @@
       margin: 0;
     }
   }
+
+  .account-select-form {
+    .custom-option, .filter-box {
+      display: flex;
+    }
+
+    .setup-wizard-channel-badge {
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+      img {
+        border-color: transparent;
+      }
+
+      &.selected {
+        -webkit-filter: grayscale(0);
+        filter: grayscale(0);
+        img {
+          border-color: $color-lblue;
+        }
+      }
+    }
+
+    .setup-wizard-channel-badge-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .custom-select {
+      width: 200px;
+    }
+  }
+
+  .container-buttons {
+    float: right;
+  }
 }
 
 .image-dropdown-target {

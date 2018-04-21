@@ -15,6 +15,9 @@ define([
                 selected: false
             };
         },
+        getClassName: function() {
+            return "setup-wizard-channel-badge" + (this.props.selected ? " selected" : "");
+        },
         getDisplayName: function() {
             return this.props.displayName ? this.props.displayName : this.props.channel;
         },
@@ -27,7 +30,7 @@ define([
         render: function() {
             return (
                 <div
-                    className="setup-wizard-channel-badge"
+                    className={this.getClassName()}
                     data-channel={this.props.channel}
                     data-print_name={this.getDisplayName()}
                     onClick={this.onClick}
@@ -38,7 +41,12 @@ define([
                         title={this.getDisplayName()}
                     />
                     <div className="setup-wizard-channel-badge-footer">
-                        <div className="setup-wizard-channel-badge-name">{this.getDisplayName()}</div>
+                        <div
+                            className="setup-wizard-channel-badge-name"
+                            title={this.getDisplayName()}
+                        >
+                            {this.getDisplayName()}
+                        </div>
                     </div>
                 </div>
             );

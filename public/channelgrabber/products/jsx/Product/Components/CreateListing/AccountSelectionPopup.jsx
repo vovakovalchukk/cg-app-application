@@ -44,6 +44,7 @@ define([
                         options={this.getSiteSelectOptions()}
                         selectedOption={this.getSelectedSite.call(this, field.input.value)}
                         onOptionChange={this.onSiteSelected.bind(this, field.input)}
+                        filterable={true}
                     />
                 </div>
             </label>);
@@ -134,10 +135,13 @@ define([
         },
         renderForm: function() {
             return (
-                <form onSubmit={this.props.handleSubmit}>
+                <form
+                    onSubmit={this.props.handleSubmit}
+                    className="account-select-form"
+                >
+                    {this.renderAccountSelectField()}
                     {this.renderSiteSelectField()}
                     {this.renderCategorySelectField()}
-                    {this.renderAccountSelectField()}
                 </form>
             );
         },
