@@ -33,20 +33,23 @@ define([
                 <tr>
                     {this.renderVariationHeadings()}
                     <th className={'variations-table__th'}>
-                        <button type="button">add attribute</button>
+                        <button
+                            type="button"
+                            onClick={this.props.newAttributeColumnRequest}
+                        >
+                            add attribute
+                        </button>
                     </th>
                 </tr>
             );
         },
         renderVariations: function() {
             var variations = this.props.variationsTable.variations;
-            console.log('in render variations with variations: ', variations);
             return (
                 variations.map(this.renderVariationRow, this)
             );
         },
         renderVariationRowField: function(variationId, field) {
-            console.log('in renderVariationRowField with variationId: ', variationId, ' and field: ', field)
             return (
                 <td>
                     <Field

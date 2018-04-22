@@ -6,6 +6,11 @@ define([], function() {
                 type: 'NEW_VARIATION_ROW_CREATE'
             }
         },
+        newAttributeColumnRequest: function(){
+            return{
+                type:'NEW_ATTRIBUTE_COLUMN_REQUEST'
+            };
+        },
         newVariationRowCreateRequest: function( variationId) {
             return function(dispatch, getState) {
                 var currState = getState();
