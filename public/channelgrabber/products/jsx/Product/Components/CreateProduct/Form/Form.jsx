@@ -16,9 +16,7 @@ define([
     VatView,
     CreateVariationsTable
 ) {
-//
 
-    console.log("loggingCreateVariationsTale: " , CreateVariationsTable)
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
     var FormSection = reduxForm.FormSection;

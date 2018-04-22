@@ -10,17 +10,9 @@ define([
     ActionCreators
 ) {
     "use strict";
-
-    console.log('in Root of createVariationsTable');
-
-    // I want to make sure this is properly referenced
-
-    console.log('want to to log ActionCreators', ActionCreators)
-
-
     const mapStateToProps = function(state){
         return{
-            variationRowProperties:state.variationRowProperties
+            variationsTable:state.variationsTable
         }
     };
     const mapDispatchToProps = function(dispatch) {
