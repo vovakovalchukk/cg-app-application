@@ -22,19 +22,19 @@ define([
             var jsx = '';
             if (field.isCustomAttribute) {
                 jsx = (
-                    <th className={'variations-table__th'}>
+                    <th className={'create-variations-table__th'} >
                         <Field
                             type="text"
                             name={field.name}
-                            className={'form-row__input'}
+                            className={'create-variations-table__input'}
                             component="input"
-//                            onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                         />
+                        <button className={'create-variations-table__th__remove-button'} onClick={this.props.attributeColumnRemove.bind(this,field.name)}>❌</button>
                     </th>
                 )
             } else {
                 jsx = (
-                    <th className={'variations-table__th'}>{field.label}</th>
+                    <th className={'create-variations-table__th'}>{field.label}</th>
                 );
             }
             return jsx;
@@ -46,10 +46,10 @@ define([
         },
         renderVariationsTableHeaderRow: function() {
             return (
-                <FormSection name={"variations-table-headings"}>
+                <FormSection name={"create-variations-table-headings"}>
                     <tr>
                         {this.renderVariationHeadings()}
-                        <th className={'variations-table__th'}>
+                        <th className={'create-variations-table__th'}>
                             <button
                                 type="button"
                                 onClick={this.props.newAttributeColumnRequest}
@@ -98,7 +98,7 @@ define([
         renderVariationsTable: function(variations) {
             return (
                 <FormSection name={"variations"}>
-                    <table className={'variations-table'}>
+                    <table className={'create-variations-table'}>
                         {this.renderVariationsTableHeaderRow()}
                         {this.renderVariations()}
                     </table>

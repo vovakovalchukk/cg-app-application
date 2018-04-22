@@ -15,6 +15,15 @@ define([], function() {
                 }
             };
         },
+        attributeColumnRemove: function(fieldName) {
+            console.log('in attributeColumnRemove with fieldName: ', fieldName);
+            return {
+                type: 'ATTRIBUTE_COLUMN_REMOVE',
+                payload: {
+                    fieldName:fieldName
+                }
+            };
+        },
         newVariationRowCreateRequest: function(variationId) {
             return function(dispatch, getState) {
                 var currState = getState();
@@ -22,7 +31,8 @@ define([], function() {
                     dispatch(ActionCreators.newVariationRowCreate());
                 }
             }
-        }
+        },
+
     };
 
     return ActionCreators;

@@ -25,7 +25,6 @@ define([
             Redux.applyMiddleware(thunk.default)
         )
     );
-
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {
             return {
