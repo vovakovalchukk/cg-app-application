@@ -18,17 +18,22 @@ define([
         variationRowFieldOnChange: function(event, variationId) {
             this.props.newVariationRowCreateRequest(variationId);
         },
-        renderVariationsTableHeadings: function() {
+        renderVariationTableHeading: function(fieldName) {
+            return (
+                <th className={'variations-table__th'}>{fieldName}</th>
+            )
+        },
+        renderVariationHeadings: function() {
+            return this.props.variationsTable.fields.map(function(field) {
+                return this.renderVariationTableHeading(field.label);
+            }.bind(this));
+        },
+        renderVariationsTableHeaderRow: function() {
             return (
                 <tr>
-                    <th className={'variations-table__th'}>Image</th>
-                    <th className={'variations-table__th'}>SKU</th>
-                    <th className={'variations-table__th'}>Quantity</th>
-                    <th className={'variations-table__th'}>Stock Mode</th>
-                    <th className={'variations-table__th'}>Attribute 1</th>
-                    <th className={'variations-table__th'}>Attribute 2</th>
+                    {this.renderVariationHeadings()}
                     <th className={'variations-table__th'}>
-                        <button type="button">add column</button>
+                        <button type="button">add attribute</button>
                     </th>
                 </tr>
             );
@@ -40,12 +45,10 @@ define([
                 variations.map(this.renderVariationRow, this)
             );
         },
-
         renderVariationRowField: function(variationId, field) {
             console.log('in renderVariationRowField with variationId: ', variationId, ' and field: ', field)
             return (
                 <td>
-
                     <Field
                         type="text"
                         name={field.name}
@@ -56,17 +59,17 @@ define([
                 </td>
             )
         },
-
+        renderVariationRowFields: function(variationId) {
+            return this.props.variationsTable.fields.map(function(field) {
+                return this.renderVariationRowField(variationId, field);
+            }.bind(this))
+        },
         renderVariationRow: function(variation) {
             var variationId = variation.id;
             return (
                 <FormSection name={"variation-" + variationId}>
                     <tr>
-                        {
-                            this.props.variationsTable.fields.map(function(field){
-                                return this.renderVariationRowField(variationId,field);
-                            }.bind(this))
-                        }
+                        {this.renderVariationRowFields(variationId)}
                     </tr>
                 </FormSection>
             );
@@ -75,7 +78,7 @@ define([
             return (
                 <FormSection name={"variations"}>
                     <table className={'variations-table'}>
-                        {this.renderVariationsTableHeadings()}
+                        {this.renderVariationsTableHeaderRow()}
                         {this.renderVariations()}
                     </table>
                 </FormSection>
