@@ -103,7 +103,7 @@ define([
         },
         extractCategoryIdsFromFormValues: function(categories) {
             var categoryIds = [];
-            categories.forEach(function(categoryId, accountId) {
+            categories.forEach(function(categoryId) {
                 if (categoryId) {
                     categoryIds.push(categoryId);
                 }
