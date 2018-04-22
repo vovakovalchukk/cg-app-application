@@ -7,7 +7,8 @@ define([
     'Common/Components/ChannelBadge',
     'Common/Components/Select',
     'Common/Components/MultiSelect',
-    'CategoryMapper/Components/CategoryMap'
+    'CategoryMapper/Components/CategoryMap',
+    'Product/Components/CreateListing/Actions/Actions'
 ], function(
     React,
     ReactDom,
@@ -17,7 +18,8 @@ define([
     ChannelBadgeComponent,
     Select,
     MultiSelect,
-    CategoryMap
+    CategoryMap,
+    Actions
 ) {
     "use strict";
 
@@ -29,6 +31,9 @@ define([
             return {
                 addNewCategoryVisible: false
             }
+        },
+        componentDidMount: function() {
+            this.props.fetchCategoryRoots();
         },
         renderSiteSelectField: function() {
             for (var accountId in this.props.accounts) {
@@ -203,7 +208,11 @@ define([
     };
 
     var mapDispatchToProps = function (dispatch) {
-        return {}
+        return {
+            fetchCategoryRoots: function() {
+                Actions.fetchCategoryRoots(dispatch);
+            }
+        }
     };
 
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
