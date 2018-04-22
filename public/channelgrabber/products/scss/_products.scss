@@ -758,6 +758,9 @@ $vertical-margin: 3px;
     overflow: hidden;
     &__input {
         float: left;
+        width: auto;
+        padding:8px 5px 8px 5px;
+        width:90%;
     }
     &__label-column {
         float: left;

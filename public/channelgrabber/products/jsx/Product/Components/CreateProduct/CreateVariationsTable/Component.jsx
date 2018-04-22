@@ -18,29 +18,47 @@ define([
         variationRowFieldOnChange: function(event, variationId) {
             this.props.newVariationRowCreateRequest(variationId);
         },
-        renderVariationTableHeading: function(fieldName) {
-            return (
-                <th className={'variations-table__th'}>{fieldName}</th>
-            )
+        renderVariationTableHeading: function(field) {
+            var jsx = '';
+            if (field.isCustomAttribute) {
+                jsx = (
+                    <th className={'variations-table__th'}>
+                        <Field
+                            type="text"
+                            name={field.name}
+                            className={'form-row__input'}
+                            component="input"
+//                            onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                        />
+                    </th>
+                )
+            } else {
+                jsx = (
+                    <th className={'variations-table__th'}>{field.label}</th>
+                );
+            }
+            return jsx;
         },
         renderVariationHeadings: function() {
             return this.props.variationsTable.fields.map(function(field) {
-                return this.renderVariationTableHeading(field.label);
+                return this.renderVariationTableHeading(field);
             }.bind(this));
         },
         renderVariationsTableHeaderRow: function() {
             return (
-                <tr>
-                    {this.renderVariationHeadings()}
-                    <th className={'variations-table__th'}>
-                        <button
-                            type="button"
-                            onClick={this.props.newAttributeColumnRequest}
-                        >
-                            add attribute
-                        </button>
-                    </th>
-                </tr>
+                <FormSection name={"variations-table-headings"}>
+                    <tr>
+                        {this.renderVariationHeadings()}
+                        <th className={'variations-table__th'}>
+                            <button
+                                type="button"
+                                onClick={this.props.newAttributeColumnRequest}
+                            >
+                                add attribute
+                            </button>
+                        </th>
+                    </tr>
+                </FormSection>
             );
         },
         renderVariations: function() {
@@ -94,5 +112,4 @@ define([
 
     return CreateVariationsTableComponent;
 
-})
-;
+});
