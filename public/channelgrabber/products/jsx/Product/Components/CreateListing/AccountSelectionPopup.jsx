@@ -156,7 +156,7 @@ define([
                 return;
             }
             return <CategoryMap
-                accounts={this.props.accounts}
+                accounts={this.props.accountsForCategoryMap}
                 mapId={0}
             />;
         },
@@ -200,10 +200,36 @@ define([
         }
     })(AccountSelectionPopup);
 
+    var getSelectedCategoriesFromState = function(state, accountId) {
+        if (0 in state.categoryMaps) {
+            var selectedCategories = state.categoryMaps[0].selectedCategories;
+            if (accountId in selectedCategories) {
+                return selectedCategories[accountId];
+            }
+        }
+        return [];
+    };
+
+    var convertStateToCategoryMaps = function (state) {
+        var categories = {},
+            accountId;
+
+        for (accountId in state.accounts) {
+            categories[accountId] = Object.assign({}, state.accounts[accountId], {
+                categories: Object.assign({}, state.categories[accountId]),
+                selectedCategories: getSelectedCategoriesFromState(state, accountId),
+                displayName: state.accounts[accountId].name
+            });
+        }
+
+        return categories;
+    };
+
     var mapStateToProps = function (state, ownProps) {
         return {
             accounts: state.accounts,
-            categoryTemplateOptions: state.categoryTemplateOptions
+            categoryTemplateOptions: state.categoryTemplateOptions,
+            accountsForCategoryMap: convertStateToCategoryMaps(state)
         }
     };
 
