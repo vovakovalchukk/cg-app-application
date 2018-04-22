@@ -8,6 +8,7 @@ define([
     'Common/Components/Select',
     'Common/Components/MultiSelect',
     'CategoryMapper/Components/CategoryMap',
+    'CategoryMapper/Service/SubmitCategoryMapForm',
     'Product/Components/CreateListing/Actions/Actions'
 ], function(
     React,
@@ -19,6 +20,7 @@ define([
     Select,
     MultiSelect,
     CategoryMap,
+    submitCategoryMapForm,
     Actions
 ) {
     "use strict";
@@ -158,6 +160,7 @@ define([
             return <CategoryMap
                 accounts={this.props.accountsForCategoryMap}
                 mapId={0}
+                onSubmit={submitCategoryMapForm}
             />;
         },
         renderForm: function() {

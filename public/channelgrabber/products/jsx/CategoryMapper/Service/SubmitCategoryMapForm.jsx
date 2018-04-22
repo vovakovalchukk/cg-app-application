@@ -1,21 +1,17 @@
 define([
-    'react',
     'redux-form',
-    'CategoryMapper/Components/CategoryMaps',
-    'CategoryMapper/Actions/ResponseActions',
     'CategoryMapper/Actions/ApiHelper',
+    'CategoryMapper/Actions/ResponseActions'
 ], function(
-    React,
     ReduxForm,
-    CategoryMaps,
-    Actions,
-    ApiHelper
+    ApiHelper,
+    Actions
 ) {
     "use strict";
 
     var SubmissionError = ReduxForm.SubmissionError;
 
-    var RootComponent = React.createClass({
+    var service = {
         validateName: function(name) {
             if (!name || name.length < 2) {
                 return 'The name is too short.';
@@ -48,14 +44,14 @@ define([
                 return {
                     text: 'The selected category is not listable. Please select another one.',
                     accountIds: invalidAccountIds
-                }
+                };
             }
 
             return null;
         },
         validateForm: function(mapId, values, state) {
-            var name = this.validateName(values.name),
-                categories = this.validateCategories(values.categories, state.accounts),
+            var name = service.validateName(values.name),
+                categories = service.validateCategories(values.categories, state.accounts),
                 errorObject = {};
 
             if (name) {
@@ -85,7 +81,7 @@ define([
                         categories: {
                             _error: JSON.stringify({
                                 text: response.error.message,
-                                existingMapNames: this.extractExistingCategoryNamesFromErrorResponse(response.error)
+                                existingMapNames: service.extractExistingCategoryNamesFromErrorResponse(response.error)
                             })
                         }
                     });
@@ -117,7 +113,7 @@ define([
         buildPostData: function(mapId, values) {
             var data = {
                 name: values.name,
-                categoryIds: this.extractCategoryIdsFromFormValues(values.categories)
+                categoryIds: service.extractCategoryIdsFromFormValues(values.categories)
             };
             if (mapId > 0) {
                 data.id = mapId;
@@ -129,41 +125,32 @@ define([
             return new Promise(function(resolve) {
                 return $.post(
                     ApiHelper.buildSaveCategoryMapUrl(),
-                    this.buildPostData(mapId, values)
+                    service.buildPostData(mapId, values)
                 ).success(function(response) {
                     resolve(response);
                 }).error(function() {
                     n.error('There was an error while saving the category map. Please try again or contact support if the problem persists.');
                 });
-            }.bind(this));
+            });
         },
-        submitCategoryMap: function(values, dispatch, state) {
-            var mapId = state.mapId;
-            this.validateForm(mapId, values, state);
+    };
 
-            return this.saveCategoryMap(mapId, values).then(function(response) {
-                this.checkResponseForErrors(response);
+    return function(values, dispatch, state) {
+        var mapId = state.mapId;
+        service.validateForm(mapId, values, state);
 
-                if (mapId == 0) {
-                    n.success('The new category map <b>' + values.name + '</b> has been saved successfully');
-                    dispatch(Actions.addCategoryMap(response.id, response.etag, values));
-                    dispatch(ReduxForm.reset(state.form));
-                    return;
-                }
+        return service.saveCategoryMap(mapId, values).then(function(response) {
+            service.checkResponseForErrors(response);
 
-                n.success('The category map <b>' +  values.name + '</b> has been successfully updated.');
-                dispatch(Actions.updateCategoryMap(mapId, response.etag, values));
-            }.bind(this));
-        },
-        render: function()
-        {
-            return (
-                <CategoryMaps
-                    onSubmit={this.submitCategoryMap}
-                />
-            );
-        }
-    });
+            if (mapId == 0) {
+                n.success('The new category map <b>' + values.name + '</b> has been saved successfully');
+                dispatch(Actions.addCategoryMap(response.id, response.etag, values));
+                dispatch(ReduxForm.reset(state.form));
+                return;
+            }
 
-    return RootComponent;
+            n.success('The category map <b>' +  values.name + '</b> has been successfully updated.');
+            dispatch(Actions.updateCategoryMap(mapId, response.etag, values));
+        });
+    }
 });
