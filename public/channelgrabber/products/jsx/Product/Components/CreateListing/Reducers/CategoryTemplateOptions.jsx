@@ -25,6 +25,20 @@ define([
 
             return newState;
         },
+        "CATEGORY_MAP_SELECTED_BY_NAME": function(state, action) {
+            var newState = Object.assign({}, state),
+                name = action.payload.name;
+
+            for (var categoryId in newState) {
+                if (newState[categoryId].name == name) {
+                    newState[categoryId] = Object.assign({}, newState[categoryId], {
+                        selected: true
+                    });
+                }
+            }
+
+            return newState;
+        },
         "ADD_NEW_CATEGORY_MAP": function(state, action) {
             var newState = Object.assign({}, state);
             newState[action.payload.mapId] = {
@@ -32,6 +46,6 @@ define([
                 selected: true
             };
             return newState;
-        }
+        },
     });
 });

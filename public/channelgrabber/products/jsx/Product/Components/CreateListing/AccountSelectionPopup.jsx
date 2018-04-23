@@ -83,8 +83,8 @@ define([
                 />
             </span>);
         },
-        onViewExistingMapClick: function() {
-            // Do nothing, we just need to provide a callback to the category map component
+        onViewExistingMapClick: function(categoryName) {
+            this.props.categoryMapSelectedByName(categoryName);
         },
         renderForm: function() {
             return (
@@ -170,6 +170,9 @@ define([
             },
             categoryMapSelected: function(categoryIds) {
                 dispatch(Actions.categoryMapSelected(categoryIds));
+            },
+            categoryMapSelectedByName: function(name) {
+                dispatch(Actions.categoryMapSelectedByName(name));
             }
         }
     };

@@ -35,5 +35,13 @@ define([
                 }
             };
         },
+        categoryMapSelectedByName: function(categoryName) {
+            return {
+                type: "CATEGORY_MAP_SELECTED_BY_NAME",
+                payload: {
+                    name: categoryName
+                }
+            };
+        },
     };
 });

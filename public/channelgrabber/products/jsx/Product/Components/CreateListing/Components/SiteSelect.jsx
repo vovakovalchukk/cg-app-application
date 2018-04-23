@@ -39,7 +39,7 @@ define([
                     <Select
                         autoSelectFirst={false}
                         options={this.getSiteSelectOptions()}
-                        selectedOption={this.getSelectedSite.call(this, this.props.input.value)}
+                        selectedOption={this.getSelectedSite(this.props.input.value)}
                         onOptionChange={this.onSiteSelected.bind(this, this.props.input)}
                         filterable={true}
                     />
