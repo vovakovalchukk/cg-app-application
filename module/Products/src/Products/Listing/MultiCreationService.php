@@ -139,8 +139,7 @@ class MultiCreationService implements LoggerAwareInterface
     ): bool {
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
-            if (empty($accountIds)) {
-                $this->logWarning(static::LOG_MSG_MISSING_ACCOUNT_IDS, [], static::LOG_CODE_MISSING_ACCOUNT_IDS);
+            if (!$this->isRequiredListingDataSet($accountIds, $categoryTemplateIds, $productData)) {
                 return false;
             }
 
@@ -151,11 +150,6 @@ class MultiCreationService implements LoggerAwareInterface
                 );
             } catch (NotFound $exception) {
                 $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $accountIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
-                return false;
-            }
-
-            if (empty($categoryTemplateIds)) {
-                $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_TEMPLATE_IDS, [], static::LOG_CODE_MISSING_CATEGORY_TEMPLATE_IDS);
                 return false;
             }
 
@@ -189,12 +183,7 @@ class MultiCreationService implements LoggerAwareInterface
                 return false;
             }
 
-            $productId = $productData['id'] ?? null;
-            if (!$productId) {
-                $this->logWarning(static::LOG_MSG_MISSING_PRODUCT_ID, [], static::LOG_CODE_MISSING_PRODUCT_ID);
-                return false;
-            }
-
+            $productId = $productData['id'];
             $this->addGlobalLogEventParam('product', $productId);
             try {
                 /** @var Product $product */
@@ -204,11 +193,7 @@ class MultiCreationService implements LoggerAwareInterface
                 return false;
             }
 
-            $variationsData = $productData['variations'] ?? [];
-            if (empty($variationsData)) {
-                $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
-                return false;
-            }
+            $variationsData = $productData['variations'];
 
             $skus = array_filter(array_map(function(array $variationData) {
                 return $variationData['sku'] ?? null;
@@ -237,6 +222,31 @@ class MultiCreationService implements LoggerAwareInterface
         } finally {
             $this->removeGlobalLogEventParams(['account', 'categoryTemplate', 'site', 'guid', 'category', 'product', 'sku']);
         }
+    }
+
+    protected function isRequiredListingDataSet(
+        array $accountIds,
+        array $categoryTemplateIds,
+        array $productData
+    ): bool {
+        if (empty($accountIds)) {
+            $this->logWarning(static::LOG_MSG_MISSING_ACCOUNT_IDS, [], static::LOG_CODE_MISSING_ACCOUNT_IDS);
+            return false;
+        }
+        if (empty($categoryTemplateIds)) {
+            $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_TEMPLATE_IDS, [], static::LOG_CODE_MISSING_CATEGORY_TEMPLATE_IDS);
+            return false;
+        }
+        if (!isset($productData['id']) || !$productData['id']) {
+            $this->logWarning(static::LOG_MSG_MISSING_PRODUCT_ID, [], static::LOG_CODE_MISSING_PRODUCT_ID);
+            return false;
+        }
+        $variationsData = $productData['variations'] ?? [];
+        if (!isset($productData['variations']) || empty($productData['variations'])) {
+            $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
+            return false;
+        }
+        return true;
     }
 
     protected function isSimpleListing(Product $product, array $variations): bool
