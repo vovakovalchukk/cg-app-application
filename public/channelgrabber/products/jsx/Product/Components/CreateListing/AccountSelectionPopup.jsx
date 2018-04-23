@@ -5,11 +5,12 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Common/Components/ChannelBadge',
-    'Common/Components/Select',
-    'Common/Components/MultiSelect',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Service/SubmitCategoryMapForm',
-    'Product/Components/CreateListing/Actions/Actions'
+    'Product/Components/CreateListing/Actions/Actions',
+    'Product/Components/CreateListing/Components/AccountSelect',
+    'Product/Components/CreateListing/Components/CategoryMapSelect',
+    'Product/Components/CreateListing/Components/SiteSelect'
 ], function(
     React,
     ReactDom,
@@ -17,11 +18,12 @@ define([
     ReduxForm,
     Container,
     ChannelBadgeComponent,
-    Select,
-    MultiSelect,
     CategoryMap,
     submitCategoryMapForm,
-    Actions
+    Actions,
+    AccountSelectComponent,
+    CategoryMapSelectComponent,
+    SiteSelectComponent
 ) {
     "use strict";
 
@@ -31,7 +33,7 @@ define([
     var AccountSelectionPopup = React.createClass({
         getInitialState: function() {
             return {
-                addNewCategoryVisible: false
+                addNewCategoryVisible: true
             }
         },
         componentDidMount: function() {
@@ -43,78 +45,19 @@ define([
                 if (account.channel == 'ebay') {
                     return <Field
                         name="site"
-                        component={this.renderSiteSelectComponent}
+                        component={SiteSelectComponent}
+                        options={this.props.ebaySiteOptions}
                     />
                 }
             }
             return null;
         },
-        renderSiteSelectComponent: function(field) {
-            return (<label>
-                <span className={"inputbox-label"}>Site</span>
-                <div className={"order-inputbox-holder"}>
-                    <Select
-                        autoSelectFirst={false}
-                        options={this.getSiteSelectOptions()}
-                        selectedOption={this.getSelectedSite.call(this, field.input.value)}
-                        onOptionChange={this.onSiteSelected.bind(this, field.input)}
-                        filterable={true}
-                    />
-                </div>
-            </label>);
-        },
-        getSiteSelectOptions: function() {
-            var options = [];
-            for (var siteId in this.props.ebaySiteOptions) {
-                options.push({
-                    name: this.props.ebaySiteOptions[siteId],
-                    value: siteId
-                })
-            }
-            return options;
-        },
-        getSelectedSite: function (siteId) {
-            return {
-                name: siteId ? this.props.ebaySiteOptions[siteId] : '',
-                value: siteId ? siteId : ''
-            }
-        },
-        onSiteSelected: function(input, site) {
-            input.onChange(site.value);
-        },
         renderCategorySelectField: function() {
             return <Field
                 name="categories"
-                component={this.renderCategorySelectComponent}
+                component={CategoryMapSelectComponent}
+                options={this.props.categoryTemplateOptions}
             />
-        },
-        renderCategorySelectComponent: function(field) {
-            return (<label>
-                <span className={"inputbox-label"}>Category </span>
-                <div className={"order-inputbox-holder"}>
-                    <MultiSelect
-                        options={this.getCategorySelectOptions()}
-                        onOptionChange={this.onCategorySelected.bind(this, field.input)}
-                        filterable={true}
-                    />
-                </div>
-                <a href="#" onClick={this.showAddNewCategoryMapComponent}>Add new category map</a>
-            </label>);
-        },
-        getCategorySelectOptions: function() {
-            var options = [];
-            for (var categoryId in this.props.categoryTemplateOptions) {
-                options.push({
-                    name: this.props.categoryTemplateOptions[categoryId],
-                    value: categoryId
-                });
-            }
-            return options;
-        },
-        onCategorySelected: function(input, categories) {
-            input.onChange(categories.map(function(category) {
-                return category.value;
-            }));
         },
         showAddNewCategoryMapComponent: function() {
             this.setState({
@@ -122,36 +65,11 @@ define([
             });
         },
         renderAccountSelectField: function() {
-            return <FieldArray name="accounts" component={this.renderAccountSelect}/>
-        },
-        renderAccountSelect: function() {
-            var accountSelects = [],
-                index = 0;
-            for (var accountId in this.props.accounts) {
-                var account = this.props.accounts[accountId];
-                accountSelects.push(
-                    <Field
-                        name={"accounts." + index}
-                        component={this.renderAccountBadge.bind(this, account)}
-                    />
-                );
-                index++;
-            }
-            return (<span>
-                {accountSelects}
-            </span>);
-        },
-        renderAccountBadge: function(accountData, field) {
-            return <ChannelBadgeComponent
-                id={accountData.id}
-                channel={accountData.channel}
-                displayName={accountData.name}
-                onClick={this.onAccountSelected.bind(this, field.input)}
-                selected={!!field.input.value}
-            />;
-        },
-        onAccountSelected: function(input, accountId) {
-            input.onChange(input.value ? null : accountId);
+            return <FieldArray
+                name="accounts"
+                component={AccountSelectComponent}
+                accounts={this.props.accounts}
+            />
         },
         renderAddNewCategoryComponent: function() {
             if (!this.state.addNewCategoryVisible) {
@@ -228,10 +146,10 @@ define([
         return categories;
     };
 
-    var mapStateToProps = function (state, ownProps) {
+    var mapStateToProps = function (state) {
         return {
-            accounts: state.accounts,
-            categoryTemplateOptions: state.categoryTemplateOptions,
+            accounts: Object.assign({}, state.accounts),
+            categoryTemplateOptions: Object.assign({}, state.categoryTemplateOptions),
             accountsForCategoryMap: convertStateToCategoryMaps(state)
         }
     };
