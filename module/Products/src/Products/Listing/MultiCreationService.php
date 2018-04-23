@@ -142,39 +142,22 @@ class MultiCreationService implements LoggerAwareInterface
             if (!$this->isRequiredListingDataSet($accountIds, $categoryTemplateIds, $productData)) {
                 return false;
             }
-
-            try {
-                /** @var Accounts $accounts */
-                $accounts = $this->accountService->fetchByFilter(
-                    (new AccountFilter('all', 1))->setId($accountIds)
-                );
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $accountIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            /** @var Accounts $accounts */
+            if (!($accounts = $this->fetchAccountsById($accountIds))) {
                 return false;
             }
-
-            try {
-                /** @var CategoryTemplates $accounts */
-                $categoryTemplates = $this->categoryTemplateService->fetchCollectionByFilter(
-                    (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
-                );
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND, [implode(',', $categoryTemplateIds)], static::LOG_CODE_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND);
+            /** @var CategoryTemplates $accounts */
+            if (!($categoryTemplates = $this->fetchCategoryTemplatesById($categoryTemplateIds))) {
                 return false;
             }
-
-            $categories = $this->convertCategoryTemplatesToCategories($categoryTemplates);
-            if (!$categories) {
+            /** @var Categories $categories */
+            if (!($categories = $this->convertCategoryTemplatesToCategories($categoryTemplates))) {
                 return false;
             }
-
             $productId = $productData['id'];
             $this->addGlobalLogEventParam('product', $productId);
-            try {
-                /** @var Product $product */
-                $product = $this->productService->fetch($productId);
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_PRODUCT_NOT_FOUND, [$productId], static::LOG_CODE_REQUESTED_PRODUCT_NOT_FOUND);
+            /** @var Product $product */
+            if (!($product = $this->fetchProductById($productId))) {
                 return false;
             }
 
@@ -232,6 +215,40 @@ class MultiCreationService implements LoggerAwareInterface
             return false;
         }
         return true;
+    }
+
+    protected function fetchAccountsById(array $accountIds): ?Accounts
+    {
+        try {
+            return $this->accountService->fetchByFilter(
+                (new AccountFilter('all', 1))->setId($accountIds)
+            );
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $accountIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            return null;
+        }
+    }
+
+    protected function fetchCategoryTemplatesById(array $categoryTemplateIds): ?CategoryTemplates
+    {
+        try {
+            return $this->categoryTemplateService->fetchCollectionByFilter(
+                (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
+            );
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND, [implode(',', $categoryTemplateIds)], static::LOG_CODE_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND);
+            return null;
+        }
+    }
+
+    protected function fetchProductById(int $productId): ?Product
+    {
+        try {
+            return $this->productService->fetch($productId);
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_PRODUCT_NOT_FOUND, [$productId], static::LOG_CODE_REQUESTED_PRODUCT_NOT_FOUND);
+            return null;
+        }
     }
 
     protected function convertCategoryTemplatesToCategories(CategoryTemplates $categoryTemplates): ?Categories
