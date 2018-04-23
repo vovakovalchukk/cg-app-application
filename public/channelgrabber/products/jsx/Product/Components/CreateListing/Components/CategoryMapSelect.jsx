@@ -10,8 +10,9 @@ define([
     var CategoryMapSelectComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                options: {},
-                onAddNewCategoryClick: function() {}
+                addNewCategoryMapButtonVisible: true,
+                onAddNewCategoryClick: function() {},
+                options: {}
             }
         },
         getCategorySelectOptions: function() {
@@ -29,8 +30,14 @@ define([
                 return category.value;
             }));
         },
+        renderAddNewCategoryMapButton: function() {
+            if (!this.props.addNewCategoryMapButtonVisible) {
+                return null;
+            }
+            return <a href="#" onClick={this.props.onAddNewCategoryClick} className="add-new-category-map-button">Add new</a>;
+        },
         render: function() {
-            return (<label>
+            return (<label className="form-input-container">
                 <span className={"inputbox-label"}>Category</span>
                 <div className={"order-inputbox-holder"}>
                     <MultiSelect
@@ -39,7 +46,7 @@ define([
                         filterable={true}
                     />
                 </div>
-                <a href="#" onClick={this.props.onAddNewCategoryClick}>Add new category map</a>
+                {this.renderAddNewCategoryMapButton()}
             </label>);
         }
     });

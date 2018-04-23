@@ -59,6 +59,7 @@ define([
                 component={CategoryMapSelectComponent}
                 options={this.props.categoryTemplateOptions}
                 onAddNewCategoryClick={this.props.showAddNewCategoryMapComponent}
+                addNewCategoryMapButtonVisible={!this.props.addNewCategoryVisible}
             />
         },
         renderAccountSelectField: function() {
@@ -72,11 +73,17 @@ define([
             if (!this.props.addNewCategoryVisible) {
                 return;
             }
-            return <CategoryMap
-                accounts={this.props.accountsForCategoryMap}
-                mapId={0}
-                onSubmit={submitCategoryMapForm}
-            />;
+            return (<span className="category-template-container">
+                <CategoryMap
+                    accounts={this.props.accountsForCategoryMap}
+                    mapId={0}
+                    onSubmit={submitCategoryMapForm}
+                    onViewExistingMapClick={this.onViewExistingMapClick}
+                />
+            </span>);
+        },
+        onViewExistingMapClick: function() {
+            // Do nothing, we just need to provide a callback to the category map component
         },
         renderForm: function() {
             return (

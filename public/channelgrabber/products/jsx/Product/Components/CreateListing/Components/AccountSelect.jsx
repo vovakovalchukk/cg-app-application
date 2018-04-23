@@ -42,7 +42,7 @@ define([
                 );
                 index++;
             }
-            return (<span>
+            return (<span className="form-input-container">
                 {accountSelects}
             </span>);
         }

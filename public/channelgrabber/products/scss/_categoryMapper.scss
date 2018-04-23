@@ -38,10 +38,10 @@
         color: $color-red;
         font-size: 1.1em;
         max-width: 300px;
+        display: table;
     }
     .form-error {
         margin: 0 auto;
-        display: block;
         max-width: 500px;
         text-align: center;
     }

@@ -30,6 +30,7 @@
 
   .inputbox-label {
     margin-right: 12px;
+    font-size: 1.3em;
   }
 
   .container-extra-item-specific {
@@ -81,15 +82,42 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .custom-select {
-      width: 200px;
+      text-align: center;
     }
   }
 
   .container-buttons {
     float: right;
+  }
+
+  .category-template-container {
+    background-color: transparent;
+    min-height: 0;
+  }
+
+  .container-content {
+    max-width: none;
+    min-width: 1000px;
+  }
+
+  .form-input-container {
+    .order-inputbox-holder {
+      margin-bottom: 15px;
+    }
+    display: table;
+    margin: 0 auto;
+  }
+
+  .add-new-category-map-button {
+    float: left;
+    line-height: 28px;
+    margin-left: 15px;
+    font-size: 1.3em;
+    position: absolute;
+  }
+
+  .custom-select {
+    width: 300px;
   }
 }
 

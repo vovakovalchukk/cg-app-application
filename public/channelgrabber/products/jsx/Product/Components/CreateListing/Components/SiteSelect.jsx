@@ -33,7 +33,7 @@ define([
             input.onChange(site.value);
         },
         render: function() {
-            return (<label>
+            return (<label className="form-input-container">
                 <span className={"inputbox-label"}>Site</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
