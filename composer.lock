@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b56ad8d84dea5c8328504b981eb27dfb",
+    "content-hash": "1cc4c4c5cb8da402adbe335c65f5519f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -451,16 +451,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "070f21c0bbce0428613c57ed1bf0d2e8e2894d0d"
+                "reference": "479bf50b422aa7873f5ee6e13cf6cb7b71539c69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-TAC-54-NoFreeTrial-4d8b48.zip",
-                "reference": "070f21c0bbce0428613c57ed1bf0d2e8e2894d0d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-EPIC-TAC-51-RemoveFreeTrial-be7214.zip",
+                "reference": "479bf50b422aa7873f5ee6e13cf6cb7b71539c69",
                 "shasum": null
             },
             "require": {
@@ -482,7 +482,7 @@
                 "channelgrabber/stock": "^1.10.1",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.23.0",
-                "channelgrabber/zf2-email-template": "dev-TAC-54-NoFreeTrial as 1.0.22",
+                "channelgrabber/zf2-email-template": "dev-EPIC-TAC-51-RemoveFreeTrial as 1.0.22",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1"
             },
@@ -507,7 +507,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-23T14:27:59+00:00"
+            "time": "2018-04-23T15:41:37+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -3482,7 +3482,7 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
@@ -3490,7 +3490,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-TAC-54-NoFreeTrial-ed2d07.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-EPIC-TAC-51-RemoveFreeTrial-ed2d07.zip",
                 "reference": "cc556aa3de0e5c012daf5fa97ea6f0a47db14a9d",
                 "shasum": null
             },
@@ -3626,7 +3626,7 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
@@ -3634,7 +3634,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-54-NoFreeTrial-34df9f.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-TAC-51-RemoveFreeTrial-34df9f.zip",
                 "reference": "3b85ce69b70bc755a19fee250c38def9ee4b1602",
                 "shasum": null
             },
@@ -3808,16 +3808,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "bec06f70e517113d06662fffbd5a00e1dcec71bd"
+                "reference": "36b5b995c2d41e95777cd605a2f04427746eee9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-54-NoFreeTrial-eb5c79.zip",
-                "reference": "bec06f70e517113d06662fffbd5a00e1dcec71bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-TAC-51-RemoveFreeTrial-22d3de.zip",
+                "reference": "36b5b995c2d41e95777cd605a2f04427746eee9f",
                 "shasum": null
             },
             "require": {
@@ -3829,7 +3829,7 @@
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.23.2",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "channelgrabber/zf2-v4-ui": "dev-TAC-54-NoFreeTrial as 1.23.1",
+                "channelgrabber/zf2-v4-ui": "dev-EPIC-TAC-51-RemoveFreeTrial as 1.23.1",
                 "guzzle/guzzle": "~3.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "zendframework/zend-config": "2.*",
@@ -3855,7 +3855,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-04-23T13:13:14+00:00"
+            "time": "2018-04-23T15:41:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4067,7 +4067,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -4075,7 +4075,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-54-NoFreeTrial-5da1ac.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-TAC-51-RemoveFreeTrial-5da1ac.zip",
                 "reference": "baed0d61261eb9e95b958808fe20ba2772d20300",
                 "shasum": null
             },
@@ -9569,31 +9569,31 @@
         {
             "alias": "1.15.2",
             "alias_normalized": "1.15.2.0",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/cglib"
         },
         {
             "alias": "1.0.22",
             "alias_normalized": "1.0.22.0",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/zf2-email-template"
         },
         {
             "alias": "1.5.10",
             "alias_normalized": "1.5.10.0",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/zf2-login"
         },
         {
             "alias": "1.5.17",
             "alias_normalized": "1.5.17.0",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/zf2-register"
         },
         {
             "alias": "1.23.1",
             "alias_normalized": "1.23.1.0",
-            "version": "dev-TAC-54-NoFreeTrial",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
