@@ -60,6 +60,7 @@ define([
                 options={this.props.categoryTemplateOptions}
                 onAddNewCategoryClick={this.props.showAddNewCategoryMapComponent}
                 addNewCategoryMapButtonVisible={!this.props.addNewCategoryVisible}
+                onCategorySelected={this.props.categoryMapSelected}
             />
         },
         renderAccountSelectField: function() {
@@ -166,6 +167,9 @@ define([
             },
             showAddNewCategoryMapComponent: function() {
                 dispatch(Actions.showAddNewCategoryMapComponent());
+            },
+            categoryMapSelected: function(categoryIds) {
+                dispatch(Actions.categoryMapSelected(categoryIds));
             }
         }
     };

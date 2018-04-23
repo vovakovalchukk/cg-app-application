@@ -36,10 +36,21 @@ define([
             return data;
         };
 
+        var buildCategoryTemplateOptions = function(categoryTemplateOptions) {
+            var categories = {};
+            for (var categoryId in categoryTemplateOptions) {
+                categories[categoryId] = {
+                    name: categoryTemplateOptions[categoryId],
+                    selected: false
+                }
+            }
+            return categories;
+        }
+
         var buildInitialStateFromData = function() {
             return {
                 accounts: getAccountOptions(accounts, allowedChannels),
-                categoryTemplateOptions: categoryTemplateOptions
+                categoryTemplateOptions: buildCategoryTemplateOptions(categoryTemplateOptions)
             };
         };
 

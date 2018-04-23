@@ -12,23 +12,35 @@ define([
             return {
                 addNewCategoryMapButtonVisible: true,
                 onAddNewCategoryClick: function() {},
-                options: {}
+                onCategorySelected: function() {},
+                options: {},
             }
         },
         getCategorySelectOptions: function() {
             var options = [];
             for (var categoryId in this.props.options) {
                 options.push({
-                    name: this.props.options[categoryId],
+                    name: this.props.options[categoryId].name,
                     value: categoryId
                 });
             }
             return options;
         },
         onCategorySelected: function(input, categories) {
-            input.onChange(categories.map(function(category) {
+            var categoryIds = categories.map(function(category) {
                 return category.value;
-            }));
+            });
+            input.onChange(categoryIds);
+            this.props.onCategorySelected(categoryIds);
+        },
+        getSelectedOptions: function() {
+            var categoryIds = [];
+            for (var categoryId in this.props.options) {
+                if (this.props.options[categoryId].selected) {
+                    categoryIds.push(categoryId);
+                }
+            }
+            return categoryIds;
         },
         renderAddNewCategoryMapButton: function() {
             if (!this.props.addNewCategoryMapButtonVisible) {
@@ -41,9 +53,10 @@ define([
                 <span className={"inputbox-label"}>Category</span>
                 <div className={"order-inputbox-holder"}>
                     <MultiSelect
-                        options={this.getCategorySelectOptions()}
-                        onOptionChange={this.onCategorySelected.bind(this, this.props.input)}
                         filterable={true}
+                        onOptionChange={this.onCategorySelected.bind(this, this.props.input)}
+                        options={this.getCategorySelectOptions()}
+                        selectedOptions={this.getSelectedOptions()}
                     />
                 </div>
                 {this.renderAddNewCategoryMapButton()}

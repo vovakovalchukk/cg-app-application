@@ -26,6 +26,14 @@ define([
                 type: "SHOW_ADD_NEW_CATEGORY_MAP",
                 payload: {}
             };
-        }
+        },
+        categoryMapSelected: function(categoryIds) {
+            return {
+                type: "CATEGORY_MAP_SELECTED",
+                payload: {
+                    categoryIds: categoryIds
+                }
+            };
+        },
     };
 });
