@@ -37,6 +37,8 @@ class MultiCreationService implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const MAX_SAVE_ATTEMPTS = 3;
+
     const LOG_CODE_MISSING_ACCOUNT_IDS = 'No account ids specified - can\'t create listings';
     const LOG_MSG_MISSING_ACCOUNT_IDS = 'No account ids specified - can\'t create listings';
     const LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND = 'Accounts not found - can\'t create listings';
@@ -382,7 +384,7 @@ class MultiCreationService implements LoggerAwareInterface
 
     protected function saveProductChannelDetail(ProductChannelDetail $productChannelDetail)
     {
-        for ($attempt = 1; $attempt <= 3; $attempt++) {
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
                 // Copy current etag so we can safley overright current data
                 $productChannelDetail->setStoredETag(
@@ -394,6 +396,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             try {
                 $this->productChannelDetailService->save($productChannelDetail);
+                return;
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
@@ -460,7 +463,7 @@ class MultiCreationService implements LoggerAwareInterface
 
     protected function saveProductAccountDetail(ProductAccountDetail $productAccountDetail)
     {
-        for ($attempt = 1; $attempt <= 3; $attempt++) {
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
                 // Copy current etag so we can safley overright current data
                 $productAccountDetail->setStoredETag(
@@ -472,6 +475,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             try {
                 $this->productAccountDetailService->save($productAccountDetail);
+                return;
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
@@ -522,7 +526,7 @@ class MultiCreationService implements LoggerAwareInterface
 
     protected function saveCategoryChannelDetail(ProductCategoryDetail $productCategoryDetail)
     {
-        for ($attempt = 1; $attempt <= 3; $attempt++) {
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
                 // Copy current etag so we can safley overright current data
                 $productCategoryDetail->setStoredETag(
@@ -534,6 +538,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             try {
                 $this->productCategoryDetailService->save($productCategoryDetail);
+                return;
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
