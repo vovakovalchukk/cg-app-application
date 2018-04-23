@@ -163,23 +163,8 @@ class MultiCreationService implements LoggerAwareInterface
                 return false;
             }
 
-            $categoryIds = array_merge(...array_map(function(CategoryTemplate $categoryTemplate) {
-                return $categoryTemplate->getCategoryIds();
-            }, iterator_to_array($categoryTemplates)));
-
-            if (empty($categoryIds)) {
-                $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_IDS, [], static::LOG_CODE_MISSING_CATEGORY_IDS);
-                return false;
-            }
-
-            $this->addGlobalLogEventParam('category', implode(', ', $categoryIds));
-            try {
-                /** @var Categories $categories */
-                $categories = $this->categoryService->fetchCollectionByFilter(
-                    (new CategoryFilter('all', 1))->setId($categoryIds)
-                );
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            $categories = $this->convertCategoryTemplatesToCategories($categoryTemplates);
+            if (!$categories) {
                 return false;
             }
 
@@ -247,6 +232,28 @@ class MultiCreationService implements LoggerAwareInterface
             return false;
         }
         return true;
+    }
+
+    protected function convertCategoryTemplatesToCategories(CategoryTemplates $categoryTemplates): ?Categories
+    {
+        $categoryIds = array_merge(...array_map(function(CategoryTemplate $categoryTemplate) {
+            return $categoryTemplate->getCategoryIds();
+        }, iterator_to_array($categoryTemplates)));
+
+        if (empty($categoryIds)) {
+            $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_IDS, [], static::LOG_CODE_MISSING_CATEGORY_IDS);
+            return null;
+        }
+
+        $this->addGlobalLogEventParam('category', implode(', ', $categoryIds));
+        try {
+            return $this->categoryService->fetchCollectionByFilter(
+                (new CategoryFilter('all', 1))->setId($categoryIds)
+            );
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            return null;
+        }
     }
 
     protected function isSimpleListing(Product $product, array $variations): bool
