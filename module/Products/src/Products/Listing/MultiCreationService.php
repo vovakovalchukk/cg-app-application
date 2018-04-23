@@ -163,9 +163,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             $variationsData = $productData['variations'];
 
-            $skus = array_filter(array_map(function(array $variationData) {
-                return $variationData['sku'] ?? null;
-            }, $variationsData));
+            $skus = $this->getSkusFromVariationData($variationsData);
             $this->addGlobalLogEventParam('sku', implode(', ', $skus));
 
             $this->saveProductDetails($product, $productData, $variationsData);
@@ -179,9 +177,7 @@ class MultiCreationService implements LoggerAwareInterface
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
-                    $variations = array_filter(iterator_to_array($product->getVariations()), function(Product $product) use($skus) {
-                        return in_array($product->getSku(), $skus);
-                    });
+                    $variations = $this->getSelectedVariations($product, $skus);
                 }
                 $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid);
             }
@@ -271,6 +267,20 @@ class MultiCreationService implements LoggerAwareInterface
             $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
             return null;
         }
+    }
+
+    protected function getSkusFromVariationData(array $variationsData): array
+    {
+        return array_filter(array_map(function(array $variationData) {
+            return $variationData['sku'] ?? null;
+        }, $variationsData));
+    }
+
+    protected function getSelectedVariations(Product $parentProduct, array $selectedSkus)
+    {
+        return array_filter(iterator_to_array($parentProduct->getVariations()), function(Product $product) use($selectedSkus) {
+            return in_array($product->getSku(), $selectedSkus);
+        });
     }
 
     protected function isSimpleListing(Product $product, array $variations): bool
