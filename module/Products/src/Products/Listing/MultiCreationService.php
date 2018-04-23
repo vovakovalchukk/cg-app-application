@@ -446,17 +446,18 @@ class MultiCreationService implements LoggerAwareInterface
         /** @var Product[] $products */
         $products = $product->isParent() ? $product->getVariations() : [$product];
         foreach ($products as $product) {
-            if (isset($productAccountDetails[$product->getSku()])) {
-                foreach ($productAccountDetails[$product->getSku()] as $accountId => $variationAccountData) {
-                    $this->saveProductAccountDetail(
-                        $this->mapProductAccountDetails(
-                            $product->getId(),
-                            $accountId,
-                            $product->getOrganisationUnitId(),
-                            $variationAccountData
-                        )
-                    );
-                }
+            if (!isset($productAccountDetails[$product->getSku()])) {
+                continue;
+            }
+            foreach ($productAccountDetails[$product->getSku()] as $accountId => $variationAccountData) {
+                $this->saveProductAccountDetail(
+                    $this->mapProductAccountDetails(
+                        $product->getId(),
+                        $accountId,
+                        $product->getOrganisationUnitId(),
+                        $variationAccountData
+                    )
+                );
             }
         }
     }
