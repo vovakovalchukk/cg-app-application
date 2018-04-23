@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cfc45861044c5aa927cfc942d90883c",
+    "content-hash": "067e770694e464111fab7f715231582f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3626,16 +3626,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.5.9",
+            "version": "dev-TAC-54-NoFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "0d650828c7c37cbba2fdd2dafe06a36f36a839dc"
+                "reference": "3b85ce69b70bc755a19fee250c38def9ee4b1602"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.5.9-dbfc79.zip",
-                "reference": "0d650828c7c37cbba2fdd2dafe06a36f36a839dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-54-NoFreeTrial-34df9f.zip",
+                "reference": "3b85ce69b70bc755a19fee250c38def9ee4b1602",
                 "shasum": null
             },
             "require": {
@@ -3676,7 +3676,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2017-10-03T08:11:26+00:00"
+            "time": "2018-04-23T13:38:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -9567,6 +9567,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.5.10",
+            "alias_normalized": "1.5.10.0",
+            "version": "dev-TAC-54-NoFreeTrial",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.5.17",
             "alias_normalized": "1.5.17.0",
             "version": "dev-TAC-54-NoFreeTrial",
@@ -9582,6 +9588,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
