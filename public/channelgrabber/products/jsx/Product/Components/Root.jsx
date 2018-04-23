@@ -416,7 +416,9 @@ define([
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
             );
-            return <CreateListingRootComponent/>;
+            return <CreateListingRootComponent
+                product={this.state.createListing.product}
+            />;
         },
         renderCreateNewProduct: function() {
             return <CreateProductRoot

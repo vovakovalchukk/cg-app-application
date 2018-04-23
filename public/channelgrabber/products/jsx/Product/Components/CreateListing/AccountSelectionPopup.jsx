@@ -31,6 +31,11 @@ define([
     var FieldArray = ReduxForm.FieldArray;
 
     var AccountSelectionPopup = React.createClass({
+        getDefaultProps: function() {
+            return {
+                product: {}
+            }
+        },
         getInitialState: function() {
             return {
                 addNewCategoryVisible: true
@@ -95,6 +100,7 @@ define([
             );
         },
         render: function() {
+            console.log(this.props.product);
             return (
                 <Container
                     initiallyActive={true}

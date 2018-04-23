@@ -49,8 +49,10 @@ define([
         );
 
         var CreateListingRootComponent = React.createClass({
-            onSubmit: function() {
-                console.log(arguments);
+            getDefaultProps: function() {
+                return {
+                    product: {}
+                }
             },
             render: function () {
                 return (
@@ -59,6 +61,7 @@ define([
                             onCreateListingClose={onCreateListingClose}
                             onSubmit={this.onSubmit}
                             ebaySiteOptions={ebaySiteOptions}
+                            product={this.props.product}
                         />
                     </Provider>
                 );
