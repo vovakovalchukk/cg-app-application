@@ -21,6 +21,7 @@ class JsonController extends AbstractJsonController
 
     public function submitMultipleAction()
     {
+        $guid = $this->multiCreationService->generateUniqueId();
         return $this->buildResponse([
             'allowed' => $this->multiCreationService->createListings(
                 $this->params()->fromPost('accountIds', []),

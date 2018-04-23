@@ -125,15 +125,18 @@ class MultiCreationService implements LoggerAwareInterface
         $this->createListingJobGenerator = $createListingJobGenerator;
     }
 
+    public function generateUniqueId(): string
+    {
+        return uniqid('', true);
+    }
+
     public function createListings(
         array $accountIds,
         array $categoryTemplateIds,
         string $siteId,
         array $productData,
-        &$guid = null
+        $guid
     ): bool {
-        $guid = uniqid('', true);
-
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
             if (empty($accountIds)) {
