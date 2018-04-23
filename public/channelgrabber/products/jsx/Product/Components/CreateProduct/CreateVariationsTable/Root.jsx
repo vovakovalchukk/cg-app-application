@@ -12,12 +12,13 @@ define([
     "use strict";
     const mapStateToProps = function(state){
         return{
-            variationsTable:state.variationsTable
+            variationsTable:state.variationsTable,
+            uploadedImages:state.uploadedImages
         }
     };
     const mapDispatchToProps = function(dispatch) {
         return Redux.bindActionCreators(ActionCreators, dispatch);
     };
-    var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-    return FormConnector(Component);
+    var Connector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+    return Connector(Component);
 })

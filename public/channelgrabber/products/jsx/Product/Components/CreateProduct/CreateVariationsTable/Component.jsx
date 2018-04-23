@@ -1,9 +1,11 @@
 define([
     'react',
-    'redux-form'
+    'redux-form',
+    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
 ], function(
     React,
-    reduxForm
+    reduxForm,
+    ImageDropDown
 ) {
 
     var Field = reduxForm.Field;
@@ -22,14 +24,16 @@ define([
             var jsx = '';
             if (field.isCustomAttribute) {
                 jsx = (
-                    <th className={'create-variations-table__th'} >
+                    <th className={'create-variations-table__th'}>
                         <Field
                             type="text"
                             name={field.name}
                             className={'create-variations-table__input'}
                             component="input"
                         />
-                        <button className={'create-variations-table__th__remove-button'} onClick={this.props.attributeColumnRemove.bind(this,field.name)}>❌</button>
+                        <button className={'create-variations-table__th__remove-button'}
+                                onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
+                        </button>
                     </th>
                 )
             } else {
@@ -67,16 +71,46 @@ define([
                 variations.map(this.renderVariationRow, this)
             );
         },
-        renderVariationRowField: function(variationId, field) {
-            return (
-                <td>
+        variationRowFieldInputRenderMethods: {
+            text: function(variationId, field) {
+                return (
+                    <td>
+                        <Field
+                            type="text"
+                            name={field.name}
+                            className={'form-row__input'}
+                            component="input"
+                            onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                        />
+                    </td>
+                )
+            },
+            image: function(variationId, field) {
+                console.log('in image render method with props');
+                var uploadedImages = this.props.uploadedImages.images;
+                console.log('upladedImages: ', uploadedImages);
+                return (
                     <Field
                         type="text"
                         name={field.name}
                         className={'form-row__input'}
-                        component="input"
+                        component={function(props){
+                            return <ImageDropDown
+                                onChange={props.onChange}
+                                images={uploadedImages}
+                            />
+                        }}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
+                )
+            }
+        },
+        renderVariationRowField: function(variationId, field) {
+            console.log('in renderVariationRowFIeld with field: ', field)
+            var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this , variationId, field);
+            return (
+                <td>
+                    {renderFieldMethod()}
                 </td>
             )
         },
