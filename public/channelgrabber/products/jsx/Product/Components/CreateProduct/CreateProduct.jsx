@@ -14,7 +14,8 @@ define([
     var CreateProduct = React.createClass({
         getDefaultProps: function () {
             return {
-                onCreateProductClose: null
+                onCreateProductClose: null,
+                onSaveAndList: null
             };
         },
         handleContainerSubmit: function () {
@@ -23,6 +24,19 @@ define([
         handleSubmit: function (values) {
             console.log('in handleSubmit with values: ', values);
             console.log(`Title: ${values.title}`);
+        },
+        renderSaveAndListButtion: function() {
+            /**
+             * @TODO: this button has no styling yet, it's just floating around. We need to sort it out after
+             * this component will be fully implemented.
+             * */
+            return (<div className="button container-btn yes" onClick={this.submitAndList}>Save and list</div>);
+        },
+        submitAndList: function () {
+            /** @TODO: make sure that the account selection popup is shown only after the product save is successful */
+            this.refs.productForm.submit();
+            /** @TODO: pass the product data to the callback after we successfully save the product */
+            this.props.onSaveAndList({id: 123});
         },
         render: function () {
             return (
@@ -37,12 +51,12 @@ define([
                     yesButtonText="Create Product"
                     noButtonText="Cancel"
                 >
-                    
                     <CreateProductForm onSubmit={this.handleSubmit} ref="productForm"/>
+                    {this.renderSaveAndListButtion()}
                 </Container>
             );
         }
     });
-    
+
     return CreateProduct;
 });

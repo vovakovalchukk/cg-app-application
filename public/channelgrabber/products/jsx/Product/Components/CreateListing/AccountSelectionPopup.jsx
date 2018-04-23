@@ -100,7 +100,6 @@ define([
             );
         },
         render: function() {
-            console.log(this.props.product);
             return (
                 <Container
                     initiallyActive={true}

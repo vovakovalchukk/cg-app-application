@@ -260,6 +260,9 @@ define([
             var product = this.state.products.find(function(product) {
                 return product.id == productId;
             });
+            this.showNewListingView(product);
+        },
+        showNewListingView: function(product) {
             this.setState({
                 currentView: NEW_LISTING_VIEW,
                 createListing: {
@@ -423,6 +426,7 @@ define([
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
+                onSaveAndList={this.showNewListingView}
             />
         },
         renderProductListView: function() {
