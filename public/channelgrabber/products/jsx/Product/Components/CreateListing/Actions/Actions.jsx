@@ -21,5 +21,11 @@ define([
                 payload: {}
             };
         },
+        showAddNewCategoryMapComponent: function() {
+            return {
+                type: "SHOW_ADD_NEW_CATEGORY_MAP",
+                payload: {}
+            };
+        }
     };
 });

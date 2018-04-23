@@ -10,7 +10,8 @@ define([
     var CategoryMapSelectComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                options: {}
+                options: {},
+                onAddNewCategoryClick: function() {}
             }
         },
         getCategorySelectOptions: function() {
@@ -38,6 +39,7 @@ define([
                         filterable={true}
                     />
                 </div>
+                <a href="#" onClick={this.props.onAddNewCategoryClick}>Add new category map</a>
             </label>);
         }
     });

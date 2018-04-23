@@ -1,17 +1,19 @@
 define([
     'redux',
     'redux-form',
-    'Product/Components/CreateListing/Reducers/Accounts',
-    'Product/Components/CreateListing/Reducers/CategoryTemplateOptions',
     'CategoryMapper/Reducers/CategoryMaps',
-    'CategoryMapper/Reducers/Categories'
+    'CategoryMapper/Reducers/Categories',
+    'Product/Components/CreateListing/Reducers/Accounts',
+    'Product/Components/CreateListing/Reducers/AddNewCategoryVisible',
+    'Product/Components/CreateListing/Reducers/CategoryTemplateOptions',
 ], function(
     Redux,
     ReduxForm,
-    AccountsReducer,
-    CategoryTemplateOptionsReducer,
     CategoryMapsReducer,
-    CategoriesReducer
+    CategoriesReducer,
+    AccountsReducer,
+    AddNewCategoryVisibleReducer,
+    CategoryTemplateOptionsReducer
 ) {
     "use strict";
 
@@ -24,6 +26,7 @@ define([
         accounts: AccountsReducer,
         categories: CategoriesReducer,
         categoryMaps: CategoryMapsReducer,
+        addNewCategoryVisible: AddNewCategoryVisibleReducer
     });
 
     return CombinedReducer;

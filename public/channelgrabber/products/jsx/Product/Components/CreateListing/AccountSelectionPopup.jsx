@@ -33,12 +33,8 @@ define([
     var AccountSelectionPopup = React.createClass({
         getDefaultProps: function() {
             return {
-                product: {}
-            }
-        },
-        getInitialState: function() {
-            return {
-                addNewCategoryVisible: true
+                product: {},
+                addNewCategoryVisible: false
             }
         },
         componentDidMount: function() {
@@ -62,12 +58,8 @@ define([
                 name="categories"
                 component={CategoryMapSelectComponent}
                 options={this.props.categoryTemplateOptions}
+                onAddNewCategoryClick={this.props.showAddNewCategoryMapComponent}
             />
-        },
-        showAddNewCategoryMapComponent: function() {
-            this.setState({
-                addNewCategoryVisible: true
-            });
         },
         renderAccountSelectField: function() {
             return <FieldArray
@@ -77,7 +69,7 @@ define([
             />
         },
         renderAddNewCategoryComponent: function() {
-            if (!this.state.addNewCategoryVisible) {
+            if (!this.props.addNewCategoryVisible) {
                 return;
             }
             return <CategoryMap
@@ -154,15 +146,19 @@ define([
     var mapStateToProps = function (state) {
         return {
             accounts: Object.assign({}, state.accounts),
+            addNewCategoryVisible: state.addNewCategoryVisible.isVisible,
             categoryTemplateOptions: Object.assign({}, state.categoryTemplateOptions),
-            accountsForCategoryMap: convertStateToCategoryMaps(state)
+            accountsForCategoryMap: convertStateToCategoryMaps(state),
         }
     };
 
     var mapDispatchToProps = function (dispatch) {
         return {
             fetchCategoryRoots: function() {
-                Actions.fetchCategoryRoots(dispatch);
+                dispatch(Actions.fetchCategoryRoots(dispatch));
+            },
+            showAddNewCategoryMapComponent: function() {
+                dispatch(Actions.showAddNewCategoryMapComponent());
             }
         }
     };
