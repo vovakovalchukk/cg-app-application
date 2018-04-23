@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "067e770694e464111fab7f715231582f",
+    "content-hash": "b56ad8d84dea5c8328504b981eb27dfb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -451,16 +451,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.15.1",
+            "version": "dev-TAC-54-NoFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "7d8bdaa03e1adf930c70cbd3115873e4cc0f18df"
+                "reference": "070f21c0bbce0428613c57ed1bf0d2e8e2894d0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.15.1-ebb4c6.zip",
-                "reference": "7d8bdaa03e1adf930c70cbd3115873e4cc0f18df",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-TAC-54-NoFreeTrial-4d8b48.zip",
+                "reference": "070f21c0bbce0428613c57ed1bf0d2e8e2894d0d",
                 "shasum": null
             },
             "require": {
@@ -482,7 +482,7 @@
                 "channelgrabber/stock": "^1.10.1",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.23.0",
-                "channelgrabber/zf2-email-template": "^1.0.11",
+                "channelgrabber/zf2-email-template": "dev-TAC-54-NoFreeTrial as 1.0.22",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1"
             },
@@ -507,7 +507,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-01-25T10:27:39+00:00"
+            "time": "2018-04-23T14:27:59+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -3482,16 +3482,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.20",
+            "version": "dev-TAC-54-NoFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "bbba15070841783efc4af400db8066bff9995080"
+                "reference": "cc556aa3de0e5c012daf5fa97ea6f0a47db14a9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.20-d3cc06.zip",
-                "reference": "bbba15070841783efc4af400db8066bff9995080",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-TAC-54-NoFreeTrial-ed2d07.zip",
+                "reference": "cc556aa3de0e5c012daf5fa97ea6f0a47db14a9d",
                 "shasum": null
             },
             "require": {
@@ -3512,7 +3512,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2017-12-01T09:41:59+00:00"
+            "time": "2018-04-23T14:19:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -9567,6 +9567,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.15.2",
+            "alias_normalized": "1.15.2.0",
+            "version": "dev-TAC-54-NoFreeTrial",
+            "package": "channelgrabber/cglib"
+        },
+        {
+            "alias": "1.0.22",
+            "alias_normalized": "1.0.22.0",
+            "version": "dev-TAC-54-NoFreeTrial",
+            "package": "channelgrabber/zf2-email-template"
+        },
+        {
             "alias": "1.5.10",
             "alias_normalized": "1.5.10.0",
             "version": "dev-TAC-54-NoFreeTrial",
@@ -9587,7 +9599,9 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-email-template": 20,
         "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
