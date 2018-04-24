@@ -15,7 +15,8 @@ define([
         getParamSearchTerm,
         features,
         adminCompanyUrl,
-        taxRates
+        taxRates,
+        stockModeOptions
     ) {
         ReactDOM.render(
             <RootComponent
@@ -27,6 +28,7 @@ define([
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
                 taxRates={taxRates}
+                stockModeOptions={stockModeOptions}
             />,
             mountingNode
         );

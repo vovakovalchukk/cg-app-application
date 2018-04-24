@@ -28,14 +28,16 @@ define([
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {
             return {
-                onCreateProductClose: null
+                onCreateProductClose: null,
+                stockModeOptions:null
             };
         },
         componentDidMount: function() {
             store.dispatch({
                 type: 'INITIAL_ACCOUNT_DATA_LOADED',
                 payload: {
-                    taxRates: this.props.taxRates
+                    taxRates: this.props.taxRates,
+                    stockModeOptions:this.props.stockModeOptions
                 }
             });
         },

@@ -25,7 +25,8 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $searchTerm ?>',
         <?= $featureFlagJson; ?>,
         '<?= $this->remoteUrl('/company', 'admin'); ?>',
-        <?= json_encode($taxRates); ?>
+        <?= json_encode($taxRates); ?>,
+        <?= json_encode($stockModeOptions) ?>
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });

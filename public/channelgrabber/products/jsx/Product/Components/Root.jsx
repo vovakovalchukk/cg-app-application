@@ -41,7 +41,8 @@ define([
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
                 features: {},
-                taxRates: {}
+                taxRates: {},
+                stockModeOptions:{}
             }
         },
         getInitialState: function() {
@@ -420,6 +421,7 @@ define([
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
                 taxRates={this.props.taxRates}
+                stockModeOptions={this.props.stockModeOptions}
             />
         },
         renderProductListView: function() {

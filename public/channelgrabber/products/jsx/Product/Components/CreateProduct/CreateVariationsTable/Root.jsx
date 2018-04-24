@@ -13,10 +13,12 @@ define([
 ) {
     "use strict";
     const mapStateToProps = function(state) {
+        console.log('in mapStateToProps with state ' , state);
         return {
             variationsTable: state.variationsTable,
             uploadedImages: state.uploadedImages,
-            formVariationValues: getVariationFormValues(state)
+            stockModeOptions: state.account.stockModeOptions,
+            formVariationValues: getVariationFormValues(state),
         }
     };
 
