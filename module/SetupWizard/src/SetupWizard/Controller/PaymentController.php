@@ -59,6 +59,18 @@ class PaymentController extends AbstractActionController
                 'orderVolume' => $this->getOrderVolumeForPackage($package),
             ];
         }
+        usort(
+            $packages,
+            function(array $a, array $b) {
+                if ($a['orderVolume'] > $b['orderVolume']) {
+                    return 1;
+                }
+                if ($a['orderVolume'] < $b['orderVolume']) {
+                    return -1;
+                }
+                return 0;
+            }
+        );
         return $packages;
     }
 
