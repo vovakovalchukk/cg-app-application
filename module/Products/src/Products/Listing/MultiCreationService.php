@@ -37,6 +37,8 @@ class MultiCreationService implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const MAX_SAVE_ATTEMPTS = 3;
+
     const LOG_CODE_MISSING_ACCOUNT_IDS = 'No account ids specified - can\'t create listings';
     const LOG_MSG_MISSING_ACCOUNT_IDS = 'No account ids specified - can\'t create listings';
     const LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND = 'Accounts not found - can\'t create listings';
@@ -125,91 +127,45 @@ class MultiCreationService implements LoggerAwareInterface
         $this->createListingJobGenerator = $createListingJobGenerator;
     }
 
+    public function generateUniqueId(): string
+    {
+        return uniqid('', true);
+    }
+
     public function createListings(
         array $accountIds,
         array $categoryTemplateIds,
         string $siteId,
         array $productData,
-        &$guid = null
+        $guid
     ): bool {
-        $guid = uniqid('', true);
-
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
-            if (empty($accountIds)) {
-                $this->logWarning(static::LOG_MSG_MISSING_ACCOUNT_IDS, [], static::LOG_CODE_MISSING_ACCOUNT_IDS);
+            if (!$this->isRequiredListingDataSet($accountIds, $categoryTemplateIds, $productData)) {
                 return false;
             }
-
-            try {
-                /** @var Accounts $accounts */
-                $accounts = $this->accountService->fetchByFilter(
-                    (new AccountFilter('all', 1))->setId($accountIds)
-                );
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $accountIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            /** @var Accounts $accounts */
+            if (!($accounts = $this->fetchAccountsById($accountIds))) {
                 return false;
             }
-
-            if (empty($categoryTemplateIds)) {
-                $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_TEMPLATE_IDS, [], static::LOG_CODE_MISSING_CATEGORY_TEMPLATE_IDS);
+            /** @var CategoryTemplates $accounts */
+            if (!($categoryTemplates = $this->fetchCategoryTemplatesById($categoryTemplateIds))) {
                 return false;
             }
-
-            try {
-                /** @var CategoryTemplates $categoryTemplates */
-                $categoryTemplates = $this->categoryTemplateService->fetchCollectionByFilter(
-                    (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
-                );
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND, [implode(',', $categoryTemplateIds)], static::LOG_CODE_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND);
+            /** @var Categories $categories */
+            if (!($categories = $this->convertCategoryTemplatesToCategories($categoryTemplates))) {
                 return false;
             }
-
-            $categoryIds = array_merge(...array_map(function(CategoryTemplate $categoryTemplate) {
-                return $categoryTemplate->getCategoryIds();
-            }, iterator_to_array($categoryTemplates)));
-
-            if (empty($categoryIds)) {
-                $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_IDS, [], static::LOG_CODE_MISSING_CATEGORY_IDS);
-                return false;
-            }
-
-            $this->addGlobalLogEventParam('category', implode(', ', $categoryIds));
-            try {
-                /** @var Categories $categories */
-                $categories = $this->categoryService->fetchCollectionByFilter(
-                    (new CategoryFilter('all', 1))->setId($categoryIds)
-                );
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
-                return false;
-            }
-
-            $productId = $productData['id'] ?? null;
-            if (!$productId) {
-                $this->logWarning(static::LOG_MSG_MISSING_PRODUCT_ID, [], static::LOG_CODE_MISSING_PRODUCT_ID);
-                return false;
-            }
-
+            $productId = $productData['id'];
             $this->addGlobalLogEventParam('product', $productId);
-            try {
-                /** @var Product $product */
-                $product = $this->productService->fetch($productId);
-            } catch (NotFound $exception) {
-                $this->logWarningException($exception, static::LOG_MSG_REQUESTED_PRODUCT_NOT_FOUND, [$productId], static::LOG_CODE_REQUESTED_PRODUCT_NOT_FOUND);
+            /** @var Product $product */
+            if (!($product = $this->fetchProductById($productId))) {
                 return false;
             }
 
-            $variationsData = $productData['variations'] ?? [];
-            if (empty($variationsData)) {
-                $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
-                return false;
-            }
+            $variationsData = $productData['variations'];
 
-            $skus = array_filter(array_map(function(array $variationData) {
-                return $variationData['sku'] ?? null;
-            }, $variationsData));
+            $skus = $this->getSkusFromVariationData($variationsData);
             $this->addGlobalLogEventParam('sku', implode(', ', $skus));
 
             $this->saveProductDetails($product, $productData, $variationsData);
@@ -223,9 +179,7 @@ class MultiCreationService implements LoggerAwareInterface
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
-                    $variations = array_filter(iterator_to_array($product->getVariations()), function(Product $product) use($skus) {
-                        return in_array($product->getSku(), $skus);
-                    });
+                    $variations = $this->getSelectedVariations($product, $skus);
                 }
                 $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid);
             }
@@ -234,6 +188,101 @@ class MultiCreationService implements LoggerAwareInterface
         } finally {
             $this->removeGlobalLogEventParams(['account', 'categoryTemplate', 'site', 'guid', 'category', 'product', 'sku']);
         }
+    }
+
+    protected function isRequiredListingDataSet(
+        array $accountIds,
+        array $categoryTemplateIds,
+        array $productData
+    ): bool {
+        if (empty($accountIds)) {
+            $this->logWarning(static::LOG_MSG_MISSING_ACCOUNT_IDS, [], static::LOG_CODE_MISSING_ACCOUNT_IDS);
+            return false;
+        }
+        if (empty($categoryTemplateIds)) {
+            $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_TEMPLATE_IDS, [], static::LOG_CODE_MISSING_CATEGORY_TEMPLATE_IDS);
+            return false;
+        }
+        if (!isset($productData['id']) || !$productData['id']) {
+            $this->logWarning(static::LOG_MSG_MISSING_PRODUCT_ID, [], static::LOG_CODE_MISSING_PRODUCT_ID);
+            return false;
+        }
+        $variationsData = $productData['variations'] ?? [];
+        if (!isset($productData['variations']) || empty($productData['variations'])) {
+            $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
+            return false;
+        }
+        return true;
+    }
+
+    protected function fetchAccountsById(array $accountIds): ?Accounts
+    {
+        try {
+            return $this->accountService->fetchByFilter(
+                (new AccountFilter('all', 1))->setId($accountIds)
+            );
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $accountIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            return null;
+        }
+    }
+
+    protected function fetchCategoryTemplatesById(array $categoryTemplateIds): ?CategoryTemplates
+    {
+        try {
+            return $this->categoryTemplateService->fetchCollectionByFilter(
+                (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
+            );
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND, [implode(',', $categoryTemplateIds)], static::LOG_CODE_REQUESTED_CATEGORY_TEMPLATES_NOT_FOUND);
+            return null;
+        }
+    }
+
+    protected function fetchProductById(int $productId): ?Product
+    {
+        try {
+            return $this->productService->fetch($productId);
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_PRODUCT_NOT_FOUND, [$productId], static::LOG_CODE_REQUESTED_PRODUCT_NOT_FOUND);
+            return null;
+        }
+    }
+
+    protected function convertCategoryTemplatesToCategories(CategoryTemplates $categoryTemplates): ?Categories
+    {
+        $categoryIds = array_merge(...array_map(function(CategoryTemplate $categoryTemplate) {
+            return $categoryTemplate->getCategoryIds();
+        }, iterator_to_array($categoryTemplates)));
+
+        if (empty($categoryIds)) {
+            $this->logWarning(static::LOG_MSG_MISSING_CATEGORY_IDS, [], static::LOG_CODE_MISSING_CATEGORY_IDS);
+            return null;
+        }
+
+        $this->addGlobalLogEventParam('category', implode(', ', $categoryIds));
+        try {
+            return $this->categoryService->fetchCollectionByFilter(
+                (new CategoryFilter('all', 1))->setId($categoryIds)
+            );
+        } catch (NotFound $exception) {
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            return null;
+        }
+    }
+
+    protected function getSkusFromVariationData(array $variationsData): array
+    {
+        return array_filter(array_map(function(array $variationData) {
+            return $variationData['sku'] ?? null;
+        }, $variationsData));
+    }
+
+    protected function getSelectedVariations(Product $parentProduct, array $selectedSkus)
+    {
+        return array_filter(iterator_to_array($parentProduct->getVariations()), function(Product $product) use($selectedSkus) {
+            return in_array($product->getSku(), $selectedSkus);
+        });
     }
 
     protected function isSimpleListing(Product $product, array $variations): bool
@@ -335,7 +384,7 @@ class MultiCreationService implements LoggerAwareInterface
 
     protected function saveProductChannelDetail(ProductChannelDetail $productChannelDetail)
     {
-        for ($attempt = 1; $attempt <= 3; $attempt++) {
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
                 // Copy current etag so we can safley overright current data
                 $productChannelDetail->setStoredETag(
@@ -347,6 +396,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             try {
                 $this->productChannelDetailService->save($productChannelDetail);
+                return;
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
@@ -396,24 +446,25 @@ class MultiCreationService implements LoggerAwareInterface
         /** @var Product[] $products */
         $products = $product->isParent() ? $product->getVariations() : [$product];
         foreach ($products as $product) {
-            if (isset($productAccountDetails[$product->getSku()])) {
-                foreach ($productAccountDetails[$product->getSku()] as $accountId => $variationAccountData) {
-                    $this->saveProductAccountDetail(
-                        $this->mapProductAccountDetails(
-                            $product->getId(),
-                            $accountId,
-                            $product->getOrganisationUnitId(),
-                            $variationAccountData
-                        )
-                    );
-                }
+            if (!isset($productAccountDetails[$product->getSku()])) {
+                continue;
+            }
+            foreach ($productAccountDetails[$product->getSku()] as $accountId => $variationAccountData) {
+                $this->saveProductAccountDetail(
+                    $this->mapProductAccountDetails(
+                        $product->getId(),
+                        $accountId,
+                        $product->getOrganisationUnitId(),
+                        $variationAccountData
+                    )
+                );
             }
         }
     }
 
     protected function saveProductAccountDetail(ProductAccountDetail $productAccountDetail)
     {
-        for ($attempt = 1; $attempt <= 3; $attempt++) {
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
                 // Copy current etag so we can safley overright current data
                 $productAccountDetail->setStoredETag(
@@ -425,6 +476,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             try {
                 $this->productAccountDetailService->save($productAccountDetail);
+                return;
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
@@ -475,7 +527,7 @@ class MultiCreationService implements LoggerAwareInterface
 
     protected function saveCategoryChannelDetail(ProductCategoryDetail $productCategoryDetail)
     {
-        for ($attempt = 1; $attempt <= 3; $attempt++) {
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
             try {
                 // Copy current etag so we can safley overright current data
                 $productCategoryDetail->setStoredETag(
@@ -487,6 +539,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             try {
                 $this->productCategoryDetailService->save($productCategoryDetail);
+                return;
             } catch (NotModified $exception) {
                 return;
             } catch (\Throwable $throwable) {
