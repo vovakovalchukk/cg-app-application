@@ -14,7 +14,7 @@ return [
                         'title' => 'Add Payment Method',
                         'route' => Module::ROUTE . '/' . PaymentController::ROUTE_PAYMENT,
                         'order' => 5,
-                        'sprite' => 'sprite-messages-circle-25-white',
+                        'sprite' => 'sprite-cash-circle-25-white',
                         'link' => false,
                     ],
                 ],
