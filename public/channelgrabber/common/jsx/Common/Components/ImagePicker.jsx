@@ -14,7 +14,8 @@ define([
                 images: [],
                 onImageSelected: null,
                 autoSelectFirst: true,
-                title: null
+                title: null,
+                onAutoSelect:null
             };
         },
         getInitialState: function() {
@@ -44,7 +45,6 @@ define([
             if (this.props.autoSelectFirst && selectedImages.length == 0 && this.props.images.length > 0) {
                 selectedImages.push(this.props.images[0]);
             }
-
             selectedImages.forEach(function(image) {
                 this.imageSelected(image, onInitialize ? undefined : []);
             }.bind(this))

@@ -1,7 +1,7 @@
 define([
     'react',
     'redux-form',
-    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
+    'Common/Components/ImageDropDown'
 ], function(
     React,
     reduxForm,
@@ -74,40 +74,50 @@ define([
         variationRowFieldInputRenderMethods: {
             text: function(variationId, field) {
                 return (
-                    <td>
-                        <Field
-                            type="text"
-                            name={field.name}
-                            className={'form-row__input'}
-                            component="input"
-                            onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
-                        />
-                    </td>
+                    <Field
+                        type="text"
+                        name={field.name}
+                        className={'form-row__input'}
+                        component="input"
+                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                    />
                 )
             },
             image: function(variationId, field) {
-                console.log('in image render method with props');
                 var uploadedImages = this.props.uploadedImages.images;
-                console.log('upladedImages: ', uploadedImages);
                 return (
                     <Field
                         type="text"
                         name={field.name}
                         className={'form-row__input'}
-                        component={function(props){
+                        component={function(props) {
                             return <ImageDropDown
-                                onChange={props.onChange}
+                                selected={ (function(){
+                                     var imageFieldValue = getImageFieldValueFromStateUsingVariationId.call(this, variationId);
+                                     if(imageFieldValue){
+                                         var imageId = imageFieldValue;
+                                         if(imageId) {
+                                             var image = getUploadedImageById.call(this,imageId);
+                                             return image;
+                                         }
+
+                                     }
+                                    }.bind(this)())
+                                }
+                                onChange={function(event) {
+                                    props.input.onChange(event.target.value)
+                                }}
+                                autoSelectFirst={false}
                                 images={uploadedImages}
                             />
-                        }}
+                        }.bind(this)}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
                 )
             }
         },
         renderVariationRowField: function(variationId, field) {
-            console.log('in renderVariationRowFIeld with field: ', field)
-            var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this , variationId, field);
+            var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
                 <td>
                     {renderFieldMethod()}
@@ -145,5 +155,32 @@ define([
     });
 
     return CreateVariationsTableComponent;
+
+    function getImageFieldValueFromStateUsingVariationId(variationId) {
+        var variationValues = this.props.formVariationValues;
+        if(!variationValues){
+            return null;
+        }
+        var variationToSearchIn = variationValues['variation-' + variationId];
+        if(variationToSearchIn && variationToSearchIn.image){
+            console.log('image id found');
+            var imageFieldValue = variationToSearchIn.image;
+            return imageFieldValue;
+        }
+        return null;
+    }
+
+    function getUploadedImageById(id){
+        var uploadedImages = this.props.uploadedImages.images;
+        var image=null;
+        for(var i=0; i<uploadedImages.length; i++){
+            if(uploadedImages[i].id == id){
+                image = uploadedImages[i];
+                break;
+            }
+        }
+        console.log('image got : ' , image);
+        return image;
+    }
 
 });

@@ -16,7 +16,6 @@ define([], function() {
             };
         },
         attributeColumnRemove: function(fieldName) {
-            console.log('in attributeColumnRemove with fieldName: ', fieldName);
             return {
                 type: 'ATTRIBUTE_COLUMN_REMOVE',
                 payload: {
@@ -27,7 +26,7 @@ define([], function() {
         newVariationRowCreateRequest: function(variationId) {
             return function(dispatch, getState) {
                 var currState = getState();
-                if (!variationIsEmpty(currState, variationId)) {
+                if (!variationHasValues(currState, variationId)) {
                     dispatch(ActionCreators.newVariationRowCreate());
                 }
             }
@@ -37,9 +36,22 @@ define([], function() {
 
     return ActionCreators;
 
-    function variationIsEmpty(currState, variationId) {
-        return currState.form.createProductForm.values && currState.form.createProductForm.values.variations["variation-" + variationId];
+    function variationHasValues(currState, variationId) {
+        var formHasValues = currState.form.createProductForm.values;
+
+        if(formHasValues){
+            var formHasVariationValues = currState.form.createProductForm.values.variations;
+            if(formHasVariationValues){
+                var variationHasValues =  currState.form.createProductForm.values.variations["variation-" + variationId];
+                if(variationHasValues){
+                    return true;
+                }
+            }
+        }else{
+            return false;
+        }
     }
+
     function generateUniqueKey() {
         return uniqueKey++;
     }
