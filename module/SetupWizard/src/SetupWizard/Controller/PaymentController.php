@@ -1,9 +1,12 @@
 <?php
 namespace SetupWizard\Controller;
 
+use CG\Billing\Licence\Entity as Licence;
+use CG\Billing\Package\Entity as Package;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
+use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -14,6 +17,8 @@ class PaymentController extends AbstractActionController
 
     /** @var SetupService */
     protected $setupService;
+    /** @var PackageService */
+    protected $packageService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
@@ -21,10 +26,12 @@ class PaymentController extends AbstractActionController
 
     public function __construct(
         Service $setupService,
+        PackageService $packageService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory
     ) {
         $this->setupService = $setupService;
+        $this->packageService = $packageService;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
     }
@@ -36,7 +43,36 @@ class PaymentController extends AbstractActionController
 
     protected function getBody(): ViewModel
     {
-        return $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/payment/index');
+        return $this->viewModelFactory->newInstance([
+            'packages' => $this->getPackagesData(),
+        ])->setTemplate('setup-wizard/payment/index');
+    }
+
+    protected function getPackagesData(): array
+    {
+        $packages = [];
+        foreach ($this->packageService->getSelectableOrderPackages() as $package) {
+            $packages[] = [
+                'id' => $package->getId(),
+                'name' => $package->getName(),
+                'price' => $package->getPrice(),
+                'orderVolume' => $this->getOrderVolumeForPackage($package),
+            ];
+        }
+        return $packages;
+    }
+
+    protected function getOrderVolumeForPackage(Package $package): int
+    {
+        $orderVolume = 0;
+        /** @var Licence $licence */
+        foreach ($package->getLicences() as $licence) {
+            if ($licence->getType() !== Licence::TYPE_ORDER) {
+                continue;
+            }
+            $orderVolume += $licence->getAmount();
+        }
+        return $orderVolume;
     }
 
     protected function getFooter(): ViewModel
