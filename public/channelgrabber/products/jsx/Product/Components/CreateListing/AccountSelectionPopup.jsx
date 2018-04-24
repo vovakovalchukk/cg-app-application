@@ -59,7 +59,7 @@ define([
                 component={CategoryMapSelectComponent}
                 options={this.props.categoryTemplateOptions}
                 onAddNewCategoryClick={this.props.showAddNewCategoryMapComponent}
-                addNewCategoryMapButtonVisible={!this.props.addNewCategoryVisible}
+                addNewCategoryMapButtonVisible={true}
                 onCategorySelected={this.props.categoryMapSelected}
             />
         },
@@ -74,12 +74,14 @@ define([
             if (!this.props.addNewCategoryVisible) {
                 return;
             }
-            return (<span className="category-template-container">
+            return (<span className="form-input-container category-template-container">
                 <CategoryMap
                     accounts={this.props.accountsForCategoryMap}
                     mapId={0}
                     onSubmit={submitCategoryMapForm}
                     onViewExistingMapClick={this.onViewExistingMapClick}
+                    closeButtonVisible={true}
+                    onCloseButtonPressed={this.props.hideAddNewCategoryMapComponent}
                 />
             </span>);
         },
@@ -167,6 +169,9 @@ define([
             },
             showAddNewCategoryMapComponent: function() {
                 dispatch(Actions.showAddNewCategoryMapComponent());
+            },
+            hideAddNewCategoryMapComponent: function() {
+                dispatch(Actions.hideAddNewCategoryMapComponent());
             },
             categoryMapSelected: function(categoryIds) {
                 dispatch(Actions.categoryMapSelected(categoryIds));

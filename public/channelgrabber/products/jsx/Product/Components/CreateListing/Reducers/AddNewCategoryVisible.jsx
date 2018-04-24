@@ -19,6 +19,11 @@ define([
             return {
                 isVisible: true
             };
+        },
+        "HIDE_NEW_CATEGORY_MAP": function() {
+            return {
+                isVisible: false
+            };
         }
     });
 });

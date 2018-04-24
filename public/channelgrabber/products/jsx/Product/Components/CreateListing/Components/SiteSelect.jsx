@@ -33,6 +33,9 @@ define([
             input.onChange(site.value);
         },
         render: function() {
+            // Temporary fix - we don't display the site selector anymore, but we will do it in he future,
+            // so it's good to leave the site selector in place
+            return null;
             return (<label className="form-input-container">
                 <span className={"inputbox-label"}>Site</span>
                 <div className={"order-inputbox-holder"}>

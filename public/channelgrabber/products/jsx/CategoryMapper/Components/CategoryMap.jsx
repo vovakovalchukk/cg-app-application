@@ -25,7 +25,9 @@ define([
             return {
                 handleSubmit: null,
                 accounts: {},
-                mapId: null
+                mapId: null,
+                closeButtonVisible: false,
+                onCloseButtonPressed: function() {}
             };
         },
         renderErrorMessageForCategory: function(accountId, field) {
@@ -126,6 +128,16 @@ define([
             }
             return null;
         },
+        renderCloseButton: function() {
+            if (!this.props.closeButtonVisible) {
+                return null;
+            }
+            return <label className={"map-button save-button"}>
+                <div className={"button"} onClick={this.props.onCloseButtonPressed}>
+                    <span>Close</span>
+                </div>
+            </label>
+        },
         renderFormErrorMessage: function() {
             if (!this.props.error) {
                 return null;
@@ -144,6 +156,7 @@ define([
                     <div className={"order-form half product-container category-map-container"}>
                         <div className={"header-container"}>
                             {this.renderNameField()}
+                            {this.renderCloseButton()}
                             {this.renderSaveButton()}
                             {this.renderDeleteButton()}
                         </div>

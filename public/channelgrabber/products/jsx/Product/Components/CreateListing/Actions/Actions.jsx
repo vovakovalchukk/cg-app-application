@@ -27,6 +27,12 @@ define([
                 payload: {}
             };
         },
+        hideAddNewCategoryMapComponent: function() {
+            return {
+                type: "HIDE_NEW_CATEGORY_MAP",
+                payload: {}
+            };
+        },
         categoryMapSelected: function(categoryIds) {
             return {
                 type: "CATEGORY_MAP_SELECTED",
