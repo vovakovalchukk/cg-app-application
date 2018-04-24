@@ -96,6 +96,6 @@ class PaymentController extends AbstractActionController
 
     public function setPackageAction()
     {
-        return $this->jsonModelFactory->newInstance();
+        return $this->jsonModelFactory->newInstance(['success' => true, 'error' => '']);
     }
 }
