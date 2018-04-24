@@ -515,7 +515,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a17358410bf130f6a5f2522327d8339527ff986a"
+                "reference": "3406b7a0d93f5e9af637909f3c9123cca053c651"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-164-submit-multiple-listings-182259.zip",
+                "reference": "3406b7a0d93f5e9af637909f3c9123cca053c651",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -588,7 +594,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-19T15:46:11+00:00"
+            "time": "2018-04-24T10:15:58+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9572,8 +9578,8 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
