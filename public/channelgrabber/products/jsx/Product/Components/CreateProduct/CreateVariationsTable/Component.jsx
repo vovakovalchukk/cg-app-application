@@ -71,6 +71,16 @@ define([
                 variations.map(this.renderVariationRow, this)
             );
         },
+        renderImageDropdown: function(onChange, variationId, uploadedImages) {
+            return <ImageDropDown
+                selected={getSelectedImage.call(this, variationId)}
+                onChange={function(event) {
+                    onChange(event.target.value)
+                }}
+                autoSelectFirst={false}
+                images={uploadedImages}
+            />
+        },
         variationRowFieldInputRenderMethods: {
             text: function(variationId, field) {
                 return (
@@ -91,25 +101,7 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component={function(props) {
-                            return <ImageDropDown
-                                selected={ (function(){
-                                     var imageFieldValue = getImageFieldValueFromStateUsingVariationId.call(this, variationId);
-                                     if(imageFieldValue){
-                                         var imageId = imageFieldValue;
-                                         if(imageId) {
-                                             var image = getUploadedImageById.call(this,imageId);
-                                             return image;
-                                         }
-
-                                     }
-                                    }.bind(this)())
-                                }
-                                onChange={function(event) {
-                                    props.input.onChange(event.target.value)
-                                }}
-                                autoSelectFirst={false}
-                                images={uploadedImages}
-                            />
+                            return this.renderImageDropdown.call(this, props.input.onChange, variationId, uploadedImages)
                         }.bind(this)}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
@@ -156,30 +148,41 @@ define([
 
     return CreateVariationsTableComponent;
 
+    function getSelectedImage(variationId) {
+        var imageFieldValue = getImageFieldValueFromStateUsingVariationId.call(this, variationId);
+        if (imageFieldValue) {
+            var imageId = imageFieldValue;
+            if (imageId) {
+                var image = getUploadedImageById.call(this, imageId);
+                return image;
+            }
+
+        }
+        return null;
+    }
+
     function getImageFieldValueFromStateUsingVariationId(variationId) {
         var variationValues = this.props.formVariationValues;
-        if(!variationValues){
+        if (!variationValues) {
             return null;
         }
         var variationToSearchIn = variationValues['variation-' + variationId];
-        if(variationToSearchIn && variationToSearchIn.image){
-            console.log('image id found');
+        if (variationToSearchIn && variationToSearchIn.image) {
             var imageFieldValue = variationToSearchIn.image;
             return imageFieldValue;
         }
         return null;
     }
 
-    function getUploadedImageById(id){
+    function getUploadedImageById(id) {
         var uploadedImages = this.props.uploadedImages.images;
-        var image=null;
-        for(var i=0; i<uploadedImages.length; i++){
-            if(uploadedImages[i].id == id){
+        var image = null;
+        for (var i = 0; i < uploadedImages.length; i++) {
+            if (uploadedImages[i].id == id) {
                 image = uploadedImages[i];
                 break;
             }
         }
-        console.log('image got : ' , image);
         return image;
     }
 
