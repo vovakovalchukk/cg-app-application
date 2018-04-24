@@ -2,6 +2,7 @@
 use SetupWizard\Controller\PaymentController;
 use SetupWizard\Module;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'navigation' => [
@@ -34,6 +35,17 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes' => [
+                            PaymentController::ROUTE_PACKAGE => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/setPackage/:id',
+                                    'defaults' => [
+                                        'action' => 'setPackage',
+                                    ]
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ],
