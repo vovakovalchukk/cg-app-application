@@ -62,13 +62,20 @@
       display: flex;
     }
 
-    .setup-wizard-channel-badge {
+    .setup-wizard-channel-badge img {
       -webkit-filter: grayscale(100%);
       filter: grayscale(100%);
 
-      &.selected {
+    }
+
+    .setup-wizard-channel-badge.selected {
+      img {
         -webkit-filter: grayscale(0);
         filter: grayscale(0);
+      }
+
+      .setup-wizard-channel-badge-name {
+        color: $color-linkblue;
       }
     }
 
@@ -77,7 +84,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: center;
-      color: $color-linkblue;
+      color: black;
     }
   }
 
