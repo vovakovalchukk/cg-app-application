@@ -86,6 +86,22 @@
       text-align: center;
       color: black;
     }
+
+    .channel-badge-container {
+      display: inline-block;
+      margin: 0 15px;
+      max-width: 175px;
+      float: left;
+    }
+
+    .input-error {
+      color: red;
+    }
+
+    .account-error {
+      margin-bottom: 25px;
+      display: inline-block;
+    }
   }
 
   .container-buttons {

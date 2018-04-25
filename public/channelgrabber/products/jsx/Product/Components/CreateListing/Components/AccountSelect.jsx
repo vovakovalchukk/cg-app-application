@@ -18,16 +18,27 @@ define([
             }
         },
         renderAccountBadge: function(accountData, field) {
-            return <ChannelBadgeComponent
-                id={accountData.id}
-                channel={accountData.channel}
-                displayName={accountData.name}
-                onClick={this.onAccountSelected.bind(this, field.input)}
-                selected={!!field.input.value}
-            />;
+            return (
+                <span className="channel-badge-container">
+                    <ChannelBadgeComponent
+                        id={accountData.id}
+                        channel={accountData.channel}
+                        displayName={accountData.name}
+                        onClick={this.onAccountSelected.bind(this, field.input)}
+                        selected={!!field.input.value}
+                    />
+                    {this.renderErrorMessage(field.meta)}
+                </span>
+            );
         },
         onAccountSelected: function(input, accountId) {
             input.onChange(input.value ? null : accountId);
+        },
+        renderErrorMessage: function(meta) {
+            if (!meta.error) {
+                return null;
+            }
+            return <span className="input-error account-error">{meta.error}</span>;
         },
         render: function() {
             var accountSelects = [],
@@ -42,7 +53,6 @@ define([
                 );
                 index++;
             }
-            this.props.meta ? console.log(this.props.meta.error) : null;
             return (<span className="form-input-container">
                 {accountSelects}
             </span>);

@@ -10,7 +10,8 @@ define([
     'Product/Components/CreateListing/Actions/Actions',
     'Product/Components/CreateListing/Components/AccountSelect',
     'Product/Components/CreateListing/Components/CategoryMapSelect',
-    'Product/Components/CreateListing/Components/SiteSelect'
+    'Product/Components/CreateListing/Components/SiteSelect',
+    'Product/Components/CreateListing/Service/AccountSelectionFormValidator',
 ], function(
     React,
     ReactDom,
@@ -23,7 +24,8 @@ define([
     Actions,
     AccountSelectComponent,
     CategoryMapSelectComponent,
-    SiteSelectComponent
+    SiteSelectComponent,
+    accountSelectionFormValidator
 ) {
     "use strict";
 
@@ -118,6 +120,17 @@ define([
         }
     });
 
+    var findAccountIndexForAccountId = function(accountId, props) {
+        var index = 0;
+        for (var id in props.accounts) {
+            if (id == accountId) {
+                return index;
+            }
+            index++;
+        }
+        return null;
+    };
+
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
         onSubmit: function() {
@@ -126,37 +139,7 @@ define([
         onChange: function(values) {
             console.log(values);
         },
-        validate: function(values, props) {
-            var errors = {};
-
-            var accountsError = "";
-            values && values.accounts && values.accounts.forEach(function(accountId) {
-                if (!accountId) {
-                    return;
-                }
-                for (var categoryTemplateId in props.categoryTemplateOptions) {
-                    var categoryTemplate = props.categoryTemplateOptions[categoryTemplateId];
-                    if (!categoryTemplate.selected) {
-                        continue;
-                    }
-                    if (!(accountId in categoryTemplate.accounts)) {
-                        var accountName = props.accounts[accountId].name;
-                        accountsError += "<span>You cannot choose account named <b>" + accountName + "</b> because the category map <b>"
-                            + categoryTemplate.name + "</b> doesn't have a selected category for this account.</span><br/>"
-                    }
-                }
-            });
-
-            if (accountsError) {
-                errors.accounts = {
-                    _error: accountsError
-                };
-            }
-
-            console.log(errors);
-
-            return errors;
-        },
+        validate: accountSelectionFormValidator
     })(AccountSelectionPopup);
 
     var getSelectedCategoriesFromState = function(state, accountId) {
