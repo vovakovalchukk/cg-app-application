@@ -26,7 +26,6 @@ define([
         onUpdateStockMode: function(e) {
             var selectedStockModeName = e.target.value;
             var selectedStockModeValueType = getValueTypeForStockMode(selectedStockModeName, this.props.stockModeOptions);
-
             var amountToSave=null;
             if (doesStockModeNeedValue(selectedStockModeValueType)) {
                 amountToSave = this.state.selectedStockMode.amount;
@@ -35,37 +34,43 @@ define([
                 name:selectedStockModeName,
                 type:selectedStockModeValueType,
                 amount:amountToSave
-            }
-
+            };
             this.setState({
                 selectedStockMode:selectedStockMode
             });
+            this.props.onChange(
+                {
+                    target:{
+                        value: selectedStockMode
 
-//            this.props.onChange(selectedStockMode);
+                    }
+                });
         },
         onUpdateStockAmount: function(e) {
-
             console.log('in onUpdateStockAmount with e.target.value : ', e.target.value);
             var selectedStockMode = Object.assign({},this.state.selectedStockMode);
             selectedStockMode.amount = e.target.value;
             this.setState({
                 selectedStockMode:selectedStockMode
             });
-//            this.props.onChange(stockMode);
+            this.props.onChange(
+                {
+                    target:{
+                        value: selectedStockMode
+
+                    }
+                });
         },
         shouldInputBeDisabled: function() {
             return doesStockModeNeedValue(this.state.selectedStockMode);
         },
-
         renderStockModeSelect: function() {
-
             return (
                 <select
                     onChange={this.onUpdateStockMode}
                     className={'c-input-field'}
                 >
                     {this.props.stockModeOptions.map(function(option) {
-                        console.log('option : ', option)
                         return <option name={option.title} value={option.title}>
                             {option.title}
                         </option>
@@ -86,12 +91,9 @@ define([
         render: function() {
             return (
                 <div>
-
                     {this.renderStockModeSelect.call(this)}
                     {this.renderNumberInput.call(this)}
-
                 </div>
-
             );
         }
     });

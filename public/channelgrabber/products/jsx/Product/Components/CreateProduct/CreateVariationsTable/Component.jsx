@@ -86,13 +86,14 @@ define([
                 images={uploadedImages}
             />
         },
-        renderStockModeInputs: function(onChange, value, variationId) {
-            return <StockModeInputs
-                //                options={options}
-                onChange={onChange}
-                selected={value}
-            />
-        },
+//        renderStockModeInputs: function(onChange, value) {
+//            console.log('in renderStockModeInputs with onChange :', onChange);
+//            return <StockModeInputs
+//                //                options={options}
+//                onChange={onChange}
+//                selected={value}
+//            />
+//        },
         variationRowFieldInputRenderMethods: {
             text: function(variationId, field) {
                 return (
@@ -113,7 +114,10 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component={function(props) {
-                            return this.renderImageDropdown.call(this, props.input.onChange, variationId , uploadedImages)
+                            return this.renderImageDropdown.call(this,
+                                props.input.onChange,
+                                variationId,
+                                uploadedImages)
                         }.bind(this)}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
@@ -126,15 +130,24 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component={function(props) {
-                            return this.renderStockModeInputs.call(this, props.input.onChange, props.input.value, variationId)
+                            console.log("in component with props: ", props)
+
+                            return <StockModeInputs
+                                onChange={props.input.onChange}
+                                onChange={function(event) {
+                                    props.input.onChange(event.target.value)
+                                }}
+                                selected={props.input.onChange}
+                            />
+
                         }.bind(this)}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
                 )
 
             },
-            customOptionsSelect: function(variationId,field){
-                console.log('in customOptionsSelect with variationId: ' , variationId);
+            customOptionsSelect: function(variationId, field) {
+                console.log('in customOptionsSelect with variationId: ', variationId);
                 return (
                     <Field
                         type="text"
