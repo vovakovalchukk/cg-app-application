@@ -10,7 +10,9 @@ define([
             return {
                 inputType: 'input',
                 title: null,
-                errors: []
+                errors: [],
+                classNames:'',
+                disabled:null
             }
         },
         renderErrors: function() {
@@ -24,16 +26,23 @@ define([
                 })}
             </ul>;
         },
+        getClassNames: function(){
+            var classNames = this.props.classNames;
+            classNames += (this.props.errors.length == 0 ? '' : ' safe-input-box--error ');
+            classNames += (this.props.disabled ? ' safe-input-box--disabled ' : '');
+           return classNames;
+        },
         render: function () {
             return (
-                <div className="safe-input-box">
+                <div className={this.props.classNames + " safe-input-box"}>
                     <input
                         type={this.props.inputType}
                         name={this.props.name}
                         value={this.props.value}
                         onChange={this.props.onChange}
                         title={this.props.title}
-                        className={this.props.errors.length == 0 ? '' : 'safe-input-box--error'}
+                        className={ this.getClassNames()}
+                        disabled={ (this.props.disabled ? 'disabled' : '') }
                     />
                     {this.renderErrors()}
                 </div>

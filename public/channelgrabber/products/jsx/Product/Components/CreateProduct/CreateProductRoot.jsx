@@ -32,7 +32,7 @@ define([
                 stockModeOptions:null
             };
         },
-        componentDidMount: function() {
+        componentWillMount: function() {
             store.dispatch({
                 type: 'INITIAL_ACCOUNT_DATA_LOADED',
                 payload: {

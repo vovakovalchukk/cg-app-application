@@ -742,7 +742,9 @@ $input-padding: 8px 5px 8px 5px;
         }
 
     }
-
+    &__td{
+        overflow:initial;
+    }
     &__input{
         width:auto;
         max-width:90%;
@@ -868,4 +870,7 @@ $input-padding: 8px 5px 8px 5px;
 .bold-item {
     font-size: 1.25rem;
     font-weight: 700;
+}
+.h-inline-block{
+    display:inline-block;
 }

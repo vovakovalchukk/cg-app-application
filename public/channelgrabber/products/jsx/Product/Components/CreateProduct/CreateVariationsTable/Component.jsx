@@ -1,11 +1,16 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/ImageDropDown'
+    'Common/Components/ImageDropDown',
+    'Common/Components/Select',
+    'Product/Components/CreateProduct/StockModeInputs/Root'
+
 ], function(
     React,
     reduxForm,
-    ImageDropDown
+    ImageDropDown,
+    Select,
+    StockModeInputs
 ) {
 
     var Field = reduxForm.Field;
@@ -81,6 +86,18 @@ define([
                 images={uploadedImages}
             />
         },
+        renderStockModeInputs: function(onChange, value, variationId) {
+//            return (
+//                <Select
+//                    options={options}
+//                />
+//            );
+            return <StockModeInputs
+                //                options={options}
+                onChange={onChange}
+                selected={value}
+            />
+        },
         variationRowFieldInputRenderMethods: {
             text: function(variationId, field) {
                 return (
@@ -101,17 +118,31 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component={function(props) {
-                            return this.renderImageDropdown.call(this, props.input.onChange, variationId, uploadedImages)
+                            return this.renderImageDropdown.call(this, props.input.onChange, uploadedImages)
                         }.bind(this)}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
                 )
+            },
+            stockModeOptions: function(variationId, field) {
+                return (
+                    <Field
+                        type="text"
+                        name={field.name}
+                        className={'form-row__input'}
+                        component={function(props) {
+                            return this.renderStockModeInputs.call(this, props.input.onChange, props.input.value, variationId)
+                        }.bind(this)}
+                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                    />
+                )
+
             }
         },
         renderVariationRowField: function(variationId, field) {
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
-                <td>
+                <td className={'create-variations-table__td'}>
                     {renderFieldMethod()}
                 </td>
             )

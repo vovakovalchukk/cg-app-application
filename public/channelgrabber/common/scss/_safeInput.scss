@@ -73,3 +73,7 @@
 .safe-input-box--error {
     border-color: $color-red;
 }
+.safe-input-box--disabled{
+    color:grey;
+    background-color:#d3d3d373;
+}
