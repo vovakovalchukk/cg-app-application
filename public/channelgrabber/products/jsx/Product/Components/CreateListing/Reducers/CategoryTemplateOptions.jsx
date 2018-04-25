@@ -40,12 +40,21 @@ define([
             return newState;
         },
         "ADD_NEW_CATEGORY_MAP": function(state, action) {
-            var newState = Object.assign({}, state);
+            var newState = Object.assign({}, state),
+                accounts = {};
+
+            action.payload.categories.forEach(function(categoryId, accountId) {
+                if (categoryId) {
+                    accounts[accountId] = accountId;
+                }
+            });
+
             newState[action.payload.mapId] = {
                 name: action.payload.name,
-                accounts: action.payload.categories,
+                accounts: accounts,
                 selected: true
             };
+
             return newState;
         },
     });
