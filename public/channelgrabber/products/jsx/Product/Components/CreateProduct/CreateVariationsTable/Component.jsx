@@ -133,11 +133,14 @@ define([
                             console.log("in component with props: ", props)
 
                             return <StockModeInputs
-                                onChange={props.input.onChange}
                                 onChange={function(event) {
                                     props.input.onChange(event.target.value)
                                 }}
-                                selected={props.input.onChange}
+                                // this is referencing the value of the return stockModeObject (there is a value property )
+                                selected={
+                                    {
+                                        value:props.input.value.value
+                                    }}
                             />
 
                         }.bind(this)}
