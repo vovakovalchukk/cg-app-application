@@ -3,6 +3,7 @@ namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Entity as Package;
+use CG_Billing\Payment\View\Service as PaymentViewService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
@@ -23,17 +24,21 @@ class PaymentController extends AbstractActionController
     protected $viewModelFactory;
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var PaymentViewService */
+    protected $paymentViewService;
 
     public function __construct(
         Service $setupService,
         PackageService $packageService,
         ViewModelFactory $viewModelFactory,
-        JsonModelFactory $jsonModelFactory
+        JsonModelFactory $jsonModelFactory,
+        PaymentViewService $paymentViewService
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->paymentViewService = $paymentViewService;
     }
 
     public function indexAction()
@@ -43,9 +48,10 @@ class PaymentController extends AbstractActionController
 
     protected function getBody(): ViewModel
     {
-        return $this->viewModelFactory->newInstance([
-            'packages' => $this->getPackagesData(),
-        ])->setTemplate('setup-wizard/payment/index');
+        return $this->viewModelFactory->newInstance()
+            ->setTemplate('setup-wizard/payment/index')
+            ->setVariable('packages', $this->getPackagesData())
+            ->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethod');
     }
 
     protected function getPackagesData(): array
