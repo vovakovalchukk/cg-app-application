@@ -244,16 +244,6 @@ class Service
         return $data;
     }
 
-    public function fetchAccountIdForCategory(Category $category, OrganisationUnit $ou)
-    {
-        if ($category->getAccountId()) {
-            return $category->getAccountId();
-        }
-        /** @var Account $account */
-        $account = $this->fetchAccountByOuAndChannel($ou, $category->getChannel());
-        return $account->getId();
-    }
-
     protected function fetchAccountForCategory(Category $category, OrganisationUnit $ou): Account
     {
         if ($category->getAccountId()) {
