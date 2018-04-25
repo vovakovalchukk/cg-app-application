@@ -42,6 +42,7 @@ define([
                 );
                 index++;
             }
+            this.props.meta ? console.log(this.props.meta.error) : null;
             return (<span className="form-input-container">
                 {accountSelects}
             </span>);

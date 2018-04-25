@@ -39,10 +39,9 @@ define([
         var buildCategoryTemplateOptions = function(categoryTemplateOptions) {
             var categories = {};
             for (var categoryId in categoryTemplateOptions) {
-                categories[categoryId] = {
-                    name: categoryTemplateOptions[categoryId],
+                categories[categoryId] = Object.assign(categoryTemplateOptions[categoryId], {
                     selected: false
-                }
+                });
             }
             return categories;
         }

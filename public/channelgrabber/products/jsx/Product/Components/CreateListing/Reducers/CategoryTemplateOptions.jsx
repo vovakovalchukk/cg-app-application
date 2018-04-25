@@ -43,6 +43,7 @@ define([
             var newState = Object.assign({}, state);
             newState[action.payload.mapId] = {
                 name: action.payload.name,
+                accounts: action.payload.categories,
                 selected: true
             };
             return newState;
