@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "db328c53b16730893dbb0a0a57d75f67",
+    "content-hash": "f764674ca0b05d5f53faea4e27cd240e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2074,16 +2074,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.12.3",
+            "version": "dev-CGIV-9437-fatal_on_import",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "ff50a448b5caa99dc858f31618eda2b09f287e25"
+                "reference": "233df57bc889c91f249b9bb536d90519e3ab9722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.12.3-e4f96c.zip",
-                "reference": "ff50a448b5caa99dc858f31618eda2b09f287e25",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9437-fatal_on_import-32865a.zip",
+                "reference": "233df57bc889c91f249b9bb536d90519e3ab9722",
                 "shasum": null
             },
             "require": {
@@ -2101,7 +2101,7 @@
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.24",
-                "channelgrabber/stock": "^1.12.3",
+                "channelgrabber/stock": "dev-CGIV-9437-fatal_on_import as 1.12.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-25T10:41:05+00:00"
+            "time": "2018-04-25T12:34:05+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2732,16 +2732,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.12.3",
+            "version": "dev-CGIV-9437-fatal_on_import",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "271fad464e3ad895ee02592405d1fab052aa1e9d"
+                "reference": "9b2600b81c04366e81f27f78ce3d0427702213cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.12.3-80ebb6.zip",
-                "reference": "271fad464e3ad895ee02592405d1fab052aa1e9d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-9437-fatal_on_import-0b8af0.zip",
+                "reference": "9b2600b81c04366e81f27f78ce3d0427702213cd",
                 "shasum": null
             },
             "require": {
@@ -2790,7 +2790,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-25T10:35:46+00:00"
+            "time": "2018-04-25T12:27:33+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -9565,10 +9565,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.12.4",
+            "alias_normalized": "1.12.4.0",
+            "version": "dev-CGIV-9437-fatal_on_import",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.12.4",
+            "alias_normalized": "1.12.4.0",
+            "version": "dev-CGIV-9437-fatal_on_import",
+            "package": "channelgrabber/stock"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
+        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
