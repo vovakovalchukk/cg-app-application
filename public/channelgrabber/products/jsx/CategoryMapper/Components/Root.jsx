@@ -105,19 +105,19 @@ define([
             });
             return existing;
         },
-        extractCategoryIdsFromFormValues: function(categories) {
-            var categoryIds = [];
+        formatAccountCategoryData: function(categories) {
+            var accounts = {};
             categories.forEach(function(categoryId, accountId) {
                 if (categoryId) {
-                    categoryIds.push(categoryId);
+                    accounts[accountId] = categoryId;
                 }
             });
-            return categoryIds;
+            return accounts;
         },
         buildPostData: function(mapId, values) {
             var data = {
                 name: values.name,
-                categoryIds: this.extractCategoryIdsFromFormValues(values.categories)
+                categoryIds: this.formatAccountCategoryData(values.categories)
             };
             if (mapId > 0) {
                 data.id = mapId;

@@ -3,6 +3,7 @@ namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Stdlib\Exception\Runtime\Conflict;
@@ -139,16 +140,16 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     protected function buildDetailsOfAlreadyMappedCategories(array $requestedCategoryIds, $currentTemplateId = null): array
     {
         $existingTemplates = $this->fetchExistingByCategoryIds($requestedCategoryIds, $currentTemplateId);
-        $rootOU = $this->userOuService->getRootOuByActiveUser();
         $existingDetails = [];
+        /** @var CategoryTemplate $existingTemplate */
         foreach ($existingTemplates as $existingTemplate) {
             $overlapCategoryIds = array_intersect($existingTemplate->getCategoryIds(), $requestedCategoryIds);
+            /** @var Category[] $overlapCategories */
             $overlapCategories = $this->categoryTemplateService->fetchCategoriesByIds($overlapCategoryIds);
             foreach ($overlapCategories as $category) {
-                $accountId = $this->categoryTemplateService->fetchAccountIdForCategory($category, $rootOU);
                 $existingDetails[] = [
                     'name' => $existingTemplate->getName(),
-                    'accountId' => $accountId,
+                    'accountId' => $existingTemplate->getAccountIdForCategory($category->getId()),
                     'categoryId' => $category->getId(),
                 ];
             }
