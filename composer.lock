@@ -2078,12 +2078,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "a8cb55e69ba6516caa8cc5e14ad9fbc8390f2b8f"
+                "reference": "b36e734b656ee27ec2bd31b6290d90dbdd9fccd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-197-support-multiple-ebay-accounts-category-map-f42136.zip",
-                "reference": "a8cb55e69ba6516caa8cc5e14ad9fbc8390f2b8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-197-support-multiple-ebay-accounts-category-map-043bc2.zip",
+                "reference": "b36e734b656ee27ec2bd31b6290d90dbdd9fccd5",
                 "shasum": null
             },
             "require": {
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-25T13:57:36+00:00"
+            "time": "2018-04-25T21:28:01+00:00"
         },
         {
             "name": "channelgrabber/product-locking",

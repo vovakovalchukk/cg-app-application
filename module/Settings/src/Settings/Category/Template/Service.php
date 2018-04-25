@@ -3,6 +3,7 @@
 namespace Settings\Category\Template;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -42,8 +43,8 @@ class Service
     protected $activeUserContainer;
     /** @var  CategoryService  */
     protected $categoryService;
-    /** @var  Account[] */
-    protected $accountsByChannel = [];
+    /** @var  AccountCollection */
+    protected $accounts;
 
     const SALES_PLATFORMS = [
         'ebay' => 'ebay',
@@ -161,6 +162,7 @@ class Service
         try {
             /** @var CategoryTemplate[] $categoryTemplates */
             $categoryTemplates = $this->fetchCategoryTemplatesByOu($ou, $search, $page);
+            $this->accounts = $this->fetchActiveAccountsForOu($ou);
         } catch (NotFound $e) {
             return [];
         }
@@ -176,9 +178,9 @@ class Service
 
             $categoriesArray = [];
             foreach ($categoryTemplate->getAccountCategories() as $accountCategory) {
-                $category = $categories->getById($accountCategory->getCategory());
+                $category = $categories->getById($accountCategory->getCategoryId());
                 if ($category) {
-                    $categoriesArray[$accountCategory->getAccount()] = $categories->getById($accountCategory->getCategory());
+                    $categoriesArray[$accountCategory->getAccountId()] = $categories->getById($accountCategory->getCategoryId());
                 }
             }
 
@@ -201,22 +203,15 @@ class Service
     ): array {
         $categoriesByAccount = [];
         foreach ($categories as $accountId => $category) {
-            try {
-                $account = $this->accountService->fetch($accountId);
-                if ($account->getDeleted() || !$account->getActive()) {
-                    // Account is not active, continue
-                    continue;
-                }
-            } catch (NotFound $e) {
-                // If no account is found, we skip the current category
+            if (!$this->accounts->getById($accountId)) {
                 continue;
             }
 
-            if (!isset($categoriesByAccount[$account->getId()])) {
-                $categoriesByAccount[$account->getId()] = [];
+            if (!isset($categoriesByAccount[$accountId])) {
+                $categoriesByAccount[$accountId] = [];
             }
 
-            $categoriesByAccount[$account->getId()][] = $this->formatCategoryTree($categoryFilter, $category);
+            $categoriesByAccount[$accountId][] = $this->formatCategoryTree($categoryFilter, $category);
         }
 
         return $categoriesByAccount;
@@ -244,14 +239,6 @@ class Service
         return $data;
     }
 
-    protected function fetchAccountForCategory(Category $category, OrganisationUnit $ou): Account
-    {
-        if ($category->getAccountId()) {
-            return $this->accountService->fetch($category->getAccountId());
-        }
-        return $this->fetchAccountByOuAndChannel($ou, $category->getChannel());
-    }
-
     protected function fetchCategoryTemplatesByOu(
         OrganisationUnit $ou, ?string $search, int $page
     ): CategoryTemplateCollection {
@@ -261,24 +248,6 @@ class Service
             ->setOrganisationUnitId([$ou->getId()]);
         $search ? $filter->setSearch($search) : null;
         return $this->categoryTemplateService->fetchCollectionByFilter($filter);
-    }
-
-    protected function fetchAccountByOuAndChannel(OrganisationUnit $ou, string $channel): Account
-    {
-        if (isset($this->accountsByChannel[$channel])) {
-            return $this->accountsByChannel[$channel];
-        }
-
-        $accountFilter = $filter = (new AccountFilter())
-            ->setLimit(1)
-            ->setPage(1)
-            ->setOrganisationUnitId([$ou->getId()])
-            ->setChannel([$channel])
-            ->setActive(true)
-            ->setDeleted(false);
-        $account = $this->accountService->fetchByFilter($accountFilter)->getFirst();
-        $this->accountsByChannel[$channel] = $account;
-        return $account;
     }
 
     public function fetchCategoriesByIds(array $categoryIds): CategoryCollection
