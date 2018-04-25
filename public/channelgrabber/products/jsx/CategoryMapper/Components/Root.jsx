@@ -12,7 +12,6 @@ define([
     var RootComponent = React.createClass({
         render: function()
         {
-            console.log(submitCategoryMapForm);
             return (
                 <CategoryMaps
                     onSubmit={submitCategoryMapForm}
