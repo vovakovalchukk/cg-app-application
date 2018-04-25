@@ -85,7 +85,7 @@ define([
                 ApiHelper.buildDeleteCategoryMapUrl(mapId)
             ).success(function (response) {
                 if (response.valid) {
-                    n.success('The category map was deleted sucessfully.');
+                    n.success('The category map was deleted successfully.');
                     dispatch(ResponseActions.categoryMapDeleted(mapId));
                     return;
                 }

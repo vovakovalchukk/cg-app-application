@@ -23,6 +23,9 @@ define([
             return this.renderCategoryMapComponent(0);
         },
         renderExistingCategoryMapComponents: function() {
+            if (Object.keys(this.props.categoryMaps).length <= 1 && !this.props.pagination.isFetching) {
+                return <span>No category templates found.</span>
+            }
             var categoryMaps = [];
             for (var mapId in this.props.categoryMaps) {
                 if (mapId == 0) {

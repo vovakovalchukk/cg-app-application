@@ -197,17 +197,21 @@ class Service
         /** @var Category $category */
         foreach ($categories as $category) {
             try {
-                $accountId = $this->fetchAccountIdForCategory($category, $ou);
+                $account = $this->fetchAccountForCategory($category, $ou);
+                if ($account->getDeleted() || !$account->getActive()) {
+                    // Account is not active, continue
+                    continue;
+                }
             } catch (NotFound $e) {
                 // If no account is found, we skip the current category
                 continue;
             }
 
-            if (!isset($categoriesByAccount[$accountId])) {
-                $categoriesByAccount[$accountId] = [];
+            if (!isset($categoriesByAccount[$account->getId()])) {
+                $categoriesByAccount[$account->getId()] = [];
             }
 
-            $categoriesByAccount[$accountId][] = $this->formatCategoryTree($categoryFilter, $category);
+            $categoriesByAccount[$account->getId()][] = $this->formatCategoryTree($categoryFilter, $category);
         }
 
         return $categoriesByAccount;
@@ -243,6 +247,14 @@ class Service
         /** @var Account $account */
         $account = $this->fetchAccountByOuAndChannel($ou, $category->getChannel());
         return $account->getId();
+    }
+
+    protected function fetchAccountForCategory(Category $category, OrganisationUnit $ou): Account
+    {
+        if ($category->getAccountId()) {
+            return $this->accountService->fetch($category->getAccountId());
+        }
+        return $this->fetchAccountByOuAndChannel($ou, $category->getChannel());
     }
 
     protected function fetchCategoryTemplatesByOu(
