@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa4918454be08908bf9c565a23260a8f",
+    "content-hash": "b032d387d3037628747a1416857f9ef0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2074,16 +2074,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-LIS-196-category-template-account-category-map",
+            "version": "dev-LIS-197-support-multiple-ebay-accounts-category-map",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "2e72bd8e2ddd9548c14104f1c2df22db2a84eb8f"
+                "reference": "a8cb55e69ba6516caa8cc5e14ad9fbc8390f2b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-196-category-template-account-category-map-352dcf.zip",
-                "reference": "2e72bd8e2ddd9548c14104f1c2df22db2a84eb8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-LIS-197-support-multiple-ebay-accounts-category-map-f42136.zip",
+                "reference": "a8cb55e69ba6516caa8cc5e14ad9fbc8390f2b8f",
                 "shasum": null
             },
             "require": {
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-25T10:52:47+00:00"
+            "time": "2018-04-25T13:57:36+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9569,7 +9569,7 @@
         {
             "alias": "1.12.3",
             "alias_normalized": "1.12.3.0",
-            "version": "dev-LIS-196-category-template-account-category-map",
+            "version": "dev-LIS-197-support-multiple-ebay-accounts-category-map",
             "package": "channelgrabber/product"
         }
     ],
