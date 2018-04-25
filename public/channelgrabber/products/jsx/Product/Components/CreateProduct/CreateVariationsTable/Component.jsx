@@ -77,7 +77,6 @@ define([
             );
         },
         renderImageDropdown: function(onChange, variationId, uploadedImages) {
-            console.log('in renderImageDropdown with uploadedImages : ' , uploadedImages);
             return <ImageDropDown
                 selected={getSelectedImage.call(this, variationId)}
                 onChange={function(event) {
@@ -108,7 +107,6 @@ define([
             },
             image: function(variationId, field) {
                 var uploadedImages = this.props.uploadedImages.images;
-                console.log('uploadedimages : ' , uploadedImages)
                 return (
                     <Field
                         type="text"
@@ -149,7 +147,6 @@ define([
             }
         },
         renderVariationRowField: function(variationId, field) {
-            console.log('in renderVariationRowFIeld with field: ' , field)
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
                 <td className={'create-variations-table__td'}>

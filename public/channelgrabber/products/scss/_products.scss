@@ -710,7 +710,11 @@ $medium-margin-distance: 2rem;
 $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
-$input-padding: 8px 5px 8px 5px;
+$padding--input-field: 8px 5px 8px 5px;
+
+$margin--distance-small:1rem;
+$margin--distance-xsmall:0.5rem;
+
 
 //form
 .form-root {
@@ -723,6 +727,16 @@ $input-padding: 8px 5px 8px 5px;
             margin-top: $small-margin-distance;
         }
     }
+}
+
+// inputs
+.c-input-field{
+    padding:$padding--input-field;
+    width: 100%;
+    float:left;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .create-variations-table{
@@ -750,7 +764,7 @@ $input-padding: 8px 5px 8px 5px;
         max-width:90%;
         float:left;
         border: 1px solid transparent;
-        padding: $input-padding;
+        padding: $padding--input-field;
         transition:200ms;
         &:hover{
             border: 1px solid #c2c2c2;
@@ -858,7 +872,12 @@ $input-padding: 8px 5px 8px 5px;
 .no-margin {
     margin: 0px auto;
 }
-
+.u-margin-top-small{
+    margin-top: $margin--distance-small;
+}
+.u-margin-top-xsmall{
+    margin-top: $margin--distance-xsmall;
+}
 .margin-left--small {
     margin-left: $small-margin-distance;
 }

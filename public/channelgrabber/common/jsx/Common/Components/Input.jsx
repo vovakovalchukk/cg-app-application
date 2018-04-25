@@ -12,7 +12,8 @@ define([
                 title: null,
                 errors: [],
                 classNames:'',
-                disabled:null
+                disabled:null,
+                onChange:null
             }
         },
         renderErrors: function() {

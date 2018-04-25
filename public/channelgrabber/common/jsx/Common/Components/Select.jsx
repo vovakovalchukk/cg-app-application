@@ -246,6 +246,7 @@ define([
         getSelectedOptionName: function () {
             var selectedOptionName = '';
             if (this.state.selectedOption && this.state.selectedOption.name) {
+
                 selectedOptionName = this.state.selectedOption.name
             } else if (this.props.autoSelectFirst) {
                 selectedOptionName = this.state.options.length > 0 ? this.state.options[0].name : '';

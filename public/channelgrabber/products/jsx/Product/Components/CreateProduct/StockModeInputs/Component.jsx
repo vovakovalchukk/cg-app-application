@@ -18,52 +18,78 @@ define([
         },
         getInitialState: function() {
             return {
-                stockMode: {
-                    name: '',
-                    value: ''
+                selectedStockMode:{
+
                 }
             };
         },
-        updateStockMode: function(stockMode) {
-            console.log("in updateStockMode with stockMode : ", stockMode);
+        onUpdateStockMode: function(e) {
+            var selectedStockModeName = e.target.value;
+            var selectedStockModeValueType = getValueTypeForStockMode(selectedStockModeName, this.props.stockModeOptions);
+
+            var amountToSave=null;
+            if (doesStockModeNeedValue(selectedStockModeValueType)) {
+                amountToSave = this.state.selectedStockMode.amount;
+            }
+            var selectedStockMode = {
+                name:selectedStockModeName,
+                type:selectedStockModeValueType,
+                amount:amountToSave
+            }
+
             this.setState({
-                stockMode: stockMode
+                selectedStockMode:selectedStockMode
             });
+
+//            this.props.onChange(selectedStockMode);
+        },
+        onUpdateStockAmount: function(e) {
+
+            console.log('in onUpdateStockAmount with e.target.value : ', e.target.value);
+            var selectedStockMode = Object.assign({},this.state.selectedStockMode);
+            selectedStockMode.amount = e.target.value;
+            this.setState({
+                selectedStockMode:selectedStockMode
+            });
+//            this.props.onChange(stockMode);
         },
         shouldInputBeDisabled: function() {
-            console.log('in shouldInputBeDisabled  this.state.stockMode.value: ',  this.state.stockMode.value);
-            var shouldBeDisabled = (
-                this.state.stockMode.value == 'all' ||
-                this.state.stockMode.value == 'null' ||
-                this.state.stockMode.value == '' ||
-                !this.state.stockMode.value
-            );
-            console.log('shouldBeDisabled: ' , shouldBeDisabled);
-            return shouldBeDisabled;
+            return doesStockModeNeedValue(this.state.selectedStockMode);
         },
-        formatOptionsForSelectComponent: function(options) {
-            return options.map(function(option) {
-                return {
-                    name: option.title,
-                    value: option.value
-                }
-            });
+
+        renderStockModeSelect: function() {
+
+            return (
+                <select
+                    onChange={this.onUpdateStockMode}
+                    className={'c-input-field'}
+                >
+                    {this.props.stockModeOptions.map(function(option) {
+                        console.log('option : ', option)
+                        return <option name={option.title} value={option.title}>
+                            {option.title}
+                        </option>
+                    })}
+                </select>
+            );
+        },
+        renderNumberInput: function() {
+            return (
+                <input
+                    className={'c-input-field u-margin-top-xsmall'}
+                    disabled={this.shouldInputBeDisabled()}
+                    type={'number'}
+                    onChange={this.onUpdateStockAmount}
+                />
+            )
         },
         render: function() {
-            console.log('in render with this.props: ', this.props);
-            var options = this.formatOptionsForSelectComponent(this.props.stockModeOptions);
             return (
                 <div>
-                        <Select
-                            options={options}
-                            onOptionChange={this.updateStockMode}
-                            classNames={'form-row__input'}
-                        />
-                        <Input
-                            disabled={this.shouldInputBeDisabled()}
-                            classNames={'form-row__input'}
-                            inputType={'number'}
-                        />
+
+                    {this.renderStockModeSelect.call(this)}
+                    {this.renderNumberInput.call(this)}
+
                 </div>
 
             );
@@ -71,5 +97,22 @@ define([
     });
 
     return StockModeInputsComponent;
+
+    function doesStockModeNeedValue(stockMode) {
+        var needsValue = (
+            stockMode.type == 'all' ||
+            stockMode.type == 'null' ||
+            !stockMode.type
+        );
+        return needsValue;
+    }
+
+    function getValueTypeForStockMode(selectedStockModeName, stockModes) {
+        for (var i = 0; i < stockModes.length; i++) {
+            if (stockModes[i].title == selectedStockModeName) {
+                return stockModes[i].value;
+            }
+        }
+    }
 
 });
