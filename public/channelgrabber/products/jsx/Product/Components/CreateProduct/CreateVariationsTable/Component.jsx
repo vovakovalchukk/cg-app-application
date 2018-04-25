@@ -77,6 +77,7 @@ define([
             );
         },
         renderImageDropdown: function(onChange, variationId, uploadedImages) {
+            console.log('in renderImageDropdown with uploadedImages : ' , uploadedImages);
             return <ImageDropDown
                 selected={getSelectedImage.call(this, variationId)}
                 onChange={function(event) {
@@ -87,11 +88,6 @@ define([
             />
         },
         renderStockModeInputs: function(onChange, value, variationId) {
-//            return (
-//                <Select
-//                    options={options}
-//                />
-//            );
             return <StockModeInputs
                 //                options={options}
                 onChange={onChange}
@@ -112,13 +108,14 @@ define([
             },
             image: function(variationId, field) {
                 var uploadedImages = this.props.uploadedImages.images;
+                console.log('uploadedimages : ' , uploadedImages)
                 return (
                     <Field
                         type="text"
                         name={field.name}
                         className={'form-row__input'}
                         component={function(props) {
-                            return this.renderImageDropdown.call(this, props.input.onChange, uploadedImages)
+                            return this.renderImageDropdown.call(this, props.input.onChange, variationId , uploadedImages)
                         }.bind(this)}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
@@ -137,9 +134,22 @@ define([
                     />
                 )
 
+            },
+            customOptionsSelect: function(variationId,field){
+                console.log('in customOptionsSelect with variationId: ' , variationId);
+                return (
+                    <Field
+                        type="text"
+                        name={field.name}
+                        className={'form-row__input'}
+                        component="input"
+                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                    />
+                )
             }
         },
         renderVariationRowField: function(variationId, field) {
+            console.log('in renderVariationRowFIeld with field: ' , field)
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
                 <td className={'create-variations-table__td'}>

@@ -43,7 +43,6 @@ define([
         },
         formatOptionsForSelectComponent: function(options) {
             return options.map(function(option) {
-                console.log('option: ', option)
                 return {
                     name: option.title,
                     value: option.value
@@ -60,8 +59,6 @@ define([
                             onOptionChange={this.updateStockMode}
                             classNames={'form-row__input'}
                         />
-
-
                         <Input
                             disabled={this.shouldInputBeDisabled()}
                             classNames={'form-row__input'}
