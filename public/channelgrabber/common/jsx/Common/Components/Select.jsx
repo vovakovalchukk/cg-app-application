@@ -19,6 +19,7 @@ define([
                 autoSelectFirst: true,
                 title: null,
                 onOptionChange: null,
+                customOptions:false
 
             };
         },

@@ -76,7 +76,8 @@ define([
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom--small"}
-                      onSubmit={this.props.handleSubmit}>
+                      onKeyDown={(e)=>{console.log('in key down')}}
+                >
                     <fieldset className={'form-root__fieldset margin-bottom--small'}>
                         <FormRow
                             label={'New Product Name'}

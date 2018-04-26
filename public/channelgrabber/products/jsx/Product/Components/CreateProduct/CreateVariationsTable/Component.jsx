@@ -37,7 +37,7 @@ define([
                             className={'create-variations-table__input'}
                             component="input"
                         />
-                        <button className={'create-variations-table__th__remove-button'}
+                        <button type="button" className={'create-variations-table__th__remove-button'}
                                 onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
                         </button>
                     </th>
@@ -87,14 +87,32 @@ define([
                 images={uploadedImages}
             />
         },
-//        renderStockModeInputs: function(onChange, value) {
-//            console.log('in renderStockModeInputs with onChange :', onChange);
-//            return <StockModeInputs
-//                //                options={options}
-//                onChange={onChange}
-//                selected={value}
-//            />
-//        },
+        renderCustomSelect: function(field,reduxFormFieldProps) {
+            console.log('in renderCustomSelect reduxFormFieldProp: ' , reduxFormFieldProps , ' and field: ' , field);
+
+            return <Select
+                options={field.options}
+                autoSelectFirst={false}
+                title={name}
+                customOptions={true}
+                onOptionChange={function(option){
+                    console.log('in onOptionChange with event: ', option);
+
+                    // need to fire a redux action here if event does't exist already
+                    console.log('addNewOptionForAttribute: ', this.props.addNewOptionForAttribute);
+
+                    this.props.addNewOptionForAttribute( option,field.name)
+
+                    var event = {
+                        target:{
+                            name:option.name,
+                            value:option.value
+                        }
+                    }
+                    reduxFormFieldProps.input.onChange(event);
+                }.bind(this)}
+            />
+        },
         variationRowFieldInputRenderMethods: {
             text: function(variationId, field) {
                 return (
@@ -126,7 +144,6 @@ define([
             },
             stockModeOptions: function(variationId, field) {
                 return (
-
                     <Fields
                         type="text"
                         names={[
@@ -134,53 +151,18 @@ define([
                             'stockAmount'
                         ]}
                         className={'form-row__input'}
-                        component={StockModeInputs }
+                        component={StockModeInputs}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
-//
-//                    {/*<Field*/}
-//                        {/*type="text"*/}
-//                        {/*name={field.name}*/}
-//                        {/*className={'form-row__input'}*/}
-//                        {/*component={function(props) {*/}
-//{/*//                            return*/}
-//{/*//                            /!*<Select*!/*/}
-//{/*//*/}
-//{/*//                                /!*onOptionChange={props.onChange}*!/*/}
-//{/*//                                /!*/>*!/*/}
-//
-//                            {/*return (<StockModeInputs*/}
-//                                {/*onChange={function(event){*/}
-//                                    {/*console.log('in StockModeInputs eventt: ', event.target.value)*/}
-//                                    {/*props.input.onChange(event);*/}
-//                                {/*}}*/}
-//                                {/*// this is referencing the value of the return stockModeObject (there is a value property )*/}
-//                                {/*value={*/}
-//                                        {/*(function(){*/}
-//
-//{/*//                                            console.log('in selected function with props ' , props);*/}
-//                                            {/*return props.input.value;*/}
-//                                        {/*}())*/}
-//                                    {/*}*/}
-//                            {/*/>)*/}
-//
-//                        {/*}.bind(this)}*/}
-//                        {/*onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}*/}
-//                    {/*/>*/}
-                )
-
+                );
             },
             customOptionsSelect: function(variationId, field) {
-                console.log('in customOptionsSelect with variationId: ', variationId);
-                return (
-                    <Field
-                        type="text"
-                        name={field.name}
-                        className={'form-row__input'}
-                        component="input"
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
-                    />
-                )
+                return <Field
+                    type="text"
+                    name={field.name}
+                    component={this.renderCustomSelect.bind(this,field)}
+                    onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                />;
             }
         },
         renderVariationRowField: function(variationId, field) {
