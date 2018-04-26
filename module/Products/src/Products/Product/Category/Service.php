@@ -79,7 +79,7 @@ class Service
                 'name' => $categoryTemplate->getName(),
                 'accounts' => array_map(
                     function (AccountCategory $accountCategory) {
-                        return $accountCategory->getAccount();
+                        return $accountCategory->getAccountId();
                     },
                     $categoryTemplate->getAccountCategories()
                 )
