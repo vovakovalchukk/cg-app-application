@@ -19,12 +19,14 @@ define([], function() {
             return accountId in categoryTemplate.accounts;
         },
         validateAccounts: function(values, props) {
-            var accountsError = {};
+            var accountsError = {},
+               accounts = [];
 
             values && values.accounts && values.accounts.forEach(function(accountId) {
                if (!accountId) {
                    return;
                }
+               accounts.push(accountId);
 
                var accountIndex = service.findAccountIndexForAccountId(accountId, props);
                if (accountIndex === null) {
@@ -44,6 +46,10 @@ define([], function() {
                        "any mapped categories for it: " + invalidCategoryMapsForAccount.join(", ");
                }
             });
+
+            if (accounts.length === 0) {
+               accountsError._error = "Please select at least one account.";
+            }
 
             return Object.keys(accountsError).length > 0 ? accountsError : null;
         },

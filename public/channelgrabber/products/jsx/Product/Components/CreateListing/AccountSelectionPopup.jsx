@@ -138,19 +138,6 @@ define([
                 }
             });
 
-            if (accounts.length === 0 ) {
-                console.log({
-                    accounts: {
-                        _error: "Please select at least one account."
-                    }
-                });
-                throw new SubmissionError({
-                    accounts: {
-                        _error: "Please select at least one account."
-                    }
-                })
-            }
-
             console.log({
                 values: values,
                 props: props
@@ -211,6 +198,7 @@ define([
                 dispatch(Actions.categoryMapSelectedByName(name));
             },
             submitForm: function() {
+                dispatch(ReduxForm.clearSubmitErrors("accountSelection"));
                 dispatch(ReduxForm.submit("accountSelection"));
             }
         }
