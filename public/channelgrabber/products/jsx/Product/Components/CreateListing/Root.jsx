@@ -20,7 +20,8 @@ define([
         allowedChannels,
         onCreateListingClose,
         ebaySiteOptions,
-        categoryTemplateOptions
+        categoryTemplateOptions,
+        renderCreateListingPopup
     ) {
         var Provider = ReactRedux.Provider;
 
@@ -72,6 +73,7 @@ define([
                             onSubmit={this.onSubmit}
                             ebaySiteOptions={ebaySiteOptions}
                             product={this.props.product}
+                            renderCreateListingPopup={renderCreateListingPopup}
                         />
                     </Provider>
                 );

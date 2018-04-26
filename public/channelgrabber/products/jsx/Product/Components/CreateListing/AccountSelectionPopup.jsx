@@ -11,8 +11,7 @@ define([
     'Product/Components/CreateListing/Components/AccountSelect',
     'Product/Components/CreateListing/Components/CategoryMapSelect',
     'Product/Components/CreateListing/Components/SiteSelect',
-    'Product/Components/CreateListing/Service/AccountSelectionFormValidator',
-    'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateListing/Service/AccountSelectionFormValidator'
 ], function(
     React,
     ReactDom,
@@ -26,14 +25,12 @@ define([
     AccountSelectComponent,
     CategoryMapSelectComponent,
     SiteSelectComponent,
-    accountSelectionFormValidator,
-    CreateListingPopup
+    accountSelectionFormValidator
 ) {
     "use strict";
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
-    var SubmissionError = ReduxForm.SubmissionError;
 
     var AccountSelectionPopup = React.createClass({
         getDefaultProps: function() {
@@ -138,10 +135,11 @@ define([
                 }
             });
 
-            console.log({
-                values: values,
-                props: props
+            values = Object.assign(values, {
+                product: props.product,
+                accounts: Object.keys(values.accounts).map(index => values.accounts[index])
             });
+            props.renderCreateListingPopup(values);
         },
         validate: accountSelectionFormValidator
     })(AccountSelectionPopup);
@@ -198,7 +196,6 @@ define([
                 dispatch(Actions.categoryMapSelectedByName(name));
             },
             submitForm: function() {
-                dispatch(ReduxForm.clearSubmitErrors("accountSelection"));
                 dispatch(ReduxForm.submit("accountSelection"));
             }
         }

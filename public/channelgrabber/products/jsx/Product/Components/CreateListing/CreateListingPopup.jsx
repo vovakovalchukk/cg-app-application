@@ -19,13 +19,9 @@ define([
     var CreateListingPopup = React.createClass({
         render: function() {
             console.log(this.props);
-            return null;
+            return <span>Test</span>;
         }
     });
 
-    var mapStateToProps = null;
-
-    var mapDispatchToProps = null;
-
-    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
+    return CreateListingPopup;
 });

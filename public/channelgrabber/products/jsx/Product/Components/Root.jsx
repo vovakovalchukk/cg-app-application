@@ -25,6 +25,7 @@ define([
     const INITIAL_VARIATION_COUNT = 2;
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
     const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
+    const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 
@@ -44,7 +45,8 @@ define([
                 adminCompanyUrl: null,
                 features: {},
                 ebaySiteOptions: {},
-                categoryTemplateOptions: {}
+                categoryTemplateOptions: {},
+                createListingData: {}
             }
         },
         getInitialState: function() {
@@ -260,11 +262,11 @@ define([
             var product = this.state.products.find(function(product) {
                 return product.id == productId;
             });
-            this.showNewListingView(product);
+            this.showAccountsSelectionPopup(product);
         },
-        showNewListingView: function(product) {
+        showAccountsSelectionPopup: function(product) {
             this.setState({
-                currentView: NEW_LISTING_VIEW,
+                currentView: ACCOUNT_SELECTION_VIEW,
                 createListing: {
                     product: product
                 }
@@ -357,11 +359,18 @@ define([
                 currentView: PRODUCT_LIST_VIEW
             });
         },
+        showCreateListingPopup: function(data) {
+            this.setState({
+                currentView: NEW_LISTING_VIEW,
+                createListingData: data
+            });
+        },
         getViewRenderers: function() {
             return {
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
-                PRODUCT_LIST_VIEW: this.renderProductListView
+                PRODUCT_LIST_VIEW: this.renderProductListView,
+                ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
             }
         },
         renderSearchBox: function() {
@@ -411,22 +420,28 @@ define([
                 />;
             }.bind(this))
         },
-        renderCreateListingPopup: function() {
+        renderAccountSelectionPopup: function() {
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
+                this.showCreateListingPopup
             );
             return <CreateListingRootComponent
                 product={this.state.createListing.product}
             />;
         },
+        renderCreateListingPopup: function() {
+            return <CreateListingPopup
+                {...this.state.createListingData}
+            />;
+        },
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
-                onSaveAndList={this.showNewListingView}
+                onSaveAndList={this.showAccountsSelectionPopup}
             />
         },
         renderProductListView: function() {
