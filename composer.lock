@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb816ac3c32a62f6d3892093dcd4b7c5",
+    "content-hash": "f45fe8f92b4fcfc144e8979b41adfa73",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4024,16 +4024,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
+            "version": "dev-TAC-56-SetupWizardPaymentMethod",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "36b5b995c2d41e95777cd605a2f04427746eee9f"
+                "reference": "dc576c5e8a1f82baff9aadebd460cd6101614924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-TAC-51-RemoveFreeTrial-22d3de.zip",
-                "reference": "36b5b995c2d41e95777cd605a2f04427746eee9f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-56-SetupWizardPaymentMethod-2e28ad.zip",
+                "reference": "dc576c5e8a1f82baff9aadebd460cd6101614924",
                 "shasum": null
             },
             "require": {
@@ -4071,7 +4071,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-04-23T15:41:54+00:00"
+            "time": "2018-04-26T07:52:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9873,7 +9873,7 @@
         {
             "alias": "1.5.17",
             "alias_normalized": "1.5.17.0",
-            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
+            "version": "dev-TAC-56-SetupWizardPaymentMethod",
             "package": "channelgrabber/zf2-register"
         },
         {

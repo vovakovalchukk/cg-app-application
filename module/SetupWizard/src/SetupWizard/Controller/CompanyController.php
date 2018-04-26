@@ -2,8 +2,10 @@
 namespace SetupWizard\Controller;
 
 use CG_Register\Company\Service as RegisterCompanyService;
+use CG_UI\Form\Fieldset\Address;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
+use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CompanyController extends AbstractActionController
@@ -30,7 +32,7 @@ class CompanyController extends AbstractActionController
 
     public function indexAction()
     {
-        $detailsForm = $this->registerCompanyService->getLegalCompanyDetailsView();
+        $detailsForm = $this->registerCompanyService->getLegalCompanyDetailsForBillingView();
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/company/index')
