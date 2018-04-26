@@ -32,13 +32,40 @@ define([], function() {
             }
         },
         addNewOptionForAttribute: function(option,attributeColumnName){
-            return {
-                type: 'ATTRIBUTE_COLUMN_OPTION_ADD',
-                payload: {
-                    option: option,
-                    attributeColumnName: attributeColumnName
+            return function(dispatch,getState){
+                var currState = getState();
+                var fields = currState.variationsTable.fields;
+                console.log('currState:',currState);
+                console.log('fields: ' , fields);
+
+                var fieldToBeAffected;
+                for(var x=0; x<fields.length; x++){
+                    if(fields[x].name==attributeColumnName) {
+                        fieldToBeAffected = fields[x];
+                        break;
+                    }
                 }
-            };
+                if(!fieldToBeAffected) return;
+
+                //todo loop through options on field
+                for(var i=0; i<fieldToBeAffected.options.length; i++){
+                    console.log("option.value : " , option.value , ' fields[i].value : ' , fieldToBeAffected.options[i].value);
+                    if(option.value == fieldToBeAffected.options[i].value){
+                        console.log('option exists already');
+                        return ;
+                    }
+                }
+                console.log('option does not exist already');
+
+                dispatch({
+                    type: 'ATTRIBUTE_COLUMN_OPTION_ADD',
+                    payload: {
+                        option: option,
+                        attributeColumnName: attributeColumnName
+                    }
+                });
+            }
+
         }
 
     };
