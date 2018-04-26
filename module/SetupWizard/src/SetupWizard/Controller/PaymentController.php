@@ -10,6 +10,8 @@ use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use CG_Billing\Package\ManagementService as PackageManagementService;
+use CG_Billing\Package\Exception as SetPackageException;
 
 class PaymentController extends AbstractActionController
 {
@@ -26,19 +28,23 @@ class PaymentController extends AbstractActionController
     protected $jsonModelFactory;
     /** @var PaymentViewService */
     protected $paymentViewService;
+    /** @var PackageManagementService */
+    protected $packageManagementService;
 
     public function __construct(
         Service $setupService,
         PackageService $packageService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
-        PaymentViewService $paymentViewService
+        PaymentViewService $paymentViewService,
+        PackageManagementService $packageManagementService
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
         $this->paymentViewService = $paymentViewService;
+        $this->packageManagementService = $packageManagementService;
     }
 
     public function indexAction()
@@ -102,6 +108,28 @@ class PaymentController extends AbstractActionController
 
     public function setPackageAction()
     {
-        return $this->jsonModelFactory->newInstance(['success' => true, 'error' => '']);
+        $response = ['success' => false, 'error' => ''];
+        try {
+            $this->packageManagementService->setPackage($this->params()->fromRoute('id'));
+            $response['success'] = true;
+        } catch (SetPackageException\PricingSchemeMismatch $pricingSchemeMismatch) {
+            $newPackage = $pricingSchemeMismatch->getPackage();
+            throw new \RuntimeException(
+                sprintf('Package \'%s\' (%s) is not available', $newPackage->getName(), $newPackage->getId()),
+                0,
+                $pricingSchemeMismatch
+            );
+        } catch (SetPackageException\MissingPaymentMethod $missingPaymentMethod) {
+            $response['error'] = 'Please setup a payment method before selecting a package';
+        } catch (SetPackageException\Failure $failure) {
+            $response['error'] = sprintf(
+                'Your %s could not be completed. There may be an issue with your payment details.'
+                . '<br/>Please check them and try again.',
+                $failure->getType()
+            );
+        } catch (\Throwable $throwable) {
+            $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
+        }
+        return $this->jsonModelFactory->newInstance($response);
     }
 }

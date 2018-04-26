@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f02a14ee540ece29850d84c401882f55",
+    "content-hash": "b3fac2d06f8ff2e576b70f1cd3b5af9c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -631,6 +631,48 @@
             "time": "2018-04-03T08:30:56+00:00"
         },
         {
+            "name": "channelgrabber/clearbooks",
+            "version": "1.6.4",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
+                "reference": "e3cb328e56a9e07f885cf41662ef720354fbe929"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.6.4-855aa2.zip",
+                "reference": "e3cb328e56a9e07f885cf41662ef720354fbe929",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/billing": "^1.12.4",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/currency": ">=1.0.0",
+                "channelgrabber/di": ">=2.1.1",
+                "channelgrabber/locale": "^1.0.17",
+                "channelgrabber/payment": ">=1.4.0",
+                "channelgrabber/settings": ">=1.2.0",
+                "channelgrabber/stdlib": ">=2.10.6",
+                "composer/composer": "@dev"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.2, <1.1.0",
+                "phpunit/phpunit": "~6.1"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Clearbooks\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Clearbooks\\Test\\": "tests"
+                }
+            },
+            "time": "2018-04-12T11:15:22+00:00"
+        },
+        {
             "name": "channelgrabber/communication",
             "version": "1.0.10",
             "source": {
@@ -780,6 +822,31 @@
             ],
             "description": "A suite of interfaces that describe courier functionality",
             "time": "2018-04-04T11:51:33+00:00"
+        },
+        {
+            "name": "channelgrabber/currency",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-currency.git",
+                "reference": "a27f8f441ec132cbeae77632bb9c6315b98059f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-1.0.1-0bcb47.zip",
+                "reference": "a27f8f441ec132cbeae77632bb9c6315b98059f2",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/di": ">=1.0.1"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Currency\\": "src/"
+                }
+            },
+            "time": "2014-09-03T11:18:20+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -3490,19 +3557,20 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
+            "version": "dev-TAC-57-SetupWizardSelectPackage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "b5b8779be66067f2eeec450dc24c9f201adf917c"
+                "reference": "23e41ceb2087bb1ca69b736807987d512bcc9c0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-EPIC-TAC-51-RemoveFreeTrial-e43d82.zip",
-                "reference": "b5b8779be66067f2eeec450dc24c9f201adf917c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-57-SetupWizardSelectPackage-d4fdf9.zip",
+                "reference": "23e41ceb2087bb1ca69b736807987d512bcc9c0e",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/billing": "^1.13.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/payment": "^1.7.0",
                 "channelgrabber/stdlib": "^2.15.0",
@@ -3521,7 +3589,10 @@
             },
             "type": "zf2-module",
             "extra": {
-                "zf2-module": "CG_Billing"
+                "zf2-module": "CG_Billing",
+                "branch-alias": {
+                    "dev-TAC-57-SetupWizardSelectPackage": "1.0.0-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -3532,7 +3603,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-04-25T08:50:12+00:00"
+            "time": "2018-04-26T15:02:16+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9844,9 +9915,9 @@
             "package": "channelgrabber/cglib"
         },
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
+            "alias": "dev-EPIC-TAC-51-RemoveFreeTrial",
+            "alias_normalized": "dev-EPIC-TAC-51-RemoveFreeTrial",
+            "version": "dev-TAC-57-SetupWizardSelectPackage",
             "package": "channelgrabber/zf2-billing"
         },
         {
