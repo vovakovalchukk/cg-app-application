@@ -13,7 +13,7 @@ return [
                         'label' => 'Add Payment Method',
                         'title' => 'Add Payment Method',
                         'route' => Module::ROUTE . '/' . PaymentController::ROUTE_PAYMENT,
-                        'order' => 5,
+                        'order' => 20,
                         'sprite' => 'sprite-cash-circle-25-white',
                         'link' => false,
                     ],
