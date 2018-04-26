@@ -4338,16 +4338,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.1.x-dev",
+            "version": "dev-TAC-56-SetupWizardPaymentMethod",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "78a31d95d1bf49a397ddf20c61da4b4770afee35"
+                "reference": "8260f13e825b620d0c9b5c73ed797f4dfbc2ab2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-56-SetupWizardPaymentMethod-990808.zip",
-                "reference": "78a31d95d1bf49a397ddf20c61da4b4770afee35",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-56-SetupWizardPaymentMethod-fa291a.zip",
+                "reference": "8260f13e825b620d0c9b5c73ed797f4dfbc2ab2a",
                 "shasum": null
             },
             "require": {
@@ -4401,7 +4401,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-04-24T09:12:38+00:00"
+            "time": "2018-04-26T13:23:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
