@@ -14,6 +14,7 @@ define([
 ) {
 
     var Field = reduxForm.Field;
+    var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
 
     var CreateVariationsTableComponent = React.createClass({
@@ -125,27 +126,47 @@ define([
             },
             stockModeOptions: function(variationId, field) {
                 return (
-                    <Field
+
+                    <Fields
                         type="text"
-                        name={field.name}
+                        names={[
+                            'stockModeType',
+                            'stockAmount'
+                        ]}
                         className={'form-row__input'}
-                        component={function(props) {
-                            console.log("in component with props: ", props)
-
-                            return <StockModeInputs
-                                onChange={function(event) {
-                                    props.input.onChange(event.target.value)
-                                }}
-                                // this is referencing the value of the return stockModeObject (there is a value property )
-                                selected={
-                                    {
-                                        value:props.input.value.value
-                                    }}
-                            />
-
-                        }.bind(this)}
+                        component={StockModeInputs }
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
+//
+//                    {/*<Field*/}
+//                        {/*type="text"*/}
+//                        {/*name={field.name}*/}
+//                        {/*className={'form-row__input'}*/}
+//                        {/*component={function(props) {*/}
+//{/*//                            return*/}
+//{/*//                            /!*<Select*!/*/}
+//{/*//*/}
+//{/*//                                /!*onOptionChange={props.onChange}*!/*/}
+//{/*//                                /!*/>*!/*/}
+//
+//                            {/*return (<StockModeInputs*/}
+//                                {/*onChange={function(event){*/}
+//                                    {/*console.log('in StockModeInputs eventt: ', event.target.value)*/}
+//                                    {/*props.input.onChange(event);*/}
+//                                {/*}}*/}
+//                                {/*// this is referencing the value of the return stockModeObject (there is a value property )*/}
+//                                {/*value={*/}
+//                                        {/*(function(){*/}
+//
+//{/*//                                            console.log('in selected function with props ' , props);*/}
+//                                            {/*return props.input.value;*/}
+//                                        {/*}())*/}
+//                                    {/*}*/}
+//                            {/*/>)*/}
+//
+//                        {/*}.bind(this)}*/}
+//                        {/*onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}*/}
+//                    {/*/>*/}
                 )
 
             },
