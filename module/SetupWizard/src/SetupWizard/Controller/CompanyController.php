@@ -2,11 +2,10 @@
 namespace SetupWizard\Controller;
 
 use CG_Register\Company\Service as RegisterCompanyService;
-use CG_UI\Form\Fieldset\Address;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
-use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class CompanyController extends AbstractActionController
 {
@@ -21,13 +20,13 @@ class CompanyController extends AbstractActionController
     protected $registerCompanyService;
 
     public function __construct(
-        SetupService $setupService,
+        Service $setupService,
         ViewModelFactory $viewModelFactory,
         RegisterCompanyService $registerCompanyService
     ) {
-        $this->setSetupService($setupService)
-            ->setViewModelFactory($viewModelFactory)
-            ->setRegisterCompanyService($registerCompanyService);
+        $this->setupService = $setupService;
+        $this->viewModelFactory = $viewModelFactory;
+        $this->registerCompanyService = $registerCompanyService;
     }
 
     public function indexAction()
@@ -38,24 +37,13 @@ class CompanyController extends AbstractActionController
         $view->setTemplate('setup-wizard/company/index')
             ->addChild($detailsForm, 'detailsForm'); 
 
-        return $this->setupService->getSetupView('Company Details', $view);
+        return $this->setupService->getSetupView('Company Details', $view, $this->getFooter());
     }
 
-    protected function setSetupService(SetupService $setupService)
+    protected function getFooter(): ViewModel
     {
-        $this->setupService = $setupService;
-        return $this;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setRegisterCompanyService(RegisterCompanyService $registerCompanyService)
-    {
-        $this->registerCompanyService = $registerCompanyService;
-        return $this;
+        return $this->viewModelFactory->newInstance([
+            'buttons' => $this->setupService->getNextButtonViewConfig(),
+        ])->setTemplate('elements/buttons.mustache');
     }
 }
