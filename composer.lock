@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3fac2d06f8ff2e576b70f1cd3b5af9c",
+    "content-hash": "64b02284aacd0bc3a96f1855a963d24e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.13.0",
+            "version": "dev-TAC-57-SetupWizardSelectPackage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "9bf848f8d9aaf82445e98ba8e4d70a8915930b95"
+                "reference": "73ccca5c7e1e6089cd92f92811cdbee592dc14e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.13.0-aac10b.zip",
-                "reference": "9bf848f8d9aaf82445e98ba8e4d70a8915930b95",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-57-SetupWizardSelectPackage-8e13dd.zip",
+                "reference": "73ccca5c7e1e6089cd92f92811cdbee592dc14e7",
                 "shasum": null
             },
             "require": {
@@ -356,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-18T10:59:53+00:00"
+            "time": "2018-04-26T15:29:59+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -9909,6 +9909,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-57-SetupWizardSelectPackage",
+            "package": "channelgrabber/billing"
+        },
+        {
             "alias": "1.15.2",
             "alias_normalized": "1.15.2.0",
             "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
@@ -9953,6 +9959,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-billing": 20,

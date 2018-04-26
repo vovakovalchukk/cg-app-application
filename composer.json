@@ -22,7 +22,7 @@
         "channelgrabber/amazon": "~1.26.3",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.1.4",
-        "channelgrabber/billing": "~1.13.0",
+        "channelgrabber/billing": "dev-TAC-57-SetupWizardSelectPackage as 1.13.1",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "dev-EPIC-TAC-51-RemoveFreeTrial as 1.15.2",
         "channelgrabber/channel": "~1.34.9",
