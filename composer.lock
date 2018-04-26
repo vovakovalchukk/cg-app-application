@@ -2078,12 +2078,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "233df57bc889c91f249b9bb536d90519e3ab9722"
+                "reference": "91f7a76e9363589c386a0f4f7f64d843a1d6e68a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9437-fatal_on_import-32865a.zip",
-                "reference": "233df57bc889c91f249b9bb536d90519e3ab9722",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9437-fatal_on_import-d52d9f.zip",
+                "reference": "91f7a76e9363589c386a0f4f7f64d843a1d6e68a",
                 "shasum": null
             },
             "require": {
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-25T12:34:05+00:00"
+            "time": "2018-04-26T08:07:59+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2736,12 +2736,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "0ec3026fe61d1918d8fe76c5bf32ed7a4435672b"
+                "reference": "fb5f9bf9e7dbbd80cad6a8b90b8746df64d83844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-9437-fatal_on_import-ba625d.zip",
-                "reference": "0ec3026fe61d1918d8fe76c5bf32ed7a4435672b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-9437-fatal_on_import-08a128.zip",
+                "reference": "fb5f9bf9e7dbbd80cad6a8b90b8746df64d83844",
                 "shasum": null
             },
             "require": {
@@ -2772,7 +2772,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2",
-                "phpunit/phpunit": "~4.0.0"
+                "phpunit/phpunit": "~6.0.0"
             },
             "type": "library",
             "extra": {
@@ -2790,7 +2790,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-25T16:11:17+00:00"
+            "time": "2018-04-26T07:57:23+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
