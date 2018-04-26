@@ -5,7 +5,7 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
     'Product/Components/CreateListing/Root',
@@ -16,7 +16,7 @@ define([
     ProductFooter,
     ProductRow,
     ProductLinkEditor,
-    CreateListingPopup,
+    CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
     CreateListingRoot
@@ -434,7 +434,7 @@ define([
             />;
         },
         renderCreateListingPopup: function() {
-            return <CreateListingPopup
+            return <CreateListingPopupRoot
                 {...this.state.createListingData}
             />;
         },
