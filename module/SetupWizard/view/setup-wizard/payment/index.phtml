@@ -1,2 +1,7 @@
 <div class="clearfix section-separator"><?= $this->paymentMethod ?></div>
 <div class="clearfix section-separator payment-setup"></div>
+<script type="text/javascript">
+    require(['<?= SetupWizard\Module::PUBLIC_FOLDER ?>js/steps/Payment.js'], function(Payment) {
+        new Payment(n);
+    });
+</script>
