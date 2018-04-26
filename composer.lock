@@ -511,17 +511,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-164-submit-multiple-listings",
+            "version": "dev-LIS-198-submit-multi-listing-images",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3406b7a0d93f5e9af637909f3c9123cca053c651"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-164-submit-multiple-listings-182259.zip",
-                "reference": "3406b7a0d93f5e9af637909f3c9123cca053c651",
-                "shasum": null
+                "reference": "205448e87e4d999c7cdf2b424e53e22d486ebec8"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -9571,6 +9565,12 @@
             "alias_normalized": "1.34.8.0",
             "version": "dev-LIS-164-submit-multiple-listings",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.34.8",
+            "alias_normalized": "1.34.8.0",
+            "version": "dev-LIS-198-submit-multi-listing-images",
+            "package": "channelgrabber/channel"
         }
     ],
     "minimum-stability": "stable",
@@ -9578,8 +9578,8 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

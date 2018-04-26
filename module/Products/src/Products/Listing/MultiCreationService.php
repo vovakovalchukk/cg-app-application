@@ -174,14 +174,14 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
-                $this->generateCreateSimpleListingJobs($accounts, $categories, $siteId, $product, $guid);
+                $this->generateCreateSimpleListingJobs($accounts, $categories, $siteId, $product, $guid, $productData);
             } else {
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
                     $variations = $this->getSelectedVariations($product, $skus);
                 }
-                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid);
+                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid, $productData);
             }
 
             return true;
@@ -574,8 +574,10 @@ class MultiCreationService implements LoggerAwareInterface
         Categories $categories,
         string $siteId,
         Product $product,
-        string $guid
+        string $guid,
+        array $productData
     ) {
+        $listingData = $this->getListingDataFromProductData($productData, $product);
         /**
          * @var Account $account
          * @var Category $category
@@ -586,7 +588,8 @@ class MultiCreationService implements LoggerAwareInterface
                 $category,
                 $product,
                 $siteId,
-                $guid
+                $guid,
+                $listingData
             );
         }
     }
@@ -600,8 +603,10 @@ class MultiCreationService implements LoggerAwareInterface
         Product $product,
         string $siteId,
         array $variations,
-        string $guid
+        string $guid,
+        array $productData
     ) {
+        $listingData = $this->getListingDataFromProductData($productData, $product);
         /**
          * @var Account $account
          * @var Category $category
@@ -613,9 +618,29 @@ class MultiCreationService implements LoggerAwareInterface
                 $product,
                 $siteId,
                 $guid,
+                $listingData,
                 $this->extractVariationProductIds($variations)
             );
         }
+    }
+
+    protected function getListingDataFromProductData(array $productData, Product $product): array
+    {
+        // For now the only data that isn't persisted anywhere is the images
+        $listingData = [
+            'imageId' => $productData['imageId'] ?? null,
+        ];
+        if (!$product->isParent()) {
+            return $listingData;
+        }
+        $listingData['variations'] = [];
+        foreach ($productData['variations'] as $variationData) {
+            $variation = $product->getVariations()->getBy('sku', $variationData['sku'])->getFirst();
+            $listingData['variations'][$variation->getId()] = [
+                'imageId' => $variationData['imageId'] ?? null
+            ];
+        }
+        return $listingData;
     }
 
     /**
