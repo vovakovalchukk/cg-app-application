@@ -87,29 +87,21 @@ define([
                 images={uploadedImages}
             />
         },
-        renderCustomSelect: function(field,reduxFormFieldProps) {
-            console.log('in renderCustomSelect reduxFormFieldProp: ' , reduxFormFieldProps , ' and field: ' , field);
-
+        renderCustomSelect: function(field, reduxFormFieldProps) {
+            console.log('in renderCustomSelect reduxFormFieldProp: ', reduxFormFieldProps, ' and field: ', field);
             return <Select
                 options={field.options}
                 autoSelectFirst={false}
                 title={name}
                 customOptions={true}
-                onOptionChange={function(option){
-                    console.log('in onOptionChange with event: ', option);
-
-                    // need to fire a redux action here if event does't exist already
-                    console.log('addNewOptionForAttribute: ', this.props.addNewOptionForAttribute);
-
-                    this.props.addNewOptionForAttribute( option,field.name)
-
-                    var event = {
-                        target:{
-                            name:option.name,
-                            value:option.value
-                        }
-                    }
-                    reduxFormFieldProps.input.onChange(event);
+                selectedOption={{
+                    name: reduxFormFieldProps.input.value,
+                    value: reduxFormFieldProps.input.value
+                }}
+                onOptionChange={function(option) {
+                    // todo put this behind a flag to check if the option exists already
+                    this.props.addNewOptionForAttribute(option, field.name);
+                    return reduxFormFieldProps.input.onChange(option.value);
                 }.bind(this)}
             />
         },
@@ -158,9 +150,8 @@ define([
             },
             customOptionsSelect: function(variationId, field) {
                 return <Field
-                    type="text"
                     name={field.name}
-                    component={this.renderCustomSelect.bind(this,field)}
+                    component={this.renderCustomSelect.bind(this, field)}
                     onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                 />;
             }

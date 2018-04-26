@@ -32,7 +32,6 @@ define([], function() {
             }
         },
         addNewOptionForAttribute: function(option,attributeColumnName){
-            console.log('in addNewOptionForAttribute with option: ', option, ' and attributeColumnId: ', attributeColumnName);
             return {
                 type: 'ATTRIBUTE_COLUMN_OPTION_ADD',
                 payload: {
