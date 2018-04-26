@@ -40,6 +40,14 @@ define([
             }
             return <span className="input-error account-error">{meta.error}</span>;
         },
+        renderGeneralErrorMessage: function() {
+            var meta = this.props.meta;
+            return meta.invalid && meta.error && (
+                <span className="input-error accounts-error">
+                    {meta.error}
+                </span>
+            );
+        },
         render: function() {
             var accountSelects = [],
                 index = 0;
@@ -55,6 +63,7 @@ define([
             }
             return (<span className="form-input-container">
                 {accountSelects}
+                {this.renderGeneralErrorMessage()}
             </span>);
         }
     });

@@ -31,6 +31,7 @@ define([
                 return category.value;
             });
             input.onChange(categoryIds);
+            input.onFocus();
             this.props.onCategorySelected(categoryIds);
         },
         getSelectedOptions: function() {
@@ -48,6 +49,13 @@ define([
             }
             return <a href="#" onClick={this.props.onAddNewCategoryClick} className="add-new-category-map-button">Add new</a>;
         },
+        renderErrorMessage: function(meta) {
+            return (meta.visited || meta.touched) && meta.invalid && meta.error && (
+                <span className="input-error categories-error">
+                    {meta.error}
+                </span>
+            );
+        },
         render: function() {
             return (<label className="form-input-container">
                 <span className={"inputbox-label"}>Category</span>
@@ -58,6 +66,7 @@ define([
                         options={this.getCategorySelectOptions()}
                         selectedOptions={this.getSelectedOptions()}
                     />
+                    {this.renderErrorMessage(this.props.meta)}
                 </div>
                 {this.renderAddNewCategoryMapButton()}
             </label>);

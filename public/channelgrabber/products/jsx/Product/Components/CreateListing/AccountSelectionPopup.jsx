@@ -12,6 +12,7 @@ define([
     'Product/Components/CreateListing/Components/CategoryMapSelect',
     'Product/Components/CreateListing/Components/SiteSelect',
     'Product/Components/CreateListing/Service/AccountSelectionFormValidator',
+    'Product/Components/CreateListing/CreateListingPopup',
 ], function(
     React,
     ReactDom,
@@ -25,12 +26,14 @@ define([
     AccountSelectComponent,
     CategoryMapSelectComponent,
     SiteSelectComponent,
-    accountSelectionFormValidator
+    accountSelectionFormValidator,
+    CreateListingPopup
 ) {
     "use strict";
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
+    var SubmissionError = ReduxForm.SubmissionError;
 
     var AccountSelectionPopup = React.createClass({
         getDefaultProps: function() {
@@ -111,6 +114,7 @@ define([
                     closeOnYes={false}
                     headerText={"Selects accounts to list to"}
                     onNoButtonPressed={this.props.onCreateListingClose}
+                    onYesButtonPressed={this.props.submitForm}
                     yesButtonText="Next"
                     noButtonText="Cancel"
                 >
@@ -120,24 +124,37 @@ define([
         }
     });
 
-    var findAccountIndexForAccountId = function(accountId, props) {
-        var index = 0;
-        for (var id in props.accounts) {
-            if (id == accountId) {
-                return index;
-            }
-            index++;
-        }
-        return null;
-    };
-
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
-        onSubmit: function() {
-            console.log(arguments);
+        initialValues: {
+            accounts: [],
+            categories: []
         },
-        onChange: function(values) {
-            console.log(values);
+        onSubmit: function(values, dispatch, props) {
+            var accounts = [];
+            values.accounts.forEach(function (accountId) {
+                if (accountId) {
+                    accounts.push(accountId);
+                }
+            });
+
+            if (accounts.length === 0 ) {
+                console.log({
+                    accounts: {
+                        _error: "Please select at least one account."
+                    }
+                });
+                throw new SubmissionError({
+                    accounts: {
+                        _error: "Please select at least one account."
+                    }
+                })
+            }
+
+            console.log({
+                values: values,
+                props: props
+            });
         },
         validate: accountSelectionFormValidator
     })(AccountSelectionPopup);
@@ -192,6 +209,9 @@ define([
             },
             categoryMapSelectedByName: function(name) {
                 dispatch(Actions.categoryMapSelectedByName(name));
+            },
+            submitForm: function() {
+                dispatch(ReduxForm.submit("accountSelection"));
             }
         }
     };
