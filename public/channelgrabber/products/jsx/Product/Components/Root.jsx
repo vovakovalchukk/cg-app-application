@@ -46,7 +46,8 @@ define([
                 features: {},
                 ebaySiteOptions: {},
                 categoryTemplateOptions: {},
-                createListingData: {}
+                createListingData: {},
+                conditionOptions: {}
             }
         },
         getInitialState: function() {
@@ -436,7 +437,18 @@ define([
         renderCreateListingPopup: function() {
             return <CreateListingPopupRoot
                 {...this.state.createListingData}
+                conditionOptions={this.formatConditionOptions()}
             />;
+        },
+        formatConditionOptions: function() {
+            var options = [];
+            for (var value in this.props.conditionOptions) {
+                options.push({
+                    name: this.props.conditionOptions[value],
+                    value: value
+                });
+            }
+            return options;
         },
         renderCreateNewProduct: function() {
             return <CreateProductRoot

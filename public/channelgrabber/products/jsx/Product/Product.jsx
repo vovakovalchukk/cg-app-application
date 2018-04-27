@@ -16,7 +16,8 @@ define([
         features,
         adminCompanyUrl,
         ebaySiteOptions,
-        categoryTemplateOptions
+        categoryTemplateOptions,
+        conditionOptions
     ) {
         ReactDOM.render(
             <RootComponent
@@ -29,6 +30,7 @@ define([
                 adminCompanyUrl={adminCompanyUrl}
                 ebaySiteOptions={JSON.parse(ebaySiteOptions)}
                 categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
+                conditionOptions={JSON.parse(conditionOptions)}
             />,
             mountingNode
         );
