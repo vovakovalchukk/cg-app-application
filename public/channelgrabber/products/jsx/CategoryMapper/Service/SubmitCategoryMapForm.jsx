@@ -27,16 +27,20 @@ define([
                 accountData = accounts[accountId];
                 var categories = accountData.categories,
                     lastSelectedCategory;
-                if (accountData.selectedCategories) {
-                    accountData.selectedCategories.forEach(function (selectedCatId) {
-                        lastSelectedCategory = categories[selectedCatId];
-                        if (categories[selectedCatId] && categories[selectedCatId].categoryChildren && Object.keys(categories[selectedCatId].categoryChildren).length > 0) {
-                            categories = categories[selectedCatId].categoryChildren;
-                        }
-                    });
-                    if (lastSelectedCategory && !lastSelectedCategory.listable) {
-                        invalidAccountIds[accountId] = accountId;
+
+                if (!accountData.selectedCategories) {
+                    return;
+                }
+
+                accountData.selectedCategories.forEach(function (selectedCatId) {
+                    lastSelectedCategory = categories[selectedCatId];
+                    if (categories[selectedCatId] && categories[selectedCatId].categoryChildren && Object.keys(categories[selectedCatId].categoryChildren).length > 0) {
+                        categories = categories[selectedCatId].categoryChildren;
                     }
+                });
+
+                if (lastSelectedCategory && !lastSelectedCategory.listable) {
+                    invalidAccountIds[accountId] = accountId;
                 }
             });
 
@@ -72,27 +76,32 @@ define([
             }
         },
         checkResponseForErrors: function(response) {
-            if (response.error) {
-                if (response.error.code == 'existing name') {
-                    throw new SubmissionError({name: response.error.message});
-                }
-                if (response.error.code == 'existing category') {
-                    throw new SubmissionError({
-                        categories: {
-                            _error: JSON.stringify({
-                                text: response.error.message,
-                                existingMapNames: service.extractExistingCategoryNamesFromErrorResponse(response.error)
-                            })
-                        }
-                    });
-                }
-                if (response.error.code) {
-                    throw new SubmissionError({
-                        _error: response.error.message
-                    });
-                }
-                n.error('There was an error while saving the category map. Please try again or contact support if the problem persists.');
+            if (!response.error) {
+                return;
             }
+
+            if (response.error.code == 'existing name') {
+                throw new SubmissionError({name: response.error.message});
+            }
+
+            if (response.error.code == 'existing category') {
+                throw new SubmissionError({
+                    categories: {
+                        _error: JSON.stringify({
+                            text: response.error.message,
+                            existingMapNames: service.extractExistingCategoryNamesFromErrorResponse(response.error)
+                        })
+                    }
+                });
+            }
+
+            if (response.error.code) {
+                throw new SubmissionError({
+                    _error: response.error.message
+                });
+            }
+
+            n.error('There was an error while saving the category map. Please try again or contact support if the problem persists.');
         },
         extractExistingCategoryNamesFromErrorResponse: function(error) {
             var existing = {};
@@ -101,7 +110,7 @@ define([
             });
             return existing;
         },
-        formatAccountCategoryData: function(categories) {
+        filterSelectedCategoryIds: function(categories) {
             var accounts = {};
             categories.forEach(function(categoryId, accountId) {
                 if (categoryId) {
@@ -113,7 +122,7 @@ define([
         buildPostData: function(mapId, values) {
             var data = {
                 name: values.name,
-                categoryIds: this.formatAccountCategoryData(values.categories)
+                categoryIds: this.filterSelectedCategoryIds(values.categories)
             };
             if (mapId > 0) {
                 data.id = mapId;

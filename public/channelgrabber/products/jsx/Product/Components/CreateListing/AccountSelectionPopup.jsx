@@ -134,10 +134,8 @@ define([
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
         onSubmit: function() {
+            /** @TODO: To be handled by LIS-157 */
             console.log(arguments);
-        },
-        onChange: function(values) {
-            console.log(values);
         },
         validate: accountSelectionFormValidator
     })(AccountSelectionPopup);
