@@ -133,6 +133,7 @@ define([
         enableReinitialize: true,
         keepDirtyOnReinitialize: true,
         onSubmit: function(values, dispatch, props) {
+            /** @TODO: this will be handled by LIS-159. */
             console.log(values);
         },
     })(CreateListingPopup);
