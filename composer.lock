@@ -3561,12 +3561,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "a34e56f813e559f45441cef8fac02d3186a69cde"
+                "reference": "82f77983fdc95e1237bb7b214346af83a6865653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-EPIC-TAC-51-RemoveFreeTrial-3c7ee3.zip",
-                "reference": "a34e56f813e559f45441cef8fac02d3186a69cde",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-EPIC-TAC-51-RemoveFreeTrial-2333c3.zip",
+                "reference": "82f77983fdc95e1237bb7b214346af83a6865653",
                 "shasum": null
             },
             "require": {
@@ -3600,7 +3600,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-04-27T12:22:47+00:00"
+            "time": "2018-04-27T15:08:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",

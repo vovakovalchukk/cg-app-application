@@ -43,12 +43,12 @@ return [
             ],
             ClearbooksCustomerApiStorage::class => [
                 'parameters' => [
-                    'client' => 'cg_app_guzzle',
+                    'client' => 'billing_guzzle',
                 ],
             ],
             ContactApiStorage::class => [
                 'parameters' => [
-                    'client' => 'cg_app_guzzle',
+                    'client' => 'billing_guzzle',
                 ],
             ],
         ],
