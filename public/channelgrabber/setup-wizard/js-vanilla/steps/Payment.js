@@ -32,6 +32,7 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
         init.call(this);
     }
 
+    Payment.SetPackageUrl = '/setup/payment/setPackage/';
     Payment.RememberSelectedPackageUrl = '/setup/payment/rememberPackage/';
 
     Payment.prototype.registerNextCallback = function()
@@ -55,7 +56,23 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
                     return;
                 }
 
-                resolve();
+                self.getNotifications().notice('Setting requested package');
+                ajaxRequester.sendRequest(
+                    Payment.SetPackageUrl + selectedPackage,
+                    {},
+                    function(data) {
+                        if (data.success) {
+                            resolve();
+                        } else {
+                            self.getNotifications().error(data.error);
+                            reject();
+                        }
+                    },
+                    function(response) {
+                        self.getNotifications().ajaxError(response);
+                        reject();
+                    }
+                );
             });
         });
     };
