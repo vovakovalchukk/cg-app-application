@@ -88,7 +88,6 @@ define([
             />
         },
         renderCustomSelect: function(field, reduxFormFieldProps) {
-//            console.log('in renderCustomSelect with reduxFormFieldProps: ', reduxFormFieldProps , ' and field: ', field);
             return <Select
                 options={field.options}
                 autoSelectFirst={false}
@@ -99,15 +98,10 @@ define([
                     value: reduxFormFieldProps.input.value
                 }}
                 onOptionChange={function(option) {
-                    console.log("in onOption change with option: " , option, ' and field.options ', field.options);
-                    // todo put this behind a flag to check if the option exists already
-
-
-
-                        this.props.addNewOptionForAttribute(option, field.name);
-
-
-
+                    console.log("in onOption change with option: " , option, ' and field.options ', field.options , ' and props : ' , this.props);
+                    if(!optionExistsAlready(option,field.options)){
+                        this.props.addNewOptionForAttribute(option,field.name);
+                    }
                     return reduxFormFieldProps.input.onChange(option.value);
                 }.bind(this)}
             />
@@ -216,20 +210,6 @@ define([
         return null;
     }
 
-    function optionExistsAlreadyOnField(chosenOption, fieldOptions) {
-        console.log('in optionExistsAlready on field with chosenOption: ' , chosenOption , ' and fieldOptions: ' , fieldOptions);
-
-        for (var i = 0; i < fieldOptions.length; i++) {
-            if (chosenOption.value = fieldOptions[i].value) {
-                console.log('chosenOPtion : ' , chosenOption , ' ===fieldOptions[i]: ', fieldOptions[i]);
-                return true;
-            }else{
-                console.log('chosenOPtion : ' , chosenOption , ' !==fieldOptions[i]: ', fieldOptions[i]);
-
-            }
-        }
-        return false;
-    }
 
     function getImageFieldValueFromStateUsingVariationId(variationId) {
         var variationValues = this.props.formVariationValues;
@@ -242,6 +222,15 @@ define([
             return imageFieldValue;
         }
         return null;
+    }
+
+    function optionExistsAlready(option,options){
+        for(var i=0; i<options.length; i++){
+            if(option.value == options[i].value){
+                console.log('option exists already');
+                return true;
+            }
+        }
     }
 
     function getUploadedImageById(id) {
