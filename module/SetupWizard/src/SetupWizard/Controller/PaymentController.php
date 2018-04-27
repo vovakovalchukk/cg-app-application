@@ -3,21 +3,23 @@ namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Entity as Package;
-use CG_Billing\Payment\View\Service as PaymentViewService;
+use CG_Billing\Package\Exception as SetPackageException;
+use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
+use CG_Billing\Payment\View\Service as PaymentViewService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
-use CG_Billing\Package\ManagementService as PackageManagementService;
-use CG_Billing\Package\Exception as SetPackageException;
 
 class PaymentController extends AbstractActionController
 {
     const ROUTE_PAYMENT = 'Payment';
-    const ROUTE_PACKAGE = 'Package';
+    const ROUTE_PACKAGE_REMEMBER = 'PackageRemember';
+    const ROUTE_PACKAGE_SET = 'PackageSet';
 
     /** @var SetupService */
     protected $setupService;
@@ -33,6 +35,8 @@ class PaymentController extends AbstractActionController
     protected $paymentViewService;
     /** @var PackageManagementService */
     protected $packageManagementService;
+    /** @var SessionManager */
+    protected $session;
 
     public function __construct(
         Service $setupService,
@@ -41,7 +45,8 @@ class PaymentController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         PaymentService $paymentService,
         PaymentViewService $paymentViewService,
-        PackageManagementService $packageManagementService
+        PackageManagementService $packageManagementService,
+        SessionManager $session
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
@@ -50,6 +55,7 @@ class PaymentController extends AbstractActionController
         $this->paymentService = $paymentService;
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
+        $this->session = $session;
     }
 
     public function indexAction()
@@ -61,9 +67,15 @@ class PaymentController extends AbstractActionController
     {
         return $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
+            ->setVariable('selectedPackage', $this->getSelectedPackage())
             ->setVariable('packages', $this->getPackagesData())
             ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod())
             ->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethod');
+    }
+
+    protected function getSelectedPackage(): ?int
+    {
+        return $this->session->getStorage()['setup-payment']['selected-package'] ?? false;
     }
 
     protected function getPackagesData(): array
@@ -110,6 +122,16 @@ class PaymentController extends AbstractActionController
         return $this->viewModelFactory->newInstance([
             'buttons' => $this->setupService->getNextButtonViewConfig(),
         ])->setTemplate('setup-wizard/payment/footer');
+    }
+
+    public function rememberPackageAction()
+    {
+        $storage = $this->session->getStorage();
+        if (!isset($storage['setup-payment'])) {
+            $storage['setup-payment'] = [];
+        }
+        $storage['setup-payment']['selected-package'] = $this->params()->fromRoute('id');
+        return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 
     public function setPackageAction()

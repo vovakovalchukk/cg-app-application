@@ -30,9 +30,10 @@
         'react-dom',
         'SetupWizard/Component/Payment/PackageSelector'
     ], function(Payment, React, ReactDOM, PackageSelectorComponent) {
-        var payment = new Payment(n, false, "<?= $this->activePaymentMethod ?>");
+        var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, "<?= $this->activePaymentMethod ?>");
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
+                selectedPackage: <?= json_encode($this->selectedPackage) ?>,
                 packages: <?= json_encode($this->packages) ?>,
                 onPackageSelection: function(packageId) {
                     var paymentSelector = document.getElementById('setup-wizard-payment-selector');

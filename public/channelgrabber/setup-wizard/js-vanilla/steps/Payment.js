@@ -1,4 +1,4 @@
-define(['../SetupWizard.js'], function(setupWizard) {
+define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequester) {
     function Payment(notifications, selectedPackage, activePaymentMethod)
     {
         this.getNotifications = function()
@@ -13,6 +13,7 @@ define(['../SetupWizard.js'], function(setupWizard) {
 
         this.setSelectedPackage = function(newPackage) {
             selectedPackage = newPackage;
+            this.rememberSelectedPackage(selectedPackage);
             return this;
         };
 
@@ -30,6 +31,8 @@ define(['../SetupWizard.js'], function(setupWizard) {
         };
         init.call(this);
     }
+
+    Payment.RememberSelectedPackageUrl = '/setup/payment/rememberPackage/';
 
     Payment.prototype.registerNextCallback = function()
     {
@@ -55,6 +58,20 @@ define(['../SetupWizard.js'], function(setupWizard) {
                 resolve();
             });
         });
+    };
+
+    Payment.prototype.rememberSelectedPackage = function(selectedPackage)
+    {
+        if (!selectedPackage) {
+            return;
+        }
+
+        ajaxRequester.sendRequest(
+            Payment.RememberSelectedPackageUrl + selectedPackage,
+            {},
+            function() {},
+            function() {}
+        );
     };
 
     return Payment;

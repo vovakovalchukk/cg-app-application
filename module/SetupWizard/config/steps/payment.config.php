@@ -36,7 +36,16 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            PaymentController::ROUTE_PACKAGE => [
+                            PaymentController::ROUTE_PACKAGE_REMEMBER => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/rememberPackage/:id',
+                                    'defaults' => [
+                                        'action' => 'rememberPackage',
+                                    ]
+                                ],
+                            ],
+                            PaymentController::ROUTE_PACKAGE_SET => [
                                 'type' => Segment::class,
                                 'options' => [
                                     'route' => '/setPackage/:id',

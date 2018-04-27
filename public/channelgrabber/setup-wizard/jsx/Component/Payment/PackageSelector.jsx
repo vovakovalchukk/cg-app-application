@@ -4,13 +4,14 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
     var PackageSelectorComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                selectedPackage: false,
                 packages: [],
                 onPackageSelection: null
             }
         },
         getInitialState: function() {
             return {
-                selected: false
+                selected: this.props.selectedPackage
             };
         },
         getPackages: function() {
