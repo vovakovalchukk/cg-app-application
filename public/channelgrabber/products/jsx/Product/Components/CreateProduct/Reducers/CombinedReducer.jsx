@@ -3,18 +3,18 @@ define([
     'redux-form',
     'Common/Components/ImageUploader/ImageUploaderReducer',
     'Product/Components/CreateProduct/Reducers/AccountReducer',
-    'Product/Components/CreateProduct/Reducers/CreateVariationsTableReducer'
+    'Product/Components/VariationsTable/Reducer'
 ], function(
     Redux,
     ReduxForm,
     imageUploaderReducer,
     AccountReducer,
-    CreateVariationsTableReducer
+    VariationsTableReducer
 ) {
     var CombinedReducer = Redux.combineReducers({
         form: ReduxForm.reducer,
         account: AccountReducer,
-        variationsTable: CreateVariationsTableReducer,
+        variationsTable: VariationsTableReducer,
         uploadedImages: imageUploaderReducer
     });
     return CombinedReducer;

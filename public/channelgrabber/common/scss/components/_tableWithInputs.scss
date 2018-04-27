@@ -1,0 +1,40 @@
+.c-table-with-inputs {
+
+}
+
+.c-table-with-inputs__cell {
+    position: relative;
+    overflow: initial;
+    width: inherit;
+    text-align: left;
+}
+.c-table-with-inputs__cell-heading {
+    text-align: center;
+}
+.c-table-with-inputs__cell--large-height {
+    height: 4rem;
+}
+
+.c-table-with-inputs__remove-button {
+    position: absolute;
+    background: none;
+    border: none;
+    color: black;
+    z-index: 10;
+    font-size: 1.5rem;
+    top: 50%;
+    right: -0.5rem;
+    transform: translate(-50%, -50%);
+}
+.c-table-with-inputs__text-input {
+    width: auto;
+    max-width: 90%;
+    float: left;
+    border: 1px solid transparent;
+    padding: $padding--input-field;
+    transition: 200ms;
+    &:hover {
+        border: 1px solid #c2c2c2;
+    }
+}
+

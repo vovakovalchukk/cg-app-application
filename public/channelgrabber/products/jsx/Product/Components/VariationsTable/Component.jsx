@@ -30,21 +30,27 @@ define([
             var jsx = '';
             if (field.isCustomAttribute) {
                 jsx = (
-                    <th className={'create-variations-table__th'}>
+                    <th className={'' +
+                    'c-table-with-inputs__cell ' +
+                    'c-table-with-inputs__cell-heading '
+                    }>
                         <Field
                             type="text"
                             name={field.name}
-                            className={'create-variations-table__input'}
+                            className={"c-table-with-inputs__text-input"}
                             component="input"
                         />
-                        <button type="button" className={'create-variations-table__th__remove-button'}
+                        <button type="button" className={'c-table-with-inputs__remove-button'}
                                 onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
                         </button>
                     </th>
                 )
             } else {
                 jsx = (
-                    <th className={'create-variations-table__th'}>{field.label}</th>
+                    <th className={'' +
+                        'c-table-with-inputs__cell ' +
+                        'c-table-with-inputs__cell-heading '
+                   }>{field.label}</th>
                 );
             }
             return jsx;
@@ -59,7 +65,10 @@ define([
                 <FormSection name={"create-variations-table-headings"}>
                     <tr>
                         {this.renderVariationHeadings()}
-                        <th className={'create-variations-table__th'}>
+                        <th className={'' +
+                        'c-table-with-inputs__cell ' +
+                        'c-table-with-inputs__cell-heading ' +
+                        ' u-background-none'}>
                             <button
                                 type="button"
                                 onClick={this.props.newAttributeColumnRequest}
@@ -77,11 +86,11 @@ define([
                 variations.map(this.renderVariationRow, this)
             );
         },
-        renderImageDropdown: function(onChange, variationId, uploadedImages) {
+        renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
             return <ImageDropDown
-                selected={getSelectedImage.call(this, variationId)}
+                selected={getUploadedImageById(reduxFieldProps.input.value, uploadedImages)}
                 onChange={function(event) {
-                    onChange(event.target.value)
+                    reduxFieldProps.input.onChange(event.target.value)
                 }}
                 autoSelectFirst={false}
                 images={uploadedImages}
@@ -98,9 +107,9 @@ define([
                     value: reduxFormFieldProps.input.value
                 }}
                 onOptionChange={function(option) {
-                    console.log("in onOption change with option: " , option, ' and field.options ', field.options , ' and props : ' , this.props);
-                    if(!optionExistsAlready(option,field.options)){
-                        this.props.addNewOptionForAttribute(option,field.name);
+                    console.log("in onOption change with option: ", option, ' and field.options ', field.options, ' and props : ', this.props);
+                    if (!optionExistsAlready(option, field.options)) {
+                        this.props.addNewOptionForAttribute(option, field.name);
                     }
                     return reduxFormFieldProps.input.onChange(option.value);
                 }.bind(this)}
@@ -127,7 +136,7 @@ define([
                         className={'form-row__input'}
                         component={function(props) {
                             return this.renderImageDropdown.call(this,
-                                props.input.onChange,
+                                props,
                                 variationId,
                                 uploadedImages)
                         }.bind(this)}
@@ -183,7 +192,7 @@ define([
         renderVariationsTable: function(variations) {
             return (
                 <FormSection name={"variations"}>
-                    <table className={'create-variations-table'}>
+                    <table className={'c-table-with-inputs'}>
                         {this.renderVariationsTableHeaderRow()}
                         {this.renderVariations()}
                     </table>
@@ -197,52 +206,21 @@ define([
 
     return CreateVariationsTableComponent;
 
-    function getSelectedImage(variationId) {
-        var imageFieldValue = getImageFieldValueFromStateUsingVariationId.call(this, variationId);
-        if (imageFieldValue) {
-            var imageId = imageFieldValue;
-            if (imageId) {
-                var image = getUploadedImageById.call(this, imageId);
-                return image;
-            }
-
-        }
-        return null;
-    }
-
-
-    function getImageFieldValueFromStateUsingVariationId(variationId) {
-        var variationValues = this.props.formVariationValues;
-        if (!variationValues) {
-            return null;
-        }
-        var variationToSearchIn = variationValues['variation-' + variationId];
-        if (variationToSearchIn && variationToSearchIn.image) {
-            var imageFieldValue = variationToSearchIn.image;
-            return imageFieldValue;
-        }
-        return null;
-    }
-
-    function optionExistsAlready(option,options){
-        for(var i=0; i<options.length; i++){
-            if(option.value == options[i].value){
+    function optionExistsAlready(option, options) {
+        for (var i = 0; i < options.length; i++) {
+            if (option.value == options[i].value) {
                 console.log('option exists already');
                 return true;
             }
         }
     }
 
-    function getUploadedImageById(id) {
-        var uploadedImages = this.props.uploadedImages.images;
-        var image = null;
+    function getUploadedImageById(id, uploadedImages) {
         for (var i = 0; i < uploadedImages.length; i++) {
             if (uploadedImages[i].id == id) {
-                image = uploadedImages[i];
-                break;
+                return uploadedImages[i];
             }
         }
-        return image;
     }
 
 });

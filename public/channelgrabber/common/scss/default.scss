@@ -1,9 +1,11 @@
+// settings
 @import "../../zf2-v4-ui/scss/common/globals/variables";
 @import "../../zf2-v4-ui/scss/common/globals/mixins";
 @import "../../zf2-v4-ui/scss/common/library/animate";
+@import "settings/settings";
 
+// components
 @import "gridTable";
-
 @import "notes";
 @import "popup";
 @import "safeInput";
@@ -16,3 +18,7 @@
 @import "itemRow";
 @import "imagePicker";
 @import "container";
+@import "components/tableWithInputs";
+
+// utilities
+@import "utilities/helpers";

@@ -5,7 +5,7 @@ define([
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
     'Product/Components/VatView',
-    'Product/Components/CreateProduct/CreateVariationsTable/Root'
+    'Product/Components/VariationsTable/Root'
 
 ], function(
     React,

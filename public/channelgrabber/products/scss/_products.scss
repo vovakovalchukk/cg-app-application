@@ -860,36 +860,3 @@ $margin--distance-xsmall:0.5rem;
     padding: 11px 0 9px 10px;
 }
 
-//helpers
-.tooltip-hover {
-    z-index: 99999;
-}
-
-.left {
-    float: left;
-}
-
-.no-margin {
-    margin: 0px auto;
-}
-.u-margin-top-small{
-    margin-top: $margin--distance-small;
-}
-.u-margin-top-xsmall{
-    margin-top: $margin--distance-xsmall;
-}
-.margin-left--small {
-    margin-left: $small-margin-distance;
-}
-
-.margin-bottom--small {
-    margin-bottom: $small-margin-distance;
-}
-
-.bold-item {
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-.h-inline-block{
-    display:inline-block;
-}
