@@ -3199,17 +3199,11 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.3.2",
+            "version": "dev-CGIV-9396-listing-incorrect-wc-errors",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "e8fe6e21867cd6cb80af9e83359ebf44cd6320eb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.3.2-1c0312.zip",
-                "reference": "e8fe6e21867cd6cb80af9e83359ebf44cd6320eb",
-                "shasum": null
+                "reference": "c4d3324311ee9c4c7d62d32cf8d8a64bc91289b6"
             },
             "require": {
                 "channelgrabber/channel": "^1.34.0",
@@ -9565,13 +9559,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.3",
+            "alias_normalized": "1.3.3.0",
+            "version": "dev-CGIV-9396-listing-incorrect-wc-errors",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

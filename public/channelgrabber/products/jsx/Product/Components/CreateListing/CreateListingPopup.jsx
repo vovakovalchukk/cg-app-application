@@ -207,7 +207,7 @@ define([
             return (
                 <PopupMessage
                     initiallyActive={!!this.state.errors.length}
-                    headerText="There were errors when trying to create the listing"
+                    headerText=" There were errors when trying to create the listing"
                     className="error"
                     onCloseButtonPressed={this.onErrorMessageClosed}
                 >
