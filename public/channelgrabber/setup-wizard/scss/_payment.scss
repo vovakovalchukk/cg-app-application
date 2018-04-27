@@ -1,5 +1,5 @@
 #setup-wizard-payment {
-  min-height: 200px;
+  min-height: 250px;
 }
 
 #setup-wizard-package-selector label > span,
@@ -79,6 +79,10 @@
 
 #setup-wizard-payment-selector {
   display: none;
+
+  .order-inputbox-holder, .order-inputbox-holder > .input, .custom-select {
+    width: 200px;
+  }
 }
 
 #setup-wizard-payment-footer {
