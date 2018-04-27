@@ -20,7 +20,6 @@ define([
         getInitialState: function() {
             return {
                 optionalItemSpecifics: [],
-                optionalItemSpecificsSelectOptions: [],
                 selectedItemSpecifics: {},
                 customItemSpecifics: [],
                 itemSpecificsCounts: {}
@@ -44,7 +43,7 @@ define([
             if (!changes) {
                 return;
             }
-//            this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
+
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
@@ -173,11 +172,6 @@ define([
                 customItemSpecifics.push(this.getNewCustomItemSpecific());
             }
 
-//            this.props.setFormStateListing({
-//                additionalValues: {
-//                    itemSpecifics: customItemSpecifics
-//                }
-//            });
             this.setState({
                 customItemSpecifics: customItemSpecifics
             });
@@ -205,12 +199,6 @@ define([
                 var customItemSpecifics = this.state.customItemSpecifics.slice();
 
                 customItemSpecifics.splice(foundItem, 1);
-
-//                this.props.setFormStateListing({
-//                    additionalValues: {
-//                        itemSpecifics: customItemSpecifics
-//                    }
-//                });
 
                 this.setState({
                     customItemSpecifics: customItemSpecifics,
@@ -351,7 +339,6 @@ define([
                 return item.value;
             });
 
-//            this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
@@ -365,7 +352,6 @@ define([
 
             selectedItemSpecifics[event.target.name][index] = event.target.value;
 
-//            this.props.setFormStateListing({'itemSpecifics': selectedItemSpecifics});
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
