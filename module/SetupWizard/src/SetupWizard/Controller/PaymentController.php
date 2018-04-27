@@ -4,6 +4,7 @@ namespace SetupWizard\Controller;
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Entity as Package;
 use CG_Billing\Payment\View\Service as PaymentViewService;
+use CG_Billing\Payment\Service as PaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
@@ -26,6 +27,8 @@ class PaymentController extends AbstractActionController
     protected $viewModelFactory;
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var PaymentService */
+    protected $paymentService;
     /** @var PaymentViewService */
     protected $paymentViewService;
     /** @var PackageManagementService */
@@ -36,6 +39,7 @@ class PaymentController extends AbstractActionController
         PackageService $packageService,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
+        PaymentService $paymentService,
         PaymentViewService $paymentViewService,
         PackageManagementService $packageManagementService
     ) {
@@ -43,6 +47,7 @@ class PaymentController extends AbstractActionController
         $this->packageService = $packageService;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
+        $this->paymentService = $paymentService;
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
     }
@@ -57,6 +62,7 @@ class PaymentController extends AbstractActionController
         return $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
             ->setVariable('packages', $this->getPackagesData())
+            ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod())
             ->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethod');
     }
 

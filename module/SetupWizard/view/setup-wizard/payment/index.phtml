@@ -30,7 +30,7 @@
         'react-dom',
         'SetupWizard/Component/Payment/PackageSelector'
     ], function(Payment, React, ReactDOM, PackageSelectorComponent) {
-        var payment = new Payment(n);
+        var payment = new Payment(n, false, "<?= $this->activePaymentMethod ?>");
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
                 packages: <?= json_encode($this->packages) ?>,
