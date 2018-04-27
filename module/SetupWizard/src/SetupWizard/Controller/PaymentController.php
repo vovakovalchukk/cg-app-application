@@ -103,7 +103,7 @@ class PaymentController extends AbstractActionController
     {
         return $this->viewModelFactory->newInstance([
             'buttons' => $this->setupService->getNextButtonViewConfig(),
-        ])->setTemplate('elements/buttons.mustache');
+        ])->setTemplate('setup-wizard/payment/footer');
     }
 
     public function setPackageAction()

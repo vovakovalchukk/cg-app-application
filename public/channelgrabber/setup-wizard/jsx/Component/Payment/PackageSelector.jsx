@@ -68,6 +68,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                         onOptionChange={this.selectPackage.bind(this)}
                     >
                     </SelectComponent>
+                    <span className="moreOrders">Need more orders?<br />Contact us on 01617110248</span>
                 </label>
             );
         },

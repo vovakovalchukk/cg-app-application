@@ -1,3 +1,7 @@
+#setup-wizard-payment {
+  min-height: 200px;
+}
+
 #setup-wizard-package-selector label > span,
 #setup-wizard-package-selector .package-info > div > span:first-child,
 #setup-wizard-payment-selector .inputbox-label {
@@ -23,6 +27,13 @@
 #setup-wizard-package-selector {
   .custom-select {
     width: 200px;
+  }
+
+  .moreOrders {
+    font-size: 14px;
+    text-align: center;
+    padding-left: 15px;
+    margin-top: -3px;
   }
 
   .package-info {
@@ -68,4 +79,22 @@
 
 #setup-wizard-payment-selector {
   display: none;
+}
+
+#setup-wizard-payment-footer {
+  text-align: right;
+
+  > div {
+    display: inline-block;
+  }
+
+  .details {
+    text-align: center;
+    margin-right: 50px;
+
+    .limits {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
 }
