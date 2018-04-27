@@ -1,7 +1,18 @@
-<div id="setup-wizard-package-selector"></div>
+<div id="setup-wizard-package-selector">
+    <div id="package-setup" class="half"></div>
+    <div class="half demo">
+        <div class="demo-info">
+            <div>Beat your competitors.<br />See the full system first.</div>
+            <div class="demo-link">
+                <a target="_blank" href="https://samgilbert.youcanbook.me/">WATCH A DEMO NOW</a>
+            </div>
+            <div class="callUs">Or call us on 01617110248</div>
+        </div>
+    </div>
+</div>
 <div id="setup-wizard-payment-selector">
     <div><?= $this->paymentMethod ?></div>
-    <div class="payment-setup"></div>
+    <div class="half payment-setup"></div>
 </div>
 <script type="text/javascript">
     require.config({
@@ -25,7 +36,7 @@
                     paymentSelector.style.display = (packageId ? "inherit": "none");
                 }
             }),
-            document.getElementById('setup-wizard-package-selector')
+            document.getElementById('package-setup')
         );
         new Payment(n);
     });

@@ -7,8 +7,17 @@
   padding-right: 15px;
 }
 
-#setup-wizard-package-selector .selected-content, #setup-wizard-payment-selector .selected-content {
-  margin-top: -3px;
+#setup-wizard-package-selector, #setup-wizard-payment-selector {
+  .selected-content {
+    margin-top: -3px;
+  }
+
+  .half {
+    width: calc(50% - 20px);
+    label {
+      width: unset;
+    }
+  }
 }
 
 #setup-wizard-package-selector {
@@ -25,15 +34,38 @@
       padding: 10px 0;
     }
   }
+
+  .demo {
+    height: 0;
+    overflow: visible;
+    text-align: right;
+
+    .demo-info {
+      display: inline-block;
+      text-align: center;
+
+      > div {
+        margin: 5px 0;
+      }
+
+      .demo-link > a {
+        display: inline-block;
+        border: 1px solid black;
+        border-radius: 15px;
+        background-color: $color-orange;
+        padding: 20px 40px;
+        font-weight: bold;
+        color: $color-white;
+      }
+
+      .callUs {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 #setup-wizard-payment-selector {
   display: none;
-
-  .half {
-    width: 50%;
-    label {
-      width: unset;
-    }
-  }
 }
