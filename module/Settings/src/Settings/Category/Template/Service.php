@@ -26,7 +26,8 @@ use Settings\Category\Template\Exception\NameAlreadyUsedException;
 
 class Service
 {
-    const DEFAULT_TEMPLATE_LIMIT = 10;
+    /** We should increase this to 10 after the fetch code is re-factored, now it's too slow and it makes users wait too much for 10 maps */
+    const DEFAULT_TEMPLATE_LIMIT = 5;
     const INDEX_NAME = 'OrganisationUnitIdName';
     const INDEX_CATEGORY = 'OrganisationUnitIdCategoryId';
 
