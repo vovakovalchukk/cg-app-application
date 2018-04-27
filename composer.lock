@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "64b02284aacd0bc3a96f1855a963d24e",
+    "content-hash": "640193649d7f32f76c62afaf411876b6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-57-SetupWizardSelectPackage",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "73ccca5c7e1e6089cd92f92811cdbee592dc14e7"
+                "reference": "f916f799be5604ca163c80030a40710856447bc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-57-SetupWizardSelectPackage-8e13dd.zip",
-                "reference": "73ccca5c7e1e6089cd92f92811cdbee592dc14e7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-EPIC-TAC-51-RemoveFreeTrial-82036f.zip",
+                "reference": "f916f799be5604ca163c80030a40710856447bc3",
                 "shasum": null
             },
             "require": {
@@ -356,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-26T15:29:59+00:00"
+            "time": "2018-04-27T12:21:30+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3557,16 +3557,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-TAC-57-SetupWizardSelectPackage",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "23e41ceb2087bb1ca69b736807987d512bcc9c0e"
+                "reference": "a34e56f813e559f45441cef8fac02d3186a69cde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-57-SetupWizardSelectPackage-d4fdf9.zip",
-                "reference": "23e41ceb2087bb1ca69b736807987d512bcc9c0e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-EPIC-TAC-51-RemoveFreeTrial-3c7ee3.zip",
+                "reference": "a34e56f813e559f45441cef8fac02d3186a69cde",
                 "shasum": null
             },
             "require": {
@@ -3589,10 +3589,7 @@
             },
             "type": "zf2-module",
             "extra": {
-                "zf2-module": "CG_Billing",
-                "branch-alias": {
-                    "dev-TAC-57-SetupWizardSelectPackage": "1.0.0-dev"
-                }
+                "zf2-module": "CG_Billing"
             },
             "autoload": {
                 "psr-4": {
@@ -3603,7 +3600,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-04-26T15:02:16+00:00"
+            "time": "2018-04-27T12:22:47+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9909,9 +9906,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-TAC-57-SetupWizardSelectPackage",
+            "alias": "1.13.2",
+            "alias_normalized": "1.13.2.0",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/billing"
         },
         {
@@ -9921,9 +9918,9 @@
             "package": "channelgrabber/cglib"
         },
         {
-            "alias": "dev-EPIC-TAC-51-RemoveFreeTrial",
-            "alias_normalized": "dev-EPIC-TAC-51-RemoveFreeTrial",
-            "version": "dev-TAC-57-SetupWizardSelectPackage",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-TAC-51-RemoveFreeTrial",
             "package": "channelgrabber/zf2-billing"
         },
         {
