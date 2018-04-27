@@ -27,6 +27,7 @@ define([
             return 'CustomInputValueName' + index;
         },
         onRemoveButtonClick: function(index) {
+            this.props.onChange('');
             this.props.onRemoveButtonClick(index);
         },
         onNameChange: function(index, event) {
