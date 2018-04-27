@@ -6,6 +6,7 @@ define([
     'Common/Components/Container',
     'Common/Components/Input',
     'Common/Components/Select',
+    'Common/Components/ImagePicker',
 ], function(
     React,
     ReactDom,
@@ -13,7 +14,8 @@ define([
     ReduxForm,
     Container,
     Input,
-    Select
+    Select,
+    ImagePicker
 ) {
     "use strict";
 
@@ -34,6 +36,7 @@ define([
                 <Field name="description" component={this.renderInputComponent.bind(this, "Description:")}/>
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand:")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
+                <Field name="imageIds" component={this.renderImagePickerField}/>
             </form>
         },
         renderInputComponent: function(title, field) {
@@ -78,6 +81,30 @@ define([
         },
         onInputChange: function(input, value) {
             input.onChange(value);
+        },
+        renderImagePickerField: function(field) {
+            return (<label>
+                <span className={"inputbox-label"}>Images:</span>
+                {this.renderImagePicker(field)}
+            </label>);
+        },
+        renderImagePicker: function (field) {
+            if (this.props.product.images.length == 0) {
+                return (
+                    <p>No images available</p>
+                );
+            }
+            return (
+                <ImagePicker
+                    name={field.input.name}
+                    multiSelect={true}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected.bind(this, field.input)}
+                />
+            );
+        },
+        onImageSelected: function(input, selectedImage, selectedImageIds) {
+            input.onChange(selectedImageIds);
         },
         render: function() {
             return (
