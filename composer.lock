@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b032d387d3037628747a1416857f9ef0",
+    "content-hash": "035bc2b1f757e17703d4ffda4d5bfdb5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1714,16 +1714,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.38.3",
+            "version": "1.38.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b37e6fc1b9d8d68f91d84c76d3bdd9950d501252"
+                "reference": "d203e5aafeb22c7512887240996f98bad6fa4385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.3-3b4c51.zip",
-                "reference": "b37e6fc1b9d8d68f91d84c76d3bdd9950d501252",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.7-5aa9f1.zip",
+                "reference": "d203e5aafeb22c7512887240996f98bad6fa4385",
                 "shasum": null
             },
             "require": {
@@ -1749,14 +1749,14 @@
                 "channelgrabber/notification": "^1.2.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "^1.10.1",
+                "channelgrabber/product": "^1.12.3",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.5.3",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.47",
-                "channelgrabber/stock": "^1.8.2",
+                "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.4.27",
                 "channelgrabber/transaction": "^1.2.1",
@@ -1794,7 +1794,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-03-13T11:59:27+00:00"
+            "time": "2018-04-25T10:47:08+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2732,16 +2732,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.12.3",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "271fad464e3ad895ee02592405d1fab052aa1e9d"
+                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.12.3-80ebb6.zip",
-                "reference": "271fad464e3ad895ee02592405d1fab052aa1e9d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.13.0-8f817b.zip",
+                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41",
                 "shasum": null
             },
             "require": {
@@ -2772,7 +2772,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2",
-                "phpunit/phpunit": "~4.0.0"
+                "phpunit/phpunit": "~6.0.0"
             },
             "type": "library",
             "extra": {
@@ -2790,7 +2790,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-25T10:35:46+00:00"
+            "time": "2018-04-26T09:05:13+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
