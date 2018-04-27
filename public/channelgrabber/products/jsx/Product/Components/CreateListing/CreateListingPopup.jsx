@@ -34,7 +34,7 @@ define([
             return <form onSubmit={this.props.handleSubmit}>
                 <Field name="title" component={this.renderInputComponent.bind(this, "Listing Title:")}/>
                 <Field name="description" component={this.renderInputComponent.bind(this, "Description:")}/>
-                <Field name="brand" component={this.renderInputComponent.bind(this, "Brand:")}/>
+                <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
                 <Field name="imageIds" component={this.renderImagePickerField}/>
             </form>
