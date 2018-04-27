@@ -121,6 +121,14 @@ define([
         }
     });
 
+    var fetchCategoryTemplateDependentFieldValues = function(categoryTemplateIds) {
+        return $.ajax({
+            url: '/products/create-listings/category-template-dependent-field-values',
+            data: {categoryTemplateIds: categoryTemplateIds},
+            method: 'POST'
+        });
+    };
+
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
         initialValues: {
@@ -139,7 +147,11 @@ define([
                 product: props.product,
                 accounts: Object.keys(values.accounts).map(index => values.accounts[index])
             });
-            props.renderCreateListingPopup(values);
+            fetchCategoryTemplateDependentFieldValues(values.categories)
+            .then(function(result) {
+                values.categoryTemplates = result.categoryTemplates;
+                props.renderCreateListingPopup(values);
+            });
         },
         validate: accountSelectionFormValidator
     })(AccountSelectionPopup);
