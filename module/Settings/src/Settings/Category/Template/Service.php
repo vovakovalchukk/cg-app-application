@@ -148,13 +148,20 @@ class Service
 
     protected function fetchActiveAccountsForOu(OrganisationUnit $ou)
     {
+        if (!empty($this->accounts)) {
+            return $this->accounts;
+        }
+
         $filter = (new AccountFilter())
             ->setLimit('all')
             ->setPage(1)
             ->setOrganisationUnitId([$ou->getId()])
             ->setActive(true)
             ->setDeleted(false);
-        return $this->accountService->fetchByFilter($filter);
+
+        $this->accounts = $this->accountService->fetchByFilter($filter);
+
+        return $this->accounts;
     }
 
     public function fetchCategoryTemplates(OrganisationUnit $ou, ?string $search, int $page): array
@@ -186,7 +193,7 @@ class Service
 
             $result[$categoryTemplate->getId()] = $this->formatCategoryTemplateArray(
                 $categoryTemplate,
-                $this->groupCategoriesByAccount($categoriesArray, $categoryFilterForSiblings)
+                $this->groupCategoriesByAccount($categoriesArray, $categoryFilterForSiblings, $ou)
             );
         }
         return $result;
@@ -195,15 +202,23 @@ class Service
     /**
      * @param Category[] $categories
      * @param CategoryFilter $categoryFilter
+     * @param OrganisationUnit $ou
      * @return array
      */
     protected function groupCategoriesByAccount(
         array $categories,
-        CategoryFilter $categoryFilter
+        CategoryFilter $categoryFilter,
+        OrganisationUnit $ou
     ): array {
         $categoriesByAccount = [];
+        try {
+            $accounts = $this->fetchActiveAccountsForOu($ou);
+        } catch (NotFound $e) {
+            return $categoriesByAccount;
+        }
+
         foreach ($categories as $accountId => $category) {
-            if (!$this->accounts->getById($accountId)) {
+            if (!$accounts->getById($accountId)) {
                 continue;
             }
 
