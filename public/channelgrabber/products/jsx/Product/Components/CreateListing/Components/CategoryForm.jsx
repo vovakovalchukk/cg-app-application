@@ -17,7 +17,7 @@ define([
             var ChannelForm = this.props.channelForm;
             return (
                 <div className="category-form-container">
-                    <h3>{this.props.title}</h3>
+                    <h2>Category: {this.props.title}</h2>
                     <ChannelForm {...this.props.fieldValues} />
                 </div>
             );

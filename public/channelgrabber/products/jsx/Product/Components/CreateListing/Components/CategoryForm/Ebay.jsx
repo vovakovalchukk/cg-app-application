@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    './Ebay/ItemSpecifics'
 ], function(
-    React
+    React,
+    ItemSpecifics
 ) {
     "use strict";
 
@@ -14,7 +16,7 @@ define([
         render: function() {
             return (
                 <div className="ebay-category-form-container">
-                    Ebay test
+                    <ItemSpecifics itemSpecifics={this.props.itemSpecifics} />
                 </div>
             );
         }
