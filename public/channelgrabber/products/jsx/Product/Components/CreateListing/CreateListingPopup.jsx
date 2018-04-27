@@ -7,7 +7,8 @@ define([
     'Common/Components/Input',
     'Common/Components/Select',
     'Common/Components/ImagePicker',
-    './Actions/CreateListings/Actions'
+    './Actions/CreateListings/Actions',
+    './Components/CategoryForms'
 ], function(
     React,
     ReactDom,
@@ -17,11 +18,13 @@ define([
     Input,
     Select,
     ImagePicker,
-    Actions
+    Actions,
+    CategoryForms
 ) {
     "use strict";
 
     var Field = ReduxForm.Field;
+    var FormSection = ReduxForm.FormSection;
 
     var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
@@ -29,7 +32,8 @@ define([
                 product: {},
                 accounts: [],
                 categories: [],
-                conditionOptions: []
+                conditionOptions: [],
+                categoryTemplates: {}
             }
         },
         componentDidMount: function () {
@@ -42,6 +46,7 @@ define([
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
                 <Field name="imageIds" component={this.renderImagePickerField}/>
+                <FormSection name="category" component={CategoryForms} categoryTemplates={this.props.categoryTemplates} />
             </form>
         },
         renderInputComponent: function(title, field) {
