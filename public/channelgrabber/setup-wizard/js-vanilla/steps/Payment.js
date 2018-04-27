@@ -1,6 +1,8 @@
 define(['../SetupWizard.js'], function(setupWizard) {
     function Payment(notifications)
     {
+        var selectedPackage = false;
+
         this.getNotifications = function()
         {
             return notifications;
@@ -9,6 +11,15 @@ define(['../SetupWizard.js'], function(setupWizard) {
         this.getSetupWizard = function()
         {
             return setupWizard;
+        };
+
+        this.setSelectedPackage = function(newPackage) {
+            selectedPackage = newPackage;
+            return this;
+        };
+
+        this.getSelectedPackage = function() {
+            return selectedPackage;
         };
 
         var init = function()
@@ -27,13 +38,21 @@ define(['../SetupWizard.js'], function(setupWizard) {
         {
             return new Promise(function(resolve, reject)
             {
+                var selectedPackage = self.getSelectedPackage();
+                if (!selectedPackage) {
+                    self.getNotifications().error('Please select a package to continue.');
+                    reject();
+                    return;
+                }
+
                 var params = new URLSearchParams(location.search.slice(1));
-                if ($(Payment.SELECTOR_INPUT).val() && params.get('cardAuth')) {
-                    resolve();
-                } else {
+                if (!$(Payment.SELECTOR_INPUT).val() || !params.get('cardAuth')) {
                     self.getNotifications().error('Please setup a payment method to continue.');
                     reject();
+                    return;
                 }
+
+                resolve();
             });
         });
     };

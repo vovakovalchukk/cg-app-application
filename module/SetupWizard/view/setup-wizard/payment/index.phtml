@@ -25,21 +25,22 @@
     });
 
     require([
+        '<?= SetupWizard\Module::PUBLIC_FOLDER ?>js/steps/Payment.js',
         'react',
         'react-dom',
-        'SetupWizard/Component/Payment/PackageSelector',
-        '<?= SetupWizard\Module::PUBLIC_FOLDER ?>js/steps/Payment.js'
-    ], function(React, ReactDOM, PackageSelectorComponent, Payment) {
+        'SetupWizard/Component/Payment/PackageSelector'
+    ], function(Payment, React, ReactDOM, PackageSelectorComponent) {
+        var payment = new Payment(n);
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
                 packages: <?= json_encode($this->packages) ?>,
                 onPackageSelection: function(packageId) {
                     var paymentSelector = document.getElementById('setup-wizard-payment-selector');
                     paymentSelector.style.display = (packageId ? "inherit": "none");
+                    payment.setSelectedPackage(packageId);
                 }
             }),
             document.getElementById('package-setup')
         );
-        new Payment(n);
     });
 </script>
