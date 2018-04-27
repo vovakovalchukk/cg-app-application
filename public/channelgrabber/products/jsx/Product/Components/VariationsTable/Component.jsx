@@ -17,7 +17,7 @@ define([
     var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
 
-    var CreateVariationsTableComponent = React.createClass({
+    var VariationsTableComponent = React.createClass({
         getDefaultProps: function() {
             return {
                 newVariationRowRequest: null
@@ -204,7 +204,7 @@ define([
         }
     });
 
-    return CreateVariationsTableComponent;
+    return VariationsTableComponent;
 
     function optionExistsAlready(option, options) {
         for (var i = 0; i < options.length; i++) {

@@ -5,8 +5,8 @@ define([
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
     'Product/Components/VatView',
-    'Product/Components/VariationsTable/Root'
-
+    'Product/Components/VariationsTable/Root',
+    'Product/Components/DimensionsTable/Root'
 ], function(
     React,
     reduxForm,
@@ -14,7 +14,8 @@ define([
     ImagePicker,
     FormRow,
     VatView,
-    CreateVariationsTable
+    VariationsTable,
+    DimensionsTable
 ) {
 
     var Field = reduxForm.Field;
@@ -97,7 +98,16 @@ define([
                     <fieldset className={'margin-bottom--small'}>
                         <legend className={'form-root__legend'}>Variations</legend>
 
-                        <CreateVariationsTable />
+                        <VariationsTable />
+
+                        <DimensionsTable
+                            stateSelectors={{
+                                fields: ['variationsTable', 'fields'],
+                                rows: ['variationsTable', 'variations'],
+                                values:['form', 'createProductForm', 'variations']
+                            }}
+                        />
+
 
                     </fieldset>
                 </Form>
@@ -106,7 +116,12 @@ define([
     });
 
     return reduxForm.reduxForm({
-        form: 'createProductForm'
+        form: 'createProductForm',
+        initialValues:{
+            variations:{
+
+            }
+        }
     })(createFormComponent);
 
 })
