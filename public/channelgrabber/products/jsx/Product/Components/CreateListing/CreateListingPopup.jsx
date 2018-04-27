@@ -7,6 +7,7 @@ define([
     'Common/Components/Input',
     'Common/Components/Select',
     'Common/Components/ImagePicker',
+    './Actions/CreateListings/Actions'
 ], function(
     React,
     ReactDom,
@@ -15,7 +16,8 @@ define([
     Container,
     Input,
     Select,
-    ImagePicker
+    ImagePicker,
+    Actions
 ) {
     "use strict";
 
@@ -29,6 +31,9 @@ define([
                 categories: [],
                 conditionOptions: []
             }
+        },
+        componentDidMount: function () {
+            this.props.loadInitialValues(this.props.product);
         },
         renderForm: function() {
             return <form onSubmit={this.props.handleSubmit}>
@@ -125,20 +130,25 @@ define([
 
     CreateListingPopup = ReduxForm.reduxForm({
         form: "createListing",
-        initialValues: {},
+        enableReinitialize: true,
         onSubmit: function(values, dispatch, props) {
             console.log(values);
         },
     })(CreateListingPopup);
 
     var mapStateToProps = function(state) {
-        return {};
+        return {
+            initialValues: state.initialValues
+        };
     };
 
     var mapDispatchToProps = function(dispatch) {
         return {
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
+            },
+            loadInitialValues: function(product) {
+                dispatch(Actions.loadInitialValues(product));
             }
         };
     };
