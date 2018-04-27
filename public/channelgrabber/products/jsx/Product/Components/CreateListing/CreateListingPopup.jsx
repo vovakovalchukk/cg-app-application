@@ -131,6 +131,7 @@ define([
     CreateListingPopup = ReduxForm.reduxForm({
         form: "createListing",
         enableReinitialize: true,
+        keepDirtyOnReinitialize: true,
         onSubmit: function(values, dispatch, props) {
             console.log(values);
         },
