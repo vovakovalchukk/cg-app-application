@@ -1,0 +1,39 @@
+#setup-wizard-package-selector label > span,
+#setup-wizard-package-selector .package-info > div > span:first-child,
+#setup-wizard-payment-selector .inputbox-label {
+  display: inline-block;
+  width: 250px;
+  text-align: right;
+  padding-right: 15px;
+}
+
+#setup-wizard-package-selector .selected-content, #setup-wizard-payment-selector .selected-content {
+  margin-top: -3px;
+}
+
+#setup-wizard-package-selector {
+  .custom-select {
+    width: 200px;
+  }
+
+  .package-info {
+    clear: both;
+    > div {
+      padding: 5px 0;
+    }
+    > div:first-child {
+      padding: 10px 0;
+    }
+  }
+}
+
+#setup-wizard-payment-selector {
+  display: none;
+
+  .half {
+    width: 50%;
+    label {
+      width: unset;
+    }
+  }
+}

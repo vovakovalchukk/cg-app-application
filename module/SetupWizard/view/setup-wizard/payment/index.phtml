@@ -1,7 +1,32 @@
-<div class="clearfix section-separator"><?= $this->paymentMethod ?></div>
-<div class="clearfix section-separator payment-setup"></div>
+<div id="setup-wizard-package-selector"></div>
+<div id="setup-wizard-payment-selector">
+    <div><?= $this->paymentMethod ?></div>
+    <div class="payment-setup"></div>
+</div>
 <script type="text/javascript">
-    require(['<?= SetupWizard\Module::PUBLIC_FOLDER ?>js/steps/Payment.js'], function(Payment) {
+    require.config({
+        paths: {
+            'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common',
+            'SetupWizard': '<?= $this->basePath() . SetupWizard\Module::PUBLIC_FOLDER ?>js'
+        }
+    });
+
+    require([
+        'react',
+        'react-dom',
+        'SetupWizard/Component/Payment/PackageSelector',
+        '<?= SetupWizard\Module::PUBLIC_FOLDER ?>js/steps/Payment.js'
+    ], function(React, ReactDOM, PackageSelectorComponent, Payment) {
+        ReactDOM.render(
+            React.createElement(PackageSelectorComponent, {
+                packages: <?= json_encode($this->packages) ?>,
+                onPackageSelection: function(packageId) {
+                    var paymentSelector = document.getElementById('setup-wizard-payment-selector');
+                    paymentSelector.style.display = (packageId ? "inherit": "none");
+                }
+            }),
+            document.getElementById('setup-wizard-package-selector')
+        );
         new Payment(n);
     });
 </script>
