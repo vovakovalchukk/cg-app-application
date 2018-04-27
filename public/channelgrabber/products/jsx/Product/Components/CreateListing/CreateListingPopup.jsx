@@ -45,7 +45,7 @@ define([
                 <Field name="description" component={this.renderInputComponent.bind(this, "Description:")}/>
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
-                <Field name="imageIds" component={this.renderImagePickerField}/>
+                <Field name="imageId" component={this.renderImagePickerField}/>
                 <FormSection name="category" component={CategoryForms} categoryTemplates={this.props.categoryTemplates} />
             </form>
         },
@@ -107,7 +107,7 @@ define([
             return (
                 <ImagePicker
                     name={field.input.name}
-                    multiSelect={true}
+                    multiSelect={false}
                     images={this.props.product.images}
                     onImageSelected={this.onImageSelected.bind(this, field.input)}
                 />
@@ -138,6 +138,7 @@ define([
         enableReinitialize: true,
         keepDirtyOnReinitialize: true,
         onSubmit: function(values, dispatch, props) {
+            /** @TODO: this will be handled by LIS-159. */
             console.log(values);
         },
     })(CreateListingPopup);
