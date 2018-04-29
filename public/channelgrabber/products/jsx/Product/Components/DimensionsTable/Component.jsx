@@ -37,7 +37,7 @@ define([
         renderHeading: function(field) {
             var jsx =  (
                     <th className={'' +
-                    'c-table-with-inputs__cell ' +
+                    'c-table-wfunctionsith-inputs__cell ' +
                     'c-table-with-inputs__cell-heading '
                     }>{field.label}</th>
                 );

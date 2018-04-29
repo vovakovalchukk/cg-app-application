@@ -1,6 +1,7 @@
 define([
     'react',
     'redux-form',
+    'Product/Components/CreateProduct/functions/stateFilters',
     'Common/Components/ImageUploader/ImageUploaderRoot',
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
@@ -10,6 +11,7 @@ define([
 ], function(
     React,
     reduxForm,
+    stateFilters,
     ImageUploader,
     ImagePicker,
     FormRow,
@@ -77,7 +79,9 @@ define([
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom--small"}
-                      onKeyDown={(e)=>{console.log('in key down')}}
+                      onKeyDown={(e) => {
+                          console.log('in key down')
+                      }}
                 >
                     <fieldset className={'form-root__fieldset margin-bottom--small'}>
                         <FormRow
@@ -98,31 +102,32 @@ define([
                     <fieldset className={'margin-bottom--small'}>
                         <legend className={'form-root__legend'}>Variations</legend>
 
-                        <VariationsTable />
+                        <VariationsTable/>
 
                         <DimensionsTable
                             stateSelectors={{
                                 fields: ['variationsTable', 'fields'],
                                 rows: ['variationsTable', 'variations'],
-                                values:['form', 'createProductForm', 'variations']
+                                values: ['form', 'createProductForm', 'variations']
                             }}
-
+                            stateFilters={{
+                                fields: stateFilters.filterFields.bind(2)
+                            }}
                             formSectionName='dimensionsTable'
                         />
 
 
                     </fieldset>
                 </Form>
-            );
+            )
+                ;
         }
     });
 
     return reduxForm.reduxForm({
         form: 'createProductForm',
-        initialValues:{
-            variations:{
-
-            }
+        initialValues: {
+            variations: {}
         }
     })(createFormComponent);
 

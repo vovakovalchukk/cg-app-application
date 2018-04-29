@@ -80,21 +80,22 @@ define([
                 name: 'heightt',
                 label: 'Height (cm)',
                 type: 'text',
-                isCustomAttribute: false,
-                isDimensionsField: true
+                isCustomAttribute: false
             },
             {
                 id: 8,
                 name: 'depth',
                 label: 'Depth (cm)',
                 type: 'text',
-                isCustomAttribute: false,
-                isDimensionsField: true
+                isCustomAttribute: false
             }
         ]
     };
+    var currentCustomFieldId = initialState.fields.length;
+
     var defaultNewCustomField = function(uniqueNameKey) {
         return {
+            id: currentCustomFieldId,
             name: 'custom-attribute-' + uniqueNameKey,
             label: '',
             type: 'customOptionsSelect',
@@ -117,9 +118,16 @@ define([
         },
         "NEW_ATTRIBUTE_COLUMN_REQUEST": function(state, action) {
             var fieldsCopy = state.fields.slice();
+            currentCustomFieldId++;
             fieldsCopy.push(defaultNewCustomField(action.payload.uniqueNameKey));
+            var tablesFieldsCopy = state.tablesFields.slice();
+            tablesFieldsCopy.push({
+                tableId: 1,
+                fieldId: currentCustomFieldId
+            });
             var newState = Object.assign({}, state, {
-                fields: fieldsCopy
+                fields: fieldsCopy,
+                tablesFields: tablesFieldsCopy
             });
             return newState;
         },
@@ -153,7 +161,6 @@ define([
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy
             });
-            console.log('newState being returned from column_name_change: ', newState);
             return newState;
         }
 
@@ -161,11 +168,9 @@ define([
     return VariationsTableReducer;
 
     function findFieldByName(fieldName, fields) {
-        console.log('find field by name with fieldname: ', fieldName, ' and fields ', fields);
         var indexOfField = fields.map(function(field) {
             return field.name;
         }).indexOf(fieldName);
-        console.log('indexOfFIeld : ', indexOfField);
         return fields[indexOfField];
     }
 
