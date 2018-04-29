@@ -1,13 +1,11 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
+    'Common/Components/Input'
 ], function(
     React,
     ReduxForm,
-    Input,
-    ImageDropDown
+    Input
 ) {
     "use strict";
 
@@ -41,6 +39,7 @@ define([
                 images: true,
                 attributeNames: [],
                 attributeNameMap: {},
+                selectedProductIdentifiers: {}
             }
         },
         renderImageHeader: function() {
@@ -80,24 +79,30 @@ define([
                 return <td>No images available</td>
             }
 
+            var image = this.findSelectedImageForVariation(variation);
             return (<td>
-                <Field
-                    name={variation.sku + ".imageId"}
-                    component={this.renderImageField.bind(this, variation)}
-                />
+                <div className="image-dropdown-target">
+                    <div className="react-image-picker">
+                        <span className="react-image-picker-image">
+                            <img src={image.url}/>
+                        </span>
+                    </div>
+                </div>
             </td>);
         },
-        renderImageField: function(variation, field) {
-            var selected = (variation.images.length > 0 ? variation.images[0] : this.props.product.images[0]);
-            return <ImageDropDown
-                selected={selected}
-                autoSelectFirst={false}
-                images={this.props.product.images}
-                onChange={this.onImageSelected.bind(this, field)}
-            />
-        },
-        onImageSelected: function(field, image) {
-            this.onInputChange(field.input, image.target.value);
+        findSelectedImageForVariation: function(variation) {
+            var selectedImage = {url: ""};
+            if (variation.sku in this.props.selectedProductIdentifiers) {
+                var identifiers = this.props.selectedProductIdentifiers[variation.sku];
+                if (identifiers.imageId) {
+                    this.props.product.images.map(function(image) {
+                        if (image.id == identifiers.imageId) {
+                            selectedImage = image;
+                        }
+                    });
+                }
+            }
+            return selectedImage;
         },
         renderAttributeColumns: function(variation) {
             return this.props.attributeNames.map(function(attributeName) {
