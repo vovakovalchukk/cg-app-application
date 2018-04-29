@@ -14,14 +14,9 @@ define([
             return {
                 variationsDataForProduct: [],
                 product: {},
-                currency: '£',
                 images: true,
                 attributeNames: [],
-                editableAttributeNames: false,
                 attributeNameMap: {},
-                customFields: {},
-                listingType: null,
-                fetchVariations: function() {}
             }
         },
         renderImageHeader: function() {
@@ -33,19 +28,6 @@ define([
         renderAttributeHeaders: function () {
             return this.props.attributeNames.map(function(attributeName) {
                 var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
-                if (this.props.editableAttributeNames) {
-                    return <th><EditableField initialFieldText={attributeNameText} onSubmit={(fieldValue) => {
-                        var attributeNameMap = Object.assign({}, this.props.attributeNameMap);
-                        attributeNameMap[attributeName] = fieldValue;
-
-                        this.props.setFormStateListing({attributeNameMap: attributeNameMap})
-
-                        return new Promise(function(resolve, reject) {
-                            resolve({ newFieldText: fieldValue });
-                        });
-                    }} /></th>
-                }
-
                 return <th>
                     {attributeNameText}
                 </th>;

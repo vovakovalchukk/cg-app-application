@@ -32,8 +32,7 @@ define([
                 accounts: [],
                 categories: [],
                 conditionOptions: [],
-                variationsDataForProduct: {},
-                fetchVariations: function() {}
+                variationsDataForProduct: {}
             }
         },
         componentDidMount: function () {
@@ -118,14 +117,12 @@ define([
         },
         renderProductIdentifiers: function() {
             return <ProductIdentifiers
-                fetchVariations={this.props.fetchVariations}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
                 attributeNames={this.props.product.attributeNames}
             />
         },
         render: function() {
-            console.log(this.props);
             return (
                 <Container
                     initiallyActive={true}
