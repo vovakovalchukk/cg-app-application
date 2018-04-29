@@ -12,6 +12,13 @@ define([
     var FormSection = ReduxForm.FormSection;
     var Field = ReduxForm.Field;
 
+    var identifiers = [
+        {"name": "ean", "displayTitle" : "EAN (European barcode)"},
+        {"name": "upc", "displayTitle" : "UPC (Widely used in NA)"},
+        {"name": "mpn", "displayTitle" : "MPN (if applicable)"},
+        {"name": "isbn", "displayTitle" : "ISBN (if applicable)"}
+    ];
+
     var ProductIdentifiers = React.createClass({
         getDefaultProps: function() {
             return {
@@ -35,6 +42,11 @@ define([
                     {attributeNameText}
                 </th>;
             }.bind(this));
+        },
+        renderIdentifierReaders: function () {
+            return identifiers.map(function (identifier) {
+                return <th>{identifier.displayTitle}</th>;
+            });
         },
         renderVariationRows: function () {
             return this.props.variationsDataForProduct.map(function(variation) {
@@ -69,9 +81,9 @@ define([
             });
         },
         renderIdentifierColumns: function (variation) {
-            return ["ean", "upc", "mpn", "isbn"].map(function (identifierName) {
+            return identifiers.map(function (identifier) {
                 return (<td>
-                    <Field name={variation.sku + "." + identifierName} component={"input"} type="text"/>
+                    <Field name={variation.sku + "." + identifier.name} component={"input"} type="text"/>
                 </td>)
             });
         },
@@ -85,10 +97,7 @@ define([
                                 {this.renderImageHeader()}
                                 <th>SKU</th>
                                 {this.renderAttributeHeaders()}
-                                <th>EAN (European barcode)</th>
-                                <th>UPC (Widely used in NA)</th>
-                                <th>MPN (if applicable)</th>
-                                <th>ISBN (if applicable)</th>
+                                {this.renderIdentifierReaders()}
                             </tr>
                             </thead>
                             {this.renderVariationRows()}
