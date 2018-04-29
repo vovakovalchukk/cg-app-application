@@ -41,6 +41,23 @@ define([
                 change: function () {}
             }
         },
+        getInitialState: function() {
+            return {
+                touchedDimensions: {}
+            }
+        },
+        componentDidMount: function() {
+            var touchedDimensions = {};
+            dimensions.map(function (dimension) {
+                touchedDimensions[dimension.name] = {};
+                this.props.variationsDataForProduct.map(function (variation) {
+                    touchedDimensions[dimension.name][variation.sku] = false;
+                }.bind(this));
+            }.bind(this));
+            this.setState({
+                touchedDimensions: touchedDimensions
+            });
+        },
         renderImageHeader: function() {
             if (!this.props.images) {
                 return;
@@ -127,7 +144,6 @@ define([
             }.bind(this));
         },
         renderInputComponent: function(dimension, field) {
-            console.log(arguments);
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 name={field.input.name}
@@ -139,6 +155,11 @@ define([
         onInputChange: function(input, dimension, value) {
             input.onChange(value.target.value);
             this.props.variationsDataForProduct.map(function (variation) {
+                if (dimension in this.state.touchedDimensions
+                    && variation.sku in this.state.touchedDimensions[dimension]
+                    && this.state.touchedDimensions[dimension][variation.sku]) {
+                    return;
+                }
                 this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
             }.bind(this));
         },
