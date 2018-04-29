@@ -26,7 +26,10 @@ define([
             return {
                 product: {},
                 accounts: [],
-                categories: []
+                categories: [],
+                conditionOptions: [],
+                variationsDataForProduct: {},
+                fetchVariations: function() {}
             }
         },
         render: function() {

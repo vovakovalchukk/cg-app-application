@@ -7,7 +7,8 @@ define([
     'Common/Components/Input',
     'Common/Components/Select',
     'Common/Components/ImagePicker',
-    './Actions/CreateListings/Actions'
+    './Actions/CreateListings/Actions',
+    './Components/CreateListing/ProductIdentifiers'
 ], function(
     React,
     ReactDom,
@@ -17,7 +18,8 @@ define([
     Input,
     Select,
     ImagePicker,
-    Actions
+    Actions,
+    ProductIdentifiers
 ) {
     "use strict";
 
@@ -29,7 +31,9 @@ define([
                 product: {},
                 accounts: [],
                 categories: [],
-                conditionOptions: []
+                conditionOptions: [],
+                variationsDataForProduct: {},
+                fetchVariations: function() {}
             }
         },
         componentDidMount: function () {
@@ -42,6 +46,7 @@ define([
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
+                {this.renderProductIdentifiers()}
             </form>
         },
         renderInputComponent: function(title, field) {
@@ -111,7 +116,16 @@ define([
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
         },
+        renderProductIdentifiers: function() {
+            return <ProductIdentifiers
+                fetchVariations={this.props.fetchVariations}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                product={this.props.product}
+                attributeNames={this.props.product.attributeNames}
+            />
+        },
         render: function() {
+            console.log(this.props);
             return (
                 <Container
                     initiallyActive={true}
