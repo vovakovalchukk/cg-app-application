@@ -8,7 +8,8 @@ define([
     'Common/Components/Select',
     'Common/Components/ImagePicker',
     './Actions/CreateListings/Actions',
-    './Components/CreateListing/ProductIdentifiers'
+    './Components/CreateListing/ProductIdentifiers',
+    './Components/CreateListing/Dimensions'
 ], function(
     React,
     ReactDom,
@@ -19,7 +20,8 @@ define([
     Select,
     ImagePicker,
     Actions,
-    ProductIdentifiers
+    ProductIdentifiers,
+    Dimensions
 ) {
     "use strict";
 
@@ -46,6 +48,7 @@ define([
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
                 {this.renderProductIdentifiers()}
+                {this.renderDimensions()}
             </form>
         },
         renderInputComponent: function(title, field) {
@@ -117,6 +120,13 @@ define([
         },
         renderProductIdentifiers: function() {
             return <ProductIdentifiers
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                product={this.props.product}
+                attributeNames={this.props.product.attributeNames}
+            />
+        },
+        renderDimensions: function() {
+            return <Dimensions
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
                 attributeNames={this.props.product.attributeNames}
