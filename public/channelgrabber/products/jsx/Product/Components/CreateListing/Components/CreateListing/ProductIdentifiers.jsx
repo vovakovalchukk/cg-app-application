@@ -103,15 +103,25 @@ define([
             if (this.props.product.images == 0) {
                 return <td>No images available</td>
             }
-            var selected = (variation.images.length > 0 ? variation.images[0] : this.props.product.images[0]);
-            return <td>
-                <ImageDropDown
-                    selected={selected}
-                    autoSelectFirst={false}
-                    images={this.props.product.images}
-                    onChange={function() {console.log(arguments);}}
+
+            return (<td>
+                <Field
+                    name={variation.sku + ".imageId"}
+                    component={this.renderImageField.bind(this, variation)}
                 />
-            </td>;
+            </td>);
+        },
+        renderImageField: function(variation, field) {
+            var selected = (variation.images.length > 0 ? variation.images[0] : this.props.product.images[0]);
+            return <ImageDropDown
+                selected={selected}
+                autoSelectFirst={false}
+                images={this.props.product.images}
+                onChange={this.onImageSelected.bind(this, field)}
+            />
+        },
+        onImageSelected: function(field, image) {
+            this.onInputChange(field.input, image.target.value);
         },
         renderAttributeColumns: function(variation) {
             return this.props.attributeNames.map(function(attributeName) {
