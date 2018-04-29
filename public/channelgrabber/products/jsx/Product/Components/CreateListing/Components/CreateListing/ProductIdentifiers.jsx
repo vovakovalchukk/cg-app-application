@@ -1,10 +1,12 @@
 define([
     'react',
     'redux-form',
+    'Common/Components/Input',
     'Product/Components/CreateListing/Form/Shared/ImageDropDown'
 ], function(
     React,
     ReduxForm,
+    Input,
     ImageDropDown
 ) {
     "use strict";
@@ -13,10 +15,46 @@ define([
     var Field = ReduxForm.Field;
 
     var identifiers = [
-        {"name": "ean", "displayTitle" : "EAN (European barcode)"},
-        {"name": "upc", "displayTitle" : "UPC (Widely used in NA)"},
-        {"name": "mpn", "displayTitle" : "MPN (if applicable)"},
-        {"name": "isbn", "displayTitle" : "ISBN (if applicable)"}
+        {
+            "name": "ean",
+            "displayTitle": "EAN (European barcode)",
+            "validate": function(value) {
+                if (!value) {
+                    return undefined;
+                }
+                if (isNaN(Number(value))) {
+                    return 'Must be a number';
+                }
+                if (value.length != 13) {
+                    return 'Must be exactly 13 digits long';
+                }
+                return undefined;
+            }
+        },
+        {
+            "name": "upc",
+            "displayTitle": "UPC (Widely used in NA)",
+            "validate": function(value) {
+                if (!value) {
+                    return undefined;
+                }
+                if (isNaN(Number(value))) {
+                    return 'Must be a number';
+                }
+                if (value.length != 12) {
+                    return 'Must be exactly 12 digits long';
+                }
+                return undefined;
+            },
+        },
+        {
+            "name": "mpn",
+            "displayTitle": "MPN (if applicable)"
+        },
+        {
+            "name": "isbn",
+            "displayTitle" : "ISBN (if applicable)"
+        }
     ];
 
     var ProductIdentifiers = React.createClass({
@@ -83,9 +121,25 @@ define([
         renderIdentifierColumns: function (variation) {
             return identifiers.map(function (identifier) {
                 return (<td>
-                    <Field name={variation.sku + "." + identifier.name} component={"input"} type="text"/>
+                    <Field
+                        name={variation.sku + "." + identifier.name}
+                        component={this.renderInputComponent}
+                        validate={identifier.validate ? [identifier.validate] : undefined}
+                    />
                 </td>)
-            });
+            }.bind(this));
+        },
+        renderInputComponent: function(field) {
+            var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
+            return <Input
+                name={field.input.name}
+                value={field.input.value}
+                onChange={this.onInputChange.bind(this, field.input)}
+                errors={errors}
+            />;
+        },
+        onInputChange: function(input, value) {
+            input.onChange(value);
         },
         render: function() {
             return (
