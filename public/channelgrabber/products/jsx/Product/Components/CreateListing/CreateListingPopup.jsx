@@ -130,6 +130,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
                 attributeNames={this.props.product.attributeNames}
+                change={this.props.change}
             />
         },
         render: function() {

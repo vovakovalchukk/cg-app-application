@@ -9,7 +9,6 @@ define([
 ) {
     "use strict";
 
-    var FormSection = ReduxForm.FormSection;
     var Field = ReduxForm.Field;
 
     var dimensions = [
@@ -38,7 +37,8 @@ define([
                 product: {},
                 images: true,
                 attributeNames: [],
-                attributeNameMap: {}
+                attributeNameMap: {},
+                change: function () {}
             }
         },
         renderImageHeader: function() {
@@ -116,27 +116,31 @@ define([
             });
         },
         renderDimensionColumns: function (variation) {
-            return dimensions.map(function (identifier) {
+            return dimensions.map(function (dimension) {
                 return (<td>
                     <Field
-                        name={"dimensions." + variation.sku + "." + identifier.name}
-                        component={this.renderInputComponent}
-                        validate={identifier.validate ? [identifier.validate] : undefined}
+                        name={"dimensions." + variation.sku + "." + dimension.name}
+                        component={this.renderInputComponent.bind(this, dimension.name)}
+                        validate={dimension.validate ? [dimension.validate] : undefined}
                     />
                 </td>)
             }.bind(this));
         },
-        renderInputComponent: function(field) {
+        renderInputComponent: function(dimension, field) {
+            console.log(arguments);
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 name={field.input.name}
                 value={field.input.value}
-                onChange={this.onInputChange.bind(this, field.input)}
+                onChange={this.onInputChange.bind(this, field.input, dimension)}
                 errors={errors}
             />;
         },
-        onInputChange: function(input, value) {
-            input.onChange(value);
+        onInputChange: function(input, dimension, value) {
+            input.onChange(value.target.value);
+            this.props.variationsDataForProduct.map(function (variation) {
+                this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
+            }.bind(this));
         },
         render: function() {
             return (
