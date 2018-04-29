@@ -38,8 +38,7 @@ define([
                 product: {},
                 images: true,
                 attributeNames: [],
-                attributeNameMap: {},
-                selectedProductIdentifiers: {}
+                attributeNameMap: {}
             }
         },
         renderImageHeader: function() {
@@ -79,8 +78,16 @@ define([
                 return <td>No images available</td>
             }
 
-            var image = this.findSelectedImageForVariation(variation);
             return (<td>
+                <Field
+                    name={"identifiers." + variation.sku + ".imageId"}
+                    component={this.renderImageField}
+                />
+            </td>);
+        },
+        renderImageField: function(field) {
+            var image = this.findSelectedImageForVariation(field.input.value);
+            return (
                 <div className="image-dropdown-target">
                     <div className="react-image-picker">
                         <span className="react-image-picker-image">
@@ -88,20 +95,19 @@ define([
                         </span>
                     </div>
                 </div>
-            </td>);
+
+            );
         },
-        findSelectedImageForVariation: function(variation) {
+        findSelectedImageForVariation: function(imageId) {
             var selectedImage = {url: ""};
-            if (variation.sku in this.props.selectedProductIdentifiers) {
-                var identifiers = this.props.selectedProductIdentifiers[variation.sku];
-                if (identifiers.imageId) {
-                    this.props.product.images.map(function(image) {
-                        if (image.id == identifiers.imageId) {
-                            selectedImage = image;
-                        }
-                    });
-                }
+            if (!imageId) {
+                return selectedImage;
             }
+            this.props.product.images.map(function(image) {
+                if (image.id == imageId) {
+                    selectedImage = image;
+                }
+            });
             return selectedImage;
         },
         renderAttributeColumns: function(variation) {
@@ -113,7 +119,7 @@ define([
             return dimensions.map(function (identifier) {
                 return (<td>
                     <Field
-                        name={variation.sku + "." + identifier.name}
+                        name={"dimensions." + variation.sku + "." + identifier.name}
                         component={this.renderInputComponent}
                         validate={identifier.validate ? [identifier.validate] : undefined}
                     />
@@ -134,21 +140,19 @@ define([
         },
         render: function() {
             return (
-                <FormSection name="dimensions">
-                    <div className={"variation-picker"}>
-                        <table>
-                            <thead>
-                            <tr>
-                                {this.renderImageHeader()}
-                                <th>SKU</th>
-                                {this.renderAttributeHeaders()}
-                                {this.renderDimensionHeaders()}
-                            </tr>
-                            </thead>
-                            {this.renderVariationRows()}
-                        </table>
-                    </div>
-                </FormSection>
+                <div className={"variation-picker"}>
+                    <table>
+                        <thead>
+                        <tr>
+                            {this.renderImageHeader()}
+                            <th>SKU</th>
+                            {this.renderAttributeHeaders()}
+                            {this.renderDimensionHeaders()}
+                        </tr>
+                        </thead>
+                        {this.renderVariationRows()}
+                    </table>
+                </div>
             );
         }
     });

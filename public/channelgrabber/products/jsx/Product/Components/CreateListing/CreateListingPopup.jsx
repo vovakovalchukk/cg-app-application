@@ -26,7 +26,6 @@ define([
     "use strict";
 
     var Field = ReduxForm.Field;
-    var formValueSelector = ReduxForm.formValueSelector;
 
     var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
@@ -35,8 +34,7 @@ define([
                 accounts: [],
                 categories: [],
                 conditionOptions: [],
-                variationsDataForProduct: {},
-                selectedProductIdentifiers: {}
+                variationsDataForProduct: {}
             }
         },
         componentDidMount: function () {
@@ -132,7 +130,6 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
                 attributeNames={this.props.product.attributeNames}
-                selectedProductIdentifiers={this.props.selectedProductIdentifiers}
             />
         },
         render: function() {
@@ -162,11 +159,9 @@ define([
         },
     })(CreateListingPopup);
 
-    var selector = formValueSelector("createListing");
-    var mapStateToProps = function(state, props) {
+    var mapStateToProps = function(state) {
         return {
-            initialValues: state.initialValues,
-            selectedProductIdentifiers: selector(state, "identifiers")
+            initialValues: state.initialValues
         };
     };
 
