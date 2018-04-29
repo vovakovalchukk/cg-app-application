@@ -38,7 +38,7 @@ define([
             }
         },
         componentDidMount: function () {
-            this.props.loadInitialValues(this.props.product);
+            this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct);
         },
         renderForm: function() {
             return <form onSubmit={this.props.handleSubmit}>
@@ -170,8 +170,8 @@ define([
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
             },
-            loadInitialValues: function(product) {
-                dispatch(Actions.loadInitialValues(product));
+            loadInitialValues: function(product, variationData) {
+                dispatch(Actions.loadInitialValues(product, variationData));
             }
         };
     };
