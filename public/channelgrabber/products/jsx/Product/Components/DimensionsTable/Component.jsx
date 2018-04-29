@@ -30,7 +30,6 @@ define([
 
         },
         renderHeadings: function() {
-            console.log("dimensionsComponent this.props : ", this.props);
             return this.props.fields.map(function(field) {
                 return this.renderHeading(field);
             }.bind(this));

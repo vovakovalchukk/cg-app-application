@@ -3,7 +3,7 @@ define([
     'redux-form',
     'Common/Components/ImageUploader/ImageUploaderReducer',
     'Product/Components/CreateProduct/Reducers/AccountReducer',
-    'Product/Components/VariationsTable/Reducer'
+    'Product/Components/CreateProduct/Reducers/VariationsReducer'
 ], function(
     Redux,
     ReduxForm,
