@@ -23,6 +23,16 @@ define([], function() {
                     }
                 };
             },
+            attributeColumnNameChange: function(fieldName, newValue){
+                console.log("in attributeCOlumnNameCHange with fieldName: " , fieldName, ' and newValue: ', newValue);
+                return {
+                    type: 'ATTRIBUTE_COLUMN_NAME_CHANGE',
+                    payload: {
+                        fieldName: fieldName,
+                        newValue:newValue
+                    }
+                };
+            },
             newVariationRowCreateRequest: function(variationId) {
                 return function(dispatch, getState) {
                     var currState = getState();

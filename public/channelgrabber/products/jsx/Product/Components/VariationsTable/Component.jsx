@@ -39,6 +39,9 @@ define([
                             name={field.name}
                             className={"c-table-with-inputs__text-input"}
                             component="input"
+                            onChange={(function(event){
+                                this.props.attributeColumnNameChange(field.name,event.target.value)
+                            }.bind(this))}
                         />
                         <button type="button" className={'c-table-with-inputs__remove-button'}
                                 onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
@@ -107,7 +110,6 @@ define([
                     value: reduxFormFieldProps.input.value
                 }}
                 onOptionChange={function(option) {
-                    console.log("in onOption change with option: ", option, ' and field.options ', field.options, ' and props : ', this.props);
                     if (!optionExistsAlready(option, field.options)) {
                         this.props.addNewOptionForAttribute(option, field.name);
                     }

@@ -46,7 +46,6 @@ define([
     };
     var CreateVariationsTableReducer = reducerCreator(initialState, {
 
-
     });
     return CreateVariationsTableReducer;
 });

@@ -13,7 +13,6 @@ define([
 ) {
     "use strict";
     const mapStateToProps = function(state) {
-
         return {
             variationsTable: state.variationsTable,
             uploadedImages: state.uploadedImages,

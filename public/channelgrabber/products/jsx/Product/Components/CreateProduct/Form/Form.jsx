@@ -106,6 +106,8 @@ define([
                                 rows: ['variationsTable', 'variations'],
                                 values:['form', 'createProductForm', 'variations']
                             }}
+
+                            formSectionName='dimensionsTable'
                         />
 
 

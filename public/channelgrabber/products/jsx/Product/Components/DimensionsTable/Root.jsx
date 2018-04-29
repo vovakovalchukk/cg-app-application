@@ -13,13 +13,14 @@ define([
 ) {
     "use strict";
     const mapStateToProps = function(state, ownProps) {
-        console.log('in mapStateToProps with ownProps: ', ownProps);
+//        console.log('in dimensionsRoot with ownProps: ' , ownProps);
         return {
             fields: getStatePropertyUsingSelectors(state, ownProps.stateSelectors.fields),
             rows: getStatePropertyUsingSelectors(state, ownProps.stateSelectors.rows),
             values: getStatePropertyUsingSelectors(state, ownProps.stateSelectors.values),
         }
     };
+
     const mapDispatchToProps = function(dispatch) {
         return Redux.bindActionCreators(ActionCreators, dispatch);
     };
@@ -27,12 +28,12 @@ define([
     return Connector(Component);
 
     function getStatePropertyUsingSelectors(state,selectors){
+        var selectorsCopy = selectors.slice();
         var current = state;
-        while(selectors.length){
+        while(selectorsCopy.length){
             if(typeof current !== 'object') return undefined;
-            current = current[selectors.shift()];
+            current = current[selectorsCopy.shift()];
         }
-        console.log("returning state from getSTATE... : " , current);
         return current;
     }
 });
