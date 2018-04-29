@@ -12,7 +12,6 @@ define([
 
             var dimensions = {};
             variationData.map(function(variation) {
-                console.log({[variation.sku]: variation.details});
                 dimensions[variation.sku] = {
                     length: variation.details.length,
                     width: variation.details.width,
