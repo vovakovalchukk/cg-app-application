@@ -1,13 +1,16 @@
 define([
     'react',
-    'Common/Components/EditableField',
+    'redux-form',
     'Product/Components/CreateListing/Form/Shared/ImageDropDown'
 ], function(
     React,
-    EditableField,
+    ReduxForm,
     ImageDropDown
 ) {
     "use strict";
+
+    var FormSection = ReduxForm.FormSection;
+    var Field = ReduxForm.Field;
 
     var ProductIdentifiers = React.createClass({
         getDefaultProps: function() {
@@ -39,6 +42,7 @@ define([
                     {this.renderImageColumn(variation)}
                     <td>{variation.sku}</td>
                     {this.renderAttributeColumns(variation)}
+                    {this.renderIdentifierColumns(variation)}
                 </tr>
             }.bind(this));
         },
@@ -64,21 +68,33 @@ define([
                 return <td>{variation.attributeValues[attributeName]}</td>
             });
         },
+        renderIdentifierColumns: function (variation) {
+            return ["ean", "upc", "mpn", "isbn"].map(function (identifierName) {
+                return (<td>
+                    <Field name={variation.sku + "." + identifierName} component={"input"} type="text"/>
+                </td>)
+            });
+        },
         render: function() {
-            console.log(this.props);
             return (
-                <div className={"variation-picker"}>
-                    <table>
-                        <thead>
-                        <tr>
-                            {this.renderImageHeader()}
-                            <th>SKU</th>
-                            {this.renderAttributeHeaders()}
-                        </tr>
-                        </thead>
-                        {this.renderVariationRows()}
-                    </table>
-                </div>
+                <FormSection name="identifiers">
+                    <div className={"variation-picker"}>
+                        <table>
+                            <thead>
+                            <tr>
+                                {this.renderImageHeader()}
+                                <th>SKU</th>
+                                {this.renderAttributeHeaders()}
+                                <th>EAN (European barcode)</th>
+                                <th>UPC (Widely used in NA)</th>
+                                <th>MPN (if applicable)</th>
+                                <th>ISBN (if applicable)</th>
+                            </tr>
+                            </thead>
+                            {this.renderVariationRows()}
+                        </table>
+                    </div>
+                </FormSection>
             );
         }
     });
