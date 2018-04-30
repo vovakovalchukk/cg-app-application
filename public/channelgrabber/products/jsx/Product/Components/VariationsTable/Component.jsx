@@ -1,6 +1,7 @@
 define([
     'react',
     'redux-form',
+    'Product/Components/CreateProduct/functions/utility',
     'Common/Components/ImageDropDown',
     'Common/Components/Select',
     'Product/Components/CreateProduct/StockModeInputs/Root'
@@ -8,6 +9,7 @@ define([
 ], function(
     React,
     reduxForm,
+    utility,
     ImageDropDown,
     Select,
     StockModeInputs
@@ -91,7 +93,7 @@ define([
         },
         renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
             return <ImageDropDown
-                selected={getUploadedImageById(reduxFieldProps.input.value, uploadedImages)}
+                selected={utility.getUploadedImageById(reduxFieldProps.input.value, uploadedImages)}
                 onChange={function(event) {
                     reduxFieldProps.input.onChange(event.target.value)
                 }}
@@ -110,7 +112,7 @@ define([
                     value: reduxFormFieldProps.input.value
                 }}
                 onOptionChange={function(option) {
-                    if (!optionExistsAlready(option, field.options)) {
+                    if (!utility.optionExistsAlready(option, field.options)) {
                         this.props.addNewOptionForAttribute(option, field.name);
                     }
                     return reduxFormFieldProps.input.onChange(option.value);
@@ -217,12 +219,5 @@ define([
         }
     }
 
-    function getUploadedImageById(id, uploadedImages) {
-        for (var i = 0; i < uploadedImages.length; i++) {
-            if (uploadedImages[i].id == id) {
-                return uploadedImages[i];
-            }
-        }
-    }
 
 });

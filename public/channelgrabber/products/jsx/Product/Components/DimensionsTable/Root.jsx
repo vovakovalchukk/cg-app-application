@@ -14,15 +14,16 @@ define([
     ActionCreators
 ) {
     "use strict";
-    const mapStateToProps = function(state, ownProps) {
-        console.log('in mapStateToProps ');
+    const mapStateToProps = function(state) {
+        console.log('in mapStateToProps with state: ' , state);
         var filteredState = stateFilters.filterFields(2, state.variationsTable);
 
         console.log('in dimensionsRoot with state ', state);
         return {
             fields: filteredState.fields,
             rows: state.variationsTable.variations,
-            values: state.form.createProductForm.variatinos,
+            values: state.form.createProductForm.values,
+            uploadedImages: state.uploadedImages,
         }
     };
 
