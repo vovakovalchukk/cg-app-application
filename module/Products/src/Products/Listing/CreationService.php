@@ -88,9 +88,6 @@ class CreationService implements LoggerAwareInterface
                 $status->warning($warning);
             }
             foreach ($result->getErrors() as $error) {
-
-                $this->logDebugDump($error, "ERROR MESSAGE DEBUG", [], 'MY LOG', [], false);
-
                 $status->error($error);
             }
             if ($result->getExternalId()) {
