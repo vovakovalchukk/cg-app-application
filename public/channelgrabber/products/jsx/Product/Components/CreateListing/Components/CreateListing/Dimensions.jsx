@@ -170,6 +170,7 @@ define([
         renderInputComponent: function(dimension, sku, field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
+                {...field.input}
                 name={field.input.name}
                 value={field.input.value}
                 onChange={this.onInputChange.bind(this, field.input, dimension, sku)}

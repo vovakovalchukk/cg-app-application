@@ -10,7 +10,10 @@ define([
             return {
                 inputType: 'input',
                 title: null,
-                errors: []
+                errors: [],
+                onChange: function() {},
+                onFocus: function() {},
+                onBlur: function() {}
             }
         },
         renderErrors: function() {
@@ -32,6 +35,8 @@ define([
                         name={this.props.name}
                         value={this.props.value}
                         onChange={this.props.onChange}
+                        onFocus={this.props.onFocus}
+                        onBlur={this.props.onBlur}
                         title={this.props.title}
                         className={this.props.errors.length == 0 ? '' : 'safe-input-box--error'}
                     />
