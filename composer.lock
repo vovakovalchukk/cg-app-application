@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b032d387d3037628747a1416857f9ef0",
+    "content-hash": "035bc2b1f757e17703d4ffda4d5bfdb5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2101,7 +2101,7 @@
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.24",
-                "channelgrabber/stock": "^1.13.0",
+                "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
@@ -2135,7 +2135,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-26T09:15:30+00:00"
+            "time": "2018-04-25T21:28:01+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
