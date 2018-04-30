@@ -71,7 +71,34 @@ define([
                 }}
             />
         },
-        variationRowFieldInputRenderMethods: {
+        fieldNoInputRenderMethods:{
+            text: function(variationId, field, value) {
+                console.log("in text input render with value : " , value)
+                return (
+                    <span>{value}</span>
+                )
+            },
+            image: function(variationId, field,imageId) {
+                var uploadedImages = this.props.uploadedImages.images;
+                var imageUrl = '';
+                for(var i=0; i<uploadedImages.length; i++){
+                    if(uploadedImages[i].id==imageId) {
+                        imageUrl=uploadedImages[i].url;
+                        break;
+                    }
+                }
+                return (
+                    <span>
+                        <img
+                        src={imageUrl}/>
+                    </span>
+                )
+            },
+            customOptionsSelect: function(variationId, field,value) {
+                return <span>{value}</span>;
+            }
+        },
+        fieldInputRenderMethods: {
             text: function(variationId, field) {
                 return (
                     <Field
@@ -105,8 +132,32 @@ define([
                 />;
             }
         },
+        getFieldValueFromState: function(variationId,field){
+            var variations = this.props.values.variations;
+            var variationSelector = 'variation-'+variationId.toString();
+            if( !variations[variationSelector] ){
+                return null;
+            }
+            if(!variations[variationSelector][field.name]){
+                return null
+            }else{
+                console.log('variation field value found for : ', field.name , ' with value : ' , variations[variationSelector][field.name]);
+                return variations[variationSelector][field.name];
+            }
+        },
         renderField: function(variationId, field) {
-            var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
+            var renderFieldMethod = null;
+
+            //todo find value by field id.
+
+            var fieldValue = this.getFieldValueFromState ( variationId,field );
+
+
+            if(field.isDimensionsField){
+                renderFieldMethod = this.fieldInputRenderMethods[field.type].bind(this, variationId, field);
+            }else{
+                renderFieldMethod = this.fieldNoInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
+            }
             return (
                 <td className={'create-variations-table__td'}>
                     {renderFieldMethod()}
@@ -135,7 +186,7 @@ define([
         },
         renderTable: function() {
             return (
-                <FormSection name={"variVariationations"}>
+                <FormSection name={"Variations"}>
                     <table className={'c-table-with-inputs'}>
                         {this.renderHeaderRow()}
                         {this.renderRows()}

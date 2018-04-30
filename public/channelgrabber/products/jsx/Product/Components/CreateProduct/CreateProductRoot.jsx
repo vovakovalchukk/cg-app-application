@@ -16,20 +16,29 @@ define([
     "use strict";
     var Provider = ReactRedux.Provider;
 
-    var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        latency: 0
-    });
-    var store = Redux.createStore(
-        CombinedReducer,
-        composeEnhancers(
+    var store = null;
+    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+        var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            latency: 0
+        });
+        store = Redux.createStore(
+            CombinedReducer,
+            composeEnhancers(
+                Redux.applyMiddleware(thunk.default)
+            )
+        );
+    } else {
+        store = Redux.createStore(
+            CombinedReducer,
             Redux.applyMiddleware(thunk.default)
-        )
-    );
+        );
+    }
+
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {
             return {
                 onCreateProductClose: null,
-                stockModeOptions:null
+                stockModeOptions: null
             };
         },
         componentWillMount: function() {
@@ -37,7 +46,7 @@ define([
                 type: 'INITIAL_ACCOUNT_DATA_LOADED',
                 payload: {
                     taxRates: this.props.taxRates,
-                    stockModeOptions:this.props.stockModeOptions
+                    stockModeOptions: this.props.stockModeOptions
                 }
             });
         },

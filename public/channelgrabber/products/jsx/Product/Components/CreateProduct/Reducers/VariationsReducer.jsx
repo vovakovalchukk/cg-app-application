@@ -36,7 +36,7 @@ define([
                 name: 'image',
                 label: 'Image',
                 type: 'image',
-                isCustomAttribute: false
+                isCustomAttribute: false,
             },
             {
                 id: 2,
@@ -77,17 +77,19 @@ define([
             },
             {
                 id: 7,
-                name: 'heightt',
+                name: 'height',
                 label: 'Height (cm)',
                 type: 'text',
-                isCustomAttribute: false
+                isCustomAttribute: false,
+                isDimensionsField: true
             },
             {
                 id: 8,
                 name: 'depth',
                 label: 'Depth (cm)',
                 type: 'text',
-                isCustomAttribute: false
+                isCustomAttribute: false,
+                isDimensionsField: true
             }
         ]
     };
