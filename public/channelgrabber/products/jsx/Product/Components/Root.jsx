@@ -451,6 +451,7 @@ define([
                 {...this.state.createListingData}
                 conditionOptions={this.formatConditionOptions()}
                 variationsDataForProduct={variationData}
+                accountsData={this.state.accounts}
             />;
         },
         formatConditionOptions: function() {

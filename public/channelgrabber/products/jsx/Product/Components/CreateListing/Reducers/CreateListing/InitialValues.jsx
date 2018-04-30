@@ -20,9 +20,17 @@ define([
                 };
             });
 
+            var prices = {};
+            variationData.map(function(variation) {
+                prices[variation.sku] = {
+                    [variation.accountId]: variation.details.price,
+                };
+            });
+
             return {
                 title: product.name,
-                dimensions: dimensions
+                dimensions: dimensions,
+                prices: prices
             };
         }
     });

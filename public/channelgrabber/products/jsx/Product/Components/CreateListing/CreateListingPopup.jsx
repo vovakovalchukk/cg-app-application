@@ -9,7 +9,8 @@ define([
     'Common/Components/ImagePicker',
     './Actions/CreateListings/Actions',
     './Components/CreateListing/ProductIdentifiers',
-    './Components/CreateListing/Dimensions'
+    './Components/CreateListing/Dimensions',
+    './Components/CreateListing/ProductPrice'
 ], function(
     React,
     ReactDom,
@@ -21,7 +22,8 @@ define([
     ImagePicker,
     Actions,
     ProductIdentifiers,
-    Dimensions
+    Dimensions,
+    ProductPrice
 ) {
     "use strict";
 
@@ -35,7 +37,8 @@ define([
                 categories: [],
                 conditionOptions: [],
                 variationsDataForProduct: {},
-                initialDimensions: {}
+                initialDimensions: {},
+                accountsData: {}
             }
         },
         componentDidMount: function () {
@@ -50,6 +53,7 @@ define([
                 <Field name="imageId" component={this.renderImagePickerField}/>
                 {this.renderProductIdentifiers()}
                 {this.renderDimensions()}
+                {this.renderProductPrices()}
             </form>
         },
         renderInputComponent: function(title, field) {
@@ -134,6 +138,22 @@ define([
                 change={this.props.change}
                 initialDimensions={this.props.initialDimensions}
             />
+        },
+        renderProductPrices: function() {
+            return <ProductPrice
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                product={this.props.product}
+                attributeNames={this.props.product.attributeNames}
+                change={this.props.change}
+                accounts={this.getSelectedAccountsData()}
+            />
+        },
+        getSelectedAccountsData: function() {
+            var accounts = [];
+            this.props.accounts.map(function(accountId) {
+                accounts.push(this.props.accountsData[accountId]);
+            }.bind(this));
+            return accounts;
         },
         render: function() {
             return (

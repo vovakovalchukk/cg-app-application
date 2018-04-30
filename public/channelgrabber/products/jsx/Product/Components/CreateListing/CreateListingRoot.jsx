@@ -29,7 +29,7 @@ define([
                 categories: [],
                 conditionOptions: [],
                 variationsDataForProduct: {},
-                fetchVariations: function() {}
+                accountsData: {}
             }
         },
         render: function() {
