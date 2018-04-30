@@ -6,7 +6,7 @@ define([
     "use strict";
     var initialState = {
         variations: [
-            {id: 0, hasChanged: false}
+            {id: 0}
         ],
         tables: [
             {
@@ -108,8 +108,7 @@ define([
             var variationsCopy = state.variations.slice();
             var newVariationId = (variationsCopy[state.variations.length - 1].id) + 1;
             variationsCopy.push({
-                id: newVariationId,
-                hasChanged: false
+                id: newVariationId
             });
             var newState = Object.assign({}, state, {
                 variations: variationsCopy

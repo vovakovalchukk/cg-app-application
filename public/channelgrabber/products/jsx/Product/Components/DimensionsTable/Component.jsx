@@ -3,14 +3,14 @@ define([
     'redux-form',
     'Product/Components/CreateProduct/functions/utility',
     'Common/Components/ImageDropDown',
-    'Common/Components/Select',
+    'Common/Components/Select'
 
 ], function(
     React,
     reduxForm,
     utility,
     ImageDropDown,
-    Select,
+    Select
 ) {
 
     var Field = reduxForm.Field;
@@ -114,35 +114,24 @@ define([
             )
         },
         renderRow: function(variationId) {
-            // loop over fields and assign value if one exists in values for it
             var fields = this.props.fields;
-//
-//            var fieldsToRender = []
-//            for (var i = 0; i < fields.length; i++) {
-//                fieldsToRender.push(this.renderField(variationId, fields[i]));
-//            }
-
             return (
-                <FormSection name={"variation-" + variationId}>
+                <FormSection name={"variations-" + variationId}>
                     <tr>
-                        {/*{fieldsToRender}*/}
-
                         {fields.map(function(field) {
-                            console.log("mapping field render field: " , field)
                             return this.renderField(variationId, field);
-
                         }.bind(this))}
-
                     </tr>
                 </FormSection>
             )
-
         },
         renderRows: function() {
-            var variations = this.props.values;
-            for (var variation in variations) {
-                return this.renderRow(variation.id);
+            var rows = this.props.rows;
+            var rowsToRender = [];
+            for (var i = 0; i < rows.length; i++) {
+                rowsToRender.push(this.renderRow(rows[i].id));
             }
+            return rowsToRender;
         },
         renderTable: function() {
             return (
