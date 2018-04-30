@@ -155,6 +155,38 @@ define([
         },
         onInputChange: function(input, accountId, sku, value) {
             input.onChange(value.target.value);
+            if (this.isFirstVariationRow(sku)) {
+                this.props.variationsDataForProduct.map(function (variation) {
+                    if (sku == variation.sku) {
+                        return;
+                    }
+                    if (accountId in this.state.touchedPrices
+                        && variation.sku in this.state.touchedPrices[accountId]
+                        && this.state.touchedPrices[accountId][variation.sku]) {
+                        return;
+                    }
+                    this.props.change("prices." + variation.sku + "." + accountId, value.target.value);
+                }.bind(this));
+            } else {
+                this.markPriceAsTouchedForSkuAndAccount(sku, accountId);
+            }
+        },
+        isFirstVariationRow: function(sku) {
+            if (sku == this.props.variationsDataForProduct[0].sku) {
+                return true;
+            }
+            return false;
+        },
+        markPriceAsTouchedForSkuAndAccount: function(sku, accountId) {
+            if (this.state.touchedPrices[accountId][sku]) {
+                return;
+            }
+
+            var touchedPrices = Object.assign({}, this.state.touchedPrices);
+            touchedPrices[accountId][sku] = true;
+            this.setState({
+                touchedPrices: touchedPrices
+            });
         },
         render: function() {
             return (
