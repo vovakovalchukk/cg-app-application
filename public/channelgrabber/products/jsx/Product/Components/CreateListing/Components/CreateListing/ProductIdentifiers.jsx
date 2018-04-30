@@ -29,6 +29,12 @@ define([
                     return 'Must be exactly 13 digits long';
                 }
                 return undefined;
+            },
+            "normalize": function(value, previousValue) {
+                if (value.length > 14) {
+                    return previousValue;
+                }
+                return value;
             }
         },
         {
@@ -46,6 +52,12 @@ define([
                 }
                 return undefined;
             },
+            "normalize": function(value, previousValue) {
+                if (value.length > 13) {
+                    return previousValue;
+                }
+                return value;
+            }
         },
         {
             "name": "mpn",
@@ -140,6 +152,7 @@ define([
                         name={variation.sku + "." + identifier.name}
                         component={this.renderInputComponent}
                         validate={identifier.validate ? [identifier.validate] : undefined}
+                        normalize={identifier.normalize ? identifier.normalize : value => value}
                     />
                 </td>)
             }.bind(this));
