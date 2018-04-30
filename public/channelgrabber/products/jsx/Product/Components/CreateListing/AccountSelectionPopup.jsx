@@ -137,7 +137,7 @@ define([
 
             values = Object.assign(values, {
                 product: props.product,
-                accounts: Object.keys(values.accounts).map(index => values.accounts[index])
+                accounts: values.accounts.filter(accountId => accountId)
             });
             props.renderCreateListingPopup(values);
         },

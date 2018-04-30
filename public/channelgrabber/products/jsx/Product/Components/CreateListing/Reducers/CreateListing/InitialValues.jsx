@@ -25,7 +25,7 @@ define([
             variationData.map(function(variation) {
                 var pricesForVariation = {};
                 selectedAccounts.map(function(accountId) {
-                    pricesForVariation[accountId] = variation.details.price;
+                    pricesForVariation[accountId] = parseFloat(variation.details.price).toFixed(2);
                 });
                 prices[variation.sku] = pricesForVariation;
             });
