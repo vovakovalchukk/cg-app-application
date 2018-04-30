@@ -121,10 +121,16 @@ define([
             currentCustomFieldId++;
             fieldsCopy.push(defaultNewCustomField(action.payload.uniqueNameKey));
             var tablesFieldsCopy = state.tablesFields.slice();
+            console.log("tableFieldsCopy : " , tablesFieldsCopy)
             tablesFieldsCopy.push({
                 tableId: 1,
                 fieldId: currentCustomFieldId
+            },{
+                tableId:2,
+                fieldId:currentCustomFieldId
             });
+            console.log('new tableFieldsCopy: ' , tablesFieldsCopy);
+
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy,
                 tablesFields: tablesFieldsCopy
