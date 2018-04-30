@@ -3203,7 +3203,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "d2a7d4b4d42a590c9796963bf56f1e50c8251d70"
+                "reference": "a3a58cc38a76bca310015547e8724b32e1f619c2"
             },
             "require": {
                 "channelgrabber/channel": "^1.34.0",
