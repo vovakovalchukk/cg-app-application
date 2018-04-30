@@ -2,12 +2,14 @@
 namespace Settings\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Template\Collection as CategoryTemplateCollection;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Exception as ListingException;
 use Settings\Category\Template\Exception\CategoryAlreadyMappedException;
 use Settings\Category\Template\Exception\NameAlreadyUsedException;
@@ -45,10 +47,15 @@ class CategoryTemplatesJsonController extends AbstractJsonController
 
     public function accountsAction()
     {
-        $ou = $this->userOuService->getRootOuByActiveUser();
-        return $this->buildResponse([
-            'accounts' => $this->categoryTemplateService->fetchAccounts($ou)
-        ]);
+        try {
+            $ou = $this->userOuService->getRootOuByActiveUser();
+            return $this->buildResponse([
+                'accounts' => $this->categoryTemplateService->fetchAccounts($ou),
+                'categories' => $this->categoryTemplateService->fetchCategoryRoots($ou)
+            ]);
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function fetchAction()
@@ -92,6 +99,10 @@ class CategoryTemplatesJsonController extends AbstractJsonController
             return $this->buildCategoryAlreadyMappedError($e, $postData['categoryIds'], $postData['id'] ?? null);
         } catch (Conflict $e) {
             return $this->buildEtagError();
+        } catch (NotModified $e) {
+            return $this->buildSuccessResponse([
+                'valid' => true
+            ]);
         }
     }
 
@@ -129,16 +140,16 @@ class CategoryTemplatesJsonController extends AbstractJsonController
     protected function buildDetailsOfAlreadyMappedCategories(array $requestedCategoryIds, $currentTemplateId = null): array
     {
         $existingTemplates = $this->fetchExistingByCategoryIds($requestedCategoryIds, $currentTemplateId);
-        $rootOU = $this->userOuService->getRootOuByActiveUser();
         $existingDetails = [];
+        /** @var CategoryTemplate $existingTemplate */
         foreach ($existingTemplates as $existingTemplate) {
             $overlapCategoryIds = array_intersect($existingTemplate->getCategoryIds(), $requestedCategoryIds);
+            /** @var Category[] $overlapCategories */
             $overlapCategories = $this->categoryTemplateService->fetchCategoriesByIds($overlapCategoryIds);
             foreach ($overlapCategories as $category) {
-                $accountId = $this->categoryTemplateService->fetchAccountIdForCategory($category, $rootOU);
                 $existingDetails[] = [
                     'name' => $existingTemplate->getName(),
-                    'accountId' => $accountId,
+                    'accountId' => $existingTemplate->getAccountIdForCategory($category->getId()),
                     'categoryId' => $category->getId(),
                 ];
             }

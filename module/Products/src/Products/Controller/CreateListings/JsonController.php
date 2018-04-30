@@ -1,5 +1,4 @@
 <?php
-
 namespace Products\Controller\CreateListings;
 
 use Application\Controller\AbstractJsonController;
@@ -10,12 +9,14 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Listing\Exception as ListingException;
+use Products\Product\Category\Service as CategoryService;
 
 class JsonController extends AbstractJsonController
 {
     const ROUTE_CREATE_LISTINGS = 'CreateListings';
     const ROUTE_DEFAULT_SETTINGS = 'DefaultSettings';
     const ROUTE_CATEGORY_DEPENDENT_FIELD_VALUES = 'CategoryDependentFieldValues';
+    const ROUTE_CATEGORY_TEMPLATE_DEPENDENT_FIELD_VALUES = 'CategoryTemplateDependentFieldValues';
     const ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES = 'AccountSpecificFieldValues';
     const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
     const ROUTE_REFRESH_CATEGORIES = 'RefreshCategories';
@@ -24,15 +25,19 @@ class JsonController extends AbstractJsonController
     protected $accountService;
     /** @var ChannelService */
     protected $channelService;
+    /** @var CategoryService */
+    protected $categoryService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         AccountService $accountService,
-        ChannelService $channelService
+        ChannelService $channelService,
+        CategoryService $categoryService
     ) {
         parent::__construct($jsonModelFactory);
         $this->accountService = $accountService;
         $this->channelService = $channelService;
+        $this->categoryService = $categoryService;
     }
 
     public function defaultSettingsAjaxAction()
@@ -74,6 +79,19 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
+    }
+
+    public function categoryTemplateDependentFieldValuesAction()
+    {
+        try {
+            return $this->buildResponse([
+                'categoryTemplates' => $this->categoryService->getTemplateDependentFieldValues(
+                    $this->params()->fromPost('categoryTemplateIds', [])
+                ),
+            ]);
+        } catch (\Throwable $exception) {
             return $this->buildGenericErrorResponse();
         }
     }
