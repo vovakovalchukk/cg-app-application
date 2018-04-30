@@ -83,7 +83,12 @@ define([
         },
         renderIdentifierReaders: function () {
             return identifiers.map(function (identifier) {
-                return <th>{identifier.displayTitle}</th>;
+                return <th
+                    title={identifier.displayTitle}
+                    className={"with-title"}
+                >
+                    {identifier.name.toUpperCase()}
+                </th>;
             });
         },
         renderVariationRows: function () {

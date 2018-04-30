@@ -261,6 +261,15 @@
       padding: 8px;
       width: auto;
       min-width: 75px;
+      &.with-title {
+        cursor: pointer;
+      }
+      &.account-header {
+        max-width: 75px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     tr td {

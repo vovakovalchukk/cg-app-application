@@ -74,7 +74,12 @@ define([
         },
         renderPriceHeaders: function () {
             return this.props.accounts.map(function (account) {
-                return <th>{account.displayName}</th>;
+                return <th
+                    className={"account-header with-title"}
+                    title={account.displayName}
+                >
+                    {account.displayName}
+                </th>;
             });
         },
         renderVariationRows: function () {
