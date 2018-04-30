@@ -36,7 +36,7 @@ define([
                             }
                             var ChannelForm = channelToFormMap[category.channel];
                             return (<FormSection
-                                name={categoryId}
+                                name={'id-'+categoryId}
                                 component={CategoryForm}
                                 channelForm={ChannelForm}
                                 {...category}
