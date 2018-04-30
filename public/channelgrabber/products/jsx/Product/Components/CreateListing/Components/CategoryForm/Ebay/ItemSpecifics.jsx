@@ -90,17 +90,22 @@ define([
             return <span>{itemSpecifics}</span>;
         },
         buildItemSpecificsInputByType: function(name, properties) {
+            var builder;
             if (properties.type == 'text') {
-                return this.buildTextItemSpecific(name, properties);
+                builder = this.buildTextItemSpecific;
             }
             if (properties.type == 'select') {
-                return this.buildSelectItemSpecific(name, properties);
+                builder = this.buildSelectItemSpecific;
             }
             if (properties.type == 'textselect') {
-                return this.buildTextSelectItemSpecific(name, properties);
+                builder = this.buildTextSelectItemSpecific;
             }
+            if (!builder) {
+                return null;
+            }
+            return <Field name={name} component={builder.bind(this, name, properties)} />;
         },
-        buildTextItemSpecific: function(name, options) {
+        buildTextItemSpecific: function(name, options, field) {
             var inputs = [];
             var counts = this.state.itemSpecificsCounts;
             var count = (counts[name]) ? counts[name] : 1;
@@ -112,11 +117,10 @@ define([
                     <label>
                         <span className={"inputbox-label"}>{label}</span>
                         <div className={"order-inputbox-holder"}>
-                            <Field
-                                component={Input}
+                            <Input
                                 name={name}
                                 value={this.getItemSpecificTextInputValue(name)}
-                                onChange={this.onItemSpecificInputChange.bind(this, index)}
+                                onChange={this.onItemSpecificInputChange.bind(this, index, field.input)}
                             />
                         </div>
                         {hasPlusButton && index === count - 1 ? this.renderPlusButton(name) : null}
@@ -226,18 +230,17 @@ define([
             });
             return options;
         },
-        buildSelectItemSpecific: function(name, options) {
+        buildSelectItemSpecific: function(name, options, field) {
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
-                    <Field
-                        component={ SelectComponent}
+                    <SelectComponent
                         name={name}
                         options={this.getSelectOptionsForItemSpecific(name, options.options)}
                         autoSelectFirst={false}
                         title={name}
-                        onOptionChange={this.onItemSpecificSelected}
+                        onOptionChange={this.onItemSpecificSelected.bind(this, field.input)}
                     />
                 </div>
             </label>
@@ -255,19 +258,18 @@ define([
             }
             return selectOptions;
         },
-        buildTextSelectItemSpecific: function(name, options) {
+        buildTextSelectItemSpecific: function(name, options, field) {
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
                 <div className={"order-inputbox-holder"}>
-                    <Field
-                        component={SelectComponent}
+                    <SelectComponent
                         name={name}
                         options={this.getSelectOptionsForItemSpecific(name, options.options)}
                         autoSelectFirst={false}
                         title={name}
                         customOptions={true}
-                        onOptionChange={this.onItemSpecificSelected}
+                        onOptionChange={this.onItemSpecificSelected.bind(this, field.input)}
                     />
                 </div>
             </label>
@@ -327,7 +329,7 @@ define([
 
             return <span>{itemSpecifics}</span>;
         },
-        onItemSpecificSelected: function(fields, title) {
+        onItemSpecificSelected: function(input, fields, title) {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var values = [];
 
@@ -339,11 +341,13 @@ define([
                 return item.value;
             });
 
+            input.onChange(selectedItemSpecifics[title]);
+
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
         },
-        onItemSpecificInputChange: function(index, event) {
+        onItemSpecificInputChange: function(index, input, event) {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
 
             if (!selectedItemSpecifics[event.target.name]) {
@@ -351,6 +355,8 @@ define([
             }
 
             selectedItemSpecifics[event.target.name][index] = event.target.value;
+
+            input.onChange(event.target.value);
 
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
