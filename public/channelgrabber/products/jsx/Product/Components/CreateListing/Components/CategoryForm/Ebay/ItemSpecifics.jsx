@@ -270,9 +270,25 @@ define([
                         title={name}
                         customOptions={true}
                         onOptionChange={this.onItemSpecificSelected.bind(this, field.input)}
+                        selectedOption={this.findSelectedOption(field.input.value, options.options)}
                     />
                 </div>
             </label>
+        },
+        findSelectedOption: function(value, options) {
+            var selectedOption = {
+                name: value || '',
+                value: value || ''
+            };
+            for (var optionValue in options) {
+                if (optionValue == value) {
+                    selectedOption = {
+                        "name": options[optionValue],
+                        "value": optionValue
+                    };
+                }
+            }
+            return selectedOption;
         },
         onOptionalItemSpecificSelect: function (field) {
             // Do no render the same field twice
