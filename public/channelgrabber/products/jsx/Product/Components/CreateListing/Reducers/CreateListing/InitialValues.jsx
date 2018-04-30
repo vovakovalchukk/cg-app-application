@@ -8,7 +8,8 @@ define([
     return reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
-                variationData = action.payload.variationData;
+                variationData = action.payload.variationData,
+                selectedAccounts = action.payload.selectedAccounts;
 
             var dimensions = {};
             variationData.map(function(variation) {
@@ -22,9 +23,11 @@ define([
 
             var prices = {};
             variationData.map(function(variation) {
-                prices[variation.sku] = {
-                    [variation.accountId]: variation.details.price,
-                };
+                var pricesForVariation = {};
+                selectedAccounts.map(function(accountId) {
+                    pricesForVariation[accountId] = variation.details.price;
+                });
+                prices[variation.sku] = pricesForVariation;
             });
 
             return {

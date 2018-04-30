@@ -27,7 +27,8 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 change: function () {},
-                accounts: {}
+                accounts: {},
+                initialProductPrices: {}
             }
         },
         renderImageHeader: function() {

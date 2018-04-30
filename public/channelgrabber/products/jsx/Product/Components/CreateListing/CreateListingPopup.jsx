@@ -38,11 +38,12 @@ define([
                 conditionOptions: [],
                 variationsDataForProduct: {},
                 initialDimensions: {},
-                accountsData: {}
+                accountsData: {},
+                initialProductPrices: {}
             }
         },
         componentDidMount: function () {
-            this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct);
+            this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct, this.props.accounts);
         },
         renderForm: function() {
             return <form onSubmit={this.props.handleSubmit}>
@@ -146,6 +147,7 @@ define([
                 attributeNames={this.props.product.attributeNames}
                 change={this.props.change}
                 accounts={this.getSelectedAccountsData()}
+                initialPrices={this.props.initialProductPrices}
             />
         },
         getSelectedAccountsData: function() {
@@ -185,7 +187,8 @@ define([
     var mapStateToProps = function(state) {
         return {
             initialValues: state.initialValues,
-            initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {}
+            initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
+            initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {}
         };
     };
 
@@ -194,8 +197,8 @@ define([
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
             },
-            loadInitialValues: function(product, variationData) {
-                dispatch(Actions.loadInitialValues(product, variationData));
+            loadInitialValues: function(product, variationData, accounts) {
+                dispatch(Actions.loadInitialValues(product, variationData, accounts));
             }
         };
     };
