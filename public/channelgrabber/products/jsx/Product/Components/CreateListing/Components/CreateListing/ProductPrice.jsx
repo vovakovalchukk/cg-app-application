@@ -28,8 +28,35 @@ define([
                 attributeNameMap: {},
                 change: function () {},
                 accounts: {},
-                initialProductPrices: {}
+                initialPrices: {},
+                touchedPrices: {}
             }
+        },
+        componentWillReceiveProps: function(newProps) {
+            if (Object.keys(this.props.initialPrices).length > 0) {
+                return;
+            }
+
+            this.setTouchedPricesFromInitialPrices(newProps);
+        },
+        setTouchedPricesFromInitialPrices: function(props) {
+            var touchedPrices = {};
+
+            props.accounts.map(function(account) {
+                var touchedPricesForAccount = {};
+                props.variationsDataForProduct.map(function(variation) {
+                    var isTouched = false;
+                    if (props.initialPrices[variation.sku] && props.initialPrices[variation.sku][account.id]) {
+                        isTouched = true;
+                    }
+                    touchedPricesForAccount[variation.sku] = isTouched;
+                });
+                touchedPrices[account.id] = touchedPricesForAccount
+            });
+
+            this.setState({
+                touchedPrices: touchedPrices
+            });
         },
         renderImageHeader: function() {
             if (!this.props.images) {
@@ -130,7 +157,6 @@ define([
             input.onChange(value.target.value);
         },
         render: function() {
-            console.log(this.props);
             return (
                 <div className={"variation-picker"}>
                     <table>
