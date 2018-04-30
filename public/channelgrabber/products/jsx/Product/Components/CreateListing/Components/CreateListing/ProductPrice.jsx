@@ -151,6 +151,9 @@ define([
                 value={field.input.value}
                 onChange={this.onInputChange.bind(this, field.input, accountId, sku)}
                 errors={errors}
+                className={"product-price-input"}
+                errorBoxClassName={"product-input-error"}
+                inputType={"number"}
             />;
         },
         onInputChange: function(input, accountId, sku, value) {

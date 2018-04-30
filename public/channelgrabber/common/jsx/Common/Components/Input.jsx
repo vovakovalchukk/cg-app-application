@@ -13,7 +13,9 @@ define([
                 errors: [],
                 onChange: function() {},
                 onFocus: function() {},
-                onBlur: function() {}
+                onBlur: function() {},
+                className: '',
+                errorBoxClassName: ''
             }
         },
         renderErrors: function() {
@@ -21,11 +23,14 @@ define([
                 return;
             }
 
-            return <ul className={'errors-input'}>
+            return <ul className={'errors-input ' + this.props.errorBoxClassName}>
                 {this.props.errors.map(function(error) {
                     return <li>{error}</li>;
                 })}
             </ul>;
+        },
+        getClassName: function() {
+            return this.props.className + ' ' + (this.props.errors.length == 0 ? '' : 'safe-input-box--error');
         },
         render: function () {
             return (
@@ -38,7 +43,7 @@ define([
                         onFocus={this.props.onFocus}
                         onBlur={this.props.onBlur}
                         title={this.props.title}
-                        className={this.props.errors.length == 0 ? '' : 'safe-input-box--error'}
+                        className={this.getClassName()}
                     />
                     {this.renderErrors()}
                 </div>

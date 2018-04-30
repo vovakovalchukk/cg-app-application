@@ -109,11 +109,12 @@ define([
         renderImagePicker: function (field) {
             if (this.props.product.images.length == 0) {
                 return (
-                    <p className="react-image-picker">No images available</p>
+                    <p className="react-image-picker main-image-picker">No images available</p>
                 );
             }
             return (
                 <ImagePicker
+                    className={"main-image-picker"}
                     name={field.input.name}
                     multiSelect={false}
                     images={this.props.product.images}

@@ -86,7 +86,7 @@ define([
             if (!this.props.images) {
                 return;
             }
-            return <th>Image</th>;
+            return <th className="image-header">Image</th>;
         },
         renderAttributeHeaders: function () {
             return this.props.attributeNames.map(function(attributeName) {
@@ -175,6 +175,9 @@ define([
                 value={field.input.value}
                 onChange={this.onInputChange.bind(this, field.input, dimension, sku)}
                 errors={errors}
+                className={"product-dimension-input"}
+                errorBoxClassName={"product-input-error"}
+                inputType={"number"}
             />;
         },
         onInputChange: function(input, dimension, sku, value) {
