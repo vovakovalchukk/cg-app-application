@@ -34,7 +34,8 @@ define([
                 accounts: [],
                 categories: [],
                 conditionOptions: [],
-                variationsDataForProduct: {}
+                variationsDataForProduct: {},
+                initialDimensions: {}
             }
         },
         componentDidMount: function () {
@@ -131,6 +132,7 @@ define([
                 product={this.props.product}
                 attributeNames={this.props.product.attributeNames}
                 change={this.props.change}
+                initialDimensions={this.props.initialDimensions}
             />
         },
         render: function() {
@@ -162,7 +164,8 @@ define([
 
     var mapStateToProps = function(state) {
         return {
-            initialValues: state.initialValues
+            initialValues: state.initialValues,
+            initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {}
         };
     };
 

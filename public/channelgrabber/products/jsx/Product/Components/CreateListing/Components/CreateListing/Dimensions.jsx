@@ -38,7 +38,8 @@ define([
                 images: true,
                 attributeNames: [],
                 attributeNameMap: {},
-                change: function () {}
+                change: function () {},
+                initialDimensions: {}
             }
         },
         getInitialState: function() {
@@ -46,14 +47,26 @@ define([
                 touchedDimensions: {}
             }
         },
-        componentDidMount: function() {
+        componentWillReceiveProps: function(newProps) {
+            if (Object.keys(this.props.initialDimensions).length > 0) {
+                return;
+            }
+
+            this.setTouchedDimensionsFromInitialDimensions(newProps);
+        },
+        setTouchedDimensionsFromInitialDimensions: function(props) {
             var touchedDimensions = {};
             dimensions.map(function (dimension) {
                 touchedDimensions[dimension.name] = {};
                 this.props.variationsDataForProduct.map(function (variation) {
-                    touchedDimensions[dimension.name][variation.sku] = false;
+                    var isTouched = false;
+                    if (props.initialDimensions[variation.sku] && props.initialDimensions[variation.sku][dimension.name]) {
+                        isTouched = true;
+                    }
+                    touchedDimensions[dimension.name][variation.sku] = isTouched;
                 }.bind(this));
             }.bind(this));
+
             this.setState({
                 touchedDimensions: touchedDimensions
             });
@@ -137,31 +150,55 @@ define([
                 return (<td>
                     <Field
                         name={"dimensions." + variation.sku + "." + dimension.name}
-                        component={this.renderInputComponent.bind(this, dimension.name)}
+                        component={this.renderInputComponent.bind(this, dimension.name, variation.sku)}
                         validate={dimension.validate ? [dimension.validate] : undefined}
                     />
                 </td>)
             }.bind(this));
         },
-        renderInputComponent: function(dimension, field) {
+        renderInputComponent: function(dimension, sku, field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 name={field.input.name}
                 value={field.input.value}
-                onChange={this.onInputChange.bind(this, field.input, dimension)}
+                onChange={this.onInputChange.bind(this, field.input, dimension, sku)}
                 errors={errors}
             />;
         },
-        onInputChange: function(input, dimension, value) {
+        onInputChange: function(input, dimension, sku, value) {
             input.onChange(value.target.value);
-            this.props.variationsDataForProduct.map(function (variation) {
-                if (dimension in this.state.touchedDimensions
-                    && variation.sku in this.state.touchedDimensions[dimension]
-                    && this.state.touchedDimensions[dimension][variation.sku]) {
-                    return;
-                }
-                this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
-            }.bind(this));
+            if (this.isFirstVariationRow(sku)) {
+                this.props.variationsDataForProduct.map(function (variation) {
+                    if (sku == variation.sku) {
+                        return;
+                    }
+                    if (dimension in this.state.touchedDimensions
+                        && variation.sku in this.state.touchedDimensions[dimension]
+                        && this.state.touchedDimensions[dimension][variation.sku]) {
+                        return;
+                    }
+                    this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
+                }.bind(this));
+            } else {
+                this.markDimensionAsTouchedForSku(sku, dimension);
+            }
+        },
+        isFirstVariationRow: function(sku) {
+            if (sku == this.props.variationsDataForProduct[0].sku) {
+                return true;
+            }
+            return false;
+        },
+        markDimensionAsTouchedForSku: function(sku, dimension) {
+            if (this.state.touchedDimensions[dimension][sku]) {
+                return;
+            }
+
+            var touchedDimensions = Object.assign({}, this.state.touchedDimensions);
+            touchedDimensions[dimension][sku] = true;
+            this.setState({
+                touchedDimensions: touchedDimensions
+            });
         },
         render: function() {
             return (
