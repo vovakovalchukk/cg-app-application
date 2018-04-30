@@ -20,15 +20,40 @@ define([
                 input: null
             };
         },
+        getDefaultState: function() {
+            return {
+                nameInput: null,
+                valueInput: null
+            };
+        },
+        shouldComponentUpdate: function(nextProps, nextState) {
+            // We're going to ignore state changes as we're just using that to keep a handle on the inputs
+            // and we don't want that to trigger a re-render
+            return this.havePropsChanged(nextProps);
+        },
+        havePropsChanged: function(nextProps) {
+            for (var key in this.props) {
+                if (typeof nextProps[key] == 'undefined' || nextProps[key] != this.props[key]) {
+                    return true;
+                }
+            }
+            return false;
+        },
         getCustomInputName: function(index) {
             return 'CustomInputName' + index;
         },
         getCustomInputValueName: function(index) {
             return 'CustomInputValueName' + index;
         },
-        onRemoveButtonClick: function(index) {
-            this.props.onChange('');
+        onRemoveButtonClick: function(index, event) {
+            this.resetFields();
             this.props.onRemoveButtonClick(index);
+        },
+        resetFields: function() {
+            this.state.nameInput.value = '';
+            this.state.nameInput.onChange('');
+            this.state.valueInput.value = '';
+            this.state.valueInput.onChange('');
         },
         onNameChange: function(index, input, event) {
             var value = event.target.value;
