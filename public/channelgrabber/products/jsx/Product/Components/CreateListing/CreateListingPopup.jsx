@@ -47,6 +47,7 @@ define([
         },
         renderForm: function() {
             return <form onSubmit={this.props.handleSubmit}>
+                <span className="heading-large">Listing information</span>
                 <Field name="title" component={this.renderInputComponent.bind(this, "Listing Title:")}/>
                 <Field name="description" component={this.renderInputComponent.bind(this, "Description:")}/>
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
@@ -58,7 +59,7 @@ define([
             </form>
         },
         renderInputComponent: function(title, field) {
-            return <label>
+            return <label className="input-container">
                 <span className={"inputbox-label"}>{title}</span>
                 <div className={"order-inputbox-holder"}>
                     <Input
@@ -70,7 +71,7 @@ define([
             </label>;
         },
         renderSelectComponent: function(title, options, field) {
-            return <label>
+            return <label className="input-container">
                 <span className={"inputbox-label"}>{title}</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
@@ -101,7 +102,7 @@ define([
             input.onChange(value);
         },
         renderImagePickerField: function(field) {
-            return (<label>
+            return (<label className="input-container">
                 <span className={"inputbox-label"}>Images:</span>
                 {this.renderImagePicker(field)}
             </label>);
@@ -126,30 +127,39 @@ define([
             input.onChange(selectedImageIds);
         },
         renderProductIdentifiers: function() {
-            return <ProductIdentifiers
-                variationsDataForProduct={this.props.variationsDataForProduct}
-                product={this.props.product}
-                attributeNames={this.props.product.attributeNames}
-            />
+            return (<span>
+                <span className="heading-large">Product Identifiers</span>
+                <ProductIdentifiers
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                />
+            </span>);
         },
         renderDimensions: function() {
-            return <Dimensions
-                variationsDataForProduct={this.props.variationsDataForProduct}
-                product={this.props.product}
-                attributeNames={this.props.product.attributeNames}
-                change={this.props.change}
-                initialDimensions={this.props.initialDimensions}
-            />
+            return (<span>
+                <span className="heading-large">Dimensions</span>
+                <Dimensions
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                    change={this.props.change}
+                    initialDimensions={this.props.initialDimensions}
+                />
+            </span>);
         },
         renderProductPrices: function() {
-            return <ProductPrice
-                variationsDataForProduct={this.props.variationsDataForProduct}
-                product={this.props.product}
-                attributeNames={this.props.product.attributeNames}
-                change={this.props.change}
-                accounts={this.getSelectedAccountsData()}
-                initialPrices={this.props.initialProductPrices}
-            />
+            return (<span>
+                <span className="heading-large">Price</span>
+                <ProductPrice
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                    change={this.props.change}
+                    accounts={this.getSelectedAccountsData()}
+                    initialPrices={this.props.initialProductPrices}
+                />
+            </span>);
         },
         getSelectedAccountsData: function() {
             var accounts = [];

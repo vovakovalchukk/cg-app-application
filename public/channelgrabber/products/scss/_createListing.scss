@@ -105,7 +105,9 @@
 
   .container-content {
     max-width: none;
-    width: 98%;
+    &.account-form {
+      width: 98%;
+    }
   }
 
   .form-input-container {
@@ -133,7 +135,7 @@
   }
 
   .product-identifier-input {
-    width: 110px;
+    width: 115px;
   }
 
   .product-dimension-input {
@@ -146,6 +148,18 @@
 
   .product-input-error {
     position: absolute;
+  }
+
+  .heading-large {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  label.input-container {
+    width: 465px;
+    margin: 0 auto;
+    display: block;
   }
 }
 
@@ -167,7 +181,7 @@
     overflow: initial;
     background-color: $color-white;
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
     text-align: center;
     min-height: 56px;
   }
@@ -241,6 +255,7 @@
 
   table {
     float: none;
+    margin: 0 auto;
 
     th {
       padding: 8px;
