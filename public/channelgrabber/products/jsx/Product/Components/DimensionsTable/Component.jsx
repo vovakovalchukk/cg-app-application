@@ -73,7 +73,6 @@ define([
         },
         fieldNoInputRenderMethods:{
             text: function(variationId, field, value) {
-                console.log("in text input render with value : " , value)
                 return (
                     <span>{value}</span>
                 )
@@ -106,6 +105,9 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component="input"
+                        onChange={function(){
+                            this.props.cellChangeRecord(variationId,field.id);
+                        }.bind(this)}
                     />
                 )
             },
@@ -141,19 +143,32 @@ define([
             if(!variations[variationSelector][field.name]){
                 return null
             }else{
-                console.log('variation field value found for : ', field.name , ' with value : ' , variations[variationSelector][field.name]);
                 return variations[variationSelector][field.name];
             }
         },
+        cellHasChanged:function(variationId,fieldId,fieldName){
+          var cells = this.props.cells;
+//          console.log('in cellHasCHanged with cells: ', cells, ' variationId: ', variationId, ' and fieldId: ' , fieldId , ' fieldName: ' , fieldName);
+          for(var i = 0; i < cells.length; i++){
+              if( (cells[i].variationId == variationId) && (cells[i].fieldId == fieldId) ){
+                  console.log("found match")
+                if(cells[i].hasChanged){
+
+                    console.log('CELL HAS CHANGED!');
+                    return true;
+                }
+              }
+          }
+          return false;
+        },
         renderField: function(variationId, field) {
             var renderFieldMethod = null;
-
-            //todo find value by field id.
-
             var fieldValue = this.getFieldValueFromState ( variationId,field );
-
-
             if(field.isDimensionsField){
+
+                //todo check to see if has changed
+                var hasChanged = this.cellHasChanged(variationId,field.id, field.name)
+
                 renderFieldMethod = this.fieldInputRenderMethods[field.type].bind(this, variationId, field);
             }else{
                 renderFieldMethod = this.fieldNoInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
@@ -167,7 +182,7 @@ define([
         renderRow: function(variationId) {
             var fields = this.props.fields;
             return (
-                <FormSection name={"variations-" + variationId}>
+                <FormSection name={"variation-" + variationId}>
                     <tr>
                         {fields.map(function(field) {
                             return this.renderField(variationId, field);
@@ -186,8 +201,8 @@ define([
         },
         renderTable: function() {
             return (
-                <FormSection name={"Variations"}>
-                    <table className={'c-table-with-inputs'}>
+                <FormSection name={"variations"}>
+                    <table className={'c-table-with-inputs ' + this.props.classNames.join(' ')}>
                         {this.renderHeaderRow()}
                         {this.renderRows()}
                     </table>

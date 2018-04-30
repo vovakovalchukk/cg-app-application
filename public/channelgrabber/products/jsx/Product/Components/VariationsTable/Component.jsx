@@ -25,7 +25,7 @@ define([
                 newVariationRowRequest: null
             };
         },
-        variationRowFieldOnChange: function(event, variationId) {
+        variationRowFieldOnChange: function(event, variationId, fieldId) {
             this.props.newVariationRowCreateRequest(variationId);
         },
         renderVariationTableHeading: function(field) {
@@ -41,8 +41,8 @@ define([
                             name={field.name}
                             className={"c-table-with-inputs__text-input"}
                             component="input"
-                            onChange={(function(event){
-                                this.props.attributeColumnNameChange(field.name,event.target.value)
+                            onChange={(function(event) {
+                                this.props.attributeColumnNameChange(field.name, event.target.value)
                             }.bind(this))}
                         />
                         <button type="button" className={'c-table-with-inputs__remove-button'}
@@ -53,9 +53,9 @@ define([
             } else {
                 jsx = (
                     <th className={'' +
-                        'c-table-with-inputs__cell ' +
-                        'c-table-with-inputs__cell-heading '
-                   }>{field.label}</th>
+                    'c-table-with-inputs__cell ' +
+                    'c-table-with-inputs__cell-heading '
+                    }>{field.label}</th>
                 );
             }
             return jsx;
@@ -127,7 +127,7 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component="input"
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId,field.id)}
                     />
                 )
             },
@@ -185,10 +185,18 @@ define([
         },
         renderVariationRow: function(variation) {
             var variationId = variation.id;
+            var removeVariationCellStyle = {
+                background:'white',
+                border:'none'
+            }
             return (
                 <FormSection name={"variation-" + variationId}>
-                    <tr>
+                    <tr className={"u-border-none"}>
                         {this.renderVariationRowFields(variationId)}
+                        <td style={removeVariationCellStyle} >
+                            <button type="button" onClick={this.props.variationRowRemove.bind(this, variationId)}>remove
+                            </button>
+                        </td>
                     </tr>
                 </FormSection>
             );
@@ -218,6 +226,5 @@ define([
             }
         }
     }
-
 
 });

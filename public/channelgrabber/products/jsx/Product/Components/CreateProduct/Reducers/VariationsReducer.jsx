@@ -91,7 +91,8 @@ define([
                 isCustomAttribute: false,
                 isDimensionsField: true
             }
-        ]
+        ],
+        cells:[]
     };
     var currentCustomFieldId = initialState.fields.length;
 
@@ -117,12 +118,32 @@ define([
             })
             return newState;
         },
+        "VARIATION_ROW_REMOVE": function(state,action) {
+            console.log("in variationremoveremove with action.payload.variationId: ", action.payload.variationId );
+            var variationsCopy = state.variations.slice();
+            if(variationsCopy.length <= 1) return state;
+            var indexOfVariation = null;
+            for(var i =0; i < variationsCopy.length; i++){
+                if(variationsCopy[i].id==action.payload.variationId) {
+                    indexOfVariation = i;
+                    break;
+                }
+            }
+            console.log('indexOfVariation: ' , indexOfVariation);
+            if(indexOfVariation<0){
+                return state;
+            }
+            variationsCopy.splice(indexOfVariation,1);
+            var newState = Object.assign({}, state, {
+                variations: variationsCopy
+            });
+            return newState;
+        },
         "NEW_ATTRIBUTE_COLUMN_REQUEST": function(state, action) {
             var fieldsCopy = state.fields.slice();
             currentCustomFieldId++;
             fieldsCopy.push(defaultNewCustomField(action.payload.uniqueNameKey));
             var tablesFieldsCopy = state.tablesFields.slice();
-            console.log("tableFieldsCopy : " , tablesFieldsCopy)
             tablesFieldsCopy.push({
                 tableId: 1,
                 fieldId: currentCustomFieldId
@@ -130,8 +151,6 @@ define([
                 tableId:2,
                 fieldId:currentCustomFieldId
             });
-            console.log('new tableFieldsCopy: ' , tablesFieldsCopy);
-
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy,
                 tablesFields: tablesFieldsCopy
@@ -169,7 +188,24 @@ define([
                 fields: fieldsCopy
             });
             return newState;
-        }
+        },
+        "CELL_CHANGE_RECORD": function(state, action) {
+            var cellsCopy = state.cells.slice();
+            for (var i=0; i<cellsCopy.length; i++){
+                if((cellsCopy[i].variationId == action.payload.variationId)&&(cellsCopy[i].fieldId == action.payload.fieldId)){
+                    return state;
+                }
+            }
+            cellsCopy.push({
+                variationId: action.payload.variationId,
+                fieldId: action.payload.fieldId,
+                hasChanged:true
+            });
+            var newState = Object.assign({}, state, {
+                cells: cellsCopy
+            });
+            return newState;
+        },
 
     });
     return VariationsTableReducer;

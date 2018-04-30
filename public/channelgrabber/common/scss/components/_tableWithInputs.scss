@@ -7,6 +7,7 @@
     overflow: initial;
     width: inherit;
     text-align: left;
+    padding:$padding--distance-xsmall;
 }
 .c-table-with-inputs__cell-heading {
     text-align: center;
@@ -27,8 +28,8 @@
     transform: translate(-50%, -50%);
 }
 .c-table-with-inputs__text-input {
-    width: auto;
-    max-width: 90%;
+    max-width: 100%;
+    box-sizing:border-box;
     float: left;
     border: 1px solid transparent;
     padding: $padding--input-field;

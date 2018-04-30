@@ -114,6 +114,7 @@ define([
                                 fields: stateFilters.filterFields.bind(2)
                             }}
                             formSectionName='dimensionsTable'
+                            classNames={['u-margin-top-small']}
                         />
 
 
