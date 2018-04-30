@@ -5,8 +5,8 @@ define([
     'Common/Components/Input',
     'Common/Components/Button',
     'Common/Components/ImagePicker',
+    'Common/Components/RefreshIcon',
     'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/RefreshIcon',
     'Product/Components/CreateListing/Form/Shared/VariationPicker',
     'Product/Components/CreateListing/Form/Shared/SimpleProduct'
 ], function(
@@ -16,8 +16,8 @@ define([
     Input,
     Button,
     ImagePicker,
-    CategorySelect,
     RefreshIcon,
+    CategorySelect,
     VariationPicker,
     SimpleProduct
 ) {
