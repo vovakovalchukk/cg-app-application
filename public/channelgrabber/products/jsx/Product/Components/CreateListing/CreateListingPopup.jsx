@@ -104,7 +104,7 @@ define([
         renderImagePicker: function (field) {
             if (this.props.product.images.length == 0) {
                 return (
-                    <p>No images available</p>
+                    <p className="react-image-picker">No images available</p>
                 );
             }
             return (

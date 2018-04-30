@@ -436,15 +436,21 @@ define([
             />;
         },
         fetchVariationForProductListingCreation: function() {
-            if (this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length) {
+            if (this.state.variations[this.state.createListing.product.id]
+                && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
+            ) {
                 this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
             }
         },
         renderCreateListingPopup: function() {
+            var variationData = this.state.variations[this.state.createListingData.product.id]
+                ? this.state.variations[this.state.createListingData.product.id]
+                : [this.state.createListingData.product];
+
             return <CreateListingPopupRoot
                 {...this.state.createListingData}
                 conditionOptions={this.formatConditionOptions()}
-                variationsDataForProduct={this.state.variations[this.state.createListingData.product.id]}
+                variationsDataForProduct={variationData}
             />;
         },
         formatConditionOptions: function() {
