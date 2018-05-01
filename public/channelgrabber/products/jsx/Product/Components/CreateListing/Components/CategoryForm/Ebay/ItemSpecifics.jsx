@@ -19,6 +19,7 @@ define([
     return React.createClass({
         getInitialState: function() {
             return {
+                categoryId: null,
                 optionalItemSpecifics: [],
                 selectedItemSpecifics: {},
                 customItemSpecifics: [],
@@ -103,7 +104,7 @@ define([
             if (!builder) {
                 return null;
             }
-            return <Field name={name} component={builder.bind(this, name, properties)} />;
+            return <Field name={name} component={builder.bind(this, name, properties)}  />;
         },
         buildTextItemSpecific: function(name, options, field) {
             var inputs = [];
@@ -156,6 +157,7 @@ define([
                 index={item.index}
                 name={item.name}
                 value={item.value}
+                categoryId={this.props.categoryId}
                 onRemoveButtonClick={this.onRemoveCustomSpecificButtonClick}
                 onChange={this.onCustomInputChange}
             />;

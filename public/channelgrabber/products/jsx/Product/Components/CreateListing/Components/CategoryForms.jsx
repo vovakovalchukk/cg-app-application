@@ -39,6 +39,7 @@ define([
                                 name={'id-'+categoryId}
                                 component={CategoryForm}
                                 channelForm={ChannelForm}
+                                categoryId={categoryId}
                                 {...category}
                             />);
                         }

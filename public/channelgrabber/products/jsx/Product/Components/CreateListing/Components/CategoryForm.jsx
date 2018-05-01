@@ -10,7 +10,8 @@ define([
             return {
                 title: null,
                 fieldValues: {},
-                channelForm: null
+                channelForm: null,
+                categoryId: null
             };
         },
         render: function() {
@@ -18,7 +19,7 @@ define([
             return (
                 <div className="category-form-container">
                     <h2>Category: {this.props.title}</h2>
-                    <ChannelForm {...this.props.fieldValues} />
+                    <ChannelForm categoryId={this.props.categoryId} {...this.props.fieldValues} />
                 </div>
             );
         }

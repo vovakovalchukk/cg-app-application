@@ -10,13 +10,14 @@ define([
     var EbayCategoryFormComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                categoryId: null,
                 itemSpecifics: {}
             };
         },
         render: function() {
             return (
                 <div className="ebay-category-form-container">
-                    <ItemSpecifics itemSpecifics={this.props.itemSpecifics} />
+                    <ItemSpecifics categoryId={this.props.categoryId} itemSpecifics={this.props.itemSpecifics} />
                 </div>
             );
         }
