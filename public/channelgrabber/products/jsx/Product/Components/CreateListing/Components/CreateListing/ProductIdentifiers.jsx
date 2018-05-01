@@ -2,16 +2,17 @@ define([
     'react',
     'redux-form',
     'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
+    'Product/Components/CreateListing/Form/Shared/ImageDropDown',
+    './VariationTable'
 ], function(
     React,
     ReduxForm,
     Input,
-    ImageDropDown
+    ImageDropDown,
+    VariationTable
 ) {
     "use strict";
 
-    var FormSection = ReduxForm.FormSection;
     var Field = ReduxForm.Field;
 
     var identifiers = [
@@ -76,29 +77,11 @@ define([
             return {
                 variationsDataForProduct: [],
                 product: {},
-                images: true,
                 attributeNames: [],
                 attributeNameMap: {},
             }
         },
-        renderImageHeader: function() {
-            if (!this.props.images) {
-                return;
-            }
-            return <th>Image</th>;
-        },
-        renderAttributeHeaders: function () {
-            return this.props.attributeNames.map(function(attributeName) {
-                var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
-                return <th
-                    className="attribute-header with-title"
-                    title={attributeNameText}
-                >
-                    {attributeNameText}
-                </th>;
-            }.bind(this));
-        },
-        renderIdentifierReaders: function () {
+        renderIdentifierHeaders: function () {
             return identifiers.map(function (identifier) {
                 return <th
                     title={identifier.displayTitle}
@@ -108,61 +91,20 @@ define([
                 </th>;
             });
         },
-        renderVariationRows: function () {
-            return this.props.variationsDataForProduct.map(function(variation) {
-                return <tr>
-                    {this.renderImageColumn(variation)}
-                    <td>{variation.sku}</td>
-                    {this.renderAttributeColumns(variation)}
-                    {this.renderIdentifierColumns(variation)}
-                </tr>
-            }.bind(this));
-        },
-        renderImageColumn: function(variation) {
-            if (!this.props.images) {
-                return;
-            }
-            if (this.props.product.images == 0) {
-                return <td>No images available</td>
-            }
-
-            return (<td>
-                <Field
-                    name={variation.sku + ".imageId"}
-                    component={this.renderImageField.bind(this, variation)}
-                />
-            </td>);
-        },
-        renderImageField: function(variation, field) {
-            var selected = (variation.images.length > 0 ? variation.images[0] : this.props.product.images[0]);
-            return <ImageDropDown
-                selected={selected}
-                autoSelectFirst={false}
-                images={this.props.product.images}
-                onChange={this.onImageSelected.bind(this, field)}
-            />
-        },
-        onImageSelected: function(field, image) {
-            this.onInputChange(field.input, image.target.value);
-        },
-        renderAttributeColumns: function(variation) {
-            return this.props.attributeNames.map(function(attributeName) {
-                return <td>{variation.attributeValues[attributeName]}</td>
-            });
-        },
         renderIdentifierColumns: function (variation) {
             return identifiers.map(function (identifier) {
                 return (<td>
                     <Field
                         name={variation.sku + "." + identifier.name}
-                        component={this.renderInputComponent.bind(this, (identifier.type ? identifier.type : 'input'))}
+                        component={this.renderInputComponent}
                         validate={identifier.validate ? [identifier.validate] : undefined}
                         normalize={identifier.normalize ? identifier.normalize : value => value}
+                        inputType={identifier.type ? identifier.type : 'input'}
                     />
                 </td>)
             }.bind(this));
         },
-        renderInputComponent: function(inputType, field) {
+        renderInputComponent: function(field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 name={field.input.name}
@@ -171,7 +113,7 @@ define([
                 errors={errors}
                 className={"product-identifier-input"}
                 errorBoxClassName={"product-input-error"}
-                inputType={inputType}
+                inputType={field.inputType}
             />;
         },
         onInputChange: function(input, value) {
@@ -179,21 +121,16 @@ define([
         },
         render: function() {
             return (
-                <FormSection name="identifiers">
-                    <div className={"variation-picker"}>
-                        <table>
-                            <thead>
-                            <tr>
-                                {this.renderImageHeader()}
-                                <th>SKU</th>
-                                {this.renderAttributeHeaders()}
-                                {this.renderIdentifierReaders()}
-                            </tr>
-                            </thead>
-                            {this.renderVariationRows()}
-                        </table>
-                    </div>
-                </FormSection>
+                <VariationTable
+                    sectionName={"identifiers"}
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    images={true}
+                    attributeNames={this.props.attributeNames}
+                    attributeNameMap={this.props.attributeNameMap}
+                    renderCustomTableHeaders={this.renderIdentifierHeaders}
+                    renderCustomTableRows={this.renderIdentifierColumns}
+                />
             );
         }
     });
