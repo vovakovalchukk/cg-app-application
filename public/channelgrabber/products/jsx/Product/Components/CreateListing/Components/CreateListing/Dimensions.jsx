@@ -156,6 +156,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
                 images={true}
+                renderImagePicker={false}
                 attributeNames={this.props.attributeNames}
                 attributeNameMap={this.props.attributeNameMap}
                 renderCustomTableHeaders={this.renderDimensionHeaders}

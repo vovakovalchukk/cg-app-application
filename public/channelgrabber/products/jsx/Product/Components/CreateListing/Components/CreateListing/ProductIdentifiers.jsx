@@ -95,7 +95,7 @@ define([
             return identifiers.map(function (identifier) {
                 return (<td>
                     <Field
-                        name={variation.sku + "." + identifier.name}
+                        name={"identifiers." + variation.sku + "." + identifier.name}
                         component={this.renderInputComponent}
                         validate={identifier.validate ? [identifier.validate] : undefined}
                         normalize={identifier.normalize ? identifier.normalize : value => value}
