@@ -13,13 +13,6 @@ define([
 
     var Field = ReduxForm.Field;
 
-    var validateNumber = function (value) {
-        if (isNaN(Number(value))) {
-            return 'Must be a number';
-        }
-        return undefined;
-    };
-
     var ProductPriceComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -76,7 +69,6 @@ define([
                     <Field
                         name={"prices." + variation.sku + "." + account.id}
                         component={this.renderInputComponent.bind(this, account.id, variation.sku)}
-                        validate={[validateNumber]}
                     />
                 </td>)
             }.bind(this));

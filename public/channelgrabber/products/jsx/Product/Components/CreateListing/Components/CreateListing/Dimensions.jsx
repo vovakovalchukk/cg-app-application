@@ -13,33 +13,22 @@ define([
 
     var Field = ReduxForm.Field;
 
-    var validateNumber = function (value) {
-        if (isNaN(Number(value))) {
-            return 'Must be a number';
-        }
-        return undefined;
-    };
-
     var dimensions = [
         {
             "name": "weight",
-            "displayTitle": "Weight (kg)",
-            "validate": validateNumber
+            "displayTitle": "Weight (kg)"
         },
         {
             "name": "width",
-            "displayTitle": "Width (cm)",
-            "validate": validateNumber
+            "displayTitle": "Width (cm)"
         },
         {
             "name": "height",
-            "displayTitle": "Height (cm)",
-            "validate": validateNumber
+            "displayTitle": "Height (cm)"
         },
         {
             "name": "length",
-            "displayTitle" : "Depth (cm)",
-            "validate": validateNumber
+            "displayTitle" : "Depth (cm)"
         }
     ];
 
