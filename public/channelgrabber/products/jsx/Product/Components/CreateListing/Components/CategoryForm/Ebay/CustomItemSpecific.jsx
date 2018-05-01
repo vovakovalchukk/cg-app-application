@@ -76,21 +76,21 @@ define([
                 />
             </span>;
         },
-        renderName: function(fieldName, field) {
+        renderName: function(field) {
             this.setState({nameInput: field.input});
             return (<span className={"inputbox-label container-extra-item-specific"}>
                 <Input
-                    name={fieldName}
+                    name={field.input.name}
                     value={this.props.name}
                     onChange={this.onNameChange.bind(this, this.props.index, field.input)}
                 />
             </span>);
         },
-        renderValue: function(fieldName, field) {
+        renderValue: function(field) {
             this.setState({valueInput: field.input});
             return (<div className={"order-inputbox-holder"}>
                 <Input
-                    name={fieldName}
+                    name={field.input.name}
                     value={this.props.value}
                     onChange={this.onValueChange.bind(this, this.props.index, field.input)}
                 />
@@ -99,9 +99,11 @@ define([
         render: function () {
             var nameFieldName = this.getCustomInputName(this.props.index);
             var valueFieldName = this.getCustomInputValueName(this.props.index);
+            // Do NOT use bind() on the component functions, it will cause the fields to keep losing focus
+            // https://redux-form.com/7.3.0/docs/api/field.md/#2-a-stateless-function
             return <label>
-                <Field name={nameFieldName} component={this.renderName.bind(this, nameFieldName)} />
-                <Field name={valueFieldName} component={this.renderValue.bind(this, valueFieldName)} />
+                <Field name={nameFieldName} component={this.renderName} />
+                <Field name={valueFieldName} component={this.renderValue} />
                 {this.renderRemoveButton(this.props.index)}
             </label>;
         }
