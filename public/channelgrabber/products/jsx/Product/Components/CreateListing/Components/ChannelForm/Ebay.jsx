@@ -17,10 +17,25 @@ define([
                 shippingMethods: {}
             };
         },
+        renderDispatchTimeMax: function(field) {
+            return (
+                <label>
+                    <span className={"inputbox-label"}>Dispatch Time Max</span>
+                    <div className={"order-inputbox-holder"}>
+                        <Input
+                            name={field.input.name}
+                            inputType="number"
+                            value={field.input.value}
+                            onChange={field.input.onChange}
+                        />
+                    </div>
+                </label>
+            );
+        },
         render: function() {
             return (
                 <div className="ebay-channel-form-container">
-                    Ebay
+                    <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} />
                 </div>
             );
         }
