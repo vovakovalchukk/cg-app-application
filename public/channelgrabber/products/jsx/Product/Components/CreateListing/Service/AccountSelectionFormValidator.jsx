@@ -1,4 +1,8 @@
-define([], function() {
+define([
+    'react'
+], function(
+    React
+) {
    "use strict";
 
     var service = {
@@ -59,6 +63,20 @@ define([], function() {
             }
             return null;
         },
+        validateAccountListingSettings: function(props) {
+            var errors = {};
+            for (var accountId in props.accountSettings) {
+                var settings = props.accountSettings[accountId];
+                if (settings.error) {
+                    var accountIndex = service.findAccountIndexForAccountId(accountId, props);
+                    if (accountIndex === null) {
+                        return;
+                    }
+                    errors[accountIndex] = "<span>Test</span>";
+                }
+            }
+            return Object.keys(errors).length > 0 ? errors : null;
+        }
     };
 
     return function (formValues, props) {
@@ -68,6 +86,11 @@ define([], function() {
 
         if (accountsErrors) {
             errors.accounts = accountsErrors;
+        } else {
+            accountsErrors = service.validateAccountListingSettings(props);
+            if (accountsErrors) {
+                errors.accounts = accountsErrors;
+            }
         }
         if (categoryErrors) {
             errors.categories = categoryErrors;

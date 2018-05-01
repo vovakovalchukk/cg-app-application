@@ -70,6 +70,8 @@ define([
                 name="accounts"
                 component={AccountSelectComponent}
                 accounts={this.props.accounts}
+                accountSettings={this.props.accountSettings}
+                fetchSettingsForAccount={this.props.fetchSettingsForAccount}
             />
         },
         renderAddNewCategoryComponent: function() {
@@ -175,6 +177,7 @@ define([
             addNewCategoryVisible: state.addNewCategoryVisible.isVisible,
             categoryTemplateOptions: Object.assign({}, state.categoryTemplateOptions),
             accountsForCategoryMap: convertStateToCategoryMaps(state),
+            accountSettings: state.accountSettings
         }
     };
 
@@ -197,6 +200,9 @@ define([
             },
             submitForm: function() {
                 dispatch(ReduxForm.submit("accountSelection"));
+            },
+            fetchSettingsForAccount: function(accountId) {
+                dispatch(Actions.fetchSettingsForAccount(accountId, dispatch));
             }
         }
     };

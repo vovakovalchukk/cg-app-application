@@ -49,5 +49,26 @@ define([
                 }
             };
         },
+        fetchSettingsForAccount: function(accountId, dispatch) {
+            $.ajax({
+                context: this,
+                url: '/products/create-listings/' + accountId + '/default-settings',
+                type: 'GET',
+                success: function (response) {
+                    if (response.error == 'NO_SETTINGS') {
+                        dispatch(ResponseActions.noAccountSettings(accountId));
+                        return;
+                    }
+
+                    dispatch(ResponseActions.accountSettingsFetched(accountId, response));
+                }
+            });
+            return {
+                type: "FETCH_SETTINGS_FOR_ACCOUNT",
+                payload: {
+                    accountId: accountId
+                }
+            };
+        }
     };
 });
