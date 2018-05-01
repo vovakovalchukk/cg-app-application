@@ -1,43 +1,27 @@
 define([
     'react',
+    'react-redux',
     'redux-form',
     'Common/Components/Input'
 ], function(
     React,
+    ReactRedux,
     ReduxForm,
     Input
 ) {
     var Field = ReduxForm.Field;
 
-    return React.createClass({
+    const CustomItemSpecific = React.createClass({
         getDefaultProps: function() {
             return {
                 index: null,
                 name: null,
                 value: null,
+                categoryId: null,
                 onRemoveButtonClick: null,
                 onChange: null,
-                input: null
+                resetField: null
             };
-        },
-        getDefaultState: function() {
-            return {
-                nameInput: null,
-                valueInput: null
-            };
-        },
-        shouldComponentUpdate: function(nextProps, nextState) {
-            // We're going to ignore state changes as we're just using that to keep a handle on the inputs
-            // and we don't want that to trigger a re-render
-            return this.havePropsChanged(nextProps);
-        },
-        havePropsChanged: function(nextProps) {
-            for (var key in this.props) {
-                if (typeof nextProps[key] == 'undefined' || nextProps[key] != this.props[key]) {
-                    return true;
-                }
-            }
-            return false;
         },
         getCustomInputName: function(index) {
             return 'CustomInputName' + index;
@@ -50,10 +34,10 @@ define([
             this.props.onRemoveButtonClick(index);
         },
         resetFields: function() {
-            this.state.nameInput.value = '';
-            this.state.nameInput.onChange('');
-            this.state.valueInput.value = '';
-            this.state.valueInput.onChange('');
+            var nameFieldName = 'category.id-' + this.props.categoryId + '.' + this.getCustomInputName(this.props.index);
+            var valueFieldName = 'category.id-' + this.props.categoryId + '.' + this.getCustomInputValueName(this.props.index);
+            this.props.resetField(nameFieldName);
+            this.props.resetField(valueFieldName);
         },
         onNameChange: function(index, input, event) {
             var value = event.target.value;
@@ -77,7 +61,6 @@ define([
             </span>;
         },
         renderName: function(field) {
-            this.setState({nameInput: field.input});
             return (<span className={"inputbox-label container-extra-item-specific"}>
                 <Input
                     name={field.input.name}
@@ -87,7 +70,6 @@ define([
             </span>);
         },
         renderValue: function(field) {
-            this.setState({valueInput: field.input});
             return (<div className={"order-inputbox-holder"}>
                 <Input
                     name={field.input.name}
@@ -108,4 +90,15 @@ define([
             </label>;
         }
     });
+
+    const mapStateToProps = null;
+    const mapDispatchToProps = function(dispatch) {
+        return {
+            resetField: function(fieldName) {
+                dispatch(ReduxForm.change('createListing', fieldName, ''));
+            }
+        };
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CustomItemSpecific);
 });
