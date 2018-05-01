@@ -110,6 +110,17 @@
     }
   }
 
+  .category-form-container {
+    float: left;
+    clear: both;
+    margin-top: 10px;
+    h2 {
+      float: left;
+      clear: both;
+      font-size: 1.3em;
+    }
+  }
+
   .container-buttons {
     float: right;
   }
