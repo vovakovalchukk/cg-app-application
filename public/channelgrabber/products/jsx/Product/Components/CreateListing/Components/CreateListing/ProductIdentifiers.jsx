@@ -18,6 +18,7 @@ define([
         {
             "name": "ean",
             "displayTitle": "EAN (European barcode)",
+            "type": "number",
             "validate": function(value) {
                 if (!value) {
                     return undefined;
@@ -40,6 +41,7 @@ define([
         {
             "name": "upc",
             "displayTitle": "UPC (Widely used in NA)",
+            "type": "number",
             "validate": function(value) {
                 if (!value) {
                     return undefined;
@@ -153,14 +155,14 @@ define([
                 return (<td>
                     <Field
                         name={variation.sku + "." + identifier.name}
-                        component={this.renderInputComponent}
+                        component={this.renderInputComponent.bind(this, (identifier.type ? identifier.type : 'input'))}
                         validate={identifier.validate ? [identifier.validate] : undefined}
                         normalize={identifier.normalize ? identifier.normalize : value => value}
                     />
                 </td>)
             }.bind(this));
         },
-        renderInputComponent: function(field) {
+        renderInputComponent: function(inputType, field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 name={field.input.name}
@@ -169,7 +171,7 @@ define([
                 errors={errors}
                 className={"product-identifier-input"}
                 errorBoxClassName={"product-input-error"}
-                inputType={"number"}
+                inputType={inputType}
             />;
         },
         onInputChange: function(input, value) {
