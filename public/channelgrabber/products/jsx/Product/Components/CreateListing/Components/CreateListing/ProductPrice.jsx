@@ -77,8 +77,6 @@ define([
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 {...field.input}
-                name={field.input.name}
-                value={field.input.value}
                 onChange={this.onInputChange.bind(this, field.input, accountId, sku)}
                 errors={errors}
                 className={"product-price-input"}
@@ -89,20 +87,23 @@ define([
         onInputChange: function(input, accountId, sku, value) {
             input.onChange(value.target.value);
             if (this.isFirstVariationRow(sku)) {
-                this.props.variationsDataForProduct.map(function (variation) {
-                    if (sku == variation.sku) {
-                        return;
-                    }
-                    if (accountId in this.state.touchedPrices
-                        && variation.sku in this.state.touchedPrices[accountId]
-                        && this.state.touchedPrices[accountId][variation.sku]) {
-                        return;
-                    }
-                    this.props.change("prices." + variation.sku + "." + accountId, value.target.value);
-                }.bind(this));
+                this.copyPriceFromFirstRowToUntouchedRows(accountId, sku);
             } else {
                 this.markPriceAsTouchedForSkuAndAccount(sku, accountId);
             }
+        },
+        copyPriceFromFirstRowToUntouchedRows: function(accountId, sku) {
+            this.props.variationsDataForProduct.map(function (variation) {
+                if (sku == variation.sku) {
+                    return;
+                }
+                if (accountId in this.state.touchedPrices
+                    && variation.sku in this.state.touchedPrices[accountId]
+                    && this.state.touchedPrices[accountId][variation.sku]) {
+                    return;
+                }
+                this.props.change("prices." + variation.sku + "." + accountId, value.target.value);
+            }.bind(this));
         },
         isFirstVariationRow: function(sku) {
             if (sku == this.props.variationsDataForProduct[0].sku) {
@@ -126,7 +127,7 @@ define([
                 sectionName={"prices"}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
-                images={true}
+                showImages={true}
                 renderImagePicker={false}
                 attributeNames={this.props.attributeNames}
                 attributeNameMap={this.props.attributeNameMap}

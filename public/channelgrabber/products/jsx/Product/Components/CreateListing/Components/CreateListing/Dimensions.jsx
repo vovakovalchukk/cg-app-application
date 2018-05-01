@@ -95,8 +95,6 @@ define([
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 {...field.input}
-                name={field.input.name}
-                value={field.input.value}
                 onChange={this.onInputChange.bind(this, field.input, field.dimensionName, field.variation.sku)}
                 errors={errors}
                 className={"product-dimension-input"}
@@ -107,17 +105,7 @@ define([
         onInputChange: function(input, dimension, sku, value) {
             input.onChange(value.target.value);
             if (this.isFirstVariationRow(sku)) {
-                this.props.variationsDataForProduct.map(function (variation) {
-                    if (sku == variation.sku) {
-                        return;
-                    }
-                    if (dimension in this.state.touchedDimensions
-                        && variation.sku in this.state.touchedDimensions[dimension]
-                        && this.state.touchedDimensions[dimension][variation.sku]) {
-                        return;
-                    }
-                    this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
-                }.bind(this));
+                this.copyDimensionFromFirstRowToUntouchedRows(dimension, sku);
             } else {
                 this.markDimensionAsTouchedForSku(sku, dimension);
             }
@@ -127,6 +115,19 @@ define([
                 return true;
             }
             return false;
+        },
+        copyDimensionFromFirstRowToUntouchedRows: function(dimension, sku) {
+            this.props.variationsDataForProduct.map(function (variation) {
+                if (sku == variation.sku) {
+                    return;
+                }
+                if (dimension in this.state.touchedDimensions
+                    && variation.sku in this.state.touchedDimensions[dimension]
+                    && this.state.touchedDimensions[dimension][variation.sku]) {
+                    return;
+                }
+                this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
+            }.bind(this));
         },
         markDimensionAsTouchedForSku: function(sku, dimension) {
             if (this.state.touchedDimensions[dimension][sku]) {
@@ -144,7 +145,7 @@ define([
                 sectionName={"dimensions"}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 product={this.props.product}
-                images={true}
+                showImages={true}
                 renderImagePicker={false}
                 attributeNames={this.props.attributeNames}
                 attributeNameMap={this.props.attributeNameMap}

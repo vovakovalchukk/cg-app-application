@@ -24,9 +24,6 @@ define([
                 if (!value) {
                     return undefined;
                 }
-                if (isNaN(Number(value))) {
-                    return 'Must be a number';
-                }
                 if (value.length != 13) {
                     return 'Must be exactly 13 digits long';
                 }
@@ -47,9 +44,6 @@ define([
                 if (!value) {
                     return undefined;
                 }
-                if (isNaN(Number(value))) {
-                    return 'Must be a number';
-                }
                 if (value.length != 12) {
                     return 'Must be exactly 12 digits long';
                 }
@@ -68,7 +62,22 @@ define([
         },
         {
             "name": "isbn",
-            "displayTitle" : "ISBN (if applicable)"
+            "displayTitle" : "ISBN (if applicable)",
+            "validate": function(value) {
+                if (!value) {
+                    return undefined;
+                }
+                if (value.length != 13) {
+                    return 'Must be exactly 13 digits long';
+                }
+                return undefined;
+            },
+            "normalize": function(value, previousValue) {
+                if (value.length > 13) {
+                    return previousValue;
+                }
+                return value;
+            }
         }
     ];
 
@@ -107,8 +116,6 @@ define([
         renderInputComponent: function(field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
-                name={field.input.name}
-                value={field.input.value}
                 onChange={this.onInputChange.bind(this, field.input)}
                 errors={errors}
                 className={"product-identifier-input"}
@@ -125,7 +132,7 @@ define([
                     sectionName={"identifiers"}
                     variationsDataForProduct={this.props.variationsDataForProduct}
                     product={this.props.product}
-                    images={true}
+                    showImages={true}
                     attributeNames={this.props.attributeNames}
                     attributeNameMap={this.props.attributeNameMap}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}

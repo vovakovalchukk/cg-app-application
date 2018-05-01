@@ -17,7 +17,7 @@ define([
             return {
                 variationsDataForProduct: [],
                 product: {},
-                images: true,
+                showImages: true,
                 renderImagePicker: true,
                 attributeNames: [],
                 attributeNameMap: {},
@@ -27,7 +27,7 @@ define([
             }
         },
         renderImageHeader: function() {
-            if (!this.props.images) {
+            if (!this.props.showImages) {
                 return;
             }
             return <th>Image</th>;
@@ -54,7 +54,7 @@ define([
             }.bind(this));
         },
         renderImageColumn: function(variation) {
-            if (!this.props.images) {
+            if (!this.props.showImages) {
                 return;
             }
             if (this.props.product.images == 0) {
@@ -102,12 +102,8 @@ define([
             if (!imageId) {
                 return selectedImage;
             }
-            this.props.product.images.map(function(image) {
-                if (image.id == imageId) {
-                    selectedImage = image;
-                }
-            });
-            return selectedImage;
+            var foundImage = this.props.product.images.find(image => image.id == imageId);
+            return foundImage ? foundImage : selectedImage;
         },
         renderAttributeColumns: function(variation) {
             return this.props.attributeNames.map(function(attributeName) {
