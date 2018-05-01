@@ -58,7 +58,20 @@ define([
             if (!meta.error) {
                 return null;
             }
-            return <span className="input-error account-error">{meta.error}</span>;
+            var error = JSON.parse(meta.error);
+            console.log(error);
+            return <span className="input-error account-error">
+                {error.message}
+                {this.renderErrorLink(error)}
+            </span>;
+        },
+        renderErrorLink: function(error) {
+            if (!error.linkTitle || !error.linkUrl) {
+                return null;
+            }
+            return <a href={error.linkUrl} target={"_blank"}>
+                {error.linkTitle}
+            </a>;
         },
         renderGeneralErrorMessage: function() {
             var meta = this.props.meta;
