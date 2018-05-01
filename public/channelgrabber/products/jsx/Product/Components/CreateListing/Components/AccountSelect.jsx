@@ -58,7 +58,6 @@ define([
             if (!meta.error) {
                 return null;
             }
-            console.log(meta.error, $.parseHTML(meta.error));
             return <span className="input-error account-error">{meta.error}</span>;
         },
         renderGeneralErrorMessage: function() {
