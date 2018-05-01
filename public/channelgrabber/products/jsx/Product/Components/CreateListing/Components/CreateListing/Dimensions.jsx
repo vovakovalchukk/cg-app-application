@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/Input'
+    'Common/Components/Input',
+    './VariationTable'
 ], function(
     React,
     ReduxForm,
-    Input
+    Input,
+    VariationTable
 ) {
     "use strict";
 
@@ -82,81 +84,9 @@ define([
                 touchedDimensions: touchedDimensions
             });
         },
-        renderImageHeader: function() {
-            if (!this.props.images) {
-                return;
-            }
-            return <th className="image-header">Image</th>;
-        },
-        renderAttributeHeaders: function () {
-            return this.props.attributeNames.map(function(attributeName) {
-                var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
-                return <th
-                    className="attribute-header with-title"
-                    title={attributeNameText}
-                >
-                    {attributeNameText}
-                </th>;
-            }.bind(this));
-        },
         renderDimensionHeaders: function () {
             return dimensions.map(function (identifier) {
                 return <th>{identifier.displayTitle}</th>;
-            });
-        },
-        renderVariationRows: function () {
-            return this.props.variationsDataForProduct.map(function(variation) {
-                return <tr>
-                    {this.renderImageColumn(variation)}
-                    <td>{variation.sku}</td>
-                    {this.renderAttributeColumns(variation)}
-                    {this.renderDimensionColumns(variation)}
-                </tr>
-            }.bind(this));
-        },
-        renderImageColumn: function(variation) {
-            if (!this.props.images) {
-                return;
-            }
-            if (this.props.product.images == 0) {
-                return <td>No images available</td>
-            }
-
-            return (<td>
-                <Field
-                    name={"identifiers." + variation.sku + ".imageId"}
-                    component={this.renderImageField}
-                />
-            </td>);
-        },
-        renderImageField: function(field) {
-            var image = this.findSelectedImageForVariation(field.input.value);
-            return (
-                <div className="image-dropdown-target">
-                    <div className="react-image-picker">
-                        <span className="react-image-picker-image">
-                            <img src={image.url}/>
-                        </span>
-                    </div>
-                </div>
-
-            );
-        },
-        findSelectedImageForVariation: function(imageId) {
-            var selectedImage = {url: ""};
-            if (!imageId) {
-                return selectedImage;
-            }
-            this.props.product.images.map(function(image) {
-                if (image.id == imageId) {
-                    selectedImage = image;
-                }
-            });
-            return selectedImage;
-        },
-        renderAttributeColumns: function(variation) {
-            return this.props.attributeNames.map(function(attributeName) {
-                return <td>{variation.attributeValues[attributeName]}</td>
             });
         },
         renderDimensionColumns: function (variation) {
@@ -164,19 +94,21 @@ define([
                 return (<td>
                     <Field
                         name={"dimensions." + variation.sku + "." + dimension.name}
-                        component={this.renderInputComponent.bind(this, dimension.name, variation.sku)}
+                        component={this.renderInputComponent}
                         validate={dimension.validate ? [dimension.validate] : undefined}
+                        dimensionName={dimension.name}
+                        variation={variation}
                     />
                 </td>)
             }.bind(this));
         },
-        renderInputComponent: function(dimension, sku, field) {
+        renderInputComponent: function(field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
             return <Input
                 {...field.input}
                 name={field.input.name}
                 value={field.input.value}
-                onChange={this.onInputChange.bind(this, field.input, dimension, sku)}
+                onChange={this.onInputChange.bind(this, field.input, field.dimensionName, field.variation.sku)}
                 errors={errors}
                 className={"product-dimension-input"}
                 errorBoxClassName={"product-input-error"}
@@ -219,21 +151,16 @@ define([
             });
         },
         render: function() {
-            return (
-                <div className={"variation-picker"}>
-                    <table>
-                        <thead>
-                        <tr>
-                            {this.renderImageHeader()}
-                            <th>SKU</th>
-                            {this.renderAttributeHeaders()}
-                            {this.renderDimensionHeaders()}
-                        </tr>
-                        </thead>
-                        {this.renderVariationRows()}
-                    </table>
-                </div>
-            );
+            return <VariationTable
+                sectionName={"dimensions"}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                product={this.props.product}
+                images={true}
+                attributeNames={this.props.attributeNames}
+                attributeNameMap={this.props.attributeNameMap}
+                renderCustomTableHeaders={this.renderDimensionHeaders}
+                renderCustomTableRows={this.renderDimensionColumns}
+            />;
         }
     });
 
