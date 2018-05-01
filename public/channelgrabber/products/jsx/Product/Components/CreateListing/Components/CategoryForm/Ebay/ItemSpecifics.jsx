@@ -104,9 +104,11 @@ define([
             if (!builder) {
                 return null;
             }
-            return <Field name={name} component={builder.bind(this, name, properties)}  />;
+            return <Field name={name} component={builder} label={name} options={properties}  />;
         },
-        buildTextItemSpecific: function(name, options, field) {
+        buildTextItemSpecific: function(field) {
+            var name = field.label;
+            var options = field.options;
             var inputs = [];
             var counts = this.state.itemSpecificsCounts;
             var count = (counts[name]) ? counts[name] : 1;
@@ -232,7 +234,9 @@ define([
             });
             return options;
         },
-        buildSelectItemSpecific: function(name, options, field) {
+        buildSelectItemSpecific: function(field) {
+            var name = field.label;
+            var options = field.options;
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
@@ -260,7 +264,9 @@ define([
             }
             return selectOptions;
         },
-        buildTextSelectItemSpecific: function(name, options, field) {
+        buildTextSelectItemSpecific: function(field) {
+            var name = field.label;
+            var options = field.options;
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
