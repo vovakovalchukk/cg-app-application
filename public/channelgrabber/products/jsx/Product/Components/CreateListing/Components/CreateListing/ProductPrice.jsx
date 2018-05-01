@@ -37,6 +37,8 @@ define([
         setTouchedPricesFromInitialPrices: function(props) {
             var touchedPrices = {};
 
+            console.log(props.initialPrices);
+
             props.accounts.map(function(account) {
                 var touchedPricesForAccount = {};
                 props.variationsDataForProduct.map(function(variation) {
@@ -87,12 +89,12 @@ define([
         onInputChange: function(input, accountId, sku, value) {
             input.onChange(value.target.value);
             if (this.isFirstVariationRow(sku)) {
-                this.copyPriceFromFirstRowToUntouchedRows(accountId, sku);
+                this.copyPriceFromFirstRowToUntouchedRows(accountId, sku, value.target.value);
             } else {
                 this.markPriceAsTouchedForSkuAndAccount(sku, accountId);
             }
         },
-        copyPriceFromFirstRowToUntouchedRows: function(accountId, sku) {
+        copyPriceFromFirstRowToUntouchedRows: function(accountId, sku, value) {
             this.props.variationsDataForProduct.map(function (variation) {
                 if (sku == variation.sku) {
                     return;
@@ -102,7 +104,7 @@ define([
                     && this.state.touchedPrices[accountId][variation.sku]) {
                     return;
                 }
-                this.props.change("prices." + variation.sku + "." + accountId, value.target.value);
+                this.props.change("prices." + variation.sku + "." + accountId, value);
             }.bind(this));
         },
         isFirstVariationRow: function(sku) {

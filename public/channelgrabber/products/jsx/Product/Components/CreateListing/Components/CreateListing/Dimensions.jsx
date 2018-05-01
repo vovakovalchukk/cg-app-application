@@ -105,7 +105,7 @@ define([
         onInputChange: function(input, dimension, sku, value) {
             input.onChange(value.target.value);
             if (this.isFirstVariationRow(sku)) {
-                this.copyDimensionFromFirstRowToUntouchedRows(dimension, sku);
+                this.copyDimensionFromFirstRowToUntouchedRows(dimension, sku, value.target.value);
             } else {
                 this.markDimensionAsTouchedForSku(sku, dimension);
             }
@@ -116,7 +116,7 @@ define([
             }
             return false;
         },
-        copyDimensionFromFirstRowToUntouchedRows: function(dimension, sku) {
+        copyDimensionFromFirstRowToUntouchedRows: function(dimension, sku, value) {
             this.props.variationsDataForProduct.map(function (variation) {
                 if (sku == variation.sku) {
                     return;
@@ -126,7 +126,7 @@ define([
                     && this.state.touchedDimensions[dimension][variation.sku]) {
                     return;
                 }
-                this.props.change("dimensions." + variation.sku + "." + dimension, value.target.value);
+                this.props.change("dimensions." + variation.sku + "." + dimension, value);
             }.bind(this));
         },
         markDimensionAsTouchedForSku: function(sku, dimension) {

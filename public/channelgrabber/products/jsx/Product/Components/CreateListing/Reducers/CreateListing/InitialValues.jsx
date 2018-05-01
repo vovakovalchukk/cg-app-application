@@ -25,7 +25,8 @@ define([
             variationData.map(function(variation) {
                 var pricesForVariation = {};
                 selectedAccounts.map(function(accountId) {
-                    pricesForVariation[accountId] = parseFloat(variation.details.price).toFixed(2);
+                    var price = parseFloat(variation.details.price).toFixed(2);
+                    pricesForVariation[accountId] = isNaN(price) ? null : price;
                 });
                 prices[variation.sku] = pricesForVariation;
             });
