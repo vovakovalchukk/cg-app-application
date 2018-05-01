@@ -37,8 +37,6 @@ define([
         setTouchedPricesFromInitialPrices: function(props) {
             var touchedPrices = {};
 
-            console.log(props.initialPrices);
-
             props.accounts.map(function(account) {
                 var touchedPricesForAccount = {};
                 props.variationsDataForProduct.map(function(variation) {
