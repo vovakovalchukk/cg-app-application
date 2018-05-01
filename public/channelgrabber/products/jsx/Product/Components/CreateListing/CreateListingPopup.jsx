@@ -50,19 +50,19 @@ define([
         renderForm: function() {
             return <form>
                 <span className="heading-large">Listing information</span>
-                <Field name="title" component={this.renderInputComponent.bind(this, "Listing Title:")}/>
-                <Field name="description" component={this.renderTextAreaComponent.bind(this, "Description:")}/>
-                <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
-                <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
+                <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
+                <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+                <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
+                <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
                 {this.renderProductIdentifiers()}
                 {this.renderDimensions()}
                 {this.renderProductPrices()}
             </form>
         },
-        renderInputComponent: function(title, field) {
+        renderInputComponent: function(field) {
             return <label className="input-container">
-                <span className={"inputbox-label"}>{title}</span>
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <Input
                         name={field.input.name}
@@ -72,9 +72,9 @@ define([
                 </div>
             </label>;
         },
-        renderTextAreaComponent: function(title, field) {
+        renderTextAreaComponent: function(field) {
             return <label className="input-container">
-                <span className={"inputbox-label"}>{title}</span>
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <TextArea
                         name={field.input.name}
@@ -85,15 +85,15 @@ define([
                 </div>
             </label>;
         },
-        renderSelectComponent: function(title, options, field) {
+        renderSelectComponent: function(field) {
             return <label className="input-container">
-                <span className={"inputbox-label"}>{title}</span>
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
                         autoSelectFirst={false}
                         onOptionChange={this.onSelectOptionChange.bind(this, field.input)}
-                        options={options}
-                        selectedOption={this.findSelectedOption(field.input.value, options)}
+                        options={field.options}
+                        selectedOption={this.findSelectedOption(field.input.value, field.options)}
                     />
                 </div>
             </label>;
