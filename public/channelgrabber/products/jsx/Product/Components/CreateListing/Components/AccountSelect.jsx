@@ -20,7 +20,8 @@ define([
             return {
                 accounts: {},
                 accountSettings: {},
-                fetchSettingsForAccount: function() {}
+                fetchSettingsForAccount: function() {},
+                touch: function() {},
             }
         },
         renderAccountBadge: function(field) {
@@ -59,7 +60,6 @@ define([
                 return null;
             }
             var error = JSON.parse(meta.error);
-            console.log(error);
             return <span className="input-error account-error">
                 {error.message}
                 {this.renderErrorLink(error)}

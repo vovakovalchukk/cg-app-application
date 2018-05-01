@@ -72,6 +72,7 @@ define([
                 accounts={this.props.accounts}
                 accountSettings={this.props.accountSettings}
                 fetchSettingsForAccount={this.props.fetchSettingsForAccount}
+                touch={this.props.touch}
             />
         },
         renderAddNewCategoryComponent: function() {
