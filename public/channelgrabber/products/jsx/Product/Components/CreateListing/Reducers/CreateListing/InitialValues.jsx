@@ -5,6 +5,17 @@ define([
 ) {
     var initialState = {};
 
+    var getDetailForProduct = function(detailName, productDetails, variationData) {
+        if (productDetails[detailName]) {
+            return productDetails[detailName];
+        }
+        var variation = variationData.find(function(variation) {
+           return !!variation.details[detailName];
+        });
+
+        return variation ? variation.details[detailName] : '';
+    };
+
     return reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
@@ -31,10 +42,26 @@ define([
                 prices[variation.sku] = pricesForVariation;
             });
 
+            var identifiers = {};
+            variationData.map(function(variation) {
+                identifiers[variation.sku] = {
+                    ean: variation.details.ean,
+                    upc: variation.details.upc,
+                    isbn: variation.details.isbn,
+                    mpn: variation.details.mpn
+                };
+            });
+
+            var productDetails = product.detail ? product.details : {};
+
             return {
                 title: product.name,
+                description: getDetailForProduct('description', productDetails, variationData),
+                condition: getDetailForProduct('condition', productDetails, variationData),
+                brand: getDetailForProduct('brand', productDetails, variationData),
+                identifiers: identifiers,
                 dimensions: dimensions,
-                prices: prices
+                prices: prices,
             };
         }
     });
