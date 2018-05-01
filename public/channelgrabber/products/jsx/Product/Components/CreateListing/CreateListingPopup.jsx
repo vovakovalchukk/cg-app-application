@@ -48,7 +48,7 @@ define([
             this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct, this.props.accounts);
         },
         renderForm: function() {
-            return <form onSubmit={this.props.handleSubmit}>
+            return <form>
                 <span className="heading-large">Listing information</span>
                 <Field name="title" component={this.renderInputComponent.bind(this, "Listing Title:")}/>
                 <Field name="description" component={this.renderTextAreaComponent.bind(this, "Description:")}/>
