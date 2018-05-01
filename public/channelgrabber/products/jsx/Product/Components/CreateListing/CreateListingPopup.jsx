@@ -5,6 +5,7 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Common/Components/Input',
+    'Common/Components/TextArea',
     'Common/Components/Select',
     'Common/Components/ImagePicker',
     './Actions/CreateListings/Actions',
@@ -18,6 +19,7 @@ define([
     ReduxForm,
     Container,
     Input,
+    TextArea,
     Select,
     ImagePicker,
     Actions,
@@ -49,7 +51,7 @@ define([
             return <form onSubmit={this.props.handleSubmit}>
                 <span className="heading-large">Listing information</span>
                 <Field name="title" component={this.renderInputComponent.bind(this, "Listing Title:")}/>
-                <Field name="description" component={this.renderInputComponent.bind(this, "Description:")}/>
+                <Field name="description" component={this.renderTextAreaComponent.bind(this, "Description:")}/>
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
@@ -66,6 +68,19 @@ define([
                         name={field.input.name}
                         value={field.input.value}
                         onChange={this.onInputChange.bind(this, field.input)}
+                    />
+                </div>
+            </label>;
+        },
+        renderTextAreaComponent: function(title, field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{title}</span>
+                <div className={"order-inputbox-holder"}>
+                    <TextArea
+                        name={field.input.name}
+                        value={field.input.value}
+                        onChange={this.onInputChange.bind(this, field.input)}
+                        className={"textarea-description"}
                     />
                 </div>
             </label>;
@@ -128,7 +143,7 @@ define([
         },
         renderProductIdentifiers: function() {
             return (<span>
-                <span className="heading-large">Product Identifiers</span>
+                <span className="heading-large heading-table">Product Identifiers</span>
                 <ProductIdentifiers
                     variationsDataForProduct={this.props.variationsDataForProduct}
                     product={this.props.product}
@@ -138,7 +153,7 @@ define([
         },
         renderDimensions: function() {
             return (<span>
-                <span className="heading-large">Dimensions</span>
+                <span className="heading-large heading-table">Dimensions</span>
                 <Dimensions
                     variationsDataForProduct={this.props.variationsDataForProduct}
                     product={this.props.product}
@@ -150,7 +165,7 @@ define([
         },
         renderProductPrices: function() {
             return (<span>
-                <span className="heading-large">Price</span>
+                <span className="heading-large heading-table">Price</span>
                 <ProductPrice
                     variationsDataForProduct={this.props.variationsDataForProduct}
                     product={this.props.product}

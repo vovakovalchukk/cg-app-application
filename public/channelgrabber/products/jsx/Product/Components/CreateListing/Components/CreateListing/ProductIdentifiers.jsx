@@ -88,7 +88,10 @@ define([
         renderAttributeHeaders: function () {
             return this.props.attributeNames.map(function(attributeName) {
                 var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
-                return <th>
+                return <th
+                    className="attribute-header with-title"
+                    title={attributeNameText}
+                >
                     {attributeNameText}
                 </th>;
             }.bind(this));

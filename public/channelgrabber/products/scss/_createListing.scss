@@ -30,7 +30,7 @@
 
   .inputbox-label {
     margin-right: 12px;
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 
   .container-extra-item-specific {
@@ -152,14 +152,20 @@
 
   .heading-large {
     font-size: 1.5em;
-    margin-bottom: 5px;
-    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    &.heading-table {
+      margin-bottom: 8px;
+    }
   }
 
   label.input-container {
     width: 465px;
-    margin: 0 auto;
     display: block;
+  }
+
+  .textarea-description {
+    padding: 9px 35px 8px 5px;
   }
 }
 
@@ -211,9 +217,7 @@
     width: auto;
     min-width: 800px;
   }
-
 }
-
 
 .variation-picker {
   margin: 20px 0;
@@ -255,7 +259,6 @@
 
   table {
     float: none;
-    margin: 0 auto;
 
     th {
       padding: 8px;
@@ -266,6 +269,12 @@
       }
       &.account-header {
         max-width: 75px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &.attribute-header {
+        max-width: 125px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
