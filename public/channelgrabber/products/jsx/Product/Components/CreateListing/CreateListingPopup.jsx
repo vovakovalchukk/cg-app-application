@@ -8,6 +8,7 @@ define([
     'Common/Components/Select',
     'Common/Components/ImagePicker',
     './Actions/CreateListings/Actions',
+    './Components/ChannelForms',
     './Components/CategoryForms'
 ], function(
     React,
@@ -19,6 +20,7 @@ define([
     Select,
     ImagePicker,
     Actions,
+    ChannelForms,
     CategoryForms
 ) {
     "use strict";
@@ -46,6 +48,7 @@ define([
                 <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
                 <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
+                <FormSection name="channel" component={ChannelForms} categoryTemplates={this.props.categoryTemplates} />
                 <FormSection name="category" component={CategoryForms} categoryTemplates={this.props.categoryTemplates} />
             </form>
         },
