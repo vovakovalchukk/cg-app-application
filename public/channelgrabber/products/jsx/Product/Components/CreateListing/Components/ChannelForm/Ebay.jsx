@@ -20,12 +20,12 @@ define([
             };
         },
         renderDispatchTimeMax: function(field) {
-            return this.renderInput('Dispatch Time Max', field);
+            return this.renderInput('Dispatch Time Max', field, 'What is the longest amount of time it may take you to dispatch an item?');
         },
         renderShippingPrice: function(field) {
-            return this.renderInput('Shipping Price', field);
+            return this.renderInput('Shipping Price', field, 'How much you want to charge for shipping?');
         },
-        renderInput: function(label, field) {
+        renderInput: function(label, field, tooltip) {
             return (
                 <label>
                     <span className={"inputbox-label"}>{label}</span>
@@ -35,6 +35,7 @@ define([
                             inputType="number"
                             value={field.input.value}
                             onChange={field.input.onChange}
+                            title={tooltip}
                         />
                     </div>
                 </label>
