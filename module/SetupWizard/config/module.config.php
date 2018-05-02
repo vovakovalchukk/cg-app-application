@@ -4,10 +4,9 @@ namespace SetupWizard;
 use SetupWizard\Channels\Service;
 use SetupWizard\Controller\IndexController;
 use SetupWizard\Messages\Service as MessagesService;
-use SetupWizard\Module;
 use SetupWizard\Navigation\SidebarNavFactory;
-use SetupWizard\StepStatusService;
 use Zend\Mvc\Router\Http\Literal;
+use CG_UI\Module as CG_UI;
 
 // SetupProgress
 use CG\Settings\SetupProgress\Storage\Api as SetupProgressApiStorage;
@@ -94,7 +93,7 @@ return [
     'SetupWizard' => [
         'SetupWizard' => [
             'white_listed_routes' => [
-
+                CG_UI::NAVIGATION_ROUTE => true,
             ]
         ]
     ]

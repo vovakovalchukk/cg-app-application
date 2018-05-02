@@ -28,7 +28,7 @@ define([
             }
         },
         "CATEGORY_MAPS_FETCHED": function (state, action) {
-            var loadMore = Object.keys(action.payload.categoryMaps).length == 10;
+            var loadMore = Object.keys(action.payload.categoryMaps).length == 5;
             return {
                 searchText: state.searchText,
                 page: state.page + 1,
