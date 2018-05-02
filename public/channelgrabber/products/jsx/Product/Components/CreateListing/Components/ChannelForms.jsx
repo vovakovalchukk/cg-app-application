@@ -21,6 +21,20 @@ define([
                 categoryTemplates: {}
             };
         },
+        renderForCategoryTemplates: function() {
+            var output = [];
+            var channelsData = this.getChannelsDataFromCategoryTemplates(this.props.categoryTemplates);
+            for (var channel in channelsData) {
+                var channelData = channelsData[channel];
+                var ChannelForm = channelToFormMap[channel];
+                output.push(<FormSection
+                    name={channel}
+                    component={ChannelForm}
+                    {...channelData.fieldValues}
+                />);
+            }
+            return output;
+        },
         getChannelsDataFromCategoryTemplates: function(categoryTemplates) {
             var channelsData = {};
             for (var categoryTemplateId in categoryTemplates) {
@@ -28,7 +42,7 @@ define([
                 for (var categoryId in categoryTemplate.categories) {
                     var category = categoryTemplate.categories[categoryId];
                     var channel = category.channel;
-                    if (typeof channelToFormMap[channel] == 'undefined') {
+                    if (!this.isChannelSpecificFormPresent(channel)) {
                         continue;
                     }
                     channelsData[channel] = category;
@@ -36,19 +50,13 @@ define([
             }
             return channelsData;
         },
+        isChannelSpecificFormPresent: function(channel) {
+            return (typeof channelToFormMap[channel] != 'undefined');
+        },
         render: function() {
-            var channelsData = this.getChannelsDataFromCategoryTemplates(this.props.categoryTemplates);
             return (
                 <div className="channel-forms-container">
-                    {Object.keys(channelsData).map(function(channel) {
-                        var channelData = channelsData[channel];
-                        var ChannelForm = channelToFormMap[channel];
-                        return (<FormSection
-                            name={channel}
-                            component={ChannelForm}
-                            {...channelData.fieldValues}
-                        />);
-                    })}
+                    {this.renderForCategoryTemplates()}
                 </div>
             );
         }
