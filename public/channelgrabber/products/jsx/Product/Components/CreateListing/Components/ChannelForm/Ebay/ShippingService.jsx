@@ -30,7 +30,6 @@ define([
                         title="Shipping Service"
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
-                        title="This must match your shipping services on eBay"
                     />
                 </div>
             </label>;

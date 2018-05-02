@@ -24,10 +24,10 @@ define([
             };
         },
         getCustomInputName: function(index) {
-            return 'CustomInputName' + index;
+            return 'custom.' + index + '.name';
         },
         getCustomInputValueName: function(index) {
-            return 'CustomInputValueName' + index;
+            return 'custom.' + index + '.value';
         },
         onRemoveButtonClick: function(index, event) {
             this.resetFields();
