@@ -18,6 +18,7 @@ define([
     var ChannelFormsComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                accounts: [],
                 categoryTemplates: {}
             };
         },
@@ -41,14 +42,19 @@ define([
                 var categoryTemplate = categoryTemplates[categoryTemplateId];
                 for (var categoryId in categoryTemplate.categories) {
                     var category = categoryTemplate.categories[categoryId];
-                    var channel = category.channel;
-                    if (!this.isChannelSpecificFormPresent(channel)) {
+                    if (!this.isAccountSelected(category.accountId)) {
                         continue;
                     }
-                    channelsData[channel] = category;
+                    if (!this.isChannelSpecificFormPresent(category.channel)) {
+                        continue;
+                    }
+                    channelsData[category.channel] = category;
                 }
             }
             return channelsData;
+        },
+        isAccountSelected: function(accountId) {
+            return (this.props.accounts.indexOf(accountId) >= 0);
         },
         isChannelSpecificFormPresent: function(channel) {
             return (typeof channelToFormMap[channel] != 'undefined');

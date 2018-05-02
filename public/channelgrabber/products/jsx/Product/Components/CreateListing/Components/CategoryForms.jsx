@@ -44,7 +44,7 @@ define([
             return output;
         },
         renderForCategory: function(category, categoryId) {
-            if (!this.isAccountSelected(category.accountId, category.channel)) {
+            if (!this.isAccountSelected(category.accountId)) {
                 return null;
             }
             if (!this.isChannelSpecificFormPresent(category.channel)) {
@@ -60,11 +60,8 @@ define([
                 {...category}
             />);
         },
-        isAccountSelected: function(accountId, channel) {
-//            if (accountId && this.props.accounts.indexOf(accountId) > 0) {
-                return true;
-//            }
-
+        isAccountSelected: function(accountId) {
+            return (this.props.accounts.indexOf(accountId) >= 0);
         },
         isChannelSpecificFormPresent: function(channel) {
             return (typeof channelToFormMap[channel] != 'undefined');
