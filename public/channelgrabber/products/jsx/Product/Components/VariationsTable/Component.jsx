@@ -15,6 +15,7 @@ define([
     StockModeInputs
 ) {
 
+    var Form = reduxForm.Form;
     var Field = reduxForm.Field;
     var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
@@ -27,6 +28,12 @@ define([
         },
         variationRowFieldOnChange: function(event, variationId, fieldId) {
             this.props.newVariationRowCreateRequest(variationId);
+
+        },
+        variationRowRemove:function(variationId,event){
+            console.log('in variationRowRemove with this.props: ', this.props , ' and variationId: ' , variationId ,' and event ' , event);
+            this.props.resetSection('variations.'+'variation-'+variationId.toString());
+            this.props.variationRowRemove(variationId);
         },
         renderVariationTableHeading: function(field) {
             var jsx = '';
@@ -127,7 +134,7 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component="input"
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId,field.id)}
+                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId, field.id)}
                     />
                 )
             },
@@ -186,15 +193,15 @@ define([
         renderVariationRow: function(variation) {
             var variationId = variation.id;
             var removeVariationCellStyle = {
-                background:'white',
-                border:'none'
+                background: 'white',
+                border: 'none'
             }
             return (
                 <FormSection name={"variation-" + variationId}>
                     <tr className={"u-border-none"}>
                         {this.renderVariationRowFields(variationId)}
-                        <td style={removeVariationCellStyle} >
-                            <button type="button" onClick={this.props.variationRowRemove.bind(this, variationId)}>remove
+                        <td style={removeVariationCellStyle}>
+                            <button type="button" onClick={this.variationRowRemove.bind(this, variationId)}>remove
                             </button>
                         </td>
                     </tr>
@@ -203,12 +210,14 @@ define([
         },
         renderVariationsTable: function(variations) {
             return (
-                <FormSection name={"variations"}>
-                    <table className={'c-table-with-inputs'}>
-                        {this.renderVariationsTableHeaderRow()}
-                        {this.renderVariations()}
-                    </table>
-                </FormSection>
+                <Form>
+                    <FormSection name={"variations"}>
+                        <table className={'c-table-with-inputs'}>
+                            {this.renderVariationsTableHeaderRow()}
+                            {this.renderVariations()}
+                        </table>
+                    </FormSection>
+                </Form>
             );
         },
         render: function() {
@@ -217,14 +226,5 @@ define([
     });
 
     return VariationsTableComponent;
-
-    function optionExistsAlready(option, options) {
-        for (var i = 0; i < options.length; i++) {
-            if (option.value == options[i].value) {
-                console.log('option exists already');
-                return true;
-            }
-        }
-    }
 
 });

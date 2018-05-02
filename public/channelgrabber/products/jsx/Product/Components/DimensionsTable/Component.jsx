@@ -23,11 +23,10 @@ define([
                 fields: [],
                 rows: [{}],
                 values: [],
-                formSectionName: null
+                formName: null,
+                formSectionName: null,
+                fieldChange: null
             };
-        },
-        renderHeadings: function() {
-
         },
         renderHeadings: function() {
             return this.props.fields.map(function(field) {
@@ -71,29 +70,69 @@ define([
                 }}
             />
         },
-        fieldNoInputRenderMethods:{
+        isFirstVariationRow: function(variationId, field) {
+            var variations = this.props.values.variations;
+            for (var firstVariation in variations) {
+                break;
+            }
+            if (firstVariation == 'variation-' + variationId.toString()) {
+                return true;
+            }
+        },
+        changeAllOtherUnchangedValuesToMatchField: function(field, targetValue) {
+            var variations = this.props.values.variations;
+            for (var variation in variations) {
+                var id = parseInt(variation.replace('variation-', ''));
+                var variationFieldIdentifier = 'variations.' + variation + '.' + field.name;
+                if (!this.cellHasChanged(id, field.id)) {
+                    console.log("cell HAS NOT changed!!! id: ", id, ' field.id: ', field.id);
+                    console.log('therefore setting value : ', targetValue, ' on variationFieldIdentifier : ', variationFieldIdentifier);
+                    this.props.fieldChange(
+                        variationFieldIdentifier,
+                        targetValue
+                    )
+                } else {
+                    console.log("...cell has.. changed!!! id: ", id, ' field.id: ', field.id);
+                }
+            }
+        },
+        fieldOnChangeHandler: function(variationId, field, event) {
+            console.log('in fieldOnChange handler: ', field)
+            this.props.cellChangeRecord(variationId, field.id);
+
+            if (this.isFirstVariationRow(variationId, field)) {
+                console.log("change made to first variation!");
+                var value = event.target.value;
+                console.log('value: ', value);
+//                var variations = this.props.values.variations;
+                this.changeAllOtherUnchangedValuesToMatchField(field, value);
+            } else {
+                console.log('not a first row change');
+            }
+        },
+        fieldNoInputRenderMethods: {
             text: function(variationId, field, value) {
                 return (
                     <span>{value}</span>
                 )
             },
-            image: function(variationId, field,imageId) {
+            image: function(variationId, field, imageId) {
                 var uploadedImages = this.props.uploadedImages.images;
                 var imageUrl = '';
-                for(var i=0; i<uploadedImages.length; i++){
-                    if(uploadedImages[i].id==imageId) {
-                        imageUrl=uploadedImages[i].url;
+                for (var i = 0; i < uploadedImages.length; i++) {
+                    if (uploadedImages[i].id == imageId) {
+                        imageUrl = uploadedImages[i].url;
                         break;
                     }
                 }
                 return (
                     <span>
                         <img
-                        src={imageUrl}/>
+                            src={imageUrl}/>
                     </span>
                 )
             },
-            customOptionsSelect: function(variationId, field,value) {
+            customOptionsSelect: function(variationId, field, value) {
                 return <span>{value}</span>;
             }
         },
@@ -105,9 +144,7 @@ define([
                         name={field.name}
                         className={'form-row__input'}
                         component="input"
-                        onChange={function(){
-                            this.props.cellChangeRecord(variationId,field.id);
-                        }.bind(this)}
+                        onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
                     />
                 )
             },
@@ -134,43 +171,78 @@ define([
                 />;
             }
         },
-        getFieldValueFromState: function(variationId,field){
+        getFieldValueFromState: function(variationId, field) {
             var variations = this.props.values.variations;
-            var variationSelector = 'variation-'+variationId.toString();
-            if( !variations[variationSelector] ){
+            var variationSelector = 'variation-' + variationId.toString();
+            if (!variations[variationSelector]) {
                 return null;
             }
-            if(!variations[variationSelector][field.name]){
+            if (!variations[variationSelector][field.name]) {
                 return null
-            }else{
+            } else {
                 return variations[variationSelector][field.name];
             }
         },
-        cellHasChanged:function(variationId,fieldId,fieldName){
-          var cells = this.props.cells;
-//          console.log('in cellHasCHanged with cells: ', cells, ' variationId: ', variationId, ' and fieldId: ' , fieldId , ' fieldName: ' , fieldName);
-          for(var i = 0; i < cells.length; i++){
-              if( (cells[i].variationId == variationId) && (cells[i].fieldId == fieldId) ){
-                  console.log("found match")
-                if(cells[i].hasChanged){
-
-                    console.log('CELL HAS CHANGED!');
-                    return true;
+        cellHasChanged: function(variationId, fieldId, fieldName) {
+            var cells = this.props.cells;
+            console.log('in cellHasCHanged with cells: ', cells, ' variationId: ', variationId, ' and fieldId: ', fieldId, ' fieldName: ', fieldName);
+            for (var i = 0; i < cells.length; i++) {
+                if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {
+                    if (cells[i].hasChanged) {
+                        return true;
+                    }
                 }
-              }
-          }
-          return false;
+            }
+            return false;
+        },
+        isFirstRowVariation(variationId) {
+            if (!this.props.values || !this.props.values.variations) {
+                return undefined;
+            }
+            var variations = this.props.values.variations;
+            for (var firstVariation in variations) {
+                break;
+            }
+            if (firstVariation == 'variation-' + variationId + toString()) {
+                return true;
+            }
+            return false;
+        },
+        getFirstRowValue: function(variationId, fieldName) {
+//            console.log("in getFirstRowDimensionValue with variationId: ", variationId , ' and fieldId: ' , fieldId);
+//            console.log('this.value: ' , this.values);
+            if (!this.props.values || !this.props.values.variations) {
+                return undefined;
+            }
+            var variations = this.props.values.variations;
+
+            for (var firstVariation in variations) {
+                break;
+            }
+            var firstVariationObject = variations[firstVariation];
+//            console.log("firstVariationObject: " , firstVariationObject);
+            if (isEmpty(firstVariationObject)) {
+//                console.log('first row variation is empty so breaking out!!!');
+                return undefined;
+            }
+            if (!firstVariationObject[fieldName]) {
+                return undefined;
+            }
+            var value = firstVariationObject[fieldName];
+            return value;
         },
         renderField: function(variationId, field) {
             var renderFieldMethod = null;
-            var fieldValue = this.getFieldValueFromState ( variationId,field );
-            if(field.isDimensionsField){
+            var fieldValue = ''
 
-                //todo check to see if has changed
-                var hasChanged = this.cellHasChanged(variationId,field.id, field.name)
-
-                renderFieldMethod = this.fieldInputRenderMethods[field.type].bind(this, variationId, field);
-            }else{
+            if (field.isDimensionsField) {
+//                var hasNotChanged = !this.cellHasChanged(variationId, field.id, field.name)
+//                if (hasNotChanged) {
+//                    this.setAllNonFirstRowValuesToFieldValue(variationId,field);
+//                }
+                renderFieldMethod = this.fieldInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
+            } else {
+                fieldValue = this.getFieldValueFromState(variationId, field);
                 renderFieldMethod = this.fieldNoInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
             }
             return (
@@ -215,5 +287,14 @@ define([
     });
 
     return DimensionsTableComponent;
+
+    function isEmpty(obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 });

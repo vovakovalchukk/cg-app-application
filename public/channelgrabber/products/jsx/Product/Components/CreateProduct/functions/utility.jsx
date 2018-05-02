@@ -5,7 +5,6 @@ define([], function() {
         optionExistsAlready: function(option, options) {
             for (var i = 0; i < options.length; i++) {
                 if (option.value == options[i].value) {
-                    console.log('option exists already');
                     return true;
                 }
             }

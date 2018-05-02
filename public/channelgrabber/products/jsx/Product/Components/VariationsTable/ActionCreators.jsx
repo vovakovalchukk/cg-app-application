@@ -49,7 +49,6 @@ define([], function() {
                         } else {
                             var nonDimensionalValues = getNonDimensionalVariationFields(variationValues,currState.variationsTable.fields);
                             if (nonDimensionalValues.length==0) {
-                                console.log('no nonDimensional values so dispatching')
                                 dispatch(ActionCreators.newVariationRowCreate());
                             }
                         }
@@ -93,7 +92,6 @@ define([], function() {
             var fieldsToReturn = [];
             for (var field in values) {
                 if (!isDimensionField(field, fields)) {
-                    console.log('field : ', fields, ' is dimension field so returning true');
                     fieldsToReturn.push(field)
                 }
 
@@ -106,7 +104,6 @@ define([], function() {
             for (var i = 0; i < fields.length; i++) {
                 if (fields[i].name == field) {
                     if (fields[i].isDimensionsField) {
-                        console.log('fields[i]: ', fields[i], ' is dimension field : ', fields[i].isDimensionsField);
                         return true;
                     }
                 }

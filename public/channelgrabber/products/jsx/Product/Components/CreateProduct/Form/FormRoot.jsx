@@ -1,14 +1,17 @@
 define([
     'redux',
     'react-redux',
+    'redux-form',
     'Product/Components/CreateProduct/Form/Form',
     'Product/Components/CreateProduct/Form/FormActionCreators',
 ], function (
     Redux,
     ReactRedux,
+    ReduxForm,
     CreateProductForm,
     formActionCreators
 ) {
+    var resetSection = ReduxForm.resetSection;
     "use strict";
     const mapStateToProps = function(state){
         return{
@@ -18,7 +21,10 @@ define([
         }
     };
     const mapDispatchToProps = function(dispatch) {
-        return Redux.bindActionCreators(formActionCreators, dispatch);
+        var combinedActionCreators = Object.assign({}, formActionCreators, {
+            resetSection: resetSection
+        });
+        return Redux.bindActionCreators(combinedActionCreators, dispatch);
     };
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return FormConnector(CreateProductForm);

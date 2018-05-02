@@ -3,7 +3,6 @@ define([], function() {
     var functions = {
 
         filterFields: function(tableIdToFilterFor, variationsTable) {
-//            console.log('in filterFields with tableIdToFilterFor: ',tableIdToFilterFor);
             var fieldsToAllow = variationsTable.tablesFields.filter(function(tableField) {
                 if (tableField.tableId == tableIdToFilterFor) {
                     return tableField.fieldId;

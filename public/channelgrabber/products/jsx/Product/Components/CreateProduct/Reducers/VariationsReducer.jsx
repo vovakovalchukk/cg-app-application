@@ -36,7 +36,7 @@ define([
                 name: 'image',
                 label: 'Image',
                 type: 'image',
-                isCustomAttribute: false,
+                isCustomAttribute: false
             },
             {
                 id: 2,
@@ -65,7 +65,8 @@ define([
                 label: 'Weight (kg)',
                 type: 'text',
                 isCustomAttribute: false,
-                isDimensionsField: true
+                isDimensionsField: true,
+                defaultValue:''
             },
             {
                 id: 6,
@@ -73,7 +74,8 @@ define([
                 label: 'Width (cm)',
                 type: 'text',
                 isCustomAttribute: false,
-                isDimensionsField: true
+                isDimensionsField: true,
+                defaultValue:''
             },
             {
                 id: 7,
@@ -81,7 +83,8 @@ define([
                 label: 'Height (cm)',
                 type: 'text',
                 isCustomAttribute: false,
-                isDimensionsField: true
+                isDimensionsField: true,
+                defaultValue:'thomas'
             },
             {
                 id: 8,
@@ -89,10 +92,11 @@ define([
                 label: 'Depth (cm)',
                 type: 'text',
                 isCustomAttribute: false,
-                isDimensionsField: true
+                isDimensionsField: true,
+                defaultValue:''
             }
         ],
-        cells:[]
+        cells: []
     };
     var currentCustomFieldId = initialState.fields.length;
 
@@ -118,22 +122,21 @@ define([
             })
             return newState;
         },
-        "VARIATION_ROW_REMOVE": function(state,action) {
-            console.log("in variationremoveremove with action.payload.variationId: ", action.payload.variationId );
+        "VARIATION_ROW_REMOVE": function(state, action) {
+            console.log('in variation_row_remove reducer ');
             var variationsCopy = state.variations.slice();
-            if(variationsCopy.length <= 1) return state;
+            if (variationsCopy.length <= 1) return state;
             var indexOfVariation = null;
-            for(var i =0; i < variationsCopy.length; i++){
-                if(variationsCopy[i].id==action.payload.variationId) {
+            for (var i = 0; i < variationsCopy.length; i++) {
+                if (variationsCopy[i].id == action.payload.variationId) {
                     indexOfVariation = i;
                     break;
                 }
             }
-            console.log('indexOfVariation: ' , indexOfVariation);
-            if(indexOfVariation<0){
+            if (indexOfVariation < 0) {
                 return state;
             }
-            variationsCopy.splice(indexOfVariation,1);
+            variationsCopy.splice(indexOfVariation, 1);
             var newState = Object.assign({}, state, {
                 variations: variationsCopy
             });
@@ -147,9 +150,9 @@ define([
             tablesFieldsCopy.push({
                 tableId: 1,
                 fieldId: currentCustomFieldId
-            },{
-                tableId:2,
-                fieldId:currentCustomFieldId
+            }, {
+                tableId: 2,
+                fieldId: currentCustomFieldId
             });
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy,
@@ -191,21 +194,20 @@ define([
         },
         "CELL_CHANGE_RECORD": function(state, action) {
             var cellsCopy = state.cells.slice();
-            for (var i=0; i<cellsCopy.length; i++){
-                if((cellsCopy[i].variationId == action.payload.variationId)&&(cellsCopy[i].fieldId == action.payload.fieldId)){
-                    return state;
-                }
+            if(getCell(cellsCopy,action.payload.variationId,action.payload.fieldId)){
+                return state;
             }
             cellsCopy.push({
                 variationId: action.payload.variationId,
                 fieldId: action.payload.fieldId,
-                hasChanged:true
+                hasChanged: true
             });
             var newState = Object.assign({}, state, {
                 cells: cellsCopy
             });
+
             return newState;
-        },
+        }
 
     });
     return VariationsTableReducer;
@@ -215,6 +217,15 @@ define([
             return field.name;
         }).indexOf(fieldName);
         return fields[indexOfField];
+    }
+
+    function getCell(cells, variationId,fieldId){
+        for (var i = 0; i < cells.length; i++) {
+            if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {
+                return cells[i];
+            }
+        }
+        return null;
     }
 
 });

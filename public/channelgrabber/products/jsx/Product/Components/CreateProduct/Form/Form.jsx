@@ -1,6 +1,7 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
     'Product/Components/CreateProduct/functions/stateFilters',
     'Common/Components/ImageUploader/ImageUploaderRoot',
     'Common/Components/ImagePicker',
@@ -11,6 +12,7 @@ define([
 ], function(
     React,
     reduxForm,
+    ReactRedux,
     stateFilters,
     ImageUploader,
     ImagePicker,
@@ -22,7 +24,6 @@ define([
 
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
-    var FormSection = reduxForm.FormSection;
 
     var inputColumnRenderMethods = {
         newProductName: function() {
@@ -79,9 +80,6 @@ define([
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom--small"}
-                      onKeyDown={(e) => {
-                          console.log('in key down')
-                      }}
                 >
                     <fieldset className={'form-root__fieldset margin-bottom--small'}>
                         <FormRow
@@ -102,7 +100,9 @@ define([
                     <fieldset className={'margin-bottom--small'}>
                         <legend className={'form-root__legend'}>Variations</legend>
 
-                        <VariationsTable/>
+                        <VariationsTable
+                            resetSection={this.props.resetSection}
+                        />
 
                         <DimensionsTable
                             stateSelectors={{
@@ -113,8 +113,10 @@ define([
                             stateFilters={{
                                 fields: stateFilters.filterFields.bind(2)
                             }}
+                            formName='createProductForm'
                             formSectionName='dimensionsTable'
                             classNames={['u-margin-top-small']}
+                            fieldChange={this.props.change}
                         />
 
 
