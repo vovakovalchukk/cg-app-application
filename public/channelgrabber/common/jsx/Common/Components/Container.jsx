@@ -10,8 +10,18 @@ define([
             return {
                 className: null,
                 headerText: null,
-                subHeaderText: null
+                subHeaderText: null,
+                yesButtonDisabled: false
             }
+        },
+        getYesButtonClassName: function() {
+            return "button container-btn yes" + (this.props.yesButtonDisabled ? " disabled" : "");
+        },
+        onYesButtonPressed: function() {
+            if (this.props.yesButtonDisabled) {
+                return;
+            }
+            this.props.onYesButtonPressed(...arguments);
         },
         render: function() {
             return <div className={'container-wrapper ' + this.props.className}>
@@ -30,7 +40,7 @@ define([
                     <div className="container-buttons">
                         <div style={{margin: "0px auto"}}>
                             <div className="button container-btn no" onClick={this.props.onNoButtonPressed}>{this.props.noButtonText}</div>
-                            <div className="button container-btn yes" onClick={this.props.onYesButtonPressed}>{this.props.yesButtonText}</div>
+                            <div className={this.getYesButtonClassName()} onClick={this.onYesButtonPressed}>{this.props.yesButtonText}</div>
                         </div>
                     </div>
                 </div>

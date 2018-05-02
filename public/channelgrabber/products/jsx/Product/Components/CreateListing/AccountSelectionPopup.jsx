@@ -106,6 +106,18 @@ define([
                 </form>
             );
         },
+        isSubmitButtonDisabled: function() {
+            if (this.props.invalid) {
+                return true;
+            }
+            for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (account.isFetching) {
+                    return true;
+                }
+            }
+            return false;
+        },
         render: function() {
             return (
                 <Container
@@ -117,6 +129,7 @@ define([
                     onYesButtonPressed={this.props.submitForm}
                     yesButtonText="Next"
                     noButtonText="Cancel"
+                    yesButtonDisabled={this.isSubmitButtonDisabled()}
                 >
                     {this.renderForm()}
                 </Container>
