@@ -33,30 +33,7 @@ return [
                                 'controller' => CompleteController::class,
                                 'action' => 'index',
                             ]
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            CompleteController::ROUTE_COMPLETE_AJAX => [
-                                'type' => Literal::class,
-                                'options' => [
-                                    'route' => '/ajax',
-                                    'defaults' => [
-                                        'action' => 'ajax',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
-                            CompleteController::ROUTE_COMPLETE_ACTIVATE => [
-                                'type' => Literal::class,
-                                'options' => [
-                                    'route' => '/activate',
-                                    'defaults' => [
-                                        'action' => 'activate',
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                            ],
-                        ],
+                        ]
                     ]
                 ],
             ]
