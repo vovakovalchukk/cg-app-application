@@ -20,30 +20,59 @@ define([
     var CategoryFormsComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                accounts: [],
                 categoryTemplates: {}
             };
         },
+        renderForCategoryTemplates: function() {
+            var output = [];
+            for (var categoryTemplateId in this.props.categoryTemplates) {
+                var categoryTemplate = this.props.categoryTemplates[categoryTemplateId];
+                output = output.concat(this.renderForCategoryTemplate(categoryTemplate))
+            }
+            return output;
+        },
+        renderForCategoryTemplate: function(categoryTemplate) {
+            var output = [];
+            for (var categoryId in categoryTemplate.categories) {
+                var category = categoryTemplate.categories[categoryId];
+                var categoryOutput = this.renderForCategory(category, categoryId);
+                if (categoryOutput) {
+                    output.push(categoryOutput);
+                }
+            }
+            return output;
+        },
+        renderForCategory: function(category, categoryId) {
+            if (!this.isAccountSelected(category.accountId, category.channel)) {
+                return null;
+            }
+            if (!this.isChannelSpecificFormPresent(category.channel)) {
+                return null;
+            }
+
+            var ChannelForm = channelToFormMap[category.channel];
+            return (<FormSection
+                name={'id-'+categoryId}
+                component={CategoryForm}
+                channelForm={ChannelForm}
+                categoryId={categoryId}
+                {...category}
+            />);
+        },
+        isAccountSelected: function(accountId, channel) {
+//            if (accountId && this.props.accounts.indexOf(accountId) > 0) {
+                return true;
+//            }
+
+        },
+        isChannelSpecificFormPresent: function(channel) {
+            return (typeof channelToFormMap[channel] != 'undefined');
+        },
         render: function() {
-            var categoryTemplates = this.props.categoryTemplates;
             return (
                 <div className="category-forms-container">
-                    {Object.keys(categoryTemplates).map(function(categoryTemplateId) {
-                        var categoryTemplate = categoryTemplates[categoryTemplateId];
-                        for (var categoryId in categoryTemplate.categories) {
-                            var category = categoryTemplate.categories[categoryId];
-                            if (typeof channelToFormMap[category.channel] == 'undefined') {
-                                continue;
-                            }
-                            var ChannelForm = channelToFormMap[category.channel];
-                            return (<FormSection
-                                name={'id-'+categoryId}
-                                component={CategoryForm}
-                                channelForm={ChannelForm}
-                                categoryId={categoryId}
-                                {...category}
-                            />);
-                        }
-                    })}
+                    {this.renderForCategoryTemplates()}
                 </div>
             );
         }
