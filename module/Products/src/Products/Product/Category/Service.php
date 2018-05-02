@@ -147,8 +147,9 @@ class Service
                 'categories' => [],
             ];
 
-            foreach ($categoryTemplate->getCategoryIds() as $categoryId) {
-                $category = $categories->getById($categoryId);
+            /** @var AccountCategory $accountCategory */
+            foreach ($categoryTemplate->getAccountCategories() as $accountCategory) {
+                $category = $categories->getById($accountCategory->getCategoryId());
                 if (!($category instanceof Category)) {
                     continue;
                 }
@@ -157,14 +158,14 @@ class Service
                     $account = ($accountId = $category->getAccountId()) ? $accounts->getById($accountId) : null;
                     $fieldValues = $this
                         ->getCategoryDependentServiceInterface($account ?? $category->getChannel())
-                        ->getCategoryDependentValues($account, $categoryId);
+                        ->getCategoryDependentValues($account, $category->getId());
                 } catch (ListingException $exception) {
                     // Field values are not supported on selected category
                 }
 
-                $templateDependentFieldValues[$categoryTemplate->getId()]['categories'][$categoryId] = [
+                $templateDependentFieldValues[$categoryTemplate->getId()]['categories'][$category->getId()] = [
                     'title' => $category->getTitle(),
-                    'accountId' => $category->getAccountId(),
+                    'accountId' => $accountCategory->getAccountId(),
                     'channel' => $category->getChannel(),
                     'fieldValues' => $fieldValues ?? [],
                 ];
