@@ -24,44 +24,33 @@ define([
         getDefaultProps: function() {
             return {
                 newVariationRowRequest: null,
-                variationValues:null
+                variationValues: null
             };
         },
-        variationRowFieldOnChange: function(event, variationId, fieldId) {
-            var variationValues = this.props.variationValues['variation-'+variationId.toString()];
-console.log("in vairationRowFieldOnChange variationValues: " , variationValues);
-
+        shouldCreateNewVariationRow: function(variationId) {
+            var variationValues = this.props.variationValues['variation-' + variationId.toString()];
             if (!variationValues) {
-                this.props.newVariationRowCreate();
+                return true;
             } else {
                 var nonDimensionalFieldNames = getNonDimensionalVariationFields(variationValues, this.props.variationsTable.fields);
-
-                console.log('nonDimensionalFieldNames: ' , nonDimensionalFieldNames, ' its .length : ' , nonDimensionalFieldNames.length);
-
-                if (nonDimensionalFieldNames.length==0) {
-                    this.props.newVariationRowCreate();
+                if (nonDimensionalFieldNames.length == 0) {
+                    return true;
                 }
             }
-
-
-
-
-//            var currState = getState();
-//            var variationValues = getVariationValues(currState, variationId);
-//            if (!variationValues) {
-//                dispatch(ActionCreators.newVariationRowCreate());
-//            } else {
-//                var nonDimensionalValues = getNonDimensionalVariationFields(variationValues,currState.variationsTable.fields);
-//                if (nonDimensionalValues.length==0) {
-//                    dispatch(ActionCreators.newVariationRowCreate());
-//                }
-//            }
-
-
+            return false;
         },
-        variationRowRemove:function(variationId,event){
-            console.log('in variationRowRemove with this.props: ', this.props , ' and variationId: ' , variationId ,' and event ' , event);
-            this.props.resetSection('variations.'+'variation-'+variationId.toString());
+        getNewVariationId:function(){
+          return (this.props.variationsTable.variations[this.props.variationsTable.variations.length-1].id)
+        },
+        variationRowFieldOnChange: function(event, variationId) {
+            if (this.shouldCreateNewVariationRow(variationId)) {
+                this.props.newVariationRowCreate();
+                console.log("before set... variationsTable.rows " , this.props.variationsTable.variations)
+                this.props.setNewVariationDimensions(this.getNewVariationId());
+            }
+        },
+        variationRowRemove: function(variationId, event) {
+            this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);
         },
         renderVariationTableHeading: function(field) {
@@ -259,21 +248,16 @@ console.log("in vairationRowFieldOnChange variationValues: " , variationValues);
     function getNonDimensionalVariationFields(values, fields) {
         var fieldsToReturn = [];
         for (var field in values) {
-            console.log("var field: " , field , ' in values: ' , values)
             if (isNonDimensionField(field, fields)) {
                 fieldsToReturn.push(field)
             }
         }
-        console.log('returning fields: ' , fieldsToReturn);
         return fieldsToReturn;
     }
 
     function isNonDimensionField(field, fields) {
-            console.log('in isDimensionsField with field: ', field , ' and fields: ', fields);
         for (var i = 0; i < fields.length; i++) {
             if (fields[i].name == field) {
-                console.log("found field fields[i] = " , fields[i]);
-
                 return true;
             }
         }

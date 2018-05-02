@@ -12,17 +12,28 @@ define([], function() {
             for (var i = 0; i < fieldsToAllow.length; i++) {
                 fieldIdsToAllow.push(fieldsToAllow[i].fieldId)
             }
-//            console.log('fieldIdsToAllowIds ', fieldIdsToAllow);
             var filteredFields = variationsTable.fields.filter(function(field) {
-//                console.log('in filter and field.id =', field.id, ' and fieldIdsToAllow: ', fieldIdsToAllow)
                 return fieldIdsToAllow.indexOf(field.id) > -1;
             });
-//            console.log('filteredFIelds: ', filteredFields)
             var newState = Object.assign({}, variationsTable, {
                 fields: filteredFields
             });
             return newState;
+        },
+        getDimensionOnlyFieldsFromVariationRow: function(variationRow, fields) {
+            var variationToReturn = {};
+            for (var variationField in variationRow) {
+                for (var i = 0; i < fields.length; i++) {
+                    if(fields[i].name==variationField){
+                        if(fields[i].isDimensionsField){
+                            variationToReturn[variationField] = variationRow[variationField];
+                        }
+                    }
+                }
+            }
+            return variationToReturn;
         }
+
 
 
     };

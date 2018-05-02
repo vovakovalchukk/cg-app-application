@@ -84,29 +84,18 @@ define([
                 var id = parseInt(variation.replace('variation-', ''));
                 var variationFieldIdentifier = 'variations.' + variation + '.' + field.name;
                 if (!this.cellHasChanged(id, field.id)) {
-                    console.log("cell HAS NOT changed!!! id: ", id, ' field.id: ', field.id);
-                    console.log('therefore setting value : ', targetValue, ' on variationFieldIdentifier : ', variationFieldIdentifier);
                     this.props.fieldChange(
                         variationFieldIdentifier,
                         targetValue
                     )
-                } else {
-                    console.log("...cell has.. changed!!! id: ", id, ' field.id: ', field.id);
                 }
             }
         },
         fieldOnChangeHandler: function(variationId, field, event) {
-            console.log('in fieldOnChange handler: ', field)
             this.props.cellChangeRecord(variationId, field.id);
-
             if (this.isFirstVariationRow(variationId, field)) {
-                console.log("change made to first variation!");
                 var value = event.target.value;
-                console.log('value: ', value);
-//                var variations = this.props.values.variations;
                 this.changeAllOtherUnchangedValuesToMatchField(field, value);
-            } else {
-                console.log('not a first row change');
             }
         },
         fieldNoInputRenderMethods: {
@@ -184,7 +173,6 @@ define([
         },
         cellHasChanged: function(variationId, fieldId, fieldName) {
             var cells = this.props.cells;
-            console.log('in cellHasCHanged with cells: ', cells, ' variationId: ', variationId, ' and fieldId: ', fieldId, ' fieldName: ', fieldName);
             for (var i = 0; i < cells.length; i++) {
                 if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {
                     if (cells[i].hasChanged) {
@@ -208,20 +196,15 @@ define([
             return false;
         },
         getFirstRowValue: function(variationId, fieldName) {
-//            console.log("in getFirstRowDimensionValue with variationId: ", variationId , ' and fieldId: ' , fieldId);
-//            console.log('this.value: ' , this.values);
             if (!this.props.values || !this.props.values.variations) {
                 return undefined;
             }
             var variations = this.props.values.variations;
-
             for (var firstVariation in variations) {
                 break;
             }
             var firstVariationObject = variations[firstVariation];
-//            console.log("firstVariationObject: " , firstVariationObject);
             if (isEmpty(firstVariationObject)) {
-//                console.log('first row variation is empty so breaking out!!!');
                 return undefined;
             }
             if (!firstVariationObject[fieldName]) {
