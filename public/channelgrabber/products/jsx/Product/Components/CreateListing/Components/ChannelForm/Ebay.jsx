@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/Input'
+    'Common/Components/Input',
+    './Ebay/ShippingService'
 ], function(
     React,
     ReduxForm,
-    Input
+    Input,
+    ShippingService
 ) {
     "use strict";
 
@@ -18,9 +20,15 @@ define([
             };
         },
         renderDispatchTimeMax: function(field) {
+            return this.renderInput('Dispatch Time Max', field);
+        },
+        renderShippingPrice: function(field) {
+            return this.renderInput('Shipping Price', field);
+        },
+        renderInput: function(label, field) {
             return (
                 <label>
-                    <span className={"inputbox-label"}>Dispatch Time Max</span>
+                    <span className={"inputbox-label"}>{label}</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
                             name={field.input.name}
@@ -34,8 +42,10 @@ define([
         },
         render: function() {
             return (
-                <div className="ebay-channel-form-container">
+                <div className="ebay-channel-form-container channel-form-container">
                     <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} />
+                    <ShippingService shippingServices={this.props.shippingMethods} />
+                    <Field name="shippingPrice" component={this.renderShippingPrice} />
                 </div>
             );
         }
