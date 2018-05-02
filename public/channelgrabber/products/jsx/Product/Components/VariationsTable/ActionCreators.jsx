@@ -40,20 +40,7 @@ define([], function() {
                         }
                     };
                 },
-                newVariationRowCreateRequest: function(variationId) {
-                    return function(dispatch, getState) {
-                        var currState = getState();
-                        var variationValues = getVariationValues(currState, variationId);
-                        if (!variationValues) {
-                            dispatch(ActionCreators.newVariationRowCreate());
-                        } else {
-                            var nonDimensionalValues = getNonDimensionalVariationFields(variationValues,currState.variationsTable.fields);
-                            if (nonDimensionalValues.length==0) {
-                                dispatch(ActionCreators.newVariationRowCreate());
-                            }
-                        }
-                    }
-                },
+
                 addNewOptionForAttribute: function(option, attributeColumnName) {
                     return {
                         type: 'ATTRIBUTE_COLUMN_OPTION_ADD',
@@ -88,27 +75,6 @@ define([], function() {
             }
         }
 
-        function getNonDimensionalVariationFields(values, fields) {
-            var fieldsToReturn = [];
-            for (var field in values) {
-                if (!isDimensionField(field, fields)) {
-                    fieldsToReturn.push(field)
-                }
-
-            }
-            return fieldsToReturn;
-        }
-
-        function isDimensionField(field, fields) {
-//            console.log('in isDimensionsField with field: ', field , ' and fields: ', fields);
-            for (var i = 0; i < fields.length; i++) {
-                if (fields[i].name == field) {
-                    if (fields[i].isDimensionsField) {
-                        return true;
-                    }
-                }
-            }
-        }
 
         function generateUniqueKey() {
             return uniqueKey++;

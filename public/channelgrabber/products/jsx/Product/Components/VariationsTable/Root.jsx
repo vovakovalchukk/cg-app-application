@@ -18,7 +18,9 @@ define([
         return {
             variationsTable: stateFilters.filterFields(1, state.variationsTable),
             uploadedImages: state.uploadedImages,
-            stockModeOptions: state.account.stockModeOptions
+            stockModeOptions: state.account.stockModeOptions,
+            variationValues:state.form.createProductForm.values.variations,
+
         }
     };
 

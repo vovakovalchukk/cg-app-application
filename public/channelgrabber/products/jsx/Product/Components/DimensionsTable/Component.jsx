@@ -14,7 +14,6 @@ define([
 ) {
 
     var Field = reduxForm.Field;
-    var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
 
     var DimensionsTableComponent = React.createClass({
