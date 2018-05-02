@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c176aa62a51b29278d19afb8abc7a4e",
+    "content-hash": "86024417db13029b96189c4155b88145",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4093,30 +4093,31 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.5.17",
+            "version": "dev-TAC-62-TrackUserLocale",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "28f88c75ffdbd0d58bd8483894f78e74a098c775"
+                "reference": "3c1be4a2a85b7228ce4d2af2fd2db1631e31e4d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.5.17-3c7ca1.zip",
-                "reference": "28f88c75ffdbd0d58bd8483894f78e74a098c775",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-62-TrackUserLocale-235090.zip",
+                "reference": "3c1be4a2a85b7228ce4d2af2fd2db1631e31e4d4",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.0.7",
+                "channelgrabber/locale": "dev-TAC-62-TrackUserLocale as 1.0.18",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.23.2",
+                "channelgrabber/user": "dev-TAC-62-TrackUserLocale as 1.25.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "channelgrabber/zf2-v4-ui": "^1.23.1",
                 "guzzle/guzzle": "~3.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "php": ">=7.1",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
@@ -4140,7 +4141,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-04-30T08:49:00+00:00"
+            "time": "2018-05-02T12:57:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9919,10 +9920,16 @@
             "package": "channelgrabber/user"
         },
         {
-            "alias": "1.5.11",
-            "alias_normalized": "1.5.11.0",
+            "alias": "1.6.0",
+            "alias_normalized": "1.6.0.0",
             "version": "dev-TAC-62-TrackUserLocale",
             "package": "channelgrabber/zf2-login"
+        },
+        {
+            "alias": "1.6.0",
+            "alias_normalized": "1.6.0.0",
+            "version": "dev-TAC-62-TrackUserLocale",
+            "package": "channelgrabber/zf2-register"
         }
     ],
     "minimum-stability": "stable",
@@ -9931,6 +9938,7 @@
         "channelgrabber/locale": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
