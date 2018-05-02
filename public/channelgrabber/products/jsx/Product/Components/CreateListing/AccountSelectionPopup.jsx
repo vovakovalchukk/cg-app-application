@@ -137,6 +137,14 @@ define([
         }
     });
 
+    var filterOutEmptyAccountSettingsData = function(accountSettings) {
+        var accountDefaultSettings = {};
+        for (var accountId in accountSettings) {
+            accountSettings[accountId].settings ?  accountDefaultSettings[accountId] = accountSettings[accountId].settings : null;
+        }
+        return accountDefaultSettings;
+    };
+
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
         initialValues: {
@@ -153,7 +161,8 @@ define([
 
             values = Object.assign(values, {
                 product: props.product,
-                accounts: values.accounts.filter(accountId => accountId)
+                accounts: values.accounts.filter(accountId => accountId),
+                accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings)
             });
             props.renderCreateListingPopup(values);
         },
