@@ -5,10 +5,9 @@ define([
 ) {
     "use strict";
 
-    var InputComponent = React.createClass({
+    var TextAreaComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                inputType: 'input',
                 title: null,
                 errors: [],
                 onChange: function() {},
@@ -35,8 +34,7 @@ define([
         render: function () {
             return (
                 <div className="safe-input-box">
-                    <input
-                        type={this.props.inputType}
+                    <textarea
                         name={this.props.name}
                         value={this.props.value}
                         onChange={this.props.onChange}
@@ -51,5 +49,5 @@ define([
         }
     });
 
-    return InputComponent;
+    return TextAreaComponent;
 });

@@ -107,7 +107,7 @@ define([
             return (
                 <Container
                     initiallyActive={true}
-                    className="editor-popup product-create-listing"
+                    className="editor-popup product-create-listing account-form"
                     closeOnYes={false}
                     headerText={"Selects accounts to list to"}
                     onNoButtonPressed={this.props.onCreateListingClose}
@@ -145,7 +145,7 @@ define([
 
             values = Object.assign(values, {
                 product: props.product,
-                accounts: Object.keys(values.accounts).map(index => values.accounts[index])
+                accounts: values.accounts.filter(accountId => accountId)
             });
             fetchCategoryTemplateDependentFieldValues(values.categories)
             .then(function(result) {

@@ -5,11 +5,15 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Common/Components/Input',
+    'Common/Components/TextArea',
     'Common/Components/Select',
     'Common/Components/ImagePicker',
     './Actions/CreateListings/Actions',
     './Components/ChannelForms',
-    './Components/CategoryForms'
+    './Components/CategoryForms',
+    './Components/CreateListing/ProductIdentifiers',
+    './Components/CreateListing/Dimensions',
+    './Components/CreateListing/ProductPrice'
 ], function(
     React,
     ReactDom,
@@ -17,11 +21,15 @@ define([
     ReduxForm,
     Container,
     Input,
+    TextArea,
     Select,
     ImagePicker,
     Actions,
     ChannelForms,
-    CategoryForms
+    CategoryForms,
+    ProductIdentifiers,
+    Dimensions,
+    ProductPrice
 ) {
     "use strict";
 
@@ -35,18 +43,23 @@ define([
                 accounts: [],
                 categories: [],
                 conditionOptions: [],
-                categoryTemplates: {}
+                categoryTemplates: {},
+                variationsDataForProduct: {},
+                initialDimensions: {},
+                accountsData: {},
+                initialProductPrices: {}
             }
         },
         componentDidMount: function () {
-            this.props.loadInitialValues(this.props.product);
+            this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct, this.props.accounts);
         },
         renderForm: function() {
-            return <form onSubmit={this.props.handleSubmit}>
-                <Field name="title" component={this.renderInputComponent.bind(this, "Listing Title:")}/>
-                <Field name="description" component={this.renderInputComponent.bind(this, "Description:")}/>
-                <Field name="brand" component={this.renderInputComponent.bind(this, "Brand (if applicable):")}/>
-                <Field name="condition" component={this.renderSelectComponent.bind(this, "Item Condition:", this.props.conditionOptions)}/>
+            return <form>
+                <span className="heading-large">Listing information</span>
+                <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
+                <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+                <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
+                <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
                 <FormSection
                     name="channel"
@@ -60,11 +73,14 @@ define([
                     accounts={this.props.accounts}
                     categoryTemplates={this.props.categoryTemplates}
                 />
+                {this.renderProductIdentifiers()}
+                {this.renderDimensions()}
+                {this.renderProductPrices()}
             </form>
         },
-        renderInputComponent: function(title, field) {
-            return <label>
-                <span className={"inputbox-label"}>{title}</span>
+        renderInputComponent: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <Input
                         name={field.input.name}
@@ -74,15 +90,28 @@ define([
                 </div>
             </label>;
         },
-        renderSelectComponent: function(title, options, field) {
-            return <label>
-                <span className={"inputbox-label"}>{title}</span>
+        renderTextAreaComponent: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <div className={"order-inputbox-holder"}>
+                    <TextArea
+                        name={field.input.name}
+                        value={field.input.value}
+                        onChange={this.onInputChange.bind(this, field.input)}
+                        className={"textarea-description"}
+                    />
+                </div>
+            </label>;
+        },
+        renderSelectComponent: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
                         autoSelectFirst={false}
                         onOptionChange={this.onSelectOptionChange.bind(this, field.input)}
-                        options={options}
-                        selectedOption={this.findSelectedOption(field.input.value, options)}
+                        options={field.options}
+                        selectedOption={this.findSelectedOption(field.input.value, field.options)}
                     />
                 </div>
             </label>;
@@ -106,7 +135,7 @@ define([
             input.onChange(value);
         },
         renderImagePickerField: function(field) {
-            return (<label>
+            return (<label className="input-container">
                 <span className={"inputbox-label"}>Images:</span>
                 {this.renderImagePicker(field)}
             </label>);
@@ -114,11 +143,12 @@ define([
         renderImagePicker: function (field) {
             if (this.props.product.images.length == 0) {
                 return (
-                    <p>No images available</p>
+                    <p className="react-image-picker main-image-picker">No images available</p>
                 );
             }
             return (
                 <ImagePicker
+                    className={"main-image-picker"}
                     name={field.input.name}
                     multiSelect={false}
                     images={this.props.product.images}
@@ -128,6 +158,48 @@ define([
         },
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
+        },
+        renderProductIdentifiers: function() {
+            return (<span>
+                <span className="heading-large heading-table">Product Identifiers</span>
+                <ProductIdentifiers
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                />
+            </span>);
+        },
+        renderDimensions: function() {
+            return (<span>
+                <span className="heading-large heading-table">Dimensions</span>
+                <Dimensions
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                    change={this.props.change}
+                    initialDimensions={this.props.initialDimensions}
+                />
+            </span>);
+        },
+        renderProductPrices: function() {
+            return (<span>
+                <span className="heading-large heading-table">Price</span>
+                <ProductPrice
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                    change={this.props.change}
+                    accounts={this.getSelectedAccountsData()}
+                    initialPrices={this.props.initialProductPrices}
+                />
+            </span>);
+        },
+        getSelectedAccountsData: function() {
+            var accounts = [];
+            this.props.accounts.map(function(accountId) {
+                accounts.push(this.props.accountsData[accountId]);
+            }.bind(this));
+            return accounts;
         },
         render: function() {
             return (
@@ -158,7 +230,9 @@ define([
 
     var mapStateToProps = function(state) {
         return {
-            initialValues: state.initialValues
+            initialValues: state.initialValues,
+            initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
+            initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {}
         };
     };
 
@@ -167,8 +241,8 @@ define([
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
             },
-            loadInitialValues: function(product) {
-                dispatch(Actions.loadInitialValues(product));
+            loadInitialValues: function(product, variationData, accounts) {
+                dispatch(Actions.loadInitialValues(product, variationData, accounts));
             }
         };
     };

@@ -30,7 +30,7 @@
 
   .inputbox-label {
     margin-right: 12px;
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 
   .container-extra-item-specific {
@@ -39,22 +39,6 @@
       float: left;
     }
     margin-top: 0;
-  }
-
-  input[type=number] {
-    width: 50px;
-    border-radius: 5px;
-    background-clip: padding-box;
-    background-color: $color-white;
-    border: 1px solid $color-lgrey;
-    padding: 3px;
-    padding-right: 4px;
-    font-size: 13px;
-    -moz-appearance: textfield;
-    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
   }
 
   .account-select-form {
@@ -133,7 +117,9 @@
 
   .container-content {
     max-width: none;
-    width: 98%;
+    &.account-form {
+      width: 98%;
+    }
   }
 
   .form-input-container {
@@ -155,11 +141,54 @@
   .custom-select {
     width: 300px;
   }
+
+  .image-header {
+    width: 150px;
+  }
+
+  .product-identifier-input {
+    width: 115px;
+  }
+
+  .product-dimension-input {
+    width: 65px;
+  }
+
+  .product-price-input {
+    width: 80px;
+  }
+
+  .product-input-error {
+    position: absolute;
+  }
+
+  .heading-large {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: bold;
+    &.heading-table {
+      margin-bottom: 8px;
+    }
+  }
+
+  label.input-container {
+    width: 465px;
+    display: block;
+  }
+
+  .textarea-description {
+    padding: 9px 35px 8px 5px;
+  }
 }
 
 .react-image-picker {
   float: left;
 }
+
+.main-image-picker {
+  margin-bottom: 20px;
+}
+
 .order-inputbox-holder {
   margin-bottom: 15px;
 }
@@ -170,7 +199,7 @@
     overflow: initial;
     background-color: $color-white;
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
     text-align: center;
     min-height: 56px;
   }
@@ -200,17 +229,16 @@
     width: auto;
     min-width: 800px;
   }
-
 }
 
-
 .variation-picker {
-  margin: 10px 0;
+  margin: 20px 0;
   input {
     width: 120px;
+    padding: 9px 5px 8px 5px;
   }
 
-  min-width: 800px;
+  min-width: 500px;
 
   .editable-field-wrap {
     min-width: 160px;
@@ -247,7 +275,22 @@
     th {
       padding: 8px;
       width: auto;
-      min-width: 150px;
+      min-width: 75px;
+      &.with-title {
+        cursor: pointer;
+      }
+      &.account-header {
+        max-width: 75px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &.attribute-header {
+        max-width: 125px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     tr td {

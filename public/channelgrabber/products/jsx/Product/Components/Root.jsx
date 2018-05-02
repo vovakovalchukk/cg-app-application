@@ -430,14 +430,28 @@ define([
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup
             );
+            this.fetchVariationForProductListingCreation();
             return <CreateListingRootComponent
                 product={this.state.createListing.product}
             />;
         },
+        fetchVariationForProductListingCreation: function() {
+            if (this.state.variations[this.state.createListing.product.id]
+                && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
+            ) {
+                this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
+            }
+        },
         renderCreateListingPopup: function() {
+            var variationData = this.state.variations[this.state.createListingData.product.id]
+                ? this.state.variations[this.state.createListingData.product.id]
+                : [this.state.createListingData.product];
+
             return <CreateListingPopupRoot
                 {...this.state.createListingData}
                 conditionOptions={this.formatConditionOptions()}
+                variationsDataForProduct={variationData}
+                accountsData={this.state.accounts}
             />;
         },
         formatConditionOptions: function() {
