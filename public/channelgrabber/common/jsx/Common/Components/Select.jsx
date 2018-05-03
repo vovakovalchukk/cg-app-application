@@ -18,7 +18,8 @@ define([
                 options: [],
                 autoSelectFirst: true,
                 title: null,
-                onOptionChange: null
+                onOptionChange: null,
+                className: ''
             };
         },
         getInitialState: function () {
@@ -59,7 +60,7 @@ define([
                 newState.options = newProps.options;
                 options = newProps.options;
             }
-            var selectedOption = (newProps.selectedOption && newProps.selectedOption.name !== "" ? newProps.selectedOption : this.state.selectedOption);
+                var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
             if (!this.isSelectedOptionAvailable(selectedOption, options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }
@@ -268,7 +269,7 @@ define([
             }
         },
         render: function () {
-            return <ClickOutside onClickOutside={this.onClickOutside}>
+            return <ClickOutside onClickOutside={this.onClickOutside} className={this.props.className}>
                 <div className={"custom-select "+ (this.state.active ? 'active' : '')+(this.state.disabled ? 'disabled' : '')} onClick={this.onClick} title={this.props.title}>
                         <div className="selected">
                             <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>

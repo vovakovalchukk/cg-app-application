@@ -1,140 +1,42 @@
 <?php
 namespace SetupWizard\Controller;
 
-use CG\Settings\SetupProgress\Entity as SetupProgress;
-use CG\Settings\SetupProgress\Step\Status as SetupProgressStepStatus;
 use CG\User\ActiveUserInterface as ActiveUser;
-use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use SetupWizard\Callback\Service as CallbackService;
-use SetupWizard\Module;
-use SetupWizard\StepStatusService;
 use Zend\Mvc\Controller\AbstractActionController;
-use function CG\Stdlib\isUkBankHoliday;
 
 class CompleteController extends AbstractActionController
 {
     const ROUTE_COMPLETE = 'Complete';
-    const ROUTE_COMPLETE_AJAX = 'CompleteAjax';
-    const ROUTE_COMPLETE_ACTIVATE = 'CompleteActivate';
-    const BUSINESS_HOURS_START = '09:00:00';
-    const BUSINESS_HOURS_END = '16:45:00';
-    const WORKDAYS = [1, 2, 3, 4, 5];
-    const TIMEZONE = 'Europe/London';
 
     /** @var Service */
     protected $service;
-    /** @var CallbackService */
-    protected $callbackService;
-    /** @var StepStatusService */
-    protected $stepStatusService;
     /** @var ActiveUser */
     protected $activeUser;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var JsonModelFactory */
-    protected $jsonModelFactory;
 
-    public function __construct(
-        Service $service,
-        CallbackService $callbackService,
-        StepStatusService $stepStatusService,
-        ActiveUser $activeUser,
-        ViewModelFactory $viewModelFactory,
-        JsonModelFactory $jsonModelFactory
-    ) {
+    public function __construct(Service $service, ActiveUser $activeUser, ViewModelFactory $viewModelFactory)
+    {
         $this->service = $service;
-        $this->callbackService = $callbackService;
-        $this->stepStatusService = $stepStatusService;
         $this->activeUser = $activeUser;
         $this->viewModelFactory = $viewModelFactory;
-        $this->jsonModelFactory = $jsonModelFactory;
     }
 
     public function indexAction()
     {
-        return $this->service->getSetupView($this->getHeader(), $this->getCallback(), $this->getFooter());
-    }
-
-    public function ajaxAction()
-    {
-        $this->callbackService->sendCallbackEmail((bool) $this->params()->fromPost('callNow'));
-        return $this->jsonModelFactory->newInstance();
-    }
-
-    public function activateAction()
-    {
-        if (!$this->activeUser->isAdmin()) {
-            return $this->notFoundAction();
-        }
-
-        $this->stepStatusService->processStepStatus(
-            SetupProgress::FINAL_STEP,
-            SetupProgressStepStatus::COMPLETED,
-            null
-        );
-
-        return $this->service->getSetupView($this->getHeader(), $this->getActivate(), $this->getActivateFooter());
-    }
-
-    protected function getHeader()
-    {
         $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/complete/header');
-        return $view;
+        $view->setTemplate('setup-wizard/complete/index');
+        $view->setVariable('name', $this->getActiveUsersName());
+        return $this->service->getSetupView('Complete', $view, $this->getFooterView());
     }
 
-    protected function getCallback()
+    protected function getActiveUsersName()
     {
-        $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/complete/callback');
-        $view->setVariable('callNow', $this->canCallNow());
-        $view->setVariable('callLater', $this->getCallLaterUrl());
-        $view->setVariable('ajax', $this->getAjaxUrl());
-        return $view;
+        return $this->service->getActiveUser()->getFirstName();
     }
 
-    protected function canCallNow(\DateTime $now = null): bool
-    {
-        $timeZone = new \DateTimeZone(static::TIMEZONE);
-        $now = $now ?? new \DateTime('now', $timeZone);
-        if ($now < new \DateTime(static::BUSINESS_HOURS_START, $timeZone)) {
-            return false;
-        }
-        if ($now > new \DateTime(static::BUSINESS_HOURS_END, $timeZone)) {
-            return false;
-        }
-        if (!in_array($now->format('w'), static::WORKDAYS)) {
-            return false;
-        }
-        if (isUkBankHoliday($now)) {
-            return false;
-        }
-        return true;
-    }
-
-    protected function getCallLaterUrl()
-    {
-        return 'https://samgilbert.youcanbook.me';
-    }
-
-    protected function getAjaxUrl()
-    {
-        return $this->url()->fromRoute(implode('/', [
-            Module::ROUTE,
-            static::ROUTE_COMPLETE,
-            static::ROUTE_COMPLETE_AJAX
-        ]));
-    }
-
-    protected function getActivate()
-    {
-        $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/complete/activate');
-        return $view;
-    }
-
-    protected function getActivateFooter()
+    protected function getFooterView()
     {
         $nextUri = $this->url()->fromRoute('home');
         $footer = $this->viewModelFactory->newInstance([
@@ -149,13 +51,6 @@ class CompleteController extends AbstractActionController
             ]
         ]);
         $footer->setTemplate('elements/buttons.mustache');
-        return $footer;
-    }
-
-    protected function getFooter()
-    {
-        $footer = $this->viewModelFactory->newInstance();
-        $footer->setTemplate('setup-wizard/complete/footer');
         return $footer;
     }
 }
