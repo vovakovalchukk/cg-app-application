@@ -184,7 +184,7 @@ define([
                 return variations[variationSelector][field.name];
             }
         },
-        cellHasChanged: function(variationId, fieldId, fieldName) {
+        cellHasChanged: function(variationId, fieldId) {
             var cells = this.props.cells;
             for (var i = 0; i < cells.length; i++) {
                 if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {

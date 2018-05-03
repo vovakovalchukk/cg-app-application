@@ -60,6 +60,9 @@ define([
             setNewVariationDimensions: function(newVariationId) {
                 return function(dispatch, getState) {
                     var state = getState();
+                    if(!state.form.createProductForm.values || !state.form.createProductForm.values.variations){
+                        return;
+                    }
                     var firstRowVariationValues = getFirstRowVariationValues(state.form.createProductForm.values.variations);
                     var firstRowDimensionOnlyValues = stateFilters.getDimensionOnlyFieldsFromVariationRow(firstRowVariationValues, state.variationsTable.fields);
                     for (var variationProperty in firstRowDimensionOnlyValues) {

@@ -5,6 +5,7 @@ define([
     'Product/Components/CreateProduct/functions/stateFilters',
     'Common/Components/ImageDropDown',
     'Common/Components/Select',
+    'Common/Components/RemoveIcon',
     'Product/Components/CreateProduct/StockModeInputs/Root'
 ], function(
     React,
@@ -13,6 +14,7 @@ define([
     stateFilters,
     ImageDropDown,
     Select,
+    RemoveIcon,
     StockModeInputs
 ) {
     var Form = reduxForm.Form;
@@ -28,7 +30,11 @@ define([
             };
         },
         shouldCreateNewVariationRow: function(variationId) {
-            var variationValues = this.props.variationValues['variation-' + variationId.toString()];
+            var variations = this.props.variationValues;
+            if(!variations){
+                return true;
+            }
+            var variationValues = variations['variation-' + variationId.toString()];
             if (!variationValues) {
                 return true;
             } else {
@@ -248,8 +254,13 @@ define([
                     <tr className={"u-border-none"}>
                         {this.renderVariationRowFields(variationId)}
                         <td style={removeVariationCellStyle}>
-                            <button type="button" onClick={this.variationRowRemove.bind(this, variationId)}>remove
-                            </button>
+
+                            <RemoveIcon
+                                onClick={this.variationRowRemove.bind(this, variationId)}
+                            />
+
+                            {/*<button type="button" onClick={this.variationRowRemove.bind(this, variationId)}>remove*/}
+                            {/*</button>*/}
                         </td>
                     </tr>
                 </FormSection>
