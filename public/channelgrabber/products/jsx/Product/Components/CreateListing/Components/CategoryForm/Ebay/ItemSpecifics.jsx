@@ -433,6 +433,9 @@ define([
             }
             return <span>{inputs}</span>;
         },
+        renderOptionsItemSpecificInputs: function() {
+            return null;
+        },
         shouldRenderTextFieldArray: function(options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
         },
@@ -567,6 +570,7 @@ define([
         render: function () {
             return <span>
                 {this.renderRequiredItemSpecificInputs()}
+                {this.renderOptionsItemSpecificInputs()}
                 {/*{this.buildItemSpecificsInputs()}*/}
                 {/*{this.buildOptionalItemSpecificsInputs()}*/}
             </span>

@@ -88,6 +88,9 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             if (this.state.disabled || e.which !== ENTER_KEY_CODE) {
                 return;
             }
+            if (!e.target.value) {
+                return;
+            }
 
             var options = this.state.options.slice(0);
             var newOption = {name: e.target.value, value: e.target.value};

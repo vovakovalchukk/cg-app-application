@@ -153,6 +153,9 @@ define([
             if (this.state.disabled || e.which !== ENTER_KEY_CODE) {
                 return;
             }
+            if (!e.target.value) {
+                return;
+            }
 
             var customOption = {name: e.target.value, value: e.target.value};
             var options = this.state.options.slice();
