@@ -160,6 +160,8 @@ define([
             options.push(customOption);
             this.clearInput(e.target);
 
+            this.props.onCustomOption(customOption, options, this.props.title);
+
             this.setState({
                 options: options,
                 selectedOption: customOption,

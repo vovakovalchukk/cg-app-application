@@ -495,16 +495,19 @@ define([
             var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
             var customOptionEnabled = field.options.type == TYPE_TEXT_SELECT;
 
+            var options = this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options);
+
             return <label className="input-container">
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <SelectComponent
                         autoSelectFirst={false}
                         title={field.displayTitle}
-                        options={this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options)}
+                        options={options}
                         customOptions={customOptionEnabled}
                         onOptionChange={this.onOptionSelected.bind(this, field.input)}
                         selectedOptions={field.input.value ? field.input.value : []}
+                        selectedOption={this.findSelectedOption(field.input.value)}
                         onCustomOption={this.onCustomOption}
                     />
                 </div>
@@ -523,7 +526,17 @@ define([
             });
         },
         onOptionSelected: function(input, selectedOptions) {
-            input.onChange(selectedOptions.map(option => option.value));
+            if (selectedOptions instanceof Array) {
+                input.onChange(selectedOptions.map(option => option.value));
+            }
+            input.onChange(selectedOptions.value);
+        },
+        findSelectedOption: function(value) {
+            value = value instanceof Array ? null : value;
+            return {
+                name: value || '',
+                value: value || ''
+            };
         },
         onCustomOption: function(newOption, allOptions, selectTitle) {
             this.setState(Object.assign(this.state.selectOptions, {
