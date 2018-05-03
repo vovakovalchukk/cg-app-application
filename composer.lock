@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "20b43a5cc2f20b2c524a269be284b782",
+    "content-hash": "a095de5f6b0de044581830d7ee25f766",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.13.3",
+            "version": "1.13.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "47c6eee728289e628a48266141528e69deef6e9b"
+                "reference": "2a8ca8d48055bb9ebaf0d666838208c6af9358c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.13.3-42c411.zip",
-                "reference": "47c6eee728289e628a48266141528e69deef6e9b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.13.4-cf7d81.zip",
+                "reference": "2a8ca8d48055bb9ebaf0d666838208c6af9358c0",
                 "shasum": null
             },
             "require": {
@@ -356,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-30T08:41:04+00:00"
+            "time": "2018-05-03T14:17:43+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1104,12 +1104,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "7df314272f73b1bfe433b6285c4bff84da88a862"
+                "reference": "01b5ae145fc8d204b49acfbb3cbe40918340ffff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-EPIC-TAC-26-EtsyOrders-1bf670.zip",
-                "reference": "7df314272f73b1bfe433b6285c4bff84da88a862",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-EPIC-TAC-26-EtsyOrders-888aef.zip",
+                "reference": "01b5ae145fc8d204b49acfbb3cbe40918340ffff",
                 "shasum": null
             },
             "require": {
@@ -1135,7 +1135,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-04-09T14:53:38+00:00"
+            "time": "2018-05-01T08:43:57+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -1426,20 +1426,20 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.5.0",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "9e487ba2627dfaa971e7c79ed65d884acba2bffb"
+                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.5.0-c2387b.zip",
-                "reference": "9e487ba2627dfaa971e7c79ed65d884acba2bffb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.5.4-835212.zip",
+                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.8.0",
+                "channelgrabber/billing": "^1.13.1",
                 "channelgrabber/channel": "^1.32.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.4",
@@ -1451,13 +1451,22 @@
                 "channelgrabber/user": "^1.22.4",
                 "php": ">=7.1"
             },
+            "require-dev": {
+                "channelgrabber/phpunit": "~1.0.1",
+                "phpunit/phpunit": "~6.3"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2018-02-16T11:35:31+00:00"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Intercom\\Test\\": "tests/src"
+                }
+            },
+            "time": "2018-05-03T14:18:00+00:00"
         },
         {
             "name": "channelgrabber/listing",
