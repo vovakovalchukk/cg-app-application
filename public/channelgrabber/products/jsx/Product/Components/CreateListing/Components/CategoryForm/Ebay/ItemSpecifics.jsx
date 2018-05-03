@@ -462,7 +462,7 @@ define([
                     />
                 </div>
             </label>];
-            var optionalItemSpecifics = input.fields.map((name, index, fields) => {
+            var optionalItemSpecifics = input.fields.map((name) => {
                 return <Field
                     name={name}
                     component={this.renderOptionalItemSpecific}
@@ -477,8 +477,7 @@ define([
         onOptionalItemSpecificSelect: function(input, selected) {
             input.fields.push({
                 name: selected.name,
-                options: selected.value,
-                value: null
+                options: selected.value
             });
         },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
