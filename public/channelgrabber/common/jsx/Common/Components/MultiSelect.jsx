@@ -9,7 +9,8 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 selectedOptions: [],
                 customOptions: false,
                 title: null,
-                onOptionChange: null
+                onOptionChange: null,
+                onCustomOption: function() {}
             };
         },
         getInitialState: function () {
@@ -23,6 +24,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             }
         },
         componentWillReceiveProps: function(newProps) {
+            console.log(newProps);
             this.setState({
                 options: newProps.options,
                 selectedOptions: newProps.selectedOptions ? newProps.selectedOptions : []
@@ -89,10 +91,13 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             }
 
             var options = this.state.options.slice(0);
-            options.push({name: e.target.value, value: e.target.value});
+            var newOption = {name: e.target.value, value: e.target.value};
+            options.push(newOption);
             var selectedOptions = this.state.selectedOptions.slice(0);
             selectedOptions.push(e.target.value);
             this.clearInput(e.target);
+
+            this.props.onCustomOption(newOption, options, this.props.title);
 
             this.setState({
                 options: options,
