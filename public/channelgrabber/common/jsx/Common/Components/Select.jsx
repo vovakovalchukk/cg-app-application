@@ -19,7 +19,8 @@ define([
                 autoSelectFirst: true,
                 title: null,
                 onOptionChange: null,
-                className: ''
+                className: '',
+                customOptions: false
             };
         },
         getInitialState: function () {

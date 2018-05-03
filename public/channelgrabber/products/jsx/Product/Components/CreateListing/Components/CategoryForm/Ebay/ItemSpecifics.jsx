@@ -402,13 +402,14 @@ define([
             });
         },
         renderRequiredItemSpecificInputs: function() {
-            var requiredItems = this.props.itemSpecifics.required;
+            var requiredItems = this.props.itemSpecifics.required,
+                inputs = [],
+                options;
+
             if (!requiredItems || Object.keys(requiredItems).length ==  0) {
                 return null;
             }
 
-            var inputs = [],
-                options;
             for (var name in requiredItems) {
                 options = requiredItems[name];
                 if (options.type == TYPE_TEXT && this.isMultiOption(options)) {
@@ -432,7 +433,7 @@ define([
             if (field.options.type == TYPE_TEXT) {
                 return this.renderTextInput(field);
             }
-            return null;
+            return this.renderSelectInput(field);
         },
         renderTextInput: function(field) {
             return <label className="input-container">
@@ -469,6 +470,33 @@ define([
                     />;
                 })}
             </span>;
+        },
+        renderSelectInput: function(field) {
+            var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
+            var customOptionEnabled = field.options.type == TYPE_TEXT_SELECT;
+            var options = Object.keys(field.options.options).map(value => {
+                return {
+                    name: field.options.options[value],
+                    value: value
+                }
+            });
+            console.log(field);
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <div className={"order-inputbox-holder"}>
+                    <SelectComponent
+                        autoSelectFirst={false}
+                        options={options}
+                        customOptions={customOptionEnabled}
+                        onOptionChange={this.onOptionSelected.bind(this, field.input)}
+                        selectedOptions={field.input.value ? field.input.value : []}
+                        selectedOption={this.findSelectedOption(field.input.value, options)}
+                    />
+                </div>
+            </label>;
+        },
+        onOptionSelected: function(input, selectedOptions) {
+            input.onChange(selectedOptions.map(option => option.value));
         },
         render: function () {
             return <span>
