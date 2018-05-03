@@ -11,7 +11,8 @@ define([
                 title: null,
                 fieldValues: {},
                 channelForm: null,
-                categoryId: null
+                categoryId: null,
+                product: {}
             };
         },
         render: function() {

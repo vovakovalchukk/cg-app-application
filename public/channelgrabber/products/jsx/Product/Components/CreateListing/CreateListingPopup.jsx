@@ -66,6 +66,8 @@ define([
                     component={ChannelForms}
                     accounts={this.props.accounts}
                     categoryTemplates={this.props.categoryTemplates}
+                    product={this.props.product}
+                    variationsDataForProduct={this.props.variationsDataForProduct}
                 />
                 <FormSection
                     name="category"

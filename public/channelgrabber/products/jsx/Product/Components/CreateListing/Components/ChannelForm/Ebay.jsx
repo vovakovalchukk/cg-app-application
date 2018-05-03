@@ -2,12 +2,14 @@ define([
     'react',
     'redux-form',
     'Common/Components/Input',
-    './Ebay/ShippingService'
+    './Ebay/ShippingService',
+    './Ebay/VariationImagePicker'
 ], function(
     React,
     ReduxForm,
     Input,
-    ShippingService
+    ShippingService,
+    VariationImagePicker
 ) {
     "use strict";
 
@@ -16,7 +18,9 @@ define([
     var EbayChannelFormComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                shippingMethods: {}
+                shippingMethods: {},
+                product: {},
+                variationsDataForProduct: {}
             };
         },
         renderDispatchTimeMax: function(field) {
@@ -31,10 +35,8 @@ define([
                     <span className={"inputbox-label"}>{label}</span>
                     <div className={"order-inputbox-holder"}>
                         <Input
-                            name={field.input.name}
+                            {...field.input}
                             inputType="number"
-                            value={field.input.value}
-                            onChange={field.input.onChange}
                             title={tooltip}
                         />
                     </div>
@@ -44,6 +46,10 @@ define([
         render: function() {
             return (
                 <div className="ebay-channel-form-container channel-form-container">
+                    <VariationImagePicker
+                        product={this.props.product}
+                        variationsDataForProduct={this.props.variationsDataForProduct}
+                    />
                     <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} />
                     <ShippingService shippingServices={this.props.shippingMethods} />
                     <Field name="shippingPrice" component={this.renderShippingPrice} />

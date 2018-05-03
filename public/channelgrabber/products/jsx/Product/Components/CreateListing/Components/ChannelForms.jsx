@@ -19,7 +19,8 @@ define([
         getDefaultProps: function() {
             return {
                 accounts: [],
-                categoryTemplates: {}
+                categoryTemplates: {},
+                product: {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -31,6 +32,8 @@ define([
                 output.push(<FormSection
                     name={channel}
                     component={ChannelForm}
+                    product={this.props.product}
+                    variationsDataForProduct={this.props.variationsDataForProduct}
                     {...channelData.fieldValues}
                 />);
             }
