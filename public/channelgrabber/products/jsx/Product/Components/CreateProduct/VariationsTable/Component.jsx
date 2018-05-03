@@ -149,6 +149,17 @@ define([
                     />
                 )
             },
+            number: function(variationId, field) {
+                return (
+                    <Field
+                        type="number"
+                        name={field.name}
+                        className={'form-row__input'}
+                        component="input"
+                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId, field.id)}
+                    />
+                )
+            },
             image: function(variationId, field) {
                 var uploadedImages = this.props.uploadedImages.images;
                 return (

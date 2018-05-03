@@ -65,7 +65,7 @@ define([
                 id: 5,
                 name: 'weight',
                 label: 'Weight (kg)',
-                type: 'text',
+                type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
                 defaultValue:''
@@ -74,7 +74,7 @@ define([
                 id: 6,
                 name: 'width',
                 label: 'Width (cm)',
-                type: 'text',
+                type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
                 defaultValue:''
@@ -83,7 +83,7 @@ define([
                 id: 7,
                 name: 'height',
                 label: 'Height (cm)',
-                type: 'text',
+                type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
                 defaultValue:'thomas'
@@ -92,7 +92,7 @@ define([
                 id: 8,
                 name: 'depth',
                 label: 'Depth (cm)',
-                type: 'text',
+                type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
                 defaultValue:''
