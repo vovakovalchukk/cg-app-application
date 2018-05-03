@@ -34,7 +34,7 @@ define([
         renderHeading: function(field) {
             var jsx = (
                 <th className={'' +
-                'c-table-wfunctionsith-inputs__cell ' +
+                'c-table-with-inputs__cell ' +
                 'c-table-with-inputs__cell-heading '
                 }>{field.label}</th>
             );
@@ -171,6 +171,9 @@ define([
         },
         getFieldValueFromState: function(variationId, field) {
             var variations = this.props.values.variations;
+            if (!variations ) {
+                return null;
+            }
             var variationSelector = 'variation-' + variationId.toString();
             if (!variations[variationSelector]) {
                 return null;

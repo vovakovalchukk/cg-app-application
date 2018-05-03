@@ -1,6 +1,6 @@
 .container-wrapper {
-  width: 100%;
   height: auto;
+  min-width:100%;
   min-height: 90vh;
   float: left;
   clear: both;
@@ -17,7 +17,6 @@
   background-color: white;
   padding: 16px;
   margin: 0 auto;
-  max-width: 1200px;
   text-align: left;
   display: inline-block;
 

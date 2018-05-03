@@ -8,7 +8,8 @@ define([
             return {
                 stockModeOptions: null,
                 onChange: null,
-                value: ""
+                value: "",
+                classNames: null
             };
         },
         stockAmountShouldBeDisabled: function(stockModeTypeValue) {
@@ -18,9 +19,16 @@ define([
                 !stockModeTypeValue
             );
         },
+        getClassNames: function() {
+            var classNames = 'c-stock-mode-input';
+            if (!this.props.classNames) {
+                classNames += ' ' + 'c-stock-mode-input--medium';
+            }
+            return classNames
+        },
         render: function() {
             return (
-                <div>
+                <div className={this.getClassNames()}>
                     <select
                         onChange={this.props.stockModeType.input.onChange}
                         className={'c-input-field'}

@@ -60,18 +60,22 @@ define([
                     'c-table-with-inputs__cell ' +
                     'c-table-with-inputs__cell-heading '
                     }>
-                        <Field
-                            type="text"
-                            name={field.name}
-                            className={"c-table-with-inputs__text-input"}
-                            component="input"
-                            onChange={(function(event) {
-                                this.props.attributeColumnNameChange(field.name, event.target.value)
-                            }.bind(this))}
-                        />
-                        <button type="button" className={'c-table-with-inputs__remove-button'}
-                                onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
-                        </button>
+                        <div>
+                            <Field
+                                type="text"
+                                name={field.name}
+                                className={"c-table-with-inputs__text-input"}
+                                component="input"
+                                onChange={(function(event) {
+                                    this.props.attributeColumnNameChange(field.name, event.target.value)
+                                }.bind(this))}
+                            />
+                            <button type="button" className={'c-table-with-inputs__remove-button'}
+                                    onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
+                            </button>
+                        </div>
+
+
                     </th>
                 )
             } else {
@@ -79,7 +83,12 @@ define([
                     <th className={'' +
                     'c-table-with-inputs__cell ' +
                     'c-table-with-inputs__cell-heading '
-                    }>{field.label}</th>
+                    }>
+                        <div>
+
+                            {field.label}
+                        </div>
+                    </th>
                 );
             }
             return jsx;
@@ -185,7 +194,6 @@ define([
                             'stockModeType',
                             'stockAmount'
                         ]}
-                        className={'form-row__input'}
                         component={StockModeInputs}
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                     />
@@ -222,17 +230,17 @@ define([
                     } else {
                         var isLastVariation = false;
                     }
-                    return this.renderVariationRow.call(this,variation,isLastVariation);
+                    return this.renderVariationRow.call(this, variation, isLastVariation);
                 }, this)
             );
         },
-        renderVariationRow: function(variation,isLastVariation) {
+        renderVariationRow: function(variation, isLastVariation) {
             var variationId = variation.id;
             var removeVariationCellStyle = {
                 background: 'white',
                 border: 'none'
             };
-            if(isLastVariation){
+            if (isLastVariation) {
                 removeVariationCellStyle.display = 'none';
             }
             return (
