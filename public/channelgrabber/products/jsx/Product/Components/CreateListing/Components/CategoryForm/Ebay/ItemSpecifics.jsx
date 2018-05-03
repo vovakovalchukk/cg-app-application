@@ -13,8 +13,15 @@ define([
     Input,
     CustomItemSpecific
 ) {
+    "use strict";
+
     var Field = ReduxForm.Field;
+    var FieldArray = ReduxForm.FieldArray;
     var addCustomItemSpecificName = "Add Custom Item Specific";
+
+    const TYPE_TEXT = "text";
+    const TYPE_SELECT = "select";
+    const TYPE_TEXT_SELECT = "textselect";
 
     return React.createClass({
         getInitialState: function() {
@@ -135,13 +142,21 @@ define([
 
             return <span>{inputs}</span>;
         },
-        renderPlusButton: function (name) {
+        renderPlusButton: function (onClick) {
             return <span className="refresh-icon">
                 <i
                     className='fa fa-2x fa-plus-square icon-create-listing'
                     aria-hidden='true'
-                    onClick={this.onPlusButtonClick}
-                    data-name={name}
+                    onClick={onClick}
+                />
+            </span>;
+        },
+        renderRemoveButton: function (onClick) {
+            return <span className="remove-icon">
+                <i
+                    className='fa fa-2x fa-minus-square icon-create-listing'
+                    aria-hidden='true'
+                    onClick={onClick}
                 />
             </span>;
         },
@@ -386,10 +401,80 @@ define([
                 selectedItemSpecifics: selectedItemSpecifics
             });
         },
+        renderRequiredItemSpecificInputs: function() {
+            var requiredItems = this.props.itemSpecifics.required;
+            if (!requiredItems || Object.keys(requiredItems).length ==  0) {
+                return null;
+            }
+
+            var inputs = [],
+                options;
+            for (var name in requiredItems) {
+                options = requiredItems[name];
+                if (options.type == TYPE_TEXT && this.isMultiOption(options)) {
+                    inputs.push(
+                        <FieldArray name={name} component={this.renderTextInputArray} displayTitle={name}/>
+                    )
+                } else {
+                    inputs.push(
+                        <Field
+                            name={name}
+                            displayTitle={name}
+                            component={this.renderItemSpecificInput}
+                            options={requiredItems[name]}
+                        />
+                    )
+                }
+            }
+            return <span>{inputs}</span>;
+        },
+        renderItemSpecificInput: function(field) {
+            if (field.options.type == TYPE_TEXT) {
+                return this.renderTextInput(field);
+            }
+            return null;
+        },
+        renderTextInput: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{!field.hideLabel ? field.displayTitle : ''}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Input {...field.input} />
+                </div>
+                {this.getActionButtonForInput(field)}
+            </label>;
+        },
+        getActionButtonForInput: function(field) {
+            if (!('index' in field) || !field.fields) {
+                return null;
+            }
+            if (field.index === field.fields.length - 1) {
+                return this.renderPlusButton(() => field.fields.push(""));
+            }
+            return this.renderRemoveButton(() => field.fields.remove(field.index));
+        },
+        renderTextInputArray: function(input) {
+            var fields = input.fields;
+            if (fields.length === 0) {
+                fields.push("");
+            }
+            return <span>
+                {fields.map((name, index, fields) => {
+                    return <Field
+                        name={name}
+                        component={this.renderTextInput}
+                        displayTitle={input.displayTitle}
+                        index={index}
+                        fields={fields}
+                        hideLabel={(index > 0)}
+                    />;
+                })}
+            </span>;
+        },
         render: function () {
             return <span>
-                {this.buildItemSpecificsInputs()}
-                {this.buildOptionalItemSpecificsInputs()}
+                {this.renderRequiredItemSpecificInputs()}
+                {/*{this.buildItemSpecificsInputs()}*/}
+                {/*{this.buildOptionalItemSpecificsInputs()}*/}
             </span>
         }
     });
