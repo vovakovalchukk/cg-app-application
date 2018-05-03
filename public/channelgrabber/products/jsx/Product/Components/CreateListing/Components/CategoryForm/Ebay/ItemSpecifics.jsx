@@ -415,26 +415,88 @@ define([
             }
         },
         renderRequiredItemSpecificInputs: function() {
-            var requiredItems = this.props.itemSpecifics.required,
-                inputs = [],
-                options;
-
+            var requiredItems = this.props.itemSpecifics.required;
             if (!requiredItems || Object.keys(requiredItems).length ==  0) {
                 return null;
             }
 
-            for (var name in requiredItems) {
-                options = requiredItems[name];
-                if (this.shouldRenderTextFieldArray(options)) {
-                    inputs.push(this.renderFieldArray(name, this.renderTextInputArray));
-                    continue;
-                }
-                inputs.push(this.renderItemSpecificField(name, this.renderItemSpecificInput, options));
+            return this.renderItemSpecificsInputsFromOptions(requiredItems);
+        },
+        renderItemSpecificsInputsFromOptions: function(items) {
+            var inputs = [],
+                options;
+            for (var name in items) {
+                options = items[name];
+                inputs.push(this.renderItemSpecificFromOptions(name, options));
             }
             return <span>{inputs}</span>;
         },
+        renderItemSpecificFromOptions: function(name, options) {
+            if (this.shouldRenderTextFieldArray(options)) {
+                return this.renderFieldArray(name, this.renderTextInputArray);
+            }
+            return this.renderItemSpecificField(name, this.renderItemSpecificInput, options);
+        },
         renderOptionsItemSpecificInputs: function() {
-            return null;
+            var optionalItems = this.props.itemSpecifics.optional;
+            if (!optionalItems || Object.keys(optionalItems).length ==  0) {
+                return null;
+            }
+
+            return <FieldArray
+                component={this.renderOptionsItemSpecificComponents}
+                name={"item-specifics-optional"}
+                itemSpecifics={optionalItems}
+            />;
+        },
+        renderOptionsItemSpecificComponents: function(input) {
+            var fields = [<label>
+                <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        name="item-specifics-optional"
+                        options={this.buildOptionalItemSpecificsSelectOptions(input.itemSpecifics)}
+                        autoSelectFirst={false}
+                        title="Item Specifics (Optional)"
+                        onOptionChange={this.onOptionalItemSpecificSelect.bind(this, input)}
+                    />
+                </div>
+            </label>];
+            var optionalItemSpecifics = input.fields.map((name, index, fields) => {
+                return <Field
+                    name={name}
+                    component={this.renderOptionalItemSpecific}
+                    renderInput={this.renderItemSpecificFromOptions}
+                />;
+            });
+            fields.push(optionalItemSpecifics);
+            return <span>
+                {fields}
+            </span>
+        },
+        onOptionalItemSpecificSelect: function(input, selected) {
+            input.fields.push({
+                name: selected.name,
+                options: selected.value,
+                value: null
+            });
+        },
+        buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
+            var options = [];
+            for (var name in itemSpecifics) {
+                options.push({
+                    "name": name,
+                    "value": itemSpecifics[name]
+                })
+            }
+            options.push({
+                "name": "Add Custom Item Specific",
+                "value": {type: 'custom'}
+            });
+            return options;
+        },
+        renderOptionalItemSpecific: function(field) {
+            return field.renderInput(field.input.value.name, field.input.value.options);
         },
         shouldRenderTextFieldArray: function(options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
@@ -571,8 +633,6 @@ define([
             return <span>
                 {this.renderRequiredItemSpecificInputs()}
                 {this.renderOptionsItemSpecificInputs()}
-                {/*{this.buildItemSpecificsInputs()}*/}
-                {/*{this.buildOptionalItemSpecificsInputs()}*/}
             </span>
         }
     });
