@@ -16,5 +16,4 @@ define([
 
     var Connector = ReactRedux.connect(mapStateToProps);
     return Connector(Component);
-
 })

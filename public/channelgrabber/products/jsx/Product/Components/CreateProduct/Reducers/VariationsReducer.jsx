@@ -1,7 +1,9 @@
 define([
-    'Common/Reducers/creator'
+    'Common/Reducers/creator',
+    'Product/Components/CreateProduct/functions/stateFilters'
 ], function(
-    reducerCreator
+    reducerCreator,
+    stateFilters
 ) {
     "use strict";
     var initialState = {
@@ -183,9 +185,8 @@ define([
         },
         "ATTRIBUTE_COLUMN_NAME_CHANGE": function(state, action) {
             var fieldsCopy = state.fields.slice();
-            var fieldToChange = findFieldByName(action.payload.fieldName, fieldsCopy);
+            var fieldToChange = stateFilters.findFieldByName(action.payload.fieldName, fieldsCopy);
             fieldToChange.label = action.payload.newValue;
-
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy
             });
@@ -193,7 +194,7 @@ define([
         },
         "CELL_CHANGE_RECORD": function(state, action) {
             var cellsCopy = state.cells.slice();
-            if(getCell(cellsCopy,action.payload.variationId,action.payload.fieldId)){
+            if(stateFilters.getCell(cellsCopy,action.payload.variationId,action.payload.fieldId)){
                 return state;
             }
             cellsCopy.push({
@@ -204,27 +205,9 @@ define([
             var newState = Object.assign({}, state, {
                 cells: cellsCopy
             });
-
             return newState;
         }
-
     });
+
     return VariationsTableReducer;
-
-    function findFieldByName(fieldName, fields) {
-        var indexOfField = fields.map(function(field) {
-            return field.name;
-        }).indexOf(fieldName);
-        return fields[indexOfField];
-    }
-
-    function getCell(cells, variationId,fieldId){
-        for (var i = 0; i < cells.length; i++) {
-            if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {
-                return cells[i];
-            }
-        }
-        return null;
-    }
-
 });

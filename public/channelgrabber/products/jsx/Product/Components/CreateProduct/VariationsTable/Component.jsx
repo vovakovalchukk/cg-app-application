@@ -2,19 +2,19 @@ define([
     'react',
     'redux-form',
     'Product/Components/CreateProduct/functions/utility',
+    'Product/Components/CreateProduct/functions/stateFilters',
     'Common/Components/ImageDropDown',
     'Common/Components/Select',
     'Product/Components/CreateProduct/StockModeInputs/Root'
-
 ], function(
     React,
     reduxForm,
     utility,
+    stateFilters,
     ImageDropDown,
     Select,
     StockModeInputs
 ) {
-
     var Form = reduxForm.Form;
     var Field = reduxForm.Field;
     var Fields = reduxForm.Fields;
@@ -39,13 +39,12 @@ define([
             }
             return false;
         },
-        getNewVariationId:function(){
-          return (this.props.variationsTable.variations[this.props.variationsTable.variations.length-1].id)
+        getNewVariationId: function() {
+            return (this.props.variationsTable.variations[this.props.variationsTable.variations.length - 1].id)
         },
         variationRowFieldOnChange: function(event, variationId) {
             if (this.shouldCreateNewVariationRow(variationId)) {
                 this.props.newVariationRowCreate();
-                console.log("before set... variationsTable.rows " , this.props.variationsTable.variations)
                 this.props.setNewVariationDimensions(this.getNewVariationId());
             }
         },
@@ -110,12 +109,6 @@ define([
                 </FormSection>
             );
         },
-        renderVariations: function() {
-            var variations = this.props.variationsTable.variations;
-            return (
-                variations.map(this.renderVariationRow, this)
-            );
-        },
         renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
             return <ImageDropDown
                 selected={utility.getUploadedImageById(reduxFieldProps.input.value, uploadedImages)}
@@ -173,7 +166,7 @@ define([
                     />
                 )
             },
-            stockModeOptions: function(variationId, field) {
+            stockModeOptions: function(variationId) {
                 return (
                     <Fields
                         type="text"
@@ -194,7 +187,8 @@ define([
                     onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                 />;
             }
-        },
+        }
+        ,
         renderVariationRowField: function(variationId, field) {
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
@@ -208,11 +202,27 @@ define([
                 return this.renderVariationRowField(variationId, field);
             }.bind(this))
         },
-        renderVariationRow: function(variation) {
+        renderVariations: function() {
+            var variations = this.props.variationsTable.variations;
+            return (
+                variations.map(function(variation, index) {
+                    if (index == (variations.length - 1)) {
+                        var isLastVariation = true;
+                    } else {
+                        var isLastVariation = false;
+                    }
+                    return this.renderVariationRow.call(this,variation,isLastVariation);
+                }, this)
+            );
+        },
+        renderVariationRow: function(variation,isLastVariation) {
             var variationId = variation.id;
             var removeVariationCellStyle = {
                 background: 'white',
                 border: 'none'
+            };
+            if(isLastVariation){
+                removeVariationCellStyle.display = 'none';
             }
             return (
                 <FormSection name={"variation-" + variationId}>
@@ -226,7 +236,7 @@ define([
                 </FormSection>
             );
         },
-        renderVariationsTable: function(variations) {
+        renderVariationsTable: function() {
             return (
                 <Form>
                     <FormSection name={"variations"}>
@@ -254,7 +264,6 @@ define([
         }
         return fieldsToReturn;
     }
-
     function isNonDimensionField(field, fields) {
         for (var i = 0; i < fields.length; i++) {
             if (fields[i].name == field) {
@@ -262,5 +271,4 @@ define([
             }
         }
     }
-
 });

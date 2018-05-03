@@ -1,7 +1,6 @@
 define([], function() {
     "use strict";
-    var functions = {
-
+    var stateFilters = {
         filterFields: function(tableIdToFilterFor, variationsTable) {
             var fieldsToAllow = variationsTable.tablesFields.filter(function(tableField) {
                 if (tableField.tableId == tableIdToFilterFor) {
@@ -24,19 +23,30 @@ define([], function() {
             var variationToReturn = {};
             for (var variationField in variationRow) {
                 for (var i = 0; i < fields.length; i++) {
-                    if(fields[i].name==variationField){
-                        if(fields[i].isDimensionsField){
+                    if (fields[i].name == variationField) {
+                        if (fields[i].isDimensionsField) {
                             variationToReturn[variationField] = variationRow[variationField];
                         }
                     }
                 }
             }
             return variationToReturn;
+        },
+        getCell(cells, variationId, fieldId) {
+            for (var i = 0; i < cells.length; i++) {
+                if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {
+                    return cells[i];
+                }
+            }
+            return null;
+        },
+        findFieldByName(fieldName, fields) {
+            var indexOfField = fields.map(function(field) {
+                return field.name;
+            }).indexOf(fieldName);
+            return fields[indexOfField];
         }
-
-
-
     };
-    return functions;
 
+    return stateFilters;
 });

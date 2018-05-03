@@ -1,13 +1,8 @@
 define([
-    'react',
-    'Common/Components/Input',
-    'Common/Components/Select'
+    'react'
 ], function(
-    React,
-    Input,
-    Select
+    React
 ) {
-
     var StockModeInputsComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -26,7 +21,6 @@ define([
         render: function() {
             return (
                 <div>
-
                     <select
                         onChange={this.props.stockModeType.input.onChange}
                         className={'c-input-field'}
@@ -42,7 +36,6 @@ define([
                             </option>
                         })}
                     </select>
-
                     <input
                         className={'c-input-field u-margin-top-xsmall'}
                         name={'stockAmount'}
@@ -51,12 +44,10 @@ define([
                         value={this.props.stockAmount.input.value}
                         onChange={this.props.stockAmount.input.onChange}
                     />
-
                 </div>
             );
         }
     });
 
     return StockModeInputsComponent;
-
 });

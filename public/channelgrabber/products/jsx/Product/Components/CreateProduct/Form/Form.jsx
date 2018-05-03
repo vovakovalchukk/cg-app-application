@@ -7,8 +7,8 @@ define([
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
     'Product/Components/VatView',
-    'Product/Components/VariationsTable/Root',
-    'Product/Components/DimensionsTable/Root'
+    'Product/Components/CreateProduct/VariationsTable/Root',
+    'Product/Components/CreateProduct/DimensionsTable/Root'
 ], function(
     React,
     reduxForm,
@@ -21,7 +21,6 @@ define([
     VariationsTable,
     DimensionsTable
 ) {
-
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
 
@@ -63,7 +62,6 @@ define([
                 }.bind(this)}/>
             );
         }
-
     };
 
     var createFormComponent = React.createClass({
@@ -76,11 +74,9 @@ define([
                 newVariationRowRequest: null
             };
         },
-
         render: function() {
             return (
-                <Form id="create-product-form" className={"form-root margin-bottom--small"}
-                >
+                <Form id="create-product-form" className={"form-root margin-bottom--small"}>
                     <fieldset className={'form-root__fieldset margin-bottom--small'}>
                         <FormRow
                             label={'New Product Name'}
@@ -98,12 +94,9 @@ define([
                         />
                     </fieldset>
                     <fieldset className={'margin-bottom--small'}>
-                        <legend className={'form-root__legend'}>Variations</legend>
-
                         <VariationsTable
                             resetSection={this.props.resetSection}
                         />
-
                         <DimensionsTable
                             stateSelectors={{
                                 fields: ['variationsTable', 'fields'],
@@ -118,12 +111,9 @@ define([
                             classNames={['u-margin-top-small']}
                             fieldChange={this.props.change}
                         />
-
-
                     </fieldset>
                 </Form>
-            )
-                ;
+            );
         }
     });
 
@@ -133,6 +123,4 @@ define([
             variations: {}
         }
     })(createFormComponent);
-
-})
-;
+});

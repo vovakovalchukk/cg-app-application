@@ -1,11 +1,12 @@
 define([
         'redux-form',
         'Product/Components/CreateProduct/functions/stateFilters'
-
     ], function(
     ReduxForm,
     stateFilters
     ) {
+        "use strict";
+
         var uniqueKey = 0;
 
         var ActionCreators = {
@@ -80,7 +81,6 @@ define([
             var sortedVariationIdentifiers = Object.keys(variations).sort();
             return variations[sortedVariationIdentifiers[0]];
         }
-
         function generateUniqueKey() {
             return uniqueKey++;
         }

@@ -29,8 +29,7 @@ define([
     const mapDispatchToProps = function(dispatch) {
         return Redux.bindActionCreators(ActionCreators, dispatch);
     };
+
     var Connector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return Connector(Component);
-
-
 });

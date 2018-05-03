@@ -12,7 +12,6 @@ define([
     ImageDropDown,
     Select
 ) {
-
     var Field = reduxForm.Field;
     var FormSection = reduxForm.FormSection;
 
@@ -204,7 +203,7 @@ define([
                 break;
             }
             var firstVariationObject = variations[firstVariation];
-            if (isEmpty(firstVariationObject)) {
+            if (utility.isEmptyObject(firstVariationObject)) {
                 return undefined;
             }
             if (!firstVariationObject[fieldName]) {
@@ -216,12 +215,7 @@ define([
         renderField: function(variationId, field) {
             var renderFieldMethod = null;
             var fieldValue = ''
-
             if (field.isDimensionsField) {
-//                var hasNotChanged = !this.cellHasChanged(variationId, field.id, field.name)
-//                if (hasNotChanged) {
-//                    this.setAllNonFirstRowValuesToFieldValue(variationId,field);
-//                }
                 renderFieldMethod = this.fieldInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
             } else {
                 fieldValue = this.getFieldValueFromState(variationId, field);
@@ -269,14 +263,4 @@ define([
     });
 
     return DimensionsTableComponent;
-
-    function isEmpty(obj) {
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 });

@@ -15,7 +15,6 @@ define([
 ) {
     "use strict";
     var Provider = ReactRedux.Provider;
-
     var store = null;
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
         var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -33,7 +32,6 @@ define([
             Redux.applyMiddleware(thunk.default)
         );
     }
-
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {
             return {

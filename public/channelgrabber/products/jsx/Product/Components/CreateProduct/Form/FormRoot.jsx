@@ -26,6 +26,7 @@ define([
         });
         return Redux.bindActionCreators(combinedActionCreators, dispatch);
     };
+
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return FormConnector(CreateProductForm);
 })
