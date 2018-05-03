@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d272c0af4f78b3f2288e6753f523e37c",
+    "content-hash": "71c42d42dbce3b8ab4d5fb29751dc2ee",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3566,12 +3566,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "1db16773dc3930ab186b985392fdeb26adf76db8"
+                "reference": "3304bce6b52b9707336001316de20dca7475c417"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-63-UserLocaleCurrency-d59111.zip",
-                "reference": "1db16773dc3930ab186b985392fdeb26adf76db8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-63-UserLocaleCurrency-d6cffe.zip",
+                "reference": "3304bce6b52b9707336001316de20dca7475c417",
                 "shasum": null
             },
             "require": {
@@ -3582,6 +3582,7 @@
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.24.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
+                "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
                 "channelgrabber/zf2-v4-ui": "^1.23.0",
                 "zendframework/zend-config": "~2.3",
@@ -3606,7 +3607,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-02T14:24:57+00:00"
+            "time": "2018-05-03T08:45:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9939,8 +9940,8 @@
             "package": "channelgrabber/user"
         },
         {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
             "version": "dev-TAC-63-UserLocaleCurrency",
             "package": "channelgrabber/zf2-billing"
         },
