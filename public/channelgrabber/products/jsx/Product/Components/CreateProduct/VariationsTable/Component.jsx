@@ -31,7 +31,7 @@ define([
         },
         shouldCreateNewVariationRow: function(variationId) {
             var variations = this.props.variationValues;
-            if(!variations){
+            if (!variations) {
                 return true;
             }
             var variationValues = variations['variation-' + variationId.toString()];
@@ -106,19 +106,21 @@ define([
         },
         renderVariationsTableHeaderRow: function() {
             return (
-                <FormSection name={"create-variations-table-headings"}>
+                <FormSection name={"c-table-with-inputs__headings"}>
                     <tr>
                         {this.renderVariationHeadings()}
                         <th className={'' +
                         'c-table-with-inputs__cell ' +
                         'c-table-with-inputs__cell-heading ' +
                         ' u-background-none'}>
-                            <button
-                                type="button"
-                                onClick={this.props.newAttributeColumnRequest}
-                            >
-                                add attribute
-                            </button>
+                            <span className={'c-icon-button c-icon-button--add'}>
+                                <i
+                                    aria-hidden="true"
+                                    onClick={this.props.newAttributeColumnRequest}
+
+                                    className={'fa fa-2x fa-plus'}
+                                />
+                            </span>
                         </th>
                     </tr>
                 </FormSection>
@@ -217,7 +219,7 @@ define([
         renderVariationRowField: function(variationId, field) {
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
-                <td className={'create-variations-table__td'}>
+                <td className={'c-table-with-inputs__cell'}>
                     {renderFieldMethod()}
                 </td>
             )
@@ -253,14 +255,14 @@ define([
                 <FormSection name={"variation-" + variationId}>
                     <tr className={"u-border-none"}>
                         {this.renderVariationRowFields(variationId)}
-                        <td style={removeVariationCellStyle}>
-
-                            <RemoveIcon
-                                onClick={this.variationRowRemove.bind(this, variationId)}
-                            />
-
-                            {/*<button type="button" onClick={this.variationRowRemove.bind(this, variationId)}>remove*/}
-                            {/*</button>*/}
+                        <td style={removeVariationCellStyle} className={'c-table-with-inputs__cell'}>
+                            <span className={'c-icon-button c-icon-button--remove'}>
+                                <i
+                                    aria-hidden="true"
+                                    onClick={this.variationRowRemove.bind(this, variationId)}
+                                    className={'fa fa-2x fa-minus-square'}
+                                />
+                            </span>
                         </td>
                     </tr>
                 </FormSection>

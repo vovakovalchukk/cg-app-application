@@ -171,7 +171,7 @@ define([
         },
         getFieldValueFromState: function(variationId, field) {
             var variations = this.props.values.variations;
-            if (!variations ) {
+            if (!variations) {
                 return null;
             }
             var variationSelector = 'variation-' + variationId.toString();
@@ -187,10 +187,8 @@ define([
         cellHasChanged: function(variationId, fieldId) {
             var cells = this.props.cells;
             for (var i = 0; i < cells.length; i++) {
-                if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId)) {
-                    if (cells[i].hasChanged) {
-                        return true;
-                    }
+                if ((cells[i].variationId == variationId) && (cells[i].fieldId == fieldId) && cells[i].hasChanged) {
+                    return true;
                 }
             }
             return false;

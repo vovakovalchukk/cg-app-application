@@ -1,4 +1,13 @@
 $screen-padding: 20px;
+$medium-margin-distance: 2rem;
+$small-margin-distance: 1rem;
+$button-height: 22px;
+$vertical-margin: 3px;
+$padding--input-field: 8px 5px 8px 5px;
+
+$margin--distance-small:1rem;
+$margin--distance-xsmall:0.5rem;
+
 #main,
 #main-wrapper {
     height: 100%;
@@ -711,17 +720,6 @@ div.tether-element div.tooltip-hover {
     position: relative;
 }
 
-$medium-margin-distance: 2rem;
-$small-margin-distance: 1rem;
-$button-height: 22px;
-$vertical-margin: 3px;
-$padding--input-field: 8px 5px 8px 5px;
-
-$margin--distance-small:1rem;
-$margin--distance-xsmall:0.5rem;
-
-
-//form
 .form-root {
     &__legend {
         font-weight: bold;
@@ -734,7 +732,6 @@ $margin--distance-xsmall:0.5rem;
     }
 }
 
-// inputs
 .c-input-field{
     padding:$padding--input-field;
     width: 100%;
@@ -776,6 +773,7 @@ $margin--distance-xsmall:0.5rem;
         }
     }
 }
+
 .create-variations-table__th__remove-button{
     position:absolute;
     background: none;
@@ -819,7 +817,6 @@ $margin--distance-xsmall:0.5rem;
     }
 }
 
-//buttons
 .navbar-strip {
     &__button {
         display: block;

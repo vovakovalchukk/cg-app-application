@@ -23,10 +23,8 @@ define([], function() {
             var variationToReturn = {};
             for (var variationField in variationRow) {
                 for (var i = 0; i < fields.length; i++) {
-                    if (fields[i].name == variationField) {
-                        if (fields[i].isDimensionsField) {
+                    if ((fields[i].name == variationField) && fields[i].isDimensionsField) {
                             variationToReturn[variationField] = variationRow[variationField];
-                        }
                     }
                 }
             }

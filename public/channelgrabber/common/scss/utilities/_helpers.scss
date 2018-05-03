@@ -2,24 +2,15 @@
 .tooltip-hover {
     z-index: 99999;
 }
-
 .left {
     float: left;
 }
-
 .no-margin {
     margin: 0px auto;
 }
-
 .u-background-none{
     background:none !important;
 }
-
-u-border-none{
-    border:none !important;
-}
-
-
 .u-margin-top-small{
     margin-top: $margin--distance-small;
 }
@@ -29,14 +20,8 @@ u-border-none{
 .margin-left--small {
     margin-left: $margin--distance-small;
 }
-
 .margin-bottom--small {
     margin-bottom: $margin--distance-small;
-}
-
-.bold-item {
-    font-size: 1.25rem;
-    font-weight: 700;
 }
 .h-inline-block{
     display:inline-block;

@@ -25,9 +25,8 @@ define([
                 'Super Reduced',
                 'Zero'
             ];
-
             return this.headers.map(function(header) {
-                return <th>{header}</th>;
+                return <th className={'c-table-with-inputs__cell'}>{header}</th>;
             });
         },
         getVatRows: function () {
@@ -73,7 +72,7 @@ define([
                         }
                         return (<td>{cellText}</td>);
                     }
-                    return(<td>
+                    return(<td >
                         <span className="checkbox-wrapper">
                             <a className="std-checkbox">
                                 <input type="checkbox" id={object.taxRateId+"-radio-"+product.id} name={object.taxRateId+"-radio-"+product.id} value={object.taxRateId} onClick={this.onVatChanged.bind(this, object.taxRateId)} checked={object.selected === true} key={object.taxRateId}/>

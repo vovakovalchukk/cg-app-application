@@ -51,7 +51,7 @@ define([
                 id: 3,
                 name: 'quantity',
                 label: 'Quantity',
-                type: 'text',
+                type: 'number',
                 isCustomAttribute: false
             },
             {

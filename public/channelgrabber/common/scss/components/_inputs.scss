@@ -4,7 +4,9 @@
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
     background: white;
-
+    &:disabled{
+        background:rgba(9, 30, 66, 0.04);;
+    }
 }
 
 .c-stock-mode-input--medium{
