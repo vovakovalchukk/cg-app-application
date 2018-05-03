@@ -19,13 +19,15 @@ define([
         getInitialState: function() {
             return {
                 selectedAttributeName: null,
-                selectedAttributeValues: []
+                selectedAttributeValues: [],
+                attributeNameSelectField: null
             }
         },
         getDefaultProps: function() {
             return {
                 product: {},
-                variationsDataForProduct: {}
+                variationsDataForProduct: {},
+                attributeNames: {}
             };
         },
         formatAttributeNamesOptions: function() {
@@ -37,6 +39,12 @@ define([
             });
         },
         renderAttributeNameSelectComponent: function(field) {
+            if (!this.state.attributeNameSelectField) {
+                this.onAttributeNameSelected(field.input, {value: this.props.product.attributeNames[0]});
+                this.setState({
+                    attributeNameSelectField: field
+                });
+            }
             return <label className="input-container">
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
@@ -119,7 +127,7 @@ define([
                 <Field
                     name="imageAttributeName"
                     component={this.renderAttributeNameSelectComponent}
-                    displayTitle={"Select images based on this attribute:"}
+                    displayTitle={"Select images in your listing based on this attribute:"}
                     options={this.formatAttributeNamesOptions()}
                 />
                 {this.renderVariationImagePickers()}
