@@ -19,8 +19,8 @@ define([
                 autoSelectFirst: true,
                 title: null,
                 onOptionChange: null,
-                customOptions:false
-
+                customOptions:false,
+                className: ''
             };
         },
         getInitialState: function () {
@@ -61,7 +61,7 @@ define([
                 newState.options = newProps.options;
                 options = newProps.options;
             }
-            var selectedOption = (newProps.selectedOption && newProps.selectedOption.name !== "" ? newProps.selectedOption : this.state.selectedOption);
+                var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
             if (!this.isSelectedOptionAvailable(selectedOption, options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }
@@ -247,7 +247,6 @@ define([
         getSelectedOptionName: function () {
             var selectedOptionName = '';
             if (this.state.selectedOption && this.state.selectedOption.name) {
-
                 selectedOptionName = this.state.selectedOption.name
             } else if (this.props.autoSelectFirst) {
                 selectedOptionName = this.state.options.length > 0 ? this.state.options[0].name : '';
