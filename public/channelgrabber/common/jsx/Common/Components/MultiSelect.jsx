@@ -24,7 +24,6 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             }
         },
         componentWillReceiveProps: function(newProps) {
-            console.log(newProps);
             this.setState({
                 options: newProps.options,
                 selectedOptions: newProps.selectedOptions ? newProps.selectedOptions : []
