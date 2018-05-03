@@ -425,22 +425,27 @@ define([
 
             for (var name in requiredItems) {
                 options = requiredItems[name];
-                if (options.type == TYPE_TEXT && this.isMultiOption(options)) {
-                    inputs.push(
-                        <FieldArray name={name} component={this.renderTextInputArray} displayTitle={name}/>
-                    )
-                } else {
-                    inputs.push(
-                        <Field
-                            name={name}
-                            displayTitle={name}
-                            component={this.renderItemSpecificInput}
-                            options={requiredItems[name]}
-                        />
-                    )
+                if (this.shouldRenderTextFieldArray(options)) {
+                    inputs.push(this.renderFieldArray(name, this.renderTextInputArray));
+                    continue;
                 }
+                inputs.push(this.renderItemSpecificField(name, this.renderItemSpecificInput, options));
             }
             return <span>{inputs}</span>;
+        },
+        shouldRenderTextFieldArray: function(options) {
+            return options.type == TYPE_TEXT && this.isMultiOption(options);
+        },
+        renderFieldArray: function(name, component) {
+            return <FieldArray name={name} component={component} displayTitle={name}/>;
+        },
+        renderItemSpecificField: function(name, component, options) {
+            return <Field
+                name={name}
+                displayTitle={name}
+                component={component}
+                options={options}
+            />
         },
         renderItemSpecificInput: function(field) {
             if (field.options.type == TYPE_TEXT) {
