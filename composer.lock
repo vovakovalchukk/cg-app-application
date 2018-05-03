@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae4ba1d367a0f37c987209c5685ce1ee",
+    "content-hash": "288c678b90eca6f4bb994ba7592bebcf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-LIS-178-comm-listings-handle-multi-packages",
+            "version": "1.13.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "e31fbee64c6d9fd4586895c982f0c0c969ecc10e"
+                "reference": "2a8ca8d48055bb9ebaf0d666838208c6af9358c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-LIS-178-comm-listings-handle-multi-packages-20a7b6.zip",
-                "reference": "e31fbee64c6d9fd4586895c982f0c0c969ecc10e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.13.4-cf7d81.zip",
+                "reference": "2a8ca8d48055bb9ebaf0d666838208c6af9358c0",
                 "shasum": null
             },
             "require": {
@@ -356,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-30T11:31:10+00:00"
+            "time": "2018-05-03T14:17:43+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1426,16 +1426,16 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "dev-LIS-178-comm-listings-handle-multi-packages",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "c9feb72953b0a53afb94273b3b57375869a20841"
+                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-LIS-178-comm-listings-handle-multi-packages-0f3abb.zip",
-                "reference": "c9feb72953b0a53afb94273b3b57375869a20841",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.5.4-835212.zip",
+                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff",
                 "shasum": null
             },
             "require": {
@@ -1466,7 +1466,7 @@
                     "CG\\Intercom\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-30T11:32:29+00:00"
+            "time": "2018-05-03T14:18:00+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -9913,25 +9913,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.13.4",
-            "alias_normalized": "1.13.4.0",
-            "version": "dev-LIS-178-comm-listings-handle-multi-packages",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.5.4",
-            "alias_normalized": "1.5.4.0",
-            "version": "dev-LIS-178-comm-listings-handle-multi-packages",
-            "package": "channelgrabber/intercom"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/intercom": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
