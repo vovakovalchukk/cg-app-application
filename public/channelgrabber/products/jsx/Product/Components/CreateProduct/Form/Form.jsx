@@ -121,6 +121,12 @@ define([
         form: 'createProductForm',
         initialValues: {
             variations: {}
-        }
+        },
+        validate:validate
     })(createFormComponent);
+
+    function validate(values){
+        console.log('in validation with values: ' , values);
+    }
+
 });

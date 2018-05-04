@@ -1,5 +1,15 @@
-define([], function() {
+define([
+    'redux-form'
+], function(
+    ReduxForm
+) {
     "use strict";
+
+    var submitForm = ReduxForm.submit('createProductForm');
+
+
+    console.log('submitForm:  ' , submitForm);
+
     var actionCreators = {
         initialAccountDataLoaded: function(taxRates, stockModeOptions) {
             return {
@@ -15,21 +25,10 @@ define([], function() {
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
-                var formValues = getState().form.createProductForm.values;
-                console.log('formValues: ', formValues);
-                var formattedValues = formatFormValuesForPostRequest(formValues);
-                console.log('formattedValues: ', formattedValues);
+                dispatch(submitForm);
 
-                if (!formattedValues) {
-                    // values are not sufficient
-                    dispatch({
-                        type: 'FORM_SUBMIT_REJECTED'
-                    });
-                } else {
-                    dispatch({
-                        type: 'FORM_SUBMIT_DATA_POSTED'
-                    });
-                }
+                var formValues = getState().form.createProductForm.values;
+                var formattedValues = formatFormValuesForPostRequest(formValues);
             }
         }
     };
