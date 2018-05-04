@@ -3,6 +3,7 @@ define([
     'redux-form',
     'react-redux',
     'Product/Components/CreateProduct/functions/stateFilters',
+    'Common/Components/ReduxForm/InputWithValidation',
     'Common/Components/ImageUploader/ImageUploaderRoot',
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
@@ -14,6 +15,7 @@ define([
     reduxForm,
     ReactRedux,
     stateFilters,
+    InputWithValidation,
     ImageUploader,
     ImagePicker,
     FormRow,
@@ -24,42 +26,10 @@ define([
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
 
-    var renderField = function(props) {
-        var name = props.input.name;
-        var onBlur = props.input.onBlur;
-        var onFocus = props.input.onFocus;
-        var onChange = props.input.onChange;
-        var onDragStart = props.input.onDragStart;
-        var onDrop = props.input.onDrop;
-        var value = props.input.value;
-        var type = props.type;
-        return (<div>
-            <div>
-                <input
-                    name={name}
-                    onBlur={onBlur}
-                    onFocus={onFocus}
-                    onChange={onChange}
-                    onDragStart={onDragStart}
-                    onDrop={onDrop}
-                    value={value}
-                    type={type}
-                    className={'form-row__input'}
-                />
-                <div className="u-color-red">
-                    {props.meta.touched && props.meta.error}
-                </div>
-                {/*{props.touched &&*/}
-                {/*((props.meta.error && <span>{props.meta.error}</span>) ||*/}
-                {/*(props.warning && <span>{props.warning}</span>))}*/}
-            </div>
-        </div>);
-    }
-
     var inputColumnRenderMethods = {
         newProductName: function() {
             return (
-                <Field type="text" name="title" component={renderField}/>
+                <Field type="text" name="title" component={InputWithValidation}/>
             )
         },
         mainImage: function() {

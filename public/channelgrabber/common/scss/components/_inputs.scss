@@ -1,16 +1,22 @@
+
+
 .c-input-field{
     padding:$padding--input-field;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
     background: white;
+    float:left;
     &:disabled{
         background:rgba(9, 30, 66, 0.04);;
     }
 }
+
+
 
 .c-stock-mode-input--medium{
     max-width:15rem;
     background:green;
 
 }
+
