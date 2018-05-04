@@ -106,6 +106,9 @@ define([
             </span>
         },
         onOptionalItemSpecificSelected: function(input, selected) {
+            if (-1 === this.state.optionalItemSpecificsSelectOptions.findIndex(option => selected.value == option.value)) {
+                return;
+            }
             input.fields.push({
                 name: selected.name,
                 options: selected.value
