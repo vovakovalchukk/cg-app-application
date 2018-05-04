@@ -24,10 +24,42 @@ define([
     var Field = reduxForm.Field;
     var Form = reduxForm.Form;
 
+    var renderField = function(props) {
+        var name = props.input.name;
+        var onBlur = props.input.onBlur;
+        var onFocus = props.input.onFocus;
+        var onChange = props.input.onChange;
+        var onDragStart = props.input.onDragStart;
+        var onDrop = props.input.onDrop;
+        var value = props.input.value;
+        var type = props.type;
+        return (<div>
+            <div>
+                <input
+                    name={name}
+                    onBlur={onBlur}
+                    onFocus={onFocus}
+                    onChange={onChange}
+                    onDragStart={onDragStart}
+                    onDrop={onDrop}
+                    value={value}
+                    type={type}
+                    className={'form-row__input'}
+                />
+                <div className="u-color-red">
+                    {props.meta.touched && props.meta.error}
+                </div>
+                {/*{props.touched &&*/}
+                {/*((props.meta.error && <span>{props.meta.error}</span>) ||*/}
+                {/*(props.warning && <span>{props.warning}</span>))}*/}
+            </div>
+        </div>);
+    }
+
     var inputColumnRenderMethods = {
         newProductName: function() {
             return (
-                <Field type="text" name="title" className={'form-row__input'} component="input"/>
+                <Field type="text" name="title" component={renderField}/>
             )
         },
         mainImage: function() {
@@ -122,11 +154,17 @@ define([
         initialValues: {
             variations: {}
         },
-        validate:validate
+        validate: validate
     })(createFormComponent);
 
-    function validate(values){
-        console.log('in validation with values: ' , values);
+    function validate(values) {
+        const errors = {};
+        console.log('in validation with values: ', values);
+        if (!values.title) {
+            console.log('no title!');
+            errors.title = 'Required';
+        }
+        return errors;
     }
 
 });

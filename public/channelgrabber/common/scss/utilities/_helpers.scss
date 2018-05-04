@@ -11,6 +11,15 @@
 .u-background-none{
     background:none !important;
 }
+
+.u-color-red{
+    color:red !important;
+}
+
+.u-border-red{
+    border-color:red;
+}
+
 .u-margin-top-small{
     margin-top: $margin--distance-small;
 }
@@ -23,6 +32,7 @@
 .margin-bottom--small {
     margin-bottom: $margin--distance-small;
 }
+
 .h-inline-block{
     display:inline-block;
 }
