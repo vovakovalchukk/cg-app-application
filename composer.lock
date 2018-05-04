@@ -4466,11 +4466,7 @@
                     "./Module.php"
                 ]
             },
-<<<<<<< HEAD
             "time": "2018-04-16T14:36:11+00:00"
-=======
-            "time": "2018-04-30T08:41:04+00:00"
->>>>>>> develop
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
