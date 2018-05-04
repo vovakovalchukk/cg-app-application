@@ -30,7 +30,6 @@ define([
                         title="Listing Duration"
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
-                        title="ChannelGrabber recommends using GTC as this will allow us to automatically activate listings when you add new stock"
                     />
                 </div>
             </label>;
