@@ -3,6 +3,7 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
+    'Product/Components/CreateProduct/CreateProductActionCreators',
     'Product/Components/CreateProduct/Reducers/CombinedReducer',
     'Product/Components/CreateProduct/CreateProduct'
 ], function(
@@ -10,6 +11,7 @@ define([
     Redux,
     ReactRedux,
     thunk,
+    ActionCreators,
     CombinedReducer,
     CreateProduct
 ) {
@@ -39,20 +41,18 @@ define([
                 stockModeOptions: null
             };
         },
+        formSubmitDispatch: function() {
+            store.dispatch(ActionCreators.formSubmitRequest());
+        },
         componentWillMount: function() {
-            store.dispatch({
-                type: 'INITIAL_ACCOUNT_DATA_LOADED',
-                payload: {
-                    taxRates: this.props.taxRates,
-                    stockModeOptions: this.props.stockModeOptions
-                }
-            });
+            store.dispatch(ActionCreators.initialAccountDataLoaded(this.props.taxRates, this.props.stockModeOptions))
         },
         render: function() {
             return (
                 <Provider store={store}>
                     <CreateProduct
                         onCreateProductClose={this.props.onCreateProductClose}
+                        formSubmitDispatch={this.formSubmitDispatch}
                     />
                 </Provider>
             );

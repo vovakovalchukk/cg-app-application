@@ -14,11 +14,12 @@ define([
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
             return {
-                onCreateProductClose: null
+                onCreateProductClose: null,
+                submitFormDispatch:null
             };
         },
         handleContainerSubmit: function() {
-            this.refs.productForm.submit();
+            this.props.formSubmitDispatch()
         },
         handleSubmit: function(values) {
             if (values.productImage) {

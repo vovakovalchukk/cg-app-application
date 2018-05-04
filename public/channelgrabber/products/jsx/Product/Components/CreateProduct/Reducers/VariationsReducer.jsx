@@ -206,7 +206,7 @@ define([
                 cells: cellsCopy
             });
             return newState;
-        }
+        },
     });
 
     return VariationsTableReducer;
