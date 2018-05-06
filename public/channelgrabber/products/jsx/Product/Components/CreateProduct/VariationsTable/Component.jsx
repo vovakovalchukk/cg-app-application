@@ -3,6 +3,7 @@ define([
     'redux-form',
     'Product/Components/CreateProduct/functions/utility',
     'Product/Components/CreateProduct/functions/stateFilters',
+    'Common/Components/ReduxForm/InputWithValidation',
     'Common/Components/ImageDropDown',
     'Common/Components/Select',
     'Common/Components/RemoveIcon',
@@ -12,6 +13,7 @@ define([
     reduxForm,
     utility,
     stateFilters,
+    InputWithValidation,
     ImageDropDown,
     Select,
     RemoveIcon,
@@ -30,16 +32,24 @@ define([
             };
         },
         shouldCreateNewVariationRow: function(variationId) {
+            console.log('in shouldCreate.... with variationId : ',variationId);
             var variations = this.props.variationValues;
             if (!variations) {
+                console.log('no variations');
+
                 return true;
             }
             var variationValues = variations['variation-' + variationId.toString()];
             if (!variationValues) {
+                console.log('no variation values');
+
                 return true;
             } else {
                 var nonDimensionalFieldNames = getNonDimensionalVariationFields(variationValues, this.props.variationsTable.fields);
+                console.log('nonDImensionalFieldNames: ' , nonDimensionalFieldNames);
                 if (nonDimensionalFieldNames.length == 0) {
+                    console.log('non.dimensionalfieldnames.length == variation values');
+
                     return true;
                 }
             }
@@ -49,7 +59,9 @@ define([
             return (this.props.variationsTable.variations[this.props.variationsTable.variations.length - 1].id)
         },
         variationRowFieldOnChange: function(event, variationId) {
+            console.log('in variationROwFieldOnChange....')
             if (this.shouldCreateNewVariationRow(variationId)) {
+                console.log('should create new row...');
                 this.props.newVariationRowCreate();
                 this.props.setNewVariationDimensions(this.getNewVariationId());
             }
@@ -161,8 +173,8 @@ define([
                         type="text"
                         name={field.name}
                         className={'form-row__input'}
-                        component="input"
                         onChange={this.variationRowFieldOnChange.bind(this, event, variationId, field.id)}
+                        component={InputWithValidation}
                     />
                 )
             },
@@ -288,6 +300,7 @@ define([
     return VariationsTableComponent;
 
     function getNonDimensionalVariationFields(values, fields) {
+        console.log(' in getNonDimensionalVariationFields with values: ', values , ' and fields:', fields);
         var fieldsToReturn = [];
         for (var field in values) {
             if (isNonDimensionField(field, fields)) {
