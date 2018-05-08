@@ -35,7 +35,7 @@ define([
         fields: [
             {
                 id: 1,
-                name: 'image',
+                name: 'imageId',
                 label: 'Image',
                 type: 'image',
                 isCustomAttribute: false
@@ -90,7 +90,7 @@ define([
             },
             {
                 id: 8,
-                name: 'depth',
+                name: 'length',
                 label: 'Depth (cm)',
                 type: 'number',
                 isCustomAttribute: false,
