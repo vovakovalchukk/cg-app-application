@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13ac1969a9da8d2879106b29761ce258",
+    "content-hash": "3890074120eaa2356119fb4fafdeaf75",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4419,12 +4419,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "dcbb8afe8cd045d2c7733b34d107ff454447dbe5"
+                "reference": "8fff4ba10b316ab3d5c4eee514c19793d648abf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-189-image-upload-on-product-creation-form-387612.zip",
-                "reference": "dcbb8afe8cd045d2c7733b34d107ff454447dbe5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-189-image-upload-on-product-creation-form-6236c5.zip",
+                "reference": "8fff4ba10b316ab3d5c4eee514c19793d648abf2",
                 "shasum": null
             },
             "require": {
@@ -4475,7 +4475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-04-16T14:36:11+00:00"
+            "time": "2018-05-08T09:36:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
