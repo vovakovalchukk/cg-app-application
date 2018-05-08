@@ -2,6 +2,7 @@
 namespace Orders\ManualOrder;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Locale\CountryNameByCode;
 use CG\ManualOrder\Account\Service as ManualOrderAccountService;
@@ -16,13 +17,11 @@ use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Item\Mapper as OrderItemMapper;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Mapper as OrderNoteMapper;
-use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
+use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\Tax\Service as TaxService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\Product\Client\Service as ProductService;
-use Orders\Order\CurrencyService;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -30,7 +29,8 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
-use NumberFormatter;
+use CG\User\OrganisationUnit\Service as UserOuService;
+use Orders\Order\CurrencyService;
 
 class Service implements LoggerAwareInterface
 {
@@ -166,16 +166,20 @@ class Service implements LoggerAwareInterface
     public function getCurrencyOptions()
     {
         $currencyCodes = array_keys(array_merge($this->currencyService->getPriorityActiveUserCurrencies(), $this->currencyService->getActiveUserCurrencies()));
-        $locale = $this->userOuService->getRootOuByActiveUser()->getLocale();
+        $formatter = new CurrencyFormatter($this->userOuService->getRootOuByActiveUser());
 
         $currencyOptions = [];
         foreach ($currencyCodes as $code) {
-            $fmt = new NumberFormatter($locale."@currency=$code", NumberFormatter::CURRENCY);
-
-            $currencyOptions[] = [
+            $currencyOption = [
                 'name' => $code,
-                'value' => $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL),
+                'value' => $formatter->getSymbol($code),
             ];
+
+            if ($formatter->getCurrencyCode() === $code) {
+                array_unshift($currencyOptions, $currencyOption);
+            } else {
+                array_push($currencyOptions, $currencyOption);
+            }
         }
         return $currencyOptions;
     }

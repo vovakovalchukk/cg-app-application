@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5eb78f4f8696465a3166acecf26550bc",
+    "content-hash": "42dc5741b07548786599977f814a364b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -831,28 +831,29 @@
         },
         {
             "name": "channelgrabber/currency",
-            "version": "1.0.1",
+            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-currency.git",
-                "reference": "a27f8f441ec132cbeae77632bb9c6315b98059f2"
+                "reference": "69e4fad20d35a0192e5ea048c8c12f4e30650231"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-1.0.1-0bcb47.zip",
-                "reference": "a27f8f441ec132cbeae77632bb9c6315b98059f2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-dev-TAC-65-DisplayUserLocaleCurrency-662428.zip",
+                "reference": "69e4fad20d35a0192e5ea048c8c12f4e30650231",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/di": ">=1.0.1"
+                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.18",
+                "ext-intl": "*"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Currency\\": "src/"
                 }
             },
-            "time": "2014-09-03T11:18:20+00:00"
+            "time": "2018-05-08T14:59:47+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -9947,6 +9948,12 @@
             "package": "channelgrabber/clearbooks"
         },
         {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
+            "package": "channelgrabber/currency"
+        },
+        {
             "alias": "dev-TAC-62-TrackUserLocale",
             "alias_normalized": "dev-TAC-62-TrackUserLocale",
             "version": "dev-TAC-63-UserLocaleCurrency",
@@ -9994,6 +10001,7 @@
         "channelgrabber/billing": 20,
         "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/currency": 20,
         "channelgrabber/locale": 20,
         "channelgrabber/payment": 20,
         "channelgrabber/sagepay": 20,

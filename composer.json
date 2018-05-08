@@ -32,6 +32,7 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.0.29",
         "channelgrabber/courieradapter": "~1.2.0",
+        "channelgrabber/currency": "dev-TAC-65-DisplayUserLocaleCurrency as 1.0.2",
         "channelgrabber/di": "~2.2.1",
         "channelgrabber/ebay": "~1.12.5",
         "channelgrabber/ekm": "~1.9.3",
