@@ -641,12 +641,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "68d77a83fbf94265ffbbf8bc3da7a2c9c6cb94e6"
+                "reference": "bbaf64fc5a7036e6d35aa54b76fab00164aa933c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-66-USDPricingScheme-46ca84.zip",
-                "reference": "68d77a83fbf94265ffbbf8bc3da7a2c9c6cb94e6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-66-USDPricingScheme-093f65.zip",
+                "reference": "bbaf64fc5a7036e6d35aa54b76fab00164aa933c",
                 "shasum": null
             },
             "require": {
@@ -676,7 +676,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-08T12:42:51+00:00"
+            "time": "2018-05-08T13:53:07+00:00"
         },
         {
             "name": "channelgrabber/communication",
