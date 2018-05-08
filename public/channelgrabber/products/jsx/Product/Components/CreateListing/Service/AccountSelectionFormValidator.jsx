@@ -1,4 +1,8 @@
-define([], function() {
+define([
+    'react'
+], function(
+    React
+) {
    "use strict";
 
     var service = {
@@ -42,9 +46,21 @@ define([], function() {
                }
 
                if (invalidCategoryMapsForAccount.length > 0) {
-                   accountsError[accountIndex] = "You cannot choose this account because the following category maps don't have " +
-                       "any mapped categories for it: " + invalidCategoryMapsForAccount.join(", ");
+                   accountsError[accountIndex] = JSON.stringify({
+                       message: "You cannot choose this account because the following category maps don't have " +
+                       "any mapped categories for it: " + invalidCategoryMapsForAccount.join(", ")
+                   });
+                   return;
                }
+
+                var settings = props.accountSettings[accountId];
+                if (settings && settings.error) {
+                    accountsError[accountIndex] = JSON.stringify({
+                        message: "In order to create listings on this account, please first create the ",
+                        linkTitle: "default listing settings.",
+                        linkUrl: "/settings/channel/sales/" + accountId
+                    });
+                }
             });
 
             if (accounts.length === 0) {

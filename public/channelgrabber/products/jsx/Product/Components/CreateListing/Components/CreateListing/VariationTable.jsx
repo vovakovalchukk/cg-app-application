@@ -9,7 +9,6 @@ define([
 ) {
     "use strict";
 
-    var FormSection = ReduxForm.FormSection;
     var Field = ReduxForm.Field;
 
     var VariationTableComponent = React.createClass({
@@ -63,7 +62,7 @@ define([
 
             return (<td>
                 <Field
-                    name={"identifiers." + variation.sku + ".imageId"}
+                    name={"images." + variation.sku + ".imageId"}
                     component={this.renderImageField}
                     variation={variation}
                 />
