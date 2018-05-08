@@ -48,11 +48,18 @@ define([
                 initialDimensions: {},
                 accountsData: {},
                 initialProductPrices: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                accountDefaultSettings: {}
             }
         },
         componentDidMount: function () {
-            this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct, this.props.accounts);
+            this.props.loadInitialValues(
+                this.props.product,
+                this.props.variationsDataForProduct,
+                this.props.accounts,
+                this.props.accountDefaultSettings,
+                this.props.accountsData
+            );
         },
         renderForm: function() {
             return <form>
@@ -252,8 +259,8 @@ define([
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
             },
-            loadInitialValues: function(product, variationData, accounts) {
-                dispatch(Actions.loadInitialValues(product, variationData, accounts));
+            loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData) {
+                dispatch(Actions.loadInitialValues(product, variationData, accounts, accountDefaultSettings, accountsData));
             }
         };
     };

@@ -16,6 +16,21 @@ define([
         return variation ? variation.details[detailName] : '';
     };
 
+    var formatChannelDefaultValues = function(data) {
+        var account,
+            defaults = {};
+
+        for (var accountId in data.accountDefaultSettings) {
+            if (data.accountsData[accountId].channel === 'ebay' && !defaults.ebay) {
+                account = data.accountDefaultSettings[accountId];
+                defaults.ebay = {
+                    dispatchTimeMax: account.listingDispatchTime
+                };
+            }
+        }
+        return defaults;
+    };
+
     return reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
@@ -62,6 +77,7 @@ define([
                 identifiers: identifiers,
                 dimensions: dimensions,
                 prices: prices,
+                channel: formatChannelDefaultValues(action.payload)
             };
         }
     });

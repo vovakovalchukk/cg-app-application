@@ -172,8 +172,8 @@ define([
                 accounts: values.accounts.filter(accountId => accountId),
                 accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings)
             });
-            fetchCategoryTemplateDependentFieldValues(values.categories)
-            .then(function(result) {
+
+            fetchCategoryTemplateDependentFieldValues(values.categories).then(function(result) {
                 values.categoryTemplates = result.categoryTemplates;
                 props.renderCreateListingPopup(values);
             });
