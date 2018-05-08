@@ -72,6 +72,11 @@ define([
             if (!this.props.options) {
                 return true;
             }
+
+            if (this.props.options.length !== newProps.options.length) {
+                return true;
+            }
+
             for (var i = 0; i < newProps.options.length; i++) {
                 if (!this.props.options[i]) {
                     return true;
@@ -80,6 +85,7 @@ define([
                     return true;
                 }
             }
+
             return false;
         },
         getDefaultSelectedOption: function() {
