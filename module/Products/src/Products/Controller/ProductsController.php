@@ -5,6 +5,7 @@ use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
 use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
+use CG\Locale\CurrencyCode;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -115,6 +116,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
         $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
+        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
@@ -161,6 +163,15 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $accountStockSettingsEnabledStatus = $this->productService->getAccountStockSettingsEnabledStatus();
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
+    }
+
+    protected function getDefaultCurrencyForActiveUser(): ?string
+    {
+        $currencyCode = CurrencyCode::getCurrencyCodeForLocale($this->activeUserContainer->getLocale());
+        return (new \NumberFormatter(
+            $this->activeUserContainer->getLocale() . "@currency=" . $currencyCode,
+            \NumberFormatter::CURRENCY
+        ))->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
     }
 
     // Required by AccountTableTrait

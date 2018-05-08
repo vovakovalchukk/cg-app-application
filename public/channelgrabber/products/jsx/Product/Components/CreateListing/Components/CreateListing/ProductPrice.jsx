@@ -2,11 +2,13 @@ define([
     'react',
     'redux-form',
     'Common/Components/Input',
+    'Common/Components/CurrencyInput',
     './VariationTable'
 ], function(
     React,
     ReduxForm,
     Input,
+    CurrencyInput,
     VariationTable
 ) {
     "use strict";
@@ -68,20 +70,20 @@ define([
                 return (<td>
                     <Field
                         name={"prices." + variation.sku + "." + account.id}
-                        component={this.renderInputComponent.bind(this, account.id, variation.sku)}
+                        component={this.renderInputComponent}
+                        sku={variation.sku}
+                        accountId={account.id}
                     />
                 </td>)
             }.bind(this));
         },
-        renderInputComponent: function(accountId, sku, field) {
-            var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
-            return <Input
+        renderInputComponent: function(field) {
+            return <CurrencyInput
                 {...field.input}
-                onChange={this.onInputChange.bind(this, field.input, accountId, sku)}
-                errors={errors}
-                className={"product-price-input"}
-                errorBoxClassName={"product-input-error"}
-                inputType={"number"}
+                onChange={this.onInputChange.bind(this, field.input, field.accountId, field.sku)}
+                currency={this.props.currency}
+                title="The price of the variation on the channel"
+                min={0}
             />;
         },
         onInputChange: function(input, accountId, sku, value) {

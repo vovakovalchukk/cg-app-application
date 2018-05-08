@@ -8,7 +8,10 @@ define([
         getDefaultProps: function () {
             return {
                 currency: "£",
-                title: null
+                title: null,
+                min: null,
+                max: null,
+                step: "any"
             }
         },
         render: function () {
@@ -25,6 +28,8 @@ define([
                         value={isNaN(value) ? '' : value}
                         onChange={this.props.onChange}
                         title={this.props.title}
+                        min={this.props.min}
+                        max={this.props.max}
                     />
                 </span>
             );

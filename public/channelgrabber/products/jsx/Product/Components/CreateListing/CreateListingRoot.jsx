@@ -29,7 +29,8 @@ define([
                 categories: [],
                 conditionOptions: [],
                 variationsDataForProduct: {},
-                accountsData: {}
+                accountsData: {},
+                defaultCurrency: null
             }
         },
         render: function() {

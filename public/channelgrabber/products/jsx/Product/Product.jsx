@@ -17,7 +17,8 @@ define([
         adminCompanyUrl,
         ebaySiteOptions,
         categoryTemplateOptions,
-        conditionOptions
+        conditionOptions,
+        defaultCurrency
     ) {
         ReactDOM.render(
             <RootComponent
@@ -31,10 +32,11 @@ define([
                 ebaySiteOptions={JSON.parse(ebaySiteOptions)}
                 categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
                 conditionOptions={JSON.parse(conditionOptions)}
+                defaultCurrency={defaultCurrency}
             />,
             mountingNode
         );
     };
-    
+
     return Product;
 });

@@ -47,7 +47,8 @@ define([
                 variationsDataForProduct: {},
                 initialDimensions: {},
                 accountsData: {},
-                initialProductPrices: {}
+                initialProductPrices: {},
+                defaultCurrency: null
             }
         },
         componentDidMount: function () {
@@ -61,20 +62,8 @@ define([
                 <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
                 <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions}/>
                 <Field name="imageId" component={this.renderImagePickerField}/>
-                <FormSection
-                    name="channel"
-                    component={ChannelForms}
-                    accounts={this.props.accounts}
-                    categoryTemplates={this.props.categoryTemplates}
-                    product={this.props.product}
-                    variationsDataForProduct={this.props.variationsDataForProduct}
-                />
-                <FormSection
-                    name="category"
-                    component={CategoryForms}
-                    accounts={this.props.accounts}
-                    categoryTemplates={this.props.categoryTemplates}
-                />
+                {this.renderChannelFormInputs()}
+                {this.renderCategoryFormInputs()}
                 {this.renderProductIdentifiers()}
                 {this.renderDimensions()}
                 {this.renderProductPrices()}
@@ -161,6 +150,25 @@ define([
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
         },
+        renderChannelFormInputs: function() {
+            return <FormSection
+                name="channel"
+                component={ChannelForms}
+                accounts={this.props.accounts}
+                categoryTemplates={this.props.categoryTemplates}
+                product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                currency={this.props.defaultCurrency}
+            />;
+        },
+        renderCategoryFormInputs: function() {
+            return <FormSection
+                name="category"
+                component={CategoryForms}
+                accounts={this.props.accounts}
+                categoryTemplates={this.props.categoryTemplates}
+            />;
+        },
         renderProductIdentifiers: function() {
             return (<span>
                 <span className="heading-large heading-table">Product Identifiers</span>
@@ -193,6 +201,7 @@ define([
                     change={this.props.change}
                     accounts={this.getSelectedAccountsData()}
                     initialPrices={this.props.initialProductPrices}
+                    currency={this.props.defaultCurrency}
                 />
             </span>);
         },

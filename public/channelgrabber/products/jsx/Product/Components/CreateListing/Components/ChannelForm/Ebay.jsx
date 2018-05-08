@@ -2,12 +2,14 @@ define([
     'react',
     'redux-form',
     'Common/Components/Input',
+    'Common/Components/CurrencyInput',
     './Ebay/ShippingService',
     './Ebay/VariationImagePicker'
 ], function(
     React,
     ReduxForm,
     Input,
+    CurrencyInput,
     ShippingService,
     VariationImagePicker
 ) {
@@ -20,14 +22,27 @@ define([
             return {
                 shippingMethods: {},
                 product: {},
-                variationsDataForProduct: {}
+                variationsDataForProduct: {},
+                currency: ""
             };
         },
         renderDispatchTimeMax: function(field) {
             return this.renderInput('Dispatch Time Max', field, 'What is the longest amount of time it may take you to dispatch an item?');
         },
         renderShippingPrice: function(field) {
-            return this.renderInput('Shipping Price', field, 'How much you want to charge for shipping?');
+            return (
+                <label>
+                    <span className={"inputbox-label"}>{"Shipping Price"}</span>
+                    <div className={"order-inputbox-holder"}>
+                        <CurrencyInput
+                            {...field.input}
+                            currency={this.props.currency}
+                            title="How much you want to charge for shipping"
+                            min={0}
+                        />
+                    </div>
+                </label>
+            );
         },
         renderInput: function(label, field, tooltip) {
             return (

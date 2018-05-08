@@ -47,7 +47,8 @@ define([
                 ebaySiteOptions: {},
                 categoryTemplateOptions: {},
                 createListingData: {},
-                conditionOptions: {}
+                conditionOptions: {},
+                defaultCurrency: null
             }
         },
         getInitialState: function() {
@@ -452,6 +453,7 @@ define([
                 conditionOptions={this.formatConditionOptions()}
                 variationsDataForProduct={variationData}
                 accountsData={this.state.accounts}
+                defaultCurrency={this.props.defaultCurrency}
             />;
         },
         formatConditionOptions: function() {

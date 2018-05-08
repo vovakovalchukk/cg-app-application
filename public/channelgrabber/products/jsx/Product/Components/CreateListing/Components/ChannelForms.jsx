@@ -20,7 +20,8 @@ define([
             return {
                 accounts: [],
                 categoryTemplates: {},
-                product: {}
+                product: {},
+                currency: null
             };
         },
         renderForCategoryTemplates: function() {
@@ -34,6 +35,7 @@ define([
                     component={ChannelForm}
                     product={this.props.product}
                     variationsDataForProduct={this.props.variationsDataForProduct}
+                    currency={this.props.currency}
                     {...channelData.fieldValues}
                 />);
             }
