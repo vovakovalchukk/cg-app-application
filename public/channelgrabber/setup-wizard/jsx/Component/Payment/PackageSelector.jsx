@@ -86,7 +86,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                     </div>
                     <div>
                         <span>Monthly cost:</span>
-                        <span>£{selectedPackage.price} ex VAT</span>
+                        <span>{selectedPackage.price} ex VAT</span>
                     </div>
                 </div>
             );

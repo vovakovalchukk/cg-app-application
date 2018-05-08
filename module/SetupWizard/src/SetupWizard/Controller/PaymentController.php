@@ -85,7 +85,7 @@ class PaymentController extends AbstractActionController
             $packages[] = [
                 'id' => $package->getId(),
                 'name' => $package->getName(),
-                'price' => $package->getPrice(),
+                'price' => $this->packageService->getPackagePrice($package),
                 'orderVolume' => $this->getOrderVolumeForPackage($package),
             ];
         }
