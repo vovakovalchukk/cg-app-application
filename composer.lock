@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "71c42d42dbce3b8ab4d5fb29751dc2ee",
+    "content-hash": "647d7f7c75469813324b8fb304030007",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "a807842bac2582ea3749fd9a1df8509d0f6686f5"
+                "reference": "806b7c92f65a86e0af820fe0be40bf78273c4c69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-63-UserLocaleCurrency-0afb73.zip",
-                "reference": "a807842bac2582ea3749fd9a1df8509d0f6686f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-63-UserLocaleCurrency-4b7c76.zip",
+                "reference": "806b7c92f65a86e0af820fe0be40bf78273c4c69",
                 "shasum": null
             },
             "require": {
@@ -324,7 +324,7 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/locale": "dev-TAC-62-TrackUserLocale as 1.0.18",
+                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.18",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
                 "channelgrabber/phinx": "~0.3.2",
@@ -356,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-02T13:51:33+00:00"
+            "time": "2018-05-04T15:00:07+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1426,20 +1426,20 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.5.0",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "9e487ba2627dfaa971e7c79ed65d884acba2bffb"
+                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.5.0-c2387b.zip",
-                "reference": "9e487ba2627dfaa971e7c79ed65d884acba2bffb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.5.4-835212.zip",
+                "reference": "9e5b444f24edc2dcb4bffc9631f8b48ac3eaffff",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.8.0",
+                "channelgrabber/billing": "^1.13.1",
                 "channelgrabber/channel": "^1.32.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.4",
@@ -1451,13 +1451,22 @@
                 "channelgrabber/user": "^1.22.4",
                 "php": ">=7.1"
             },
+            "require-dev": {
+                "channelgrabber/phpunit": "~1.0.1",
+                "phpunit/phpunit": "~6.3"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2018-02-16T11:35:31+00:00"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Intercom\\Test\\": "tests/src"
+                }
+            },
+            "time": "2018-05-03T14:18:00+00:00"
         },
         {
             "name": "channelgrabber/listing",
@@ -1514,12 +1523,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "7fe08ad7767fd1e6c11f4b1217c8ffd84b897bab"
+                "reference": "2531141e1dea7bb9aa0610ae15e512e0e2c49577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-63-UserLocaleCurrency-e77267.zip",
-                "reference": "7fe08ad7767fd1e6c11f4b1217c8ffd84b897bab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-63-UserLocaleCurrency-6de5db.zip",
+                "reference": "2531141e1dea7bb9aa0610ae15e512e0e2c49577",
                 "shasum": null
             },
             "require": {
@@ -1544,7 +1553,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-02T15:12:11+00:00"
+            "time": "2018-05-04T14:52:55+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -1906,24 +1915,24 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "d4f4e3d49b1bef30635c719969775adb3d355aea"
+                "reference": "02dd48d3ca3540b4ce2ff19bdf7f23f9a0bcf04d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-63-UserLocaleCurrency-b8e39a.zip",
-                "reference": "d4f4e3d49b1bef30635c719969775adb3d355aea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-63-UserLocaleCurrency-7cf141.zip",
+                "reference": "02dd48d3ca3540b4ce2ff19bdf7f23f9a0bcf04d",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.11.11",
+                "channelgrabber/billing": "^1.13.4",
                 "channelgrabber/cglib": "^1.8.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": ">=1.1.2",
                 "channelgrabber/intercom": "^1.0.2",
-                "channelgrabber/locale": "dev-TAC-62-TrackUserLocale as 1.0.18",
+                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.18",
                 "channelgrabber/log": "^2.0.0",
-                "channelgrabber/stdlib": "^2.12.13",
+                "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/transaction": ">=1.1.1, <2.0.0",
                 "channelgrabber/user": "^1.22.4",
                 "composer/composer": "@dev",
@@ -1945,10 +1954,11 @@
                 "psr-4": {
                     "CG\\Payment\\Test\\": "tests",
                     "CG\\Payment\\TestAsset\\": "tests/assets",
-                    "CG\\Payment\\TestData\\": "tests/data"
+                    "CG\\Payment\\TestData\\": "tests/data",
+                    "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-05-02T13:53:04+00:00"
+            "time": "2018-05-04T15:06:44+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3234,12 +3244,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a6b710586188576196ab925105d650f0be527ad2"
+                "reference": "e4259f1e59cb80d95958fb060818d5424e9b6e11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-TAC-62-TrackUserLocale-c5304e.zip",
-                "reference": "a6b710586188576196ab925105d650f0be527ad2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-TAC-62-TrackUserLocale-3f0205.zip",
+                "reference": "e4259f1e59cb80d95958fb060818d5424e9b6e11",
                 "shasum": null
             },
             "require": {
@@ -3277,7 +3287,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-05-02T08:18:34+00:00"
+            "time": "2018-05-04T13:17:16+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3566,21 +3576,21 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "3304bce6b52b9707336001316de20dca7475c417"
+                "reference": "41f576e6bb5b6c5de2d95633fbd6b781527547d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-63-UserLocaleCurrency-d6cffe.zip",
-                "reference": "3304bce6b52b9707336001316de20dca7475c417",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-63-UserLocaleCurrency-2f7ac4.zip",
+                "reference": "41f576e6bb5b6c5de2d95633fbd6b781527547d1",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "dev-TAC-63-UserLocaleCurrency as 1.14.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/locale": "dev-TAC-62-TrackUserLocale as 1.0.18",
-                "channelgrabber/payment": "dev-TAC-63-UserLocaleCurrency as 1.7.6",
+                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as dev-TAC-62-TrackUserLocale",
+                "channelgrabber/payment": "dev-TAC-63-UserLocaleCurrency as 1.7.7",
                 "channelgrabber/stdlib": "^2.15.0",
-                "channelgrabber/user": "^1.24.0",
+                "channelgrabber/user": "dev-TAC-62-TrackUserLocale as 1.25.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
@@ -3607,7 +3617,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-03T08:45:40+00:00"
+            "time": "2018-05-08T09:39:02+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -3921,12 +3931,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "53d3fcd70c299a210a1e351301b4519bfe52f094"
+                "reference": "1eff287535ffa0ba7fa5f80daddef0c3ee6991e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-62-TrackUserLocale-fe18d0.zip",
-                "reference": "53d3fcd70c299a210a1e351301b4519bfe52f094",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-62-TrackUserLocale-23ba1e.zip",
+                "reference": "1eff287535ffa0ba7fa5f80daddef0c3ee6991e4",
                 "shasum": null
             },
             "require": {
@@ -3969,7 +3979,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-05-02T09:54:23+00:00"
+            "time": "2018-05-04T13:42:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4105,12 +4115,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "3c1be4a2a85b7228ce4d2af2fd2db1631e31e4d4"
+                "reference": "e9fdb95ed0f4353e888813376f6ad6de57c178a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-62-TrackUserLocale-235090.zip",
-                "reference": "3c1be4a2a85b7228ce4d2af2fd2db1631e31e4d4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-62-TrackUserLocale-fc1853.zip",
+                "reference": "e9fdb95ed0f4353e888813376f6ad6de57c178a2",
                 "shasum": null
             },
             "require": {
@@ -4149,7 +4159,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-05-02T12:57:14+00:00"
+            "time": "2018-05-04T13:48:00+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",

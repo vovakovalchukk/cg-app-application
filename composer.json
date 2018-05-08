@@ -44,7 +44,7 @@
         "channelgrabber/gearman": "~1.3.2",
         "channelgrabber/http": "~1.3.32",
         "channelgrabber/image": "~1.2.8",
-        "channelgrabber/intercom": "~1.5.0",
+        "channelgrabber/intercom": "~1.5.4",
         "channelgrabber/listing": "~1.16.1",
         "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as dev-TAC-62-TrackUserLocale",
         "channelgrabber/location": "~1.2.0",
