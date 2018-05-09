@@ -1,272 +1,233 @@
 define([
     'react',
+    'react-dom',
+    'react-redux',
+    'redux-form',
     'Common/Components/Container',
-    'Common/Components/Popup/Message',
-    'Product/Components/CreateListing/Form/Ebay',
-    'Product/Components/CreateListing/Form/Shopify',
-    'Product/Components/CreateListing/Form/BigCommerce',
-    'Product/Components/CreateListing/Form/WooCommerce',
+    'Common/Components/Input',
+    'Common/Components/TextArea',
     'Common/Components/Select',
-    'Product/Utils/CreateListingUtils'
+    'Common/Components/ImagePicker',
+    './Actions/CreateListings/Actions',
+    './Components/CreateListing/ProductIdentifiers',
+    './Components/CreateListing/Dimensions',
+    './Components/CreateListing/ProductPrice'
 ], function(
     React,
+    ReactDom,
+    ReactRedux,
+    ReduxForm,
     Container,
-    PopupMessage,
-    EbayForm,
-    ShopifyForm,
-    BigCommerceForm,
-    WooCommerceForm,
+    Input,
+    TextArea,
     Select,
-    CreateListingUtils
+    ImagePicker,
+    Actions,
+    ProductIdentifiers,
+    Dimensions,
+    ProductPrice
 ) {
     "use strict";
 
-    var channelToFormMap = {
-        'ebay': EbayForm,
-        'shopify': ShopifyForm,
-        'big-commerce': BigCommerceForm,
-        'woo-commerce': WooCommerceForm
-    };
+    var Field = ReduxForm.Field;
 
     var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
             return {
-                product: null,
-                accounts: {},
-                availableChannels: {},
-                availableVariationsChannels: {},
-                variationsDataForProduct: []
+                product: {},
+                accounts: [],
+                categories: [],
+                conditionOptions: [],
+                variationsDataForProduct: {},
+                initialDimensions: {},
+                accountsData: {},
+                initialProductPrices: {}
             }
         },
-        getInitialState: function() {
-            return {
-                accountSelected: null,
-                productId: null,
-                accountId: null,
-                title: null,
-                description: null,
-                price: null,
-                weight: null,
-                errors: [],
-                warnings: [],
-                attributeNameMap: {}
-            }
+        componentDidMount: function () {
+            this.props.loadInitialValues(this.props.product, this.props.variationsDataForProduct, this.props.accounts);
         },
-        componentDidMount: function() {
-            var accountOptions = this.getAccountOptions();
-
-            if (accountOptions.length == 1) {
-                this.onAccountSelected(accountOptions[0]);
-            }
-
-            if (!this.props.product) {
-                return;
-            }
-
-            var productDetails = this.props.product.details ? this.props.product.details : {};
-
-            this.setState({
-                productId: this.props.product.id,
-                title: this.props.product.name,
-                description: productDetails.description ? productDetails.description : null,
-                price: productDetails.price ? productDetails.price : null,
-                weight: productDetails.weight ? productDetails.weight : null
-            });
+        renderForm: function() {
+            return <form>
+                <span className="heading-large">Listing information</span>
+                <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
+                <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+                <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
+                <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions}/>
+                <Field name="imageId" component={this.renderImagePickerField}/>
+                {this.renderProductIdentifiers()}
+                {this.renderDimensions()}
+                {this.renderProductPrices()}
+            </form>
         },
-        setFormStateListing: function(listingFormState) {
-            this.setState(listingFormState);
+        renderInputComponent: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Input
+                        name={field.input.name}
+                        value={field.input.value}
+                        onChange={this.onInputChange.bind(this, field.input)}
+                    />
+                </div>
+            </label>;
         },
-        getSelectCallHandler: function(fieldName) {
-            return function(selectValue) {
-                var newState = {};
-                newState[fieldName] = selectValue.value;
-                this.setFormStateListing(newState);
-            }.bind(this);
+        renderTextAreaComponent: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <div className={"order-inputbox-holder"}>
+                    <TextArea
+                        name={field.input.name}
+                        value={field.input.value}
+                        onChange={this.onInputChange.bind(this, field.input)}
+                        className={"textarea-description"}
+                    />
+                </div>
+            </label>;
         },
-        renderCreateListingForm: function() {
-            if (!this.state.accountSelected) {
-                return;
-            }
-
-            var FormComponent = channelToFormMap[this.state.accountSelected.channel];
-            return <FormComponent
-                {...this.state}
-                setFormStateListing={this.setFormStateListing}
-                getSelectCallHandler={this.getSelectCallHandler}
-                product={this.props.product}
-                variationsDataForProduct={this.props.variationsDataForProduct}
-                fetchVariations={this.props.fetchVariations}
-            />
+        renderSelectComponent: function(field) {
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        autoSelectFirst={false}
+                        onOptionChange={this.onSelectOptionChange.bind(this, field.input)}
+                        options={field.options}
+                        selectedOption={this.findSelectedOption(field.input.value, field.options)}
+                    />
+                </div>
+            </label>;
         },
-        onAccountSelected: function(selectValue) {
-            var accountId = selectValue.value;
-            var account = this.props.accounts[selectValue.value];
-
-            this.setState({
-                accountSelected: account,
-                accountId: accountId
-            });
-        },
-        getAccountOptions: function() {
-            var options = [];
-
-            var isSimpleProduct = this.props.product.variationCount == 0;
-            var accountsAvailableForProductType = isSimpleProduct ? this.props.availableChannels : this.props.availableVariationsChannels;
-            for (var accountId in this.props.accounts) {
-                var account = this.props.accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, accountsAvailableForProductType)) {
-                    options.push({name: account.displayName, value: account.id});
-                }
-            }
-
-            return options;
-        },
-        submitFormData: function () {
-            var formData = this.getFormData();
-            $.ajax({
-                url: '/products/listing/submit',
-                data: formData,
-                type: 'POST',
-                context: this,
-            }).then(function(response) {
-                window.scrollTo(0, 0);
-                if (response.valid) {
-                    this.handleFormSubmitSuccess(response);
-                } else {
-                    this.handleFormSubmitError(response);
-                }
-            }, function(response) {
-                n.error('There was a problem creating the listing');
-            });
-        },
-        getFormData: function() {
-            var formData = {
-                accountId: this.state.accountId,
-                productId: this.state.productId,
-                listing: {}
+        findSelectedOption: function(value, options) {
+            var selectedOption = {
+                name: '',
+                value: ''
             };
-            formData.listing = this.getListingDataFromState();
-
-            return formData;
-        },
-        getListingDataFromState: function() {
-            var listing = this.cloneState();
-            delete listing.accountSelected;
-            delete listing.productId;
-            delete listing.accountId;
-            delete listing.errors;
-            delete listing.warnings;
-            return this.mergeAdditionalValuesIntoListingData(listing);
-        },
-        cloneState: function() {
-            return JSON.parse(JSON.stringify(this.state));
-        },
-        mergeAdditionalValuesIntoListingData: function(listing) {
-            if (!listing.additionalValues) {
-                return listing;
-            }
-            for (var key in listing.additionalValues) {
-                var values = listing.additionalValues[key];
-                for (var key2 in values) {
-                    var item = values[key2];
-                    if (!item.name || !item.value) {
-                        continue;
-                    }
-                    if (!listing[key]) {
-                        listing[key] = {};
-                    }
-                    listing[key][item.name] = item.value;
+            options.forEach(function(option) {
+                if (option.value == value) {
+                    selectedOption = option;
                 }
-            }
-            delete listing.additionalValues;
-            return listing;
-        },
-        handleFormSubmitSuccess: function(response) {
-            n.success('Listing created successfully');
-            this.props.onCreateListingClose();
-        },
-        handleFormSubmitError: function(response) {
-            this.setState({
-                errors: response.errors,
-                warnings: response.warnings
             });
+            return selectedOption;
         },
-        renderErrorMessage: function() {
-            if (this.state.errors.length == 0) {
-                return;
-            }
-            var warnings = [];
-            if (this.state.warnings) {
-                warnings.push(<h4>Warnings</h4>);
-                warnings.push(<ul>
-                    {this.state.warnings.map(function (warning) {
-                        return (<li>{warning}</li>);
-                    })}
-                </ul>);
+        onSelectOptionChange: function(input, option) {
+            this.onInputChange(input, option.value);
+        },
+        onInputChange: function(input, value) {
+            input.onChange(value);
+        },
+        renderImagePickerField: function(field) {
+            return (<label className="input-container">
+                <span className={"inputbox-label"}>Images:</span>
+                {this.renderImagePicker(field)}
+            </label>);
+        },
+        renderImagePicker: function (field) {
+            if (this.props.product.images.length == 0) {
+                return (
+                    <p className="react-image-picker main-image-picker">No images available</p>
+                );
             }
             return (
-                <PopupMessage
-                    initiallyActive={!!this.state.errors.length}
-                    headerText="There were errors when trying to create the listing"
-                    className="error"
-                    onCloseButtonPressed={this.onErrorMessageClosed}
-                >
-                    <h4>Errors</h4>
-                    <ul>
-                        {this.state.errors.map(function (error) {
-                            return (<li>{error}</li>);
-                        })}
-                    </ul>
-                    {warnings}
-                    <p>Please address these errors then try again.</p>
-                </PopupMessage>
+                <ImagePicker
+                    className={"main-image-picker"}
+                    name={field.input.name}
+                    multiSelect={false}
+                    images={this.props.product.images}
+                    onImageSelected={this.onImageSelected.bind(this, field.input)}
+                />
             );
         },
-        onErrorMessageClosed: function() {
-            this.setState({
-                errors: [],
-                warnings: []
-            });
+        onImageSelected: function(input, selectedImage, selectedImageIds) {
+            input.onChange(selectedImageIds);
+        },
+        renderProductIdentifiers: function() {
+            return (<span>
+                <span className="heading-large heading-table">Product Identifiers</span>
+                <ProductIdentifiers
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                />
+            </span>);
+        },
+        renderDimensions: function() {
+            return (<span>
+                <span className="heading-large heading-table">Dimensions</span>
+                <Dimensions
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                    change={this.props.change}
+                    initialDimensions={this.props.initialDimensions}
+                />
+            </span>);
+        },
+        renderProductPrices: function() {
+            return (<span>
+                <span className="heading-large heading-table">Price</span>
+                <ProductPrice
+                    variationsDataForProduct={this.props.variationsDataForProduct}
+                    product={this.props.product}
+                    attributeNames={this.props.product.attributeNames}
+                    change={this.props.change}
+                    accounts={this.getSelectedAccountsData()}
+                    initialPrices={this.props.initialProductPrices}
+                />
+            </span>);
+        },
+        getSelectedAccountsData: function() {
+            var accounts = [];
+            this.props.accounts.map(function(accountId) {
+                accounts.push(this.props.accountsData[accountId]);
+            }.bind(this));
+            return accounts;
         },
         render: function() {
             return (
-                    <Container
-                        initiallyActive={true}
-                        className="editor-popup product-create-listing"
-                        onYesButtonPressed={this.submitFormData}
-                        onNoButtonPressed={this.props.onCreateListingClose}
-                        closeOnYes={false}
-                        headerText={"Create New Listing"}
-                        subHeaderText={"ChannelGrabber needs additional information to complete this listing. Please check below and complete all the fields necessary."}
-                        yesButtonText="Create Listing"
-                        noButtonText="Cancel"
-                    >
-                        <form>
-                            {this.renderErrorMessage()}
-                            <div className={"order-form half"}>
-                                <label>
-                                    <span className={"inputbox-label"}>Select an account to list to:</span>
-                                    <div className={"order-inputbox-holder"}>
-                                        <Select
-                                            options={this.getAccountOptions()}
-                                            selectedOption={
-                                                this.state.accountSelected
-                                                && this.state.accountSelected.displayName
-                                                    ? {name: this.state.accountSelected.displayName}
-                                                    : null
-                                            }
-                                            onOptionChange={this.onAccountSelected.bind(this)}
-                                            autoSelectFirst={false}
-                                        />
-                                    </div>
-                                </label>
-                                {this.renderCreateListingForm()}
-                            </div>
-                        </form>
-                    </Container>
+                <Container
+                    initiallyActive={true}
+                    className="editor-popup product-create-listing"
+                    closeOnYes={false}
+                    headerText={"Create a listing"}
+                    yesButtonText="Submit"
+                    noButtonText="Cancel"
+                    onYesButtonPressed={this.props.submitForm}
+                >
+                    {this.renderForm()}
+                </Container>
             );
         }
     });
 
-    return CreateListingPopup;
+    CreateListingPopup = ReduxForm.reduxForm({
+        form: "createListing",
+        enableReinitialize: true,
+        keepDirtyOnReinitialize: true,
+        onSubmit: function(values, dispatch, props) {
+            /** @TODO: this will be handled by LIS-159. */
+            console.log(values);
+        },
+    })(CreateListingPopup);
+
+    var mapStateToProps = function(state) {
+        return {
+            initialValues: state.initialValues,
+            initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
+            initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {}
+        };
+    };
+
+    var mapDispatchToProps = function(dispatch) {
+        return {
+            submitForm: function() {
+                dispatch(ReduxForm.submit("createListing"));
+            },
+            loadInitialValues: function(product, variationData, accounts) {
+                dispatch(Actions.loadInitialValues(product, variationData, accounts));
+            }
+        };
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
 });

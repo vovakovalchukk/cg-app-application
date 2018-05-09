@@ -22,6 +22,12 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
                 disabled: false
             }
         },
+        componentWillReceiveProps: function(newProps) {
+            this.setState({
+                options: newProps.options,
+                selectedOptions: newProps.selectedOptions ? newProps.selectedOptions : []
+            });
+        },
         componentDidUpdate: function(prevProps, prevState) {
             if (!this.props.onOptionChange || prevState.selectedOptions.length == this.state.selectedOptions.length) {
                 return;
