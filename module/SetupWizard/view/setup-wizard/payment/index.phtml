@@ -28,13 +28,15 @@
         '<?= SetupWizard\Module::PUBLIC_FOLDER ?>js/steps/Payment.js',
         'react',
         'react-dom',
-        'SetupWizard/Component/Payment/PackageSelector'
-    ], function(Payment, React, ReactDOM, PackageSelectorComponent) {
+        'SetupWizard/Component/Payment/PackageSelector',
+        'SetupWizard/Payment/Locale/<?= $this->locale ?>'
+    ], function(Payment, React, ReactDOM, PackageSelectorComponent, Locale) {
         var paymentSelector = document.getElementById('setup-wizard-payment-selector');
         paymentSelector.style.display = (<?= json_encode($this->selectedPackage) ?> ? "inherit": "none");
         var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, "<?= $this->activePaymentMethod ?>");
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
+                locale: new Locale(),
                 selectedPackage: <?= json_encode($this->selectedPackage) ?>,
                 packages: <?= json_encode($this->packages) ?>,
                 onPackageSelection: function(packageId) {

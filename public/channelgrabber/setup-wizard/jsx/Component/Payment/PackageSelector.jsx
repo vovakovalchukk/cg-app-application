@@ -30,14 +30,11 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             });
             return (indexOfSelectedPackage > -1 ? packages[indexOfSelectedPackage] : null);
         },
-        getSelectPackageName: function(packageInfo) {
-            return packageInfo.fromOrderVolume + "-" + packageInfo.orderVolume;
-        },
         getSelectOptions: function() {
-            var self = this;
+            var locale = this.props.locale;
             return this.getPackages().map(function(packageInfo) {
                 return {
-                    name: self.getSelectPackageName(packageInfo),
+                    name: locale.getSelectPackageName(packageInfo),
                     value: packageInfo.id
                 };
             });
@@ -45,7 +42,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
         getSelectSelectedOption: function() {
             var selectedPackage = this.getSelectedPackage();
             return {
-                name: (selectedPackage ? this.getSelectPackageName(selectedPackage) : ''),
+                name: (selectedPackage ? this.props.locale.getSelectPackageName(selectedPackage) : ''),
                 value: (selectedPackage ? selectedPackage.id : false)
             };
         },
@@ -78,18 +75,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             if (!selectedPackage) {
                 return;
             }
-            return (
-                <div className="package-info">
-                    <div>
-                        <span>Package Needed:</span>
-                        <span>{selectedPackage.name}</span>
-                    </div>
-                    <div>
-                        <span>Monthly cost:</span>
-                        <span>{selectedPackage.price} ex VAT</span>
-                    </div>
-                </div>
-            );
+            return this.props.locale.getPackageInfo(selectedPackage);
         },
         render: function() {
             return (

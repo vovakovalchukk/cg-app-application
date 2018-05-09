@@ -35,6 +35,11 @@ class PackageService
         $this->currencyFormatter = new CurrencyFormatter($this->activeUser, null, false);
     }
 
+    public function getLocale(): string
+    {
+        return $this->activeUser->getLocale();
+    }
+
     /**
      * @return Package[]
      */
