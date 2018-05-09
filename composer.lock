@@ -835,12 +835,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-currency.git",
-                "reference": "69e4fad20d35a0192e5ea048c8c12f4e30650231"
+                "reference": "2c95ed76535b2128d09500a8c44e8d34e0c3f4ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-dev-TAC-65-DisplayUserLocaleCurrency-662428.zip",
-                "reference": "69e4fad20d35a0192e5ea048c8c12f4e30650231",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-dev-TAC-65-DisplayUserLocaleCurrency-d8cfc2.zip",
+                "reference": "2c95ed76535b2128d09500a8c44e8d34e0c3f4ee",
                 "shasum": null
             },
             "require": {
@@ -853,7 +853,7 @@
                     "CG\\Currency\\": "src/"
                 }
             },
-            "time": "2018-05-08T14:59:47+00:00"
+            "time": "2018-05-09T08:36:20+00:00"
         },
         {
             "name": "channelgrabber/db",

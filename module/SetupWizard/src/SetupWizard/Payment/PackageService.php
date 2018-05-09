@@ -91,6 +91,6 @@ class PackageService
 
     public function getPackagePrice(Package $package): string
     {
-        return $this->currencyFormatter->format($package->getPrice());
+        return $this->currencyFormatter->format($package->getPrice(), null, false);
     }
 }
