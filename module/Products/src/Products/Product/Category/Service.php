@@ -10,6 +10,7 @@ use CG\Product\Category\Collection as Categories;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\StorageInterface as CategoryStorage;
+use CG\Product\Category\Template\AccountCategory;
 use CG\Product\Category\Template\Collection as CategoryTemplates;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
@@ -68,12 +69,21 @@ class Service
 
     /**
      * @param CategoryTemplate[] $categoryTemplates
+     * @return array
      */
     protected function getTemplateOptionsArray(CategoryTemplates $categoryTemplates): array
     {
         $templateOptions = [];
         foreach ($categoryTemplates as $categoryTemplate) {
-            $templateOptions[$categoryTemplate->getId()] = $categoryTemplate->getName();
+            $templateOptions[$categoryTemplate->getId()] = [
+                'name' => $categoryTemplate->getName(),
+                'accounts' => array_map(
+                    function (AccountCategory $accountCategory) {
+                        return $accountCategory->getAccountId();
+                    },
+                    $categoryTemplate->getAccountCategories()
+                )
+            ];
         }
         return $templateOptions;
     }
