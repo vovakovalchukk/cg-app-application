@@ -57,7 +57,7 @@ $screen-padding:20px;
     }
     &.inactive {
         color: #CCCCCC;
-        cursor: auto;
+        cursor: not-allowed;
     }
 }
 
@@ -67,14 +67,19 @@ $screen-padding:20px;
     display: flex;
     clear: none;
     margin: 3px 0 0 14px;
+    cursor: pointer;
 }
 
 .remove-icon {
-    color: $color-red;
+    color: $color-dgrey;
 }
 
 .refresh-icon {
-    color: $color-green;
+    color: $color-light-green;
+}
+
+.icon-small-margin {
+    margin: 3px 0 0 6px;
 }
 
 #searchBtn {
