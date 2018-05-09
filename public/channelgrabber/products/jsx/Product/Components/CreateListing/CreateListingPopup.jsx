@@ -13,7 +13,8 @@ define([
     './Components/CategoryForms',
     './Components/CreateListing/ProductIdentifiers',
     './Components/CreateListing/Dimensions',
-    './Components/CreateListing/ProductPrice'
+    './Components/CreateListing/ProductPrice',
+    './Components/CreateListing/SubmissionTable',
 ], function(
     React,
     ReactDom,
@@ -29,7 +30,8 @@ define([
     CategoryForms,
     ProductIdentifiers,
     Dimensions,
-    ProductPrice
+    ProductPrice,
+    SubmissionTable
 ) {
     "use strict";
 
@@ -219,6 +221,23 @@ define([
             }.bind(this));
             return accounts;
         },
+        renderSubmissionTable: function () {
+            return (<span>
+                <span className="heading-large heading-table">Creation status</span>
+                <SubmissionTable
+                    accounts={this.formatAccountDataForSubmissionTable()}
+                    categoryTemplates={this.props.categoryTemplates}
+                    statuses={this.props.submissionStatuses}
+                />
+            </span>);
+        },
+        formatAccountDataForSubmissionTable: function() {
+            var accounts = {};
+            this.props.accounts.forEach(accountId => {
+                accounts[accountId] = this.props.accountsData[accountId]
+            });
+            return accounts;
+        },
         render: function() {
             return (
                 <Container
@@ -231,6 +250,7 @@ define([
                     onYesButtonPressed={this.props.submitForm}
                 >
                     {this.renderForm()}
+                    {this.renderSubmissionTable()}
                 </Container>
             );
         }
@@ -241,8 +261,7 @@ define([
         enableReinitialize: true,
         keepDirtyOnReinitialize: false,
         onSubmit: function(values, dispatch, props) {
-            /** @TODO: this will be handled by LIS-159. */
-            console.log(values);
+            dispatch(Actions.submitListingsForm(dispatch, values));
         },
     })(CreateListingPopup);
 
@@ -250,7 +269,8 @@ define([
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
-            initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {}
+            initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
+            submissionStatuses: state.submissionStatuses
         };
     };
 

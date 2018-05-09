@@ -1,17 +1,20 @@
 define([
     'redux',
     'redux-form',
-    './InitialValues'
+    './InitialValues',
+    './SubmissionStatusesReducer'
 ], function(
     Redux,
     ReduxForm,
-    InitialValuesReducer
+    InitialValuesReducer,
+    SubmissionStatusesReducer
 ) {
     "use strict";
 
     var CombinedReducer = Redux.combineReducers({
         form: ReduxForm.reducer,
-        initialValues: InitialValuesReducer
+        initialValues: InitialValuesReducer,
+        submissionStatuses: SubmissionStatusesReducer
     });
 
     return CombinedReducer;
