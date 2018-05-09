@@ -85,7 +85,7 @@ class PackageService
             );
             return $pricingSchemeAssignment->getPricingSchemeId();
         } catch(NotFound $exception) {
-            return PricingScheme::SCHEME_DEFAULT;
+            return PricingScheme::getDefaultPricingSchemeIdForLocale($this->activeUser->getLocale());
         }
     }
 
