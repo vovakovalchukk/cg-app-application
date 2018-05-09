@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "42dc5741b07548786599977f814a364b",
+    "content-hash": "7b4e74956381e3d81d86047e7a02cad9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3582,16 +3582,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "41f576e6bb5b6c5de2d95633fbd6b781527547d1"
+                "reference": "d3285922166d2facec0d768db9901ea2b98b4ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-63-UserLocaleCurrency-2f7ac4.zip",
-                "reference": "41f576e6bb5b6c5de2d95633fbd6b781527547d1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-65-DisplayUserLocaleCurrency-5aaac0.zip",
+                "reference": "d3285922166d2facec0d768db9901ea2b98b4ee2",
                 "shasum": null
             },
             "require": {
@@ -3627,7 +3627,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-08T09:39:02+00:00"
+            "time": "2018-05-09T10:23:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9980,7 +9980,7 @@
         {
             "alias": "1.0.2",
             "alias_normalized": "1.0.2.0",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
             "package": "channelgrabber/zf2-billing"
         },
         {
