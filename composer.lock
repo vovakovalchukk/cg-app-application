@@ -513,16 +513,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-154-SubmitMultipleListings",
+            "version": "dev-LIS-164-submit-multiple-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "072ba109f21ee01475a8d027f041490d8fb4c011"
+                "reference": "3406b7a0d93f5e9af637909f3c9123cca053c651"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-154-SubmitMultipleListings-d89c9b.zip",
-                "reference": "072ba109f21ee01475a8d027f041490d8fb4c011",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-164-submit-multiple-listings-182259.zip",
+                "reference": "3406b7a0d93f5e9af637909f3c9123cca053c651",
                 "shasum": null
             },
             "require": {
@@ -544,7 +544,7 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.9.3",
+                "channelgrabber/product": "^1.12.2",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-08T10:14:43+00:00"
+            "time": "2018-04-24T10:15:58+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9948,7 +9948,7 @@
         {
             "alias": "1.34.8",
             "alias_normalized": "1.34.8.0",
-            "version": "dev-LIS-154-SubmitMultipleListings",
+            "version": "dev-LIS-164-submit-multiple-listings",
             "package": "channelgrabber/channel"
         }
     ],
