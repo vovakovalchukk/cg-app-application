@@ -31,6 +31,37 @@ define([
         return defaults;
     };
 
+    var formatCategoryDefaultValues = function(data) {
+        var defaults = {},
+            account = {};
+
+        for (var accountId in data.accountDefaultSettings) {
+            if (data.accountsData[accountId].channel !== 'ebay') {
+                continue;
+            }
+            account = data.accountDefaultSettings[accountId];
+            break;
+        }
+
+        for (var templateId in data.categoryTemplates) {
+            var template = data.categoryTemplates[templateId];
+            for (var categoryId in template.categories) {
+                var category = template.categories[categoryId];
+                if (category.channel !== 'ebay') {
+                    continue;
+                }
+                var categoryKey = 'id-' + categoryId;
+                var defaultsForCategory = {};
+                if (account.listingDuration) {
+                    defaultsForCategory.listingDuration = account.listingDuration;
+                }
+                defaults[categoryKey] = defaultsForCategory;
+            }
+        }
+
+        return defaults;
+    };
+
     return reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
@@ -77,7 +108,8 @@ define([
                 identifiers: identifiers,
                 dimensions: dimensions,
                 prices: prices,
-                channel: formatChannelDefaultValues(action.payload)
+                channel: formatChannelDefaultValues(action.payload),
+                category: formatCategoryDefaultValues(action.payload)
             };
         }
     });

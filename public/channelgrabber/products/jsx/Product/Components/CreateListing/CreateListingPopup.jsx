@@ -239,7 +239,7 @@ define([
     CreateListingPopup = ReduxForm.reduxForm({
         form: "createListing",
         enableReinitialize: true,
-        keepDirtyOnReinitialize: true,
+        keepDirtyOnReinitialize: false,
         onSubmit: function(values, dispatch, props) {
             /** @TODO: this will be handled by LIS-159. */
             console.log(values);
@@ -254,13 +254,22 @@ define([
         };
     };
 
-    var mapDispatchToProps = function(dispatch) {
+    var mapDispatchToProps = function(dispatch, props) {
         return {
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
             },
-            loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData) {
-                dispatch(Actions.loadInitialValues(product, variationData, accounts, accountDefaultSettings, accountsData));
+            loadInitialValues: function() {
+                dispatch(
+                    Actions.loadInitialValues(
+                        props.product,
+                        props.variationsDataForProduct,
+                        props.accounts,
+                        props.accountDefaultSettings,
+                        props.accountsData,
+                        props.categoryTemplates
+                    )
+                );
             }
         };
     };

@@ -4,7 +4,7 @@ define([
     "use strict";
 
     return {
-        loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData) {
+        loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData, categoryTemplates) {
             return {
                 type: "LOAD_INITIAL_VALUES",
                 payload: {
@@ -12,7 +12,8 @@ define([
                     variationData: variationData,
                     selectedAccounts: accounts,
                     accountDefaultSettings: accountDefaultSettings,
-                    accountsData: accountsData
+                    accountsData: accountsData,
+                    categoryTemplates: categoryTemplates
                 }
             };
         }
