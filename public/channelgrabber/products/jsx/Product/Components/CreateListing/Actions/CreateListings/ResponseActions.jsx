@@ -18,7 +18,7 @@ define([], function() {
         },
         listingFormSubmittedError: function (errors) {
             return {
-                type: "LISTING_FORM_SUBMITTED_NOT_ALLOWED",
+                type: "LISTING_FORM_SUBMITTED_ERROR",
                 payload: {
                     errors: errors
                 }
