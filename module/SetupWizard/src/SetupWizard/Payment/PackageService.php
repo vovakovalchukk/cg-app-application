@@ -32,7 +32,7 @@ class PackageService
         $this->service = $service;
         $this->activeUser = $activeUser;
         $this->pricingSchemeAssignmentService = $pricingSchemeAssignmentService;
-        $this->currencyFormatter = new CurrencyFormatter($this->activeUser);
+        $this->currencyFormatter = new CurrencyFormatter($this->activeUser, null, false);
     }
 
     /**
@@ -91,6 +91,6 @@ class PackageService
 
     public function getPackagePrice(Package $package): string
     {
-        return $this->currencyFormatter->format($package->getPrice(), null, false);
+        return $this->currencyFormatter->format($package->getPrice());
     }
 }
