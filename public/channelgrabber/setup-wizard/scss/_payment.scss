@@ -44,6 +44,11 @@
     > div:first-child {
       padding: 10px 0;
     }
+    > div > span:nth-child(n + 3) {
+      font-size: 14px;
+      text-align: center;
+      padding-left: 15px;
+    }
   }
 
   .demo {
