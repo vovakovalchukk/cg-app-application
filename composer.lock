@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5eb78f4f8696465a3166acecf26550bc",
+    "content-hash": "aff451ef2402340084e4bcad987db3bc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1106,16 +1106,16 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "065df740531eaf92d0091465d7189e64f74189f8"
+                "reference": "485c3e5027a18a736bab8fc1bf2033c817800d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-1.0.0-100ace.zip",
-                "reference": "065df740531eaf92d0091465d7189e64f74189f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-1.0.1-91d884.zip",
+                "reference": "485c3e5027a18a736bab8fc1bf2033c817800d45",
                 "shasum": null
             },
             "require": {
@@ -1141,7 +1141,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-04-04T12:58:46+00:00"
+            "time": "2018-05-04T14:58:43+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -9953,8 +9953,8 @@
             "package": "channelgrabber/locale"
         },
         {
-            "alias": "1.7.6",
-            "alias_normalized": "1.7.6.0",
+            "alias": "1.7.7",
+            "alias_normalized": "1.7.7.0",
             "version": "dev-TAC-63-UserLocaleCurrency",
             "package": "channelgrabber/payment"
         },
