@@ -140,7 +140,9 @@ define([
     var filterOutEmptyAccountSettingsData = function(accountSettings) {
         var accountDefaultSettings = {};
         for (var accountId in accountSettings) {
-            accountSettings[accountId].settings ?  accountDefaultSettings[accountId] = accountSettings[accountId].settings : null;
+            if (accountSettings[accountId].settings) {
+                accountDefaultSettings[accountId] = accountSettings[accountId].settings;
+            }
         }
         return accountDefaultSettings;
     };

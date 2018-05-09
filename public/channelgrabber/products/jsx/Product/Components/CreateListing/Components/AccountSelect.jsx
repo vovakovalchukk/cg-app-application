@@ -40,8 +40,7 @@ define([
             );
         },
         onAccountSelected: function(input, accountData, accountId) {
-            var newValue = input.value ? null : accountId;
-            if (newValue && accountData.channel in channelsWithDefaultSettings) {
+            if (this.shouldFetchSettingsForAccount(accountId, accountData.channel)) {
                 this.props.fetchSettingsForAccount(accountId);
             }
             input.onChange(input.value ? null : accountId);
