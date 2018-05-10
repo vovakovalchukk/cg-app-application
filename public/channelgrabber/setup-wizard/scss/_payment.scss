@@ -1,7 +1,3 @@
-#setup-wizard-payment {
-  min-height: 250px;
-}
-
 #setup-wizard-package-selector label > span,
 #setup-wizard-package-selector .package-info > div > span:first-child,
 #setup-wizard-payment-selector .inputbox-label {
@@ -84,6 +80,7 @@
 
 #setup-wizard-payment-selector {
   display: none;
+  height: 200px;
 
   .order-inputbox-holder, .order-inputbox-holder > .input, .custom-select {
     width: 200px;
