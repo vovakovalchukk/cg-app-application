@@ -19,6 +19,27 @@ define([
             });
 
             return newState;
+        },
+        "FETCH_SETTINGS_FOR_ACCOUNT": function(state, action) {
+            return Object.assign({}, state, {
+                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
+                    isFetching: true
+                })
+            });
+        },
+        "ACCOUNT_SETTINGS_FETCHED": function(state, action) {
+            return Object.assign({}, state, {
+                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
+                    isFetching: false
+                })
+            });
+        },
+        "NO_ACCOUNT_SETTINGS": function(state, action) {
+            return Object.assign({}, state, {
+                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
+                    isFetching: false
+                })
+            });
         }
     });
 });

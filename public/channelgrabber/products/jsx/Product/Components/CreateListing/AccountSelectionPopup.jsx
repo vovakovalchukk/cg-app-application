@@ -70,6 +70,9 @@ define([
                 name="accounts"
                 component={AccountSelectComponent}
                 accounts={this.props.accounts}
+                accountSettings={this.props.accountSettings}
+                fetchSettingsForAccount={this.props.fetchSettingsForAccount}
+                touch={this.props.touch}
             />
         },
         renderAddNewCategoryComponent: function() {
@@ -103,6 +106,18 @@ define([
                 </form>
             );
         },
+        isSubmitButtonDisabled: function() {
+            if (this.props.invalid) {
+                return true;
+            }
+            for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (account.isFetching) {
+                    return true;
+                }
+            }
+            return false;
+        },
         render: function() {
             return (
                 <Container
@@ -114,12 +129,23 @@ define([
                     onYesButtonPressed={this.props.submitForm}
                     yesButtonText="Next"
                     noButtonText="Cancel"
+                    yesButtonDisabled={this.isSubmitButtonDisabled()}
                 >
                     {this.renderForm()}
                 </Container>
             );
         }
     });
+
+    var filterOutEmptyAccountSettingsData = function(accountSettings) {
+        var accountDefaultSettings = {};
+        for (var accountId in accountSettings) {
+            if (accountSettings[accountId].settings) {
+                accountDefaultSettings[accountId] = accountSettings[accountId].settings;
+            }
+        }
+        return accountDefaultSettings;
+    };
 
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
@@ -137,7 +163,8 @@ define([
 
             values = Object.assign(values, {
                 product: props.product,
-                accounts: values.accounts.filter(accountId => accountId)
+                accounts: values.accounts.filter(accountId => accountId),
+                accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings)
             });
             props.renderCreateListingPopup(values);
         },
@@ -175,6 +202,7 @@ define([
             addNewCategoryVisible: state.addNewCategoryVisible.isVisible,
             categoryTemplateOptions: Object.assign({}, state.categoryTemplateOptions),
             accountsForCategoryMap: convertStateToCategoryMaps(state),
+            accountSettings: state.accountSettings
         }
     };
 
@@ -197,6 +225,9 @@ define([
             },
             submitForm: function() {
                 dispatch(ReduxForm.submit("accountSelection"));
+            },
+            fetchSettingsForAccount: function(accountId) {
+                dispatch(Actions.fetchSettingsForAccount(accountId, dispatch));
             }
         }
     };
