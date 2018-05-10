@@ -103,6 +103,27 @@ define([
         return itemSpecifics;
     };
 
+    var progressPolling = {
+        fetchListingProgress: function(dispatch, guid) {
+            $.ajax({
+                url: '/products/listing/submitMultiple/progress/' + guid,
+                type: 'GET',
+                success: function(response) {
+                    dispatch(ResponseActions.listingProgressFetched(response.accounts));
+                }
+            });
+        },
+        startListingProgressPolling: function(dispatch, guid) {
+            this.polling = setInterval(progressPolling.fetchListingProgress, 3000, dispatch, guid);
+        },
+        stopPolling: function () {
+            setTimeout(function() {
+                clearInterval(progressPolling.polling);
+            }, 20000);
+        },
+        polling: null
+    };
+
     return {
         loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData, categoryTemplates) {
             return {
@@ -125,6 +146,8 @@ define([
                 success: function(response) {
                     if (response.allowed) {
                         dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid));
+                        progressPolling.startListingProgressPolling(dispatch, response.guid);
+                        progressPolling.stopPolling();
                     } else {
                         dispatch(ResponseActions.listingFormSubmittedNotAllowed());
                     }
