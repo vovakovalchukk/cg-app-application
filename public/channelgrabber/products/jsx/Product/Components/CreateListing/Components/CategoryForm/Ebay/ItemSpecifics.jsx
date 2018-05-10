@@ -65,7 +65,7 @@ define([
         },
         renderItemSpecificFromOptions: function(name, options, required) {
             if (this.shouldRenderTextFieldArray(options)) {
-                return this.renderFieldArray(name, this.renderTextInputArray);
+                return this.renderFieldArray(name, this.renderTextInputArray, required);
             }
             return this.renderItemSpecificField(name, this.renderItemSpecificInput, options, required);
         },
@@ -151,8 +151,9 @@ define([
         shouldRenderTextFieldArray: function(options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
         },
-        renderFieldArray: function(name, component) {
-            return <FieldArray name={name} component={component} displayTitle={name}/>;
+        renderFieldArray: function(name, component, required) {
+            var validator = (required ? Validators.required : null);
+            return <FieldArray name={name} component={component} displayTitle={name} validate={validator}/>;
         },
         renderItemSpecificField: function(name, component, options, required) {
             var validator = (required ? Validators.required : null);
