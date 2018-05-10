@@ -32,6 +32,7 @@ use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use Products\Listing\Channel\Service as ChannelService;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -96,6 +97,8 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productCategoryDetailService;
     /** @var CreateListingJobGenerator */
     protected $createListingJobGenerator;
+    /** @var ChannelService */
+    protected $channelService;
 
     public function __construct(
         AccountService $accountService,
@@ -110,7 +113,8 @@ class MultiCreationService implements LoggerAwareInterface
         ProductAccountDetailService $productAccountDetailService,
         ProductCategoryDetailMapper $productCategoryDetailMapper,
         ProductCategoryDetailService $productCategoryDetailService,
-        CreateListingJobGenerator $createListingJobGenerator
+        CreateListingJobGenerator $createListingJobGenerator,
+        ChannelService $channelService
     ) {
         $this->accountService = $accountService;
         $this->categoryTemplateService = $categoryTemplateService;
@@ -125,6 +129,7 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productCategoryDetailMapper = $productCategoryDetailMapper;
         $this->productCategoryDetailService = $productCategoryDetailService;
         $this->createListingJobGenerator = $createListingJobGenerator;
+        $this->channelService = $channelService;
     }
 
     public function generateUniqueId(): string
@@ -174,14 +179,14 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
-                $this->generateCreateSimpleListingJobs($accounts, $categories, $siteId, $product, $guid, $categoryTemplates);
+                $this->generateCreateSimpleListingJobs($accounts, $categories, $product, $guid, $categoryTemplates);
             } else {
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
                     $variations = $this->getSelectedVariations($product, $skus);
                 }
-                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid, $categoryTemplates);
+                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $variations, $guid, $categoryTemplates);
             }
 
             return true;
@@ -599,7 +604,6 @@ class MultiCreationService implements LoggerAwareInterface
     protected function generateCreateSimpleListingJobs(
         Accounts $accounts,
         Categories $categories,
-        string $siteId,
         Product $product,
         string $guid,
         CategoryTemplates $categoryTemplates
@@ -613,7 +617,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $account,
                 $category,
                 $product,
-                $siteId,
+                $this->getSiteIdForAccount($account),
                 $guid
             );
         }
@@ -626,7 +630,6 @@ class MultiCreationService implements LoggerAwareInterface
         Accounts $accounts,
         Categories $categories,
         Product $product,
-        string $siteId,
         array $variations,
         string $guid,
         CategoryTemplates $categoryTemplates
@@ -640,7 +643,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $account,
                 $category,
                 $product,
-                $siteId,
+                $this->getSiteIdForAccount($account),
                 $guid,
                 $this->extractVariationProductIds($variations)
             );
@@ -658,5 +661,11 @@ class MultiCreationService implements LoggerAwareInterface
             $ids[$variation->getId()] = $variation->getId();
         }
         return $ids;
+    }
+
+    protected function getSiteIdForAccount(Account $account)
+    {
+        $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
+        return isset($channelSpecificValues['defaultSiteId']) ? $channelSpecificValues['defaultSiteId'] : 0;
     }
 }
