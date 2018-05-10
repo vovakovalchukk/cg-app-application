@@ -313,9 +313,9 @@ class MultiCreationService implements LoggerAwareInterface
             'sku' => $sku,
             'weight' => $variationData['weight'] ?? $productData['weight'] ?? null,
             // Dimensions entered in centimetres but stored in metres
-            'width' => ProductDetail::convertLength($width, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH),
-            'height' => ProductDetail::convertLength($height, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH),
-            'length' => ProductDetail::convertLength($length, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH),
+            'width' => $width ? ProductDetail::convertLength((float) $width, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
+            'height' => $height ? ProductDetail::convertLength((float) $height, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
+            'length' => $length ? ProductDetail::convertLength((float) $length, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
             'description' => $variationData['description'] ?? $productData['description'] ?? null,
             'ean' => $variationData['ean'] ?? $productData['ean'] ?? null,
             'brand' => $variationData['brand'] ?? $productData['brand'] ?? null,
