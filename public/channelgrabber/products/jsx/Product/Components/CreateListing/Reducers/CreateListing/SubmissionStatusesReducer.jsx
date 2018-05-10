@@ -9,15 +9,16 @@ define([
 
     return reducerCreator(initialState, {
         "LISTING_FORM_SUBMITTED_SUCCESSFUL": function(state, action) {
-            console.log(state, action);
-            return state;
+            return Object.assign({}, state, {
+                guid: action.payload.guid
+            });
         },
         "LISTING_FORM_SUBMITTED_ERROR": function(state, action) {
-            console.log(state, action);
+            n.error(action.payload.error);
             return state;
         },
         "LISTING_FORM_SUBMITTED_NOT_ALLOWED": function (state, action) {
-            console.log(state, action);
+            n.error("You do not have permission to do this.");
             return state;
         }
     });

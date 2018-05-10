@@ -16,11 +16,11 @@ define([], function() {
                 payload: {}
             };
         },
-        listingFormSubmittedError: function (errors) {
+        listingFormSubmittedError: function (error) {
             return {
                 type: "LISTING_FORM_SUBMITTED_ERROR",
                 payload: {
-                    errors: errors
+                    error: error
                 }
             };
         }
