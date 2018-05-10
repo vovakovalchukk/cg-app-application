@@ -304,13 +304,18 @@ class MultiCreationService implements LoggerAwareInterface
 
     protected function mapProductDetails(int $ou, string $sku, array $productData, array $variationData): ProductDetail
     {
+        $height = $variationData['height'] ?? $productData['height'] ?? null;
+        $length = $variationData['length'] ?? $productData['length'] ?? null;
+        $width = $variationData['width'] ?? $productData['width'] ?? null;
+
         return $this->productDetailMapper->fromArray([
             'organisationUnitId' => $ou,
             'sku' => $sku,
             'weight' => $variationData['weight'] ?? $productData['weight'] ?? null,
-            'width' => $variationData['width'] ?? $productData['width'] ?? null,
-            'height' => $variationData['height'] ?? $productData['height'] ?? null,
-            'length' => $variationData['length'] ?? $productData['length'] ?? null,
+            // Dimensions entered in centimetres but stored in metres
+            'width' => ProductDetail::convertLength($width, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH),
+            'height' => ProductDetail::convertLength($height, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH),
+            'length' => ProductDetail::convertLength($length, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH),
             'description' => $variationData['description'] ?? $productData['description'] ?? null,
             'ean' => $variationData['ean'] ?? $productData['ean'] ?? null,
             'brand' => $variationData['brand'] ?? $productData['brand'] ?? null,

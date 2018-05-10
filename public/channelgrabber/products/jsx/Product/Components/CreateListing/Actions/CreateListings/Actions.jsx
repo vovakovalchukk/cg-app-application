@@ -12,7 +12,7 @@ define([
             categoryTemplateIds: props.categories,
             product: {
                 id: props.product.id,
-                etag: "@TODO",
+                etag: props.product.eTag,
                 imageId: values.imageId ? values.imageId[0] : null,
                 variations: formatVariationData(values, props),
                 title: values.title,
@@ -33,6 +33,7 @@ define([
                     values.identifiers[sku],
                     values.dimensions[sku],
                     {
+                        sku: sku,
                         productAccountDetail: formatProductAccountDetailsPrices(values.prices[sku])
                     }
                 )
@@ -125,11 +126,7 @@ define([
                     if (response.allowed) {
                         dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid));
                     } else {
-                        if (response.errors) {
-                            dispatch(ResponseActions.listingFormSubmittedError(response.errors));
-                        } else {
-                            dispatch(ResponseActions.listingFormSubmittedNotAllowed());
-                        }
+                        dispatch(ResponseActions.listingFormSubmittedNotAllowed());
                     }
                 },
                 error: function() {
