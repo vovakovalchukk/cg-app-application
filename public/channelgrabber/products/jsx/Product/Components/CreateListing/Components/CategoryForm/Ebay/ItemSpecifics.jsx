@@ -4,14 +4,16 @@ define([
     'Common/Components/Select',
     'Common/Components/MultiSelect',
     'Common/Components/Input',
-    './CustomItemSpecific'
+    './CustomItemSpecific',
+    '../../../Validators'
 ], function(
     React,
     ReduxForm,
     Select,
     MultiSelect,
     Input,
-    CustomItemSpecific
+    CustomItemSpecific,
+    Validators
 ) {
     "use strict";
 
@@ -50,22 +52,22 @@ define([
                 return null;
             }
 
-            return this.renderItemSpecificsInputsFromOptions(requiredItems);
+            return this.renderItemSpecificsInputsFromOptions(requiredItems, true);
         },
-        renderItemSpecificsInputsFromOptions: function(items) {
+        renderItemSpecificsInputsFromOptions: function(items, required) {
             var inputs = [],
                 options;
             for (var name in items) {
                 options = items[name];
-                inputs.push(this.renderItemSpecificFromOptions(name, options));
+                inputs.push(this.renderItemSpecificFromOptions(name, options, required));
             }
             return <span>{inputs}</span>;
         },
-        renderItemSpecificFromOptions: function(name, options) {
+        renderItemSpecificFromOptions: function(name, options, required) {
             if (this.shouldRenderTextFieldArray(options)) {
                 return this.renderFieldArray(name, this.renderTextInputArray);
             }
-            return this.renderItemSpecificField(name, this.renderItemSpecificInput, options);
+            return this.renderItemSpecificField(name, this.renderItemSpecificInput, options, required);
         },
         renderOptionsItemSpecificInputs: function() {
             var optionalItems = this.props.itemSpecifics.optional;
@@ -152,12 +154,14 @@ define([
         renderFieldArray: function(name, component) {
             return <FieldArray name={name} component={component} displayTitle={name}/>;
         },
-        renderItemSpecificField: function(name, component, options) {
+        renderItemSpecificField: function(name, component, options, required) {
+            var validator = (required ? Validators.required : null);
             return <Field
                 name={name}
                 displayTitle={name}
                 component={component}
                 options={options}
+                validate={validator}
             />
         },
         renderItemSpecificInput: function(field) {
@@ -174,8 +178,14 @@ define([
             return <label className="input-container">
                 <span className={"inputbox-label"}>{!field.hideLabel ? field.displayTitle : ''}</span>
                 <div className={"order-inputbox-holder"}>
-                    <Input {...field.input} />
+                    <Input
+                        {...field.input}
+                        className={Validators.shouldShowError(field) ? 'error' : null}
+                    />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
                 {this.getActionButtonForInput(field)}
             </label>;
         },
@@ -224,8 +234,12 @@ define([
                         selectedOptions={field.input.value ? field.input.value : []}
                         selectedOption={this.findSelectedOption(field.input.value)}
                         onCustomOption={this.onCustomOption}
+                        className={Validators.shouldShowError(field) ? 'error' : null}
                     />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         renderCustomItemSpecificField: function() {

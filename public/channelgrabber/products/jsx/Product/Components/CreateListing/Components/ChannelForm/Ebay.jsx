@@ -4,14 +4,16 @@ define([
     'Common/Components/Input',
     'Common/Components/CurrencyInput',
     './Ebay/ShippingService',
-    './Ebay/VariationImagePicker'
+    './Ebay/VariationImagePicker',
+    '../../Validators'
 ], function(
     React,
     ReduxForm,
     Input,
     CurrencyInput,
     ShippingService,
-    VariationImagePicker
+    VariationImagePicker,
+    Validators
 ) {
     "use strict";
 
@@ -39,8 +41,12 @@ define([
                             currency={this.props.currency}
                             title="How much you want to charge for shipping"
                             min={0}
+                            className={Validators.shouldShowError(field) ? 'error' : null}
                         />
                     </div>
+                    {Validators.shouldShowError(field) && (
+                        <span className="input-error">{field.meta.error}</span>
+                    )}
                 </label>
             );
         },
@@ -53,8 +59,12 @@ define([
                             {...field.input}
                             inputType="number"
                             title={tooltip}
+                            className={Validators.shouldShowError(field) ? 'error' : null}
                         />
                     </div>
+                    {Validators.shouldShowError(field) && (
+                        <span className="input-error">{field.meta.error}</span>
+                    )}
                 </label>
             );
         },
@@ -65,9 +75,9 @@ define([
                         product={this.props.product}
                         variationsDataForProduct={this.props.variationsDataForProduct}
                     />
-                    <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} />
+                    <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
                     <ShippingService shippingServices={this.props.shippingMethods} />
-                    <Field name="shippingPrice" component={this.renderShippingPrice} />
+                    <Field name="shippingPrice" component={this.renderShippingPrice} validate={Validators.required} />
                 </div>
             );
         }

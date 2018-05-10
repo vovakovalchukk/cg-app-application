@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    '../../../Validators'
 ], function(
     React,
     ReduxForm,
-    Select
+    Select,
+    Validators
 ) {
     "use strict";
 
@@ -32,6 +34,9 @@ define([
                         selectedOption={selectedOption}
                     />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         buildListingDurationOptions: function(listingDurations) {
@@ -56,7 +61,7 @@ define([
             input.onChange(selectedOption.value);
         },
         render: function() {
-            return <Field name="listingDuration" component={this.renderSelect} />;
+            return <Field name="listingDuration" component={this.renderSelect} validate={Validators.required} />;
         }
     });
     return EbayListingDuration;
