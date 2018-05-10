@@ -7,8 +7,7 @@ define([
 
     var submitForm = ReduxForm.submit('createProductForm');
 
-
-    console.log('submitForm:  ' , submitForm);
+    console.log('submitForm:  ', submitForm);
 
     var actionCreators = {
         initialAccountDataLoaded: function(taxRates, stockModeOptions) {
@@ -20,22 +19,55 @@ define([
                 }
             };
         },
-        formSubmitRequest: function() {
+        formContainerSubmitClick: function() {
             return function(dispatch, getState) {
+                dispatch({
+                    type: 'FORM_CONTAINER_SUBMIT_CLICK'
+                });
+                var formValues = getState().form.createProductForm.values;
+                if (!isFormValid(formValues)) {
+                    dispatch({
+                        type: 'FORM_SUBMIT_INVALID_FORM'
+                    });
+                    return;
+                }
+                dispatch(submitForm);
+            }
+        },
+        formSubmit: function(formValues) {
+            return function(dispatch) {
+                var formattedValues = formatFormValuesForPostRequest(formValues);
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
-                dispatch(submitForm);
-
-                var formValues = getState().form.createProductForm.values;
-                if (!isFormValid(formValues)) {
-                    return;
-                }
-                var formattedValues = formatFormValuesForPostRequest(formValues);
-                console.log('formattedValues: ' , formattedValues);
-                submitProductForCreation(formattedValues);
+                $.ajax({
+                    url: '/products/create/save',
+                    data: formattedValues,
+                    type: 'POST',
+                    context: this,
+                    dataType: "json",
+                    success: function() {
+                        console.log('in success');
+                        dispatch({
+                            type: 'FORM_SUBMIT_SUCCESS'
+                        });
+                        n.success("successfully saved new product");
+                    },
+                    error: function(xhr, status, errorThrown) {
+                        dispatch({
+                            type: 'FORM_SUBMIT_ERROR',
+                            payload: {
+                                xhr:xhr,
+                                status:status,
+                                errorThrown:errorThrown
+                            }
+                        });
+                        n.error("error saving new product")
+                    }
+                })
             }
         }
+
     };
 
     return actionCreators;
@@ -101,7 +133,7 @@ define([
 
             formattedVariation.attributeValues = {};
             for (var key in attributeNames) {
-                if(!formattedVariation.hasOwnProperty(key)){
+                if (!formattedVariation.hasOwnProperty(key)) {
                     continue;
                 }
                 if (formattedVariation[key] !== null) {

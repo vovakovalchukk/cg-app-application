@@ -10,6 +10,7 @@ define([
     CreateProductForm
 ) {
     "use strict";
+    var submitForm = reduxForm.submit;
 
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -19,15 +20,12 @@ define([
             };
         },
         handleContainerSubmit: function() {
-            console.log('in handleContainerSubmit');
-            this.handleSubmit();
+            console.log('in handleContainerSubmitClick');
+            this.props.formContainerSubmitClick();
         },
-        handleSubmit: function() {
-            console.log('in handleSubmit')
-//            if (values.productImage) {
-//                this.postImageDataToApi(values.productImage.binaryDataString);
-//            }
-            this.props.formSubmitDispatch();
+        handleSubmit:function(values,dispatch,props){
+            console.log('in handleSubmit with values: ' , values , ' dispatch : ' , dispatch , ' and props : ' , props);
+            this.props.formSubmit(values);
         },
         render: function() {
             return (
@@ -43,7 +41,6 @@ define([
                 >
                     <CreateProductForm
                         onSubmit={this.handleSubmit}
-                        ref="productForm"
                     />
                 </Container>
             );

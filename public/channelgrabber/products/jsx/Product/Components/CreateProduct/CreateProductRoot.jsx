@@ -41,8 +41,11 @@ define([
                 stockModeOptions: null
             };
         },
-        formSubmitDispatch: function() {
-            store.dispatch(ActionCreators.formSubmitRequest());
+        formSubmit: function(values) {
+            store.dispatch(ActionCreators.formSubmit(values));
+        },
+        formContainerSubmitClick:function(){
+            store.dispatch(ActionCreators.formContainerSubmitClick());
         },
         componentWillMount: function() {
             store.dispatch(ActionCreators.initialAccountDataLoaded(this.props.taxRates, this.props.stockModeOptions))
@@ -52,7 +55,8 @@ define([
                 <Provider store={store}>
                     <CreateProduct
                         onCreateProductClose={this.props.onCreateProductClose}
-                        formSubmitDispatch={this.formSubmitDispatch}
+                        formSubmit={this.formSubmit}
+                        formContainerSubmitClick={this.formContainerSubmitClick}
                     />
                 </Provider>
             );
