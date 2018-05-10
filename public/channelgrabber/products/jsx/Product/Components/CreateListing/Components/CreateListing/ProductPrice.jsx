@@ -3,13 +3,15 @@ define([
     'redux-form',
     'Common/Components/Input',
     'Common/Components/CurrencyInput',
-    './VariationTable'
+    './VariationTable',
+    '../../Validators'
 ], function(
     React,
     ReduxForm,
     Input,
     CurrencyInput,
-    VariationTable
+    VariationTable,
+    Validators
 ) {
     "use strict";
 
@@ -73,6 +75,7 @@ define([
                         component={this.renderInputComponent}
                         sku={variation.sku}
                         accountId={account.id}
+                        validate={Validators.required}
                     />
                 </td>)
             }.bind(this));
@@ -84,6 +87,7 @@ define([
                 currency={this.props.currency}
                 title="The price of the variation on the channel"
                 min={0}
+                className={(Validators.shouldShowError(field) ? 'error' : null)}
             />;
         },
         onInputChange: function(input, accountId, sku, value) {

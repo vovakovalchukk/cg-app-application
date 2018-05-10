@@ -140,7 +140,7 @@ define([
             return (<label className="input-container">
                 <span className={"inputbox-label"}>Images:</span>
                 {this.renderImagePicker(field)}
-                {field.meta.error && (
+                {Validators.shouldShowError(field) && (
                     <span className="input-error">{field.meta.error}</span>
                 )}
             </label>);
@@ -163,6 +163,7 @@ define([
         },
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
+            input.onBlur(selectedImageIds);
         },
         renderChannelFormInputs: function() {
             return <FormSection
