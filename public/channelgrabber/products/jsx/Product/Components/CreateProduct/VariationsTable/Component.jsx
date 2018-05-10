@@ -32,20 +32,16 @@ define([
             };
         },
         shouldCreateNewVariationRow: function(variationId) {
-            console.log('in shouldCreate.... with variationId : ',variationId);
             var variations = this.props.variationValues;
             if (!variations) {
-                console.log('no variations');
                 return true;
             }
             var variationValues = variations['variation-' + variationId.toString()];
             if (!variationValues) {
-                console.log('no variation values');
                 return true;
             } else {
                 var nonDimensionalFieldNames = getNonDimensionalVariationFields(variationValues, this.props.variationsTable.fields);
                 if (nonDimensionalFieldNames.length == 0) {
-                    console.log('non.dimensionalfieldnames.length == variation values');
                     return true;
                 }
             }
@@ -55,42 +51,35 @@ define([
             return (this.props.variationsTable.variations[this.props.variationsTable.variations.length - 1].id)
         },
         variationRowFieldOnChange: function(event, variationId) {
-            console.log('in variationROwFieldOnChange....')
             if (this.shouldCreateNewVariationRow(variationId)) {
-                console.log('should create new row...');
                 this.props.newVariationRowCreate();
                 this.props.setNewVariationDimensions(this.getNewVariationId());
             }
         },
-        unsetAttributeFieldOnAllVariations: function(field){
-          console.log('in unsetAttributeFieldOnAllVariations with field: ' , field, ' this.props : ' , this.props);
-          var variationValues = this.props.variationValues;
-          console.log('variationValues: ' , variationValues);
-          for(var variation in variationValues){
-
-              if(variation.indexOf('variation-') < 0 ){
-                  continue;
-              }
-
-              console.log(variationValues[variation]);
-          }
-
+        resetFieldValueInReduxForm:function(fieldPath){
+            this.props.unregister(fieldPath);
+            this.props.change(fieldPath, null);
+            this.props.untouch(fieldPath);
         },
-        attributeColumnRemove: function(field){
-            console.log('in attributeColumnRemove with field: ' , field , ' this.props: ' , this.props);
-            var formSectionPrefix = 'variations.c-table-with-inputs__headings.';
-
-            this.props.unregister(formSectionPrefix+field.name);
-            this.props.change(formSectionPrefix+field.name, null);
-            this.props.untouch(formSectionPrefix+field.name);
-
-            // unregister , change and untouch all values of custom attribute for the variation rows
+        unsetAttributeFieldOnAllVariations: function(field) {
+            console.log('in unsetAttributeFieldOnAllVariations with field: ');
+            var variationValues = this.props.variationValues;
+            console.log('variationValues: ', variationValues);
+            for (var variation in variationValues) {
+                if (variation.indexOf('variation-') < 0) {
+                    continue;
+                }
+                this.resetFieldValueInReduxForm('variations.'+variation+'.'+field.name)
+            }
+        },
+        attributeColumnRemove: function(field) {
+            console.log('in attributeColumnRemove with field: ', field, ' this.props: ', this.props);
+            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.'+field.name);
             this.unsetAttributeFieldOnAllVariations(field);
-
             this.props.attributeColumnRemove(field.name);
         },
         variationRowRemove: function(variationId, event) {
-            console.log('in variaitonRowRemove with this.props:  ' , this.props);
+            console.log('in variaitonRowRemove with this.props:  ', this.props);
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);
         },
@@ -114,7 +103,7 @@ define([
                             />
                             <button type="button" className={'c-table-with-inputs__remove-button'}
                                     onClick={
-                                        this.attributeColumnRemove.bind(this,field)
+                                        this.attributeColumnRemove.bind(this, field)
                                     }>❌
                             </button>
                         </div>

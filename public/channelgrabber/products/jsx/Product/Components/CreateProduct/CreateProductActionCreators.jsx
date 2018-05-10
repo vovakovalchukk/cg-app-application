@@ -101,10 +101,13 @@ define([
 
             formattedVariation.attributeValues = {};
             for (var key in attributeNames) {
-                if (formattedVariation[key]) {
-                    formattedVariation.attributeValues[attributeNames[key]] = formattedVariation[key];
-                    delete formattedVariation[key];
+                if(!formattedVariation.hasOwnProperty(key)){
+                    continue;
                 }
+                if (formattedVariation[key] !== null) {
+                    formattedVariation.attributeValues[attributeNames[key]] = formattedVariation[key];
+                }
+                delete formattedVariation[key];
             }
             return formattedVariation;
         });

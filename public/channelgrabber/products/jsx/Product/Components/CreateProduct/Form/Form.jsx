@@ -131,44 +131,28 @@ define([
     })(createFormComponent);
 
     function validate(values) {
-        console.log('in validate with values:  '  ,values);
+//        console.log('in validate with values:  '  ,values);
         const errors = {};
         if(!values.variations){
             return;
         }
         const variationIdentifiers = Object.keys(values.variations);
-//        console.log('in validation with values: ', values);
         if (!values.title) {
-            console.log('no title!');
             errors.title = 'Required';
         }
-
         if(variationIdentifiers.length > 0){
-//            console.log('we have variations... variationsIdentifiers : ' , variationIdentifiers);
             errors.variations = {};
             for(var i = 0; i < variationIdentifiers.length; i++){
-
-
                 var variation = values.variations[variationIdentifiers[i]]
-
 //                if(!variation){
 //                    continue;
 //                }
-
                 errors.variations[variationIdentifiers[i]] = {};
-
-//                console.log('variation: ' , variation)
                 if (!variation.sku) {
-                    console.log('no sku!');
                     errors.variations[variationIdentifiers[i]].sku = 'Required'
                 }
-
-
             }
-
         }
-
-
         return errors;
     }
 
