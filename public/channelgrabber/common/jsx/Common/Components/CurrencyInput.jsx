@@ -11,13 +11,14 @@ define([
                 title: null,
                 min: null,
                 max: null,
-                step: "any"
+                step: "any",
+                className: ''
             }
         },
         render: function () {
             var value = parseFloat(this.props.value);
             return (
-                <span className="currency-symbol">
+                <span className={"currency-symbol " + this.props.className}>
                     {this.props.currency}
                     <input
                         ref="input"

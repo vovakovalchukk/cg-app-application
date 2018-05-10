@@ -15,6 +15,7 @@ define([
     './Components/CreateListing/Dimensions',
     './Components/CreateListing/ProductPrice',
     './Components/CreateListing/SubmissionTable',
+    './Validators'
 ], function(
     React,
     ReactDom,
@@ -31,7 +32,8 @@ define([
     ProductIdentifiers,
     Dimensions,
     ProductPrice,
-    SubmissionTable
+    SubmissionTable,
+    Validators
 ) {
     "use strict";
 
@@ -70,7 +72,7 @@ define([
                 <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
                 <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
                 <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions}/>
-                <Field name="imageId" component={this.renderImagePickerField}/>
+                <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
                 {this.renderChannelFormInputs()}
                 {this.renderCategoryFormInputs()}
                 {this.renderProductIdentifiers()}
@@ -138,6 +140,9 @@ define([
             return (<label className="input-container">
                 <span className={"inputbox-label"}>Images:</span>
                 {this.renderImagePicker(field)}
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>);
         },
         renderImagePicker: function (field) {
@@ -158,6 +163,7 @@ define([
         },
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
+            input.onBlur(selectedImageIds);
         },
         renderChannelFormInputs: function() {
             return <FormSection

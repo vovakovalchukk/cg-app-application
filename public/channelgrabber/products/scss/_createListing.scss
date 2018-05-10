@@ -15,6 +15,11 @@
     max-height: 26px;
     box-sizing: border-box;
     display: inline-flex;
+
+    &.error {
+      border-color: $color-red;
+    }
+
     input[type=number] {
       width: 80px;
       border: 0;
@@ -178,6 +183,16 @@
 
   .textarea-description {
     padding: 9px 35px 8px 5px;
+  }
+
+  .input-error {
+    color: $color-red;
+    font-size: 1.1em;
+    display: table;
+  }
+
+  input.error {
+    border-color: $color-red;
   }
 }
 
