@@ -125,13 +125,17 @@ define([
                         'c-table-with-inputs__cell ' +
                         'c-table-with-inputs__cell-heading ' +
                         ' u-background-none'}>
-                            <span className={'c-icon-button c-icon-button--add'}>
+                            <span
+                                className={'c-icon-button c-icon-button--add'}
+                                onClick={this.props.newAttributeColumnRequest}
+                            >
                                 <i
                                     aria-hidden="true"
-                                    onClick={this.props.newAttributeColumnRequest}
-
                                     className={'fa fa-2x fa-plus'}
                                 />
+                                <span className={'u-margin-left-small'}>
+                                    add attribute
+                                </span>
                             </span>
                         </th>
                     </tr>
@@ -268,12 +272,17 @@ define([
                     <tr className={"u-border-none"}>
                         {this.renderVariationRowFields(variationId)}
                         <td style={removeVariationCellStyle} className={'c-table-with-inputs__cell'}>
-                            <span className={'c-icon-button c-icon-button--remove'}>
+                            <span
+                                className={'c-icon-button c-icon-button--remove'}
+                                onClick={this.variationRowRemove.bind(this, variationId)}
+                            >
                                 <i
                                     aria-hidden="true"
-                                    onClick={this.variationRowRemove.bind(this, variationId)}
                                     className={'fa fa-2x fa-minus-square'}
                                 />
+                                <span className="u-margin-left-small">
+                                    remove variation
+                                </span>
                             </span>
                         </td>
                     </tr>

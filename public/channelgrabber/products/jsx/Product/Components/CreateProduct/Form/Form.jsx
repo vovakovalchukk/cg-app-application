@@ -78,8 +78,8 @@ define([
         },
         render: function() {
             return (
-                <Form id="create-product-form" className={"form-root margin-bottom--small"}>
-                    <fieldset className={'form-root__fieldset margin-bottom--small'}>
+                <Form id="create-product-form" className={"form-root margin-bottom-small"}>
+                    <fieldset className={'form-root__fieldset margin-bottom-small'}>
                         <FormRow
                             label={'New Product Name'}
                             inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
@@ -89,13 +89,13 @@ define([
                             inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
                         />
                     </fieldset>
-                    <fieldset className={'form-root__fieldset margin-bottom--small'}>
+                    <fieldset className={'form-root__fieldset margin-bottom-small'}>
                         <FormRow
                             label={'Tax Rates'}
                             inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
                         />
                     </fieldset>
-                    <fieldset className={'margin-bottom--small'}>
+                    <fieldset className={'margin-bottom-small'}>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                         />
@@ -130,14 +130,14 @@ define([
     function validate(values) {
         const errors = {};
         const variationIdentifiers = Object.keys(values.variations);
-        console.log('in validation with values: ', values);
+//        console.log('in validation with values: ', values);
         if (!values.title) {
             console.log('no title!');
             errors.title = 'Required';
         }
 
         if(variationIdentifiers.length > 0){
-            console.log('we have variations... variationsIdentifiers : ' , variationIdentifiers);
+//            console.log('we have variations... variationsIdentifiers : ' , variationIdentifiers);
             errors.variations = {};
             for(var i = 0; i < variationIdentifiers.length; i++){
 
@@ -145,7 +145,7 @@ define([
                 var variation = values.variations[variationIdentifiers[i]]
                 errors.variations[variationIdentifiers[i]] = {};
 
-                console.log('variation: ' , variation)
+//                console.log('variation: ' , variation)
                 if (!variation.sku) {
                     console.log('no sku!');
                     errors.variations[variationIdentifiers[i]].sku = 'Required'

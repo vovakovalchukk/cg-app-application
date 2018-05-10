@@ -19,9 +19,11 @@ define([
             };
         },
         handleContainerSubmit: function() {
+            console.log('in handleContainerSubmit');
             this.props.formSubmitDispatch()
         },
         handleSubmit: function(values) {
+            console.log('in handleSubmit with values: ' , values)
             if (values.productImage) {
                 this.postImageDataToApi(values.productImage.binaryDataString);
             }
