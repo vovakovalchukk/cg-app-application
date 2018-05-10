@@ -170,16 +170,10 @@ class Service implements LoggerAwareInterface
 
         $currencyOptions = [];
         foreach ($currencyCodes as $code) {
-            $currencyOption = [
+            $currencyOptions[] = [
                 'name' => $code,
                 'value' => $formatter->getSymbol($code),
             ];
-
-            if ($formatter->getCurrencyCode() === $code) {
-                array_unshift($currencyOptions, $currencyOption);
-            } else {
-                array_push($currencyOptions, $currencyOption);
-            }
         }
         return $currencyOptions;
     }
