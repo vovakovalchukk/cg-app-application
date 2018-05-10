@@ -3405,13 +3405,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "c9d2248a01da561554ebdf2a0f5d1c4b5d25ecbc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-9396-listing-incorrect-wc-errors-9c6654.zip",
-                "reference": "c9d2248a01da561554ebdf2a0f5d1c4b5d25ecbc",
-                "shasum": null
+                "reference": "8d2d5e4120b90149c97cb2fd2ef71e8317780c63"
             },
             "require": {
                 "channelgrabber/channel": "^1.34.0",
@@ -9926,8 +9920,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
