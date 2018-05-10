@@ -34,7 +34,7 @@ define([
                 dispatch(submitForm);
             }
         },
-        formSubmit: function(formValues) {
+        formSubmit: function(formValues,redirectToProducts) {
             return function(dispatch) {
                 var formattedValues = formatFormValuesForPostRequest(formValues);
                 dispatch({
@@ -52,6 +52,7 @@ define([
                             type: 'FORM_SUBMIT_SUCCESS'
                         });
                         n.success("successfully saved new product");
+                        redirectToProducts();
                     },
                     error: function(xhr, status, errorThrown) {
                         dispatch({

@@ -28,11 +28,13 @@ define([
             this.props.formSubmit(values);
         },
         render: function() {
+            console.log('in render with isSubmitting : ', this.props.isSubmitting);
             return (
                 <Container
                     initiallyActive={true}
                     className="editor-popup "
                     onYesButtonPressed={this.handleContainerSubmit}
+                    yesButtonDisabled={this.props.isSubmitting}
                     onNoButtonPressed={this.props.onCreateProductClose}
                     closeOnYes={false}
                     headerText={"Create New Product"}

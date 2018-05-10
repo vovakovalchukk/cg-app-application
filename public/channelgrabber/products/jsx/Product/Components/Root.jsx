@@ -417,11 +417,17 @@ define([
                 fetchVariations={this.onVariationsRequest.bind(this)}
             />
         },
+        redirectToProducts:function(){
+            console.log('in redirectTOProducts');
+            this.state.currentView = PRODUCT_LIST_VIEW;
+            this.forceUpdate();
+        },
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
                 taxRates={this.props.taxRates}
                 stockModeOptions={this.props.stockModeOptions}
+                redirectToProducts={this.redirectToProducts}
             />
         },
         renderProductListView: function() {
@@ -447,6 +453,7 @@ define([
             );
         },
         render: function() {
+            console.log('in root render()');
             var viewRenderers = this.getViewRenderers();
             var viewRenderer = viewRenderers[this.state.currentView];
             return viewRenderer();

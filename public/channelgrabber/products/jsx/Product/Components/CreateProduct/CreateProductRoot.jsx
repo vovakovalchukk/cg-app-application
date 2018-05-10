@@ -34,6 +34,7 @@ define([
             Redux.applyMiddleware(thunk.default)
         );
     }
+
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {
             return {
@@ -42,7 +43,7 @@ define([
             };
         },
         formSubmit: function(values) {
-            store.dispatch(ActionCreators.formSubmit(values));
+            store.dispatch(ActionCreators.formSubmit(values,this.props.redirectToProducts));
         },
         formContainerSubmitClick:function(){
             store.dispatch(ActionCreators.formContainerSubmitClick());
@@ -51,12 +52,14 @@ define([
             store.dispatch(ActionCreators.initialAccountDataLoaded(this.props.taxRates, this.props.stockModeOptions))
         },
         render: function() {
+            var isSubmitting = store.getState().variationsTable.isSubmitting;
             return (
                 <Provider store={store}>
                     <CreateProduct
                         onCreateProductClose={this.props.onCreateProductClose}
                         formSubmit={this.formSubmit}
                         formContainerSubmitClick={this.formContainerSubmitClick}
+                        isSubmitting={isSubmitting}
                     />
                 </Provider>
             );

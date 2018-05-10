@@ -98,7 +98,8 @@ define([
                 defaultValue:''
             }
         ],
-        cells: []
+        cells: [],
+        isSubmitting:false
     };
     var currentCustomFieldId = initialState.fields.length;
 
@@ -208,6 +209,14 @@ define([
             });
             return newState;
         },
+        "FORM_SUBMIT_REQUEST": function(state,action){
+            console.log('in form_submit_request');
+            var newState = Object.assign({}, state, {
+                isSubmitting: true
+            });
+            console.log('newState: ' , newState);
+            return newState;
+        }
     });
 
     return VariationsTableReducer;
