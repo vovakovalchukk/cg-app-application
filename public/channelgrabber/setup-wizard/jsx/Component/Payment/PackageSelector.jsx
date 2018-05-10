@@ -4,6 +4,14 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
     var PackageSelectorComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                locale: {
+                    getSelectPackageName: function(packageInfo) {
+                        return packageInfo.name;
+                    },
+                    getPackageInfo: function(selectedPackage) {
+                        return null;
+                    }
+                },
                 selectedPackage: false,
                 packages: [],
                 onPackageSelection: null
