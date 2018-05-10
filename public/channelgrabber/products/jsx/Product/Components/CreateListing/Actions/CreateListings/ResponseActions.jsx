@@ -16,11 +16,19 @@ define([], function() {
                 payload: {}
             };
         },
-        listingFormSubmittedError: function (error) {
+        listingFormSubmittedError: function(error) {
             return {
                 type: "LISTING_FORM_SUBMITTED_ERROR",
                 payload: {
                     error: error
+                }
+            };
+        },
+        listingProgressFetched: function(accounts) {
+            return {
+                type: "LISTING_PROGRESS_FETCHED",
+                payload: {
+                    accounts: accounts
                 }
             };
         }

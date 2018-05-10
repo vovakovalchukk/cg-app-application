@@ -53,17 +53,12 @@ define([
                 accountsData: {},
                 initialProductPrices: {},
                 defaultCurrency: null,
-                accountDefaultSettings: {}
+                accountDefaultSettings: {},
+                submissionStatuses: {}
             }
         },
         componentDidMount: function () {
-            this.props.loadInitialValues(
-                this.props.product,
-                this.props.variationsDataForProduct,
-                this.props.accounts,
-                this.props.accountDefaultSettings,
-                this.props.accountsData
-            );
+            this.props.loadInitialValues();
         },
         renderForm: function() {
             return <form>

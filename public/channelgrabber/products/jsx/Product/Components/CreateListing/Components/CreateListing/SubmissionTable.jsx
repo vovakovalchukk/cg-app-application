@@ -5,11 +5,14 @@ define([
 ) {
     "use strict";
 
+    const defaultStatus = "Not started";
+
     var SubmissionTableComponent = React.createClass({
         getDefaultProps: function () {
             return {
                 accounts: {},
-                categoryTemplates: {}
+                categoryTemplates: {},
+                statuses: {}
             };
         },
         renderTableHeader: function () {
@@ -32,7 +35,7 @@ define([
                         <td>{account.channel}</td>
                         <td>{account.displayName}</td>
                         <td>{category.title}</td>
-                        <td>{"Status - Test"}</td>
+                        <td>{this.getStatusForAccountAndCategory(accountId, category.id)}</td>
                         <td>{null}</td>
                     </tr>);
                 }
@@ -43,9 +46,29 @@ define([
             for (var categoryId in template.categories) {
                 var category = template.categories[categoryId];
                 if (category.accountId == accountId) {
-                    return category;
+                    return Object.assign(category, {
+                        id: categoryId
+                    });
                 }
             }
+        },
+        getStatusForAccountAndCategory: function (accountId, categoryId) {
+            if (!this.props.statuses.accounts || Object.keys(this.props.statuses.accounts).length === 0) {
+                return defaultStatus;
+            }
+
+            var accounts = this.props.statuses.accounts;
+            if (!accounts[accountId]) {
+                return defaultStatus;
+            }
+
+            var account = accounts[accountId];
+            if (!account[categoryId]) {
+                return defaultStatus;
+            }
+
+            var category = account[categoryId];
+            return category.status ? category.status : defaultStatus;
         },
         render: function () {
             return (
