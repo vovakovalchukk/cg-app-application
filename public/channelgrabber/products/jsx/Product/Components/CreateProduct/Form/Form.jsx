@@ -95,7 +95,7 @@ define([
                             inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
                         />
                     </fieldset>
-                    <fieldset className={'margin-bottom-small'}>
+                    <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}

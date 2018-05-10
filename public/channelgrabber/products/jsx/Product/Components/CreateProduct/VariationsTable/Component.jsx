@@ -32,7 +32,9 @@ define([
             };
         },
         shouldCreateNewVariationRow: function(variationId) {
+            console.log('in shouldCreateNewVariationRow with variationId: '  , variationId);
             var variations = this.props.variationValues;
+            console.log('variations: ' , variations);
             if (!variations) {
                 return true;
             }

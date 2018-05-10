@@ -254,12 +254,15 @@ define([
         renderRows: function() {
             var rows = this.props.rows;
             var rowsToRender = [];
-            for (var i = 0; i < rows.length; i++) {
+            for (var i = 0; i < rows.length-1; i++) {
                 rowsToRender.push(this.renderRow(rows[i].id));
             }
             return rowsToRender;
         },
         renderTable: function() {
+            if(this.props.rows.length <= 1){
+                return <div></div>
+            }
             return (
                 <FormSection name={"variations"}>
                     <table className={'c-table-with-inputs ' + this.props.classNames.join(' ')}>
